@@ -3729,6 +3729,12 @@ BuildSyncDDL( zVIEW  vDTE,
                zCHAR szEntityName[ zZEIDON_NAME_LTH + 1 ];
 
                bFirstAlterOfTable = FALSE;
+
+			   // KJS 10/16/14 - When I have selected "Keep Physical Characteristics..." for the datasource, and the
+			   // rebuild tables/rels and then "Build Sync DDL", I get to this point and have TE_TablRecs where there
+			   // is no ER_ENTITY. I am not sure why I don't seem to get that when "Keep ..." is not set.
+			   if ( CheckExistenceOfEntity( vDTE, "ER_Entity" ) == zCURSOR_SET )
+			   {
                GetStringFromAttribute( szEntityName, vDTE, "ER_Entity", "Name" );
 
                if ( fnWriteLine( vDTE, f, "" ) < 0 )
@@ -3738,6 +3744,7 @@ BuildSyncDDL( zVIEW  vDTE,
                          COMMENT_START, szEntityName, COMMENT_END );
                if ( fnWriteLine( vDTE, f, szLine ) < 0 )
                   goto EndOfFunction;
+			   }
             }
 
             GetStringFromAttribute( szColumnName, vDTE, "TE_FieldDataRel", "Name" );
