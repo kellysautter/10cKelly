@@ -313,7 +313,6 @@ oTZTENVRO_BuildTablRecsFromEMD( zVIEW    vSubtask,
             if ( *szName == 0 )
             {
                GetStringFromAttribute( szName, vEMD, "ER_Entity", "Name" );
-               //GetStringFromAttribute (szCreateUnderscore, vDTE, "TE_DB_Environ", "wTranslateNamesToUnderscore");
                GetStringFromAttribute (szCreateUnderscore, vDTE, "TE_DBMS_Source", "TranslateNamesToLowerUnderscore");
                if ( szCreateUnderscore[ 0 ] == 'Y' )
                   TranslateToUnderscoreCase( szName, szName, 'E' );        

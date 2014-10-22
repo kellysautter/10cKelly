@@ -4559,7 +4559,7 @@ GenerateName( zVIEW  vDTE,
    pch1[ 0 ] = 0;
 
    // KJS 08/07/14 - DG wants to be able to create names Like EntityName to entity_name. This is the ini setting.
-   GetStringFromAttribute (szCreateUnderscore, vDTE, "TE_DB_Environ", "wTranslateNamesToUnderscore");
+   GetStringFromAttribute (szCreateUnderscore, vDTE, "TE_DBMS_Source", "TranslateNamesToLowerUnderscore");
 
    switch ( cMetaType )
    {
