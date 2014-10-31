@@ -772,9 +772,8 @@ GenerateJSPJava( VIEW vDialog BASED ON LOD TZWDLGSO,
    szLPLR_Name = vLPLR.LPLR.Name
    szSystemIniApplName = "[App." + szLPLR_Name + "]"
    szDirectoryName = ""
-   SysReadZeidonIni( -1, szSystemIniApplName, "WebDirectory", szDirectoryName )
-   SysReadZeidonIni( -1, szSystemIniApplName, "WebRedirection", szWebRedirection )
-
+   SysReadZeidonIni( -1, szSystemIniApplName, "WebDirectory", szFileName )
+   SysConvertEnvironmentString( szDirectoryName, szFileName )
    IF szDirectoryName = ""
       szWriteBuffer = "Zeidon.ini file does not have WebDirectory entry in Application: " + szSystemIniApplName
       MessageSend( vSubtask, "", "JSP Generation",
@@ -783,6 +782,7 @@ GenerateJSPJava( VIEW vDialog BASED ON LOD TZWDLGSO,
       RETURN -1
    END
 
+   SysReadZeidonIni( -1, szSystemIniApplName, "WebRedirection", szWebRedirection )
    szJavaPackage = vLPLR.LPLR.JavaPackageName
    zSearchAndReplace( szJavaPackage, 100, "\", "." )
    szAppImport = szJavaPackage + ".*"
@@ -1324,7 +1324,7 @@ GenerateJSPJava( VIEW vDialog BASED ON LOD TZWDLGSO,
       WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
 
    END
-   
+
    /*
    IF szRegisterZeidon = "Y" AND szNoMonitorTaskLogout = ""
       szWriteBuffer = "   // We are trying to determine on login, if a user is already logged into the task, and if so, then do not allow them to log in again. "   
@@ -1358,8 +1358,8 @@ GenerateJSPJava( VIEW vDialog BASED ON LOD TZWDLGSO,
       szWriteBuffer = "   return;"
       WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    ELSE
-      szWriteBuffer = "   task = objectEngine.getTaskById( taskId );"
-      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+     szWriteBuffer = "   task = objectEngine.getTaskById( taskId );"
+     WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    END
    szWriteBuffer = "}"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )

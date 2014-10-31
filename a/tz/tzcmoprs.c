@@ -321,7 +321,7 @@ fnGetDirectorySpec( zVIEW vSubtask, zPCHAR pchDirectorySpec, zLONG lType, zBOOL 
 
    GetStringFromAttribute( szWork, vTaskLPLR, "LPLR", "MetaSrcDir" );
    if ( bConvertEnvironment )
-   SysConvertEnvironmentString( pchDirectorySpec, szWork );
+      SysConvertEnvironmentString( pchDirectorySpec, szWork );
    else
       zstrcpy( pchDirectorySpec, szWork );
 
@@ -1026,7 +1026,9 @@ fnActivateMetaOI( zVIEW   vSubtask,
    if ( nRC < 0 )
    {
       // Activate TZCMULWO as necessary.
-      GetStringFromAttribute( szFileName, vTaskLPLR, "LPLR", "MetaSrcDir" );
+      zCHAR  szTempFile[ zMAX_FILESPEC_LTH + 1 ];
+      GetStringFromAttribute( szTempFile, vTaskLPLR, "LPLR", "MetaSrcDir" );
+      SysConvertEnvironmentString( szFileName, szTempFile );
       zstrcat( szFileName, "\\TZCMULWO.POR" );
       nRC = ActivateOI_FromFile( &vTZCMULWO, "TZCMULWO", vTaskLPLR, szFileName, zIGNORE_ERRORS | zLEVEL_TASK );
       if ( nRC >= 0 )
@@ -1062,8 +1064,13 @@ fnActivateMetaOI( zVIEW   vSubtask,
       nRC = SetCursorFirstEntityByString( vTZCMULWO, "User", "Name", szUserName, "" );
       if ( nRC < zCURSOR_SET )
       {
+         zCHAR szMsg[ 512 ];
+         zstrcpy( szMsg, "The Work Station User Name (" );
+         zstrcat( szMsg, szUserName );
+         zstrcat( szMsg, ") is not in the TZCMULWO object. Processing is aborted.  File Name: " );
+         zstrcat( szMsg, szFileName );
          MessageSend( vSubtask, "", "Configuration Management",
-                      "The Work Station User Name is not in the TZCMULWO object. Processing is aborted.",
+                      szMsg,
                       zMSGQ_OBJECT_CONSTRAINT_ERROR, zBEEP );
          return( -16 ); 
       }
@@ -4288,7 +4295,7 @@ CreateMetaEntity( zVIEW  vSubtask,
                    "The RepositoryClient View ID was not found. We should no longer get this call Don C.",
                    zMSGQ_OBJECT_CONSTRAINT_ERROR, zBEEP );
       return( -1 );
-   }   
+   }
 
    GetIntegerFromAttribute( (zPLONG) &ulMaxZKey, WKS_View,
                             "LPLR", "MaxZKey" );

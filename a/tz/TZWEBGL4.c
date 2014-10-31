@@ -2999,6 +2999,7 @@ GenJSPJ_CrteEditBox( zVIEW     vDialog,
    zSHORT    lTempInteger_2; 
    zSHORT    lTempInteger_3; 
    zCHAR     szTempString_13[ 255 ]; 
+   zCHAR     szTempString_14[ 255 ]; 
 
 
    //:TraceLineS("*** GenJSPJ_CrteEditBox *** ", "")
@@ -3584,6 +3585,31 @@ GenJSPJ_CrteEditBox( zVIEW     vDialog,
 
    //:END
 
+   //:   // If there is a Default button for the window, we must add some characters
+   //:   // to the end of the input statement.
+   //:   CreateViewFromView( vDialogRoot, vDialog )
+   CreateViewFromView( &vDialogRoot, vDialog );
+   //:   nRC = ResetViewFromSubobject( vDialogRoot )
+   nRC = ResetViewFromSubobject( vDialogRoot );
+   //:   LOOP WHILE nRC = 0
+   while ( nRC == 0 )
+   { 
+      //:   nRC = ResetViewFromSubobject( vDialogRoot )
+      nRC = ResetViewFromSubobject( vDialogRoot );
+   } 
+
+   //:   END
+   //:   IF vDialogRoot.Window.DfltButton != ""
+   if ( CompareAttributeToString( vDialogRoot, "Window", "DfltButton", "" ) != 0 )
+   { 
+      //:szEditActionCode = szEditActionCode + " onKeyPress=^return _OnEnter( event )^"
+      ZeidonStringConcat( szEditActionCode, 1, 0, " onKeyPress=^return _OnEnter( event )^", 1, 0, 601 );
+   } 
+
+   //:   END
+   //:   DropView( vDialogRoot )
+   DropView( vDialogRoot );
+
    //:IF szNoOutputMapping = "Y"
    if ( ZeidonStringCompare( szNoOutputMapping, 1, 0, "Y", 1, 0, 2 ) == 0 )
    { 
@@ -3604,6 +3630,40 @@ GenJSPJ_CrteEditBox( zVIEW     vDialog,
          GetVariableFromAttribute( szTempString_13, 0, 'S', 255, vDialog, "Control", "Text", "", 0 );
          ZeidonStringCopy( szValue, 1, 0, "value=^", 1, 0, 301 );
          ZeidonStringConcat( szValue, 1, 0, szTempString_13, 1, 0, 301 );
+         ZeidonStringConcat( szValue, 1, 0, "^", 1, 0, 301 );
+         //:ELSE
+      } 
+      else
+      { 
+         //:szValue = "value=^<%=strErrorMapValue%>^"
+         ZeidonStringCopy( szValue, 1, 0, "value=^<%=strErrorMapValue%>^", 1, 0, 301 );
+      } 
+
+      //:END
+   } 
+
+   //:END
+
+   //:IF szNoOutputMapping = "Y"
+   if ( ZeidonStringCompare( szNoOutputMapping, 1, 0, "Y", 1, 0, 2 ) == 0 )
+   { 
+      //:   szValue = "value=^^"
+      ZeidonStringCopy( szValue, 1, 0, "value=^^", 1, 0, 301 );
+      //:ELSE 
+   } 
+   else
+   { 
+      //:lStyleX = vDialog.Control.ExtendedStyle
+      GetIntegerFromAttribute( &lStyleX, vDialog, "Control", "ExtendedStyle" );
+      //:lTemp = IsFlagSequenceSet( lStyleX, zCONTROLX_PREFILL )
+      lTemp = IsFlagSequenceSet( lStyleX, zCONTROLX_PREFILL );
+      //:IF lTemp != 0 AND bMapping = 0
+      if ( lTemp != 0 && bMapping == 0 )
+      { 
+         //:szValue = "value=^" + vDialog.Control.Text + "^"
+         GetVariableFromAttribute( szTempString_14, 0, 'S', 255, vDialog, "Control", "Text", "", 0 );
+         ZeidonStringCopy( szValue, 1, 0, "value=^", 1, 0, 301 );
+         ZeidonStringConcat( szValue, 1, 0, szTempString_14, 1, 0, 301 );
          ZeidonStringConcat( szValue, 1, 0, "^", 1, 0, 301 );
          //:ELSE
       } 
@@ -5979,6 +6039,8 @@ GenJSPJ_CrteComboBox( zVIEW     vDialog,
    zCHAR     szTitleHTML[ 257 ] = { 0 }; 
    //:STRING ( 100 ) szCtrlTagRG
    zCHAR     szCtrlTagRG[ 101 ] = { 0 }; 
+   //:STRING ( 100 ) szInListCtrlTag
+   zCHAR     szInListCtrlTag[ 101 ] = { 0 }; 
    //:STRING ( 16 )  szTabIndex
    zCHAR     szTabIndex[ 17 ] = { 0 }; 
    //:STRING ( 10 )  szWidth
@@ -6276,6 +6338,19 @@ GenJSPJ_CrteComboBox( zVIEW     vDialog,
       lTempInteger_4 = CheckExistenceOfEntity( vDialog, "CtrlMapView" );
       if ( lTempInteger_4 == 0 )
       { 
+         //:// KJS 10/22/14 - If the value from the database is not part of the domain anymore, we will put that option in but
+         //:// we will set it as disabled.
+         //:szInListCtrlTag = "inList" + szCtrlTag
+         ZeidonStringCopy( szInListCtrlTag, 1, 0, "inList", 1, 0, 101 );
+         ZeidonStringConcat( szInListCtrlTag, 1, 0, szCtrlTag, 1, 0, 101 );
+
+         //:szWriteBuffer = "   boolean " + szInListCtrlTag + " = false;"
+         ZeidonStringCopy( szWriteBuffer, 1, 0, "   boolean ", 1, 0, 10001 );
+         ZeidonStringConcat( szWriteBuffer, 1, 0, szInListCtrlTag, 1, 0, 10001 );
+         ZeidonStringConcat( szWriteBuffer, 1, 0, " = false;", 1, 0, 10001 );
+         //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
+         WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 );
+
          //:szWriteBuffer = "   " + vDialog.CtrlMapView.Name + " = " +
          //:             "task.getViewByName( ^" + vDialog.CtrlMapView.Name + "^ );"
          GetVariableFromAttribute( szTempString_1, 0, 'S', 33, vDialog, "CtrlMapView", "Name", "", 0 );
@@ -6339,7 +6414,6 @@ GenJSPJ_CrteComboBox( zVIEW     vDialog,
             //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 );
 
-            //:/***** 04/26/11 */
             //:szWriteBuffer = "      nRC = " + vDialog.CtrlMapView.Name + ".cursor( ^" +
             //:         vDialog.CtrlMapRelatedEntity.Name + "^ ).checkExistenceOfEntity( ).toInt();"
             GetVariableFromAttribute( szTempString_7, 0, 'S', 33, vDialog, "CtrlMapView", "Name", "", 0 );
@@ -6359,11 +6433,11 @@ GenJSPJ_CrteComboBox( zVIEW     vDialog,
             ZeidonStringCopy( szWriteBuffer, 1, 0, "      {", 1, 0, 10001 );
             //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 );
-            //:/**********/
+
             //:// Get the current value of the combo box.
             //:szWriteBuffer = "         strComboCurrentValue = " + vDialog.CtrlMapView.Name + ".cursor( ^" +
             //:         vDialog.CtrlMapRelatedEntity.Name + "^ ).getStringFromAttribute( ^" +
-            //:         vDialog.CtrlMapER_Attribute.Name + "^, ^" + szContextName + "^ );"
+            //:         vDialog.CtrlMapER_Attribute.Name + "^, ^^ );"
             GetVariableFromAttribute( szTempString_9, 0, 'S', 33, vDialog, "CtrlMapView", "Name", "", 0 );
             ZeidonStringCopy( szWriteBuffer, 1, 0, "         strComboCurrentValue = ", 1, 0, 10001 );
             ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_9, 1, 0, 10001 );
@@ -6373,9 +6447,11 @@ GenJSPJ_CrteComboBox( zVIEW     vDialog,
             ZeidonStringConcat( szWriteBuffer, 1, 0, "^ ).getStringFromAttribute( ^", 1, 0, 10001 );
             GetVariableFromAttribute( szTempString_11, 0, 'S', 33, vDialog, "CtrlMapER_Attribute", "Name", "", 0 );
             ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_11, 1, 0, 10001 );
-            ZeidonStringConcat( szWriteBuffer, 1, 0, "^, ^", 1, 0, 10001 );
-            ZeidonStringConcat( szWriteBuffer, 1, 0, szContextName, 1, 0, 10001 );
-            ZeidonStringConcat( szWriteBuffer, 1, 0, "^ );", 1, 0, 10001 );
+            ZeidonStringConcat( szWriteBuffer, 1, 0, "^, ^^ );", 1, 0, 10001 );
+            //:         // KJS 10/22/14 - Right now we are not adding the context name, we only want the default, which
+            //:         // I am currently assuming has ALL the values (old and new) of this domain. When we get DGs domain fix
+            //:         // I think we need to put this back!!!!!!!
+            //:         //vDialog.CtrlMapER_Attribute.Name + "^, ^" + szContextName + "^ );"
             //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 );
 
@@ -6425,6 +6501,14 @@ GenJSPJ_CrteComboBox( zVIEW     vDialog,
                ZeidonStringCopy( szWriteBuffer, 1, 0, "      {", 1, 0, 10001 );
                //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
                WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 );
+
+               //:szWriteBuffer = "         " + szInListCtrlTag + " = true;"
+               ZeidonStringCopy( szWriteBuffer, 1, 0, "         ", 1, 0, 10001 );
+               ZeidonStringConcat( szWriteBuffer, 1, 0, szInListCtrlTag, 1, 0, 10001 );
+               ZeidonStringConcat( szWriteBuffer, 1, 0, " = true;", 1, 0, 10001 );
+               //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+               WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 );
+
                //:szWriteBuffer = "%>"
                ZeidonStringCopy( szWriteBuffer, 1, 0, "%>", 1, 0, 10001 );
                //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
@@ -6531,6 +6615,14 @@ GenJSPJ_CrteComboBox( zVIEW     vDialog,
             ZeidonStringCopy( szWriteBuffer, 1, 0, "            {", 1, 0, 10001 );
             //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 );
+
+            //:szWriteBuffer = "               " + szInListCtrlTag + " = true;"
+            ZeidonStringCopy( szWriteBuffer, 1, 0, "               ", 1, 0, 10001 );
+            ZeidonStringConcat( szWriteBuffer, 1, 0, szInListCtrlTag, 1, 0, 10001 );
+            ZeidonStringConcat( szWriteBuffer, 1, 0, " = true;", 1, 0, 10001 );
+            //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 );
+
             //:szWriteBuffer = "%>"
             ZeidonStringCopy( szWriteBuffer, 1, 0, "%>", 1, 0, 10001 );
             //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
@@ -6579,8 +6671,44 @@ GenJSPJ_CrteComboBox( zVIEW     vDialog,
             ZeidonStringCopy( szWriteBuffer, 1, 0, "      }  // for ( TableEntry entry", 1, 0, 10001 );
             //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 );
+
+            //:// KJS 10/22/14 - Add this value as disabled.
+            //:szWriteBuffer = "      // The value from the database isn't in the domain, add it to the list as disabled."
+            ZeidonStringCopy( szWriteBuffer, 1, 0, "      // The value from the database isn't in the domain, add it to the list as disabled.", 1, 0, 10001 );
+            //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 );
+            //:szWriteBuffer = "      if ( !" + szInListCtrlTag + " )"
+            ZeidonStringCopy( szWriteBuffer, 1, 0, "      if ( !", 1, 0, 10001 );
+            ZeidonStringConcat( szWriteBuffer, 1, 0, szInListCtrlTag, 1, 0, 10001 );
+            ZeidonStringConcat( szWriteBuffer, 1, 0, " )", 1, 0, 10001 );
+            //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 );
+            //:szWriteBuffer = "      { "
+            ZeidonStringCopy( szWriteBuffer, 1, 0, "      { ", 1, 0, 10001 );
+            //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 );
+            //:szWriteBuffer = "%>"
+            ZeidonStringCopy( szWriteBuffer, 1, 0, "%>", 1, 0, 10001 );
+            //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 );
+
+            //:szWriteBuffer = "         <option disabled selected=^selected^ value=^<%=strComboCurrentValue%>^><%=strComboCurrentValue%></option>"
+            ZeidonStringCopy( szWriteBuffer, 1, 0, "         <option disabled selected=^selected^ value=^<%=strComboCurrentValue%>^><%=strComboCurrentValue%></option>", 1, 0, 10001 );
+            //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 );
+            //:szWriteBuffer = "<%"
+            ZeidonStringCopy( szWriteBuffer, 1, 0, "<%", 1, 0, 10001 );
+            //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 );
+
+            //:szWriteBuffer = "      }  "
+            ZeidonStringCopy( szWriteBuffer, 1, 0, "      }  ", 1, 0, 10001 );
+            //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 );
          } 
 
+         //:   
+         //:   
          //:END
       } 
 
@@ -7069,28 +7197,18 @@ GenJSPJ_CrteComboBox( zVIEW     vDialog,
          //:// KJS 05/20/14 - There were some issues for auto include when the "list view" already had a blank entry, then
          //:// two blank entries were in the list and this caused errors. For auto include check if one of these entries is
          //:// blank, don't add it if it is.
+         //:/*
          //:IF vDialog.Control.Subtype >= 20480 AND vDialog.Control.Subtype <= 21252   // IF Auto Include
-         if ( CompareAttributeToInteger( vDialog, "Control", "Subtype", 20480 ) >= 0 && CompareAttributeToInteger( vDialog, "Control", "Subtype", 21252 ) <= 0 )
-         { 
-            //:szWriteBuffer = "         // For Auto Include, we have already created a blank entry for the combobox, check to make "
-            ZeidonStringCopy( szWriteBuffer, 1, 0, "         // For Auto Include, we have already created a blank entry for the combobox, check to make ", 1, 0, 10001 );
-            //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 );
-            //:szWriteBuffer = "         // we don't add another blank entry. That will cause errors. "
-            ZeidonStringCopy( szWriteBuffer, 1, 0, "         // we don't add another blank entry. That will cause errors. ", 1, 0, 10001 );
-            //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 );
-            //:szWriteBuffer = "         if ( !StringUtils.isBlank( strErrorMapValue ) )"
-            ZeidonStringCopy( szWriteBuffer, 1, 0, "         if ( !StringUtils.isBlank( strErrorMapValue ) )", 1, 0, 10001 );
-            //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 );
-            //:szWriteBuffer = "         {"
-            ZeidonStringCopy( szWriteBuffer, 1, 0, "         {", 1, 0, 10001 );
-            //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 );
-         } 
-
+         //:   szWriteBuffer = "      // For Auto Include, we have already created a blank entry for the combobox, check to make"
+         //:   WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+         //:   szWriteBuffer = "         // we don't add another blank entry. That will cause errors. "
+         //:   WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+         //:   szWriteBuffer = "         if ( !StringUtils.isBlank( strErrorMapValue ) )"
+         //:   WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+         //:   szWriteBuffer = "         {"
+         //:   WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
          //:END
+         //: */
          //:szWriteBuffer = "         if ( StringUtils.equals( strComboCurrentValue, strErrorMapValue ) )"
          ZeidonStringCopy( szWriteBuffer, 1, 0, "         if ( StringUtils.equals( strComboCurrentValue, strErrorMapValue ) )", 1, 0, 10001 );
          //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
@@ -7144,16 +7262,12 @@ GenJSPJ_CrteComboBox( zVIEW     vDialog,
          //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
          WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 );
 
+         //:/*
          //:IF vDialog.Control.Subtype >= 20480 AND vDialog.Control.Subtype <= 21252   // IF Auto Include
-         if ( CompareAttributeToInteger( vDialog, "Control", "Subtype", 20480 ) >= 0 && CompareAttributeToInteger( vDialog, "Control", "Subtype", 21252 ) <= 0 )
-         { 
-            //:szWriteBuffer = "         } // if ( !StringUtils.isBlank( strErrorMapValue ) )"
-            ZeidonStringCopy( szWriteBuffer, 1, 0, "         } // if ( !StringUtils.isBlank( strErrorMapValue ) )", 1, 0, 10001 );
-            //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
-            WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 );
-         } 
-
+         //:   szWriteBuffer = "         } // if ( !StringUtils.isBlank( strErrorMapValue ) )"
+         //:   WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
          //:END
+         //:*/
          //:szWriteBuffer = "         ComboCount++;"
          ZeidonStringCopy( szWriteBuffer, 1, 0, "         ComboCount++;", 1, 0, 10001 );
          //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )

@@ -10258,7 +10258,7 @@ GenJSPJ_InputMapRecurs( zVIEW     vDialog,
                         //:szWriteBuffer = "               " + szViewName + ".cursor( ^" +
                         //:                             vDialog.CtrlMapRelatedEntity.Name +
                         //:                             "^ ).setAttribute( ^" +
-                        //:                             vDialog.CtrlMapER_Attribute.Name + "^, strMapValue, ^" + szContextName + "^ );"
+                        //:                             vDialog.CtrlMapER_Attribute.Name + "^, strMapValue, ^^ );"
                         ZeidonStringCopy( szWriteBuffer, 1, 0, "               ", 1, 0, 10001 );
                         ZeidonStringConcat( szWriteBuffer, 1, 0, szViewName, 1, 0, 10001 );
                         ZeidonStringConcat( szWriteBuffer, 1, 0, ".cursor( ^", 1, 0, 10001 );
@@ -10267,9 +10267,13 @@ GenJSPJ_InputMapRecurs( zVIEW     vDialog,
                         ZeidonStringConcat( szWriteBuffer, 1, 0, "^ ).setAttribute( ^", 1, 0, 10001 );
                         GetVariableFromAttribute( szTempString_9, 0, 'S', 33, vDialog, "CtrlMapER_Attribute", "Name", "", 0 );
                         ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_9, 1, 0, 10001 );
-                        ZeidonStringConcat( szWriteBuffer, 1, 0, "^, strMapValue, ^", 1, 0, 10001 );
-                        ZeidonStringConcat( szWriteBuffer, 1, 0, szContextName, 1, 0, 10001 );
-                        ZeidonStringConcat( szWriteBuffer, 1, 0, "^ );", 1, 0, 10001 );
+                        ZeidonStringConcat( szWriteBuffer, 1, 0, "^, strMapValue, ^^ );", 1, 0, 10001 );
+                        //:                             // KJS 10/22/14 - I am going to assume that the default domain has all of the
+                        //:                             // values (old and new) for the domain. So we do not put in the context name,
+                        //:                             // I'm not sure if this is going to be good or not, not sure if I should
+                        //:                             // pass a value in hComb... that indicates, we don't want to set this value
+                        //:                             // because the value is no longer valid in the domain.
+                        //:                             //vDialog.CtrlMapER_Attribute.Name + "^, strMapValue, ^" + szContextName + "^ );"
                         //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
                         WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 );
                         //:szWriteBuffer = "         }"

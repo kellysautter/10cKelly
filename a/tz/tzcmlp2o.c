@@ -28,10 +28,10 @@ oTZCMLPLO_AnalyzeEntity( zVIEW     vXOD,
 {
    zSHORT    RESULT; 
    zCHAR     szTempString_0[ 255 ]; 
-   zCHAR     szTempString_1[ 33 ]; 
+   zCHAR     szTempString_1[ 255 ]; 
    zCHAR     szTempString_2[ 255 ]; 
-   zCHAR     szTempString_3[ 33 ]; 
-   zCHAR     szTempString_4[ 33 ]; 
+   zCHAR     szTempString_3[ 255 ]; 
+   zCHAR     szTempString_4[ 255 ]; 
 
    //:AnalyzeEntity( VIEW vXOD BASED ON LOD TZZOXODO,
    //:            VIEW vWk  BASED ON LOD TZCMHDWO,
@@ -62,7 +62,7 @@ oTZCMLPLO_AnalyzeEntity( zVIEW     vXOD,
       //:vWk.Object.Name = ObjectName + "." + vXOD.ENTITY.NAME
       ZeidonStringCopy( szTempString_0, 1, 0, ObjectName, 1, 0, 255 );
       ZeidonStringConcat( szTempString_0, 1, 0, ".", 1, 0, 255 );
-      GetVariableFromAttribute( szTempString_1, 0, 'S', 33, vXOD, "ENTITY", "NAME", "", 0 );
+      GetVariableFromAttribute( szTempString_1, 0, 'S', 255, vXOD, "ENTITY", "NAME", "", 0 );
       ZeidonStringConcat( szTempString_0, 1, 0, szTempString_1, 1, 0, 255 );
       SetAttributeFromString( vWk, "Object", "Name", szTempString_0 );
       //:vWk.Object.OperName = vXOD.ENTITY.ECEOPER
@@ -86,10 +86,10 @@ oTZCMLPLO_AnalyzeEntity( zVIEW     vXOD,
          //:vWk.Object.Name = ObjectName + "." + vXOD.ENTITY.NAME + "." + vXOD.ATTRIB.NAME
          ZeidonStringCopy( szTempString_2, 1, 0, ObjectName, 1, 0, 255 );
          ZeidonStringConcat( szTempString_2, 1, 0, ".", 1, 0, 255 );
-         GetVariableFromAttribute( szTempString_3, 0, 'S', 33, vXOD, "ENTITY", "NAME", "", 0 );
+         GetVariableFromAttribute( szTempString_3, 0, 'S', 255, vXOD, "ENTITY", "NAME", "", 0 );
          ZeidonStringConcat( szTempString_2, 1, 0, szTempString_3, 1, 0, 255 );
          ZeidonStringConcat( szTempString_2, 1, 0, ".", 1, 0, 255 );
-         GetVariableFromAttribute( szTempString_4, 0, 'S', 33, vXOD, "ATTRIB", "NAME", "", 0 );
+         GetVariableFromAttribute( szTempString_4, 0, 'S', 255, vXOD, "ATTRIB", "NAME", "", 0 );
          ZeidonStringConcat( szTempString_2, 1, 0, szTempString_4, 1, 0, 255 );
          SetAttributeFromString( vWk, "Object", "Name", szTempString_2 );
          //:vWk.Object.OperName  = vXOD.ATTRIB.DERIVEDF

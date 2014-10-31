@@ -376,7 +376,7 @@ oTZZOXODO_SaveXOD( zVIEW vSubtask, zVIEW vTZZOLODO )
    if ( SetCursorFirstEntity( vTZZOLODO, "LOD_ConstraintOper", "" )
                                                            >= zCURSOR_SET )
    {
-      zCHAR  szTempName[ 256 ];
+      zCHAR  szTempName[ 256 ] = "";
       zCHAR  szType[ 256 ];
       zLONG  lLth;
 
@@ -1816,7 +1816,7 @@ ofnTZZOXODO_BldXODEntity( zVIEW vSubtask, zVIEW vTZZOXODO, zVIEW vTZZOLOD1 )
    if ( SetCursorFirstEntity( vTZZOLOD1, "LOD_EntityConstraintOperRec", "" ) >= zCURSOR_SET )
    {
       zVIEW  vTaskLPLR;
-      zCHAR  szTempName[ 256 ];
+      zCHAR  szTempName[ 256 ] = "";
       zCHAR  szType[ 256 ];
       zLONG  lLth;
 
@@ -2081,7 +2081,7 @@ ofnTZZOXODO_BldXODAttrib( zVIEW vSubtask, zVIEW vTZZOXODO,
    {
       zVIEW  vTaskLPLR;
       zVIEW  vTemp;
-      zCHAR  szTempName[ 256 ];
+      zCHAR  szTempName[ 256 ] = "";
       zCHAR  szType[ 256 ];
       zLONG  lLth;
 
