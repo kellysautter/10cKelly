@@ -1,4 +1,4 @@
-z1000-Zeidon    TZVSRTOO TZZOXODO 08/19/14   12:44:16 1.0a2    
+z1000-Zeidon    TZVSRTOO TZZOXODO 11/04/14   11:01:48 1.0a2    
 eOBJECT    1
 aNAME      TZVSRTOO
 aZKey      1327446
@@ -146,7 +146,8 @@ aSEQ_AD    Y
 aUPDATE    Y
 aXVAATT_TOK 9
 aDERIVEDF  GetSetStringValue
-aDERIVEDC  com.quinsoft.zeidon.zeidontools.TZVSRTOO_Object
+aDERIVEDC  TZVSRTOO
+aDRSRCTYPE C
 
 eATTRIB    5
 aNAME      ParameterFlag

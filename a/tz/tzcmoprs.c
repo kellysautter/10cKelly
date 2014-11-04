@@ -985,6 +985,7 @@ fnActivateMetaOI( zVIEW   vSubtask,
    zULONG ulOrigMetaOI_ZKey;
    zCHAR  szMetaOI_Name[ 33 ];
    zCHAR  szMetaOI_Def[ 33 ];
+   zCHAR  szTempSpec[ zMAX_FILESPEC_LTH + 1 ];
    zCHAR  szFileSpec[ zMAX_FILESPEC_LTH + 1 ];
    zCHAR  szFileName[ 255 ];
    zCHAR  szCM_ViewName[ 80 ];
@@ -1416,14 +1417,15 @@ fnActivateMetaOI( zVIEW   vSubtask,
       //BL, 2000.01.13 Load PPE from LPLR, not from system directory
       //               if PPE does not exist in LPLR, then we call the
       //               Function ActivateOI_FromFile, not ActivateMetaOI
-      fnGetDirectorySpec( vSubtask, szFileSpec, nType, FALSE ); // for CompilerSpec, needed to use vSubtask
+      fnGetDirectorySpec( vSubtask, szTempSpec, nType, FALSE ); // for CompilerSpec, needed to use vSubtask
 #if 0
       // We will get PEs from the system directory and others from the LPLR.
       if ( nActiveType == zSOURCE_PENV_META )
-         zgGetZeidonToolsDir( vSubtask, szFileSpec, zAPPL_DIR_OBJECT );
+         zgGetZeidonToolsDir( vSubtask, szTempSpec, zAPPL_DIR_OBJECT );
       else
-         fnGetDirectorySpec( szFileSpec, nType, TRUE );
+         fnGetDirectorySpec( szTempSpec, nType, TRUE );
 #endif
+      SysConvertEnvironmentString( szFileSpec, szTempSpec );
       zstrcat( szFileSpec, szMetaOI_Name );
       if ( nEntityType == CM_ACTIVE_TYPE )
          zstrcat( szFileSpec, SRC_CMOD[ nType ].szOD_EXT );
@@ -4322,7 +4324,7 @@ CreateMetaEntity( zVIEW  vSubtask,
    if ( TZCMULWO != 0 )  // View exists
    {
       GetIntegerFromAttribute( &lGenKeyStart, TZCMULWO, "User", "GenerationStartZKey" );
-      if ( ulMaxZKey / 10000000 != lGenKeyStart / 10000000 )
+      if ( ulMaxZKey / 10000000 != (zULONG) lGenKeyStart / 10000000 )
       {
          GetVariableFromAttribute( szTemp, 0, 'S', 33, WKS_View, "User", "Name", "", 0 );
          //"The User GenerationStartZKeyPrefix does not match the LPLR MaxZKey. Look at MaxZKey in TZCMWKSO.POR and TZCMULWO.POR for discrepencies.",
@@ -4432,7 +4434,7 @@ CreateTemporalMetaEntity( zVIEW  vSubtask,
    if ( GetViewByName( &TZCMULWO, "TZCMULWO", vSubtask, zLEVEL_TASK ) > 0 )
    {
       GetIntegerFromAttribute( &lGenKeyStart, TZCMULWO, "User", "GenerationStartZKey" );
-      if ( ulMaxZKey / 10000000 != lGenKeyStart / 10000000 )
+      if ( ulMaxZKey / 10000000 != (zULONG) lGenKeyStart / 10000000 )
       {
          GetVariableFromAttribute( szTemp, 0, 'S', 33, WKS_View, "User", "Name", "", 0 );
          //"The User GenerationStartZKeyPrefix does not match the LPLR MaxZKey. Look at MaxZKey in TZCMWKSO.POR and TZCMULWO.POR for discrepencies.",

@@ -1,4 +1,4 @@
-z1000-Zeidon    TZVSPOOO TZZOXODO 08/19/14   12:44:16 1.0a2    
+z1000-Zeidon    TZVSPOOO TZZOXODO 11/04/14   11:01:48 1.0a2    
 eOBJECT    1
 aNAME      TZVSPOOO
 aZKey      1327619
@@ -191,7 +191,8 @@ aSEQ_AD    A
 aUPDATE    Y
 aXVAATT_TOK 14
 aDERIVEDF  oTZVSPOOO_C_GenOperationName
-aDERIVEDC  com.quinsoft.zeidon.zeidontools.TZVSPOOO_Object
+aDERIVEDC  TZVSPOOO
+aDRSRCTYPE C
 
 eATTRIB    4
 aNAME      ThrowsException

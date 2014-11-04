@@ -17,7 +17,7 @@
 // ENVIRONMENT:   Windows 3.1
 // REVISION:      10B    1995/08/05
 //
-// LAST MESSAGE ID: ER00194
+// LAST MESSAGE ID: ER00200
 //
 // HISTORY:
 //
@@ -567,8 +567,8 @@ zwTZEREMDD_InitTool2( zVIEW vSubtask )
    GetViewByName( &vProfileXFER, "ProfileXFER", vSubtask, zLEVEL_ANY );
 
    // Always have a Named List of EMD's (even though there can only be One!).
-   // This is done to be consistent with other dialogs.  The only time the
-   // that the named List will not exist is during a SwithLPLR.
+   // This is done to be consistent with other dialogs.  The only time that
+   // the named List will not exist is during a SwitchLPLR.
    // This fact is used a "flag" to the ReturnFromSubWnd logic.
    nRC = RetrieveViewForMetaList( vSubtask, &vT, zREFER_ERD_META );
    if ( vT )
@@ -11912,10 +11912,7 @@ zwTZEREMDD_RebuildTablesRels( zVIEW vSubtask )
    zVIEW    vDTE;
    zVIEW    vEMD;
    zVIEW    vErrorList;
-   zVIEW    vWindow;
-   zVIEW    vLPLR;
    zVIEW    vTE_Work;
-   zPCHAR   szDS;
    zSHORT   nRC;
    zCHAR    szSystemApp[ 65 ] = { 0 }; 
    zCHAR    szTranslateColumnUnderscore[ 2 ] = { 0 }; 

@@ -1663,7 +1663,8 @@ zOPER_EXPORT zSHORT OPERATION
 ofnTZZOXODO_BldXODEntity( zVIEW vSubtask, zVIEW vTZZOXODO, zVIEW vTZZOLOD1 )
 {
    zCHAR  szInd[ 2 ];
-   zCHAR  szEntityName[ 33 ];   zLONG  lIndentLvl;
+   zCHAR  szEntityName[ 33 ];
+   zLONG  lIndentLvl;
    zSHORT nRC;
 
    GetStringFromAttribute( szEntityName,
@@ -2110,11 +2111,11 @@ ofnTZZOXODO_BldXODAttrib( zVIEW vSubtask, zVIEW vTZZOXODO,
             *pchSlash = '.';
 
       }
-      lLth = zstrlen( szTempName );
+         lLth = zstrlen( szTempName );
       if ( lLth > 0 )
-         szTempName[ lLth++ ] = '.';
+            szTempName[ lLth++ ] = '.';
 
-      GetStringFromAttribute( szTempName + lLth, vTZZOLOD1, "SourceFileForDARec", "Name" );
+         GetStringFromAttribute( szTempName + lLth, vTZZOLOD1, "SourceFileForDARec", "Name" );
 
       // We only want the _Object extension, if this is VML that we are converting into java.
       if ( szType[ 0 ] == 'V' )

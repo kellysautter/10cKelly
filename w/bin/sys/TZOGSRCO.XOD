@@ -1,4 +1,4 @@
-z1000-Zeidon    TZOGSRCO TZZOXODO 08/19/14   12:44:09 1.0a2    
+z1000-Zeidon    TZOGSRCO TZZOXODO 11/04/14   11:01:42 1.0a2    
 eOBJECT    1
 aNAME      TZOGSRCO
 aZKey      1326765
@@ -295,6 +295,8 @@ aINCLSRC   Y
 aECEOPER   oTZOGSRCO_AcceptParameter
 aECACC     Y
 aMAX_LTH   93
+aECESRCFILE com.quinsoft.zeidon.zeidontools.TZOGSRCO_Object
+aECESRCTYPE VML
 
 eATTRIB    5
 aNAME      ShortDesc

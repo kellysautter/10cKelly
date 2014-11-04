@@ -1,4 +1,4 @@
-z1000-Zeidon    ZEIDON   TZDMXGPO 09/16/14   13:13:50 1.0a2    
+z1000-Zeidon    ZEIDON   TZDMXGPO 11/04/14   11:02:30 1.0a2    
 eDomainGroup 1
 aName      Zeidon9B
 
@@ -1207,6 +1207,8 @@ aJavaEditString yyyyMMdd
 eContext   3
 aZKey      90000068
 aName      Day
+aEditString D
+aJavaEditString D
 
 eContext   3
 aZKey      90000074
@@ -1271,6 +1273,8 @@ aJavaEditString MMM dd, yyyy
 eContext   3
 aZKey      90000069
 aName      Month
+aEditString M
+aJavaEditString M
 
 eContext   3
 aZKey      90000062
@@ -1287,19 +1291,27 @@ aJavaEditString MMMM
 eContext   3
 aZKey      90000066
 aName      MSWindowsLongSetting
+aEditString mm/dd/YYYY
+aJavaEditString MM/dd/yyyy
 
 eContext   3
 aZKey      90000067
 aName      MSWindowsShortSetting
+aEditString mm/dd/YYYY
+aJavaEditString MM/dd/yyyy
 aIsDefault Y
 
 eContext   3
 aZKey      90000076
 aName      WeekOfYear
+aEditString w
+aJavaEditString w
 
 eContext   3
 aZKey      90000070
 aName      Year
+aEditString YYYY
+aJavaEditString yyyy
 
 eContext   3
 aZKey      90000071
@@ -1364,6 +1376,8 @@ aJavaEditString yyyyMMddHHmmssSSS
 eContext   3
 aZKey      90000109
 aName      Day
+aEditString Dddd
+aJavaEditString dddd
 
 eContext   3
 aZKey      90000115
@@ -1488,6 +1502,8 @@ aJavaEditString MMM dd, yyyy
 eContext   3
 aZKey      90000110
 aName      Month
+aEditString Mmmm
+aJavaEditString MMMM
 
 eContext   3
 aZKey      90000102
@@ -1504,14 +1520,20 @@ aJavaEditString MMMM
 eContext   3
 aZKey      90000106
 aName      MSWindowsLongSetting
+aEditString mm/dd/YYYY HH:MI:SS.9
+aJavaEditString MM/dd/yyyy HH:mm:ss.S
 
 eContext   3
 aZKey      90000108
 aName      MSWindowsSetting
+aEditString mm/dd/YYYY
+aJavaEditString MM/dd/yyyy
 
 eContext   3
 aZKey      90000107
 aName      MSWindowsShortSetting
+aEditString mm-dd-YYYY
+aJavaEditString MM-dd-yyyy
 aIsDefault Y
 
 eContext   3
@@ -1529,14 +1551,20 @@ aJavaEditString HHmmssSSS
 eContext   3
 aZKey      123030441
 aName      UserFriendlyGerman
+aEditString dd.mm.YYYY
+aJavaEditString dd.mm.yyyy
 
 eContext   3
 aZKey      90000117
 aName      WeekOfYear
+aEditString w
+aJavaEditString w
 
 eContext   3
 aZKey      90000111
 aName      Year
+aEditString YYYY
+aJavaEditString yyyy
 
 eContext   3
 aZKey      90000112
