@@ -260,8 +260,8 @@ $L7867:
 	ja	SHORT $L7876
 	mov	edx, DWORD PTR -12+[ebp]
 	xor	ecx, ecx
-	mov	cl, BYTE PTR $L9149[edx]
-	jmp	DWORD PTR $L9150[ecx*4]
+	mov	cl, BYTE PTR $L9151[edx]
+	jmp	DWORD PTR $L9152[ecx*4]
 $L7874:
 
 ; 151  :          case '&':
@@ -327,11 +327,11 @@ $L7869:
 	mov	esp, ebp
 	pop	ebp
 	ret	4
-$L9150:
+$L9152:
 	DD	$L7875
 	DD	$L7874
 	DD	$L7876
-$L9149:
+$L9151:
 	DB	0
 	DB	0
 	DB	2
@@ -698,8 +698,8 @@ $L7915:
 	ja	$L7928
 	mov	ecx, DWORD PTR -544+[ebp]
 	xor	eax, eax
-	mov	al, BYTE PTR $L9152[ecx]
-	jmp	DWORD PTR $L9153[eax*4]
+	mov	al, BYTE PTR $L9154[ecx]
+	jmp	DWORD PTR $L9155[eax*4]
 $L7922:
 
 ; 265  :                      case '&':
@@ -1200,7 +1200,7 @@ $L7943:
 	mov	esp, ebp
 	pop	ebp
 	ret	8
-$L9153:
+$L9155:
 	DD	$L7927
 	DD	$L7926
 	DD	$L7922
@@ -1208,7 +1208,7 @@ $L9153:
 	DD	$L7923
 	DD	$L7924
 	DD	$L7928
-$L9152:
+$L9154:
 	DB	0
 	DB	0
 	DB	6
@@ -1620,15 +1620,15 @@ $L7988:
 	movsx	eax, BYTE PTR _szIncreFlags$7985[ebp]
 	movsx	ecx, BYTE PTR ??_C@_02OOND@?4?4?$AA@
 	cmp	eax, ecx
-	jne	SHORT $L9155
+	jne	SHORT $L9157
 	push	OFFSET FLAT:??_C@_02OOND@?4?4?$AA@	; `string'
 	lea	edx, DWORD PTR _szIncreFlags$7985[ebp]
 	push	edx
 	call	_strcmp
 	add	esp, 8
 	mov	DWORD PTR -568+[ebp], eax
-	jmp	SHORT $L9156
-$L9155:
+	jmp	SHORT $L9158
+$L9157:
 	movsx	eax, BYTE PTR _szIncreFlags$7985[ebp]
 	movsx	ecx, BYTE PTR ??_C@_02OOND@?4?4?$AA@
 	sub	eax, ecx
@@ -1639,7 +1639,7 @@ $L9155:
 	and	edx, 2
 	add	edx, -1
 	mov	DWORD PTR -568+[ebp], edx
-$L9156:
+$L9158:
 	cmp	DWORD PTR -568+[ebp], 0
 	je	SHORT $L7995
 
@@ -1945,8 +1945,8 @@ $L8018:
 	ja	$L8031
 	mov	ecx, DWORD PTR -572+[ebp]
 	xor	eax, eax
-	mov	al, BYTE PTR $L9157[ecx]
-	jmp	DWORD PTR $L9158[eax*4]
+	mov	al, BYTE PTR $L9159[ecx]
+	jmp	DWORD PTR $L9160[eax*4]
 $L8025:
 
 ; 558  :                      case '&':
@@ -2610,7 +2610,7 @@ $L8058:
 	mov	esp, ebp
 	pop	ebp
 	ret	20					; 00000014H
-$L9158:
+$L9160:
 	DD	$L8030
 	DD	$L8029
 	DD	$L8025
@@ -2618,7 +2618,7 @@ $L9158:
 	DD	$L8026
 	DD	$L8027
 	DD	$L8031
-$L9157:
+$L9159:
 	DB	0
 	DB	0
 	DB	6
@@ -3337,15 +3337,15 @@ $L8122:
 	movsx	ecx, BYTE PTR _szIncreFlags$8113[ebp]
 	movsx	edx, BYTE PTR ??_C@_08JLEF@?4?4?4?4?4?4?4?4?$AA@
 	cmp	ecx, edx
-	jne	SHORT $L9161
+	jne	SHORT $L9163
 	push	OFFSET FLAT:??_C@_08JLEF@?4?4?4?4?4?4?4?4?$AA@ ; `string'
 	lea	eax, DWORD PTR _szIncreFlags$8113[ebp]
 	push	eax
 	call	_strcmp
 	add	esp, 8
 	mov	DWORD PTR -60+[ebp], eax
-	jmp	SHORT $L9162
-$L9161:
+	jmp	SHORT $L9164
+$L9163:
 	movsx	ecx, BYTE PTR _szIncreFlags$8113[ebp]
 	movsx	edx, BYTE PTR ??_C@_08JLEF@?4?4?4?4?4?4?4?4?$AA@
 	sub	ecx, edx
@@ -3356,7 +3356,7 @@ $L9161:
 	and	eax, 2
 	add	eax, -1
 	mov	DWORD PTR -60+[ebp], eax
-$L9162:
+$L9164:
 	cmp	DWORD PTR -60+[ebp], 0
 	je	SHORT $L8129
 
@@ -3889,8 +3889,8 @@ $L8187:
 	ja	$L8200
 	mov	edx, DWORD PTR -540+[ebp]
 	xor	ecx, ecx
-	mov	cl, BYTE PTR $L9164[edx]
-	jmp	DWORD PTR $L9165[ecx*4]
+	mov	cl, BYTE PTR $L9166[edx]
+	jmp	DWORD PTR $L9167[ecx*4]
 $L8194:
 
 ; 1020 :                case '&':
@@ -4369,7 +4369,7 @@ $L8213:
 	mov	esp, ebp
 	pop	ebp
 	ret	24					; 00000018H
-$L9165:
+$L9167:
 	DD	$L8199
 	DD	$L8198
 	DD	$L8194
@@ -4377,7 +4377,7 @@ $L9165:
 	DD	$L8195
 	DD	$L8196
 	DD	$L8200
-$L9164:
+$L9166:
 	DB	0
 	DB	0
 	DB	6
@@ -4903,15 +4903,15 @@ $L8275:
 	movsx	ecx, BYTE PTR [eax]
 	movsx	edx, BYTE PTR ??_C@_09KHJE@ListEntry?$AA@
 	cmp	ecx, edx
-	jne	SHORT $L9168
+	jne	SHORT $L9170
 	push	OFFSET FLAT:??_C@_09KHJE@ListEntry?$AA@	; `string'
 	mov	eax, DWORD PTR _pchEntityName$[ebp]
 	push	eax
 	call	_strcmp
 	add	esp, 8
 	mov	DWORD PTR -564+[ebp], eax
-	jmp	SHORT $L9169
-$L9168:
+	jmp	SHORT $L9171
+$L9170:
 	mov	ecx, DWORD PTR _pchEntityName$[ebp]
 	movsx	edx, BYTE PTR [ecx]
 	movsx	eax, BYTE PTR ??_C@_09KHJE@ListEntry?$AA@
@@ -4923,7 +4923,7 @@ $L9168:
 	and	ecx, 2
 	add	ecx, -1
 	mov	DWORD PTR -564+[ebp], ecx
-$L9169:
+$L9171:
 	cmp	DWORD PTR -564+[ebp], 0
 	jne	$L8282
 
@@ -5270,15 +5270,15 @@ $L8282:
 	movsx	ecx, BYTE PTR [eax]
 	movsx	edx, BYTE PTR ??_C@_0L@NDAB@ComboValue?$AA@
 	cmp	ecx, edx
-	jne	SHORT $L9170
+	jne	SHORT $L9172
 	push	OFFSET FLAT:??_C@_0L@NDAB@ComboValue?$AA@ ; `string'
 	mov	eax, DWORD PTR _pchEntityName$[ebp]
 	push	eax
 	call	_strcmp
 	add	esp, 8
 	mov	DWORD PTR -568+[ebp], eax
-	jmp	SHORT $L9171
-$L9170:
+	jmp	SHORT $L9173
+$L9172:
 	mov	ecx, DWORD PTR _pchEntityName$[ebp]
 	movsx	edx, BYTE PTR [ecx]
 	movsx	eax, BYTE PTR ??_C@_0L@NDAB@ComboValue?$AA@
@@ -5290,7 +5290,7 @@ $L9170:
 	and	ecx, 2
 	add	ecx, -1
 	mov	DWORD PTR -568+[ebp], ecx
-$L9171:
+$L9173:
 	cmp	DWORD PTR -568+[ebp], 0
 	jne	$L8325
 
@@ -5846,15 +5846,15 @@ $L8373:
 	movsx	edx, BYTE PTR [ecx]
 	movsx	eax, BYTE PTR ??_C@_07FNBF@Control?$AA@
 	cmp	edx, eax
-	jne	SHORT $L9173
+	jne	SHORT $L9175
 	push	OFFSET FLAT:??_C@_07FNBF@Control?$AA@	; `string'
 	mov	ecx, DWORD PTR _pchEntityName$[ebp]
 	push	ecx
 	call	_strcmp
 	add	esp, 8
 	mov	DWORD PTR -28+[ebp], eax
-	jmp	SHORT $L9174
-$L9173:
+	jmp	SHORT $L9176
+$L9175:
 	mov	edx, DWORD PTR _pchEntityName$[ebp]
 	movsx	eax, BYTE PTR [edx]
 	movsx	ecx, BYTE PTR ??_C@_07FNBF@Control?$AA@
@@ -5866,7 +5866,7 @@ $L9173:
 	and	edx, 2
 	add	edx, -1
 	mov	DWORD PTR -28+[ebp], edx
-$L9174:
+$L9176:
 	cmp	DWORD PTR -28+[ebp], 0
 	jne	SHORT $L8381
 
@@ -5916,15 +5916,15 @@ $L8381:
 	movsx	edx, BYTE PTR [ecx]
 	movsx	eax, BYTE PTR ??_C@_0P@BABB@ListEntryValue?$AA@
 	cmp	edx, eax
-	jne	SHORT $L9175
+	jne	SHORT $L9177
 	push	OFFSET FLAT:??_C@_0P@BABB@ListEntryValue?$AA@ ; `string'
 	mov	ecx, DWORD PTR _pchEntityName$[ebp]
 	push	ecx
 	call	_strcmp
 	add	esp, 8
 	mov	DWORD PTR -32+[ebp], eax
-	jmp	SHORT $L9176
-$L9175:
+	jmp	SHORT $L9178
+$L9177:
 	mov	edx, DWORD PTR _pchEntityName$[ebp]
 	movsx	eax, BYTE PTR [edx]
 	movsx	ecx, BYTE PTR ??_C@_0P@BABB@ListEntryValue?$AA@
@@ -5936,7 +5936,7 @@ $L9175:
 	and	edx, 2
 	add	edx, -1
 	mov	DWORD PTR -32+[ebp], edx
-$L9176:
+$L9178:
 	cmp	DWORD PTR -32+[ebp], 0
 	jne	SHORT $L8390
 
@@ -7599,7 +7599,7 @@ $L8579:
 	mov	edx, DWORD PTR _pchIdName$[ebp]
 	movsx	eax, BYTE PTR [edx]
 	cmp	ecx, eax
-	jne	SHORT $L9182
+	jne	SHORT $L9184
 	mov	ecx, DWORD PTR _pchIdName$[ebp]
 	push	ecx
 	movsx	edx, WORD PTR _k$[ebp]
@@ -7609,8 +7609,8 @@ $L8579:
 	call	_strcmp
 	add	esp, 8
 	mov	DWORD PTR -8+[ebp], eax
-	jmp	SHORT $L9183
-$L9182:
+	jmp	SHORT $L9185
+$L9184:
 	movsx	edx, WORD PTR _k$[ebp]
 	mov	eax, DWORD PTR _ppAtts$[ebp]
 	mov	ecx, DWORD PTR [eax+edx*4]
@@ -7625,7 +7625,7 @@ $L9182:
 	and	eax, 2
 	add	eax, -1
 	mov	DWORD PTR -8+[ebp], eax
-$L9183:
+$L9185:
 	cmp	DWORD PTR -8+[ebp], 0
 	jne	SHORT $L8588
 
@@ -8024,7 +8024,7 @@ $L8637:
 	mov	edx, DWORD PTR [ecx+22]
 	movsx	ecx, BYTE PTR [edx+14]
 	cmp	eax, ecx
-	jne	SHORT $L9187
+	jne	SHORT $L9189
 	mov	edx, DWORD PTR _lpInfo$[ebp]
 	mov	eax, DWORD PTR [edx+22]
 	add	eax, 14					; 0000000eH
@@ -8035,8 +8035,8 @@ $L8637:
 	call	_strcmp
 	add	esp, 8
 	mov	DWORD PTR -304+[ebp], eax
-	jmp	SHORT $L9188
-$L9187:
+	jmp	SHORT $L9190
+$L9189:
 	mov	edx, DWORD PTR _lpParent$[ebp]
 	movsx	eax, BYTE PTR [edx+14]
 	mov	ecx, DWORD PTR _lpInfo$[ebp]
@@ -8050,7 +8050,7 @@ $L9187:
 	and	edx, 2
 	add	edx, -1
 	mov	DWORD PTR -304+[ebp], edx
-$L9188:
+$L9190:
 	cmp	DWORD PTR -304+[ebp], 0
 	je	SHORT $L8645
 
@@ -8358,7 +8358,7 @@ $L8663:
 	mov	ecx, DWORD PTR _pchEntityName$[ebp]
 	movsx	edx, BYTE PTR [ecx]
 	cmp	eax, edx
-	jne	SHORT $L9189
+	jne	SHORT $L9191
 	mov	eax, DWORD PTR _pchEntityName$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _cpcElementName$[ebp]
@@ -8366,8 +8366,8 @@ $L8663:
 	call	_strcmp
 	add	esp, 8
 	mov	DWORD PTR -308+[ebp], eax
-	jmp	SHORT $L9190
-$L9189:
+	jmp	SHORT $L9192
+$L9191:
 	mov	edx, DWORD PTR _cpcElementName$[ebp]
 	movsx	eax, BYTE PTR [edx]
 	mov	ecx, DWORD PTR _pchEntityName$[ebp]
@@ -8380,7 +8380,7 @@ $L9189:
 	and	ecx, 2
 	add	ecx, -1
 	mov	DWORD PTR -308+[ebp], ecx
-$L9190:
+$L9192:
 	cmp	DWORD PTR -308+[ebp], 0
 	je	$L8671
 
@@ -8696,7 +8696,7 @@ $L8705:
 	mov	edx, DWORD PTR _pchAttribName$[ebp]
 	movsx	eax, BYTE PTR [edx]
 	cmp	ecx, eax
-	jne	SHORT $L9192
+	jne	SHORT $L9194
 	mov	ecx, DWORD PTR _pchAttribName$[ebp]
 	push	ecx
 	mov	edx, DWORD PTR _lpViewAttrib$[ebp]
@@ -8705,8 +8705,8 @@ $L8705:
 	call	_strcmp
 	add	esp, 8
 	mov	DWORD PTR -272+[ebp], eax
-	jmp	SHORT $L9193
-$L9192:
+	jmp	SHORT $L9195
+$L9194:
 	mov	eax, DWORD PTR _lpViewAttrib$[ebp]
 	movsx	ecx, BYTE PTR [eax+10]
 	mov	edx, DWORD PTR _pchAttribName$[ebp]
@@ -8719,7 +8719,7 @@ $L9192:
 	and	edx, 2
 	add	edx, -1
 	mov	DWORD PTR -272+[ebp], edx
-$L9193:
+$L9195:
 	cmp	DWORD PTR -272+[ebp], 0
 	je	SHORT $L8721
 	mov	eax, DWORD PTR _lpViewAttrib$[ebp]
@@ -8727,7 +8727,7 @@ $L9193:
 	mov	edx, DWORD PTR _pchAttribName$[ebp]
 	movsx	eax, BYTE PTR [edx]
 	cmp	ecx, eax
-	jne	SHORT $L9194
+	jne	SHORT $L9196
 	mov	ecx, DWORD PTR _pchAttribName$[ebp]
 	push	ecx
 	mov	edx, DWORD PTR _lpViewAttrib$[ebp]
@@ -8736,8 +8736,8 @@ $L9193:
 	call	_strcmp
 	add	esp, 8
 	mov	DWORD PTR -276+[ebp], eax
-	jmp	SHORT $L9195
-$L9194:
+	jmp	SHORT $L9197
+$L9196:
 	mov	eax, DWORD PTR _lpViewAttrib$[ebp]
 	movsx	ecx, BYTE PTR [eax+76]
 	mov	edx, DWORD PTR _pchAttribName$[ebp]
@@ -8750,7 +8750,7 @@ $L9194:
 	and	edx, 2
 	add	edx, -1
 	mov	DWORD PTR -276+[ebp], edx
-$L9195:
+$L9197:
 	cmp	DWORD PTR -276+[ebp], 0
 	jne	SHORT $L8720
 $L8721:
@@ -8811,7 +8811,7 @@ $L8725:
 	mov	ecx, DWORD PTR _pchAttribName$[ebp]
 	movsx	edx, BYTE PTR [ecx]
 	cmp	eax, edx
-	jne	SHORT $L9196
+	jne	SHORT $L9198
 	mov	eax, DWORD PTR _pchAttribName$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _lpViewAttrib$[ebp]
@@ -8820,8 +8820,8 @@ $L8725:
 	call	_strcmp
 	add	esp, 8
 	mov	DWORD PTR -280+[ebp], eax
-	jmp	SHORT $L9197
-$L9196:
+	jmp	SHORT $L9199
+$L9198:
 	mov	edx, DWORD PTR _lpViewAttrib$[ebp]
 	movsx	eax, BYTE PTR [edx+10]
 	mov	ecx, DWORD PTR _pchAttribName$[ebp]
@@ -8834,7 +8834,7 @@ $L9196:
 	and	ecx, 2
 	add	ecx, -1
 	mov	DWORD PTR -280+[ebp], ecx
-$L9197:
+$L9199:
 	cmp	DWORD PTR -280+[ebp], 0
 	jne	SHORT $L8734
 
@@ -9086,15 +9086,15 @@ $L8751:
 	movsx	ecx, BYTE PTR [eax]
 	movsx	edx, BYTE PTR ??_C@_03PHMG@zOI?$AA@
 	cmp	ecx, edx
-	jne	SHORT $L9199
+	jne	SHORT $L9201
 	push	OFFSET FLAT:??_C@_03PHMG@zOI?$AA@	; `string'
 	mov	eax, DWORD PTR _cpcElementName$[ebp]
 	push	eax
 	call	_strcmp
 	add	esp, 8
 	mov	DWORD PTR -36+[ebp], eax
-	jmp	SHORT $L9200
-$L9199:
+	jmp	SHORT $L9202
+$L9201:
 	mov	ecx, DWORD PTR _cpcElementName$[ebp]
 	movsx	edx, BYTE PTR [ecx]
 	movsx	eax, BYTE PTR ??_C@_03PHMG@zOI?$AA@
@@ -9106,7 +9106,7 @@ $L9199:
 	and	ecx, 2
 	add	ecx, -1
 	mov	DWORD PTR -36+[ebp], ecx
-$L9200:
+$L9202:
 	cmp	DWORD PTR -36+[ebp], 0
 	jne	SHORT $L8758
 
@@ -9287,7 +9287,7 @@ $L8776:
 	mov	eax, DWORD PTR _lpViewEntity$8773[ebp]
 	movsx	ecx, BYTE PTR [eax+14]
 	cmp	edx, ecx
-	jne	SHORT $L9201
+	jne	SHORT $L9203
 	mov	edx, DWORD PTR _lpViewEntity$8773[ebp]
 	add	edx, 14					; 0000000eH
 	push	edx
@@ -9296,8 +9296,8 @@ $L8776:
 	call	_strcmp
 	add	esp, 8
 	mov	DWORD PTR -40+[ebp], eax
-	jmp	SHORT $L9202
-$L9201:
+	jmp	SHORT $L9204
+$L9203:
 	mov	ecx, DWORD PTR _cpcElementName$[ebp]
 	movsx	edx, BYTE PTR [ecx]
 	mov	eax, DWORD PTR _lpViewEntity$8773[ebp]
@@ -9310,7 +9310,7 @@ $L9201:
 	and	eax, 2
 	add	eax, -1
 	mov	DWORD PTR -40+[ebp], eax
-$L9202:
+$L9204:
 	cmp	DWORD PTR -40+[ebp], 0
 	jne	SHORT $L8785
 
@@ -9368,7 +9368,7 @@ $L8790:
 	mov	ecx, DWORD PTR _lpViewEntity$8773[ebp]
 	movsx	edx, BYTE PTR [ecx+47]
 	cmp	eax, edx
-	jne	SHORT $L9203
+	jne	SHORT $L9205
 	mov	eax, DWORD PTR _lpViewEntity$8773[ebp]
 	add	eax, 47					; 0000002fH
 	push	eax
@@ -9377,8 +9377,8 @@ $L8790:
 	call	_strcmp
 	add	esp, 8
 	mov	DWORD PTR -44+[ebp], eax
-	jmp	SHORT $L9204
-$L9203:
+	jmp	SHORT $L9206
+$L9205:
 	mov	edx, DWORD PTR _cpcElementName$[ebp]
 	movsx	eax, BYTE PTR [edx]
 	mov	ecx, DWORD PTR _lpViewEntity$8773[ebp]
@@ -9391,7 +9391,7 @@ $L9203:
 	and	ecx, 2
 	add	ecx, -1
 	mov	DWORD PTR -44+[ebp], ecx
-$L9204:
+$L9206:
 	cmp	DWORD PTR -44+[ebp], 0
 	jne	SHORT $L8808
 
@@ -9411,7 +9411,7 @@ $L9204:
 	mov	ecx, DWORD PTR [eax+22]
 	movsx	eax, BYTE PTR [ecx+14]
 	cmp	edx, eax
-	jne	SHORT $L9205
+	jne	SHORT $L9207
 	mov	ecx, DWORD PTR _lpInfo$[ebp]
 	mov	edx, DWORD PTR [ecx+22]
 	add	edx, 14					; 0000000eH
@@ -9422,8 +9422,8 @@ $L9204:
 	call	_strcmp
 	add	esp, 8
 	mov	DWORD PTR -48+[ebp], eax
-	jmp	SHORT $L9206
-$L9205:
+	jmp	SHORT $L9208
+$L9207:
 	mov	ecx, DWORD PTR _lpParentViewEntity$8787[ebp]
 	movsx	edx, BYTE PTR [ecx+14]
 	mov	eax, DWORD PTR _lpInfo$[ebp]
@@ -9437,7 +9437,7 @@ $L9205:
 	and	ecx, 2
 	add	ecx, -1
 	mov	DWORD PTR -48+[ebp], ecx
-$L9206:
+$L9208:
 	cmp	DWORD PTR -48+[ebp], 0
 	jne	SHORT $L8808
 
@@ -9538,7 +9538,7 @@ $L8819:
 	mov	edx, DWORD PTR [eax+edx*4]
 	movsx	eax, BYTE PTR [edx]
 	cmp	ecx, eax
-	jne	SHORT $L9207
+	jne	SHORT $L9209
 	movsx	ecx, WORD PTR _k$8810[ebp]
 	mov	edx, DWORD PTR _ppAtts$[ebp]
 	mov	eax, DWORD PTR [edx+ecx*4]
@@ -9549,8 +9549,8 @@ $L8819:
 	call	_strcmp
 	add	esp, 8
 	mov	DWORD PTR -52+[ebp], eax
-	jmp	SHORT $L9208
-$L9207:
+	jmp	SHORT $L9210
+$L9209:
 	mov	edx, DWORD PTR _lpViewAttrib$8815[ebp]
 	movsx	eax, BYTE PTR [edx+43]
 	movsx	ecx, WORD PTR _k$8810[ebp]
@@ -9565,7 +9565,7 @@ $L9207:
 	and	ecx, 2
 	add	ecx, -1
 	mov	DWORD PTR -52+[ebp], ecx
-$L9208:
+$L9210:
 	cmp	DWORD PTR -52+[ebp], 0
 	jne	SHORT $L8828
 
@@ -11365,7 +11365,7 @@ _lpCurrentTask$ = -272
 _szOpenFileName$ = -260
 _hFile$ = -268
 _nRC$ = -264
-_lpApp$9044 = -276
+_lpApp$9045 = -276
 _CommitOI_ToXML_File@12 PROC NEAR
 
 ; 2829 : {
@@ -11432,7 +11432,7 @@ $L9042:
 	call	DWORD PTR __imp__strchr
 	add	esp, 8
 	test	eax, eax
-	jne	SHORT $L9043
+	jne	SHORT $L9044
 
 ; 2851 :       LPAPP lpApp;
 ; 2852 : 
@@ -11440,18 +11440,18 @@ $L9042:
 
 	mov	ecx, DWORD PTR _vOI$[ebp]
 	push	ecx
-	lea	edx, DWORD PTR _lpApp$9044[ebp]
+	lea	edx, DWORD PTR _lpApp$9045[ebp]
 	push	edx
 	call	_fnGetApplicationForSubtask@8
 
 ; 2854 :       if ( lpApp )
 
-	cmp	DWORD PTR _lpApp$9044[ebp], 0
-	je	SHORT $L9045
+	cmp	DWORD PTR _lpApp$9045[ebp], 0
+	je	SHORT $L9046
 
 ; 2855 :          zstrcpy( szOpenFileName, lpApp->szObjectDir );
 
-	mov	eax, DWORD PTR _lpApp$9044[ebp]
+	mov	eax, DWORD PTR _lpApp$9045[ebp]
 	add	eax, 347				; 0000015bH
 	push	eax
 	lea	ecx, DWORD PTR _szOpenFileName$[ebp]
@@ -11461,8 +11461,8 @@ $L9042:
 
 ; 2856 :       else
 
-	jmp	SHORT $L9046
-$L9045:
+	jmp	SHORT $L9047
+$L9046:
 
 ; 2858 :          lpApp = zGETPTR( AnchorBlock->hSystemApp );
 
@@ -11470,18 +11470,18 @@ $L9045:
 	mov	eax, DWORD PTR [edx+110]
 	push	eax
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpApp$9044[ebp], eax
+	mov	DWORD PTR _lpApp$9045[ebp], eax
 
 ; 2859 :          zstrcpy( szOpenFileName, lpApp->szObjectDir );
 
-	mov	ecx, DWORD PTR _lpApp$9044[ebp]
+	mov	ecx, DWORD PTR _lpApp$9045[ebp]
 	add	ecx, 347				; 0000015bH
 	push	ecx
 	lea	edx, DWORD PTR _szOpenFileName$[ebp]
 	push	edx
 	call	_strcpy
 	add	esp, 8
-$L9046:
+$L9047:
 
 ; 2861 : 
 ; 2862 :       SysAppendcDirSep( szOpenFileName );
@@ -11492,13 +11492,13 @@ $L9046:
 
 ; 2864 :    else
 
-	jmp	SHORT $L9048
-$L9043:
+	jmp	SHORT $L9049
+$L9044:
 
 ; 2865 :       szOpenFileName[ 0 ] = 0;
 
 	mov	BYTE PTR _szOpenFileName$[ebp], 0
-$L9048:
+$L9049:
 
 ; 2866 : 
 ; 2867 :    zstrcat( szOpenFileName, pchFileName );
@@ -11524,7 +11524,7 @@ $L9048:
 ; 2870 :    if ( hFile == -1 )
 
 	cmp	DWORD PTR _hFile$[ebp], -1
-	jne	SHORT $L9049
+	jne	SHORT $L9050
 
 ; 2872 :       //  "KZOEE071 - Error opening instance file "
 ; 2873 :       fnIssueCoreError( lpCurrentTask, vOI, 16, 71, 0, pchFileName, 0 );
@@ -11544,8 +11544,8 @@ $L9048:
 
 ; 2875 :    else
 
-	jmp	SHORT $L9050
-$L9049:
+	jmp	SHORT $L9051
+$L9050:
 
 ; 2877 :       nRC = WriteOI_ToXML( vOI, nFlags, fnWriteXML_ToFile, (zPVOID) &hFile );
 
@@ -11567,7 +11567,7 @@ $L9049:
 	mov	eax, DWORD PTR _vOI$[ebp]
 	push	eax
 	call	_SysCloseFile@12
-$L9050:
+$L9051:
 
 ; 2880 : 
 ; 2881 :    fnOperationReturn( iCommitOI_ToXML_File, lpCurrentTask );
@@ -11600,7 +11600,7 @@ _lpCurrentTask$ = -272
 _szOpenFileName$ = -260
 _hFile$ = -268
 _nRC$ = -264
-_lpApp$9068 = -276
+_lpApp$9070 = -276
 _CommitSubobjectToXML_File@16 PROC NEAR
 
 ; 2890 : {
@@ -11629,13 +11629,13 @@ _CommitSubobjectToXML_File@16 PROC NEAR
 	add	esp, 12					; 0000000cH
 	mov	DWORD PTR _lpCurrentTask$[ebp], eax
 	cmp	DWORD PTR _lpCurrentTask$[ebp], 0
-	jne	SHORT $L9065
+	jne	SHORT $L9066
 
 ; 2900 :       return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	$L9060
-$L9065:
+	jmp	$L9061
+$L9066:
 
 ; 2902 : 
 ; 2903 :    // If the file name is not qualfied, use the object dir for the application.
@@ -11648,7 +11648,7 @@ $L9065:
 	call	DWORD PTR __imp__strchr
 	add	esp, 8
 	test	eax, eax
-	jne	SHORT $L9067
+	jne	SHORT $L9069
 
 ; 2906 :       LPAPP lpApp;
 ; 2907 : 
@@ -11656,18 +11656,18 @@ $L9065:
 
 	mov	eax, DWORD PTR _vOI$[ebp]
 	push	eax
-	lea	ecx, DWORD PTR _lpApp$9068[ebp]
+	lea	ecx, DWORD PTR _lpApp$9070[ebp]
 	push	ecx
 	call	_fnGetApplicationForSubtask@8
 
 ; 2909 :       if ( lpApp )
 
-	cmp	DWORD PTR _lpApp$9068[ebp], 0
-	je	SHORT $L9069
+	cmp	DWORD PTR _lpApp$9070[ebp], 0
+	je	SHORT $L9071
 
 ; 2910 :          zstrcpy( szOpenFileName, lpApp->szObjectDir );
 
-	mov	edx, DWORD PTR _lpApp$9068[ebp]
+	mov	edx, DWORD PTR _lpApp$9070[ebp]
 	add	edx, 347				; 0000015bH
 	push	edx
 	lea	eax, DWORD PTR _szOpenFileName$[ebp]
@@ -11677,8 +11677,8 @@ $L9065:
 
 ; 2911 :       else
 
-	jmp	SHORT $L9070
-$L9069:
+	jmp	SHORT $L9072
+$L9071:
 
 ; 2913 :          lpApp = zGETPTR( AnchorBlock->hSystemApp );
 
@@ -11686,18 +11686,18 @@ $L9069:
 	mov	edx, DWORD PTR [ecx+110]
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpApp$9068[ebp], eax
+	mov	DWORD PTR _lpApp$9070[ebp], eax
 
 ; 2914 :          zstrcpy( szOpenFileName, lpApp->szObjectDir );
 
-	mov	eax, DWORD PTR _lpApp$9068[ebp]
+	mov	eax, DWORD PTR _lpApp$9070[ebp]
 	add	eax, 347				; 0000015bH
 	push	eax
 	lea	ecx, DWORD PTR _szOpenFileName$[ebp]
 	push	ecx
 	call	_strcpy
 	add	esp, 8
-$L9070:
+$L9072:
 
 ; 2916 : 
 ; 2917 :       SysAppendcDirSep( szOpenFileName );
@@ -11708,13 +11708,13 @@ $L9070:
 
 ; 2919 :    else
 
-	jmp	SHORT $L9072
-$L9067:
+	jmp	SHORT $L9074
+$L9069:
 
 ; 2920 :       szOpenFileName[ 0 ] = 0;
 
 	mov	BYTE PTR _szOpenFileName$[ebp], 0
-$L9072:
+$L9074:
 
 ; 2921 : 
 ; 2922 :    zstrcat( szOpenFileName, pchFileName );
@@ -11740,7 +11740,7 @@ $L9072:
 ; 2925 :    if ( hFile == -1 )
 
 	cmp	DWORD PTR _hFile$[ebp], -1
-	jne	SHORT $L9073
+	jne	SHORT $L9075
 
 ; 2927 :       //  "KZOEE071 - Error opening instance file "
 ; 2928 :       fnIssueCoreError( lpCurrentTask, vOI, 16, 71, 0, pchFileName, 0 );
@@ -11760,8 +11760,8 @@ $L9072:
 
 ; 2930 :    else
 
-	jmp	SHORT $L9074
-$L9073:
+	jmp	SHORT $L9076
+$L9075:
 
 ; 2932 :       nRC = WriteSubobjectToXML( vOI, pchSubobjectRoot, nFlags,
 ; 2933 :                                  fnWriteXML_ToFile, (zPVOID) &hFile );
@@ -11786,7 +11786,7 @@ $L9073:
 	mov	eax, DWORD PTR _vOI$[ebp]
 	push	eax
 	call	_SysCloseFile@12
-$L9074:
+$L9076:
 
 ; 2936 : 
 ; 2937 :    fnOperationReturn( iCommitSubobjectToXML_File, lpCurrentTask );
@@ -11800,7 +11800,7 @@ $L9074:
 ; 2938 :    return( nRC );
 
 	mov	ax, WORD PTR _nRC$[ebp]
-$L9060:
+$L9061:
 
 ; 2939 : }
 

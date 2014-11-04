@@ -2328,15 +2328,15 @@ _hMem$ = -4
 _lBlockOff$ = -280
 _nPort$ = -292
 _nRC$ = -16
-_szPort$60763 = -316
-_szMsg$60786 = -816
-_lStart$60787 = -820
-_lEnd$60788 = -824
-_sz$60790 = -1024
-_szMsg$60803 = -1524
-_lStart$60804 = -1528
-_lEnd$60805 = -1532
-_sz$60809 = -1732
+_szPort$60764 = -316
+_szMsg$60787 = -816
+_lStart$60788 = -820
+_lEnd$60789 = -824
+_sz$60791 = -1024
+_szMsg$60804 = -1524
+_lStart$60805 = -1528
+_lEnd$60806 = -1532
+_sz$60810 = -1732
 _zNetOpenConnection@16 PROC NEAR
 
 ; 644  : {
@@ -2430,7 +2430,7 @@ $L60756:
 ; 672  :    if ( pch )
 
 	cmp	DWORD PTR _pch$[ebp], 0
-	je	SHORT $L60757
+	je	SHORT $L60758
 
 ; 674  :       // Change ':' to null-term.
 ; 675  :       *pch++ = 0;
@@ -2453,15 +2453,15 @@ $L60756:
 
 ; 680  :    else
 
-	jmp	SHORT $L60762
-$L60757:
+	jmp	SHORT $L60763
+$L60758:
 
 ; 681  :    if ( g_nApplPort != (u_short) -1 )
 
 	xor	eax, eax
 	mov	ax, WORD PTR _g_nApplPort
 	cmp	eax, 65535				; 0000ffffH
-	je	SHORT $L60761
+	je	SHORT $L60762
 
 ; 683  :       nPort = g_nApplPort;
 
@@ -2470,15 +2470,15 @@ $L60757:
 
 ; 685  :    else
 
-	jmp	SHORT $L60762
-$L60761:
+	jmp	SHORT $L60763
+$L60762:
 
 ; 687  :       zCHAR szPort[ 20 ];
 ; 688  : 
 ; 689  :       // The port value wasn't specified so get the default port from the Ini file.
 ; 690  :       SysReadZeidonIni( -1, "[zWinSock]", "ApplPort", szPort );
 
-	lea	edx, DWORD PTR _szPort$60763[ebp]
+	lea	edx, DWORD PTR _szPort$60764[ebp]
 	push	edx
 	push	OFFSET FLAT:??_C@_08PDEL@ApplPort?$AA@	; `string'
 	push	OFFSET FLAT:??_C@_0L@IGEO@?$FLzWinSock?$FN?$AA@ ; `string'
@@ -2487,7 +2487,7 @@ $L60761:
 
 ; 691  :       nPort = (u_short) zatol( szPort );
 
-	lea	eax, DWORD PTR _szPort$60763[ebp]
+	lea	eax, DWORD PTR _szPort$60764[ebp]
 	push	eax
 	call	DWORD PTR __imp__atol
 	add	esp, 4
@@ -2497,7 +2497,7 @@ $L60761:
 
 	mov	cx, WORD PTR _nPort$[ebp]
 	mov	WORD PTR _g_nApplPort, cx
-$L60762:
+$L60763:
 
 ; 694  : 
 ; 695  :    lpConn->hMemHandle = hMem;
@@ -2527,7 +2527,7 @@ $L60762:
 
 	mov	edx, DWORD PTR _lpConn$[ebp]
 	cmp	DWORD PTR [edx+4], 0
-	jne	SHORT $L60769
+	jne	SHORT $L60770
 
 ; 702  :       SysMessageBox( 0, szlErrorTitle, "Out of memory", -1 );
 
@@ -2539,8 +2539,8 @@ $L60762:
 
 ; 703  :       goto EndOfFunction;
 
-	jmp	$L60771
-$L60769:
+	jmp	$L60772
+$L60770:
 
 ; 705  : 
 ; 706  :    lpConn->ulBufferLth = BUFFER_LTH;
@@ -2560,7 +2560,7 @@ $L60769:
 ; 709  :    if ( sock == INVALID_SOCKET )
 
 	cmp	DWORD PTR _sock$[ebp], -1
-	jne	SHORT $L60773
+	jne	SHORT $L60774
 
 ; 711  :       SHOWERROR( "socket" );
 
@@ -2578,8 +2578,8 @@ $L60769:
 
 ; 713  :       goto EndOfFunction;
 
-	jmp	$L60776
-$L60773:
+	jmp	$L60777
+$L60774:
 
 ; 715  : 
 ; 716  : #ifdef __WIN32__
@@ -2592,7 +2592,7 @@ $L60773:
 	push	edx
 	call	_ioctlsocket@12
 	cmp	eax, -1
-	jne	SHORT $L60779
+	jne	SHORT $L60780
 
 ; 719  :       SHOWERROR( "ioctlsocket" );
 
@@ -2610,8 +2610,8 @@ $L60773:
 
 ; 721  :       goto EndOfFunction;
 
-	jmp	$L60782
-$L60779:
+	jmp	$L60783
+$L60780:
 
 ; 723  : #endif
 ; 724  : 
@@ -2619,7 +2619,7 @@ $L60779:
 
 	mov	eax, 1
 	test	eax, eax
-	je	$L60785
+	je	$L60786
 
 ; 727  :       zCHAR szMsg[ 500 ];
 ; 728  :       zLONG lStart, lEnd;
@@ -2627,7 +2627,7 @@ $L60779:
 ; 730  :       lStart = SysGetTickCount();
 
 	call	_SysGetTickCount@0
-	mov	DWORD PTR _lStart$60787[ebp], eax
+	mov	DWORD PTR _lStart$60788[ebp], eax
 
 ; 731  :       pHost = gethostbyname( szServerAddress );
 
@@ -2639,24 +2639,24 @@ $L60779:
 ; 732  :       lEnd = SysGetTickCount();
 
 	call	_SysGetTickCount@0
-	mov	DWORD PTR _lEnd$60788[ebp], eax
+	mov	DWORD PTR _lEnd$60789[ebp], eax
 
 ; 733  : 
 ; 734  :       // Trace an error if over 5 seconds.
 ; 735  :       if ( lEnd - lStart > 5 * zTICKS_PER_SECOND )
 
-	mov	edx, DWORD PTR _lEnd$60788[ebp]
-	sub	edx, DWORD PTR _lStart$60787[ebp]
+	mov	edx, DWORD PTR _lEnd$60789[ebp]
+	sub	edx, DWORD PTR _lStart$60788[ebp]
 	cmp	edx, 5000				; 00001388H
-	jle	SHORT $L60789
+	jle	SHORT $L60790
 
 ; 737  :          char sz[ 200 ];
 ; 738  : 
 ; 739  :          zsprintf( sz, "%s took %lf seconds.", szServerAddress,
 ; 740  :                    (double) ( lEnd - lStart ) / zTICKS_PER_SECOND );
 
-	mov	eax, DWORD PTR _lEnd$60788[ebp]
-	sub	eax, DWORD PTR _lStart$60787[ebp]
+	mov	eax, DWORD PTR _lEnd$60789[ebp]
+	sub	eax, DWORD PTR _lStart$60788[ebp]
 	mov	DWORD PTR -1736+[ebp], eax
 	fild	DWORD PTR -1736+[ebp]
 	fdiv	QWORD PTR __real@8@4008fa00000000000000
@@ -2665,29 +2665,29 @@ $L60779:
 	lea	ecx, DWORD PTR _szServerAddress$[ebp]
 	push	ecx
 	push	OFFSET FLAT:??_C@_0BF@BHE@?$CFs?5took?5?$CFlf?5seconds?4?$AA@ ; `string'
-	lea	edx, DWORD PTR _sz$60790[ebp]
+	lea	edx, DWORD PTR _sz$60791[ebp]
 	push	edx
 	call	DWORD PTR __imp__sprintf
 	add	esp, 20					; 00000014H
 
 ; 741  :          TraceLineS( "(zWinSock) WARNING gethostbyname() for ", sz );
 
-	lea	eax, DWORD PTR _sz$60790[ebp]
+	lea	eax, DWORD PTR _sz$60791[ebp]
 	push	eax
 	push	OFFSET FLAT:??_C@_0CI@JKFE@?$CIzWinSock?$CJ?5WARNING?5gethostbyname@ ; `string'
 	call	_TraceLineS@8
-$L60789:
+$L60790:
 
 ; 743  : 
 ; 744  :       if ( pHost )
 
 	cmp	DWORD PTR _pHost$[ebp], 0
-	je	SHORT $L60794
+	je	SHORT $L60795
 
 ; 745  :          break;  // Got the info, so break.
 
-	jmp	SHORT $L60785
-$L60794:
+	jmp	SHORT $L60786
+$L60795:
 
 ; 746  : 
 ; 747  :       SHOWERROR( "gethostbyname" );
@@ -2703,7 +2703,7 @@ $L60794:
 	lea	ecx, DWORD PTR _szServerAddress$[ebp]
 	push	ecx
 	push	OFFSET FLAT:??_C@_0HH@CDEA@Couldn?8t?5resolve?5network?5address@ ; `string'
-	lea	edx, DWORD PTR _szMsg$60786[ebp]
+	lea	edx, DWORD PTR _szMsg$60787[ebp]
 	push	edx
 	call	DWORD PTR __imp__sprintf
 	add	esp, 12					; 0000000cH
@@ -2716,14 +2716,14 @@ $L60794:
 ; 756  :       if ( SysMessageBox( lpView, szlErrorTitle, szMsg, MB_RETRYCANCEL ) == IDCANCEL )
 
 	push	5
-	lea	eax, DWORD PTR _szMsg$60786[ebp]
+	lea	eax, DWORD PTR _szMsg$60787[ebp]
 	push	eax
 	push	OFFSET FLAT:?szlErrorTitle@@3PADA	; szlErrorTitle
 	mov	ecx, DWORD PTR _lpView$[ebp]
 	push	ecx
 	call	_SysMessageBox@16
 	cmp	eax, 2
-	jne	SHORT $L60797
+	jne	SHORT $L60798
 
 ; 758  :          nRC = -1;
 
@@ -2731,14 +2731,14 @@ $L60794:
 
 ; 759  :          goto EndOfFunction;
 
-	jmp	$L60798
-$L60797:
+	jmp	$L60799
+$L60798:
 
 ; 761  : #endif
 ; 762  :    }
 
-	jmp	$L60779
-$L60785:
+	jmp	$L60780
+$L60786:
 
 ; 763  : 
 ; 764  :    // Create the destination socket so we can call 'connect'.  Since the
@@ -2778,7 +2778,7 @@ $L60785:
 
 	mov	eax, DWORD PTR _DestSocket$[ebp]
 	mov	WORD PTR [eax], 2
-$L60801:
+$L60802:
 
 ; 771  : 
 ; 772  :    // Try to connect to the server.  We'll keep trying until:
@@ -2788,7 +2788,7 @@ $L60801:
 
 	mov	ecx, 1
 	test	ecx, ecx
-	je	$L60802
+	je	$L60803
 
 ; 777  :       zCHAR szMsg[ 500 ];
 ; 778  :       zLONG lStart, lEnd;
@@ -2796,7 +2796,7 @@ $L60801:
 ; 780  :       lStart = SysGetTickCount();
 
 	call	_SysGetTickCount@0
-	mov	DWORD PTR _lStart$60804[ebp], eax
+	mov	DWORD PTR _lStart$60805[ebp], eax
 
 ; 781  :       if ( connect( sock, (PSOCKADDR) DestSocket, sizeof( *DestSocket ) ) == 0 )
 
@@ -2807,29 +2807,29 @@ $L60801:
 	push	eax
 	call	_connect@12
 	test	eax, eax
-	jne	SHORT $L60807
+	jne	SHORT $L60808
 
 ; 783  :          lEnd = SysGetTickCount();
 
 	call	_SysGetTickCount@0
-	mov	DWORD PTR _lEnd$60805[ebp], eax
+	mov	DWORD PTR _lEnd$60806[ebp], eax
 
 ; 784  : 
 ; 785  :          // Trace an error if over 5 seconds.
 ; 786  :          if ( lEnd - lStart > 5 * zTICKS_PER_SECOND )
 
-	mov	ecx, DWORD PTR _lEnd$60805[ebp]
-	sub	ecx, DWORD PTR _lStart$60804[ebp]
+	mov	ecx, DWORD PTR _lEnd$60806[ebp]
+	sub	ecx, DWORD PTR _lStart$60805[ebp]
 	cmp	ecx, 5000				; 00001388H
-	jle	SHORT $L60808
+	jle	SHORT $L60809
 
 ; 788  :             char sz[ 200 ];
 ; 789  : 
 ; 790  :             zsprintf( sz, "%s took %lf seconds.", szServerAddress,
 ; 791  :                       (double) ( lEnd - lStart ) / zTICKS_PER_SECOND );
 
-	mov	edx, DWORD PTR _lEnd$60805[ebp]
-	sub	edx, DWORD PTR _lStart$60804[ebp]
+	mov	edx, DWORD PTR _lEnd$60806[ebp]
+	sub	edx, DWORD PTR _lStart$60805[ebp]
 	mov	DWORD PTR -1740+[ebp], edx
 	fild	DWORD PTR -1740+[ebp]
 	fdiv	QWORD PTR __real@8@4008fa00000000000000
@@ -2838,24 +2838,24 @@ $L60801:
 	lea	eax, DWORD PTR _szServerAddress$[ebp]
 	push	eax
 	push	OFFSET FLAT:??_C@_0BF@BHE@?$CFs?5took?5?$CFlf?5seconds?4?$AA@ ; `string'
-	lea	ecx, DWORD PTR _sz$60809[ebp]
+	lea	ecx, DWORD PTR _sz$60810[ebp]
 	push	ecx
 	call	DWORD PTR __imp__sprintf
 	add	esp, 20					; 00000014H
 
 ; 792  :             TraceLineS( "(zWinSock) WARNING connect() for ", sz );
 
-	lea	edx, DWORD PTR _sz$60809[ebp]
+	lea	edx, DWORD PTR _sz$60810[ebp]
 	push	edx
 	push	OFFSET FLAT:??_C@_0CC@ELKH@?$CIzWinSock?$CJ?5WARNING?5connect?$CI?$CJ?5for@ ; `string'
 	call	_TraceLineS@8
-$L60808:
+$L60809:
 
 ; 794  : 
 ; 795  :          break;  // Got a good connection, break loop.
 
-	jmp	SHORT $L60802
-$L60807:
+	jmp	SHORT $L60803
+$L60808:
 
 ; 797  : 
 ; 798  :       SHOWERROR( "connect" );
@@ -2872,7 +2872,7 @@ $L60807:
 	mov	eax, DWORD PTR _pchAddress$[ebp]
 	push	eax
 	push	OFFSET FLAT:??_C@_0IE@JLHI@Connection?5to?5server?5?8?$CFs?8?5failed@ ; `string'
-	lea	ecx, DWORD PTR _szMsg$60803[ebp]
+	lea	ecx, DWORD PTR _szMsg$60804[ebp]
 	push	ecx
 	call	DWORD PTR __imp__sprintf
 	add	esp, 12					; 0000000cH
@@ -2885,14 +2885,14 @@ $L60807:
 ; 808  :       if ( SysMessageBox( lpView, szlErrorTitle, szMsg, MB_RETRYCANCEL ) == IDCANCEL )
 
 	push	5
-	lea	edx, DWORD PTR _szMsg$60803[ebp]
+	lea	edx, DWORD PTR _szMsg$60804[ebp]
 	push	edx
 	push	OFFSET FLAT:?szlErrorTitle@@3PADA	; szlErrorTitle
 	mov	eax, DWORD PTR _lpView$[ebp]
 	push	eax
 	call	_SysMessageBox@16
 	cmp	eax, 2
-	jne	SHORT $L60814
+	jne	SHORT $L60815
 
 ; 810  :          nRC = -1;
 
@@ -2900,14 +2900,14 @@ $L60807:
 
 ; 811  :          goto EndOfFunction;
 
-	jmp	$L60815
-$L60814:
+	jmp	$L60816
+$L60815:
 
 ; 813  : #endif
 ; 814  :    }
 
-	jmp	$L60801
-$L60802:
+	jmp	$L60802
+$L60803:
 
 ; 815  : 
 ; 816  :    // Everything is OK, so set nRC.
@@ -2955,14 +2955,14 @@ $L60802:
 	mov	ecx, DWORD PTR _lpConn$[ebp]
 	movsx	edx, WORD PTR [ecx+40]
 	test	edx, edx
-	jle	SHORT $L60817
+	jle	SHORT $L60818
 
 ; 827  :       TraceLineS( "(zwinsock) Connection to server made!", "" );
 
 	push	OFFSET FLAT:??_C@_00A@?$AA@		; `string'
 	push	OFFSET FLAT:??_C@_0CG@POCG@?$CIzwinsock?$CJ?5Connection?5to?5server?5@ ; `string'
 	call	_TraceLineS@8
-$L60817:
+$L60818:
 
 ; 828  : 
 ; 829  :    // Set up a buffer to hold the peer name.
@@ -2990,7 +2990,7 @@ $L60817:
 
 	mov	edx, DWORD PTR _lpConn$[ebp]
 	cmp	DWORD PTR [edx+12], 0
-	jne	SHORT $L60821
+	jne	SHORT $L60822
 
 ; 834  :       SysMessageBox( 0, szlErrorTitle, "Out of memory", -1 );
 
@@ -3006,8 +3006,8 @@ $L60817:
 
 ; 836  :       goto EndOfFunction;
 
-	jmp	$L60822
-$L60821:
+	jmp	$L60823
+$L60822:
 
 ; 838  : 
 ; 839  :    zstrcpy( lpConn->pchPeerName, szServerAddress );
@@ -3019,7 +3019,7 @@ $L60821:
 	push	edx
 	call	_strcpy
 	add	esp, 8
-$EndOfFunction$60770:
+$EndOfFunction$60771:
 
 ; 840  : 
 ; 841  : EndOfFunction:
@@ -3027,14 +3027,14 @@ $EndOfFunction$60770:
 
 	movsx	eax, WORD PTR _nRC$[ebp]
 	cmp	eax, -16				; fffffff0H
-	jne	$L60823
+	jne	$L60824
 
 ; 844  :       // We're ending with an error, so clean up.
 ; 845  :       if ( lpConn->hBufferMem )
 
 	mov	ecx, DWORD PTR _lpConn$[ebp]
 	cmp	DWORD PTR [ecx+32], 0
-	je	SHORT $L60824
+	je	SHORT $L60825
 
 ; 846  :          free( (zPVOID) lpConn->hBufferMem );
 
@@ -3043,14 +3043,14 @@ $EndOfFunction$60770:
 	push	eax
 	call	DWORD PTR __imp__free
 	add	esp, 4
-$L60824:
+$L60825:
 
 ; 847  : 
 ; 848  :       if ( lpConn->hPeerNameMem )
 
 	mov	ecx, DWORD PTR _lpConn$[ebp]
 	cmp	DWORD PTR [ecx+36], 0
-	je	SHORT $L60826
+	je	SHORT $L60827
 
 ; 849  :          free( (zPVOID) lpConn->hPeerNameMem );
 
@@ -3059,14 +3059,14 @@ $L60824:
 	push	eax
 	call	DWORD PTR __imp__free
 	add	esp, 4
-$L60826:
+$L60827:
 
 ; 850  : 
 ; 851  :       if ( lpConn->hMemHandle )
 
 	mov	ecx, DWORD PTR _lpConn$[ebp]
 	cmp	DWORD PTR [ecx+28], 0
-	je	SHORT $L60828
+	je	SHORT $L60829
 
 ; 852  :          free( (zPVOID) lpConn->hMemHandle );
 
@@ -3075,20 +3075,20 @@ $L60826:
 	push	eax
 	call	DWORD PTR __imp__free
 	add	esp, 4
-$L60828:
+$L60829:
 
 ; 853  : 
 ; 854  :       if ( sock != INVALID_SOCKET )
 
 	cmp	DWORD PTR _sock$[ebp], -1
-	je	SHORT $L60831
+	je	SHORT $L60832
 
 ; 855  :          closesocket( sock );
 
 	mov	ecx, DWORD PTR _sock$[ebp]
 	push	ecx
 	call	_closesocket@4
-$L60831:
+$L60832:
 
 ; 856  : 
 ; 857  :       lpConn->hBufferMem   = 0;
@@ -3108,37 +3108,37 @@ $L60831:
 
 ; 861  :    else
 
-	jmp	SHORT $L60832
-$L60823:
+	jmp	SHORT $L60833
+$L60824:
 
 ; 862  :       *ppvConnPtr = lpConn;
 
 	mov	edx, DWORD PTR _ppvConnPtr$[ebp]
 	mov	eax, DWORD PTR _lpConn$[ebp]
 	mov	DWORD PTR [edx], eax
-$L60832:
+$L60833:
 
 ; 863  : 
 ; 864  :    return( nRC );
 
 	mov	ax, WORD PTR _nRC$[ebp]
 	jmp	SHORT $L60739
-$L60822:
+$L60823:
 
 ; 865  : 
 ; 866  : } // zNetOpenConnection
 
-	jmp	$EndOfFunction$60770
-$L60815:
-	jmp	$EndOfFunction$60770
-$L60798:
-	jmp	$EndOfFunction$60770
-$L60782:
-	jmp	$EndOfFunction$60770
-$L60776:
-	jmp	$EndOfFunction$60770
-$L60771:
-	jmp	$EndOfFunction$60770
+	jmp	$EndOfFunction$60771
+$L60816:
+	jmp	$EndOfFunction$60771
+$L60799:
+	jmp	$EndOfFunction$60771
+$L60783:
+	jmp	$EndOfFunction$60771
+$L60777:
+	jmp	$EndOfFunction$60771
+$L60772:
+	jmp	$EndOfFunction$60771
 $L60739:
 	mov	esp, ebp
 	pop	ebp
@@ -3184,7 +3184,7 @@ _zNetCloseConnection@8 PROC NEAR
 ; 896  :    if ( lpConn )
 
 	cmp	DWORD PTR _lpConn$[ebp], 0
-	je	$L60841
+	je	$L60842
 
 ; 898  :       if ( lpConn->bLastReceive == FALSE )
 
@@ -3192,7 +3192,7 @@ _zNetCloseConnection@8 PROC NEAR
 	xor	edx, edx
 	mov	dl, BYTE PTR [ecx+42]
 	test	edx, edx
-	jne	SHORT $L60842
+	jne	SHORT $L60843
 
 ; 900  :          zNetSend( ppHandle, ppvConnPtr, 0, 0, 0 );
 
@@ -3211,10 +3211,10 @@ _zNetCloseConnection@8 PROC NEAR
 	mov	edx, DWORD PTR _lpConn$[ebp]
 	movsx	eax, WORD PTR [edx+40]
 	test	eax, eax
-	jle	SHORT $L60843
+	jle	SHORT $L60844
 	mov	ecx, DWORD PTR _lpConn$[ebp]
 	cmp	DWORD PTR [ecx+24], 0
-	jbe	SHORT $L60843
+	jbe	SHORT $L60844
 
 ; 903  :             TraceLineI( "(zwinsock) Total bytes sent = ", lpConn->ulTotalBytes );
 
@@ -3223,22 +3223,22 @@ _zNetCloseConnection@8 PROC NEAR
 	push	eax
 	push	OFFSET FLAT:??_C@_0BP@MHKI@?$CIzwinsock?$CJ?5Total?5bytes?5sent?5?$DN?5?$AA@ ; `string'
 	call	_TraceLineI@8
-$L60843:
+$L60844:
 
 ; 905  :       else
 
-	jmp	SHORT $L60845
-$L60842:
+	jmp	SHORT $L60846
+$L60843:
 
 ; 907  :          if ( lpConn->nTraceLevel > 0 && lpConn->ulTotalBytes > 0 )
 
 	mov	ecx, DWORD PTR _lpConn$[ebp]
 	movsx	edx, WORD PTR [ecx+40]
 	test	edx, edx
-	jle	SHORT $L60845
+	jle	SHORT $L60846
 	mov	eax, DWORD PTR _lpConn$[ebp]
 	cmp	DWORD PTR [eax+24], 0
-	jbe	SHORT $L60845
+	jbe	SHORT $L60846
 
 ; 908  :             TraceLineI( "(zwinsock) Total bytes received = ", lpConn->ulTotalBytes );
 
@@ -3247,7 +3247,7 @@ $L60842:
 	push	edx
 	push	OFFSET FLAT:??_C@_0CD@ENDI@?$CIzwinsock?$CJ?5Total?5bytes?5received?5@ ; `string'
 	call	_TraceLineI@8
-$L60845:
+$L60846:
 
 ; 910  : 
 ; 911  :       if ( closesocket( lpConn->sock ) == SOCKET_ERROR )
@@ -3257,14 +3257,14 @@ $L60845:
 	push	ecx
 	call	_closesocket@4
 	cmp	eax, -1
-	jne	SHORT $L60846
+	jne	SHORT $L60847
 
 ; 912  :          SHOWERROR( "closesocket" );
 
 	push	OFFSET FLAT:??_C@_0M@BGOH@closesocket?$AA@ ; `string'
 	call	?fnShowError@@YAXPAD@Z			; fnShowError
 	add	esp, 4
-$L60846:
+$L60847:
 
 ; 913  : 
 ; 914  :       free( (zPVOID) lpConn->hBufferMem );
@@ -3296,7 +3296,7 @@ $L60846:
 
 	mov	edx, DWORD PTR _ppvConnPtr$[ebp]
 	mov	DWORD PTR [edx], 0
-$L60841:
+$L60842:
 
 ; 920  : 
 ; 921  :    return( 0 );
@@ -3354,8 +3354,8 @@ _pv$ = -72
 _cr$ = -52
 _nRC$ = -8
 _pp$ = -60
-_szBuf$60895 = -156
-$T61375 = -160
+_szBuf$60896 = -156
+$T61376 = -160
 _fnProcessConnectionThreadProc@4 PROC NEAR
 
 ; 944  : {
@@ -3416,8 +3416,8 @@ _fnProcessConnectionThreadProc@4 PROC NEAR
 ; 956  :    delete( pSockTask );
 
 	mov	edx, DWORD PTR _pSockTask$[ebp]
-	mov	DWORD PTR $T61375[ebp], edx
-	mov	eax, DWORD PTR $T61375[ebp]
+	mov	DWORD PTR $T61376[ebp], edx
+	mov	eax, DWORD PTR $T61376[ebp]
 	push	eax
 	call	??3@YAXPAX@Z				; operator delete
 	add	esp, 4
@@ -3433,13 +3433,13 @@ _fnProcessConnectionThreadProc@4 PROC NEAR
 ; 965  :    if ( DoSync == 0 )
 
 	cmp	DWORD PTR _?DoSync@?1??fnProcessConnectionThreadProc@@9@4@4HA, 0
-	jne	SHORT $L60897
+	jne	SHORT $L60898
 
 ; 967  :       char szBuf[ 80 ];
 ; 968  : 
 ; 969  :       SysReadZeidonIni( -1, "[zWinSock]", "SyncServerAccess", szBuf );
 
-	lea	ecx, DWORD PTR _szBuf$60895[ebp]
+	lea	ecx, DWORD PTR _szBuf$60896[ebp]
 	push	ecx
 	push	OFFSET FLAT:??_C@_0BB@BIOA@SyncServerAccess?$AA@ ; `string'
 	push	OFFSET FLAT:??_C@_0L@IGEO@?$FLzWinSock?$FN?$AA@ ; `string'
@@ -3448,7 +3448,7 @@ _fnProcessConnectionThreadProc@4 PROC NEAR
 
 ; 970  :       DoSync = atoi( szBuf );
 
-	lea	edx, DWORD PTR _szBuf$60895[ebp]
+	lea	edx, DWORD PTR _szBuf$60896[ebp]
 	push	edx
 	call	DWORD PTR __imp__atoi
 	add	esp, 4
@@ -3457,23 +3457,23 @@ _fnProcessConnectionThreadProc@4 PROC NEAR
 ; 971  :       if ( DoSync == 0 )
 
 	cmp	DWORD PTR _?DoSync@?1??fnProcessConnectionThreadProc@@9@4@4HA, 0
-	jne	SHORT $L60897
+	jne	SHORT $L60898
 
 ; 972  :          DoSync = -1;   // atoi returns 0 if string was empty
 
 	mov	DWORD PTR _?DoSync@?1??fnProcessConnectionThreadProc@@9@4@4HA, -1
-$L60897:
+$L60898:
 
 ; 974  : 
 ; 975  :    if ( DoSync > 0 )
 
 	cmp	DWORD PTR _?DoSync@?1??fnProcessConnectionThreadProc@@9@4@4HA, 0
-	jle	SHORT $L60898
+	jle	SHORT $L60899
 
 ; 977  :       if ( hMutexObject == 0 )
 
 	cmp	DWORD PTR _?hMutexObject@?1??fnProcessConnectionThreadProc@@9@4@4PAXA, 0
-	jne	SHORT $L60899
+	jne	SHORT $L60900
 
 ; 978  :          hMutexObject = CreateMutex( 0, FALSE, "WINSOCK_WORKAROUND" );
 
@@ -3482,18 +3482,18 @@ $L60897:
 	push	0
 	call	DWORD PTR __imp__CreateMutexA@12
 	mov	DWORD PTR _?hMutexObject@?1??fnProcessConnectionThreadProc@@9@4@4PAXA, eax
-$L60899:
+$L60900:
 
 ; 979  : 
 ; 980  :       if ( hMutexObject == 0 )
 
 	cmp	DWORD PTR _?hMutexObject@?1??fnProcessConnectionThreadProc@@9@4@4PAXA, 0
-	jne	SHORT $L60901
+	jne	SHORT $L60902
 
 ; 981  :          goto EndOfFunction;
 
-	jmp	$L60903
-$L60901:
+	jmp	$L60904
+$L60902:
 
 ; 982  : 
 ; 983  :       WaitForSingleObject( hMutexObject, INFINITE );
@@ -3502,7 +3502,7 @@ $L60901:
 	mov	eax, DWORD PTR _?hMutexObject@?1??fnProcessConnectionThreadProc@@9@4@4PAXA
 	push	eax
 	call	DWORD PTR __imp__WaitForSingleObject@8
-$L60898:
+$L60899:
 
 ; 990  :                                    "\\\\Zeidon System\\", 0, 0 ) != 0 )
 
@@ -3517,12 +3517,12 @@ $L60898:
 	call	_RegisterZeidonApplication@28
 	movsx	edx, ax
 	test	edx, edx
-	je	SHORT $L60904
+	je	SHORT $L60905
 
 ; 991  :       goto EndOfFunction;
 
-	jmp	$L60906
-$L60904:
+	jmp	$L60907
+$L60905:
 
 ; 992  : 
 ; 993  :    // Debug code - do a quick test to make sure that vSubtask is a valid
@@ -3550,7 +3550,7 @@ $L60904:
 ; 1000 :    if ( cr.pchBuffer == 0 )
 
 	cmp	DWORD PTR _cr$[ebp+4], 0
-	jne	SHORT $L60910
+	jne	SHORT $L60911
 
 ; 1002 :       SysMessageBox( 0, szlErrorTitle, "Out of memory", -1 );
 
@@ -3562,8 +3562,8 @@ $L60904:
 
 ; 1003 :       goto EndOfFunction;
 
-	jmp	$L60911
-$L60910:
+	jmp	$L60912
+$L60911:
 
 ; 1005 : 
 ; 1006 :    // Init connection info.
@@ -3598,7 +3598,7 @@ $L60910:
 
 	movsx	eax, WORD PTR _cr$[ebp+40]
 	test	eax, eax
-	jle	SHORT $L60912
+	jle	SHORT $L60913
 
 ; 1015 :                   cr.pchPeerName );
 
@@ -3606,7 +3606,7 @@ $L60910:
 	push	ecx
 	push	OFFSET FLAT:??_C@_0CN@JPKP@?$CIzwinsock?$CJ?5A?5message?5has?5been?5re@ ; `string'
 	call	_TraceLineS@8
-$L60912:
+$L60913:
 
 ; 1016 : 
 ; 1017 :    pv = &cr;
@@ -3629,7 +3629,7 @@ $L60912:
 	push	ecx
 	call	_NetProcessMessage@12
 	mov	WORD PTR _nRC$[ebp], ax
-$EndOfFunction$60902:
+$EndOfFunction$60903:
 
 ; 1025 : #else
 ; 1026 :    if ( cr.nTraceLevel > 0 )
@@ -3671,46 +3671,46 @@ $EndOfFunction$60902:
 ; 1055 :    if ( vSubtask )
 
 	cmp	DWORD PTR _vSubtask$[ebp], 0
-	je	SHORT $L60916
+	je	SHORT $L60917
 
 ; 1056 :       UnregisterZeidonApplication( vSubtask );
 
 	mov	ecx, DWORD PTR _vSubtask$[ebp]
 	push	ecx
 	call	_UnregisterZeidonApplication@4
-$L60916:
+$L60917:
 
 ; 1057 : 
 ; 1058 :    #ifdef __WIN32__
 ; 1059 :       if ( DoSync > 0 )
 
 	cmp	DWORD PTR _?DoSync@?1??fnProcessConnectionThreadProc@@9@4@4HA, 0
-	jle	SHORT $L60917
+	jle	SHORT $L60918
 
 ; 1060 :          ReleaseMutex( hMutexObject );
 
 	mov	edx, DWORD PTR _?hMutexObject@?1??fnProcessConnectionThreadProc@@9@4@4PAXA
 	push	edx
 	call	DWORD PTR __imp__ReleaseMutex@4
-$L60917:
+$L60918:
 
 ; 1061 :    #endif
 ; 1062 : 
 ; 1063 :    return( 0 );
 
 	xor	eax, eax
-	jmp	SHORT $L60877
-$L60911:
+	jmp	SHORT $L60878
+$L60912:
 
 ; 1064 : 
 ; 1065 : } // fnProcessConnectionThreadProc
 
-	jmp	SHORT $EndOfFunction$60902
-$L60906:
-	jmp	SHORT $EndOfFunction$60902
-$L60903:
-	jmp	SHORT $EndOfFunction$60902
-$L60877:
+	jmp	SHORT $EndOfFunction$60903
+$L60907:
+	jmp	SHORT $EndOfFunction$60903
+$L60904:
+	jmp	SHORT $EndOfFunction$60903
+$L60878:
 	pop	edi
 	mov	esp, ebp
 	pop	ebp
@@ -3784,12 +3784,12 @@ _listenSocket$ = -20
 _saServer$ = -40
 _nRet$ = -16
 _pSockTask$ = -4
-_hConnThread$60962 = -72
-_dwThreadID$60963 = -68
-$T61377 = -76
-$T61378 = -80
-$T61379 = -84
-$T61380 = -88
+_hConnThread$60963 = -72
+_dwThreadID$60964 = -68
+$T61378 = -76
+$T61379 = -80
+$T61380 = -84
+$T61381 = -88
 _fnListenThreadProc@4 PROC NEAR
 
 ; 1073 : {
@@ -3845,7 +3845,7 @@ _fnListenThreadProc@4 PROC NEAR
 
 	movsx	ecx, WORD PTR _g_nListenPort
 	cmp	ecx, -1
-	jne	SHORT $L60928
+	jne	SHORT $L60929
 
 ; 1100 :       SysReadZeidonIni( -1, "[zWinSock]", "ListenPort", szPort );
 
@@ -3863,7 +3863,7 @@ _fnListenThreadProc@4 PROC NEAR
 	call	DWORD PTR __imp__atol
 	add	esp, 4
 	mov	WORD PTR _g_nListenPort, ax
-$L60928:
+$L60929:
 
 ; 1108 : 
 ; 1109 :    listenSocket = socket( AF_INET, SOCK_STREAM, IPPROTO_TCP );
@@ -3877,7 +3877,7 @@ $L60928:
 ; 1110 :    if ( listenSocket == INVALID_SOCKET )
 
 	cmp	DWORD PTR _listenSocket$[ebp], -1
-	jne	SHORT $L60933
+	jne	SHORT $L60934
 
 ; 1112 :       SHOWERROR( "socket" );
 
@@ -3901,8 +3901,8 @@ $L60928:
 ; 1116 :       return( 0 );
 
 	xor	eax, eax
-	jmp	$L60921
-$L60933:
+	jmp	$L60922
+$L60934:
 
 ; 1123 : 
 ; 1124 :    saServer.sin_family = AF_INET;
@@ -3939,7 +3939,7 @@ $L60933:
 ; 1134 :    if ( nRet == SOCKET_ERROR )
 
 	cmp	DWORD PTR _nRet$[ebp], -1
-	jne	SHORT $L60940
+	jne	SHORT $L60941
 
 ; 1136 :       SHOWERROR( "bind" );
 
@@ -3968,8 +3968,8 @@ $L60933:
 ; 1140 :       return( 0 );
 
 	xor	eax, eax
-	jmp	$L60921
-$L60940:
+	jmp	$L60922
+$L60941:
 
 ; 1142 : 
 ; 1143 :    nRet = listen( listenSocket, MAX_PENDING_CONNECTS );
@@ -3983,7 +3983,7 @@ $L60940:
 ; 1144 :    if ( nRet == SOCKET_ERROR )
 
 	cmp	DWORD PTR _nRet$[ebp], -1
-	jne	SHORT $L60943
+	jne	SHORT $L60944
 
 ; 1146 :       SHOWERROR( "listen" );
 
@@ -4012,8 +4012,8 @@ $L60940:
 ; 1150 :       return( 0 );
 
 	xor	eax, eax
-	jmp	$L60921
-$L60943:
+	jmp	$L60922
+$L60944:
 
 ; 1152 : 
 ; 1153 :    // Listen started OK so set return.
@@ -4042,7 +4042,7 @@ $L60943:
 	push	OFFSET FLAT:??_C@_00A@?$AA@		; `string'
 	push	OFFSET FLAT:??_C@_0CN@KLFH@?$CIzWinSock?$CJ?5Waiting?5for?5client?5co@ ; `string'
 	call	_TraceLineS@8
-$L60949:
+$L60950:
 
 ; 1162 : 
 ; 1163 :    zSOCKTASK    *pSockTask;
@@ -4052,21 +4052,21 @@ $L60949:
 
 	mov	edx, 1
 	test	edx, edx
-	je	$L60950
+	je	$L60951
 
 ; 1168 :       if ( g_bClosingListenSocket )
 
 	xor	eax, eax
 	mov	al, BYTE PTR ?g_bClosingListenSocket@@3EA ; g_bClosingListenSocket
 	test	eax, eax
-	je	SHORT $L60951
+	je	SHORT $L60952
 
 ; 1169 :          TraceLineS( "fnListenThreadProc trying to close ListenSocket", "" );
 
 	push	OFFSET FLAT:??_C@_00A@?$AA@		; `string'
 	push	OFFSET FLAT:??_C@_0DA@DDGE@fnListenThreadProc?5trying?5to?5clo@ ; `string'
 	call	_TraceLineS@8
-$L60951:
+$L60952:
 
 ; 1170 : 
 ; 1171 : #ifdef __UNIX__x
@@ -4095,8 +4095,8 @@ $L60951:
 	push	8
 	call	??2@YAPAXI@Z				; operator new
 	add	esp, 4
-	mov	DWORD PTR $T61377[ebp], eax
-	mov	ecx, DWORD PTR $T61377[ebp]
+	mov	DWORD PTR $T61378[ebp], eax
+	mov	ecx, DWORD PTR $T61378[ebp]
 	mov	DWORD PTR _pSockTask$[ebp], ecx
 
 ; 1193 :       pSockTask->hTask = hTask;
@@ -4119,7 +4119,7 @@ $L60951:
 
 	mov	eax, DWORD PTR _pSockTask$[ebp]
 	cmp	DWORD PTR [eax+4], -1
-	jne	SHORT $L60956
+	jne	SHORT $L60957
 
 ; 1197 :          // It's possible we received the error because the socket was closed
 ; 1198 :          // by another thread.  In this case we'll ignore the error and just
@@ -4129,7 +4129,7 @@ $L60951:
 	xor	ecx, ecx
 	mov	cl, BYTE PTR ?g_bClosingListenSocket@@3EA ; g_bClosingListenSocket
 	test	ecx, ecx
-	je	SHORT $L60957
+	je	SHORT $L60958
 
 ; 1202 :             // Turn the flag back off so we can re-use it.  This also tells
 ; 1203 :             // the closing thread that we're done.
@@ -4140,8 +4140,8 @@ $L60951:
 ; 1205 :             delete( pSockTask );
 
 	mov	edx, DWORD PTR _pSockTask$[ebp]
-	mov	DWORD PTR $T61378[ebp], edx
-	mov	eax, DWORD PTR $T61378[ebp]
+	mov	DWORD PTR $T61379[ebp], edx
+	mov	eax, DWORD PTR $T61379[ebp]
 	push	eax
 	call	??3@YAXPAX@Z				; operator delete
 	add	esp, 4
@@ -4149,8 +4149,8 @@ $L60951:
 ; 1206 :             return( 0 );
 
 	xor	eax, eax
-	jmp	$L60921
-$L60957:
+	jmp	$L60922
+$L60958:
 
 ; 1208 : 
 ; 1209 :          SHOWERROR( "accept" );
@@ -4176,8 +4176,8 @@ $L60957:
 ; 1212 :          delete( pSockTask );
 
 	mov	edx, DWORD PTR _pSockTask$[ebp]
-	mov	DWORD PTR $T61379[ebp], edx
-	mov	eax, DWORD PTR $T61379[ebp]
+	mov	DWORD PTR $T61380[ebp], edx
+	mov	eax, DWORD PTR $T61380[ebp]
 	push	eax
 	call	??3@YAXPAX@Z				; operator delete
 	add	esp, 4
@@ -4185,8 +4185,8 @@ $L60957:
 ; 1213 :          return( 0 );
 
 	xor	eax, eax
-	jmp	SHORT $L60921
-$L60956:
+	jmp	SHORT $L60922
+$L60957:
 
 ; 1232 :       UINT   dwThreadID;
 ; 1233 : 
@@ -4195,7 +4195,7 @@ $L60956:
 ; 1236 :                                              (zPVOID) pSockTask, 0,  // arglist, initial state
 ; 1237 :                                              &dwThreadID );  // thread identifier
 
-	lea	ecx, DWORD PTR _dwThreadID$60963[ebp]
+	lea	ecx, DWORD PTR _dwThreadID$60964[ebp]
 	push	ecx
 	push	0
 	mov	edx, DWORD PTR _pSockTask$[ebp]
@@ -4205,59 +4205,59 @@ $L60956:
 	push	0
 	call	DWORD PTR __imp___beginthreadex
 	add	esp, 24					; 00000018H
-	mov	DWORD PTR _hConnThread$60962[ebp], eax
+	mov	DWORD PTR _hConnThread$60963[ebp], eax
 
 ; 1238 :       if ( hConnThread )
 
-	cmp	DWORD PTR _hConnThread$60962[ebp], 0
-	je	SHORT $L60966
+	cmp	DWORD PTR _hConnThread$60963[ebp], 0
+	je	SHORT $L60967
 
 ; 1239 :          CloseHandle( (HANDLE) hConnThread );
 
-	mov	eax, DWORD PTR _hConnThread$60962[ebp]
+	mov	eax, DWORD PTR _hConnThread$60963[ebp]
 	push	eax
 	call	DWORD PTR __imp__CloseHandle@4
 
 ; 1240 :       else
 
-	jmp	SHORT $L60968
-$L60966:
+	jmp	SHORT $L60969
+$L60967:
 
 ; 1241 :          delete( pSockTask );
 
 	mov	ecx, DWORD PTR _pSockTask$[ebp]
-	mov	DWORD PTR $T61380[ebp], ecx
-	mov	edx, DWORD PTR $T61380[ebp]
+	mov	DWORD PTR $T61381[ebp], ecx
+	mov	edx, DWORD PTR $T61381[ebp]
 	push	edx
 	call	??3@YAXPAX@Z				; operator delete
 	add	esp, 4
-$L60968:
+$L60969:
 
 ; 1242 : #endif
 ; 1243 : 
 ; 1244 :    } // while ( TRUE )...
 
-	jmp	$L60949
-$L60950:
+	jmp	$L60950
+$L60951:
 
 ; 1245 : 
 ; 1246 :    if ( vSubtask )
 
 	cmp	DWORD PTR _vSubtask$[ebp], 0
-	je	SHORT $L60970
+	je	SHORT $L60971
 
 ; 1247 :       UnregisterZeidonApplication( vSubtask );
 
 	mov	eax, DWORD PTR _vSubtask$[ebp]
 	push	eax
 	call	_UnregisterZeidonApplication@4
-$L60970:
+$L60971:
 
 ; 1248 : 
 ; 1249 :    return( 0 );
 
 	xor	eax, eax
-$L60921:
+$L60922:
 
 ; 1250 : }
 
@@ -4355,14 +4355,14 @@ _zNetListen@12 PROC NEAR
 ; 1313 :    if ( g_hListenThread )
 
 	cmp	DWORD PTR ?g_hListenThread@@3KA, 0	; g_hListenThread
-	je	SHORT $L60980
+	je	SHORT $L60981
 
 ; 1314 :       CloseHandle( (HANDLE) g_hListenThread );
 
 	mov	eax, DWORD PTR ?g_hListenThread@@3KA	; g_hListenThread
 	push	eax
 	call	DWORD PTR __imp__CloseHandle@4
-$L60980:
+$L60981:
 
 ; 1315 : 
 ; 1316 : #endif
@@ -4373,14 +4373,14 @@ $L60980:
 	xor	ecx, ecx
 	mov	cl, BYTE PTR ?g_bListenThreadStarted@@3EA ; g_bListenThreadStarted
 	test	ecx, ecx
-	jne	SHORT $L60984
+	jne	SHORT $L60985
 
 ; 1320 :       Sleep( 10 );
 
 	push	10					; 0000000aH
 	call	DWORD PTR __imp__Sleep@4
-	jmp	SHORT $L60980
-$L60984:
+	jmp	SHORT $L60981
+$L60985:
 
 ; 1321 : 
 ; 1322 :    return( LisnInfo.nRC );
@@ -4461,21 +4461,21 @@ _zNetStopListen@8 PROC NEAR
 
 	movsx	eax, WORD PTR _nTraceLevel$[ebp]
 	cmp	eax, 1
-	jle	SHORT $L60993
+	jle	SHORT $L60994
 
 ; 1350 :       TraceLineS( "(zwinsock) Stopping listen", "" );
 
 	push	OFFSET FLAT:??_C@_00A@?$AA@		; `string'
 	push	OFFSET FLAT:??_C@_0BL@GKON@?$CIzwinsock?$CJ?5Stopping?5listen?$AA@ ; `string'
 	call	_TraceLineS@8
-$L60993:
+$L60994:
 
 ; 1351 : 
 ; 1352 :    if ( lpSockets->sockListen == INVALID_SOCKET )
 
 	mov	ecx, DWORD PTR _lpSockets$[ebp]
 	cmp	DWORD PTR [ecx+64], -1
-	jne	SHORT $L60996
+	jne	SHORT $L60997
 
 ; 1354 :       TraceLineS( "(zwinsock) No Listen socket!", "" );
 
@@ -4486,8 +4486,8 @@ $L60993:
 ; 1355 :       return( 0 ); // return 0 because nothing was done.
 
 	xor	ax, ax
-	jmp	$L60988
-$L60996:
+	jmp	$L60989
+$L60997:
 
 ; 1357 : 
 ; 1358 : #ifdef __UNIX__
@@ -4511,7 +4511,7 @@ $L60996:
 	push	eax
 	call	_closesocket@4
 	cmp	eax, -1
-	jne	SHORT $L60998
+	jne	SHORT $L60999
 
 ; 1371 :       TraceLineS( "(zwinsock) Error shutting down listen socket", "" );
 
@@ -4528,22 +4528,22 @@ $L60996:
 ; 1373 :       return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	SHORT $L60988
-$L60998:
+	jmp	SHORT $L60989
+$L60999:
 
 ; 1375 : 
 ; 1376 :    // Now we'll wait until the thread handling the socket is finished.
 ; 1377 :    lSleepCnt = 0;
 
 	mov	DWORD PTR _lSleepCnt$[ebp], 0
-$L61001:
+$L61002:
 
 ; 1378 :    while ( g_bClosingListenSocket )
 
 	xor	ecx, ecx
 	mov	cl, BYTE PTR ?g_bClosingListenSocket@@3EA ; g_bClosingListenSocket
 	test	ecx, ecx
-	je	SHORT $L61002
+	je	SHORT $L61003
 
 ; 1380 :       lSleepCnt++;
 
@@ -4554,7 +4554,7 @@ $L61001:
 ; 1381 :       if ( lSleepCnt > 10000 )
 
 	cmp	DWORD PTR _lSleepCnt$[ebp], 10000	; 00002710H
-	jle	SHORT $L61003
+	jle	SHORT $L61004
 
 ; 1383 :          SysMessageBox( 0, szlErrorTitle,
 ; 1384 :                         "NetStopListen wait for socket to finish ... TERMINATED", -1 );
@@ -4568,7 +4568,7 @@ $L61001:
 ; 1385 :          g_bClosingListenSocket = FALSE;
 
 	mov	BYTE PTR ?g_bClosingListenSocket@@3EA, 0 ; g_bClosingListenSocket
-$L61003:
+$L61004:
 
 ; 1387 : 
 ; 1388 :       Sleep( 100 );
@@ -4578,8 +4578,8 @@ $L61003:
 
 ; 1389 :    }
 
-	jmp	SHORT $L61001
-$L61002:
+	jmp	SHORT $L61002
+$L61003:
 
 ; 1390 : #endif
 ; 1391 : 
@@ -4593,20 +4593,20 @@ $L61002:
 
 	movsx	ecx, WORD PTR _nTraceLevel$[ebp]
 	cmp	ecx, 1
-	jle	SHORT $L61006
+	jle	SHORT $L61007
 
 ; 1395 :       TraceLineS( "(zwinsock) Listen stopped", "" );
 
 	push	OFFSET FLAT:??_C@_00A@?$AA@		; `string'
 	push	OFFSET FLAT:??_C@_0BK@BAFL@?$CIzwinsock?$CJ?5Listen?5stopped?$AA@ ; `string'
 	call	_TraceLineS@8
-$L61006:
+$L61007:
 
 ; 1396 : 
 ; 1397 :    return( 0 );
 
 	xor	ax, ax
-$L60988:
+$L60989:
 
 ; 1398 : 
 ; 1399 : } // zStopListen
@@ -4662,10 +4662,10 @@ _cHost$ = 20
 _pchHostAddress$ = 24
 _lpSockets$ = -4
 _nTraceLevel$ = -8
-_lpConn$61021 = -12
-_iLen$61024 = -20
-_pHost$61025 = -16
-_stRmtAddr$61026 = -36
+_lpConn$61022 = -12
+_iLen$61025 = -20
+_pHost$61026 = -16
+_stRmtAddr$61027 = -36
 _zNetGetHostAddress@20 PROC NEAR
 
 ; 1432 : {
@@ -4693,37 +4693,37 @@ _zNetGetHostAddress@20 PROC NEAR
 
 	movsx	eax, WORD PTR _nTraceLevel$[ebp]
 	cmp	eax, 1
-	jle	SHORT $L61018
+	jle	SHORT $L61019
 
 ; 1437 :       TraceLineS( "(zwinsock) Getting local host address.", "" );
 
 	push	OFFSET FLAT:??_C@_00A@?$AA@		; `string'
 	push	OFFSET FLAT:??_C@_0CH@OIJA@?$CIzwinsock?$CJ?5Getting?5local?5host?5ad@ ; `string'
 	call	_TraceLineS@8
-$L61018:
+$L61019:
 
 ; 1438 : 
 ; 1439 :    if ( ppvConnPtr && cHost == 'R' )
 
 	cmp	DWORD PTR _ppvConnPtr$[ebp], 0
-	je	$L61020
+	je	$L61021
 	movsx	ecx, BYTE PTR _cHost$[ebp]
 	cmp	ecx, 82					; 00000052H
-	jne	$L61020
+	jne	$L61021
 
 ; 1441 :       LPCONNECTION lpConn = (LPCONNECTION) *ppvConnPtr;
 
 	mov	edx, DWORD PTR _ppvConnPtr$[ebp]
 	mov	eax, DWORD PTR [edx]
-	mov	DWORD PTR _lpConn$61021[ebp], eax
+	mov	DWORD PTR _lpConn$61022[ebp], eax
 
 ; 1442 : 
 ; 1443 :       // Check to see if we've already retrieved the name of the client.
 ; 1444 :       if ( lpConn->pchPeerName == 0 )
 
-	mov	ecx, DWORD PTR _lpConn$61021[ebp]
+	mov	ecx, DWORD PTR _lpConn$61022[ebp]
 	cmp	DWORD PTR [ecx+12], 0
-	jne	$L61023
+	jne	$L61024
 
 ; 1446 :          socklen_t          iLen;
 ; 1447 :          PHOSTENT           pHost;
@@ -4732,20 +4732,20 @@ $L61018:
 ; 1450 :          // Get the host address of the client.
 ; 1451 :          iLen = sizeof( struct sockaddr );
 
-	mov	DWORD PTR _iLen$61024[ebp], 16		; 00000010H
+	mov	DWORD PTR _iLen$61025[ebp], 16		; 00000010H
 
 ; 1453 :                            &iLen ) == SOCKET_ERROR )
 
-	lea	edx, DWORD PTR _iLen$61024[ebp]
+	lea	edx, DWORD PTR _iLen$61025[ebp]
 	push	edx
-	lea	eax, DWORD PTR _stRmtAddr$61026[ebp]
+	lea	eax, DWORD PTR _stRmtAddr$61027[ebp]
 	push	eax
-	mov	ecx, DWORD PTR _lpConn$61021[ebp]
+	mov	ecx, DWORD PTR _lpConn$61022[ebp]
 	mov	edx, DWORD PTR [ecx]
 	push	edx
 	call	_getpeername@12
 	cmp	eax, -1
-	jne	SHORT $L61029
+	jne	SHORT $L61030
 
 ; 1455 :             SHOWERROR( "getpeername" );
 
@@ -4764,22 +4764,22 @@ $L61018:
 ; 1457 :             return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	$L61014
-$L61029:
+	jmp	$L61015
+$L61030:
 
 ; 1461 :                                 4, AF_INET );
 
 	push	2
 	push	4
-	lea	eax, DWORD PTR _stRmtAddr$61026[ebp+4]
+	lea	eax, DWORD PTR _stRmtAddr$61027[ebp+4]
 	push	eax
 	call	_gethostbyaddr@12
-	mov	DWORD PTR _pHost$61025[ebp], eax
+	mov	DWORD PTR _pHost$61026[ebp], eax
 
 ; 1462 :          if ( pHost == 0 )
 
-	cmp	DWORD PTR _pHost$61025[ebp], 0
-	jne	SHORT $L61033
+	cmp	DWORD PTR _pHost$61026[ebp], 0
+	jne	SHORT $L61034
 
 ; 1464 :             SHOWERROR( "gethostbyaddr" );
 
@@ -4798,14 +4798,14 @@ $L61029:
 ; 1466 :             return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	$L61014
-$L61033:
+	jmp	$L61015
+$L61034:
 
 ; 1468 : 
 ; 1469 :          // Set up peer name.
 ; 1470 :          lpConn->hPeerNameMem = (zLONG) malloc( zstrlen( pHost->h_name ) + 1 );
 
-	mov	ecx, DWORD PTR _pHost$61025[ebp]
+	mov	ecx, DWORD PTR _pHost$61026[ebp]
 	mov	edx, DWORD PTR [ecx]
 	push	edx
 	call	_strlen
@@ -4814,21 +4814,21 @@ $L61033:
 	push	eax
 	call	DWORD PTR __imp__malloc
 	add	esp, 4
-	mov	ecx, DWORD PTR _lpConn$61021[ebp]
+	mov	ecx, DWORD PTR _lpConn$61022[ebp]
 	mov	DWORD PTR [ecx+36], eax
 
 ; 1471 :          lpConn->pchPeerName = (zPCHAR) lpConn->hPeerNameMem;
 
-	mov	edx, DWORD PTR _lpConn$61021[ebp]
-	mov	eax, DWORD PTR _lpConn$61021[ebp]
+	mov	edx, DWORD PTR _lpConn$61022[ebp]
+	mov	eax, DWORD PTR _lpConn$61022[ebp]
 	mov	ecx, DWORD PTR [eax+36]
 	mov	DWORD PTR [edx+12], ecx
 
 ; 1472 :          if ( lpConn->pchPeerName == 0 )
 
-	mov	edx, DWORD PTR _lpConn$61021[ebp]
+	mov	edx, DWORD PTR _lpConn$61022[ebp]
 	cmp	DWORD PTR [edx+12], 0
-	jne	SHORT $L61038
+	jne	SHORT $L61039
 
 ; 1474 :             SysMessageBox( 0, szlErrorTitle, "Out of memory", -1 );
 
@@ -4841,26 +4841,26 @@ $L61033:
 ; 1475 :             return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	SHORT $L61014
-$L61038:
+	jmp	SHORT $L61015
+$L61039:
 
 ; 1477 : 
 ; 1478 :          zstrcpy( lpConn->pchPeerName, pHost->h_name );
 
-	mov	eax, DWORD PTR _pHost$61025[ebp]
+	mov	eax, DWORD PTR _pHost$61026[ebp]
 	mov	ecx, DWORD PTR [eax]
 	push	ecx
-	mov	edx, DWORD PTR _lpConn$61021[ebp]
+	mov	edx, DWORD PTR _lpConn$61022[ebp]
 	mov	eax, DWORD PTR [edx+12]
 	push	eax
 	call	_strcpy
 	add	esp, 8
-$L61023:
+$L61024:
 
 ; 1480 : 
 ; 1481 :       zstrcpy( pchHostAddress, lpConn->pchPeerName );
 
-	mov	ecx, DWORD PTR _lpConn$61021[ebp]
+	mov	ecx, DWORD PTR _lpConn$61022[ebp]
 	mov	edx, DWORD PTR [ecx+12]
 	push	edx
 	mov	eax, DWORD PTR _pchHostAddress$[ebp]
@@ -4870,8 +4870,8 @@ $L61023:
 
 ; 1483 :    else
 
-	jmp	SHORT $L61039
-$L61020:
+	jmp	SHORT $L61040
+$L61021:
 
 ; 1485 :       gethostname( pchHostAddress, 300 );
 
@@ -4879,14 +4879,14 @@ $L61020:
 	mov	ecx, DWORD PTR _pchHostAddress$[ebp]
 	push	ecx
 	call	_gethostname@8
-$L61039:
+$L61040:
 
 ; 1490 : 
 ; 1491 :    if ( nTraceLevel > 1 )
 
 	movsx	edx, WORD PTR _nTraceLevel$[ebp]
 	cmp	edx, 1
-	jle	SHORT $L61040
+	jle	SHORT $L61041
 
 ; 1492 :       TraceLineS( "(zwinsock) Local host address = ", pchHostAddress );
 
@@ -4894,13 +4894,13 @@ $L61039:
 	push	eax
 	push	OFFSET FLAT:??_C@_0CB@GPA@?$CIzwinsock?$CJ?5Local?5host?5address?5?$DN?5@ ; `string'
 	call	_TraceLineS@8
-$L61040:
+$L61041:
 
 ; 1493 : 
 ; 1494 :    return( 0 );
 
 	xor	ax, ax
-$L61014:
+$L61015:
 
 ; 1495 : 
 ; 1496 : } // zStopListen
@@ -4972,8 +4972,8 @@ _dummy1$ = -420
 _WSAData$ = -404
 _dummy2$ = -436
 _status$ = -424
-_szTemp$61053 = -516
-_szTemp$61065 = -596
+_szTemp$61054 = -516
+_szTemp$61066 = -596
 _zNetStart@8 PROC NEAR
 
 ; 1521 : {
@@ -5014,7 +5014,7 @@ _zNetStart@8 PROC NEAR
 	call	_WSAStartup@8
 	mov	DWORD PTR _status$[ebp], eax
 	cmp	DWORD PTR _status$[ebp], 0
-	je	SHORT $L61052
+	je	SHORT $L61053
 
 ; 1539 :       char szTemp[ 80 ];
 ; 1540 : 
@@ -5023,7 +5023,7 @@ _zNetStart@8 PROC NEAR
 	mov	eax, DWORD PTR _status$[ebp]
 	push	eax
 	push	OFFSET FLAT:??_C@_0CD@JNBC@Error?5loading?5starting?5WinSock?3?5@ ; `string'
-	lea	ecx, DWORD PTR _szTemp$61053[ebp]
+	lea	ecx, DWORD PTR _szTemp$61054[ebp]
 	push	ecx
 	call	DWORD PTR __imp__sprintf
 	add	esp, 12					; 0000000cH
@@ -5031,7 +5031,7 @@ _zNetStart@8 PROC NEAR
 ; 1542 :       SysMessageBox( 0, szlErrorTitle, szTemp, -1 );
 
 	push	-1
-	lea	edx, DWORD PTR _szTemp$61053[ebp]
+	lea	edx, DWORD PTR _szTemp$61054[ebp]
 	push	edx
 	push	OFFSET FLAT:?szlErrorTitle@@3PADA	; szlErrorTitle
 	push	0
@@ -5040,8 +5040,8 @@ _zNetStart@8 PROC NEAR
 ; 1543 :       return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	$L61045
-$L61052:
+	jmp	$L61046
+$L61053:
 
 ; 1545 : 
 ; 1546 : // TraceLineX( "(zwinsock) Task ID             = ", (zLONG) SysGetTaskID( ) );
@@ -5111,7 +5111,7 @@ $L61052:
 
 	mov	edx, DWORD PTR _ppHandle$[ebp]
 	cmp	DWORD PTR [edx], 0
-	jne	SHORT $L61064
+	jne	SHORT $L61065
 
 ; 1560 :       char szTemp[ 80 ];
 ; 1561 : 
@@ -5125,7 +5125,7 @@ $L61052:
 	mov	eax, DWORD PTR _pchNetworkName$[ebp]
 	push	eax
 	push	OFFSET FLAT:??_C@_0CE@PEIO@Out?5of?5memory?5starting?5network?5?8@ ; `string'
-	lea	ecx, DWORD PTR _szTemp$61065[ebp]
+	lea	ecx, DWORD PTR _szTemp$61066[ebp]
 	push	ecx
 	call	DWORD PTR __imp__wsprintfA
 	add	esp, 12					; 0000000cH
@@ -5133,7 +5133,7 @@ $L61052:
 ; 1565 :       SysMessageBox( 0, szlErrorTitle, szTemp, -1 );
 
 	push	-1
-	lea	edx, DWORD PTR _szTemp$61065[ebp]
+	lea	edx, DWORD PTR _szTemp$61066[ebp]
 	push	edx
 	push	OFFSET FLAT:?szlErrorTitle@@3PADA	; szlErrorTitle
 	push	0
@@ -5144,8 +5144,8 @@ $L61052:
 ; 1568 :       return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	SHORT $L61045
-$L61064:
+	jmp	SHORT $L61046
+$L61065:
 
 ; 1570 : 
 ; 1571 :    lpSockets = (LPSOCKETS) *ppHandle;
@@ -5178,7 +5178,7 @@ $L61064:
 ; 1576 :    return( 0 );
 
 	xor	ax, ax
-$L61045:
+$L61046:
 
 ; 1577 : 
 ; 1578 : } // zNetStart
@@ -5223,21 +5223,21 @@ _zNetClose@8 PROC NEAR
 	call	_NetGetTraceLevel@8
 	movsx	eax, ax
 	test	eax, eax
-	jle	SHORT $L61075
+	jle	SHORT $L61076
 
 ; 1602 :       TraceLineS( "(zwinsock) Shutting down network zWinSock", "" );
 
 	push	OFFSET FLAT:??_C@_00A@?$AA@		; `string'
 	push	OFFSET FLAT:??_C@_0CK@EMAI@?$CIzwinsock?$CJ?5Shutting?5down?5network@ ; `string'
 	call	_TraceLineS@8
-$L61075:
+$L61076:
 
 ; 1603 : 
 ; 1604 :    if ( lpSockets->sockListen != INVALID_SOCKET )
 
 	mov	ecx, DWORD PTR _lpSockets$[ebp]
 	cmp	DWORD PTR [ecx+64], -1
-	je	SHORT $L61078
+	je	SHORT $L61079
 
 ; 1605 :       zNetStopListen( lpView, ppHandle );
 
@@ -5246,7 +5246,7 @@ $L61075:
 	mov	eax, DWORD PTR _lpView$[ebp]
 	push	eax
 	call	_zNetStopListen@8
-$L61078:
+$L61079:
 
 ; 1606 : 
 ; 1607 : #if !defined(  __UNIX__ )
@@ -5362,8 +5362,8 @@ _FileData$ = -584
 _hFind$ = -264
 _vList$ = -588
 _szFileName$ = -260
-_szTimestamp$61102 = -640
-_lpTime$61103 = -656
+_szTimestamp$61103 = -640
+_lpTime$61104 = -656
 _GetDirectoryList@8 PROC NEAR
 
 ; 1679 : {
@@ -5381,7 +5381,7 @@ _GetDirectoryList@8 PROC NEAR
 
 	mov	eax, DWORD PTR _pvList$[ebp]
 	cmp	DWORD PTR [eax], 0
-	jne	SHORT $L61088
+	jne	SHORT $L61089
 
 ; 1687 :       SfActivateSysEmptyOI( pvList, "KZFXFERO", 0, zMULTIPLE | zLEVEL_SYSTEM );
 
@@ -5414,7 +5414,7 @@ _GetDirectoryList@8 PROC NEAR
 	mov	eax, DWORD PTR [edx]
 	push	eax
 	call	_SetAttributeFromAttribute@24
-$L61088:
+$L61089:
 
 ; 1692 : 
 ; 1693 :    vList = *pvList;  // Just so it's easier.
@@ -5461,15 +5461,15 @@ $L61088:
 ; 1700 :    if ( hFind != INVALID_HANDLE_VALUE )
 
 	cmp	DWORD PTR _hFind$[ebp], -1
-	je	$L61097
-$L61098:
+	je	$L61098
+$L61099:
 
 ; 1704 :          if ( ( FileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY ) == 0 )
 
 	mov	eax, DWORD PTR _FileData$[ebp]
 	and	eax, 16					; 00000010H
 	test	eax, eax
-	jne	$L61101
+	jne	$L61102
 
 ; 1706 :             zCHAR      szTimestamp[ 50 ];
 ; 1707 :             SYSTEMTIME lpTime;
@@ -5496,7 +5496,7 @@ $L61098:
 ; 1712 : 
 ; 1713 :             FileTimeToSystemTime( &FileData.ftLastWriteTime, &lpTime );
 
-	lea	ecx, DWORD PTR _lpTime$61103[ebp]
+	lea	ecx, DWORD PTR _lpTime$61104[ebp]
 	push	ecx
 	lea	edx, DWORD PTR _FileData$[ebp+20]
 	push	edx
@@ -5506,36 +5506,36 @@ $L61098:
 ; 1715 :                       lpTime.wYear, lpTime.wMonth, lpTime.wDay, lpTime.wHour,
 ; 1716 :                       lpTime.wMinute, lpTime.wSecond, lpTime.wMilliseconds );
 
-	mov	eax, DWORD PTR _lpTime$61103[ebp+14]
+	mov	eax, DWORD PTR _lpTime$61104[ebp+14]
 	and	eax, 65535				; 0000ffffH
 	push	eax
-	mov	ecx, DWORD PTR _lpTime$61103[ebp+12]
+	mov	ecx, DWORD PTR _lpTime$61104[ebp+12]
 	and	ecx, 65535				; 0000ffffH
 	push	ecx
-	mov	edx, DWORD PTR _lpTime$61103[ebp+10]
+	mov	edx, DWORD PTR _lpTime$61104[ebp+10]
 	and	edx, 65535				; 0000ffffH
 	push	edx
-	mov	eax, DWORD PTR _lpTime$61103[ebp+8]
+	mov	eax, DWORD PTR _lpTime$61104[ebp+8]
 	and	eax, 65535				; 0000ffffH
 	push	eax
-	mov	ecx, DWORD PTR _lpTime$61103[ebp+6]
+	mov	ecx, DWORD PTR _lpTime$61104[ebp+6]
 	and	ecx, 65535				; 0000ffffH
 	push	ecx
-	mov	edx, DWORD PTR _lpTime$61103[ebp+2]
+	mov	edx, DWORD PTR _lpTime$61104[ebp+2]
 	and	edx, 65535				; 0000ffffH
 	push	edx
-	mov	eax, DWORD PTR _lpTime$61103[ebp]
+	mov	eax, DWORD PTR _lpTime$61104[ebp]
 	and	eax, 65535				; 0000ffffH
 	push	eax
 	push	OFFSET FLAT:??_C@_0BJ@DKAG@?$CFd?$CF02d?$CF02d?$CF02d?$CF02d?$CF02d?$CFd?$AA@ ; `string'
-	lea	ecx, DWORD PTR _szTimestamp$61102[ebp]
+	lea	ecx, DWORD PTR _szTimestamp$61103[ebp]
 	push	ecx
 	call	DWORD PTR __imp__sprintf
 	add	esp, 36					; 00000024H
 
 ; 1717 :             SetAttributeFromString( vList, "File", "ModDate", szTimestamp );
 
-	lea	edx, DWORD PTR _szTimestamp$61102[ebp]
+	lea	edx, DWORD PTR _szTimestamp$61103[ebp]
 	push	edx
 	push	OFFSET FLAT:??_C@_07LNLK@ModDate?$AA@	; `string'
 	push	OFFSET FLAT:??_C@_04OJFH@File?$AA@	; `string'
@@ -5553,7 +5553,7 @@ $L61098:
 	mov	edx, DWORD PTR _vList$[ebp]
 	push	edx
 	call	_SetAttributeFromInteger@16
-$L61101:
+$L61102:
 
 ; 1721 : 
 ; 1722 :       } while ( FindNextFile( hFind, &FileData ) );
@@ -5564,7 +5564,7 @@ $L61101:
 	push	ecx
 	call	DWORD PTR __imp__FindNextFileA@8
 	test	eax, eax
-	jne	$L61098
+	jne	$L61099
 
 ; 1723 : 
 ; 1724 :       FindClose( hFind );
@@ -5572,7 +5572,7 @@ $L61101:
 	mov	edx, DWORD PTR _hFind$[ebp]
 	push	edx
 	call	DWORD PTR __imp__FindClose@4
-$L61097:
+$L61098:
 
 ; 1726 : 
 ; 1727 :    // Last thing...sort files by name so we can more quickly compare them.
@@ -5683,10 +5683,10 @@ _vServerList$ = -268
 _vAppList$ = -292
 _vClientList$ = -272
 _szFileName$ = -260
-_szTemp$61133 = -400
-_szServerFile$61143 = -920
-_szClientFile$61144 = -660
-_nCmprResult$61145 = -924
+_szTemp$61134 = -400
+_szServerFile$61144 = -920
+_szClientFile$61145 = -660
+_nCmprResult$61146 = -924
 _CompareFiles@4 PROC NEAR
 
 ; 1741 : {
@@ -5775,7 +5775,7 @@ _CompareFiles@4 PROC NEAR
 	call	_SetCursorFirstEntityByAttr@28
 	movsx	eax, ax
 	test	eax, eax
-	jge	SHORT $L61129
+	jge	SHORT $L61130
 
 ; 1767 :       SysMessageBox( *pvList, "Application Update Error",
 ; 1768 :                      "Error: Couldn't find application", 0 );
@@ -5791,8 +5791,8 @@ _CompareFiles@4 PROC NEAR
 ; 1769 :       return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	$L61112
-$L61129:
+	jmp	$L61113
+$L61130:
 
 ; 1771 : 
 ; 1772 :    // Get the list of executable files for the app server.
@@ -5809,13 +5809,13 @@ $L61129:
 ; 1774 :    if ( lMaxTotalFileSize == 0 )
 
 	cmp	DWORD PTR _?lMaxTotalFileSize@?1??CompareFiles@@9@4@4JA, 0
-	jne	SHORT $L61136
+	jne	SHORT $L61137
 
 ; 1776 :       zCHAR szTemp[ 100 ];
 ; 1777 : 
 ; 1778 :       SysReadZeidonIni( -1, szFileName, "MaxTotalFileSize", szTemp );
 
-	lea	edx, DWORD PTR _szTemp$61133[ebp]
+	lea	edx, DWORD PTR _szTemp$61134[ebp]
 	push	edx
 	push	OFFSET FLAT:??_C@_0BB@GEOD@MaxTotalFileSize?$AA@ ; `string'
 	lea	eax, DWORD PTR _szFileName$[ebp]
@@ -5825,29 +5825,29 @@ $L61129:
 
 ; 1779 :       if ( *szTemp )
 
-	movsx	ecx, BYTE PTR _szTemp$61133[ebp]
+	movsx	ecx, BYTE PTR _szTemp$61134[ebp]
 	test	ecx, ecx
-	je	SHORT $L61135
+	je	SHORT $L61136
 
 ; 1780 :          lMaxTotalFileSize = zatol( szTemp );
 
-	lea	edx, DWORD PTR _szTemp$61133[ebp]
+	lea	edx, DWORD PTR _szTemp$61134[ebp]
 	push	edx
 	call	DWORD PTR __imp__atol
 	add	esp, 4
 	mov	DWORD PTR _?lMaxTotalFileSize@?1??CompareFiles@@9@4@4JA, eax
-$L61135:
+$L61136:
 
 ; 1781 : 
 ; 1782 :       if ( lMaxTotalFileSize <= 0 )
 
 	cmp	DWORD PTR _?lMaxTotalFileSize@?1??CompareFiles@@9@4@4JA, 0
-	jg	SHORT $L61136
+	jg	SHORT $L61137
 
 ; 1783 :          lMaxTotalFileSize = 1000000;
 
 	mov	DWORD PTR _?lMaxTotalFileSize@?1??CompareFiles@@9@4@4JA, 1000000 ; 000f4240H
-$L61136:
+$L61137:
 
 ; 1785 : 
 ; 1786 :    TraceLineS( "Performing Application Update for app: ", szFileName );
@@ -5879,7 +5879,7 @@ $L61136:
 ; 1790 :    if ( vServerList == 0 )
 
 	cmp	DWORD PTR _vServerList$[ebp], 0
-	jne	SHORT $L61139
+	jne	SHORT $L61140
 
 ; 1792 :       GetDirectoryList( &vServerList, vAppList );
 
@@ -5898,7 +5898,7 @@ $L61136:
 	mov	ecx, DWORD PTR _vServerList$[ebp]
 	push	ecx
 	call	_SetNameForView@16
-$L61139:
+$L61140:
 
 ; 1795 : 
 ; 1796 :    GetStringFromAttribute( szFileName, vAppList, "APPLICATION", "APP_ADOBIN" );
@@ -5943,13 +5943,13 @@ $L61139:
 	push	ecx
 	call	_SetCursorFirstEntity@12
 	mov	WORD PTR _nServerRC$[ebp], ax
-$L61141:
+$L61142:
 
 ; 1802 :    while ( nServerRC >= zCURSOR_SET )
 
 	movsx	edx, WORD PTR _nServerRC$[ebp]
 	test	edx, edx
-	jl	$L61142
+	jl	$L61143
 
 ; 1804 :       zCHAR szServerFile[ zMAX_FILENAME_LTH + 1 ];
 ; 1805 :       zCHAR szClientFile[ zMAX_FILENAME_LTH + 1 ];
@@ -5959,7 +5959,7 @@ $L61141:
 
 	movsx	eax, WORD PTR _nClientRC$[ebp]
 	test	eax, eax
-	jl	SHORT $L61146
+	jl	SHORT $L61147
 
 ; 1810 :          GetStringFromAttribute( szServerFile, vServerList, "File", "FileName" );
 
@@ -5967,7 +5967,7 @@ $L61141:
 	push	OFFSET FLAT:??_C@_04OJFH@File?$AA@	; `string'
 	mov	ecx, DWORD PTR _vServerList$[ebp]
 	push	ecx
-	lea	edx, DWORD PTR _szServerFile$61143[ebp]
+	lea	edx, DWORD PTR _szServerFile$61144[ebp]
 	push	edx
 	call	_GetStringFromAttribute@16
 
@@ -5977,46 +5977,46 @@ $L61141:
 	push	OFFSET FLAT:??_C@_04OJFH@File?$AA@	; `string'
 	mov	eax, DWORD PTR _vClientList$[ebp]
 	push	eax
-	lea	ecx, DWORD PTR _szClientFile$61144[ebp]
+	lea	ecx, DWORD PTR _szClientFile$61145[ebp]
 	push	ecx
 	call	_GetStringFromAttribute@16
 
 ; 1812 : 
 ; 1813 :          nCmprResult = zstrcmpi( szServerFile, szClientFile );
 
-	lea	edx, DWORD PTR _szClientFile$61144[ebp]
+	lea	edx, DWORD PTR _szClientFile$61145[ebp]
 	push	edx
-	lea	eax, DWORD PTR _szServerFile$61143[ebp]
+	lea	eax, DWORD PTR _szServerFile$61144[ebp]
 	push	eax
 	call	DWORD PTR __imp___stricmp
 	add	esp, 8
-	mov	WORD PTR _nCmprResult$61145[ebp], ax
+	mov	WORD PTR _nCmprResult$61146[ebp], ax
 
 ; 1815 :       else
 
-	jmp	SHORT $L61147
-$L61146:
+	jmp	SHORT $L61148
+$L61147:
 
 ; 1816 :          nCmprResult = -1;
 
-	mov	WORD PTR _nCmprResult$61145[ebp], -1
-$L61147:
+	mov	WORD PTR _nCmprResult$61146[ebp], -1
+$L61148:
 
 ; 1817 : 
 ; 1818 :       if ( nCmprResult != 0 )
 
-	movsx	ecx, WORD PTR _nCmprResult$61145[ebp]
+	movsx	ecx, WORD PTR _nCmprResult$61146[ebp]
 	test	ecx, ecx
-	je	SHORT $L61148
+	je	SHORT $L61149
 
 ; 1820 :          // File names don't match.  Either a file exists on the server that
 ; 1821 :          // doesn't exist on the client or vice versa.  If the client file is
 ; 1822 :          // less than the server file then the file doesn't exist on the server.
 ; 1823 :          if ( nCmprResult > 0 )  // If client file is "lesser"
 
-	movsx	edx, WORD PTR _nCmprResult$61145[ebp]
+	movsx	edx, WORD PTR _nCmprResult$61146[ebp]
 	test	edx, edx
-	jle	SHORT $L61149
+	jle	SHORT $L61150
 
 ; 1825 :             nClientRC = SetCursorNextEntity( vClientList, "File", 0 );
 
@@ -6029,8 +6029,8 @@ $L61147:
 
 ; 1826 :             continue;
 
-	jmp	$L61141
-$L61149:
+	jmp	$L61142
+$L61150:
 
 ; 1828 : 
 ; 1829 :          // A file exists on the server that doesn't exist on the client.
@@ -6057,8 +6057,8 @@ $L61149:
 
 ; 1835 :       else
 
-	jmp	SHORT $L61152
-$L61148:
+	jmp	SHORT $L61153
+$L61149:
 
 ; 1837 :                                         vServerList, "File", "ModDate" ) == 0 )
 
@@ -6073,7 +6073,7 @@ $L61148:
 	call	_CompareAttributeToAttribute@24
 	movsx	eax, ax
 	test	eax, eax
-	jne	SHORT $L61152
+	jne	SHORT $L61153
 
 ; 1839 :          // File mod dates match so we don't have to do anything.  Go on to
 ; 1840 :          // next files.
@@ -6097,8 +6097,8 @@ $L61148:
 
 ; 1843 :          continue;
 
-	jmp	$L61141
-$L61152:
+	jmp	$L61142
+$L61153:
 
 ; 1845 : 
 ; 1846 :       // Keep track of the number of files we are downloading.
@@ -6175,7 +6175,7 @@ $L61152:
 
 	mov	eax, DWORD PTR _lTotalFileSize$[ebp]
 	cmp	eax, DWORD PTR _?lMaxTotalFileSize@?1??CompareFiles@@9@4@4JA
-	jle	SHORT $L61156
+	jle	SHORT $L61157
 
 ; 1861 :          nRC = 1;
 
@@ -6183,8 +6183,8 @@ $L61152:
 
 ; 1862 :          break;
 
-	jmp	SHORT $L61142
-$L61156:
+	jmp	SHORT $L61143
+$L61157:
 
 ; 1864 : 
 ; 1865 :       nClientRC = SetCursorNextEntity( vClientList, "File", 0 );
@@ -6207,8 +6207,8 @@ $L61156:
 
 ; 1867 :    }
 
-	jmp	$L61141
-$L61142:
+	jmp	$L61142
+$L61143:
 
 ; 1871 :                                          0 ) >= zCURSOR_SET )
 
@@ -6221,7 +6221,7 @@ $L61142:
 	call	_SetCursorFirstEntityByString@20
 	movsx	ecx, ax
 	test	ecx, ecx
-	jl	SHORT $L61159
+	jl	SHORT $L61160
 
 ; 1873 :       DeleteEntity( vClientList, "File", zREPOS_FIRST );
 
@@ -6233,14 +6233,14 @@ $L61142:
 
 ; 1874 :    }
 
-	jmp	SHORT $L61142
-$L61159:
+	jmp	SHORT $L61143
+$L61160:
 
 ; 1875 : 
 ; 1876 :    return( nRC );
 
 	mov	ax, WORD PTR _nRC$[ebp]
-$L61112:
+$L61113:
 
 ; 1877 : }
 
@@ -6353,8 +6353,8 @@ _vList$ = -276
 _vAppList$ = -284
 _szFileName$ = -260
 _pchAppName$ = -280
-_szSourceServer$61180 = -540
-_szFileDateTime$61193 = -580
+_szSourceServer$61181 = -540
+_szFileDateTime$61194 = -580
 _PerformApplicationUpdate@4 PROC NEAR
 
 ; 1892 : {
@@ -6422,18 +6422,18 @@ _PerformApplicationUpdate@4 PROC NEAR
 ; 1908 :          nRC >= zCURSOR_SET;
 ; 1909 :          nRC = SetCursorNextEntity( vAppList, "APPLICATION", 0 ) )
 
-	jmp	SHORT $L61177
-$L61178:
+	jmp	SHORT $L61178
+$L61179:
 	push	0
 	push	OFFSET FLAT:??_C@_0M@LKKI@APPLICATION?$AA@ ; `string'
 	mov	ecx, DWORD PTR _vAppList$[ebp]
 	push	ecx
 	call	_SetCursorNextEntity@12
 	mov	WORD PTR _nRC$[ebp], ax
-$L61177:
+$L61178:
 	movsx	edx, WORD PTR _nRC$[ebp]
 	test	edx, edx
-	jl	$L61179
+	jl	$L61180
 
 ; 1911 :       zCHAR szSourceServer[ 256 ];
 ; 1912 : 
@@ -6452,7 +6452,7 @@ $L61177:
 ; 1916 :       // then skip it.
 ; 1917 :       SysReadZeidonIni( -1, pchAppName, "SourceServer", szSourceServer );
 
-	lea	edx, DWORD PTR _szSourceServer$61180[ebp]
+	lea	edx, DWORD PTR _szSourceServer$61181[ebp]
 	push	edx
 	push	OFFSET FLAT:??_C@_0N@FJNC@SourceServer?$AA@ ; `string'
 	mov	eax, DWORD PTR _pchAppName$[ebp]
@@ -6462,14 +6462,14 @@ $L61177:
 
 ; 1918 :       if ( szSourceServer[ 0 ] == 0 )
 
-	movsx	ecx, BYTE PTR _szSourceServer$61180[ebp]
+	movsx	ecx, BYTE PTR _szSourceServer$61181[ebp]
 	test	ecx, ecx
-	jne	SHORT $L61182
+	jne	SHORT $L61183
 
 ; 1919 :          continue;
 
-	jmp	SHORT $L61178
-$L61182:
+	jmp	SHORT $L61179
+$L61183:
 
 ; 1920 : 
 ; 1921 :       TraceLineS( "Performing application update for app: ", pchAppName );
@@ -6478,7 +6478,7 @@ $L61182:
 	push	edx
 	push	OFFSET FLAT:??_C@_0CI@ECNA@Performing?5application?5update?5fo@ ; `string'
 	call	_TraceLineS@8
-$L61184:
+$L61185:
 
 ; 1928 :          vList = 0;
 
@@ -6507,7 +6507,7 @@ $L61184:
 	push	0
 	mov	ecx, DWORD PTR _vList$[ebp]
 	push	ecx
-	lea	edx, DWORD PTR _szSourceServer$61180[ebp]
+	lea	edx, DWORD PTR _szSourceServer$61181[ebp]
 	push	edx
 	push	OFFSET FLAT:??_C@_08GPBK@zWinSock?$AA@	; `string'
 	call	_NetCallOperation
@@ -6557,18 +6557,18 @@ $L61184:
 ; 1941 :                nRC >= zCURSOR_SET;
 ; 1942 :                nRC = SetCursorNextEntity( vList, "File", 0 ) )
 
-	jmp	SHORT $L61190
-$L61191:
+	jmp	SHORT $L61191
+$L61192:
 	push	0
 	push	OFFSET FLAT:??_C@_04OJFH@File?$AA@	; `string'
 	mov	edx, DWORD PTR _vList$[ebp]
 	push	edx
 	call	_SetCursorNextEntity@12
 	mov	WORD PTR _nRC$[ebp], ax
-$L61190:
+$L61191:
 	movsx	eax, WORD PTR _nRC$[ebp]
 	test	eax, eax
-	jl	$L61192
+	jl	$L61193
 
 ; 1944 :             zCHAR szFileDateTime[ 40 ];
 ; 1945 : 
@@ -6608,14 +6608,14 @@ $L61190:
 	push	OFFSET FLAT:??_C@_04OJFH@File?$AA@	; `string'
 	mov	ecx, DWORD PTR _vList$[ebp]
 	push	ecx
-	lea	edx, DWORD PTR _szFileDateTime$61193[ebp]
+	lea	edx, DWORD PTR _szFileDateTime$61194[ebp]
 	push	edx
 	call	_GetStringFromAttribute@16
 
 ; 1952 :             SysSetFileTime( szFileName, szFileDateTime, 0 );
 
 	push	0
-	lea	eax, DWORD PTR _szFileDateTime$61193[ebp]
+	lea	eax, DWORD PTR _szFileDateTime$61194[ebp]
 	push	eax
 	lea	ecx, DWORD PTR _szFileName$[ebp]
 	push	ecx
@@ -6623,8 +6623,8 @@ $L61190:
 
 ; 1953 :          }
 
-	jmp	$L61191
-$L61192:
+	jmp	$L61192
+$L61193:
 
 ; 1954 : 
 ; 1955 :          DropView( vList );
@@ -6638,13 +6638,13 @@ $L61192:
 
 	movsx	eax, WORD PTR _nMore$[ebp]
 	cmp	eax, 1
-	je	$L61184
+	je	$L61185
 
 ; 1958 : 
 ; 1959 :    } // For each APPLICATION...
 
-	jmp	$L61178
-$L61179:
+	jmp	$L61179
+$L61180:
 
 ; 1960 : 
 ; 1961 :    DropView( vAppList );

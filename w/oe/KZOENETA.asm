@@ -980,7 +980,7 @@ $L7725:
 	mov	edx, DWORD PTR _pchNetworkName$[ebp]
 	movsx	eax, BYTE PTR [edx]
 	cmp	ecx, eax
-	jne	SHORT $L10206
+	jne	SHORT $L10208
 	mov	ecx, DWORD PTR _pchNetworkName$[ebp]
 	push	ecx
 	mov	edx, DWORD PTR _lpNetwork$[ebp]
@@ -989,8 +989,8 @@ $L7725:
 	call	_strcmp
 	add	esp, 8
 	mov	DWORD PTR -212+[ebp], eax
-	jmp	SHORT $L10207
-$L10206:
+	jmp	SHORT $L10209
+$L10208:
 	mov	eax, DWORD PTR _lpNetwork$[ebp]
 	movsx	ecx, BYTE PTR [eax+20]
 	mov	edx, DWORD PTR _pchNetworkName$[ebp]
@@ -1003,7 +1003,7 @@ $L10206:
 	and	edx, 2
 	add	edx, -1
 	mov	DWORD PTR -212+[ebp], edx
-$L10207:
+$L10209:
 	cmp	DWORD PTR -212+[ebp], 0
 	je	SHORT $L7732
 
@@ -3177,14 +3177,14 @@ _fnSendMsgAndTraceObj@12 PROC NEAR
 
 	movsx	eax, WORD PTR _nRC1$[ebp]
 	test	eax, eax
-	jne	SHORT $L10223
+	jne	SHORT $L10225
 	movsx	ecx, WORD PTR _nRC2$[ebp]
 	mov	DWORD PTR -12+[ebp], ecx
-	jmp	SHORT $L10224
-$L10223:
+	jmp	SHORT $L10226
+$L10225:
 	movsx	edx, WORD PTR _nRC1$[ebp]
 	mov	DWORD PTR -12+[ebp], edx
-$L10224:
+$L10226:
 	mov	ax, WORD PTR -12+[ebp]
 
 ; 887  : }
@@ -3243,7 +3243,7 @@ $L8007:
 	movsx	ecx, BYTE PTR [eax+14]
 	movsx	edx, BYTE PTR ??_C@_09IMGK@DBH_Error?$AA@
 	cmp	ecx, edx
-	jne	SHORT $L10226
+	jne	SHORT $L10228
 	push	OFFSET FLAT:??_C@_09IMGK@DBH_Error?$AA@	; `string'
 	mov	eax, DWORD PTR _lpViewEntity$[ebp]
 	add	eax, 14					; 0000000eH
@@ -3251,8 +3251,8 @@ $L8007:
 	call	_strcmp
 	add	esp, 8
 	mov	DWORD PTR -12+[ebp], eax
-	jmp	SHORT $L10227
-$L10226:
+	jmp	SHORT $L10229
+$L10228:
 	mov	ecx, DWORD PTR _lpViewEntity$[ebp]
 	movsx	edx, BYTE PTR [ecx+14]
 	movsx	eax, BYTE PTR ??_C@_09IMGK@DBH_Error?$AA@
@@ -3264,7 +3264,7 @@ $L10226:
 	and	ecx, 2
 	add	ecx, -1
 	mov	DWORD PTR -12+[ebp], ecx
-$L10227:
+$L10229:
 	cmp	DWORD PTR -12+[ebp], 0
 	jne	SHORT $L8016
 
@@ -3907,14 +3907,14 @@ _fnRetrieveMsgAndTraceObj@12 PROC NEAR
 
 	movsx	eax, WORD PTR _nRC1$[ebp]
 	test	eax, eax
-	jne	SHORT $L10231
+	jne	SHORT $L10233
 	movsx	ecx, WORD PTR _nRC2$[ebp]
 	mov	DWORD PTR -12+[ebp], ecx
-	jmp	SHORT $L10232
-$L10231:
+	jmp	SHORT $L10234
+$L10233:
 	movsx	edx, WORD PTR _nRC1$[ebp]
 	mov	DWORD PTR -12+[ebp], edx
-$L10232:
+$L10234:
 	mov	ax, WORD PTR -12+[ebp]
 
 ; 1054 : }
@@ -4808,8 +4808,8 @@ $L8173:
 	ja	$L8198
 	mov	edx, DWORD PTR -228+[ebp]
 	xor	ecx, ecx
-	mov	cl, BYTE PTR $L10237[edx]
-	jmp	DWORD PTR $L10238[ecx*4]
+	mov	cl, BYTE PTR $L10239[edx]
+	jmp	DWORD PTR $L10240[ecx*4]
 $L8179:
 
 ; 1275 :       case zPACKET_ACK:
@@ -5130,13 +5130,13 @@ $L8145:
 	mov	esp, ebp
 	pop	ebp
 	ret	32					; 00000020H
-$L10238:
+$L10240:
 	DD	$L8193
 	DD	$L8184
 	DD	$L8179
 	DD	$L8183
 	DD	$L8198
-$L10237:
+$L10239:
 	DB	0
 	DB	4
 	DB	4
@@ -5418,17 +5418,17 @@ _lpfnCloseConn$ = -12612
 _lpfnGetAddress$ = -12632
 _lpfnSend$ = -264
 _lpfnReceive$ = -8508
-_szMsg$8251 = -13092
-_szMsg$8256 = -13292
-_szMsg$8261 = -13492
-_szMsg$8266 = -13692
-_szMsg$8271 = -13892
-_szMsg$8276 = -14092
-_szMsg$8281 = -14292
-_szMsg$8286 = -14492
-_szMsg$8291 = -14692
-_szMsg$8296 = -14892
-_szLocalName$8316 = -15192
+_szMsg$8252 = -13092
+_szMsg$8257 = -13292
+_szMsg$8262 = -13492
+_szMsg$8267 = -13692
+_szMsg$8272 = -13892
+_szMsg$8277 = -14092
+_szMsg$8282 = -14292
+_szMsg$8287 = -14492
+_szMsg$8292 = -14692
+_szMsg$8297 = -14892
+_szLocalName$8317 = -15192
 _NetStartup@12 PROC NEAR
 
 ; 1396 : {
@@ -5635,7 +5635,7 @@ $L8247:
 	call	DWORD PTR __imp__strchr
 	add	esp, 8
 	test	eax, eax
-	jne	SHORT $L8248
+	jne	SHORT $L8249
 
 ; 1464 :       SysGetLocalDirectory( szFileName );
 
@@ -5654,8 +5654,8 @@ $L8247:
 
 ; 1467 :    else
 
-	jmp	SHORT $L8249
-$L8248:
+	jmp	SHORT $L8250
+$L8249:
 
 ; 1468 :       zstrcpy( szFileName, pchExecutable );
 
@@ -5665,7 +5665,7 @@ $L8248:
 	push	edx
 	call	_strcpy
 	add	esp, 8
-$L8249:
+$L8250:
 
 ; 1469 : 
 ; 1470 :    // Try loading the library.
@@ -5681,7 +5681,7 @@ $L8249:
 ; 1472 :    if ( hLibrary == 0 )
 
 	cmp	DWORD PTR _hLibrary$[ebp], 0
-	jne	SHORT $L8250
+	jne	SHORT $L8251
 
 ; 1474 :       zCHAR szMsg[ 200 ];
 ; 1475 : 
@@ -5695,7 +5695,7 @@ $L8249:
 	mov	edx, DWORD PTR _pchExecutable$[ebp]
 	push	edx
 	push	OFFSET FLAT:??_C@_0BI@HHFA@Can?8t?5find?5library?5?8?$CFs?8?$AA@ ; `string'
-	lea	eax, DWORD PTR _szMsg$8251[ebp]
+	lea	eax, DWORD PTR _szMsg$8252[ebp]
 	push	eax
 	call	DWORD PTR __imp__sprintf
 	add	esp, 12					; 0000000cH
@@ -5703,7 +5703,7 @@ $L8249:
 ; 1478 :       SysMessageBox( lpTaskView, "Zeidon Network Error", szMsg, 1 );
 
 	push	1
-	lea	ecx, DWORD PTR _szMsg$8251[ebp]
+	lea	ecx, DWORD PTR _szMsg$8252[ebp]
 	push	ecx
 	push	OFFSET FLAT:??_C@_0BF@GLC@Zeidon?5Network?5Error?$AA@ ; `string'
 	mov	edx, DWORD PTR _lpTaskView$[ebp]
@@ -5722,7 +5722,7 @@ $L8249:
 
 	mov	ax, -16					; fffffff0H
 	jmp	$L8213
-$L8250:
+$L8251:
 
 ; 1482 : 
 ; 1483 :    // ===
@@ -5741,7 +5741,7 @@ $L8250:
 ; 1489 :    if ( lpfnInit == 0 )
 
 	cmp	DWORD PTR _lpfnInit$[ebp], 0
-	jne	SHORT $L8255
+	jne	SHORT $L8256
 
 ; 1491 :       zCHAR szMsg[ 200 ];
 ; 1492 : 
@@ -5756,7 +5756,7 @@ $L8250:
 	mov	edx, DWORD PTR _pchExecutable$[ebp]
 	push	edx
 	push	OFFSET FLAT:??_C@_0CP@LMKD@Can?8t?5find?5operation?5zNetStart?5i@ ; `string'
-	lea	eax, DWORD PTR _szMsg$8256[ebp]
+	lea	eax, DWORD PTR _szMsg$8257[ebp]
 	push	eax
 	call	DWORD PTR __imp__sprintf
 	add	esp, 12					; 0000000cH
@@ -5764,7 +5764,7 @@ $L8250:
 ; 1496 :       SysMessageBox( lpTaskView, "Zeidon Network Error", szMsg, 1 );
 
 	push	1
-	lea	ecx, DWORD PTR _szMsg$8256[ebp]
+	lea	ecx, DWORD PTR _szMsg$8257[ebp]
 	push	ecx
 	push	OFFSET FLAT:??_C@_0BF@GLC@Zeidon?5Network?5Error?$AA@ ; `string'
 	mov	edx, DWORD PTR _lpTaskView$[ebp]
@@ -5791,7 +5791,7 @@ $L8250:
 
 	mov	ax, -16					; fffffff0H
 	jmp	$L8213
-$L8255:
+$L8256:
 
 ; 1501 : 
 ; 1502 :    lpfnClose = (zLPFN_NETCLOSE) SysGetProc( hLibrary, "zNetClose" );
@@ -5805,7 +5805,7 @@ $L8255:
 ; 1503 :    if ( lpfnClose == 0 )
 
 	cmp	DWORD PTR _lpfnClose$[ebp], 0
-	jne	SHORT $L8260
+	jne	SHORT $L8261
 
 ; 1505 :       zCHAR szMsg[ 200 ];
 ; 1506 : 
@@ -5820,7 +5820,7 @@ $L8255:
 	mov	ecx, DWORD PTR _pchExecutable$[ebp]
 	push	ecx
 	push	OFFSET FLAT:??_C@_0CP@MPJH@Can?8t?5find?5operation?5zNetClose?5i@ ; `string'
-	lea	edx, DWORD PTR _szMsg$8261[ebp]
+	lea	edx, DWORD PTR _szMsg$8262[ebp]
 	push	edx
 	call	DWORD PTR __imp__sprintf
 	add	esp, 12					; 0000000cH
@@ -5828,7 +5828,7 @@ $L8255:
 ; 1510 :       SysMessageBox( lpTaskView, "Zeidon Network Error", szMsg, 1 );
 
 	push	1
-	lea	eax, DWORD PTR _szMsg$8261[ebp]
+	lea	eax, DWORD PTR _szMsg$8262[ebp]
 	push	eax
 	push	OFFSET FLAT:??_C@_0BF@GLC@Zeidon?5Network?5Error?$AA@ ; `string'
 	mov	ecx, DWORD PTR _lpTaskView$[ebp]
@@ -5855,7 +5855,7 @@ $L8255:
 
 	mov	ax, -16					; fffffff0H
 	jmp	$L8213
-$L8260:
+$L8261:
 
 ; 1515 : 
 ; 1516 :    lpfnListen = (zLPFN_NETLISTEN) SysGetProc( hLibrary, "zNetListen" );
@@ -5869,7 +5869,7 @@ $L8260:
 ; 1517 :    if ( lpfnListen == 0 )
 
 	cmp	DWORD PTR _lpfnListen$[ebp], 0
-	jne	SHORT $L8265
+	jne	SHORT $L8266
 
 ; 1519 :       zCHAR szMsg[ 200 ];
 ; 1520 : 
@@ -5884,7 +5884,7 @@ $L8260:
 	mov	eax, DWORD PTR _pchExecutable$[ebp]
 	push	eax
 	push	OFFSET FLAT:??_C@_0DA@JLPI@Can?8t?5find?5operation?5zNetListen?5@ ; `string'
-	lea	ecx, DWORD PTR _szMsg$8266[ebp]
+	lea	ecx, DWORD PTR _szMsg$8267[ebp]
 	push	ecx
 	call	DWORD PTR __imp__sprintf
 	add	esp, 12					; 0000000cH
@@ -5892,7 +5892,7 @@ $L8260:
 ; 1524 :       SysMessageBox( lpTaskView, "Zeidon Network Error", szMsg, 1 );
 
 	push	1
-	lea	edx, DWORD PTR _szMsg$8266[ebp]
+	lea	edx, DWORD PTR _szMsg$8267[ebp]
 	push	edx
 	push	OFFSET FLAT:??_C@_0BF@GLC@Zeidon?5Network?5Error?$AA@ ; `string'
 	mov	eax, DWORD PTR _lpTaskView$[ebp]
@@ -5919,7 +5919,7 @@ $L8260:
 
 	mov	ax, -16					; fffffff0H
 	jmp	$L8213
-$L8265:
+$L8266:
 
 ; 1529 : 
 ; 1530 :    lpfnStopListen = (zLPFN_NETCLOSE) SysGetProc( hLibrary, "zNetStopListen" );
@@ -5933,7 +5933,7 @@ $L8265:
 ; 1531 :    if ( lpfnStopListen == 0 )
 
 	cmp	DWORD PTR _lpfnStopListen$[ebp], 0
-	jne	SHORT $L8270
+	jne	SHORT $L8271
 
 ; 1533 :       zCHAR szMsg[ 200 ];
 ; 1534 : 
@@ -5948,7 +5948,7 @@ $L8265:
 	mov	edx, DWORD PTR _pchExecutable$[ebp]
 	push	edx
 	push	OFFSET FLAT:??_C@_0DE@GMNN@Can?8t?5find?5operation?5zNetStopLis@ ; `string'
-	lea	eax, DWORD PTR _szMsg$8271[ebp]
+	lea	eax, DWORD PTR _szMsg$8272[ebp]
 	push	eax
 	call	DWORD PTR __imp__sprintf
 	add	esp, 12					; 0000000cH
@@ -5956,7 +5956,7 @@ $L8265:
 ; 1538 :       SysMessageBox( lpTaskView, "Zeidon Network Error", szMsg, 1 );
 
 	push	1
-	lea	ecx, DWORD PTR _szMsg$8271[ebp]
+	lea	ecx, DWORD PTR _szMsg$8272[ebp]
 	push	ecx
 	push	OFFSET FLAT:??_C@_0BF@GLC@Zeidon?5Network?5Error?$AA@ ; `string'
 	mov	edx, DWORD PTR _lpTaskView$[ebp]
@@ -5983,7 +5983,7 @@ $L8265:
 
 	mov	ax, -16					; fffffff0H
 	jmp	$L8213
-$L8270:
+$L8271:
 
 ; 1543 : 
 ; 1544 :    lpfnOpenConn = (zLPFN_NETOPCONN) SysGetProc( hLibrary,
@@ -5998,7 +5998,7 @@ $L8270:
 ; 1546 :    if ( lpfnOpenConn == 0 )
 
 	cmp	DWORD PTR _lpfnOpenConn$[ebp], 0
-	jne	SHORT $L8275
+	jne	SHORT $L8276
 
 ; 1548 :       zCHAR szMsg[ 200 ];
 ; 1549 : 
@@ -6013,7 +6013,7 @@ $L8270:
 	mov	ecx, DWORD PTR _pchExecutable$[ebp]
 	push	ecx
 	push	OFFSET FLAT:??_C@_0DI@JOAI@Can?8t?5find?5operation?5zNetOpenCon@ ; `string'
-	lea	edx, DWORD PTR _szMsg$8276[ebp]
+	lea	edx, DWORD PTR _szMsg$8277[ebp]
 	push	edx
 	call	DWORD PTR __imp__sprintf
 	add	esp, 12					; 0000000cH
@@ -6021,7 +6021,7 @@ $L8270:
 ; 1553 :       SysMessageBox( lpTaskView, "Zeidon Network Error", szMsg, 1 );
 
 	push	1
-	lea	eax, DWORD PTR _szMsg$8276[ebp]
+	lea	eax, DWORD PTR _szMsg$8277[ebp]
 	push	eax
 	push	OFFSET FLAT:??_C@_0BF@GLC@Zeidon?5Network?5Error?$AA@ ; `string'
 	mov	ecx, DWORD PTR _lpTaskView$[ebp]
@@ -6048,7 +6048,7 @@ $L8270:
 
 	mov	ax, -16					; fffffff0H
 	jmp	$L8213
-$L8275:
+$L8276:
 
 ; 1558 : 
 ; 1559 :    lpfnCloseConn = (zLPFN_NETCLCONN) SysGetProc( hLibrary,
@@ -6063,7 +6063,7 @@ $L8275:
 ; 1561 :    if ( lpfnCloseConn == 0 )
 
 	cmp	DWORD PTR _lpfnCloseConn$[ebp], 0
-	jne	SHORT $L8280
+	jne	SHORT $L8281
 
 ; 1563 :       zCHAR szMsg[ 200 ];
 ; 1564 : 
@@ -6078,7 +6078,7 @@ $L8275:
 	mov	eax, DWORD PTR _pchExecutable$[ebp]
 	push	eax
 	push	OFFSET FLAT:??_C@_0DJ@MEBA@Can?8t?5find?5operation?5zNetCloseCo@ ; `string'
-	lea	ecx, DWORD PTR _szMsg$8281[ebp]
+	lea	ecx, DWORD PTR _szMsg$8282[ebp]
 	push	ecx
 	call	DWORD PTR __imp__sprintf
 	add	esp, 12					; 0000000cH
@@ -6086,7 +6086,7 @@ $L8275:
 ; 1568 :       SysMessageBox( lpTaskView, "Zeidon Network Error", szMsg, 1 );
 
 	push	1
-	lea	edx, DWORD PTR _szMsg$8281[ebp]
+	lea	edx, DWORD PTR _szMsg$8282[ebp]
 	push	edx
 	push	OFFSET FLAT:??_C@_0BF@GLC@Zeidon?5Network?5Error?$AA@ ; `string'
 	mov	eax, DWORD PTR _lpTaskView$[ebp]
@@ -6113,7 +6113,7 @@ $L8275:
 
 	mov	ax, -16					; fffffff0H
 	jmp	$L8213
-$L8280:
+$L8281:
 
 ; 1573 : 
 ; 1574 :    lpfnSend = (zLPFN_NETIO) SysGetProc( hLibrary, "zNetSend" );
@@ -6127,7 +6127,7 @@ $L8280:
 ; 1575 :    if ( lpfnSend == 0 )
 
 	cmp	DWORD PTR _lpfnSend$[ebp], 0
-	jne	SHORT $L8285
+	jne	SHORT $L8286
 
 ; 1577 :       zCHAR szMsg[ 200 ];
 ; 1578 : 
@@ -6142,7 +6142,7 @@ $L8280:
 	mov	edx, DWORD PTR _pchExecutable$[ebp]
 	push	edx
 	push	OFFSET FLAT:??_C@_0CO@NJIH@Can?8t?5find?5operation?5zNetSend?5in@ ; `string'
-	lea	eax, DWORD PTR _szMsg$8286[ebp]
+	lea	eax, DWORD PTR _szMsg$8287[ebp]
 	push	eax
 	call	DWORD PTR __imp__sprintf
 	add	esp, 12					; 0000000cH
@@ -6150,7 +6150,7 @@ $L8280:
 ; 1582 :       SysMessageBox( lpTaskView, "Zeidon Network Error", szMsg, 1 );
 
 	push	1
-	lea	ecx, DWORD PTR _szMsg$8286[ebp]
+	lea	ecx, DWORD PTR _szMsg$8287[ebp]
 	push	ecx
 	push	OFFSET FLAT:??_C@_0BF@GLC@Zeidon?5Network?5Error?$AA@ ; `string'
 	mov	edx, DWORD PTR _lpTaskView$[ebp]
@@ -6177,7 +6177,7 @@ $L8280:
 
 	mov	ax, -16					; fffffff0H
 	jmp	$L8213
-$L8285:
+$L8286:
 
 ; 1587 : 
 ; 1588 :    lpfnReceive = (zLPFN_NETIO) SysGetProc( hLibrary, "zNetReceive" );
@@ -6191,7 +6191,7 @@ $L8285:
 ; 1589 :    if ( lpfnReceive == 0 )
 
 	cmp	DWORD PTR _lpfnReceive$[ebp], 0
-	jne	SHORT $L8290
+	jne	SHORT $L8291
 
 ; 1591 :       zCHAR szMsg[ 200 ];
 ; 1592 : 
@@ -6206,7 +6206,7 @@ $L8285:
 	mov	ecx, DWORD PTR _pchExecutable$[ebp]
 	push	ecx
 	push	OFFSET FLAT:??_C@_0DC@FPPO@Cannot?5find?5operation?5zNetReceiv@ ; `string'
-	lea	edx, DWORD PTR _szMsg$8291[ebp]
+	lea	edx, DWORD PTR _szMsg$8292[ebp]
 	push	edx
 	call	DWORD PTR __imp__sprintf
 	add	esp, 12					; 0000000cH
@@ -6214,7 +6214,7 @@ $L8285:
 ; 1596 :       SysMessageBox( lpTaskView, "Zeidon Network Error", szMsg, 1 );
 
 	push	1
-	lea	eax, DWORD PTR _szMsg$8291[ebp]
+	lea	eax, DWORD PTR _szMsg$8292[ebp]
 	push	eax
 	push	OFFSET FLAT:??_C@_0BF@GLC@Zeidon?5Network?5Error?$AA@ ; `string'
 	mov	ecx, DWORD PTR _lpTaskView$[ebp]
@@ -6241,7 +6241,7 @@ $L8285:
 
 	mov	ax, -16					; fffffff0H
 	jmp	$L8213
-$L8290:
+$L8291:
 
 ; 1601 : 
 ; 1602 :    lpfnGetAddress = (zLPFN_NETGETADDR) SysGetProc( hLibrary, "zNetGetHostAddress" );
@@ -6255,7 +6255,7 @@ $L8290:
 ; 1603 :    if ( lpfnGetAddress == 0 )
 
 	cmp	DWORD PTR _lpfnGetAddress$[ebp], 0
-	jne	SHORT $L8295
+	jne	SHORT $L8296
 
 ; 1605 :       zCHAR szMsg[ 200 ];
 ; 1606 : 
@@ -6270,7 +6270,7 @@ $L8290:
 	mov	eax, DWORD PTR _pchExecutable$[ebp]
 	push	eax
 	push	OFFSET FLAT:??_C@_0DO@LNFB@Cannot?5find?5operation?5zNetGetLoc@ ; `string'
-	lea	ecx, DWORD PTR _szMsg$8296[ebp]
+	lea	ecx, DWORD PTR _szMsg$8297[ebp]
 	push	ecx
 	call	DWORD PTR __imp__sprintf
 	add	esp, 12					; 0000000cH
@@ -6278,7 +6278,7 @@ $L8290:
 ; 1610 :       SysMessageBox( lpTaskView, "Zeidon Network Error", szMsg, 1 );
 
 	push	1
-	lea	edx, DWORD PTR _szMsg$8296[ebp]
+	lea	edx, DWORD PTR _szMsg$8297[ebp]
 	push	edx
 	push	OFFSET FLAT:??_C@_0BF@GLC@Zeidon?5Network?5Error?$AA@ ; `string'
 	mov	eax, DWORD PTR _lpTaskView$[ebp]
@@ -6305,7 +6305,7 @@ $L8290:
 
 	mov	ax, -16					; fffffff0H
 	jmp	$L8213
-$L8295:
+$L8296:
 
 ; 1615 : 
 ; 1616 :    // We got here, so the DLL contains all the operations it needs, so
@@ -6326,7 +6326,7 @@ $L8295:
 	call	DWORD PTR _lpfnInit$[ebp]
 	movsx	ecx, ax
 	test	ecx, ecx
-	je	SHORT $L8299
+	je	SHORT $L8300
 
 ; 1621 :       zUNLOCK_MUTEX( zMUTEX_NETWORKCHAIN );
 
@@ -6353,7 +6353,7 @@ $L8295:
 
 	mov	ax, -16					; fffffff0H
 	jmp	$L8213
-$L8299:
+$L8300:
 
 ; 1626 : 
 ; 1627 :    // If we get here then we're in business.  Create the network buffer and
@@ -6383,7 +6383,7 @@ $L8299:
 ; 1633 :    if ( lpNetwork == 0 )
 
 	cmp	DWORD PTR _lpNetwork$[ebp], 0
-	jne	SHORT $L8304
+	jne	SHORT $L8305
 
 ; 1635 :       zUNLOCK_MUTEX( zMUTEX_NETWORKCHAIN );
 
@@ -6411,7 +6411,7 @@ $L8299:
 
 	mov	ax, -16					; fffffff0H
 	jmp	$L8213
-$L8304:
+$L8305:
 
 ; 1640 : 
 ; 1641 :    zmemset( lpNetwork, 0, sizeof( NetworkRecord ) );
@@ -6667,13 +6667,13 @@ $L8304:
 	mov	edx, DWORD PTR _lpNetwork$[ebp]
 	movsx	eax, WORD PTR [edx+140]
 	test	eax, eax
-	jle	SHORT $L8315
+	jle	SHORT $L8316
 
 ; 1706 :       zCHAR szLocalName[ 300 ];
 ; 1707 : 
 ; 1708 :       NetGetLocalHostAddress( lpTaskView, pchNetworkName, szLocalName );
 
-	lea	ecx, DWORD PTR _szLocalName$8316[ebp]
+	lea	ecx, DWORD PTR _szLocalName$8317[ebp]
 	push	ecx
 	mov	edx, DWORD PTR _pchNetworkName$[ebp]
 	push	edx
@@ -6683,11 +6683,11 @@ $L8304:
 
 ; 1709 :       TraceLineS( "(kzoeneta) ** Local host address = ", szLocalName );
 
-	lea	ecx, DWORD PTR _szLocalName$8316[ebp]
+	lea	ecx, DWORD PTR _szLocalName$8317[ebp]
 	push	ecx
 	push	OFFSET FLAT:??_C@_0CE@FAEG@?$CIkzoeneta?$CJ?5?$CK?$CK?5Local?5host?5address@ ; `string'
 	call	_TraceLineS@8
-$L8315:
+$L8316:
 
 ; 1711 : 
 ; 1712 :    //
@@ -6708,7 +6708,7 @@ $L8315:
 
 	movsx	ecx, BYTE PTR _szServerDirApp$[ebp]
 	test	ecx, ecx
-	jne	SHORT $L8319
+	jne	SHORT $L8320
 
 ; 1718 :       strcpy( szServerDirApp, "zSimpDir" );
 
@@ -6717,7 +6717,7 @@ $L8315:
 	push	edx
 	call	_strcpy
 	add	esp, 8
-$L8319:
+$L8320:
 
 ; 1719 : 
 ; 1720 :    if ( zstrchr( szServerDirApp, cDirSep ) == 0 )
@@ -6729,7 +6729,7 @@ $L8319:
 	call	DWORD PTR __imp__strchr
 	add	esp, 8
 	test	eax, eax
-	jne	SHORT $L8321
+	jne	SHORT $L8323
 
 ; 1722 :       SysGetLocalDirectory( lpNetwork->szFileName );
 
@@ -6750,8 +6750,8 @@ $L8319:
 
 ; 1725 :    else
 
-	jmp	SHORT $L8322
-$L8321:
+	jmp	SHORT $L8324
+$L8323:
 
 ; 1726 :       zstrcpy( lpNetwork->szFileName, szServerDirApp );
 
@@ -6762,7 +6762,7 @@ $L8321:
 	push	eax
 	call	_strcpy
 	add	esp, 8
-$L8322:
+$L8324:
 
 ; 1727 : 
 ; 1728 :    // Try loading the library.
@@ -6780,7 +6780,7 @@ $L8322:
 	add	esp, 8
 	movsx	ecx, ax
 	test	ecx, ecx
-	jne	SHORT $L8325
+	jne	SHORT $L8327
 
 ; 1732 :       (*lpNetwork->lpfnServDirInit)( lpTask, pchNetworkName,
 ; 1733 :                                      &lpNetwork->pvServDirData, 0 );
@@ -6798,8 +6798,8 @@ $L8322:
 
 ; 1735 :    else
 
-	jmp	SHORT $L8326
-$L8325:
+	jmp	SHORT $L8328
+$L8327:
 
 ; 1737 :       NetClose( lpTaskView, pchNetworkName );
 
@@ -6821,7 +6821,7 @@ $L8325:
 
 	mov	ax, -16					; fffffff0H
 	jmp	SHORT $L8213
-$L8326:
+$L8328:
 
 ; 1741 : 
 ; 1742 :    fnOperationReturn( iNetStartup, lpTask );
@@ -6870,7 +6870,7 @@ _lpNetwork$ = -20
 _lpLibrary$ = -24
 _lProcessID$ = -4
 _nRC$ = -12
-_lpNetConn$8348 = -36
+_lpNetConn$8350 = -36
 _NetClose@8 PROC NEAR
 
 ; 1770 : {
@@ -6917,13 +6917,13 @@ _NetClose@8 PROC NEAR
 	add	esp, 12					; 0000000cH
 	mov	DWORD PTR _lpTask$[ebp], eax
 	cmp	DWORD PTR _lpTask$[ebp], 0
-	jne	SHORT $L8342
+	jne	SHORT $L8344
 
 ; 1785 :       return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	$L8331
-$L8342:
+	jmp	$L8333
+$L8344:
 
 ; 1787 : 
 ; 1788 :    zLOCK_MUTEX( zMUTEX_NETWORKCHAIN );
@@ -6942,7 +6942,7 @@ $L8342:
 	call	_fnFindNetwork@12
 	mov	DWORD PTR _lpNetwork$[ebp], eax
 	cmp	DWORD PTR _lpNetwork$[ebp], 0
-	jne	SHORT $L8343
+	jne	SHORT $L8345
 
 ; 1792 :       fnOperationReturn( iNetClose, lpTask );
 
@@ -6955,8 +6955,8 @@ $L8342:
 ; 1793 :       return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	$L8331
-$L8343:
+	jmp	$L8333
+$L8345:
 
 ; 1795 : 
 ; 1796 :    if ( lpNetwork->bListen &&
@@ -6966,7 +6966,7 @@ $L8343:
 	mov	edx, DWORD PTR [ecx+154]
 	and	edx, 1
 	test	edx, edx
-	je	SHORT $L8344
+	je	SHORT $L8346
 	mov	eax, DWORD PTR _lpNetwork$[ebp]
 	add	eax, 20					; 00000014H
 	push	eax
@@ -6975,13 +6975,13 @@ $L8343:
 	call	_NetStopListen@8
 	movsx	edx, ax
 	cmp	edx, -16				; fffffff0H
-	jne	SHORT $L8344
+	jne	SHORT $L8346
 
 ; 1799 :       // Error trying to stop a listen, but we keep trying to close the network.
 ; 1800 :       nRC = zCALL_ERROR;
 
 	mov	WORD PTR _nRC$[ebp], -16		; fffffff0H
-$L8344:
+$L8346:
 
 ; 1802 : 
 ; 1803 :    // Try closing any open connections.
@@ -6989,7 +6989,7 @@ $L8344:
 
 	mov	eax, DWORD PTR _lpNetwork$[ebp]
 	cmp	DWORD PTR [eax+150], 0
-	je	SHORT $L8347
+	je	SHORT $L8349
 
 ; 1806 :       LPNETCONN lpNetConn = zGETPTR( lpNetwork->hFirstNetConn );
 
@@ -6997,7 +6997,7 @@ $L8344:
 	mov	edx, DWORD PTR [ecx+150]
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpNetConn$8348[ebp], eax
+	mov	DWORD PTR _lpNetConn$8350[ebp], eax
 
 ; 1807 : 
 ; 1808 :       fnRemoveConnectionFromNetwork( lpNetwork,
@@ -7005,7 +7005,7 @@ $L8344:
 ; 1810 :                                      TRUE );
 
 	push	1
-	mov	eax, DWORD PTR _lpNetConn$8348[ebp]
+	mov	eax, DWORD PTR _lpNetConn$8350[ebp]
 	mov	ecx, DWORD PTR [eax]
 	push	ecx
 	mov	edx, DWORD PTR _lpNetwork$[ebp]
@@ -7014,8 +7014,8 @@ $L8344:
 
 ; 1811 :    }
 
-	jmp	SHORT $L8344
-$L8347:
+	jmp	SHORT $L8346
+$L8349:
 
 ; 1812 : 
 ; 1813 :    lProcessID = SysGetProcessID( 0 );
@@ -7038,7 +7038,7 @@ $L8347:
 
 	mov	eax, DWORD PTR _lpNetwork$[ebp]
 	cmp	DWORD PTR [eax+214], 0
-	je	SHORT $L8350
+	je	SHORT $L8352
 	mov	ecx, DWORD PTR _lpNetwork$[ebp]
 	push	ecx
 	mov	edx, DWORD PTR _lpTask$[ebp]
@@ -7047,7 +7047,7 @@ $L8347:
 	add	esp, 8
 	movsx	eax, ax
 	test	eax, eax
-	jne	SHORT $L8350
+	jne	SHORT $L8352
 	push	0
 	mov	ecx, DWORD PTR _lpNetwork$[ebp]
 	add	ecx, 16					; 00000010H
@@ -7058,12 +7058,12 @@ $L8347:
 	call	DWORD PTR [eax+214]
 	movsx	ecx, ax
 	test	ecx, ecx
-	je	SHORT $L8350
+	je	SHORT $L8352
 
 ; 1826 :       nRC = zCALL_ERROR;
 
 	mov	WORD PTR _nRC$[ebp], -16		; fffffff0H
-$L8350:
+$L8352:
 
 ; 1828 : 
 ; 1829 :    if ( lpNetwork->nTraceLevel > 0 )
@@ -7071,7 +7071,7 @@ $L8350:
 	mov	edx, DWORD PTR _lpNetwork$[ebp]
 	movsx	eax, WORD PTR [edx+140]
 	test	eax, eax
-	jle	SHORT $L8351
+	jle	SHORT $L8353
 
 ; 1830 :       TraceLineS( "(kzoeneta) ** Closing network ", lpNetwork->szNetworkName );
 
@@ -7080,7 +7080,7 @@ $L8350:
 	push	ecx
 	push	OFFSET FLAT:??_C@_0BP@OPC@?$CIkzoeneta?$CJ?5?$CK?$CK?5Closing?5network?5?$AA@ ; `string'
 	call	_TraceLineS@8
-$L8351:
+$L8353:
 
 ; 1831 : 
 ; 1832 :    if ( lpNetwork->lpfnClose &&
@@ -7088,7 +7088,7 @@ $L8351:
 
 	mov	edx, DWORD PTR _lpNetwork$[ebp]
 	cmp	DWORD PTR [edx+158], 0
-	je	SHORT $L8353
+	je	SHORT $L8355
 	mov	eax, DWORD PTR _lpNetwork$[ebp]
 	add	eax, 12					; 0000000cH
 	push	eax
@@ -7098,19 +7098,19 @@ $L8351:
 	call	DWORD PTR [edx+158]
 	movsx	eax, ax
 	test	eax, eax
-	je	SHORT $L8353
+	je	SHORT $L8355
 
 ; 1835 :       nRC = zCALL_ERROR;
 
 	mov	WORD PTR _nRC$[ebp], -16		; fffffff0H
-$L8353:
+$L8355:
 
 ; 1837 : 
 ; 1838 :    if ( lpNetwork->hLibrary )
 
 	mov	ecx, DWORD PTR _lpNetwork$[ebp]
 	cmp	DWORD PTR [ecx+8], 0
-	je	SHORT $L8356
+	je	SHORT $L8358
 
 ; 1840 :       lpLibrary = zGETPTR( lpNetwork->hLibrary );
 
@@ -7125,7 +7125,7 @@ $L8353:
 	mov	ecx, DWORD PTR _lpLibrary$[ebp]
 	mov	edx, DWORD PTR _lProcessID$[ebp]
 	cmp	edx, DWORD PTR [ecx+271]
-	jne	SHORT $L8356
+	jne	SHORT $L8358
 
 ; 1842 :          SysFreeLibrary( lpTaskView, lpNetwork->hLibrary );
 
@@ -7135,7 +7135,7 @@ $L8353:
 	mov	edx, DWORD PTR _lpTaskView$[ebp]
 	push	edx
 	call	_SysFreeLibrary@8
-$L8356:
+$L8358:
 
 ; 1844 : 
 ; 1845 :    if ( lpNetwork->lpfnServDirClose &&
@@ -7144,7 +7144,7 @@ $L8356:
 
 	mov	eax, DWORD PTR _lpNetwork$[ebp]
 	cmp	DWORD PTR [eax+214], 0
-	je	SHORT $L8357
+	je	SHORT $L8359
 	push	0
 	mov	ecx, DWORD PTR _lpNetwork$[ebp]
 	add	ecx, 16					; 00000010H
@@ -7155,19 +7155,19 @@ $L8356:
 	call	DWORD PTR [eax+214]
 	movsx	ecx, ax
 	test	ecx, ecx
-	je	SHORT $L8357
+	je	SHORT $L8359
 
 ; 1849 :       nRC = zCALL_ERROR;
 
 	mov	WORD PTR _nRC$[ebp], -16		; fffffff0H
-$L8357:
+$L8359:
 
 ; 1851 : 
 ; 1852 :    if ( lpNetwork->hServDirLib )
 
 	mov	edx, DWORD PTR _lpNetwork$[ebp]
 	cmp	DWORD PTR [edx+206], 0
-	je	SHORT $L8358
+	je	SHORT $L8360
 
 ; 1854 :       SysFreeLibrary( lpTaskView, lpNetwork->hServDirLib );
 
@@ -7182,7 +7182,7 @@ $L8357:
 
 	mov	eax, DWORD PTR _lpNetwork$[ebp]
 	mov	DWORD PTR [eax+206], 0
-$L8358:
+$L8360:
 
 ; 1857 : 
 ; 1858 :    // Remove the network from the chain.
@@ -7199,17 +7199,17 @@ $L8358:
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _lpSrchNetwork$[ebp], eax
-	jmp	SHORT $L8361
-$L8362:
+	jmp	SHORT $L8363
+$L8364:
 	mov	eax, DWORD PTR _lpSrchNetwork$[ebp]
 	mov	ecx, DWORD PTR [eax]
 	push	ecx
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _lpSrchNetwork$[ebp], eax
-$L8361:
+$L8363:
 	mov	edx, DWORD PTR _lpSrchNetwork$[ebp]
 	cmp	edx, DWORD PTR _lpNetwork$[ebp]
-	je	SHORT $L8363
+	je	SHORT $L8365
 
 ; 1864 :       lpPrevNetwork = lpSrchNetwork;
 
@@ -7218,14 +7218,14 @@ $L8361:
 
 ; 1865 :    }
 
-	jmp	SHORT $L8362
-$L8363:
+	jmp	SHORT $L8364
+$L8365:
 
 ; 1866 : 
 ; 1867 :    if ( lpPrevNetwork )
 
 	cmp	DWORD PTR _lpPrevNetwork$[ebp], 0
-	je	SHORT $L8364
+	je	SHORT $L8366
 
 ; 1868 :       lpPrevNetwork->hNextNetwork = lpNetwork->hNextNetwork;
 
@@ -7236,8 +7236,8 @@ $L8363:
 
 ; 1869 :    else
 
-	jmp	SHORT $L8365
-$L8364:
+	jmp	SHORT $L8367
+$L8366:
 
 ; 1870 :       AnchorBlock->hFirstNetwork = lpNetwork->hNextNetwork;
 
@@ -7245,7 +7245,7 @@ $L8364:
 	mov	edx, DWORD PTR _lpNetwork$[ebp]
 	mov	eax, DWORD PTR [edx]
 	mov	DWORD PTR [ecx+122], eax
-$L8365:
+$L8367:
 
 ; 1871 : 
 ; 1872 :    zUNLOCK_MUTEX( zMUTEX_NETWORKCHAIN );
@@ -7273,7 +7273,7 @@ $L8365:
 ; 1877 :    return( nRC );
 
 	mov	ax, WORD PTR _nRC$[ebp]
-$L8331:
+$L8333:
 
 ; 1878 : 
 ; 1879 : } // NetClose
@@ -7335,13 +7335,13 @@ _NetListen@8 PROC NEAR
 	add	esp, 12					; 0000000cH
 	mov	DWORD PTR _lpTask$[ebp], eax
 	cmp	DWORD PTR _lpTask$[ebp], 0
-	jne	SHORT $L8374
+	jne	SHORT $L8376
 
 ; 1913 :       return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	$L8370
-$L8374:
+	jmp	$L8372
+$L8376:
 
 ; 1915 : 
 ; 1916 :    if ( (lpNetwork = fnFindNetwork( lpTask, pchNetworkName, TRUE )) == 0 )
@@ -7354,7 +7354,7 @@ $L8374:
 	call	_fnFindNetwork@12
 	mov	DWORD PTR _lpNetwork$[ebp], eax
 	cmp	DWORD PTR _lpNetwork$[ebp], 0
-	jne	SHORT $L8375
+	jne	SHORT $L8377
 
 ; 1918 :       fnOperationReturn( iNetListen, lpTask );
 
@@ -7367,8 +7367,8 @@ $L8374:
 ; 1919 :       return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	$L8370
-$L8375:
+	jmp	$L8372
+$L8377:
 
 ; 1921 : 
 ; 1922 :    if ( lpNetwork->nTraceLevel > 0 )
@@ -7376,7 +7376,7 @@ $L8375:
 	mov	ecx, DWORD PTR _lpNetwork$[ebp]
 	movsx	edx, WORD PTR [ecx+140]
 	test	edx, edx
-	jle	SHORT $L8376
+	jle	SHORT $L8378
 
 ; 1924 :       TraceLineS( "(kzoeneta) ** Starting NetListen for network ",
 ; 1925 :                   lpNetwork->szNetworkName );
@@ -7386,7 +7386,7 @@ $L8375:
 	push	eax
 	push	OFFSET FLAT:??_C@_0CO@EOKO@?$CIkzoeneta?$CJ?5?$CK?$CK?5Starting?5NetListen@ ; `string'
 	call	_TraceLineS@8
-$L8376:
+$L8378:
 
 ; 1927 : 
 ; 1928 :    if ( lpNetwork->bListen )
@@ -7395,7 +7395,7 @@ $L8376:
 	mov	edx, DWORD PTR [ecx+154]
 	and	edx, 1
 	test	edx, edx
-	je	SHORT $L8378
+	je	SHORT $L8380
 
 ; 1930 :       TraceLineS( "(kzoeneta) ** Network already listening!",
 ; 1931 :                   lpNetwork->szNetworkName );
@@ -7417,8 +7417,8 @@ $L8376:
 ; 1933 :       return( 0 );
 
 	xor	ax, ax
-	jmp	SHORT $L8370
-$L8378:
+	jmp	SHORT $L8372
+$L8380:
 
 ; 1935 : 
 ; 1936 :    if ( lpNetwork->nTraceLevel > 0 )
@@ -7426,7 +7426,7 @@ $L8378:
 	mov	edx, DWORD PTR _lpNetwork$[ebp]
 	movsx	eax, WORD PTR [edx+140]
 	test	eax, eax
-	jle	SHORT $L8380
+	jle	SHORT $L8382
 
 ; 1938 :       TraceLineS( "(kzoeneta) ** Starting listen for network ",
 ; 1939 :                   lpNetwork->szNetworkName );
@@ -7436,7 +7436,7 @@ $L8378:
 	push	ecx
 	push	OFFSET FLAT:??_C@_0CL@IJCC@?$CIkzoeneta?$CJ?5?$CK?$CK?5Starting?5listen?5fo@ ; `string'
 	call	_TraceLineS@8
-$L8380:
+$L8382:
 
 ; 1941 : 
 ; 1942 :    if ( (*lpNetwork->lpfnListen)( &lpNetwork->pNetworkHandle,
@@ -7452,7 +7452,7 @@ $L8380:
 	call	DWORD PTR [ecx+162]
 	movsx	edx, ax
 	test	edx, edx
-	je	SHORT $L8382
+	je	SHORT $L8384
 
 ; 1945 :       fnOperationReturn( iNetListen, lpTask );
 
@@ -7465,8 +7465,8 @@ $L8380:
 ; 1946 :       return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	SHORT $L8370
-$L8382:
+	jmp	SHORT $L8372
+$L8384:
 
 ; 1948 : 
 ; 1949 :    lpNetwork->bListen = TRUE;
@@ -7489,7 +7489,7 @@ $L8382:
 ; 1952 :    return( nRC );
 
 	mov	ax, WORD PTR _nRC$[ebp]
-$L8370:
+$L8372:
 
 ; 1953 : 
 ; 1954 : } // NetListen
@@ -7539,13 +7539,13 @@ _NetStopListen@8 PROC NEAR
 	add	esp, 12					; 0000000cH
 	mov	DWORD PTR _lpTask$[ebp], eax
 	cmp	DWORD PTR _lpTask$[ebp], 0
-	jne	SHORT $L8390
+	jne	SHORT $L8392
 
 ; 1984 :       return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	$L8387
-$L8390:
+	jmp	$L8389
+$L8392:
 
 ; 1986 : 
 ; 1987 :    if ( (lpNetwork = fnFindNetwork( lpTask, pchNetworkName, TRUE )) == 0 )
@@ -7558,7 +7558,7 @@ $L8390:
 	call	_fnFindNetwork@12
 	mov	DWORD PTR _lpNetwork$[ebp], eax
 	cmp	DWORD PTR _lpNetwork$[ebp], 0
-	jne	SHORT $L8391
+	jne	SHORT $L8393
 
 ; 1989 :       fnOperationReturn( iNetStopListen, lpTask );
 
@@ -7571,8 +7571,8 @@ $L8390:
 ; 1990 :       return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	$L8387
-$L8391:
+	jmp	$L8389
+$L8393:
 
 ; 1992 : 
 ; 1993 :    if ( lpNetwork->nTraceLevel > 0 )
@@ -7580,7 +7580,7 @@ $L8391:
 	mov	ecx, DWORD PTR _lpNetwork$[ebp]
 	movsx	edx, WORD PTR [ecx+140]
 	test	edx, edx
-	jle	SHORT $L8392
+	jle	SHORT $L8394
 
 ; 1995 :       TraceLineS( "(kzoeneta) ** Stopping listen for network ",
 ; 1996 :                   lpNetwork->szNetworkName );
@@ -7590,7 +7590,7 @@ $L8391:
 	push	eax
 	push	OFFSET FLAT:??_C@_0CL@BKLL@?$CIkzoeneta?$CJ?5?$CK?$CK?5Stopping?5listen?5fo@ ; `string'
 	call	_TraceLineS@8
-$L8392:
+$L8394:
 
 ; 1998 : 
 ; 1999 :    if ( lpNetwork->bListen == FALSE )
@@ -7599,7 +7599,7 @@ $L8392:
 	mov	edx, DWORD PTR [ecx+154]
 	and	edx, 1
 	test	edx, edx
-	jne	SHORT $L8394
+	jne	SHORT $L8396
 
 ; 2001 :       TraceLineS( "(kzoeneta) ** Network not listening!",
 ; 2002 :                   lpNetwork->szNetworkName );
@@ -7621,8 +7621,8 @@ $L8392:
 ; 2004 :       return( 0 );
 
 	xor	ax, ax
-	jmp	SHORT $L8387
-$L8394:
+	jmp	SHORT $L8389
+$L8396:
 
 ; 2006 : 
 ; 2007 :    if ( (*lpNetwork->lpfnStopListen)( lpTaskView,
@@ -7637,7 +7637,7 @@ $L8394:
 	call	DWORD PTR [ecx+166]
 	movsx	edx, ax
 	test	edx, edx
-	je	SHORT $L8396
+	je	SHORT $L8398
 
 ; 2010 :       fnOperationReturn( iNetStopListen, lpTask );
 
@@ -7650,8 +7650,8 @@ $L8394:
 ; 2011 :       return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	SHORT $L8387
-$L8396:
+	jmp	SHORT $L8389
+$L8398:
 
 ; 2013 : 
 ; 2014 :    lpNetwork->bListen = FALSE;
@@ -7674,7 +7674,7 @@ $L8396:
 ; 2017 :    return( 0 );
 
 	xor	ax, ax
-$L8387:
+$L8389:
 
 ; 2018 : 
 ; 2019 : } // NetStopListen
@@ -7808,7 +7808,7 @@ _lPacketData$ = -4
 _lpNetwork$ = -28
 _vTrace$ = -24
 _nRC$ = -8
-_szDateTime$8432 = -48
+_szDateTime$8434 = -48
 _NetProcessMessage@12 PROC NEAR
 
 ; 2050 : {
@@ -7842,13 +7842,13 @@ _NetProcessMessage@12 PROC NEAR
 	add	esp, 12					; 0000000cH
 	mov	DWORD PTR _lpTask$[ebp], eax
 	cmp	DWORD PTR _lpTask$[ebp], 0
-	jne	SHORT $L8411
+	jne	SHORT $L8413
 
 ; 2062 :       return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	$L8403
-$L8411:
+	jmp	$L8405
+$L8413:
 
 ; 2064 : 
 ; 2065 :    TraceLineS( "(kzoeneta) ** Inside NetProcessMessage( ) network: ", pchNetworkName );
@@ -7880,7 +7880,7 @@ $L8411:
 	call	_fnFindNetwork@12
 	mov	DWORD PTR _lpNetwork$[ebp], eax
 	cmp	DWORD PTR _lpNetwork$[ebp], 0
-	jne	SHORT $L8413
+	jne	SHORT $L8415
 
 ; 2073 :       TraceLineS( "(kzoeneta) ** Cannot find network NetProcessMessage( ) network: ", pchNetworkName );
 
@@ -7908,8 +7908,8 @@ $L8411:
 ; 2076 :       return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	$L8403
-$L8413:
+	jmp	$L8405
+$L8415:
 
 ; 2078 : 
 ; 2079 :    // A connection should have been created and passed to us via ppvConn so
@@ -7941,7 +7941,7 @@ $L8413:
 	push	ecx
 	push	OFFSET FLAT:??_C@_0CM@CDA@?$CIkzoeneta?$CJ?5?$CK?$CK?5Received?5message?5f@ ; `string'
 	call	_TraceLineS@8
-$L8417:
+$L8419:
 
 ; 2087 : 
 ; 2088 :    // This seems to continue looping if the data packet if a TRACESWITCH or TIMESTAMP. Not really sure
@@ -7950,7 +7950,7 @@ $L8417:
 
 	mov	edx, 1
 	test	edx, edx
-	je	$L8418
+	je	$L8420
 
 ; 2092 :       if ( fnReceiveDataPacket( lpNetwork, ppvConn, &cPacketType,
 ; 2093 :                                 &lPacketData ) != 0 )
@@ -7966,7 +7966,7 @@ $L8417:
 	call	_fnReceiveDataPacket@16
 	movsx	ecx, ax
 	test	ecx, ecx
-	je	SHORT $L8419
+	je	SHORT $L8421
 
 ; 2095 :          TraceLineS( "(kzoeneta) ** Error receiving message!", "" );
 
@@ -7977,14 +7977,14 @@ $L8417:
 ; 2096 :          nRC = zCALL_ERROR;
 
 	mov	WORD PTR _nRC$[ebp], -16		; fffffff0H
-$L8419:
+$L8421:
 
 ; 2098 : 
 ; 2099 :       if ( cPacketType == zPACKET_TRACESWITCH )
 
 	movsx	edx, BYTE PTR _cPacketType$[ebp]
 	cmp	edx, 43					; 0000002bH
-	jne	SHORT $L8421
+	jne	SHORT $L8423
 
 ; 2101 :          if ( fnProcessTraceSwitches( lpNetwork, ppvConn, lpTask ) != 0 )
 
@@ -7997,7 +7997,7 @@ $L8419:
 	call	_fnProcessTraceSwitches@12
 	movsx	eax, ax
 	test	eax, eax
-	je	SHORT $L8422
+	je	SHORT $L8424
 
 ; 2103 :             TraceLineS( "(kzoeneta) ** Error receiving Trace Switches", "" );
 
@@ -8008,18 +8008,18 @@ $L8419:
 ; 2104 :             nRC = zCALL_ERROR;
 
 	mov	WORD PTR _nRC$[ebp], -16		; fffffff0H
-$L8422:
+$L8424:
 
 ; 2107 :       else
 
-	jmp	SHORT $L8426
-$L8421:
+	jmp	SHORT $L8428
+$L8423:
 
 ; 2108 :       if ( cPacketType == zPACKET_TIMESTAMP )
 
 	movsx	ecx, BYTE PTR _cPacketType$[ebp]
 	cmp	ecx, 84					; 00000054H
-	jne	SHORT $L8425
+	jne	SHORT $L8427
 
 ; 2110 :          fnProcessTimestamp( lpNetwork, ppvConn, lpTask );
 
@@ -8033,25 +8033,25 @@ $L8421:
 
 ; 2112 :       else
 
-	jmp	SHORT $L8426
-$L8425:
+	jmp	SHORT $L8428
+$L8427:
 
 ; 2113 :          break;
 
-	jmp	SHORT $L8418
-$L8426:
+	jmp	SHORT $L8420
+$L8428:
 
 ; 2114 :    }
 
-	jmp	$L8417
-$L8418:
+	jmp	$L8419
+$L8420:
 
 ; 2115 : 
 ; 2116 :    if ( nRC )
 
 	movsx	edx, WORD PTR _nRC$[ebp]
 	test	edx, edx
-	je	SHORT $L8427
+	je	SHORT $L8429
 
 ; 2118 :       TraceLineS( "(kzoeneta) ** Error ... removing connection from network!", "" );
 
@@ -8087,8 +8087,8 @@ $L8418:
 ; 2122 :       return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	$L8403
-$L8427:
+	jmp	$L8405
+$L8429:
 
 ; 2124 : 
 ; 2125 :    // Create Trace Object
@@ -8107,7 +8107,7 @@ $L8427:
 
 	movsx	edx, WORD PTR _nRC$[ebp]
 	test	edx, edx
-	jne	SHORT $L8429
+	jne	SHORT $L8431
 
 ; 2128 :       nRC = SetNameForView( vTrace, "KZTRACEO", lpTaskView, zLEVEL_TASK );
 
@@ -8119,14 +8119,14 @@ $L8427:
 	push	ecx
 	call	_SetNameForView@16
 	mov	WORD PTR _nRC$[ebp], ax
-$L8429:
+$L8431:
 
 ; 2129 : 
 ; 2130 :    if ( nRC == 0 )
 
 	movsx	edx, WORD PTR _nRC$[ebp]
 	test	edx, edx
-	jne	SHORT $L8430
+	jne	SHORT $L8432
 
 ; 2131 :       nRC = SfLockView( vTrace );
 
@@ -8134,14 +8134,14 @@ $L8429:
 	push	eax
 	call	_SfLockView@4
 	mov	WORD PTR _nRC$[ebp], ax
-$L8430:
+$L8432:
 
 ; 2132 : 
 ; 2133 :    if ( nRC == 0 )
 
 	movsx	ecx, WORD PTR _nRC$[ebp]
 	test	ecx, ecx
-	jne	SHORT $L8431
+	jne	SHORT $L8433
 
 ; 2135 :       zCHAR szDateTime[ 18 ];
 ; 2136 : 
@@ -8165,7 +8165,7 @@ $L8430:
 
 ; 2139 :       SysGetDateTime( szDateTime );  // DateTime yyyymmddhhmmssttt
 
-	lea	ecx, DWORD PTR _szDateTime$8432[ebp]
+	lea	ecx, DWORD PTR _szDateTime$8434[ebp]
 	push	ecx
 	call	_SysGetDateTime@4
 
@@ -8176,14 +8176,14 @@ $L8430:
 	push	OFFSET FLAT:??_C@_08GPOP@DateTime?$AA@	; `string'
 	push	17					; 00000011H
 	push	83					; 00000053H
-	lea	edx, DWORD PTR _szDateTime$8432[ebp]
+	lea	edx, DWORD PTR _szDateTime$8434[ebp]
 	push	edx
 	push	OFFSET FLAT:??_C@_0L@JJBL@TraceStart?$AA@ ; `string'
 	push	OFFSET FLAT:??_C@_05EMFM@Trace?$AA@	; `string'
 	mov	eax, DWORD PTR _vTrace$[ebp]
 	push	eax
 	call	_SetAttributeFromVariable@32
-$L8431:
+$L8433:
 
 ; 2143 : 
 ; 2144 :    switch ( cPacketType )
@@ -8195,12 +8195,12 @@ $L8431:
 	sub	edx, 67					; 00000043H
 	mov	DWORD PTR -52+[ebp], edx
 	cmp	DWORD PTR -52+[ebp], 48			; 00000030H
-	ja	SHORT $L8451
+	ja	SHORT $L8453
 	mov	ecx, DWORD PTR -52+[ebp]
 	xor	eax, eax
-	mov	al, BYTE PTR $L10245[ecx]
-	jmp	DWORD PTR $L10246[eax*4]
-$L8439:
+	mov	al, BYTE PTR $L10247[ecx]
+	jmp	DWORD PTR $L10248[eax*4]
+$L8441:
 
 ; 2146 :       case zPACKET_REQUESTOIFROMFILE:
 ; 2147 :          pchTemp = "Request OI From File";
@@ -8209,8 +8209,8 @@ $L8439:
 
 ; 2148 :          break;
 
-	jmp	SHORT $L8436
-$L8441:
+	jmp	SHORT $L8438
+$L8443:
 
 ; 2149 : 
 ; 2150 :       case zPACKET_REQUESTOI:
@@ -8220,8 +8220,8 @@ $L8441:
 
 ; 2152 :          break;
 
-	jmp	SHORT $L8436
-$L8443:
+	jmp	SHORT $L8438
+$L8445:
 
 ; 2153 : 
 ; 2154 :       case zPACKET_COMMITOITOFILE:
@@ -8231,8 +8231,8 @@ $L8443:
 
 ; 2156 :          break;
 
-	jmp	SHORT $L8436
-$L8445:
+	jmp	SHORT $L8438
+$L8447:
 
 ; 2157 : 
 ; 2158 :       case zPACKET_COMMITOI:
@@ -8242,8 +8242,8 @@ $L8445:
 
 ; 2160 :          break;
 
-	jmp	SHORT $L8436
-$L8447:
+	jmp	SHORT $L8438
+$L8449:
 
 ; 2161 : 
 ; 2162 :       case zPACKET_SENDFILE:
@@ -8253,8 +8253,8 @@ $L8447:
 
 ; 2164 :          break;
 
-	jmp	SHORT $L8436
-$L8449:
+	jmp	SHORT $L8438
+$L8451:
 
 ; 2165 : 
 ; 2166 :       case zPACKET_CALLOPERATION:
@@ -8264,15 +8264,15 @@ $L8449:
 
 ; 2168 :          break;
 
-	jmp	SHORT $L8436
-$L8451:
+	jmp	SHORT $L8438
+$L8453:
 
 ; 2169 : 
 ; 2170 :       default:
 ; 2171 :          pchTemp = "BAD_MESSAGE";
 
 	mov	DWORD PTR _pchTemp$[ebp], OFFSET FLAT:??_C@_0M@HADB@BAD_MESSAGE?$AA@ ; `string'
-$L8436:
+$L8438:
 
 ; 2174 : 
 ; 2175 :    TraceLineS( "(kzoeneta) ** Message Type == ", pchTemp );
@@ -8290,7 +8290,7 @@ $L8436:
 	call	__setjmp3
 	add	esp, 8
 	test	eax, eax
-	jne	$L8454
+	jne	$L8456
 
 ; 2179 :       // Check to see if the client requested an OI.
 ; 2180 :       switch ( cPacketType )
@@ -8302,12 +8302,12 @@ $L8436:
 	sub	ecx, 67					; 00000043H
 	mov	DWORD PTR -56+[ebp], ecx
 	cmp	DWORD PTR -56+[ebp], 48			; 00000030H
-	ja	$L8465
+	ja	$L8467
 	mov	eax, DWORD PTR -56+[ebp]
 	xor	edx, edx
-	mov	dl, BYTE PTR $L10247[eax]
-	jmp	DWORD PTR $L10248[edx*4]
-$L8459:
+	mov	dl, BYTE PTR $L10249[eax]
+	jmp	DWORD PTR $L10250[edx*4]
+$L8461:
 
 ; 2182 :          case zPACKET_REQUESTOIFROMFILE:
 ; 2183 :             nRC = fnProcessActivateOI_FromFile( lpNetwork, ppvConn );
@@ -8321,8 +8321,8 @@ $L8459:
 
 ; 2184 :             break;
 
-	jmp	$L8456
-$L8460:
+	jmp	$L8458
+$L8462:
 
 ; 2185 : 
 ; 2186 :          case zPACKET_REQUESTOI:
@@ -8339,8 +8339,8 @@ $L8460:
 
 ; 2188 :             break;
 
-	jmp	$L8456
-$L8461:
+	jmp	$L8458
+$L8463:
 
 ; 2189 : 
 ; 2190 :          case zPACKET_COMMITOITOFILE:
@@ -8355,8 +8355,8 @@ $L8461:
 
 ; 2192 :             break;
 
-	jmp	$L8456
-$L8462:
+	jmp	$L8458
+$L8464:
 
 ; 2193 : 
 ; 2194 :          case zPACKET_COMMITOI:
@@ -8373,8 +8373,8 @@ $L8462:
 
 ; 2196 :             break;
 
-	jmp	SHORT $L8456
-$L8463:
+	jmp	SHORT $L8458
+$L8465:
 
 ; 2197 : 
 ; 2198 :          case zPACKET_SENDFILE:
@@ -8391,8 +8391,8 @@ $L8463:
 
 ; 2200 :             break;
 
-	jmp	SHORT $L8456
-$L8464:
+	jmp	SHORT $L8458
+$L8466:
 
 ; 2201 : 
 ; 2202 :          case zPACKET_CALLOPERATION:
@@ -8409,8 +8409,8 @@ $L8464:
 
 ; 2204 :             break;
 
-	jmp	SHORT $L8456
-$L8465:
+	jmp	SHORT $L8458
+$L8467:
 
 ; 2205 : 
 ; 2206 :          default:
@@ -8437,20 +8437,20 @@ $L8465:
 	call	_fnSendDataPacket@16
 	movsx	edx, ax
 	test	edx, edx
-	je	SHORT $L8467
+	je	SHORT $L8469
 
 ; 2212 :                TraceLineS( "(kzoeneta) ** Error sending zPACKET_END", "" );
 
 	push	OFFSET FLAT:??_C@_00A@?$AA@		; `string'
 	push	OFFSET FLAT:??_C@_0CI@FBNM@?$CIkzoeneta?$CJ?5?$CK?$CK?5Error?5sending?5zPAC@ ; `string'
 	call	_TraceLineS@8
-$L8467:
-$L8456:
+$L8469:
+$L8458:
 
 ; 2218 :    else
 
-	jmp	SHORT $L8469
-$L8454:
+	jmp	SHORT $L8471
+$L8456:
 
 ; 2220 :       // We get here on a return from longjmp.
 ; 2221 :       // At that point, the system is highly instable (Out Of Memory).
@@ -8468,21 +8468,21 @@ $L8454:
 ; 2224 :       nRC = -1;
 
 	mov	WORD PTR _nRC$[ebp], -1
-$L8469:
+$L8471:
 
 ; 2226 : 
 ; 2227 :    // Delete Trace Object
 ; 2228 :    if ( vTrace )
 
 	cmp	DWORD PTR _vTrace$[ebp], 0
-	je	SHORT $L8470
+	je	SHORT $L8472
 
 ; 2229 :       DropObjectInstance( vTrace );
 
 	mov	edx, DWORD PTR _vTrace$[ebp]
 	push	edx
 	call	_DropObjectInstance@4
-$L8470:
+$L8472:
 
 ; 2230 : 
 ; 2231 :    // The connection should be closed as soon as we return soooo...
@@ -8527,7 +8527,7 @@ $L8470:
 ; 2239 :    return( nRC );
 
 	mov	ax, WORD PTR _nRC$[ebp]
-$L8403:
+$L8405:
 
 ; 2240 : 
 ; 2241 : } // NetProcessMessage
@@ -8535,15 +8535,15 @@ $L8403:
 	mov	esp, ebp
 	pop	ebp
 	ret	12					; 0000000cH
-$L10246:
-	DD	$L8445
-	DD	$L8439
-	DD	$L8449
-	DD	$L8441
-	DD	$L8443
+$L10248:
 	DD	$L8447
+	DD	$L8441
 	DD	$L8451
-$L10245:
+	DD	$L8443
+	DD	$L8445
+	DD	$L8449
+	DD	$L8453
+$L10247:
 	DB	0
 	DB	6
 	DB	6
@@ -8593,15 +8593,15 @@ $L10245:
 	DB	6
 	DB	6
 	DB	5
-$L10248:
-	DD	$L8462
-	DD	$L8459
+$L10250:
 	DD	$L8464
-	DD	$L8460
 	DD	$L8461
+	DD	$L8466
+	DD	$L8462
 	DD	$L8463
 	DD	$L8465
-$L10247:
+	DD	$L8467
+$L10249:
 	DB	0
 	DB	6
 	DB	6
@@ -8741,17 +8741,17 @@ _lpQualViewEntity$ = -24
 _lpQualViewEntityCsr$ = -12
 _lpSubQualViewEntity$ = -36
 _lpSubQualViewEntityCsr$ = -8
-_lpViewEntity$8494 = -80
-_lpSrcViewEntity$8496 = -172
-_lpViewAttrib$8497 = -124
-_lpViewEntityCsr$8498 = -176
-_lpTempViewEntityCsr$8499 = -168
-_lpSrcView$8500 = -120
-_szSrcViewName$8501 = -116
-_szTargetEntity$8502 = -164
-_szSourceEntity$8503 = -76
-_pchEntityName$8504 = -128
-_bFirstTime$8505 = -40
+_lpViewEntity$8496 = -80
+_lpSrcViewEntity$8498 = -172
+_lpViewAttrib$8499 = -124
+_lpViewEntityCsr$8500 = -176
+_lpTempViewEntityCsr$8501 = -168
+_lpSrcView$8502 = -120
+_szSrcViewName$8503 = -116
+_szTargetEntity$8504 = -164
+_szSourceEntity$8505 = -76
+_pchEntityName$8506 = -128
+_bFirstTime$8507 = -40
 _fnConvertIS_Clause@4 PROC NEAR
 
 ; 2267 : {
@@ -8848,16 +8848,16 @@ _fnConvertIS_Clause@4 PROC NEAR
 	push	eax
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _lpEntityInstance$[ebp], eax
-	jmp	SHORT $L8491
-$L8492:
+	jmp	SHORT $L8493
+$L8494:
 	mov	ecx, DWORD PTR _lpEntityInstance$[ebp]
 	mov	edx, DWORD PTR [ecx+14]
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _lpEntityInstance$[ebp], eax
-$L8491:
+$L8493:
 	cmp	DWORD PTR _lpEntityInstance$[ebp], 0
-	je	$L8493
+	je	$L8495
 
 ; 2295 :       LPVIEWENTITY    lpViewEntity = zGETPTR( lpEntityInstance->hViewEntity );
 
@@ -8865,7 +8865,7 @@ $L8491:
 	mov	ecx, DWORD PTR [eax+2]
 	push	ecx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpViewEntity$8494[ebp], eax
+	mov	DWORD PTR _lpViewEntity$8496[ebp], eax
 
 ; 2296 :       LPVIEWENTITY    lpSrcViewEntity;
 ; 2297 :       LPVIEWATTRIB    lpViewAttrib;
@@ -8881,40 +8881,40 @@ $L8491:
 ; 2307 :       // Find if the current EI is a QualAttrib or a SubQualAttrib.
 ; 2308 :       if ( lpViewEntity == lpQualViewEntity )
 
-	mov	edx, DWORD PTR _lpViewEntity$8494[ebp]
+	mov	edx, DWORD PTR _lpViewEntity$8496[ebp]
 	cmp	edx, DWORD PTR _lpQualViewEntity$[ebp]
-	jne	SHORT $L8506
+	jne	SHORT $L8508
 
 ; 2309 :          lpViewEntityCsr = lpQualViewEntityCsr;
 
 	mov	eax, DWORD PTR _lpQualViewEntityCsr$[ebp]
-	mov	DWORD PTR _lpViewEntityCsr$8498[ebp], eax
+	mov	DWORD PTR _lpViewEntityCsr$8500[ebp], eax
 
 ; 2310 :       else
 
-	jmp	SHORT $L8509
-$L8506:
+	jmp	SHORT $L8511
+$L8508:
 
 ; 2311 :       if ( lpViewEntity == lpSubQualViewEntity )
 
-	mov	ecx, DWORD PTR _lpViewEntity$8494[ebp]
+	mov	ecx, DWORD PTR _lpViewEntity$8496[ebp]
 	cmp	ecx, DWORD PTR _lpSubQualViewEntity$[ebp]
-	jne	SHORT $L8508
+	jne	SHORT $L8510
 
 ; 2312 :          lpViewEntityCsr = lpSubQualViewEntityCsr;
 
 	mov	edx, DWORD PTR _lpSubQualViewEntityCsr$[ebp]
-	mov	DWORD PTR _lpViewEntityCsr$8498[ebp], edx
+	mov	DWORD PTR _lpViewEntityCsr$8500[ebp], edx
 
 ; 2313 :       else
 
-	jmp	SHORT $L8509
-$L8508:
+	jmp	SHORT $L8511
+$L8510:
 
 ; 2314 :          continue;      // Skip non-QualAttrib entities.
 
-	jmp	SHORT $L8492
-$L8509:
+	jmp	SHORT $L8494
+$L8511:
 
 ; 2315 : 
 ; 2316 :       fnEstablishViewForInstance( lpNewQual, lpViewEntityCsr,
@@ -8922,7 +8922,7 @@ $L8509:
 
 	mov	eax, DWORD PTR _lpEntityInstance$[ebp]
 	push	eax
-	mov	ecx, DWORD PTR _lpViewEntityCsr$8498[ebp]
+	mov	ecx, DWORD PTR _lpViewEntityCsr$8500[ebp]
 	push	ecx
 	mov	edx, DWORD PTR _lpNewQual$[ebp]
 	push	edx
@@ -8932,9 +8932,9 @@ $L8509:
 ; 2318 : 
 ; 2319 :       pchEntityName = lpViewEntity->szName;
 
-	mov	eax, DWORD PTR _lpViewEntity$8494[ebp]
+	mov	eax, DWORD PTR _lpViewEntity$8496[ebp]
 	add	eax, 14					; 0000000eH
-	mov	DWORD PTR _pchEntityName$8504[ebp], eax
+	mov	DWORD PTR _pchEntityName$8506[ebp], eax
 
 ; 2320 : 
 ; 2321 :       // Skip over entities where the Oper is not "IS".
@@ -8943,19 +8943,19 @@ $L8509:
 
 	push	OFFSET FLAT:??_C@_02PKFC@IS?$AA@	; `string'
 	push	OFFSET FLAT:??_C@_04FKDH@Oper?$AA@	; `string'
-	mov	ecx, DWORD PTR _pchEntityName$8504[ebp]
+	mov	ecx, DWORD PTR _pchEntityName$8506[ebp]
 	push	ecx
 	mov	edx, DWORD PTR _lpNewQual$[ebp]
 	push	edx
 	call	_CompareAttributeToString@16
 	movsx	eax, ax
 	test	eax, eax
-	je	SHORT $L8510
+	je	SHORT $L8512
 
 ; 2325 :          continue;
 
-	jmp	$L8492
-$L8510:
+	jmp	$L8494
+$L8512:
 
 ; 2327 : 
 ; 2328 :       // Get the source view.entity and the target entity.
@@ -8963,61 +8963,61 @@ $L8510:
 ; 2330 :                               "SourceViewName" );
 
 	push	OFFSET FLAT:??_C@_0P@FPPG@SourceViewName?$AA@ ; `string'
-	mov	ecx, DWORD PTR _pchEntityName$8504[ebp]
+	mov	ecx, DWORD PTR _pchEntityName$8506[ebp]
 	push	ecx
 	mov	edx, DWORD PTR _lpNewQual$[ebp]
 	push	edx
-	lea	eax, DWORD PTR _szSrcViewName$8501[ebp]
+	lea	eax, DWORD PTR _szSrcViewName$8503[ebp]
 	push	eax
 	call	_GetStringFromAttribute@16
 
 ; 2331 :       if ( szSrcViewName && szSrcViewName[ 0 ] )
 
-	lea	ecx, DWORD PTR _szSrcViewName$8501[ebp]
+	lea	ecx, DWORD PTR _szSrcViewName$8503[ebp]
 	test	ecx, ecx
-	je	SHORT $L8514
-	movsx	edx, BYTE PTR _szSrcViewName$8501[ebp]
+	je	SHORT $L8516
+	movsx	edx, BYTE PTR _szSrcViewName$8503[ebp]
 	test	edx, edx
-	je	SHORT $L8514
+	je	SHORT $L8516
 
 ; 2332 :          GetViewByName( &lpSrcView, szSrcViewName, lpOrigQual, zLEVEL_TASK );
 
 	push	2
 	mov	eax, DWORD PTR _lpOrigQual$[ebp]
 	push	eax
-	lea	ecx, DWORD PTR _szSrcViewName$8501[ebp]
+	lea	ecx, DWORD PTR _szSrcViewName$8503[ebp]
 	push	ecx
-	lea	edx, DWORD PTR _lpSrcView$8500[ebp]
+	lea	edx, DWORD PTR _lpSrcView$8502[ebp]
 	push	edx
 	call	_GetViewByName@16
 
 ; 2333 :       else
 
-	jmp	SHORT $L8515
-$L8514:
+	jmp	SHORT $L8517
+$L8516:
 
 ; 2334 :          GetIntegerFromAttribute( (zPLONG) &lpSrcView, lpNewQual,
 ; 2335 :                                   pchEntityName, "SourceViewID" );
 
 	push	OFFSET FLAT:??_C@_0N@NIIK@SourceViewID?$AA@ ; `string'
-	mov	eax, DWORD PTR _pchEntityName$8504[ebp]
+	mov	eax, DWORD PTR _pchEntityName$8506[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _lpNewQual$[ebp]
 	push	ecx
-	lea	edx, DWORD PTR _lpSrcView$8500[ebp]
+	lea	edx, DWORD PTR _lpSrcView$8502[ebp]
 	push	edx
 	call	_GetIntegerFromAttribute@16
-$L8515:
+$L8517:
 
 ; 2336 :       GetStringFromAttribute( szSourceEntity, lpNewQual, pchEntityName,
 ; 2337 :                               "SourceEntityName" );
 
 	push	OFFSET FLAT:??_C@_0BB@CPOO@SourceEntityName?$AA@ ; `string'
-	mov	eax, DWORD PTR _pchEntityName$8504[ebp]
+	mov	eax, DWORD PTR _pchEntityName$8506[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _lpNewQual$[ebp]
 	push	ecx
-	lea	edx, DWORD PTR _szSourceEntity$8503[ebp]
+	lea	edx, DWORD PTR _szSourceEntity$8505[ebp]
 	push	edx
 	call	_GetStringFromAttribute@16
 
@@ -9025,11 +9025,11 @@ $L8515:
 ; 2339 :                               "EntityName" );
 
 	push	OFFSET FLAT:??_C@_0L@LOJF@EntityName?$AA@ ; `string'
-	mov	eax, DWORD PTR _pchEntityName$8504[ebp]
+	mov	eax, DWORD PTR _pchEntityName$8506[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _lpNewQual$[ebp]
 	push	ecx
-	lea	edx, DWORD PTR _szTargetEntity$8502[ebp]
+	lea	edx, DWORD PTR _szTargetEntity$8504[ebp]
 	push	edx
 	call	_GetStringFromAttribute@16
 
@@ -9041,7 +9041,7 @@ $L8515:
 
 	push	OFFSET FLAT:??_C@_01GFI@?$CI?$AA@	; `string'
 	push	OFFSET FLAT:??_C@_04FKDH@Oper?$AA@	; `string'
-	mov	eax, DWORD PTR _pchEntityName$8504[ebp]
+	mov	eax, DWORD PTR _pchEntityName$8506[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _lpNewQual$[ebp]
 	push	ecx
@@ -9051,7 +9051,7 @@ $L8515:
 
 	push	OFFSET FLAT:??_C@_00A@?$AA@		; `string'
 	push	OFFSET FLAT:??_C@_0P@FPPG@SourceViewName?$AA@ ; `string'
-	mov	edx, DWORD PTR _pchEntityName$8504[ebp]
+	mov	edx, DWORD PTR _pchEntityName$8506[ebp]
 	push	edx
 	mov	eax, DWORD PTR _lpNewQual$[ebp]
 	push	eax
@@ -9061,7 +9061,7 @@ $L8515:
 
 	push	OFFSET FLAT:??_C@_00A@?$AA@		; `string'
 	push	OFFSET FLAT:??_C@_0N@NIIK@SourceViewID?$AA@ ; `string'
-	mov	ecx, DWORD PTR _pchEntityName$8504[ebp]
+	mov	ecx, DWORD PTR _pchEntityName$8506[ebp]
 	push	ecx
 	mov	edx, DWORD PTR _lpNewQual$[ebp]
 	push	edx
@@ -9071,7 +9071,7 @@ $L8515:
 
 	push	OFFSET FLAT:??_C@_00A@?$AA@		; `string'
 	push	OFFSET FLAT:??_C@_0BB@CPOO@SourceEntityName?$AA@ ; `string'
-	mov	eax, DWORD PTR _pchEntityName$8504[ebp]
+	mov	eax, DWORD PTR _pchEntityName$8506[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _lpNewQual$[ebp]
 	push	ecx
@@ -9081,7 +9081,7 @@ $L8515:
 
 	push	OFFSET FLAT:??_C@_00A@?$AA@		; `string'
 	push	OFFSET FLAT:??_C@_0L@LOJF@EntityName?$AA@ ; `string'
-	mov	edx, DWORD PTR _pchEntityName$8504[ebp]
+	mov	edx, DWORD PTR _pchEntityName$8506[ebp]
 	push	edx
 	mov	eax, DWORD PTR _lpNewQual$[ebp]
 	push	eax
@@ -9093,75 +9093,75 @@ $L8515:
 ; 2352 :                                            lpSrcView, szSourceEntity, 0 );
 
 	push	0
-	lea	ecx, DWORD PTR _szSourceEntity$8503[ebp]
+	lea	ecx, DWORD PTR _szSourceEntity$8505[ebp]
 	push	ecx
-	mov	edx, DWORD PTR _lpSrcView$8500[ebp]
+	mov	edx, DWORD PTR _lpSrcView$8502[ebp]
 	push	edx
-	lea	eax, DWORD PTR _lpTempViewEntityCsr$8499[ebp]
+	lea	eax, DWORD PTR _lpTempViewEntityCsr$8501[ebp]
 	push	eax
 	call	_fnValidViewEntity@16
-	mov	DWORD PTR _lpSrcViewEntity$8496[ebp], eax
+	mov	DWORD PTR _lpSrcViewEntity$8498[ebp], eax
 
 ; 2353 :       bFirstTime = TRUE;
 
-	mov	BYTE PTR _bFirstTime$8505[ebp], 1
+	mov	BYTE PTR _bFirstTime$8507[ebp], 1
 
 ; 2354 :       for ( lpViewAttrib = zGETPTR( lpSrcViewEntity->hFirstOD_Attrib );
 ; 2355 :             lpViewAttrib;
 ; 2356 :             lpViewAttrib = zGETPTR( lpViewAttrib->hNextOD_Attrib ) )
 
-	mov	ecx, DWORD PTR _lpSrcViewEntity$8496[ebp]
+	mov	ecx, DWORD PTR _lpSrcViewEntity$8498[ebp]
 	mov	edx, DWORD PTR [ecx+179]
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpViewAttrib$8497[ebp], eax
-	jmp	SHORT $L8523
-$L8524:
-	mov	eax, DWORD PTR _lpViewAttrib$8497[ebp]
+	mov	DWORD PTR _lpViewAttrib$8499[ebp], eax
+	jmp	SHORT $L8525
+$L8526:
+	mov	eax, DWORD PTR _lpViewAttrib$8499[ebp]
 	mov	ecx, DWORD PTR [eax+2]
 	push	ecx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpViewAttrib$8497[ebp], eax
-$L8523:
-	cmp	DWORD PTR _lpViewAttrib$8497[ebp], 0
-	je	$L8525
+	mov	DWORD PTR _lpViewAttrib$8499[ebp], eax
+$L8525:
+	cmp	DWORD PTR _lpViewAttrib$8499[ebp], 0
+	je	$L8527
 
 ; 2358 :          if ( lpViewAttrib->bKey == FALSE )
 
-	mov	edx, DWORD PTR _lpViewAttrib$8497[ebp]
+	mov	edx, DWORD PTR _lpViewAttrib$8499[ebp]
 	mov	eax, DWORD PTR [edx+193]
 	shr	eax, 1
 	and	eax, 1
 	test	eax, eax
-	jne	SHORT $L8526
+	jne	SHORT $L8528
 
 ; 2359 :             continue;
 
-	jmp	SHORT $L8524
-$L8526:
+	jmp	SHORT $L8526
+$L8528:
 
 ; 2360 : 
 ; 2361 :          if ( bFirstTime )
 
-	mov	ecx, DWORD PTR _bFirstTime$8505[ebp]
+	mov	ecx, DWORD PTR _bFirstTime$8507[ebp]
 	and	ecx, 255				; 000000ffH
 	test	ecx, ecx
-	je	SHORT $L8527
+	je	SHORT $L8529
 
 ; 2362 :             bFirstTime = FALSE;
 
-	mov	BYTE PTR _bFirstTime$8505[ebp], 0
+	mov	BYTE PTR _bFirstTime$8507[ebp], 0
 
 ; 2363 :          else
 
-	jmp	SHORT $L8528
-$L8527:
+	jmp	SHORT $L8530
+$L8529:
 
 ; 2365 :             // Create the "AND" oper.
 ; 2366 :             CreateEntity( lpNewQual, pchEntityName, zPOS_NEXT );
 
 	push	3
-	mov	edx, DWORD PTR _pchEntityName$8504[ebp]
+	mov	edx, DWORD PTR _pchEntityName$8506[ebp]
 	push	edx
 	mov	eax, DWORD PTR _lpNewQual$[ebp]
 	push	eax
@@ -9171,19 +9171,19 @@ $L8527:
 
 	push	OFFSET FLAT:??_C@_03LACO@AND?$AA@	; `string'
 	push	OFFSET FLAT:??_C@_04FKDH@Oper?$AA@	; `string'
-	mov	ecx, DWORD PTR _pchEntityName$8504[ebp]
+	mov	ecx, DWORD PTR _pchEntityName$8506[ebp]
 	push	ecx
 	mov	edx, DWORD PTR _lpNewQual$[ebp]
 	push	edx
 	call	_SetAttributeFromString@16
-$L8528:
+$L8530:
 
 ; 2369 : 
 ; 2370 :          // Create the key compare.
 ; 2371 :          CreateEntity( lpNewQual, pchEntityName, zPOS_NEXT );
 
 	push	3
-	mov	eax, DWORD PTR _pchEntityName$8504[ebp]
+	mov	eax, DWORD PTR _pchEntityName$8506[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _lpNewQual$[ebp]
 	push	ecx
@@ -9192,10 +9192,10 @@ $L8528:
 ; 2372 :          SetAttributeFromString( lpNewQual, pchEntityName, "EntityName",
 ; 2373 :                                  szTargetEntity );
 
-	lea	edx, DWORD PTR _szTargetEntity$8502[ebp]
+	lea	edx, DWORD PTR _szTargetEntity$8504[ebp]
 	push	edx
 	push	OFFSET FLAT:??_C@_0L@LOJF@EntityName?$AA@ ; `string'
-	mov	eax, DWORD PTR _pchEntityName$8504[ebp]
+	mov	eax, DWORD PTR _pchEntityName$8506[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _lpNewQual$[ebp]
 	push	ecx
@@ -9204,11 +9204,11 @@ $L8528:
 ; 2374 :          SetAttributeFromString( lpNewQual, pchEntityName, "AttributeName",
 ; 2375 :                                  lpViewAttrib->szName );
 
-	mov	edx, DWORD PTR _lpViewAttrib$8497[ebp]
+	mov	edx, DWORD PTR _lpViewAttrib$8499[ebp]
 	add	edx, 10					; 0000000aH
 	push	edx
 	push	OFFSET FLAT:??_C@_0O@JICG@AttributeName?$AA@ ; `string'
-	mov	eax, DWORD PTR _pchEntityName$8504[ebp]
+	mov	eax, DWORD PTR _pchEntityName$8506[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _lpNewQual$[ebp]
 	push	ecx
@@ -9218,7 +9218,7 @@ $L8528:
 
 	push	OFFSET FLAT:??_C@_01KPOD@?$DN?$AA@	; `string'
 	push	OFFSET FLAT:??_C@_04FKDH@Oper?$AA@	; `string'
-	mov	edx, DWORD PTR _pchEntityName$8504[ebp]
+	mov	edx, DWORD PTR _pchEntityName$8506[ebp]
 	push	edx
 	mov	eax, DWORD PTR _lpNewQual$[ebp]
 	push	eax
@@ -9228,15 +9228,15 @@ $L8528:
 ; 2378 :                                     lpSrcView, szSourceEntity,
 ; 2379 :                                     lpViewAttrib->szName );
 
-	mov	ecx, DWORD PTR _lpViewAttrib$8497[ebp]
+	mov	ecx, DWORD PTR _lpViewAttrib$8499[ebp]
 	add	ecx, 10					; 0000000aH
 	push	ecx
-	lea	edx, DWORD PTR _szSourceEntity$8503[ebp]
+	lea	edx, DWORD PTR _szSourceEntity$8505[ebp]
 	push	edx
-	mov	eax, DWORD PTR _lpSrcView$8500[ebp]
+	mov	eax, DWORD PTR _lpSrcView$8502[ebp]
 	push	eax
 	push	OFFSET FLAT:??_C@_05KBGO@Value?$AA@	; `string'
-	mov	ecx, DWORD PTR _pchEntityName$8504[ebp]
+	mov	ecx, DWORD PTR _pchEntityName$8506[ebp]
 	push	ecx
 	mov	edx, DWORD PTR _lpNewQual$[ebp]
 	push	edx
@@ -9244,15 +9244,15 @@ $L8528:
 
 ; 2380 :       } // for ( lpViewAttrib )...
 
-	jmp	$L8524
-$L8525:
+	jmp	$L8526
+$L8527:
 
 ; 2381 : 
 ; 2382 :       // Create the closing paren.
 ; 2383 :       CreateEntity( lpNewQual, pchEntityName, zPOS_NEXT );
 
 	push	3
-	mov	eax, DWORD PTR _pchEntityName$8504[ebp]
+	mov	eax, DWORD PTR _pchEntityName$8506[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _lpNewQual$[ebp]
 	push	ecx
@@ -9262,7 +9262,7 @@ $L8525:
 
 	push	OFFSET FLAT:??_C@_01KMMP@?$CJ?$AA@	; `string'
 	push	OFFSET FLAT:??_C@_04FKDH@Oper?$AA@	; `string'
-	mov	edx, DWORD PTR _pchEntityName$8504[ebp]
+	mov	edx, DWORD PTR _pchEntityName$8506[ebp]
 	push	edx
 	mov	eax, DWORD PTR _lpNewQual$[ebp]
 	push	eax
@@ -9273,7 +9273,7 @@ $L8525:
 ; 2387 :       // the "IS" oper so set lpEntityInstance to skip over the new entities.
 ; 2388 :       lpEntityInstance = zGETPTR( lpViewEntityCsr->hEntityInstance );
 
-	mov	ecx, DWORD PTR _lpViewEntityCsr$8498[ebp]
+	mov	ecx, DWORD PTR _lpViewEntityCsr$8500[ebp]
 	mov	edx, DWORD PTR [ecx+26]
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
@@ -9282,8 +9282,8 @@ $L8525:
 ; 2389 : 
 ; 2390 :    } // for ( lpEntityInstance )...
 
-	jmp	$L8492
-$L8493:
+	jmp	$L8494
+$L8495:
 
 ; 2391 : 
 ; 2392 :    return( 0 );
@@ -9343,13 +9343,13 @@ _NetActivateOI@28 PROC NEAR
 	add	esp, 12					; 0000000cH
 	mov	DWORD PTR _lpTask$[ebp], eax
 	cmp	DWORD PTR _lpTask$[ebp], 0
-	jne	SHORT $L8556
+	jne	SHORT $L8558
 
 ; 2440 :       return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	$L8552
-$L8556:
+	jmp	$L8554
+$L8558:
 
 ; 2442 : 
 ; 2443 :    if ( (lpNetwork = fnFindNetwork( lpTask, pchNetworkName, TRUE )) == 0 )
@@ -9362,7 +9362,7 @@ $L8556:
 	call	_fnFindNetwork@12
 	mov	DWORD PTR _lpNetwork$[ebp], eax
 	cmp	DWORD PTR _lpNetwork$[ebp], 0
-	jne	SHORT $L8557
+	jne	SHORT $L8559
 
 ; 2445 :       fnOperationReturn( iNetActivateOI, lpTask );
 
@@ -9375,8 +9375,8 @@ $L8556:
 ; 2446 :       return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	$L8552
-$L8557:
+	jmp	$L8554
+$L8559:
 
 ; 2448 : 
 ; 2449 :    if ( lpNetwork->nTraceLevel > 0 )
@@ -9384,7 +9384,7 @@ $L8557:
 	mov	ecx, DWORD PTR _lpNetwork$[ebp]
 	movsx	edx, WORD PTR [ecx+140]
 	test	edx, edx
-	jle	SHORT $L8558
+	jle	SHORT $L8560
 
 ; 2451 :       TraceLine( "(kzoeneta) ** Starting activate for network: %s   OD Name: %s",
 ; 2452 :                  lpNetwork->szNetworkName, pchViewOD_Name );
@@ -9397,7 +9397,7 @@ $L8557:
 	push	OFFSET FLAT:??_C@_0DO@DJKH@?$CIkzoeneta?$CJ?5?$CK?$CK?5Starting?5activate?5@ ; `string'
 	call	_TraceLine
 	add	esp, 12					; 0000000cH
-$L8558:
+$L8560:
 
 ; 2454 : 
 ; 2455 :    // Check to see if the qualification object uses the "IS" clause.  If it
@@ -9406,7 +9406,7 @@ $L8558:
 ; 2458 :    if ( lpQualView )
 
 	cmp	DWORD PTR _lpQualView$[ebp], 0
-	je	SHORT $L8561
+	je	SHORT $L8563
 
 ; 2460 :       if ( fnConvertIS_Clause( &lpQualView ) == zCALL_ERROR )
 
@@ -9415,7 +9415,7 @@ $L8558:
 	call	_fnConvertIS_Clause@4
 	movsx	eax, ax
 	cmp	eax, -16				; fffffff0H
-	jne	SHORT $L8561
+	jne	SHORT $L8563
 
 ; 2462 :          fnOperationReturn( iNetActivateOI, lpTask );
 
@@ -9428,8 +9428,8 @@ $L8558:
 ; 2463 :          return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	SHORT $L8552
-$L8561:
+	jmp	SHORT $L8554
+$L8563:
 
 ; 2466 : 
 ; 2467 :    nRC = fnNetActivateOI( lpTask, lpNetwork, pchAddress, pvReturnView,
@@ -9460,14 +9460,14 @@ $L8561:
 ; 2472 :    if ( lpQualView )
 
 	cmp	DWORD PTR _lpQualView$[ebp], 0
-	je	SHORT $L8562
+	je	SHORT $L8564
 
 ; 2473 :       fnDropView( lpQualView );
 
 	mov	ecx, DWORD PTR _lpQualView$[ebp]
 	push	ecx
 	call	_fnDropView@4
-$L8562:
+$L8564:
 
 ; 2474 : 
 ; 2475 :    fnOperationReturn( iNetActivateOI, lpTask );
@@ -9481,7 +9481,7 @@ $L8562:
 ; 2476 :    return( nRC );
 
 	mov	ax, WORD PTR _nRC$[ebp]
-$L8552:
+$L8554:
 
 ; 2477 : 
 ; 2478 : } // NetActivateOI
@@ -9721,7 +9721,7 @@ _TEXT	SEGMENT
 _lpEntityInstance$ = 8
 _lHierCount$ = 12
 _lpNextTwin$ = -4
-_nLevel$8592 = -8
+_nLevel$8594 = -8
 _fnFindEntityInstanceByHierCount@8 PROC NEAR
 
 ; 2728 : {
@@ -9729,14 +9729,14 @@ _fnFindEntityInstanceByHierCount@8 PROC NEAR
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 8
-$L8586:
+$L8588:
 
 ; 2729 :    LPENTITYINSTANCE lpNextTwin;
 ; 2730 : 
 ; 2731 :    while ( lpEntityInstance )
 
 	cmp	DWORD PTR _lpEntityInstance$[ebp], 0
-	je	$L8587
+	je	$L8589
 
 ; 2733 :       // If the EI is dead then skip it and it's children.
 ; 2734 :       if ( fnEntityInstanceIsDead( lpEntityInstance ) )
@@ -9746,13 +9746,13 @@ $L8586:
 	call	_fnEntityInstanceIsDead@4
 	movsx	ecx, ax
 	test	ecx, ecx
-	je	SHORT $L8588
+	je	SHORT $L8590
 
 ; 2736 :          if ( lpEntityInstance->hNextTwin )
 
 	mov	edx, DWORD PTR _lpEntityInstance$[ebp]
 	cmp	DWORD PTR [edx+22], 0
-	je	SHORT $L8589
+	je	SHORT $L8591
 
 ; 2737 :             lpEntityInstance = zGETPTR( lpEntityInstance->hNextTwin );
 
@@ -9764,14 +9764,14 @@ $L8586:
 
 ; 2738 :          else
 
-	jmp	SHORT $L8597
-$L8589:
+	jmp	SHORT $L8599
+$L8591:
 
 ; 2740 :             zSHORT nLevel = lpEntityInstance->nLevel;
 
 	mov	edx, DWORD PTR _lpEntityInstance$[ebp]
 	mov	ax, WORD PTR [edx+58]
-	mov	WORD PTR _nLevel$8592[ebp], ax
+	mov	WORD PTR _nLevel$8594[ebp], ax
 
 ; 2741 : 
 ; 2742 :             for ( lpEntityInstance = zGETPTR( lpEntityInstance->hNextHier );
@@ -9783,33 +9783,33 @@ $L8589:
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _lpEntityInstance$[ebp], eax
-	jmp	SHORT $L8595
-$L8596:
+	jmp	SHORT $L8597
+$L8598:
 	mov	eax, DWORD PTR _lpEntityInstance$[ebp]
 	mov	ecx, DWORD PTR [eax+14]
 	push	ecx
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _lpEntityInstance$[ebp], eax
-$L8595:
+$L8597:
 	cmp	DWORD PTR _lpEntityInstance$[ebp], 0
-	je	SHORT $L8597
+	je	SHORT $L8599
 	mov	edx, DWORD PTR _lpEntityInstance$[ebp]
 	movsx	eax, WORD PTR [edx+58]
-	movsx	ecx, WORD PTR _nLevel$8592[ebp]
+	movsx	ecx, WORD PTR _nLevel$8594[ebp]
 	cmp	eax, ecx
-	jle	SHORT $L8597
+	jle	SHORT $L8599
 
 ; 2746 :                // Nothing needs to be done here.
 ; 2747 :             }
 
-	jmp	SHORT $L8596
-$L8597:
+	jmp	SHORT $L8598
+$L8599:
 
 ; 2749 : 
 ; 2750 :          continue;
 
-	jmp	SHORT $L8586
-$L8588:
+	jmp	SHORT $L8588
+$L8590:
 
 ; 2752 : 
 ; 2753 :       if ( lpEntityInstance->lHierCount == lHierCount )
@@ -9817,13 +9817,13 @@ $L8588:
 	mov	edx, DWORD PTR _lpEntityInstance$[ebp]
 	mov	eax, DWORD PTR [edx+54]
 	cmp	eax, DWORD PTR _lHierCount$[ebp]
-	jne	SHORT $L8598
+	jne	SHORT $L8600
 
 ; 2754 :          return( lpEntityInstance );
 
 	mov	eax, DWORD PTR _lpEntityInstance$[ebp]
-	jmp	SHORT $L8583
-$L8598:
+	jmp	SHORT $L8585
+$L8600:
 
 ; 2755 : 
 ; 2756 :       // Try a shortcut...see if the next twin (if there is one) has a hier
@@ -9846,13 +9846,13 @@ $L8598:
 	push	ecx
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _lpEntityInstance$[ebp], eax
-$L8602:
+$L8604:
 
 ; 2763 : 
 ; 2764 :       while ( lpNextTwin )
 
 	cmp	DWORD PTR _lpNextTwin$[ebp], 0
-	je	SHORT $L8603
+	je	SHORT $L8605
 
 ; 2766 :          if ( lpNextTwin->lHierCount <= lHierCount &&
 ; 2767 :               !fnEntityInstanceIsDead( lpNextTwin ) )
@@ -9860,19 +9860,19 @@ $L8602:
 	mov	edx, DWORD PTR _lpNextTwin$[ebp]
 	mov	eax, DWORD PTR [edx+54]
 	cmp	eax, DWORD PTR _lHierCount$[ebp]
-	jg	SHORT $L8604
+	jg	SHORT $L8606
 	mov	ecx, DWORD PTR _lpNextTwin$[ebp]
 	push	ecx
 	call	_fnEntityInstanceIsDead@4
 	movsx	edx, ax
 	test	edx, edx
-	jne	SHORT $L8604
+	jne	SHORT $L8606
 
 ; 2769 :             lpEntityInstance = lpNextTwin;
 
 	mov	eax, DWORD PTR _lpNextTwin$[ebp]
 	mov	DWORD PTR _lpEntityInstance$[ebp], eax
-$L8604:
+$L8606:
 
 ; 2771 : 
 ; 2772 :          lpNextTwin = zGETPTR( lpNextTwin->hNextTwin );
@@ -9885,19 +9885,19 @@ $L8604:
 
 ; 2773 :       }
 
-	jmp	SHORT $L8602
-$L8603:
+	jmp	SHORT $L8604
+$L8605:
 
 ; 2774 :    }
 
-	jmp	$L8586
-$L8587:
+	jmp	$L8588
+$L8589:
 
 ; 2775 : 
 ; 2776 :    return( 0 );  // If we get here then we didn't find it.
 
 	xor	eax, eax
-$L8583:
+$L8585:
 
 ; 2777 : 
 ; 2778 : } // fnFindEntityInstanceByHierCount
@@ -9929,14 +9929,14 @@ _lpEntityInstance$ = -8
 _lpViewOI$ = -424
 _lpViewCsr$ = -4
 _cOI_Linked$ = -408
-_lpLinked$8639 = -436
-_j$8648 = -440
-_lpTempViewCsr$8653 = -444
-_nLinkInfo$8672 = -448
-_pchSave$8673 = -456
-_lpLinked$8674 = -452
-_j$8682 = -460
-_lpTempViewCsr$8687 = -464
+_lpLinked$8641 = -436
+_j$8650 = -440
+_lpTempViewCsr$8655 = -444
+_nLinkInfo$8674 = -448
+_pchSave$8675 = -456
+_lpLinked$8676 = -452
+_j$8684 = -460
+_lpTempViewCsr$8689 = -464
 _fnSetLinkBuffer@20 PROC NEAR
 
 ; 2796 : {
@@ -9974,13 +9974,13 @@ _fnSetLinkBuffer@20 PROC NEAR
 
 	movsx	edx, WORD PTR _nViewCount$[ebp]
 	cmp	edx, 1
-	jg	SHORT $L8627
+	jg	SHORT $L8629
 
 ; 2812 :       return( 0 );
 
 	xor	ax, ax
-	jmp	$L8617
-$L8627:
+	jmp	$L8619
+$L8629:
 
 ; 2813 : 
 ; 2814 :    // First set the hier count for all the EIs.  Also check to make sure that
@@ -9988,28 +9988,28 @@ $L8627:
 ; 2816 :    for ( k = 0; k < nViewCount; k++ )
 
 	mov	WORD PTR _k$[ebp], 0
-	jmp	SHORT $L8628
-$L8629:
+	jmp	SHORT $L8630
+$L8631:
 	mov	ax, WORD PTR _k$[ebp]
 	add	ax, 1
 	mov	WORD PTR _k$[ebp], ax
-$L8628:
+$L8630:
 	movsx	ecx, WORD PTR _k$[ebp]
 	movsx	edx, WORD PTR _nViewCount$[ebp]
 	cmp	ecx, edx
-	jge	$L8630
+	jge	$L8632
 
 ; 2818 :       if ( lpViewArray[ k ] == 0 )
 
 	movsx	eax, WORD PTR _k$[ebp]
 	mov	ecx, DWORD PTR _lpViewArray$[ebp]
 	cmp	DWORD PTR [ecx+eax*4], 0
-	jne	SHORT $L8631
+	jne	SHORT $L8633
 
 ; 2819 :          continue;
 
-	jmp	SHORT $L8629
-$L8631:
+	jmp	SHORT $L8631
+$L8633:
 
 ; 2820 : 
 ; 2821 :       lHierCount = 0;
@@ -10043,16 +10043,16 @@ $L8631:
 	push	eax
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _lpEntityInstance$[ebp], eax
-	jmp	SHORT $L8636
-$L8637:
+	jmp	SHORT $L8638
+$L8639:
 	mov	ecx, DWORD PTR _lpEntityInstance$[ebp]
 	mov	edx, DWORD PTR [ecx+14]
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _lpEntityInstance$[ebp], eax
-$L8636:
+$L8638:
 	cmp	DWORD PTR _lpEntityInstance$[ebp], 0
-	je	$L8638
+	je	$L8640
 
 ; 2828 :          LPENTITYINSTANCE lpLinked;
 ; 2829 : 
@@ -10063,12 +10063,12 @@ $L8636:
 	call	_fnEntityInstanceIsDead@4
 	movsx	ecx, ax
 	test	ecx, ecx
-	je	SHORT $L8640
+	je	SHORT $L8642
 
 ; 2831 :             continue;
 
-	jmp	SHORT $L8637
-$L8640:
+	jmp	SHORT $L8639
+$L8642:
 
 ; 2832 : 
 ; 2833 :          lpEntityInstance->lHierCount = lHierCount++;
@@ -10090,16 +10090,16 @@ $L8640:
 	mov	edx, DWORD PTR _bInterlinking$[ebp]
 	and	edx, 255				; 000000ffH
 	test	edx, edx
-	jne	SHORT $L8642
+	jne	SHORT $L8644
 	mov	eax, DWORD PTR _lpEntityInstance$[ebp]
 	cmp	DWORD PTR [eax+42], 0
-	jne	SHORT $L8641
-$L8642:
+	jne	SHORT $L8643
+$L8644:
 
 ; 2840 :             continue;
 
-	jmp	SHORT $L8637
-$L8641:
+	jmp	SHORT $L8639
+$L8643:
 
 ; 2841 : 
 ; 2842 :          // Loop through each of the linked instances and see if there is
@@ -10113,87 +10113,87 @@ $L8641:
 	mov	edx, DWORD PTR [ecx+42]
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpLinked$8639[ebp], eax
-	jmp	SHORT $L8645
-$L8646:
-	mov	eax, DWORD PTR _lpLinked$8639[ebp]
+	mov	DWORD PTR _lpLinked$8641[ebp], eax
+	jmp	SHORT $L8647
+$L8648:
+	mov	eax, DWORD PTR _lpLinked$8641[ebp]
 	mov	ecx, DWORD PTR [eax+42]
 	push	ecx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpLinked$8639[ebp], eax
-$L8645:
-	mov	edx, DWORD PTR _lpLinked$8639[ebp]
+	mov	DWORD PTR _lpLinked$8641[ebp], eax
+$L8647:
+	mov	edx, DWORD PTR _lpLinked$8641[ebp]
 	cmp	edx, DWORD PTR _lpEntityInstance$[ebp]
-	je	$L8647
+	je	$L8649
 	mov	eax, DWORD PTR _bInterlinking$[ebp]
 	and	eax, 255				; 000000ffH
 	test	eax, eax
-	jne	$L8647
+	jne	$L8649
 
 ; 2849 :             zSHORT j;
 ; 2850 : 
 ; 2851 :             // Don't look at EI's that are part of the same OI.
 ; 2852 :             if ( lpLinked->hViewOI == lpViewCsr->hViewOI )
 
-	mov	ecx, DWORD PTR _lpLinked$8639[ebp]
+	mov	ecx, DWORD PTR _lpLinked$8641[ebp]
 	mov	edx, DWORD PTR _lpViewCsr$[ebp]
 	mov	eax, DWORD PTR [ecx+10]
 	cmp	eax, DWORD PTR [edx+10]
-	jne	SHORT $L8649
+	jne	SHORT $L8651
 
 ; 2853 :                continue;
 
-	jmp	SHORT $L8646
-$L8649:
+	jmp	SHORT $L8648
+$L8651:
 
 ; 2854 : 
 ; 2855 :             // See if the linked instance belongs to another OI.
 ; 2856 :             for ( j = 0; j < nViewCount; j++ )
 
-	mov	WORD PTR _j$8648[ebp], 0
-	jmp	SHORT $L8650
-$L8651:
-	mov	cx, WORD PTR _j$8648[ebp]
+	mov	WORD PTR _j$8650[ebp], 0
+	jmp	SHORT $L8652
+$L8653:
+	mov	cx, WORD PTR _j$8650[ebp]
 	add	cx, 1
-	mov	WORD PTR _j$8648[ebp], cx
-$L8650:
-	movsx	edx, WORD PTR _j$8648[ebp]
+	mov	WORD PTR _j$8650[ebp], cx
+$L8652:
+	movsx	edx, WORD PTR _j$8650[ebp]
 	movsx	eax, WORD PTR _nViewCount$[ebp]
 	cmp	edx, eax
-	jge	SHORT $L8652
+	jge	SHORT $L8654
 
 ; 2858 :                LPVIEWCSR lpTempViewCsr;
 ; 2859 : 
 ; 2860 :                if ( lpViewArray[ j ] == 0 )
 
-	movsx	ecx, WORD PTR _j$8648[ebp]
+	movsx	ecx, WORD PTR _j$8650[ebp]
 	mov	edx, DWORD PTR _lpViewArray$[ebp]
 	cmp	DWORD PTR [edx+ecx*4], 0
-	jne	SHORT $L8654
+	jne	SHORT $L8656
 
 ; 2861 :                   continue;
 
-	jmp	SHORT $L8651
-$L8654:
+	jmp	SHORT $L8653
+$L8656:
 
 ; 2862 : 
 ; 2863 :                lpTempViewCsr = zGETPTR( lpViewArray[ j ]->hViewCsr );
 
-	movsx	eax, WORD PTR _j$8648[ebp]
+	movsx	eax, WORD PTR _j$8650[ebp]
 	mov	ecx, DWORD PTR _lpViewArray$[ebp]
 	mov	edx, DWORD PTR [ecx+eax*4]
 	mov	eax, DWORD PTR [edx+10]
 	push	eax
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpTempViewCsr$8653[ebp], eax
+	mov	DWORD PTR _lpTempViewCsr$8655[ebp], eax
 
 ; 2864 :                if ( lpTempViewCsr->hViewOI == lpLinked->hViewOI )
 
-	mov	ecx, DWORD PTR _lpTempViewCsr$8653[ebp]
-	mov	edx, DWORD PTR _lpLinked$8639[ebp]
+	mov	ecx, DWORD PTR _lpTempViewCsr$8655[ebp]
+	mov	edx, DWORD PTR _lpLinked$8641[ebp]
 	mov	eax, DWORD PTR [ecx+10]
 	cmp	eax, DWORD PTR [edx+10]
-	jne	SHORT $L8656
+	jne	SHORT $L8658
 
 ; 2866 :                   // We have a match--set flag and get out.
 ; 2867 :                   bInterlinking = TRUE;
@@ -10202,32 +10202,32 @@ $L8654:
 
 ; 2868 :                   break;
 
-	jmp	SHORT $L8652
-$L8656:
+	jmp	SHORT $L8654
+$L8658:
 
 ; 2870 : 
 ; 2871 :             } // for ( j...)...
 
-	jmp	SHORT $L8651
-$L8652:
+	jmp	SHORT $L8653
+$L8654:
 
 ; 2872 : 
 ; 2873 :          } // for ( lpLinked...)...
 
-	jmp	$L8646
-$L8647:
+	jmp	$L8648
+$L8649:
 
 ; 2874 : 
 ; 2875 :       } // for ( lpEntityInstance...)...
 
-	jmp	$L8637
-$L8638:
+	jmp	$L8639
+$L8640:
 
 ; 2876 : 
 ; 2877 :    } // for ( k...)...
 
-	jmp	$L8629
-$L8630:
+	jmp	$L8631
+$L8632:
 
 ; 2878 : 
 ; 2879 :    // If there is no interlinking between the OIs then there's nothing more
@@ -10237,13 +10237,13 @@ $L8630:
 	mov	ecx, DWORD PTR _bInterlinking$[ebp]
 	and	ecx, 255				; 000000ffH
 	test	ecx, ecx
-	jne	SHORT $L8657
+	jne	SHORT $L8659
 
 ; 2882 :       return( 0 );
 
 	xor	ax, ax
-	jmp	$L8617
-$L8657:
+	jmp	$L8619
+$L8659:
 
 ; 2883 : 
 ; 2884 :    // We now know that there is interlinking between the OIs.  Create the
@@ -10266,13 +10266,13 @@ $L8657:
 ; 2889 :    if ( pchLinkBuffer == 0 )
 
 	cmp	DWORD PTR _pchLinkBuffer$[ebp], 0
-	jne	SHORT $L8659
+	jne	SHORT $L8661
 
 ; 2890 :       return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	$L8617
-$L8659:
+	jmp	$L8619
+$L8661:
 
 ; 2891 : 
 ; 2892 :    pchLinkBuffer   = zGETPTR( pchLinkBuffer );
@@ -10295,28 +10295,28 @@ $L8659:
 ; 2896 :    for ( k = 0; k < nViewCount; k++ )
 
 	mov	WORD PTR _k$[ebp], 0
-	jmp	SHORT $L8661
-$L8662:
+	jmp	SHORT $L8663
+$L8664:
 	mov	dx, WORD PTR _k$[ebp]
 	add	dx, 1
 	mov	WORD PTR _k$[ebp], dx
-$L8661:
+$L8663:
 	movsx	eax, WORD PTR _k$[ebp]
 	movsx	ecx, WORD PTR _nViewCount$[ebp]
 	cmp	eax, ecx
-	jge	$L8663
+	jge	$L8665
 
 ; 2898 :       if ( lpViewArray[ k ] == 0 )
 
 	movsx	edx, WORD PTR _k$[ebp]
 	mov	eax, DWORD PTR _lpViewArray$[ebp]
 	cmp	DWORD PTR [eax+edx*4], 0
-	jne	SHORT $L8664
+	jne	SHORT $L8666
 
 ; 2899 :          continue;
 
-	jmp	SHORT $L8662
-$L8664:
+	jmp	SHORT $L8664
+$L8666:
 
 ; 2900 : 
 ; 2901 :       lpViewCsr  = zGETPTR( lpViewArray[ k ]->hViewCsr );
@@ -10346,16 +10346,16 @@ $L8664:
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _lpEntityInstance$[ebp], eax
-	jmp	SHORT $L8669
-$L8670:
+	jmp	SHORT $L8671
+$L8672:
 	mov	eax, DWORD PTR _lpEntityInstance$[ebp]
 	mov	ecx, DWORD PTR [eax+14]
 	push	ecx
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _lpEntityInstance$[ebp], eax
-$L8669:
+$L8671:
 	cmp	DWORD PTR _lpEntityInstance$[ebp], 0
-	je	$L8671
+	je	$L8673
 
 ; 2907 :          zSHORT           nLinkInfo;
 ; 2908 :          zPCHAR           pchSave;
@@ -10366,12 +10366,12 @@ $L8669:
 
 	mov	edx, DWORD PTR _lpEntityInstance$[ebp]
 	cmp	DWORD PTR [edx+42], 0
-	jne	SHORT $L8675
+	jne	SHORT $L8677
 
 ; 2913 :             continue;
 
-	jmp	SHORT $L8670
-$L8675:
+	jmp	SHORT $L8672
+$L8677:
 
 ; 2914 : 
 ; 2915 :          // Don't bother with a dead entity.
@@ -10382,12 +10382,12 @@ $L8675:
 	call	_fnEntityInstanceIsDead@4
 	movsx	ecx, ax
 	test	ecx, ecx
-	je	SHORT $L8676
+	je	SHORT $L8678
 
 ; 2917 :             continue;
 
-	jmp	SHORT $L8670
-$L8676:
+	jmp	SHORT $L8672
+$L8678:
 
 ; 2918 : 
 ; 2919 :          // Assume that we don't have to create link information for the
@@ -10401,12 +10401,12 @@ $L8676:
 ; 2927 :          // to go back to it.
 ; 2928 :          nLinkInfo = 0;
 
-	mov	WORD PTR _nLinkInfo$8672[ebp], 0
+	mov	WORD PTR _nLinkInfo$8674[ebp], 0
 
 ; 2929 :          pchSave   = pchBufferEnd;
 
 	mov	edx, DWORD PTR _pchBufferEnd$[ebp]
-	mov	DWORD PTR _pchSave$8673[ebp], edx
+	mov	DWORD PTR _pchSave$8675[ebp], edx
 
 ; 2930 : 
 ; 2931 :          // Set table to all 0's to indicate that for this linked-list chain
@@ -10432,90 +10432,90 @@ $L8676:
 	mov	edx, DWORD PTR [ecx+42]
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpLinked$8674[ebp], eax
-	jmp	SHORT $L8679
-$L8680:
-	mov	eax, DWORD PTR _lpLinked$8674[ebp]
+	mov	DWORD PTR _lpLinked$8676[ebp], eax
+	jmp	SHORT $L8681
+$L8682:
+	mov	eax, DWORD PTR _lpLinked$8676[ebp]
 	mov	ecx, DWORD PTR [eax+42]
 	push	ecx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpLinked$8674[ebp], eax
-$L8679:
-	mov	edx, DWORD PTR _lpLinked$8674[ebp]
+	mov	DWORD PTR _lpLinked$8676[ebp], eax
+$L8681:
+	mov	edx, DWORD PTR _lpLinked$8676[ebp]
 	cmp	edx, DWORD PTR _lpEntityInstance$[ebp]
-	je	$L8681
+	je	$L8683
 
 ; 2942 :             zSHORT j;
 ; 2943 : 
 ; 2944 :             // Don't look at EI's that are part of the same OI.
 ; 2945 :             if ( lpLinked->hViewOI == lpViewCsr->hViewOI )
 
-	mov	eax, DWORD PTR _lpLinked$8674[ebp]
+	mov	eax, DWORD PTR _lpLinked$8676[ebp]
 	mov	ecx, DWORD PTR _lpViewCsr$[ebp]
 	mov	edx, DWORD PTR [eax+10]
 	cmp	edx, DWORD PTR [ecx+10]
-	jne	SHORT $L8683
+	jne	SHORT $L8685
 
 ; 2946 :                continue;
 
-	jmp	SHORT $L8680
-$L8683:
+	jmp	SHORT $L8682
+$L8685:
 
 ; 2947 : 
 ; 2948 :             // See if the linked instance belongs to another OI.
 ; 2949 :             for ( j = 0; j < nViewCount; j++ )
 
-	mov	WORD PTR _j$8682[ebp], 0
-	jmp	SHORT $L8684
-$L8685:
-	mov	ax, WORD PTR _j$8682[ebp]
+	mov	WORD PTR _j$8684[ebp], 0
+	jmp	SHORT $L8686
+$L8687:
+	mov	ax, WORD PTR _j$8684[ebp]
 	add	ax, 1
-	mov	WORD PTR _j$8682[ebp], ax
-$L8684:
-	movsx	ecx, WORD PTR _j$8682[ebp]
+	mov	WORD PTR _j$8684[ebp], ax
+$L8686:
+	movsx	ecx, WORD PTR _j$8684[ebp]
 	movsx	edx, WORD PTR _nViewCount$[ebp]
 	cmp	ecx, edx
-	jge	$L8686
+	jge	$L8688
 
 ; 2951 :                LPVIEWCSR lpTempViewCsr;
 ; 2952 : 
 ; 2953 :                if ( lpViewArray[ j ] == 0 )
 
-	movsx	eax, WORD PTR _j$8682[ebp]
+	movsx	eax, WORD PTR _j$8684[ebp]
 	mov	ecx, DWORD PTR _lpViewArray$[ebp]
 	cmp	DWORD PTR [ecx+eax*4], 0
-	jne	SHORT $L8688
+	jne	SHORT $L8690
 
 ; 2954 :                   continue;
 
-	jmp	SHORT $L8685
-$L8688:
+	jmp	SHORT $L8687
+$L8690:
 
 ; 2955 : 
 ; 2956 :                // If lpLinked is not part of the OI specified by
 ; 2957 :                // lpViewArray[ j ] then skip it.
 ; 2958 :                lpTempViewCsr = zGETPTR( lpViewArray[ j ]->hViewCsr );
 
-	movsx	edx, WORD PTR _j$8682[ebp]
+	movsx	edx, WORD PTR _j$8684[ebp]
 	mov	eax, DWORD PTR _lpViewArray$[ebp]
 	mov	ecx, DWORD PTR [eax+edx*4]
 	mov	edx, DWORD PTR [ecx+10]
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpTempViewCsr$8687[ebp], eax
+	mov	DWORD PTR _lpTempViewCsr$8689[ebp], eax
 
 ; 2959 :                if ( lpTempViewCsr->hViewOI != lpLinked->hViewOI )
 
-	mov	eax, DWORD PTR _lpTempViewCsr$8687[ebp]
-	mov	ecx, DWORD PTR _lpLinked$8674[ebp]
+	mov	eax, DWORD PTR _lpTempViewCsr$8689[ebp]
+	mov	ecx, DWORD PTR _lpLinked$8676[ebp]
 	mov	edx, DWORD PTR [eax+10]
 	cmp	edx, DWORD PTR [ecx+10]
-	je	SHORT $L8690
+	je	SHORT $L8692
 
 ; 2960 :                   continue;
 
-	jmp	SHORT $L8685
-$L8690:
+	jmp	SHORT $L8687
+$L8692:
 
 ; 2961 : 
 ; 2962 :                // At this point 'k' is the index pointing to the lpView for
@@ -10523,10 +10523,10 @@ $L8690:
 ; 2964 :                // that lpLinked is part of.
 ; 2965 :                if ( j < k )
 
-	movsx	eax, WORD PTR _j$8682[ebp]
+	movsx	eax, WORD PTR _j$8684[ebp]
 	movsx	ecx, WORD PTR _k$[ebp]
 	cmp	eax, ecx
-	jge	SHORT $L8691
+	jge	SHORT $L8693
 
 ; 2967 :                   // We've found an interlink but lpLinked belongs to an
 ; 2968 :                   // OI that we've already searched.  This means that we've
@@ -10534,12 +10534,12 @@ $L8690:
 ; 2970 :                   // to be done for the current set of linked instances.
 ; 2971 :                   nLinkInfo = 2;
 
-	mov	WORD PTR _nLinkInfo$8672[ebp], 2
+	mov	WORD PTR _nLinkInfo$8674[ebp], 2
 
 ; 2972 :                   break;
 
-	jmp	$L8686
-$L8691:
+	jmp	$L8688
+$L8693:
 
 ; 2974 : 
 ; 2975 :                // Check to see if we've already found a linked EI in this
@@ -10547,21 +10547,21 @@ $L8691:
 ; 2977 :                // the OI are already linked together.
 ; 2978 :                if ( cOI_Linked[ j ] == TRUE )
 
-	movsx	edx, WORD PTR _j$8682[ebp]
+	movsx	edx, WORD PTR _j$8684[ebp]
 	movsx	eax, BYTE PTR _cOI_Linked$[ebp+edx]
 	cmp	eax, 1
-	jne	SHORT $L8692
+	jne	SHORT $L8694
 
 ; 2979 :                   break;
 
-	jmp	$L8686
-$L8692:
+	jmp	$L8688
+$L8694:
 
 ; 2980 : 
 ; 2981 :                // Set flag to indicate we've linked this OI.
 ; 2982 :                cOI_Linked[ j ] = TRUE;
 
-	movsx	ecx, WORD PTR _j$8682[ebp]
+	movsx	ecx, WORD PTR _j$8684[ebp]
 	mov	BYTE PTR _cOI_Linked$[ebp+ecx], 1
 
 ; 2983 : 
@@ -10569,9 +10569,9 @@ $L8692:
 ; 2985 :                // start things and then add lpEntityInstance.
 ; 2986 :                if ( nLinkInfo == 0 )
 
-	movsx	edx, WORD PTR _nLinkInfo$8672[ebp]
+	movsx	edx, WORD PTR _nLinkInfo$8674[ebp]
 	test	edx, edx
-	jne	SHORT $L8693
+	jne	SHORT $L8695
 
 ; 2988 :                   *pchBufferEnd++ = '(';
 
@@ -10604,7 +10604,7 @@ $L8692:
 	mov	ecx, DWORD PTR _pchBufferEnd$[ebp]
 	add	ecx, eax
 	mov	DWORD PTR _pchBufferEnd$[ebp], ecx
-$L8693:
+$L8695:
 
 ; 2993 : 
 ; 2994 :                // Add a slash to seperate EI data.
@@ -10621,16 +10621,16 @@ $L8693:
 ; 2998 :                // that we're adding it to the buffer.
 ; 2999 :                nLinkInfo = 1;
 
-	mov	WORD PTR _nLinkInfo$8672[ebp], 1
+	mov	WORD PTR _nLinkInfo$8674[ebp], 1
 
 ; 3000 : 
 ; 3001 :                //
 ; 3002 :                zsprintf( pchBufferEnd, "%x:%lx", j, lpLinked->lHierCount );
 
-	mov	ecx, DWORD PTR _lpLinked$8674[ebp]
+	mov	ecx, DWORD PTR _lpLinked$8676[ebp]
 	mov	edx, DWORD PTR [ecx+54]
 	push	edx
-	movsx	eax, WORD PTR _j$8682[ebp]
+	movsx	eax, WORD PTR _j$8684[ebp]
 	push	eax
 	push	OFFSET FLAT:??_C@_06CEIK@?$CFx?3?$CFlx?$AA@ ; `string'
 	mov	ecx, DWORD PTR _pchBufferEnd$[ebp]
@@ -10651,51 +10651,51 @@ $L8693:
 ; 3004 : 
 ; 3005 :             } // for ( j...)...
 
-	jmp	$L8685
-$L8686:
+	jmp	$L8687
+$L8688:
 
 ; 3006 : 
 ; 3007 :             if ( nLinkInfo == 2 )
 
-	movsx	edx, WORD PTR _nLinkInfo$8672[ebp]
+	movsx	edx, WORD PTR _nLinkInfo$8674[ebp]
 	cmp	edx, 2
-	jne	SHORT $L8695
+	jne	SHORT $L8697
 
 ; 3008 :                break;
 
-	jmp	SHORT $L8681
-$L8695:
+	jmp	SHORT $L8683
+$L8697:
 
 ; 3009 : 
 ; 3010 :          } // for ( lpLinked...)...
 
-	jmp	$L8680
-$L8681:
+	jmp	$L8682
+$L8683:
 
 ; 3011 : 
 ; 3012 :          // If nLinkInfo is 2 then we don't need to add information to the
 ; 3013 :          // link buffer for the current entity so reset pchBufferEnd.
 ; 3014 :          if ( nLinkInfo == 2 )
 
-	movsx	eax, WORD PTR _nLinkInfo$8672[ebp]
+	movsx	eax, WORD PTR _nLinkInfo$8674[ebp]
 	cmp	eax, 2
-	jne	SHORT $L8696
+	jne	SHORT $L8698
 
 ; 3015 :             pchBufferEnd = pchSave;
 
-	mov	ecx, DWORD PTR _pchSave$8673[ebp]
+	mov	ecx, DWORD PTR _pchSave$8675[ebp]
 	mov	DWORD PTR _pchBufferEnd$[ebp], ecx
 
 ; 3016 :          else
 
-	jmp	SHORT $L8698
-$L8696:
+	jmp	SHORT $L8700
+$L8698:
 
 ; 3017 :          if ( nLinkInfo == 1 )
 
-	movsx	edx, WORD PTR _nLinkInfo$8672[ebp]
+	movsx	edx, WORD PTR _nLinkInfo$8674[ebp]
 	cmp	edx, 1
-	jne	SHORT $L8698
+	jne	SHORT $L8700
 
 ; 3018 :             *pchBufferEnd++ = ')';
 
@@ -10704,19 +10704,19 @@ $L8696:
 	mov	ecx, DWORD PTR _pchBufferEnd$[ebp]
 	add	ecx, 1
 	mov	DWORD PTR _pchBufferEnd$[ebp], ecx
-$L8698:
+$L8700:
 
 ; 3019 : 
 ; 3020 :       } // for ( lpEntityInstance...)...
 
-	jmp	$L8670
-$L8671:
+	jmp	$L8672
+$L8673:
 
 ; 3021 : 
 ; 3022 :    } // for ( k...)...
 
-	jmp	$L8662
-$L8663:
+	jmp	$L8664
+$L8665:
 
 ; 3023 : 
 ; 3024 :    *pchBufferEnd++ = 0;
@@ -10741,7 +10741,7 @@ $L8663:
 ; 3030 :    return( 0 );
 
 	xor	ax, ax
-$L8617:
+$L8619:
 
 ; 3031 : 
 ; 3032 : } // fnSetLinkBuffer
@@ -10798,13 +10798,13 @@ _lpNew$ = -16
 _lpOld$ = -8
 _bGetNextOld$ = -12
 _lpViewOD$ = -4
-_lpViewEntity$8725 = -36
-_lpViewAttrib$8726 = -40
-_lpValue$8749 = -48
-_uLth$8750 = -56
-_lpOldAttribFlags$8751 = -52
-_lpNewAttribFlags$8752 = -60
-_lpViewEntity$8759 = -68
+_lpViewEntity$8727 = -36
+_lpViewAttrib$8728 = -40
+_lpValue$8751 = -48
+_uLth$8752 = -56
+_lpOldAttribFlags$8753 = -52
+_lpNewAttribFlags$8754 = -60
+_lpViewEntity$8761 = -68
 _fnMergeViews@8 PROC NEAR
 
 ; 3051 : {
@@ -10880,27 +10880,27 @@ _fnMergeViews@8 PROC NEAR
 	push	ecx
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _lpOld$[ebp], eax
-	jmp	SHORT $L8722
-$L8723:
+	jmp	SHORT $L8724
+$L8725:
 	mov	edx, DWORD PTR _bGetNextOld$[ebp]
 	and	edx, 255				; 000000ffH
 	test	edx, edx
-	je	SHORT $L10255
+	je	SHORT $L10257
 	mov	eax, DWORD PTR _lpOld$[ebp]
 	mov	ecx, DWORD PTR [eax+14]
 	push	ecx
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR -72+[ebp], eax
-	jmp	SHORT $L10256
-$L10255:
+	jmp	SHORT $L10258
+$L10257:
 	mov	edx, DWORD PTR _lpOld$[ebp]
 	mov	DWORD PTR -72+[ebp], edx
-$L10256:
+$L10258:
 	mov	eax, DWORD PTR -72+[ebp]
 	mov	DWORD PTR _lpOld$[ebp], eax
-$L8722:
+$L8724:
 	cmp	DWORD PTR _lpOld$[ebp], 0
-	je	$L8724
+	je	$L8726
 
 ; 3072 :       LPVIEWENTITY lpViewEntity;
 ; 3073 :       LPVIEWATTRIB lpViewAttrib;
@@ -10910,7 +10910,7 @@ $L8722:
 ; 3077 :       bGetNextOld = TRUE;
 
 	mov	BYTE PTR _bGetNextOld$[ebp], 1
-$L8728:
+$L8730:
 
 ; 3078 : 
 ; 3079 :       // Skip old entity instances if they are "dead".  If they are dead then
@@ -10918,13 +10918,13 @@ $L8728:
 ; 3081 :       while ( lpOld && fnEntityInstanceIsDead( lpOld ) )
 
 	cmp	DWORD PTR _lpOld$[ebp], 0
-	je	SHORT $L8729
+	je	SHORT $L8731
 	mov	ecx, DWORD PTR _lpOld$[ebp]
 	push	ecx
 	call	_fnEntityInstanceIsDead@4
 	movsx	edx, ax
 	test	edx, edx
-	je	SHORT $L8729
+	je	SHORT $L8731
 
 ; 3082 :          lpOld = zGETPTR( lpOld->hNextHier );
 
@@ -10933,19 +10933,19 @@ $L8728:
 	push	ecx
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _lpOld$[ebp], eax
-	jmp	SHORT $L8728
-$L8729:
+	jmp	SHORT $L8730
+$L8731:
 
 ; 3083 : 
 ; 3084 :       if ( lpOld == 0 )
 
 	cmp	DWORD PTR _lpOld$[ebp], 0
-	jne	SHORT $L8731
+	jne	SHORT $L8733
 
 ; 3085 :          break;
 
-	jmp	$L8724
-$L8731:
+	jmp	$L8726
+$L8733:
 
 ; 3086 : 
 ; 3087 :       // Compare the tag of the new instance with the pointer of the old
@@ -10957,7 +10957,7 @@ $L8731:
 	mov	edx, DWORD PTR _lpNew$[ebp]
 	mov	eax, DWORD PTR _lpOld$[ebp]
 	cmp	eax, DWORD PTR [edx+46]
-	je	SHORT $L8733
+	je	SHORT $L8735
 
 ; 3093 :          zLONG lSomethingNeedsToBeDoneHere;
 ; 3094 : 
@@ -10975,11 +10975,11 @@ $L8731:
 	mov	edx, DWORD PTR [ecx+2]
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpViewEntity$8725[ebp], eax
+	mov	DWORD PTR _lpViewEntity$8727[ebp], eax
 
 ; 3104 :          TraceLineS( "(merge) Tags don't match! Old entity = ", lpViewEntity->szName );
 
-	mov	eax, DWORD PTR _lpViewEntity$8725[ebp]
+	mov	eax, DWORD PTR _lpViewEntity$8727[ebp]
 	add	eax, 14					; 0000000eH
 	push	eax
 	push	OFFSET FLAT:??_C@_0CI@JLMD@?$CImerge?$CJ?5Tags?5don?8t?5match?$CB?5Old?5en@ ; `string'
@@ -10991,11 +10991,11 @@ $L8731:
 	mov	edx, DWORD PTR [ecx+2]
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpViewEntity$8725[ebp], eax
+	mov	DWORD PTR _lpViewEntity$8727[ebp], eax
 
 ; 3106 :          TraceLineS( "(merge) Tags don't match! New entity = ", lpViewEntity->szName );
 
-	mov	eax, DWORD PTR _lpViewEntity$8725[ebp]
+	mov	eax, DWORD PTR _lpViewEntity$8727[ebp]
 	add	eax, 14					; 0000000eH
 	push	eax
 	push	OFFSET FLAT:??_C@_0CI@FPHM@?$CImerge?$CJ?5Tags?5don?8t?5match?$CB?5New?5en@ ; `string'
@@ -11019,8 +11019,8 @@ $L8731:
 ; 3109 : 
 ; 3110 :          continue;
 
-	jmp	$L8723
-$L8733:
+	jmp	$L8725
+$L8735:
 
 ; 3112 : 
 ; 3113 :       // If we get here then the tag for the new entity matches the pointer
@@ -11031,50 +11031,50 @@ $L8733:
 	mov	edx, DWORD PTR [ecx+2]
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpViewEntity$8725[ebp], eax
+	mov	DWORD PTR _lpViewEntity$8727[ebp], eax
 
 ; 3116 :       if ( lpViewEntity->bDerived == FALSE &&
 ; 3117 :            lpViewEntity->bDerivedPath == FALSE &&
 ; 3118 :            lpViewEntity->bHasDB_Oper == FALSE ) // added Phil/Doug 2005.10.17
 
-	mov	eax, DWORD PTR _lpViewEntity$8725[ebp]
+	mov	eax, DWORD PTR _lpViewEntity$8727[ebp]
 	mov	ecx, DWORD PTR [eax+235]
 	shr	ecx, 13					; 0000000dH
 	and	ecx, 1
 	test	ecx, ecx
-	jne	$L8748
-	mov	edx, DWORD PTR _lpViewEntity$8725[ebp]
+	jne	$L8750
+	mov	edx, DWORD PTR _lpViewEntity$8727[ebp]
 	mov	eax, DWORD PTR [edx+235]
 	shr	eax, 14					; 0000000eH
 	and	eax, 1
 	test	eax, eax
-	jne	$L8748
-	mov	ecx, DWORD PTR _lpViewEntity$8725[ebp]
+	jne	$L8750
+	mov	ecx, DWORD PTR _lpViewEntity$8727[ebp]
 	mov	edx, DWORD PTR [ecx+239]
 	and	edx, 1
 	test	edx, edx
-	jne	$L8748
+	jne	$L8750
 
 ; 3120 :          // Copy each of the attribute values.
 ; 3121 :          for ( lpViewAttrib = zGETPTR( lpViewEntity->hFirstOD_Attrib );
 ; 3122 :                lpViewAttrib;
 ; 3123 :                lpViewAttrib = zGETPTR( lpViewAttrib->hNextOD_Attrib ) )
 
-	mov	eax, DWORD PTR _lpViewEntity$8725[ebp]
+	mov	eax, DWORD PTR _lpViewEntity$8727[ebp]
 	mov	ecx, DWORD PTR [eax+179]
 	push	ecx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpViewAttrib$8726[ebp], eax
-	jmp	SHORT $L8746
-$L8747:
-	mov	edx, DWORD PTR _lpViewAttrib$8726[ebp]
+	mov	DWORD PTR _lpViewAttrib$8728[ebp], eax
+	jmp	SHORT $L8748
+$L8749:
+	mov	edx, DWORD PTR _lpViewAttrib$8728[ebp]
 	mov	eax, DWORD PTR [edx+2]
 	push	eax
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpViewAttrib$8726[ebp], eax
-$L8746:
-	cmp	DWORD PTR _lpViewAttrib$8726[ebp], 0
-	je	SHORT $L8748
+	mov	DWORD PTR _lpViewAttrib$8728[ebp], eax
+$L8748:
+	cmp	DWORD PTR _lpViewAttrib$8728[ebp], 0
+	je	SHORT $L8750
 
 ; 3125 :             zPVOID        lpValue;
 ; 3126 :             zULONG        uLth;
@@ -11083,28 +11083,28 @@ $L8746:
 ; 3129 : 
 ; 3130 :             if ( lpViewAttrib->bPersist == FALSE )
 
-	mov	ecx, DWORD PTR _lpViewAttrib$8726[ebp]
+	mov	ecx, DWORD PTR _lpViewAttrib$8728[ebp]
 	mov	edx, DWORD PTR [ecx+193]
 	and	edx, 1
 	test	edx, edx
-	jne	SHORT $L8753
+	jne	SHORT $L8755
 
 ; 3131 :                continue;
 
-	jmp	SHORT $L8747
-$L8753:
+	jmp	SHORT $L8749
+$L8755:
 
 ; 3132 : 
 ; 3133 :             fnGetAttrAddrFromEntityInstance( (zCOREMEM) &lpValue, &uLth,
 ; 3134 :                                              lpNew, lpViewAttrib );
 
-	mov	eax, DWORD PTR _lpViewAttrib$8726[ebp]
+	mov	eax, DWORD PTR _lpViewAttrib$8728[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _lpNew$[ebp]
 	push	ecx
-	lea	edx, DWORD PTR _uLth$8750[ebp]
+	lea	edx, DWORD PTR _uLth$8752[ebp]
 	push	edx
-	lea	eax, DWORD PTR _lpValue$8749[ebp]
+	lea	eax, DWORD PTR _lpValue$8751[ebp]
 	push	eax
 	call	_fnGetAttrAddrFromEntityInstance
 	add	esp, 16					; 00000010H
@@ -11112,13 +11112,13 @@ $L8753:
 ; 3135 :             fnStoreValueInEntityInstance( lpOld, lpViewEntity, lpViewAttrib,
 ; 3136 :                                           lpValue, uLth );
 
-	mov	ecx, DWORD PTR _uLth$8750[ebp]
+	mov	ecx, DWORD PTR _uLth$8752[ebp]
 	push	ecx
-	mov	edx, DWORD PTR _lpValue$8749[ebp]
+	mov	edx, DWORD PTR _lpValue$8751[ebp]
 	push	edx
-	mov	eax, DWORD PTR _lpViewAttrib$8726[ebp]
+	mov	eax, DWORD PTR _lpViewAttrib$8728[ebp]
 	push	eax
-	mov	ecx, DWORD PTR _lpViewEntity$8725[ebp]
+	mov	ecx, DWORD PTR _lpViewEntity$8727[ebp]
 	push	ecx
 	mov	edx, DWORD PTR _lpOld$[ebp]
 	push	edx
@@ -11128,34 +11128,34 @@ $L8753:
 ; 3137 : 
 ; 3138 :             lpNewAttribFlags = fnGetAttribFlagsPtr( lpNew, lpViewAttrib );
 
-	mov	eax, DWORD PTR _lpViewAttrib$8726[ebp]
+	mov	eax, DWORD PTR _lpViewAttrib$8728[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _lpNew$[ebp]
 	push	ecx
 	call	_fnGetAttribFlagsPtr@8
-	mov	DWORD PTR _lpNewAttribFlags$8752[ebp], eax
+	mov	DWORD PTR _lpNewAttribFlags$8754[ebp], eax
 
 ; 3139 :             lpOldAttribFlags = fnGetAttribFlagsPtr( lpOld, lpViewAttrib );
 
-	mov	edx, DWORD PTR _lpViewAttrib$8726[ebp]
+	mov	edx, DWORD PTR _lpViewAttrib$8728[ebp]
 	push	edx
 	mov	eax, DWORD PTR _lpOld$[ebp]
 	push	eax
 	call	_fnGetAttribFlagsPtr@8
-	mov	DWORD PTR _lpOldAttribFlags$8751[ebp], eax
+	mov	DWORD PTR _lpOldAttribFlags$8753[ebp], eax
 
 ; 3140 :             lpOldAttribFlags->u.uFlags = lpNewAttribFlags->u.uFlags;
 
-	mov	ecx, DWORD PTR _lpOldAttribFlags$8751[ebp]
-	mov	edx, DWORD PTR _lpNewAttribFlags$8752[ebp]
+	mov	ecx, DWORD PTR _lpOldAttribFlags$8753[ebp]
+	mov	edx, DWORD PTR _lpNewAttribFlags$8754[ebp]
 	mov	eax, DWORD PTR [edx]
 	mov	DWORD PTR [ecx], eax
 
 ; 3141 : 
 ; 3142 :          } // for...
 
-	jmp	$L8747
-$L8748:
+	jmp	$L8749
+$L8750:
 
 ; 3144 : 
 ; 3145 :       lpOld->u.nIndicators = lpNew->u.nIndicators;
@@ -11177,24 +11177,24 @@ $L8748:
 ; 3148 :       if ( lpNew == 0 )
 
 	cmp	DWORD PTR _lpNew$[ebp], 0
-	jne	SHORT $L8756
+	jne	SHORT $L8758
 
 ; 3149 :          break;
 
-	jmp	SHORT $L8724
-$L8756:
+	jmp	SHORT $L8726
+$L8758:
 
 ; 3150 : 
 ; 3151 :    } // for ( lpOld )...
 
-	jmp	$L8723
-$L8724:
+	jmp	$L8725
+$L8726:
 
 ; 3152 : 
 ; 3153 :    if ( lpNew )
 
 	cmp	DWORD PTR _lpNew$[ebp], 0
-	je	SHORT $L8757
+	je	SHORT $L8759
 
 ; 3155 :       zLONG        lSomethingNeedsToBeDoneHereToo;
 ; 3156 :       LPVIEWENTITY lpViewEntity;
@@ -11208,11 +11208,11 @@ $L8724:
 	mov	ecx, DWORD PTR [eax+2]
 	push	ecx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpViewEntity$8759[ebp], eax
+	mov	DWORD PTR _lpViewEntity$8761[ebp], eax
 
 ; 3162 :       TraceLineS( "(merge) Extra New entity! = ", lpViewEntity->szName );
 
-	mov	edx, DWORD PTR _lpViewEntity$8759[ebp]
+	mov	edx, DWORD PTR _lpViewEntity$8761[ebp]
 	add	edx, 14					; 0000000eH
 	push	edx
 	push	OFFSET FLAT:??_C@_0BN@ONLK@?$CImerge?$CJ?5Extra?5New?5entity?$CB?5?$DN?5?$AA@ ; `string'
@@ -11225,7 +11225,7 @@ $L8724:
 	push	ecx
 	push	OFFSET FLAT:??_C@_0BH@LDLJ@?$CImerge?$CJ?5lpNew?9?$DOlTag?5?$DN?5?$AA@ ; `string'
 	call	_TraceLineX@8
-$L8757:
+$L8759:
 
 ; 3165 : 
 ; 3166 :    // Now loop through again but just copy the EI flags.
@@ -11247,46 +11247,46 @@ $L8757:
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _lpOld$[ebp], eax
-	jmp	SHORT $L8765
-$L8766:
+	jmp	SHORT $L8767
+$L8768:
 	mov	eax, DWORD PTR _bGetNextOld$[ebp]
 	and	eax, 255				; 000000ffH
 	test	eax, eax
-	je	SHORT $L10257
+	je	SHORT $L10259
 	mov	ecx, DWORD PTR _lpOld$[ebp]
 	mov	edx, DWORD PTR [ecx+14]
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR -76+[ebp], eax
-	jmp	SHORT $L10258
-$L10257:
+	jmp	SHORT $L10260
+$L10259:
 	mov	eax, DWORD PTR _lpOld$[ebp]
 	mov	DWORD PTR -76+[ebp], eax
-$L10258:
+$L10260:
 	mov	ecx, DWORD PTR -76+[ebp]
 	mov	DWORD PTR _lpOld$[ebp], ecx
-$L8765:
+$L8767:
 	cmp	DWORD PTR _lpOld$[ebp], 0
-	je	SHORT $L8767
+	je	SHORT $L8769
 
 ; 3173 :       // We'll assume here that the next iteration of the 'for' loop should
 ; 3174 :       // get the next lpOld.
 ; 3175 :       bGetNextOld = TRUE;
 
 	mov	BYTE PTR _bGetNextOld$[ebp], 1
-$L8769:
+$L8771:
 
 ; 3176 : 
 ; 3177 :       while ( lpOld && fnEntityInstanceIsDead( lpOld ) )
 
 	cmp	DWORD PTR _lpOld$[ebp], 0
-	je	SHORT $L8770
+	je	SHORT $L8772
 	mov	edx, DWORD PTR _lpOld$[ebp]
 	push	edx
 	call	_fnEntityInstanceIsDead@4
 	movsx	eax, ax
 	test	eax, eax
-	je	SHORT $L8770
+	je	SHORT $L8772
 
 ; 3178 :          lpOld = zGETPTR( lpOld->hNextHier );
 
@@ -11295,19 +11295,19 @@ $L8769:
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _lpOld$[ebp], eax
-	jmp	SHORT $L8769
-$L8770:
+	jmp	SHORT $L8771
+$L8772:
 
 ; 3179 : 
 ; 3180 :       if ( lpOld == 0 )
 
 	cmp	DWORD PTR _lpOld$[ebp], 0
-	jne	SHORT $L8772
+	jne	SHORT $L8774
 
 ; 3181 :          break;
 
-	jmp	SHORT $L8767
-$L8772:
+	jmp	SHORT $L8769
+$L8774:
 
 ; 3182 : 
 ; 3183 :       // Compare the tag of the new instance with the pointer of the old
@@ -11321,12 +11321,12 @@ $L8772:
 	mov	eax, DWORD PTR _lpNew$[ebp]
 	mov	ecx, DWORD PTR _lpOld$[ebp]
 	cmp	ecx, DWORD PTR [eax+46]
-	je	SHORT $L8774
+	je	SHORT $L8776
 
 ; 3190 :          continue;
 
-	jmp	SHORT $L8766
-$L8774:
+	jmp	SHORT $L8768
+$L8776:
 
 ; 3191 : 
 ; 3192 :       // If we get here then the tag for the new entity matches the pointer
@@ -11351,18 +11351,18 @@ $L8774:
 ; 3198 :       if ( lpNew == 0 )
 
 	cmp	DWORD PTR _lpNew$[ebp], 0
-	jne	SHORT $L8776
+	jne	SHORT $L8778
 
 ; 3199 :          break;
 
-	jmp	SHORT $L8767
-$L8776:
+	jmp	SHORT $L8769
+$L8778:
 
 ; 3200 : 
 ; 3201 :    } // for ( lpOld )...
 
-	jmp	$L8766
-$L8767:
+	jmp	$L8768
+$L8769:
 
 ; 3202 : 
 ; 3203 :    return( 0 );
@@ -11482,17 +11482,17 @@ _lLinkBufferLth$ = -544
 _szServer$ = -512
 _szAppName$ = -72
 _CommitInfo$ = -92
-_lpEntityInstance$8828 = -552
-_lpViewOI$8829 = -560
-_bChanged$8830 = -556
-_szControl$8878 = -584
-_szLth$8879 = -572
-_lLth$8880 = -564
-_lpViewCsr$8920 = -588
-_lpViewOI$8921 = -592
-_lpNewViewOI$8922 = -596
-_lpDropSubtask$8932 = -600
-_lpViewOI$8941 = -604
+_lpEntityInstance$8830 = -552
+_lpViewOI$8831 = -560
+_bChanged$8832 = -556
+_szControl$8880 = -584
+_szLth$8881 = -572
+_lLth$8882 = -564
+_lpViewCsr$8922 = -588
+_lpViewOI$8923 = -592
+_lpNewViewOI$8924 = -596
+_lpDropSubtask$8934 = -600
+_lpViewOI$8943 = -604
 _NetCommitOI@28 PROC NEAR
 
 ; 3248 : {
@@ -11569,23 +11569,23 @@ _NetCommitOI@28 PROC NEAR
 ; 3275 :    for ( k = 0; k < nViewCount; k++ )
 
 	mov	WORD PTR _k$[ebp], 0
-	jmp	SHORT $L8816
-$L8817:
+	jmp	SHORT $L8818
+$L8819:
 	mov	cx, WORD PTR _k$[ebp]
 	add	cx, 1
 	mov	WORD PTR _k$[ebp], cx
-$L8816:
+$L8818:
 	movsx	edx, WORD PTR _k$[ebp]
 	movsx	eax, WORD PTR _nViewCount$[ebp]
 	cmp	edx, eax
-	jge	SHORT $L8818
+	jge	SHORT $L8820
 
 ; 3277 :       if ( lpViewArray[ k ] )
 
 	movsx	ecx, WORD PTR _k$[ebp]
 	mov	edx, DWORD PTR _lpViewArray$[ebp]
 	cmp	DWORD PTR [edx+ecx*4], 0
-	je	SHORT $L8819
+	je	SHORT $L8821
 
 ; 3279 :          lpTaskView = lpViewArray[ k ];
 
@@ -11596,26 +11596,26 @@ $L8816:
 
 ; 3280 :          break;
 
-	jmp	SHORT $L8818
-$L8819:
+	jmp	SHORT $L8820
+$L8821:
 
 ; 3282 :    }
 
-	jmp	SHORT $L8817
-$L8818:
+	jmp	SHORT $L8819
+$L8820:
 
 ; 3283 : 
 ; 3284 :    // No views to commit? Just return.
 ; 3285 :    if ( lpTaskView == 0 )
 
 	cmp	DWORD PTR _lpTaskView$[ebp], 0
-	jne	SHORT $L8820
+	jne	SHORT $L8822
 
 ; 3286 :       return( 0 );
 
 	xor	ax, ax
-	jmp	$L8791
-$L8820:
+	jmp	$L8793
+$L8822:
 
 ; 3287 : 
 ; 3288 :    // If task not active or disabled, return zCALL_ERROR.
@@ -11629,13 +11629,13 @@ $L8820:
 	add	esp, 12					; 0000000cH
 	mov	DWORD PTR _lpTask$[ebp], eax
 	cmp	DWORD PTR _lpTask$[ebp], 0
-	jne	SHORT $L8821
+	jne	SHORT $L8823
 
 ; 3291 :       return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	$L8791
-$L8821:
+	jmp	$L8793
+$L8823:
 
 ; 3293 : 
 ; 3294 :    if ( (lpNetwork = fnFindNetwork( lpTask, pchNetworkName, TRUE )) == 0 )
@@ -11648,7 +11648,7 @@ $L8821:
 	call	_fnFindNetwork@12
 	mov	DWORD PTR _lpNetwork$[ebp], eax
 	cmp	DWORD PTR _lpNetwork$[ebp], 0
-	jne	SHORT $L8822
+	jne	SHORT $L8824
 
 ; 3296 :       fnOperationReturn( iNetCommitOI, lpTask );
 
@@ -11661,8 +11661,8 @@ $L8821:
 ; 3297 :       return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	$L8791
-$L8822:
+	jmp	$L8793
+$L8824:
 
 ; 3299 : 
 ; 3300 :    // Create a buffer to store object names.  We'll arbitrarily allocate
@@ -11698,16 +11698,16 @@ $L8822:
 ; 3308 :    for ( k = 0; k < nViewCount; k++ )
 
 	mov	WORD PTR _k$[ebp], 0
-	jmp	SHORT $L8825
-$L8826:
+	jmp	SHORT $L8827
+$L8828:
 	mov	dx, WORD PTR _k$[ebp]
 	add	dx, 1
 	mov	WORD PTR _k$[ebp], dx
-$L8825:
+$L8827:
 	movsx	eax, WORD PTR _k$[ebp]
 	movsx	ecx, WORD PTR _nViewCount$[ebp]
 	cmp	eax, ecx
-	jge	$L8827
+	jge	$L8829
 
 ; 3310 :       LPENTITYINSTANCE lpEntityInstance;
 ; 3311 :       LPVIEWOI         lpViewOI;
@@ -11718,14 +11718,14 @@ $L8825:
 	movsx	edx, WORD PTR _k$[ebp]
 	mov	eax, DWORD PTR _lpViewArray$[ebp]
 	cmp	DWORD PTR [eax+edx*4], 0
-	jne	SHORT $L8831
+	jne	SHORT $L8833
 
 ; 3316 :          // Store a 0 for the object name.
 ; 3317 :          if ( nViewCount > 1 )
 
 	movsx	ecx, WORD PTR _nViewCount$[ebp]
 	cmp	ecx, 1
-	jle	SHORT $L8832
+	jle	SHORT $L8834
 
 ; 3318 :             *pch++ = 0;
 
@@ -11734,13 +11734,13 @@ $L8825:
 	mov	eax, DWORD PTR _pch$[ebp]
 	add	eax, 1
 	mov	DWORD PTR _pch$[ebp], eax
-$L8832:
+$L8834:
 
 ; 3319 : 
 ; 3320 :          continue;
 
-	jmp	SHORT $L8826
-$L8831:
+	jmp	SHORT $L8828
+$L8833:
 
 ; 3322 : 
 ; 3323 :       lpViewOD  = zGETPTR( lpViewArray[ k ]->hViewOD );
@@ -11769,7 +11769,7 @@ $L8831:
 	mov	ecx, DWORD PTR [eax+10]
 	push	ecx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpViewOI$8829[ebp], eax
+	mov	DWORD PTR _lpViewOI$8831[ebp], eax
 
 ; 3326 : 
 ; 3327 :       // If OI hasn't been updated then forget about it UNLESS...
@@ -11777,68 +11777,68 @@ $L8831:
 ; 3329 :       // pessimistic locks are dropped.
 ; 3330 :       if ( (lpViewOI->lActivateControl & zACTIVATE_WITH_LOCKING) == 0 )
 
-	mov	edx, DWORD PTR _lpViewOI$8829[ebp]
+	mov	edx, DWORD PTR _lpViewOI$8831[ebp]
 	mov	eax, DWORD PTR [edx+48]
 	and	eax, 67108864				; 04000000H
 	test	eax, eax
-	jne	$L8847
+	jne	$L8849
 
 ; 3332 :          bChanged  = FALSE;
 
-	mov	BYTE PTR _bChanged$8830[ebp], 0
+	mov	BYTE PTR _bChanged$8832[ebp], 0
 
 ; 3333 :          if ( lpViewOI->bUpdated )
 
-	mov	ecx, DWORD PTR _lpViewOI$8829[ebp]
+	mov	ecx, DWORD PTR _lpViewOI$8831[ebp]
 	mov	edx, DWORD PTR [ecx+36]
 	shr	edx, 4
 	and	edx, 1
 	test	edx, edx
-	je	$L8842
+	je	$L8844
 
 ; 3335 :             // Make sure that the OI really is changed.
 ; 3336 :             for ( lpEntityInstance = zGETPTR( lpViewOI->hRootEntityInstance );
 ; 3337 :                   lpEntityInstance;
 ; 3338 :                   lpEntityInstance = zGETPTR( lpEntityInstance->hNextHier ) )
 
-	mov	eax, DWORD PTR _lpViewOI$8829[ebp]
+	mov	eax, DWORD PTR _lpViewOI$8831[ebp]
 	mov	ecx, DWORD PTR [eax+26]
 	push	ecx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpEntityInstance$8828[ebp], eax
-	jmp	SHORT $L8840
-$L8841:
-	mov	edx, DWORD PTR _lpEntityInstance$8828[ebp]
+	mov	DWORD PTR _lpEntityInstance$8830[ebp], eax
+	jmp	SHORT $L8842
+$L8843:
+	mov	edx, DWORD PTR _lpEntityInstance$8830[ebp]
 	mov	eax, DWORD PTR [edx+14]
 	push	eax
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpEntityInstance$8828[ebp], eax
-$L8840:
-	cmp	DWORD PTR _lpEntityInstance$8828[ebp], 0
-	je	$L8842
+	mov	DWORD PTR _lpEntityInstance$8830[ebp], eax
+$L8842:
+	cmp	DWORD PTR _lpEntityInstance$8830[ebp], 0
+	je	$L8844
 
 ; 3340 :                // If the entity is created AND deleted then the OI really
 ; 3341 :                // hasn't changed.
 ; 3342 :                if ( lpEntityInstance->u.nInd.bCreated  &&
 ; 3343 :                     lpEntityInstance->u.nInd.bDeleted )
 
-	mov	ecx, DWORD PTR _lpEntityInstance$8828[ebp]
+	mov	ecx, DWORD PTR _lpEntityInstance$8830[ebp]
 	mov	edx, DWORD PTR [ecx+6]
 	shr	edx, 1
 	and	edx, 1
 	test	edx, edx
-	je	SHORT $L8843
-	mov	eax, DWORD PTR _lpEntityInstance$8828[ebp]
+	je	SHORT $L8845
+	mov	eax, DWORD PTR _lpEntityInstance$8830[ebp]
 	mov	ecx, DWORD PTR [eax+6]
 	shr	ecx, 3
 	and	ecx, 1
 	test	ecx, ecx
-	je	SHORT $L8843
+	je	SHORT $L8845
 
 ; 3345 :                   continue;
 
-	jmp	SHORT $L8841
-$L8843:
+	jmp	SHORT $L8843
+$L8845:
 
 ; 3347 : 
 ; 3348 :                // If the entity is included AND excluded then the OI really
@@ -11846,23 +11846,23 @@ $L8843:
 ; 3350 :                if ( lpEntityInstance->u.nInd.bIncluded &&
 ; 3351 :                     lpEntityInstance->u.nInd.bExcluded )
 
-	mov	edx, DWORD PTR _lpEntityInstance$8828[ebp]
+	mov	edx, DWORD PTR _lpEntityInstance$8830[ebp]
 	mov	eax, DWORD PTR [edx+6]
 	shr	eax, 5
 	and	eax, 1
 	test	eax, eax
-	je	SHORT $L8844
-	mov	ecx, DWORD PTR _lpEntityInstance$8828[ebp]
+	je	SHORT $L8846
+	mov	ecx, DWORD PTR _lpEntityInstance$8830[ebp]
 	mov	edx, DWORD PTR [ecx+6]
 	shr	edx, 4
 	and	edx, 1
 	test	edx, edx
-	je	SHORT $L8844
+	je	SHORT $L8846
 
 ; 3353 :                   continue;
 
-	jmp	SHORT $L8841
-$L8844:
+	jmp	SHORT $L8843
+$L8846:
 
 ; 3355 : 
 ; 3356 :                if ( lpEntityInstance->u.nInd.bUpdated  ||
@@ -11871,59 +11871,59 @@ $L8844:
 ; 3359 :                     lpEntityInstance->u.nInd.bIncluded ||
 ; 3360 :                     lpEntityInstance->u.nInd.bExcluded )
 
-	mov	eax, DWORD PTR _lpEntityInstance$8828[ebp]
+	mov	eax, DWORD PTR _lpEntityInstance$8830[ebp]
 	mov	ecx, DWORD PTR [eax+6]
 	shr	ecx, 2
 	and	ecx, 1
 	test	ecx, ecx
-	jne	SHORT $L8846
-	mov	edx, DWORD PTR _lpEntityInstance$8828[ebp]
+	jne	SHORT $L8848
+	mov	edx, DWORD PTR _lpEntityInstance$8830[ebp]
 	mov	eax, DWORD PTR [edx+6]
 	shr	eax, 1
 	and	eax, 1
 	test	eax, eax
-	jne	SHORT $L8846
-	mov	ecx, DWORD PTR _lpEntityInstance$8828[ebp]
+	jne	SHORT $L8848
+	mov	ecx, DWORD PTR _lpEntityInstance$8830[ebp]
 	mov	edx, DWORD PTR [ecx+6]
 	shr	edx, 3
 	and	edx, 1
 	test	edx, edx
-	jne	SHORT $L8846
-	mov	eax, DWORD PTR _lpEntityInstance$8828[ebp]
+	jne	SHORT $L8848
+	mov	eax, DWORD PTR _lpEntityInstance$8830[ebp]
 	mov	ecx, DWORD PTR [eax+6]
 	shr	ecx, 5
 	and	ecx, 1
 	test	ecx, ecx
-	jne	SHORT $L8846
-	mov	edx, DWORD PTR _lpEntityInstance$8828[ebp]
+	jne	SHORT $L8848
+	mov	edx, DWORD PTR _lpEntityInstance$8830[ebp]
 	mov	eax, DWORD PTR [edx+6]
 	shr	eax, 4
 	and	eax, 1
 	test	eax, eax
-	je	SHORT $L8845
-$L8846:
+	je	SHORT $L8847
+$L8848:
 
 ; 3362 :                   bChanged = TRUE;
 
-	mov	BYTE PTR _bChanged$8830[ebp], 1
+	mov	BYTE PTR _bChanged$8832[ebp], 1
 
 ; 3363 :                   break;
 
-	jmp	SHORT $L8842
-$L8845:
+	jmp	SHORT $L8844
+$L8847:
 
 ; 3365 :             } // for...
 
-	jmp	$L8841
-$L8842:
+	jmp	$L8843
+$L8844:
 
 ; 3367 : 
 ; 3368 :          if ( bChanged == FALSE )
 
-	mov	ecx, DWORD PTR _bChanged$8830[ebp]
+	mov	ecx, DWORD PTR _bChanged$8832[ebp]
 	and	ecx, 255				; 000000ffH
 	test	ecx, ecx
-	jne	SHORT $L8847
+	jne	SHORT $L8849
 
 ; 3370 :             // View isn't really changed so forget it.
 ; 3371 :             lpViewArray[ k ] = 0;
@@ -11938,7 +11938,7 @@ $L8842:
 
 	movsx	ecx, WORD PTR _nViewCount$[ebp]
 	cmp	ecx, 1
-	jle	SHORT $L8848
+	jle	SHORT $L8850
 
 ; 3375 :                *pch++ = 0;
 
@@ -11947,42 +11947,42 @@ $L8842:
 	mov	eax, DWORD PTR _pch$[ebp]
 	add	eax, 1
 	mov	DWORD PTR _pch$[ebp], eax
-$L8848:
+$L8850:
 
 ; 3376 : 
 ; 3377 :             // Get rid of entity instances that are dead--instances that
 ; 3378 :             // have been created AND deleted, etc.
 ; 3379 :             fnReclaimHiddenInstances( lpViewOI );
 
-	mov	ecx, DWORD PTR _lpViewOI$8829[ebp]
+	mov	ecx, DWORD PTR _lpViewOI$8831[ebp]
 	push	ecx
 	call	_fnReclaimHiddenInstances@4
 
 ; 3380 : 
 ; 3381 :             lpViewOI->bUpdated = lpViewOI->bUpdatedFile = FALSE;
 
-	mov	edx, DWORD PTR _lpViewOI$8829[ebp]
+	mov	edx, DWORD PTR _lpViewOI$8831[ebp]
 	mov	eax, DWORD PTR [edx+36]
 	and	al, -33					; ffffffdfH
-	mov	ecx, DWORD PTR _lpViewOI$8829[ebp]
+	mov	ecx, DWORD PTR _lpViewOI$8831[ebp]
 	mov	DWORD PTR [ecx+36], eax
-	mov	edx, DWORD PTR _lpViewOI$8829[ebp]
+	mov	edx, DWORD PTR _lpViewOI$8831[ebp]
 	mov	eax, DWORD PTR [edx+36]
 	and	al, -17					; ffffffefH
-	mov	ecx, DWORD PTR _lpViewOI$8829[ebp]
+	mov	ecx, DWORD PTR _lpViewOI$8831[ebp]
 	mov	DWORD PTR [ecx+36], eax
 
 ; 3382 : 
 ; 3383 :             continue;
 
-	jmp	$L8826
-$L8847:
+	jmp	$L8828
+$L8849:
 
 ; 3386 : 
 ; 3387 :       if ( vReferenceView == 0 )
 
 	cmp	DWORD PTR _vReferenceView$[ebp], 0
-	jne	SHORT $L8849
+	jne	SHORT $L8851
 
 ; 3389 :          vReferenceView    = lpViewArray[ k ];
 
@@ -11995,7 +11995,7 @@ $L8847:
 
 	mov	edx, DWORD PTR _lpViewOD$[ebp]
 	mov	DWORD PTR _lpReferenceViewOD$[ebp], edx
-$L8849:
+$L8851:
 
 ; 3392 : 
 ; 3393 :       // Store the object name.
@@ -12027,14 +12027,14 @@ $L8849:
 ; 3398 :       // have been created AND deleted, etc.
 ; 3399 :       fnReclaimHiddenInstances( lpViewOI );
 
-	mov	ecx, DWORD PTR _lpViewOI$8829[ebp]
+	mov	ecx, DWORD PTR _lpViewOI$8831[ebp]
 	push	ecx
 	call	_fnReclaimHiddenInstances@4
 
 ; 3400 :    }
 
-	jmp	$L8826
-$L8827:
+	jmp	$L8828
+$L8829:
 
 ; 3401 : 
 ; 3402 :    // If vReferenceView is 0 then we didn't find any OIs that have changes so
@@ -12042,7 +12042,7 @@ $L8827:
 ; 3404 :    if ( vReferenceView == 0 )
 
 	cmp	DWORD PTR _vReferenceView$[ebp], 0
-	jne	SHORT $L8851
+	jne	SHORT $L8853
 
 ; 3406 :       nRC = 0;
 
@@ -12050,8 +12050,8 @@ $L8827:
 
 ; 3407 :       goto EndOfFunction;
 
-	jmp	$EndOfFunction$8852
-$L8851:
+	jmp	$EndOfFunction$8854
+$L8853:
 
 ; 3409 : 
 ; 3410 :    fnRetrieveAppName( vReferenceView, szAppName );
@@ -12118,7 +12118,7 @@ $L8851:
 	call	_fnAddConnectionToNetwork@32
 	movsx	edx, ax
 	test	edx, edx
-	jge	SHORT $L8853
+	jge	SHORT $L8855
 
 ; 3424 :       nRC = zNETWORK_ERROR;
 
@@ -12126,8 +12126,8 @@ $L8851:
 
 ; 3425 :       goto EndOfFunction;
 
-	jmp	$EndOfFunction$8852
-$L8853:
+	jmp	$EndOfFunction$8854
+$L8855:
 
 ; 3427 : 
 ; 3428 :    bConnectionMade = TRUE;
@@ -12140,14 +12140,14 @@ $L8853:
 	mov	eax, DWORD PTR _lpNetwork$[ebp]
 	movsx	ecx, WORD PTR [eax+140]
 	cmp	ecx, 1
-	jle	SHORT $L8854
+	jle	SHORT $L8856
 
 ; 3431 :       TraceLineS( "(kzoeneta) ** Sending Commit OI packet", "" );
 
 	push	OFFSET FLAT:??_C@_00A@?$AA@		; `string'
 	push	OFFSET FLAT:??_C@_0CH@DJGN@?$CIkzoeneta?$CJ?5?$CK?$CK?5Sending?5Commit?5OI?5@ ; `string'
 	call	_TraceLineS@8
-$L8854:
+$L8856:
 
 ; 3432 : 
 ; 3433 :    //=======================================================================
@@ -12172,12 +12172,12 @@ $L8854:
 	call	_fnSendHeaderPacket@16
 	movsx	edx, ax
 	test	edx, edx
-	je	SHORT $L8856
+	je	SHORT $L8858
 
 ; 3445 :       goto EndOfFunction;
 
-	jmp	$EndOfFunction$8852
-$L8856:
+	jmp	$EndOfFunction$8854
+$L8858:
 
 ; 3447 : 
 ; 3448 :    if ( fnSendTraceSwitches( lpNetwork, &pvConn, lpTask ) != 0 )
@@ -12191,12 +12191,12 @@ $L8856:
 	call	_fnSendTraceSwitches@12
 	movsx	eax, ax
 	test	eax, eax
-	je	SHORT $L8857
+	je	SHORT $L8859
 
 ; 3449 :       goto EndOfFunction;
 
-	jmp	$EndOfFunction$8852
-$L8857:
+	jmp	$EndOfFunction$8854
+$L8859:
 
 ; 3450 : 
 ; 3451 :    if ( fnSendDataPacket( lpNetwork, &pvConn, zPACKET_COMMITOI, 0 ) != 0 )
@@ -12210,12 +12210,12 @@ $L8857:
 	call	_fnSendDataPacket@16
 	movsx	eax, ax
 	test	eax, eax
-	je	SHORT $L8858
+	je	SHORT $L8860
 
 ; 3452 :       goto EndOfFunction;
 
-	jmp	$EndOfFunction$8852
-$L8858:
+	jmp	$EndOfFunction$8854
+$L8860:
 
 ; 3453 : 
 ; 3454 :    // Set up the commit information.  We initialize the structure to 0's so
@@ -12328,7 +12328,7 @@ $L8858:
 	mov	ecx, DWORD PTR _lpNetwork$[ebp]
 	movsx	edx, WORD PTR [ecx+140]
 	test	edx, edx
-	jle	SHORT $L8862
+	jle	SHORT $L8864
 
 ; 3475 :       TraceLine( "(kzoeneta) ** Appl Name: %s  User Name: %s ",
 ; 3476 :                  CommitPacket.szAppName, CommitPacket.szUserName );
@@ -12345,7 +12345,7 @@ $L8858:
 
 	movsx	edx, WORD PTR _nViewCount$[ebp]
 	cmp	edx, 1
-	jle	SHORT $L8864
+	jle	SHORT $L8866
 
 ; 3479 :          TraceLine( "(kzoeneta) ** View Count: %s  OD Name Lth: %d",
 ; 3480 :                     CommitPacket.szViewCount, nObjectNameLth );
@@ -12367,7 +12367,7 @@ $L8858:
 	push	eax
 	push	OFFSET FLAT:??_C@_0BJ@LCNM@?$CIkzoeneta?$CJ?5?$CK?$CK?5OD?5Names?3?5?$AA@ ; `string'
 	call	_TraceBuffer@12
-$L8864:
+$L8866:
 
 ; 3484 : 
 ; 3485 :       TraceLineS( "(kzoeneta) ** LB Lth: ", CommitPacket.szLinkBufferLth );
@@ -12376,7 +12376,7 @@ $L8864:
 	push	ecx
 	push	OFFSET FLAT:??_C@_0BH@CGMJ@?$CIkzoeneta?$CJ?5?$CK?$CK?5LB?5Lth?3?5?$AA@ ; `string'
 	call	_TraceLineS@8
-$L8862:
+$L8864:
 
 ; 3487 : 
 ; 3488 :    // Send server commit info.
@@ -12397,12 +12397,12 @@ $L8862:
 	call	DWORD PTR [edx+170]
 	movsx	eax, ax
 	test	eax, eax
-	je	SHORT $L8869
+	je	SHORT $L8871
 
 ; 3493 :       goto EndOfFunction;
 
-	jmp	$EndOfFunction$8852
-$L8869:
+	jmp	$EndOfFunction$8854
+$L8871:
 
 ; 3495 : 
 ; 3496 :    // Send the object names.
@@ -12424,19 +12424,19 @@ $L8869:
 	call	DWORD PTR [edx+170]
 	movsx	eax, ax
 	test	eax, eax
-	je	SHORT $L8870
+	je	SHORT $L8872
 
 ; 3501 :       goto EndOfFunction;
 
-	jmp	$EndOfFunction$8852
-$L8870:
+	jmp	$EndOfFunction$8854
+$L8872:
 
 ; 3503 : 
 ; 3504 :    // Send the link buffer info if we have any.
 ; 3505 :    if ( lLinkBufferLth > 0 )
 
 	cmp	DWORD PTR _lLinkBufferLth$[ebp], 0
-	jle	SHORT $L8872
+	jle	SHORT $L8874
 
 ; 3507 :       if ( (*lpNetwork->lpfnSend)( &lpNetwork->pNetworkHandle, &pvConn,
 ; 3508 :                                    pchLinkBuffer, lLinkBufferLth,
@@ -12456,12 +12456,12 @@ $L8870:
 	call	DWORD PTR [edx+170]
 	movsx	eax, ax
 	test	eax, eax
-	je	SHORT $L8872
+	je	SHORT $L8874
 
 ; 3511 :          goto EndOfFunction;
 
-	jmp	$EndOfFunction$8852
-$L8872:
+	jmp	$EndOfFunction$8854
+$L8874:
 
 ; 3514 : 
 ; 3515 :    if ( lpNetwork->nTraceLevel > 0 )
@@ -12469,14 +12469,14 @@ $L8872:
 	mov	ecx, DWORD PTR _lpNetwork$[ebp]
 	movsx	edx, WORD PTR [ecx+140]
 	test	edx, edx
-	jle	SHORT $L8873
+	jle	SHORT $L8875
 
 ; 3516 :       TraceLineS( "(kzoeneta) ** Sending OIs to commit", "" );
 
 	push	OFFSET FLAT:??_C@_00A@?$AA@		; `string'
 	push	OFFSET FLAT:??_C@_0CE@BDJB@?$CIkzoeneta?$CJ?5?$CK?$CK?5Sending?5OIs?5to?5com@ ; `string'
 	call	_TraceLineS@8
-$L8873:
+$L8875:
 
 ; 3517 : 
 ; 3518 :    // Send the OIs to the server to be committed.  Send entity tags so we can
@@ -12484,16 +12484,16 @@ $L8873:
 ; 3520 :    for ( k = 0; k < nViewCount; k++ )
 
 	mov	WORD PTR _k$[ebp], 0
-	jmp	SHORT $L8875
-$L8876:
+	jmp	SHORT $L8877
+$L8878:
 	mov	ax, WORD PTR _k$[ebp]
 	add	ax, 1
 	mov	WORD PTR _k$[ebp], ax
-$L8875:
+$L8877:
 	movsx	ecx, WORD PTR _k$[ebp]
 	movsx	edx, WORD PTR _nViewCount$[ebp]
 	cmp	ecx, edx
-	jge	$L8877
+	jge	$L8879
 
 ; 3522 :       zCHAR szControl[ 10 ];
 ; 3523 :       zCHAR szLth[ 5 ];
@@ -12504,12 +12504,12 @@ $L8875:
 	movsx	eax, WORD PTR _k$[ebp]
 	mov	ecx, DWORD PTR _lpViewArray$[ebp]
 	cmp	DWORD PTR [ecx+eax*4], 0
-	jne	SHORT $L8881
+	jne	SHORT $L8883
 
 ; 3527 :          continue;
 
-	jmp	SHORT $L8876
-$L8881:
+	jmp	SHORT $L8878
+$L8883:
 
 ; 3528 : 
 ; 3529 :       if ( fnSendOI( &pvConn, lpNetwork, lpViewArray[ k ],
@@ -12527,7 +12527,7 @@ $L8881:
 	call	_fnSendOI@16
 	movsx	ecx, ax
 	cmp	ecx, -16				; fffffff0H
-	jne	SHORT $L8882
+	jne	SHORT $L8884
 
 ; 3532 :          TraceLineS( "(kzoeneta) ** Error sending OI for Commit!", "" );
 
@@ -12537,8 +12537,8 @@ $L8881:
 
 ; 3533 :          goto EndOfFunction;
 
-	jmp	$EndOfFunction$8852
-$L8882:
+	jmp	$EndOfFunction$8854
+$L8884:
 
 ; 3535 : 
 ; 3536 :       // Send the control value for the view.  We'll store the length of the
@@ -12547,7 +12547,7 @@ $L8882:
 ; 3539 :       zltox( lpViewCluster[ k ].lControl, &szControl[ 2 ] );
 
 	push	16					; 00000010H
-	lea	edx, DWORD PTR _szControl$8878[ebp+2]
+	lea	edx, DWORD PTR _szControl$8880[ebp+2]
 	push	edx
 	movsx	eax, WORD PTR _k$[ebp]
 	mov	ecx, DWORD PTR _lpViewCluster$[ebp]
@@ -12558,32 +12558,32 @@ $L8882:
 
 ; 3540 :       lLth = zstrlen( &szControl[ 2 ] ) + 1;
 
-	lea	eax, DWORD PTR _szControl$8878[ebp+2]
+	lea	eax, DWORD PTR _szControl$8880[ebp+2]
 	push	eax
 	call	_strlen
 	add	esp, 4
 	add	eax, 1
-	mov	DWORD PTR _lLth$8880[ebp], eax
+	mov	DWORD PTR _lLth$8882[ebp], eax
 
 ; 3541 :       zltox( lLth, szLth );
 
 	push	16					; 00000010H
-	lea	ecx, DWORD PTR _szLth$8879[ebp]
+	lea	ecx, DWORD PTR _szLth$8881[ebp]
 	push	ecx
-	mov	edx, DWORD PTR _lLth$8880[ebp]
+	mov	edx, DWORD PTR _lLth$8882[ebp]
 	push	edx
 	call	DWORD PTR __imp___ltoa
 	add	esp, 12					; 0000000cH
 
 ; 3542 :       szControl[ 0 ] = szLth[ 0 ];  // Copy lth to first two bytes.
 
-	mov	al, BYTE PTR _szLth$8879[ebp]
-	mov	BYTE PTR _szControl$8878[ebp], al
+	mov	al, BYTE PTR _szLth$8881[ebp]
+	mov	BYTE PTR _szControl$8880[ebp], al
 
 ; 3543 :       szControl[ 1 ] = szLth[ 1 ];
 
-	mov	cl, BYTE PTR _szLth$8879[ebp+1]
-	mov	BYTE PTR _szControl$8878[ebp+1], cl
+	mov	cl, BYTE PTR _szLth$8881[ebp+1]
+	mov	BYTE PTR _szControl$8880[ebp+1], cl
 
 ; 3544 :       // First, send the length, then the data.
 ; 3545 :       //  The strings must be written and read synchronously.
@@ -12596,7 +12596,7 @@ $L8882:
 
 	push	83					; 00000053H
 	push	2
-	lea	edx, DWORD PTR _szControl$8878[ebp]
+	lea	edx, DWORD PTR _szControl$8880[ebp]
 	push	edx
 	lea	eax, DWORD PTR _pvConn$[ebp]
 	push	eax
@@ -12607,12 +12607,12 @@ $L8882:
 	call	DWORD PTR [edx+170]
 	movsx	eax, ax
 	test	eax, eax
-	je	SHORT $L8884
+	je	SHORT $L8886
 
 ; 3553 :          goto EndOfFunction;
 
-	jmp	$EndOfFunction$8852
-$L8884:
+	jmp	$EndOfFunction$8854
+$L8886:
 
 ; 3555 : 
 ; 3556 :       if ( (*lpNetwork->lpfnSend)( &lpNetwork->pNetworkHandle, &pvConn,
@@ -12620,9 +12620,9 @@ $L8884:
 ; 3558 :                                    zTYPE_STRING ) != 0 )
 
 	push	83					; 00000053H
-	mov	ecx, DWORD PTR _lLth$8880[ebp]
+	mov	ecx, DWORD PTR _lLth$8882[ebp]
 	push	ecx
-	lea	edx, DWORD PTR _szControl$8878[ebp+2]
+	lea	edx, DWORD PTR _szControl$8880[ebp+2]
 	push	edx
 	lea	eax, DWORD PTR _pvConn$[ebp]
 	push	eax
@@ -12633,17 +12633,17 @@ $L8884:
 	call	DWORD PTR [edx+170]
 	movsx	eax, ax
 	test	eax, eax
-	je	SHORT $L8885
+	je	SHORT $L8887
 
 ; 3560 :          goto EndOfFunction;
 
-	jmp	$EndOfFunction$8852
-$L8885:
+	jmp	$EndOfFunction$8854
+$L8887:
 
 ; 3562 :    }
 
-	jmp	$L8876
-$L8877:
+	jmp	$L8878
+$L8879:
 
 ; 3563 : 
 ; 3564 :    // Tell network handler to flush the send buffer.
@@ -12656,12 +12656,12 @@ $L8877:
 	call	_fnFlushBuffer@8
 	movsx	eax, ax
 	test	eax, eax
-	je	SHORT $L8886
+	je	SHORT $L8888
 
 ; 3566 :       goto EndOfFunction;
 
-	jmp	$EndOfFunction$8852
-$L8886:
+	jmp	$EndOfFunction$8854
+$L8888:
 
 ; 3567 : 
 ; 3568 :    //=======================================================================
@@ -12676,14 +12676,14 @@ $L8886:
 	mov	ecx, DWORD PTR _lpNetwork$[ebp]
 	movsx	edx, WORD PTR [ecx+140]
 	test	edx, edx
-	jle	SHORT $L8887
+	jle	SHORT $L8889
 
 ; 3576 :       TraceLineS( "(kzoeneta) ** Waiting for returned OI", "" );
 
 	push	OFFSET FLAT:??_C@_00A@?$AA@		; `string'
 	push	OFFSET FLAT:??_C@_0CG@CNJI@?$CIkzoeneta?$CJ?5?$CK?$CK?5Waiting?5for?5return@ ; `string'
 	call	_TraceLineS@8
-$L8887:
+$L8889:
 
 ; 3577 : 
 ; 3578 :    // Wait for Ack.
@@ -12700,7 +12700,7 @@ $L8887:
 	call	_fnReceiveDataPacket@16
 	movsx	ecx, ax
 	test	ecx, ecx
-	je	SHORT $L8889
+	je	SHORT $L8891
 
 ; 3581 :       TraceLineS( "(kzoeneta) ** Error receiving OI ACK!", "" );
 
@@ -12710,15 +12710,15 @@ $L8887:
 
 ; 3582 :       goto EndOfFunction;
 
-	jmp	$EndOfFunction$8852
-$L8889:
+	jmp	$EndOfFunction$8854
+$L8891:
 
 ; 3584 : 
 ; 3585 :    if ( cPacketType == zPACKET_RC )
 
 	movsx	edx, BYTE PTR _cPacketType$[ebp]
 	cmp	edx, 35					; 00000023H
-	jne	SHORT $L8890
+	jne	SHORT $L8892
 
 ; 3587 :       // If we received the RC packet, then there was an error committing
 ; 3588 :       // the OIs on the server.  Get the return code and go to the end of the
@@ -12728,14 +12728,14 @@ $L8889:
 	mov	eax, DWORD PTR _lpNetwork$[ebp]
 	movsx	ecx, WORD PTR [eax+140]
 	test	ecx, ecx
-	jle	SHORT $L8891
+	jle	SHORT $L8893
 
 ; 3591 :          TraceLineS( "(kzoeneta) ** Received RC - error in Commit", "" );
 
 	push	OFFSET FLAT:??_C@_00A@?$AA@		; `string'
 	push	OFFSET FLAT:??_C@_0CM@NFHD@?$CIkzoeneta?$CJ?5?$CK?$CK?5Received?5RC?5?9?5erro@ ; `string'
 	call	_TraceLineS@8
-$L8891:
+$L8893:
 
 ; 3592 : 
 ; 3593 :       nRC = (zSHORT) lPacketData;
@@ -12758,7 +12758,7 @@ $L8891:
 	call	_fnReceiveDataPacket@16
 	movsx	ecx, ax
 	test	ecx, ecx
-	je	SHORT $L8893
+	je	SHORT $L8895
 
 ; 3598 :          TraceLineS( "(kzoeneta) ** Error receiving OI ACK!", "" );
 
@@ -12772,27 +12772,27 @@ $L8891:
 
 ; 3600 :          goto EndOfFunction;
 
-	jmp	$EndOfFunction$8852
-$L8893:
+	jmp	$EndOfFunction$8854
+$L8895:
 
 ; 3602 : 
 ; 3603 :       if ( pnViewErrorIdx )
 
 	cmp	DWORD PTR _pnViewErrorIdx$[ebp], 0
-	je	SHORT $L8894
+	je	SHORT $L8896
 
 ; 3604 :          *pnViewErrorIdx = (zSHORT) lPacketData;
 
 	mov	edx, DWORD PTR _pnViewErrorIdx$[ebp]
 	mov	ax, WORD PTR _lPacketData$[ebp]
 	mov	WORD PTR [edx], ax
-$L8894:
+$L8896:
 
 ; 3605 : 
 ; 3606 :       goto EndOfFunction;
 
-	jmp	$EndOfFunction$8852
-$L8890:
+	jmp	$EndOfFunction$8854
+$L8892:
 
 ; 3608 : 
 ; 3609 :    // Allocate an array for the incoming views.
@@ -12825,28 +12825,28 @@ $L8890:
 ; 3616 :    for ( k = 0; k < nViewCount; k++ )
 
 	mov	WORD PTR _k$[ebp], 0
-	jmp	SHORT $L8900
-$L8901:
+	jmp	SHORT $L8902
+$L8903:
 	mov	dx, WORD PTR _k$[ebp]
 	add	dx, 1
 	mov	WORD PTR _k$[ebp], dx
-$L8900:
+$L8902:
 	movsx	eax, WORD PTR _k$[ebp]
 	movsx	ecx, WORD PTR _nViewCount$[ebp]
 	cmp	eax, ecx
-	jge	$L8902
+	jge	$L8904
 
 ; 3618 :       if ( lpViewArray[ k ] == 0 )
 
 	movsx	edx, WORD PTR _k$[ebp]
 	mov	eax, DWORD PTR _lpViewArray$[ebp]
 	cmp	DWORD PTR [eax+edx*4], 0
-	jne	SHORT $L8903
+	jne	SHORT $L8905
 
 ; 3619 :          continue;
 
-	jmp	SHORT $L8901
-$L8903:
+	jmp	SHORT $L8903
+$L8905:
 
 ; 3620 : 
 ; 3621 :       lpViewOD = zGETPTR( lpViewArray[ k ]->hViewOD );
@@ -12864,18 +12864,18 @@ $L8903:
 
 	movsx	edx, BYTE PTR _cPacketType$[ebp]
 	cmp	edx, 101				; 00000065H
-	jne	SHORT $L8905
+	jne	SHORT $L8907
 
 ; 3630 :       else
 
-	jmp	SHORT $L8910
-$L8905:
+	jmp	SHORT $L8912
+$L8907:
 
 ; 3631 :       if ( cPacketType == zPACKET_ACK )
 
 	movsx	eax, BYTE PTR _cPacketType$[ebp]
 	cmp	eax, 75					; 0000004bH
-	jne	SHORT $L8907
+	jne	SHORT $L8909
 
 ; 3633 :          // The server committed the OI and now must send back the resulting OI.
 ; 3634 :          if ( fnReceiveOI( &pvConn, lpNetwork, &lpNewViewArray[ k ],
@@ -12901,7 +12901,7 @@ $L8905:
 	call	_fnReceiveOI@24
 	movsx	ecx, ax
 	cmp	ecx, -16				; fffffff0H
-	jne	SHORT $L8908
+	jne	SHORT $L8910
 
 ; 3638 :             TraceLineS( "(kzoeneta) ** Error receiving OI after commit!", "" );
 
@@ -12911,13 +12911,13 @@ $L8905:
 
 ; 3639 :             goto EndOfFunction;
 
-	jmp	$EndOfFunction$8852
-$L8908:
+	jmp	$EndOfFunction$8854
+$L8910:
 
 ; 3642 :       else
 
-	jmp	SHORT $L8910
-$L8907:
+	jmp	SHORT $L8912
+$L8909:
 
 ; 3644 :          TraceLineS( "(kzoeneta) ** Received bytes but no ACK!", "" );
 
@@ -12927,8 +12927,8 @@ $L8907:
 
 ; 3645 :          goto EndOfFunction;
 
-	jmp	$EndOfFunction$8852
-$L8910:
+	jmp	$EndOfFunction$8854
+$L8912:
 
 ; 3647 : 
 ; 3648 :       // Get the next packet.
@@ -12946,7 +12946,7 @@ $L8910:
 	call	_fnReceiveDataPacket@16
 	movsx	eax, ax
 	test	eax, eax
-	je	SHORT $L8912
+	je	SHORT $L8914
 
 ; 3652 :          TraceLineS( "(kzoeneta) ** Error receiving OI ACK!", "" );
 
@@ -12956,21 +12956,21 @@ $L8910:
 
 ; 3653 :          goto EndOfFunction;
 
-	jmp	$EndOfFunction$8852
-$L8912:
+	jmp	$EndOfFunction$8854
+$L8914:
 
 ; 3655 : 
 ; 3656 :    } // for ( k...)...
 
-	jmp	$L8901
-$L8902:
+	jmp	$L8903
+$L8904:
 
 ; 3657 : 
 ; 3658 :    if ( cPacketType != zPACKET_RC )
 
 	movsx	ecx, BYTE PTR _cPacketType$[ebp]
 	cmp	ecx, 35					; 00000023H
-	je	SHORT $L8913
+	je	SHORT $L8915
 
 ; 3660 :       TraceLineS( "(kzoeneta) ** No return code for Commit!", "" );
 
@@ -12980,8 +12980,8 @@ $L8902:
 
 ; 3661 :       goto EndOfFunction;
 
-	jmp	$EndOfFunction$8852
-$L8913:
+	jmp	$EndOfFunction$8854
+$L8915:
 
 ; 3663 : 
 ; 3664 :    nRC = (zSHORT) lPacketData;
@@ -12995,7 +12995,7 @@ $L8913:
 	mov	eax, DWORD PTR _lpNetwork$[ebp]
 	movsx	ecx, WORD PTR [eax+140]
 	test	ecx, ecx
-	jle	SHORT $L8915
+	jle	SHORT $L8917
 
 ; 3667 :       TraceLineI( "(kzoeneta) ** RC from commit = ", nRC );
 
@@ -13003,7 +13003,7 @@ $L8913:
 	push	edx
 	push	OFFSET FLAT:??_C@_0CA@EJON@?$CIkzoeneta?$CJ?5?$CK?$CK?5RC?5from?5commit?5?$DN?5?$AA@ ; `string'
 	call	_TraceLineI@8
-$L8915:
+$L8917:
 
 ; 3668 : 
 ; 3669 :    //=======================================================================
@@ -13022,16 +13022,16 @@ $L8915:
 ; 3682 :    for ( k = 0; k < nViewCount; k++ )
 
 	mov	WORD PTR _k$[ebp], 0
-	jmp	SHORT $L8917
-$L8918:
+	jmp	SHORT $L8919
+$L8920:
 	mov	ax, WORD PTR _k$[ebp]
 	add	ax, 1
 	mov	WORD PTR _k$[ebp], ax
-$L8917:
+$L8919:
 	movsx	ecx, WORD PTR _k$[ebp]
 	movsx	edx, WORD PTR _nViewCount$[ebp]
 	cmp	ecx, edx
-	jge	$EndOfFunction$8852
+	jge	$EndOfFunction$8854
 
 ; 3684 :       LPVIEWCSR lpViewCsr;
 ; 3685 :       LPVIEWOI  lpViewOI;
@@ -13042,12 +13042,12 @@ $L8917:
 	movsx	eax, WORD PTR _k$[ebp]
 	mov	ecx, DWORD PTR _lpNewViewArray$[ebp]
 	cmp	DWORD PTR [ecx+eax*4], 0
-	jne	SHORT $L8923
+	jne	SHORT $L8925
 
 ; 3689 :          continue;
 
-	jmp	SHORT $L8918
-$L8923:
+	jmp	SHORT $L8920
+$L8925:
 
 ; 3690 : 
 ; 3691 :       if ( fnMergeViews( lpNewViewArray[ k ],
@@ -13064,7 +13064,7 @@ $L8923:
 	call	_fnMergeViews@8
 	movsx	edx, ax
 	cmp	edx, -16				; fffffff0H
-	jne	SHORT $L8924
+	jne	SHORT $L8926
 
 ; 3694 :          nRC = zCALL_ERROR;
 
@@ -13072,8 +13072,8 @@ $L8923:
 
 ; 3695 :          continue;
 
-	jmp	SHORT $L8918
-$L8924:
+	jmp	SHORT $L8920
+$L8926:
 
 ; 3697 : 
 ; 3698 :       // Call operation to clean up the OI. This will also drop
@@ -13098,27 +13098,27 @@ $L8924:
 	mov	eax, DWORD PTR [edx+10]
 	push	eax
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpViewCsr$8920[ebp], eax
+	mov	DWORD PTR _lpViewCsr$8922[ebp], eax
 
 ; 3704 :       lpViewOI  = zGETPTR( lpViewCsr->hViewOI );
 
-	mov	ecx, DWORD PTR _lpViewCsr$8920[ebp]
+	mov	ecx, DWORD PTR _lpViewCsr$8922[ebp]
 	mov	edx, DWORD PTR [ecx+10]
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpViewOI$8921[ebp], eax
+	mov	DWORD PTR _lpViewOI$8923[ebp], eax
 
 ; 3705 :       lpViewOI->bUpdated = lpViewOI->bUpdatedFile = FALSE;
 
-	mov	eax, DWORD PTR _lpViewOI$8921[ebp]
+	mov	eax, DWORD PTR _lpViewOI$8923[ebp]
 	mov	ecx, DWORD PTR [eax+36]
 	and	ecx, -33				; ffffffdfH
-	mov	edx, DWORD PTR _lpViewOI$8921[ebp]
+	mov	edx, DWORD PTR _lpViewOI$8923[ebp]
 	mov	DWORD PTR [edx+36], ecx
-	mov	eax, DWORD PTR _lpViewOI$8921[ebp]
+	mov	eax, DWORD PTR _lpViewOI$8923[ebp]
 	mov	ecx, DWORD PTR [eax+36]
 	and	ecx, -17				; ffffffefH
-	mov	edx, DWORD PTR _lpViewOI$8921[ebp]
+	mov	edx, DWORD PTR _lpViewOI$8923[ebp]
 	mov	DWORD PTR [edx+36], ecx
 
 ; 3706 : 
@@ -13130,36 +13130,36 @@ $L8924:
 	mov	eax, DWORD PTR [edx+10]
 	push	eax
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpViewCsr$8920[ebp], eax
+	mov	DWORD PTR _lpViewCsr$8922[ebp], eax
 
 ; 3708 :       lpNewViewOI = zGETPTR( lpViewCsr->hViewOI );
 
-	mov	ecx, DWORD PTR _lpViewCsr$8920[ebp]
+	mov	ecx, DWORD PTR _lpViewCsr$8922[ebp]
 	mov	edx, DWORD PTR [ecx+10]
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpNewViewOI$8922[ebp], eax
+	mov	DWORD PTR _lpNewViewOI$8924[ebp], eax
 
 ; 3709 :       lpViewOI->bIsLocked = lpNewViewOI->bIsLocked;
 
-	mov	eax, DWORD PTR _lpNewViewOI$8922[ebp]
+	mov	eax, DWORD PTR _lpNewViewOI$8924[ebp]
 	mov	ecx, DWORD PTR [eax+36]
 	shr	ecx, 7
 	and	ecx, 1
 	and	ecx, 1
 	shl	ecx, 7
-	mov	edx, DWORD PTR _lpViewOI$8921[ebp]
+	mov	edx, DWORD PTR _lpViewOI$8923[ebp]
 	mov	eax, DWORD PTR [edx+36]
 	and	al, 127					; 0000007fH
 	or	eax, ecx
-	mov	ecx, DWORD PTR _lpViewOI$8921[ebp]
+	mov	ecx, DWORD PTR _lpViewOI$8923[ebp]
 	mov	DWORD PTR [ecx+36], eax
 
 ; 3710 : 
 ; 3711 :    } // for k...
 
-	jmp	$L8918
-$EndOfFunction$8852:
+	jmp	$L8920
+$EndOfFunction$8854:
 
 ; 3712 : 
 ; 3713 : EndOfFunction:
@@ -13167,11 +13167,11 @@ $EndOfFunction$8852:
 ; 3715 :         fnRetrieveMsgAndTraceObj( lpNetwork, &pvConn, vReferenceView ) < 0 )
 
 	cmp	DWORD PTR _vSubtask$[ebp], 0
-	je	SHORT $L8929
+	je	SHORT $L8931
 	mov	edx, DWORD PTR _bConnectionMade$[ebp]
 	and	edx, 255				; 000000ffH
 	test	edx, edx
-	je	SHORT $L8929
+	je	SHORT $L8931
 	mov	eax, DWORD PTR _vReferenceView$[ebp]
 	push	eax
 	lea	ecx, DWORD PTR _pvConn$[ebp]
@@ -13181,12 +13181,12 @@ $EndOfFunction$8852:
 	call	_fnRetrieveMsgAndTraceObj@12
 	movsx	eax, ax
 	test	eax, eax
-	jge	SHORT $L8929
+	jge	SHORT $L8931
 
 ; 3717 :       nRC = zCALL_ERROR;
 
 	mov	WORD PTR _nRC$[ebp], -16		; fffffff0H
-$L8929:
+$L8931:
 
 ; 3719 : 
 ; 3720 :    if ( bConnectionMade &&
@@ -13196,7 +13196,7 @@ $L8929:
 	mov	ecx, DWORD PTR _bConnectionMade$[ebp]
 	and	ecx, 255				; 000000ffH
 	test	ecx, ecx
-	je	SHORT $L8930
+	je	SHORT $L8932
 	push	1
 	lea	edx, DWORD PTR _pvConn$[ebp]
 	push	edx
@@ -13205,18 +13205,18 @@ $L8929:
 	call	_fnRemoveConnectionFromNetwork@12
 	movsx	ecx, ax
 	cmp	ecx, -16				; fffffff0H
-	jne	SHORT $L8930
+	jne	SHORT $L8932
 
 ; 3724 :       nRC = zCALL_ERROR;
 
 	mov	WORD PTR _nRC$[ebp], -16		; fffffff0H
-$L8930:
+$L8932:
 
 ; 3726 : 
 ; 3727 :    if ( vSubtask )
 
 	cmp	DWORD PTR _vSubtask$[ebp], 0
-	je	SHORT $L8931
+	je	SHORT $L8933
 
 ; 3728 :       DROPSUBTASK( vSubtask );
 
@@ -13224,24 +13224,24 @@ $L8930:
 	mov	eax, DWORD PTR [edx+18]
 	push	eax
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpDropSubtask$8932[ebp], eax
+	mov	DWORD PTR _lpDropSubtask$8934[ebp], eax
 	push	0
-	mov	ecx, DWORD PTR _lpDropSubtask$8932[ebp]
+	mov	ecx, DWORD PTR _lpDropSubtask$8934[ebp]
 	push	ecx
-	mov	edx, DWORD PTR _lpDropSubtask$8932[ebp]
+	mov	edx, DWORD PTR _lpDropSubtask$8934[ebp]
 	mov	eax, DWORD PTR [edx+6]
 	push	eax
 	call	DWORD PTR _g_pfnGetPtr
 	push	eax
 	call	_fnDropSubtask
 	add	esp, 12					; 0000000cH
-$L8931:
+$L8933:
 
 ; 3729 : 
 ; 3730 :    if ( pchObjectNameBuffer )
 
 	cmp	DWORD PTR _pchObjectNameBuffer$[ebp], 0
-	je	SHORT $L8935
+	je	SHORT $L8937
 
 ; 3731 :       fnFreeDataspace( pchObjectNameBuffer );
 
@@ -13249,13 +13249,13 @@ $L8931:
 	push	ecx
 	call	_fnFreeDataspace
 	add	esp, 4
-$L8935:
+$L8937:
 
 ; 3732 : 
 ; 3733 :    if ( pchLinkBuffer )
 
 	cmp	DWORD PTR _pchLinkBuffer$[ebp], 0
-	je	SHORT $L8936
+	je	SHORT $L8938
 
 ; 3734 :       fnFreeDataspace( pchLinkBuffer );
 
@@ -13263,27 +13263,27 @@ $L8935:
 	push	edx
 	call	_fnFreeDataspace
 	add	esp, 4
-$L8936:
+$L8938:
 
 ; 3735 : 
 ; 3736 :    if ( lpNewViewArray )
 
 	cmp	DWORD PTR _lpNewViewArray$[ebp], 0
-	je	$L8937
+	je	$L8939
 
 ; 3738 :       for ( k = 0; k < nViewCount; k++ )
 
 	mov	WORD PTR _k$[ebp], 0
-	jmp	SHORT $L8938
-$L8939:
+	jmp	SHORT $L8940
+$L8941:
 	mov	ax, WORD PTR _k$[ebp]
 	add	ax, 1
 	mov	WORD PTR _k$[ebp], ax
-$L8938:
+$L8940:
 	movsx	ecx, WORD PTR _k$[ebp]
 	movsx	edx, WORD PTR _nViewCount$[ebp]
 	cmp	ecx, edx
-	jge	SHORT $L8940
+	jge	SHORT $L8942
 
 ; 3740 :          LPVIEWOI lpViewOI;
 ; 3741 : 
@@ -13292,12 +13292,12 @@ $L8938:
 	movsx	eax, WORD PTR _k$[ebp]
 	mov	ecx, DWORD PTR _lpNewViewArray$[ebp]
 	cmp	DWORD PTR [ecx+eax*4], 0
-	jne	SHORT $L8942
+	jne	SHORT $L8944
 
 ; 3743 :             continue;
 
-	jmp	SHORT $L8939
-$L8942:
+	jmp	SHORT $L8941
+$L8944:
 
 ; 3744 : 
 ; 3745 :          lpViewCsr = zGETPTR( lpNewViewArray[ k ]->hViewCsr );
@@ -13316,7 +13316,7 @@ $L8942:
 	mov	ecx, DWORD PTR [eax+10]
 	push	ecx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpViewOI$8941[ebp], eax
+	mov	DWORD PTR _lpViewOI$8943[ebp], eax
 
 ; 3747 : 
 ; 3748 :          // To keep any possible pessimistic locks from being dropped let's
@@ -13324,10 +13324,10 @@ $L8942:
 ; 3750 :          // user indicated that locks are to be left in place after the commit.
 ; 3751 :          lpViewOI->bIsLocked = 0;
 
-	mov	edx, DWORD PTR _lpViewOI$8941[ebp]
+	mov	edx, DWORD PTR _lpViewOI$8943[ebp]
 	mov	eax, DWORD PTR [edx+36]
 	and	al, 127					; 0000007fH
-	mov	ecx, DWORD PTR _lpViewOI$8941[ebp]
+	mov	ecx, DWORD PTR _lpViewOI$8943[ebp]
 	mov	DWORD PTR [ecx+36], eax
 
 ; 3752 : 
@@ -13341,8 +13341,8 @@ $L8942:
 
 ; 3754 :       }
 
-	jmp	$L8939
-$L8940:
+	jmp	$L8941
+$L8942:
 
 ; 3755 : 
 ; 3756 :       fnFreeDataspace( lpNewViewArray );
@@ -13351,7 +13351,7 @@ $L8940:
 	push	edx
 	call	_fnFreeDataspace
 	add	esp, 4
-$L8937:
+$L8939:
 
 ; 3758 : 
 ; 3759 :    fnOperationReturn( iNetCommitOI, lpTask );
@@ -13365,7 +13365,7 @@ $L8937:
 ; 3760 :    return( nRC );
 
 	mov	ax, WORD PTR _nRC$[ebp]
-$L8791:
+$L8793:
 
 ; 3761 : 
 ; 3762 : } // NetCommitOI
@@ -13753,30 +13753,30 @@ _OperInfo$ = -20
 _lRC$ = -24
 _nReturnCode$ = -344
 _nRC$ = -28
-_szDataType$9009 = -364
-_pvoid$9010 = -360
-_bPointer$9011 = -356
-_pch$9034 = -368
-_pc$9044 = -372
-_c$9048 = -376
-_pl$9059 = -380
-_l$9063 = -384
-_pd$9073 = -388
-_d$9077 = -428
-_ps$9087 = -432
-_n$9092 = -436
-_pv$9107 = -444
-_lpViewOD$9109 = -440
-_v$9117 = -448
-_lpSubtask$9128 = -452
-_lpApp$9130 = -456
-_szTempAppName$9134 = -496
-_lpViewOD$9135 = -460
-_vSendView$9160 = -500
-_pv$9164 = -504
-_l$9184 = -508
-_pvView$9194 = -512
-_pchObjName$9195 = -516
+_szDataType$9011 = -364
+_pvoid$9012 = -360
+_bPointer$9013 = -356
+_pch$9036 = -368
+_pc$9046 = -372
+_c$9050 = -376
+_pl$9061 = -380
+_l$9065 = -384
+_pd$9075 = -388
+_d$9079 = -428
+_ps$9089 = -432
+_n$9094 = -436
+_pv$9109 = -444
+_lpViewOD$9111 = -440
+_v$9119 = -448
+_lpSubtask$9130 = -452
+_lpApp$9132 = -456
+_szTempAppName$9136 = -496
+_lpViewOD$9137 = -460
+_vSendView$9162 = -500
+_pv$9166 = -504
+_l$9186 = -508
+_pvView$9196 = -512
+_pchObjName$9197 = -516
 _NetCallOperation PROC NEAR
 
 ; 4037 : {
@@ -13824,13 +13824,13 @@ _NetCallOperation PROC NEAR
 	add	esp, 12					; 0000000cH
 	mov	DWORD PTR _lpTask$[ebp], eax
 	cmp	DWORD PTR _lpTask$[ebp], 0
-	jne	SHORT $L8986
+	jne	SHORT $L8988
 
 ; 4055 :       return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	$L8972
-$L8986:
+	jmp	$L8974
+$L8988:
 
 ; 4057 : 
 ; 4058 :    if ( (lpNetwork = fnFindNetwork( lpTask, pchNetworkName, TRUE )) == 0 )
@@ -13843,7 +13843,7 @@ $L8986:
 	call	_fnFindNetwork@12
 	mov	DWORD PTR _lpNetwork$[ebp], eax
 	cmp	DWORD PTR _lpNetwork$[ebp], 0
-	jne	SHORT $L8987
+	jne	SHORT $L8989
 
 ; 4060 :       fnOperationReturn( iNetCallOperation, lpTask );
 
@@ -13856,8 +13856,8 @@ $L8986:
 ; 4061 :       return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	$L8972
-$L8987:
+	jmp	$L8974
+$L8989:
 
 ; 4063 : 
 ; 4064 :    //
@@ -13877,7 +13877,7 @@ $L8987:
 ; 4069 :    if ( vArgs == 0 )
 
 	cmp	DWORD PTR _vArgs$[ebp], 0
-	jne	SHORT $L8989
+	jne	SHORT $L8991
 
 ; 4071 :       fnOperationReturn( iNetCallOperation, lpTask );
 
@@ -13890,8 +13890,8 @@ $L8987:
 ; 4072 :       return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	$L8972
-$L8989:
+	jmp	$L8974
+$L8991:
 
 ; 4074 : 
 ; 4075 :    fnRetrieveAppName( vSubtask, szAppName );
@@ -13936,7 +13936,7 @@ $L8989:
 	mov	edx, DWORD PTR _bTransformation$[ebp]
 	and	edx, 255				; 000000ffH
 	test	edx, edx
-	je	SHORT $L8994
+	je	SHORT $L8996
 
 ; 4082 :       SetAttributeFromString( vArgs, "Operation", "OperationType", zTYPE_TRAN );
 
@@ -13959,8 +13959,8 @@ $L8989:
 
 ; 4085 :    else
 
-	jmp	SHORT $L9000
-$L8994:
+	jmp	SHORT $L9002
+$L8996:
 
 ; 4087 :       SetAttributeFromString( vArgs, "Operation", "OperationType", zTYPE_GOPER );
 
@@ -13974,11 +13974,11 @@ $L8994:
 ; 4088 :       if ( pchInfo && *pchInfo )
 
 	cmp	DWORD PTR _pchInfo$[ebp], 0
-	je	SHORT $L9000
+	je	SHORT $L9002
 	mov	ecx, DWORD PTR _pchInfo$[ebp]
 	movsx	edx, BYTE PTR [ecx]
 	test	edx, edx
-	je	SHORT $L9000
+	je	SHORT $L9002
 
 ; 4089 :          SetAttributeFromString( vArgs, "Operation", "DLL_Name", pchInfo );
 
@@ -13989,7 +13989,7 @@ $L8994:
 	mov	ecx, DWORD PTR _vArgs$[ebp]
 	push	ecx
 	call	_SetAttributeFromString@16
-$L9000:
+$L9002:
 
 ; 4091 : 
 ; 4092 :    // First value in the arg list is the return type.
@@ -14022,14 +14022,14 @@ $L9000:
 
 	lea	ecx, DWORD PTR _pchArgList$[ebp+4]
 	mov	DWORD PTR _vaList$[ebp], ecx
-$L9007:
+$L9009:
 
 ; 4099 :    while ( *pchArgList )
 
 	mov	edx, DWORD PTR _pchArgList$[ebp]
 	movsx	eax, BYTE PTR [edx]
 	test	eax, eax
-	je	$L9008
+	je	$L9010
 
 ; 4101 :       zCHAR  szDataType[ 2 ];
 ; 4102 :       zPVOID pvoid;
@@ -14049,11 +14049,11 @@ $L9007:
 	mov	edx, DWORD PTR _pchArgList$[ebp]
 	movsx	eax, BYTE PTR [edx]
 	cmp	eax, 112				; 00000070H
-	jne	$L9013
+	jne	$L9015
 
 ; 4109 :          bPointer = TRUE;
 
-	mov	BYTE PTR _bPointer$9011[ebp], 1
+	mov	BYTE PTR _bPointer$9013[ebp], 1
 
 ; 4110 :          pchArgList++;
 
@@ -14077,13 +14077,13 @@ $L9007:
 	mov	DWORD PTR _vaList$[ebp], eax
 	mov	ecx, DWORD PTR _vaList$[ebp]
 	mov	edx, DWORD PTR [ecx-4]
-	mov	DWORD PTR _pvoid$9010[ebp], edx
+	mov	DWORD PTR _pvoid$9012[ebp], edx
 
 ; 4113 :          SetAttributeFromBlob( vArgs, szlArgument, "PointerValue",
 ; 4114 :                                &pvoid, sizeof( pvoid ) );
 
 	push	4
-	lea	eax, DWORD PTR _pvoid$9010[ebp]
+	lea	eax, DWORD PTR _pvoid$9012[ebp]
 	push	eax
 	push	OFFSET FLAT:??_C@_0N@GJDM@PointerValue?$AA@ ; `string'
 	push	OFFSET FLAT:_szlArgument
@@ -14093,8 +14093,8 @@ $L9007:
 
 ; 4115 :          if ( pvoid )
 
-	cmp	DWORD PTR _pvoid$9010[ebp], 0
-	je	SHORT $L9024
+	cmp	DWORD PTR _pvoid$9012[ebp], 0
+	je	SHORT $L9026
 
 ; 4116 :             SetAttributeFromString( vArgs, szlArgument, "SendArgument", "Y" );
 
@@ -14104,32 +14104,32 @@ $L9007:
 	mov	edx, DWORD PTR _vArgs$[ebp]
 	push	edx
 	call	_SetAttributeFromString@16
-$L9024:
+$L9026:
 
 ; 4118 :       else
 
-	jmp	SHORT $L9026
-$L9013:
+	jmp	SHORT $L9028
+$L9015:
 
 ; 4119 :          bPointer = FALSE;
 
-	mov	BYTE PTR _bPointer$9011[ebp], 0
-$L9026:
+	mov	BYTE PTR _bPointer$9013[ebp], 0
+$L9028:
 
 ; 4120 : 
 ; 4121 :       szDataType[ 0 ] = *pchArgList;
 
 	mov	eax, DWORD PTR _pchArgList$[ebp]
 	mov	cl, BYTE PTR [eax]
-	mov	BYTE PTR _szDataType$9009[ebp], cl
+	mov	BYTE PTR _szDataType$9011[ebp], cl
 
 ; 4122 :       szDataType[ 1 ] = 0;
 
-	mov	BYTE PTR _szDataType$9009[ebp+1], 0
+	mov	BYTE PTR _szDataType$9011[ebp+1], 0
 
 ; 4123 :       SetAttributeFromString( vArgs, szlArgument, "DataType", szDataType );
 
-	lea	edx, DWORD PTR _szDataType$9009[ebp]
+	lea	edx, DWORD PTR _szDataType$9011[ebp]
 	push	edx
 	push	OFFSET FLAT:??_C@_08FNON@DataType?$AA@	; `string'
 	push	OFFSET FLAT:_szlArgument
@@ -14153,12 +14153,12 @@ $L9026:
 	sub	edx, 76					; 0000004cH
 	mov	DWORD PTR -524+[ebp], edx
 	cmp	DWORD PTR -524+[ebp], 13		; 0000000dH
-	ja	$L9029
+	ja	$L9031
 	mov	ecx, DWORD PTR -524+[ebp]
 	xor	eax, eax
-	mov	al, BYTE PTR $L10264[ecx]
-	jmp	DWORD PTR $L10265[eax*4]
-$L9033:
+	mov	al, BYTE PTR $L10266[ecx]
+	jmp	DWORD PTR $L10267[eax*4]
+$L9035:
 
 ; 4136 :             zPCHAR pch = va_arg( vaList, zPCHAR );
 
@@ -14167,11 +14167,11 @@ $L9033:
 	mov	DWORD PTR _vaList$[ebp], edx
 	mov	eax, DWORD PTR _vaList$[ebp]
 	mov	ecx, DWORD PTR [eax-4]
-	mov	DWORD PTR _pch$9034[ebp], ecx
+	mov	DWORD PTR _pch$9036[ebp], ecx
 
 ; 4137 :             SetAttributeFromString( vArgs, szlArgument, "Value", pch );
 
-	mov	edx, DWORD PTR _pch$9034[ebp]
+	mov	edx, DWORD PTR _pch$9036[ebp]
 	push	edx
 	push	OFFSET FLAT:??_C@_05KBGO@Value?$AA@	; `string'
 	push	OFFSET FLAT:_szlArgument
@@ -14181,31 +14181,31 @@ $L9033:
 
 ; 4138 :             break;
 
-	jmp	$L9029
-$L9042:
+	jmp	$L9031
+$L9044:
 
 ; 4140 : 
 ; 4141 :          case 'Y':      // Byte
 ; 4142 :             if ( bPointer )
 
-	mov	ecx, DWORD PTR _bPointer$9011[ebp]
+	mov	ecx, DWORD PTR _bPointer$9013[ebp]
 	and	ecx, 255				; 000000ffH
 	test	ecx, ecx
-	je	SHORT $L9043
+	je	SHORT $L9045
 
 ; 4144 :                zPCHAR pc = (zPCHAR) pvoid;
 
-	mov	edx, DWORD PTR _pvoid$9010[ebp]
-	mov	DWORD PTR _pc$9044[ebp], edx
+	mov	edx, DWORD PTR _pvoid$9012[ebp]
+	mov	DWORD PTR _pc$9046[ebp], edx
 
 ; 4145 :                if ( pc )
 
-	cmp	DWORD PTR _pc$9044[ebp], 0
-	je	SHORT $L9046
+	cmp	DWORD PTR _pc$9046[ebp], 0
+	je	SHORT $L9048
 
 ; 4146 :                   SetAttributeFromInteger( vArgs, szlArgument, "Value", *pc );
 
-	mov	eax, DWORD PTR _pc$9044[ebp]
+	mov	eax, DWORD PTR _pc$9046[ebp]
 	movsx	ecx, BYTE PTR [eax]
 	push	ecx
 	push	OFFSET FLAT:??_C@_05KBGO@Value?$AA@	; `string'
@@ -14213,12 +14213,12 @@ $L9042:
 	mov	edx, DWORD PTR _vArgs$[ebp]
 	push	edx
 	call	_SetAttributeFromInteger@16
-$L9046:
+$L9048:
 
 ; 4148 :             else
 
-	jmp	SHORT $L9047
-$L9043:
+	jmp	SHORT $L9049
+$L9045:
 
 ; 4150 :                zCHAR c = (zCHAR) va_arg( vaList, VA_ARG_CHAR );
 
@@ -14227,47 +14227,47 @@ $L9043:
 	mov	DWORD PTR _vaList$[ebp], eax
 	mov	ecx, DWORD PTR _vaList$[ebp]
 	mov	dl, BYTE PTR [ecx-4]
-	mov	BYTE PTR _c$9048[ebp], dl
+	mov	BYTE PTR _c$9050[ebp], dl
 
 ; 4151 :                SetAttributeFromInteger( vArgs, szlArgument, "Value", c );
 
-	movsx	eax, BYTE PTR _c$9048[ebp]
+	movsx	eax, BYTE PTR _c$9050[ebp]
 	push	eax
 	push	OFFSET FLAT:??_C@_05KBGO@Value?$AA@	; `string'
 	push	OFFSET FLAT:_szlArgument
 	mov	ecx, DWORD PTR _vArgs$[ebp]
 	push	ecx
 	call	_SetAttributeFromInteger@16
-$L9047:
+$L9049:
 
 ; 4153 : 
 ; 4154 :             break;
 
-	jmp	$L9029
-$L9057:
+	jmp	$L9031
+$L9059:
 
 ; 4155 : 
 ; 4156 :          case 'L':      // Long integer
 ; 4157 :             if ( bPointer )
 
-	mov	edx, DWORD PTR _bPointer$9011[ebp]
+	mov	edx, DWORD PTR _bPointer$9013[ebp]
 	and	edx, 255				; 000000ffH
 	test	edx, edx
-	je	SHORT $L9058
+	je	SHORT $L9060
 
 ; 4159 :                zPLONG pl = (zPLONG) pvoid;
 
-	mov	eax, DWORD PTR _pvoid$9010[ebp]
-	mov	DWORD PTR _pl$9059[ebp], eax
+	mov	eax, DWORD PTR _pvoid$9012[ebp]
+	mov	DWORD PTR _pl$9061[ebp], eax
 
 ; 4160 :                if ( pl )
 
-	cmp	DWORD PTR _pl$9059[ebp], 0
-	je	SHORT $L9061
+	cmp	DWORD PTR _pl$9061[ebp], 0
+	je	SHORT $L9063
 
 ; 4161 :                   SetAttributeFromInteger( vArgs, szlArgument, "Value", *pl );
 
-	mov	ecx, DWORD PTR _pl$9059[ebp]
+	mov	ecx, DWORD PTR _pl$9061[ebp]
 	mov	edx, DWORD PTR [ecx]
 	push	edx
 	push	OFFSET FLAT:??_C@_05KBGO@Value?$AA@	; `string'
@@ -14275,12 +14275,12 @@ $L9057:
 	mov	eax, DWORD PTR _vArgs$[ebp]
 	push	eax
 	call	_SetAttributeFromInteger@16
-$L9061:
+$L9063:
 
 ; 4163 :             else
 
-	jmp	SHORT $L9062
-$L9058:
+	jmp	SHORT $L9064
+$L9060:
 
 ; 4165 :                zLONG l = va_arg( vaList, zLONG );
 
@@ -14289,51 +14289,51 @@ $L9058:
 	mov	DWORD PTR _vaList$[ebp], ecx
 	mov	edx, DWORD PTR _vaList$[ebp]
 	mov	eax, DWORD PTR [edx-4]
-	mov	DWORD PTR _l$9063[ebp], eax
+	mov	DWORD PTR _l$9065[ebp], eax
 
 ; 4166 :                SetAttributeFromInteger( vArgs, szlArgument, "Value", l );
 
-	mov	ecx, DWORD PTR _l$9063[ebp]
+	mov	ecx, DWORD PTR _l$9065[ebp]
 	push	ecx
 	push	OFFSET FLAT:??_C@_05KBGO@Value?$AA@	; `string'
 	push	OFFSET FLAT:_szlArgument
 	mov	edx, DWORD PTR _vArgs$[ebp]
 	push	edx
 	call	_SetAttributeFromInteger@16
-$L9062:
+$L9064:
 
 ; 4168 : 
 ; 4169 :             break;
 
-	jmp	$L9029
-$L9071:
+	jmp	$L9031
+$L9073:
 
 ; 4170 : 
 ; 4171 :          case zTYPE_DECIMAL:      // Decimal
 ; 4172 :          case 'R':      // ??? Real ???
 ; 4173 :             if ( bPointer )
 
-	mov	eax, DWORD PTR _bPointer$9011[ebp]
+	mov	eax, DWORD PTR _bPointer$9013[ebp]
 	and	eax, 255				; 000000ffH
 	test	eax, eax
-	je	SHORT $L9072
+	je	SHORT $L9074
 
 ; 4175 :                zPDECIMAL pd = (zPDECIMAL) pvoid;
 
-	mov	ecx, DWORD PTR _pvoid$9010[ebp]
-	mov	DWORD PTR _pd$9073[ebp], ecx
+	mov	ecx, DWORD PTR _pvoid$9012[ebp]
+	mov	DWORD PTR _pd$9075[ebp], ecx
 
 ; 4176 : 
 ; 4177 :                if ( pd )
 
-	cmp	DWORD PTR _pd$9073[ebp], 0
-	je	SHORT $L9075
+	cmp	DWORD PTR _pd$9075[ebp], 0
+	je	SHORT $L9077
 
 ; 4178 :                   SetAttributeFromDecimal( vArgs, szlArgument, "Value", *pd );
 
 	sub	esp, 40					; 00000028H
 	mov	ecx, 10					; 0000000aH
-	mov	esi, DWORD PTR _pd$9073[ebp]
+	mov	esi, DWORD PTR _pd$9075[ebp]
 	mov	edi, esp
 	rep movsd
 	push	OFFSET FLAT:??_C@_05KBGO@Value?$AA@	; `string'
@@ -14341,12 +14341,12 @@ $L9071:
 	mov	edx, DWORD PTR _vArgs$[ebp]
 	push	edx
 	call	_SetAttributeFromDecimal@52
-$L9075:
+$L9077:
 
 ; 4180 :             else
 
-	jmp	SHORT $L9076
-$L9072:
+	jmp	SHORT $L9078
+$L9074:
 
 ; 4182 :                zDECIMAL d;
 ; 4183 : 
@@ -14358,14 +14358,14 @@ $L9072:
 	mov	esi, DWORD PTR _vaList$[ebp]
 	sub	esi, 40					; 00000028H
 	mov	ecx, 10					; 0000000aH
-	lea	edi, DWORD PTR _d$9077[ebp]
+	lea	edi, DWORD PTR _d$9079[ebp]
 	rep movsd
 
 ; 4185 :                SetAttributeFromDecimal( vArgs, szlArgument, "Value", d );
 
 	sub	esp, 40					; 00000028H
 	mov	ecx, 10					; 0000000aH
-	lea	esi, DWORD PTR _d$9077[ebp]
+	lea	esi, DWORD PTR _d$9079[ebp]
 	mov	edi, esp
 	rep movsd
 	push	OFFSET FLAT:??_C@_05KBGO@Value?$AA@	; `string'
@@ -14373,38 +14373,38 @@ $L9072:
 	mov	ecx, DWORD PTR _vArgs$[ebp]
 	push	ecx
 	call	_SetAttributeFromDecimal@52
-$L9076:
+$L9078:
 
 ; 4187 : 
 ; 4188 :             break;
 
-	jmp	$L9029
-$L9085:
+	jmp	$L9031
+$L9087:
 
 ; 4189 : 
 ; 4190 :          case 'N':      // Short integer
 ; 4191 :             if ( bPointer )
 
-	mov	edx, DWORD PTR _bPointer$9011[ebp]
+	mov	edx, DWORD PTR _bPointer$9013[ebp]
 	and	edx, 255				; 000000ffH
 	test	edx, edx
-	je	SHORT $L9086
+	je	SHORT $L9088
 
 ; 4193 :                zPSHORT ps = (zPSHORT) pvoid;
 
-	mov	eax, DWORD PTR _pvoid$9010[ebp]
-	mov	DWORD PTR _ps$9087[ebp], eax
+	mov	eax, DWORD PTR _pvoid$9012[ebp]
+	mov	DWORD PTR _ps$9089[ebp], eax
 
 ; 4194 : 
 ; 4195 :                if ( ps )
 
-	cmp	DWORD PTR _ps$9087[ebp], 0
-	je	SHORT $L9089
+	cmp	DWORD PTR _ps$9089[ebp], 0
+	je	SHORT $L9091
 
 ; 4196 :                   SetAttributeFromInteger( vArgs, szlArgument, "Value",
 ; 4197 :                                            (zLONG) *ps );
 
-	mov	ecx, DWORD PTR _ps$9087[ebp]
+	mov	ecx, DWORD PTR _ps$9089[ebp]
 	movsx	edx, WORD PTR [ecx]
 	push	edx
 	push	OFFSET FLAT:??_C@_05KBGO@Value?$AA@	; `string'
@@ -14412,12 +14412,12 @@ $L9085:
 	mov	eax, DWORD PTR _vArgs$[ebp]
 	push	eax
 	call	_SetAttributeFromInteger@16
-$L9089:
+$L9091:
 
 ; 4199 :             else
 
-	jmp	SHORT $L9091
-$L9086:
+	jmp	SHORT $L9093
+$L9088:
 
 ; 4201 :                zSHORT n = (zSHORT) va_arg( vaList, VA_ARG_SHORT );
 
@@ -14426,25 +14426,25 @@ $L9086:
 	mov	DWORD PTR _vaList$[ebp], ecx
 	mov	edx, DWORD PTR _vaList$[ebp]
 	mov	ax, WORD PTR [edx-4]
-	mov	WORD PTR _n$9092[ebp], ax
+	mov	WORD PTR _n$9094[ebp], ax
 
 ; 4202 : 
 ; 4203 :                SetAttributeFromInteger( vArgs, szlArgument, "Value", n );
 
-	movsx	ecx, WORD PTR _n$9092[ebp]
+	movsx	ecx, WORD PTR _n$9094[ebp]
 	push	ecx
 	push	OFFSET FLAT:??_C@_05KBGO@Value?$AA@	; `string'
 	push	OFFSET FLAT:_szlArgument
 	mov	edx, DWORD PTR _vArgs$[ebp]
 	push	edx
 	call	_SetAttributeFromInteger@16
-$L9091:
+$L9093:
 
 ; 4205 : 
 ; 4206 :             break;
 
-	jmp	$L9029
-$L9105:
+	jmp	$L9031
+$L9107:
 
 ; 4207 : 
 ; 4208 :          case 'F':      // Float
@@ -14462,15 +14462,15 @@ $L9105:
 ; 4220 :          case 'V':      // View
 ; 4221 :             if ( bPointer )
 
-	mov	eax, DWORD PTR _bPointer$9011[ebp]
+	mov	eax, DWORD PTR _bPointer$9013[ebp]
 	and	eax, 255				; 000000ffH
 	test	eax, eax
-	je	$L9106
+	je	$L9108
 
 ; 4223 :                zPVIEW   pv = (zPVIEW) pvoid;
 
-	mov	ecx, DWORD PTR _pvoid$9010[ebp]
-	mov	DWORD PTR _pv$9107[ebp], ecx
+	mov	ecx, DWORD PTR _pvoid$9012[ebp]
+	mov	DWORD PTR _pv$9109[ebp], ecx
 
 ; 4224 :                LPVIEWOD lpViewOD;
 ; 4225 : 
@@ -14478,9 +14478,9 @@ $L9105:
 ; 4227 :                // sending the OI.
 ; 4228 :                if ( *pv == 0 )
 
-	mov	edx, DWORD PTR _pv$9107[ebp]
+	mov	edx, DWORD PTR _pv$9109[ebp]
 	cmp	DWORD PTR [edx], 0
-	jne	SHORT $L9110
+	jne	SHORT $L9112
 
 ; 4229 :                   SetAttributeFromString( vArgs, szlArgument, "SendArgument", "N" );
 
@@ -14493,13 +14493,13 @@ $L9105:
 
 ; 4230 :                else
 
-	jmp	SHORT $L9112
-$L9110:
+	jmp	SHORT $L9114
+$L9112:
 
 ; 4232 :                   // Make sure the view is valid.
 ; 4233 :                   if ( fnValidView( lpTask, *pv ) == 0 )
 
-	mov	ecx, DWORD PTR _pv$9107[ebp]
+	mov	ecx, DWORD PTR _pv$9109[ebp]
 	mov	edx, DWORD PTR [ecx]
 	push	edx
 	mov	eax, DWORD PTR _lpTask$[ebp]
@@ -14508,27 +14508,27 @@ $L9110:
 	add	esp, 8
 	movsx	ecx, ax
 	test	ecx, ecx
-	jne	SHORT $L9113
+	jne	SHORT $L9115
 
 ; 4234 :                      goto EndOfFunction;
 
-	jmp	$EndOfFunction$9114
-$L9113:
+	jmp	$EndOfFunction$9116
+$L9115:
 
 ; 4235 : 
 ; 4236 :                   lpViewOD = zGETPTR( (*pv)->hViewOD );
 
-	mov	edx, DWORD PTR _pv$9107[ebp]
+	mov	edx, DWORD PTR _pv$9109[ebp]
 	mov	eax, DWORD PTR [edx]
 	mov	ecx, DWORD PTR [eax+6]
 	push	ecx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpViewOD$9109[ebp], eax
+	mov	DWORD PTR _lpViewOD$9111[ebp], eax
 
 ; 4237 :                   SetAttributeFromString( vArgs, szlArgument, "ObjectName",
 ; 4238 :                                           lpViewOD->szName );
 
-	mov	edx, DWORD PTR _lpViewOD$9109[ebp]
+	mov	edx, DWORD PTR _lpViewOD$9111[ebp]
 	add	edx, 10					; 0000000aH
 	push	edx
 	push	OFFSET FLAT:??_C@_0L@OKBL@ObjectName?$AA@ ; `string'
@@ -14545,12 +14545,12 @@ $L9113:
 	mov	ecx, DWORD PTR _vArgs$[ebp]
 	push	ecx
 	call	_SetAttributeFromString@16
-$L9112:
+$L9114:
 
 ; 4242 :             else
 
-	jmp	$L9133
-$L9106:
+	jmp	$L9135
+$L9108:
 
 ; 4244 :                zVIEW v = va_arg( vaList, zVIEW );
 
@@ -14559,13 +14559,13 @@ $L9106:
 	mov	DWORD PTR _vaList$[ebp], edx
 	mov	eax, DWORD PTR _vaList$[ebp]
 	mov	ecx, DWORD PTR [eax-4]
-	mov	DWORD PTR _v$9117[ebp], ecx
+	mov	DWORD PTR _v$9119[ebp], ecx
 
 ; 4245 : 
 ; 4246 :                if ( v == 0 )
 
-	cmp	DWORD PTR _v$9117[ebp], 0
-	jne	SHORT $L9125
+	cmp	DWORD PTR _v$9119[ebp], 0
+	jne	SHORT $L9127
 
 ; 4248 :                   SetAttributeFromString( vArgs, szlArgument, "SendArgument", "N" );
 
@@ -14578,31 +14578,31 @@ $L9106:
 
 ; 4250 :                else
 
-	jmp	$L9133
-$L9125:
+	jmp	$L9135
+$L9127:
 
 ; 4251 :                // Check to see if view is a subtask view.
 ; 4252 :                if ( v->hSubtask )
 
-	mov	eax, DWORD PTR _v$9117[ebp]
+	mov	eax, DWORD PTR _v$9119[ebp]
 	cmp	DWORD PTR [eax+18], 0
-	je	SHORT $L9127
+	je	SHORT $L9129
 
 ; 4254 :                   LPSUBTASK lpSubtask = zGETPTR( v->hSubtask );
 
-	mov	ecx, DWORD PTR _v$9117[ebp]
+	mov	ecx, DWORD PTR _v$9119[ebp]
 	mov	edx, DWORD PTR [ecx+18]
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpSubtask$9128[ebp], eax
+	mov	DWORD PTR _lpSubtask$9130[ebp], eax
 
 ; 4255 :                   LPAPP     lpApp     = zGETPTR( lpSubtask->hApp );
 
-	mov	eax, DWORD PTR _lpSubtask$9128[ebp]
+	mov	eax, DWORD PTR _lpSubtask$9130[ebp]
 	mov	ecx, DWORD PTR [eax+10]
 	push	ecx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpApp$9130[ebp], eax
+	mov	DWORD PTR _lpApp$9132[ebp], eax
 
 ; 4256 : 
 ; 4257 :                   // We've got a subtask view--there is no OI to send but there
@@ -14620,7 +14620,7 @@ $L9125:
 ; 4261 :                   SetAttributeFromString( vArgs, szlArgument,
 ; 4262 :                                           "ApplicationName", lpApp->szName );
 
-	mov	eax, DWORD PTR _lpApp$9130[ebp]
+	mov	eax, DWORD PTR _lpApp$9132[ebp]
 	add	eax, 6
 	push	eax
 	push	OFFSET FLAT:??_C@_0BA@FCJM@ApplicationName?$AA@ ; `string'
@@ -14641,15 +14641,15 @@ $L9125:
 
 ; 4266 :                else
 
-	jmp	$L9133
-$L9127:
+	jmp	$L9135
+$L9129:
 
 ; 4268 :                   zCHAR    szTempAppName[ zAPPL_NAME_LTH ];
 ; 4269 :                   LPVIEWOD lpViewOD;
 ; 4270 : 
 ; 4271 :                   if ( fnValidView( lpTask, v ) == 0 )
 
-	mov	eax, DWORD PTR _v$9117[ebp]
+	mov	eax, DWORD PTR _v$9119[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _lpTask$[ebp]
 	push	ecx
@@ -14657,7 +14657,7 @@ $L9127:
 	add	esp, 8
 	movsx	edx, ax
 	test	edx, edx
-	jne	SHORT $L9136
+	jne	SHORT $L9138
 
 ; 4273 :                      va_end( vaList );
 
@@ -14665,17 +14665,17 @@ $L9127:
 
 ; 4274 :                      goto EndOfFunction;
 
-	jmp	$EndOfFunction$9114
-$L9136:
+	jmp	$EndOfFunction$9116
+$L9138:
 
 ; 4276 : 
 ; 4277 :                   lpViewOD = zGETPTR( v->hViewOD );
 
-	mov	eax, DWORD PTR _v$9117[ebp]
+	mov	eax, DWORD PTR _v$9119[ebp]
 	mov	ecx, DWORD PTR [eax+6]
 	push	ecx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpViewOD$9135[ebp], eax
+	mov	DWORD PTR _lpViewOD$9137[ebp], eax
 
 ; 4278 : 
 ; 4279 :                   // Check to see if the app name for the view matches the
@@ -14683,28 +14683,28 @@ $L9136:
 ; 4281 :                   // then we need to set the application name for the view.
 ; 4282 :                   fnRetrieveAppName( v, szTempAppName );
 
-	lea	edx, DWORD PTR _szTempAppName$9134[ebp]
+	lea	edx, DWORD PTR _szTempAppName$9136[ebp]
 	push	edx
-	mov	eax, DWORD PTR _v$9117[ebp]
+	mov	eax, DWORD PTR _v$9119[ebp]
 	push	eax
 	call	_fnRetrieveAppName@8
 
 ; 4283 :                   if ( zstrcmp( szTempAppName, szAppName ) != 0 )
 
-	movsx	ecx, BYTE PTR _szTempAppName$9134[ebp]
+	movsx	ecx, BYTE PTR _szTempAppName$9136[ebp]
 	movsx	edx, BYTE PTR _szAppName$[ebp]
 	cmp	ecx, edx
-	jne	SHORT $L10262
+	jne	SHORT $L10264
 	lea	eax, DWORD PTR _szAppName$[ebp]
 	push	eax
-	lea	ecx, DWORD PTR _szTempAppName$9134[ebp]
+	lea	ecx, DWORD PTR _szTempAppName$9136[ebp]
 	push	ecx
 	call	_strcmp
 	add	esp, 8
 	mov	DWORD PTR -528+[ebp], eax
-	jmp	SHORT $L10263
-$L10262:
-	movsx	edx, BYTE PTR _szTempAppName$9134[ebp]
+	jmp	SHORT $L10265
+$L10264:
+	movsx	edx, BYTE PTR _szTempAppName$9136[ebp]
 	movsx	eax, BYTE PTR _szAppName$[ebp]
 	sub	edx, eax
 	xor	ecx, ecx
@@ -14714,29 +14714,29 @@ $L10262:
 	and	ecx, 2
 	add	ecx, -1
 	mov	DWORD PTR -528+[ebp], ecx
-$L10263:
+$L10265:
 	cmp	DWORD PTR -528+[ebp], 0
-	je	SHORT $L9145
+	je	SHORT $L9147
 
 ; 4285 :                      SetAttributeFromString( vArgs, szlArgument,
 ; 4286 :                                              "ApplicationName",
 ; 4287 :                                              szTempAppName );
 
-	lea	edx, DWORD PTR _szTempAppName$9134[ebp]
+	lea	edx, DWORD PTR _szTempAppName$9136[ebp]
 	push	edx
 	push	OFFSET FLAT:??_C@_0BA@FCJM@ApplicationName?$AA@ ; `string'
 	push	OFFSET FLAT:_szlArgument
 	mov	eax, DWORD PTR _vArgs$[ebp]
 	push	eax
 	call	_SetAttributeFromString@16
-$L9145:
+$L9147:
 
 ; 4289 : 
 ; 4290 :                   SetAttributeFromBlob( vArgs, szlArgument, "PointerValue",
 ; 4291 :                                         &v, sizeof( v ) );
 
 	push	4
-	lea	ecx, DWORD PTR _v$9117[ebp]
+	lea	ecx, DWORD PTR _v$9119[ebp]
 	push	ecx
 	push	OFFSET FLAT:??_C@_0N@GJDM@PointerValue?$AA@ ; `string'
 	push	OFFSET FLAT:_szlArgument
@@ -14756,7 +14756,7 @@ $L9145:
 ; 4293 :                   SetAttributeFromString( vArgs, szlArgument, "ObjectName",
 ; 4294 :                                           lpViewOD->szName );
 
-	mov	ecx, DWORD PTR _lpViewOD$9135[ebp]
+	mov	ecx, DWORD PTR _lpViewOD$9137[ebp]
 	add	ecx, 10					; 0000000aH
 	push	ecx
 	push	OFFSET FLAT:??_C@_0L@OKBL@ObjectName?$AA@ ; `string'
@@ -14764,14 +14764,14 @@ $L9145:
 	mov	edx, DWORD PTR _vArgs$[ebp]
 	push	edx
 	call	_SetAttributeFromString@16
-$L9133:
-$L9029:
+$L9135:
+$L9031:
 
 ; 4301 : 
 ; 4302 :    } // while ( *pchArgList )...
 
-	jmp	$L9007
-$L9008:
+	jmp	$L9009
+$L9010:
 
 ; 4303 : 
 ; 4304 :    va_end( vaList );
@@ -14828,7 +14828,7 @@ $L9008:
 	call	_fnAddConnectionToNetwork@32
 	movsx	ecx, ax
 	test	ecx, ecx
-	jge	SHORT $L9147
+	jge	SHORT $L9149
 
 ; 4318 :       nReturnCode = zNETWORK_ERROR;
 
@@ -14836,8 +14836,8 @@ $L9008:
 
 ; 4319 :       goto EndOfFunction;
 
-	jmp	$EndOfFunction$9114
-$L9147:
+	jmp	$EndOfFunction$9116
+$L9149:
 
 ; 4321 : 
 ; 4322 :    if ( lpNetwork->nTraceLevel > 1 )
@@ -14845,14 +14845,14 @@ $L9147:
 	mov	edx, DWORD PTR _lpNetwork$[ebp]
 	movsx	eax, WORD PTR [edx+140]
 	cmp	eax, 1
-	jle	SHORT $L9148
+	jle	SHORT $L9150
 
 ; 4323 :       TraceLineS( "(kzoeneta) ** Sending Transformation Call", "" );
 
 	push	OFFSET FLAT:??_C@_00A@?$AA@		; `string'
 	push	OFFSET FLAT:??_C@_0CK@EIIH@?$CIkzoeneta?$CJ?5?$CK?$CK?5Sending?5Transforma@ ; `string'
 	call	_TraceLineS@8
-$L9148:
+$L9150:
 
 ; 4324 : 
 ; 4325 :    //=======================================================================
@@ -14876,12 +14876,12 @@ $L9148:
 	call	_fnSendHeaderPacket@16
 	movsx	ecx, ax
 	test	ecx, ecx
-	je	SHORT $L9150
+	je	SHORT $L9152
 
 ; 4336 :       goto EndOfFunction;
 
-	jmp	$EndOfFunction$9114
-$L9150:
+	jmp	$EndOfFunction$9116
+$L9152:
 
 ; 4338 : 
 ; 4339 :    if ( fnSendTraceSwitches( lpNetwork, &pvConn, lpTask) != 0 )
@@ -14895,12 +14895,12 @@ $L9150:
 	call	_fnSendTraceSwitches@12
 	movsx	edx, ax
 	test	edx, edx
-	je	SHORT $L9151
+	je	SHORT $L9153
 
 ; 4340 :       goto EndOfFunction;
 
-	jmp	$EndOfFunction$9114
-$L9151:
+	jmp	$EndOfFunction$9116
+$L9153:
 
 ; 4341 : 
 ; 4342 :    if ( fnSendDataPacket( lpNetwork, &pvConn, zPACKET_CALLOPERATION, 0 ) != 0 )
@@ -14914,12 +14914,12 @@ $L9151:
 	call	_fnSendDataPacket@16
 	movsx	edx, ax
 	test	edx, edx
-	je	SHORT $L9152
+	je	SHORT $L9154
 
 ; 4343 :       goto EndOfFunction;
 
-	jmp	$EndOfFunction$9114
-$L9152:
+	jmp	$EndOfFunction$9116
+$L9154:
 
 ; 4344 : 
 ; 4345 :    // Send the app name.
@@ -14940,12 +14940,12 @@ $L9152:
 	call	DWORD PTR [eax+170]
 	movsx	ecx, ax
 	test	ecx, ecx
-	je	SHORT $L9153
+	je	SHORT $L9155
 
 ; 4350 :       goto EndOfFunction;
 
-	jmp	$EndOfFunction$9114
-$L9153:
+	jmp	$EndOfFunction$9116
+$L9155:
 
 ; 4352 : 
 ; 4353 :    // Send the Argument list OI to the server to be committed.
@@ -14961,7 +14961,7 @@ $L9153:
 	call	_fnSendOI@16
 	movsx	edx, ax
 	cmp	edx, -16				; fffffff0H
-	jne	SHORT $L9154
+	jne	SHORT $L9156
 
 ; 4356 :       TraceLineS( "(kzoeneta) ** Error sending Arg OI!", "" );
 
@@ -14971,8 +14971,8 @@ $L9153:
 
 ; 4357 :       goto EndOfFunction;
 
-	jmp	$EndOfFunction$9114
-$L9154:
+	jmp	$EndOfFunction$9116
+$L9156:
 
 ; 4359 : 
 ; 4360 :    // Loop through each of the arguments looking for views.  If one is found
@@ -14991,8 +14991,8 @@ $L9154:
 	push	eax
 	call	_SetCursorFirstEntityByString@20
 	mov	WORD PTR _nRC$[ebp], ax
-	jmp	SHORT $L9156
-$L9157:
+	jmp	SHORT $L9158
+$L9159:
 	push	0
 	push	OFFSET FLAT:??_C@_01PDMC@V?$AA@		; `string'
 	push	OFFSET FLAT:??_C@_08FNON@DataType?$AA@	; `string'
@@ -15001,10 +15001,10 @@ $L9157:
 	push	ecx
 	call	_SetCursorNextEntityByString@20
 	mov	WORD PTR _nRC$[ebp], ax
-$L9156:
+$L9158:
 	movsx	edx, WORD PTR _nRC$[ebp]
 	test	edx, edx
-	jl	$L9158
+	jl	$L9160
 
 ; 4368 :       zVIEW  vSendView;
 ; 4369 : 
@@ -15020,12 +15020,12 @@ $L9156:
 	call	_CompareAttributeToString@16
 	movsx	ecx, ax
 	test	ecx, ecx
-	jne	SHORT $L9161
+	jne	SHORT $L9163
 
 ; 4374 :          continue;
 
-	jmp	SHORT $L9157
-$L9161:
+	jmp	SHORT $L9159
+$L9163:
 
 ; 4376 : 
 ; 4377 :       // If we're not sending the view, skip it.
@@ -15040,12 +15040,12 @@ $L9161:
 	call	_CompareAttributeToString@16
 	movsx	eax, ax
 	test	eax, eax
-	jne	SHORT $L9162
+	jne	SHORT $L9164
 
 ; 4381 :          continue;
 
-	jmp	SHORT $L9157
-$L9162:
+	jmp	SHORT $L9159
+$L9164:
 
 ; 4383 : 
 ; 4384 :       if ( CompareAttributeToString( vArgs, szlArgument,
@@ -15059,7 +15059,7 @@ $L9162:
 	call	_CompareAttributeToString@16
 	movsx	edx, ax
 	test	edx, edx
-	jne	SHORT $L9163
+	jne	SHORT $L9165
 
 ; 4387 :          zPVIEW pv;
 ; 4388 : 
@@ -15070,20 +15070,20 @@ $L9162:
 	mov	eax, DWORD PTR _vArgs$[ebp]
 	push	eax
 	push	0
-	lea	ecx, DWORD PTR _pv$9164[ebp]
+	lea	ecx, DWORD PTR _pv$9166[ebp]
 	push	ecx
 	call	_GetBlobFromAttribute@20
 
 ; 4390 :          vSendView = *pv;
 
-	mov	edx, DWORD PTR _pv$9164[ebp]
+	mov	edx, DWORD PTR _pv$9166[ebp]
 	mov	eax, DWORD PTR [edx]
-	mov	DWORD PTR _vSendView$9160[ebp], eax
+	mov	DWORD PTR _vSendView$9162[ebp], eax
 
 ; 4392 :       else
 
-	jmp	SHORT $L9165
-$L9163:
+	jmp	SHORT $L9167
+$L9165:
 
 ; 4393 :          GetBlobFromAttribute( &vSendView, 0, vArgs,
 ; 4394 :                                szlArgument, "PointerValue" );
@@ -15093,10 +15093,10 @@ $L9163:
 	mov	ecx, DWORD PTR _vArgs$[ebp]
 	push	ecx
 	push	0
-	lea	edx, DWORD PTR _vSendView$9160[ebp]
+	lea	edx, DWORD PTR _vSendView$9162[ebp]
 	push	edx
 	call	_GetBlobFromAttribute@20
-$L9165:
+$L9167:
 
 ; 4395 : 
 ; 4396 :       // We need to send the view to the server...
@@ -15104,7 +15104,7 @@ $L9165:
 ; 4398 :                      zINCREMENTAL | zSAVE_CURSORS ) == zCALL_ERROR )
 
 	push	327680					; 00050000H
-	mov	eax, DWORD PTR _vSendView$9160[ebp]
+	mov	eax, DWORD PTR _vSendView$9162[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _lpNetwork$[ebp]
 	push	ecx
@@ -15113,7 +15113,7 @@ $L9165:
 	call	_fnSendOI@16
 	movsx	eax, ax
 	cmp	eax, -16				; fffffff0H
-	jne	SHORT $L9166
+	jne	SHORT $L9168
 
 ; 4400 :          TraceLineS( "(kzoeneta) ** Error sending argument OI!", "" );
 
@@ -15123,14 +15123,14 @@ $L9165:
 
 ; 4401 :          goto EndOfFunction;
 
-	jmp	$EndOfFunction$9114
-$L9166:
+	jmp	$EndOfFunction$9116
+$L9168:
 
 ; 4403 : 
 ; 4404 :    } // for ( nRC = SetCursorFirstEntity( vArgs, szlArgument, 0 )...
 
-	jmp	$L9157
-$L9158:
+	jmp	$L9159
+$L9160:
 
 ; 4405 : 
 ; 4406 :    // Tell network handler to flush the send buffer.
@@ -15143,12 +15143,12 @@ $L9158:
 	call	_fnFlushBuffer@8
 	movsx	eax, ax
 	test	eax, eax
-	je	SHORT $L9168
+	je	SHORT $L9170
 
 ; 4408 :       goto EndOfFunction;
 
-	jmp	$EndOfFunction$9114
-$L9168:
+	jmp	$EndOfFunction$9116
+$L9170:
 
 ; 4409 : 
 ; 4410 :    // We don't need it anymore so...
@@ -15175,14 +15175,14 @@ $L9168:
 	mov	edx, DWORD PTR _lpNetwork$[ebp]
 	movsx	eax, WORD PTR [edx+140]
 	test	eax, eax
-	jle	SHORT $L9169
+	jle	SHORT $L9171
 
 ; 4422 :       TraceLineS( "(kzoeneta) ** Waiting for ACK", "" );
 
 	push	OFFSET FLAT:??_C@_00A@?$AA@		; `string'
 	push	OFFSET FLAT:??_C@_0BO@PLHK@?$CIkzoeneta?$CJ?5?$CK?$CK?5Waiting?5for?5ACK?$AA@ ; `string'
 	call	_TraceLineS@8
-$L9169:
+$L9171:
 
 ; 4423 : 
 ; 4424 :    // Wait for return code.
@@ -15199,7 +15199,7 @@ $L9169:
 	call	_fnReceiveDataPacket@16
 	movsx	edx, ax
 	test	edx, edx
-	je	SHORT $L9171
+	je	SHORT $L9173
 
 ; 4427 :       TraceLineS( "(kzoeneta) ** Error receiving OI ACK!", "" );
 
@@ -15209,15 +15209,15 @@ $L9169:
 
 ; 4428 :       goto EndOfFunction;
 
-	jmp	$EndOfFunction$9114
-$L9171:
+	jmp	$EndOfFunction$9116
+$L9173:
 
 ; 4430 : 
 ; 4431 :    if ( cPacketType != zPACKET_RC )
 
 	movsx	eax, BYTE PTR _cPacketType$[ebp]
 	cmp	eax, 35					; 00000023H
-	je	SHORT $L9172
+	je	SHORT $L9174
 
 ; 4433 :       TraceLineS( "(kzoeneta) ** No return code for NetCallOperation!", "" );
 
@@ -15227,8 +15227,8 @@ $L9171:
 
 ; 4434 :       goto EndOfFunction;
 
-	jmp	$EndOfFunction$9114
-$L9172:
+	jmp	$EndOfFunction$9116
+$L9174:
 
 ; 4436 : 
 ; 4437 :    if ( fnReceiveOI( &pvConn, lpNetwork, &vArgs, vSubtask, "kztranwo",
@@ -15247,7 +15247,7 @@ $L9172:
 	call	_fnReceiveOI@24
 	movsx	edx, ax
 	cmp	edx, -16				; fffffff0H
-	jne	SHORT $L9174
+	jne	SHORT $L9176
 
 ; 4440 :       TraceLineS( "(kzoeneta) ** Not able to retrieve Arg List!", "" );
 
@@ -15257,8 +15257,8 @@ $L9172:
 
 ; 4441 :       goto EndOfFunction;
 
-	jmp	$EndOfFunction$9114
-$L9174:
+	jmp	$EndOfFunction$9116
+$L9176:
 
 ; 4443 : 
 ; 4444 :    // Set the return value.
@@ -15271,10 +15271,10 @@ $L9174:
 	sub	ecx, 76					; 0000004cH
 	mov	DWORD PTR -532+[ebp], ecx
 	cmp	DWORD PTR -532+[ebp], 8
-	ja	SHORT $L9177
+	ja	SHORT $L9179
 	mov	edx, DWORD PTR -532+[ebp]
-	jmp	DWORD PTR $L10266[edx*4]
-$L9180:
+	jmp	DWORD PTR $L10268[edx*4]
+$L9182:
 
 ; 4447 :       case zTYPE_INTEGER:
 ; 4448 :          GetIntegerFromAttribute( (zPLONG) pvReturn,
@@ -15290,8 +15290,8 @@ $L9180:
 
 ; 4450 :          break;
 
-	jmp	SHORT $L9177
-$L9183:
+	jmp	SHORT $L9179
+$L9185:
 
 ; 4454 :          zLONG l;
 ; 4455 : 
@@ -15301,20 +15301,20 @@ $L9183:
 	push	OFFSET FLAT:??_C@_09GMMJ@Operation?$AA@	; `string'
 	mov	edx, DWORD PTR _vArgs$[ebp]
 	push	edx
-	lea	eax, DWORD PTR _l$9184[ebp]
+	lea	eax, DWORD PTR _l$9186[ebp]
 	push	eax
 	call	_GetIntegerFromAttribute@16
 
 ; 4457 :          *((zPSHORT) pvReturn) = (zSHORT) l;
 
 	mov	ecx, DWORD PTR _pvReturn$[ebp]
-	mov	dx, WORD PTR _l$9184[ebp]
+	mov	dx, WORD PTR _l$9186[ebp]
 	mov	WORD PTR [ecx], dx
 
 ; 4458 :          break;
 
-	jmp	SHORT $L9177
-$L9187:
+	jmp	SHORT $L9179
+$L9189:
 
 ; 4460 : 
 ; 4461 :       case zTYPE_DATETIME:  // Date/time returned as a string.
@@ -15332,8 +15332,8 @@ $L9187:
 
 ; 4465 :          break;
 
-	jmp	SHORT $L9177
-$L9189:
+	jmp	SHORT $L9179
+$L9191:
 
 ; 4466 : 
 ; 4467 :       case 'R':
@@ -15348,7 +15348,7 @@ $L9189:
 	mov	eax, DWORD PTR _pvReturn$[ebp]
 	push	eax
 	call	_GetDecimalFromAttribute@16
-$L9177:
+$L9179:
 
 ; 4473 : 
 ; 4474 :    for ( nRC = SetCursorFirstEntity( vArgs, szlArgument, 0 );
@@ -15361,18 +15361,18 @@ $L9177:
 	push	ecx
 	call	_SetCursorFirstEntity@12
 	mov	WORD PTR _nRC$[ebp], ax
-	jmp	SHORT $L9191
-$L9192:
+	jmp	SHORT $L9193
+$L9194:
 	push	0
 	push	OFFSET FLAT:_szlArgument
 	mov	edx, DWORD PTR _vArgs$[ebp]
 	push	edx
 	call	_SetCursorNextEntity@12
 	mov	WORD PTR _nRC$[ebp], ax
-$L9191:
+$L9193:
 	movsx	eax, WORD PTR _nRC$[ebp]
 	test	eax, eax
-	jl	$L9193
+	jl	$L9195
 
 ; 4478 :       zPVIEW pvView;
 ; 4479 :       zPCHAR pchObjName;
@@ -15389,12 +15389,12 @@ $L9191:
 	call	_CompareAttributeToString@16
 	movsx	edx, ax
 	test	edx, edx
-	je	SHORT $L9196
+	je	SHORT $L9198
 
 ; 4485 :          continue;
 
-	jmp	SHORT $L9192
-$L9196:
+	jmp	SHORT $L9194
+$L9198:
 
 ; 4487 : 
 ; 4488 :       // If view is a Subtask View then we don't need to retrieve anything.
@@ -15409,12 +15409,12 @@ $L9196:
 	call	_CompareAttributeToString@16
 	movsx	ecx, ax
 	test	ecx, ecx
-	jne	SHORT $L9197
+	jne	SHORT $L9199
 
 ; 4492 :          continue;
 
-	jmp	SHORT $L9192
-$L9197:
+	jmp	SHORT $L9194
+$L9199:
 
 ; 4494 : 
 ; 4495 :       GetBlobFromAttribute( &pvView, 0, vArgs, szlArgument, "PointerValue" );
@@ -15424,7 +15424,7 @@ $L9197:
 	mov	edx, DWORD PTR _vArgs$[ebp]
 	push	edx
 	push	0
-	lea	eax, DWORD PTR _pvView$9194[ebp]
+	lea	eax, DWORD PTR _pvView$9196[ebp]
 	push	eax
 	call	_GetBlobFromAttribute@20
 
@@ -15434,7 +15434,7 @@ $L9197:
 	push	OFFSET FLAT:_szlArgument
 	mov	ecx, DWORD PTR _vArgs$[ebp]
 	push	ecx
-	lea	edx, DWORD PTR _pchObjName$9195[ebp]
+	lea	edx, DWORD PTR _pchObjName$9197[ebp]
 	push	edx
 	call	_GetAddrForAttribute@16
 
@@ -15451,7 +15451,7 @@ $L9197:
 	call	_CompareAttributeToString@16
 	movsx	ecx, ax
 	test	ecx, ecx
-	jne	SHORT $L9198
+	jne	SHORT $L9200
 
 ; 4502 : 
 ; 4503 :          ActivateEmptyObjectInstance( pvView, pchObjName, vSubtask, zMULTIPLE );
@@ -15459,16 +15459,16 @@ $L9197:
 	push	256					; 00000100H
 	mov	edx, DWORD PTR _vSubtask$[ebp]
 	push	edx
-	mov	eax, DWORD PTR _pchObjName$9195[ebp]
+	mov	eax, DWORD PTR _pchObjName$9197[ebp]
 	push	eax
-	mov	ecx, DWORD PTR _pvView$9194[ebp]
+	mov	ecx, DWORD PTR _pvView$9196[ebp]
 	push	ecx
 	call	_ActivateEmptyObjectInstance@16
 
 ; 4504 :          continue;
 
-	jmp	$L9192
-$L9198:
+	jmp	$L9194
+$L9200:
 
 ; 4506 : 
 ; 4507 :       // If the view is flagged as being returned, retrieve it.
@@ -15483,17 +15483,17 @@ $L9198:
 	call	_CompareAttributeToString@16
 	movsx	eax, ax
 	test	eax, eax
-	jne	SHORT $L9202
+	jne	SHORT $L9204
 
 ; 4511 :          if ( fnReceiveOI( &pvConn, lpNetwork, pvView, vSubtask,
 ; 4512 :                            pchObjName, zMULTIPLE ) == zCALL_ERROR )
 
 	push	256					; 00000100H
-	mov	ecx, DWORD PTR _pchObjName$9195[ebp]
+	mov	ecx, DWORD PTR _pchObjName$9197[ebp]
 	push	ecx
 	mov	edx, DWORD PTR _vSubtask$[ebp]
 	push	edx
-	mov	eax, DWORD PTR _pvView$9194[ebp]
+	mov	eax, DWORD PTR _pvView$9196[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _lpNetwork$[ebp]
 	push	ecx
@@ -15502,7 +15502,7 @@ $L9198:
 	call	_fnReceiveOI@24
 	movsx	eax, ax
 	cmp	eax, -16				; fffffff0H
-	jne	SHORT $L9202
+	jne	SHORT $L9204
 
 ; 4514 :             TraceLineS( "(kzoeneta) ** Not able to retrieve new view!", "" );
 
@@ -15512,14 +15512,14 @@ $L9198:
 
 ; 4515 :             goto EndOfFunction;
 
-	jmp	SHORT $EndOfFunction$9114
-$L9202:
+	jmp	SHORT $EndOfFunction$9116
+$L9204:
 
 ; 4518 : 
 ; 4519 :    } // for ( nRC = SetCursorFirstEntity( vArgs, szlArgument, 0 )...
 
-	jmp	$L9192
-$L9193:
+	jmp	$L9194
+$L9195:
 
 ; 4520 : 
 ; 4521 :    if ( lpNetwork->nTraceLevel > 0 )
@@ -15527,7 +15527,7 @@ $L9193:
 	mov	ecx, DWORD PTR _lpNetwork$[ebp]
 	movsx	edx, WORD PTR [ecx+140]
 	test	edx, edx
-	jle	SHORT $L9204
+	jle	SHORT $L9206
 
 ; 4522 :       TraceLineI( "(kzoeneta) ** RC from transaction = ", nRC );
 
@@ -15535,7 +15535,7 @@ $L9193:
 	push	eax
 	push	OFFSET FLAT:??_C@_0CF@NMFO@?$CIkzoeneta?$CJ?5?$CK?$CK?5RC?5from?5transactio@ ; `string'
 	call	_TraceLineI@8
-$L9204:
+$L9206:
 
 ; 4523 : 
 ; 4524 :    if ( fnRetrieveMsgAndTraceObj( lpNetwork, &pvConn, vSubtask ) < 0 )
@@ -15549,19 +15549,19 @@ $L9204:
 	call	_fnRetrieveMsgAndTraceObj@12
 	movsx	ecx, ax
 	test	ecx, ecx
-	jge	SHORT $L9206
+	jge	SHORT $L9208
 
 ; 4525 :       goto EndOfFunction;
 
-	jmp	SHORT $EndOfFunction$9114
-$L9206:
+	jmp	SHORT $EndOfFunction$9116
+$L9208:
 
 ; 4526 : 
 ; 4527 :    // If we got here, then everything's OK.
 ; 4528 :    nReturnCode = 0;
 
 	mov	WORD PTR _nReturnCode$[ebp], 0
-$EndOfFunction$9114:
+$EndOfFunction$9116:
 
 ; 4529 : 
 ; 4530 : EndOfFunction:
@@ -15569,7 +15569,7 @@ $EndOfFunction$9114:
 ; 4532 :                                                  TRUE ) == zCALL_ERROR )
 
 	cmp	DWORD PTR _pvConn$[ebp], 0
-	je	SHORT $L9207
+	je	SHORT $L9209
 	push	1
 	lea	edx, DWORD PTR _pvConn$[ebp]
 	push	edx
@@ -15578,25 +15578,25 @@ $EndOfFunction$9114:
 	call	_fnRemoveConnectionFromNetwork@12
 	movsx	ecx, ax
 	cmp	ecx, -16				; fffffff0H
-	jne	SHORT $L9207
+	jne	SHORT $L9209
 
 ; 4534 :       nReturnCode = zCALL_ERROR;
 
 	mov	WORD PTR _nReturnCode$[ebp], -16	; fffffff0H
-$L9207:
+$L9209:
 
 ; 4536 : 
 ; 4537 :    if ( vArgs )
 
 	cmp	DWORD PTR _vArgs$[ebp], 0
-	je	SHORT $L9208
+	je	SHORT $L9210
 
 ; 4538 :       fnDropView( vArgs );
 
 	mov	edx, DWORD PTR _vArgs$[ebp]
 	push	edx
 	call	_fnDropView@4
-$L9208:
+$L9210:
 
 ; 4539 : 
 ; 4540 :    fnOperationReturn( iNetCallOperation, lpTask );
@@ -15610,7 +15610,7 @@ $L9208:
 ; 4541 :    return( nReturnCode );
 
 	mov	ax, WORD PTR _nReturnCode$[ebp]
-$L8972:
+$L8974:
 
 ; 4542 : 
 ; 4543 : } // NetCallOperation
@@ -15620,15 +15620,15 @@ $L8972:
 	mov	esp, ebp
 	pop	ebp
 	ret	0
-$L10265:
-	DD	$L9057
-	DD	$L9071
-	DD	$L9085
-	DD	$L9033
-	DD	$L9105
-	DD	$L9042
-	DD	$L9029
-$L10264:
+$L10267:
+	DD	$L9059
+	DD	$L9073
+	DD	$L9087
+	DD	$L9035
+	DD	$L9107
+	DD	$L9044
+	DD	$L9031
+$L10266:
 	DB	0
 	DB	1
 	DB	2
@@ -15643,16 +15643,16 @@ $L10264:
 	DB	6
 	DB	6
 	DB	5
-$L10266:
-	DD	$L9180
+$L10268:
+	DD	$L9182
+	DD	$L9191
+	DD	$L9185
+	DD	$L9179
+	DD	$L9179
+	DD	$L9179
+	DD	$L9191
 	DD	$L9189
-	DD	$L9183
-	DD	$L9177
-	DD	$L9177
-	DD	$L9177
 	DD	$L9189
-	DD	$L9187
-	DD	$L9187
 _NetCallOperation ENDP
 _TEXT	ENDS
 PUBLIC	_NetSendFile@28
@@ -15958,13 +15958,13 @@ _NetSetTraceLevel@12 PROC NEAR
 	add	esp, 12					; 0000000cH
 	mov	DWORD PTR _lpTask$[ebp], eax
 	cmp	DWORD PTR _lpTask$[ebp], 0
-	jne	SHORT $L9233
+	jne	SHORT $L9235
 
 ; 4869 :       return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	SHORT $L9230
-$L9233:
+	jmp	SHORT $L9232
+$L9235:
 
 ; 4871 : 
 ; 4872 :    if ( (lpNetwork = fnFindNetwork( lpTask, pchNetworkName, TRUE )) == 0 )
@@ -15977,7 +15977,7 @@ $L9233:
 	call	_fnFindNetwork@12
 	mov	DWORD PTR _lpNetwork$[ebp], eax
 	cmp	DWORD PTR _lpNetwork$[ebp], 0
-	jne	SHORT $L9234
+	jne	SHORT $L9236
 
 ; 4874 :       fnOperationReturn( iNetSetTraceLevel, lpTask );
 
@@ -15990,8 +15990,8 @@ $L9233:
 ; 4875 :       return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	SHORT $L9230
-$L9234:
+	jmp	SHORT $L9232
+$L9236:
 
 ; 4877 : 
 ; 4878 :    lpNetwork->nTraceLevel = nTraceLevel;
@@ -16005,7 +16005,7 @@ $L9234:
 	mov	eax, DWORD PTR _lpNetwork$[ebp]
 	movsx	ecx, WORD PTR [eax+140]
 	test	ecx, ecx
-	jle	SHORT $L9235
+	jle	SHORT $L9237
 
 ; 4881 :       TraceLineI( "(kzoeneta) ** Setting Net trace level to ", nTraceLevel );
 
@@ -16013,7 +16013,7 @@ $L9234:
 	push	edx
 	push	OFFSET FLAT:??_C@_0CK@EJAP@?$CIkzoeneta?$CJ?5?$CK?$CK?5Setting?5Net?5trace?5@ ; `string'
 	call	_TraceLineI@8
-$L9235:
+$L9237:
 
 ; 4883 : 
 ; 4884 :    fnOperationReturn( iNetSetTraceLevel, lpTask );
@@ -16027,7 +16027,7 @@ $L9235:
 ; 4885 :    return( 0 );
 
 	xor	ax, ax
-$L9230:
+$L9232:
 
 ; 4886 : 
 ; 4887 : } // NetSetTraceLevel
@@ -16065,13 +16065,13 @@ _NetGetTraceLevel@8 PROC NEAR
 	add	esp, 12					; 0000000cH
 	mov	DWORD PTR _lpTask$[ebp], eax
 	cmp	DWORD PTR _lpTask$[ebp], 0
-	jne	SHORT $L9244
+	jne	SHORT $L9246
 
 ; 4918 :       return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	SHORT $L9241
-$L9244:
+	jmp	SHORT $L9243
+$L9246:
 
 ; 4920 : 
 ; 4921 :    if ( (lpNetwork = fnFindNetwork( lpTask, pchNetworkName, TRUE )) == 0 )
@@ -16084,7 +16084,7 @@ $L9244:
 	call	_fnFindNetwork@12
 	mov	DWORD PTR _lpNetwork$[ebp], eax
 	cmp	DWORD PTR _lpNetwork$[ebp], 0
-	jne	SHORT $L9245
+	jne	SHORT $L9247
 
 ; 4923 :       fnOperationReturn( iNetGetTraceLevel, lpTask );
 
@@ -16097,8 +16097,8 @@ $L9244:
 ; 4924 :       return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	SHORT $L9241
-$L9245:
+	jmp	SHORT $L9243
+$L9247:
 
 ; 4926 : 
 ; 4927 :    fnOperationReturn( iNetGetTraceLevel, lpTask );
@@ -16113,7 +16113,7 @@ $L9245:
 
 	mov	edx, DWORD PTR _lpNetwork$[ebp]
 	mov	ax, WORD PTR [edx+140]
-$L9241:
+$L9243:
 
 ; 4929 : 
 ; 4930 : } // NetGetTraceLevel
@@ -16189,13 +16189,13 @@ _NetStatus@8 PROC NEAR
 	add	esp, 12					; 0000000cH
 	mov	DWORD PTR _lpTask$[ebp], eax
 	cmp	DWORD PTR _lpTask$[ebp], 0
-	jne	SHORT $L9254
+	jne	SHORT $L9256
 
 ; 4965 :       return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	$L9250
-$L9254:
+	jmp	$L9252
+$L9256:
 
 ; 4967 : 
 ; 4968 :    if ( (lpNetwork = fnFindNetwork( lpTask, pchNetworkName, FALSE )) == 0 )
@@ -16208,17 +16208,17 @@ $L9254:
 	call	_fnFindNetwork@12
 	mov	DWORD PTR _lpNetwork$[ebp], eax
 	cmp	DWORD PTR _lpNetwork$[ebp], 0
-	jne	SHORT $L9255
+	jne	SHORT $L9257
 
 ; 4970 :       if ( pchNetworkName == 0 )
 
 	cmp	DWORD PTR _pchNetworkName$[ebp], 0
-	jne	SHORT $L9256
+	jne	SHORT $L9258
 
 ; 4971 :          pchNetworkName = DEFAULT_NETWORK;
 
 	mov	DWORD PTR _pchNetworkName$[ebp], OFFSET FLAT:??_C@_09GPO@?$CKdefault?$CK?$AA@ ; `string'
-$L9256:
+$L9258:
 
 ; 4972 : 
 ; 4973 :       TraceLineS( "(kzoeneta) ** Network status: no network running for ",
@@ -16240,8 +16240,8 @@ $L9256:
 ; 4976 :       return( 0 );
 
 	xor	ax, ax
-	jmp	$L9250
-$L9255:
+	jmp	$L9252
+$L9257:
 
 ; 4978 : 
 ; 4979 :    nStatus = zNETSTAT_STARTED;
@@ -16253,7 +16253,7 @@ $L9255:
 	mov	edx, DWORD PTR _lpNetwork$[ebp]
 	movsx	eax, WORD PTR [edx+140]
 	test	eax, eax
-	jle	SHORT $L9259
+	jle	SHORT $L9261
 
 ; 4982 :       TraceLineS( "(kzoeneta) ** Network status for network: ",
 ; 4983 :                   lpNetwork->szNetworkName );
@@ -16269,7 +16269,7 @@ $L9255:
 	push	OFFSET FLAT:??_C@_00A@?$AA@		; `string'
 	push	OFFSET FLAT:??_C@_0CG@PDGB@?$CIkzoeneta?$CJ?5?5?5?5?5?5?5?5?5?$CK?$CK?5Network?5ru@ ; `string'
 	call	_TraceLineS@8
-$L9259:
+$L9261:
 
 ; 4986 : 
 ; 4987 :    if ( lpNetwork->nConnCount > 0 )
@@ -16277,7 +16277,7 @@ $L9259:
 	mov	edx, DWORD PTR _lpNetwork$[ebp]
 	movsx	eax, WORD PTR [edx+148]
 	test	eax, eax
-	jle	SHORT $L9263
+	jle	SHORT $L9265
 
 ; 4989 :       nStatus |= zNETSTAT_OPENCONNECTION;
 
@@ -16291,7 +16291,7 @@ $L9259:
 	mov	edx, DWORD PTR _lpNetwork$[ebp]
 	movsx	eax, WORD PTR [edx+140]
 	test	eax, eax
-	jle	SHORT $L9263
+	jle	SHORT $L9265
 
 ; 4993 :          TraceLineI( "(kzoeneta)         ** Connections running: ",
 ; 4994 :                      lpNetwork->nConnCount );
@@ -16301,7 +16301,7 @@ $L9259:
 	push	edx
 	push	OFFSET FLAT:??_C@_0CM@ENIE@?$CIkzoeneta?$CJ?5?5?5?5?5?5?5?5?5?$CK?$CK?5Connection@ ; `string'
 	call	_TraceLineI@8
-$L9263:
+$L9265:
 
 ; 4997 : 
 ; 4998 :    if ( lpNetwork->bListen )
@@ -16310,7 +16310,7 @@ $L9263:
 	mov	ecx, DWORD PTR [eax+154]
 	and	ecx, 1
 	test	ecx, ecx
-	je	SHORT $L9266
+	je	SHORT $L9268
 
 ; 5000 :       nStatus |= zNETSTAT_LISTEN;
 
@@ -16324,14 +16324,14 @@ $L9263:
 	mov	eax, DWORD PTR _lpNetwork$[ebp]
 	movsx	ecx, WORD PTR [eax+140]
 	test	ecx, ecx
-	jle	SHORT $L9266
+	jle	SHORT $L9268
 
 ; 5004 :          TraceLineS( "(kzoeneta)         ** Network listening", "" );
 
 	push	OFFSET FLAT:??_C@_00A@?$AA@		; `string'
 	push	OFFSET FLAT:??_C@_0CI@DBIM@?$CIkzoeneta?$CJ?5?5?5?5?5?5?5?5?5?$CK?$CK?5Network?5li@ ; `string'
 	call	_TraceLineS@8
-$L9266:
+$L9268:
 
 ; 5007 : 
 ; 5008 :    fnOperationReturn( iNetStatus, lpTask );
@@ -16345,7 +16345,7 @@ $L9266:
 ; 5009 :    return( nStatus );
 
 	mov	ax, WORD PTR _nStatus$[ebp]
-$L9250:
+$L9252:
 
 ; 5010 : 
 ; 5011 : } // NetStatus
@@ -16381,13 +16381,13 @@ _NetGetLocalHostAddress@12 PROC NEAR
 	add	esp, 12					; 0000000cH
 	mov	DWORD PTR _lpTask$[ebp], eax
 	cmp	DWORD PTR _lpTask$[ebp], 0
-	jne	SHORT $L9277
+	jne	SHORT $L9279
 
 ; 5043 :       return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	SHORT $L9274
-$L9277:
+	jmp	SHORT $L9276
+$L9279:
 
 ; 5045 : 
 ; 5046 :    if ( (lpNetwork = fnFindNetwork( lpTask, pchNetworkName, TRUE )) == 0 )
@@ -16400,7 +16400,7 @@ $L9277:
 	call	_fnFindNetwork@12
 	mov	DWORD PTR _lpNetwork$[ebp], eax
 	cmp	DWORD PTR _lpNetwork$[ebp], 0
-	jne	SHORT $L9278
+	jne	SHORT $L9280
 
 ; 5048 :       fnOperationReturn( iNetStatus, lpTask );
 
@@ -16413,8 +16413,8 @@ $L9277:
 ; 5049 :       return( 0 );
 
 	xor	ax, ax
-	jmp	SHORT $L9274
-$L9278:
+	jmp	SHORT $L9276
+$L9280:
 
 ; 5051 : 
 ; 5052 :    if ( (*lpNetwork->lpfnGetAddress)( lpView, &lpNetwork->pNetworkHandle,
@@ -16433,7 +16433,7 @@ $L9278:
 	call	DWORD PTR [ecx+190]
 	movsx	edx, ax
 	test	edx, edx
-	je	SHORT $L9279
+	je	SHORT $L9281
 
 ; 5055 :       fnOperationReturn( iNetStatus, lpTask );
 
@@ -16446,8 +16446,8 @@ $L9278:
 ; 5056 :       return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	SHORT $L9274
-$L9279:
+	jmp	SHORT $L9276
+$L9281:
 
 ; 5058 : 
 ; 5059 :    fnOperationReturn( iNetGetLocalHostAddress, lpTask );
@@ -16461,7 +16461,7 @@ $L9279:
 ; 5060 :    return( 0 );
 
 	xor	ax, ax
-$L9274:
+$L9276:
 
 ; 5061 : 
 ; 5062 : } // NetGetLocalHostAddress
@@ -16557,9 +16557,9 @@ _ppvConn$ = -16
 _cDataType$ = -8
 _cPacketType$ = -12
 _lPacketData$ = -4
-_szMsg$9299 = -528
-_pchExtraData$9300 = -28
-_lpTask$9321 = -532
+_szMsg$9301 = -528
+_pchExtraData$9302 = -28
+_lpTask$9323 = -532
 _fnReadDataFromNet@20 PROC NEAR
 
 ; 5077 : {
@@ -16594,14 +16594,14 @@ _fnReadDataFromNet@20 PROC NEAR
 
 	movsx	edx, WORD PTR _nErrorNum$[ebp]
 	test	edx, edx
-	je	$L9298
+	je	$L9300
 
 ; 5088 :       zCHAR szMsg[ 500 ];
 ; 5089 : 
 ; 5090 :       zPCHAR pchExtraData = (zPCHAR) ppchReturnBuffer;
 
 	mov	eax, DWORD PTR _ppchReturnBuffer$[ebp]
-	mov	DWORD PTR _pchExtraData$9300[ebp], eax
+	mov	DWORD PTR _pchExtraData$9302[ebp], eax
 
 ; 5091 : 
 ; 5092 :       TraceLineI( "(kzoeneta) ** Read Data error = ", nErrorNum );
@@ -16620,47 +16620,47 @@ _fnReadDataFromNet@20 PROC NEAR
 	sub	eax, 74					; 0000004aH
 	mov	DWORD PTR -536+[ebp], eax
 	cmp	DWORD PTR -536+[ebp], 30		; 0000001eH
-	ja	SHORT $L9304
+	ja	SHORT $L9306
 	mov	edx, DWORD PTR -536+[ebp]
 	xor	ecx, ecx
-	mov	cl, BYTE PTR $L10273[edx]
-	jmp	DWORD PTR $L10274[ecx*4]
-$L9307:
+	mov	cl, BYTE PTR $L10275[edx]
+	jmp	DWORD PTR $L10276[ecx*4]
+$L9309:
 
 ; 5095 :          case 74:
 ; 5096 :             // "KZOEE074 - Invalid Entity name on line "
 ; 5097 :             zsprintf( szMsg, "Invalid Entity name = %s", pchExtraData );
 
-	mov	eax, DWORD PTR _pchExtraData$9300[ebp]
+	mov	eax, DWORD PTR _pchExtraData$9302[ebp]
 	push	eax
 	push	OFFSET FLAT:??_C@_0BJ@COP@Invalid?5Entity?5name?5?$DN?5?$CFs?$AA@ ; `string'
-	lea	ecx, DWORD PTR _szMsg$9299[ebp]
+	lea	ecx, DWORD PTR _szMsg$9301[ebp]
 	push	ecx
 	call	DWORD PTR __imp__sprintf
 	add	esp, 12					; 0000000cH
 
 ; 5098 :             break;
 
-	jmp	SHORT $L9304
-$L9309:
+	jmp	SHORT $L9306
+$L9311:
 
 ; 5099 : 
 ; 5100 :          case 75:
 ; 5101 :             // "KZOEE075 - Invalid Entity level on line "
 ; 5102 :             zsprintf( szMsg, "Invalid Entity level = %s", pchExtraData );
 
-	mov	edx, DWORD PTR _pchExtraData$9300[ebp]
+	mov	edx, DWORD PTR _pchExtraData$9302[ebp]
 	push	edx
 	push	OFFSET FLAT:??_C@_0BK@NKPC@Invalid?5Entity?5level?5?$DN?5?$CFs?$AA@ ; `string'
-	lea	eax, DWORD PTR _szMsg$9299[ebp]
+	lea	eax, DWORD PTR _szMsg$9301[ebp]
 	push	eax
 	call	DWORD PTR __imp__sprintf
 	add	esp, 12					; 0000000cH
 
 ; 5103 :             break;
 
-	jmp	SHORT $L9304
-$L9311:
+	jmp	SHORT $L9306
+$L9313:
 
 ; 5104 : 
 ; 5105 :          case 90:
@@ -16668,15 +16668,15 @@ $L9311:
 ; 5107 :             zstrcpy( szMsg, "Maximum number of entities in stream exceeded" );
 
 	push	OFFSET FLAT:??_C@_0CO@GNNE@Maximum?5number?5of?5entities?5in?5st@ ; `string'
-	lea	ecx, DWORD PTR _szMsg$9299[ebp]
+	lea	ecx, DWORD PTR _szMsg$9301[ebp]
 	push	ecx
 	call	_strcpy
 	add	esp, 8
 
 ; 5108 :             break;
 
-	jmp	SHORT $L9304
-$L9313:
+	jmp	SHORT $L9306
+$L9315:
 
 ; 5109 : 
 ; 5110 :          case 104:
@@ -16684,20 +16684,20 @@ $L9313:
 ; 5112 :             zsprintf( szMsg, "Invalid Attr name for Entity = %s",
 ; 5113 :                       pchExtraData );
 
-	mov	edx, DWORD PTR _pchExtraData$9300[ebp]
+	mov	edx, DWORD PTR _pchExtraData$9302[ebp]
 	push	edx
 	push	OFFSET FLAT:??_C@_0CC@PAOB@Invalid?5Attr?5name?5for?5Entity?5?$DN?5?$CF@ ; `string'
-	lea	eax, DWORD PTR _szMsg$9299[ebp]
+	lea	eax, DWORD PTR _szMsg$9301[ebp]
 	push	eax
 	call	DWORD PTR __imp__sprintf
 	add	esp, 12					; 0000000cH
-$L9304:
+$L9306:
 
 ; 5117 : 
 ; 5118 :       SysMessageBox( lpView, szlNetworkError, szMsg, 1 );
 
 	push	1
-	lea	ecx, DWORD PTR _szMsg$9299[ebp]
+	lea	ecx, DWORD PTR _szMsg$9301[ebp]
 	push	ecx
 	push	OFFSET FLAT:_szlNetworkError
 	mov	edx, DWORD PTR _lpView$[ebp]
@@ -16707,8 +16707,8 @@ $L9304:
 ; 5119 :       return( 0 );
 
 	xor	ax, ax
-	jmp	$L9290
-$L9298:
+	jmp	$L9292
+$L9300:
 
 ; 5122 : 
 ; 5123 :    // The first few bytes should be the Zeidon network packet indicating the
@@ -16726,7 +16726,7 @@ $L9298:
 	call	_fnReceiveDataPacket@16
 	movsx	ecx, ax
 	test	ecx, ecx
-	je	SHORT $L9315
+	je	SHORT $L9317
 
 ; 5127 :       TraceLineS( "(kzoeneta) ** Error receiving SENDLTH!", "" );
 
@@ -16737,29 +16737,29 @@ $L9298:
 ; 5128 :       return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	$L9290
-$L9315:
+	jmp	$L9292
+$L9317:
 
 ; 5130 : 
 ; 5131 :    if ( cPacketType == zPACKET_END )
 
 	movsx	edx, BYTE PTR _cPacketType$[ebp]
 	cmp	edx, 69					; 00000045H
-	jne	SHORT $L9317
+	jne	SHORT $L9319
 
 ; 5133 :       if ( lpNetwork->nTraceLevel > 0 )
 
 	mov	eax, DWORD PTR _lpNetwork$[ebp]
 	movsx	ecx, WORD PTR [eax+140]
 	test	ecx, ecx
-	jle	SHORT $L9318
+	jle	SHORT $L9320
 
 ; 5134 :          TraceLineS( "(kzoeneta) ** Received OI END message", "" );
 
 	push	OFFSET FLAT:??_C@_00A@?$AA@		; `string'
 	push	OFFSET FLAT:??_C@_0CG@LDBC@?$CIkzoeneta?$CJ?5?$CK?$CK?5Received?5OI?5END?5me@ ; `string'
 	call	_TraceLineS@8
-$L9318:
+$L9320:
 
 ; 5135 : 
 ; 5136 :       if ( lPacketData != lpAct->lLineCount )
@@ -16767,7 +16767,7 @@ $L9318:
 	mov	edx, DWORD PTR _lpAct$[ebp]
 	mov	eax, DWORD PTR _lPacketData$[ebp]
 	cmp	eax, DWORD PTR [edx+8]
-	je	SHORT $L9320
+	je	SHORT $L9322
 
 ; 5138 :          LPTASK lpTask = zGETPTR( lpView->hTask );
 
@@ -16775,7 +16775,7 @@ $L9318:
 	mov	edx, DWORD PTR [ecx+14]
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpTask$9321[ebp], eax
+	mov	DWORD PTR _lpTask$9323[ebp], eax
 
 ; 5139 :          // "KZOEE400 - Error transmitting lines. "
 ; 5140 :          fnIssueCoreError( lpTask, lpView, 16, 400, 0,
@@ -16788,7 +16788,7 @@ $L9318:
 	push	16					; 00000010H
 	mov	eax, DWORD PTR _lpView$[ebp]
 	push	eax
-	mov	ecx, DWORD PTR _lpTask$9321[ebp]
+	mov	ecx, DWORD PTR _lpTask$9323[ebp]
 	push	ecx
 	call	_fnIssueCoreError
 	add	esp, 28					; 0000001cH
@@ -16796,22 +16796,22 @@ $L9318:
 ; 5142 :          return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	$L9290
-$L9320:
+	jmp	$L9292
+$L9322:
 
 ; 5144 : 
 ; 5145 :       return( 0 );
 
 	xor	ax, ax
-	jmp	$L9290
-$L9317:
+	jmp	$L9292
+$L9319:
 
 ; 5147 : 
 ; 5148 :    if ( cPacketType == zPACKET_ERROR )
 
 	movsx	edx, BYTE PTR _cPacketType$[ebp]
 	cmp	edx, 42					; 0000002aH
-	jne	SHORT $L9324
+	jne	SHORT $L9326
 
 ; 5150 :       TraceLineI( "(kzoeneta) ** Received Packet ERROR code = ", lPacketData );
 
@@ -16823,15 +16823,15 @@ $L9317:
 ; 5151 :       return( 0 );
 
 	xor	ax, ax
-	jmp	$L9290
-$L9324:
+	jmp	$L9292
+$L9326:
 
 ; 5153 : 
 ; 5154 :    if ( cPacketType == zPACKET_SENDLTHS )
 
 	movsx	ecx, BYTE PTR _cPacketType$[ebp]
 	cmp	ecx, 83					; 00000053H
-	jne	SHORT $L9326
+	jne	SHORT $L9328
 
 ; 5155 :       cDataType = zTYPE_STRING;
 
@@ -16839,14 +16839,14 @@ $L9324:
 
 ; 5156 :    else
 
-	jmp	SHORT $L9329
-$L9326:
+	jmp	SHORT $L9331
+$L9328:
 
 ; 5157 :    if ( cPacketType == zPACKET_SENDLTHB )
 
 	movsx	edx, BYTE PTR _cPacketType$[ebp]
 	cmp	edx, 66					; 00000042H
-	jne	SHORT $L9328
+	jne	SHORT $L9330
 
 ; 5158 :       cDataType = zTYPE_BLOB;
 
@@ -16854,8 +16854,8 @@ $L9326:
 
 ; 5159 :    else
 
-	jmp	SHORT $L9329
-$L9328:
+	jmp	SHORT $L9331
+$L9330:
 
 ; 5161 :       TraceLineS( "(kzoeneta) ** Invalid packet type--expecting SENDLTH!", "" );
 
@@ -16866,8 +16866,8 @@ $L9328:
 ; 5162 :       return( 0 );
 
 	xor	ax, ax
-	jmp	SHORT $L9290
-$L9329:
+	jmp	SHORT $L9292
+$L9331:
 
 ; 5164 : 
 ; 5165 :    if ( lpNetwork->nTraceLevel > 1 )
@@ -16875,7 +16875,7 @@ $L9329:
 	mov	eax, DWORD PTR _lpNetwork$[ebp]
 	movsx	ecx, WORD PTR [eax+140]
 	cmp	ecx, 1
-	jle	SHORT $L9331
+	jle	SHORT $L9333
 
 ; 5167 :       TraceLineI( "(kzoeneta) ** Received SENDLTH packet. Lth = ", lPacketData );
 
@@ -16883,7 +16883,7 @@ $L9329:
 	push	edx
 	push	OFFSET FLAT:??_C@_0CO@HIHC@?$CIkzoeneta?$CJ?5?$CK?$CK?5Received?5SENDLTH?5p@ ; `string'
 	call	_TraceLineI@8
-$L9331:
+$L9333:
 
 ; 5169 : 
 ; 5170 :    if ( (*lpNetwork->lpfnReceive)( &lpNetwork->pNetworkHandle,
@@ -16905,7 +16905,7 @@ $L9331:
 	call	DWORD PTR [edx+174]
 	movsx	eax, ax
 	test	eax, eax
-	je	SHORT $L9333
+	je	SHORT $L9335
 
 ; 5174 :       TraceLineS( "(kzoeneta) ** Error receiving data", "" );
 
@@ -16916,8 +16916,8 @@ $L9331:
 ; 5175 :       return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	SHORT $L9290
-$L9333:
+	jmp	SHORT $L9292
+$L9335:
 
 ; 5177 : 
 ; 5178 :    lpAct->lLineCount++;
@@ -16932,7 +16932,7 @@ $L9333:
 ; 5180 :    return( 1 );
 
 	mov	ax, 1
-$L9290:
+$L9292:
 
 ; 5181 : 
 ; 5182 : } // fnReadDataFromNet
@@ -16940,13 +16940,13 @@ $L9290:
 	mov	esp, ebp
 	pop	ebp
 	ret	20					; 00000014H
-$L10274:
-	DD	$L9307
+$L10276:
 	DD	$L9309
 	DD	$L9311
 	DD	$L9313
-	DD	$L9304
-$L10273:
+	DD	$L9315
+	DD	$L9306
+$L10275:
 	DB	0
 	DB	1
 	DB	4
@@ -17043,14 +17043,14 @@ _fnReceiveOI@24 PROC NEAR
 	mov	edx, DWORD PTR _lpNetwork$[ebp]
 	movsx	eax, WORD PTR [edx+140]
 	cmp	eax, 1
-	jle	SHORT $L9350
+	jle	SHORT $L9352
 
 ; 5204 :       TraceLineS( "(kzoeneta) ** Initiating receive of OI", "" );
 
 	push	OFFSET FLAT:??_C@_00A@?$AA@		; `string'
 	push	OFFSET FLAT:??_C@_0CH@BNNI@?$CIkzoeneta?$CJ?5?$CK?$CK?5Initiating?5receive@ ; `string'
 	call	_TraceLineS@8
-$L9350:
+$L9352:
 
 ; 5206 : 
 ; 5207 :    lControl |= zACTIVATE_NOCONSTRAINTS;
@@ -17081,26 +17081,26 @@ $L9350:
 
 	movsx	ecx, WORD PTR _nRC$[ebp]
 	cmp	ecx, -16				; fffffff0H
-	je	SHORT $L9352
+	je	SHORT $L9354
 
 ; 5213 :       if ( lpNetwork->nTraceLevel > 0 )
 
 	mov	edx, DWORD PTR _lpNetwork$[ebp]
 	movsx	eax, WORD PTR [edx+140]
 	test	eax, eax
-	jle	SHORT $L9353
+	jle	SHORT $L9355
 
 ; 5215 :          TraceLineS( "(kzoeneta) ** Receive OI OK.  Sending ack.", "" );
 
 	push	OFFSET FLAT:??_C@_00A@?$AA@		; `string'
 	push	OFFSET FLAT:??_C@_0CL@KNHF@?$CIkzoeneta?$CJ?5?$CK?$CK?5Receive?5OI?5OK?4?5?5Se@ ; `string'
 	call	_TraceLineS@8
-$L9353:
+$L9355:
 
 ; 5218 :    else
 
-	jmp	SHORT $L9355
-$L9352:
+	jmp	SHORT $L9357
+$L9354:
 
 ; 5220 :       nRC = zCALL_ERROR;
 
@@ -17111,7 +17111,7 @@ $L9352:
 	push	OFFSET FLAT:??_C@_00A@?$AA@		; `string'
 	push	OFFSET FLAT:??_C@_0DJ@MJAH@?$CIkzoeneta?$CJ?5?$CK?$CK?5Error?5receiving?5OI@ ; `string'
 	call	_TraceLineS@8
-$L9355:
+$L9357:
 
 ; 5223 : 
 ; 5224 :    return( nRC );
@@ -17172,7 +17172,7 @@ _fnSendOI_Data@20 PROC NEAR
 ; 5246 :    if ( uLth == 0 )
 
 	cmp	DWORD PTR _uLth$[ebp], 0
-	jne	SHORT $L9372
+	jne	SHORT $L9374
 
 ; 5247 :       uLth = zstrlen( pchBuffer ) + 1;
 
@@ -17182,14 +17182,14 @@ _fnSendOI_Data@20 PROC NEAR
 	add	esp, 4
 	add	eax, 1
 	mov	DWORD PTR _uLth$[ebp], eax
-$L9372:
+$L9374:
 
 ; 5248 : 
 ; 5249 :    if ( cDataType == zTYPE_STRING )
 
 	movsx	ecx, BYTE PTR _cDataType$[ebp]
 	cmp	ecx, 83					; 00000053H
-	jne	SHORT $L9373
+	jne	SHORT $L9375
 
 ; 5250 :       cPacketType = zPACKET_SENDLTHS;
 
@@ -17197,13 +17197,13 @@ $L9372:
 
 ; 5251 :    else
 
-	jmp	SHORT $L9374
-$L9373:
+	jmp	SHORT $L9376
+$L9375:
 
 ; 5252 :       cPacketType = zPACKET_SENDLTHB;
 
 	mov	BYTE PTR _cPacketType$[ebp], 66		; 00000042H
-$L9374:
+$L9376:
 
 ; 5253 : 
 ; 5254 :    // Send the length packet.
@@ -17221,7 +17221,7 @@ $L9374:
 	call	_fnSendDataPacket@16
 	movsx	ecx, ax
 	test	ecx, ecx
-	je	SHORT $L9375
+	je	SHORT $L9377
 
 ; 5257 :       TraceLineS( "(kzoeneta) ** Error sending zPACKET_SENDLTH", "" );
 
@@ -17232,8 +17232,8 @@ $L9374:
 ; 5258 :       return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	SHORT $L9367
-$L9375:
+	jmp	SHORT $L9369
+$L9377:
 
 ; 5260 : 
 ; 5261 :    // Send the actual data.
@@ -17256,7 +17256,7 @@ $L9375:
 	call	DWORD PTR [edx+170]
 	movsx	eax, ax
 	test	eax, eax
-	je	SHORT $L9377
+	je	SHORT $L9379
 
 ; 5265 :       TraceLineS( "(kzoeneta) ** Error sending data line", "" );
 
@@ -17267,8 +17267,8 @@ $L9375:
 ; 5266 :       return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	SHORT $L9367
-$L9377:
+	jmp	SHORT $L9369
+$L9379:
 
 ; 5268 : 
 ; 5269 :    lpAct->lLineCount++;
@@ -17283,7 +17283,7 @@ $L9377:
 ; 5271 :    return( 0 );
 
 	xor	ax, ax
-$L9367:
+$L9369:
 
 ; 5272 : }
 
@@ -17318,8 +17318,8 @@ _vOI$ = 16
 _lControl$ = 20
 _nRC$ = -4
 _ar$ = -16
-_szCompressed$9392 = -28
-_lpViewOD$9396 = -32
+_szCompressed$9394 = -28
+_lpViewOD$9398 = -32
 _fnSendOI@16 PROC NEAR
 
 ; 5284 : {
@@ -17353,13 +17353,13 @@ _fnSendOI@16 PROC NEAR
 
 	movsx	edx, BYTE PTR _g_chNetSendCompressed
 	test	edx, edx
-	jne	SHORT $L9391
+	jne	SHORT $L9393
 
 ; 5294 :       zCHAR szCompressed[ 10 ];
 ; 5295 : 
 ; 5296 :       SysReadZeidonIni( -1, "[Zeidon]", "NetSendCompressed", szCompressed );
 
-	lea	eax, DWORD PTR _szCompressed$9392[ebp]
+	lea	eax, DWORD PTR _szCompressed$9394[ebp]
 	push	eax
 	push	OFFSET FLAT:??_C@_0BC@MJJP@NetSendCompressed?$AA@ ; `string'
 	push	OFFSET FLAT:??_C@_08KBJI@?$FLZeidon?$FN?$AA@ ; `string'
@@ -17368,7 +17368,7 @@ _fnSendOI@16 PROC NEAR
 
 ; 5297 :       g_chNetSendCompressed = ztoupper( szCompressed[ 0 ] ) == 'N' ? 'N' : 'Y';
 
-	movsx	ecx, BYTE PTR _szCompressed$9392[ebp]
+	movsx	ecx, BYTE PTR _szCompressed$9394[ebp]
 	push	ecx
 	call	DWORD PTR __imp__toupper
 	add	esp, 4
@@ -17378,14 +17378,14 @@ _fnSendOI@16 PROC NEAR
 	and	eax, 11					; 0000000bH
 	add	eax, 78					; 0000004eH
 	mov	BYTE PTR _g_chNetSendCompressed, al
-$L9391:
+$L9393:
 
 ; 5299 : 
 ; 5300 :    if ( g_chNetSendCompressed != 'N' )
 
 	movsx	edx, BYTE PTR _g_chNetSendCompressed
 	cmp	edx, 78					; 0000004eH
-	je	SHORT $L9394
+	je	SHORT $L9396
 
 ; 5301 :       lControl |= zCOMPRESSED;
 
@@ -17395,8 +17395,8 @@ $L9391:
 
 ; 5302 :    else
 
-	jmp	SHORT $L9398
-$L9394:
+	jmp	SHORT $L9400
+$L9396:
 
 ; 5304 :       LPVIEWOD lpViewOD = zGETPTR( vOI->hViewOD );
 
@@ -17404,23 +17404,23 @@ $L9394:
 	mov	edx, DWORD PTR [ecx+6]
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpViewOD$9396[ebp], eax
+	mov	DWORD PTR _lpViewOD$9398[ebp], eax
 
 ; 5305 :       if ( lpViewOD->bNetCompress )
 
-	mov	eax, DWORD PTR _lpViewOD$9396[ebp]
+	mov	eax, DWORD PTR _lpViewOD$9398[ebp]
 	mov	ecx, DWORD PTR [eax+240]
 	shr	ecx, 12					; 0000000cH
 	and	ecx, 1
 	test	ecx, ecx
-	je	SHORT $L9398
+	je	SHORT $L9400
 
 ; 5306 :          lControl |= zCOMPRESSED;
 
 	mov	edx, DWORD PTR _lControl$[ebp]
 	or	edx, 131072				; 00020000H
 	mov	DWORD PTR _lControl$[ebp], edx
-$L9398:
+$L9400:
 
 ; 5308 : 
 ; 5309 :    nRC = SfWriteOI_ToStream( vOI, "NETACT", lControl,
@@ -17443,14 +17443,14 @@ $L9398:
 	mov	eax, DWORD PTR _lpNetwork$[ebp]
 	movsx	ecx, WORD PTR [eax+140]
 	test	ecx, ecx
-	jle	SHORT $L9401
+	jle	SHORT $L9403
 
 ; 5314 :       TraceLineS( "(kzoeneta) ** Sending END packet.", "" );
 
 	push	OFFSET FLAT:??_C@_00A@?$AA@		; `string'
 	push	OFFSET FLAT:??_C@_0CC@IGND@?$CIkzoeneta?$CJ?5?$CK?$CK?5Sending?5END?5packet@ ; `string'
 	call	_TraceLineS@8
-$L9401:
+$L9403:
 
 ; 5316 : 
 ; 5317 :    // Send a message to say we're done sending the OI
@@ -17458,7 +17458,7 @@ $L9401:
 
 	movsx	edx, WORD PTR _nRC$[ebp]
 	cmp	edx, -16				; fffffff0H
-	je	SHORT $L9403
+	je	SHORT $L9405
 
 ; 5320 :       if ( fnSendDataPacket( lpNetwork, ppvConn, zPACKET_END,
 ; 5321 :                              ar.lLineCount ) != 0 )
@@ -17473,7 +17473,7 @@ $L9401:
 	call	_fnSendDataPacket@16
 	movsx	eax, ax
 	test	eax, eax
-	je	SHORT $L9404
+	je	SHORT $L9406
 
 ; 5323 :          TraceLineS( "(kzoeneta) ** Error sending zPACKET_END", "" );
 
@@ -17484,13 +17484,13 @@ $L9401:
 ; 5324 :          return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	SHORT $L9388
-$L9404:
+	jmp	SHORT $L9390
+$L9406:
 
 ; 5327 :    else
 
-	jmp	SHORT $L9406
-$L9403:
+	jmp	SHORT $L9408
+$L9405:
 
 ; 5329 :       if ( fnSendDataPacket( lpNetwork, ppvConn, zPACKET_ERROR,
 ; 5330 :                              zNETERR_SENDOI ) != 0 )
@@ -17504,7 +17504,7 @@ $L9403:
 	call	_fnSendDataPacket@16
 	movsx	eax, ax
 	test	eax, eax
-	je	SHORT $L9406
+	je	SHORT $L9408
 
 ; 5332 :          TraceLineS( "(kzoeneta) ** Error sending zPACKET_END", "" );
 
@@ -17515,14 +17515,14 @@ $L9403:
 ; 5333 :          return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	SHORT $L9388
-$L9406:
+	jmp	SHORT $L9390
+$L9408:
 
 ; 5336 : 
 ; 5337 :    return( 0 );
 
 	xor	ax, ax
-$L9388:
+$L9390:
 
 ; 5338 : 
 ; 5339 : } // fnSendOI
@@ -17626,9 +17626,9 @@ _bFlushNeeded$ = -164
 _ActPacket$ = -160
 _lpActPacket$ = -4
 _nRC$ = -12
-_lpViewCsr$9461 = -184
-_lpViewOI$9463 = -188
-_lpDropSubtask$9467 = -192
+_lpViewCsr$9463 = -184
+_lpViewOI$9465 = -188
+_lpDropSubtask$9469 = -192
 _fnProcessActivateOI@12 PROC NEAR
 
 ; 5349 : {
@@ -17670,7 +17670,7 @@ _fnProcessActivateOI@12 PROC NEAR
 	mov	eax, DWORD PTR _lpNetwork$[ebp]
 	movsx	ecx, WORD PTR [eax+140]
 	test	ecx, ecx
-	jle	SHORT $L9423
+	jle	SHORT $L9425
 
 ; 5362 :       TraceLineS( "(kzoeneta) ** Received Activate OI message.", "" );
 
@@ -17683,7 +17683,7 @@ _fnProcessActivateOI@12 PROC NEAR
 	push	OFFSET FLAT:??_C@_00A@?$AA@		; `string'
 	push	OFFSET FLAT:??_C@_0CI@HEFB@?$CIkzoeneta?$CJ?5?$CK?$CK?5Retrieving?5Activat@ ; `string'
 	call	_TraceLineS@8
-$L9423:
+$L9425:
 
 ; 5365 : 
 ; 5366 :    //=======================================================================
@@ -17710,7 +17710,7 @@ $L9423:
 	call	DWORD PTR [edx+174]
 	movsx	eax, ax
 	test	eax, eax
-	je	SHORT $L9427
+	je	SHORT $L9429
 
 ; 5377 :       TraceLineS( "(kzoeneta) ** Couldn't retrieve Act info", "" );
 
@@ -17720,8 +17720,8 @@ $L9423:
 
 ; 5378 :       goto EndOfFunction;
 
-	jmp	$EndOfFunction$9429
-$L9427:
+	jmp	$EndOfFunction$9431
+$L9429:
 
 ; 5380 : 
 ; 5381 :    // Store the info locally -- as soon as we perform the next network IO
@@ -17752,7 +17752,7 @@ $L9427:
 	mov	ecx, DWORD PTR _lpNetwork$[ebp]
 	movsx	edx, WORD PTR [ecx+140]
 	test	edx, edx
-	jle	SHORT $L9431
+	jle	SHORT $L9433
 
 ; 5388 :       TraceLine( "(kzoeneta) ** User Name: %s  App Name: %s  Object Def: %s",
 ; 5389 :                  ActPacket.szUserName, ActPacket.szAppName,
@@ -17767,7 +17767,7 @@ $L9427:
 	push	OFFSET FLAT:??_C@_0DK@IDJC@?$CIkzoeneta?$CJ?5?$CK?$CK?5User?5Name?3?5?$CFs?5?5App@ ; `string'
 	call	_TraceLine
 	add	esp, 16					; 00000010H
-$L9431:
+$L9433:
 
 ; 5392 : 
 ; 5393 :    // Try to create a subtask view using the application name passed.
@@ -17782,7 +17782,7 @@ $L9431:
 	call	_SfCreateSubtask@12
 	movsx	eax, ax
 	cmp	eax, -16				; fffffff0H
-	jne	SHORT $L9433
+	jne	SHORT $L9435
 
 ; 5396 :       TraceLineS( "(kzoeneta) ** Invalid App name = ", ActPacket.szAppName );
 
@@ -17803,14 +17803,14 @@ $L9431:
 	call	_fnSendDataPacket@16
 	movsx	ecx, ax
 	test	ecx, ecx
-	je	SHORT $L9435
+	je	SHORT $L9437
 
 ; 5400 :          TraceLineS( "(kzoeneta) ** Error sending zPACKET_END", "" );
 
 	push	OFFSET FLAT:??_C@_00A@?$AA@		; `string'
 	push	OFFSET FLAT:??_C@_0CI@FBNM@?$CIkzoeneta?$CJ?5?$CK?$CK?5Error?5sending?5zPAC@ ; `string'
 	call	_TraceLineS@8
-$L9435:
+$L9437:
 
 ; 5402 : 
 ; 5403 :       bFlushNeeded = TRUE;
@@ -17819,8 +17819,8 @@ $L9435:
 
 ; 5404 :       goto EndOfFunction;
 
-	jmp	$EndOfFunction$9429
-$L9433:
+	jmp	$EndOfFunction$9431
+$L9435:
 
 ; 5406 : 
 ; 5407 :    lpTask = fnOperationCall( iNetActivateOI, vSubtask, 0 );
@@ -17850,7 +17850,7 @@ $L9433:
 	push	edx
 	call	_ActivateViewObject@12
 	test	eax, eax
-	jne	SHORT $L9436
+	jne	SHORT $L9438
 
 ; 5413 :       TraceLineS( "(kzoeneta) ** Invalid OD name = ", ActPacket.szObjectDef );
 
@@ -17871,14 +17871,14 @@ $L9433:
 	call	_fnSendDataPacket@16
 	movsx	eax, ax
 	test	eax, eax
-	je	SHORT $L9438
+	je	SHORT $L9440
 
 ; 5417 :          TraceLineS( "(kzoeneta) ** Error sending zPACKET_END", "" );
 
 	push	OFFSET FLAT:??_C@_00A@?$AA@		; `string'
 	push	OFFSET FLAT:??_C@_0CI@FBNM@?$CIkzoeneta?$CJ?5?$CK?$CK?5Error?5sending?5zPAC@ ; `string'
 	call	_TraceLineS@8
-$L9438:
+$L9440:
 
 ; 5419 : 
 ; 5420 :       bFlushNeeded = TRUE;
@@ -17887,29 +17887,29 @@ $L9438:
 
 ; 5421 :       goto EndOfFunction;
 
-	jmp	$EndOfFunction$9429
-$L9436:
+	jmp	$EndOfFunction$9431
+$L9438:
 
 ; 5423 : 
 ; 5424 :    if ( ActPacket.cUseQualification == 'Y' )
 
 	movsx	ecx, BYTE PTR _ActPacket$[ebp+44]
 	cmp	ecx, 89					; 00000059H
-	jne	SHORT $L9442
+	jne	SHORT $L9444
 
 ; 5426 :       if ( lpNetwork->nTraceLevel > 0 )
 
 	mov	edx, DWORD PTR _lpNetwork$[ebp]
 	movsx	eax, WORD PTR [edx+140]
 	test	eax, eax
-	jle	SHORT $L9440
+	jle	SHORT $L9442
 
 ; 5428 :          TraceLineS( "(kzoeneta) ** Receiving Qual OI.", "" );
 
 	push	OFFSET FLAT:??_C@_00A@?$AA@		; `string'
 	push	OFFSET FLAT:??_C@_0CB@OJNA@?$CIkzoeneta?$CJ?5?$CK?$CK?5Receiving?5Qual?5OI?4@ ; `string'
 	call	_TraceLineS@8
-$L9440:
+$L9442:
 
 ; 5430 : 
 ; 5431 :       if ( fnReceiveOI( ppvConn, lpNetwork, &vQual, vSubtask, "KZDBHQUA",
@@ -17928,12 +17928,12 @@ $L9440:
 	call	_fnReceiveOI@24
 	movsx	edx, ax
 	cmp	edx, -16				; fffffff0H
-	jne	SHORT $L9442
+	jne	SHORT $L9444
 
 ; 5434 :          goto EndOfFunction;
 
-	jmp	$EndOfFunction$9429
-$L9442:
+	jmp	$EndOfFunction$9431
+$L9444:
 
 ; 5437 : 
 ; 5438 :    //=======================================================================
@@ -17985,13 +17985,13 @@ $L9442:
 ; 5457 :    if ( vOI )
 
 	cmp	DWORD PTR _vOI$[ebp], 0
-	je	$L9453
+	je	$L9455
 
 ; 5459 :       if ( nRC < 0 )
 
 	movsx	ecx, WORD PTR _nRC$[ebp]
 	test	ecx, ecx
-	jge	SHORT $L9445
+	jge	SHORT $L9447
 
 ; 5461 :          // If we have an object instance (vOI is not 0) but the return code was
 ; 5462 :          // less than 0, there was nothing on the DB to activate so the OI is
@@ -18009,7 +18009,7 @@ $L9442:
 	call	_fnSendDataPacket@16
 	movsx	ecx, ax
 	test	ecx, ecx
-	je	SHORT $L9446
+	je	SHORT $L9448
 
 ; 5468 :             TraceLineS( "(kzoeneta) ** Not able to indicate empty OI!", "" );
 
@@ -18023,13 +18023,13 @@ $L9442:
 
 ; 5470 :             goto EndOfFunction;
 
-	jmp	$EndOfFunction$9429
-$L9446:
+	jmp	$EndOfFunction$9431
+$L9448:
 
 ; 5473 :       else
 
-	jmp	SHORT $L9453
-$L9445:
+	jmp	SHORT $L9455
+$L9447:
 
 ; 5475 :          // Send Ack to signal we got this far.
 ; 5476 :          if ( fnSendDataPacket( lpNetwork, ppvConn, zPACKET_ACK, 0 ) != 0 )
@@ -18043,7 +18043,7 @@ $L9445:
 	call	_fnSendDataPacket@16
 	movsx	ecx, ax
 	test	ecx, ecx
-	je	SHORT $L9449
+	je	SHORT $L9451
 
 ; 5478 :             TraceLineS( "(kzoeneta) ** Not able to ACK request of OI!", "" );
 
@@ -18057,8 +18057,8 @@ $L9445:
 
 ; 5480 :             goto EndOfFunction;
 
-	jmp	$EndOfFunction$9429
-$L9449:
+	jmp	$EndOfFunction$9431
+$L9451:
 
 ; 5482 : 
 ; 5483 :          if ( lpNetwork->nTraceLevel > 0 )
@@ -18066,14 +18066,14 @@ $L9449:
 	mov	edx, DWORD PTR _lpNetwork$[ebp]
 	movsx	eax, WORD PTR [edx+140]
 	test	eax, eax
-	jle	SHORT $L9451
+	jle	SHORT $L9453
 
 ; 5485 :             TraceLineS( "(kzoeneta) ** Sending Activated OI.", "" );
 
 	push	OFFSET FLAT:??_C@_00A@?$AA@		; `string'
 	push	OFFSET FLAT:??_C@_0CE@NMO@?$CIkzoeneta?$CJ?5?$CK?$CK?5Sending?5Activated?5@ ; `string'
 	call	_TraceLineS@8
-$L9451:
+$L9453:
 
 ; 5487 : 
 ; 5488 :          // Now send the oi.
@@ -18089,7 +18089,7 @@ $L9451:
 	call	_fnSendOI@16
 	movsx	ecx, ax
 	cmp	ecx, -16				; fffffff0H
-	jne	SHORT $L9453
+	jne	SHORT $L9455
 
 ; 5491 :             nRC = zCALL_ERROR;
 
@@ -18097,8 +18097,8 @@ $L9451:
 
 ; 5492 :             goto EndOfFunction;
 
-	jmp	SHORT $EndOfFunction$9429
-$L9453:
+	jmp	SHORT $EndOfFunction$9431
+$L9455:
 
 ; 5496 : 
 ; 5497 :    if ( lpNetwork->nTraceLevel > 0 )
@@ -18106,7 +18106,7 @@ $L9453:
 	mov	edx, DWORD PTR _lpNetwork$[ebp]
 	movsx	eax, WORD PTR [edx+140]
 	test	eax, eax
-	jle	SHORT $L9454
+	jle	SHORT $L9456
 
 ; 5498 :       TraceLineI( "(kzoeneta) ** Sending RC packet. RC = ", nRC );
 
@@ -18114,7 +18114,7 @@ $L9453:
 	push	ecx
 	push	OFFSET FLAT:??_C@_0CH@BBPE@?$CIkzoeneta?$CJ?5?$CK?$CK?5Sending?5RC?5packet?4@ ; `string'
 	call	_TraceLineI@8
-$L9454:
+$L9456:
 
 ; 5499 : 
 ; 5500 :    // Send return code.
@@ -18130,7 +18130,7 @@ $L9454:
 	call	_fnSendDataPacket@16
 	movsx	edx, ax
 	test	edx, edx
-	je	SHORT $L9456
+	je	SHORT $L9458
 
 ; 5503 :       TraceLineS( "(kzoeneta) ** Not able send Return code!", "" );
 
@@ -18144,8 +18144,8 @@ $L9454:
 
 ; 5505 :       goto EndOfFunction;
 
-	jmp	SHORT $EndOfFunction$9429
-$L9456:
+	jmp	SHORT $EndOfFunction$9431
+$L9458:
 
 ; 5507 : 
 ; 5508 :    // If we get here then everything's OK and we already sent the return code
@@ -18153,7 +18153,7 @@ $L9456:
 ; 5510 :    nRC = 0;
 
 	mov	WORD PTR _nRC$[ebp], 0
-$EndOfFunction$9429:
+$EndOfFunction$9431:
 
 ; 5511 : 
 ; 5512 : EndOfFunction:
@@ -18161,7 +18161,7 @@ $EndOfFunction$9429:
 ; 5514 :         fnSendMsgAndTraceObj( lpNetwork, ppvConn, vSubtask ) == zCALL_ERROR )
 
 	cmp	DWORD PTR _vSubtask$[ebp], 0
-	je	SHORT $L9458
+	je	SHORT $L9460
 	mov	eax, DWORD PTR _vSubtask$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _ppvConn$[ebp]
@@ -18171,12 +18171,12 @@ $EndOfFunction$9429:
 	call	_fnSendMsgAndTraceObj@12
 	movsx	eax, ax
 	cmp	eax, -16				; fffffff0H
-	jne	SHORT $L9458
+	jne	SHORT $L9460
 
 ; 5516 :       nRC = zCALL_ERROR;
 
 	mov	WORD PTR _nRC$[ebp], -16		; fffffff0H
-$L9458:
+$L9460:
 
 ; 5518 : 
 ; 5519 :    if ( bFlushNeeded && fnFlushBuffer( lpNetwork, ppvConn ) != 0 )
@@ -18184,7 +18184,7 @@ $L9458:
 	mov	ecx, DWORD PTR _bFlushNeeded$[ebp]
 	and	ecx, 255				; 000000ffH
 	test	ecx, ecx
-	je	SHORT $L9459
+	je	SHORT $L9461
 	mov	edx, DWORD PTR _ppvConn$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _lpNetwork$[ebp]
@@ -18192,18 +18192,18 @@ $L9458:
 	call	_fnFlushBuffer@8
 	movsx	ecx, ax
 	test	ecx, ecx
-	je	SHORT $L9459
+	je	SHORT $L9461
 
 ; 5521 :       nRC = zCALL_ERROR;
 
 	mov	WORD PTR _nRC$[ebp], -16		; fffffff0H
-$L9459:
+$L9461:
 
 ; 5523 : 
 ; 5524 :    if ( vOI )
 
 	cmp	DWORD PTR _vOI$[ebp], 0
-	je	SHORT $L9460
+	je	SHORT $L9462
 
 ; 5526 :       LPVIEWCSR lpViewCsr = zGETPTR( vOI->hViewCsr );
 
@@ -18211,15 +18211,15 @@ $L9459:
 	mov	eax, DWORD PTR [edx+10]
 	push	eax
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpViewCsr$9461[ebp], eax
+	mov	DWORD PTR _lpViewCsr$9463[ebp], eax
 
 ; 5527 :       LPVIEWOI  lpViewOI  = zGETPTR( lpViewCsr->hViewOI );
 
-	mov	ecx, DWORD PTR _lpViewCsr$9461[ebp]
+	mov	ecx, DWORD PTR _lpViewCsr$9463[ebp]
 	mov	edx, DWORD PTR [ecx+10]
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpViewOI$9463[ebp], eax
+	mov	DWORD PTR _lpViewOI$9465[ebp], eax
 
 ; 5528 : 
 ; 5529 :       // It's possible that we've activated the OI with pessimistic locking.
@@ -18231,10 +18231,10 @@ $L9459:
 ; 5535 :       // deleting the locks when we drop the view.
 ; 5536 :       lpViewOI->bIsLocked = 0;
 
-	mov	eax, DWORD PTR _lpViewOI$9463[ebp]
+	mov	eax, DWORD PTR _lpViewOI$9465[ebp]
 	mov	ecx, DWORD PTR [eax+36]
 	and	cl, 127					; 0000007fH
-	mov	edx, DWORD PTR _lpViewOI$9463[ebp]
+	mov	edx, DWORD PTR _lpViewOI$9465[ebp]
 	mov	DWORD PTR [edx+36], ecx
 
 ; 5537 : 
@@ -18243,26 +18243,26 @@ $L9459:
 	mov	eax, DWORD PTR _vOI$[ebp]
 	push	eax
 	call	_fnDropView@4
-$L9460:
+$L9462:
 
 ; 5540 : 
 ; 5541 :    if ( vQual )
 
 	cmp	DWORD PTR _vQual$[ebp], 0
-	je	SHORT $L9465
+	je	SHORT $L9467
 
 ; 5542 :       fnDropView( vQual );
 
 	mov	ecx, DWORD PTR _vQual$[ebp]
 	push	ecx
 	call	_fnDropView@4
-$L9465:
+$L9467:
 
 ; 5543 : 
 ; 5544 :    if ( vSubtask )
 
 	cmp	DWORD PTR _vSubtask$[ebp], 0
-	je	SHORT $L9466
+	je	SHORT $L9468
 
 ; 5545 :       DROPSUBTASK( vSubtask );
 
@@ -18270,24 +18270,24 @@ $L9465:
 	mov	eax, DWORD PTR [edx+18]
 	push	eax
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpDropSubtask$9467[ebp], eax
+	mov	DWORD PTR _lpDropSubtask$9469[ebp], eax
 	push	0
-	mov	ecx, DWORD PTR _lpDropSubtask$9467[ebp]
+	mov	ecx, DWORD PTR _lpDropSubtask$9469[ebp]
 	push	ecx
-	mov	edx, DWORD PTR _lpDropSubtask$9467[ebp]
+	mov	edx, DWORD PTR _lpDropSubtask$9469[ebp]
 	mov	eax, DWORD PTR [edx+6]
 	push	eax
 	call	DWORD PTR _g_pfnGetPtr
 	push	eax
 	call	_fnDropSubtask
 	add	esp, 12					; 0000000cH
-$L9466:
+$L9468:
 
 ; 5546 : 
 ; 5547 :    if ( lpTask )
 
 	cmp	DWORD PTR _lpTask$[ebp], 0
-	je	SHORT $L9470
+	je	SHORT $L9472
 
 ; 5548 :       fnOperationReturn( iNetActivateOI, lpTask );
 
@@ -18296,7 +18296,7 @@ $L9466:
 	push	500					; 000001f4H
 	call	_fnOperationReturn
 	add	esp, 8
-$L9470:
+$L9472:
 
 ; 5549 : 
 ; 5550 :    return( nRC );
@@ -18597,9 +18597,9 @@ _plpViewOI$ = -36
 _pchBuffer$ = -24
 _pch$ = -4
 _k$ = -28
-_nOI_Idx$9521 = -40
-_lpViewEntity$9538 = -48
-_lpLastViewEntity$9540 = -44
+_nOI_Idx$9523 = -40
+_lpViewEntity$9540 = -48
+_lpLastViewEntity$9542 = -44
 _fnRelinkOIs@16 PROC NEAR
 
 ; 5756 : {
@@ -18640,12 +18640,12 @@ _fnRelinkOIs@16 PROC NEAR
 ; 5770 :    if ( hBuffer == 0 )
 
 	cmp	DWORD PTR _hBuffer$[ebp], 0
-	jne	SHORT $L9498
+	jne	SHORT $L9500
 
 ; 5771 :       return;
 
-	jmp	$L9487
-$L9498:
+	jmp	$L9489
+$L9500:
 
 ; 5772 : 
 ; 5773 :    zmemset( pchBuffer, 0, nViewCount * sizeof( LPVIEWOI ) * 2 );
@@ -18678,28 +18678,28 @@ $L9498:
 ; 5779 :    for ( k = 0; k < nViewCount; k++ )
 
 	mov	WORD PTR _k$[ebp], 0
-	jmp	SHORT $L9503
-$L9504:
+	jmp	SHORT $L9505
+$L9506:
 	mov	dx, WORD PTR _k$[ebp]
 	add	dx, 1
 	mov	WORD PTR _k$[ebp], dx
-$L9503:
+$L9505:
 	movsx	eax, WORD PTR _k$[ebp]
 	movsx	ecx, WORD PTR _nViewCount$[ebp]
 	cmp	eax, ecx
-	jge	$L9505
+	jge	$L9507
 
 ; 5781 :       if ( lpViewCluster[ k ].vOI == 0 )
 
 	movsx	edx, WORD PTR _k$[ebp]
 	mov	eax, DWORD PTR _lpViewCluster$[ebp]
 	cmp	DWORD PTR [eax+edx*8], 0
-	jne	SHORT $L9506
+	jne	SHORT $L9508
 
 ; 5782 :          continue;
 
-	jmp	SHORT $L9504
-$L9506:
+	jmp	SHORT $L9506
+$L9508:
 
 ; 5783 : 
 ; 5784 :       // Get ViewCsrs/ViewOIs for all the views.
@@ -18743,16 +18743,16 @@ $L9506:
 	push	eax
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _lpEntityInstance$[ebp], eax
-	jmp	SHORT $L9511
-$L9512:
+	jmp	SHORT $L9513
+$L9514:
 	mov	ecx, DWORD PTR _lpEntityInstance$[ebp]
 	mov	edx, DWORD PTR [ecx+14]
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _lpEntityInstance$[ebp], eax
-$L9511:
+$L9513:
 	cmp	DWORD PTR _lpEntityInstance$[ebp], 0
-	je	SHORT $L9513
+	je	SHORT $L9515
 
 ; 5793 :          if ( fnEntityInstanceIsDead( lpEntityInstance ) )
 
@@ -18761,12 +18761,12 @@ $L9511:
 	call	_fnEntityInstanceIsDead@4
 	movsx	ecx, ax
 	test	ecx, ecx
-	je	SHORT $L9514
+	je	SHORT $L9516
 
 ; 5794 :             continue;
 
-	jmp	SHORT $L9512
-$L9514:
+	jmp	SHORT $L9514
+$L9516:
 
 ; 5795 : 
 ; 5796 :          lpEntityInstance->lHierCount = lHierCount++;
@@ -18780,13 +18780,13 @@ $L9514:
 
 ; 5797 :       }
 
-	jmp	SHORT $L9512
-$L9513:
+	jmp	SHORT $L9514
+$L9515:
 
 ; 5798 :    }
 
-	jmp	$L9504
-$L9505:
+	jmp	$L9506
+$L9507:
 
 ; 5799 : 
 ; 5800 :    // Now go through the link buffer.  The first char had better be a '('.
@@ -18804,7 +18804,7 @@ $L9505:
 	add	edx, 1
 	mov	DWORD PTR _pch$[ebp], edx
 	cmp	ecx, 40					; 00000028H
-	je	SHORT $L9515
+	je	SHORT $L9517
 
 ; 5805 :       fnSysMessageBox( lpTask, szlNetworkError,
 ; 5806 :                        "Link buffer doesn't start with a '('", 1 );
@@ -18818,14 +18818,14 @@ $L9505:
 
 ; 5807 :       goto EndOfFunction;
 
-	jmp	$EndOfFunction$9517
-$L9515:
+	jmp	$EndOfFunction$9519
+$L9517:
 
 ; 5809 : 
 ; 5810 :    lpLastEI = 0;
 
 	mov	DWORD PTR _lpLastEI$[ebp], 0
-$L9519:
+$L9521:
 
 ; 5811 : 
 ; 5812 :    // Loop through the link buffer and try to link up EIs.
@@ -18834,7 +18834,7 @@ $L9519:
 	mov	ecx, DWORD PTR _pch$[ebp]
 	movsx	edx, BYTE PTR [ecx]
 	test	edx, edx
-	je	$EndOfFunction$9517
+	je	$EndOfFunction$9519
 
 ; 5815 :       zSHORT nOI_Idx;
 ; 5816 : 
@@ -18844,21 +18844,21 @@ $L9519:
 	mov	eax, DWORD PTR _pch$[ebp]
 	movsx	ecx, BYTE PTR [eax]
 	cmp	ecx, 40					; 00000028H
-	jne	SHORT $L9522
+	jne	SHORT $L9524
 
 ; 5819 :          pch++;
 
 	mov	edx, DWORD PTR _pch$[ebp]
 	add	edx, 1
 	mov	DWORD PTR _pch$[ebp], edx
-$L9522:
+$L9524:
 
 ; 5820 : 
 ; 5821 :       if ( !zisalnum( *pch ) )
 
 	mov	eax, DWORD PTR __imp____mb_cur_max
 	cmp	DWORD PTR [eax], 1
-	jle	SHORT $L10281
+	jle	SHORT $L10283
 	push	263					; 00000107H
 	mov	ecx, DWORD PTR _pch$[ebp]
 	movsx	edx, BYTE PTR [ecx]
@@ -18866,8 +18866,8 @@ $L9522:
 	call	DWORD PTR __imp___isctype
 	add	esp, 8
 	mov	DWORD PTR -52+[ebp], eax
-	jmp	SHORT $L10282
-$L10281:
+	jmp	SHORT $L10284
+$L10283:
 	mov	eax, DWORD PTR _pch$[ebp]
 	movsx	ecx, BYTE PTR [eax]
 	mov	edx, DWORD PTR __imp___pctype
@@ -18876,9 +18876,9 @@ $L10281:
 	mov	dx, WORD PTR [eax+ecx*2]
 	and	edx, 263				; 00000107H
 	mov	DWORD PTR -52+[ebp], edx
-$L10282:
+$L10284:
 	cmp	DWORD PTR -52+[ebp], 0
-	jne	SHORT $L9523
+	jne	SHORT $L9525
 
 ; 5823 :          fnSysMessageBox( lpTask, szlNetworkError,
 ; 5824 :                           "Link buffer: expecting hex digit.", 1 );
@@ -18892,8 +18892,8 @@ $L10282:
 
 ; 5825 :          goto EndOfFunction;
 
-	jmp	$EndOfFunction$9517
-$L9523:
+	jmp	$EndOfFunction$9519
+$L9525:
 
 ; 5827 : 
 ; 5828 :       // Get the OI idx;  pch then contains the char that stopped the scan.
@@ -18906,7 +18906,7 @@ $L9523:
 	push	edx
 	call	DWORD PTR __imp__strtol
 	add	esp, 12					; 0000000cH
-	mov	WORD PTR _nOI_Idx$9521[ebp], ax
+	mov	WORD PTR _nOI_Idx$9523[ebp], ax
 
 ; 5830 : 
 ; 5831 :       // The next char had better be a ':'!
@@ -18918,7 +18918,7 @@ $L9523:
 	add	edx, 1
 	mov	DWORD PTR _pch$[ebp], edx
 	cmp	ecx, 58					; 0000003aH
-	je	SHORT $L9526
+	je	SHORT $L9528
 
 ; 5834 :          fnSysMessageBox( lpTask, szlNetworkError,
 ; 5835 :                           "Link buffer: expecting ':' after OI tag.", 1 );
@@ -18932,16 +18932,16 @@ $L9523:
 
 ; 5836 :          goto EndOfFunction;
 
-	jmp	$EndOfFunction$9517
-$L9526:
+	jmp	$EndOfFunction$9519
+$L9528:
 
 ; 5838 : 
 ; 5839 :       if ( nOI_Idx == nViewCount )
 
-	movsx	ecx, WORD PTR _nOI_Idx$9521[ebp]
+	movsx	ecx, WORD PTR _nOI_Idx$9523[ebp]
 	movsx	edx, WORD PTR _nViewCount$[ebp]
 	cmp	ecx, edx
-	jne	SHORT $L9528
+	jne	SHORT $L9530
 
 ; 5841 :          fnSysMessageBox( lpTask, szlNetworkError,
 ; 5842 :                           "Link buffer: Could find OI matching Tag.", 1 );
@@ -18955,15 +18955,15 @@ $L9526:
 
 ; 5843 :          goto EndOfFunction;
 
-	jmp	$EndOfFunction$9517
-$L9528:
+	jmp	$EndOfFunction$9519
+$L9530:
 
 ; 5845 : 
 ; 5846 :       if ( !zisalnum( *pch ) )
 
 	mov	ecx, DWORD PTR __imp____mb_cur_max
 	cmp	DWORD PTR [ecx], 1
-	jle	SHORT $L10283
+	jle	SHORT $L10285
 	push	263					; 00000107H
 	mov	edx, DWORD PTR _pch$[ebp]
 	movsx	eax, BYTE PTR [edx]
@@ -18971,8 +18971,8 @@ $L9528:
 	call	DWORD PTR __imp___isctype
 	add	esp, 8
 	mov	DWORD PTR -56+[ebp], eax
-	jmp	SHORT $L10284
-$L10283:
+	jmp	SHORT $L10286
+$L10285:
 	mov	ecx, DWORD PTR _pch$[ebp]
 	movsx	edx, BYTE PTR [ecx]
 	mov	eax, DWORD PTR __imp___pctype
@@ -18981,9 +18981,9 @@ $L10283:
 	mov	ax, WORD PTR [ecx+edx*2]
 	and	eax, 263				; 00000107H
 	mov	DWORD PTR -56+[ebp], eax
-$L10284:
+$L10286:
 	cmp	DWORD PTR -56+[ebp], 0
-	jne	SHORT $L9530
+	jne	SHORT $L9532
 
 ; 5848 :          fnSysMessageBox( lpTask, szlNetworkError,
 ; 5849 :                           "Link buffer: expecting hex digit(2).", 1 );
@@ -18997,8 +18997,8 @@ $L10284:
 
 ; 5850 :          goto EndOfFunction;
 
-	jmp	$EndOfFunction$9517
-$L9530:
+	jmp	$EndOfFunction$9519
+$L9532:
 
 ; 5852 : 
 ; 5853 :       // Get the hier number.
@@ -19020,11 +19020,11 @@ $L9530:
 	mov	ecx, DWORD PTR _pch$[ebp]
 	movsx	edx, BYTE PTR [ecx]
 	cmp	edx, 41					; 00000029H
-	je	SHORT $L9532
+	je	SHORT $L9534
 	mov	eax, DWORD PTR _pch$[ebp]
 	movsx	ecx, BYTE PTR [eax]
 	cmp	ecx, 47					; 0000002fH
-	je	SHORT $L9532
+	je	SHORT $L9534
 
 ; 5859 :          fnSysMessageBox( lpTask, szlNetworkError,
 ; 5860 :                           "Link buffer: expecting ')/' after Hier Num.", 1 );
@@ -19038,14 +19038,14 @@ $L9530:
 
 ; 5861 :          goto EndOfFunction;
 
-	jmp	$EndOfFunction$9517
-$L9532:
+	jmp	$EndOfFunction$9519
+$L9534:
 
 ; 5863 : 
 ; 5864 :       // Find the entity instance that matches lHierCount.
 ; 5865 :       lpEntityInstance = zGETPTR( plpViewOI[ nOI_Idx ]->hRootEntityInstance );
 
-	movsx	eax, WORD PTR _nOI_Idx$9521[ebp]
+	movsx	eax, WORD PTR _nOI_Idx$9523[ebp]
 	mov	ecx, DWORD PTR _plpViewOI$[ebp]
 	mov	edx, DWORD PTR [ecx+eax*4]
 	mov	eax, DWORD PTR [edx+26]
@@ -19066,7 +19066,7 @@ $L9532:
 ; 5868 :       if ( lpEntityInstance == 0 )
 
 	cmp	DWORD PTR _lpEntityInstance$[ebp], 0
-	jne	SHORT $L9535
+	jne	SHORT $L9537
 
 ; 5870 :          fnSysMessageBox( lpTask, szlNetworkError,
 ; 5871 :                           "Link buffer: Could find EI matching Hier Count.", 1 );
@@ -19080,14 +19080,14 @@ $L9532:
 
 ; 5872 :          goto EndOfFunction;
 
-	jmp	$EndOfFunction$9517
-$L9535:
+	jmp	$EndOfFunction$9519
+$L9537:
 
 ; 5874 : 
 ; 5875 :       if ( lpLastEI )
 
 	cmp	DWORD PTR _lpLastEI$[ebp], 0
-	je	SHORT $L9537
+	je	SHORT $L9539
 
 ; 5877 : 
 ; 5878 : #ifdef DEBUG
@@ -19097,7 +19097,7 @@ $L9535:
 	mov	edx, DWORD PTR [ecx+2]
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpViewEntity$9538[ebp], eax
+	mov	DWORD PTR _lpViewEntity$9540[ebp], eax
 
 ; 5880 :          LPVIEWENTITY lpLastViewEntity = zGETPTR( lpLastEI->hViewEntity );
 
@@ -19105,16 +19105,16 @@ $L9535:
 	mov	ecx, DWORD PTR [eax+2]
 	push	ecx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpLastViewEntity$9540[ebp], eax
+	mov	DWORD PTR _lpLastViewEntity$9542[ebp], eax
 
 ; 5881 : 
 ; 5882 :          if ( lpViewEntity->lEREntTok != lpLastViewEntity->lEREntTok )
 
-	mov	edx, DWORD PTR _lpViewEntity$9538[ebp]
-	mov	eax, DWORD PTR _lpLastViewEntity$9540[ebp]
+	mov	edx, DWORD PTR _lpViewEntity$9540[ebp]
+	mov	eax, DWORD PTR _lpLastViewEntity$9542[ebp]
 	mov	ecx, DWORD PTR [edx+195]
 	cmp	ecx, DWORD PTR [eax+195]
-	je	SHORT $L9542
+	je	SHORT $L9544
 
 ; 5884 :             fnSysMessageBox( lpTask, szlNetworkError,
 ; 5885 :                              "Link buffer: Link EIs don't have matching tokens.", 1 );
@@ -19128,8 +19128,8 @@ $L9535:
 
 ; 5886 :             goto EndOfFunction;
 
-	jmp	SHORT $EndOfFunction$9517
-$L9542:
+	jmp	SHORT $EndOfFunction$9519
+$L9544:
 
 ; 5888 : 
 ; 5889 : #endif
@@ -19141,7 +19141,7 @@ $L9542:
 	push	ecx
 	call	_fnRelinkInstanceToInstance
 	add	esp, 8
-$L9537:
+$L9539:
 
 ; 5893 : 
 ; 5894 :       // Set lpLastEI so that the next EI we read can be linked to
@@ -19160,12 +19160,12 @@ $L9537:
 	mov	eax, DWORD PTR _pch$[ebp]
 	movsx	ecx, BYTE PTR [eax]
 	cmp	ecx, 41					; 00000029H
-	jne	SHORT $L9544
+	jne	SHORT $L9546
 
 ; 5902 :          lpLastEI = 0;
 
 	mov	DWORD PTR _lpLastEI$[ebp], 0
-$L9544:
+$L9546:
 
 ; 5903 : 
 ; 5904 :       pch++;
@@ -19177,8 +19177,8 @@ $L9544:
 ; 5905 : 
 ; 5906 :    } // while ( *pch )...
 
-	jmp	$L9519
-$EndOfFunction$9517:
+	jmp	$L9521
+$EndOfFunction$9519:
 
 ; 5907 : 
 ; 5908 : EndOfFunction:
@@ -19188,7 +19188,7 @@ $EndOfFunction$9517:
 	mov	eax, DWORD PTR _hBuffer$[ebp]
 	push	eax
 	call	_SysFreeMemory@4
-$L9487:
+$L9489:
 
 ; 5911 : 
 ; 5912 : } // fnRelinkOIs
@@ -19294,10 +19294,10 @@ _nViewErrorIdx$ = -1008
 _nViewCount$ = -832
 _k$ = -1000
 _nRC$ = -20
-_szLth$9613 = -1036
-_pch2$9614 = -1040
-_lLth$9615 = -1028
-_lpDropSubtask$9656 = -1044
+_szLth$9615 = -1036
+_pch2$9616 = -1040
+_lLth$9617 = -1028
+_lpDropSubtask$9658 = -1044
 _fnProcessCommitOI@12 PROC NEAR
 
 ; 5922 : {
@@ -19359,7 +19359,7 @@ _fnProcessCommitOI@12 PROC NEAR
 	mov	eax, DWORD PTR _lpNetwork$[ebp]
 	movsx	ecx, WORD PTR [eax+140]
 	test	ecx, ecx
-	jle	SHORT $L9570
+	jle	SHORT $L9572
 
 ; 5944 :       TraceLineS( "(kzoeneta) ** Received Commit OI message.", "" );
 
@@ -19372,7 +19372,7 @@ _fnProcessCommitOI@12 PROC NEAR
 	push	OFFSET FLAT:??_C@_00A@?$AA@		; `string'
 	push	OFFSET FLAT:??_C@_0CI@IEBE@?$CIkzoeneta?$CJ?5?$CK?$CK?5Retrieving?5Commit?5@ ; `string'
 	call	_TraceLineS@8
-$L9570:
+$L9572:
 
 ; 5947 : 
 ; 5948 :    //=======================================================================
@@ -19399,7 +19399,7 @@ $L9570:
 	call	DWORD PTR [edx+174]
 	movsx	eax, ax
 	test	eax, eax
-	je	SHORT $L9574
+	je	SHORT $L9576
 
 ; 5959 :       TraceLineS( "(kzoeneta) ** Couldn't retrieve Commit info", "" );
 
@@ -19409,8 +19409,8 @@ $L9570:
 
 ; 5960 :       goto EndOfFunction;
 
-	jmp	$EndOfFunction$9576
-$L9574:
+	jmp	$EndOfFunction$9578
+$L9576:
 
 ; 5962 : 
 ; 5963 :    // Store the info locally -- as soon as we perform the next network IO
@@ -19485,7 +19485,7 @@ $L9574:
 	call	DWORD PTR [edx+174]
 	movsx	eax, ax
 	test	eax, eax
-	je	SHORT $L9580
+	je	SHORT $L9582
 
 ; 5976 :       TraceLineS( "(kzoeneta) ** Couldn't retrieve the object names.", "" );
 
@@ -19495,8 +19495,8 @@ $L9574:
 
 ; 5977 :       goto EndOfFunction;
 
-	jmp	$EndOfFunction$9576
-$L9580:
+	jmp	$EndOfFunction$9578
+$L9582:
 
 ; 5979 : 
 ; 5980 :    // Try to create a subtask view using the application name passed.
@@ -19511,7 +19511,7 @@ $L9580:
 	call	_SfCreateSubtask@12
 	movsx	ecx, ax
 	cmp	ecx, -16				; fffffff0H
-	jne	SHORT $L9582
+	jne	SHORT $L9584
 
 ; 5983 :       TraceLineS( "(kzoeneta) ** Invalid App name = ", CommitPacket.szAppName );
 
@@ -19532,14 +19532,14 @@ $L9580:
 	call	_fnSendDataPacket@16
 	movsx	edx, ax
 	test	edx, edx
-	je	SHORT $L9583
+	je	SHORT $L9585
 
 ; 5987 :          TraceLineS( "(kzoeneta) ** Error sending zPACKET_END", "" );
 
 	push	OFFSET FLAT:??_C@_00A@?$AA@		; `string'
 	push	OFFSET FLAT:??_C@_0CI@FBNM@?$CIkzoeneta?$CJ?5?$CK?$CK?5Error?5sending?5zPAC@ ; `string'
 	call	_TraceLineS@8
-$L9583:
+$L9585:
 
 ; 5989 : 
 ; 5990 :       bFlushNeeded = TRUE;
@@ -19548,8 +19548,8 @@ $L9583:
 
 ; 5991 :       goto EndOfFunction;
 
-	jmp	$EndOfFunction$9576
-$L9582:
+	jmp	$EndOfFunction$9578
+$L9584:
 
 ; 5993 : 
 ; 5994 :    lpTask = fnOperationCall( iNetCommitOI, vSubtask, 0 );
@@ -19580,12 +19580,12 @@ $L9582:
 ; 5997 :    if ( pchOD_Names == 0 )
 
 	cmp	DWORD PTR _pchOD_Names$[ebp], 0
-	jne	SHORT $L9584
+	jne	SHORT $L9586
 
 ; 5998 :       goto EndOfFunction;
 
-	jmp	$EndOfFunction$9576
-$L9584:
+	jmp	$EndOfFunction$9578
+$L9586:
 
 ; 5999 : 
 ; 6000 :    pchOD_Names = zGETPTR( pchOD_Names );
@@ -19610,7 +19610,7 @@ $L9584:
 ; 6003 :    if ( lLinkBufferLth > 0 )
 
 	cmp	DWORD PTR _lLinkBufferLth$[ebp], 0
-	jle	$L9592
+	jle	$L9594
 
 ; 6005 :       pchLinkBuffer = fnAllocDataspace( lpTask->hFirstDataHeader,
 ; 6006 :                                         lLinkBufferLth, TRUE, 0, 0 );
@@ -19630,12 +19630,12 @@ $L9584:
 ; 6007 :       if ( pchLinkBuffer == 0 )
 
 	cmp	DWORD PTR _pchLinkBuffer$[ebp], 0
-	jne	SHORT $L9587
+	jne	SHORT $L9589
 
 ; 6008 :          goto EndOfFunction;
 
-	jmp	$EndOfFunction$9576
-$L9587:
+	jmp	$EndOfFunction$9578
+$L9589:
 
 ; 6009 : 
 ; 6010 :       pchLinkBuffer = zGETPTR( pchLinkBuffer );
@@ -19664,7 +19664,7 @@ $L9587:
 	call	DWORD PTR [ecx+174]
 	movsx	edx, ax
 	test	edx, edx
-	je	SHORT $L9589
+	je	SHORT $L9591
 
 ; 6016 :          TraceLineS( "(kzoeneta) ** Couldn't retrieve the link buffer.", "" );
 
@@ -19674,8 +19674,8 @@ $L9587:
 
 ; 6017 :          goto EndOfFunction;
 
-	jmp	$EndOfFunction$9576
-$L9589:
+	jmp	$EndOfFunction$9578
+$L9591:
 
 ; 6019 : 
 ; 6020 :       zmemcpy( pchLinkBuffer, pch, (zSHORT) lLinkBufferLth );
@@ -19695,7 +19695,7 @@ $L9589:
 	mov	eax, DWORD PTR _lpNetwork$[ebp]
 	movsx	ecx, WORD PTR [eax+140]
 	test	ecx, ecx
-	jle	SHORT $L9592
+	jle	SHORT $L9594
 
 ; 6023 :          TraceBuffer( "(kzoeneta) ** Link Buffer = ", pch, (zSHORT) lLinkBufferLth );
 
@@ -19705,7 +19705,7 @@ $L9589:
 	push	eax
 	push	OFFSET FLAT:??_C@_0BN@PGA@?$CIkzoeneta?$CJ?5?$CK?$CK?5Link?5Buffer?5?$DN?5?$AA@ ; `string'
 	call	_TraceBuffer@12
-$L9592:
+$L9594:
 
 ; 6025 : 
 ; 6026 :    if ( lpNetwork->nTraceLevel > 0 )
@@ -19713,7 +19713,7 @@ $L9592:
 	mov	ecx, DWORD PTR _lpNetwork$[ebp]
 	movsx	edx, WORD PTR [ecx+140]
 	test	edx, edx
-	jle	SHORT $L9597
+	jle	SHORT $L9599
 
 ; 6028 :       TraceLine( "(kzoeneta) ** App Name: %s  Object Def: %s  User Name: %s",
 ; 6029 :                  CommitPacket.szAppName, CommitPacket.szObjectDef,
@@ -19733,7 +19733,7 @@ $L9592:
 
 	movsx	eax, WORD PTR _nViewCount$[ebp]
 	cmp	eax, 1
-	jle	SHORT $L9597
+	jle	SHORT $L9599
 
 ; 6033 :          TraceLine( "(kzoeneta) ** View Count: %s  OD Name Lth: %d",
 ; 6034 :                     CommitPacket.szViewCount, nOD_NameLth );
@@ -19755,7 +19755,7 @@ $L9592:
 	push	ecx
 	push	OFFSET FLAT:??_C@_0BJ@LCNM@?$CIkzoeneta?$CJ?5?$CK?$CK?5OD?5Names?3?5?$AA@ ; `string'
 	call	_TraceBuffer@12
-$L9597:
+$L9599:
 
 ; 6039 : 
 ; 6040 :    fnCreateMsgObj( vSubtask );
@@ -19771,23 +19771,23 @@ $L9597:
 	mov	WORD PTR _k$[ebp], 0
 	mov	eax, DWORD PTR _pchOD_Names$[ebp]
 	mov	DWORD PTR _pch$[ebp], eax
-	jmp	SHORT $L9598
-$L9599:
+	jmp	SHORT $L9600
+$L9601:
 	mov	cx, WORD PTR _k$[ebp]
 	add	cx, 1
 	mov	WORD PTR _k$[ebp], cx
-$L9598:
+$L9600:
 	movsx	edx, WORD PTR _k$[ebp]
 	movsx	eax, WORD PTR _nViewCount$[ebp]
 	cmp	edx, eax
-	jge	$L9600
+	jge	$L9602
 
 ; 6045 :       if ( k > 0 )
 
 	movsx	ecx, WORD PTR _k$[ebp]
 	test	ecx, ecx
-	jle	SHORT $L9604
-$L9603:
+	jle	SHORT $L9606
+$L9605:
 
 ; 6047 :          // Skip to the beginning of the next name.
 ; 6048 :          while ( *pch++ )
@@ -19798,12 +19798,12 @@ $L9603:
 	add	ecx, 1
 	mov	DWORD PTR _pch$[ebp], ecx
 	test	eax, eax
-	je	SHORT $L9604
+	je	SHORT $L9606
 
 ; 6049 :             ;
 
-	jmp	SHORT $L9603
-$L9604:
+	jmp	SHORT $L9605
+$L9606:
 
 ; 6051 : 
 ; 6052 :       // If *pch is 0 then there is no OD name.  If there is no OD name then
@@ -19813,12 +19813,12 @@ $L9604:
 	mov	edx, DWORD PTR _pch$[ebp]
 	movsx	eax, BYTE PTR [edx]
 	test	eax, eax
-	jne	SHORT $L9605
+	jne	SHORT $L9607
 
 ; 6055 :          continue;
 
-	jmp	SHORT $L9599
-$L9605:
+	jmp	SHORT $L9601
+$L9607:
 
 ; 6056 : 
 ; 6057 :       if ( ActivateViewObject( vSubtask, pch, FALSE ) == 0 )
@@ -19830,7 +19830,7 @@ $L9605:
 	push	edx
 	call	_ActivateViewObject@12
 	test	eax, eax
-	jne	SHORT $L9606
+	jne	SHORT $L9608
 
 ; 6059 :          TraceLineS( "(kzoeneta) ** Invalid OD name = ", pch );
 
@@ -19851,14 +19851,14 @@ $L9605:
 	call	_fnSendDataPacket@16
 	movsx	eax, ax
 	test	eax, eax
-	je	SHORT $L9607
+	je	SHORT $L9609
 
 ; 6063 :             TraceLineS( "(kzoeneta) ** Error sending zPACKET_END", "" );
 
 	push	OFFSET FLAT:??_C@_00A@?$AA@		; `string'
 	push	OFFSET FLAT:??_C@_0CI@FBNM@?$CIkzoeneta?$CJ?5?$CK?$CK?5Error?5sending?5zPAC@ ; `string'
 	call	_TraceLineS@8
-$L9607:
+$L9609:
 
 ; 6065 : 
 ; 6066 :          bFlushNeeded = TRUE;
@@ -19867,13 +19867,13 @@ $L9607:
 
 ; 6067 :          goto EndOfFunction;
 
-	jmp	$EndOfFunction$9576
-$L9606:
+	jmp	$EndOfFunction$9578
+$L9608:
 
 ; 6069 :    }
 
-	jmp	$L9599
-$L9600:
+	jmp	$L9601
+$L9602:
 
 ; 6070 : 
 ; 6071 :    if ( lpNetwork->nTraceLevel > 0 )
@@ -19881,14 +19881,14 @@ $L9600:
 	mov	ecx, DWORD PTR _lpNetwork$[ebp]
 	movsx	edx, WORD PTR [ecx+140]
 	test	edx, edx
-	jle	SHORT $L9608
+	jle	SHORT $L9610
 
 ; 6072 :       TraceLineS( "(kzoeneta) ** Receiving OIs to commit.", "" );
 
 	push	OFFSET FLAT:??_C@_00A@?$AA@		; `string'
 	push	OFFSET FLAT:??_C@_0CH@LPBC@?$CIkzoeneta?$CJ?5?$CK?$CK?5Receiving?5OIs?5to?5c@ ; `string'
 	call	_TraceLineS@8
-$L9608:
+$L9610:
 
 ; 6073 : 
 ; 6074 :    // Retrieve the OIs we need to commit.
@@ -19897,16 +19897,16 @@ $L9608:
 	mov	WORD PTR _k$[ebp], 0
 	mov	eax, DWORD PTR _pchOD_Names$[ebp]
 	mov	DWORD PTR _pch$[ebp], eax
-	jmp	SHORT $L9610
-$L9611:
+	jmp	SHORT $L9612
+$L9613:
 	mov	cx, WORD PTR _k$[ebp]
 	add	cx, 1
 	mov	WORD PTR _k$[ebp], cx
-$L9610:
+$L9612:
 	movsx	edx, WORD PTR _k$[ebp]
 	movsx	eax, WORD PTR _nViewCount$[ebp]
 	cmp	edx, eax
-	jge	$L9612
+	jge	$L9614
 
 ; 6077 :       zCHAR  szLth[ 5 ];
 ; 6078 :       zPCHAR pch2;
@@ -19916,8 +19916,8 @@ $L9610:
 
 	movsx	ecx, WORD PTR _k$[ebp]
 	test	ecx, ecx
-	jle	SHORT $L9619
-$L9618:
+	jle	SHORT $L9621
+$L9620:
 
 ; 6083 :          // Skip to the beginning of the next name.
 ; 6084 :          while ( *pch++ )
@@ -19928,12 +19928,12 @@ $L9618:
 	add	ecx, 1
 	mov	DWORD PTR _pch$[ebp], ecx
 	test	eax, eax
-	je	SHORT $L9619
+	je	SHORT $L9621
 
 ; 6085 :             ;
 
-	jmp	SHORT $L9618
-$L9619:
+	jmp	SHORT $L9620
+$L9621:
 
 ; 6087 : 
 ; 6088 :       // If *pch is 0 then there is no OD name.  If there is no OD name then
@@ -19943,12 +19943,12 @@ $L9619:
 	mov	edx, DWORD PTR _pch$[ebp]
 	movsx	eax, BYTE PTR [edx]
 	test	eax, eax
-	jne	SHORT $L9620
+	jne	SHORT $L9622
 
 ; 6091 :          continue;
 
-	jmp	SHORT $L9611
-$L9620:
+	jmp	SHORT $L9613
+$L9622:
 
 ; 6092 : 
 ; 6093 :       // Retrieve the OI.
@@ -19970,7 +19970,7 @@ $L9620:
 	call	_fnReceiveOI@24
 	movsx	ecx, ax
 	cmp	ecx, -16				; fffffff0H
-	jne	SHORT $L9621
+	jne	SHORT $L9623
 
 ; 6097 :          TraceLineS( "(kzoeneta) ** Not able to retrieve OIs for commit!", "" );
 
@@ -19980,8 +19980,8 @@ $L9620:
 
 ; 6098 :          goto EndOfFunction;
 
-	jmp	$EndOfFunction$9576
-$L9621:
+	jmp	$EndOfFunction$9578
+$L9623:
 
 ; 6100 : 
 ; 6101 :       // Get the *length* of the control value for the view.
@@ -19990,7 +19990,7 @@ $L9621:
 
 	push	83					; 00000053H
 	push	2
-	lea	edx, DWORD PTR _pch2$9614[ebp]
+	lea	edx, DWORD PTR _pch2$9616[ebp]
 	push	edx
 	mov	eax, DWORD PTR _ppvConn$[ebp]
 	push	eax
@@ -20001,42 +20001,42 @@ $L9621:
 	call	DWORD PTR [edx+174]
 	movsx	eax, ax
 	test	eax, eax
-	je	SHORT $L9623
+	je	SHORT $L9625
 
 ; 6105 :          goto EndOfFunction;
 
-	jmp	$EndOfFunction$9576
-$L9623:
+	jmp	$EndOfFunction$9578
+$L9625:
 
 ; 6107 : 
 ; 6108 :       szLth[ 0 ] = *pch2++;
 
-	mov	ecx, DWORD PTR _pch2$9614[ebp]
+	mov	ecx, DWORD PTR _pch2$9616[ebp]
 	mov	dl, BYTE PTR [ecx]
-	mov	BYTE PTR _szLth$9613[ebp], dl
-	mov	eax, DWORD PTR _pch2$9614[ebp]
+	mov	BYTE PTR _szLth$9615[ebp], dl
+	mov	eax, DWORD PTR _pch2$9616[ebp]
 	add	eax, 1
-	mov	DWORD PTR _pch2$9614[ebp], eax
+	mov	DWORD PTR _pch2$9616[ebp], eax
 
 ; 6109 :       szLth[ 1 ] = *pch2;
 
-	mov	ecx, DWORD PTR _pch2$9614[ebp]
+	mov	ecx, DWORD PTR _pch2$9616[ebp]
 	mov	dl, BYTE PTR [ecx]
-	mov	BYTE PTR _szLth$9613[ebp+1], dl
+	mov	BYTE PTR _szLth$9615[ebp+1], dl
 
 ; 6110 :       szLth[ 2 ] = 0;
 
-	mov	BYTE PTR _szLth$9613[ebp+2], 0
+	mov	BYTE PTR _szLth$9615[ebp+2], 0
 
 ; 6111 :       lLth = zxtol( szLth );
 
 	push	16					; 00000010H
 	push	0
-	lea	eax, DWORD PTR _szLth$9613[ebp]
+	lea	eax, DWORD PTR _szLth$9615[ebp]
 	push	eax
 	call	DWORD PTR __imp__strtoul
 	add	esp, 12					; 0000000cH
-	mov	DWORD PTR _lLth$9615[ebp], eax
+	mov	DWORD PTR _lLth$9617[ebp], eax
 
 ; 6112 : 
 ; 6113 :       // Get the *length* of the control value for the view.
@@ -20044,9 +20044,9 @@ $L9623:
 ; 6115 :                                       &pch2, lLth, zTYPE_STRING ) != 0 )
 
 	push	83					; 00000053H
-	mov	ecx, DWORD PTR _lLth$9615[ebp]
+	mov	ecx, DWORD PTR _lLth$9617[ebp]
 	push	ecx
-	lea	edx, DWORD PTR _pch2$9614[ebp]
+	lea	edx, DWORD PTR _pch2$9616[ebp]
 	push	edx
 	mov	eax, DWORD PTR _ppvConn$[ebp]
 	push	eax
@@ -20057,19 +20057,19 @@ $L9623:
 	call	DWORD PTR [edx+174]
 	movsx	eax, ax
 	test	eax, eax
-	je	SHORT $L9624
+	je	SHORT $L9626
 
 ; 6117 :          goto EndOfFunction;
 
-	jmp	$EndOfFunction$9576
-$L9624:
+	jmp	$EndOfFunction$9578
+$L9626:
 
 ; 6119 : 
 ; 6120 :       lpViewCluster[ k ].lControl = zxtol( pch2 );
 
 	push	16					; 00000010H
 	push	0
-	mov	ecx, DWORD PTR _pch2$9614[ebp]
+	mov	ecx, DWORD PTR _pch2$9616[ebp]
 	push	ecx
 	call	DWORD PTR __imp__strtoul
 	add	esp, 12					; 0000000cH
@@ -20105,8 +20105,8 @@ $L9624:
 
 ; 6126 :    }
 
-	jmp	$L9611
-$L9612:
+	jmp	$L9613
+$L9614:
 
 ; 6127 : 
 ; 6128 : #ifdef DGC
@@ -20145,7 +20145,7 @@ $L9612:
 ; 6153 :    if ( lLinkBufferLth > 0 )
 
 	cmp	DWORD PTR _lLinkBufferLth$[ebp], 0
-	jle	SHORT $L9627
+	jle	SHORT $L9629
 
 ; 6154 :       fnRelinkOIs( lpTask, lpViewCluster, nViewCount, pchLinkBuffer );
 
@@ -20158,7 +20158,7 @@ $L9612:
 	mov	eax, DWORD PTR _lpTask$[ebp]
 	push	eax
 	call	_fnRelinkOIs@16
-$L9627:
+$L9629:
 
 ; 6155 : 
 ; 6156 :    // Tell commit that we don't want to clean up the OI and to leave the
@@ -20202,32 +20202,32 @@ $L9627:
 
 	movsx	eax, WORD PTR _nRC$[ebp]
 	test	eax, eax
-	jne	$L9631
+	jne	$L9633
 
 ; 6171 :       for ( k = 0; k < nViewCount; k++ )
 
 	mov	WORD PTR _k$[ebp], 0
-	jmp	SHORT $L9629
-$L9630:
+	jmp	SHORT $L9631
+$L9632:
 	mov	cx, WORD PTR _k$[ebp]
 	add	cx, 1
 	mov	WORD PTR _k$[ebp], cx
-$L9629:
+$L9631:
 	movsx	edx, WORD PTR _k$[ebp]
 	movsx	eax, WORD PTR _nViewCount$[ebp]
 	cmp	edx, eax
-	jge	$L9631
+	jge	$L9633
 
 ; 6173 :          if ( lpViewCluster[ k ].vOI == 0 )
 
 	movsx	ecx, WORD PTR _k$[ebp]
 	cmp	DWORD PTR _lpViewCluster$[ebp+ecx*8], 0
-	jne	SHORT $L9632
+	jne	SHORT $L9634
 
 ; 6174 :             continue;
 
-	jmp	SHORT $L9630
-$L9632:
+	jmp	SHORT $L9632
+$L9634:
 
 ; 6175 : 
 ; 6176 :          if ( lpNetwork->nTraceLevel > 0 )
@@ -20235,7 +20235,7 @@ $L9632:
 	mov	edx, DWORD PTR _lpNetwork$[ebp]
 	movsx	eax, WORD PTR [edx+140]
 	test	eax, eax
-	jle	SHORT $L9633
+	jle	SHORT $L9635
 
 ; 6177 :             TraceLineI( "(kzoeneta) ** Sending committed OI #", k );
 
@@ -20243,7 +20243,7 @@ $L9632:
 	push	ecx
 	push	OFFSET FLAT:??_C@_0CF@KJBC@?$CIkzoeneta?$CJ?5?$CK?$CK?5Sending?5committed?5@ ; `string'
 	call	_TraceLineI@8
-$L9633:
+$L9635:
 
 ; 6178 : 
 ; 6179 :          if ( fnEmptyOI( lpViewCluster[ k ].vOI ) )
@@ -20254,7 +20254,7 @@ $L9633:
 	call	_fnEmptyOI@4
 	and	eax, 255				; 000000ffH
 	test	eax, eax
-	je	SHORT $L9635
+	je	SHORT $L9637
 
 ; 6181 :             if ( fnSendDataPacket( lpNetwork, ppvConn, zPACKET_EMPTYOI, 0 ) != 0 )
 
@@ -20267,7 +20267,7 @@ $L9633:
 	call	_fnSendDataPacket@16
 	movsx	eax, ax
 	test	eax, eax
-	je	SHORT $L9636
+	je	SHORT $L9638
 
 ; 6183 :                TraceLineS( "(kzoeneta) ** Not able to ACK request of OI!", "" );
 
@@ -20281,13 +20281,13 @@ $L9633:
 
 ; 6185 :                goto EndOfFunction;
 
-	jmp	$EndOfFunction$9576
-$L9636:
+	jmp	$EndOfFunction$9578
+$L9638:
 
 ; 6188 :          else
 
-	jmp	SHORT $L9639
-$L9635:
+	jmp	SHORT $L9641
+$L9637:
 
 ; 6190 :             // Send Ack to signal we got this far.
 ; 6191 :             if ( fnSendDataPacket( lpNetwork, ppvConn, zPACKET_ACK, 0 ) != 0 )
@@ -20301,7 +20301,7 @@ $L9635:
 	call	_fnSendDataPacket@16
 	movsx	eax, ax
 	test	eax, eax
-	je	SHORT $L9638
+	je	SHORT $L9640
 
 ; 6193 :                TraceLineS( "(kzoeneta) ** Not able to ACK request of OI!", "" );
 
@@ -20315,8 +20315,8 @@ $L9635:
 
 ; 6195 :                goto EndOfFunction;
 
-	jmp	$EndOfFunction$9576
-$L9638:
+	jmp	$EndOfFunction$9578
+$L9640:
 
 ; 6197 : 
 ; 6198 :             if ( fnSendOI( ppvConn, lpNetwork, lpViewCluster[ k ].vOI,
@@ -20333,7 +20333,7 @@ $L9638:
 	call	_fnSendOI@16
 	movsx	edx, ax
 	cmp	edx, -16				; fffffff0H
-	jne	SHORT $L9639
+	jne	SHORT $L9641
 
 ; 6201 :                nRC = zCALL_ERROR;
 
@@ -20341,13 +20341,13 @@ $L9638:
 
 ; 6202 :                goto EndOfFunction;
 
-	jmp	$EndOfFunction$9576
-$L9639:
+	jmp	$EndOfFunction$9578
+$L9641:
 
 ; 6205 :       } // for...
 
-	jmp	$L9630
-$L9631:
+	jmp	$L9632
+$L9633:
 
 ; 6207 : 
 ; 6208 :    if ( lpNetwork->nTraceLevel > 0 )
@@ -20355,7 +20355,7 @@ $L9631:
 	mov	eax, DWORD PTR _lpNetwork$[ebp]
 	movsx	ecx, WORD PTR [eax+140]
 	test	ecx, ecx
-	jle	SHORT $L9640
+	jle	SHORT $L9642
 
 ; 6209 :       TraceLineI( "(kzoeneta) ** Sending RC packet.  RC = ", nRC );
 
@@ -20363,7 +20363,7 @@ $L9631:
 	push	edx
 	push	OFFSET FLAT:??_C@_0CI@KGJB@?$CIkzoeneta?$CJ?5?$CK?$CK?5Sending?5RC?5packet?4@ ; `string'
 	call	_TraceLineI@8
-$L9640:
+$L9642:
 
 ; 6210 : 
 ; 6211 :    // Send return code.
@@ -20379,7 +20379,7 @@ $L9640:
 	call	_fnSendDataPacket@16
 	movsx	eax, ax
 	test	eax, eax
-	je	SHORT $L9642
+	je	SHORT $L9644
 
 ; 6214 :       TraceLineS( "(kzoeneta) ** Not able send Return code!", "" );
 
@@ -20393,8 +20393,8 @@ $L9640:
 
 ; 6216 :       goto EndOfFunction;
 
-	jmp	SHORT $EndOfFunction$9576
-$L9642:
+	jmp	SHORT $EndOfFunction$9578
+$L9644:
 
 ; 6218 : 
 ; 6219 :    // If we got an error then send the error idx.
@@ -20403,7 +20403,7 @@ $L9642:
 
 	movsx	ecx, WORD PTR _nRC$[ebp]
 	test	ecx, ecx
-	jge	SHORT $L9643
+	jge	SHORT $L9645
 	movsx	edx, WORD PTR _nViewErrorIdx$[ebp]
 	push	edx
 	push	35					; 00000023H
@@ -20414,7 +20414,7 @@ $L9642:
 	call	_fnSendDataPacket@16
 	movsx	edx, ax
 	test	edx, edx
-	je	SHORT $L9643
+	je	SHORT $L9645
 
 ; 6223 :       TraceLineS( "(kzoeneta) ** Not able send Error Idx code!", "" );
 
@@ -20428,14 +20428,14 @@ $L9642:
 
 ; 6225 :       goto EndOfFunction;
 
-	jmp	SHORT $EndOfFunction$9576
-$L9643:
+	jmp	SHORT $EndOfFunction$9578
+$L9645:
 
 ; 6227 : 
 ; 6228 :    nRC = 0;
 
 	mov	WORD PTR _nRC$[ebp], 0
-$EndOfFunction$9576:
+$EndOfFunction$9578:
 
 ; 6229 : 
 ; 6230 : EndOfFunction:
@@ -20443,7 +20443,7 @@ $EndOfFunction$9576:
 ; 6232 :         fnSendMsgAndTraceObj( lpNetwork, ppvConn, vSubtask ) == zCALL_ERROR )
 
 	cmp	DWORD PTR _vSubtask$[ebp], 0
-	je	SHORT $L9645
+	je	SHORT $L9647
 	mov	eax, DWORD PTR _vSubtask$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _ppvConn$[ebp]
@@ -20453,12 +20453,12 @@ $EndOfFunction$9576:
 	call	_fnSendMsgAndTraceObj@12
 	movsx	eax, ax
 	cmp	eax, -16				; fffffff0H
-	jne	SHORT $L9645
+	jne	SHORT $L9647
 
 ; 6234 :       nRC = zCALL_ERROR;
 
 	mov	WORD PTR _nRC$[ebp], -16		; fffffff0H
-$L9645:
+$L9647:
 
 ; 6236 : 
 ; 6237 :    if ( bFlushNeeded && fnFlushBuffer( lpNetwork, ppvConn ) != 0 )
@@ -20466,7 +20466,7 @@ $L9645:
 	mov	ecx, DWORD PTR _bFlushNeeded$[ebp]
 	and	ecx, 255				; 000000ffH
 	test	ecx, ecx
-	je	SHORT $L9646
+	je	SHORT $L9648
 	mov	edx, DWORD PTR _ppvConn$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _lpNetwork$[ebp]
@@ -20474,18 +20474,18 @@ $L9645:
 	call	_fnFlushBuffer@8
 	movsx	ecx, ax
 	test	ecx, ecx
-	je	SHORT $L9646
+	je	SHORT $L9648
 
 ; 6239 :       nRC = zCALL_ERROR;
 
 	mov	WORD PTR _nRC$[ebp], -16		; fffffff0H
-$L9646:
+$L9648:
 
 ; 6241 : 
 ; 6242 :    if ( pchOD_Names )
 
 	cmp	DWORD PTR _pchOD_Names$[ebp], 0
-	je	SHORT $L9647
+	je	SHORT $L9649
 
 ; 6243 :       fnFreeDataspace( pchOD_Names );
 
@@ -20493,13 +20493,13 @@ $L9646:
 	push	edx
 	call	_fnFreeDataspace
 	add	esp, 4
-$L9647:
+$L9649:
 
 ; 6244 : 
 ; 6245 :    if ( pchLinkBuffer )
 
 	cmp	DWORD PTR _pchLinkBuffer$[ebp], 0
-	je	SHORT $L9648
+	je	SHORT $L9650
 
 ; 6246 :       fnFreeDataspace( pchLinkBuffer );
 
@@ -20507,33 +20507,33 @@ $L9647:
 	push	eax
 	call	_fnFreeDataspace
 	add	esp, 4
-$L9648:
+$L9650:
 
 ; 6247 : 
 ; 6248 :    for ( k = 0; k < nViewCount; k++ )
 
 	mov	WORD PTR _k$[ebp], 0
-	jmp	SHORT $L9649
-$L9650:
+	jmp	SHORT $L9651
+$L9652:
 	mov	cx, WORD PTR _k$[ebp]
 	add	cx, 1
 	mov	WORD PTR _k$[ebp], cx
-$L9649:
+$L9651:
 	movsx	edx, WORD PTR _k$[ebp]
 	movsx	eax, WORD PTR _nViewCount$[ebp]
 	cmp	edx, eax
-	jge	SHORT $L9651
+	jge	SHORT $L9653
 
 ; 6250 :       if ( lpViewCluster[ k ].vOI == 0 )
 
 	movsx	ecx, WORD PTR _k$[ebp]
 	cmp	DWORD PTR _lpViewCluster$[ebp+ecx*8], 0
-	jne	SHORT $L9652
+	jne	SHORT $L9654
 
 ; 6251 :          continue;
 
-	jmp	SHORT $L9650
-$L9652:
+	jmp	SHORT $L9652
+$L9654:
 
 ; 6252 : 
 ; 6253 :       lpViewCsr = zGETPTR( lpViewCluster[ k ].vOI->hViewCsr );
@@ -20579,14 +20579,14 @@ $L9652:
 
 ; 6266 :    }
 
-	jmp	$L9650
-$L9651:
+	jmp	$L9652
+$L9653:
 
 ; 6267 : 
 ; 6268 :    if ( vSubtask )
 
 	cmp	DWORD PTR _vSubtask$[ebp], 0
-	je	SHORT $L9655
+	je	SHORT $L9657
 
 ; 6269 :       DROPSUBTASK( vSubtask );
 
@@ -20594,18 +20594,18 @@ $L9651:
 	mov	ecx, DWORD PTR [eax+18]
 	push	ecx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpDropSubtask$9656[ebp], eax
+	mov	DWORD PTR _lpDropSubtask$9658[ebp], eax
 	push	0
-	mov	edx, DWORD PTR _lpDropSubtask$9656[ebp]
+	mov	edx, DWORD PTR _lpDropSubtask$9658[ebp]
 	push	edx
-	mov	eax, DWORD PTR _lpDropSubtask$9656[ebp]
+	mov	eax, DWORD PTR _lpDropSubtask$9658[ebp]
 	mov	ecx, DWORD PTR [eax+6]
 	push	ecx
 	call	DWORD PTR _g_pfnGetPtr
 	push	eax
 	call	_fnDropSubtask
 	add	esp, 12					; 0000000cH
-$L9655:
+$L9657:
 
 ; 6270 : 
 ; 6271 :    fnOperationReturn( iNetCommitOI, lpTask );
@@ -20928,10 +20928,10 @@ _sf$ = -320
 _lpSendFile$ = -324
 _iLineCount$ = -4
 _nRC$ = -272
-_cPacketType$9702 = -344
-_lPacketData$9703 = -336
-_pchLine$9704 = -340
-_lpDropSubtask$9725 = -348
+_cPacketType$9704 = -344
+_lPacketData$9705 = -336
+_pchLine$9706 = -340
+_lpDropSubtask$9727 = -348
 _fnProcessSendFile@12 PROC NEAR
 
 ; 6488 : {
@@ -20965,14 +20965,14 @@ _fnProcessSendFile@12 PROC NEAR
 	mov	eax, DWORD PTR _lpNetwork$[ebp]
 	movsx	ecx, WORD PTR [eax+140]
 	test	ecx, ecx
-	jle	SHORT $L9682
+	jle	SHORT $L9684
 
 ; 6501 :       TraceLineS( "(kzoeneta) ** Received Send File message.", "" );
 
 	push	OFFSET FLAT:??_C@_00A@?$AA@		; `string'
 	push	OFFSET FLAT:??_C@_0CK@CBKM@?$CIkzoeneta?$CJ?5?$CK?$CK?5Received?5Send?5File@ ; `string'
 	call	_TraceLineS@8
-$L9682:
+$L9684:
 
 ; 6502 : 
 ; 6503 :    //=======================================================================
@@ -20999,7 +20999,7 @@ $L9682:
 	call	DWORD PTR [edx+174]
 	movsx	eax, ax
 	test	eax, eax
-	je	SHORT $L9684
+	je	SHORT $L9686
 
 ; 6514 :       TraceLineS( "(kzoeneta) ** Couldn't retrieve send file info", "" );
 
@@ -21013,8 +21013,8 @@ $L9682:
 
 ; 6516 :       goto EndOfFunction;
 
-	jmp	$EndOfFunction$9686
-$L9684:
+	jmp	$EndOfFunction$9688
+$L9686:
 
 ; 6518 : 
 ; 6519 :    // Store the info locally -- as soon as we perform the next network IO
@@ -21059,7 +21059,7 @@ $L9684:
 	call	DWORD PTR [edx+174]
 	movsx	eax, ax
 	test	eax, eax
-	je	SHORT $L9688
+	je	SHORT $L9690
 
 ; 6529 :       TraceLineS( "(kzoeneta) ** Couldn't retrieve file name.", "" );
 
@@ -21073,8 +21073,8 @@ $L9684:
 
 ; 6531 :       goto EndOfFunction;
 
-	jmp	$EndOfFunction$9686
-$L9688:
+	jmp	$EndOfFunction$9688
+$L9690:
 
 ; 6533 : 
 ; 6534 :    // Store the filename to a more static location.
@@ -21113,7 +21113,7 @@ $L9688:
 	mov	edx, DWORD PTR _lpNetwork$[ebp]
 	movsx	eax, WORD PTR [edx+140]
 	test	eax, eax
-	jle	SHORT $L9690
+	jle	SHORT $L9692
 
 ; 6541 :       TraceLine( "(kzoeneta) ** App Name: %s  File Name: %s",
 ; 6542 :                  sf.szAppName, szFileName );
@@ -21125,7 +21125,7 @@ $L9688:
 	push	OFFSET FLAT:??_C@_0CK@LFPJ@?$CIkzoeneta?$CJ?5?$CK?$CK?5App?5Name?3?5?$CFs?5?5File@ ; `string'
 	call	_TraceLine
 	add	esp, 12					; 0000000cH
-$L9690:
+$L9692:
 
 ; 6544 : 
 ; 6545 :    // Try to create a subtask view using the application name passed.
@@ -21140,7 +21140,7 @@ $L9690:
 	call	_SfCreateSubtask@12
 	movsx	eax, ax
 	cmp	eax, -16				; fffffff0H
-	jne	SHORT $L9692
+	jne	SHORT $L9694
 
 ; 6548 :       TraceLineS( "(kzoeneta) ** Invalid App name = ", sf.szAppName );
 
@@ -21161,14 +21161,14 @@ $L9690:
 	call	_fnSendDataPacket@16
 	movsx	ecx, ax
 	test	ecx, ecx
-	je	SHORT $L9693
+	je	SHORT $L9695
 
 ; 6552 :          TraceLineS( "(kzoeneta) ** Error sending zPACKET_END", "" );
 
 	push	OFFSET FLAT:??_C@_00A@?$AA@		; `string'
 	push	OFFSET FLAT:??_C@_0CI@FBNM@?$CIkzoeneta?$CJ?5?$CK?$CK?5Error?5sending?5zPAC@ ; `string'
 	call	_TraceLineS@8
-$L9693:
+$L9695:
 
 ; 6554 : 
 ; 6555 :       nRC = zCALL_ERROR;
@@ -21177,8 +21177,8 @@ $L9693:
 
 ; 6556 :       goto EndOfFunction;
 
-	jmp	$EndOfFunction$9686
-$L9692:
+	jmp	$EndOfFunction$9688
+$L9694:
 
 ; 6558 : 
 ; 6559 :    fnCreateMsgObj( vSubtask );
@@ -21201,7 +21201,7 @@ $L9692:
 ; 6562 :    if ( f == -1 )
 
 	cmp	DWORD PTR _f$[ebp], -1
-	jne	SHORT $L9694
+	jne	SHORT $L9696
 
 ; 6564 :       nRC = zCALL_ERROR;
 
@@ -21209,8 +21209,8 @@ $L9692:
 
 ; 6565 :       goto EndOfFunction;
 
-	jmp	$EndOfFunction$9686
-$L9694:
+	jmp	$EndOfFunction$9688
+$L9696:
 
 ; 6567 : 
 ; 6568 :    if ( lpNetwork->nTraceLevel > 0 )
@@ -21218,21 +21218,21 @@ $L9694:
 	mov	edx, DWORD PTR _lpNetwork$[ebp]
 	movsx	eax, WORD PTR [edx+140]
 	test	eax, eax
-	jle	SHORT $L9695
+	jle	SHORT $L9697
 
 ; 6569 :       TraceLineS( "(kzoeneta) ** Receiving file.", "" );
 
 	push	OFFSET FLAT:??_C@_00A@?$AA@		; `string'
 	push	OFFSET FLAT:??_C@_0BO@IIAJ@?$CIkzoeneta?$CJ?5?$CK?$CK?5Receiving?5file?4?$AA@ ; `string'
 	call	_TraceLineS@8
-$L9695:
+$L9697:
 
 ; 6570 : 
 ; 6571 :    if ( sf.bBinaryFile == 'Y' )
 
 	movsx	ecx, BYTE PTR _sf$[ebp+36]
 	cmp	ecx, 89					; 00000059H
-	jne	SHORT $L9697
+	jne	SHORT $L9699
 
 ; 6573 :       cDataType = zTYPE_BLOB;
 
@@ -21240,25 +21240,25 @@ $L9695:
 
 ; 6575 :    else
 
-	jmp	SHORT $L9698
-$L9697:
+	jmp	SHORT $L9700
+$L9699:
 
 ; 6576 :       cDataType = zTYPE_STRING;
 
 	mov	BYTE PTR _cDataType$[ebp], 83		; 00000053H
-$L9698:
+$L9700:
 
 ; 6577 : 
 ; 6578 :    iLineCount = 0;
 
 	mov	WORD PTR _iLineCount$[ebp], 0
-$L9700:
+$L9702:
 
 ; 6579 :    while ( TRUE )
 
 	mov	edx, 1
 	test	edx, edx
-	je	$L9701
+	je	$L9703
 
 ; 6581 :       zCHAR   cPacketType;
 ; 6582 :       zULONG  lPacketData;
@@ -21267,9 +21267,9 @@ $L9700:
 ; 6585 :       if ( fnReceiveDataPacket( lpNetwork, ppvConn, &cPacketType,
 ; 6586 :                                 (zPLONG) &lPacketData ) != 0 )
 
-	lea	eax, DWORD PTR _lPacketData$9703[ebp]
+	lea	eax, DWORD PTR _lPacketData$9705[ebp]
 	push	eax
-	lea	ecx, DWORD PTR _cPacketType$9702[ebp]
+	lea	ecx, DWORD PTR _cPacketType$9704[ebp]
 	push	ecx
 	mov	edx, DWORD PTR _ppvConn$[ebp]
 	push	edx
@@ -21278,7 +21278,7 @@ $L9700:
 	call	_fnReceiveDataPacket@16
 	movsx	ecx, ax
 	test	ecx, ecx
-	je	SHORT $L9706
+	je	SHORT $L9708
 
 ; 6588 :          nRC = zCALL_ERROR;
 
@@ -21286,21 +21286,21 @@ $L9700:
 
 ; 6589 :          goto EndOfFunction;
 
-	jmp	$EndOfFunction$9686
-$L9706:
+	jmp	$EndOfFunction$9688
+$L9708:
 
 ; 6591 : 
 ; 6592 :       // lPacketData is the length of the line.  If it is 0, then we're at the
 ; 6593 :       // end of the file.
 ; 6594 :       if ( lPacketData == 0 )
 
-	cmp	DWORD PTR _lPacketData$9703[ebp], 0
-	jne	SHORT $L9707
+	cmp	DWORD PTR _lPacketData$9705[ebp], 0
+	jne	SHORT $L9709
 
 ; 6595 :          break;
 
-	jmp	$L9701
-$L9707:
+	jmp	$L9703
+$L9709:
 
 ; 6596 : 
 ; 6597 :       iLineCount++;
@@ -21316,9 +21316,9 @@ $L9707:
 
 	mov	al, BYTE PTR _cDataType$[ebp]
 	push	eax
-	mov	ecx, DWORD PTR _lPacketData$9703[ebp]
+	mov	ecx, DWORD PTR _lPacketData$9705[ebp]
 	push	ecx
-	lea	edx, DWORD PTR _pchLine$9704[ebp]
+	lea	edx, DWORD PTR _pchLine$9706[ebp]
 	push	edx
 	mov	eax, DWORD PTR _ppvConn$[ebp]
 	push	eax
@@ -21329,7 +21329,7 @@ $L9707:
 	call	DWORD PTR [edx+174]
 	movsx	eax, ax
 	test	eax, eax
-	je	SHORT $L9708
+	je	SHORT $L9710
 
 ; 6603 :          TraceLineS( "(kzoeneta) ** Couldn't retrieve send file line", "" );
 
@@ -21343,30 +21343,30 @@ $L9707:
 
 ; 6605 :          goto EndOfFunction;
 
-	jmp	$EndOfFunction$9686
-$L9708:
+	jmp	$EndOfFunction$9688
+$L9710:
 
 ; 6607 : 
 ; 6608 :       if ( sf.bBinaryFile == 'Y' )
 
 	movsx	ecx, BYTE PTR _sf$[ebp+36]
 	cmp	ecx, 89					; 00000059H
-	jne	SHORT $L9710
+	jne	SHORT $L9712
 
 ; 6610 :          if ( SysWriteFile( vSubtask, f, (zCPCHAR) pchLine,
 ; 6611 :                             lPacketData ) < lPacketData )
 
-	mov	edx, DWORD PTR _lPacketData$9703[ebp]
+	mov	edx, DWORD PTR _lPacketData$9705[ebp]
 	push	edx
-	mov	eax, DWORD PTR _pchLine$9704[ebp]
+	mov	eax, DWORD PTR _pchLine$9706[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _f$[ebp]
 	push	ecx
 	mov	edx, DWORD PTR _vSubtask$[ebp]
 	push	edx
 	call	_SysWriteFile@16
-	cmp	eax, DWORD PTR _lPacketData$9703[ebp]
-	jae	SHORT $L9712
+	cmp	eax, DWORD PTR _lPacketData$9705[ebp]
+	jae	SHORT $L9714
 
 ; 6613 :             TraceLineS( "(kzoeneta) ** Error writing line to file.", "" );
 
@@ -21380,17 +21380,17 @@ $L9708:
 
 ; 6615 :             goto EndOfFunction;
 
-	jmp	$EndOfFunction$9686
-$L9712:
+	jmp	$EndOfFunction$9688
+$L9714:
 
 ; 6618 :       else
 
-	jmp	SHORT $L9716
-$L9710:
+	jmp	SHORT $L9718
+$L9712:
 
 ; 6620 :          if ( SysWriteLine( vSubtask, f, (zCPCHAR) pchLine ) < 0 )
 
-	mov	eax, DWORD PTR _pchLine$9704[ebp]
+	mov	eax, DWORD PTR _pchLine$9706[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _f$[ebp]
 	push	ecx
@@ -21398,7 +21398,7 @@ $L9710:
 	push	edx
 	call	_SysWriteLine@12
 	test	eax, eax
-	jge	SHORT $L9716
+	jge	SHORT $L9718
 
 ; 6622 :             TraceLineS( "(kzoeneta) ** Error writing line to file.", "" );
 
@@ -21412,14 +21412,14 @@ $L9710:
 
 ; 6624 :             goto EndOfFunction;
 
-	jmp	$EndOfFunction$9686
-$L9716:
+	jmp	$EndOfFunction$9688
+$L9718:
 
 ; 6627 : 
 ; 6628 :    } // while ( TRUE )...
 
-	jmp	$L9700
-$L9701:
+	jmp	$L9702
+$L9703:
 
 ; 6629 : 
 ; 6630 :    //=======================================================================
@@ -21434,7 +21434,7 @@ $L9701:
 	mov	eax, DWORD PTR _lpNetwork$[ebp]
 	movsx	ecx, WORD PTR [eax+140]
 	test	ecx, ecx
-	jle	SHORT $L9717
+	jle	SHORT $L9719
 
 ; 6639 :       TraceLineI( "(kzoeneta) ** Sending # of lines.  Lines = ", iLineCount );
 
@@ -21442,7 +21442,7 @@ $L9701:
 	push	edx
 	push	OFFSET FLAT:??_C@_0CM@OHAI@?$CIkzoeneta?$CJ?5?$CK?$CK?5Sending?5?$CD?5of?5lines@ ; `string'
 	call	_TraceLineI@8
-$L9717:
+$L9719:
 
 ; 6641 : 
 ; 6642 :    // Send number of lines received.
@@ -21458,7 +21458,7 @@ $L9717:
 	call	_fnSendDataPacket@16
 	movsx	eax, ax
 	test	eax, eax
-	je	SHORT $L9719
+	je	SHORT $L9721
 
 ; 6645 :       TraceLineS( "(kzoeneta) ** Not able send line count!", "" );
 
@@ -21472,8 +21472,8 @@ $L9717:
 
 ; 6647 :       goto EndOfFunction;
 
-	jmp	SHORT $EndOfFunction$9686
-$L9719:
+	jmp	SHORT $EndOfFunction$9688
+$L9721:
 
 ; 6649 : 
 ; 6650 :    if ( fnSendMsgAndTraceObj( lpNetwork, ppvConn, vSubtask ) == zCALL_ERROR )
@@ -21487,7 +21487,7 @@ $L9719:
 	call	_fnSendMsgAndTraceObj@12
 	movsx	ecx, ax
 	cmp	ecx, -16				; fffffff0H
-	jne	SHORT $L9721
+	jne	SHORT $L9723
 
 ; 6652 :       nRC = zCALL_ERROR;
 
@@ -21495,8 +21495,8 @@ $L9719:
 
 ; 6653 :       goto EndOfFunction;
 
-	jmp	SHORT $EndOfFunction$9686
-$L9721:
+	jmp	SHORT $EndOfFunction$9688
+$L9723:
 
 ; 6655 : 
 ; 6656 :    if ( fnFlushBuffer( lpNetwork, ppvConn ) != 0 )
@@ -21508,7 +21508,7 @@ $L9721:
 	call	_fnFlushBuffer@8
 	movsx	ecx, ax
 	test	ecx, ecx
-	je	SHORT $L9722
+	je	SHORT $L9724
 
 ; 6658 :       nRC = zCALL_ERROR;
 
@@ -21516,21 +21516,21 @@ $L9721:
 
 ; 6659 :       goto EndOfFunction;
 
-	jmp	SHORT $EndOfFunction$9686
-$L9722:
+	jmp	SHORT $EndOfFunction$9688
+$L9724:
 
 ; 6661 : 
 ; 6662 :    nRC = 0;
 
 	mov	WORD PTR _nRC$[ebp], 0
-$EndOfFunction$9686:
+$EndOfFunction$9688:
 
 ; 6663 : 
 ; 6664 : EndOfFunction:
 ; 6665 :    if ( f != -1 )
 
 	cmp	DWORD PTR _f$[ebp], -1
-	je	SHORT $L9723
+	je	SHORT $L9725
 
 ; 6666 :       SysCloseFile( vSubtask, f, 0 );
 
@@ -21540,13 +21540,13 @@ $EndOfFunction$9686:
 	mov	eax, DWORD PTR _vSubtask$[ebp]
 	push	eax
 	call	_SysCloseFile@12
-$L9723:
+$L9725:
 
 ; 6667 : 
 ; 6668 :    if ( vSubtask )
 
 	cmp	DWORD PTR _vSubtask$[ebp], 0
-	je	SHORT $L9724
+	je	SHORT $L9726
 
 ; 6669 :       DROPSUBTASK( vSubtask );
 
@@ -21554,18 +21554,18 @@ $L9723:
 	mov	edx, DWORD PTR [ecx+18]
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpDropSubtask$9725[ebp], eax
+	mov	DWORD PTR _lpDropSubtask$9727[ebp], eax
 	push	0
-	mov	eax, DWORD PTR _lpDropSubtask$9725[ebp]
+	mov	eax, DWORD PTR _lpDropSubtask$9727[ebp]
 	push	eax
-	mov	ecx, DWORD PTR _lpDropSubtask$9725[ebp]
+	mov	ecx, DWORD PTR _lpDropSubtask$9727[ebp]
 	mov	edx, DWORD PTR [ecx+6]
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
 	push	eax
 	call	_fnDropSubtask
 	add	esp, 12					; 0000000cH
-$L9724:
+$L9726:
 
 ; 6670 : 
 ; 6671 :    return( nRC );
@@ -21690,15 +21690,15 @@ _pfnOper$ = -340
 _nReturnCode$ = -680
 _nRC$ = -284
 _k$ = -676
-_pchApplName$9773 = -704
-_vViewSubtask$9774 = -700
-_szClientAddress$9777 = -904
-_lpDropSubtask$9785 = -908
-_lpWkViewOD$9814 = -916
-_lpViewCsr$9815 = -912
-_lpViewOI$9816 = -920
-_lpDropSubtask$9844 = -924
-_lpDropSubtask$9850 = -928
+_pchApplName$9775 = -704
+_vViewSubtask$9776 = -700
+_szClientAddress$9779 = -904
+_lpDropSubtask$9787 = -908
+_lpWkViewOD$9816 = -916
+_lpViewCsr$9817 = -912
+_lpViewOI$9818 = -920
+_lpDropSubtask$9846 = -924
+_lpDropSubtask$9852 = -928
 _fnProcessOperation@12 PROC NEAR
 
 ; 6682 : {
@@ -21752,7 +21752,7 @@ _fnProcessOperation@12 PROC NEAR
 	mov	eax, DWORD PTR _lpNetwork$[ebp]
 	movsx	ecx, WORD PTR [eax+140]
 	test	ecx, ecx
-	jle	SHORT $L9759
+	jle	SHORT $L9761
 
 ; 6710 :       TraceLineS( "(kzoeneta) ** Received Transformation message.", "" );
 
@@ -21765,7 +21765,7 @@ _fnProcessOperation@12 PROC NEAR
 	push	OFFSET FLAT:??_C@_00A@?$AA@		; `string'
 	push	OFFSET FLAT:??_C@_0CK@FNOC@?$CIkzoeneta?$CJ?5?$CK?$CK?5Retrieving?5the?5Arg@ ; `string'
 	call	_TraceLineS@8
-$L9759:
+$L9761:
 
 ; 6713 : 
 ; 6714 :    zmemset( vViewList, 0, sizeof( vViewList ) );
@@ -21801,7 +21801,7 @@ $L9759:
 	call	DWORD PTR [eax+174]
 	movsx	ecx, ax
 	test	ecx, ecx
-	je	SHORT $L9762
+	je	SHORT $L9764
 
 ; 6726 :       TraceLineS( "(kzoeneta) ** Couldn't retrieve app name.", "" );
 
@@ -21811,8 +21811,8 @@ $L9759:
 
 ; 6727 :       goto EndOfFunction;
 
-	jmp	$EndOfFunction$9764
-$L9762:
+	jmp	$EndOfFunction$9766
+$L9764:
 
 ; 6729 : 
 ; 6730 :    zstrcpy( szAppName, pchAppName );
@@ -21836,12 +21836,12 @@ $L9762:
 	call	_SfCreateSubtask@12
 	movsx	ecx, ax
 	cmp	ecx, -16				; fffffff0H
-	jne	SHORT $L9765
+	jne	SHORT $L9767
 
 ; 6733 :       goto EndOfFunction;
 
-	jmp	$EndOfFunction$9764
-$L9765:
+	jmp	$EndOfFunction$9766
+$L9767:
 
 ; 6734 : 
 ; 6735 :    lpTask = fnOperationCall( iNetCallOperation, vSubtask, 0 );
@@ -21877,7 +21877,7 @@ $L9765:
 	call	_fnReceiveOI@24
 	movsx	edx, ax
 	cmp	edx, -16				; fffffff0H
-	jne	SHORT $L9766
+	jne	SHORT $L9768
 
 ; 6741 :       TraceLineS( "(kzoeneta) ** Not able to retrieve Arg List!", "" );
 
@@ -21887,8 +21887,8 @@ $L9765:
 
 ; 6742 :       goto EndOfFunction;
 
-	jmp	$EndOfFunction$9764
-$L9766:
+	jmp	$EndOfFunction$9766
+$L9768:
 
 ; 6744 : 
 ; 6745 :    bTransformation = (CompareAttributeToString( vArgs, "Operation",
@@ -21914,7 +21914,7 @@ $L9766:
 	mov	edx, DWORD PTR _bTransformation$[ebp]
 	and	edx, 255				; 000000ffH
 	test	edx, edx
-	je	SHORT $L9768
+	je	SHORT $L9770
 
 ; 6752 :       GetAddrForAttribute( &pchObjectName, vArgs, "Operation", "ObjectName" );
 
@@ -21939,7 +21939,7 @@ $L9766:
 ; 6754 :       if ( lpViewOD == 0 )
 
 	cmp	DWORD PTR _lpViewOD$[ebp], 0
-	jne	SHORT $L9768
+	jne	SHORT $L9770
 
 ; 6756 :          if ( fnSendDataPacket( lpNetwork, ppvConn, zPACKET_ERROR,
 ; 6757 :                                 zNETERR_INVALIDOD ) != 0 )
@@ -21953,14 +21953,14 @@ $L9766:
 	call	_fnSendDataPacket@16
 	movsx	eax, ax
 	test	eax, eax
-	je	SHORT $L9769
+	je	SHORT $L9771
 
 ; 6759 :             TraceLineS( "(kzoeneta) ** Error sending zPACKET_END", "" );
 
 	push	OFFSET FLAT:??_C@_00A@?$AA@		; `string'
 	push	OFFSET FLAT:??_C@_0CI@FBNM@?$CIkzoeneta?$CJ?5?$CK?$CK?5Error?5sending?5zPAC@ ; `string'
 	call	_TraceLineS@8
-$L9769:
+$L9771:
 
 ; 6761 : 
 ; 6762 :          bFlushNeeded = TRUE;
@@ -21969,8 +21969,8 @@ $L9769:
 
 ; 6763 :          goto EndOfFunction;
 
-	jmp	$EndOfFunction$9764
-$L9768:
+	jmp	$EndOfFunction$9766
+$L9770:
 
 ; 6766 : 
 ; 6767 :    // Loop through each of the arguments looking for views.  If one is found
@@ -21985,18 +21985,18 @@ $L9768:
 	push	ecx
 	call	_SetCursorFirstEntity@12
 	mov	WORD PTR _nRC$[ebp], ax
-	jmp	SHORT $L9770
-$L9771:
+	jmp	SHORT $L9772
+$L9773:
 	push	0
 	push	OFFSET FLAT:_szlArgument
 	mov	edx, DWORD PTR _vArgs$[ebp]
 	push	edx
 	call	_SetCursorNextEntity@12
 	mov	WORD PTR _nRC$[ebp], ax
-$L9770:
+$L9772:
 	movsx	eax, WORD PTR _nRC$[ebp]
 	test	eax, eax
-	jl	$L9772
+	jl	$L9774
 
 ; 6773 :       zPCHAR pchApplName;
 ; 6774 :       zVIEW  vViewSubtask;
@@ -22015,7 +22015,7 @@ $L9770:
 	call	_CompareAttributeToString@16
 	movsx	edx, ax
 	test	edx, edx
-	jne	SHORT $L9775
+	jne	SHORT $L9777
 
 ; 6782 :          zCHAR szClientAddress[ 200 ];
 ; 6783 : 
@@ -22025,7 +22025,7 @@ $L9770:
 ; 6787 :                                             ppvConn, 'R',
 ; 6788 :                                             szClientAddress ) != 0 )
 
-	lea	eax, DWORD PTR _szClientAddress$9777[ebp]
+	lea	eax, DWORD PTR _szClientAddress$9779[ebp]
 	push	eax
 	push	82					; 00000052H
 	mov	ecx, DWORD PTR _ppvConn$[ebp]
@@ -22039,17 +22039,17 @@ $L9770:
 	call	DWORD PTR [ecx+190]
 	movsx	edx, ax
 	test	edx, edx
-	je	SHORT $L9778
+	je	SHORT $L9780
 
 ; 6790 :             goto EndOfFunction;
 
-	jmp	$EndOfFunction$9764
-$L9778:
+	jmp	$EndOfFunction$9766
+$L9780:
 
 ; 6792 : 
 ; 6793 :          SetAttributeFromString( vArgs, szlArgument, "Value", szClientAddress );
 
-	lea	eax, DWORD PTR _szClientAddress$9777[ebp]
+	lea	eax, DWORD PTR _szClientAddress$9779[ebp]
 	push	eax
 	push	OFFSET FLAT:??_C@_05KBGO@Value?$AA@	; `string'
 	push	OFFSET FLAT:_szlArgument
@@ -22059,8 +22059,8 @@ $L9778:
 
 ; 6794 :          continue;
 
-	jmp	$L9771
-$L9775:
+	jmp	$L9773
+$L9777:
 
 ; 6796 : 
 ; 6797 :       // If the argument is not a view, then don't worry about it.
@@ -22075,12 +22075,12 @@ $L9775:
 	call	_CompareAttributeToString@16
 	movsx	eax, ax
 	test	eax, eax
-	je	SHORT $L9779
+	je	SHORT $L9781
 
 ; 6801 :          continue;
 
-	jmp	$L9771
-$L9779:
+	jmp	$L9773
+$L9781:
 
 ; 6803 : 
 ; 6804 :       nViewCount++;
@@ -22102,7 +22102,7 @@ $L9779:
 	push	OFFSET FLAT:_szlArgument
 	mov	eax, DWORD PTR _vArgs$[ebp]
 	push	eax
-	lea	ecx, DWORD PTR _pchApplName$9773[ebp]
+	lea	ecx, DWORD PTR _pchApplName$9775[ebp]
 	push	ecx
 	call	_GetAddrForAttribute@16
 
@@ -22120,12 +22120,12 @@ $L9779:
 	call	_CompareAttributeToString@16
 	movsx	eax, ax
 	test	eax, eax
-	jne	SHORT $L9780
+	jne	SHORT $L9782
 
 ; 6815 :          // ** Not Sure Which VIEW to use -----------------------\/
 ; 6816 :          SfCreateSubtask( &vViewList[ nViewCount ], lpTaskView, pchApplName );
 
-	mov	ecx, DWORD PTR _pchApplName$9773[ebp]
+	mov	ecx, DWORD PTR _pchApplName$9775[ebp]
 	push	ecx
 	mov	edx, DWORD PTR _lpTaskView$[ebp]
 	push	edx
@@ -22136,8 +22136,8 @@ $L9779:
 
 ; 6817 :          continue;
 
-	jmp	$L9771
-$L9780:
+	jmp	$L9773
+$L9782:
 
 ; 6819 : 
 ; 6820 :       // If the client didn't send the argument, then continue.  The view
@@ -22153,12 +22153,12 @@ $L9780:
 	call	_CompareAttributeToString@16
 	movsx	eax, ax
 	test	eax, eax
-	jne	SHORT $L9781
+	jne	SHORT $L9783
 
 ; 6825 :          continue;
 
-	jmp	$L9771
-$L9781:
+	jmp	$L9773
+$L9783:
 
 ; 6827 : 
 ; 6828 :       // If application name was supplied then the current view argument is
@@ -22166,33 +22166,33 @@ $L9781:
 ; 6830 :       // subtask view for that application.
 ; 6831 :       if ( pchApplName && *pchApplName )
 
-	cmp	DWORD PTR _pchApplName$9773[ebp], 0
-	je	SHORT $L9782
-	mov	ecx, DWORD PTR _pchApplName$9773[ebp]
+	cmp	DWORD PTR _pchApplName$9775[ebp], 0
+	je	SHORT $L9784
+	mov	ecx, DWORD PTR _pchApplName$9775[ebp]
 	movsx	edx, BYTE PTR [ecx]
 	test	edx, edx
-	je	SHORT $L9782
+	je	SHORT $L9784
 
 ; 6832 :          SfCreateSubtask( &vViewSubtask, vSubtask, pchApplName );
 
-	mov	eax, DWORD PTR _pchApplName$9773[ebp]
+	mov	eax, DWORD PTR _pchApplName$9775[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _vSubtask$[ebp]
 	push	ecx
-	lea	edx, DWORD PTR _vViewSubtask$9774[ebp]
+	lea	edx, DWORD PTR _vViewSubtask$9776[ebp]
 	push	edx
 	call	_SfCreateSubtask@12
 
 ; 6833 :       else
 
-	jmp	SHORT $L9783
-$L9782:
+	jmp	SHORT $L9785
+$L9784:
 
 ; 6834 :          vViewSubtask = vSubtask;  // Use "global" subtask.
 
 	mov	eax, DWORD PTR _vSubtask$[ebp]
-	mov	DWORD PTR _vViewSubtask$9774[ebp], eax
-$L9783:
+	mov	DWORD PTR _vViewSubtask$9776[ebp], eax
+$L9785:
 
 ; 6835 : 
 ; 6836 :       // Try retrieving the view from the network.
@@ -22212,7 +22212,7 @@ $L9783:
 	push	0
 	mov	eax, DWORD PTR _pchObjectName$[ebp]
 	push	eax
-	mov	ecx, DWORD PTR _vViewSubtask$9774[ebp]
+	mov	ecx, DWORD PTR _vViewSubtask$9776[ebp]
 	push	ecx
 	movsx	edx, WORD PTR _nViewCount$[ebp]
 	lea	eax, DWORD PTR _vViewList$[ebp+edx*4]
@@ -22228,31 +22228,31 @@ $L9783:
 ; 6841 :       // If we created a temp subtask drop it.
 ; 6842 :       if ( pchApplName && *pchApplName )
 
-	cmp	DWORD PTR _pchApplName$9773[ebp], 0
-	je	SHORT $L9784
-	mov	eax, DWORD PTR _pchApplName$9773[ebp]
+	cmp	DWORD PTR _pchApplName$9775[ebp], 0
+	je	SHORT $L9786
+	mov	eax, DWORD PTR _pchApplName$9775[ebp]
 	movsx	ecx, BYTE PTR [eax]
 	test	ecx, ecx
-	je	SHORT $L9784
+	je	SHORT $L9786
 
 ; 6843 :          DROPSUBTASK( vViewSubtask );
 
-	mov	edx, DWORD PTR _vViewSubtask$9774[ebp]
+	mov	edx, DWORD PTR _vViewSubtask$9776[ebp]
 	mov	eax, DWORD PTR [edx+18]
 	push	eax
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpDropSubtask$9785[ebp], eax
+	mov	DWORD PTR _lpDropSubtask$9787[ebp], eax
 	push	0
-	mov	ecx, DWORD PTR _lpDropSubtask$9785[ebp]
+	mov	ecx, DWORD PTR _lpDropSubtask$9787[ebp]
 	push	ecx
-	mov	edx, DWORD PTR _lpDropSubtask$9785[ebp]
+	mov	edx, DWORD PTR _lpDropSubtask$9787[ebp]
 	mov	eax, DWORD PTR [edx+6]
 	push	eax
 	call	DWORD PTR _g_pfnGetPtr
 	push	eax
 	call	_fnDropSubtask
 	add	esp, 12					; 0000000cH
-$L9784:
+$L9786:
 
 ; 6844 : 
 ; 6845 :       // Check return code from fnReceiveOI.
@@ -22260,7 +22260,7 @@ $L9784:
 
 	movsx	ecx, WORD PTR _nRC$[ebp]
 	cmp	ecx, -16				; fffffff0H
-	jne	SHORT $L9788
+	jne	SHORT $L9790
 
 ; 6848 :          TraceLineS( "(kzoeneta) ** Not able to retrieve Arg List!", "" );
 
@@ -22270,14 +22270,14 @@ $L9784:
 
 ; 6849 :          goto EndOfFunction;
 
-	jmp	$EndOfFunction$9764
-$L9788:
+	jmp	$EndOfFunction$9766
+$L9790:
 
 ; 6851 : 
 ; 6852 :    } // for ( nRC = SetCursorFirstEntity( vArgs, szlArgument, 0 )...
 
-	jmp	$L9771
-$L9772:
+	jmp	$L9773
+$L9774:
 
 ; 6853 : 
 ; 6854 :    //=======================================================================
@@ -22336,16 +22336,16 @@ $L9772:
 ; 6870 :    for ( k = 0; k < nViewCount; k++ )
 
 	mov	WORD PTR _k$[ebp], 0
-	jmp	SHORT $L9791
-$L9792:
+	jmp	SHORT $L9793
+$L9794:
 	mov	cx, WORD PTR _k$[ebp]
 	add	cx, 1
 	mov	WORD PTR _k$[ebp], cx
-$L9791:
+$L9793:
 	movsx	edx, WORD PTR _k$[ebp]
 	movsx	eax, WORD PTR _nViewCount$[ebp]
 	cmp	edx, eax
-	jge	SHORT $L9793
+	jge	SHORT $L9795
 
 ; 6871 :       pvViewList[ k ] = &vViewList[ k ];
 
@@ -22353,8 +22353,8 @@ $L9791:
 	lea	edx, DWORD PTR _vViewList$[ebp+ecx*4]
 	movsx	eax, WORD PTR _k$[ebp]
 	mov	DWORD PTR _pvViewList$[ebp+eax*4], edx
-	jmp	SHORT $L9792
-$L9793:
+	jmp	SHORT $L9794
+$L9795:
 
 ; 6872 : 
 ; 6873 :    pvViewList[ k ] = 0;
@@ -22384,7 +22384,7 @@ $L9793:
 	mov	edx, DWORD PTR _bTransformation$[ebp]
 	and	edx, 255				; 000000ffH
 	test	edx, edx
-	je	SHORT $L9794
+	je	SHORT $L9796
 
 ; 6879 :       SfGetApplicationForSubtask( &lpApp, vSubtask );
 
@@ -22429,8 +22429,8 @@ $L9793:
 
 ; 6886 :    else
 
-	jmp	SHORT $L9796
-$L9794:
+	jmp	SHORT $L9798
+$L9796:
 
 ; 6888 :       // Call the global operation.
 ; 6889 :       GetAddrForAttribute( &pchDLL_Name, vArgs, "Operation", "DLL_Name" );
@@ -22446,11 +22446,11 @@ $L9794:
 ; 6890 :       if ( pchDLL_Name && *pchDLL_Name )
 
 	cmp	DWORD PTR _pchDLL_Name$[ebp], 0
-	je	SHORT $L9796
+	je	SHORT $L9798
 	mov	ecx, DWORD PTR _pchDLL_Name$[ebp]
 	movsx	edx, BYTE PTR [ecx]
 	test	edx, edx
-	je	SHORT $L9796
+	je	SHORT $L9798
 
 ; 6892 :          zstrcat( szName, pchDLL_Name );
 
@@ -22460,7 +22460,7 @@ $L9794:
 	push	ecx
 	call	_strcat
 	add	esp, 8
-$L9796:
+$L9798:
 
 ; 6895 : 
 ; 6896 :    hLibrary = SysLoadLibrary( vSubtask, szName );
@@ -22475,7 +22475,7 @@ $L9796:
 ; 6897 :    if ( hLibrary == 0 )
 
 	cmp	DWORD PTR _hLibrary$[ebp], 0
-	jne	SHORT $L9797
+	jne	SHORT $L9799
 
 ; 6899 :       if ( fnSendDataPacket( lpNetwork, ppvConn, zPACKET_ERROR,
 ; 6900 :                              zNETERR_NOEXECUTABLE ) != 0 )
@@ -22489,14 +22489,14 @@ $L9796:
 	call	_fnSendDataPacket@16
 	movsx	eax, ax
 	test	eax, eax
-	je	SHORT $L9798
+	je	SHORT $L9800
 
 ; 6902 :          TraceLineS( "(kzoeneta) ** Error sending zPACKET_ERROR", "" );
 
 	push	OFFSET FLAT:??_C@_00A@?$AA@		; `string'
 	push	OFFSET FLAT:??_C@_0CK@IDNN@?$CIkzoeneta?$CJ?5?$CK?$CK?5Error?5sending?5zPAC@ ; `string'
 	call	_TraceLineS@8
-$L9798:
+$L9800:
 
 ; 6904 : 
 ; 6905 :       TraceLineS( "(kzoeneta) ** Global operation library = ", szName );
@@ -22518,8 +22518,8 @@ $L9798:
 
 ; 6908 :       goto EndOfFunction;
 
-	jmp	$EndOfFunction$9764
-$L9797:
+	jmp	$EndOfFunction$9766
+$L9799:
 
 ; 6910 : 
 ; 6911 :    zsprintf( szName, "_zCall_%s", pchOperName );
@@ -22544,7 +22544,7 @@ $L9797:
 ; 6913 :    if ( pfnOper == 0 )
 
 	cmp	DWORD PTR _pfnOper$[ebp], 0
-	jne	SHORT $L9804
+	jne	SHORT $L9806
 
 ; 6915 :       if ( fnSendDataPacket( lpNetwork, ppvConn, zPACKET_ERROR,
 ; 6916 :                              zNETERR_NOOPER ) != 0 )
@@ -22558,14 +22558,14 @@ $L9797:
 	call	_fnSendDataPacket@16
 	movsx	eax, ax
 	test	eax, eax
-	je	SHORT $L9805
+	je	SHORT $L9807
 
 ; 6918 :          TraceLineS( "(kzoeneta) ** Error sending zPACKET_ERROR", "" );
 
 	push	OFFSET FLAT:??_C@_00A@?$AA@		; `string'
 	push	OFFSET FLAT:??_C@_0CK@IDNN@?$CIkzoeneta?$CJ?5?$CK?$CK?5Error?5sending?5zPAC@ ; `string'
 	call	_TraceLineS@8
-$L9805:
+$L9807:
 
 ; 6920 : 
 ; 6921 :       TraceLineS( "(kzoeneta) ** Global operation = ", szName );
@@ -22595,24 +22595,24 @@ $L9805:
 
 ; 6925 :       goto EndOfFunction;
 
-	jmp	$EndOfFunction$9764
-$L9804:
+	jmp	$EndOfFunction$9766
+$L9806:
 
 ; 6927 : 
 ; 6928 :    // Set up the view pointer list.
 ; 6929 :    for ( k = 0; k < nViewCount; k++ )
 
 	mov	WORD PTR _k$[ebp], 0
-	jmp	SHORT $L9808
-$L9809:
+	jmp	SHORT $L9810
+$L9811:
 	mov	dx, WORD PTR _k$[ebp]
 	add	dx, 1
 	mov	WORD PTR _k$[ebp], dx
-$L9808:
+$L9810:
 	movsx	eax, WORD PTR _k$[ebp]
 	movsx	ecx, WORD PTR _nViewCount$[ebp]
 	cmp	eax, ecx
-	jge	SHORT $L9810
+	jge	SHORT $L9812
 
 ; 6930 :       pvViewList[ k ] = &vViewList[ k ];
 
@@ -22620,8 +22620,8 @@ $L9808:
 	lea	eax, DWORD PTR _vViewList$[ebp+edx*4]
 	movsx	ecx, WORD PTR _k$[ebp]
 	mov	DWORD PTR _pvViewList$[ebp+ecx*4], eax
-	jmp	SHORT $L9809
-$L9810:
+	jmp	SHORT $L9811
+$L9812:
 
 ; 6931 : 
 ; 6932 :    pvViewList[ k ] = 0;
@@ -22668,18 +22668,18 @@ $L9810:
 	push	ecx
 	call	_SetCursorFirstEntity@12
 	mov	WORD PTR _nRC$[ebp], ax
-	jmp	SHORT $L9811
-$L9812:
+	jmp	SHORT $L9813
+$L9814:
 	push	0
 	push	OFFSET FLAT:_szlArgument
 	mov	edx, DWORD PTR _vArgs$[ebp]
 	push	edx
 	call	_SetCursorNextEntity@12
 	mov	WORD PTR _nRC$[ebp], ax
-$L9811:
+$L9813:
 	movsx	eax, WORD PTR _nRC$[ebp]
 	test	eax, eax
-	jl	$L9813
+	jl	$L9815
 
 ; 6948 :       LPVIEWOD  lpWkViewOD;
 ; 6949 :       LPVIEWCSR lpViewCsr;
@@ -22697,7 +22697,7 @@ $L9811:
 	call	_CompareAttributeToString@16
 	movsx	edx, ax
 	test	edx, edx
-	je	SHORT $L9817
+	je	SHORT $L9819
 
 ; 6956 :          // If we aren't sending the argument back then set it to null.
 ; 6957 :          if ( CompareAttributeToString( vArgs, szlArgument,
@@ -22711,7 +22711,7 @@ $L9811:
 	call	_CompareAttributeToString@16
 	movsx	ecx, ax
 	test	ecx, ecx
-	je	SHORT $L9818
+	je	SHORT $L9820
 
 ; 6960 :             SetAttributeFromString( vArgs, szlArgument, "Value", "" );
 
@@ -22721,13 +22721,13 @@ $L9811:
 	mov	edx, DWORD PTR _vArgs$[ebp]
 	push	edx
 	call	_SetAttributeFromString@16
-$L9818:
+$L9820:
 
 ; 6962 : 
 ; 6963 :          continue;
 
-	jmp	$L9812
-$L9817:
+	jmp	$L9814
+$L9819:
 
 ; 6965 : 
 ; 6966 :       k++; // Keep track of number of views.
@@ -22753,12 +22753,12 @@ $L9817:
 
 	movsx	edx, WORD PTR _nRC$[ebp]
 	test	edx, edx
-	je	SHORT $L9819
+	je	SHORT $L9821
 
 ; 6972 :          continue;
 
-	jmp	$L9812
-$L9819:
+	jmp	$L9814
+$L9821:
 
 ; 6973 : 
 ; 6974 :       // Don't bother sending back the view if it is null.
@@ -22766,17 +22766,17 @@ $L9819:
 
 	movsx	eax, WORD PTR _k$[ebp]
 	cmp	DWORD PTR _vViewList$[ebp+eax*4], 0
-	je	SHORT $L9821
+	je	SHORT $L9823
 	movsx	ecx, WORD PTR _k$[ebp]
 	mov	edx, DWORD PTR _vViewList$[ebp+ecx*4]
 	cmp	DWORD PTR [edx+10], 0
-	jne	SHORT $L9820
-$L9821:
+	jne	SHORT $L9822
+$L9823:
 
 ; 6976 :          continue;
 
-	jmp	$L9812
-$L9820:
+	jmp	$L9814
+$L9822:
 
 ; 6977 : 
 ; 6978 :       lpWkViewOD = zGETPTR( vViewList[ k ]->hViewOD );
@@ -22786,12 +22786,12 @@ $L9820:
 	mov	edx, DWORD PTR [ecx+6]
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpWkViewOD$9814[ebp], eax
+	mov	DWORD PTR _lpWkViewOD$9816[ebp], eax
 
 ; 6979 :       SetAttributeFromString( vArgs, szlArgument, "ObjectName",
 ; 6980 :                               lpWkViewOD->szName );
 
-	mov	eax, DWORD PTR _lpWkViewOD$9814[ebp]
+	mov	eax, DWORD PTR _lpWkViewOD$9816[ebp]
 	add	eax, 10					; 0000000aH
 	push	eax
 	push	OFFSET FLAT:??_C@_0L@OKBL@ObjectName?$AA@ ; `string'
@@ -22808,23 +22808,23 @@ $L9820:
 	mov	ecx, DWORD PTR [eax+10]
 	push	ecx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpViewCsr$9815[ebp], eax
+	mov	DWORD PTR _lpViewCsr$9817[ebp], eax
 
 ; 6983 :       lpViewOI  = zGETPTR( lpViewCsr->hViewOI );
 
-	mov	edx, DWORD PTR _lpViewCsr$9815[ebp]
+	mov	edx, DWORD PTR _lpViewCsr$9817[ebp]
 	mov	eax, DWORD PTR [edx+10]
 	push	eax
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpViewOI$9816[ebp], eax
+	mov	DWORD PTR _lpViewOI$9818[ebp], eax
 
 ; 6984 : 
 ; 6985 :       // If there is no root entity instance, then the OI is empty.
 ; 6986 :       if ( lpViewOI->hRootEntityInstance == 0 )
 
-	mov	ecx, DWORD PTR _lpViewOI$9816[ebp]
+	mov	ecx, DWORD PTR _lpViewOI$9818[ebp]
 	cmp	DWORD PTR [ecx+26], 0
-	jne	SHORT $L9825
+	jne	SHORT $L9827
 
 ; 6988 :          SetAttributeFromString( vArgs, szlArgument, "ViewReturned", "E" );
 
@@ -22837,8 +22837,8 @@ $L9820:
 
 ; 6989 :          continue;
 
-	jmp	$L9812
-$L9825:
+	jmp	$L9814
+$L9827:
 
 ; 6991 : 
 ; 6992 :       // Set flag to indicate we are returning the view.
@@ -22854,8 +22854,8 @@ $L9825:
 ; 6994 : 
 ; 6995 :    } // for ( nRC = SetCursorFirstEntity( vArgs, szlArgument, 0 )...
 
-	jmp	$L9812
-$L9813:
+	jmp	$L9814
+$L9815:
 
 ; 6996 : 
 ; 6997 :    // Send return code.
@@ -22874,7 +22874,7 @@ $L9813:
 	mov	eax, DWORD PTR _lpNetwork$[ebp]
 	movsx	ecx, WORD PTR [eax+140]
 	test	ecx, ecx
-	jle	SHORT $L9826
+	jle	SHORT $L9828
 
 ; 7000 :       TraceLineI( "(kzoeneta) ** Sending RC packet.  RC = ", lRC );
 
@@ -22882,7 +22882,7 @@ $L9813:
 	push	edx
 	push	OFFSET FLAT:??_C@_0CI@KGJB@?$CIkzoeneta?$CJ?5?$CK?$CK?5Sending?5RC?5packet?4@ ; `string'
 	call	_TraceLineI@8
-$L9826:
+$L9828:
 
 ; 7001 : 
 ; 7002 :    if ( fnSendDataPacket( lpNetwork, ppvConn, zPACKET_RC, lRC ) != 0 )
@@ -22897,7 +22897,7 @@ $L9826:
 	call	_fnSendDataPacket@16
 	movsx	eax, ax
 	test	eax, eax
-	je	SHORT $L9827
+	je	SHORT $L9829
 
 ; 7004 :       TraceLineS( "(kzoeneta) ** Not able send Return code!", "" );
 
@@ -22907,8 +22907,8 @@ $L9826:
 
 ; 7005 :       goto EndOfFunction;
 
-	jmp	$EndOfFunction$9764
-$L9827:
+	jmp	$EndOfFunction$9766
+$L9829:
 
 ; 7007 : 
 ; 7008 :    // Send the vArgs view back to the client.
@@ -22924,7 +22924,7 @@ $L9827:
 	call	_fnSendOI@16
 	movsx	ecx, ax
 	cmp	ecx, -16				; fffffff0H
-	jne	SHORT $L9828
+	jne	SHORT $L9830
 
 ; 7011 :       TraceLineS( "(kzoeneta) ** Not able send vArgs back to client!", "" );
 
@@ -22934,8 +22934,8 @@ $L9827:
 
 ; 7012 :       goto EndOfFunction;
 
-	jmp	$EndOfFunction$9764
-$L9828:
+	jmp	$EndOfFunction$9766
+$L9830:
 
 ; 7014 : 
 ; 7015 :    // Loop through each of the arguments looking for views we need to send
@@ -22954,18 +22954,18 @@ $L9828:
 	push	edx
 	call	_SetCursorFirstEntity@12
 	mov	WORD PTR _nRC$[ebp], ax
-	jmp	SHORT $L9830
-$L9831:
+	jmp	SHORT $L9832
+$L9833:
 	push	0
 	push	OFFSET FLAT:_szlArgument
 	mov	eax, DWORD PTR _vArgs$[ebp]
 	push	eax
 	call	_SetCursorNextEntity@12
 	mov	WORD PTR _nRC$[ebp], ax
-$L9830:
+$L9832:
 	movsx	ecx, WORD PTR _nRC$[ebp]
 	test	ecx, ecx
-	jl	$L9832
+	jl	$L9834
 
 ; 7022 :       // If the argument is not a view, then don't worry about it.
 ; 7023 :       if ( CompareAttributeToString( vArgs, szlArgument,
@@ -22979,12 +22979,12 @@ $L9830:
 	call	_CompareAttributeToString@16
 	movsx	eax, ax
 	test	eax, eax
-	je	SHORT $L9833
+	je	SHORT $L9835
 
 ; 7025 :          continue;
 
-	jmp	SHORT $L9831
-$L9833:
+	jmp	SHORT $L9833
+$L9835:
 
 ; 7026 : 
 ; 7027 :       k++;
@@ -23009,12 +23009,12 @@ $L9833:
 
 	movsx	eax, WORD PTR _nRC$[ebp]
 	test	eax, eax
-	je	SHORT $L9834
+	je	SHORT $L9836
 
 ; 7032 :          continue;
 
-	jmp	$L9831
-$L9834:
+	jmp	$L9833
+$L9836:
 
 ; 7033 : 
 ; 7034 : #ifdef DGC
@@ -23045,7 +23045,7 @@ $L9834:
 	call	_fnSendOI@16
 	movsx	edx, ax
 	cmp	edx, -16				; fffffff0H
-	jne	SHORT $L9835
+	jne	SHORT $L9837
 
 ; 7051 :          TraceLineS( "(kzoeneta) ** Not able send view argument back to client!", "" );
 
@@ -23055,21 +23055,21 @@ $L9834:
 
 ; 7052 :          goto EndOfFunction;
 
-	jmp	SHORT $EndOfFunction$9764
-$L9835:
+	jmp	SHORT $EndOfFunction$9766
+$L9837:
 
 ; 7054 : 
 ; 7055 :    } // for ( nRC = SetCursorFirstEntity( vArgs, szlArgument, 0 )...
 
-	jmp	$L9831
-$L9832:
+	jmp	$L9833
+$L9834:
 
 ; 7056 : 
 ; 7057 :    // If we get here then everything's fine...
 ; 7058 :    nReturnCode = 0;
 
 	mov	WORD PTR _nReturnCode$[ebp], 0
-$EndOfFunction$9764:
+$EndOfFunction$9766:
 
 ; 7059 : 
 ; 7060 : EndOfFunction:
@@ -23077,7 +23077,7 @@ $EndOfFunction$9764:
 ; 7062 :         fnSendMsgAndTraceObj( lpNetwork, ppvConn, vSubtask ) == zCALL_ERROR )
 
 	cmp	DWORD PTR _vSubtask$[ebp], 0
-	je	SHORT $L9837
+	je	SHORT $L9839
 	mov	eax, DWORD PTR _vSubtask$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _ppvConn$[ebp]
@@ -23087,12 +23087,12 @@ $EndOfFunction$9764:
 	call	_fnSendMsgAndTraceObj@12
 	movsx	eax, ax
 	cmp	eax, -16				; fffffff0H
-	jne	SHORT $L9837
+	jne	SHORT $L9839
 
 ; 7064 :       nReturnCode = zCALL_ERROR;
 
 	mov	WORD PTR _nReturnCode$[ebp], -16	; fffffff0H
-$L9837:
+$L9839:
 
 ; 7066 : 
 ; 7067 :    if ( bFlushNeeded && fnFlushBuffer( lpNetwork, ppvConn ) != 0 )
@@ -23100,7 +23100,7 @@ $L9837:
 	mov	ecx, DWORD PTR _bFlushNeeded$[ebp]
 	and	ecx, 255				; 000000ffH
 	test	ecx, ecx
-	je	SHORT $L9838
+	je	SHORT $L9840
 	mov	edx, DWORD PTR _ppvConn$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _lpNetwork$[ebp]
@@ -23108,40 +23108,40 @@ $L9837:
 	call	_fnFlushBuffer@8
 	movsx	ecx, ax
 	test	ecx, ecx
-	je	SHORT $L9838
+	je	SHORT $L9840
 
 ; 7068 :       nReturnCode = zCALL_ERROR;
 
 	mov	WORD PTR _nReturnCode$[ebp], -16	; fffffff0H
-$L9838:
+$L9840:
 
 ; 7069 : 
 ; 7070 :    for ( k = 0; k <= nViewCount; k++ )
 
 	mov	WORD PTR _k$[ebp], 0
-	jmp	SHORT $L9839
-$L9840:
+	jmp	SHORT $L9841
+$L9842:
 	mov	dx, WORD PTR _k$[ebp]
 	add	dx, 1
 	mov	WORD PTR _k$[ebp], dx
-$L9839:
+$L9841:
 	movsx	eax, WORD PTR _k$[ebp]
 	movsx	ecx, WORD PTR _nViewCount$[ebp]
 	cmp	eax, ecx
-	jg	$L9841
+	jg	$L9843
 
 ; 7072 :       if ( vViewList[ k ] )
 
 	movsx	edx, WORD PTR _k$[ebp]
 	cmp	DWORD PTR _vViewList$[ebp+edx*4], 0
-	je	SHORT $L9847
+	je	SHORT $L9849
 
 ; 7074 :          if ( vViewList[ k ]->hSubtask )
 
 	movsx	eax, WORD PTR _k$[ebp]
 	mov	ecx, DWORD PTR _vViewList$[ebp+eax*4]
 	cmp	DWORD PTR [ecx+18], 0
-	je	SHORT $L9843
+	je	SHORT $L9845
 
 ; 7076 :             DROPSUBTASK( vViewList[ k ] );
 
@@ -23150,11 +23150,11 @@ $L9839:
 	mov	ecx, DWORD PTR [eax+18]
 	push	ecx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpDropSubtask$9844[ebp], eax
+	mov	DWORD PTR _lpDropSubtask$9846[ebp], eax
 	push	0
-	mov	edx, DWORD PTR _lpDropSubtask$9844[ebp]
+	mov	edx, DWORD PTR _lpDropSubtask$9846[ebp]
 	push	edx
-	mov	eax, DWORD PTR _lpDropSubtask$9844[ebp]
+	mov	eax, DWORD PTR _lpDropSubtask$9846[ebp]
 	mov	ecx, DWORD PTR [eax+6]
 	push	ecx
 	call	DWORD PTR _g_pfnGetPtr
@@ -23164,8 +23164,8 @@ $L9839:
 
 ; 7078 :          else
 
-	jmp	SHORT $L9847
-$L9843:
+	jmp	SHORT $L9849
+$L9845:
 
 ; 7079 :             fnDropView( vViewList[ k ] );
 
@@ -23173,31 +23173,31 @@ $L9843:
 	mov	eax, DWORD PTR _vViewList$[ebp+edx*4]
 	push	eax
 	call	_fnDropView@4
-$L9847:
+$L9849:
 
 ; 7081 :    }
 
-	jmp	$L9840
-$L9841:
+	jmp	$L9842
+$L9843:
 
 ; 7082 : 
 ; 7083 :    if ( vArgs )
 
 	cmp	DWORD PTR _vArgs$[ebp], 0
-	je	SHORT $L9848
+	je	SHORT $L9850
 
 ; 7084 :       fnDropView( vArgs );
 
 	mov	ecx, DWORD PTR _vArgs$[ebp]
 	push	ecx
 	call	_fnDropView@4
-$L9848:
+$L9850:
 
 ; 7085 : 
 ; 7086 :    if ( vSubtask )
 
 	cmp	DWORD PTR _vSubtask$[ebp], 0
-	je	SHORT $L9849
+	je	SHORT $L9851
 
 ; 7087 :       DROPSUBTASK( vSubtask );
 
@@ -23205,18 +23205,18 @@ $L9848:
 	mov	eax, DWORD PTR [edx+18]
 	push	eax
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpDropSubtask$9850[ebp], eax
+	mov	DWORD PTR _lpDropSubtask$9852[ebp], eax
 	push	0
-	mov	ecx, DWORD PTR _lpDropSubtask$9850[ebp]
+	mov	ecx, DWORD PTR _lpDropSubtask$9852[ebp]
 	push	ecx
-	mov	edx, DWORD PTR _lpDropSubtask$9850[ebp]
+	mov	edx, DWORD PTR _lpDropSubtask$9852[ebp]
 	mov	eax, DWORD PTR [edx+6]
 	push	eax
 	call	DWORD PTR _g_pfnGetPtr
 	push	eax
 	call	_fnDropSubtask
 	add	esp, 12					; 0000000cH
-$L9849:
+$L9851:
 
 ; 7088 : 
 ; 7089 :    fnOperationReturn( iNetCallOperation, lpTask );
@@ -23289,7 +23289,7 @@ _fnProcessTraceSwitches@12 PROC NEAR
 	call	DWORD PTR [eax+174]
 	movsx	ecx, ax
 	test	ecx, ecx
-	je	SHORT $L9863
+	je	SHORT $L9865
 
 ; 7107 :       TraceLineS( "(kzoeneta) ** Couldn't retrieve Trace Switch Message", "" );
 
@@ -23300,8 +23300,8 @@ _fnProcessTraceSwitches@12 PROC NEAR
 ; 7108 :       return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	$L9859
-$L9863:
+	jmp	$L9861
+$L9865:
 
 ; 7110 : 
 ; 7111 :    zmemcpy( &szTraceSwitch, pch, L_TRACE_SWITCH_MSG );
@@ -23323,7 +23323,7 @@ $L9863:
 	mov	ecx, DWORD PTR _lpNetwork$[ebp]
 	movsx	edx, WORD PTR [ecx+140]
 	test	edx, edx
-	jle	SHORT $L9865
+	jle	SHORT $L9867
 
 ; 7114 :       TraceLineS( "(kzoeneta) ** Received Trace Switch message.", szTraceSwitch );
 
@@ -23331,7 +23331,7 @@ $L9863:
 	push	eax
 	push	OFFSET FLAT:??_C@_0CN@EFKG@?$CIkzoeneta?$CJ?5?$CK?$CK?5Received?5Trace?5Swi@ ; `string'
 	call	_TraceLineS@8
-$L9865:
+$L9867:
 
 ; 7115 : 
 ; 7116 :    // server network tracelevel
@@ -23349,14 +23349,14 @@ $L9865:
 	mov	eax, DWORD PTR _lpNetwork$[ebp]
 	movsx	ecx, WORD PTR [eax+140]
 	cmp	edx, ecx
-	jle	SHORT $L9868
+	jle	SHORT $L9870
 
 ; 7119 :       lpNetwork->nTraceLevel = k;
 
 	mov	edx, DWORD PTR _lpNetwork$[ebp]
 	mov	ax, WORD PTR _k$[ebp]
 	mov	WORD PTR [edx+140], ax
-$L9868:
+$L9870:
 
 ; 7120 : 
 ; 7121 :    // server DBHandler tracelevel
@@ -23378,14 +23378,14 @@ $L9868:
 	mov	eax, DWORD PTR _lpTask$[ebp]
 	movsx	ecx, WORD PTR [eax+92]
 	cmp	edx, ecx
-	jle	SHORT $L9870
+	jle	SHORT $L9872
 
 ; 7125 :       lpTask->nDBHandlerTraceLevel = k;
 
 	mov	edx, DWORD PTR _lpTask$[ebp]
 	mov	ax, WORD PTR _k$[ebp]
 	mov	WORD PTR [edx+92], ax
-$L9870:
+$L9872:
 
 ; 7126 : 
 ; 7127 :    // server core tracelevel
@@ -23405,7 +23405,7 @@ $L9870:
 
 	movsx	edx, WORD PTR _k$[ebp]
 	test	edx, edx
-	jle	SHORT $L9872
+	jle	SHORT $L9874
 
 ; 7131 :       lpTask->bTrace = TRUE;
 
@@ -23414,13 +23414,13 @@ $L9870:
 	or	ecx, 4
 	mov	edx, DWORD PTR _lpTask$[ebp]
 	mov	DWORD PTR [edx+443], ecx
-$L9872:
+$L9874:
 
 ; 7132 : 
 ; 7133 :    return( 0 );
 
 	xor	ax, ax
-$L9859:
+$L9861:
 
 ; 7134 : 
 ; 7135 : } // fnProcessTraceSwitches
@@ -23476,7 +23476,7 @@ _fnProcessTimestamp@12 PROC NEAR
 	call	DWORD PTR [eax+174]
 	movsx	ecx, ax
 	test	ecx, ecx
-	je	SHORT $L9881
+	je	SHORT $L9883
 
 ; 7148 :       TraceLineS( "(kzoeneta) ** Couldn't retrieve Timestamp Message", "" );
 
@@ -23487,8 +23487,8 @@ _fnProcessTimestamp@12 PROC NEAR
 ; 7149 :       return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	SHORT $L9879
-$L9881:
+	jmp	SHORT $L9881
+$L9883:
 
 ; 7151 : 
 ; 7152 :    // Set task timestamp from Server timestamp.
@@ -23513,7 +23513,7 @@ $L9881:
 	mov	edx, DWORD PTR _lpNetwork$[ebp]
 	movsx	eax, WORD PTR [edx+140]
 	test	eax, eax
-	jle	SHORT $L9883
+	jle	SHORT $L9885
 
 ; 7156 :       TraceLineS( "(kzoeneta) ** Received Timestamp message.", lpTask->szTimeStamp );
 
@@ -23522,13 +23522,13 @@ $L9881:
 	push	ecx
 	push	OFFSET FLAT:??_C@_0CK@DIDM@?$CIkzoeneta?$CJ?5?$CK?$CK?5Received?5Timestamp@ ; `string'
 	call	_TraceLineS@8
-$L9883:
+$L9885:
 
 ; 7157 : 
 ; 7158 :    return( 0 );
 
 	xor	ax, ax
-$L9879:
+$L9881:
 
 ; 7159 : 
 ; 7160 : } // fnProcessTimestamp
@@ -23645,15 +23645,15 @@ _SfStartNetworks@8 PROC NEAR
 ; 7204 :    for ( k = 1; TRUE; k++ )
 
 	mov	DWORD PTR _k$[ebp], 1
-	jmp	SHORT $L9897
-$L9898:
+	jmp	SHORT $L9899
+$L9900:
 	mov	eax, DWORD PTR _k$[ebp]
 	add	eax, 1
 	mov	DWORD PTR _k$[ebp], eax
-$L9897:
+$L9899:
 	mov	ecx, 1
 	test	ecx, ecx
-	je	$L9899
+	je	$L9901
 
 ; 7206 :       zsprintf( szNetName, "Network%d", k );
 
@@ -23685,12 +23685,12 @@ $L9897:
 
 	movsx	eax, BYTE PTR _szValue$[ebp]
 	test	eax, eax
-	jne	SHORT $L9902
+	jne	SHORT $L9904
 
 ; 7212 :          break;               // No network# item so break loop.
 
-	jmp	$L9899
-$L9902:
+	jmp	$L9901
+$L9904:
 
 ; 7213 : 
 ; 7214 :       zstrcpy( szNetName, szValue );
@@ -23726,12 +23726,12 @@ $L9902:
 
 	movsx	ecx, BYTE PTR _szValue$[ebp]
 	test	ecx, ecx
-	jne	SHORT $L9904
+	jne	SHORT $L9906
 
 ; 7218 :          continue;
 
-	jmp	$L9898
-$L9904:
+	jmp	$L9900
+$L9906:
 
 ; 7219 : 
 ; 7220 :       TraceLineS( "(kzoeneta) ** Startup = ", szStartup );
@@ -23751,22 +23751,22 @@ $L9904:
 	call	DWORD PTR __imp__toupper
 	add	esp, 4
 	cmp	eax, 78					; 0000004eH
-	je	SHORT $L9907
+	je	SHORT $L9909
 	movsx	ecx, BYTE PTR _szStartup$[ebp]
 	cmp	ecx, 48					; 00000030H
-	je	SHORT $L9907
+	je	SHORT $L9909
 	movsx	edx, BYTE PTR _szStartup$[ebp]
 	push	edx
 	call	DWORD PTR __imp__toupper
 	add	esp, 4
 	cmp	eax, 70					; 00000046H
-	jne	SHORT $L9906
-$L9907:
+	jne	SHORT $L9908
+$L9909:
 
 ; 7226 :          continue;
 
-	jmp	$L9898
-$L9906:
+	jmp	$L9900
+$L9908:
 
 ; 7228 : 
 ; 7229 :       SysReadZeidonIni( -1, szGroupName, "ExecName", szExecName );
@@ -23783,7 +23783,7 @@ $L9906:
 
 	movsx	edx, BYTE PTR _szExecName$[ebp]
 	test	edx, edx
-	jne	SHORT $L9909
+	jne	SHORT $L9911
 
 ; 7231 :          zstrcpy( szExecName, szNetName );
 
@@ -23793,7 +23793,7 @@ $L9906:
 	push	ecx
 	call	_strcpy
 	add	esp, 8
-$L9909:
+$L9911:
 
 ; 7232 : 
 ; 7233 :       // If network is started see if we need to do a listen.
@@ -23808,7 +23808,7 @@ $L9909:
 	call	_NetStartup@12
 	movsx	edx, ax
 	cmp	edx, -16				; fffffff0H
-	je	$L9910
+	je	$L9912
 
 ; 7236 :          SysReadZeidonIni( -1, szGroupName, "TraceLevel", szValue );
 
@@ -23824,7 +23824,7 @@ $L9909:
 
 	movsx	edx, BYTE PTR _szValue$[ebp]
 	test	edx, edx
-	je	SHORT $L9911
+	je	SHORT $L9913
 
 ; 7238 :             NetSetTraceLevel( lpView, szNetName, (zSHORT) zatol( szValue ) );
 
@@ -23838,7 +23838,7 @@ $L9909:
 	mov	edx, DWORD PTR _lpView$[ebp]
 	push	edx
 	call	_NetSetTraceLevel@12
-$L9911:
+$L9913:
 
 ; 7239 : 
 ; 7240 :          // TODO: CHANGE THIS
@@ -23855,16 +23855,16 @@ $L9911:
 	call	DWORD PTR __imp__toupper
 	add	esp, 4
 	cmp	eax, 76					; 0000004cH
-	jne	SHORT $L9916
+	jne	SHORT $L9918
 	mov	ecx, DWORD PTR _AnchorBlock
 	cmp	DWORD PTR [ecx+106], 0
-	je	SHORT $L9914
+	je	SHORT $L9916
 	mov	edx, DWORD PTR _AnchorBlock
 	mov	eax, DWORD PTR _lpView$[ebp]
 	mov	ecx, DWORD PTR [edx+106]
 	cmp	ecx, DWORD PTR [eax+14]
-	jne	SHORT $L9916
-$L9914:
+	jne	SHORT $L9918
+$L9916:
 
 ; 7249 :             TraceLineS( "(kzoeneta) *MainTask* Starting Listen", "" );
 
@@ -23881,7 +23881,7 @@ $L9914:
 	call	_NetListen@8
 	movsx	ecx, ax
 	cmp	ecx, -16				; fffffff0H
-	jne	SHORT $L9916
+	jne	SHORT $L9918
 
 ; 7252 :                TraceLineS( "(kzoeneta) ** Error calling NetListen", "" );
 
@@ -23900,27 +23900,27 @@ $L9914:
 ; 7254 :                return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	SHORT $L9889
-$L9916:
+	jmp	SHORT $L9891
+$L9918:
 
 ; 7258 :      else
 
-	jmp	SHORT $L9918
-$L9910:
+	jmp	SHORT $L9920
+$L9912:
 
 ; 7259 :         TraceLineS( "(kzoeneta) ** Error calling NetStartup!! ", "" );
 
 	push	OFFSET FLAT:??_C@_00A@?$AA@		; `string'
 	push	OFFSET FLAT:??_C@_0CK@JOAC@?$CIkzoeneta?$CJ?5?$CK?$CK?5Error?5calling?5NetS@ ; `string'
 	call	_TraceLineS@8
-$L9918:
+$L9920:
 
 ; 7260 : 
 ; 7261 : 
 ; 7262 :    } // for k...
 
-	jmp	$L9898
-$L9899:
+	jmp	$L9900
+$L9901:
 
 ; 7263 : 
 ; 7264 :    TraceLineS( "(kzoeneta) ** Startup networks successful", "" );
@@ -23933,7 +23933,7 @@ $L9899:
 ; 7266 :    return( 0 );
 
 	xor	ax, ax
-$L9889:
+$L9891:
 
 ; 7267 : 
 ; 7268 : } // SfStartNetworks

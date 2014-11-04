@@ -609,23 +609,23 @@ _pchOutString$ = -20
 _pchFractionsOfSeconds$ = -16
 _n$ = -28
 _nWSLength$ = -4
-_pchTrailer$7566 = -36
-_lpInternational$7568 = -40
-_lpInternational$7574 = -44
-_lDOW$7589 = -48
-_pchMover$7593 = -56
-_lDOW$7594 = -52
-_lDOW$7601 = -60
-_lDOW$7605 = -64
-_lDOW$7613 = -68
-_lDOW$7616 = -72
-_lHour$7624 = -76
-_szMonthNumber$7649 = -84
-_lMonth$7650 = -80
-_pchMover$7656 = -88
-_szMonthNumber$7672 = -96
-_lMonth$7673 = -92
-_sz$7704 = -100
+_pchTrailer$7568 = -36
+_lpInternational$7570 = -40
+_lpInternational$7576 = -44
+_lDOW$7591 = -48
+_pchMover$7595 = -56
+_lDOW$7596 = -52
+_lDOW$7603 = -60
+_lDOW$7607 = -64
+_lDOW$7615 = -68
+_lDOW$7618 = -72
+_lHour$7626 = -76
+_szMonthNumber$7651 = -84
+_lMonth$7652 = -80
+_pchMover$7658 = -88
+_szMonthNumber$7674 = -96
+_lMonth$7675 = -92
+_sz$7706 = -100
 _UfFormatDateTime@12 PROC NEAR
 
 ; 305  : {
@@ -747,15 +747,15 @@ $L7546:
 	call	DWORD PTR __imp__strchr
 	add	esp, 8
 	test	eax, eax
-	jne	SHORT $L7551
+	jne	SHORT $L7553
 	push	80					; 00000050H
 	mov	eax, DWORD PTR _cpcEditString$[ebp]
 	push	eax
 	call	DWORD PTR __imp__strchr
 	add	esp, 8
 	test	eax, eax
-	je	SHORT $L7550
-$L7551:
+	je	SHORT $L7552
+$L7553:
 
 ; 343  :          bTwelveHour = TRUE;
 
@@ -767,13 +767,13 @@ $L7551:
 
 ; 346  :       else
 
-	jmp	SHORT $L7552
-$L7550:
+	jmp	SHORT $L7554
+$L7552:
 
 ; 347  :          bTwelveHour = FALSE;
 
 	mov	BYTE PTR _bTwelveHour$[ebp], 0
-$L7552:
+$L7554:
 
 ; 348  : 
 ; 349  :       while ( *pchEditString )
@@ -781,13 +781,13 @@ $L7552:
 	mov	ecx, DWORD PTR _pchEditString$[ebp]
 	movsx	edx, BYTE PTR [ecx]
 	test	edx, edx
-	je	$L7555
+	je	$L7557
 
 ; 351  :          if ( chDelimiter )
 
 	movsx	eax, BYTE PTR _chDelimiter$[ebp]
 	test	eax, eax
-	je	SHORT $L7556
+	je	SHORT $L7558
 
 ; 353  :             if ( *pchEditString == chDelimiter )
 
@@ -795,7 +795,7 @@ $L7552:
 	movsx	edx, BYTE PTR [ecx]
 	movsx	eax, BYTE PTR _chDelimiter$[ebp]
 	cmp	edx, eax
-	jne	SHORT $L7557
+	jne	SHORT $L7559
 
 ; 355  :                chDelimiter = 0;
 
@@ -809,8 +809,8 @@ $L7552:
 
 ; 358  :             else
 
-	jmp	SHORT $L7558
-$L7557:
+	jmp	SHORT $L7560
+$L7559:
 
 ; 359  :                *pchOutString++ = *pchEditString++;
 
@@ -824,12 +824,12 @@ $L7557:
 	mov	eax, DWORD PTR _pchEditString$[ebp]
 	add	eax, 1
 	mov	DWORD PTR _pchEditString$[ebp], eax
-$L7558:
+$L7560:
 
 ; 361  :          else
 
-	jmp	$L7561
-$L7556:
+	jmp	$L7563
+$L7558:
 
 ; 362  :          switch ( *pchEditString )
 ; 363  :          {
@@ -841,12 +841,12 @@ $L7556:
 	sub	eax, 32					; 00000020H
 	mov	DWORD PTR -104+[ebp], eax
 	cmp	DWORD PTR -104+[ebp], 77		; 0000004dH
-	ja	$L7702
+	ja	$L7704
 	mov	edx, DWORD PTR -104+[ebp]
 	xor	ecx, ecx
-	mov	cl, BYTE PTR $L9200[edx]
-	jmp	DWORD PTR $L9201[ecx*4]
-$L7564:
+	mov	cl, BYTE PTR $L9204[edx]
+	jmp	DWORD PTR $L9205[ecx*4]
+$L7566:
 
 ; 364  :           case 'A':
 ; 365  :           case 'P':
@@ -855,7 +855,7 @@ $L7564:
 	mov	eax, DWORD PTR _pchEditString$[ebp]
 	movsx	ecx, BYTE PTR [eax+1]
 	cmp	ecx, 77					; 0000004dH
-	jne	$L7565
+	jne	$L7567
 
 ; 368  :                zPCHAR   pchTrailer;
 ; 369  : 
@@ -865,7 +865,7 @@ $L7564:
 	mov	edx, DWORD PTR _bAM$[ebp]
 	and	edx, 255				; 000000ffH
 	test	edx, edx
-	je	SHORT $L7567
+	je	SHORT $L7569
 
 ; 373  :                   LPINTERNATIONAL lpInternational =
 ; 374  :                                     zGETPTR( AnchorBlock->hInternational );
@@ -874,36 +874,36 @@ $L7564:
 	mov	ecx, DWORD PTR [eax+2515]
 	push	ecx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpInternational$7568[ebp], eax
+	mov	DWORD PTR _lpInternational$7570[ebp], eax
 
 ; 375  : 
 ; 376  :                   if ( lpInternational->sz1159 == 0 )
 
-	mov	edx, DWORD PTR _lpInternational$7568[ebp]
+	mov	edx, DWORD PTR _lpInternational$7570[ebp]
 	add	edx, 86					; 00000056H
 	test	edx, edx
-	jne	SHORT $L7570
+	jne	SHORT $L7572
 
 ; 377  :                      pchTrailer = NULL;
 
-	mov	DWORD PTR _pchTrailer$7566[ebp], 0
+	mov	DWORD PTR _pchTrailer$7568[ebp], 0
 
 ; 378  :                   else
 
-	jmp	SHORT $L7572
-$L7570:
+	jmp	SHORT $L7574
+$L7572:
 
 ; 379  :                      pchTrailer = lpInternational->sz1159;
 
-	mov	eax, DWORD PTR _lpInternational$7568[ebp]
+	mov	eax, DWORD PTR _lpInternational$7570[ebp]
 	add	eax, 86					; 00000056H
-	mov	DWORD PTR _pchTrailer$7566[ebp], eax
-$L7572:
+	mov	DWORD PTR _pchTrailer$7568[ebp], eax
+$L7574:
 
 ; 381  :                else
 
-	jmp	SHORT $L7578
-$L7567:
+	jmp	SHORT $L7580
+$L7569:
 
 ; 383  :                   LPINTERNATIONAL lpInternational =
 ; 384  :                                     zGETPTR( AnchorBlock->hInternational );
@@ -912,64 +912,64 @@ $L7567:
 	mov	edx, DWORD PTR [ecx+2515]
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpInternational$7574[ebp], eax
+	mov	DWORD PTR _lpInternational$7576[ebp], eax
 
 ; 385  : 
 ; 386  :                   if ( lpInternational->sz2359 == 0 )
 
-	mov	eax, DWORD PTR _lpInternational$7574[ebp]
+	mov	eax, DWORD PTR _lpInternational$7576[ebp]
 	add	eax, 91					; 0000005bH
 	test	eax, eax
-	jne	SHORT $L7576
+	jne	SHORT $L7578
 
 ; 387  :                      pchTrailer = NULL;
 
-	mov	DWORD PTR _pchTrailer$7566[ebp], 0
+	mov	DWORD PTR _pchTrailer$7568[ebp], 0
 
 ; 388  :                   else
 
-	jmp	SHORT $L7578
-$L7576:
+	jmp	SHORT $L7580
+$L7578:
 
 ; 389  :                      pchTrailer = lpInternational->sz2359;
 
-	mov	ecx, DWORD PTR _lpInternational$7574[ebp]
+	mov	ecx, DWORD PTR _lpInternational$7576[ebp]
 	add	ecx, 91					; 0000005bH
-	mov	DWORD PTR _pchTrailer$7566[ebp], ecx
-$L7578:
+	mov	DWORD PTR _pchTrailer$7568[ebp], ecx
+$L7580:
 
 ; 391  : 
 ; 392  :                // if no national text defined, use default text
 ; 393  :                if ( pchTrailer == NULL )
 
-	cmp	DWORD PTR _pchTrailer$7566[ebp], 0
-	jne	SHORT $L7583
+	cmp	DWORD PTR _pchTrailer$7568[ebp], 0
+	jne	SHORT $L7585
 
 ; 395  :                   if ( bAM )
 
 	mov	edx, DWORD PTR _bAM$[ebp]
 	and	edx, 255				; 000000ffH
 	test	edx, edx
-	je	SHORT $L7581
+	je	SHORT $L7583
 
 ; 396  :                      pchTrailer = "AM";
 
-	mov	DWORD PTR _pchTrailer$7566[ebp], OFFSET FLAT:??_C@_02ENLM@AM?$AA@ ; `string'
+	mov	DWORD PTR _pchTrailer$7568[ebp], OFFSET FLAT:??_C@_02ENLM@AM?$AA@ ; `string'
 
 ; 397  :                   else
 
-	jmp	SHORT $L7583
-$L7581:
+	jmp	SHORT $L7585
+$L7583:
 
 ; 398  :                      pchTrailer = "PM";
 
-	mov	DWORD PTR _pchTrailer$7566[ebp], OFFSET FLAT:??_C@_02DBLP@PM?$AA@ ; `string'
-$L7583:
+	mov	DWORD PTR _pchTrailer$7568[ebp], OFFSET FLAT:??_C@_02DBLP@PM?$AA@ ; `string'
+$L7585:
 
 ; 400  : 
 ; 401  :                n = zstrlen( pchTrailer );
 
-	mov	eax, DWORD PTR _pchTrailer$7566[ebp]
+	mov	eax, DWORD PTR _pchTrailer$7568[ebp]
 	push	eax
 	call	_strlen
 	add	esp, 4
@@ -979,7 +979,7 @@ $L7583:
 
 	movsx	ecx, WORD PTR _n$[ebp]
 	push	ecx
-	mov	edx, DWORD PTR _pchTrailer$7566[ebp]
+	mov	edx, DWORD PTR _pchTrailer$7568[ebp]
 	push	edx
 	mov	eax, DWORD PTR _pchOutString$[ebp]
 	push	eax
@@ -1007,20 +1007,20 @@ $L7583:
 
 ; 407  :             else
 
-	jmp	SHORT $L7585
-$L7565:
+	jmp	SHORT $L7587
+$L7567:
 
 ; 408  :                return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
 	jmp	$L7534
-$L7585:
+$L7587:
 
 ; 409  : 
 ; 410  :             break;
 
-	jmp	$L7561
-$L7586:
+	jmp	$L7563
+$L7588:
 
 ; 411  : 
 ; 412  :           case 'D':
@@ -1034,18 +1034,18 @@ $L7586:
 	call	DWORD PTR __imp__strncmp
 	add	esp, 12					; 0000000cH
 	test	eax, eax
-	jne	SHORT $L7587
+	jne	SHORT $L7589
 
 ; 415  :                zLONG lDOW = UfGetDayOfWeek( cpcDateTimeString );
 
 	mov	ecx, DWORD PTR _cpcDateTimeString$[ebp]
 	push	ecx
 	call	_UfGetDayOfWeek@4
-	mov	DWORD PTR _lDOW$7589[ebp], eax
+	mov	DWORD PTR _lDOW$7591[ebp], eax
 
 ; 416  :                zstrcpy( pchOutString, g_pchDOW[ lDOW ] );
 
-	mov	edx, DWORD PTR _lDOW$7589[ebp]
+	mov	edx, DWORD PTR _lDOW$7591[ebp]
 	mov	eax, DWORD PTR _g_pchDOW[edx*4]
 	push	eax
 	mov	ecx, DWORD PTR _pchOutString$[ebp]
@@ -1055,7 +1055,7 @@ $L7586:
 
 ; 417  :                pchOutString += zstrlen( g_pchDOW[ lDOW ] );
 
-	mov	edx, DWORD PTR _lDOW$7589[ebp]
+	mov	edx, DWORD PTR _lDOW$7591[ebp]
 	mov	eax, DWORD PTR _g_pchDOW[edx*4]
 	push	eax
 	call	_strlen
@@ -1072,8 +1072,8 @@ $L7586:
 
 ; 420  :             else
 
-	jmp	$L7609
-$L7587:
+	jmp	$L7611
+$L7589:
 
 ; 421  :             if ( zstrncmp( (pchEditString + 1), "DDD", 3 ) == 0 )
 
@@ -1085,7 +1085,7 @@ $L7587:
 	call	DWORD PTR __imp__strncmp
 	add	esp, 12					; 0000000cH
 	test	eax, eax
-	jne	SHORT $L7591
+	jne	SHORT $L7593
 
 ; 423  :                zPCHAR pchMover;
 ; 424  :                zLONG  lDOW = UfGetDayOfWeek( cpcDateTimeString );
@@ -1093,32 +1093,32 @@ $L7587:
 	mov	ecx, DWORD PTR _cpcDateTimeString$[ebp]
 	push	ecx
 	call	_UfGetDayOfWeek@4
-	mov	DWORD PTR _lDOW$7594[ebp], eax
+	mov	DWORD PTR _lDOW$7596[ebp], eax
 
 ; 425  :                pchMover = g_pchDOW[ lDOW ];
 
-	mov	edx, DWORD PTR _lDOW$7594[ebp]
+	mov	edx, DWORD PTR _lDOW$7596[ebp]
 	mov	eax, DWORD PTR _g_pchDOW[edx*4]
-	mov	DWORD PTR _pchMover$7593[ebp], eax
-$L7596:
+	mov	DWORD PTR _pchMover$7595[ebp], eax
+$L7598:
 
 ; 426  :                while ( *pchMover )
 
-	mov	ecx, DWORD PTR _pchMover$7593[ebp]
+	mov	ecx, DWORD PTR _pchMover$7595[ebp]
 	movsx	edx, BYTE PTR [ecx]
 	test	edx, edx
-	je	SHORT $L7597
+	je	SHORT $L7599
 
 ; 427  :                   *pchOutString++ = ztoupper( *pchMover++ );
 
-	mov	eax, DWORD PTR _pchMover$7593[ebp]
+	mov	eax, DWORD PTR _pchMover$7595[ebp]
 	movsx	ecx, BYTE PTR [eax]
 	mov	DWORD PTR -108+[ebp], ecx
 	mov	edx, DWORD PTR -108+[ebp]
 	push	edx
-	mov	eax, DWORD PTR _pchMover$7593[ebp]
+	mov	eax, DWORD PTR _pchMover$7595[ebp]
 	add	eax, 1
-	mov	DWORD PTR _pchMover$7593[ebp], eax
+	mov	DWORD PTR _pchMover$7595[ebp], eax
 	call	DWORD PTR __imp__toupper
 	add	esp, 4
 	mov	ecx, DWORD PTR _pchOutString$[ebp]
@@ -1126,8 +1126,8 @@ $L7596:
 	mov	edx, DWORD PTR _pchOutString$[ebp]
 	add	edx, 1
 	mov	DWORD PTR _pchOutString$[ebp], edx
-	jmp	SHORT $L7596
-$L7597:
+	jmp	SHORT $L7598
+$L7599:
 
 ; 428  : 
 ; 429  :                pchEditString += 4;
@@ -1138,8 +1138,8 @@ $L7597:
 
 ; 431  :             else
 
-	jmp	$L7609
-$L7591:
+	jmp	$L7611
+$L7593:
 
 ; 432  :             if ( zstrncmp( (pchEditString + 1), "dd", 2 ) == 0 )
 
@@ -1151,19 +1151,19 @@ $L7591:
 	call	DWORD PTR __imp__strncmp
 	add	esp, 12					; 0000000cH
 	test	eax, eax
-	jne	SHORT $L7599
+	jne	SHORT $L7601
 
 ; 434  :                zLONG lDOW = UfGetDayOfWeek( cpcDateTimeString );
 
 	mov	edx, DWORD PTR _cpcDateTimeString$[ebp]
 	push	edx
 	call	_UfGetDayOfWeek@4
-	mov	DWORD PTR _lDOW$7601[ebp], eax
+	mov	DWORD PTR _lDOW$7603[ebp], eax
 
 ; 435  :                zstrncpy( pchOutString, g_pchDOW[ lDOW ], 3 );
 
 	push	3
-	mov	eax, DWORD PTR _lDOW$7601[ebp]
+	mov	eax, DWORD PTR _lDOW$7603[ebp]
 	mov	ecx, DWORD PTR _g_pchDOW[eax*4]
 	push	ecx
 	mov	edx, DWORD PTR _pchOutString$[ebp]
@@ -1185,8 +1185,8 @@ $L7591:
 
 ; 439  :             else
 
-	jmp	$L7609
-$L7599:
+	jmp	$L7611
+$L7601:
 
 ; 440  :             if ( zstrncmp( (pchEditString + 1), "DD", 2 ) == 0 )
 
@@ -1198,19 +1198,19 @@ $L7599:
 	call	DWORD PTR __imp__strncmp
 	add	esp, 12					; 0000000cH
 	test	eax, eax
-	jne	$L7603
+	jne	$L7605
 
 ; 442  :                zLONG lDOW = UfGetDayOfWeek( cpcDateTimeString );
 
 	mov	eax, DWORD PTR _cpcDateTimeString$[ebp]
 	push	eax
 	call	_UfGetDayOfWeek@4
-	mov	DWORD PTR _lDOW$7605[ebp], eax
+	mov	DWORD PTR _lDOW$7607[ebp], eax
 
 ; 443  :                zstrncpy( pchOutString, g_pchDOW[ lDOW ], 3 );
 
 	push	3
-	mov	ecx, DWORD PTR _lDOW$7605[ebp]
+	mov	ecx, DWORD PTR _lDOW$7607[ebp]
 	mov	edx, DWORD PTR _g_pchDOW[ecx*4]
 	push	edx
 	mov	eax, DWORD PTR _pchOutString$[ebp]
@@ -1220,7 +1220,7 @@ $L7599:
 
 ; 444  :                *pchOutString++ = *g_pchDOW[ lDOW ];
 
-	mov	ecx, DWORD PTR _lDOW$7605[ebp]
+	mov	ecx, DWORD PTR _lDOW$7607[ebp]
 	mov	edx, DWORD PTR _g_pchDOW[ecx*4]
 	mov	eax, DWORD PTR _pchOutString$[ebp]
 	mov	cl, BYTE PTR [edx]
@@ -1231,7 +1231,7 @@ $L7599:
 
 ; 445  :                *pchOutString++ = ztoupper( *(g_pchDOW[ lDOW ] + 1) );
 
-	mov	eax, DWORD PTR _lDOW$7605[ebp]
+	mov	eax, DWORD PTR _lDOW$7607[ebp]
 	mov	ecx, DWORD PTR _g_pchDOW[eax*4]
 	movsx	edx, BYTE PTR [ecx+1]
 	push	edx
@@ -1245,7 +1245,7 @@ $L7599:
 
 ; 446  :                *pchOutString++ = ztoupper( *(g_pchDOW[ lDOW ] + 2) );
 
-	mov	eax, DWORD PTR _lDOW$7605[ebp]
+	mov	eax, DWORD PTR _lDOW$7607[ebp]
 	mov	ecx, DWORD PTR _g_pchDOW[eax*4]
 	movsx	edx, BYTE PTR [ecx+2]
 	push	edx
@@ -1265,8 +1265,8 @@ $L7599:
 
 ; 449  :             else
 
-	jmp	$L7609
-$L7603:
+	jmp	$L7611
+$L7605:
 
 ; 450  :             if ( *(pchEditString + 1) == 'D' ||
 ; 451  :                  *(pchEditString + 1) == 'd' )
@@ -1274,12 +1274,12 @@ $L7603:
 	mov	ecx, DWORD PTR _pchEditString$[ebp]
 	movsx	edx, BYTE PTR [ecx+1]
 	cmp	edx, 68					; 00000044H
-	je	SHORT $L7608
+	je	SHORT $L7610
 	mov	eax, DWORD PTR _pchEditString$[ebp]
 	movsx	ecx, BYTE PTR [eax+1]
 	cmp	ecx, 100				; 00000064H
-	jne	SHORT $L7607
-$L7608:
+	jne	SHORT $L7609
+$L7610:
 
 ; 453  :                // move the day of the month (w/leading zero if < 10 )
 ; 454  :                // to output
@@ -1311,8 +1311,8 @@ $L7608:
 
 ; 459  :             else
 
-	jmp	SHORT $L7609
-$L7607:
+	jmp	SHORT $L7611
+$L7609:
 
 ; 461  :                // move the day of the month (w/o leading zero if < 10 )
 ; 462  :                // to output
@@ -1321,7 +1321,7 @@ $L7607:
 	mov	edx, DWORD PTR _cpcDateTimeString$[ebp]
 	movsx	eax, BYTE PTR [edx+6]
 	cmp	eax, 48					; 00000030H
-	je	SHORT $L7610
+	je	SHORT $L7612
 
 ; 465  :                   *pchOutString++ = *(cpcDateTimeString + 6);
 
@@ -1332,7 +1332,7 @@ $L7607:
 	mov	ecx, DWORD PTR _pchOutString$[ebp]
 	add	ecx, 1
 	mov	DWORD PTR _pchOutString$[ebp], ecx
-$L7610:
+$L7612:
 
 ; 467  : 
 ; 468  :                *pchOutString++ = *(cpcDateTimeString + 7);
@@ -1350,13 +1350,13 @@ $L7610:
 	mov	eax, DWORD PTR _pchEditString$[ebp]
 	add	eax, 1
 	mov	DWORD PTR _pchEditString$[ebp], eax
-$L7609:
+$L7611:
 
 ; 471  : 
 ; 472  :             break;
 
-	jmp	$L7561
-$L7611:
+	jmp	$L7563
+$L7613:
 
 ; 473  : 
 ; 474  :           case 'd':
@@ -1370,18 +1370,18 @@ $L7611:
 	call	DWORD PTR __imp__strncmp
 	add	esp, 12					; 0000000cH
 	test	eax, eax
-	jne	SHORT $L7612
+	jne	SHORT $L7614
 
 ; 477  :                zLONG lDOW = UfGetDayOfWeek( cpcDateTimeString );
 
 	mov	edx, DWORD PTR _cpcDateTimeString$[ebp]
 	push	edx
 	call	_UfGetDayOfWeek@4
-	mov	DWORD PTR _lDOW$7613[ebp], eax
+	mov	DWORD PTR _lDOW$7615[ebp], eax
 
 ; 478  :                zstrcpy( pchOutString, g_pchDOW[ lDOW ] );
 
-	mov	eax, DWORD PTR _lDOW$7613[ebp]
+	mov	eax, DWORD PTR _lDOW$7615[ebp]
 	mov	ecx, DWORD PTR _g_pchDOW[eax*4]
 	push	ecx
 	mov	edx, DWORD PTR _pchOutString$[ebp]
@@ -1391,7 +1391,7 @@ $L7611:
 
 ; 479  :                *pchOutString = tolower( *g_pchDOW[ lDOW ] );
 
-	mov	eax, DWORD PTR _lDOW$7613[ebp]
+	mov	eax, DWORD PTR _lDOW$7615[ebp]
 	mov	ecx, DWORD PTR _g_pchDOW[eax*4]
 	movsx	edx, BYTE PTR [ecx]
 	push	edx
@@ -1402,7 +1402,7 @@ $L7611:
 
 ; 480  :                pchOutString += zstrlen( g_pchDOW[ lDOW ] );
 
-	mov	edx, DWORD PTR _lDOW$7613[ebp]
+	mov	edx, DWORD PTR _lDOW$7615[ebp]
 	mov	eax, DWORD PTR _g_pchDOW[edx*4]
 	push	eax
 	call	_strlen
@@ -1419,8 +1419,8 @@ $L7611:
 
 ; 483  :             else
 
-	jmp	$L7619
-$L7612:
+	jmp	$L7621
+$L7614:
 
 ; 484  :             if ( zstrncmp( (pchEditString + 1), "dd", 2 ) == 0 )
 
@@ -1432,18 +1432,18 @@ $L7612:
 	call	DWORD PTR __imp__strncmp
 	add	esp, 12					; 0000000cH
 	test	eax, eax
-	jne	SHORT $L7615
+	jne	SHORT $L7617
 
 ; 486  :                zLONG lDOW = UfGetDayOfWeek( cpcDateTimeString );
 
 	mov	ecx, DWORD PTR _cpcDateTimeString$[ebp]
 	push	ecx
 	call	_UfGetDayOfWeek@4
-	mov	DWORD PTR _lDOW$7616[ebp], eax
+	mov	DWORD PTR _lDOW$7618[ebp], eax
 
 ; 487  :                *pchOutString++ = tolower( *g_pchDOW[ lDOW ] );
 
-	mov	edx, DWORD PTR _lDOW$7616[ebp]
+	mov	edx, DWORD PTR _lDOW$7618[ebp]
 	mov	eax, DWORD PTR _g_pchDOW[edx*4]
 	movsx	ecx, BYTE PTR [eax]
 	push	ecx
@@ -1457,7 +1457,7 @@ $L7612:
 
 ; 488  :                *pchOutString++ = *(g_pchDOW[ lDOW ] + 1);
 
-	mov	ecx, DWORD PTR _lDOW$7616[ebp]
+	mov	ecx, DWORD PTR _lDOW$7618[ebp]
 	mov	edx, DWORD PTR _g_pchDOW[ecx*4]
 	mov	eax, DWORD PTR _pchOutString$[ebp]
 	mov	cl, BYTE PTR [edx+1]
@@ -1468,7 +1468,7 @@ $L7612:
 
 ; 489  :                *pchOutString++ = *(g_pchDOW[ lDOW ] + 2);
 
-	mov	eax, DWORD PTR _lDOW$7616[ebp]
+	mov	eax, DWORD PTR _lDOW$7618[ebp]
 	mov	ecx, DWORD PTR _g_pchDOW[eax*4]
 	mov	edx, DWORD PTR _pchOutString$[ebp]
 	mov	al, BYTE PTR [ecx+2]
@@ -1485,15 +1485,15 @@ $L7612:
 
 ; 492  :             else
 
-	jmp	SHORT $L7619
-$L7615:
+	jmp	SHORT $L7621
+$L7617:
 
 ; 493  :             if ( *(pchEditString + 1) == 'd' )
 
 	mov	eax, DWORD PTR _pchEditString$[ebp]
 	movsx	ecx, BYTE PTR [eax+1]
 	cmp	ecx, 100				; 00000064H
-	jne	SHORT $L7618
+	jne	SHORT $L7620
 
 ; 495  :                // move the day of the month (w/leading zero if < 10 )
 ; 496  :                // to output
@@ -1525,8 +1525,8 @@ $L7615:
 
 ; 501  :             else
 
-	jmp	SHORT $L7619
-$L7618:
+	jmp	SHORT $L7621
+$L7620:
 
 ; 503  :                // move the day of the month (w/o leading zero if < 10 )
 ; 504  :                // to output
@@ -1535,7 +1535,7 @@ $L7618:
 	mov	edx, DWORD PTR _cpcDateTimeString$[ebp]
 	movsx	eax, BYTE PTR [edx+6]
 	cmp	eax, 48					; 00000030H
-	je	SHORT $L7620
+	je	SHORT $L7622
 
 ; 507  :                   *pchOutString++ = *(cpcDateTimeString + 6);
 
@@ -1546,7 +1546,7 @@ $L7618:
 	mov	ecx, DWORD PTR _pchOutString$[ebp]
 	add	ecx, 1
 	mov	DWORD PTR _pchOutString$[ebp], ecx
-$L7620:
+$L7622:
 
 ; 509  :                *pchOutString++ = *(cpcDateTimeString + 7);
 
@@ -1563,13 +1563,13 @@ $L7620:
 	mov	eax, DWORD PTR _pchEditString$[ebp]
 	add	eax, 1
 	mov	DWORD PTR _pchEditString$[ebp], eax
-$L7619:
+$L7621:
 
 ; 512  : 
 ; 513  :             break;
 
-	jmp	$L7561
-$L7621:
+	jmp	$L7563
+$L7623:
 
 ; 514  : 
 ; 515  :           case 'H':
@@ -1577,7 +1577,7 @@ $L7621:
 
 	movsx	ecx, WORD PTR _nWSLength$[ebp]
 	cmp	ecx, 12					; 0000000cH
-	jl	$L7622
+	jl	$L7624
 
 ; 518  :                // move the hour of the day to output
 ; 519  :                *pchOutString++ = *(cpcDateTimeString + 8);
@@ -1605,7 +1605,7 @@ $L7621:
 	mov	ecx, DWORD PTR _bTwelveHour$[ebp]
 	and	ecx, 255				; 000000ffH
 	test	ecx, ecx
-	je	$L7623
+	je	$L7625
 
 ; 523  :                   zLONG    lHour;
 ; 524  : 
@@ -1626,36 +1626,36 @@ $L7621:
 	push	ecx
 	call	DWORD PTR __imp__atol
 	add	esp, 4
-	mov	DWORD PTR _lHour$7624[ebp], eax
+	mov	DWORD PTR _lHour$7626[ebp], eax
 
 ; 528  :                   if ( lHour == 0 )
 
-	cmp	DWORD PTR _lHour$7624[ebp], 0
-	jne	SHORT $L7625
+	cmp	DWORD PTR _lHour$7626[ebp], 0
+	jne	SHORT $L7627
 
 ; 530  :                      lHour = 12;
 
-	mov	DWORD PTR _lHour$7624[ebp], 12		; 0000000cH
+	mov	DWORD PTR _lHour$7626[ebp], 12		; 0000000cH
 
 ; 531  :                      zltoal( lHour, pchOutString, 2 );
 
 	push	2
 	mov	edx, DWORD PTR _pchOutString$[ebp]
 	push	edx
-	mov	eax, DWORD PTR _lHour$7624[ebp]
+	mov	eax, DWORD PTR _lHour$7626[ebp]
 	push	eax
 	call	_zltoal
 	add	esp, 12					; 0000000cH
 
 ; 533  :                   else
 
-	jmp	SHORT $L7628
-$L7625:
+	jmp	SHORT $L7630
+$L7627:
 
 ; 534  :                   if ( lHour > 11 )
 
-	cmp	DWORD PTR _lHour$7624[ebp], 11		; 0000000bH
-	jle	SHORT $L7628
+	cmp	DWORD PTR _lHour$7626[ebp], 11		; 0000000bH
+	jle	SHORT $L7630
 
 ; 536  :                      bAM = 0;
 
@@ -1663,39 +1663,39 @@ $L7625:
 
 ; 537  :                      if ( lHour > 12 )
 
-	cmp	DWORD PTR _lHour$7624[ebp], 12		; 0000000cH
-	jle	SHORT $L7628
+	cmp	DWORD PTR _lHour$7626[ebp], 12		; 0000000cH
+	jle	SHORT $L7630
 
 ; 539  :                         lHour -= 12;
 
-	mov	ecx, DWORD PTR _lHour$7624[ebp]
+	mov	ecx, DWORD PTR _lHour$7626[ebp]
 	sub	ecx, 12					; 0000000cH
-	mov	DWORD PTR _lHour$7624[ebp], ecx
+	mov	DWORD PTR _lHour$7626[ebp], ecx
 
 ; 540  :                         zltoal( lHour, pchOutString, 2 );
 
 	push	2
 	mov	edx, DWORD PTR _pchOutString$[ebp]
 	push	edx
-	mov	eax, DWORD PTR _lHour$7624[ebp]
+	mov	eax, DWORD PTR _lHour$7626[ebp]
 	push	eax
 	call	_zltoal
 	add	esp, 12					; 0000000cH
-$L7628:
+$L7630:
 
 ; 543  :                   if ( *pchOutString == '0' )
 
 	mov	ecx, DWORD PTR _pchOutString$[ebp]
 	movsx	edx, BYTE PTR [ecx]
 	cmp	edx, 48					; 00000030H
-	jne	SHORT $L7629
+	jne	SHORT $L7631
 
 ; 545  :                      if ( *(pchEditString + 1) != 'H' )
 
 	mov	eax, DWORD PTR _pchEditString$[ebp]
 	movsx	ecx, BYTE PTR [eax+1]
 	cmp	ecx, 72					; 00000048H
-	je	SHORT $L7630
+	je	SHORT $L7632
 
 ; 547  :                         *pchOutString = *(pchOutString + 1);
 
@@ -1718,8 +1718,8 @@ $L7628:
 
 ; 551  :                      else
 
-	jmp	SHORT $L7631
-$L7630:
+	jmp	SHORT $L7633
+$L7632:
 
 ; 553  :                         pchOutString += 2;
 
@@ -1732,12 +1732,12 @@ $L7630:
 	mov	edx, DWORD PTR _pchEditString$[ebp]
 	add	edx, 2
 	mov	DWORD PTR _pchEditString$[ebp], edx
-$L7631:
+$L7633:
 
 ; 557  :                   else
 
-	jmp	SHORT $L7633
-$L7629:
+	jmp	SHORT $L7635
+$L7631:
 
 ; 559  :                      pchOutString += 2;
 
@@ -1756,33 +1756,33 @@ $L7629:
 	mov	edx, DWORD PTR _pchEditString$[ebp]
 	movsx	eax, BYTE PTR [edx]
 	cmp	eax, 72					; 00000048H
-	jne	SHORT $L7633
+	jne	SHORT $L7635
 
 ; 562  :                         pchEditString++;
 
 	mov	ecx, DWORD PTR _pchEditString$[ebp]
 	add	ecx, 1
 	mov	DWORD PTR _pchEditString$[ebp], ecx
-$L7633:
+$L7635:
 
 ; 565  :                else
 
-	jmp	SHORT $L7638
-$L7623:
+	jmp	SHORT $L7640
+$L7625:
 
 ; 567  :                   if ( *(cpcDateTimeString + 8) == '0' )
 
 	mov	edx, DWORD PTR _cpcDateTimeString$[ebp]
 	movsx	eax, BYTE PTR [edx+8]
 	cmp	eax, 48					; 00000030H
-	jne	SHORT $L7635
+	jne	SHORT $L7637
 
 ; 569  :                      if ( *(pchEditString + 1) != 'H' )
 
 	mov	ecx, DWORD PTR _pchEditString$[ebp]
 	movsx	edx, BYTE PTR [ecx+1]
 	cmp	edx, 72					; 00000048H
-	je	SHORT $L7636
+	je	SHORT $L7638
 
 ; 571  :                         pchOutString -= 2;
 
@@ -1808,32 +1808,32 @@ $L7623:
 
 ; 575  :                      else
 
-	jmp	SHORT $L7637
-$L7636:
+	jmp	SHORT $L7639
+$L7638:
 
 ; 576  :                         pchEditString += 2;
 
 	mov	eax, DWORD PTR _pchEditString$[ebp]
 	add	eax, 2
 	mov	DWORD PTR _pchEditString$[ebp], eax
-$L7637:
+$L7639:
 
 ; 578  :                   else
 
-	jmp	SHORT $L7638
-$L7635:
+	jmp	SHORT $L7640
+$L7637:
 
 ; 579  :                      pchEditString += 2;
 
 	mov	ecx, DWORD PTR _pchEditString$[ebp]
 	add	ecx, 2
 	mov	DWORD PTR _pchEditString$[ebp], ecx
-$L7638:
+$L7640:
 
 ; 582  :             else
 
-	jmp	SHORT $L7640
-$L7622:
+	jmp	SHORT $L7642
+$L7624:
 
 ; 584  :                pchEditString++;
 
@@ -1846,20 +1846,20 @@ $L7622:
 	mov	eax, DWORD PTR _pchEditString$[ebp]
 	movsx	ecx, BYTE PTR [eax]
 	cmp	ecx, 72					; 00000048H
-	jne	SHORT $L7640
+	jne	SHORT $L7642
 
 ; 586  :                   pchEditString++;
 
 	mov	edx, DWORD PTR _pchEditString$[ebp]
 	add	edx, 1
 	mov	DWORD PTR _pchEditString$[ebp], edx
-$L7640:
+$L7642:
 
 ; 588  : 
 ; 589  :             break;
 
-	jmp	$L7561
-$L7641:
+	jmp	$L7563
+$L7643:
 
 ; 590  : 
 ; 591  :           case 'j':
@@ -1873,7 +1873,7 @@ $L7641:
 	call	DWORD PTR __imp__strncmp
 	add	esp, 12					; 0000000cH
 	test	eax, eax
-	jne	SHORT $L7642
+	jne	SHORT $L7644
 
 ; 594  :                zltoal( UfGetDayOfYear( cpcDateTimeString ),
 ; 595  :                        pchOutString, 3 );
@@ -1902,20 +1902,20 @@ $L7641:
 
 ; 599  :             else
 
-	jmp	SHORT $L7644
-$L7642:
+	jmp	SHORT $L7646
+$L7644:
 
 ; 600  :                return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
 	jmp	$L7534
-$L7644:
+$L7646:
 
 ; 601  : 
 ; 602  :             break;
 
-	jmp	$L7561
-$L7645:
+	jmp	$L7563
+$L7647:
 
 ; 603  : 
 ; 604  :           case 'M':
@@ -1924,13 +1924,13 @@ $L7645:
 	mov	edx, DWORD PTR _pchEditString$[ebp]
 	movsx	eax, BYTE PTR [edx+1]
 	cmp	eax, 73					; 00000049H
-	jne	SHORT $L7646
+	jne	SHORT $L7648
 
 ; 607  :                if ( nWSLength >= 12 ) // Ensure WorkString contains MI
 
 	movsx	ecx, WORD PTR _nWSLength$[ebp]
 	cmp	ecx, 12					; 0000000cH
-	jl	SHORT $L7647
+	jl	SHORT $L7649
 
 ; 609  :                   // move the minute past hour to output
 ; 610  :                   *pchOutString++ = *(cpcDateTimeString + 10);
@@ -1952,7 +1952,7 @@ $L7645:
 	mov	eax, DWORD PTR _pchOutString$[ebp]
 	add	eax, 1
 	mov	DWORD PTR _pchOutString$[ebp], eax
-$L7647:
+$L7649:
 
 ; 613  :                pchEditString += 2;
 
@@ -1962,8 +1962,8 @@ $L7647:
 
 ; 615  :             else
 
-	jmp	$L7669
-$L7646:
+	jmp	$L7671
+$L7648:
 
 ; 617  :                // move three char month to output
 ; 618  :                zCHAR  szMonthNumber[ 3 ];
@@ -1975,31 +1975,31 @@ $L7646:
 
 	mov	edx, DWORD PTR _cpcDateTimeString$[ebp]
 	mov	al, BYTE PTR [edx+4]
-	mov	BYTE PTR _szMonthNumber$7649[ebp], al
+	mov	BYTE PTR _szMonthNumber$7651[ebp], al
 
 ; 624  :                szMonthNumber[ 1 ] = *(cpcDateTimeString + 5);
 
 	mov	ecx, DWORD PTR _cpcDateTimeString$[ebp]
 	mov	dl, BYTE PTR [ecx+5]
-	mov	BYTE PTR _szMonthNumber$7649[ebp+1], dl
+	mov	BYTE PTR _szMonthNumber$7651[ebp+1], dl
 
 ; 625  :                szMonthNumber[ 2 ] = 0;
 
-	mov	BYTE PTR _szMonthNumber$7649[ebp+2], 0
+	mov	BYTE PTR _szMonthNumber$7651[ebp+2], 0
 
 ; 626  :                lMonth = zatol( szMonthNumber );
 
-	lea	eax, DWORD PTR _szMonthNumber$7649[ebp]
+	lea	eax, DWORD PTR _szMonthNumber$7651[ebp]
 	push	eax
 	call	DWORD PTR __imp__atol
 	add	esp, 4
-	mov	DWORD PTR _lMonth$7650[ebp], eax
+	mov	DWORD PTR _lMonth$7652[ebp], eax
 
 ; 627  :                lMonth--;   // make relative to 0
 
-	mov	ecx, DWORD PTR _lMonth$7650[ebp]
+	mov	ecx, DWORD PTR _lMonth$7652[ebp]
 	sub	ecx, 1
-	mov	DWORD PTR _lMonth$7650[ebp], ecx
+	mov	DWORD PTR _lMonth$7652[ebp], ecx
 
 ; 628  : 
 ; 629  :                if ( zstrncmp( (pchEditString + 1), "mmm", 3 ) == 0 )
@@ -2012,11 +2012,11 @@ $L7646:
 	call	DWORD PTR __imp__strncmp
 	add	esp, 12					; 0000000cH
 	test	eax, eax
-	jne	SHORT $L7651
+	jne	SHORT $L7653
 
 ; 631  :                   zstrcpy( pchOutString, g_pchMon[ lMonth ] );
 
-	mov	eax, DWORD PTR _lMonth$7650[ebp]
+	mov	eax, DWORD PTR _lMonth$7652[ebp]
 	mov	ecx, DWORD PTR _g_pchMon[eax*4]
 	push	ecx
 	mov	edx, DWORD PTR _pchOutString$[ebp]
@@ -2026,7 +2026,7 @@ $L7646:
 
 ; 632  :                   pchOutString += zstrlen( g_pchMon[ lMonth ] );
 
-	mov	eax, DWORD PTR _lMonth$7650[ebp]
+	mov	eax, DWORD PTR _lMonth$7652[ebp]
 	mov	ecx, DWORD PTR _g_pchMon[eax*4]
 	push	ecx
 	call	_strlen
@@ -2043,8 +2043,8 @@ $L7646:
 
 ; 635  :                else
 
-	jmp	$L7669
-$L7651:
+	jmp	$L7671
+$L7653:
 
 ; 636  :                if ( zstrncmp( (pchEditString + 1), "MMM", 3 ) == 0 )
 
@@ -2056,33 +2056,33 @@ $L7651:
 	call	DWORD PTR __imp__strncmp
 	add	esp, 12					; 0000000cH
 	test	eax, eax
-	jne	SHORT $L7654
+	jne	SHORT $L7656
 
 ; 638  :                   zPCHAR   pchMover;
 ; 639  :                   pchMover = g_pchMon[ lMonth ];
 
-	mov	edx, DWORD PTR _lMonth$7650[ebp]
+	mov	edx, DWORD PTR _lMonth$7652[ebp]
 	mov	eax, DWORD PTR _g_pchMon[edx*4]
-	mov	DWORD PTR _pchMover$7656[ebp], eax
-$L7658:
+	mov	DWORD PTR _pchMover$7658[ebp], eax
+$L7660:
 
 ; 640  :                   while ( *pchMover )
 
-	mov	ecx, DWORD PTR _pchMover$7656[ebp]
+	mov	ecx, DWORD PTR _pchMover$7658[ebp]
 	movsx	edx, BYTE PTR [ecx]
 	test	edx, edx
-	je	SHORT $L7659
+	je	SHORT $L7661
 
 ; 641  :                      *pchOutString++ = ztoupper( *pchMover++ );
 
-	mov	eax, DWORD PTR _pchMover$7656[ebp]
+	mov	eax, DWORD PTR _pchMover$7658[ebp]
 	movsx	ecx, BYTE PTR [eax]
 	mov	DWORD PTR -112+[ebp], ecx
 	mov	edx, DWORD PTR -112+[ebp]
 	push	edx
-	mov	eax, DWORD PTR _pchMover$7656[ebp]
+	mov	eax, DWORD PTR _pchMover$7658[ebp]
 	add	eax, 1
-	mov	DWORD PTR _pchMover$7656[ebp], eax
+	mov	DWORD PTR _pchMover$7658[ebp], eax
 	call	DWORD PTR __imp__toupper
 	add	esp, 4
 	mov	ecx, DWORD PTR _pchOutString$[ebp]
@@ -2090,8 +2090,8 @@ $L7658:
 	mov	edx, DWORD PTR _pchOutString$[ebp]
 	add	edx, 1
 	mov	DWORD PTR _pchOutString$[ebp], edx
-	jmp	SHORT $L7658
-$L7659:
+	jmp	SHORT $L7660
+$L7661:
 
 ; 642  : 
 ; 643  :                   pchEditString += 4;
@@ -2102,8 +2102,8 @@ $L7659:
 
 ; 645  :                else
 
-	jmp	$L7669
-$L7654:
+	jmp	$L7671
+$L7656:
 
 ; 646  :                if ( zstrncmp( (pchEditString + 1), "mm", 2 ) == 0 )
 
@@ -2115,12 +2115,12 @@ $L7654:
 	call	DWORD PTR __imp__strncmp
 	add	esp, 12					; 0000000cH
 	test	eax, eax
-	jne	SHORT $L7661
+	jne	SHORT $L7663
 
 ; 648  :                   zstrncpy( pchOutString, g_pchMon[ lMonth ], 3 );
 
 	push	3
-	mov	edx, DWORD PTR _lMonth$7650[ebp]
+	mov	edx, DWORD PTR _lMonth$7652[ebp]
 	mov	eax, DWORD PTR _g_pchMon[edx*4]
 	push	eax
 	mov	ecx, DWORD PTR _pchOutString$[ebp]
@@ -2142,8 +2142,8 @@ $L7654:
 
 ; 652  :                else
 
-	jmp	$L7669
-$L7661:
+	jmp	$L7671
+$L7663:
 
 ; 653  :                if ( zstrncmp( (pchEditString + 1), "MM", 2 ) == 0 )
 
@@ -2155,12 +2155,12 @@ $L7661:
 	call	DWORD PTR __imp__strncmp
 	add	esp, 12					; 0000000cH
 	test	eax, eax
-	jne	$L7664
+	jne	$L7666
 
 ; 655  :                   zstrncpy( pchOutString, g_pchMon[ lMonth ], 3 );
 
 	push	3
-	mov	edx, DWORD PTR _lMonth$7650[ebp]
+	mov	edx, DWORD PTR _lMonth$7652[ebp]
 	mov	eax, DWORD PTR _g_pchMon[edx*4]
 	push	eax
 	mov	ecx, DWORD PTR _pchOutString$[ebp]
@@ -2170,7 +2170,7 @@ $L7661:
 
 ; 656  :                   *pchOutString++ = *g_pchMon[ lMonth ];
 
-	mov	edx, DWORD PTR _lMonth$7650[ebp]
+	mov	edx, DWORD PTR _lMonth$7652[ebp]
 	mov	eax, DWORD PTR _g_pchMon[edx*4]
 	mov	ecx, DWORD PTR _pchOutString$[ebp]
 	mov	dl, BYTE PTR [eax]
@@ -2181,7 +2181,7 @@ $L7661:
 
 ; 657  :                   *pchOutString++ = ztoupper ( *(g_pchMon[ lMonth ] + 1) );
 
-	mov	ecx, DWORD PTR _lMonth$7650[ebp]
+	mov	ecx, DWORD PTR _lMonth$7652[ebp]
 	mov	edx, DWORD PTR _g_pchMon[ecx*4]
 	movsx	eax, BYTE PTR [edx+1]
 	push	eax
@@ -2195,7 +2195,7 @@ $L7661:
 
 ; 658  :                   *pchOutString++ = ztoupper ( *(g_pchMon[ lMonth ] + 2) );
 
-	mov	eax, DWORD PTR _lMonth$7650[ebp]
+	mov	eax, DWORD PTR _lMonth$7652[ebp]
 	mov	ecx, DWORD PTR _g_pchMon[eax*4]
 	movsx	edx, BYTE PTR [ecx+2]
 	push	edx
@@ -2215,8 +2215,8 @@ $L7661:
 
 ; 661  :                else
 
-	jmp	$L7669
-$L7664:
+	jmp	$L7671
+$L7666:
 
 ; 662  :                if ( *(pchEditString + 1) == 'M' ||
 ; 663  :                     *(pchEditString + 1) == 'm' )
@@ -2224,12 +2224,12 @@ $L7664:
 	mov	ecx, DWORD PTR _pchEditString$[ebp]
 	movsx	edx, BYTE PTR [ecx+1]
 	cmp	edx, 77					; 0000004dH
-	je	SHORT $L7668
+	je	SHORT $L7670
 	mov	eax, DWORD PTR _pchEditString$[ebp]
 	movsx	ecx, BYTE PTR [eax+1]
 	cmp	ecx, 109				; 0000006dH
-	jne	SHORT $L7667
-$L7668:
+	jne	SHORT $L7669
+$L7670:
 
 ; 665  :                   // move the two digit number representing month to output
 ; 666  :                   *pchOutString++ = *(cpcDateTimeString + 4);
@@ -2260,8 +2260,8 @@ $L7668:
 
 ; 670  :                else
 
-	jmp	SHORT $L7669
-$L7667:
+	jmp	SHORT $L7671
+$L7669:
 
 ; 682  :                   // move the one/two digit number representing month
 ; 683  :                   // to output
@@ -2270,7 +2270,7 @@ $L7667:
 	mov	edx, DWORD PTR _cpcDateTimeString$[ebp]
 	movsx	eax, BYTE PTR [edx+4]
 	cmp	eax, 48					; 00000030H
-	je	SHORT $L7670
+	je	SHORT $L7672
 
 ; 685  :                      *pchOutString++ = *(cpcDateTimeString + 4);
 
@@ -2281,7 +2281,7 @@ $L7667:
 	mov	ecx, DWORD PTR _pchOutString$[ebp]
 	add	ecx, 1
 	mov	DWORD PTR _pchOutString$[ebp], ecx
-$L7670:
+$L7672:
 
 ; 686  :                   *pchOutString++ = *(cpcDateTimeString + 5);
 
@@ -2298,13 +2298,13 @@ $L7670:
 	mov	eax, DWORD PTR _pchEditString$[ebp]
 	add	eax, 1
 	mov	DWORD PTR _pchEditString$[ebp], eax
-$L7669:
+$L7671:
 
 ; 690  : 
 ; 691  :             break;
 
-	jmp	$L7561
-$L7671:
+	jmp	$L7563
+$L7673:
 
 ; 695  :                // move three char month to output
 ; 696  :                zCHAR  szMonthNumber[ 3 ];
@@ -2316,31 +2316,31 @@ $L7671:
 
 	mov	ecx, DWORD PTR _cpcDateTimeString$[ebp]
 	mov	dl, BYTE PTR [ecx+4]
-	mov	BYTE PTR _szMonthNumber$7672[ebp], dl
+	mov	BYTE PTR _szMonthNumber$7674[ebp], dl
 
 ; 702  :                szMonthNumber[ 1 ] = *(cpcDateTimeString + 5);
 
 	mov	eax, DWORD PTR _cpcDateTimeString$[ebp]
 	mov	cl, BYTE PTR [eax+5]
-	mov	BYTE PTR _szMonthNumber$7672[ebp+1], cl
+	mov	BYTE PTR _szMonthNumber$7674[ebp+1], cl
 
 ; 703  :                szMonthNumber[ 2 ] = 0;
 
-	mov	BYTE PTR _szMonthNumber$7672[ebp+2], 0
+	mov	BYTE PTR _szMonthNumber$7674[ebp+2], 0
 
 ; 704  :                lMonth = zatol( szMonthNumber );
 
-	lea	edx, DWORD PTR _szMonthNumber$7672[ebp]
+	lea	edx, DWORD PTR _szMonthNumber$7674[ebp]
 	push	edx
 	call	DWORD PTR __imp__atol
 	add	esp, 4
-	mov	DWORD PTR _lMonth$7673[ebp], eax
+	mov	DWORD PTR _lMonth$7675[ebp], eax
 
 ; 705  :                lMonth--;   // make relative to 0
 
-	mov	eax, DWORD PTR _lMonth$7673[ebp]
+	mov	eax, DWORD PTR _lMonth$7675[ebp]
 	sub	eax, 1
-	mov	DWORD PTR _lMonth$7673[ebp], eax
+	mov	DWORD PTR _lMonth$7675[ebp], eax
 
 ; 706  : 
 ; 707  :                if ( zstrncmp( (pchEditString + 1), "mmm", 3 ) == 0 )
@@ -2353,11 +2353,11 @@ $L7671:
 	call	DWORD PTR __imp__strncmp
 	add	esp, 12					; 0000000cH
 	test	eax, eax
-	jne	SHORT $L7674
+	jne	SHORT $L7676
 
 ; 709  :                   zstrcpy( pchOutString, g_pchMon[ lMonth ] );
 
-	mov	edx, DWORD PTR _lMonth$7673[ebp]
+	mov	edx, DWORD PTR _lMonth$7675[ebp]
 	mov	eax, DWORD PTR _g_pchMon[edx*4]
 	push	eax
 	mov	ecx, DWORD PTR _pchOutString$[ebp]
@@ -2367,7 +2367,7 @@ $L7671:
 
 ; 710  :                   *pchOutString = tolower( *g_pchMon[ lMonth ] );
 
-	mov	edx, DWORD PTR _lMonth$7673[ebp]
+	mov	edx, DWORD PTR _lMonth$7675[ebp]
 	mov	eax, DWORD PTR _g_pchMon[edx*4]
 	movsx	ecx, BYTE PTR [eax]
 	push	ecx
@@ -2378,7 +2378,7 @@ $L7671:
 
 ; 711  :                   pchOutString += zstrlen( g_pchMon[ lMonth ] );
 
-	mov	eax, DWORD PTR _lMonth$7673[ebp]
+	mov	eax, DWORD PTR _lMonth$7675[ebp]
 	mov	ecx, DWORD PTR _g_pchMon[eax*4]
 	push	ecx
 	call	_strlen
@@ -2395,8 +2395,8 @@ $L7671:
 
 ; 714  :                else
 
-	jmp	$L7680
-$L7674:
+	jmp	$L7682
+$L7676:
 
 ; 715  :                if ( zstrncmp( (pchEditString + 1), "mm", 2 ) == 0 )
 
@@ -2408,11 +2408,11 @@ $L7674:
 	call	DWORD PTR __imp__strncmp
 	add	esp, 12					; 0000000cH
 	test	eax, eax
-	jne	SHORT $L7676
+	jne	SHORT $L7678
 
 ; 717  :                   *pchOutString++ = tolower( *g_pchMon[ lMonth ] );
 
-	mov	edx, DWORD PTR _lMonth$7673[ebp]
+	mov	edx, DWORD PTR _lMonth$7675[ebp]
 	mov	eax, DWORD PTR _g_pchMon[edx*4]
 	movsx	ecx, BYTE PTR [eax]
 	push	ecx
@@ -2426,7 +2426,7 @@ $L7674:
 
 ; 718  :                   *pchOutString++ = *(g_pchMon[ lMonth ] + 1);
 
-	mov	ecx, DWORD PTR _lMonth$7673[ebp]
+	mov	ecx, DWORD PTR _lMonth$7675[ebp]
 	mov	edx, DWORD PTR _g_pchMon[ecx*4]
 	mov	eax, DWORD PTR _pchOutString$[ebp]
 	mov	cl, BYTE PTR [edx+1]
@@ -2437,7 +2437,7 @@ $L7674:
 
 ; 719  :                   *pchOutString++ = *(g_pchMon[ lMonth ] + 2);
 
-	mov	eax, DWORD PTR _lMonth$7673[ebp]
+	mov	eax, DWORD PTR _lMonth$7675[ebp]
 	mov	ecx, DWORD PTR _g_pchMon[eax*4]
 	mov	edx, DWORD PTR _pchOutString$[ebp]
 	mov	al, BYTE PTR [ecx+2]
@@ -2454,8 +2454,8 @@ $L7674:
 
 ; 722  :                else
 
-	jmp	$L7680
-$L7676:
+	jmp	$L7682
+$L7678:
 
 ; 723  :                if ( *(pchEditString + 1) == 'M' ||
 ; 724  :                     *(pchEditString + 1) == 'm' )
@@ -2463,12 +2463,12 @@ $L7676:
 	mov	eax, DWORD PTR _pchEditString$[ebp]
 	movsx	ecx, BYTE PTR [eax+1]
 	cmp	ecx, 77					; 0000004dH
-	je	SHORT $L7679
+	je	SHORT $L7681
 	mov	edx, DWORD PTR _pchEditString$[ebp]
 	movsx	eax, BYTE PTR [edx+1]
 	cmp	eax, 109				; 0000006dH
-	jne	SHORT $L7678
-$L7679:
+	jne	SHORT $L7680
+$L7681:
 
 ; 726  :                   // move the two digit number representing month to output
 ; 727  :                   *pchOutString++ = *(cpcDateTimeString + 4);
@@ -2499,8 +2499,8 @@ $L7679:
 
 ; 731  :                else
 
-	jmp	SHORT $L7680
-$L7678:
+	jmp	SHORT $L7682
+$L7680:
 
 ; 733  :                   // move the one/two digit number representing month
 ; 734  :                   // to output
@@ -2509,7 +2509,7 @@ $L7678:
 	mov	ecx, DWORD PTR _cpcDateTimeString$[ebp]
 	movsx	edx, BYTE PTR [ecx+4]
 	cmp	edx, 48					; 00000030H
-	je	SHORT $L7681
+	je	SHORT $L7683
 
 ; 736  :                      *pchOutString++ = *(cpcDateTimeString + 4);
 
@@ -2520,7 +2520,7 @@ $L7678:
 	mov	eax, DWORD PTR _pchOutString$[ebp]
 	add	eax, 1
 	mov	DWORD PTR _pchOutString$[ebp], eax
-$L7681:
+$L7683:
 
 ; 737  :                   *pchOutString++ = *(cpcDateTimeString + 5);
 
@@ -2537,13 +2537,13 @@ $L7681:
 	mov	edx, DWORD PTR _pchEditString$[ebp]
 	add	edx, 1
 	mov	DWORD PTR _pchEditString$[ebp], edx
-$L7680:
+$L7682:
 
 ; 741  : 
 ; 742  :             break;
 
-	jmp	$L7561
-$L7682:
+	jmp	$L7563
+$L7684:
 
 ; 743  : 
 ; 744  :           case 'S':
@@ -2552,13 +2552,13 @@ $L7682:
 	mov	eax, DWORD PTR _pchEditString$[ebp]
 	movsx	ecx, BYTE PTR [eax+1]
 	cmp	ecx, 83					; 00000053H
-	jne	SHORT $L7683
+	jne	SHORT $L7685
 
 ; 747  :                if ( nWSLength >= 14 ) // Ensure WorkString contains SS
 
 	movsx	edx, WORD PTR _nWSLength$[ebp]
 	cmp	edx, 14					; 0000000eH
-	jl	SHORT $L7684
+	jl	SHORT $L7686
 
 ; 749  :                   // move the second past minute to output
 ; 750  :                   *pchOutString++ = *(cpcDateTimeString + 12);
@@ -2580,7 +2580,7 @@ $L7682:
 	mov	ecx, DWORD PTR _pchOutString$[ebp]
 	add	ecx, 1
 	mov	DWORD PTR _pchOutString$[ebp], ecx
-$L7684:
+$L7686:
 
 ; 753  : 
 ; 754  :                pchEditString += 2;
@@ -2591,20 +2591,20 @@ $L7684:
 
 ; 756  :             else
 
-	jmp	SHORT $L7685
-$L7683:
+	jmp	SHORT $L7687
+$L7685:
 
 ; 757  :                return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
 	jmp	$L7534
-$L7685:
+$L7687:
 
 ; 758  : 
 ; 759  :             break;
 
-	jmp	$L7561
-$L7686:
+	jmp	$L7563
+$L7688:
 
 ; 760  : 
 ; 761  :           case 'Y':
@@ -2613,7 +2613,7 @@ $L7686:
 	mov	eax, DWORD PTR _pchEditString$[ebp]
 	movsx	ecx, BYTE PTR [eax+1]
 	cmp	ecx, 89					; 00000059H
-	jne	$L7687
+	jne	$L7689
 
 ; 764  :                if ( *(pchEditString + 2) == 'Y' &&
 ; 765  :                     *(pchEditString + 3) == 'Y' )
@@ -2621,11 +2621,11 @@ $L7686:
 	mov	edx, DWORD PTR _pchEditString$[ebp]
 	movsx	eax, BYTE PTR [edx+2]
 	cmp	eax, 89					; 00000059H
-	jne	SHORT $L7688
+	jne	SHORT $L7690
 	mov	ecx, DWORD PTR _pchEditString$[ebp]
 	movsx	edx, BYTE PTR [ecx+3]
 	cmp	edx, 89					; 00000059H
-	jne	SHORT $L7688
+	jne	SHORT $L7690
 
 ; 767  :                   // move the four digit year to output
 ; 768  :                   *pchOutString++ = *(cpcDateTimeString + 0);
@@ -2676,8 +2676,8 @@ $L7686:
 
 ; 774  :                else
 
-	jmp	SHORT $L7689
-$L7688:
+	jmp	SHORT $L7691
+$L7690:
 
 ; 776  :                   // move the two digit year to output
 ; 777  :                   *pchOutString++ = *(cpcDateTimeString + 2);
@@ -2705,24 +2705,24 @@ $L7688:
 	mov	ecx, DWORD PTR _pchEditString$[ebp]
 	add	ecx, 2
 	mov	DWORD PTR _pchEditString$[ebp], ecx
-$L7689:
+$L7691:
 
 ; 782  :             else
 
-	jmp	SHORT $L7690
-$L7687:
+	jmp	SHORT $L7692
+$L7689:
 
 ; 783  :                return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
 	jmp	$L7534
-$L7690:
+$L7692:
 
 ; 784  : 
 ; 785  :             break;
 
-	jmp	$L7561
-$L7691:
+	jmp	$L7563
+$L7693:
 
 ; 786  : 
 ; 787  :           case '9':
@@ -2730,25 +2730,25 @@ $L7691:
 
 	movsx	edx, WORD PTR _nWSLength$[ebp]
 	cmp	edx, 15					; 0000000fH
-	jl	SHORT $L7696
+	jl	SHORT $L7698
 
 ; 790  :                pchFractionsOfSeconds = (zPCHAR) (cpcDateTimeString + 14);
 
 	mov	eax, DWORD PTR _cpcDateTimeString$[ebp]
 	add	eax, 14					; 0000000eH
 	mov	DWORD PTR _pchFractionsOfSeconds$[ebp], eax
-$L7695:
+$L7697:
 
 ; 791  :                while ( *pchEditString == '9' && *pchFractionsOfSeconds )
 
 	mov	ecx, DWORD PTR _pchEditString$[ebp]
 	movsx	edx, BYTE PTR [ecx]
 	cmp	edx, 57					; 00000039H
-	jne	SHORT $L7696
+	jne	SHORT $L7698
 	mov	eax, DWORD PTR _pchFractionsOfSeconds$[ebp]
 	movsx	ecx, BYTE PTR [eax]
 	test	ecx, ecx
-	je	SHORT $L7696
+	je	SHORT $L7698
 
 ; 793  :                   *pchOutString++ = *pchFractionsOfSeconds++;
 
@@ -2771,8 +2771,8 @@ $L7695:
 
 ; 795  :                }
 
-	jmp	SHORT $L7695
-$L7696:
+	jmp	SHORT $L7697
+$L7698:
 
 ; 797  : 
 ; 798  :             while ( *pchEditString == '9' )
@@ -2780,21 +2780,21 @@ $L7696:
 	mov	edx, DWORD PTR _pchEditString$[ebp]
 	movsx	eax, BYTE PTR [edx]
 	cmp	eax, 57					; 00000039H
-	jne	SHORT $L7699
+	jne	SHORT $L7701
 
 ; 799  :                pchEditString++;
 
 	mov	ecx, DWORD PTR _pchEditString$[ebp]
 	add	ecx, 1
 	mov	DWORD PTR _pchEditString$[ebp], ecx
-	jmp	SHORT $L7696
-$L7699:
+	jmp	SHORT $L7698
+$L7701:
 
 ; 800  : 
 ; 801  :             break;
 
-	jmp	SHORT $L7561
-$L7700:
+	jmp	SHORT $L7563
+$L7702:
 
 ; 802  : 
 ; 803  :           case '\"':  // quote
@@ -2810,8 +2810,8 @@ $L7700:
 
 ; 806  :             break;
 
-	jmp	SHORT $L7561
-$L7701:
+	jmp	SHORT $L7563
+$L7703:
 
 ; 807  : 
 ; 808  :           case '(':   // left paren
@@ -2837,8 +2837,8 @@ $L7701:
 
 ; 817  :             break;
 
-	jmp	SHORT $L7561
-$L7702:
+	jmp	SHORT $L7563
+$L7704:
 
 ; 818  : 
 ; 819  :           default:
@@ -2846,12 +2846,12 @@ $L7702:
 
 	mov	ax, -16					; fffffff0H
 	jmp	SHORT $L7534
-$L7561:
+$L7563:
 
 ; 822  :       }
 
-	jmp	$L7552
-$L7555:
+	jmp	$L7554
+$L7557:
 
 ; 823  : 
 ; 824  :       *pchOutString = 0; // don't forget to null terminate the string
@@ -2863,17 +2863,17 @@ $L7555:
 
 	movsx	edx, BYTE PTR _chDelimiter$[ebp]
 	test	edx, edx
-	je	SHORT $L7703
+	je	SHORT $L7705
 
 ; 827  :          zCHAR sz[ 2 ];
 ; 828  :          sz[ 0 ] = chDelimiter;
 
 	mov	al, BYTE PTR _chDelimiter$[ebp]
-	mov	BYTE PTR _sz$7704[ebp], al
+	mov	BYTE PTR _sz$7706[ebp], al
 
 ; 829  :          sz[ 1 ] = 0;
 
-	mov	BYTE PTR _sz$7704[ebp+1], 0
+	mov	BYTE PTR _sz$7706[ebp+1], 0
 
 ; 830  :          // "KZOEE360 - Missing ending delimiter "
 ; 831  :          fnSysMessageBox( 0, "Zeidon Error",
@@ -2884,7 +2884,7 @@ $L7555:
 	push	OFFSET FLAT:??_C@_0N@EEMD@Zeidon?5Error?$AA@ ; `string'
 	push	0
 	call	_fnSysMessageBox@16
-$L7703:
+$L7705:
 
 ; 836  : 
 ; 837  :    return( 0 );
@@ -2897,21 +2897,21 @@ $L7534:
 	mov	esp, ebp
 	pop	ebp
 	ret	12					; 0000000cH
-$L9201:
-	DD	$L7701
-	DD	$L7700
-	DD	$L7691
-	DD	$L7564
-	DD	$L7586
-	DD	$L7621
-	DD	$L7645
-	DD	$L7682
-	DD	$L7686
-	DD	$L7611
-	DD	$L7641
-	DD	$L7671
+$L9205:
+	DD	$L7703
 	DD	$L7702
-$L9200:
+	DD	$L7693
+	DD	$L7566
+	DD	$L7588
+	DD	$L7623
+	DD	$L7647
+	DD	$L7684
+	DD	$L7688
+	DD	$L7613
+	DD	$L7643
+	DD	$L7673
+	DD	$L7704
+$L9204:
 	DB	0
 	DB	12					; 0000000cH
 	DB	1
@@ -3016,14 +3016,14 @@ _bConvertJulian$ = -80
 _bTwelveHourClock$ = -24
 _bAdjustTime$ = -12
 _bDayNeeded$ = -8
-_pchTrailer$7743 = -88
-_lpInternational$7744 = -92
-_lpInternational$7750 = -96
-_bLongFormat$7760 = -100
-_bLongFormat$7799 = -104
-_pch$7835 = -108
-_szG$7853 = -120
-_l$7858 = -124
+_pchTrailer$7745 = -88
+_lpInternational$7746 = -92
+_lpInternational$7752 = -96
+_bLongFormat$7762 = -100
+_bLongFormat$7801 = -104
+_pch$7837 = -108
+_szG$7855 = -120
+_l$7860 = -124
 _UfEditFormatDateTime@8 PROC NEAR
 
 ; 865  : {
@@ -3074,36 +3074,36 @@ _UfEditFormatDateTime@8 PROC NEAR
 ; 880  :    if ( pchDTString == 0 || pchDTString[ 0 ] == 0 )
 
 	cmp	DWORD PTR _pchDTString$[ebp], 0
-	je	SHORT $L7726
+	je	SHORT $L7728
 	mov	ecx, DWORD PTR _pchDTString$[ebp]
 	movsx	edx, BYTE PTR [ecx]
 	test	edx, edx
-	jne	SHORT $L7725
-$L7726:
+	jne	SHORT $L7727
+$L7728:
 
 ; 881  :       return( 0 );
 
 	xor	ax, ax
-	jmp	$L7711
-$L7725:
+	jmp	$L7713
+$L7727:
 
 ; 882  : 
 ; 883  :    // If null edit string, error?
 ; 884  :    if ( cpcEditString == 0 || cpcEditString[ 0 ] == 0 )
 
 	cmp	DWORD PTR _cpcEditString$[ebp], 0
-	je	SHORT $L7728
+	je	SHORT $L7730
 	mov	eax, DWORD PTR _cpcEditString$[ebp]
 	movsx	ecx, BYTE PTR [eax]
 	test	ecx, ecx
-	jne	SHORT $L7727
-$L7728:
+	jne	SHORT $L7729
+$L7730:
 
 ; 885  :       return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	$L7711
-$L7727:
+	jmp	$L7713
+$L7729:
 
 ; 886  : 
 ; 887  :    // init scan pointers
@@ -3125,7 +3125,7 @@ $L7727:
 
 	movsx	ecx, WORD PTR _k$[ebp]
 	mov	BYTE PTR _szDT$[ebp+ecx], 0
-$L7730:
+$L7732:
 
 ; 891  : 
 ; 892  :    while ( *cpcEditString )
@@ -3133,13 +3133,13 @@ $L7730:
 	mov	edx, DWORD PTR _cpcEditString$[ebp]
 	movsx	eax, BYTE PTR [edx]
 	test	eax, eax
-	je	$L7731
+	je	$L7733
 
 ; 894  :       if ( chDelimiter )
 
 	movsx	ecx, BYTE PTR _chDelimiter$[ebp]
 	test	ecx, ecx
-	je	SHORT $L7732
+	je	SHORT $L7734
 
 ; 896  :          if ( *cpcEditString == chDelimiter )
 
@@ -3147,7 +3147,7 @@ $L7730:
 	movsx	eax, BYTE PTR [edx]
 	movsx	ecx, BYTE PTR _chDelimiter$[ebp]
 	cmp	eax, ecx
-	jne	SHORT $L7733
+	jne	SHORT $L7735
 
 ; 898  :             chDelimiter = 0;
 
@@ -3161,8 +3161,8 @@ $L7730:
 
 ; 901  :          else
 
-	jmp	SHORT $L7735
-$L7733:
+	jmp	SHORT $L7737
+$L7735:
 
 ; 903  :             if ( *cpcEditString++ != *pchDTString++ )
 
@@ -3177,7 +3177,7 @@ $L7733:
 	add	edx, 1
 	mov	DWORD PTR _cpcEditString$[ebp], edx
 	cmp	ecx, eax
-	je	SHORT $L7735
+	je	SHORT $L7737
 
 ; 905  :                // error
 ; 906  :                bError = TRUE;
@@ -3186,13 +3186,13 @@ $L7733:
 
 ; 907  :                break;
 
-	jmp	$L7731
-$L7735:
+	jmp	$L7733
+$L7737:
 
 ; 911  :       else
 
-	jmp	$L7738
-$L7732:
+	jmp	$L7740
+$L7734:
 
 ; 912  :       switch ( *cpcEditString )
 ; 913  :       {
@@ -3204,12 +3204,12 @@ $L7732:
 	sub	edx, 32					; 00000020H
 	mov	DWORD PTR -128+[ebp], edx
 	cmp	DWORD PTR -128+[ebp], 77		; 0000004dH
-	ja	$L7849
+	ja	$L7851
 	mov	ecx, DWORD PTR -128+[ebp]
 	xor	eax, eax
-	mov	al, BYTE PTR $L9251[ecx]
-	jmp	DWORD PTR $L9252[eax*4]
-$L7741:
+	mov	al, BYTE PTR $L9255[ecx]
+	jmp	DWORD PTR $L9256[eax*4]
+$L7743:
 
 ; 914  :          case 'A':
 ; 915  :          case 'P':
@@ -3218,7 +3218,7 @@ $L7741:
 	mov	edx, DWORD PTR _cpcEditString$[ebp]
 	movsx	eax, BYTE PTR [edx+1]
 	cmp	eax, 77					; 0000004dH
-	jne	$L7742
+	jne	$L7744
 
 ; 918  :                zPCHAR          pchTrailer;
 ; 919  :                LPINTERNATIONAL lpInternational =
@@ -3228,7 +3228,7 @@ $L7741:
 	mov	edx, DWORD PTR [ecx+2515]
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpInternational$7744[ebp], eax
+	mov	DWORD PTR _lpInternational$7746[ebp], eax
 
 ; 921  : 
 ; 922  :                bTwelveHourClock = TRUE;
@@ -3237,31 +3237,31 @@ $L7741:
 
 ; 923  :                if ( lpInternational->sz1159[ 0 ] == 0 )
 
-	mov	eax, DWORD PTR _lpInternational$7744[ebp]
+	mov	eax, DWORD PTR _lpInternational$7746[ebp]
 	movsx	ecx, BYTE PTR [eax+86]
 	test	ecx, ecx
-	jne	SHORT $L7746
+	jne	SHORT $L7748
 
 ; 924  :                   pchTrailer = "AM";
 
-	mov	DWORD PTR _pchTrailer$7743[ebp], OFFSET FLAT:??_C@_02ENLM@AM?$AA@ ; `string'
+	mov	DWORD PTR _pchTrailer$7745[ebp], OFFSET FLAT:??_C@_02ENLM@AM?$AA@ ; `string'
 
 ; 925  :                else
 
-	jmp	SHORT $L7747
-$L7746:
+	jmp	SHORT $L7749
+$L7748:
 
 ; 926  :                   pchTrailer = lpInternational->sz1159;
 
-	mov	edx, DWORD PTR _lpInternational$7744[ebp]
+	mov	edx, DWORD PTR _lpInternational$7746[ebp]
 	add	edx, 86					; 00000056H
-	mov	DWORD PTR _pchTrailer$7743[ebp], edx
-$L7747:
+	mov	DWORD PTR _pchTrailer$7745[ebp], edx
+$L7749:
 
 ; 927  : 
 ; 928  :                n = zstrlen( pchTrailer );
 
-	mov	eax, DWORD PTR _pchTrailer$7743[ebp]
+	mov	eax, DWORD PTR _pchTrailer$7745[ebp]
 	push	eax
 	call	_strlen
 	add	esp, 4
@@ -3273,14 +3273,14 @@ $L7747:
 
 	movsx	ecx, WORD PTR _n$[ebp]
 	push	ecx
-	mov	edx, DWORD PTR _pchTrailer$7743[ebp]
+	mov	edx, DWORD PTR _pchTrailer$7745[ebp]
 	push	edx
 	mov	eax, DWORD PTR _pchDTString$[ebp]
 	push	eax
 	call	DWORD PTR __imp__strncmp
 	add	esp, 12					; 0000000cH
 	test	eax, eax
-	jne	SHORT $L7748
+	jne	SHORT $L7750
 
 ; 933  :                   pchDTString += n;
 
@@ -3297,8 +3297,8 @@ $L7747:
 
 ; 936  :                else
 
-	jmp	SHORT $L7755
-$L7748:
+	jmp	SHORT $L7757
+$L7750:
 
 ; 938  :                   LPINTERNATIONAL lpInternational =
 ; 939  :                                     zGETPTR( AnchorBlock->hInternational );
@@ -3307,36 +3307,36 @@ $L7748:
 	mov	edx, DWORD PTR [ecx+2515]
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpInternational$7750[ebp], eax
+	mov	DWORD PTR _lpInternational$7752[ebp], eax
 
 ; 940  : 
 ; 941  :                   if ( lpInternational->sz2359[ 0 ] == 0 )
 
-	mov	eax, DWORD PTR _lpInternational$7750[ebp]
+	mov	eax, DWORD PTR _lpInternational$7752[ebp]
 	movsx	ecx, BYTE PTR [eax+91]
 	test	ecx, ecx
-	jne	SHORT $L7752
+	jne	SHORT $L7754
 
 ; 942  :                      pchTrailer = "PM";
 
-	mov	DWORD PTR _pchTrailer$7743[ebp], OFFSET FLAT:??_C@_02DBLP@PM?$AA@ ; `string'
+	mov	DWORD PTR _pchTrailer$7745[ebp], OFFSET FLAT:??_C@_02DBLP@PM?$AA@ ; `string'
 
 ; 943  :                   else
 
-	jmp	SHORT $L7753
-$L7752:
+	jmp	SHORT $L7755
+$L7754:
 
 ; 944  :                      pchTrailer = lpInternational->sz2359;
 
-	mov	edx, DWORD PTR _lpInternational$7750[ebp]
+	mov	edx, DWORD PTR _lpInternational$7752[ebp]
 	add	edx, 91					; 0000005bH
-	mov	DWORD PTR _pchTrailer$7743[ebp], edx
-$L7753:
+	mov	DWORD PTR _pchTrailer$7745[ebp], edx
+$L7755:
 
 ; 945  : 
 ; 946  :                   n = zstrlen( pchTrailer );
 
-	mov	eax, DWORD PTR _pchTrailer$7743[ebp]
+	mov	eax, DWORD PTR _pchTrailer$7745[ebp]
 	push	eax
 	call	_strlen
 	add	esp, 4
@@ -3347,14 +3347,14 @@ $L7753:
 
 	movsx	ecx, WORD PTR _n$[ebp]
 	push	ecx
-	mov	edx, DWORD PTR _pchTrailer$7743[ebp]
+	mov	edx, DWORD PTR _pchTrailer$7745[ebp]
 	push	edx
 	mov	eax, DWORD PTR _pchDTString$[ebp]
 	push	eax
 	call	DWORD PTR __imp__strncmp
 	add	esp, 12					; 0000000cH
 	test	eax, eax
-	jne	SHORT $L7754
+	jne	SHORT $L7756
 
 ; 950  :                      bAdjustTime = TRUE;
 
@@ -3375,30 +3375,30 @@ $L7753:
 
 ; 954  :                   else
 
-	jmp	SHORT $L7755
-$L7754:
+	jmp	SHORT $L7757
+$L7756:
 
 ; 956  :                      // error
 ; 957  :                      bError = TRUE;
 
 	mov	BYTE PTR _bError$[ebp], 1
-$L7755:
+$L7757:
 
 ; 961  :             else
 
-	jmp	SHORT $L7756
-$L7742:
+	jmp	SHORT $L7758
+$L7744:
 
 ; 962  :                bError = TRUE;
 
 	mov	BYTE PTR _bError$[ebp], 1
-$L7756:
+$L7758:
 
 ; 963  : 
 ; 964  :             break;
 
-	jmp	$L7738
-$L7757:
+	jmp	$L7740
+$L7759:
 
 ; 965  : 
 ; 966  :          case 'd':
@@ -3413,11 +3413,11 @@ $L7757:
 	call	DWORD PTR __imp___strnicmp
 	add	esp, 12					; 0000000cH
 	test	eax, eax
-	jne	$L7759
+	jne	$L7761
 
 ; 970  :                zBOOL bLongFormat = 0;
 
-	mov	BYTE PTR _bLongFormat$7760[ebp], 0
+	mov	BYTE PTR _bLongFormat$7762[ebp], 0
 
 ; 971  : 
 ; 972  :                if ( ztoupper( *(cpcEditString + 3) ) == 'D' )
@@ -3428,12 +3428,12 @@ $L7757:
 	call	DWORD PTR __imp__toupper
 	add	esp, 4
 	cmp	eax, 68					; 00000044H
-	jne	SHORT $L7761
+	jne	SHORT $L7763
 
 ; 973  :                   bLongFormat = TRUE;
 
-	mov	BYTE PTR _bLongFormat$7760[ebp], 1
-$L7761:
+	mov	BYTE PTR _bLongFormat$7762[ebp], 1
+$L7763:
 
 ; 974  : 
 ; 975  :                bDayNeeded = TRUE;
@@ -3445,15 +3445,15 @@ $L7761:
 ; 978  :                for ( k = 0; k < 7; k++ )
 
 	mov	WORD PTR _k$[ebp], 0
-	jmp	SHORT $L7762
-$L7763:
+	jmp	SHORT $L7764
+$L7765:
 	mov	cx, WORD PTR _k$[ebp]
 	add	cx, 1
 	mov	WORD PTR _k$[ebp], cx
-$L7762:
+$L7764:
 	movsx	edx, WORD PTR _k$[ebp]
 	cmp	edx, 7
-	jge	$L7764
+	jge	$L7766
 
 ; 980  :                   if ( ztoupper( *pchDTString ) == *g_pchDOW[ k ] )
 
@@ -3466,24 +3466,24 @@ $L7762:
 	mov	ecx, DWORD PTR _g_pchDOW[edx*4]
 	movsx	edx, BYTE PTR [ecx]
 	cmp	eax, edx
-	jne	$L7766
+	jne	$L7768
 
 ; 982  :                      n = bLongFormat ? zstrlen( g_pchDOW[ k ] ) : 3;
 
-	mov	eax, DWORD PTR _bLongFormat$7760[ebp]
+	mov	eax, DWORD PTR _bLongFormat$7762[ebp]
 	and	eax, 255				; 000000ffH
 	test	eax, eax
-	je	SHORT $L9203
+	je	SHORT $L9207
 	movsx	ecx, WORD PTR _k$[ebp]
 	mov	edx, DWORD PTR _g_pchDOW[ecx*4]
 	push	edx
 	call	_strlen
 	add	esp, 4
 	mov	DWORD PTR -132+[ebp], eax
-	jmp	SHORT $L9204
-$L9203:
+	jmp	SHORT $L9208
+$L9207:
 	mov	DWORD PTR -132+[ebp], 3
-$L9204:
+$L9208:
 	mov	ax, WORD PTR -132+[ebp]
 	mov	WORD PTR _n$[ebp], ax
 
@@ -3499,7 +3499,7 @@ $L9204:
 	call	DWORD PTR __imp___strnicmp
 	add	esp, 12					; 0000000cH
 	test	eax, eax
-	jne	SHORT $L7766
+	jne	SHORT $L7768
 
 ; 985  :                         pchDTString += n; // bump past the day of the week
 
@@ -3510,7 +3510,7 @@ $L9204:
 
 ; 986  :                         cpcEditString += ( 3 + bLongFormat );
 
-	mov	ecx, DWORD PTR _bLongFormat$7760[ebp]
+	mov	ecx, DWORD PTR _bLongFormat$7762[ebp]
 	and	ecx, 255				; 000000ffH
 	mov	edx, DWORD PTR _cpcEditString$[ebp]
 	lea	eax, DWORD PTR [edx+ecx+3]
@@ -3518,30 +3518,30 @@ $L9204:
 
 ; 987  :                         break;
 
-	jmp	SHORT $L7764
-$L7766:
+	jmp	SHORT $L7766
+$L7768:
 
 ; 990  :                }
 
-	jmp	$L7763
-$L7764:
+	jmp	$L7765
+$L7766:
 
 ; 991  :                if ( k == 7 )
 
 	movsx	ecx, WORD PTR _k$[ebp]
 	cmp	ecx, 7
-	jne	SHORT $L7767
+	jne	SHORT $L7769
 
 ; 993  :                   // error
 ; 994  :                   bError = TRUE;
 
 	mov	BYTE PTR _bError$[ebp], 1
-$L7767:
+$L7769:
 
 ; 997  :             else
 
-	jmp	$L7776
-$L7759:
+	jmp	$L7778
+$L7761:
 
 ; 998  :             if ( ztoupper( *(cpcEditString + 1) ) == 'D' )
 
@@ -3551,7 +3551,7 @@ $L7759:
 	call	DWORD PTR __imp__toupper
 	add	esp, 4
 	cmp	eax, 68					; 00000044H
-	jne	$L7769
+	jne	$L7771
 
 ; 1000 :                // two digit day of month
 ; 1001 :                bDayNeeded = TRUE;
@@ -3562,7 +3562,7 @@ $L7759:
 
 	mov	ecx, DWORD PTR __imp____mb_cur_max
 	cmp	DWORD PTR [ecx], 1
-	jle	SHORT $L9205
+	jle	SHORT $L9209
 	push	4
 	mov	edx, DWORD PTR _pchDTString$[ebp]
 	movsx	eax, BYTE PTR [edx]
@@ -3570,8 +3570,8 @@ $L7759:
 	call	DWORD PTR __imp___isctype
 	add	esp, 8
 	mov	DWORD PTR -136+[ebp], eax
-	jmp	SHORT $L9206
-$L9205:
+	jmp	SHORT $L9210
+$L9209:
 	mov	ecx, DWORD PTR _pchDTString$[ebp]
 	movsx	edx, BYTE PTR [ecx]
 	mov	eax, DWORD PTR __imp___pctype
@@ -3580,12 +3580,12 @@ $L9205:
 	mov	ax, WORD PTR [ecx+edx*2]
 	and	eax, 4
 	mov	DWORD PTR -136+[ebp], eax
-$L9206:
+$L9210:
 	cmp	DWORD PTR -136+[ebp], 0
-	je	SHORT $L7770
+	je	SHORT $L7772
 	mov	ecx, DWORD PTR __imp____mb_cur_max
 	cmp	DWORD PTR [ecx], 1
-	jle	SHORT $L9207
+	jle	SHORT $L9211
 	push	4
 	mov	edx, DWORD PTR _pchDTString$[ebp]
 	movsx	eax, BYTE PTR [edx+1]
@@ -3593,8 +3593,8 @@ $L9206:
 	call	DWORD PTR __imp___isctype
 	add	esp, 8
 	mov	DWORD PTR -140+[ebp], eax
-	jmp	SHORT $L9208
-$L9207:
+	jmp	SHORT $L9212
+$L9211:
 	mov	ecx, DWORD PTR _pchDTString$[ebp]
 	movsx	edx, BYTE PTR [ecx+1]
 	mov	eax, DWORD PTR __imp___pctype
@@ -3603,9 +3603,9 @@ $L9207:
 	mov	ax, WORD PTR [ecx+edx*2]
 	and	eax, 4
 	mov	DWORD PTR -140+[ebp], eax
-$L9208:
+$L9212:
 	cmp	DWORD PTR -140+[ebp], 0
-	je	SHORT $L7770
+	je	SHORT $L7772
 
 ; 1004 :                   *(szDT + 6) = *pchDTString++;
 
@@ -3633,19 +3633,19 @@ $L9208:
 
 ; 1008 :                else
 
-	jmp	SHORT $L7771
-$L7770:
+	jmp	SHORT $L7773
+$L7772:
 
 ; 1010 :                   // error
 ; 1011 :                   bError = TRUE;
 
 	mov	BYTE PTR _bError$[ebp], 1
-$L7771:
+$L7773:
 
 ; 1014 :             else
 
-	jmp	$L7776
-$L7769:
+	jmp	$L7778
+$L7771:
 
 ; 1016 :                // must be day of month with no leading zero
 ; 1017 :                bDayNeeded = TRUE;
@@ -3656,7 +3656,7 @@ $L7769:
 
 	mov	edx, DWORD PTR __imp____mb_cur_max
 	cmp	DWORD PTR [edx], 1
-	jle	SHORT $L9209
+	jle	SHORT $L9213
 	push	4
 	mov	eax, DWORD PTR _pchDTString$[ebp]
 	movsx	ecx, BYTE PTR [eax]
@@ -3664,8 +3664,8 @@ $L7769:
 	call	DWORD PTR __imp___isctype
 	add	esp, 8
 	mov	DWORD PTR -144+[ebp], eax
-	jmp	SHORT $L9210
-$L9209:
+	jmp	SHORT $L9214
+$L9213:
 	mov	edx, DWORD PTR _pchDTString$[ebp]
 	movsx	eax, BYTE PTR [edx]
 	mov	ecx, DWORD PTR __imp___pctype
@@ -3674,15 +3674,15 @@ $L9209:
 	mov	cx, WORD PTR [edx+eax*2]
 	and	ecx, 4
 	mov	DWORD PTR -144+[ebp], ecx
-$L9210:
+$L9214:
 	cmp	DWORD PTR -144+[ebp], 0
-	je	$L7773
+	je	$L7775
 
 ; 1020 :                   if ( isdigit( *(pchDTString + 1) ) )
 
 	mov	edx, DWORD PTR __imp____mb_cur_max
 	cmp	DWORD PTR [edx], 1
-	jle	SHORT $L9211
+	jle	SHORT $L9215
 	push	4
 	mov	eax, DWORD PTR _pchDTString$[ebp]
 	movsx	ecx, BYTE PTR [eax+1]
@@ -3690,8 +3690,8 @@ $L9210:
 	call	DWORD PTR __imp___isctype
 	add	esp, 8
 	mov	DWORD PTR -148+[ebp], eax
-	jmp	SHORT $L9212
-$L9211:
+	jmp	SHORT $L9216
+$L9215:
 	mov	edx, DWORD PTR _pchDTString$[ebp]
 	movsx	eax, BYTE PTR [edx+1]
 	mov	ecx, DWORD PTR __imp___pctype
@@ -3700,9 +3700,9 @@ $L9211:
 	mov	cx, WORD PTR [edx+eax*2]
 	and	ecx, 4
 	mov	DWORD PTR -148+[ebp], ecx
-$L9212:
+$L9216:
 	cmp	DWORD PTR -148+[ebp], 0
-	je	SHORT $L7774
+	je	SHORT $L7776
 
 ; 1022 :                      *(szDT + 6) = *pchDTString++;
 
@@ -3724,8 +3724,8 @@ $L9212:
 
 ; 1025 :                   else
 
-	jmp	SHORT $L7775
-$L7774:
+	jmp	SHORT $L7777
+$L7776:
 
 ; 1027 :                      *(szDT + 6) = '0';
 
@@ -3739,7 +3739,7 @@ $L7774:
 	mov	ecx, DWORD PTR _pchDTString$[ebp]
 	add	ecx, 1
 	mov	DWORD PTR _pchDTString$[ebp], ecx
-$L7775:
+$L7777:
 
 ; 1030 :                   cpcEditString++;
 
@@ -3749,20 +3749,20 @@ $L7775:
 
 ; 1032 :                else
 
-	jmp	SHORT $L7776
-$L7773:
+	jmp	SHORT $L7778
+$L7775:
 
 ; 1034 :                   // error
 ; 1035 :                   bError = TRUE;
 
 	mov	BYTE PTR _bError$[ebp], 1
-$L7776:
+$L7778:
 
 ; 1038 : 
 ; 1039 :             break;
 
-	jmp	$L7738
-$L7777:
+	jmp	$L7740
+$L7779:
 
 ; 1040 : 
 ; 1041 :          case 'H':
@@ -3771,14 +3771,14 @@ $L7777:
 	mov	eax, DWORD PTR _cpcEditString$[ebp]
 	movsx	ecx, BYTE PTR [eax+1]
 	cmp	ecx, 72					; 00000048H
-	jne	$L7778
+	jne	$L7780
 
 ; 1044 :                // Hour with leading zero
 ; 1045 :                if ( isdigit( *pchDTString ) && isdigit( *(pchDTString + 1) ) )
 
 	mov	edx, DWORD PTR __imp____mb_cur_max
 	cmp	DWORD PTR [edx], 1
-	jle	SHORT $L9213
+	jle	SHORT $L9217
 	push	4
 	mov	eax, DWORD PTR _pchDTString$[ebp]
 	movsx	ecx, BYTE PTR [eax]
@@ -3786,8 +3786,8 @@ $L7777:
 	call	DWORD PTR __imp___isctype
 	add	esp, 8
 	mov	DWORD PTR -152+[ebp], eax
-	jmp	SHORT $L9214
-$L9213:
+	jmp	SHORT $L9218
+$L9217:
 	mov	edx, DWORD PTR _pchDTString$[ebp]
 	movsx	eax, BYTE PTR [edx]
 	mov	ecx, DWORD PTR __imp___pctype
@@ -3796,12 +3796,12 @@ $L9213:
 	mov	cx, WORD PTR [edx+eax*2]
 	and	ecx, 4
 	mov	DWORD PTR -152+[ebp], ecx
-$L9214:
+$L9218:
 	cmp	DWORD PTR -152+[ebp], 0
-	je	SHORT $L7779
+	je	SHORT $L7781
 	mov	edx, DWORD PTR __imp____mb_cur_max
 	cmp	DWORD PTR [edx], 1
-	jle	SHORT $L9215
+	jle	SHORT $L9219
 	push	4
 	mov	eax, DWORD PTR _pchDTString$[ebp]
 	movsx	ecx, BYTE PTR [eax+1]
@@ -3809,8 +3809,8 @@ $L9214:
 	call	DWORD PTR __imp___isctype
 	add	esp, 8
 	mov	DWORD PTR -156+[ebp], eax
-	jmp	SHORT $L9216
-$L9215:
+	jmp	SHORT $L9220
+$L9219:
 	mov	edx, DWORD PTR _pchDTString$[ebp]
 	movsx	eax, BYTE PTR [edx+1]
 	mov	ecx, DWORD PTR __imp___pctype
@@ -3819,9 +3819,9 @@ $L9215:
 	mov	cx, WORD PTR [edx+eax*2]
 	and	ecx, 4
 	mov	DWORD PTR -156+[ebp], ecx
-$L9216:
+$L9220:
 	cmp	DWORD PTR -156+[ebp], 0
-	je	SHORT $L7779
+	je	SHORT $L7781
 
 ; 1047 :                   *(szDT + 8) = *pchDTString++;
 
@@ -3849,26 +3849,26 @@ $L9216:
 
 ; 1051 :                else
 
-	jmp	SHORT $L7780
-$L7779:
+	jmp	SHORT $L7782
+$L7781:
 
 ; 1053 :                   // error
 ; 1054 :                   bError = TRUE;
 
 	mov	BYTE PTR _bError$[ebp], 1
-$L7780:
+$L7782:
 
 ; 1057 :             else
 
-	jmp	$L7785
-$L7778:
+	jmp	$L7787
+$L7780:
 
 ; 1059 :                // Hour without leading zero
 ; 1060 :                if ( isdigit( *pchDTString ) )
 
 	mov	eax, DWORD PTR __imp____mb_cur_max
 	cmp	DWORD PTR [eax], 1
-	jle	SHORT $L9217
+	jle	SHORT $L9221
 	push	4
 	mov	ecx, DWORD PTR _pchDTString$[ebp]
 	movsx	edx, BYTE PTR [ecx]
@@ -3876,8 +3876,8 @@ $L7778:
 	call	DWORD PTR __imp___isctype
 	add	esp, 8
 	mov	DWORD PTR -160+[ebp], eax
-	jmp	SHORT $L9218
-$L9217:
+	jmp	SHORT $L9222
+$L9221:
 	mov	eax, DWORD PTR _pchDTString$[ebp]
 	movsx	ecx, BYTE PTR [eax]
 	mov	edx, DWORD PTR __imp___pctype
@@ -3886,15 +3886,15 @@ $L9217:
 	mov	dx, WORD PTR [eax+ecx*2]
 	and	edx, 4
 	mov	DWORD PTR -160+[ebp], edx
-$L9218:
+$L9222:
 	cmp	DWORD PTR -160+[ebp], 0
-	je	$L7782
+	je	$L7784
 
 ; 1062 :                   if ( isdigit( *(pchDTString + 1) ) )
 
 	mov	eax, DWORD PTR __imp____mb_cur_max
 	cmp	DWORD PTR [eax], 1
-	jle	SHORT $L9219
+	jle	SHORT $L9223
 	push	4
 	mov	ecx, DWORD PTR _pchDTString$[ebp]
 	movsx	edx, BYTE PTR [ecx+1]
@@ -3902,8 +3902,8 @@ $L9218:
 	call	DWORD PTR __imp___isctype
 	add	esp, 8
 	mov	DWORD PTR -164+[ebp], eax
-	jmp	SHORT $L9220
-$L9219:
+	jmp	SHORT $L9224
+$L9223:
 	mov	eax, DWORD PTR _pchDTString$[ebp]
 	movsx	ecx, BYTE PTR [eax+1]
 	mov	edx, DWORD PTR __imp___pctype
@@ -3912,9 +3912,9 @@ $L9219:
 	mov	dx, WORD PTR [eax+ecx*2]
 	and	edx, 4
 	mov	DWORD PTR -164+[ebp], edx
-$L9220:
+$L9224:
 	cmp	DWORD PTR -164+[ebp], 0
-	je	SHORT $L7783
+	je	SHORT $L7785
 
 ; 1064 :                      *(szDT + 8) = *pchDTString++;
 
@@ -3936,8 +3936,8 @@ $L9220:
 
 ; 1067 :                   else
 
-	jmp	SHORT $L7784
-$L7783:
+	jmp	SHORT $L7786
+$L7785:
 
 ; 1069 :                      *(szDT + 8) = '0';
 
@@ -3951,7 +3951,7 @@ $L7783:
 	mov	edx, DWORD PTR _pchDTString$[ebp]
 	add	edx, 1
 	mov	DWORD PTR _pchDTString$[ebp], edx
-$L7784:
+$L7786:
 
 ; 1072 :                   cpcEditString++;
 
@@ -3961,20 +3961,20 @@ $L7784:
 
 ; 1074 :                else
 
-	jmp	SHORT $L7785
-$L7782:
+	jmp	SHORT $L7787
+$L7784:
 
 ; 1076 :                   // error
 ; 1077 :                   bError = TRUE;
 
 	mov	BYTE PTR _bError$[ebp], 1
-$L7785:
+$L7787:
 
 ; 1080 : 
 ; 1081 :             break;
 
-	jmp	$L7738
-$L7786:
+	jmp	$L7740
+$L7788:
 
 ; 1082 : 
 ; 1083 :          case 'j':
@@ -3988,7 +3988,7 @@ $L7786:
 	call	DWORD PTR __imp__strncmp
 	add	esp, 12					; 0000000cH
 	test	eax, eax
-	jne	$L7788
+	jne	$L7790
 
 ; 1086 :                if ( isdigit( *pchDTString ) &&
 ; 1087 :                     isdigit( *(pchDTString + 1) ) &&
@@ -3996,7 +3996,7 @@ $L7786:
 
 	mov	edx, DWORD PTR __imp____mb_cur_max
 	cmp	DWORD PTR [edx], 1
-	jle	SHORT $L9221
+	jle	SHORT $L9225
 	push	4
 	mov	eax, DWORD PTR _pchDTString$[ebp]
 	movsx	ecx, BYTE PTR [eax]
@@ -4004,8 +4004,8 @@ $L7786:
 	call	DWORD PTR __imp___isctype
 	add	esp, 8
 	mov	DWORD PTR -168+[ebp], eax
-	jmp	SHORT $L9222
-$L9221:
+	jmp	SHORT $L9226
+$L9225:
 	mov	edx, DWORD PTR _pchDTString$[ebp]
 	movsx	eax, BYTE PTR [edx]
 	mov	ecx, DWORD PTR __imp___pctype
@@ -4014,12 +4014,12 @@ $L9221:
 	mov	cx, WORD PTR [edx+eax*2]
 	and	ecx, 4
 	mov	DWORD PTR -168+[ebp], ecx
-$L9222:
+$L9226:
 	cmp	DWORD PTR -168+[ebp], 0
-	je	$L7789
+	je	$L7791
 	mov	edx, DWORD PTR __imp____mb_cur_max
 	cmp	DWORD PTR [edx], 1
-	jle	SHORT $L9223
+	jle	SHORT $L9227
 	push	4
 	mov	eax, DWORD PTR _pchDTString$[ebp]
 	movsx	ecx, BYTE PTR [eax+1]
@@ -4027,8 +4027,8 @@ $L9222:
 	call	DWORD PTR __imp___isctype
 	add	esp, 8
 	mov	DWORD PTR -172+[ebp], eax
-	jmp	SHORT $L9224
-$L9223:
+	jmp	SHORT $L9228
+$L9227:
 	mov	edx, DWORD PTR _pchDTString$[ebp]
 	movsx	eax, BYTE PTR [edx+1]
 	mov	ecx, DWORD PTR __imp___pctype
@@ -4037,12 +4037,12 @@ $L9223:
 	mov	cx, WORD PTR [edx+eax*2]
 	and	ecx, 4
 	mov	DWORD PTR -172+[ebp], ecx
-$L9224:
+$L9228:
 	cmp	DWORD PTR -172+[ebp], 0
-	je	$L7789
+	je	$L7791
 	mov	edx, DWORD PTR __imp____mb_cur_max
 	cmp	DWORD PTR [edx], 1
-	jle	SHORT $L9225
+	jle	SHORT $L9229
 	push	4
 	mov	eax, DWORD PTR _pchDTString$[ebp]
 	movsx	ecx, BYTE PTR [eax+2]
@@ -4050,8 +4050,8 @@ $L9224:
 	call	DWORD PTR __imp___isctype
 	add	esp, 8
 	mov	DWORD PTR -176+[ebp], eax
-	jmp	SHORT $L9226
-$L9225:
+	jmp	SHORT $L9230
+$L9229:
 	mov	edx, DWORD PTR _pchDTString$[ebp]
 	movsx	eax, BYTE PTR [edx+2]
 	mov	ecx, DWORD PTR __imp___pctype
@@ -4060,9 +4060,9 @@ $L9225:
 	mov	cx, WORD PTR [edx+eax*2]
 	and	ecx, 4
 	mov	DWORD PTR -176+[ebp], ecx
-$L9226:
+$L9230:
 	cmp	DWORD PTR -176+[ebp], 0
-	je	SHORT $L7789
+	je	SHORT $L7791
 
 ; 1090 :                   zstrncpy( szJulian, pchDTString, 3 );
 
@@ -4100,29 +4100,29 @@ $L9226:
 
 ; 1097 :                else
 
-	jmp	SHORT $L7790
-$L7789:
+	jmp	SHORT $L7792
+$L7791:
 
 ; 1098 :                   bError = TRUE;
 
 	mov	BYTE PTR _bError$[ebp], 1
-$L7790:
+$L7792:
 
 ; 1100 :             else
 
-	jmp	SHORT $L7791
-$L7788:
+	jmp	SHORT $L7793
+$L7790:
 
 ; 1101 :                bError = TRUE;
 
 	mov	BYTE PTR _bError$[ebp], 1
-$L7791:
+$L7793:
 
 ; 1102 : 
 ; 1103 :             break;
 
-	jmp	$L7738
-$L7792:
+	jmp	$L7740
+$L7794:
 
 ; 1104 : 
 ; 1105 :          case 'M':
@@ -4131,14 +4131,14 @@ $L7792:
 	mov	eax, DWORD PTR _cpcEditString$[ebp]
 	movsx	ecx, BYTE PTR [eax+1]
 	cmp	ecx, 73					; 00000049H
-	jne	$L7795
+	jne	$L7797
 
 ; 1108 :                // Minutes field
 ; 1109 :                if ( isdigit( *pchDTString ) && isdigit( *(pchDTString + 1) ) )
 
 	mov	edx, DWORD PTR __imp____mb_cur_max
 	cmp	DWORD PTR [edx], 1
-	jle	SHORT $L9227
+	jle	SHORT $L9231
 	push	4
 	mov	eax, DWORD PTR _pchDTString$[ebp]
 	movsx	ecx, BYTE PTR [eax]
@@ -4146,8 +4146,8 @@ $L7792:
 	call	DWORD PTR __imp___isctype
 	add	esp, 8
 	mov	DWORD PTR -180+[ebp], eax
-	jmp	SHORT $L9228
-$L9227:
+	jmp	SHORT $L9232
+$L9231:
 	mov	edx, DWORD PTR _pchDTString$[ebp]
 	movsx	eax, BYTE PTR [edx]
 	mov	ecx, DWORD PTR __imp___pctype
@@ -4156,12 +4156,12 @@ $L9227:
 	mov	cx, WORD PTR [edx+eax*2]
 	and	ecx, 4
 	mov	DWORD PTR -180+[ebp], ecx
-$L9228:
+$L9232:
 	cmp	DWORD PTR -180+[ebp], 0
-	je	SHORT $L7794
+	je	SHORT $L7796
 	mov	edx, DWORD PTR __imp____mb_cur_max
 	cmp	DWORD PTR [edx], 1
-	jle	SHORT $L9229
+	jle	SHORT $L9233
 	push	4
 	mov	eax, DWORD PTR _pchDTString$[ebp]
 	movsx	ecx, BYTE PTR [eax+1]
@@ -4169,8 +4169,8 @@ $L9228:
 	call	DWORD PTR __imp___isctype
 	add	esp, 8
 	mov	DWORD PTR -184+[ebp], eax
-	jmp	SHORT $L9230
-$L9229:
+	jmp	SHORT $L9234
+$L9233:
 	mov	edx, DWORD PTR _pchDTString$[ebp]
 	movsx	eax, BYTE PTR [edx+1]
 	mov	ecx, DWORD PTR __imp___pctype
@@ -4179,9 +4179,9 @@ $L9229:
 	mov	cx, WORD PTR [edx+eax*2]
 	and	ecx, 4
 	mov	DWORD PTR -184+[ebp], ecx
-$L9230:
+$L9234:
 	cmp	DWORD PTR -184+[ebp], 0
-	je	SHORT $L7794
+	je	SHORT $L7796
 
 ; 1111 :                   *(szDT + 10) = *pchDTString++;
 
@@ -4209,8 +4209,8 @@ $L9230:
 
 ; 1114 :                   break;
 
-	jmp	$L7738
-$L7794:
+	jmp	$L7740
+$L7796:
 
 ; 1118 :                   bError = TRUE;
 
@@ -4218,8 +4218,8 @@ $L7794:
 
 ; 1119 :                   break;
 
-	jmp	$L7738
-$L7795:
+	jmp	$L7740
+$L7797:
 
 ; 1122 :             // break left out intentionally!!!
 ; 1123 : 
@@ -4234,11 +4234,11 @@ $L7795:
 	call	DWORD PTR __imp___strnicmp
 	add	esp, 12					; 0000000cH
 	test	eax, eax
-	jne	$L7798
+	jne	$L7800
 
 ; 1127 :                zBOOL bLongFormat = 0;
 
-	mov	BYTE PTR _bLongFormat$7799[ebp], 0
+	mov	BYTE PTR _bLongFormat$7801[ebp], 0
 
 ; 1128 : 
 ; 1129 :                // Month of year( could be short or long )
@@ -4250,26 +4250,26 @@ $L7795:
 	call	DWORD PTR __imp__toupper
 	add	esp, 4
 	cmp	eax, 77					; 0000004dH
-	jne	SHORT $L7800
+	jne	SHORT $L7802
 
 ; 1131 :                   bLongFormat = TRUE;
 
-	mov	BYTE PTR _bLongFormat$7799[ebp], 1
-$L7800:
+	mov	BYTE PTR _bLongFormat$7801[ebp], 1
+$L7802:
 
 ; 1132 : 
 ; 1133 :                for ( k = 0; k < 12; k++ )
 
 	mov	WORD PTR _k$[ebp], 0
-	jmp	SHORT $L7801
-$L7802:
+	jmp	SHORT $L7803
+$L7804:
 	mov	ax, WORD PTR _k$[ebp]
 	add	ax, 1
 	mov	WORD PTR _k$[ebp], ax
-$L7801:
+$L7803:
 	movsx	ecx, WORD PTR _k$[ebp]
 	cmp	ecx, 12					; 0000000cH
-	jge	$L7803
+	jge	$L7805
 
 ; 1135 :                   if ( ztoupper( *pchDTString ) == *g_pchMon[ k ] )
 
@@ -4282,24 +4282,24 @@ $L7801:
 	mov	edx, DWORD PTR _g_pchMon[ecx*4]
 	movsx	ecx, BYTE PTR [edx]
 	cmp	eax, ecx
-	jne	$L7805
+	jne	$L7807
 
 ; 1137 :                      n = bLongFormat ? zstrlen( g_pchMon[ k ] ) : 3;
 
-	mov	edx, DWORD PTR _bLongFormat$7799[ebp]
+	mov	edx, DWORD PTR _bLongFormat$7801[ebp]
 	and	edx, 255				; 000000ffH
 	test	edx, edx
-	je	SHORT $L9231
+	je	SHORT $L9235
 	movsx	eax, WORD PTR _k$[ebp]
 	mov	ecx, DWORD PTR _g_pchMon[eax*4]
 	push	ecx
 	call	_strlen
 	add	esp, 4
 	mov	DWORD PTR -188+[ebp], eax
-	jmp	SHORT $L9232
-$L9231:
+	jmp	SHORT $L9236
+$L9235:
 	mov	DWORD PTR -188+[ebp], 3
-$L9232:
+$L9236:
 	mov	dx, WORD PTR -188+[ebp]
 	mov	WORD PTR _n$[ebp], dx
 
@@ -4315,7 +4315,7 @@ $L9232:
 	call	DWORD PTR __imp___strnicmp
 	add	esp, 12					; 0000000cH
 	test	eax, eax
-	jne	SHORT $L7805
+	jne	SHORT $L7807
 
 ; 1140 :                         pchDTString += n; // bump past the Month
 
@@ -4326,7 +4326,7 @@ $L9232:
 
 ; 1141 :                         cpcEditString += (3 + bLongFormat);
 
-	mov	eax, DWORD PTR _bLongFormat$7799[ebp]
+	mov	eax, DWORD PTR _bLongFormat$7801[ebp]
 	and	eax, 255				; 000000ffH
 	mov	ecx, DWORD PTR _cpcEditString$[ebp]
 	lea	edx, DWORD PTR [ecx+eax+3]
@@ -4334,19 +4334,19 @@ $L9232:
 
 ; 1142 :                         break;
 
-	jmp	SHORT $L7803
-$L7805:
+	jmp	SHORT $L7805
+$L7807:
 
 ; 1145 :                }
 
-	jmp	$L7802
-$L7803:
+	jmp	$L7804
+$L7805:
 
 ; 1146 :                if ( k == 12 )
 
 	movsx	eax, WORD PTR _k$[ebp]
 	cmp	eax, 12					; 0000000cH
-	jne	SHORT $L7806
+	jne	SHORT $L7808
 
 ; 1148 :                   // error
 ; 1149 :                   bError = TRUE;
@@ -4355,8 +4355,8 @@ $L7803:
 
 ; 1151 :                else
 
-	jmp	SHORT $L7807
-$L7806:
+	jmp	SHORT $L7809
+$L7808:
 
 ; 1153 :                   zltoa( (zLONG) k + 101L, sz );
 
@@ -4378,12 +4378,12 @@ $L7806:
 
 	mov	cl, BYTE PTR _sz$[ebp+2]
 	mov	BYTE PTR _szDT$[ebp+5], cl
-$L7807:
+$L7809:
 
 ; 1158 :             else
 
-	jmp	$L7815
-$L7798:
+	jmp	$L7817
+$L7800:
 
 ; 1159 :             if ( ztoupper( *(cpcEditString + 1) ) == 'M' )
 
@@ -4393,7 +4393,7 @@ $L7798:
 	call	DWORD PTR __imp__toupper
 	add	esp, 4
 	cmp	eax, 77					; 0000004dH
-	jne	SHORT $L7810
+	jne	SHORT $L7812
 
 ; 1161 :                // move the two digit number representing month to output
 ; 1162 :                *(szDT + 4) = *pchDTString++;
@@ -4422,8 +4422,8 @@ $L7798:
 
 ; 1166 :             else
 
-	jmp	$L7815
-$L7810:
+	jmp	$L7817
+$L7812:
 
 ; 1168 :                // move the one/two digit number representing month
 ; 1169 :                // to output
@@ -4431,7 +4431,7 @@ $L7810:
 
 	mov	edx, DWORD PTR __imp____mb_cur_max
 	cmp	DWORD PTR [edx], 1
-	jle	SHORT $L9233
+	jle	SHORT $L9237
 	push	4
 	mov	eax, DWORD PTR _pchDTString$[ebp]
 	movsx	ecx, BYTE PTR [eax]
@@ -4439,8 +4439,8 @@ $L7810:
 	call	DWORD PTR __imp___isctype
 	add	esp, 8
 	mov	DWORD PTR -192+[ebp], eax
-	jmp	SHORT $L9234
-$L9233:
+	jmp	SHORT $L9238
+$L9237:
 	mov	edx, DWORD PTR _pchDTString$[ebp]
 	movsx	eax, BYTE PTR [edx]
 	mov	ecx, DWORD PTR __imp___pctype
@@ -4449,15 +4449,15 @@ $L9233:
 	mov	cx, WORD PTR [edx+eax*2]
 	and	ecx, 4
 	mov	DWORD PTR -192+[ebp], ecx
-$L9234:
+$L9238:
 	cmp	DWORD PTR -192+[ebp], 0
-	je	$L7812
+	je	$L7814
 
 ; 1172 :                   if ( isdigit( *(pchDTString + 1) ) )
 
 	mov	edx, DWORD PTR __imp____mb_cur_max
 	cmp	DWORD PTR [edx], 1
-	jle	SHORT $L9235
+	jle	SHORT $L9239
 	push	4
 	mov	eax, DWORD PTR _pchDTString$[ebp]
 	movsx	ecx, BYTE PTR [eax+1]
@@ -4465,8 +4465,8 @@ $L9234:
 	call	DWORD PTR __imp___isctype
 	add	esp, 8
 	mov	DWORD PTR -196+[ebp], eax
-	jmp	SHORT $L9236
-$L9235:
+	jmp	SHORT $L9240
+$L9239:
 	mov	edx, DWORD PTR _pchDTString$[ebp]
 	movsx	eax, BYTE PTR [edx+1]
 	mov	ecx, DWORD PTR __imp___pctype
@@ -4475,9 +4475,9 @@ $L9235:
 	mov	cx, WORD PTR [edx+eax*2]
 	and	ecx, 4
 	mov	DWORD PTR -196+[ebp], ecx
-$L9236:
+$L9240:
 	cmp	DWORD PTR -196+[ebp], 0
-	je	SHORT $L7813
+	je	SHORT $L7815
 
 ; 1174 :                      *(szDT + 4) = *pchDTString++;
 
@@ -4499,8 +4499,8 @@ $L9236:
 
 ; 1177 :                   else
 
-	jmp	SHORT $L7814
-$L7813:
+	jmp	SHORT $L7816
+$L7815:
 
 ; 1179 :                      *(szDT + 4) = '0';
 
@@ -4514,7 +4514,7 @@ $L7813:
 	mov	ecx, DWORD PTR _pchDTString$[ebp]
 	add	ecx, 1
 	mov	DWORD PTR _pchDTString$[ebp], ecx
-$L7814:
+$L7816:
 
 ; 1182 :                   cpcEditString++;
 
@@ -4524,19 +4524,19 @@ $L7814:
 
 ; 1184 :                else
 
-	jmp	SHORT $L7815
-$L7812:
+	jmp	SHORT $L7817
+$L7814:
 
 ; 1185 :                   bError = TRUE;
 
 	mov	BYTE PTR _bError$[ebp], 1
-$L7815:
+$L7817:
 
 ; 1187 : 
 ; 1188 :             break;
 
-	jmp	$L7738
-$L7816:
+	jmp	$L7740
+$L7818:
 
 ; 1189 : 
 ; 1190 :          case 'S':
@@ -4545,13 +4545,13 @@ $L7816:
 	mov	eax, DWORD PTR _cpcEditString$[ebp]
 	movsx	ecx, BYTE PTR [eax+1]
 	cmp	ecx, 83					; 00000053H
-	jne	$L7817
+	jne	$L7819
 
 ; 1193 :                if ( isdigit( *pchDTString ) && isdigit( *(pchDTString + 1) ) )
 
 	mov	edx, DWORD PTR __imp____mb_cur_max
 	cmp	DWORD PTR [edx], 1
-	jle	SHORT $L9237
+	jle	SHORT $L9241
 	push	4
 	mov	eax, DWORD PTR _pchDTString$[ebp]
 	movsx	ecx, BYTE PTR [eax]
@@ -4559,8 +4559,8 @@ $L7816:
 	call	DWORD PTR __imp___isctype
 	add	esp, 8
 	mov	DWORD PTR -200+[ebp], eax
-	jmp	SHORT $L9238
-$L9237:
+	jmp	SHORT $L9242
+$L9241:
 	mov	edx, DWORD PTR _pchDTString$[ebp]
 	movsx	eax, BYTE PTR [edx]
 	mov	ecx, DWORD PTR __imp___pctype
@@ -4569,12 +4569,12 @@ $L9237:
 	mov	cx, WORD PTR [edx+eax*2]
 	and	ecx, 4
 	mov	DWORD PTR -200+[ebp], ecx
-$L9238:
+$L9242:
 	cmp	DWORD PTR -200+[ebp], 0
-	je	SHORT $L7818
+	je	SHORT $L7820
 	mov	edx, DWORD PTR __imp____mb_cur_max
 	cmp	DWORD PTR [edx], 1
-	jle	SHORT $L9239
+	jle	SHORT $L9243
 	push	4
 	mov	eax, DWORD PTR _pchDTString$[ebp]
 	movsx	ecx, BYTE PTR [eax+1]
@@ -4582,8 +4582,8 @@ $L9238:
 	call	DWORD PTR __imp___isctype
 	add	esp, 8
 	mov	DWORD PTR -204+[ebp], eax
-	jmp	SHORT $L9240
-$L9239:
+	jmp	SHORT $L9244
+$L9243:
 	mov	edx, DWORD PTR _pchDTString$[ebp]
 	movsx	eax, BYTE PTR [edx+1]
 	mov	ecx, DWORD PTR __imp___pctype
@@ -4592,9 +4592,9 @@ $L9239:
 	mov	cx, WORD PTR [edx+eax*2]
 	and	ecx, 4
 	mov	DWORD PTR -204+[ebp], ecx
-$L9240:
+$L9244:
 	cmp	DWORD PTR -204+[ebp], 0
-	je	SHORT $L7818
+	je	SHORT $L7820
 
 ; 1195 :                   *(szDT + 12) = *pchDTString++;
 
@@ -4622,29 +4622,29 @@ $L9240:
 
 ; 1199 :                else
 
-	jmp	SHORT $L7819
-$L7818:
+	jmp	SHORT $L7821
+$L7820:
 
 ; 1200 :                   bError = TRUE;
 
 	mov	BYTE PTR _bError$[ebp], 1
-$L7819:
+$L7821:
 
 ; 1202 :             else
 
-	jmp	SHORT $L7820
-$L7817:
+	jmp	SHORT $L7822
+$L7819:
 
 ; 1203 :                bError = TRUE;
 
 	mov	BYTE PTR _bError$[ebp], 1
-$L7820:
+$L7822:
 
 ; 1204 : 
 ; 1205 :             break;
 
-	jmp	$L7738
-$L7821:
+	jmp	$L7740
+$L7823:
 
 ; 1206 : 
 ; 1207 :          case 'Y':
@@ -4653,7 +4653,7 @@ $L7821:
 	mov	eax, DWORD PTR _cpcEditString$[ebp]
 	movsx	ecx, BYTE PTR [eax+1]
 	cmp	ecx, 89					; 00000059H
-	jne	$L7822
+	jne	$L7824
 
 ; 1210 :                if ( *(cpcEditString + 2) == 'Y' &&
 ; 1211 :                     *(cpcEditString + 3) == 'Y' )
@@ -4661,31 +4661,31 @@ $L7821:
 	mov	edx, DWORD PTR _cpcEditString$[ebp]
 	movsx	eax, BYTE PTR [edx+2]
 	cmp	eax, 89					; 00000059H
-	jne	$L7823
+	jne	$L7825
 	mov	ecx, DWORD PTR _cpcEditString$[ebp]
 	movsx	edx, BYTE PTR [ecx+3]
 	cmp	edx, 89					; 00000059H
-	jne	$L7823
+	jne	$L7825
 
 ; 1213 :                   // move the four digit year to output
 ; 1214 :                   for ( k = 0; k < 4; k++ )
 
 	mov	WORD PTR _k$[ebp], 0
-	jmp	SHORT $L7824
-$L7825:
+	jmp	SHORT $L7826
+$L7827:
 	mov	ax, WORD PTR _k$[ebp]
 	add	ax, 1
 	mov	WORD PTR _k$[ebp], ax
-$L7824:
+$L7826:
 	movsx	ecx, WORD PTR _k$[ebp]
 	cmp	ecx, 4
-	jge	SHORT $L7826
+	jge	SHORT $L7828
 
 ; 1216 :                      if ( !isdigit( *(pchDTString + k) ) )
 
 	mov	edx, DWORD PTR __imp____mb_cur_max
 	cmp	DWORD PTR [edx], 1
-	jle	SHORT $L9241
+	jle	SHORT $L9245
 	push	4
 	movsx	eax, WORD PTR _k$[ebp]
 	mov	ecx, DWORD PTR _pchDTString$[ebp]
@@ -4694,8 +4694,8 @@ $L7824:
 	call	DWORD PTR __imp___isctype
 	add	esp, 8
 	mov	DWORD PTR -208+[ebp], eax
-	jmp	SHORT $L9242
-$L9241:
+	jmp	SHORT $L9246
+$L9245:
 	movsx	eax, WORD PTR _k$[ebp]
 	mov	ecx, DWORD PTR _pchDTString$[ebp]
 	movsx	edx, BYTE PTR [ecx+eax]
@@ -4705,25 +4705,25 @@ $L9241:
 	mov	ax, WORD PTR [ecx+edx*2]
 	and	eax, 4
 	mov	DWORD PTR -208+[ebp], eax
-$L9242:
+$L9246:
 	cmp	DWORD PTR -208+[ebp], 0
-	jne	SHORT $L7827
+	jne	SHORT $L7829
 
 ; 1217 :                         break;
 
-	jmp	SHORT $L7826
-$L7827:
+	jmp	SHORT $L7828
+$L7829:
 
 ; 1218 :                   }
 
-	jmp	SHORT $L7825
-$L7826:
+	jmp	SHORT $L7827
+$L7828:
 
 ; 1219 :                   if ( k < 4 )
 
 	movsx	ecx, WORD PTR _k$[ebp]
 	cmp	ecx, 4
-	jge	SHORT $L7828
+	jge	SHORT $L7830
 
 ; 1221 :                      bError = TRUE;
 
@@ -4731,8 +4731,8 @@ $L7826:
 
 ; 1223 :                   else
 
-	jmp	SHORT $L7829
-$L7828:
+	jmp	SHORT $L7831
+$L7830:
 
 ; 1225 :                      zmemcpy( szDT, pchDTString, 4 );
 
@@ -4755,12 +4755,12 @@ $L7828:
 	mov	edx, DWORD PTR _cpcEditString$[ebp]
 	add	edx, 4
 	mov	DWORD PTR _cpcEditString$[ebp], edx
-$L7829:
+$L7831:
 
 ; 1230 :                else
 
-	jmp	$L7832
-$L7823:
+	jmp	$L7834
+$L7825:
 
 ; 1232 :                   // move the two digit year to output
 ; 1233 :                   if ( isdigit( *pchDTString ) &&
@@ -4768,7 +4768,7 @@ $L7823:
 
 	mov	eax, DWORD PTR __imp____mb_cur_max
 	cmp	DWORD PTR [eax], 1
-	jle	SHORT $L9243
+	jle	SHORT $L9247
 	push	4
 	mov	ecx, DWORD PTR _pchDTString$[ebp]
 	movsx	edx, BYTE PTR [ecx]
@@ -4776,8 +4776,8 @@ $L7823:
 	call	DWORD PTR __imp___isctype
 	add	esp, 8
 	mov	DWORD PTR -212+[ebp], eax
-	jmp	SHORT $L9244
-$L9243:
+	jmp	SHORT $L9248
+$L9247:
 	mov	eax, DWORD PTR _pchDTString$[ebp]
 	movsx	ecx, BYTE PTR [eax]
 	mov	edx, DWORD PTR __imp___pctype
@@ -4786,12 +4786,12 @@ $L9243:
 	mov	dx, WORD PTR [eax+ecx*2]
 	and	edx, 4
 	mov	DWORD PTR -212+[ebp], edx
-$L9244:
+$L9248:
 	cmp	DWORD PTR -212+[ebp], 0
-	je	$L7831
+	je	$L7833
 	mov	eax, DWORD PTR __imp____mb_cur_max
 	cmp	DWORD PTR [eax], 1
-	jle	SHORT $L9245
+	jle	SHORT $L9249
 	push	4
 	mov	ecx, DWORD PTR _pchDTString$[ebp]
 	movsx	edx, BYTE PTR [ecx+1]
@@ -4799,8 +4799,8 @@ $L9244:
 	call	DWORD PTR __imp___isctype
 	add	esp, 8
 	mov	DWORD PTR -216+[ebp], eax
-	jmp	SHORT $L9246
-$L9245:
+	jmp	SHORT $L9250
+$L9249:
 	mov	eax, DWORD PTR _pchDTString$[ebp]
 	movsx	ecx, BYTE PTR [eax+1]
 	mov	edx, DWORD PTR __imp___pctype
@@ -4809,9 +4809,9 @@ $L9245:
 	mov	dx, WORD PTR [eax+ecx*2]
 	and	edx, 4
 	mov	DWORD PTR -216+[ebp], edx
-$L9246:
+$L9250:
 	cmp	DWORD PTR -216+[ebp], 0
-	je	SHORT $L7831
+	je	SHORT $L7833
 
 ; 1236 :                      szDT[ 0 ] = '2';
 
@@ -4847,62 +4847,62 @@ $L9246:
 
 ; 1242 :                   else
 
-	jmp	SHORT $L7832
-$L7831:
+	jmp	SHORT $L7834
+$L7833:
 
 ; 1243 :                      bError = TRUE;
 
 	mov	BYTE PTR _bError$[ebp], 1
-$L7832:
+$L7834:
 
 ; 1246 :             else
 
-	jmp	SHORT $L7833
-$L7822:
+	jmp	SHORT $L7835
+$L7824:
 
 ; 1247 :                bError = TRUE;
 
 	mov	BYTE PTR _bError$[ebp], 1
-$L7833:
+$L7835:
 
 ; 1248 : 
 ; 1249 :             break;
 
-	jmp	$L7738
-$L7834:
+	jmp	$L7740
+$L7836:
 
 ; 1253 :             zPCHAR   pch;
 ; 1254 :             pch = (zPCHAR) (szDT + 14);
 
 	lea	ecx, DWORD PTR _szDT$[ebp+14]
-	mov	DWORD PTR _pch$7835[ebp], ecx
+	mov	DWORD PTR _pch$7837[ebp], ecx
 
 ; 1255 :             zmemset( pch, '0', 3 ); // init fraction
 
 	push	3
 	push	48					; 00000030H
-	mov	edx, DWORD PTR _pch$7835[ebp]
+	mov	edx, DWORD PTR _pch$7837[ebp]
 	push	edx
 	call	_memset
 	add	esp, 12					; 0000000cH
-$L7838:
+$L7840:
 
 ; 1256 :             while ( *cpcEditString == '9' && *pch )
 
 	mov	eax, DWORD PTR _cpcEditString$[ebp]
 	movsx	ecx, BYTE PTR [eax]
 	cmp	ecx, 57					; 00000039H
-	jne	$L7839
-	mov	edx, DWORD PTR _pch$7835[ebp]
+	jne	$L7841
+	mov	edx, DWORD PTR _pch$7837[ebp]
 	movsx	eax, BYTE PTR [edx]
 	test	eax, eax
-	je	SHORT $L7839
+	je	SHORT $L7841
 
 ; 1258 :                if ( isdigit( *pchDTString ) )
 
 	mov	ecx, DWORD PTR __imp____mb_cur_max
 	cmp	DWORD PTR [ecx], 1
-	jle	SHORT $L9247
+	jle	SHORT $L9251
 	push	4
 	mov	edx, DWORD PTR _pchDTString$[ebp]
 	movsx	eax, BYTE PTR [edx]
@@ -4910,8 +4910,8 @@ $L7838:
 	call	DWORD PTR __imp___isctype
 	add	esp, 8
 	mov	DWORD PTR -220+[ebp], eax
-	jmp	SHORT $L9248
-$L9247:
+	jmp	SHORT $L9252
+$L9251:
 	mov	ecx, DWORD PTR _pchDTString$[ebp]
 	movsx	edx, BYTE PTR [ecx]
 	mov	eax, DWORD PTR __imp___pctype
@@ -4920,19 +4920,19 @@ $L9247:
 	mov	ax, WORD PTR [ecx+edx*2]
 	and	eax, 4
 	mov	DWORD PTR -220+[ebp], eax
-$L9248:
+$L9252:
 	cmp	DWORD PTR -220+[ebp], 0
-	je	SHORT $L7840
+	je	SHORT $L7842
 
 ; 1260 :                   *pch++ = *pchDTString++;
 
-	mov	ecx, DWORD PTR _pch$7835[ebp]
+	mov	ecx, DWORD PTR _pch$7837[ebp]
 	mov	edx, DWORD PTR _pchDTString$[ebp]
 	mov	al, BYTE PTR [edx]
 	mov	BYTE PTR [ecx], al
-	mov	ecx, DWORD PTR _pch$7835[ebp]
+	mov	ecx, DWORD PTR _pch$7837[ebp]
 	add	ecx, 1
-	mov	DWORD PTR _pch$7835[ebp], ecx
+	mov	DWORD PTR _pch$7837[ebp], ecx
 	mov	edx, DWORD PTR _pchDTString$[ebp]
 	add	edx, 1
 	mov	DWORD PTR _pchDTString$[ebp], edx
@@ -4945,8 +4945,8 @@ $L9248:
 
 ; 1263 :                else
 
-	jmp	SHORT $L7841
-$L7840:
+	jmp	SHORT $L7843
+$L7842:
 
 ; 1265 :                   bError = TRUE;
 
@@ -4954,13 +4954,13 @@ $L7840:
 
 ; 1266 :                   break;
 
-	jmp	SHORT $L7839
-$L7841:
+	jmp	SHORT $L7841
+$L7843:
 
 ; 1268 :             }
 
-	jmp	$L7838
-$L7839:
+	jmp	$L7840
+$L7841:
 
 ; 1269 : 
 ; 1270 :             if ( bError )
@@ -4968,12 +4968,12 @@ $L7839:
 	mov	ecx, DWORD PTR _bError$[ebp]
 	and	ecx, 255				; 000000ffH
 	test	ecx, ecx
-	je	SHORT $L7842
+	je	SHORT $L7844
 
 ; 1271 :                break;
 
-	jmp	SHORT $L7738
-$L7842:
+	jmp	SHORT $L7740
+$L7844:
 
 ; 1272 : 
 ; 1273 :             while ( *cpcEditString == '9' )
@@ -4981,21 +4981,21 @@ $L7842:
 	mov	edx, DWORD PTR _cpcEditString$[ebp]
 	movsx	eax, BYTE PTR [edx]
 	cmp	eax, 57					; 00000039H
-	jne	SHORT $L7845
+	jne	SHORT $L7847
 
 ; 1274 :                cpcEditString++;
 
 	mov	ecx, DWORD PTR _cpcEditString$[ebp]
 	add	ecx, 1
 	mov	DWORD PTR _cpcEditString$[ebp], ecx
-	jmp	SHORT $L7842
-$L7845:
+	jmp	SHORT $L7844
+$L7847:
 
 ; 1275 : 
 ; 1276 :             break;
 
-	jmp	SHORT $L7738
-$L7846:
+	jmp	SHORT $L7740
+$L7848:
 
 ; 1278 : 
 ; 1279 :          case '\"':  // quote
@@ -5011,8 +5011,8 @@ $L7846:
 
 ; 1282 :             break;
 
-	jmp	SHORT $L7738
-$L7847:
+	jmp	SHORT $L7740
+$L7849:
 
 ; 1283 : 
 ; 1284 :          case '(':   // left paren
@@ -5036,18 +5036,18 @@ $L7847:
 	add	ecx, 1
 	mov	DWORD PTR _pchDTString$[ebp], ecx
 	cmp	eax, edx
-	je	SHORT $L7848
+	je	SHORT $L7850
 
 ; 1293 :                bError = TRUE;
 
 	mov	BYTE PTR _bError$[ebp], 1
-$L7848:
+$L7850:
 
 ; 1294 : 
 ; 1295 :             break;
 
-	jmp	SHORT $L7738
-$L7849:
+	jmp	SHORT $L7740
+$L7851:
 
 ; 1299 :             bBadEditString = TRUE;
 
@@ -5056,7 +5056,7 @@ $L7849:
 ; 1300 :             bError = TRUE;
 
 	mov	BYTE PTR _bError$[ebp], 1
-$L7738:
+$L7740:
 
 ; 1303 : 
 ; 1304 :       if ( bError )
@@ -5064,17 +5064,17 @@ $L7738:
 	mov	edx, DWORD PTR _bError$[ebp]
 	and	edx, 255				; 000000ffH
 	test	edx, edx
-	je	SHORT $L7850
+	je	SHORT $L7852
 
 ; 1305 :          break;
 
-	jmp	SHORT $L7731
-$L7850:
+	jmp	SHORT $L7733
+$L7852:
 
 ; 1306 :    }
 
-	jmp	$L7730
-$L7731:
+	jmp	$L7732
+$L7733:
 
 ; 1307 : 
 ; 1308 :    // We should now have a valid DateTime string in szDT.
@@ -5083,14 +5083,14 @@ $L7731:
 	mov	eax, DWORD PTR _bError$[ebp]
 	and	eax, 255				; 000000ffH
 	test	eax, eax
-	jne	$L7851
+	jne	$L7853
 
 ; 1311 :       if ( bConvertJulian )
 
 	mov	ecx, DWORD PTR _bConvertJulian$[ebp]
 	and	ecx, 255				; 000000ffH
 	test	ecx, ecx
-	je	SHORT $L7852
+	je	SHORT $L7854
 
 ; 1313 :          zCHAR szG[ 9 ];
 ; 1314 :          zstrncpy( sz, szDT, 4 ); // copy YYYY
@@ -5118,7 +5118,7 @@ $L7731:
 
 ; 1317 :          UfJulianToGregorian( sz, szG );
 
-	lea	eax, DWORD PTR _szG$7853[ebp]
+	lea	eax, DWORD PTR _szG$7855[ebp]
 	push	eax
 	lea	ecx, DWORD PTR _sz$[ebp]
 	push	ecx
@@ -5127,13 +5127,13 @@ $L7731:
 ; 1318 :          zmemcpy( szDT, szG, 8 );
 
 	push	8
-	lea	edx, DWORD PTR _szG$7853[ebp]
+	lea	edx, DWORD PTR _szG$7855[ebp]
 	push	edx
 	lea	eax, DWORD PTR _szDT$[ebp]
 	push	eax
 	call	_memcpy
 	add	esp, 12					; 0000000cH
-$L7852:
+$L7854:
 
 ; 1321 : 
 ; 1322 :       if ( bDayNeeded == FALSE )
@@ -5141,30 +5141,30 @@ $L7852:
 	mov	ecx, DWORD PTR _bDayNeeded$[ebp]
 	and	ecx, 255				; 000000ffH
 	test	ecx, ecx
-	jne	SHORT $L7856
+	jne	SHORT $L7858
 
 ; 1324 :          // Plug the day with "01" since the edit string doesnt require a valid day.
 ; 1325 :          if ( szDT[ 6 ] == 'X' )
 
 	movsx	edx, BYTE PTR _szDT$[ebp+6]
 	cmp	edx, 88					; 00000058H
-	jne	SHORT $L7855
+	jne	SHORT $L7857
 
 ; 1326 :             szDT[ 6 ] = '0';
 
 	mov	BYTE PTR _szDT$[ebp+6], 48		; 00000030H
-$L7855:
+$L7857:
 
 ; 1327 :          if ( szDT[ 7 ] == 'X' )
 
 	movsx	eax, BYTE PTR _szDT$[ebp+7]
 	cmp	eax, 88					; 00000058H
-	jne	SHORT $L7856
+	jne	SHORT $L7858
 
 ; 1328 :             szDT[ 7 ] = '1';
 
 	mov	BYTE PTR _szDT$[ebp+7], 49		; 00000031H
-$L7856:
+$L7858:
 
 ; 1330 : 
 ; 1331 :       if ( bTwelveHourClock )
@@ -5172,7 +5172,7 @@ $L7856:
 	mov	ecx, DWORD PTR _bTwelveHourClock$[ebp]
 	and	ecx, 255				; 000000ffH
 	test	ecx, ecx
-	je	SHORT $L7862
+	je	SHORT $L7864
 
 ; 1333 :          zLONG l;
 ; 1334 : 
@@ -5197,33 +5197,33 @@ $L7856:
 	push	ecx
 	call	DWORD PTR __imp__atol
 	add	esp, 4
-	mov	DWORD PTR _l$7858[ebp], eax
+	mov	DWORD PTR _l$7860[ebp], eax
 
 ; 1340 :          if ( bAdjustTime )
 
 	mov	edx, DWORD PTR _bAdjustTime$[ebp]
 	and	edx, 255				; 000000ffH
 	test	edx, edx
-	je	SHORT $L7859
+	je	SHORT $L7861
 
 ; 1342 :             // if in here, we're in the pm time frame...
 ; 1343 :             if ( l < 12L )
 
-	cmp	DWORD PTR _l$7858[ebp], 12		; 0000000cH
-	jge	SHORT $L7860
+	cmp	DWORD PTR _l$7860[ebp], 12		; 0000000cH
+	jge	SHORT $L7862
 
 ; 1345 :                l += 12L;
 
-	mov	eax, DWORD PTR _l$7858[ebp]
+	mov	eax, DWORD PTR _l$7860[ebp]
 	add	eax, 12					; 0000000cH
-	mov	DWORD PTR _l$7858[ebp], eax
+	mov	DWORD PTR _l$7860[ebp], eax
 
 ; 1346 :                zltoa( l, sz );
 
 	push	10					; 0000000aH
 	lea	ecx, DWORD PTR _sz$[ebp]
 	push	ecx
-	mov	edx, DWORD PTR _l$7858[ebp]
+	mov	edx, DWORD PTR _l$7860[ebp]
 	push	edx
 	call	DWORD PTR __imp___ltoa
 	add	esp, 12					; 0000000cH
@@ -5237,17 +5237,17 @@ $L7856:
 
 	mov	cl, BYTE PTR _sz$[ebp+1]
 	mov	BYTE PTR _szDT$[ebp+9], cl
-$L7860:
+$L7862:
 
 ; 1351 :          else
 
-	jmp	SHORT $L7862
-$L7859:
+	jmp	SHORT $L7864
+$L7861:
 
 ; 1352 :          if ( l == 12L )
 
-	cmp	DWORD PTR _l$7858[ebp], 12		; 0000000cH
-	jne	SHORT $L7862
+	cmp	DWORD PTR _l$7860[ebp], 12		; 0000000cH
+	jne	SHORT $L7864
 
 ; 1354 :             // adjust for 12 am
 ; 1355 :             *(szDT + 8) = '0';
@@ -5257,7 +5257,7 @@ $L7859:
 ; 1356 :             *(szDT + 9) = '0';
 
 	mov	BYTE PTR _szDT$[ebp+9], 48		; 00000030H
-$L7862:
+$L7864:
 
 ; 1359 : 
 ; 1360 :       // we should be all set, return value to the user.
@@ -5269,7 +5269,7 @@ $L7862:
 	push	eax
 	call	_strcpy
 	add	esp, 8
-$L7851:
+$L7853:
 
 ; 1363 : 
 ; 1364 :    return( (bError ? (bBadEditString ? zCALL_ERROR : -1) : 0 ) );
@@ -5277,7 +5277,7 @@ $L7851:
 	mov	ecx, DWORD PTR _bError$[ebp]
 	and	ecx, 255				; 000000ffH
 	test	ecx, ecx
-	je	SHORT $L9249
+	je	SHORT $L9253
 	mov	edx, DWORD PTR _bBadEditString$[ebp]
 	and	edx, 255				; 000000ffH
 	neg	edx
@@ -5285,32 +5285,32 @@ $L7851:
 	and	edx, -15				; fffffff1H
 	add	edx, -1
 	mov	DWORD PTR -224+[ebp], edx
-	jmp	SHORT $L9250
-$L9249:
+	jmp	SHORT $L9254
+$L9253:
 	mov	DWORD PTR -224+[ebp], 0
-$L9250:
+$L9254:
 	mov	ax, WORD PTR -224+[ebp]
-$L7711:
+$L7713:
 
 ; 1365 : }
 
 	mov	esp, ebp
 	pop	ebp
 	ret	8
-$L9252:
-	DD	$L7847
-	DD	$L7846
-	DD	$L7834
-	DD	$L7741
-	DD	$L7757
-	DD	$L7777
-	DD	$L7792
-	DD	$L7816
-	DD	$L7821
-	DD	$L7786
-	DD	$L7795
+$L9256:
 	DD	$L7849
-$L9251:
+	DD	$L7848
+	DD	$L7836
+	DD	$L7743
+	DD	$L7759
+	DD	$L7779
+	DD	$L7794
+	DD	$L7818
+	DD	$L7823
+	DD	$L7788
+	DD	$L7797
+	DD	$L7851
+$L9255:
 	DB	0
 	DB	11					; 0000000bH
 	DB	1
@@ -5451,12 +5451,12 @@ _UfStringToDateTime@8 PROC NEAR
 ; 1439 :    if ( cpcDateTimeString == 0 || cpcDateTimeString[ 0 ] == 0 )
 
 	cmp	DWORD PTR _cpcDateTimeString$[ebp], 0
-	je	SHORT $L7896
+	je	SHORT $L7898
 	mov	ecx, DWORD PTR _cpcDateTimeString$[ebp]
 	movsx	edx, BYTE PTR [ecx]
 	test	edx, edx
-	jne	SHORT $L7895
-$L7896:
+	jne	SHORT $L7897
+$L7898:
 
 ; 1441 :       lpDTInternal->ulDateMinutes = (zULONG) lNullInteger;
 
@@ -5472,8 +5472,8 @@ $L7896:
 ; 1443 :       return( 0 );
 
 	xor	ax, ax
-	jmp	$L7877
-$L7895:
+	jmp	$L7879
+$L7897:
 
 ; 1445 : 
 ; 1446 :    usMonth = 0;
@@ -5523,12 +5523,12 @@ $L7895:
 	sub	edx, 8
 	mov	DWORD PTR -72+[ebp], edx
 	cmp	DWORD PTR -72+[ebp], 9
-	ja	$L7927
+	ja	$L7929
 	mov	ecx, DWORD PTR -72+[ebp]
 	xor	eax, eax
-	mov	al, BYTE PTR $L9256[ecx]
-	jmp	DWORD PTR $L9257[eax*4]
-$L7903:
+	mov	al, BYTE PTR $L9260[ecx]
+	jmp	DWORD PTR $L9261[eax*4]
+$L7905:
 
 ; 1457 :       case 17:   // YYYYMMDDHHmmSSTht
 ; 1458 :       case 16:   // YYYYMMDDHHmmSSTh
@@ -5557,7 +5557,7 @@ $L7903:
 	mov	edx, DWORD PTR _usStringLth$[ebp]
 	and	edx, 65535				; 0000ffffH
 	cmp	edx, 17					; 00000011H
-	jge	SHORT $L7906
+	jge	SHORT $L7908
 
 ; 1464 :             usTSeconds *= ( usStringLth == 16 ) ? 10 : 100 ;
 
@@ -5571,7 +5571,7 @@ $L7903:
 	mov	cx, WORD PTR _usTSeconds$[ebp]
 	imul	cx, ax
 	mov	WORD PTR _usTSeconds$[ebp], cx
-$L7906:
+$L7908:
 
 ; 1465 : 
 ; 1466 :       case 14:   // YYYYMMDDHHmmSS
@@ -5605,7 +5605,7 @@ $L7906:
 	mov	ecx, DWORD PTR _usSeconds$[ebp]
 	and	ecx, 65535				; 0000ffffH
 	cmp	ecx, 59					; 0000003bH
-	jle	SHORT $L7909
+	jle	SHORT $L7911
 
 ; 1474 :             usSeconds = 59;
 
@@ -5614,7 +5614,7 @@ $L7906:
 ; 1475 :             nRC = zCALL_ERROR;
 
 	mov	WORD PTR _nRC$[ebp], -16		; fffffff0H
-$L7909:
+$L7911:
 
 ; 1477 : 
 ; 1478 :       case 12:   // YYYYMMDDHHmm
@@ -5648,7 +5648,7 @@ $L7909:
 	mov	ecx, DWORD PTR _usMinutes$[ebp]
 	and	ecx, 65535				; 0000ffffH
 	cmp	ecx, 59					; 0000003bH
-	jle	SHORT $L7912
+	jle	SHORT $L7914
 
 ; 1486 :             usMinutes = 59;
 
@@ -5657,7 +5657,7 @@ $L7909:
 ; 1487 :             nRC = zCALL_ERROR;
 
 	mov	WORD PTR _nRC$[ebp], -16		; fffffff0H
-$L7912:
+$L7914:
 
 ; 1489 : 
 ; 1490 :          // Get Hours Value
@@ -5688,7 +5688,7 @@ $L7912:
 ; 1495 :          if ( ulHours > 23 )
 
 	cmp	DWORD PTR _ulHours$[ebp], 23		; 00000017H
-	jbe	SHORT $L7914
+	jbe	SHORT $L7916
 
 ; 1497 :             ulHours = 23;
 
@@ -5697,7 +5697,7 @@ $L7912:
 ; 1498 :             nRC = zCALL_ERROR;
 
 	mov	WORD PTR _nRC$[ebp], -16		; fffffff0H
-$L7914:
+$L7916:
 
 ; 1500 : 
 ; 1501 :       case 8:    // YYYYMMDD
@@ -5781,20 +5781,20 @@ $L7914:
 ; 1520 :          bDateSet = (ulYear || usMonth || usDay);
 
 	cmp	DWORD PTR _ulYear$[ebp], 0
-	jne	SHORT $L9254
+	jne	SHORT $L9258
 	mov	edx, DWORD PTR _usMonth$[ebp]
 	and	edx, 65535				; 0000ffffH
 	test	edx, edx
-	jne	SHORT $L9254
+	jne	SHORT $L9258
 	mov	eax, DWORD PTR _usDay$[ebp]
 	and	eax, 65535				; 0000ffffH
 	test	eax, eax
-	jne	SHORT $L9254
+	jne	SHORT $L9258
 	mov	DWORD PTR -76+[ebp], 0
-	jmp	SHORT $L9255
-$L9254:
+	jmp	SHORT $L9259
+$L9258:
 	mov	DWORD PTR -76+[ebp], 1
-$L9255:
+$L9259:
 	mov	cl, BYTE PTR -76+[ebp]
 	mov	BYTE PTR _bDateSet$[ebp], cl
 
@@ -5802,7 +5802,7 @@ $L9255:
 ; 1522 :          if ( !ulYear )
 
 	cmp	DWORD PTR _ulYear$[ebp], 0
-	jne	SHORT $L7920
+	jne	SHORT $L7922
 
 ; 1524 :            ulYear = 1900;
 
@@ -5813,19 +5813,19 @@ $L9255:
 	mov	edx, DWORD PTR _bDateSet$[ebp]
 	and	edx, 255				; 000000ffH
 	test	edx, edx
-	je	SHORT $L7920
+	je	SHORT $L7922
 
 ; 1526 :              nRC = zCALL_ERROR;
 
 	mov	WORD PTR _nRC$[ebp], -16		; fffffff0H
-$L7920:
+$L7922:
 
 ; 1528 :          // the year will be multiplied with minutes/year and then stored as
 ; 1529 :          // unsigned long. These means, max. can be not much more than 8000
 ; 1530 :          if ( ulYear > 8000 )
 
 	cmp	DWORD PTR _ulYear$[ebp], 8000		; 00001f40H
-	jbe	SHORT $L7921
+	jbe	SHORT $L7923
 
 ; 1532 :            ulYear = 8000;
 
@@ -5834,7 +5834,7 @@ $L7920:
 ; 1533 :            nRC = zCALL_ERROR;
 
 	mov	WORD PTR _nRC$[ebp], -16		; fffffff0H
-$L7921:
+$L7923:
 
 ; 1535 : 
 ; 1536 :          // if month out of range, make it January
@@ -5843,12 +5843,12 @@ $L7921:
 	mov	eax, DWORD PTR _usMonth$[ebp]
 	and	eax, 65535				; 0000ffffH
 	cmp	eax, 1
-	jl	SHORT $L7923
+	jl	SHORT $L7925
 	mov	ecx, DWORD PTR _usMonth$[ebp]
 	and	ecx, 65535				; 0000ffffH
 	cmp	ecx, 12					; 0000000cH
-	jle	SHORT $L7924
-$L7923:
+	jle	SHORT $L7926
+$L7925:
 
 ; 1539 :             usMonth = 1;
 
@@ -5859,12 +5859,12 @@ $L7923:
 	mov	edx, DWORD PTR _bDateSet$[ebp]
 	and	edx, 255				; 000000ffH
 	test	edx, edx
-	je	SHORT $L7924
+	je	SHORT $L7926
 
 ; 1541 :                nRC = zCALL_ERROR;
 
 	mov	WORD PTR _nRC$[ebp], -16		; fffffff0H
-$L7924:
+$L7926:
 
 ; 1543 : 
 ; 1544 :          // Get valid day for the month
@@ -5892,32 +5892,32 @@ $L7924:
 	mov	edx, DWORD PTR _usDayOrg$[ebp]
 	and	edx, 65535				; 0000ffffH
 	cmp	ecx, edx
-	je	SHORT $L7926
+	je	SHORT $L7928
 
 ; 1549 :            if ( bDateSet )
 
 	mov	eax, DWORD PTR _bDateSet$[ebp]
 	and	eax, 255				; 000000ffH
 	test	eax, eax
-	je	SHORT $L7926
+	je	SHORT $L7928
 
 ; 1550 :              nRC = zCALL_ERROR;
 
 	mov	WORD PTR _nRC$[ebp], -16		; fffffff0H
-$L7926:
+$L7928:
 
 ; 1552 :          break;
 
-	jmp	SHORT $L7900
-$L7927:
+	jmp	SHORT $L7902
+$L7929:
 
 ; 1553 : 
 ; 1554 :       default:
 ; 1555 :          return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	$L7877
-$L7900:
+	jmp	$L7879
+$L7902:
 
 ; 1557 : 
 ; 1558 :    /* Calculate Year in Minutes */
@@ -5935,7 +5935,7 @@ $L7900:
 ; 1564 :    if ( ulYear >= 1900L )
 
 	cmp	DWORD PTR _ulYear$[ebp], 1900		; 0000076cH
-	jb	SHORT $L7944
+	jb	SHORT $L7946
 
 ; 1566 :       ulWorkYear = 1900L;
 
@@ -5948,7 +5948,7 @@ $L7900:
 ; 1568 :       if ( ulYear >= 2000L )
 
 	cmp	DWORD PTR _ulYear$[ebp], 2000		; 000007d0H
-	jb	SHORT $L7944
+	jb	SHORT $L7946
 
 ; 1570 :          ulWorkYear = 2000L;
 
@@ -5959,7 +5959,7 @@ $L7900:
 	mov	ecx, DWORD PTR _ulDateMinutes$[ebp]
 	add	ecx, 52594560				; 03228780H
 	mov	DWORD PTR _ulDateMinutes$[ebp], ecx
-$L7944:
+$L7946:
 
 ; 1574 : 
 ; 1575 :    // This will get us to Jan 1, of the desired year.
@@ -5968,7 +5968,7 @@ $L7944:
 
 	mov	edx, DWORD PTR _ulWorkYear$[ebp]
 	cmp	edx, DWORD PTR _ulYear$[ebp]
-	jae	SHORT $L7954
+	jae	SHORT $L7956
 
 ; 1579 :       if ( !(ulWorkYear % 4) &&
 ; 1580 :            ((ulWorkYear % 100) || !(ulWorkYear % 400)) )
@@ -5978,20 +5978,20 @@ $L7944:
 	mov	ecx, 4
 	div	ecx
 	test	edx, edx
-	jne	SHORT $L7955
+	jne	SHORT $L7957
 	mov	eax, DWORD PTR _ulWorkYear$[ebp]
 	xor	edx, edx
 	mov	ecx, 100				; 00000064H
 	div	ecx
 	test	edx, edx
-	jne	SHORT $L7956
+	jne	SHORT $L7958
 	mov	eax, DWORD PTR _ulWorkYear$[ebp]
 	xor	edx, edx
 	mov	ecx, 400				; 00000190H
 	div	ecx
 	test	edx, edx
-	jne	SHORT $L7955
-$L7956:
+	jne	SHORT $L7957
+$L7958:
 
 ; 1582 :          ulDateMinutes += LeapYear;
 
@@ -6001,15 +6001,15 @@ $L7956:
 
 ; 1584 :       else
 
-	jmp	SHORT $L7960
-$L7955:
+	jmp	SHORT $L7962
+$L7957:
 
 ; 1586 :          ulDateMinutes += Year;
 
 	mov	eax, DWORD PTR _ulDateMinutes$[ebp]
 	add	eax, 525600				; 00080520H
 	mov	DWORD PTR _ulDateMinutes$[ebp], eax
-$L7960:
+$L7962:
 
 ; 1588 : 
 ; 1589 :       ulWorkYear++;
@@ -6020,8 +6020,8 @@ $L7960:
 
 ; 1590 :    }
 
-	jmp	SHORT $L7944
-$L7954:
+	jmp	SHORT $L7946
+$L7956:
 
 ; 1591 : 
 ; 1592 :    // This will get the number of days from the Jan 1,
@@ -6034,20 +6034,20 @@ $L7954:
 	mov	ecx, 4
 	div	ecx
 	test	edx, edx
-	jne	SHORT $L7964
+	jne	SHORT $L7966
 	mov	eax, DWORD PTR _ulWorkYear$[ebp]
 	xor	edx, edx
 	mov	ecx, 100				; 00000064H
 	div	ecx
 	test	edx, edx
-	jne	SHORT $L7965
+	jne	SHORT $L7967
 	mov	eax, DWORD PTR _ulWorkYear$[ebp]
 	xor	edx, edx
 	mov	ecx, 400				; 00000190H
 	div	ecx
 	test	edx, edx
-	jne	SHORT $L7964
-$L7965:
+	jne	SHORT $L7966
+$L7967:
 
 ; 1597 :       ulDays = usLeapDayTable[ usMonth - 1 ];
 
@@ -6059,8 +6059,8 @@ $L7965:
 
 ; 1599 :    else
 
-	jmp	SHORT $L7966
-$L7964:
+	jmp	SHORT $L7968
+$L7966:
 
 ; 1601 :       ulDays = usDayTable[ usMonth - 1 ];
 
@@ -6069,7 +6069,7 @@ $L7964:
 	xor	edx, edx
 	mov	dx, WORD PTR _usDayTable[ecx*2-2]
 	mov	DWORD PTR _ulDays$[ebp], edx
-$L7966:
+$L7968:
 
 ; 1603 : 
 ; 1604 :    ulDays += usDay - 1;                 // add day of the month, for days
@@ -6131,7 +6131,7 @@ $L7966:
 ; 1617 :    return( nRC );
 
 	mov	ax, WORD PTR _nRC$[ebp]
-$L7877:
+$L7879:
 
 ; 1618 : 
 ; 1619 : }  /* END of StringToDateTime */
@@ -6139,13 +6139,13 @@ $L7877:
 	mov	esp, ebp
 	pop	ebp
 	ret	8
-$L9257:
-	DD	$L7914
-	DD	$L7909
-	DD	$L7906
-	DD	$L7903
-	DD	$L7927
-$L9256:
+$L9261:
+	DD	$L7916
+	DD	$L7911
+	DD	$L7908
+	DD	$L7905
+	DD	$L7929
+$L9260:
 	DB	0
 	DB	4
 	DB	4
@@ -6176,17 +6176,17 @@ _fnValidateDay PROC NEAR
 	mov	eax, DWORD PTR _usDay$[ebp]
 	and	eax, 65535				; 0000ffffH
 	cmp	eax, 1
-	jl	SHORT $L7979
+	jl	SHORT $L7981
 	mov	ecx, DWORD PTR _usDay$[ebp]
 	and	ecx, 65535				; 0000ffffH
 	cmp	ecx, 28					; 0000001cH
-	jg	SHORT $L7979
+	jg	SHORT $L7981
 
 ; 1629 :       return( usDay );
 
 	mov	ax, WORD PTR _usDay$[ebp]
-	jmp	$L7991
-$L7979:
+	jmp	$L7993
+$L7981:
 
 ; 1630 : 
 ; 1631 :    if ( usDay < 1 )
@@ -6194,13 +6194,13 @@ $L7979:
 	mov	edx, DWORD PTR _usDay$[ebp]
 	and	edx, 65535				; 0000ffffH
 	cmp	edx, 1
-	jge	SHORT $L7980
+	jge	SHORT $L7982
 
 ; 1632 :       return( 1 );
 
 	mov	ax, 1
-	jmp	$L7991
-$L7980:
+	jmp	$L7993
+$L7982:
 
 ; 1633 : 
 ; 1634 :    switch ( usMonth )
@@ -6213,10 +6213,10 @@ $L7980:
 	sub	ecx, 2
 	mov	DWORD PTR -8+[ebp], ecx
 	cmp	DWORD PTR -8+[ebp], 9
-	ja	SHORT $L7989
+	ja	SHORT $L7991
 	mov	edx, DWORD PTR -8+[ebp]
-	jmp	DWORD PTR $L9259[edx*4]
-$L7985:
+	jmp	DWORD PTR $L9263[edx*4]
+$L7987:
 
 ; 1636 :       case 2:
 ; 1637 :          usMax = 28;
@@ -6231,31 +6231,31 @@ $L7985:
 	mov	ecx, 4
 	div	ecx
 	test	edx, edx
-	jne	SHORT $L7986
+	jne	SHORT $L7988
 	mov	eax, DWORD PTR _ulYear$[ebp]
 	xor	edx, edx
 	mov	ecx, 100				; 00000064H
 	div	ecx
 	test	edx, edx
-	jne	SHORT $L7987
+	jne	SHORT $L7989
 	mov	eax, DWORD PTR _ulYear$[ebp]
 	xor	edx, edx
 	mov	ecx, 400				; 00000190H
 	div	ecx
 	test	edx, edx
-	jne	SHORT $L7986
-$L7987:
+	jne	SHORT $L7988
+$L7989:
 
 ; 1641 :             usMax = 29;
 
 	mov	WORD PTR _usMax$[ebp], 29		; 0000001dH
-$L7986:
+$L7988:
 
 ; 1643 : 
 ; 1644 :          break;
 
-	jmp	SHORT $L7982
-$L7988:
+	jmp	SHORT $L7984
+$L7990:
 
 ; 1645 : 
 ; 1646 :       case 4:
@@ -6268,15 +6268,15 @@ $L7988:
 
 ; 1651 :          break;
 
-	jmp	SHORT $L7982
-$L7989:
+	jmp	SHORT $L7984
+$L7991:
 
 ; 1652 : 
 ; 1653 :       default:
 ; 1654 :          usMax = 31;
 
 	mov	WORD PTR _usMax$[ebp], 31		; 0000001fH
-$L7982:
+$L7984:
 
 ; 1656 : 
 ; 1657 :    if ( usDay > usMax )
@@ -6286,19 +6286,19 @@ $L7982:
 	mov	eax, DWORD PTR _usMax$[ebp]
 	and	eax, 65535				; 0000ffffH
 	cmp	edx, eax
-	jle	SHORT $L7990
+	jle	SHORT $L7992
 
 ; 1658 :       return( usMax );
 
 	mov	ax, WORD PTR _usMax$[ebp]
-	jmp	SHORT $L7991
-$L7990:
+	jmp	SHORT $L7993
+$L7992:
 
 ; 1659 :    else
 ; 1660 :       return( usDay );
 
 	mov	ax, WORD PTR _usDay$[ebp]
-$L7991:
+$L7993:
 
 ; 1661 : 
 ; 1662 : } /*** END fnValidateDay ***/
@@ -6306,17 +6306,17 @@ $L7991:
 	mov	esp, ebp
 	pop	ebp
 	ret	0
-$L9259:
-	DD	$L7985
-	DD	$L7989
-	DD	$L7988
-	DD	$L7989
-	DD	$L7988
-	DD	$L7989
-	DD	$L7989
-	DD	$L7988
-	DD	$L7989
-	DD	$L7988
+$L9263:
+	DD	$L7987
+	DD	$L7991
+	DD	$L7990
+	DD	$L7991
+	DD	$L7990
+	DD	$L7991
+	DD	$L7991
+	DD	$L7990
+	DD	$L7991
+	DD	$L7990
 _fnValidateDay ENDP
 _TEXT	ENDS
 PUBLIC	_UfDateTimeToString@12
@@ -6359,7 +6359,7 @@ _UfDateTimeToString@12 PROC NEAR
 	mov	ecx, DWORD PTR _lpDTInternal$[ebp]
 	mov	edx, DWORD PTR [ecx]
 	cmp	edx, DWORD PTR _lNullInteger
-	jne	SHORT $L8011
+	jne	SHORT $L8013
 
 ; 1722 :       *pchReturnString = 0;
 
@@ -6369,28 +6369,28 @@ _UfDateTimeToString@12 PROC NEAR
 ; 1723 :       return( -1 );
 
 	or	ax, -1
-	jmp	$L7998
-$L8011:
+	jmp	$L8000
+$L8013:
 
 ; 1725 : 
 ; 1726 :    if ( nMaxLth < 9 )
 
 	movsx	ecx, WORD PTR _nMaxLth$[ebp]
 	cmp	ecx, 9
-	jge	SHORT $L8012
+	jge	SHORT $L8014
 
 ; 1727 :       return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	$L7998
-$L8012:
+	jmp	$L8000
+$L8014:
 
 ; 1728 :    else
 ; 1729 :    if ( nMaxLth < 13 )
 
 	movsx	edx, WORD PTR _nMaxLth$[ebp]
 	cmp	edx, 13					; 0000000dH
-	jge	SHORT $L8014
+	jge	SHORT $L8016
 
 ; 1730 :       nMaxLth = 9;      // Let's assume 9.
 
@@ -6398,19 +6398,19 @@ $L8012:
 
 ; 1731 :    else
 
-	jmp	SHORT $L8016
-$L8014:
+	jmp	SHORT $L8018
+$L8016:
 
 ; 1732 :    if ( nMaxLth < 15 )
 
 	movsx	eax, WORD PTR _nMaxLth$[ebp]
 	cmp	eax, 15					; 0000000fH
-	jge	SHORT $L8016
+	jge	SHORT $L8018
 
 ; 1733 :       nMaxLth = 13;     // Let's assume 13.
 
 	mov	WORD PTR _nMaxLth$[ebp], 13		; 0000000dH
-$L8016:
+$L8018:
 
 ; 1734 : 
 ; 1735 :    ulDateMinutes = lpDTInternal->ulDateMinutes;
@@ -6429,7 +6429,7 @@ $L8016:
 ; 1738 :    if ( ulDateMinutes >= Year2000 )
 
 	cmp	DWORD PTR _ulDateMinutes$[ebp], 1051898400 ; 3eb2b220H
-	jb	SHORT $L8032
+	jb	SHORT $L8034
 
 ; 1740 :       usYear = 2000;
 
@@ -6443,13 +6443,13 @@ $L8016:
 
 ; 1743 :    else
 
-	jmp	SHORT $L8080
-$L8032:
+	jmp	SHORT $L8082
+$L8034:
 
 ; 1744 :    if ( ulDateMinutes >= Year1900 )
 
 	cmp	DWORD PTR _ulDateMinutes$[ebp], 999303840 ; 3b902aa0H
-	jb	SHORT $L8064
+	jb	SHORT $L8066
 
 ; 1746 :       usYear = 1900;
 
@@ -6463,13 +6463,13 @@ $L8032:
 
 ; 1749 :    else
 
-	jmp	SHORT $L8080
-$L8064:
+	jmp	SHORT $L8082
+$L8066:
 
 ; 1750 :       usYear = 0;
 
 	mov	WORD PTR _usYear$[ebp], 0
-$L8080:
+$L8082:
 
 ; 1754 :       if ( !(usYear % 4) &&
 ; 1755 :             ((usYear % 100) || !(usYear % 400)) )
@@ -6477,33 +6477,33 @@ $L8080:
 	mov	ecx, DWORD PTR _usYear$[ebp]
 	and	ecx, 65535				; 0000ffffH
 	and	ecx, -2147483645			; 80000003H
-	jns	SHORT $L9263
+	jns	SHORT $L9267
 	dec	ecx
 	or	ecx, -4					; fffffffcH
 	inc	ecx
-$L9263:
+$L9267:
 	test	ecx, ecx
-	jne	SHORT $L8084
+	jne	SHORT $L8086
 	mov	eax, DWORD PTR _usYear$[ebp]
 	and	eax, 65535				; 0000ffffH
 	cdq
 	mov	ecx, 100				; 00000064H
 	idiv	ecx
 	test	edx, edx
-	jne	SHORT $L8085
+	jne	SHORT $L8087
 	mov	eax, DWORD PTR _usYear$[ebp]
 	and	eax, 65535				; 0000ffffH
 	cdq
 	mov	ecx, 400				; 00000190H
 	idiv	ecx
 	test	edx, edx
-	jne	SHORT $L8084
-$L8085:
+	jne	SHORT $L8086
+$L8087:
 
 ; 1757 :          if ( ulDateMinutes >= LeapYear )
 
 	cmp	DWORD PTR _ulDateMinutes$[ebp], 527040	; 00080ac0H
-	jb	SHORT $L8089
+	jb	SHORT $L8091
 
 ; 1759 :             usYear++;
 
@@ -6519,23 +6519,23 @@ $L8085:
 
 ; 1762 :          else
 
-	jmp	SHORT $L8093
-$L8089:
+	jmp	SHORT $L8095
+$L8091:
 
 ; 1763 :             break;
 
-	jmp	SHORT $L8083
-$L8093:
+	jmp	SHORT $L8085
+$L8095:
 
 ; 1765 :       else
 
-	jmp	SHORT $L8102
-$L8084:
+	jmp	SHORT $L8104
+$L8086:
 
 ; 1767 :          if ( ulDateMinutes >= Year )
 
 	cmp	DWORD PTR _ulDateMinutes$[ebp], 525600	; 00080520H
-	jb	SHORT $L8098
+	jb	SHORT $L8100
 
 ; 1769 :             usYear++;
 
@@ -6551,18 +6551,18 @@ $L8084:
 
 ; 1772 :          else
 
-	jmp	SHORT $L8102
-$L8098:
+	jmp	SHORT $L8104
+$L8100:
 
 ; 1773 :             break;
 
-	jmp	SHORT $L8083
-$L8102:
+	jmp	SHORT $L8085
+$L8104:
 
 ; 1775 :    }
 
-	jmp	$L8080
-$L8083:
+	jmp	$L8082
+$L8085:
 
 ; 1776 : 
 ; 1777 :    usDay = (zUSHORT) ( ulDateMinutes / Day );
@@ -6592,35 +6592,35 @@ $L8083:
 	mov	edx, DWORD PTR _usYear$[ebp]
 	and	edx, 65535				; 0000ffffH
 	and	edx, -2147483645			; 80000003H
-	jns	SHORT $L9264
+	jns	SHORT $L9268
 	dec	edx
 	or	edx, -4					; fffffffcH
 	inc	edx
-$L9264:
+$L9268:
 	test	edx, edx
-	jne	$L8108
+	jne	$L8110
 	mov	eax, DWORD PTR _usYear$[ebp]
 	and	eax, 65535				; 0000ffffH
 	cdq
 	mov	ecx, 100				; 00000064H
 	idiv	ecx
 	test	edx, edx
-	jne	SHORT $L8109
+	jne	SHORT $L8111
 	mov	eax, DWORD PTR _usYear$[ebp]
 	and	eax, 65535				; 0000ffffH
 	cdq
 	mov	ecx, 400				; 00000190H
 	idiv	ecx
 	test	edx, edx
-	jne	$L8108
-$L8109:
+	jne	$L8110
+$L8111:
 
 ; 1784 :       while ( k < 12 && usDay >= usLeapDayTable[ k ] )
 
 	mov	edx, DWORD PTR _k$[ebp]
 	and	edx, 65535				; 0000ffffH
 	cmp	edx, 12					; 0000000cH
-	jge	SHORT $L8112
+	jge	SHORT $L8114
 	mov	eax, DWORD PTR _usDay$[ebp]
 	and	eax, 65535				; 0000ffffH
 	mov	ecx, DWORD PTR _k$[ebp]
@@ -6628,15 +6628,15 @@ $L8109:
 	xor	edx, edx
 	mov	dx, WORD PTR _usLeapDayTable[ecx*2]
 	cmp	eax, edx
-	jl	SHORT $L8112
+	jl	SHORT $L8114
 
 ; 1785 :          k++;
 
 	mov	ax, WORD PTR _k$[ebp]
 	add	ax, 1
 	mov	WORD PTR _k$[ebp], ax
-	jmp	SHORT $L8109
-$L8112:
+	jmp	SHORT $L8111
+$L8114:
 
 ; 1786 : 
 ; 1787 :       usMonth = k;
@@ -6649,7 +6649,7 @@ $L8112:
 	mov	edx, DWORD PTR _k$[ebp]
 	and	edx, 65535				; 0000ffffH
 	cmp	edx, 12					; 0000000cH
-	je	SHORT $L8114
+	je	SHORT $L8116
 	mov	eax, DWORD PTR _usDay$[ebp]
 	and	eax, 65535				; 0000ffffH
 	mov	ecx, DWORD PTR _k$[ebp]
@@ -6657,15 +6657,15 @@ $L8112:
 	xor	edx, edx
 	mov	dx, WORD PTR _usLeapDayTable[ecx*2]
 	cmp	eax, edx
-	jg	SHORT $L8113
-$L8114:
+	jg	SHORT $L8115
+$L8116:
 
 ; 1789 :          k--;
 
 	mov	ax, WORD PTR _k$[ebp]
 	sub	ax, 1
 	mov	WORD PTR _k$[ebp], ax
-$L8113:
+$L8115:
 
 ; 1790 : 
 ; 1791 :       usDay -= usLeapDayTable[ k ];
@@ -6678,15 +6678,15 @@ $L8113:
 
 ; 1793 :    else
 
-	jmp	$L8115
-$L8108:
+	jmp	$L8117
+$L8110:
 
 ; 1795 :       while ( k < 12 && usDay >= usDayTable[ k ] )
 
 	mov	eax, DWORD PTR _k$[ebp]
 	and	eax, 65535				; 0000ffffH
 	cmp	eax, 12					; 0000000cH
-	jge	SHORT $L8118
+	jge	SHORT $L8120
 	mov	ecx, DWORD PTR _usDay$[ebp]
 	and	ecx, 65535				; 0000ffffH
 	mov	edx, DWORD PTR _k$[ebp]
@@ -6694,15 +6694,15 @@ $L8108:
 	xor	eax, eax
 	mov	ax, WORD PTR _usDayTable[edx*2]
 	cmp	ecx, eax
-	jl	SHORT $L8118
+	jl	SHORT $L8120
 
 ; 1796 :          k++;
 
 	mov	cx, WORD PTR _k$[ebp]
 	add	cx, 1
 	mov	WORD PTR _k$[ebp], cx
-	jmp	SHORT $L8108
-$L8118:
+	jmp	SHORT $L8110
+$L8120:
 
 ; 1797 : 
 ; 1798 :       usMonth = k;
@@ -6715,7 +6715,7 @@ $L8118:
 	mov	eax, DWORD PTR _k$[ebp]
 	and	eax, 65535				; 0000ffffH
 	cmp	eax, 12					; 0000000cH
-	je	SHORT $L8120
+	je	SHORT $L8122
 	mov	ecx, DWORD PTR _usDay$[ebp]
 	and	ecx, 65535				; 0000ffffH
 	mov	edx, DWORD PTR _k$[ebp]
@@ -6723,15 +6723,15 @@ $L8118:
 	xor	eax, eax
 	mov	ax, WORD PTR _usDayTable[edx*2]
 	cmp	ecx, eax
-	jg	SHORT $L8119
-$L8120:
+	jg	SHORT $L8121
+$L8122:
 
 ; 1800 :          k--;
 
 	mov	cx, WORD PTR _k$[ebp]
 	sub	cx, 1
 	mov	WORD PTR _k$[ebp], cx
-$L8119:
+$L8121:
 
 ; 1801 : 
 ; 1802 :       usDay -= usDayTable[ k ];
@@ -6741,7 +6741,7 @@ $L8119:
 	mov	ax, WORD PTR _usDay$[ebp]
 	sub	ax, WORD PTR _usDayTable[edx*2]
 	mov	WORD PTR _usDay$[ebp], ax
-$L8115:
+$L8117:
 
 ; 1804 : 
 ; 1805 :    usDay++;
@@ -6771,7 +6771,7 @@ $L8115:
 	mov	edx, DWORD PTR _usTSeconds$[ebp]
 	and	edx, 65535				; 0000ffffH
 	test	edx, edx
-	je	SHORT $L8125
+	je	SHORT $L8127
 
 ; 1810 :       usSeconds = (zUSHORT) ( usTSeconds / 1000 );
 
@@ -6793,13 +6793,13 @@ $L8115:
 
 ; 1813 :    else
 
-	jmp	SHORT $L8127
-$L8125:
+	jmp	SHORT $L8129
+$L8127:
 
 ; 1814 :       usSeconds = 0;
 
 	mov	WORD PTR _usSeconds$[ebp], 0
-$L8127:
+$L8129:
 
 ; 1815 : 
 ; 1816 :    zltoal( (zLONG) usYear, pchReturnString, 4 );          // year to string
@@ -6841,13 +6841,13 @@ $L8127:
 
 	movsx	edx, WORD PTR _nMaxLth$[ebp]
 	cmp	edx, 9
-	jne	SHORT $L8131
+	jne	SHORT $L8133
 
 ; 1820 :       return( 0 );
 
 	xor	ax, ax
-	jmp	$L7998
-$L8131:
+	jmp	$L8000
+$L8133:
 
 ; 1821 : 
 ; 1822 :    zltoal( (zLONG) usHour, pchReturnString + 8, 2 );      // hour to string
@@ -6878,13 +6878,13 @@ $L8131:
 
 	movsx	ecx, WORD PTR _nMaxLth$[ebp]
 	cmp	ecx, 13					; 0000000dH
-	jne	SHORT $L8134
+	jne	SHORT $L8136
 
 ; 1825 :       return( 0 );
 
 	xor	ax, ax
-	jmp	SHORT $L7998
-$L8134:
+	jmp	SHORT $L8000
+$L8136:
 
 ; 1826 : 
 ; 1827 :    zltoal( (zLONG) usSeconds, pchReturnString + 12, 2 );  // seconds to string
@@ -6903,13 +6903,13 @@ $L8134:
 
 	movsx	ecx, WORD PTR _nMaxLth$[ebp]
 	cmp	ecx, 15					; 0000000fH
-	jne	SHORT $L8136
+	jne	SHORT $L8138
 
 ; 1829 :       return( 0 );
 
 	xor	ax, ax
-	jmp	SHORT $L7998
-$L8136:
+	jmp	SHORT $L8000
+$L8138:
 
 ; 1830 : 
 ; 1831 :    // milliseconds to string
@@ -6919,14 +6919,14 @@ $L8136:
 	movsx	edx, WORD PTR _nMaxLth$[ebp]
 	sub	edx, 15					; 0000000fH
 	cmp	edx, 3
-	jle	SHORT $L9261
+	jle	SHORT $L9265
 	mov	DWORD PTR -44+[ebp], 3
-	jmp	SHORT $L9262
-$L9261:
+	jmp	SHORT $L9266
+$L9265:
 	movsx	eax, WORD PTR _nMaxLth$[ebp]
 	sub	eax, 15					; 0000000fH
 	mov	DWORD PTR -44+[ebp], eax
-$L9262:
+$L9266:
 	mov	cx, WORD PTR -44+[ebp]
 	push	ecx
 	mov	edx, DWORD PTR _pchReturnString$[ebp]
@@ -6942,7 +6942,7 @@ $L9262:
 ; 1835 :    return( 0 );
 
 	xor	ax, ax
-$L7998:
+$L8000:
 
 ; 1836 : 
 ; 1837 : }  /* END of DateTimeToString */
@@ -7090,40 +7090,40 @@ _UfGetDayOfWeek@4 PROC NEAR
 
 	movsx	ecx, WORD PTR _nMonth$[ebp]
 	cmp	ecx, 3
-	jge	SHORT $L8158
+	jge	SHORT $L8160
 
 ; 1916 :       if ( !(nYear % 4) && (nYear % 100) || !(nYear % 400) )
 
 	movsx	edx, WORD PTR _nYear$[ebp]
 	and	edx, -2147483645			; 80000003H
-	jns	SHORT $L9267
+	jns	SHORT $L9271
 	dec	edx
 	or	edx, -4					; fffffffcH
 	inc	edx
-$L9267:
+$L9271:
 	test	edx, edx
-	jne	SHORT $L8160
+	jne	SHORT $L8162
 	movsx	eax, WORD PTR _nYear$[ebp]
 	cdq
 	mov	ecx, 100				; 00000064H
 	idiv	ecx
 	test	edx, edx
-	jne	SHORT $L8159
-$L8160:
+	jne	SHORT $L8161
+$L8162:
 	movsx	eax, WORD PTR _nYear$[ebp]
 	cdq
 	mov	ecx, 400				; 00000190H
 	idiv	ecx
 	test	edx, edx
-	jne	SHORT $L8158
-$L8159:
+	jne	SHORT $L8160
+$L8161:
 
 ; 1917 :          lDOW--;
 
 	mov	edx, DWORD PTR _lDOW$[ebp]
 	sub	edx, 1
 	mov	DWORD PTR _lDOW$[ebp], edx
-$L8158:
+$L8160:
 
 ; 1919 : 
 ; 1920 :    lDOW += nYear + ( nYear / 4 );
@@ -7247,7 +7247,7 @@ _UfGetDayOfYear@4 PROC NEAR
 
 	movsx	edx, WORD PTR _nMonth$[ebp]
 	cmp	edx, 1
-	jge	SHORT $L8171
+	jge	SHORT $L8173
 
 ; 1961 :       nMonth = 1;
 
@@ -7255,19 +7255,19 @@ _UfGetDayOfYear@4 PROC NEAR
 
 ; 1962 :    else
 
-	jmp	SHORT $L8173
-$L8171:
+	jmp	SHORT $L8175
+$L8173:
 
 ; 1963 :    if ( nMonth > 12 )
 
 	movsx	eax, WORD PTR _nMonth$[ebp]
 	cmp	eax, 12					; 0000000cH
-	jle	SHORT $L8173
+	jle	SHORT $L8175
 
 ; 1964 :       nMonth = 12;
 
 	mov	WORD PTR _nMonth$[ebp], 12		; 0000000cH
-$L8173:
+$L8175:
 
 ; 1965 : 
 ; 1966 :    // day
@@ -7301,26 +7301,26 @@ $L8173:
 
 	movsx	eax, WORD PTR _nYear$[ebp]
 	and	eax, -2147483645			; 80000003H
-	jns	SHORT $L9269
+	jns	SHORT $L9273
 	dec	eax
 	or	eax, -4					; fffffffcH
 	inc	eax
-$L9269:
+$L9273:
 	test	eax, eax
-	jne	SHORT $L8175
+	jne	SHORT $L8177
 	movsx	eax, WORD PTR _nYear$[ebp]
 	cdq
 	mov	ecx, 100				; 00000064H
 	idiv	ecx
 	test	edx, edx
-	jne	SHORT $L8176
+	jne	SHORT $L8178
 	movsx	eax, WORD PTR _nYear$[ebp]
 	cdq
 	mov	ecx, 400				; 00000190H
 	idiv	ecx
 	test	edx, edx
-	jne	SHORT $L8175
-$L8176:
+	jne	SHORT $L8177
+$L8178:
 
 ; 1975 :       lDOY = (zLONG) usLeapDayTable[ nMonth - 1 ] + nDay;
 
@@ -7333,8 +7333,8 @@ $L8176:
 
 ; 1977 :    else
 
-	jmp	SHORT $L8178
-$L8175:
+	jmp	SHORT $L8180
+$L8177:
 
 ; 1978 :       lDOY = (zLONG) usDayTable[ nMonth - 1 ] + nDay;
 
@@ -7344,7 +7344,7 @@ $L8175:
 	movsx	ecx, WORD PTR _nDay$[ebp]
 	add	eax, ecx
 	mov	DWORD PTR _lDOY$[ebp], eax
-$L8178:
+$L8180:
 
 ; 1979 : 
 ; 1980 :    return( lDOY );
@@ -7387,10 +7387,10 @@ _UfGetWeekOfYear@4 ENDP
 _TEXT	ENDS
 PUBLIC	_fnGetDateTimeComponent
 _TEXT	SEGMENT
+_lValue$ = -24
 _lpDateTime$ = 8
 _nCID$ = 12
 _szDateTime$ = -20
-_lValue$ = -24
 _fnGetDateTimeComponent PROC NEAR
 
 ; 2020 : {
@@ -7420,10 +7420,10 @@ _fnGetDateTimeComponent PROC NEAR
 	movsx	edx, WORD PTR _nCID$[ebp]
 	mov	DWORD PTR -28+[ebp], edx
 	cmp	DWORD PTR -28+[ebp], 5
-	ja	$L8192
+	ja	$L8194
 	mov	eax, DWORD PTR -28+[ebp]
-	jmp	DWORD PTR $L9272[eax*4]
-$L8195:
+	jmp	DWORD PTR $L9276[eax*4]
+$L8197:
 
 ; 2027 :       case zDT_YEAR:
 ; 2028 :          szDateTime[ 4 ] = 0;
@@ -7440,8 +7440,8 @@ $L8195:
 
 ; 2030 :          break;
 
-	jmp	SHORT $L8192
-$L8196:
+	jmp	SHORT $L8194
+$L8198:
 
 ; 2031 : 
 ; 2032 :       case zDT_MONTH:
@@ -7459,8 +7459,8 @@ $L8196:
 
 ; 2035 :          break;
 
-	jmp	SHORT $L8192
-$L8197:
+	jmp	SHORT $L8194
+$L8199:
 
 ; 2036 : 
 ; 2037 :       case zDT_DAY:
@@ -7478,8 +7478,8 @@ $L8197:
 
 ; 2040 :          break;
 
-	jmp	SHORT $L8192
-$L8198:
+	jmp	SHORT $L8194
+$L8200:
 
 ; 2041 : 
 ; 2042 :       case zDT_HOUR:
@@ -7497,8 +7497,8 @@ $L8198:
 
 ; 2045 :          break;
 
-	jmp	SHORT $L8192
-$L8199:
+	jmp	SHORT $L8194
+$L8201:
 
 ; 2046 : 
 ; 2047 :       case zDT_MINUTE:
@@ -7516,8 +7516,8 @@ $L8199:
 
 ; 2050 :          break;
 
-	jmp	SHORT $L8192
-$L8200:
+	jmp	SHORT $L8194
+$L8202:
 
 ; 2051 : 
 ; 2052 :       case zDT_SECOND:
@@ -7532,7 +7532,7 @@ $L8200:
 	call	DWORD PTR __imp__atol
 	add	esp, 4
 	mov	DWORD PTR _lValue$[ebp], eax
-$L8192:
+$L8194:
 
 ; 2057 : 
 ; 2058 :    return( lValue );
@@ -7544,13 +7544,13 @@ $L8192:
 	mov	esp, ebp
 	pop	ebp
 	ret	0
-$L9272:
-	DD	$L8195
-	DD	$L8196
+$L9276:
 	DD	$L8197
 	DD	$L8198
 	DD	$L8199
 	DD	$L8200
+	DD	$L8201
+	DD	$L8202
 _fnGetDateTimeComponent ENDP
 _TEXT	ENDS
 PUBLIC	_fnSetDateTimeComponent
@@ -7592,10 +7592,10 @@ _fnSetDateTimeComponent PROC NEAR
 	movsx	edx, WORD PTR _nCID$[ebp]
 	mov	DWORD PTR -40+[ebp], edx
 	cmp	DWORD PTR -40+[ebp], 5
-	ja	$L8222
+	ja	$L8224
 	mov	eax, DWORD PTR -40+[ebp]
-	jmp	DWORD PTR $L9274[eax*4]
-$L8216:
+	jmp	DWORD PTR $L9278[eax*4]
+$L8218:
 
 ; 2086 :       case zDT_YEAR:
 ; 2087 :          zltoa( lValue + 10000L, sz );
@@ -7621,8 +7621,8 @@ $L8216:
 
 ; 2089 :          break;
 
-	jmp	$L8213
-$L8217:
+	jmp	$L8215
+$L8219:
 
 ; 2090 : 
 ; 2091 :       case zDT_MONTH:
@@ -7649,8 +7649,8 @@ $L8217:
 
 ; 2094 :          break;
 
-	jmp	$L8213
-$L8218:
+	jmp	$L8215
+$L8220:
 
 ; 2095 : 
 ; 2096 :       case zDT_DAY:
@@ -7677,8 +7677,8 @@ $L8218:
 
 ; 2099 :          break;
 
-	jmp	$L8213
-$L8219:
+	jmp	$L8215
+$L8221:
 
 ; 2100 : 
 ; 2101 :       case zDT_HOUR:
@@ -7705,8 +7705,8 @@ $L8219:
 
 ; 2104 :          break;
 
-	jmp	SHORT $L8213
-$L8220:
+	jmp	SHORT $L8215
+$L8222:
 
 ; 2105 : 
 ; 2106 :       case zDT_MINUTE:
@@ -7733,8 +7733,8 @@ $L8220:
 
 ; 2109 :          break;
 
-	jmp	SHORT $L8213
-$L8221:
+	jmp	SHORT $L8215
+$L8223:
 
 ; 2110 : 
 ; 2111 :       case zDT_SECOND:
@@ -7761,22 +7761,22 @@ $L8221:
 
 ; 2114 :          break;
 
-	jmp	SHORT $L8213
-$L8222:
+	jmp	SHORT $L8215
+$L8224:
 
 ; 2115 : 
 ; 2116 :       default:
 ; 2117 :          nRC = zCALL_ERROR;
 
 	mov	WORD PTR _nRC$[ebp], -16		; fffffff0H
-$L8213:
+$L8215:
 
 ; 2119 : 
 ; 2120 :    if ( nRC == 0 )
 
 	movsx	ecx, WORD PTR _nRC$[ebp]
 	test	ecx, ecx
-	jne	SHORT $L8223
+	jne	SHORT $L8225
 
 ; 2121 :       nRC = UfStringToDateTime( szDateTime, lpDateTime );
 
@@ -7786,7 +7786,7 @@ $L8213:
 	push	eax
 	call	_UfStringToDateTime@8
 	mov	WORD PTR _nRC$[ebp], ax
-$L8223:
+$L8225:
 
 ; 2122 : 
 ; 2123 :    return( nRC );
@@ -7798,13 +7798,13 @@ $L8223:
 	mov	esp, ebp
 	pop	ebp
 	ret	0
-$L9274:
-	DD	$L8216
-	DD	$L8217
+$L9278:
 	DD	$L8218
 	DD	$L8219
 	DD	$L8220
 	DD	$L8221
+	DD	$L8222
+	DD	$L8223
 _fnSetDateTimeComponent ENDP
 _cpcJulian$ = 8
 _pchGregorian$ = 12
@@ -7873,12 +7873,12 @@ _UfJulianToGregorian@8 PROC NEAR
 ; 2160 :    if ( ulYear == 0 )
 
 	cmp	DWORD PTR _ulYear$[ebp], 0
-	jne	SHORT $L8237
+	jne	SHORT $L8239
 
 ; 2161 :       ulYear = 1900;
 
 	mov	DWORD PTR _ulYear$[ebp], 1900		; 0000076cH
-$L8237:
+$L8239:
 
 ; 2162 : 
 ; 2163 :    /* Calculate Year in Minutes */
@@ -7900,7 +7900,7 @@ $L8237:
 ; 2170 :    if ( ulYear >= 1900L )
 
 	cmp	DWORD PTR _ulYear$[ebp], 1900		; 0000076cH
-	jb	SHORT $L8254
+	jb	SHORT $L8256
 
 ; 2172 :       ulWorkYear = 1900L;
 
@@ -7913,7 +7913,7 @@ $L8237:
 ; 2174 :       if ( ulYear >= 2000L )
 
 	cmp	DWORD PTR _ulYear$[ebp], 2000		; 000007d0H
-	jb	SHORT $L8254
+	jb	SHORT $L8256
 
 ; 2176 :          ulWorkYear = 2000L;
 
@@ -7924,7 +7924,7 @@ $L8237:
 	mov	eax, DWORD PTR _DT_Rec$[ebp]
 	add	eax, 52594560				; 03228780H
 	mov	DWORD PTR _DT_Rec$[ebp], eax
-$L8254:
+$L8256:
 
 ; 2180 : 
 ; 2181 :    // This will get us to Jan 1, of the desired year.
@@ -7933,7 +7933,7 @@ $L8254:
 
 	mov	ecx, DWORD PTR _ulWorkYear$[ebp]
 	cmp	ecx, DWORD PTR _ulYear$[ebp]
-	jae	SHORT $L8264
+	jae	SHORT $L8266
 
 ; 2185 :       if ( (ulWorkYear % 4) == 0 &&
 ; 2186 :            ((ulWorkYear % 100) || (ulWorkYear % 400) == 0) )
@@ -7943,20 +7943,20 @@ $L8254:
 	mov	ecx, 4
 	div	ecx
 	test	edx, edx
-	jne	SHORT $L8265
+	jne	SHORT $L8267
 	mov	eax, DWORD PTR _ulWorkYear$[ebp]
 	xor	edx, edx
 	mov	ecx, 100				; 00000064H
 	div	ecx
 	test	edx, edx
-	jne	SHORT $L8266
+	jne	SHORT $L8268
 	mov	eax, DWORD PTR _ulWorkYear$[ebp]
 	xor	edx, edx
 	mov	ecx, 400				; 00000190H
 	div	ecx
 	test	edx, edx
-	jne	SHORT $L8265
-$L8266:
+	jne	SHORT $L8267
+$L8268:
 
 ; 2188 :          DT_Rec.ulDateMinutes += LeapYear;
 
@@ -7966,15 +7966,15 @@ $L8266:
 
 ; 2190 :       else
 
-	jmp	SHORT $L8270
-$L8265:
+	jmp	SHORT $L8272
+$L8267:
 
 ; 2192 :          DT_Rec.ulDateMinutes += Year;
 
 	mov	eax, DWORD PTR _DT_Rec$[ebp]
 	add	eax, 525600				; 00080520H
 	mov	DWORD PTR _DT_Rec$[ebp], eax
-$L8270:
+$L8272:
 
 ; 2194 :       ulWorkYear++;
 
@@ -7984,8 +7984,8 @@ $L8270:
 
 ; 2195 :    }
 
-	jmp	SHORT $L8254
-$L8264:
+	jmp	SHORT $L8256
+$L8266:
 
 ; 2196 : 
 ; 2197 :    // add julian day count
@@ -8009,13 +8009,13 @@ $L8264:
 	call	_UfDateTimeToString@12
 	movsx	eax, ax
 	cmp	eax, -16				; fffffff0H
-	jne	SHORT $L8278
+	jne	SHORT $L8280
 
 ; 2201 :       return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	SHORT $L8228
-$L8278:
+	jmp	SHORT $L8230
+$L8280:
 
 ; 2202 : 
 ; 2203 :    zstrcpy( pchGregorian, sz );
@@ -8031,7 +8031,7 @@ $L8278:
 ; 2205 :    return( 0 );
 
 	xor	ax, ax
-$L8228:
+$L8230:
 
 ; 2206 : }
 
@@ -8073,12 +8073,12 @@ _UfEncryptString@12 PROC NEAR
 	mov	eax, DWORD PTR _uLth$[ebp]
 	and	eax, 65535				; 0000ffffH
 	cmp	eax, 26					; 0000001aH
-	jle	SHORT $L8294
+	jle	SHORT $L8296
 
 ; 2302 :       uLth = 26;
 
 	mov	WORD PTR _uLth$[ebp], 26		; 0000001aH
-$L8294:
+$L8296:
 
 ; 2303 : 
 ; 2304 :    uChar = 0;
@@ -8099,7 +8099,7 @@ $L8294:
 	and	ecx, 65535				; 0000ffffH
 	mov	edx, DWORD PTR _pchOut$[ebp]
 	mov	BYTE PTR [edx+ecx], 0
-$L8296:
+$L8298:
 
 ; 2308 :    while ( Encrypt2[ nOrderIdx ] > (uLth - 1) )
 
@@ -8110,15 +8110,15 @@ $L8296:
 	and	edx, 65535				; 0000ffffH
 	sub	edx, 1
 	cmp	ecx, edx
-	jle	SHORT $L8297
+	jle	SHORT $L8299
 
 ; 2309 :       nOrderIdx++;
 
 	mov	ax, WORD PTR _nOrderIdx$[ebp]
 	add	ax, 1
 	mov	WORD PTR _nOrderIdx$[ebp], ax
-	jmp	SHORT $L8296
-$L8297:
+	jmp	SHORT $L8298
+$L8299:
 
 ; 2310 : 
 ; 2311 :    nInLth = zstrlen( pchIn );
@@ -8128,7 +8128,7 @@ $L8297:
 	call	_strlen
 	add	esp, 4
 	mov	WORD PTR _nInLth$[ebp], ax
-$L8300:
+$L8302:
 
 ; 2312 :    while ( (zUSHORT) nInLth > uLth || nInLth > 25 )
 
@@ -8137,19 +8137,19 @@ $L8300:
 	mov	eax, DWORD PTR _uLth$[ebp]
 	and	eax, 65535				; 0000ffffH
 	cmp	edx, eax
-	jg	SHORT $L8302
+	jg	SHORT $L8304
 	movsx	ecx, WORD PTR _nInLth$[ebp]
 	cmp	ecx, 25					; 00000019H
-	jle	SHORT $L8301
-$L8302:
+	jle	SHORT $L8303
+$L8304:
 
 ; 2313 :       nInLth -= uLth;
 
 	mov	dx, WORD PTR _nInLth$[ebp]
 	sub	dx, WORD PTR _uLth$[ebp]
 	mov	WORD PTR _nInLth$[ebp], dx
-	jmp	SHORT $L8300
-$L8301:
+	jmp	SHORT $L8302
+$L8303:
 
 ; 2314 : 
 ; 2315 :    pchOut[ Encrypt2[ nOrderIdx ] ] = Encrypt1[ nInLth ];
@@ -8167,7 +8167,7 @@ $L8301:
 	mov	cx, WORD PTR _nOrderIdx$[ebp]
 	add	cx, 1
 	mov	WORD PTR _nOrderIdx$[ebp], cx
-$L8304:
+$L8306:
 
 ; 2317 :    while ( uChar < (uLth - 1) )
 
@@ -8177,8 +8177,8 @@ $L8304:
 	and	eax, 65535				; 0000ffffH
 	sub	eax, 1
 	cmp	edx, eax
-	jge	$L8305
-$L8307:
+	jge	$L8307
+$L8309:
 
 ; 2319 :       while ( Encrypt2[ nOrderIdx ] > (uLth - 1) )
 
@@ -8189,15 +8189,15 @@ $L8307:
 	and	eax, 65535				; 0000ffffH
 	sub	eax, 1
 	cmp	edx, eax
-	jle	SHORT $L8308
+	jle	SHORT $L8310
 
 ; 2320 :          nOrderIdx++;
 
 	mov	cx, WORD PTR _nOrderIdx$[ebp]
 	add	cx, 1
 	mov	WORD PTR _nOrderIdx$[ebp], cx
-	jmp	SHORT $L8307
-$L8308:
+	jmp	SHORT $L8309
+$L8310:
 
 ; 2321 : 
 ; 2322 :       if ( bNullFound == FALSE && pchIn[ uChar ] )
@@ -8205,13 +8205,13 @@ $L8308:
 	mov	edx, DWORD PTR _bNullFound$[ebp]
 	and	edx, 255				; 000000ffH
 	test	edx, edx
-	jne	$L8309
+	jne	$L8311
 	mov	eax, DWORD PTR _uChar$[ebp]
 	and	eax, 65535				; 0000ffffH
 	mov	ecx, DWORD PTR _pchIn$[ebp]
 	movsx	edx, BYTE PTR [ecx+eax]
 	test	edx, edx
-	je	$L8309
+	je	$L8311
 
 ; 2324 :          cChar = pchIn[ uChar ];
 
@@ -8226,15 +8226,15 @@ $L8308:
 
 	mov	eax, DWORD PTR __imp____mb_cur_max
 	cmp	DWORD PTR [eax], 1
-	jle	SHORT $L9277
+	jle	SHORT $L9281
 	push	259					; 00000103H
 	movsx	ecx, BYTE PTR _cChar$[ebp]
 	push	ecx
 	call	DWORD PTR __imp___isctype
 	add	esp, 8
 	mov	DWORD PTR -24+[ebp], eax
-	jmp	SHORT $L9278
-$L9277:
+	jmp	SHORT $L9282
+$L9281:
 	movsx	edx, BYTE PTR _cChar$[ebp]
 	mov	eax, DWORD PTR __imp___pctype
 	mov	ecx, DWORD PTR [eax]
@@ -8242,39 +8242,39 @@ $L9277:
 	mov	ax, WORD PTR [ecx+edx*2]
 	and	eax, 259				; 00000103H
 	mov	DWORD PTR -24+[ebp], eax
-$L9278:
+$L9282:
 	cmp	DWORD PTR -24+[ebp], 0
-	je	$L8310
-$L8312:
+	je	$L8312
+$L8314:
 
 ; 2328 :             while ( cChar >= 'a' )
 
 	movsx	ecx, BYTE PTR _cChar$[ebp]
 	cmp	ecx, 97					; 00000061H
-	jl	SHORT $L8313
+	jl	SHORT $L8315
 
 ; 2329 :                cChar -= ' ';
 
 	mov	dl, BYTE PTR _cChar$[ebp]
 	sub	dl, 32					; 00000020H
 	mov	BYTE PTR _cChar$[ebp], dl
-	jmp	SHORT $L8312
-$L8313:
+	jmp	SHORT $L8314
+$L8315:
 
 ; 2330 : 
 ; 2331 :             while ( cChar < 'A' )
 
 	movsx	eax, BYTE PTR _cChar$[ebp]
 	cmp	eax, 65					; 00000041H
-	jge	SHORT $L8316
+	jge	SHORT $L8318
 
 ; 2332 :                cChar += 11;
 
 	mov	cl, BYTE PTR _cChar$[ebp]
 	add	cl, 11					; 0000000bH
 	mov	BYTE PTR _cChar$[ebp], cl
-	jmp	SHORT $L8313
-$L8316:
+	jmp	SHORT $L8315
+$L8318:
 
 ; 2333 : 
 ; 2334 :             cChar -= 'A';
@@ -8288,13 +8288,13 @@ $L8316:
 	mov	eax, DWORD PTR _uChar$[ebp]
 	and	eax, 65535				; 0000ffffH
 	and	eax, -2147483647			; 80000001H
-	jns	SHORT $L9279
+	jns	SHORT $L9283
 	dec	eax
 	or	eax, -2					; fffffffeH
 	inc	eax
-$L9279:
+$L9283:
 	test	eax, eax
-	je	SHORT $L8317
+	je	SHORT $L8319
 
 ; 2336 :                pchOut[ Encrypt2[ nOrderIdx ] ] = Encrypt1[ cChar ];
 
@@ -8308,8 +8308,8 @@ $L9279:
 
 ; 2337 :             else
 
-	jmp	SHORT $L8318
-$L8317:
+	jmp	SHORT $L8320
+$L8319:
 
 ; 2338 :                pchOut[ Encrypt2[ nOrderIdx ] ] = Encrypt2[ cChar ];
 
@@ -8320,12 +8320,12 @@ $L8317:
 	mov	eax, DWORD PTR _pchOut$[ebp]
 	mov	dl, BYTE PTR _Encrypt2[edx]
 	mov	BYTE PTR [eax+ecx], dl
-$L8318:
+$L8320:
 
 ; 2340 :          else
 
-	jmp	SHORT $L8319
-$L8310:
+	jmp	SHORT $L8321
+$L8312:
 
 ; 2341 :             pchOut[ Encrypt2[ nOrderIdx ] ] = EncryptNonAlpha[ cChar ] - 'a';
 
@@ -8338,12 +8338,12 @@ $L8310:
 	mov	al, BYTE PTR _Encrypt2[edx]
 	mov	edx, DWORD PTR _pchOut$[ebp]
 	mov	BYTE PTR [edx+eax], cl
-$L8319:
+$L8321:
 
 ; 2343 :       else
 
-	jmp	SHORT $L8323
-$L8309:
+	jmp	SHORT $L8325
+$L8311:
 
 ; 2345 :          cChar += 17;
 
@@ -8355,14 +8355,14 @@ $L8309:
 
 	movsx	ecx, BYTE PTR _cChar$[ebp]
 	cmp	ecx, 25					; 00000019H
-	jle	SHORT $L8321
+	jle	SHORT $L8323
 
 ; 2347 :             cChar -= 25;
 
 	mov	dl, BYTE PTR _cChar$[ebp]
 	sub	dl, 25					; 00000019H
 	mov	BYTE PTR _cChar$[ebp], dl
-$L8321:
+$L8323:
 
 ; 2348 : 
 ; 2349 :          bNullFound = TRUE;
@@ -8374,13 +8374,13 @@ $L8321:
 	mov	eax, DWORD PTR _uChar$[ebp]
 	and	eax, 65535				; 0000ffffH
 	and	eax, -2147483647			; 80000001H
-	jns	SHORT $L9280
+	jns	SHORT $L9284
 	dec	eax
 	or	eax, -2					; fffffffeH
 	inc	eax
-$L9280:
+$L9284:
 	test	eax, eax
-	je	SHORT $L8322
+	je	SHORT $L8324
 
 ; 2351 :             pchOut[ Encrypt2[ nOrderIdx ] ] = Encrypt2[ cChar ];
 
@@ -8394,8 +8394,8 @@ $L9280:
 
 ; 2352 :          else
 
-	jmp	SHORT $L8323
-$L8322:
+	jmp	SHORT $L8325
+$L8324:
 
 ; 2353 :             pchOut[ Encrypt2[ nOrderIdx ] ] = Encrypt1[ cChar ];
 
@@ -8406,7 +8406,7 @@ $L8322:
 	mov	eax, DWORD PTR _pchOut$[ebp]
 	mov	dl, BYTE PTR _Encrypt1[edx]
 	mov	BYTE PTR [eax+ecx], dl
-$L8323:
+$L8325:
 
 ; 2355 : 
 ; 2356 :       uChar++;
@@ -8423,25 +8423,25 @@ $L8323:
 
 ; 2358 :    }
 
-	jmp	$L8304
-$L8305:
+	jmp	$L8306
+$L8307:
 
 ; 2359 : 
 ; 2360 :    for ( uChar = 0 ; uChar < uLth ; uChar++ )
 
 	mov	WORD PTR _uChar$[ebp], 0
-	jmp	SHORT $L8324
-$L8325:
+	jmp	SHORT $L8326
+$L8327:
 	mov	dx, WORD PTR _uChar$[ebp]
 	add	dx, 1
 	mov	WORD PTR _uChar$[ebp], dx
-$L8324:
+$L8326:
 	mov	eax, DWORD PTR _uChar$[ebp]
 	and	eax, 65535				; 0000ffffH
 	mov	ecx, DWORD PTR _uLth$[ebp]
 	and	ecx, 65535				; 0000ffffH
 	cmp	eax, ecx
-	jge	SHORT $L8326
+	jge	SHORT $L8328
 
 ; 2361 :       pchOut[ uChar ] += 'a';
 
@@ -8454,8 +8454,8 @@ $L8324:
 	and	edx, 65535				; 0000ffffH
 	mov	eax, DWORD PTR _pchOut$[ebp]
 	mov	BYTE PTR [eax+edx], cl
-	jmp	SHORT $L8325
-$L8326:
+	jmp	SHORT $L8327
+$L8328:
 
 ; 2362 : 
 ; 2363 : // zsprintf( szMsg, "UfEncryptString Out: \"%s\"", pchOut );
@@ -8495,7 +8495,7 @@ _ucChar$ = -8
 _cWk$ = -16
 _cReturnLth$ = -24
 _nReturnLth$ = -12
-_nIdx$8366 = -28
+_nIdx$8368 = -28
 _UfDecryptString@12 PROC NEAR
 
 ; 2387 : {
@@ -8520,7 +8520,7 @@ _UfDecryptString@12 PROC NEAR
 	mov	eax, DWORD PTR _pchIn$[ebp]
 	movsx	ecx, BYTE PTR [eax]
 	test	ecx, ecx
-	jne	SHORT $L8340
+	jne	SHORT $L8342
 
 ; 2401 :       *pchOut = 0;
 
@@ -8530,8 +8530,8 @@ _UfDecryptString@12 PROC NEAR
 ; 2402 :       return( 0 );
 
 	xor	ax, ax
-	jmp	$L8333
-$L8340:
+	jmp	$L8335
+$L8342:
 
 ; 2404 : 
 ; 2405 :    if ( uLth > 26 )
@@ -8539,12 +8539,12 @@ $L8340:
 	mov	eax, DWORD PTR _uLth$[ebp]
 	and	eax, 65535				; 0000ffffH
 	cmp	eax, 26					; 0000001aH
-	jle	SHORT $L8341
+	jle	SHORT $L8343
 
 ; 2406 :       uLth = 26;
 
 	mov	WORD PTR _uLth$[ebp], 26		; 0000001aH
-$L8341:
+$L8343:
 
 ; 2407 : 
 ; 2408 :    uChar = 0;
@@ -8554,7 +8554,7 @@ $L8341:
 ; 2409 :    nOrderIdx = 0;
 
 	mov	WORD PTR _nOrderIdx$[ebp], 0
-$L8343:
+$L8345:
 
 ; 2410 :    while ( Encrypt2[ nOrderIdx ] > (uLth - 1) )
 
@@ -8565,15 +8565,15 @@ $L8343:
 	and	eax, 65535				; 0000ffffH
 	sub	eax, 1
 	cmp	edx, eax
-	jle	SHORT $L8344
+	jle	SHORT $L8346
 
 ; 2411 :       nOrderIdx++;
 
 	mov	cx, WORD PTR _nOrderIdx$[ebp]
 	add	cx, 1
 	mov	WORD PTR _nOrderIdx$[ebp], cx
-	jmp	SHORT $L8343
-$L8344:
+	jmp	SHORT $L8345
+$L8346:
 
 ; 2412 : 
 ; 2413 :    cReturnLth = pchIn[ Encrypt2[ nOrderIdx ] ] - 'a';
@@ -8589,7 +8589,7 @@ $L8344:
 ; 2414 :    nReturnLth = 0;
 
 	mov	WORD PTR _nReturnLth$[ebp], 0
-$L8347:
+$L8349:
 
 ; 2415 :    while ( Encrypt1[ nReturnLth ] != (zUCHAR) cReturnLth )
 
@@ -8599,15 +8599,15 @@ $L8347:
 	mov	edx, DWORD PTR _cReturnLth$[ebp]
 	and	edx, 255				; 000000ffH
 	cmp	ecx, edx
-	je	SHORT $L8348
+	je	SHORT $L8350
 
 ; 2416 :       nReturnLth++;
 
 	mov	ax, WORD PTR _nReturnLth$[ebp]
 	add	ax, 1
 	mov	WORD PTR _nReturnLth$[ebp], ax
-	jmp	SHORT $L8347
-$L8348:
+	jmp	SHORT $L8349
+$L8350:
 
 ; 2417 : 
 ; 2418 :    cReturnLth = (zCHAR) nReturnLth;
@@ -8620,14 +8620,14 @@ $L8348:
 	mov	dx, WORD PTR _nOrderIdx$[ebp]
 	add	dx, 1
 	mov	WORD PTR _nOrderIdx$[ebp], dx
-$L8351:
+$L8353:
 
 ; 2420 :    while ( cReturnLth )
 
 	movsx	eax, BYTE PTR _cReturnLth$[ebp]
 	test	eax, eax
-	je	$L8352
-$L8354:
+	je	$L8354
+$L8356:
 
 ; 2422 :       while ( Encrypt2[ nOrderIdx ] > (uLth - 1) )
 
@@ -8638,15 +8638,15 @@ $L8354:
 	and	eax, 65535				; 0000ffffH
 	sub	eax, 1
 	cmp	edx, eax
-	jle	SHORT $L8355
+	jle	SHORT $L8357
 
 ; 2423 :          nOrderIdx++;
 
 	mov	cx, WORD PTR _nOrderIdx$[ebp]
 	add	cx, 1
 	mov	WORD PTR _nOrderIdx$[ebp], cx
-	jmp	SHORT $L8354
-$L8355:
+	jmp	SHORT $L8356
+$L8357:
 
 ; 2424 : 
 ; 2425 :       ucChar = pchIn[ Encrypt2[ nOrderIdx ] ];
@@ -8662,7 +8662,7 @@ $L8355:
 
 	mov	eax, DWORD PTR __imp____mb_cur_max
 	cmp	DWORD PTR [eax], 1
-	jle	SHORT $L9282
+	jle	SHORT $L9286
 	push	259					; 00000103H
 	mov	ecx, DWORD PTR _ucChar$[ebp]
 	and	ecx, 255				; 000000ffH
@@ -8670,8 +8670,8 @@ $L8355:
 	call	DWORD PTR __imp___isctype
 	add	esp, 8
 	mov	DWORD PTR -32+[ebp], eax
-	jmp	SHORT $L9283
-$L9282:
+	jmp	SHORT $L9287
+$L9286:
 	mov	edx, DWORD PTR _ucChar$[ebp]
 	and	edx, 255				; 000000ffH
 	mov	eax, DWORD PTR __imp___pctype
@@ -8680,9 +8680,9 @@ $L9282:
 	mov	ax, WORD PTR [ecx+edx*2]
 	and	eax, 259				; 00000103H
 	mov	DWORD PTR -32+[ebp], eax
-$L9283:
+$L9287:
 	cmp	DWORD PTR -32+[ebp], 0
-	je	$L8356
+	je	$L8358
 
 ; 2428 :          ucChar -= 'a';
 
@@ -8695,18 +8695,18 @@ $L9283:
 	mov	edx, DWORD PTR _uChar$[ebp]
 	and	edx, 65535				; 0000ffffH
 	and	edx, -2147483647			; 80000001H
-	jns	SHORT $L9284
+	jns	SHORT $L9288
 	dec	edx
 	or	edx, -2					; fffffffeH
 	inc	edx
-$L9284:
+$L9288:
 	test	edx, edx
-	je	SHORT $L8357
+	je	SHORT $L8359
 
 ; 2431 :             cWk = 0;
 
 	mov	BYTE PTR _cWk$[ebp], 0
-$L8359:
+$L8361:
 
 ; 2432 :             while ( Encrypt1[ cWk ] != ucChar )
 
@@ -8716,15 +8716,15 @@ $L8359:
 	mov	edx, DWORD PTR _ucChar$[ebp]
 	and	edx, 255				; 000000ffH
 	cmp	ecx, edx
-	je	SHORT $L8360
+	je	SHORT $L8362
 
 ; 2433 :                cWk++;
 
 	mov	al, BYTE PTR _cWk$[ebp]
 	add	al, 1
 	mov	BYTE PTR _cWk$[ebp], al
-	jmp	SHORT $L8359
-$L8360:
+	jmp	SHORT $L8361
+$L8362:
 
 ; 2434 : 
 ; 2435 :             pchOut[ uChar ] = cWk + 'a';
@@ -8738,13 +8738,13 @@ $L8360:
 
 ; 2437 :          else
 
-	jmp	SHORT $L8361
-$L8357:
+	jmp	SHORT $L8363
+$L8359:
 
 ; 2439 :             cWk = 0;
 
 	mov	BYTE PTR _cWk$[ebp], 0
-$L8363:
+$L8365:
 
 ; 2440 :             while ( Encrypt2[ cWk ] != ucChar )
 
@@ -8754,15 +8754,15 @@ $L8363:
 	mov	eax, DWORD PTR _ucChar$[ebp]
 	and	eax, 255				; 000000ffH
 	cmp	edx, eax
-	je	SHORT $L8364
+	je	SHORT $L8366
 
 ; 2441 :                cWk++;
 
 	mov	cl, BYTE PTR _cWk$[ebp]
 	add	cl, 1
 	mov	BYTE PTR _cWk$[ebp], cl
-	jmp	SHORT $L8363
-$L8364:
+	jmp	SHORT $L8365
+$L8366:
 
 ; 2442 : 
 ; 2443 :             pchOut[ uChar ] = cWk + 'a';
@@ -8773,55 +8773,55 @@ $L8364:
 	and	eax, 65535				; 0000ffffH
 	mov	ecx, DWORD PTR _pchOut$[ebp]
 	mov	BYTE PTR [ecx+eax], dl
-$L8361:
+$L8363:
 
 ; 2446 :       else
 
-	jmp	SHORT $L8365
-$L8356:
+	jmp	SHORT $L8367
+$L8358:
 
 ; 2448 :          zSHORT nIdx;
 ; 2449 : 
 ; 2450 :          // Look for the encrypted char in the non-alpha table.
 ; 2451 :          for ( nIdx = 32; nIdx < 127; nIdx++ )
 
-	mov	WORD PTR _nIdx$8366[ebp], 32		; 00000020H
-	jmp	SHORT $L8367
-$L8368:
-	mov	dx, WORD PTR _nIdx$8366[ebp]
+	mov	WORD PTR _nIdx$8368[ebp], 32		; 00000020H
+	jmp	SHORT $L8369
+$L8370:
+	mov	dx, WORD PTR _nIdx$8368[ebp]
 	add	dx, 1
-	mov	WORD PTR _nIdx$8366[ebp], dx
-$L8367:
-	movsx	eax, WORD PTR _nIdx$8366[ebp]
+	mov	WORD PTR _nIdx$8368[ebp], dx
+$L8369:
+	movsx	eax, WORD PTR _nIdx$8368[ebp]
 	cmp	eax, 127				; 0000007fH
-	jge	SHORT $L8369
+	jge	SHORT $L8371
 
 ; 2453 :             if ( EncryptNonAlpha[ nIdx ] == ucChar )
 
-	movsx	ecx, WORD PTR _nIdx$8366[ebp]
+	movsx	ecx, WORD PTR _nIdx$8368[ebp]
 	xor	edx, edx
 	mov	dl, BYTE PTR _EncryptNonAlpha[ecx]
 	mov	eax, DWORD PTR _ucChar$[ebp]
 	and	eax, 255				; 000000ffH
 	cmp	edx, eax
-	jne	SHORT $L8370
+	jne	SHORT $L8372
 
 ; 2454 :                break;
 
-	jmp	SHORT $L8369
-$L8370:
+	jmp	SHORT $L8371
+$L8372:
 
 ; 2455 :          }
 
-	jmp	SHORT $L8368
-$L8369:
+	jmp	SHORT $L8370
+$L8371:
 
 ; 2456 : 
 ; 2457 :          if ( nIdx == 127 )
 
-	movsx	ecx, WORD PTR _nIdx$8366[ebp]
+	movsx	ecx, WORD PTR _nIdx$8368[ebp]
 	cmp	ecx, 127				; 0000007fH
-	jne	SHORT $L8371
+	jne	SHORT $L8373
 
 ; 2459 :             SysMessageBox( 0, "Zeidon Internal Error",
 ; 2460 :                            "Error decrypting string", 0 );
@@ -8835,8 +8835,8 @@ $L8369:
 ; 2461 :             return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	SHORT $L8333
-$L8371:
+	jmp	SHORT $L8335
+$L8373:
 
 ; 2463 : 
 ; 2464 :          pchOut[ uChar ] = (zCHAR) nIdx;
@@ -8844,9 +8844,9 @@ $L8371:
 	mov	edx, DWORD PTR _uChar$[ebp]
 	and	edx, 65535				; 0000ffffH
 	mov	eax, DWORD PTR _pchOut$[ebp]
-	mov	cl, BYTE PTR _nIdx$8366[ebp]
+	mov	cl, BYTE PTR _nIdx$8368[ebp]
 	mov	BYTE PTR [eax+edx], cl
-$L8365:
+$L8367:
 
 ; 2466 : 
 ; 2467 :       cReturnLth--;
@@ -8869,8 +8869,8 @@ $L8365:
 
 ; 2470 :    }
 
-	jmp	$L8351
-$L8352:
+	jmp	$L8353
+$L8354:
 
 ; 2471 : 
 ; 2472 :    pchOut[ uChar ] = 0;
@@ -8885,7 +8885,7 @@ $L8352:
 ; 2475 :    return( nReturnLth );
 
 	mov	ax, WORD PTR _nReturnLth$[ebp]
-$L8333:
+$L8335:
 
 ; 2476 : }
 
@@ -8937,7 +8937,7 @@ _bSubtract$ = -16
 _bYadjust$ = -24
 _bDone$ = -12
 _nRC$ = -8
-_usDay$8428 = -48
+_usDay$8430 = -48
 _UfAddToDateTime@12 PROC NEAR
 
 ; 2497 : {
@@ -8977,14 +8977,14 @@ _UfAddToDateTime@12 PROC NEAR
 ; 2514 :    if ( lAmount == 0 )
 
 	cmp	DWORD PTR _lAmount$[ebp], 0
-	jne	SHORT $L8392
+	jne	SHORT $L8394
 
 ; 2516 :    // fnOperationReturn( iUfAddToDateTime, lpCurrentTask );
 ; 2517 :       return( 0 );
 
 	xor	ax, ax
-	jmp	$L8381
-$L8392:
+	jmp	$L8383
+$L8394:
 
 ; 2519 : 
 ; 2520 :    // Establish if adding or subtracting...
@@ -9027,7 +9027,7 @@ $L8392:
 	add	esp, 8
 	movsx	edx, ax
 	test	edx, edx
-	jne	SHORT $L8396
+	jne	SHORT $L8398
 
 ; 2530 :       UfStringToDateTime( "00010101", (LPDATETIME) &dt );
 
@@ -9035,7 +9035,7 @@ $L8392:
 	push	eax
 	push	OFFSET FLAT:??_C@_08NEDP@00010101?$AA@	; `string'
 	call	_UfStringToDateTime@8
-$L8396:
+$L8398:
 
 ; 2531 : 
 ; 2532 :    switch ( nAmountType )
@@ -9044,10 +9044,10 @@ $L8396:
 	movsx	ecx, WORD PTR _nAmountType$[ebp]
 	mov	DWORD PTR -52+[ebp], ecx
 	cmp	DWORD PTR -52+[ebp], 5
-	ja	$L8448
+	ja	$L8450
 	mov	edx, DWORD PTR -52+[ebp]
-	jmp	DWORD PTR $L9286[edx*4]
-$L8403:
+	jmp	DWORD PTR $L9290[edx*4]
+$L8405:
 
 ; 2534 :       case zDT_YEAR:
 ; 2535 :          lY = fnGetDateTimeComponent( (LPDATETIME)&dt, zDT_YEAR );
@@ -9064,7 +9064,7 @@ $L8403:
 	mov	ecx, DWORD PTR _bSubtract$[ebp]
 	and	ecx, 255				; 000000ffH
 	test	ecx, ecx
-	je	SHORT $L8405
+	je	SHORT $L8407
 
 ; 2538 :             lY -= lAmount;
 
@@ -9075,7 +9075,7 @@ $L8403:
 ; 2539 :             if ( lY < 1 )
 
 	cmp	DWORD PTR _lY$[ebp], 1
-	jge	SHORT $L8406
+	jge	SHORT $L8408
 
 ; 2541 :                // underflow...
 ; 2542 :                // "KZOEE236 - Integer underflow"
@@ -9095,12 +9095,12 @@ $L8403:
 ; 2546 :                bDone = TRUE;
 
 	mov	BYTE PTR _bDone$[ebp], 1
-$L8406:
+$L8408:
 
 ; 2549 :          else
 
-	jmp	SHORT $L8409
-$L8405:
+	jmp	SHORT $L8411
+$L8407:
 
 ; 2551 :             lY += lAmount;
 
@@ -9111,7 +9111,7 @@ $L8405:
 ; 2552 :             if ( lY > 9999 )
 
 	cmp	DWORD PTR _lY$[ebp], 9999		; 0000270fH
-	jle	SHORT $L8409
+	jle	SHORT $L8411
 
 ; 2554 :                // overflow...
 ; 2555 :                // "KZOEE235 - Integer overflow"
@@ -9131,14 +9131,14 @@ $L8405:
 ; 2559 :                bDone = TRUE;
 
 	mov	BYTE PTR _bDone$[ebp], 1
-$L8409:
+$L8411:
 
 ; 2562 : 
 ; 2563 :          if ( nRC == 0 )
 
 	movsx	ecx, WORD PTR _nRC$[ebp]
 	test	ecx, ecx
-	jne	SHORT $L8411
+	jne	SHORT $L8413
 
 ; 2565 :             nRC = fnSetDateTimeComponent( (LPDATETIME)&dt, zDT_YEAR, lY );
 
@@ -9154,12 +9154,12 @@ $L8409:
 ; 2566 :             bDone = TRUE;
 
 	mov	BYTE PTR _bDone$[ebp], 1
-$L8411:
+$L8413:
 
 ; 2568 :          break;
 
-	jmp	$L8400
-$L8413:
+	jmp	$L8402
+$L8415:
 
 ; 2569 : 
 ; 2570 :       case zDT_MONTH:
@@ -9186,13 +9186,13 @@ $L8413:
 	mov	eax, DWORD PTR _bSubtract$[ebp]
 	and	eax, 255				; 000000ffH
 	test	eax, eax
-	je	SHORT $L8418
+	je	SHORT $L8420
 
 ; 2575 :             if ( lM <= lAmount )
 
 	mov	ecx, DWORD PTR _lM$[ebp]
 	cmp	ecx, DWORD PTR _lAmount$[ebp]
-	jg	SHORT $L8419
+	jg	SHORT $L8421
 
 ; 2577 :                bYadjust = TRUE;
 
@@ -9229,18 +9229,18 @@ $L8413:
 ; 2581 :                if ( lM == 0 )
 
 	cmp	DWORD PTR _lM$[ebp], 0
-	jne	SHORT $L8420
+	jne	SHORT $L8422
 
 ; 2582 :                   lM = 12;
 
 	mov	DWORD PTR _lM$[ebp], 12			; 0000000cH
-$L8420:
+$L8422:
 
 ; 2583 : 
 ; 2584 :                if ( lY < 1 )
 
 	cmp	DWORD PTR _lY$[ebp], 1
-	jge	SHORT $L8421
+	jge	SHORT $L8423
 
 ; 2586 :                   // underflow...
 ; 2587 :                   // "KZOEE236 - Integer underflow"
@@ -9260,24 +9260,24 @@ $L8420:
 ; 2591 :                   bDone = TRUE;
 
 	mov	BYTE PTR _bDone$[ebp], 1
-$L8421:
+$L8423:
 
 ; 2594 :             else
 
-	jmp	SHORT $L8422
-$L8419:
+	jmp	SHORT $L8424
+$L8421:
 
 ; 2595 :                lM -= lAmount;
 
 	mov	eax, DWORD PTR _lM$[ebp]
 	sub	eax, DWORD PTR _lAmount$[ebp]
 	mov	DWORD PTR _lM$[ebp], eax
-$L8422:
+$L8424:
 
 ; 2597 :          else
 
-	jmp	SHORT $L8426
-$L8418:
+	jmp	SHORT $L8428
+$L8420:
 
 ; 2599 :             lM += lAmount;
 
@@ -9288,7 +9288,7 @@ $L8418:
 ; 2600 :             if ( lM > 12 )
 
 	cmp	DWORD PTR _lM$[ebp], 12			; 0000000cH
-	jle	SHORT $L8426
+	jle	SHORT $L8428
 
 ; 2602 :                bYadjust = TRUE;
 
@@ -9315,7 +9315,7 @@ $L8418:
 ; 2605 :                if ( !lM )
 
 	cmp	DWORD PTR _lM$[ebp], 0
-	jne	SHORT $L8425
+	jne	SHORT $L8427
 
 ; 2607 :                   lY--;
 
@@ -9326,13 +9326,13 @@ $L8418:
 ; 2608 :                   lM = 12;
 
 	mov	DWORD PTR _lM$[ebp], 12			; 0000000cH
-$L8425:
+$L8427:
 
 ; 2610 : 
 ; 2611 :                if ( lY > 9999 )
 
 	cmp	DWORD PTR _lY$[ebp], 9999		; 0000270fH
-	jle	SHORT $L8426
+	jle	SHORT $L8428
 
 ; 2613 :                   // overflow...
 ; 2614 :                   // "KZOEE235 - Integer overflow"
@@ -9352,14 +9352,14 @@ $L8425:
 ; 2618 :                   bDone = TRUE;
 
 	mov	BYTE PTR _bDone$[ebp], 1
-$L8426:
+$L8428:
 
 ; 2622 : 
 ; 2623 :          if ( nRC == 0 )
 
 	movsx	eax, WORD PTR _nRC$[ebp]
 	test	eax, eax
-	jne	$L8427
+	jne	$L8429
 
 ; 2625 :             zUSHORT usDay;
 ; 2626 : 
@@ -9368,7 +9368,7 @@ $L8426:
 	mov	ecx, DWORD PTR _bYadjust$[ebp]
 	and	ecx, 255				; 000000ffH
 	test	ecx, ecx
-	je	SHORT $L8429
+	je	SHORT $L8431
 
 ; 2628 :                fnSetDateTimeComponent( (LPDATETIME)&dt, zDT_YEAR, lY );
 
@@ -9379,7 +9379,7 @@ $L8426:
 	push	eax
 	call	_fnSetDateTimeComponent
 	add	esp, 12					; 0000000cH
-$L8429:
+$L8431:
 
 ; 2629 :             nRC = fnSetDateTimeComponent( (LPDATETIME)&dt, zDT_MONTH, lM );
 
@@ -9398,7 +9398,7 @@ $L8429:
 
 	movsx	eax, WORD PTR _nRC$[ebp]
 	cmp	eax, -16				; fffffff0H
-	jne	SHORT $L8432
+	jne	SHORT $L8434
 
 ; 2634 :                // Oops...day must be wrong.  Change it.
 ; 2635 :                usDay = (zUSHORT) fnGetDateTimeComponent( (LPDATETIME) &dt,
@@ -9409,23 +9409,23 @@ $L8429:
 	push	ecx
 	call	_fnGetDateTimeComponent
 	add	esp, 8
-	mov	WORD PTR _usDay$8428[ebp], ax
+	mov	WORD PTR _usDay$8430[ebp], ax
 
 ; 2637 :                usDay = fnValidateDay( (zUSHORT) lM, usDay, lY );
 
 	mov	edx, DWORD PTR _lY$[ebp]
 	push	edx
-	mov	ax, WORD PTR _usDay$8428[ebp]
+	mov	ax, WORD PTR _usDay$8430[ebp]
 	push	eax
 	mov	cx, WORD PTR _lM$[ebp]
 	push	ecx
 	call	_fnValidateDay
 	add	esp, 12					; 0000000cH
-	mov	WORD PTR _usDay$8428[ebp], ax
+	mov	WORD PTR _usDay$8430[ebp], ax
 
 ; 2638 :                nRC = fnSetDateTimeComponent( (LPDATETIME) &dt, zDT_DAY, usDay );
 
-	mov	edx, DWORD PTR _usDay$8428[ebp]
+	mov	edx, DWORD PTR _usDay$8430[ebp]
 	and	edx, 65535				; 0000ffffH
 	push	edx
 	push	2
@@ -9434,19 +9434,19 @@ $L8429:
 	call	_fnSetDateTimeComponent
 	add	esp, 12					; 0000000cH
 	mov	WORD PTR _nRC$[ebp], ax
-$L8432:
+$L8434:
 
 ; 2640 : 
 ; 2641 :             bDone = TRUE;
 
 	mov	BYTE PTR _bDone$[ebp], 1
-$L8427:
+$L8429:
 
 ; 2643 : 
 ; 2644 :          break;
 
-	jmp	$L8400
-$L8437:
+	jmp	$L8402
+$L8439:
 
 ; 2645 : 
 ; 2646 :       case zDT_DAY:
@@ -9458,8 +9458,8 @@ $L8437:
 
 ; 2648 :          break;
 
-	jmp	SHORT $L8400
-$L8440:
+	jmp	SHORT $L8402
+$L8442:
 
 ; 2649 : 
 ; 2650 :       case zDT_HOUR:
@@ -9471,8 +9471,8 @@ $L8440:
 
 ; 2652 :          break;
 
-	jmp	SHORT $L8400
-$L8442:
+	jmp	SHORT $L8402
+$L8444:
 
 ; 2653 : 
 ; 2654 :       case zDT_MINUTE:
@@ -9483,8 +9483,8 @@ $L8442:
 
 ; 2656 :          break;
 
-	jmp	SHORT $L8400
-$L8443:
+	jmp	SHORT $L8402
+$L8445:
 
 ; 2657 : 
 ; 2658 :       case zDT_SECOND:
@@ -9496,7 +9496,7 @@ $L8443:
 ; 2660 :          if ( ul > 59 )
 
 	cmp	DWORD PTR _ul$[ebp], 59			; 0000003bH
-	jbe	SHORT $L8444
+	jbe	SHORT $L8446
 
 ; 2662 :             un = (zUSHORT)(ul % 60);
 
@@ -9516,8 +9516,8 @@ $L8443:
 
 ; 2665 :          else
 
-	jmp	SHORT $L8446
-$L8444:
+	jmp	SHORT $L8448
+$L8446:
 
 ; 2667 :             un = (zUSHORT) ul;
 
@@ -9527,7 +9527,7 @@ $L8444:
 ; 2668 :             ul = 0;
 
 	mov	DWORD PTR _ul$[ebp], 0
-$L8446:
+$L8448:
 
 ; 2670 :          un *= 1000;  // adjust to thousandths of a second
 
@@ -9537,8 +9537,8 @@ $L8446:
 
 ; 2671 :          break;
 
-	jmp	SHORT $L8400
-$L8448:
+	jmp	SHORT $L8402
+$L8450:
 
 ; 2672 : 
 ; 2673 :       default:
@@ -9556,8 +9556,8 @@ $L8448:
 ; 2678 :          return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	$L8381
-$L8400:
+	jmp	$L8383
+$L8402:
 
 ; 2680 : 
 ; 2681 :    if ( bDone == FALSE )
@@ -9565,14 +9565,14 @@ $L8400:
 	mov	ecx, DWORD PTR _bDone$[ebp]
 	and	ecx, 255				; 000000ffH
 	test	ecx, ecx
-	jne	$L8462
+	jne	$L8464
 
 ; 2683 :       if ( bSubtract )
 
 	mov	edx, DWORD PTR _bSubtract$[ebp]
 	and	edx, 255				; 000000ffH
 	test	edx, edx
-	je	$L8451
+	je	$L8453
 
 ; 2685 :          // Subtract
 ; 2686 :          if ( un > dt.usTSeconds )
@@ -9582,14 +9582,14 @@ $L8400:
 	mov	ecx, DWORD PTR _dt$[ebp+4]
 	and	ecx, 65535				; 0000ffffH
 	cmp	eax, ecx
-	jle	SHORT $L8452
+	jle	SHORT $L8454
 
 ; 2688 :             if ( ul > (dt.ulDateMinutes - 1) )
 
 	mov	edx, DWORD PTR _dt$[ebp]
 	sub	edx, 1
 	cmp	DWORD PTR _ul$[ebp], edx
-	jbe	SHORT $L8453
+	jbe	SHORT $L8455
 
 ; 2690 :                // underflow...
 ; 2691 :                // "KZOEE236 - Integer underflow"
@@ -9608,8 +9608,8 @@ $L8400:
 
 ; 2696 :             else
 
-	jmp	SHORT $L8454
-$L8453:
+	jmp	SHORT $L8456
+$L8455:
 
 ; 2698 :                dt.usTSeconds += ( (zUSHORT)60000 - un );
 
@@ -9628,18 +9628,18 @@ $L8453:
 	mov	ecx, DWORD PTR _dt$[ebp]
 	sub	ecx, eax
 	mov	DWORD PTR _dt$[ebp], ecx
-$L8454:
+$L8456:
 
 ; 2702 :          else
 
-	jmp	SHORT $L8458
-$L8452:
+	jmp	SHORT $L8460
+$L8454:
 
 ; 2704 :             if ( ul > dt.ulDateMinutes )
 
 	mov	edx, DWORD PTR _ul$[ebp]
 	cmp	edx, DWORD PTR _dt$[ebp]
-	jbe	SHORT $L8457
+	jbe	SHORT $L8459
 
 ; 2706 :                // underflow...
 ; 2707 :                // "KZOEE236 - Integer underflow"
@@ -9658,8 +9658,8 @@ $L8452:
 
 ; 2712 :             else
 
-	jmp	SHORT $L8458
-$L8457:
+	jmp	SHORT $L8460
+$L8459:
 
 ; 2714 :                dt.usTSeconds -= un;
 
@@ -9672,12 +9672,12 @@ $L8457:
 	mov	ecx, DWORD PTR _dt$[ebp]
 	sub	ecx, DWORD PTR _ul$[ebp]
 	mov	DWORD PTR _dt$[ebp], ecx
-$L8458:
+$L8460:
 
 ; 2719 :       else
 
-	jmp	SHORT $L8462
-$L8451:
+	jmp	SHORT $L8464
+$L8453:
 
 ; 2721 :          // Add
 ; 2722 :          dt.usTSeconds += un;
@@ -9691,7 +9691,7 @@ $L8451:
 	mov	eax, DWORD PTR _dt$[ebp+4]
 	and	eax, 65535				; 0000ffffH
 	cmp	eax, 60000				; 0000ea60H
-	jl	SHORT $L8460
+	jl	SHORT $L8462
 
 ; 2725 :             dt.ulDateMinutes++;
 
@@ -9704,7 +9704,7 @@ $L8451:
 	mov	dx, WORD PTR _dt$[ebp+4]
 	sub	dx, 60000				; 0000ea60H
 	mov	WORD PTR _dt$[ebp+4], dx
-$L8460:
+$L8462:
 
 ; 2728 :          dt.ulDateMinutes += ul;
 
@@ -9724,7 +9724,7 @@ $L8460:
 	add	esp, 8
 	movsx	eax, ax
 	cmp	eax, -1
-	jne	SHORT $L8462
+	jne	SHORT $L8464
 
 ; 2733 :             // overflow
 ; 2734 :             // "KZOEE235 - Integer overflow"
@@ -9740,7 +9740,7 @@ $L8460:
 ; 2737 :             nRC = zCALL_ERROR;
 
 	mov	WORD PTR _nRC$[ebp], -16		; fffffff0H
-$L8462:
+$L8464:
 
 ; 2741 : 
 ; 2742 :    // if no problems copy back to user area.
@@ -9748,7 +9748,7 @@ $L8462:
 
 	movsx	ecx, WORD PTR _nRC$[ebp]
 	test	ecx, ecx
-	jne	SHORT $L8464
+	jne	SHORT $L8466
 
 ; 2744 :       zmemcpy( (zPCHAR) lpDateTime, (zPCHAR) &dt, sizeof( DateTimeRecord ) );
 
@@ -9759,27 +9759,27 @@ $L8462:
 	push	eax
 	call	_memcpy
 	add	esp, 12					; 0000000cH
-$L8464:
+$L8466:
 
 ; 2745 : 
 ; 2746 : // fnOperationReturn( iUfAddToDateTime, lpCurrentTask );
 ; 2747 :    return( nRC );
 
 	mov	ax, WORD PTR _nRC$[ebp]
-$L8381:
+$L8383:
 
 ; 2748 : } // UfAddToDateTime
 
 	mov	esp, ebp
 	pop	ebp
 	ret	12					; 0000000cH
-$L9286:
-	DD	$L8403
-	DD	$L8413
-	DD	$L8437
-	DD	$L8440
+$L9290:
+	DD	$L8405
+	DD	$L8415
+	DD	$L8439
 	DD	$L8442
-	DD	$L8443
+	DD	$L8444
+	DD	$L8445
 _UfAddToDateTime@12 ENDP
 _TEXT	ENDS
 PUBLIC	_UfDateTimeDiff@16
@@ -9873,14 +9873,14 @@ _UfDateTimeDiff@16 PROC NEAR
 
 	movsx	ecx, WORD PTR _nDiffType$[ebp]
 	test	ecx, ecx
-	je	SHORT $L8497
+	je	SHORT $L8499
 	movsx	edx, WORD PTR _nDiffType$[ebp]
 	cmp	edx, 1
-	je	SHORT $L8497
+	je	SHORT $L8499
 	movsx	eax, WORD PTR _nDiffType$[ebp]
 	cmp	eax, 2
-	jne	SHORT $L8496
-$L8497:
+	jne	SHORT $L8498
+$L8499:
 
 ; 2796 :      // use only the date part of the timestamp
 ; 2797 :      lpDT1->usTSeconds = 0;
@@ -9926,7 +9926,7 @@ $L8497:
 	sub	eax, DWORD PTR _ulDiffHi$[ebp]
 	mov	ecx, DWORD PTR _lpDT2$[ebp]
 	mov	DWORD PTR [ecx], eax
-$L8496:
+$L8498:
 
 ; 2804 : 
 ; 2805 :    // determine the sign of the difference
@@ -9954,13 +9954,13 @@ $L8496:
 
 	movsx	eax, WORD PTR _nRC$[ebp]
 	test	eax, eax
-	jne	SHORT $L8502
+	jne	SHORT $L8504
 
 ; 2811 :       return( 0 );
 
 	xor	ax, ax
-	jmp	$L8476
-$L8502:
+	jmp	$L8478
+$L8504:
 
 ; 2812 : 
 ; 2813 :    // If negative, exchange the two date time values.
@@ -9969,7 +9969,7 @@ $L8502:
 	mov	ecx, DWORD PTR _bNegative$[ebp]
 	and	ecx, 255				; 000000ffH
 	test	ecx, ecx
-	je	SHORT $L8503
+	je	SHORT $L8505
 
 ; 2816 :      lpDT1 = &dt2;
 
@@ -9980,7 +9980,7 @@ $L8502:
 
 	lea	eax, DWORD PTR _dt1$[ebp]
 	mov	DWORD PTR _lpDT2$[ebp], eax
-$L8503:
+$L8505:
 
 ; 2819 : 
 ; 2820 :    // calculate the difference with carry bit
@@ -10001,7 +10001,7 @@ $L8503:
 	xor	ecx, ecx
 	mov	cx, WORD PTR [eax+4]
 	cmp	edx, ecx
-	jle	SHORT $L8504
+	jle	SHORT $L8506
 
 ; 2824 :      ulDiffHi--;
 
@@ -10023,8 +10023,8 @@ $L8503:
 
 ; 2827 :    else
 
-	jmp	SHORT $L8506
-$L8504:
+	jmp	SHORT $L8508
+$L8506:
 
 ; 2829 :      usDiffLo = lpDT2->usTSeconds - lpDT1->usTSeconds;
 
@@ -10036,7 +10036,7 @@ $L8504:
 	mov	cx, WORD PTR [eax+4]
 	sub	edx, ecx
 	mov	WORD PTR _usDiffLo$[ebp], dx
-$L8506:
+$L8508:
 
 ; 2831 : 
 ; 2832 :    switch ( nDiffType )
@@ -10045,10 +10045,10 @@ $L8506:
 	movsx	edx, WORD PTR _nDiffType$[ebp]
 	mov	DWORD PTR -84+[ebp], edx
 	cmp	DWORD PTR -84+[ebp], 5
-	ja	$L8544
+	ja	$L8546
 	mov	eax, DWORD PTR -84+[ebp]
-	jmp	DWORD PTR $L9288[eax*4]
-$L8511:
+	jmp	DWORD PTR $L9292[eax*4]
+$L8513:
 
 ; 2834 :       case zDT_YEAR:
 ; 2835 :          // calculate the difference of the year number
@@ -10098,20 +10098,20 @@ $L8511:
 	add	esp, 8
 	movsx	edx, ax
 	cmp	edx, 1
-	jne	SHORT $L8515
+	jne	SHORT $L8517
 
 ; 2845 :            lDiff--;
 
 	mov	eax, DWORD PTR _lDiff$[ebp]
 	sub	eax, 1
 	mov	DWORD PTR _lDiff$[ebp], eax
-$L8515:
+$L8517:
 
 ; 2847 : 
 ; 2848 :          break;
 
-	jmp	$L8508
-$L8516:
+	jmp	$L8510
+$L8518:
 
 ; 2849 : 
 ; 2850 :       case zDT_MONTH:
@@ -10198,7 +10198,7 @@ $L8516:
 	add	eax, DWORD PTR _lM2$[ebp]
 	sub	eax, DWORD PTR _lM1$[ebp]
 	mov	DWORD PTR _lDiff$[ebp], eax
-$L8525:
+$L8527:
 
 ; 2867 :            memcpy( &dt, lpDT1, sizeof(DateTimeInternalRecord) );
 
@@ -10242,7 +10242,7 @@ $L8525:
 
 	movsx	eax, WORD PTR _nRC$[ebp]
 	test	eax, eax
-	jne	SHORT $L8525
+	jne	SHORT $L8527
 
 ; 2874 : 
 ; 2875 :          // check for carry caused by difference in days (and correct it)
@@ -10250,20 +10250,20 @@ $L8525:
 
 	mov	ecx, DWORD PTR _lD2$[ebp]
 	cmp	ecx, DWORD PTR _lD1$[ebp]
-	jge	SHORT $L8530
+	jge	SHORT $L8532
 
 ; 2877 :            lDiff--;
 
 	mov	edx, DWORD PTR _lDiff$[ebp]
 	sub	edx, 1
 	mov	DWORD PTR _lDiff$[ebp], edx
-$L8530:
+$L8532:
 
 ; 2878 : 
 ; 2879 :          break;
 
-	jmp	SHORT $L8508
-$L8531:
+	jmp	SHORT $L8510
+$L8533:
 
 ; 2880 : 
 ; 2881 :       case zDT_DAY:
@@ -10277,8 +10277,8 @@ $L8531:
 
 ; 2883 :          break;
 
-	jmp	SHORT $L8508
-$L8535:
+	jmp	SHORT $L8510
+$L8537:
 
 ; 2884 : 
 ; 2885 :       case zDT_HOUR:
@@ -10292,15 +10292,15 @@ $L8535:
 
 ; 2887 :          break;
 
-	jmp	SHORT $L8508
-$L8538:
+	jmp	SHORT $L8510
+$L8540:
 
 ; 2888 : 
 ; 2889 :       case zDT_MINUTE:
 ; 2890 :          if (ulDiffHi > 0x7fffffff)
 
 	cmp	DWORD PTR _ulDiffHi$[ebp], 2147483647	; 7fffffffH
-	jbe	SHORT $L8539
+	jbe	SHORT $L8541
 
 ; 2892 :            bOverflow = TRUE;
 
@@ -10308,8 +10308,8 @@ $L8538:
 
 ; 2893 :            break;
 
-	jmp	SHORT $L8508
-$L8539:
+	jmp	SHORT $L8510
+$L8541:
 
 ; 2895 : 
 ; 2896 :          lDiff = (zLONG) ulDiffHi;
@@ -10319,15 +10319,15 @@ $L8539:
 
 ; 2897 :          break;
 
-	jmp	SHORT $L8508
-$L8541:
+	jmp	SHORT $L8510
+$L8543:
 
 ; 2898 : 
 ; 2899 :       case zDT_SECOND:
 ; 2900 :          if (ulDiffHi > (0x7fffffff / 60 - 1) )
 
 	cmp	DWORD PTR _ulDiffHi$[ebp], 35791393	; 02222221H
-	jbe	SHORT $L8542
+	jbe	SHORT $L8544
 
 ; 2902 :            bOverflow = TRUE;
 
@@ -10335,8 +10335,8 @@ $L8541:
 
 ; 2903 :            break;
 
-	jmp	SHORT $L8508
-$L8542:
+	jmp	SHORT $L8510
+$L8544:
 
 ; 2905 : 
 ; 2906 :          lDiff = (zLONG) (ulDiffHi * 60 + usDiffLo / 1000);
@@ -10353,8 +10353,8 @@ $L8542:
 
 ; 2907 :          break;
 
-	jmp	SHORT $L8508
-$L8544:
+	jmp	SHORT $L8510
+$L8546:
 
 ; 2908 : 
 ; 2909 :       default:
@@ -10372,8 +10372,8 @@ $L8544:
 ; 2914 :          return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	SHORT $L8476
-$L8508:
+	jmp	SHORT $L8478
+$L8510:
 
 ; 2916 : 
 ; 2917 :    if ( bOverflow )
@@ -10381,14 +10381,14 @@ $L8508:
 	mov	edx, DWORD PTR _bOverflow$[ebp]
 	and	edx, 255				; 000000ffH
 	test	edx, edx
-	je	SHORT $L8545
+	je	SHORT $L8547
 
 ; 2919 :    // fnOperationReturn( iUfAddToDateTime, lpCurrentTask );
 ; 2920 :       return( -1 );
 
 	or	ax, -1
-	jmp	SHORT $L8476
-$L8545:
+	jmp	SHORT $L8478
+$L8547:
 
 ; 2922 : 
 ; 2923 :    if ( bNegative )
@@ -10396,14 +10396,14 @@ $L8545:
 	mov	eax, DWORD PTR _bNegative$[ebp]
 	and	eax, 255				; 000000ffH
 	test	eax, eax
-	je	SHORT $L8546
+	je	SHORT $L8548
 
 ; 2924 :      lDiff *= -1;
 
 	mov	ecx, DWORD PTR _lDiff$[ebp]
 	imul	ecx, -1
 	mov	DWORD PTR _lDiff$[ebp], ecx
-$L8546:
+$L8548:
 
 ; 2925 : 
 ; 2926 :    *plDiff = lDiff;
@@ -10415,7 +10415,7 @@ $L8546:
 ; 2927 :    return( 0 );
 
 	xor	ax, ax
-$L8476:
+$L8478:
 
 ; 2928 : 
 ; 2929 : } // UfDateTimeDiff
@@ -10424,13 +10424,13 @@ $L8476:
 	mov	esp, ebp
 	pop	ebp
 	ret	16					; 00000010H
-$L9288:
-	DD	$L8511
-	DD	$L8516
-	DD	$L8531
-	DD	$L8535
-	DD	$L8538
-	DD	$L8541
+$L9292:
+	DD	$L8513
+	DD	$L8518
+	DD	$L8533
+	DD	$L8537
+	DD	$L8540
+	DD	$L8543
 _UfDateTimeDiff@16 ENDP
 _TEXT	ENDS
 PUBLIC	_UfEditFormatString@8
@@ -10463,22 +10463,22 @@ _UfEditFormatString@8 PROC NEAR
 ; 2973 :    if ( cpcFormat == 0 || cpcFormat[ 0 ] == 0 || pchReturnString[ 0 ] == 0 )
 
 	cmp	DWORD PTR _cpcFormat$[ebp], 0
-	je	SHORT $L8557
+	je	SHORT $L8559
 	mov	eax, DWORD PTR _cpcFormat$[ebp]
 	movsx	ecx, BYTE PTR [eax]
 	test	ecx, ecx
-	je	SHORT $L8557
+	je	SHORT $L8559
 	mov	edx, DWORD PTR _pchReturnString$[ebp]
 	movsx	eax, BYTE PTR [edx]
 	test	eax, eax
-	jne	SHORT $L8556
-$L8557:
+	jne	SHORT $L8558
+$L8559:
 
 ; 2974 :       return( 0 );
 
 	xor	ax, ax
-	jmp	$L8551
-$L8556:
+	jmp	$L8553
+$L8558:
 
 ; 2975 : 
 ; 2976 :    while ( pchReturnString[ j ] )
@@ -10487,7 +10487,7 @@ $L8556:
 	mov	edx, DWORD PTR _pchReturnString$[ebp]
 	movsx	eax, BYTE PTR [edx+ecx]
 	test	eax, eax
-	je	$L8560
+	je	$L8562
 
 ; 2978 :       switch ( cpcFormat[ k ] )
 ; 2979 :       {
@@ -10497,19 +10497,19 @@ $L8556:
 	movsx	eax, BYTE PTR [edx+ecx]
 	mov	DWORD PTR -20+[ebp], eax
 	cmp	DWORD PTR -20+[ebp], 92			; 0000005cH
-	ja	$L8597
+	ja	$L8599
 	mov	edx, DWORD PTR -20+[ebp]
 	xor	ecx, ecx
-	mov	cl, BYTE PTR $L9302[edx]
-	jmp	DWORD PTR $L9303[ecx*4]
-$L8565:
+	mov	cl, BYTE PTR $L9306[edx]
+	jmp	DWORD PTR $L9307[ecx*4]
+$L8567:
 
 ; 2980 :          case  0:
 ; 2981 :             return( 1 );
 
 	mov	ax, 1
-	jmp	$L8551
-$L8566:
+	jmp	$L8553
+$L8568:
 
 ; 2982 : 
 ; 2983 :          case  '9':
@@ -10517,7 +10517,7 @@ $L8566:
 
 	mov	eax, DWORD PTR __imp____mb_cur_max
 	cmp	DWORD PTR [eax], 1
-	jle	SHORT $L9290
+	jle	SHORT $L9294
 	push	4
 	movsx	ecx, WORD PTR _j$[ebp]
 	mov	edx, DWORD PTR _pchReturnString$[ebp]
@@ -10526,8 +10526,8 @@ $L8566:
 	call	DWORD PTR __imp___isctype
 	add	esp, 8
 	mov	DWORD PTR -24+[ebp], eax
-	jmp	SHORT $L9291
-$L9290:
+	jmp	SHORT $L9295
+$L9294:
 	movsx	ecx, WORD PTR _j$[ebp]
 	mov	edx, DWORD PTR _pchReturnString$[ebp]
 	movsx	eax, BYTE PTR [edx+ecx]
@@ -10537,20 +10537,20 @@ $L9290:
 	mov	cx, WORD PTR [edx+eax*2]
 	and	ecx, 4
 	mov	DWORD PTR -24+[ebp], ecx
-$L9291:
+$L9295:
 	cmp	DWORD PTR -24+[ebp], 0
-	jne	SHORT $L8567
+	jne	SHORT $L8569
 
 ; 2985 :                return( 1 );
 
 	mov	ax, 1
-	jmp	$L8551
-$L8567:
+	jmp	$L8553
+$L8569:
 
 ; 2986 :             break;
 
-	jmp	$L8562
-$L8568:
+	jmp	$L8564
+$L8570:
 
 ; 2987 : 
 ; 2988 :          case  'A':
@@ -10558,7 +10558,7 @@ $L8568:
 
 	mov	edx, DWORD PTR __imp____mb_cur_max
 	cmp	DWORD PTR [edx], 1
-	jle	SHORT $L9292
+	jle	SHORT $L9296
 	push	259					; 00000103H
 	movsx	eax, WORD PTR _j$[ebp]
 	mov	ecx, DWORD PTR _pchReturnString$[ebp]
@@ -10567,8 +10567,8 @@ $L8568:
 	call	DWORD PTR __imp___isctype
 	add	esp, 8
 	mov	DWORD PTR -28+[ebp], eax
-	jmp	SHORT $L9293
-$L9292:
+	jmp	SHORT $L9297
+$L9296:
 	movsx	eax, WORD PTR _j$[ebp]
 	mov	ecx, DWORD PTR _pchReturnString$[ebp]
 	movsx	edx, BYTE PTR [ecx+eax]
@@ -10578,20 +10578,20 @@ $L9292:
 	mov	ax, WORD PTR [ecx+edx*2]
 	and	eax, 259				; 00000103H
 	mov	DWORD PTR -28+[ebp], eax
-$L9293:
+$L9297:
 	cmp	DWORD PTR -28+[ebp], 0
-	jne	SHORT $L8569
+	jne	SHORT $L8571
 
 ; 2990 :                return( 1 );
 
 	mov	ax, 1
-	jmp	$L8551
-$L8569:
+	jmp	$L8553
+$L8571:
 
 ; 2991 :             break;
 
-	jmp	$L8562
-$L8570:
+	jmp	$L8564
+$L8572:
 
 ; 2992 : 
 ; 2993 :          case  'N':
@@ -10599,7 +10599,7 @@ $L8570:
 
 	mov	ecx, DWORD PTR __imp____mb_cur_max
 	cmp	DWORD PTR [ecx], 1
-	jle	SHORT $L9294
+	jle	SHORT $L9298
 	push	263					; 00000107H
 	movsx	edx, WORD PTR _j$[ebp]
 	mov	eax, DWORD PTR _pchReturnString$[ebp]
@@ -10608,8 +10608,8 @@ $L8570:
 	call	DWORD PTR __imp___isctype
 	add	esp, 8
 	mov	DWORD PTR -32+[ebp], eax
-	jmp	SHORT $L9295
-$L9294:
+	jmp	SHORT $L9299
+$L9298:
 	movsx	edx, WORD PTR _j$[ebp]
 	mov	eax, DWORD PTR _pchReturnString$[ebp]
 	movsx	ecx, BYTE PTR [eax+edx]
@@ -10619,20 +10619,20 @@ $L9294:
 	mov	dx, WORD PTR [eax+ecx*2]
 	and	edx, 263				; 00000107H
 	mov	DWORD PTR -32+[ebp], edx
-$L9295:
+$L9299:
 	cmp	DWORD PTR -32+[ebp], 0
-	jne	SHORT $L8571
+	jne	SHORT $L8573
 
 ; 2995 :                return( 1 );
 
 	mov	ax, 1
-	jmp	$L8551
-$L8571:
+	jmp	$L8553
+$L8573:
 
 ; 2996 :             break;
 
-	jmp	$L8562
-$L8572:
+	jmp	$L8564
+$L8574:
 
 ; 2997 : 
 ; 2998 :          case  'X':
@@ -10642,18 +10642,18 @@ $L8572:
 	mov	ecx, DWORD PTR _pchReturnString$[ebp]
 	movsx	edx, BYTE PTR [ecx+eax]
 	cmp	edx, 128				; 00000080H
-	jb	SHORT $L8574
+	jb	SHORT $L8576
 
 ; 3000 :                return( 1 );
 
 	mov	ax, 1
-	jmp	$L8551
-$L8574:
+	jmp	$L8553
+$L8576:
 
 ; 3001 :             break;
 
-	jmp	$L8562
-$L8575:
+	jmp	$L8564
+$L8577:
 
 ; 3002 : 
 ; 3003 :          case  'L':
@@ -10661,7 +10661,7 @@ $L8575:
 
 	mov	eax, DWORD PTR __imp____mb_cur_max
 	cmp	DWORD PTR [eax], 1
-	jle	SHORT $L9296
+	jle	SHORT $L9300
 	push	2
 	movsx	ecx, WORD PTR _j$[ebp]
 	mov	edx, DWORD PTR _pchReturnString$[ebp]
@@ -10670,8 +10670,8 @@ $L8575:
 	call	DWORD PTR __imp___isctype
 	add	esp, 8
 	mov	DWORD PTR -36+[ebp], eax
-	jmp	SHORT $L9297
-$L9296:
+	jmp	SHORT $L9301
+$L9300:
 	movsx	ecx, WORD PTR _j$[ebp]
 	mov	edx, DWORD PTR _pchReturnString$[ebp]
 	movsx	eax, BYTE PTR [edx+ecx]
@@ -10681,20 +10681,20 @@ $L9296:
 	mov	cx, WORD PTR [edx+eax*2]
 	and	ecx, 2
 	mov	DWORD PTR -36+[ebp], ecx
-$L9297:
+$L9301:
 	cmp	DWORD PTR -36+[ebp], 0
-	jne	SHORT $L8576
+	jne	SHORT $L8578
 
 ; 3005 :                return( 1 );
 
 	mov	ax, 1
-	jmp	$L8551
-$L8576:
+	jmp	$L8553
+$L8578:
 
 ; 3006 :             break;
 
-	jmp	$L8562
-$L8577:
+	jmp	$L8564
+$L8579:
 
 ; 3007 : 
 ; 3008 :          case  'U':
@@ -10702,7 +10702,7 @@ $L8577:
 
 	mov	edx, DWORD PTR __imp____mb_cur_max
 	cmp	DWORD PTR [edx], 1
-	jle	SHORT $L9298
+	jle	SHORT $L9302
 	push	1
 	movsx	eax, WORD PTR _j$[ebp]
 	mov	ecx, DWORD PTR _pchReturnString$[ebp]
@@ -10711,8 +10711,8 @@ $L8577:
 	call	DWORD PTR __imp___isctype
 	add	esp, 8
 	mov	DWORD PTR -40+[ebp], eax
-	jmp	SHORT $L9299
-$L9298:
+	jmp	SHORT $L9303
+$L9302:
 	movsx	eax, WORD PTR _j$[ebp]
 	mov	ecx, DWORD PTR _pchReturnString$[ebp]
 	movsx	edx, BYTE PTR [ecx+eax]
@@ -10722,20 +10722,20 @@ $L9298:
 	mov	ax, WORD PTR [ecx+edx*2]
 	and	eax, 1
 	mov	DWORD PTR -40+[ebp], eax
-$L9299:
+$L9303:
 	cmp	DWORD PTR -40+[ebp], 0
-	jne	SHORT $L8578
+	jne	SHORT $L8580
 
 ; 3010 :                return( 1 );
 
 	mov	ax, 1
-	jmp	$L8551
-$L8578:
+	jmp	$L8553
+$L8580:
 
 ; 3011 :             break;
 
-	jmp	$L8562
-$L8579:
+	jmp	$L8564
+$L8581:
 
 ; 3012 : 
 ; 3013 :          case  'H':
@@ -10743,7 +10743,7 @@ $L8579:
 
 	mov	ecx, DWORD PTR __imp____mb_cur_max
 	cmp	DWORD PTR [ecx], 1
-	jle	SHORT $L9300
+	jle	SHORT $L9304
 	push	128					; 00000080H
 	movsx	edx, WORD PTR _j$[ebp]
 	mov	eax, DWORD PTR _pchReturnString$[ebp]
@@ -10752,8 +10752,8 @@ $L8579:
 	call	DWORD PTR __imp___isctype
 	add	esp, 8
 	mov	DWORD PTR -44+[ebp], eax
-	jmp	SHORT $L9301
-$L9300:
+	jmp	SHORT $L9305
+$L9304:
 	movsx	edx, WORD PTR _j$[ebp]
 	mov	eax, DWORD PTR _pchReturnString$[ebp]
 	movsx	ecx, BYTE PTR [eax+edx]
@@ -10763,20 +10763,20 @@ $L9300:
 	mov	dx, WORD PTR [eax+ecx*2]
 	and	edx, 128				; 00000080H
 	mov	DWORD PTR -44+[ebp], edx
-$L9301:
+$L9305:
 	cmp	DWORD PTR -44+[ebp], 0
-	jne	SHORT $L8580
+	jne	SHORT $L8582
 
 ; 3015 :                return( 1 );
 
 	mov	ax, 1
-	jmp	$L8551
-$L8580:
+	jmp	$L8553
+$L8582:
 
 ; 3016 :             break;
 
-	jmp	$L8562
-$L8581:
+	jmp	$L8564
+$L8583:
 
 ; 3017 : 
 ; 3018 :          case  '\\':
@@ -10789,13 +10789,13 @@ $L8581:
 	mov	edx, DWORD PTR _cpcFormat$[ebp]
 	movsx	eax, BYTE PTR [edx+ecx]
 	test	eax, eax
-	jne	SHORT $L8582
+	jne	SHORT $L8584
 
 ; 3020 :                return( 1 );
 
 	mov	ax, 1
-	jmp	$L8551
-$L8582:
+	jmp	$L8553
+$L8584:
 
 ; 3021 : 
 ; 3022 :             if ( pchReturnString[ j ] != cpcFormat[ k ] )
@@ -10807,20 +10807,20 @@ $L8582:
 	mov	edx, DWORD PTR _cpcFormat$[ebp]
 	movsx	ecx, BYTE PTR [edx+ecx]
 	cmp	eax, ecx
-	je	SHORT $L8583
+	je	SHORT $L8585
 
 ; 3023 :                return( 1 );
 
 	mov	ax, 1
-	jmp	$L8551
-$L8583:
+	jmp	$L8553
+$L8585:
 
 ; 3024 : 
 ; 3025 :             i = j;
 
 	mov	dx, WORD PTR _j$[ebp]
 	mov	WORD PTR _i$[ebp], dx
-$L8584:
+$L8586:
 
 ; 3028 :                pchReturnString[ i ] = pchReturnString[ i + 1 ];
 
@@ -10841,7 +10841,7 @@ $L8584:
 	add	cx, 1
 	mov	WORD PTR _i$[ebp], cx
 	test	eax, eax
-	jne	SHORT $L8584
+	jne	SHORT $L8586
 
 ; 3031 : 
 ; 3032 :             j--;
@@ -10852,8 +10852,8 @@ $L8584:
 
 ; 3033 :             break;
 
-	jmp	$L8562
-$L8587:
+	jmp	$L8564
+$L8589:
 
 ; 3034 : 
 ; 3035 :          case  ' ':
@@ -10867,7 +10867,7 @@ $L8587:
 	mov	ecx, DWORD PTR _pchReturnString$[ebp]
 	movsx	edx, BYTE PTR [ecx+eax]
 	cmp	edx, 32					; 00000020H
-	jne	$L8588
+	jne	$L8590
 
 ; 3042 :                i = j + 1;
 
@@ -10881,8 +10881,8 @@ $L8587:
 	mov	edx, DWORD PTR _cpcFormat$[ebp]
 	movsx	eax, BYTE PTR [edx+ecx+1]
 	cmp	eax, 32					; 00000020H
-	je	SHORT $L8592
-$L8591:
+	je	SHORT $L8594
+$L8593:
 
 ; 3045 :                   while( pchReturnString[ i ] == ' ' )
 
@@ -10890,22 +10890,22 @@ $L8591:
 	mov	edx, DWORD PTR _pchReturnString$[ebp]
 	movsx	eax, BYTE PTR [edx+ecx]
 	cmp	eax, 32					; 00000020H
-	jne	SHORT $L8592
+	jne	SHORT $L8594
 
 ; 3046 :                      i++;
 
 	mov	cx, WORD PTR _i$[ebp]
 	add	cx, 1
 	mov	WORD PTR _i$[ebp], cx
-	jmp	SHORT $L8591
-$L8592:
+	jmp	SHORT $L8593
+$L8594:
 
 ; 3048 : 
 ; 3049 :                l = j;
 
 	mov	dx, WORD PTR _j$[ebp]
 	mov	WORD PTR _l$[ebp], dx
-$L8593:
+$L8595:
 
 ; 3052 :                   pchReturnString[ l++ ] = pchReturnString[ i ];
 
@@ -10929,7 +10929,7 @@ $L8593:
 	add	dx, 1
 	mov	WORD PTR _i$[ebp], dx
 	test	ecx, ecx
-	jne	SHORT $L8593
+	jne	SHORT $L8595
 
 ; 3055 : 
 ; 3056 :                j--;
@@ -10940,20 +10940,20 @@ $L8593:
 
 ; 3058 :             else
 
-	jmp	SHORT $L8596
-$L8588:
+	jmp	SHORT $L8598
+$L8590:
 
 ; 3059 :                return( 1 );
 
 	mov	ax, 1
-	jmp	$L8551
-$L8596:
+	jmp	$L8553
+$L8598:
 
 ; 3060 : 
 ; 3061 :             break;
 
-	jmp	SHORT $L8562
-$L8597:
+	jmp	SHORT $L8564
+$L8599:
 
 ; 3062 : 
 ; 3063 :          default:
@@ -10966,20 +10966,20 @@ $L8597:
 	mov	edx, DWORD PTR _pchReturnString$[ebp]
 	movsx	ecx, BYTE PTR [edx+ecx]
 	cmp	eax, ecx
-	je	SHORT $L8598
+	je	SHORT $L8600
 
 ; 3065 :                return( 1 );
 
 	mov	ax, 1
-	jmp	SHORT $L8551
-$L8598:
+	jmp	SHORT $L8553
+$L8600:
 
 ; 3066 : 
 ; 3067 :             i = j;
 
 	mov	dx, WORD PTR _j$[ebp]
 	mov	WORD PTR _i$[ebp], dx
-$L8599:
+$L8601:
 
 ; 3070 :                pchReturnString[ i ] = pchReturnString[ i + 1 ];
 
@@ -11000,7 +11000,7 @@ $L8599:
 	add	cx, 1
 	mov	WORD PTR _i$[ebp], cx
 	test	eax, eax
-	jne	SHORT $L8599
+	jne	SHORT $L8601
 
 ; 3073 : 
 ; 3074 :             j--;
@@ -11008,7 +11008,7 @@ $L8599:
 	mov	dx, WORD PTR _j$[ebp]
 	sub	dx, 1
 	mov	WORD PTR _j$[ebp], dx
-$L8562:
+$L8564:
 
 ; 3076 : 
 ; 3077 :       k++;
@@ -11025,8 +11025,8 @@ $L8562:
 
 ; 3079 :    }
 
-	jmp	$L8556
-$L8560:
+	jmp	$L8558
+$L8562:
 
 ; 3080 : 
 ; 3081 :    if ( cpcFormat[ k ] )
@@ -11035,19 +11035,19 @@ $L8560:
 	mov	eax, DWORD PTR _cpcFormat$[ebp]
 	movsx	ecx, BYTE PTR [eax+edx]
 	test	ecx, ecx
-	je	SHORT $L8602
+	je	SHORT $L8604
 
 ; 3082 :       return( 1 );
 
 	mov	ax, 1
-	jmp	SHORT $L8551
-$L8602:
+	jmp	SHORT $L8553
+$L8604:
 
 ; 3083 : 
 ; 3084 :    return( 0 );
 
 	xor	ax, ax
-$L8551:
+$L8553:
 
 ; 3085 : }
 
@@ -11055,19 +11055,19 @@ $L8551:
 	mov	esp, ebp
 	pop	ebp
 	ret	8
-$L9303:
-	DD	$L8565
-	DD	$L8587
-	DD	$L8566
+$L9307:
+	DD	$L8567
+	DD	$L8589
 	DD	$L8568
-	DD	$L8579
-	DD	$L8575
 	DD	$L8570
+	DD	$L8581
 	DD	$L8577
 	DD	$L8572
-	DD	$L8581
-	DD	$L8597
-$L9302:
+	DD	$L8579
+	DD	$L8574
+	DD	$L8583
+	DD	$L8599
+$L9306:
 	DB	0
 	DB	10					; 0000000aH
 	DB	10					; 0000000aH
@@ -11195,30 +11195,30 @@ _UfFormatString@8 PROC NEAR
 	mov	eax, DWORD PTR _pchReturnString$[ebp]
 	movsx	ecx, BYTE PTR [eax]
 	test	ecx, ecx
-	jne	SHORT $L8611
+	jne	SHORT $L8613
 
 ; 3131 :       return( 0 );
 
 	xor	ax, ax
-	jmp	$L8607
-$L8611:
+	jmp	$L8609
+$L8613:
 
 ; 3132 : 
 ; 3133 :    if ( cpcFormat == 0 || cpcFormat[ 0 ] == 0 )
 
 	cmp	DWORD PTR _cpcFormat$[ebp], 0
-	je	SHORT $L8613
+	je	SHORT $L8615
 	mov	edx, DWORD PTR _cpcFormat$[ebp]
 	movsx	eax, BYTE PTR [edx]
 	test	eax, eax
-	jne	SHORT $L8612
-$L8613:
+	jne	SHORT $L8614
+$L8615:
 
 ; 3134 :       return( 0 );
 
 	xor	ax, ax
-	jmp	$L8607
-$L8612:
+	jmp	$L8609
+$L8614:
 
 ; 3135 : 
 ; 3136 :    while ( cpcFormat[ k ] )
@@ -11227,7 +11227,7 @@ $L8612:
 	mov	edx, DWORD PTR _cpcFormat$[ebp]
 	movsx	eax, BYTE PTR [edx+ecx]
 	test	eax, eax
-	je	$L8616
+	je	$L8618
 
 ; 3138 :       switch ( cpcFormat[ k ] )
 ; 3139 :       {
@@ -11240,19 +11240,19 @@ $L8612:
 	sub	ecx, 57					; 00000039H
 	mov	DWORD PTR -16+[ebp], ecx
 	cmp	DWORD PTR -16+[ebp], 31			; 0000001fH
-	ja	$L8636
+	ja	$L8638
 	mov	eax, DWORD PTR -16+[ebp]
 	xor	edx, edx
-	mov	dl, BYTE PTR $L9317[eax]
-	jmp	DWORD PTR $L9318[edx*4]
-$L8621:
+	mov	dl, BYTE PTR $L9321[eax]
+	jmp	DWORD PTR $L9322[edx*4]
+$L8623:
 
 ; 3140 :          case  '9':
 ; 3141 :             if ( !isdigit( pchReturnString[ j ] ) )
 
 	mov	ecx, DWORD PTR __imp____mb_cur_max
 	cmp	DWORD PTR [ecx], 1
-	jle	SHORT $L9305
+	jle	SHORT $L9309
 	push	4
 	movsx	edx, WORD PTR _j$[ebp]
 	mov	eax, DWORD PTR _pchReturnString$[ebp]
@@ -11261,8 +11261,8 @@ $L8621:
 	call	DWORD PTR __imp___isctype
 	add	esp, 8
 	mov	DWORD PTR -20+[ebp], eax
-	jmp	SHORT $L9306
-$L9305:
+	jmp	SHORT $L9310
+$L9309:
 	movsx	edx, WORD PTR _j$[ebp]
 	mov	eax, DWORD PTR _pchReturnString$[ebp]
 	movsx	ecx, BYTE PTR [eax+edx]
@@ -11272,21 +11272,21 @@ $L9305:
 	mov	dx, WORD PTR [eax+ecx*2]
 	and	edx, 4
 	mov	DWORD PTR -20+[ebp], edx
-$L9306:
+$L9310:
 	cmp	DWORD PTR -20+[ebp], 0
-	jne	SHORT $L8622
+	jne	SHORT $L8624
 
 ; 3142 :                return( 1 );
 
 	mov	ax, 1
-	jmp	$L8607
-$L8622:
+	jmp	$L8609
+$L8624:
 
 ; 3143 : 
 ; 3144 :             break;
 
-	jmp	$L8618
-$L8623:
+	jmp	$L8620
+$L8625:
 
 ; 3145 : 
 ; 3146 :          case  'A':
@@ -11294,7 +11294,7 @@ $L8623:
 
 	mov	eax, DWORD PTR __imp____mb_cur_max
 	cmp	DWORD PTR [eax], 1
-	jle	SHORT $L9307
+	jle	SHORT $L9311
 	push	259					; 00000103H
 	movsx	ecx, WORD PTR _j$[ebp]
 	mov	edx, DWORD PTR _pchReturnString$[ebp]
@@ -11303,8 +11303,8 @@ $L8623:
 	call	DWORD PTR __imp___isctype
 	add	esp, 8
 	mov	DWORD PTR -24+[ebp], eax
-	jmp	SHORT $L9308
-$L9307:
+	jmp	SHORT $L9312
+$L9311:
 	movsx	ecx, WORD PTR _j$[ebp]
 	mov	edx, DWORD PTR _pchReturnString$[ebp]
 	movsx	eax, BYTE PTR [edx+ecx]
@@ -11314,21 +11314,21 @@ $L9307:
 	mov	cx, WORD PTR [edx+eax*2]
 	and	ecx, 259				; 00000103H
 	mov	DWORD PTR -24+[ebp], ecx
-$L9308:
+$L9312:
 	cmp	DWORD PTR -24+[ebp], 0
-	jne	SHORT $L8624
+	jne	SHORT $L8626
 
 ; 3148 :                return( 1 );
 
 	mov	ax, 1
-	jmp	$L8607
-$L8624:
+	jmp	$L8609
+$L8626:
 
 ; 3149 : 
 ; 3150 :             break;
 
-	jmp	$L8618
-$L8625:
+	jmp	$L8620
+$L8627:
 
 ; 3151 : 
 ; 3152 :          case  'N':
@@ -11336,7 +11336,7 @@ $L8625:
 
 	mov	edx, DWORD PTR __imp____mb_cur_max
 	cmp	DWORD PTR [edx], 1
-	jle	SHORT $L9309
+	jle	SHORT $L9313
 	push	263					; 00000107H
 	movsx	eax, WORD PTR _j$[ebp]
 	mov	ecx, DWORD PTR _pchReturnString$[ebp]
@@ -11345,8 +11345,8 @@ $L8625:
 	call	DWORD PTR __imp___isctype
 	add	esp, 8
 	mov	DWORD PTR -28+[ebp], eax
-	jmp	SHORT $L9310
-$L9309:
+	jmp	SHORT $L9314
+$L9313:
 	movsx	eax, WORD PTR _j$[ebp]
 	mov	ecx, DWORD PTR _pchReturnString$[ebp]
 	movsx	edx, BYTE PTR [ecx+eax]
@@ -11356,21 +11356,21 @@ $L9309:
 	mov	ax, WORD PTR [ecx+edx*2]
 	and	eax, 263				; 00000107H
 	mov	DWORD PTR -28+[ebp], eax
-$L9310:
+$L9314:
 	cmp	DWORD PTR -28+[ebp], 0
-	jne	SHORT $L8626
+	jne	SHORT $L8628
 
 ; 3154 :                return( 1 );
 
 	mov	ax, 1
-	jmp	$L8607
-$L8626:
+	jmp	$L8609
+$L8628:
 
 ; 3155 : 
 ; 3156 :             break;
 
-	jmp	$L8618
-$L8627:
+	jmp	$L8620
+$L8629:
 
 ; 3157 : 
 ; 3158 :          case  'X':
@@ -11380,19 +11380,19 @@ $L8627:
 	mov	edx, DWORD PTR _pchReturnString$[ebp]
 	movsx	eax, BYTE PTR [edx+ecx]
 	cmp	eax, 128				; 00000080H
-	jb	SHORT $L8629
+	jb	SHORT $L8631
 
 ; 3160 :                return( 1 );
 
 	mov	ax, 1
-	jmp	$L8607
-$L8629:
+	jmp	$L8609
+$L8631:
 
 ; 3161 : 
 ; 3162 :             break;
 
-	jmp	$L8618
-$L8630:
+	jmp	$L8620
+$L8632:
 
 ; 3163 : 
 ; 3164 :          case  'U':
@@ -11400,7 +11400,7 @@ $L8630:
 
 	mov	ecx, DWORD PTR __imp____mb_cur_max
 	cmp	DWORD PTR [ecx], 1
-	jle	SHORT $L9311
+	jle	SHORT $L9315
 	push	1
 	movsx	edx, WORD PTR _j$[ebp]
 	mov	eax, DWORD PTR _pchReturnString$[ebp]
@@ -11409,8 +11409,8 @@ $L8630:
 	call	DWORD PTR __imp___isctype
 	add	esp, 8
 	mov	DWORD PTR -32+[ebp], eax
-	jmp	SHORT $L9312
-$L9311:
+	jmp	SHORT $L9316
+$L9315:
 	movsx	edx, WORD PTR _j$[ebp]
 	mov	eax, DWORD PTR _pchReturnString$[ebp]
 	movsx	ecx, BYTE PTR [eax+edx]
@@ -11420,21 +11420,21 @@ $L9311:
 	mov	dx, WORD PTR [eax+ecx*2]
 	and	edx, 1
 	mov	DWORD PTR -32+[ebp], edx
-$L9312:
+$L9316:
 	cmp	DWORD PTR -32+[ebp], 0
-	jne	SHORT $L8631
+	jne	SHORT $L8633
 
 ; 3166 :                return( 1 );
 
 	mov	ax, 1
-	jmp	$L8607
-$L8631:
+	jmp	$L8609
+$L8633:
 
 ; 3167 : 
 ; 3168 :             break;
 
-	jmp	$L8618
-$L8632:
+	jmp	$L8620
+$L8634:
 
 ; 3169 : 
 ; 3170 :          case  'L':
@@ -11442,7 +11442,7 @@ $L8632:
 
 	mov	eax, DWORD PTR __imp____mb_cur_max
 	cmp	DWORD PTR [eax], 1
-	jle	SHORT $L9313
+	jle	SHORT $L9317
 	push	2
 	movsx	ecx, WORD PTR _j$[ebp]
 	mov	edx, DWORD PTR _pchReturnString$[ebp]
@@ -11451,8 +11451,8 @@ $L8632:
 	call	DWORD PTR __imp___isctype
 	add	esp, 8
 	mov	DWORD PTR -36+[ebp], eax
-	jmp	SHORT $L9314
-$L9313:
+	jmp	SHORT $L9318
+$L9317:
 	movsx	ecx, WORD PTR _j$[ebp]
 	mov	edx, DWORD PTR _pchReturnString$[ebp]
 	movsx	eax, BYTE PTR [edx+ecx]
@@ -11462,21 +11462,21 @@ $L9313:
 	mov	cx, WORD PTR [edx+eax*2]
 	and	ecx, 2
 	mov	DWORD PTR -36+[ebp], ecx
-$L9314:
+$L9318:
 	cmp	DWORD PTR -36+[ebp], 0
-	jne	SHORT $L8633
+	jne	SHORT $L8635
 
 ; 3172 :                return( 1 );
 
 	mov	ax, 1
-	jmp	$L8607
-$L8633:
+	jmp	$L8609
+$L8635:
 
 ; 3173 : 
 ; 3174 :             break;
 
-	jmp	$L8618
-$L8634:
+	jmp	$L8620
+$L8636:
 
 ; 3175 : 
 ; 3176 :          case  'H':
@@ -11484,7 +11484,7 @@ $L8634:
 
 	mov	edx, DWORD PTR __imp____mb_cur_max
 	cmp	DWORD PTR [edx], 1
-	jle	SHORT $L9315
+	jle	SHORT $L9319
 	push	128					; 00000080H
 	movsx	eax, WORD PTR _j$[ebp]
 	mov	ecx, DWORD PTR _pchReturnString$[ebp]
@@ -11493,8 +11493,8 @@ $L8634:
 	call	DWORD PTR __imp___isctype
 	add	esp, 8
 	mov	DWORD PTR -40+[ebp], eax
-	jmp	SHORT $L9316
-$L9315:
+	jmp	SHORT $L9320
+$L9319:
 	movsx	eax, WORD PTR _j$[ebp]
 	mov	ecx, DWORD PTR _pchReturnString$[ebp]
 	movsx	edx, BYTE PTR [ecx+eax]
@@ -11504,21 +11504,21 @@ $L9315:
 	mov	ax, WORD PTR [ecx+edx*2]
 	and	eax, 128				; 00000080H
 	mov	DWORD PTR -40+[ebp], eax
-$L9316:
+$L9320:
 	cmp	DWORD PTR -40+[ebp], 0
-	jne	SHORT $L8635
+	jne	SHORT $L8637
 
 ; 3178 :                return( 1 );
 
 	mov	ax, 1
-	jmp	$L8607
-$L8635:
+	jmp	$L8609
+$L8637:
 
 ; 3179 : 
 ; 3180 :             break;
 
-	jmp	$L8618
-$L8636:
+	jmp	$L8620
+$L8638:
 
 ; 3181 : 
 ; 3182 :          default:
@@ -11528,7 +11528,7 @@ $L8636:
 	mov	edx, DWORD PTR _cpcFormat$[ebp]
 	movsx	eax, BYTE PTR [edx+ecx]
 	cmp	eax, 92					; 0000005cH
-	jne	SHORT $L8639
+	jne	SHORT $L8641
 
 ; 3185 :                if ( cpcFormat[ k + 1 ] )
 
@@ -11536,7 +11536,7 @@ $L8636:
 	mov	edx, DWORD PTR _cpcFormat$[ebp]
 	movsx	eax, BYTE PTR [edx+ecx+1]
 	test	eax, eax
-	je	SHORT $L8638
+	je	SHORT $L8640
 
 ; 3186 :                   k++;
 
@@ -11546,20 +11546,20 @@ $L8636:
 
 ; 3187 :                else
 
-	jmp	SHORT $L8639
-$L8638:
+	jmp	SHORT $L8641
+$L8640:
 
 ; 3188 :                   break;
 
-	jmp	SHORT $L8618
-$L8639:
+	jmp	SHORT $L8620
+$L8641:
 
 ; 3190 : 
 ; 3191 :             i = j;
 
 	mov	dx, WORD PTR _j$[ebp]
 	mov	WORD PTR _i$[ebp], dx
-$L8641:
+$L8643:
 
 ; 3192 :             while ( pchReturnString[ i ] )
 
@@ -11567,15 +11567,15 @@ $L8641:
 	mov	ecx, DWORD PTR _pchReturnString$[ebp]
 	movsx	edx, BYTE PTR [ecx+eax]
 	test	edx, edx
-	je	SHORT $L8642
+	je	SHORT $L8644
 
 ; 3193 :                i++;
 
 	mov	ax, WORD PTR _i$[ebp]
 	add	ax, 1
 	mov	WORD PTR _i$[ebp], ax
-	jmp	SHORT $L8641
-$L8642:
+	jmp	SHORT $L8643
+$L8644:
 
 ; 3194 : 
 ; 3195 :             while ( i >= j ) // brute force
@@ -11583,7 +11583,7 @@ $L8642:
 	movsx	ecx, WORD PTR _i$[ebp]
 	movsx	edx, WORD PTR _j$[ebp]
 	cmp	ecx, edx
-	jl	SHORT $L8645
+	jl	SHORT $L8647
 
 ; 3197 :                pchReturnString[ i + 1 ] = pchReturnString[ i ];
 
@@ -11602,8 +11602,8 @@ $L8642:
 
 ; 3199 :             }
 
-	jmp	SHORT $L8642
-$L8645:
+	jmp	SHORT $L8644
+$L8647:
 
 ; 3200 : 
 ; 3201 :             pchReturnString[ j ] = cpcFormat[ k ];
@@ -11614,7 +11614,7 @@ $L8645:
 	mov	esi, DWORD PTR _cpcFormat$[ebp]
 	mov	dl, BYTE PTR [esi+edx]
 	mov	BYTE PTR [ecx+eax], dl
-$L8618:
+$L8620:
 
 ; 3203 : 
 ; 3204 :       k++;
@@ -11631,8 +11631,8 @@ $L8618:
 
 ; 3206 :    }
 
-	jmp	$L8612
-$L8616:
+	jmp	$L8614
+$L8618:
 
 ; 3207 : 
 ; 3208 :    // Error if the string is 'longer' than the format string.
@@ -11642,19 +11642,19 @@ $L8616:
 	mov	eax, DWORD PTR _pchReturnString$[ebp]
 	movsx	ecx, BYTE PTR [eax+edx]
 	test	ecx, ecx
-	je	SHORT $L8646
+	je	SHORT $L8648
 
 ; 3210 :       return( -1 );
 
 	or	ax, -1
-	jmp	SHORT $L8607
-$L8646:
+	jmp	SHORT $L8609
+$L8648:
 
 ; 3211 : 
 ; 3212 :    return( 0 );
 
 	xor	ax, ax
-$L8607:
+$L8609:
 
 ; 3213 : }
 
@@ -11662,16 +11662,16 @@ $L8607:
 	mov	esp, ebp
 	pop	ebp
 	ret	8
-$L9318:
-	DD	$L8621
+$L9322:
 	DD	$L8623
-	DD	$L8634
-	DD	$L8632
 	DD	$L8625
-	DD	$L8630
-	DD	$L8627
 	DD	$L8636
-$L9317:
+	DD	$L8634
+	DD	$L8627
+	DD	$L8632
+	DD	$L8629
+	DD	$L8638
+$L9321:
 	DB	0
 	DB	7
 	DB	7
@@ -11711,16 +11711,16 @@ _TEXT	SEGMENT
 _cpcEditString$ = 8
 _nCounter$ = -4
 _chDelimiter$ = -8
-_n1$8667 = -20
-_n2$8668 = -12
-_lpInternational$8669 = -16
-_k$8679 = -28
-_n1$8680 = -32
-_n2$8681 = -24
-_k$8704 = -40
-_n1$8705 = -44
-_n2$8706 = -36
-_k$8727 = -48
+_n1$8669 = -20
+_n2$8670 = -12
+_lpInternational$8671 = -16
+_k$8681 = -28
+_n1$8682 = -32
+_n2$8683 = -24
+_k$8706 = -40
+_n1$8707 = -44
+_n2$8708 = -36
+_k$8729 = -48
 _fnDetermineDateTimeStrlen PROC NEAR
 
 ; 3234 : {
@@ -11741,18 +11741,18 @@ _fnDetermineDateTimeStrlen PROC NEAR
 ; 3238 :    if ( cpcEditString == 0 || cpcEditString[ 0 ] == 0 )
 
 	cmp	DWORD PTR _cpcEditString$[ebp], 0
-	je	SHORT $L8653
+	je	SHORT $L8655
 	mov	eax, DWORD PTR _cpcEditString$[ebp]
 	movsx	ecx, BYTE PTR [eax]
 	test	ecx, ecx
-	jne	SHORT $L8652
-$L8653:
+	jne	SHORT $L8654
+$L8655:
 
 ; 3239 :       return( nCounter );
 
 	mov	ax, WORD PTR _nCounter$[ebp]
-	jmp	$L8649
-$L8652:
+	jmp	$L8651
+$L8654:
 
 ; 3240 : 
 ; 3241 :    while ( *cpcEditString )
@@ -11760,13 +11760,13 @@ $L8652:
 	mov	edx, DWORD PTR _cpcEditString$[ebp]
 	movsx	eax, BYTE PTR [edx]
 	test	eax, eax
-	je	$L8656
+	je	$L8658
 
 ; 3243 :       if ( chDelimiter )
 
 	movsx	ecx, BYTE PTR _chDelimiter$[ebp]
 	test	ecx, ecx
-	je	SHORT $L8657
+	je	SHORT $L8659
 
 ; 3245 :          if ( *cpcEditString == chDelimiter )
 
@@ -11774,7 +11774,7 @@ $L8652:
 	movsx	eax, BYTE PTR [edx]
 	movsx	ecx, BYTE PTR _chDelimiter$[ebp]
 	cmp	eax, ecx
-	jne	SHORT $L8658
+	jne	SHORT $L8660
 
 ; 3247 :             chDelimiter = 0;
 
@@ -11788,8 +11788,8 @@ $L8652:
 
 ; 3250 :          else
 
-	jmp	SHORT $L8659
-$L8658:
+	jmp	SHORT $L8661
+$L8660:
 
 ; 3252 :             nCounter++;
 
@@ -11802,12 +11802,12 @@ $L8658:
 	mov	ecx, DWORD PTR _cpcEditString$[ebp]
 	add	ecx, 1
 	mov	DWORD PTR _cpcEditString$[ebp], ecx
-$L8659:
+$L8661:
 
 ; 3256 :       else
 
-	jmp	$L8662
-$L8657:
+	jmp	$L8664
+$L8659:
 
 ; 3257 :       switch ( *cpcEditString )
 ; 3258 :       {
@@ -11819,12 +11819,12 @@ $L8657:
 	sub	ecx, 32					; 00000020H
 	mov	DWORD PTR -52+[ebp], ecx
 	cmp	DWORD PTR -52+[ebp], 77			; 0000004dH
-	ja	$L8736
+	ja	$L8738
 	mov	eax, DWORD PTR -52+[ebp]
 	xor	edx, edx
-	mov	dl, BYTE PTR $L9322[eax]
-	jmp	DWORD PTR $L9323[edx*4]
-$L8665:
+	mov	dl, BYTE PTR $L9326[eax]
+	jmp	DWORD PTR $L9327[edx*4]
+$L8667:
 
 ; 3259 :          case 'A':
 ; 3260 :          case 'P':
@@ -11833,7 +11833,7 @@ $L8665:
 	mov	ecx, DWORD PTR _cpcEditString$[ebp]
 	movsx	edx, BYTE PTR [ecx+1]
 	cmp	edx, 77					; 0000004dH
-	jne	$L8666
+	jne	$L8668
 
 ; 3263 :                zSHORT   n1, n2;
 ; 3264 :                LPINTERNATIONAL lpInternational =
@@ -11843,77 +11843,77 @@ $L8665:
 	mov	ecx, DWORD PTR [eax+2515]
 	push	ecx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpInternational$8669[ebp], eax
+	mov	DWORD PTR _lpInternational$8671[ebp], eax
 
 ; 3266 : 
 ; 3267 :                // use which ever length is greater
 ; 3268 :                if ( lpInternational->sz1159[ 0 ] == 0 )
 
-	mov	edx, DWORD PTR _lpInternational$8669[ebp]
+	mov	edx, DWORD PTR _lpInternational$8671[ebp]
 	movsx	eax, BYTE PTR [edx+86]
-	test	eax, eax
-	jne	SHORT $L8671
-
-; 3269 :                   n1 = 2;
-
-	mov	WORD PTR _n1$8667[ebp], 2
-
-; 3270 :                else
-
-	jmp	SHORT $L8672
-$L8671:
-
-; 3271 :                   n1 = zstrlen( lpInternational->sz1159 );
-
-	mov	ecx, DWORD PTR _lpInternational$8669[ebp]
-	add	ecx, 86					; 00000056H
-	push	ecx
-	call	_strlen
-	add	esp, 4
-	mov	WORD PTR _n1$8667[ebp], ax
-$L8672:
-
-; 3272 : 
-; 3273 :                if ( lpInternational->sz2359[ 0 ] == 0 )
-
-	mov	edx, DWORD PTR _lpInternational$8669[ebp]
-	movsx	eax, BYTE PTR [edx+91]
 	test	eax, eax
 	jne	SHORT $L8673
 
-; 3274 :                   n2 = 2;
+; 3269 :                   n1 = 2;
 
-	mov	WORD PTR _n2$8668[ebp], 2
+	mov	WORD PTR _n1$8669[ebp], 2
 
-; 3275 :                else
+; 3270 :                else
 
 	jmp	SHORT $L8674
 $L8673:
 
+; 3271 :                   n1 = zstrlen( lpInternational->sz1159 );
+
+	mov	ecx, DWORD PTR _lpInternational$8671[ebp]
+	add	ecx, 86					; 00000056H
+	push	ecx
+	call	_strlen
+	add	esp, 4
+	mov	WORD PTR _n1$8669[ebp], ax
+$L8674:
+
+; 3272 : 
+; 3273 :                if ( lpInternational->sz2359[ 0 ] == 0 )
+
+	mov	edx, DWORD PTR _lpInternational$8671[ebp]
+	movsx	eax, BYTE PTR [edx+91]
+	test	eax, eax
+	jne	SHORT $L8675
+
+; 3274 :                   n2 = 2;
+
+	mov	WORD PTR _n2$8670[ebp], 2
+
+; 3275 :                else
+
+	jmp	SHORT $L8676
+$L8675:
+
 ; 3276 :                   n2 = zstrlen( lpInternational->sz2359 );
 
-	mov	ecx, DWORD PTR _lpInternational$8669[ebp]
+	mov	ecx, DWORD PTR _lpInternational$8671[ebp]
 	add	ecx, 91					; 0000005bH
 	push	ecx
 	call	_strlen
 	add	esp, 4
-	mov	WORD PTR _n2$8668[ebp], ax
-$L8674:
+	mov	WORD PTR _n2$8670[ebp], ax
+$L8676:
 
 ; 3277 : 
 ; 3278 :                nCounter += ( n1 > n2 ) ? n1 : n2;
 
-	movsx	edx, WORD PTR _n1$8667[ebp]
-	movsx	eax, WORD PTR _n2$8668[ebp]
+	movsx	edx, WORD PTR _n1$8669[ebp]
+	movsx	eax, WORD PTR _n2$8670[ebp]
 	cmp	edx, eax
-	jle	SHORT $L9320
-	movsx	ecx, WORD PTR _n1$8667[ebp]
+	jle	SHORT $L9324
+	movsx	ecx, WORD PTR _n1$8669[ebp]
 	mov	DWORD PTR -56+[ebp], ecx
-	jmp	SHORT $L9321
-$L9320:
-	movsx	edx, WORD PTR _n2$8668[ebp]
+	jmp	SHORT $L9325
+$L9324:
+	movsx	edx, WORD PTR _n2$8670[ebp]
 	mov	DWORD PTR -56+[ebp], edx
-$L9321:
+$L9325:
 	mov	ax, WORD PTR _nCounter$[ebp]
 	add	ax, WORD PTR -56+[ebp]
 	mov	WORD PTR _nCounter$[ebp], ax
@@ -11926,20 +11926,20 @@ $L9321:
 
 ; 3281 :             else
 
-	jmp	SHORT $L8675
-$L8666:
+	jmp	SHORT $L8677
+$L8668:
 
 ; 3282 :                return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	$L8649
-$L8675:
+	jmp	$L8651
+$L8677:
 
 ; 3283 : 
 ; 3284 :             break;
 
-	jmp	$L8662
-$L8676:
+	jmp	$L8664
+$L8678:
 
 ; 3285 : 
 ; 3286 :          case 'd':
@@ -11954,57 +11954,57 @@ $L8676:
 	call	DWORD PTR __imp___strnicmp
 	add	esp, 12					; 0000000cH
 	test	eax, eax
-	jne	SHORT $L8678
+	jne	SHORT $L8680
 
 ; 3290 :                zSHORT   k;
 ; 3291 :                zSHORT   n1, n2;
 ; 3292 :                // use the greatest length
 ; 3293 :                for ( n1 = 0, k = 0; k < 7; k++ )
 
-	mov	WORD PTR _n1$8680[ebp], 0
-	mov	WORD PTR _k$8679[ebp], 0
-	jmp	SHORT $L8682
-$L8683:
-	mov	ax, WORD PTR _k$8679[ebp]
+	mov	WORD PTR _n1$8682[ebp], 0
+	mov	WORD PTR _k$8681[ebp], 0
+	jmp	SHORT $L8684
+$L8685:
+	mov	ax, WORD PTR _k$8681[ebp]
 	add	ax, 1
-	mov	WORD PTR _k$8679[ebp], ax
-$L8682:
-	movsx	ecx, WORD PTR _k$8679[ebp]
+	mov	WORD PTR _k$8681[ebp], ax
+$L8684:
+	movsx	ecx, WORD PTR _k$8681[ebp]
 	cmp	ecx, 7
-	jge	SHORT $L8684
+	jge	SHORT $L8686
 
 ; 3295 :                   n2 = zstrlen( g_pchDOW[ k ] );
 
-	movsx	edx, WORD PTR _k$8679[ebp]
+	movsx	edx, WORD PTR _k$8681[ebp]
 	mov	eax, DWORD PTR _g_pchDOW[edx*4]
 	push	eax
 	call	_strlen
 	add	esp, 4
-	mov	WORD PTR _n2$8681[ebp], ax
+	mov	WORD PTR _n2$8683[ebp], ax
 
 ; 3296 :                   if ( n2 > n1 )
 
-	movsx	ecx, WORD PTR _n2$8681[ebp]
-	movsx	edx, WORD PTR _n1$8680[ebp]
+	movsx	ecx, WORD PTR _n2$8683[ebp]
+	movsx	edx, WORD PTR _n1$8682[ebp]
 	cmp	ecx, edx
-	jle	SHORT $L8685
+	jle	SHORT $L8687
 
 ; 3297 :                      n1 = n2;
 
-	mov	ax, WORD PTR _n2$8681[ebp]
-	mov	WORD PTR _n1$8680[ebp], ax
-$L8685:
+	mov	ax, WORD PTR _n2$8683[ebp]
+	mov	WORD PTR _n1$8682[ebp], ax
+$L8687:
 
 ; 3298 :                }
 
-	jmp	SHORT $L8683
-$L8684:
+	jmp	SHORT $L8685
+$L8686:
 
 ; 3299 : 
 ; 3300 :                nCounter += n1;
 
 	mov	cx, WORD PTR _nCounter$[ebp]
-	add	cx, WORD PTR _n1$8680[ebp]
+	add	cx, WORD PTR _n1$8682[ebp]
 	mov	WORD PTR _nCounter$[ebp], cx
 
 ; 3301 :                cpcEditString += 4;
@@ -12015,8 +12015,8 @@ $L8684:
 
 ; 3303 :             else
 
-	jmp	SHORT $L8692
-$L8678:
+	jmp	SHORT $L8694
+$L8680:
 
 ; 3304 :             if ( zstrncmpi( (zPCHAR)(cpcEditString + 1), "dd", 2 ) == 0 )
 
@@ -12028,7 +12028,7 @@ $L8678:
 	call	DWORD PTR __imp___strnicmp
 	add	esp, 12					; 0000000cH
 	test	eax, eax
-	jne	SHORT $L8688
+	jne	SHORT $L8690
 
 ; 3306 :                // three for short day name
 ; 3307 :                nCounter += 3;
@@ -12045,8 +12045,8 @@ $L8678:
 
 ; 3310 :             else
 
-	jmp	SHORT $L8692
-$L8688:
+	jmp	SHORT $L8694
+$L8690:
 
 ; 3311 :             if ( *(cpcEditString + 1) == 'D' ||
 ; 3312 :                  *(cpcEditString + 1) == 'd' )
@@ -12054,12 +12054,12 @@ $L8688:
 	mov	eax, DWORD PTR _cpcEditString$[ebp]
 	movsx	ecx, BYTE PTR [eax+1]
 	cmp	ecx, 68					; 00000044H
-	je	SHORT $L8691
+	je	SHORT $L8693
 	mov	edx, DWORD PTR _cpcEditString$[ebp]
 	movsx	eax, BYTE PTR [edx+1]
 	cmp	eax, 100				; 00000064H
-	jne	SHORT $L8690
-$L8691:
+	jne	SHORT $L8692
+$L8693:
 
 ; 3314 :                // two for the day of the month (w/leading zero if < 10 )
 ; 3315 :                nCounter += 2;
@@ -12076,8 +12076,8 @@ $L8691:
 
 ; 3318 :             else
 
-	jmp	SHORT $L8692
-$L8690:
+	jmp	SHORT $L8694
+$L8692:
 
 ; 3320 :                // two for the day of the month ( max possible )
 ; 3321 :                nCounter += 2;
@@ -12091,13 +12091,13 @@ $L8690:
 	mov	ecx, DWORD PTR _cpcEditString$[ebp]
 	add	ecx, 1
 	mov	DWORD PTR _cpcEditString$[ebp], ecx
-$L8692:
+$L8694:
 
 ; 3324 : 
 ; 3325 :             break;
 
-	jmp	$L8662
-$L8693:
+	jmp	$L8664
+$L8695:
 
 ; 3326 : 
 ; 3327 :          case 'H':
@@ -12119,20 +12119,20 @@ $L8693:
 	mov	ecx, DWORD PTR _cpcEditString$[ebp]
 	movsx	edx, BYTE PTR [ecx]
 	cmp	edx, 72					; 00000048H
-	jne	SHORT $L8694
+	jne	SHORT $L8696
 
 ; 3332 :                cpcEditString++;
 
 	mov	eax, DWORD PTR _cpcEditString$[ebp]
 	add	eax, 1
 	mov	DWORD PTR _cpcEditString$[ebp], eax
-$L8694:
+$L8696:
 
 ; 3333 : 
 ; 3334 :             break;
 
-	jmp	$L8662
-$L8695:
+	jmp	$L8664
+$L8697:
 
 ; 3335 : 
 ; 3336 :          case 'j':
@@ -12146,7 +12146,7 @@ $L8695:
 	call	DWORD PTR __imp__strncmp
 	add	esp, 12					; 0000000cH
 	test	eax, eax
-	jne	SHORT $L8697
+	jne	SHORT $L8699
 
 ; 3339 :                nCounter += 3;
 
@@ -12162,20 +12162,20 @@ $L8695:
 
 ; 3342 :             else
 
-	jmp	SHORT $L8698
-$L8697:
+	jmp	SHORT $L8700
+$L8699:
 
 ; 3343 :                return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	$L8649
-$L8698:
+	jmp	$L8651
+$L8700:
 
 ; 3344 : 
 ; 3345 :             break;
 
-	jmp	$L8662
-$L8699:
+	jmp	$L8664
+$L8701:
 
 ; 3346 : 
 ; 3347 :          case 'M':
@@ -12184,7 +12184,7 @@ $L8699:
 	mov	ecx, DWORD PTR _cpcEditString$[ebp]
 	movsx	edx, BYTE PTR [ecx+1]
 	cmp	edx, 73					; 00000049H
-	jne	SHORT $L8700
+	jne	SHORT $L8702
 
 ; 3350 :                nCounter += 2;
 
@@ -12200,8 +12200,8 @@ $L8699:
 
 ; 3352 :                break;
 
-	jmp	$L8662
-$L8700:
+	jmp	$L8664
+$L8702:
 
 ; 3354 :             // break left out intentionally!
 ; 3355 : 
@@ -12216,56 +12216,56 @@ $L8700:
 	call	DWORD PTR __imp___strnicmp
 	add	esp, 12					; 0000000cH
 	test	eax, eax
-	jne	SHORT $L8703
+	jne	SHORT $L8705
 
 ; 3359 :                zSHORT   k;
 ; 3360 :                zSHORT   n1, n2;
 ; 3361 : 
 ; 3362 :                for ( n1 = 0, k = 0; k < 12; k++ )
 
-	mov	WORD PTR _n1$8705[ebp], 0
-	mov	WORD PTR _k$8704[ebp], 0
-	jmp	SHORT $L8707
-$L8708:
-	mov	ax, WORD PTR _k$8704[ebp]
+	mov	WORD PTR _n1$8707[ebp], 0
+	mov	WORD PTR _k$8706[ebp], 0
+	jmp	SHORT $L8709
+$L8710:
+	mov	ax, WORD PTR _k$8706[ebp]
 	add	ax, 1
-	mov	WORD PTR _k$8704[ebp], ax
-$L8707:
-	movsx	ecx, WORD PTR _k$8704[ebp]
+	mov	WORD PTR _k$8706[ebp], ax
+$L8709:
+	movsx	ecx, WORD PTR _k$8706[ebp]
 	cmp	ecx, 12					; 0000000cH
-	jge	SHORT $L8709
+	jge	SHORT $L8711
 
 ; 3364 :                   n2 = zstrlen( g_pchMon[ k ] );
 
-	movsx	edx, WORD PTR _k$8704[ebp]
+	movsx	edx, WORD PTR _k$8706[ebp]
 	mov	eax, DWORD PTR _g_pchMon[edx*4]
 	push	eax
 	call	_strlen
 	add	esp, 4
-	mov	WORD PTR _n2$8706[ebp], ax
+	mov	WORD PTR _n2$8708[ebp], ax
 
 ; 3365 :                   if ( n2 > n1 )
 
-	movsx	ecx, WORD PTR _n2$8706[ebp]
-	movsx	edx, WORD PTR _n1$8705[ebp]
+	movsx	ecx, WORD PTR _n2$8708[ebp]
+	movsx	edx, WORD PTR _n1$8707[ebp]
 	cmp	ecx, edx
-	jle	SHORT $L8710
+	jle	SHORT $L8712
 
 ; 3366 :                      n1 = n2;
 
-	mov	ax, WORD PTR _n2$8706[ebp]
-	mov	WORD PTR _n1$8705[ebp], ax
-$L8710:
+	mov	ax, WORD PTR _n2$8708[ebp]
+	mov	WORD PTR _n1$8707[ebp], ax
+$L8712:
 
 ; 3367 :                }
 
-	jmp	SHORT $L8708
-$L8709:
+	jmp	SHORT $L8710
+$L8711:
 
 ; 3368 :                nCounter += n1;
 
 	mov	cx, WORD PTR _nCounter$[ebp]
-	add	cx, WORD PTR _n1$8705[ebp]
+	add	cx, WORD PTR _n1$8707[ebp]
 	mov	WORD PTR _nCounter$[ebp], cx
 
 ; 3369 :                cpcEditString += 4;
@@ -12276,8 +12276,8 @@ $L8709:
 
 ; 3371 :             else
 
-	jmp	SHORT $L8717
-$L8703:
+	jmp	SHORT $L8719
+$L8705:
 
 ; 3372 :             if ( zstrncmpi( (zPCHAR)(cpcEditString + 1), "mm", 2 ) == 0 )
 
@@ -12289,7 +12289,7 @@ $L8703:
 	call	DWORD PTR __imp___strnicmp
 	add	esp, 12					; 0000000cH
 	test	eax, eax
-	jne	SHORT $L8713
+	jne	SHORT $L8715
 
 ; 3374 :                nCounter += 3;
 
@@ -12305,8 +12305,8 @@ $L8703:
 
 ; 3377 :             else
 
-	jmp	SHORT $L8717
-$L8713:
+	jmp	SHORT $L8719
+$L8715:
 
 ; 3378 :             if ( *(cpcEditString + 1) == 'M' ||
 ; 3379 :                  *(cpcEditString + 1) == 'm' )
@@ -12314,12 +12314,12 @@ $L8713:
 	mov	eax, DWORD PTR _cpcEditString$[ebp]
 	movsx	ecx, BYTE PTR [eax+1]
 	cmp	ecx, 77					; 0000004dH
-	je	SHORT $L8716
+	je	SHORT $L8718
 	mov	edx, DWORD PTR _cpcEditString$[ebp]
 	movsx	eax, BYTE PTR [edx+1]
 	cmp	eax, 109				; 0000006dH
-	jne	SHORT $L8715
-$L8716:
+	jne	SHORT $L8717
+$L8718:
 
 ; 3381 :                // two for the month
 ; 3382 :                nCounter += 2;
@@ -12336,8 +12336,8 @@ $L8716:
 
 ; 3385 :             else
 
-	jmp	SHORT $L8717
-$L8715:
+	jmp	SHORT $L8719
+$L8717:
 
 ; 3387 :                // two for the month
 ; 3388 :                nCounter += 2;
@@ -12351,13 +12351,13 @@ $L8715:
 	mov	ecx, DWORD PTR _cpcEditString$[ebp]
 	add	ecx, 1
 	mov	DWORD PTR _cpcEditString$[ebp], ecx
-$L8717:
+$L8719:
 
 ; 3391 : 
 ; 3392 :             break;
 
-	jmp	$L8662
-$L8718:
+	jmp	$L8664
+$L8720:
 
 ; 3393 : 
 ; 3394 :          case 'S':
@@ -12366,7 +12366,7 @@ $L8718:
 	mov	edx, DWORD PTR _cpcEditString$[ebp]
 	movsx	eax, BYTE PTR [edx+1]
 	cmp	eax, 83					; 00000053H
-	jne	SHORT $L8719
+	jne	SHORT $L8721
 
 ; 3397 :                nCounter += 2;
 
@@ -12382,20 +12382,20 @@ $L8718:
 
 ; 3400 :             else
 
-	jmp	SHORT $L8720
-$L8719:
+	jmp	SHORT $L8722
+$L8721:
 
 ; 3401 :                return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	$L8649
-$L8720:
+	jmp	$L8651
+$L8722:
 
 ; 3402 : 
 ; 3403 :             break;
 
-	jmp	$L8662
-$L8721:
+	jmp	$L8664
+$L8723:
 
 ; 3404 : 
 ; 3405 :          case 'Y':
@@ -12404,7 +12404,7 @@ $L8721:
 	mov	eax, DWORD PTR _cpcEditString$[ebp]
 	movsx	ecx, BYTE PTR [eax+1]
 	cmp	ecx, 89					; 00000059H
-	jne	SHORT $L8722
+	jne	SHORT $L8724
 
 ; 3408 :                if ( *(cpcEditString + 2) == 'Y' &&
 ; 3409 :                     *(cpcEditString + 3) == 'Y' )
@@ -12412,11 +12412,11 @@ $L8721:
 	mov	edx, DWORD PTR _cpcEditString$[ebp]
 	movsx	eax, BYTE PTR [edx+2]
 	cmp	eax, 89					; 00000059H
-	jne	SHORT $L8723
+	jne	SHORT $L8725
 	mov	ecx, DWORD PTR _cpcEditString$[ebp]
 	movsx	edx, BYTE PTR [ecx+3]
 	cmp	edx, 89					; 00000059H
-	jne	SHORT $L8723
+	jne	SHORT $L8725
 
 ; 3411 :                   // four for the year;
 ; 3412 :                   nCounter += 4;
@@ -12433,8 +12433,8 @@ $L8721:
 
 ; 3415 :                else
 
-	jmp	SHORT $L8724
-$L8723:
+	jmp	SHORT $L8726
+$L8725:
 
 ; 3417 :                   // two for the year
 ; 3418 :                   nCounter += 2;
@@ -12448,42 +12448,42 @@ $L8723:
 	mov	eax, DWORD PTR _cpcEditString$[ebp]
 	add	eax, 2
 	mov	DWORD PTR _cpcEditString$[ebp], eax
-$L8724:
+$L8726:
 
 ; 3422 :             else
 
-	jmp	SHORT $L8725
-$L8722:
+	jmp	SHORT $L8727
+$L8724:
 
 ; 3423 :                return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	$L8649
-$L8725:
+	jmp	$L8651
+$L8727:
 
 ; 3424 : 
 ; 3425 :             break;
 
-	jmp	$L8662
-$L8726:
+	jmp	$L8664
+$L8728:
 
 ; 3429 :             zSHORT   k;
 ; 3430 :             for ( k = 0; *cpcEditString == '9' && k < 3; k++ )
 
-	mov	WORD PTR _k$8727[ebp], 0
-	jmp	SHORT $L8728
-$L8729:
-	mov	cx, WORD PTR _k$8727[ebp]
+	mov	WORD PTR _k$8729[ebp], 0
+	jmp	SHORT $L8730
+$L8731:
+	mov	cx, WORD PTR _k$8729[ebp]
 	add	cx, 1
-	mov	WORD PTR _k$8727[ebp], cx
-$L8728:
+	mov	WORD PTR _k$8729[ebp], cx
+$L8730:
 	mov	edx, DWORD PTR _cpcEditString$[ebp]
 	movsx	eax, BYTE PTR [edx]
 	cmp	eax, 57					; 00000039H
-	jne	SHORT $L8730
-	movsx	ecx, WORD PTR _k$8727[ebp]
+	jne	SHORT $L8732
+	movsx	ecx, WORD PTR _k$8729[ebp]
 	cmp	ecx, 3
-	jge	SHORT $L8730
+	jge	SHORT $L8732
 
 ; 3432 :                nCounter++;
 
@@ -12499,8 +12499,8 @@ $L8728:
 
 ; 3434 :             }
 
-	jmp	SHORT $L8729
-$L8730:
+	jmp	SHORT $L8731
+$L8732:
 
 ; 3435 : 
 ; 3436 :             while ( *cpcEditString == '9' )
@@ -12508,21 +12508,21 @@ $L8730:
 	mov	ecx, DWORD PTR _cpcEditString$[ebp]
 	movsx	edx, BYTE PTR [ecx]
 	cmp	edx, 57					; 00000039H
-	jne	SHORT $L8733
+	jne	SHORT $L8735
 
 ; 3437 :                cpcEditString++;
 
 	mov	eax, DWORD PTR _cpcEditString$[ebp]
 	add	eax, 1
 	mov	DWORD PTR _cpcEditString$[ebp], eax
-	jmp	SHORT $L8730
-$L8733:
+	jmp	SHORT $L8732
+$L8735:
 
 ; 3438 : 
 ; 3439 :             break;
 
-	jmp	SHORT $L8662
-$L8734:
+	jmp	SHORT $L8664
+$L8736:
 
 ; 3441 : 
 ; 3442 :          case '\"':  // quote
@@ -12538,8 +12538,8 @@ $L8734:
 
 ; 3445 :             break;
 
-	jmp	SHORT $L8662
-$L8735:
+	jmp	SHORT $L8664
+$L8737:
 
 ; 3446 : 
 ; 3447 :          case '(':   // left paren
@@ -12564,47 +12564,47 @@ $L8735:
 
 ; 3457 :             break;
 
-	jmp	SHORT $L8662
-$L8736:
+	jmp	SHORT $L8664
+$L8738:
 
 ; 3458 : 
 ; 3459 :          default:
 ; 3460 :             return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	SHORT $L8649
-$L8662:
+	jmp	SHORT $L8651
+$L8664:
 
 ; 3463 :    }
 
-	jmp	$L8652
-$L8656:
+	jmp	$L8654
+$L8658:
 
 ; 3464 : 
 ; 3465 :    return( nCounter );
 
 	mov	ax, WORD PTR _nCounter$[ebp]
-$L8649:
+$L8651:
 
 ; 3466 : }
 
 	mov	esp, ebp
 	pop	ebp
 	ret	0
-$L9323:
-	DD	$L8735
-	DD	$L8734
-	DD	$L8726
-	DD	$L8665
-	DD	$L8676
-	DD	$L8693
-	DD	$L8699
-	DD	$L8718
-	DD	$L8721
-	DD	$L8695
-	DD	$L8700
+$L9327:
+	DD	$L8737
 	DD	$L8736
-$L9322:
+	DD	$L8728
+	DD	$L8667
+	DD	$L8678
+	DD	$L8695
+	DD	$L8701
+	DD	$L8720
+	DD	$L8723
+	DD	$L8697
+	DD	$L8702
+	DD	$L8738
+$L9326:
 	DB	0
 	DB	11					; 0000000bH
 	DB	1
@@ -12747,14 +12747,14 @@ _ZeidonStringCopy@28 PROC NEAR
 ; 3573 :         lTgtIdx == 0 || lSrcIdx == 0 )                // 1-based index
 
 	cmp	DWORD PTR _pchTgtString$[ebp], 0
-	je	SHORT $L8755
+	je	SHORT $L8757
 	cmp	DWORD PTR _cpcSrcString$[ebp], 0
-	je	SHORT $L8755
+	je	SHORT $L8757
 	cmp	DWORD PTR _lTgtIdx$[ebp], 0
-	je	SHORT $L8755
+	je	SHORT $L8757
 	cmp	DWORD PTR _lSrcIdx$[ebp], 0
-	jne	SHORT $L8754
-$L8755:
+	jne	SHORT $L8756
+$L8757:
 
 ; 3575 :       SysMessageBox( 0, szlOE_SystemError,
 ; 3576 :                      "ZeidonStringCopy: Invalid parameter.", 1 );
@@ -12769,8 +12769,8 @@ $L8755:
 ; 3577 :       return( qINVALIDPARAMETER );
 
 	mov	ax, -5					; fffffffbH
-	jmp	$L8751
-$L8754:
+	jmp	$L8753
+$L8756:
 
 ; 3579 : 
 ; 3580 :    lTgtIdx--;  // convert 1-based index to 0-based index for
@@ -12790,7 +12790,7 @@ $L8754:
 ; 3584 :    if ( lMaxReceive < -1 )
 
 	cmp	DWORD PTR _lMaxReceive$[ebp], -1
-	jge	SHORT $L8757
+	jge	SHORT $L8759
 
 ; 3586 :       SysMessageBox( 0, szlOE_SystemError,
 ; 3587 :                      "ZeidonStringCopy: Target string has negative length", 1 );
@@ -12805,20 +12805,20 @@ $L8754:
 ; 3588 :       return( qMAXRECEIVEISNEGATIVE );
 
 	mov	ax, -2					; fffffffeH
-	jmp	$L8751
-$L8757:
+	jmp	$L8753
+$L8759:
 
 ; 3590 : 
 ; 3591 :    if ( lMaxCopy < 0 )
 
 	cmp	DWORD PTR _lMaxCopy$[ebp], 0
-	jge	SHORT $L8759
+	jge	SHORT $L8761
 
 ; 3592 :       return( qMAXCOPYISNEGATIVE );
 
 	mov	ax, -3					; fffffffdH
-	jmp	$L8751
-$L8759:
+	jmp	$L8753
+$L8761:
 
 ; 3593 : 
 ; 3594 :    if ( (lTgtIdx + lMaxReceive) > lMaxTgtLth )
@@ -12826,7 +12826,7 @@ $L8759:
 	mov	ecx, DWORD PTR _lTgtIdx$[ebp]
 	add	ecx, DWORD PTR _lMaxReceive$[ebp]
 	cmp	ecx, DWORD PTR _lMaxTgtLth$[ebp]
-	jle	SHORT $L8760
+	jle	SHORT $L8762
 
 ; 3596 :       SysMessageBox( 0, szlOE_SystemError,
 ; 3597 :                      "ZeidonStringCopy: Target string is too small", 1 );
@@ -12841,8 +12841,8 @@ $L8759:
 ; 3598 :       return( qMAXRECEIVEEXCEEDSTARGETLEN );
 
 	mov	ax, -4					; fffffffcH
-	jmp	$L8751
-$L8760:
+	jmp	$L8753
+$L8762:
 
 ; 3600 : 
 ; 3601 :    // Ensure the source index does not point beyond the end of the source string.
@@ -12853,7 +12853,7 @@ $L8760:
 	call	_strlen
 	add	esp, 4
 	cmp	DWORD PTR _lSrcIdx$[ebp], eax
-	jle	SHORT $L8763
+	jle	SHORT $L8765
 
 ; 3604 :       SysMessageBox( 0, szlOE_SystemError,
 ; 3605 :                      "ZeidonStringCopy: Invalid parameter (source index).", 1 );
@@ -12868,20 +12868,20 @@ $L8760:
 ; 3606 :       return( qINVALIDPARAMETER );
 
 	mov	ax, -5					; fffffffbH
-	jmp	$L8751
-$L8763:
+	jmp	$L8753
+$L8765:
 
 ; 3608 : 
 ; 3609 :    // If lMaxReceive is -1, move the characters to the target without a null at end.
 ; 3610 :    if ( lMaxReceive == -1 )
 
 	cmp	DWORD PTR _lMaxReceive$[ebp], -1
-	jne	SHORT $L8765
+	jne	SHORT $L8767
 
 ; 3612 :       if ( lMaxCopy == 0 )
 
 	cmp	DWORD PTR _lMaxCopy$[ebp], 0
-	jne	SHORT $L8766
+	jne	SHORT $L8768
 
 ; 3613 :          lMaxCopy = lMaxTgtLth - lTgtIdx - 1;
 
@@ -12889,7 +12889,7 @@ $L8763:
 	sub	edx, DWORD PTR _lTgtIdx$[ebp]
 	sub	edx, 1
 	mov	DWORD PTR _lMaxCopy$[ebp], edx
-$L8766:
+$L8768:
 
 ; 3614 : 
 ; 3615 :       while ( *(cpcSrcString + lSrcIdx) != 0 && lMaxCopy > 0 )
@@ -12898,9 +12898,9 @@ $L8766:
 	add	eax, DWORD PTR _lSrcIdx$[ebp]
 	movsx	ecx, BYTE PTR [eax]
 	test	ecx, ecx
-	je	SHORT $L8769
+	je	SHORT $L8771
 	cmp	DWORD PTR _lMaxCopy$[ebp], 0
-	jle	SHORT $L8769
+	jle	SHORT $L8771
 
 ; 3617 :          *(pchTgtString + lTgtIdx++) = *(cpcSrcString + lSrcIdx++);
 
@@ -12925,8 +12925,8 @@ $L8766:
 
 ; 3619 :       }
 
-	jmp	SHORT $L8766
-$L8769:
+	jmp	SHORT $L8768
+$L8771:
 
 ; 3620 : 
 ; 3621 :       return( zstrlen( pchTgtString ) );
@@ -12935,8 +12935,8 @@ $L8769:
 	push	edx
 	call	_strlen
 	add	esp, 4
-	jmp	$L8751
-$L8765:
+	jmp	$L8753
+$L8767:
 
 ; 3623 : 
 ; 3624 :    // If lMaxReceive is the default of 0 then the Max is really
@@ -12944,7 +12944,7 @@ $L8765:
 ; 3626 :    if ( lMaxReceive == 0 )
 
 	cmp	DWORD PTR _lMaxReceive$[ebp], 0
-	jne	SHORT $L8770
+	jne	SHORT $L8772
 
 ; 3627 :       lMaxReceive = lMaxTgtLth - lTgtIdx - 1;
 
@@ -12952,19 +12952,19 @@ $L8765:
 	sub	eax, DWORD PTR _lTgtIdx$[ebp]
 	sub	eax, 1
 	mov	DWORD PTR _lMaxReceive$[ebp], eax
-$L8770:
+$L8772:
 
 ; 3628 : 
 ; 3629 :    if ( lMaxCopy == 0 )
 
 	cmp	DWORD PTR _lMaxCopy$[ebp], 0
-	jne	SHORT $L8771
+	jne	SHORT $L8773
 
 ; 3630 :       lMaxCopy = lMaxReceive;
 
 	mov	ecx, DWORD PTR _lMaxReceive$[ebp]
 	mov	DWORD PTR _lMaxCopy$[ebp], ecx
-$L8771:
+$L8773:
 
 ; 3631 : 
 ; 3632 :    // Copy the lesser of lMaxReceive or lMaxCopy.
@@ -12972,14 +12972,14 @@ $L8771:
 
 	mov	edx, DWORD PTR _lMaxReceive$[ebp]
 	cmp	edx, DWORD PTR _lMaxCopy$[ebp]
-	jge	SHORT $L9325
+	jge	SHORT $L9329
 	mov	eax, DWORD PTR _lMaxReceive$[ebp]
 	mov	DWORD PTR -12+[ebp], eax
-	jmp	SHORT $L9326
-$L9325:
+	jmp	SHORT $L9330
+$L9329:
 	mov	ecx, DWORD PTR _lMaxCopy$[ebp]
 	mov	DWORD PTR -12+[ebp], ecx
-$L9326:
+$L9330:
 	mov	edx, DWORD PTR -12+[ebp]
 	mov	DWORD PTR _lNbrToCopy$[ebp], edx
 
@@ -12996,14 +12996,14 @@ $L9326:
 
 	mov	ecx, DWORD PTR _lLth$[ebp]
 	cmp	ecx, DWORD PTR _lNbrToCopy$[ebp]
-	jge	SHORT $L8772
+	jge	SHORT $L8774
 
 ; 3636 :       lNbrToCopy = lLth + 1;
 
 	mov	edx, DWORD PTR _lLth$[ebp]
 	add	edx, 1
 	mov	DWORD PTR _lNbrToCopy$[ebp], edx
-$L8772:
+$L8774:
 
 ; 3637 : 
 ; 3638 :    zstrncpy( pchTgtString + lTgtIdx, cpcSrcString + lSrcIdx, lNbrToCopy );
@@ -13041,7 +13041,7 @@ $L8772:
 	push	edx
 	call	_strlen
 	add	esp, 4
-$L8751:
+$L8753:
 
 ; 3650 : }
 
@@ -13115,7 +13115,7 @@ _ZeidonStringConcat@28 PROC NEAR
 	mov	eax, DWORD PTR _cpcSrcString$[ebp]
 	movsx	ecx, BYTE PTR [eax]
 	test	ecx, ecx
-	jne	SHORT $L8791
+	jne	SHORT $L8793
 
 ; 3729 :       return( zstrlen( pchTgtString ) );
 
@@ -13123,20 +13123,20 @@ _ZeidonStringConcat@28 PROC NEAR
 	push	edx
 	call	_strlen
 	add	esp, 4
-	jmp	$L8787
-$L8791:
+	jmp	$L8789
+$L8793:
 
 ; 3730 : 
 ; 3731 :    if ( pchTgtString == 0 || cpcSrcString == 0 ||     // gotta have strings
 ; 3732 :         lSrcIdx == 0 )                                // 1-based index
 
 	cmp	DWORD PTR _pchTgtString$[ebp], 0
-	je	SHORT $L8793
+	je	SHORT $L8795
 	cmp	DWORD PTR _cpcSrcString$[ebp], 0
-	je	SHORT $L8793
+	je	SHORT $L8795
 	cmp	DWORD PTR _lSrcIdx$[ebp], 0
-	jne	SHORT $L8792
-$L8793:
+	jne	SHORT $L8794
+$L8795:
 
 ; 3734 :       SysMessageBox( 0, szlOE_SystemError,
 ; 3735 :                      "ZeidonStringConcat: Invalid parameter.", 1 );
@@ -13151,8 +13151,8 @@ $L8793:
 ; 3736 :       return( qINVALIDPARAMETER );
 
 	mov	ax, -5					; fffffffbH
-	jmp	$L8787
-$L8792:
+	jmp	$L8789
+$L8794:
 
 ; 3738 : 
 ; 3739 :    lSrcIdx--;  // convert 1-based index to 0-based index for
@@ -13167,7 +13167,7 @@ $L8792:
 ; 3743 :    if ( lMaxReceive < 0 )
 
 	cmp	DWORD PTR _lMaxReceive$[ebp], 0
-	jge	SHORT $L8795
+	jge	SHORT $L8797
 
 ; 3745 :       SysMessageBox( 0, szlOE_SystemError,
 ; 3746 :                      "ZeidonStringConcat: Target string has negative length.", 1 );
@@ -13182,14 +13182,14 @@ $L8792:
 ; 3747 :       return( qMAXRECEIVEISNEGATIVE );
 
 	mov	ax, -2					; fffffffeH
-	jmp	$L8787
-$L8795:
+	jmp	$L8789
+$L8797:
 
 ; 3749 : 
 ; 3750 :    if ( lMaxConcat < 0 )
 
 	cmp	DWORD PTR _lMaxConcat$[ebp], 0
-	jge	SHORT $L8797
+	jge	SHORT $L8799
 
 ; 3752 :       SysMessageBox( 0, szlOE_SystemError,
 ; 3753 :                      "ZeidonStringConcat: Source string has negative length.", 1 );
@@ -13204,15 +13204,15 @@ $L8795:
 ; 3754 :       return( qMAXCOPYISNEGATIVE );
 
 	mov	ax, -3					; fffffffdH
-	jmp	$L8787
-$L8797:
+	jmp	$L8789
+$L8799:
 
 ; 3756 : 
 ; 3757 :    if ( lMaxReceive > lMaxTgtLth )
 
 	mov	ecx, DWORD PTR _lMaxReceive$[ebp]
 	cmp	ecx, DWORD PTR _lMaxTgtLth$[ebp]
-	jle	SHORT $L8799
+	jle	SHORT $L8801
 
 ; 3759 :       SysMessageBox( 0, szlOE_SystemError,
 ; 3760 :                      "ZeidonStringConcat: Target string is too small.", 1 );
@@ -13227,8 +13227,8 @@ $L8797:
 ; 3761 :       return( qMAXRECEIVEEXCEEDSTARGETLEN );
 
 	mov	ax, -4					; fffffffcH
-	jmp	$L8787
-$L8799:
+	jmp	$L8789
+$L8801:
 
 ; 3763 : 
 ; 3764 :    // Find the current end.
@@ -13244,13 +13244,13 @@ $L8799:
 
 	mov	ecx, DWORD PTR _lTgtIdx$[ebp]
 	cmp	ecx, DWORD PTR _lMaxTgtLth$[ebp]
-	jle	SHORT $L8801
+	jle	SHORT $L8803
 
 ; 3767 :       lTgtIdx = lMaxTgtLth;
 
 	mov	edx, DWORD PTR _lMaxTgtLth$[ebp]
 	mov	DWORD PTR _lTgtIdx$[ebp], edx
-$L8801:
+$L8803:
 
 ; 3768 : 
 ; 3769 :    // If lMaxReceive is the default of 0 then the Max is really
@@ -13258,26 +13258,26 @@ $L8801:
 ; 3771 :    if ( lMaxReceive == 0 )
 
 	cmp	DWORD PTR _lMaxReceive$[ebp], 0
-	jne	SHORT $L8802
+	jne	SHORT $L8804
 
 ; 3772 :       lMaxReceive = lMaxTgtLth - lTgtIdx;
 
 	mov	eax, DWORD PTR _lMaxTgtLth$[ebp]
 	sub	eax, DWORD PTR _lTgtIdx$[ebp]
 	mov	DWORD PTR _lMaxReceive$[ebp], eax
-$L8802:
+$L8804:
 
 ; 3773 : 
 ; 3774 :    if ( lMaxConcat == 0 )
 
 	cmp	DWORD PTR _lMaxConcat$[ebp], 0
-	jne	SHORT $L8803
+	jne	SHORT $L8805
 
 ; 3775 :       lMaxConcat = lMaxReceive;
 
 	mov	ecx, DWORD PTR _lMaxReceive$[ebp]
 	mov	DWORD PTR _lMaxConcat$[ebp], ecx
-$L8803:
+$L8805:
 
 ; 3776 : 
 ; 3777 :    // concat the lesser of lMaxReceive or lMaxCopy.
@@ -13285,14 +13285,14 @@ $L8803:
 
 	mov	edx, DWORD PTR _lMaxReceive$[ebp]
 	cmp	edx, DWORD PTR _lMaxConcat$[ebp]
-	jge	SHORT $L9328
+	jge	SHORT $L9332
 	mov	eax, DWORD PTR _lMaxReceive$[ebp]
 	mov	DWORD PTR -16+[ebp], eax
-	jmp	SHORT $L9329
-$L9328:
+	jmp	SHORT $L9333
+$L9332:
 	mov	ecx, DWORD PTR _lMaxConcat$[ebp]
 	mov	DWORD PTR -16+[ebp], ecx
-$L9329:
+$L9333:
 	mov	edx, DWORD PTR -16+[ebp]
 	mov	DWORD PTR _lNbrToConcat$[ebp], edx
 
@@ -13317,14 +13317,14 @@ $L9329:
 
 	mov	edx, DWORD PTR _lSrcLth$[ebp]
 	cmp	edx, DWORD PTR _lNbrToConcat$[ebp]
-	jge	SHORT $L8804
+	jge	SHORT $L8806
 
 ; 3782 :       lNbrToConcat = lSrcLth + 1;
 
 	mov	eax, DWORD PTR _lSrcLth$[ebp]
 	add	eax, 1
 	mov	DWORD PTR _lNbrToConcat$[ebp], eax
-$L8804:
+$L8806:
 
 ; 3783 : 
 ; 3784 :    if ( (lTgtLth + lNbrToConcat) >= lMaxTgtLth ) // check whole length of new target
@@ -13332,7 +13332,7 @@ $L8804:
 	mov	ecx, DWORD PTR _lTgtLth$[ebp]
 	add	ecx, DWORD PTR _lNbrToConcat$[ebp]
 	cmp	ecx, DWORD PTR _lMaxTgtLth$[ebp]
-	jl	SHORT $L8805
+	jl	SHORT $L8807
 
 ; 3785 :       lNbrToConcat = lMaxTgtLth - lTgtLth - 1;
 
@@ -13340,7 +13340,7 @@ $L8804:
 	sub	edx, DWORD PTR _lTgtLth$[ebp]
 	sub	edx, 1
 	mov	DWORD PTR _lNbrToConcat$[ebp], edx
-$L8805:
+$L8807:
 
 ; 3786 : 
 ; 3787 :    zstrncpy( pchTgtString + lTgtIdx, cpcSrcString + lSrcIdx, lNbrToConcat );
@@ -13378,7 +13378,7 @@ $L8805:
 	push	edx
 	call	_strlen
 	add	esp, 4
-$L8787:
+$L8789:
 
 ; 3799 : }
 
@@ -13446,14 +13446,14 @@ _ZeidonStringCompare@28 PROC NEAR
 ; 3879 :         lTgtIdx <= 0 || lSrcIdx <= 0 )                // 1-based index
 
 	cmp	DWORD PTR _cpcTgtString$[ebp], 0
-	je	SHORT $L8823
+	je	SHORT $L8825
 	cmp	DWORD PTR _cpcSrcString$[ebp], 0
-	je	SHORT $L8823
+	je	SHORT $L8825
 	cmp	DWORD PTR _lTgtIdx$[ebp], 0
-	jle	SHORT $L8823
+	jle	SHORT $L8825
 	cmp	DWORD PTR _lSrcIdx$[ebp], 0
-	jg	SHORT $L8822
-$L8823:
+	jg	SHORT $L8824
+$L8825:
 
 ; 3881 :       SysMessageBox( 0, szlOE_SystemError,
 ; 3882 :                      "ZeidonStringCompare: Invalid parameter.", 1 );
@@ -13468,8 +13468,8 @@ $L8823:
 ; 3883 :       return( qINVALIDPARAMETER );
 
 	mov	ax, -5					; fffffffbH
-	jmp	$L8820
-$L8822:
+	jmp	$L8822
+$L8824:
 
 ; 3885 : 
 ; 3886 :    lTgtIdx--;  // convert 1-based index to 0-based index for
@@ -13490,7 +13490,7 @@ $L8822:
 ; 3891 :    if ( lMaxReceive < 0 )
 
 	cmp	DWORD PTR _lMaxReceive$[ebp], 0
-	jge	SHORT $L8825
+	jge	SHORT $L8827
 
 ; 3893 :       SysMessageBox( 0, szlOE_SystemError,
 ; 3894 :                      "ZeidonStringCompare: Target string has negative length.", 1 );
@@ -13505,14 +13505,14 @@ $L8822:
 ; 3895 :       return( qMAXRECEIVEISNEGATIVE );
 
 	mov	ax, -2					; fffffffeH
-	jmp	$L8820
-$L8825:
+	jmp	$L8822
+$L8827:
 
 ; 3897 : 
 ; 3898 :    if ( lMaxCompare < 0 )
 
 	cmp	DWORD PTR _lMaxCompare$[ebp], 0
-	jge	SHORT $L8827
+	jge	SHORT $L8829
 
 ; 3900 :       SysMessageBox( 0, szlOE_SystemError,
 ; 3901 :                      "ZeidonStringCompare: Source string has negative length.", 1 );
@@ -13527,8 +13527,8 @@ $L8825:
 ; 3902 :       return( qMAXCOPYISNEGATIVE );
 
 	mov	ax, -3					; fffffffdH
-	jmp	$L8820
-$L8827:
+	jmp	$L8822
+$L8829:
 
 ; 3904 : 
 ; 3905 :    if ( (lTgtIdx + lMaxReceive) > lMaxTgtLth )
@@ -13536,7 +13536,7 @@ $L8827:
 	mov	edx, DWORD PTR _lTgtIdx$[ebp]
 	add	edx, DWORD PTR _lMaxReceive$[ebp]
 	cmp	edx, DWORD PTR _lMaxTgtLth$[ebp]
-	jle	SHORT $L8829
+	jle	SHORT $L8831
 
 ; 3907 :       SysMessageBox( 0, szlOE_SystemError,
 ; 3908 :                      "ZeidonStringCompare: Target string is too short.", 1 );
@@ -13551,8 +13551,8 @@ $L8827:
 ; 3909 :       return( qMAXRECEIVEEXCEEDSTARGETLEN );
 
 	mov	ax, -4					; fffffffcH
-	jmp	SHORT $L8820
-$L8829:
+	jmp	SHORT $L8822
+$L8831:
 
 ; 3911 : 
 ; 3912 :    // If lMaxReceive is the default of 0 then the Max is really
@@ -13560,7 +13560,7 @@ $L8829:
 ; 3914 :    if ( lMaxReceive == 0 )
 
 	cmp	DWORD PTR _lMaxReceive$[ebp], 0
-	jne	SHORT $L8832
+	jne	SHORT $L8834
 
 ; 3916 :       // Max receive is 0, set max receive to the number of characters
 ; 3917 :       // in the target string EXCLUDING the null terminator
@@ -13579,26 +13579,26 @@ $L8829:
 ; 3923 :       if ( lMaxCompare == 0 )
 
 	cmp	DWORD PTR _lMaxCompare$[ebp], 0
-	jne	SHORT $L8832
+	jne	SHORT $L8834
 
 ; 3924 :          lMaxReceive++;
 
 	mov	eax, DWORD PTR _lMaxReceive$[ebp]
 	add	eax, 1
 	mov	DWORD PTR _lMaxReceive$[ebp], eax
-$L8832:
+$L8834:
 
 ; 3926 : 
 ; 3927 :    if ( lMaxCompare == 0 )
 
 	cmp	DWORD PTR _lMaxCompare$[ebp], 0
-	jne	SHORT $L8833
+	jne	SHORT $L8835
 
 ; 3928 :       lMaxCompare = lMaxReceive;
 
 	mov	ecx, DWORD PTR _lMaxReceive$[ebp]
 	mov	DWORD PTR _lMaxCompare$[ebp], ecx
-$L8833:
+$L8835:
 
 ; 3929 : 
 ; 3930 :    // Compare the lesser of lMaxReceive or lMaxCompare.
@@ -13606,14 +13606,14 @@ $L8833:
 
 	mov	edx, DWORD PTR _lMaxReceive$[ebp]
 	cmp	edx, DWORD PTR _lMaxCompare$[ebp]
-	jge	SHORT $L9331
+	jge	SHORT $L9335
 	mov	eax, DWORD PTR _lMaxReceive$[ebp]
 	mov	DWORD PTR -8+[ebp], eax
-	jmp	SHORT $L9332
-$L9331:
+	jmp	SHORT $L9336
+$L9335:
 	mov	ecx, DWORD PTR _lMaxCompare$[ebp]
 	mov	DWORD PTR -8+[ebp], ecx
-$L9332:
+$L9336:
 	mov	edx, DWORD PTR -8+[ebp]
 	mov	DWORD PTR _lNbrToCompare$[ebp], edx
 
@@ -13630,7 +13630,7 @@ $L9332:
 	push	edx
 	call	DWORD PTR __imp__strncmp
 	add	esp, 12					; 0000000cH
-$L8820:
+$L8822:
 
 ; 3934 : }
 
@@ -13645,7 +13645,7 @@ _TEXT	SEGMENT
 _cpcTgtString$ = 8
 _nTgtIdx$ = 12
 _cpcSearch$ = 16
-_pch$8842 = -4
+_pch$8844 = -4
 _ZeidonStringFind@12 PROC NEAR
 
 ; 3967 : {
@@ -13658,7 +13658,7 @@ _ZeidonStringFind@12 PROC NEAR
 
 	movsx	eax, WORD PTR _nTgtIdx$[ebp]
 	test	eax, eax
-	jle	SHORT $L8844
+	jle	SHORT $L8846
 
 ; 3970 :       zPCHAR pch = zstrstr( cpcTgtString + nTgtIdx - 1, cpcSearch );
 
@@ -13670,34 +13670,34 @@ _ZeidonStringFind@12 PROC NEAR
 	push	ecx
 	call	DWORD PTR __imp__strstr
 	add	esp, 8
-	mov	DWORD PTR _pch$8842[ebp], eax
+	mov	DWORD PTR _pch$8844[ebp], eax
 
 ; 3971 : 
 ; 3972 :       if ( pch )
 
-	cmp	DWORD PTR _pch$8842[ebp], 0
-	je	SHORT $L8843
+	cmp	DWORD PTR _pch$8844[ebp], 0
+	je	SHORT $L8845
 
 ; 3973 :          return( pch - cpcTgtString + 1 );
 
-	mov	eax, DWORD PTR _pch$8842[ebp]
+	mov	eax, DWORD PTR _pch$8844[ebp]
 	sub	eax, DWORD PTR _cpcTgtString$[ebp]
 	add	eax, 1
-	jmp	SHORT $L8840
-$L8843:
+	jmp	SHORT $L8842
+$L8845:
 
 ; 3974 :       else
 ; 3975 :          return( 0 );
 
 	xor	ax, ax
-	jmp	SHORT $L8840
-$L8844:
+	jmp	SHORT $L8842
+$L8846:
 
 ; 3977 : 
 ; 3978 :    return( -1 );
 
 	or	ax, -1
-$L8840:
+$L8842:
 
 ; 3979 : }
 
@@ -13755,7 +13755,7 @@ _ZeidonStringConvertFromNumber@64 PROC NEAR
 ; 4048 :    if ( lMaxReceive < 0 )
 
 	cmp	DWORD PTR _lMaxReceive$[ebp], 0
-	jge	SHORT $L8862
+	jge	SHORT $L8864
 
 ; 4050 :       SysMessageBox( 0, szlOE_SystemError,
 ; 4051 :                      "ZeidonStringConvertFromNumber: Target string has negative length.", 1 );
@@ -13770,8 +13770,8 @@ _ZeidonStringConvertFromNumber@64 PROC NEAR
 ; 4052 :       return( qMAXRECEIVEISNEGATIVE );
 
 	mov	ax, -2					; fffffffeH
-	jmp	$L8859
-$L8862:
+	jmp	$L8861
+$L8864:
 
 ; 4054 : 
 ; 4055 : //   if ( (lTgtIdx + lMaxReceive) > lMaxTgtLth )
@@ -13783,7 +13783,7 @@ $L8862:
 ; 4061 :    if ( lMaxReceive == 0 )
 
 	cmp	DWORD PTR _lMaxReceive$[ebp], 0
-	jne	SHORT $L8864
+	jne	SHORT $L8866
 
 ; 4062 :       lMaxReceive = lMaxTgtLth -lTgtIdx +1;
 
@@ -13791,16 +13791,16 @@ $L8862:
 	sub	ecx, DWORD PTR _lTgtIdx$[ebp]
 	add	ecx, 1
 	mov	DWORD PTR _lMaxReceive$[ebp], ecx
-$L8864:
+$L8866:
 
 ; 4063 : 
 ; 4064 :    if ( pchTgtString == NULL || lTgtIdx <= 0 )
 
 	cmp	DWORD PTR _pchTgtString$[ebp], 0
-	je	SHORT $L8867
+	je	SHORT $L8869
 	cmp	DWORD PTR _lTgtIdx$[ebp], 0
-	jg	SHORT $L8866
-$L8867:
+	jg	SHORT $L8868
+$L8869:
 
 ; 4066 :       SysMessageBox( 0, szlOE_SystemError,
 ; 4067 :                      "ZeidonStringConvertFromNumber: Invalid parameter.", 1 );
@@ -13815,8 +13815,8 @@ $L8867:
 ; 4068 :       return( qINVALIDPARAMETER );
 
 	mov	ax, -5					; fffffffbH
-	jmp	$L8859
-$L8866:
+	jmp	$L8861
+$L8868:
 
 ; 4070 : 
 ; 4071 :    if ( cpcNumberType[ 0 ] != 'I' && cpcNumberType[ 0 ] != 'D' )
@@ -13824,17 +13824,17 @@ $L8866:
 	mov	eax, DWORD PTR _cpcNumberType$[ebp]
 	movsx	ecx, BYTE PTR [eax]
 	cmp	ecx, 73					; 00000049H
-	je	SHORT $L8869
+	je	SHORT $L8871
 	mov	edx, DWORD PTR _cpcNumberType$[ebp]
 	movsx	eax, BYTE PTR [edx]
 	cmp	eax, 68					; 00000044H
-	je	SHORT $L8869
+	je	SHORT $L8871
 
 ; 4072 :       return( qINVALIDPARAMETER );
 
 	mov	ax, -5					; fffffffbH
-	jmp	$L8859
-$L8869:
+	jmp	$L8861
+$L8871:
 
 ; 4073 : 
 ; 4074 :    lTgtIdx--;  // convert 1-based index to 0-based index
@@ -13849,7 +13849,7 @@ $L8869:
 	mov	edx, DWORD PTR _cpcNumberType$[ebp]
 	movsx	eax, BYTE PTR [edx]
 	cmp	eax, 73					; 00000049H
-	jne	SHORT $L8870
+	jne	SHORT $L8872
 
 ; 4077 :       zltoa( lIntegerValue, szWorkString );
 
@@ -13863,8 +13863,8 @@ $L8869:
 
 ; 4078 :    else
 
-	jmp	SHORT $L8871
-$L8870:
+	jmp	SHORT $L8873
+$L8872:
 
 ; 4079 :       ConvertDecimalToString( szWorkString, 0, dDecimalValue, 0 );
 
@@ -13878,7 +13878,7 @@ $L8870:
 	lea	eax, DWORD PTR _szWorkString$[ebp]
 	push	eax
 	call	_ConvertDecimalToString@52
-$L8871:
+$L8873:
 
 ; 4080 : 
 ; 4081 :    // Copy the lesser of lMaxReceive or the length of the converted value.
@@ -13894,7 +13894,7 @@ $L8871:
 
 	mov	edx, DWORD PTR _lLth$[ebp]
 	cmp	edx, DWORD PTR _lMaxReceive$[ebp]
-	jle	SHORT $L8872
+	jle	SHORT $L8874
 
 ; 4085 :       lLth = lMaxReceive;
 
@@ -13913,12 +13913,12 @@ $L8871:
 	mov	eax, DWORD PTR _lLth$[ebp]
 	sub	eax, 1
 	mov	DWORD PTR _lLth$[ebp], eax
-$L8874:
+$L8876:
 
 ; 4088 :       while ( lLth >= 0 )
 
 	cmp	DWORD PTR _lLth$[ebp], 0
-	jl	SHORT $L8875
+	jl	SHORT $L8877
 
 ; 4090 :          *(pchTgtString + lTgtIdx + lLth) = '*';
 
@@ -13935,13 +13935,13 @@ $L8874:
 
 ; 4092 :       }
 
-	jmp	SHORT $L8874
-$L8875:
+	jmp	SHORT $L8876
+$L8877:
 
 ; 4094 :    else
 
-	jmp	SHORT $L8876
-$L8872:
+	jmp	SHORT $L8878
+$L8874:
 
 ; 4096 :       zstrncpy( pchTgtString + lTgtIdx, szWorkString, lLth );
 
@@ -13961,7 +13961,7 @@ $L8872:
 	add	ecx, DWORD PTR _lLth$[ebp]
 	mov	edx, DWORD PTR _pchTgtString$[ebp]
 	mov	BYTE PTR [edx+ecx], 0
-$L8876:
+$L8878:
 
 ; 4099 : 
 ; 4100 : 
@@ -13979,7 +13979,7 @@ $L8876:
 	push	eax
 	call	_strlen
 	add	esp, 4
-$L8859:
+$L8861:
 
 ; 4110 : }
 
@@ -14011,12 +14011,12 @@ _ZeidonCopyWithinString@16 PROC NEAR
 ; 4158 :         lTgtIdx == 0 || lSrcIdx == 0 )                // 1-based index
 
 	cmp	DWORD PTR _pchTgtString$[ebp], 0
-	je	SHORT $L8888
+	je	SHORT $L8890
 	cmp	DWORD PTR _lTgtIdx$[ebp], 0
-	je	SHORT $L8888
+	je	SHORT $L8890
 	cmp	DWORD PTR _lSrcIdx$[ebp], 0
-	jne	SHORT $L8887
-$L8888:
+	jne	SHORT $L8889
+$L8890:
 
 ; 4160 :       SysMessageBox( 0, szlOE_SystemError,
 ; 4161 :                      "ZeidonStringCopy: Invalid parameter.", 1 );
@@ -14031,8 +14031,8 @@ $L8888:
 ; 4162 :       return( qINVALIDPARAMETER );
 
 	mov	ax, -5					; fffffffbH
-	jmp	SHORT $L8885
-$L8887:
+	jmp	SHORT $L8887
+$L8889:
 
 ; 4164 : 
 ; 4165 :    lTgtIdx--;  // convert 1-based index to 0-based index
@@ -14062,7 +14062,7 @@ $L8887:
 	mov	ecx, DWORD PTR _lTgtIdx$[ebp]
 	add	ecx, DWORD PTR _lSrcLth$[ebp]
 	cmp	ecx, DWORD PTR _lMaxTgtLth$[ebp]
-	jl	SHORT $L8889
+	jl	SHORT $L8891
 
 ; 4171 :       SysMessageBox( 0, szlOE_SystemError,
 ; 4172 :                      "ZeidonStringCopy: Target string is too small", 1 );
@@ -14077,8 +14077,8 @@ $L8887:
 ; 4173 :       return( qMAXRECEIVEEXCEEDSTARGETLEN );
 
 	mov	ax, -4					; fffffffcH
-	jmp	SHORT $L8885
-$L8889:
+	jmp	SHORT $L8887
+$L8891:
 
 ; 4175 : 
 ; 4176 :    zstrcpy( pchTgtString + lTgtIdx, pchTgtString + lSrcIdx );
@@ -14098,7 +14098,7 @@ $L8889:
 	push	edx
 	call	_strlen
 	add	esp, 4
-$L8885:
+$L8887:
 
 ; 4178 : }
 
@@ -14134,48 +14134,48 @@ _fnRemoveChars@24 PROC NEAR
 ; 4234 :    if ( pchStr == 0 || pchStr[ 0 ] == 0 )
 
 	cmp	DWORD PTR _pchStr$[ebp], 0
-	je	SHORT $L8908
+	je	SHORT $L8910
 	mov	eax, DWORD PTR _pchStr$[ebp]
 	movsx	ecx, BYTE PTR [eax]
 	test	ecx, ecx
-	jne	SHORT $L8907
-$L8908:
+	jne	SHORT $L8909
+$L8910:
 
 ; 4235 :       return( 0 );
 
 	xor	ax, ax
-	jmp	$L8903
-$L8907:
+	jmp	$L8905
+$L8909:
 
 ; 4236 : 
 ; 4237 :    if ( cQualifier == 0 )
 
 	movsx	edx, BYTE PTR _cQualifier$[ebp]
 	test	edx, edx
-	jne	SHORT $L8909
+	jne	SHORT $L8911
 
 ; 4238 :       return( 0 );
 
 	xor	ax, ax
-	jmp	$L8903
-$L8909:
+	jmp	$L8905
+$L8911:
 
 ; 4239 : 
 ; 4240 :    if ( pchRemoveChars == 0 || pchRemoveChars[ 0 ] == 0 )
 
 	cmp	DWORD PTR _pchRemoveChars$[ebp], 0
-	je	SHORT $L8911
+	je	SHORT $L8913
 	mov	eax, DWORD PTR _pchRemoveChars$[ebp]
 	movsx	ecx, BYTE PTR [eax]
 	test	ecx, ecx
-	jne	SHORT $L8910
-$L8911:
+	jne	SHORT $L8912
+$L8913:
 
 ; 4241 :       return( 0 );
 
 	xor	ax, ax
-	jmp	$L8903
-$L8910:
+	jmp	$L8905
+$L8912:
 
 ; 4242 : 
 ; 4243 :    switch ( cQualifier )
@@ -14184,11 +14184,11 @@ $L8910:
 	mov	dl, BYTE PTR _cQualifier$[ebp]
 	mov	BYTE PTR -16+[ebp], dl
 	cmp	BYTE PTR -16+[ebp], 66			; 00000042H
-	je	SHORT $L8917
+	je	SHORT $L8919
 	cmp	BYTE PTR -16+[ebp], 70			; 00000046H
-	je	SHORT $L8918
-	jmp	SHORT $L8913
-$L8917:
+	je	SHORT $L8920
+	jmp	SHORT $L8915
+$L8919:
 
 ; 4245 :       case 'A':
 ; 4246 :          break;
@@ -14212,8 +14212,8 @@ $L8917:
 
 ; 4252 :          break;
 
-	jmp	SHORT $L8913
-$L8918:
+	jmp	SHORT $L8915
+$L8920:
 
 ; 4253 : 
 ; 4254 :       case 'F':
@@ -14224,7 +14224,7 @@ $L8918:
 	call	_strlen
 	add	esp, 4
 	mov	WORD PTR _nLth$[ebp], ax
-$L8913:
+$L8915:
 
 ; 4258 : 
 ; 4259 :    for ( pch = pch2 = pchStr; *pch; pch++ )
@@ -14233,16 +14233,16 @@ $L8913:
 	mov	DWORD PTR _pch2$[ebp], eax
 	mov	ecx, DWORD PTR _pch2$[ebp]
 	mov	DWORD PTR _pch$[ebp], ecx
-	jmp	SHORT $L8919
-$L8920:
+	jmp	SHORT $L8921
+$L8922:
 	mov	edx, DWORD PTR _pch$[ebp]
 	add	edx, 1
 	mov	DWORD PTR _pch$[ebp], edx
-$L8919:
+$L8921:
 	mov	eax, DWORD PTR _pch$[ebp]
 	movsx	ecx, BYTE PTR [eax]
 	test	ecx, ecx
-	je	$L8921
+	je	$L8923
 
 ; 4261 :       // If current char isn't to be removed, then copy char and continue.
 ; 4262 :       if ( zstrchr( pchRemoveChars, *pch ) == 0 )
@@ -14255,7 +14255,7 @@ $L8919:
 	call	DWORD PTR __imp__strchr
 	add	esp, 8
 	test	eax, eax
-	jne	SHORT $L8922
+	jne	SHORT $L8925
 
 ; 4264 :          *pch2++ = *pch;
 
@@ -14269,8 +14269,8 @@ $L8919:
 
 ; 4265 :          continue;
 
-	jmp	SHORT $L8920
-$L8922:
+	jmp	SHORT $L8922
+$L8925:
 
 ; 4267 : 
 ; 4268 :       // Check to see if previous char is in pchPrevChars. If pchPrevChars is
@@ -14280,7 +14280,7 @@ $L8922:
 ; 4272 :       if ( pchPrevChars )
 
 	cmp	DWORD PTR _pchPrevChars$[ebp], 0
-	je	$L8928
+	je	$L8932
 
 ; 4274 :          // If we are at the beginning of the string then there is no prev
 ; 4275 :          // char so don't remove the char.
@@ -14288,7 +14288,7 @@ $L8922:
 
 	mov	eax, DWORD PTR _pch2$[ebp]
 	cmp	eax, DWORD PTR _pchStr$[ebp]
-	jne	SHORT $L8924
+	jne	SHORT $L8927
 
 ; 4278 :             *pch2++ = *pch;
 
@@ -14302,8 +14302,8 @@ $L8922:
 
 ; 4279 :             continue;
 
-	jmp	SHORT $L8920
-$L8924:
+	jmp	SHORT $L8922
+$L8927:
 
 ; 4281 : 
 ; 4282 :          // If pchPrevChars contains a '*', then we only remove the current
@@ -14313,7 +14313,7 @@ $L8924:
 	mov	edx, DWORD PTR _pchPrevChars$[ebp]
 	movsx	eax, BYTE PTR [edx]
 	cmp	eax, 42					; 0000002aH
-	jne	SHORT $L8925
+	jne	SHORT $L8928
 
 ; 4286 :             if ( *pch != *(pch2 - 1) )
 
@@ -14322,7 +14322,7 @@ $L8924:
 	mov	eax, DWORD PTR _pch2$[ebp]
 	movsx	ecx, BYTE PTR [eax-1]
 	cmp	edx, ecx
-	je	SHORT $L8926
+	je	SHORT $L8929
 
 ; 4288 :                // Chars are not the same, so copy char and continue.
 ; 4289 :                *pch2++ = *pch;
@@ -14337,13 +14337,13 @@ $L8924:
 
 ; 4290 :                continue;
 
-	jmp	$L8920
-$L8926:
+	jmp	$L8922
+$L8929:
 
 ; 4293 :          else
 
-	jmp	SHORT $L8928
-$L8925:
+	jmp	SHORT $L8932
+$L8928:
 
 ; 4294 :          if ( zstrchr( pchPrevChars, *(pch2 - 1) ) == 0 )
 
@@ -14355,7 +14355,7 @@ $L8925:
 	call	DWORD PTR __imp__strchr
 	add	esp, 8
 	test	eax, eax
-	jne	SHORT $L8928
+	jne	SHORT $L8932
 
 ; 4296 :             // The previous char is not in the pchPrevChars string, so we don't
 ; 4297 :             // want to remove the current char.
@@ -14371,8 +14371,8 @@ $L8925:
 
 ; 4299 :             continue;
 
-	jmp	$L8920
-$L8928:
+	jmp	$L8922
+$L8932:
 
 ; 4302 : 
 ; 4303 :       // If we are replacing the removed char with something, then do it.
@@ -14381,7 +14381,7 @@ $L8928:
 
 	movsx	ecx, BYTE PTR _cReplace$[ebp]
 	test	ecx, ecx
-	je	SHORT $L8929
+	je	SHORT $L8933
 
 ; 4307 :          *pch2++ = cReplace;
 
@@ -14394,8 +14394,8 @@ $L8928:
 
 ; 4308 :          continue;
 
-	jmp	$L8920
-$L8929:
+	jmp	$L8922
+$L8933:
 
 ; 4310 : 
 ; 4311 :       // By not copying the char we've deleted it. If we are deleting ALL
@@ -14404,12 +14404,12 @@ $L8929:
 
 	movsx	edx, BYTE PTR _cQualifier$[ebp]
 	cmp	edx, 65					; 00000041H
-	jne	SHORT $L8930
+	jne	SHORT $L8934
 
 ; 4314 :          continue;
 
-	jmp	$L8920
-$L8930:
+	jmp	$L8922
+$L8934:
 
 ; 4315 : 
 ; 4316 :       // We have removed a char.  Check to see if string is now short enough.
@@ -14427,31 +14427,31 @@ $L8930:
 	movsx	ecx, WORD PTR _nLth$[ebp]
 	movsx	edx, WORD PTR _nShortNameLth$[ebp]
 	cmp	ecx, edx
-	jle	SHORT $L8931
+	jle	SHORT $L8935
 
 ; 4322 :          continue;  // Name still isn't short enough.
 
-	jmp	$L8920
-$L8931:
+	jmp	$L8922
+$L8935:
 
 ; 4323 : 
 ; 4324 :       // Name is short enough.  Copy the rest of the string and
 ; 4325 :       // break loop.
 ; 4326 :       for ( ; *pch; pch++, pch2++ )
 
-	jmp	SHORT $L8932
-$L8933:
+	jmp	SHORT $L8936
+$L8937:
 	mov	eax, DWORD PTR _pch$[ebp]
 	add	eax, 1
 	mov	DWORD PTR _pch$[ebp], eax
 	mov	ecx, DWORD PTR _pch2$[ebp]
 	add	ecx, 1
 	mov	DWORD PTR _pch2$[ebp], ecx
-$L8932:
+$L8936:
 	mov	edx, DWORD PTR _pch$[ebp]
 	movsx	eax, BYTE PTR [edx]
 	test	eax, eax
-	je	SHORT $L8934
+	je	SHORT $L8938
 
 ; 4327 :          *pch2 = *pch;
 
@@ -14459,15 +14459,15 @@ $L8932:
 	mov	edx, DWORD PTR _pch$[ebp]
 	mov	al, BYTE PTR [edx]
 	mov	BYTE PTR [ecx], al
-	jmp	SHORT $L8933
-$L8934:
+	jmp	SHORT $L8937
+$L8938:
 
 ; 4328 : 
 ; 4329 :       *pch2 = 0;
 
 	mov	ecx, DWORD PTR _pch2$[ebp]
 	mov	BYTE PTR [ecx], 0
-$L8921:
+$L8923:
 
 ; 4333 : 
 ; 4334 :    *pch2 = 0;
@@ -14480,7 +14480,7 @@ $L8921:
 
 	movsx	eax, BYTE PTR _cQualifier$[ebp]
 	cmp	eax, 66					; 00000042H
-	jne	SHORT $L8935
+	jne	SHORT $L8939
 
 ; 4337 :       zstrrev( pchStr );
 
@@ -14488,13 +14488,13 @@ $L8921:
 	push	ecx
 	call	DWORD PTR __imp___strrev
 	add	esp, 4
-$L8935:
+$L8939:
 
 ; 4338 : 
 ; 4339 :    return( 0 );
 
 	xor	ax, ax
-$L8903:
+$L8905:
 
 ; 4340 : 
 ; 4341 : } // fnRemoveChars
@@ -14571,15 +14571,15 @@ _UfCompressName@32 PROC NEAR
 
 	mov	eax, DWORD PTR _pchLongName$[ebp]
 	mov	DWORD PTR _pch$[ebp], eax
-	jmp	SHORT $L8961
-$L8962:
+	jmp	SHORT $L8965
+$L8966:
 	mov	ecx, DWORD PTR _pch$[ebp]
 	add	ecx, 1
 	mov	DWORD PTR _pch$[ebp], ecx
-$L8961:
+$L8965:
 	mov	edx, DWORD PTR __imp____mb_cur_max
 	cmp	DWORD PTR [edx], 1
-	jle	SHORT $L9338
+	jle	SHORT $L9342
 	push	8
 	mov	eax, DWORD PTR _pch$[ebp]
 	movsx	ecx, BYTE PTR [eax]
@@ -14587,8 +14587,8 @@ $L8961:
 	call	DWORD PTR __imp___isctype
 	add	esp, 8
 	mov	DWORD PTR -288+[ebp], eax
-	jmp	SHORT $L9339
-$L9338:
+	jmp	SHORT $L9343
+$L9342:
 	mov	edx, DWORD PTR _pch$[ebp]
 	movsx	eax, BYTE PTR [edx]
 	mov	ecx, DWORD PTR __imp___pctype
@@ -14597,15 +14597,15 @@ $L9338:
 	mov	cx, WORD PTR [edx+eax*2]
 	and	ecx, 8
 	mov	DWORD PTR -288+[ebp], ecx
-$L9339:
+$L9343:
 	cmp	DWORD PTR -288+[ebp], 0
-	je	SHORT $L8963
+	je	SHORT $L8967
 
 ; 4419 :       // Nothing needs to be done here.
 ; 4420 :    }
 
-	jmp	SHORT $L8962
-$L8963:
+	jmp	SHORT $L8966
+$L8967:
 
 ; 4421 : 
 ; 4422 :    zstrcpy( sz, pch );
@@ -14627,15 +14627,15 @@ $L8963:
 	add	esp, 4
 	lea	edx, DWORD PTR _sz$[ebp+eax-1]
 	mov	DWORD PTR _pch$[ebp], edx
-	jmp	SHORT $L8964
-$L8965:
+	jmp	SHORT $L8968
+$L8969:
 	mov	eax, DWORD PTR _pch$[ebp]
 	sub	eax, 1
 	mov	DWORD PTR _pch$[ebp], eax
-$L8964:
+$L8968:
 	mov	ecx, DWORD PTR __imp____mb_cur_max
 	cmp	DWORD PTR [ecx], 1
-	jle	SHORT $L9340
+	jle	SHORT $L9344
 	push	8
 	mov	edx, DWORD PTR _pch$[ebp]
 	movsx	eax, BYTE PTR [edx]
@@ -14643,8 +14643,8 @@ $L8964:
 	call	DWORD PTR __imp___isctype
 	add	esp, 8
 	mov	DWORD PTR -292+[ebp], eax
-	jmp	SHORT $L9341
-$L9340:
+	jmp	SHORT $L9345
+$L9344:
 	mov	ecx, DWORD PTR _pch$[ebp]
 	movsx	edx, BYTE PTR [ecx]
 	mov	eax, DWORD PTR __imp___pctype
@@ -14653,19 +14653,19 @@ $L9340:
 	mov	ax, WORD PTR [ecx+edx*2]
 	and	eax, 8
 	mov	DWORD PTR -292+[ebp], eax
-$L9341:
+$L9345:
 	cmp	DWORD PTR -292+[ebp], 0
-	je	SHORT $L8966
+	je	SHORT $L8970
 	mov	ecx, DWORD PTR _pch$[ebp]
 	lea	edx, DWORD PTR _sz$[ebp]
 	cmp	ecx, edx
-	jbe	SHORT $L8966
+	jbe	SHORT $L8970
 
 ; 4427 :       // Nothing needs to be done here.
 ; 4428 :    }
 
-	jmp	SHORT $L8965
-$L8966:
+	jmp	SHORT $L8969
+$L8970:
 
 ; 4429 : 
 ; 4430 :    pch++;
@@ -14686,12 +14686,12 @@ $L8966:
 ; 4436 :    for ( k = 0; k < (zSHORT) zstrlen( sz ); k++ )
 
 	mov	WORD PTR _k$[ebp], 0
-	jmp	SHORT $L8968
-$L8969:
+	jmp	SHORT $L8972
+$L8973:
 	mov	dx, WORD PTR _k$[ebp]
 	add	dx, 1
 	mov	WORD PTR _k$[ebp], dx
-$L8968:
+$L8972:
 	movsx	esi, WORD PTR _k$[ebp]
 	lea	eax, DWORD PTR _sz$[ebp]
 	push	eax
@@ -14699,7 +14699,7 @@ $L8968:
 	add	esp, 4
 	movsx	ecx, ax
 	cmp	esi, ecx
-	jge	SHORT $L8970
+	jge	SHORT $L8974
 
 ; 4438 :       if ( zisascii( sz[ k ] ) == FALSE )
 
@@ -14709,18 +14709,18 @@ $L8968:
 	sbb	ecx, ecx
 	neg	ecx
 	test	ecx, ecx
-	jne	SHORT $L8976
+	jne	SHORT $L8980
 
 ; 4440 :          for ( j = k; j < (zSHORT) zstrlen( sz ); j++ )
 
 	mov	dx, WORD PTR _k$[ebp]
 	mov	WORD PTR _j$[ebp], dx
-	jmp	SHORT $L8974
-$L8975:
+	jmp	SHORT $L8978
+$L8979:
 	mov	ax, WORD PTR _j$[ebp]
 	add	ax, 1
 	mov	WORD PTR _j$[ebp], ax
-$L8974:
+$L8978:
 	movsx	esi, WORD PTR _j$[ebp]
 	lea	ecx, DWORD PTR _sz$[ebp]
 	push	ecx
@@ -14728,7 +14728,7 @@ $L8974:
 	add	esp, 4
 	movsx	edx, ax
 	cmp	esi, edx
-	jge	SHORT $L8976
+	jge	SHORT $L8980
 
 ; 4441 :             sz[ j ] = sz[ j + 1 ];
 
@@ -14736,13 +14736,13 @@ $L8974:
 	movsx	ecx, WORD PTR _j$[ebp]
 	mov	dl, BYTE PTR _sz$[ebp+eax+1]
 	mov	BYTE PTR _sz$[ebp+ecx], dl
-	jmp	SHORT $L8975
-$L8976:
+	jmp	SHORT $L8979
+$L8980:
 
 ; 4443 :    }
 
-	jmp	$L8969
-$L8970:
+	jmp	$L8973
+$L8974:
 
 ; 4444 : 
 ; 4445 :    nPhasesDone = 0;
@@ -14754,7 +14754,7 @@ $L8970:
 	movsx	eax, WORD PTR _nPhasesDone$[ebp]
 	movsx	ecx, WORD PTR _nPhasesToForce$[ebp]
 	cmp	eax, ecx
-	jl	SHORT $L8977
+	jl	SHORT $L8981
 	lea	edx, DWORD PTR _sz$[ebp]
 	push	edx
 	call	_strlen
@@ -14762,12 +14762,12 @@ $L8970:
 	mov	ecx, DWORD PTR _nShortNameLth$[ebp]
 	and	ecx, 65535				; 0000ffffH
 	cmp	eax, ecx
-	ja	SHORT $L8977
+	ja	SHORT $L8981
 
 ; 4447 :       goto EndOfFunction;
 
-	jmp	$EndOfFunction$8978
-$L8977:
+	jmp	$EndOfFunction$8982
+$L8981:
 
 ; 4448 : 
 ; 4449 :    //========================================================================
@@ -14783,22 +14783,22 @@ $L8977:
 	mov	DWORD PTR _pch2$[ebp], edx
 	mov	eax, DWORD PTR _pch2$[ebp]
 	mov	DWORD PTR _pch$[ebp], eax
-	jmp	SHORT $L8979
-$L8980:
+	jmp	SHORT $L8983
+$L8984:
 	mov	ecx, DWORD PTR _pch$[ebp]
 	add	ecx, 1
 	mov	DWORD PTR _pch$[ebp], ecx
-$L8979:
+$L8983:
 	mov	edx, DWORD PTR _pch$[ebp]
 	movsx	eax, BYTE PTR [edx]
 	test	eax, eax
-	je	$L8981
+	je	$L8985
 
 ; 4458 :       if ( zisspace( *pch ) )
 
 	mov	ecx, DWORD PTR __imp____mb_cur_max
 	cmp	DWORD PTR [ecx], 1
-	jle	SHORT $L9342
+	jle	SHORT $L9346
 	push	8
 	mov	edx, DWORD PTR _pch$[ebp]
 	movsx	eax, BYTE PTR [edx]
@@ -14806,8 +14806,8 @@ $L8979:
 	call	DWORD PTR __imp___isctype
 	add	esp, 8
 	mov	DWORD PTR -296+[ebp], eax
-	jmp	SHORT $L9343
-$L9342:
+	jmp	SHORT $L9347
+$L9346:
 	mov	ecx, DWORD PTR _pch$[ebp]
 	movsx	edx, BYTE PTR [ecx]
 	mov	eax, DWORD PTR __imp___pctype
@@ -14816,18 +14816,18 @@ $L9342:
 	mov	ax, WORD PTR [ecx+edx*2]
 	and	eax, 8
 	mov	DWORD PTR -296+[ebp], eax
-$L9343:
+$L9347:
 	cmp	DWORD PTR -296+[ebp], 0
-	je	SHORT $L8982
+	je	SHORT $L8986
 
 ; 4460 :          if ( pchSpaceReplace && pchSpaceReplace[ 0 ] )
 
 	cmp	DWORD PTR _pchSpaceReplace$[ebp], 0
-	je	SHORT $L8983
+	je	SHORT $L8987
 	mov	ecx, DWORD PTR _pchSpaceReplace$[ebp]
 	movsx	edx, BYTE PTR [ecx]
 	test	edx, edx
-	je	SHORT $L8983
+	je	SHORT $L8987
 
 ; 4461 :             *pch2++ = pchSpaceReplace[ 0 ];
 
@@ -14838,12 +14838,12 @@ $L9343:
 	mov	eax, DWORD PTR _pch2$[ebp]
 	add	eax, 1
 	mov	DWORD PTR _pch2$[ebp], eax
-$L8983:
+$L8987:
 
 ; 4463 :       else
 
-	jmp	SHORT $L8984
-$L8982:
+	jmp	SHORT $L8988
+$L8986:
 
 ; 4464 :          *pch2++ = *pch;
 
@@ -14854,12 +14854,12 @@ $L8982:
 	mov	ecx, DWORD PTR _pch2$[ebp]
 	add	ecx, 1
 	mov	DWORD PTR _pch2$[ebp], ecx
-$L8984:
+$L8988:
 
 ; 4465 :    }
 
-	jmp	$L8980
-$L8981:
+	jmp	$L8984
+$L8985:
 
 ; 4466 : 
 ; 4467 :    *pch2 = 0;
@@ -14877,7 +14877,7 @@ $L8981:
 	movsx	eax, WORD PTR _nPhasesDone$[ebp]
 	movsx	ecx, WORD PTR _nPhasesToForce$[ebp]
 	cmp	eax, ecx
-	jl	SHORT $L8985
+	jl	SHORT $L8989
 	lea	edx, DWORD PTR _sz$[ebp]
 	push	edx
 	call	_strlen
@@ -14885,12 +14885,12 @@ $L8981:
 	mov	ecx, DWORD PTR _nShortNameLth$[ebp]
 	and	ecx, 65535				; 0000ffffH
 	cmp	eax, ecx
-	ja	SHORT $L8985
+	ja	SHORT $L8989
 
 ; 4471 :       goto EndOfFunction;
 
-	jmp	$EndOfFunction$8978
-$L8985:
+	jmp	$EndOfFunction$8982
+$L8989:
 
 ; 4472 : 
 ; 4473 :    //========================================================================
@@ -14909,18 +14909,18 @@ $L8985:
 ; 4486 :    if ( pchUnderscoreMode && pchUnderscoreMode[ 0 ] )
 
 	cmp	DWORD PTR _pchUnderscoreMode$[ebp], 0
-	je	SHORT $L8986
+	je	SHORT $L8990
 	mov	edx, DWORD PTR _pchUnderscoreMode$[ebp]
 	movsx	eax, BYTE PTR [edx]
 	test	eax, eax
-	je	SHORT $L8986
+	je	SHORT $L8990
 
 ; 4488 :       if ( pchUnderscoreMode[ 1 ] == 'L' )
 
 	mov	ecx, DWORD PTR _pchUnderscoreMode$[ebp]
 	movsx	edx, BYTE PTR [ecx+1]
 	cmp	edx, 76					; 0000004cH
-	jne	SHORT $L8987
+	jne	SHORT $L8991
 
 ; 4490 :          pchPrevChar = "aeiou";
 
@@ -14932,8 +14932,8 @@ $L8985:
 
 ; 4493 :       else
 
-	jmp	SHORT $L8989
-$L8987:
+	jmp	SHORT $L8993
+$L8991:
 
 ; 4495 :          pchPrevChar = 0;
 
@@ -14944,7 +14944,7 @@ $L8987:
 	mov	eax, DWORD PTR _pchUnderscoreMode$[ebp]
 	mov	cl, BYTE PTR [eax+1]
 	mov	BYTE PTR _cReplace$[ebp], cl
-$L8989:
+$L8993:
 
 ; 4498 : 
 ; 4499 :       fnRemoveChars( sz, nShortNameLth, pchUnderscoreMode[ 0 ], "_",
@@ -14963,7 +14963,7 @@ $L8989:
 	lea	ecx, DWORD PTR _sz$[ebp]
 	push	ecx
 	call	_fnRemoveChars@24
-$L8986:
+$L8990:
 
 ; 4502 : 
 ; 4503 :    nPhasesDone = 2;
@@ -14975,7 +14975,7 @@ $L8986:
 	movsx	edx, WORD PTR _nPhasesDone$[ebp]
 	movsx	eax, WORD PTR _nPhasesToForce$[ebp]
 	cmp	edx, eax
-	jl	SHORT $L8991
+	jl	SHORT $L8995
 	lea	ecx, DWORD PTR _sz$[ebp]
 	push	ecx
 	call	_strlen
@@ -14983,12 +14983,12 @@ $L8986:
 	mov	edx, DWORD PTR _nShortNameLth$[ebp]
 	and	edx, 65535				; 0000ffffH
 	cmp	eax, edx
-	ja	SHORT $L8991
+	ja	SHORT $L8995
 
 ; 4505 :       goto EndOfFunction;
 
-	jmp	$EndOfFunction$8978
-$L8991:
+	jmp	$EndOfFunction$8982
+$L8995:
 
 ; 4506 : 
 ; 4507 :    //========================================================================
@@ -15005,11 +15005,11 @@ $L8991:
 ; 4518 :    if ( pchLowerVowels && pchLowerVowels[ 0 ] != 0 )
 
 	cmp	DWORD PTR _pchLowerVowels$[ebp], 0
-	je	SHORT $L8993
+	je	SHORT $L8997
 	mov	eax, DWORD PTR _pchLowerVowels$[ebp]
 	movsx	ecx, BYTE PTR [eax]
 	test	ecx, ecx
-	je	SHORT $L8993
+	je	SHORT $L8997
 
 ; 4520 :       fnRemoveChars( sz, nShortNameLth, pchLowerVowels[ 0 ], "aeiou", 0, 0 );
 
@@ -15031,7 +15031,7 @@ $L8991:
 	mov	eax, DWORD PTR _pchLowerVowels$[ebp]
 	movsx	ecx, BYTE PTR [eax+1]
 	cmp	ecx, 99					; 00000063H
-	jne	SHORT $L8993
+	jne	SHORT $L8997
 
 ; 4523 :          fnRemoveChars( sz, nShortNameLth, pchLowerVowels[ 0 ],
 ; 4524 :                         "bcdfghjklmnpqrstvwxyz", "*", 0 );
@@ -15047,7 +15047,7 @@ $L8991:
 	lea	edx, DWORD PTR _sz$[ebp]
 	push	edx
 	call	_fnRemoveChars@24
-$L8993:
+$L8997:
 
 ; 4526 : 
 ; 4527 :    nPhasesDone = 3;
@@ -15059,7 +15059,7 @@ $L8993:
 	movsx	eax, WORD PTR _nPhasesDone$[ebp]
 	movsx	ecx, WORD PTR _nPhasesToForce$[ebp]
 	cmp	eax, ecx
-	jl	SHORT $L8996
+	jl	SHORT $L9000
 	lea	edx, DWORD PTR _sz$[ebp]
 	push	edx
 	call	_strlen
@@ -15067,12 +15067,12 @@ $L8993:
 	mov	ecx, DWORD PTR _nShortNameLth$[ebp]
 	and	ecx, 65535				; 0000ffffH
 	cmp	eax, ecx
-	ja	SHORT $L8996
+	ja	SHORT $L9000
 
 ; 4529 :       goto EndOfFunction;
 
-	jmp	SHORT $EndOfFunction$8978
-$L8996:
+	jmp	SHORT $EndOfFunction$8982
+$L9000:
 
 ; 4530 : 
 ; 4531 :    //========================================================================
@@ -15091,7 +15091,7 @@ $L8996:
 	mov	edx, DWORD PTR _pchOtherChars$[ebp]
 	movsx	eax, BYTE PTR [edx]
 	test	eax, eax
-	je	SHORT $L8997
+	je	SHORT $L9001
 
 ; 4544 :       fnRemoveChars( sz, nShortNameLth, pchOtherChars[ 0 ],
 ; 4545 :                      pchOtherChars + 1, 0, 0 );
@@ -15109,7 +15109,7 @@ $L8996:
 	lea	edx, DWORD PTR _sz$[ebp]
 	push	edx
 	call	_fnRemoveChars@24
-$L8997:
+$L9001:
 
 ; 4547 : 
 ; 4548 :    nPhasesDone = 4;
@@ -15121,7 +15121,7 @@ $L8997:
 	movsx	eax, WORD PTR _nPhasesDone$[ebp]
 	movsx	ecx, WORD PTR _nPhasesToForce$[ebp]
 	cmp	eax, ecx
-	jl	SHORT $L8998
+	jl	SHORT $L9002
 	lea	edx, DWORD PTR _sz$[ebp]
 	push	edx
 	call	_strlen
@@ -15129,12 +15129,12 @@ $L8997:
 	mov	ecx, DWORD PTR _nShortNameLth$[ebp]
 	and	ecx, 65535				; 0000ffffH
 	cmp	eax, ecx
-	ja	SHORT $L8998
+	ja	SHORT $L9002
 
 ; 4550 :       goto EndOfFunction;
 
-	jmp	SHORT $EndOfFunction$8978
-$L8998:
+	jmp	SHORT $EndOfFunction$8982
+$L9002:
 
 ; 4551 : 
 ; 4552 :    //========================================================================
@@ -15147,7 +15147,7 @@ $L8998:
 	mov	edx, DWORD PTR _nShortNameLth$[ebp]
 	and	edx, 65535				; 0000ffffH
 	mov	BYTE PTR _sz$[ebp+edx], 0
-$EndOfFunction$8978:
+$EndOfFunction$8982:
 
 ; 4558 : 
 ; 4559 : EndOfFunction:
@@ -15191,7 +15191,7 @@ _UfZProbeEnable@4 PROC NEAR
 ; 4666 :    if ( g_pProbeArea == 0 )
 
 	cmp	DWORD PTR _g_pProbeArea, 0
-	jne	SHORT $L9026
+	jne	SHORT $L9030
 
 ; 4668 :       if ( (g_pProbeArea = (ZPROBEAREA *) SysMalloc( sizeof( ZPROBEAREA ) )) == 0 )
 
@@ -15199,13 +15199,13 @@ _UfZProbeEnable@4 PROC NEAR
 	call	_SysMalloc@4
 	mov	DWORD PTR _g_pProbeArea, eax
 	cmp	DWORD PTR _g_pProbeArea, 0
-	jne	SHORT $L9026
+	jne	SHORT $L9030
 
 ; 4669 :          return( -1 );
 
 	or	ax, -1
-	jmp	SHORT $L9022
-$L9026:
+	jmp	SHORT $L9026
+$L9030:
 
 ; 4671 : 
 ; 4672 :    g_pProbeArea->bProbesEnabled = bEnable;
@@ -15218,7 +15218,7 @@ $L9026:
 ; 4674 :    return( MAX_ZPROBES );
 
 	mov	ax, 50					; 00000032H
-$L9022:
+$L9026:
 
 ; 4675 : 
 ; 4676 : }  // UfZProbeEnable
@@ -15244,19 +15244,19 @@ _UfZProbeInit@0 PROC NEAR
 ; 4698 :    if ( g_pProbeArea == 0 || g_pProbeArea->bProbesEnabled == FALSE )
 
 	cmp	DWORD PTR _g_pProbeArea, 0
-	je	SHORT $L9030
+	je	SHORT $L9034
 	mov	eax, DWORD PTR _g_pProbeArea
 	xor	ecx, ecx
 	mov	cl, BYTE PTR [eax]
 	test	ecx, ecx
-	jne	SHORT $L9029
-$L9030:
+	jne	SHORT $L9033
+$L9034:
 
 ; 4699 :       return( -1 );
 
 	or	ax, -1
-	jmp	$L9027
-$L9029:
+	jmp	$L9031
+$L9033:
 
 ; 4700 : 
 ; 4701 :    g_pProbeArea->nProbes = -1;
@@ -15268,15 +15268,15 @@ $L9029:
 ; 4703 :    for ( k = 0; k < MAX_ZPROBES; k++)
 
 	mov	WORD PTR _k$[ebp], 0
-	jmp	SHORT $L9031
-$L9032:
+	jmp	SHORT $L9035
+$L9036:
 	mov	ax, WORD PTR _k$[ebp]
 	add	ax, 1
 	mov	WORD PTR _k$[ebp], ax
-$L9031:
+$L9035:
 	movsx	ecx, WORD PTR _k$[ebp]
 	cmp	ecx, 50					; 00000032H
-	jge	SHORT $L9033
+	jge	SHORT $L9037
 
 ; 4705 :       g_pProbeArea->Probes[ k ].zp_Active = FALSE;
 
@@ -15322,8 +15322,8 @@ $L9031:
 
 ; 4711 :    }
 
-	jmp	$L9032
-$L9033:
+	jmp	$L9036
+$L9037:
 
 ; 4712 : 
 ; 4713 :    g_pProbeArea->nErrShown1 = 0;
@@ -15367,7 +15367,7 @@ $L9033:
 ; 4722 :    return( MAX_ZPROBES );
 
 	mov	ax, 50					; 00000032H
-$L9027:
+$L9031:
 
 ; 4723 : 
 ; 4724 : }  // UfZProbeInit
@@ -15425,19 +15425,19 @@ _UfZProbeOn@12 PROC NEAR
 ; 4755 :    if ( g_pProbeArea == 0 || g_pProbeArea->bProbesEnabled == FALSE )
 
 	cmp	DWORD PTR _g_pProbeArea, 0
-	je	SHORT $L9043
+	je	SHORT $L9047
 	mov	eax, DWORD PTR _g_pProbeArea
 	xor	ecx, ecx
 	mov	cl, BYTE PTR [eax]
 	test	ecx, ecx
-	jne	SHORT $L9042
-$L9043:
+	jne	SHORT $L9046
+$L9047:
 
 ; 4756 :       return( -1 );
 
 	or	ax, -1
-	jmp	$L9040
-$L9042:
+	jmp	$L9044
+$L9046:
 
 ; 4757 : 
 ; 4758 :    nProbeOn = nProbeNbr;
@@ -15451,12 +15451,12 @@ $L9042:
 
 	movsx	eax, WORD PTR _nProbeOn$[ebp]
 	cmp	eax, 49					; 00000031H
-	jle	SHORT $L9044
+	jle	SHORT $L9048
 
 ; 4762 :       nProbeOn = -1;  // use the next available.
 
 	mov	WORD PTR _nProbeOn$[ebp], -1
-$L9044:
+$L9048:
 
 ; 4763 : 
 ; 4764 :    // check if the request is for a new probe and get number
@@ -15464,21 +15464,21 @@ $L9044:
 
 	movsx	ecx, WORD PTR _nProbeOn$[ebp]
 	test	ecx, ecx
-	jge	$L9045
+	jge	$L9049
 
 ; 4767 :       if ( g_pProbeArea->nProbes >= MAX_ZPROBES - 1 )
 
 	mov	edx, DWORD PTR _g_pProbeArea
 	movsx	eax, WORD PTR [edx+13]
 	cmp	eax, 49					; 00000031H
-	jl	SHORT $L9046
+	jl	SHORT $L9050
 
 ; 4769 :          if ( g_pProbeArea->nErrShown2 < MAX_ZPROBEERRS )
 
 	mov	ecx, DWORD PTR _g_pProbeArea
 	movsx	edx, WORD PTR [ecx+3]
 	cmp	edx, 5
-	jge	SHORT $L9047
+	jge	SHORT $L9051
 
 ; 4771 :             TraceLineS( "UfZProbeOn: No more probes available for: ", pchDesc );
 
@@ -15494,14 +15494,14 @@ $L9044:
 	add	dx, 1
 	mov	eax, DWORD PTR _g_pProbeArea
 	mov	WORD PTR [eax+3], dx
-$L9047:
+$L9051:
 
 ; 4774 : 
 ; 4775 :          return( -2 );   // exit if no more probes available
 
 	mov	ax, -2					; fffffffeH
-	jmp	$L9040
-$L9046:
+	jmp	$L9044
+$L9050:
 
 ; 4777 : 
 ; 4778 :       if ( bTurnPriorProbeOff )
@@ -15509,7 +15509,7 @@ $L9046:
 	mov	ecx, DWORD PTR _bTurnPriorProbeOff$[ebp]
 	and	ecx, 255				; 000000ffH
 	test	ecx, ecx
-	je	SHORT $L9049
+	je	SHORT $L9053
 
 ; 4779 :          UfZProbeOff( g_pProbeArea->nProbes, pchDesc );
 
@@ -15519,7 +15519,7 @@ $L9046:
 	mov	cx, WORD PTR [eax+13]
 	push	ecx
 	call	_UfZProbeOff@8
-$L9049:
+$L9053:
 
 ; 4780 : 
 ; 4781 :       nProbeOn = ++g_pProbeArea->nProbes;  // use next available probe
@@ -15552,8 +15552,8 @@ $L9049:
 
 ; 4785 :    else
 
-	jmp	$L9052
-$L9045:
+	jmp	$L9056
+$L9049:
 
 ; 4787 :       if ( g_pProbeArea->Probes[ nProbeOn ].zp_Desc[ 0 ] != 0 )
 
@@ -15562,7 +15562,7 @@ $L9045:
 	mov	eax, DWORD PTR _g_pProbeArea
 	movsx	ecx, BYTE PTR [eax+edx+16]
 	test	ecx, ecx
-	je	$L9052
+	je	$L9056
 
 ; 4789 :          // descriptor must match
 ; 4790 :          if ( zstrcmpi( g_pProbeArea->Probes[ nProbeOn ].zp_Desc, pchDesc ) != 0 )
@@ -15577,14 +15577,14 @@ $L9045:
 	call	DWORD PTR __imp___stricmp
 	add	esp, 8
 	test	eax, eax
-	je	SHORT $L9052
+	je	SHORT $L9056
 
 ; 4792 :             if ( g_pProbeArea->nErrShown3 < MAX_ZPROBEERRS )
 
 	mov	eax, DWORD PTR _g_pProbeArea
 	movsx	ecx, WORD PTR [eax+5]
 	cmp	ecx, 5
-	jge	SHORT $L9053
+	jge	SHORT $L9057
 
 ; 4794 :                TraceLineI( "UfZProbeOn: Invalid probe descriptor for probe: ", nProbeNbr );
 
@@ -15618,14 +15618,14 @@ $L9045:
 	add	dx, 1
 	mov	eax, DWORD PTR _g_pProbeArea
 	mov	WORD PTR [eax+5], dx
-$L9053:
+$L9057:
 
 ; 4800 : 
 ; 4801 :             return( -3 );
 
 	mov	ax, -3					; fffffffdH
-	jmp	SHORT $L9040
-$L9052:
+	jmp	SHORT $L9044
+$L9056:
 
 ; 4805 : 
 ; 4806 :    // now actually turn on the probe
@@ -15650,12 +15650,12 @@ $L9052:
 	xor	edx, edx
 	mov	dl, BYTE PTR [ecx+eax+15]
 	cmp	edx, 1
-	jne	SHORT $L9057
+	jne	SHORT $L9061
 
 ; 4813 :    else
 
-	jmp	SHORT $L9058
-$L9057:
+	jmp	SHORT $L9062
+$L9061:
 
 ; 4815 :       g_pProbeArea->Probes[ nProbeOn ].zp_Active = TRUE;
 
@@ -15673,13 +15673,13 @@ $L9057:
 	imul	edx, 48					; 00000030H
 	mov	ecx, DWORD PTR _g_pProbeArea
 	mov	DWORD PTR [ecx+edx+47], eax
-$L9058:
+$L9062:
 
 ; 4820 : 
 ; 4821 :    return( nProbeOn );
 
 	mov	ax, WORD PTR _nProbeOn$[ebp]
-$L9040:
+$L9044:
 
 ; 4822 : 
 ; 4823 : }  // UfZProbeOn
@@ -15733,19 +15733,19 @@ _UfZProbeOff@8 PROC NEAR
 ; 4851 :    if ( g_pProbeArea == 0 || g_pProbeArea->bProbesEnabled == FALSE )
 
 	cmp	DWORD PTR _g_pProbeArea, 0
-	je	SHORT $L9067
+	je	SHORT $L9071
 	mov	eax, DWORD PTR _g_pProbeArea
 	xor	ecx, ecx
 	mov	cl, BYTE PTR [eax]
 	test	ecx, ecx
-	jne	SHORT $L9066
-$L9067:
+	jne	SHORT $L9070
+$L9071:
 
 ; 4852 :       return( -1 );
 
 	or	ax, -1
-	jmp	$L9063
-$L9066:
+	jmp	$L9067
+$L9070:
 
 ; 4853 : 
 ; 4854 :    ulTime = SysGetTickCount( );
@@ -15758,20 +15758,20 @@ $L9066:
 
 	movsx	edx, WORD PTR _nProbeNbr$[ebp]
 	test	edx, edx
-	jl	SHORT $L9069
+	jl	SHORT $L9073
 	movsx	eax, WORD PTR _nProbeNbr$[ebp]
 	mov	ecx, DWORD PTR _g_pProbeArea
 	movsx	edx, WORD PTR [ecx+13]
 	cmp	eax, edx
-	jle	SHORT $L9068
-$L9069:
+	jle	SHORT $L9072
+$L9073:
 
 ; 4858 :       if ( g_pProbeArea->nErrShown4 < MAX_ZPROBEERRS )
 
 	mov	eax, DWORD PTR _g_pProbeArea
 	movsx	ecx, WORD PTR [eax+7]
 	cmp	ecx, 5
-	jge	SHORT $L9070
+	jge	SHORT $L9074
 
 ; 4860 :          TraceLineI( "UfZProbeOff: Invalid probe number: ", nProbeNbr );
 
@@ -15790,15 +15790,15 @@ $L9069:
 ; 4862 :          return( -5 );
 
 	mov	ax, -5					; fffffffbH
-	jmp	$L9063
-$L9070:
+	jmp	$L9067
+$L9074:
 
 ; 4865 : 
 ; 4866 :       return( -4 );
 
 	mov	ax, -4					; fffffffcH
-	jmp	$L9063
-$L9068:
+	jmp	$L9067
+$L9072:
 
 ; 4868 : 
 ; 4869 :    if ( g_pProbeArea->Probes[ nProbeNbr ].zp_Active == FALSE )
@@ -15809,14 +15809,14 @@ $L9068:
 	xor	eax, eax
 	mov	al, BYTE PTR [edx+ecx+15]
 	test	eax, eax
-	jne	SHORT $L9073
+	jne	SHORT $L9077
 
 ; 4871 :       if ( g_pProbeArea->nErrShown5 < MAX_ZPROBEERRS )
 
 	mov	ecx, DWORD PTR _g_pProbeArea
 	movsx	edx, WORD PTR [ecx+9]
 	cmp	edx, 5
-	jge	SHORT $L9074
+	jge	SHORT $L9078
 
 ; 4873 :          TraceLineI( "UfZProbeOff: Probe not on for number: ", nProbeNbr );
 
@@ -15839,14 +15839,14 @@ $L9068:
 	add	ax, 1
 	mov	ecx, DWORD PTR _g_pProbeArea
 	mov	WORD PTR [ecx+9], ax
-$L9074:
+$L9078:
 
 ; 4877 : 
 ; 4878 :       return( -5 );
 
 	mov	ax, -5					; fffffffbH
-	jmp	$L9063
-$L9073:
+	jmp	$L9067
+$L9077:
 
 ; 4880 :    ulElapsed = ulTime - g_pProbeArea->Probes[ nProbeNbr ].zp_StartTime;
 
@@ -15900,7 +15900,7 @@ $L9073:
 ; 4886 :    return( 0 );
 
 	xor	ax, ax
-$L9063:
+$L9067:
 
 ; 4887 : 
 ; 4888 : }  // UfZProbeOff
@@ -15928,35 +15928,35 @@ _UfZProbeOnByDesc@8 PROC NEAR
 ; 4915 :    if ( g_pProbeArea == 0 || g_pProbeArea->bProbesEnabled == FALSE )
 
 	cmp	DWORD PTR _g_pProbeArea, 0
-	je	SHORT $L9084
+	je	SHORT $L9088
 	mov	eax, DWORD PTR _g_pProbeArea
 	xor	ecx, ecx
 	mov	cl, BYTE PTR [eax]
 	test	ecx, ecx
-	jne	SHORT $L9083
-$L9084:
+	jne	SHORT $L9087
+$L9088:
 
 ; 4916 :       return( -1 );
 
 	or	ax, -1
-	jmp	SHORT $L9081
-$L9083:
+	jmp	SHORT $L9085
+$L9087:
 
 ; 4917 : 
 ; 4918 :    for ( k = 0; k <= g_pProbeArea->nProbes; k++)
 
 	mov	WORD PTR _k$[ebp], 0
-	jmp	SHORT $L9085
-$L9086:
+	jmp	SHORT $L9089
+$L9090:
 	mov	dx, WORD PTR _k$[ebp]
 	add	dx, 1
 	mov	WORD PTR _k$[ebp], dx
-$L9085:
+$L9089:
 	movsx	eax, WORD PTR _k$[ebp]
 	mov	ecx, DWORD PTR _g_pProbeArea
 	movsx	edx, WORD PTR [ecx+13]
 	cmp	eax, edx
-	jg	SHORT $L9087
+	jg	SHORT $L9091
 
 ; 4920 :       if ( zstrcmpi( g_pProbeArea->Probes[ k ].zp_Desc, pchDesc ) == 0 )
 
@@ -15970,7 +15970,7 @@ $L9085:
 	call	DWORD PTR __imp___stricmp
 	add	esp, 8
 	test	eax, eax
-	jne	SHORT $L9088
+	jne	SHORT $L9092
 
 ; 4922 :          return( UfZProbeOn( k, pchDesc, FALSE ) );
 
@@ -15980,13 +15980,13 @@ $L9085:
 	mov	dx, WORD PTR _k$[ebp]
 	push	edx
 	call	_UfZProbeOn@12
-	jmp	SHORT $L9081
-$L9088:
+	jmp	SHORT $L9085
+$L9092:
 
 ; 4924 :    }
 
-	jmp	SHORT $L9086
-$L9087:
+	jmp	SHORT $L9090
+$L9091:
 
 ; 4925 : 
 ; 4926 :    return( UfZProbeOn( -1, pchDesc, bTurnPriorProbeOff ) );
@@ -15997,7 +15997,7 @@ $L9087:
 	push	ecx
 	push	-1
 	call	_UfZProbeOn@12
-$L9081:
+$L9085:
 
 ; 4927 : 
 ; 4928 : }  // UfZProbeOnByDesc
@@ -16031,35 +16031,35 @@ _UfZProbeOffByDesc@4 PROC NEAR
 ; 4953 :    if ( g_pProbeArea == 0 || g_pProbeArea->bProbesEnabled == FALSE )
 
 	cmp	DWORD PTR _g_pProbeArea, 0
-	je	SHORT $L9094
+	je	SHORT $L9098
 	mov	eax, DWORD PTR _g_pProbeArea
 	xor	ecx, ecx
 	mov	cl, BYTE PTR [eax]
 	test	ecx, ecx
-	jne	SHORT $L9093
-$L9094:
+	jne	SHORT $L9097
+$L9098:
 
 ; 4954 :       return( -1 );
 
 	or	ax, -1
-	jmp	$L9091
-$L9093:
+	jmp	$L9095
+$L9097:
 
 ; 4955 : 
 ; 4956 :    for ( k = 0; k <= g_pProbeArea->nProbes; k++)
 
 	mov	WORD PTR _k$[ebp], 0
-	jmp	SHORT $L9095
-$L9096:
+	jmp	SHORT $L9099
+$L9100:
 	mov	dx, WORD PTR _k$[ebp]
 	add	dx, 1
 	mov	WORD PTR _k$[ebp], dx
-$L9095:
+$L9099:
 	movsx	eax, WORD PTR _k$[ebp]
 	mov	ecx, DWORD PTR _g_pProbeArea
 	movsx	edx, WORD PTR [ecx+13]
 	cmp	eax, edx
-	jg	SHORT $L9097
+	jg	SHORT $L9101
 
 ; 4958 :       if ( zstrcmpi( g_pProbeArea->Probes[ k ].zp_Desc, pchDesc ) == 0 )
 
@@ -16073,7 +16073,7 @@ $L9095:
 	call	DWORD PTR __imp___stricmp
 	add	esp, 8
 	test	eax, eax
-	jne	SHORT $L9098
+	jne	SHORT $L9102
 
 ; 4960 :          return( UfZProbeOff( k, pchDesc ) );
 
@@ -16082,13 +16082,13 @@ $L9095:
 	mov	dx, WORD PTR _k$[ebp]
 	push	edx
 	call	_UfZProbeOff@8
-	jmp	SHORT $L9091
-$L9098:
+	jmp	SHORT $L9095
+$L9102:
 
 ; 4962 :    }
 
-	jmp	SHORT $L9096
-$L9097:
+	jmp	SHORT $L9100
+$L9101:
 
 ; 4963 : 
 ; 4964 :    if ( g_pProbeArea->nErrShown6 < MAX_ZPROBEERRS )
@@ -16096,7 +16096,7 @@ $L9097:
 	mov	eax, DWORD PTR _g_pProbeArea
 	movsx	ecx, WORD PTR [eax+11]
 	cmp	ecx, 5
-	jge	SHORT $L9099
+	jge	SHORT $L9103
 
 ; 4966 :       TraceLineS( "UfZProbeOffByDesc: Probe not on for descriptor: ", pchDesc );
 
@@ -16112,13 +16112,13 @@ $L9097:
 	add	cx, 1
 	mov	edx, DWORD PTR _g_pProbeArea
 	mov	WORD PTR [edx+11], cx
-$L9099:
+$L9103:
 
 ; 4969 : 
 ; 4970 :    return( -6 );
 
 	mov	ax, -6					; fffffffaH
-$L9091:
+$L9095:
 
 ; 4971 : 
 ; 4972 : }  // UfZProbeOffByDesc
@@ -16197,19 +16197,19 @@ _UfZProbeTrace@4 PROC NEAR
 ; 5002 :    if ( g_pProbeArea == 0 || g_pProbeArea->bProbesEnabled == FALSE )
 
 	cmp	DWORD PTR _g_pProbeArea, 0
-	je	SHORT $L9110
+	je	SHORT $L9114
 	mov	eax, DWORD PTR _g_pProbeArea
 	xor	ecx, ecx
 	mov	cl, BYTE PTR [eax]
 	test	ecx, ecx
-	jne	SHORT $L9109
-$L9110:
+	jne	SHORT $L9113
+$L9114:
 
 ; 5003 :       return( -1 );
 
 	or	ax, -1
-	jmp	$L9103
-$L9109:
+	jmp	$L9107
+$L9113:
 
 ; 5004 : 
 ; 5005 :    fElapsedTimeAll = (double) ( SysGetTickCount( )
@@ -16228,17 +16228,17 @@ $L9109:
 ; 5008 :    for ( k = 0; k <= g_pProbeArea->nProbes; k++)
 
 	mov	WORD PTR _k$[ebp], 0
-	jmp	SHORT $L9112
-$L9113:
+	jmp	SHORT $L9116
+$L9117:
 	mov	ax, WORD PTR _k$[ebp]
 	add	ax, 1
 	mov	WORD PTR _k$[ebp], ax
-$L9112:
+$L9116:
 	movsx	ecx, WORD PTR _k$[ebp]
 	mov	edx, DWORD PTR _g_pProbeArea
 	movsx	eax, WORD PTR [edx+13]
 	cmp	ecx, eax
-	jg	SHORT $L9114
+	jg	SHORT $L9118
 
 ; 5010 :       if ( g_pProbeArea->Probes[ k ].zp_Active == TRUE )
 
@@ -16248,7 +16248,7 @@ $L9112:
 	xor	eax, eax
 	mov	al, BYTE PTR [edx+ecx+15]
 	cmp	eax, 1
-	jne	SHORT $L9115
+	jne	SHORT $L9119
 
 ; 5012 :          UfZProbeOff( k, g_pProbeArea->Probes[ k ].zp_Desc );
 
@@ -16260,12 +16260,12 @@ $L9112:
 	mov	cx, WORD PTR _k$[ebp]
 	push	ecx
 	call	_UfZProbeOff@8
-$L9115:
+$L9119:
 
 ; 5014 :    }
 
-	jmp	SHORT $L9113
-$L9114:
+	jmp	SHORT $L9117
+$L9118:
 
 ; 5015 : 
 ; 5016 :    // Print out all used probes. Format is:
@@ -16310,17 +16310,17 @@ $L9114:
 ; 5023 :    for ( k = 0; k <= g_pProbeArea->nProbes; k++)
 
 	mov	WORD PTR _k$[ebp], 0
-	jmp	SHORT $L9119
-$L9120:
+	jmp	SHORT $L9123
+$L9124:
 	mov	ax, WORD PTR _k$[ebp]
 	add	ax, 1
 	mov	WORD PTR _k$[ebp], ax
-$L9119:
+$L9123:
 	movsx	ecx, WORD PTR _k$[ebp]
 	mov	edx, DWORD PTR _g_pProbeArea
 	movsx	eax, WORD PTR [edx+13]
 	cmp	ecx, eax
-	jg	$L9121
+	jg	$L9125
 
 ; 5025 :       ulCount = g_pProbeArea->Probes[ k ].zp_CountOff;
 
@@ -16350,7 +16350,7 @@ $L9119:
 	mov	edx, DWORD PTR _g_pProbeArea
 	mov	eax, DWORD PTR _ulCount$[ebp]
 	cmp	eax, DWORD PTR [edx+ecx+55]
-	jne	SHORT $L9123
+	jne	SHORT $L9127
 
 ; 5029 :          zsprintf( szMsg, "zp.%03d. %30s:%8.3f secs. (avg.%8.3f for %8d times)",
 ; 5030 :                    k, g_pProbeArea->Probes[ k ].zp_Desc,
@@ -16384,8 +16384,8 @@ $L9119:
 
 ; 5032 :       else
 
-	jmp	SHORT $L9125
-$L9123:
+	jmp	SHORT $L9129
+$L9127:
 
 ; 5033 :          zsprintf( szMsg, "zp.%03d. %30s:%8.3f secs. (avg.%8.3f for %8d times OFF, but ON is %d times)",
 ; 5034 :                    k, g_pProbeArea->Probes[ k ].zp_Desc,
@@ -16422,7 +16422,7 @@ $L9123:
 	push	eax
 	call	DWORD PTR __imp__sprintf
 	add	esp, 40					; 00000028H
-$L9125:
+$L9129:
 
 ; 5037 : 
 ; 5038 :       TraceLineS( szMsg, "" );
@@ -16434,8 +16434,8 @@ $L9125:
 
 ; 5039 :    }
 
-	jmp	$L9120
-$L9121:
+	jmp	$L9124
+$L9125:
 
 ; 5040 : 
 ; 5041 :    zsprintf( szMsg, "======= Probe Trace - %30s === END ===", pchDesc );
@@ -16459,7 +16459,7 @@ $L9121:
 ; 5044 :    return( 0 );
 
 	xor	ax, ax
-$L9103:
+$L9107:
 
 ; 5045 : 
 ; 5046 : }  // UfZProbeTrace

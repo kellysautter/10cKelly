@@ -18,7 +18,7 @@ $$TYPES	SEGMENT BYTE USE32 'DEBTYP'
 $$TYPES	ENDS
 _TLS	SEGMENT DWORD USE32 PUBLIC 'TLS'
 _TLS	ENDS
-;	COMDAT ??_C@_0BF@IFEK@Apr?522?52014?516?304?346?$AA@
+;	COMDAT ??_C@_0BF@OLDE@Nov?5?54?52014?511?311?304?$AA@
 _DATA	SEGMENT DWORD USE32 PUBLIC 'DATA'
 _DATA	ENDS
 ;	COMDAT ??_C@_0BN@FBPI@Compile?5Date?1Time?5for?5OE?5is?5?$AA@
@@ -28,13 +28,13 @@ FLAT	GROUP _DATA, CONST, _BSS
 	ASSUME	CS: FLAT, DS: FLAT, SS: FLAT
 endif
 PUBLIC	_fnTraceCompileTime@0
-PUBLIC	??_C@_0BF@IFEK@Apr?522?52014?516?304?346?$AA@	; `string'
+PUBLIC	??_C@_0BF@OLDE@Nov?5?54?52014?511?311?304?$AA@	; `string'
 PUBLIC	??_C@_0BN@FBPI@Compile?5Date?1Time?5for?5OE?5is?5?$AA@ ; `string'
 EXTRN	_TraceLineS@8:NEAR
-;	COMDAT ??_C@_0BF@IFEK@Apr?522?52014?516?304?346?$AA@
+;	COMDAT ??_C@_0BF@OLDE@Nov?5?54?52014?511?311?304?$AA@
 ; File C:\10C\A\oe\KZOETSAA.c
 _DATA	SEGMENT
-??_C@_0BF@IFEK@Apr?522?52014?516?304?346?$AA@ DB 'Apr 22 2014 16:04:46', 00H ; `string'
+??_C@_0BF@OLDE@Nov?5?54?52014?511?311?304?$AA@ DB 'Nov  4 2014 11:11:04', 00H ; `string'
 _DATA	ENDS
 ;	COMDAT ??_C@_0BN@FBPI@Compile?5Date?1Time?5for?5OE?5is?5?$AA@
 _DATA	SEGMENT
@@ -51,7 +51,7 @@ _fnTraceCompileTime@0 PROC NEAR
 
 ; 33   :    TraceLineS( "Compile Date/Time for OE is ", __DATE__ " " __TIME__ );
 
-	push	OFFSET FLAT:??_C@_0BF@IFEK@Apr?522?52014?516?304?346?$AA@ ; `string'
+	push	OFFSET FLAT:??_C@_0BF@OLDE@Nov?5?54?52014?511?311?304?$AA@ ; `string'
 	push	OFFSET FLAT:??_C@_0BN@FBPI@Compile?5Date?1Time?5for?5OE?5is?5?$AA@ ; `string'
 	call	_TraceLineS@8
 

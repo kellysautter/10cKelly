@@ -1813,7 +1813,7 @@ $L7701:
 
 	mov	ecx, DWORD PTR _lpTaskDomain$[ebp]
 	cmp	DWORD PTR [ecx+22], 0
-	je	SHORT $L8531
+	je	SHORT $L8532
 	mov	edx, DWORD PTR _lpTaskDomain$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _lpTask$[ebp]
@@ -1822,12 +1822,12 @@ $L7701:
 	add	esp, 8
 	movsx	ecx, ax
 	test	ecx, ecx
-	jge	SHORT $L8531
+	jge	SHORT $L8532
 	mov	DWORD PTR -16+[ebp], 1
-	jmp	SHORT $L8532
-$L8531:
-	mov	DWORD PTR -16+[ebp], 0
+	jmp	SHORT $L8533
 $L8532:
+	mov	DWORD PTR -16+[ebp], 0
+$L8533:
 	mov	edx, DWORD PTR -16+[ebp]
 	mov	DWORD PTR _lProcessID$[ebp], edx
 	cmp	DWORD PTR _lProcessID$[ebp], 0
@@ -4264,14 +4264,14 @@ $L7986:
 ; 1760 :                        lpSubtask, lpSubtask->hTask, lpSubtask->hApp, lpApp ? lpApp->szName : "???", lpSubtask->hSubtaskView );
 
 	cmp	DWORD PTR _lpApp$7969[ebp], 0
-	je	SHORT $L8547
+	je	SHORT $L8548
 	mov	eax, DWORD PTR _lpApp$7969[ebp]
 	add	eax, 6
 	mov	DWORD PTR -32+[ebp], eax
-	jmp	SHORT $L8548
-$L8547:
-	mov	DWORD PTR -32+[ebp], OFFSET FLAT:??_C@_03NMFM@?$DP?$DP?$DP?$AA@ ; `string'
+	jmp	SHORT $L8549
 $L8548:
+	mov	DWORD PTR -32+[ebp], OFFSET FLAT:??_C@_03NMFM@?$DP?$DP?$DP?$AA@ ; `string'
+$L8549:
 	mov	ecx, DWORD PTR _lpSubtask$7970[ebp]
 	mov	edx, DWORD PTR [ecx+14]
 	push	edx
@@ -4477,14 +4477,14 @@ $L8012:
 ; 1799 :                        lpView->nViewNames );
 
 	cmp	DWORD PTR _lpViewOD$7973[ebp], 0
-	je	SHORT $L8549
+	je	SHORT $L8550
 	mov	eax, DWORD PTR _lpViewOD$7973[ebp]
 	add	eax, 10					; 0000000aH
 	mov	DWORD PTR -36+[ebp], eax
-	jmp	SHORT $L8550
-$L8549:
-	mov	DWORD PTR -36+[ebp], OFFSET FLAT:??_C@_03NMFM@?$DP?$DP?$DP?$AA@ ; `string'
+	jmp	SHORT $L8551
 $L8550:
+	mov	DWORD PTR -36+[ebp], OFFSET FLAT:??_C@_03NMFM@?$DP?$DP?$DP?$AA@ ; `string'
+$L8551:
 	mov	ecx, DWORD PTR _lpView$7974[ebp]
 	movsx	edx, WORD PTR [ecx+22]
 	push	edx
@@ -4685,12 +4685,12 @@ $L8027:
 	mov	ecx, DWORD PTR [eax+1905]
 	and	ecx, 1
 	test	ecx, ecx
-	je	SHORT $L8551
+	je	SHORT $L8552
 	mov	DWORD PTR -40+[ebp], OFFSET FLAT:??_C@_0L@DKDJ@Keep?5Alive?$AA@ ; `string'
-	jmp	SHORT $L8552
-$L8551:
-	mov	DWORD PTR -40+[ebp], OFFSET FLAT:??_C@_00A@?$AA@ ; `string'
+	jmp	SHORT $L8553
 $L8552:
+	mov	DWORD PTR -40+[ebp], OFFSET FLAT:??_C@_00A@?$AA@ ; `string'
+$L8553:
 	mov	edx, DWORD PTR -40+[ebp]
 	push	edx
 	mov	eax, DWORD PTR _lpApp$7969[ebp]
@@ -5809,85 +5809,18 @@ $L8142:
 	call	_fnSysUnlockCoreMutex@4
 
 ; 2318 : 
-; 2319 :    // Free the stuff that is part of the system task's dataspace.
-; 2320 :    fnFreeDataspace( zGETPTR( lpTask->hUserID ) );
-
-	mov	ecx, DWORD PTR _lpTask$[ebp]
-	mov	edx, DWORD PTR [ecx+32]
-	push	edx
-	call	DWORD PTR _g_pfnGetPtr
-	push	eax
-	call	_fnFreeDataspace
-	add	esp, 4
-
-; 2321 :    fnFreeDataspace( zGETPTR( lpTask->hPassword ) );
-
-	mov	eax, DWORD PTR _lpTask$[ebp]
-	mov	ecx, DWORD PTR [eax+36]
-	push	ecx
-	call	DWORD PTR _g_pfnGetPtr
-	push	eax
-	call	_fnFreeDataspace
-	add	esp, 4
-
-; 2322 :    fnFreeDataspace( zGETPTR( lpTask->hDBUserID ) );
-
-	mov	edx, DWORD PTR _lpTask$[ebp]
-	mov	eax, DWORD PTR [edx+40]
-	push	eax
-	call	DWORD PTR _g_pfnGetPtr
-	push	eax
-	call	_fnFreeDataspace
-	add	esp, 4
-
-; 2323 :    fnFreeDataspace( zGETPTR( lpTask->hDBPassword ) );
-
-	mov	ecx, DWORD PTR _lpTask$[ebp]
-	mov	edx, DWORD PTR [ecx+44]
-	push	edx
-	call	DWORD PTR _g_pfnGetPtr
-	push	eax
-	call	_fnFreeDataspace
-	add	esp, 4
-
-; 2324 :    fnFreeDataspace( zGETPTR( lpTask->hCommand ) );
-
-	mov	eax, DWORD PTR _lpTask$[ebp]
-	mov	ecx, DWORD PTR [eax+142]
-	push	ecx
-	call	DWORD PTR _g_pfnGetPtr
-	push	eax
-	call	_fnFreeDataspace
-	add	esp, 4
-
-; 2325 :    fnFreeTaskDataspace( lpTask );
-
-	mov	edx, DWORD PTR _lpTask$[ebp]
-	push	edx
-	call	_fnFreeTaskDataspace
-	add	esp, 4
-
-; 2326 :    fnFreeDataspace( lpTask );
-
-	mov	eax, DWORD PTR _lpTask$[ebp]
-	push	eax
-	call	_fnFreeDataspace
-	add	esp, 4
-
-; 2327 : 
-; 2328 :    // Send message that task deleted.
-; 2329 :    if ( AnchorBlock->TraceFlags.bTaskMsgs )
+; 2319 :    // Send message that task deleted (before we delete the task).
+; 2320 :    if ( AnchorBlock->TraceFlags.bTaskMsgs )
 
 	mov	ecx, DWORD PTR _AnchorBlock
 	mov	edx, DWORD PTR [ecx+2527]
 	shr	edx, 1
 	and	edx, 1
 	test	edx, edx
-	je	$L8148
+	je	SHORT $L8145
 
-; 2331 :       // Use SysMessageList because TraceLineS expects a current task.
-; 2332 :       zsprintf( szMsg, "(tm) Task (0x%08x) deleted for Process %d",
-; 2333 :                 hTask, SysGetProcessID( 0 ) );
+; 2322 :       zsprintf( szMsg, "(tm) Task (0x%08x) deleted for Process %d",
+; 2323 :                 hTask, SysGetProcessID( 0 ) );
 
 	push	0
 	call	_SysGetProcessID@4
@@ -5900,15 +5833,17 @@ $L8142:
 	call	DWORD PTR __imp__sprintf
 	add	esp, 16					; 00000010H
 
-; 2334 : 
-; 2335 :       if ( lpTask->szUserId[ 0 ] )
+; 2324 : 
+; 2325 :       if ( lpTask && lpTask->szUserId[ 0 ] )
 
+	cmp	DWORD PTR _lpTask$[ebp], 0
+	je	SHORT $L8145
 	mov	edx, DWORD PTR _lpTask$[ebp]
 	movsx	eax, BYTE PTR [edx+244]
 	test	eax, eax
-	je	SHORT $L8150
+	je	SHORT $L8145
 
-; 2337 :          zstrcat( szMsg, "   UserName: " );
+; 2327 :          zstrcat( szMsg, "   UserName: " );
 
 	push	OFFSET FLAT:??_C@_0O@LIAE@?5?5?5UserName?3?5?$AA@ ; `string'
 	lea	ecx, DWORD PTR _szMsg$[ebp]
@@ -5916,7 +5851,7 @@ $L8142:
 	call	_strcat
 	add	esp, 8
 
-; 2338 :          zstrcat( szMsg, lpTask->szUserId );
+; 2328 :          zstrcat( szMsg, lpTask->szUserId );
 
 	mov	edx, DWORD PTR _lpTask$[ebp]
 	add	edx, 244				; 000000f4H
@@ -5925,43 +5860,120 @@ $L8142:
 	push	eax
 	call	_strcat
 	add	esp, 8
-$L8150:
+$L8145:
+
+; 2331 : 
+; 2332 :    // Free the stuff that is part of the system task's dataspace.
+; 2333 :    fnFreeDataspace( zGETPTR( lpTask->hUserID ) );
+
+	mov	ecx, DWORD PTR _lpTask$[ebp]
+	mov	edx, DWORD PTR [ecx+32]
+	push	edx
+	call	DWORD PTR _g_pfnGetPtr
+	push	eax
+	call	_fnFreeDataspace
+	add	esp, 4
+
+; 2334 :    fnFreeDataspace( zGETPTR( lpTask->hPassword ) );
+
+	mov	eax, DWORD PTR _lpTask$[ebp]
+	mov	ecx, DWORD PTR [eax+36]
+	push	ecx
+	call	DWORD PTR _g_pfnGetPtr
+	push	eax
+	call	_fnFreeDataspace
+	add	esp, 4
+
+; 2335 :    fnFreeDataspace( zGETPTR( lpTask->hDBUserID ) );
+
+	mov	edx, DWORD PTR _lpTask$[ebp]
+	mov	eax, DWORD PTR [edx+40]
+	push	eax
+	call	DWORD PTR _g_pfnGetPtr
+	push	eax
+	call	_fnFreeDataspace
+	add	esp, 4
+
+; 2336 :    fnFreeDataspace( zGETPTR( lpTask->hDBPassword ) );
+
+	mov	ecx, DWORD PTR _lpTask$[ebp]
+	mov	edx, DWORD PTR [ecx+44]
+	push	edx
+	call	DWORD PTR _g_pfnGetPtr
+	push	eax
+	call	_fnFreeDataspace
+	add	esp, 4
+
+; 2337 :    fnFreeDataspace( zGETPTR( lpTask->hCommand ) );
+
+	mov	eax, DWORD PTR _lpTask$[ebp]
+	mov	ecx, DWORD PTR [eax+142]
+	push	ecx
+	call	DWORD PTR _g_pfnGetPtr
+	push	eax
+	call	_fnFreeDataspace
+	add	esp, 4
+
+; 2338 :    fnFreeTaskDataspace( lpTask );
+
+	mov	edx, DWORD PTR _lpTask$[ebp]
+	push	edx
+	call	_fnFreeTaskDataspace
+	add	esp, 4
+
+; 2339 :    fnFreeDataspace( lpTask );
+
+	mov	eax, DWORD PTR _lpTask$[ebp]
+	push	eax
+	call	_fnFreeDataspace
+	add	esp, 4
 
 ; 2340 : 
-; 2341 :       SysMessageList( szMsg );
+; 2341 : 
+; 2342 :    if ( AnchorBlock->TraceFlags.bTaskMsgs )
 
-	lea	ecx, DWORD PTR _szMsg$[ebp]
-	push	ecx
-	call	_SysMessageList@4
+	mov	ecx, DWORD PTR _AnchorBlock
+	mov	edx, DWORD PTR [ecx+2527]
+	shr	edx, 1
+	and	edx, 1
+	test	edx, edx
+	je	SHORT $L8152
 
-; 2342 :    // MiListOE_Memory( 0, 0 );
-; 2343 :       SysDescribeZeidonPageTable( szMsg );
-
-	lea	edx, DWORD PTR _szMsg$[ebp]
-	push	edx
-	call	_SysDescribeZeidonPageTable@4
-
-; 2344 :       TraceLineS( "Post DeleteTask - ", szMsg );
+; 2344 :       // Use SysMessageList because TraceLineS expects a current task.
+; 2345 :       SysMessageList( szMsg );
 
 	lea	eax, DWORD PTR _szMsg$[ebp]
 	push	eax
+	call	_SysMessageList@4
+
+; 2346 :    // MiListOE_Memory( 0, 0 );
+; 2347 :       SysDescribeZeidonPageTable( szMsg );
+
+	lea	ecx, DWORD PTR _szMsg$[ebp]
+	push	ecx
+	call	_SysDescribeZeidonPageTable@4
+
+; 2348 :       TraceLineS( "Post DeleteTask - ", szMsg );
+
+	lea	edx, DWORD PTR _szMsg$[ebp]
+	push	edx
 	push	OFFSET FLAT:??_C@_0BD@NDDJ@Post?5DeleteTask?5?9?5?$AA@ ; `string'
 	call	_TraceLineS@8
-$L8148:
+$L8152:
 
-; 2346 : 
-; 2347 :    // Free the shared segment if we deleted our own task and we are not
-; 2348 :    // the main task.
-; 2349 : // if ( bCurrentTask && lpTask != lpMainTask )
-; 2350 : //    fnFreeLocalAnchorBlock( FALSE );
-; 2351 : 
-; 2352 :    return( 0 );
+; 2350 : 
+; 2351 :    // Free the shared segment if we deleted our own task and we are not
+; 2352 :    // the main task.
+; 2353 : // if ( bCurrentTask && lpTask != lpMainTask )
+; 2354 : //    fnFreeLocalAnchorBlock( FALSE );
+; 2355 : 
+; 2356 :    return( 0 );
 
 	xor	ax, ax
 $L8041:
 
-; 2353 : 
-; 2354 : } // end of:  DeleteTask
+; 2357 : 
+; 2358 : } // end of:  DeleteTask
 
 	mov	esp, ebp
 	pop	ebp
@@ -5971,29 +5983,29 @@ _TEXT	ENDS
 PUBLIC	_SfGetNextTask@4
 _TEXT	SEGMENT
 _lpTask$ = 8
-_lpSearchTask$8161 = -4
+_lpSearchTask$8162 = -4
 _SfGetNextTask@4 PROC NEAR
 
-; 2374 : {
+; 2378 : {
 
 	push	ebp
 	mov	ebp, esp
 	push	ecx
 
-; 2375 :    if ( AnchorBlock == 0 )
+; 2379 :    if ( AnchorBlock == 0 )
 
 	cmp	DWORD PTR _AnchorBlock, 0
-	jne	SHORT $L8156
+	jne	SHORT $L8157
 
-; 2376 :       return( 0 );
+; 2380 :       return( 0 );
 
 	xor	eax, eax
-	jmp	$L8155
-$L8156:
+	jmp	$L8156
+$L8157:
 
-; 2377 : 
-; 2378 :    // Make sure nobody else is deleting a task.
-; 2379 :    fnStartBrowseOfTaskList( zGETHNDL( lpTask ), FALSE );
+; 2381 : 
+; 2382 :    // Make sure nobody else is deleting a task.
+; 2383 :    fnStartBrowseOfTaskList( zGETHNDL( lpTask ), FALSE );
 
 	push	0
 	mov	eax, DWORD PTR _lpTask$[ebp]
@@ -6002,13 +6014,13 @@ $L8156:
 	push	eax
 	call	_fnStartBrowseOfTaskList@8
 
-; 2380 : 
-; 2381 :    if ( lpTask == 0 )
+; 2384 : 
+; 2385 :    if ( lpTask == 0 )
 
 	cmp	DWORD PTR _lpTask$[ebp], 0
-	jne	SHORT $L8158
+	jne	SHORT $L8159
 
-; 2382 :       lpTask = zGETPTR( AnchorBlock->hFirstTask );
+; 2386 :       lpTask = zGETPTR( AnchorBlock->hFirstTask );
 
 	mov	ecx, DWORD PTR _AnchorBlock
 	mov	edx, DWORD PTR [ecx+130]
@@ -6016,113 +6028,113 @@ $L8156:
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _lpTask$[ebp], eax
 
-; 2383 :    else
+; 2387 :    else
 
-	jmp	SHORT $L8169
-$L8158:
+	jmp	SHORT $L8170
+$L8159:
 
-; 2385 :       LPTASK lpSearchTask;
-; 2386 : 
-; 2387 :       // The user passed in a task pointer.  Make sure that it is a valid
-; 2388 :       // task pointer.  If it is then return the next task; otherwise return 0.
-; 2389 : 
-; 2390 :       for ( lpSearchTask = zGETPTR( AnchorBlock->hFirstTask );
-; 2391 :             lpSearchTask && lpSearchTask != lpTask;
-; 2392 :             lpSearchTask = zGETPTR( lpSearchTask->hNextTask ) )
+; 2389 :       LPTASK lpSearchTask;
+; 2390 : 
+; 2391 :       // The user passed in a task pointer.  Make sure that it is a valid
+; 2392 :       // task pointer.  If it is then return the next task; otherwise return 0.
+; 2393 : 
+; 2394 :       for ( lpSearchTask = zGETPTR( AnchorBlock->hFirstTask );
+; 2395 :             lpSearchTask && lpSearchTask != lpTask;
+; 2396 :             lpSearchTask = zGETPTR( lpSearchTask->hNextTask ) )
 
 	mov	eax, DWORD PTR _AnchorBlock
 	mov	ecx, DWORD PTR [eax+130]
 	push	ecx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpSearchTask$8161[ebp], eax
-	jmp	SHORT $L8164
-$L8165:
-	mov	edx, DWORD PTR _lpSearchTask$8161[ebp]
+	mov	DWORD PTR _lpSearchTask$8162[ebp], eax
+	jmp	SHORT $L8165
+$L8166:
+	mov	edx, DWORD PTR _lpSearchTask$8162[ebp]
 	mov	eax, DWORD PTR [edx+2]
 	push	eax
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpSearchTask$8161[ebp], eax
-$L8164:
-	cmp	DWORD PTR _lpSearchTask$8161[ebp], 0
-	je	SHORT $L8166
-	mov	ecx, DWORD PTR _lpSearchTask$8161[ebp]
+	mov	DWORD PTR _lpSearchTask$8162[ebp], eax
+$L8165:
+	cmp	DWORD PTR _lpSearchTask$8162[ebp], 0
+	je	SHORT $L8167
+	mov	ecx, DWORD PTR _lpSearchTask$8162[ebp]
 	cmp	ecx, DWORD PTR _lpTask$[ebp]
-	je	SHORT $L8166
-
-; 2394 :          // Nothing needs to be done here.
-; 2395 :       }
-
-	jmp	SHORT $L8165
-$L8166:
-
-; 2396 : 
-; 2397 :       if ( lpSearchTask )
-
-	cmp	DWORD PTR _lpSearchTask$8161[ebp], 0
 	je	SHORT $L8167
 
-; 2398 :          lpTask = zGETPTR( lpSearchTask->hNextTask );
+; 2398 :          // Nothing needs to be done here.
+; 2399 :       }
 
-	mov	edx, DWORD PTR _lpSearchTask$8161[ebp]
+	jmp	SHORT $L8166
+$L8167:
+
+; 2400 : 
+; 2401 :       if ( lpSearchTask )
+
+	cmp	DWORD PTR _lpSearchTask$8162[ebp], 0
+	je	SHORT $L8168
+
+; 2402 :          lpTask = zGETPTR( lpSearchTask->hNextTask );
+
+	mov	edx, DWORD PTR _lpSearchTask$8162[ebp]
 	mov	eax, DWORD PTR [edx+2]
 	push	eax
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _lpTask$[ebp], eax
 
-; 2399 :       else
+; 2403 :       else
 
-	jmp	SHORT $L8169
-$L8167:
+	jmp	SHORT $L8170
+$L8168:
 
-; 2400 :          lpTask = 0;
+; 2404 :          lpTask = 0;
 
 	mov	DWORD PTR _lpTask$[ebp], 0
-$L8169:
+$L8170:
 
-; 2402 : 
-; 2403 :    // Now make sure task is in good condition.
-; 2404 :    while ( lpTask && (lpTask->bDisable || lpTask->bShutdown) )
+; 2406 : 
+; 2407 :    // Now make sure task is in good condition.
+; 2408 :    while ( lpTask && (lpTask->bDisable || lpTask->bShutdown) )
 
 	cmp	DWORD PTR _lpTask$[ebp], 0
-	je	SHORT $L8172
+	je	SHORT $L8173
 	mov	ecx, DWORD PTR _lpTask$[ebp]
 	mov	edx, DWORD PTR [ecx+443]
 	shr	edx, 3
 	and	edx, 1
 	test	edx, edx
-	jne	SHORT $L8173
+	jne	SHORT $L8174
 	mov	eax, DWORD PTR _lpTask$[ebp]
 	mov	ecx, DWORD PTR [eax+443]
 	shr	ecx, 5
 	and	ecx, 1
 	test	ecx, ecx
-	je	SHORT $L8172
-$L8173:
+	je	SHORT $L8173
+$L8174:
 
-; 2405 :       lpTask = zGETPTR( lpTask->hNextTask );
+; 2409 :       lpTask = zGETPTR( lpTask->hNextTask );
 
 	mov	edx, DWORD PTR _lpTask$[ebp]
 	mov	eax, DWORD PTR [edx+2]
 	push	eax
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _lpTask$[ebp], eax
-	jmp	SHORT $L8169
-$L8172:
+	jmp	SHORT $L8170
+$L8173:
 
-; 2406 : 
-; 2407 :    fnEndBrowseOfTaskList( FALSE );
+; 2410 : 
+; 2411 :    fnEndBrowseOfTaskList( FALSE );
 
 	push	0
 	call	_fnEndBrowseOfTaskList@4
 
-; 2408 : 
-; 2409 :    return( lpTask );
+; 2412 : 
+; 2413 :    return( lpTask );
 
 	mov	eax, DWORD PTR _lpTask$[ebp]
-$L8155:
+$L8156:
 
-; 2410 : 
-; 2411 : } // SfGetNextTask
+; 2414 : 
+; 2415 : } // SfGetNextTask
 
 	mov	esp, ebp
 	pop	ebp
@@ -6134,33 +6146,33 @@ _TEXT	SEGMENT
 _vTaskView$ = 8
 _SfGetCurrentTask@4 PROC NEAR
 
-; 2430 : {
+; 2434 : {
 
 	push	ebp
 	mov	ebp, esp
 
-; 2431 :    if ( AnchorBlock == 0 )
+; 2435 :    if ( AnchorBlock == 0 )
 
 	cmp	DWORD PTR _AnchorBlock, 0
-	jne	SHORT $L8178
+	jne	SHORT $L8179
 
-; 2432 :       return( 0 );
+; 2436 :       return( 0 );
 
 	xor	eax, eax
-	jmp	SHORT $L8177
-$L8178:
+	jmp	SHORT $L8178
+$L8179:
 
-; 2433 : 
-; 2434 :    return( zGETPTR( vTaskView->hTask ) );
+; 2437 : 
+; 2438 :    return( zGETPTR( vTaskView->hTask ) );
 
 	mov	eax, DWORD PTR _vTaskView$[ebp]
 	mov	ecx, DWORD PTR [eax+14]
 	push	ecx
 	call	DWORD PTR _g_pfnGetPtr
-$L8177:
+$L8178:
 
-; 2435 : 
-; 2436 : } // SfGetCurrentTask
+; 2439 : 
+; 2440 : } // SfGetCurrentTask
 
 	pop	ebp
 	ret	4
@@ -6175,35 +6187,35 @@ _lpTask$ = 16
 _nRC$ = -4
 _SfGetTaskInfo@12 PROC NEAR
 
-; 2464 : {
+; 2468 : {
 
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 8
 
-; 2465 :    int    nRC;
-; 2466 : 
-; 2467 :    switch ( nInfoRequest )
-; 2468 :    {
+; 2469 :    int    nRC;
+; 2470 : 
+; 2471 :    switch ( nInfoRequest )
+; 2472 :    {
 
 	movsx	eax, WORD PTR _nInfoRequest$[ebp]
 	mov	DWORD PTR -8+[ebp], eax
 	cmp	DWORD PTR -8+[ebp], 1
-	je	SHORT $L8192
+	je	SHORT $L8193
 	cmp	DWORD PTR -8+[ebp], 2
-	je	SHORT $L8195
-	jmp	SHORT $L8199
-$L8192:
+	je	SHORT $L8196
+	jmp	SHORT $L8200
+$L8193:
 
-; 2469 :       case zTASK_DIALOG:
-; 2470 :          if ( lpTask->szDialog[ 0 ] )
+; 2473 :       case zTASK_DIALOG:
+; 2474 :          if ( lpTask->szDialog[ 0 ] )
 
 	mov	ecx, DWORD PTR _lpTask$[ebp]
 	movsx	edx, BYTE PTR [ecx+278]
 	test	edx, edx
-	je	SHORT $L8193
+	je	SHORT $L8194
 
-; 2472 :             zstrcpy( pchReturnString, lpTask->szDialog );
+; 2476 :             zstrcpy( pchReturnString, lpTask->szDialog );
 
 	mov	eax, DWORD PTR _lpTask$[ebp]
 	add	eax, 278				; 00000116H
@@ -6213,39 +6225,39 @@ $L8192:
 	call	_strcpy
 	add	esp, 8
 
-; 2473 :             SysTranslateString( pchReturnString, 'U' ); // guarantee upper-case
+; 2477 :             SysTranslateString( pchReturnString, 'U' ); // guarantee upper-case
 
 	push	85					; 00000055H
 	mov	edx, DWORD PTR _pchReturnString$[ebp]
 	push	edx
 	call	_SysTranslateString@8
 
-; 2475 :          else
+; 2479 :          else
 
-	jmp	SHORT $L8194
-$L8193:
+	jmp	SHORT $L8195
+$L8194:
 
-; 2476 :             pchReturnString[ 0 ] = 0;
+; 2480 :             pchReturnString[ 0 ] = 0;
 
 	mov	eax, DWORD PTR _pchReturnString$[ebp]
 	mov	BYTE PTR [eax], 0
-$L8194:
-
-; 2477 : 
-; 2478 :          break;
-
-	jmp	SHORT $L8189
 $L8195:
 
-; 2479 : 
-; 2480 :       case zTASK_COMMAND:
-; 2481 :          if ( lpTask->hCommand )
+; 2481 : 
+; 2482 :          break;
+
+	jmp	SHORT $L8190
+$L8196:
+
+; 2483 : 
+; 2484 :       case zTASK_COMMAND:
+; 2485 :          if ( lpTask->hCommand )
 
 	mov	ecx, DWORD PTR _lpTask$[ebp]
 	cmp	DWORD PTR [ecx+142], 0
-	je	SHORT $L8196
+	je	SHORT $L8197
 
-; 2482 :             zstrcpy( pchReturnString, zGETPTR( lpTask->hCommand ) );
+; 2486 :             zstrcpy( pchReturnString, zGETPTR( lpTask->hCommand ) );
 
 	mov	edx, DWORD PTR _lpTask$[ebp]
 	mov	eax, DWORD PTR [edx+142]
@@ -6257,27 +6269,27 @@ $L8195:
 	call	_strcpy
 	add	esp, 8
 
-; 2483 :          else
+; 2487 :          else
 
-	jmp	SHORT $L8198
-$L8196:
+	jmp	SHORT $L8199
+$L8197:
 
-; 2484 :             pchReturnString[ 0 ] = 0;
+; 2488 :             pchReturnString[ 0 ] = 0;
 
 	mov	edx, DWORD PTR _pchReturnString$[ebp]
 	mov	BYTE PTR [edx], 0
-$L8198:
-
-; 2485 : 
-; 2486 :          break;
-
-	jmp	SHORT $L8189
 $L8199:
 
-; 2487 : 
-; 2488 :       default:
-; 2489 :          // "KZOEE019 - Invalid GetTaskInfo request: "
-; 2490 :          fnIssueCoreError( lpTask, 0, 8, 19, (zLONG) nInfoRequest, 0, 0 );
+; 2489 : 
+; 2490 :          break;
+
+	jmp	SHORT $L8190
+$L8200:
+
+; 2491 : 
+; 2492 :       default:
+; 2493 :          // "KZOEE019 - Invalid GetTaskInfo request: "
+; 2494 :          fnIssueCoreError( lpTask, 0, 8, 19, (zLONG) nInfoRequest, 0, 0 );
 
 	push	0
 	push	0
@@ -6291,21 +6303,21 @@ $L8199:
 	call	_fnIssueCoreError
 	add	esp, 28					; 0000001cH
 
-; 2491 :          nRC = zCALL_ERROR;
+; 2495 :          nRC = zCALL_ERROR;
 
 	mov	DWORD PTR _nRC$[ebp], -16		; fffffff0H
-$L8189:
+$L8190:
 
-; 2493 : 
-; 2494 :    nRC = 0;
+; 2497 : 
+; 2498 :    nRC = 0;
 
 	mov	DWORD PTR _nRC$[ebp], 0
 
-; 2495 :    return( nRC );
+; 2499 :    return( nRC );
 
 	mov	ax, WORD PTR _nRC$[ebp]
 
-; 2496 : }
+; 2500 : }
 
 	mov	esp, ebp
 	pop	ebp
@@ -6345,29 +6357,29 @@ _lpCurrentTask$ = -16
 _lpNewSubtaskView$ = -8
 _lpApp$ = -12
 _nRC$ = -4
-_lpSubtask$8221 = -20
-_lpNewApp$8223 = -24
+_lpSubtask$8222 = -20
+_lpNewApp$8224 = -24
 _SfCreateSubtask@12 PROC NEAR
 
-; 2533 : {
+; 2537 : {
 
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 24					; 00000018H
 
-; 2534 :    LPTASK      lpCurrentTask;
-; 2535 :    zVIEW       lpNewSubtaskView;
-; 2536 :    LPAPP       lpApp;
-; 2537 :    int         nRC;
-; 2538 : 
-; 2539 : #ifdef DEBUG
-; 2540 :    if ( lpView == 0 )
+; 2538 :    LPTASK      lpCurrentTask;
+; 2539 :    zVIEW       lpNewSubtaskView;
+; 2540 :    LPAPP       lpApp;
+; 2541 :    int         nRC;
+; 2542 : 
+; 2543 : #ifdef DEBUG
+; 2544 :    if ( lpView == 0 )
 
 	cmp	DWORD PTR _lpView$[ebp], 0
-	jne	SHORT $L8212
+	jne	SHORT $L8213
 
-; 2542 :       TraceLine( "SfCreateSubtask now REQUIRES a non-zero qualification view"
-; 2543 :                    "for Application: %s.", cpcAppName );
+; 2546 :       TraceLine( "SfCreateSubtask now REQUIRES a non-zero qualification view"
+; 2547 :                    "for Application: %s.", cpcAppName );
 
 	mov	eax, DWORD PTR _cpcAppName$[ebp]
 	push	eax
@@ -6375,8 +6387,8 @@ _SfCreateSubtask@12 PROC NEAR
 	call	_TraceLine
 	add	esp, 8
 
-; 2544 :       SysMessageBox( 0, "Zeidon OE", "SfCreateSubtask now REQUIRES a "
-; 2545 :                      "non-zero qualification view.  System will now crash", 0 );
+; 2548 :       SysMessageBox( 0, "Zeidon OE", "SfCreateSubtask now REQUIRES a "
+; 2549 :                      "non-zero qualification view.  System will now crash", 0 );
 
 	push	0
 	push	OFFSET FLAT:??_C@_0FD@DLHM@SfCreateSubtask?5now?5REQUIRES?5a?5n@ ; `string'
@@ -6384,23 +6396,23 @@ _SfCreateSubtask@12 PROC NEAR
 	push	0
 	call	_SysMessageBox@16
 
-; 2546 :       nRC = 0;
+; 2550 :       nRC = 0;
 
 	mov	DWORD PTR _nRC$[ebp], 0
 
-; 2547 :       nRC /= nRC;
+; 2551 :       nRC /= nRC;
 
 	mov	eax, DWORD PTR _nRC$[ebp]
 	cdq
 	idiv	DWORD PTR _nRC$[ebp]
 	mov	DWORD PTR _nRC$[ebp], eax
-$L8212:
+$L8213:
 
-; 2549 : #endif
-; 2550 : 
-; 2551 :    // If task not active or disabled, or view invalid, return zCALL_ERROR.
-; 2552 :    if ( (lpCurrentTask = fnOperationCall( iSfCreateSubtask, lpView,
-; 2553 :                                           zVALID_VIEW )) == 0 )
+; 2553 : #endif
+; 2554 : 
+; 2555 :    // If task not active or disabled, or view invalid, return zCALL_ERROR.
+; 2556 :    if ( (lpCurrentTask = fnOperationCall( iSfCreateSubtask, lpView,
+; 2557 :                                           zVALID_VIEW )) == 0 )
 
 	push	1
 	mov	ecx, DWORD PTR _lpView$[ebp]
@@ -6410,32 +6422,32 @@ $L8212:
 	add	esp, 12					; 0000000cH
 	mov	DWORD PTR _lpCurrentTask$[ebp], eax
 	cmp	DWORD PTR _lpCurrentTask$[ebp], 0
-	jne	SHORT $L8216
+	jne	SHORT $L8217
 
-; 2555 :       return( zCALL_ERROR );
+; 2559 :       return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	$L8207
-$L8216:
+	jmp	$L8208
+$L8217:
 
-; 2557 : 
-; 2558 :    // We need to lock the anchor mutex because we might create a new app.
-; 2559 :    zLOCK_MUTEX( zMUTEX_ANCHORBLOCK );
+; 2561 : 
+; 2562 :    // We need to lock the anchor mutex because we might create a new app.
+; 2563 :    zLOCK_MUTEX( zMUTEX_ANCHORBLOCK );
 
 	push	2
 	call	_fnSysLockCoreMutex@4
 
-; 2560 : 
-; 2561 :    if ( cpcAppName && cpcAppName[ 0 ] )
+; 2564 : 
+; 2565 :    if ( cpcAppName && cpcAppName[ 0 ] )
 
 	cmp	DWORD PTR _cpcAppName$[ebp], 0
-	je	SHORT $L8217
+	je	SHORT $L8218
 	mov	edx, DWORD PTR _cpcAppName$[ebp]
 	movsx	eax, BYTE PTR [edx]
 	test	eax, eax
-	je	SHORT $L8217
+	je	SHORT $L8218
 
-; 2563 :       lpApp = fnCreateApp( lpCurrentTask, cpcAppName );
+; 2567 :       lpApp = fnCreateApp( lpCurrentTask, cpcAppName );
 
 	mov	ecx, DWORD PTR _cpcAppName$[ebp]
 	push	ecx
@@ -6445,17 +6457,17 @@ $L8216:
 	add	esp, 8
 	mov	DWORD PTR _lpApp$[ebp], eax
 
-; 2564 :       if ( lpApp == 0 )
+; 2568 :       if ( lpApp == 0 )
 
 	cmp	DWORD PTR _lpApp$[ebp], 0
-	jne	SHORT $L8218
+	jne	SHORT $L8219
 
-; 2566 :          zUNLOCK_MUTEX( zMUTEX_ANCHORBLOCK );
+; 2570 :          zUNLOCK_MUTEX( zMUTEX_ANCHORBLOCK );
 
 	push	2
 	call	_fnSysUnlockCoreMutex@4
 
-; 2567 :          fnOperationReturn( iSfCreateSubtask, lpCurrentTask );
+; 2571 :          fnOperationReturn( iSfCreateSubtask, lpCurrentTask );
 
 	mov	eax, DWORD PTR _lpCurrentTask$[ebp]
 	push	eax
@@ -6463,29 +6475,29 @@ $L8216:
 	call	_fnOperationReturn
 	add	esp, 8
 
-; 2568 :          return( zCALL_ERROR );
+; 2572 :          return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	$L8207
+	jmp	$L8208
+$L8219:
+
+; 2575 :    else
+
+	jmp	SHORT $L8220
 $L8218:
 
-; 2571 :    else
-
-	jmp	SHORT $L8219
-$L8217:
-
-; 2572 :       fnGetApplicationForSubtask( &lpApp, lpView );
+; 2576 :       fnGetApplicationForSubtask( &lpApp, lpView );
 
 	mov	ecx, DWORD PTR _lpView$[ebp]
 	push	ecx
 	lea	edx, DWORD PTR _lpApp$[ebp]
 	push	edx
 	call	_fnGetApplicationForSubtask@8
-$L8219:
+$L8220:
 
-; 2573 : 
-; 2574 :    // Use the current task in the call to fnCreateSubtask
-; 2575 :    lpNewSubtaskView = fnCreateSubtask( lpCurrentTask, lpApp );
+; 2577 : 
+; 2578 :    // Use the current task in the call to fnCreateSubtask
+; 2579 :    lpNewSubtaskView = fnCreateSubtask( lpCurrentTask, lpApp );
 
 	mov	eax, DWORD PTR _lpApp$[ebp]
 	push	eax
@@ -6495,59 +6507,59 @@ $L8219:
 	add	esp, 8
 	mov	DWORD PTR _lpNewSubtaskView$[ebp], eax
 
-; 2576 : 
-; 2577 :    zUNLOCK_MUTEX( zMUTEX_ANCHORBLOCK );
+; 2580 : 
+; 2581 :    zUNLOCK_MUTEX( zMUTEX_ANCHORBLOCK );
 
 	push	2
 	call	_fnSysUnlockCoreMutex@4
 
-; 2578 : 
-; 2579 :    if ( lpNewSubtaskView )
+; 2582 : 
+; 2583 :    if ( lpNewSubtaskView )
 
 	cmp	DWORD PTR _lpNewSubtaskView$[ebp], 0
-	je	SHORT $L8220
+	je	SHORT $L8221
 
-; 2581 :       LPSUBTASK lpSubtask = zGETPTR( lpNewSubtaskView->hSubtask );
+; 2585 :       LPSUBTASK lpSubtask = zGETPTR( lpNewSubtaskView->hSubtask );
 
 	mov	edx, DWORD PTR _lpNewSubtaskView$[ebp]
 	mov	eax, DWORD PTR [edx+18]
 	push	eax
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpSubtask$8221[ebp], eax
+	mov	DWORD PTR _lpSubtask$8222[ebp], eax
 
-; 2582 :       LPAPP     lpNewApp  = zGETPTR( lpSubtask->hApp );
+; 2586 :       LPAPP     lpNewApp  = zGETPTR( lpSubtask->hApp );
 
-	mov	ecx, DWORD PTR _lpSubtask$8221[ebp]
+	mov	ecx, DWORD PTR _lpSubtask$8222[ebp]
 	mov	edx, DWORD PTR [ecx+10]
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpNewApp$8223[ebp], eax
+	mov	DWORD PTR _lpNewApp$8224[ebp], eax
 
-; 2583 : 
-; 2584 :       *pvReturnSubtask = lpNewSubtaskView;
+; 2587 : 
+; 2588 :       *pvReturnSubtask = lpNewSubtaskView;
 
 	mov	eax, DWORD PTR _pvReturnSubtask$[ebp]
 	mov	ecx, DWORD PTR _lpNewSubtaskView$[ebp]
 	mov	DWORD PTR [eax], ecx
 
-; 2585 : 
-; 2586 :       // When possibly creating a new App struct, we want to preload the
-; 2587 :       // Message Object Definition.  The assumption that we are making
-; 2588 :       // below is that the first object definition that is put on the
-; 2589 :       // app struct will be the message object definition, so if there
-; 2590 :       // is already a pointer in the app struct, to a ViewOD chain, then
-; 2591 :       // the message object must already be preloaded. (We Hope!!!)
-; 2592 :       nRC = 0;
+; 2589 : 
+; 2590 :       // When possibly creating a new App struct, we want to preload the
+; 2591 :       // Message Object Definition.  The assumption that we are making
+; 2592 :       // below is that the first object definition that is put on the
+; 2593 :       // app struct will be the message object definition, so if there
+; 2594 :       // is already a pointer in the app struct, to a ViewOD chain, then
+; 2595 :       // the message object must already be preloaded. (We Hope!!!)
+; 2596 :       nRC = 0;
 
 	mov	DWORD PTR _nRC$[ebp], 0
 
-; 2593 :       if ( lpNewApp->hFirstViewOD == 0 )
+; 2597 :       if ( lpNewApp->hFirstViewOD == 0 )
 
-	mov	edx, DWORD PTR _lpNewApp$8223[ebp]
+	mov	edx, DWORD PTR _lpNewApp$8224[ebp]
 	cmp	DWORD PTR [edx+84], 0
-	jne	SHORT $L8226
+	jne	SHORT $L8227
 
-; 2595 :          if ( ActivateViewObject( lpNewSubtaskView, szlMessageObject, 0 ) == 0 )
+; 2599 :          if ( ActivateViewObject( lpNewSubtaskView, szlMessageObject, 0 ) == 0 )
 
 	push	0
 	mov	eax, DWORD PTR _szlMessageObject
@@ -6556,25 +6568,25 @@ $L8219:
 	push	ecx
 	call	_ActivateViewObject@12
 	test	eax, eax
-	jne	SHORT $L8226
+	jne	SHORT $L8227
 
-; 2596 :             nRC = zCALL_ERROR;
-
-	mov	DWORD PTR _nRC$[ebp], -16		; fffffff0H
-$L8226:
-
-; 2599 :    else
-
-	jmp	SHORT $L8227
-$L8220:
-
-; 2600 :       nRC = zCALL_ERROR;
+; 2600 :             nRC = zCALL_ERROR;
 
 	mov	DWORD PTR _nRC$[ebp], -16		; fffffff0H
 $L8227:
 
-; 2601 : 
-; 2602 :    fnOperationReturn( iSfCreateSubtask, lpCurrentTask );
+; 2603 :    else
+
+	jmp	SHORT $L8228
+$L8221:
+
+; 2604 :       nRC = zCALL_ERROR;
+
+	mov	DWORD PTR _nRC$[ebp], -16		; fffffff0H
+$L8228:
+
+; 2605 : 
+; 2606 :    fnOperationReturn( iSfCreateSubtask, lpCurrentTask );
 
 	mov	edx, DWORD PTR _lpCurrentTask$[ebp]
 	push	edx
@@ -6582,12 +6594,12 @@ $L8227:
 	call	_fnOperationReturn
 	add	esp, 8
 
-; 2603 :    return( nRC );
+; 2607 :    return( nRC );
 
 	mov	ax, WORD PTR _nRC$[ebp]
-$L8207:
+$L8208:
 
-; 2604 : }
+; 2608 : }
 
 	mov	esp, ebp
 	pop	ebp
@@ -6620,25 +6632,25 @@ _lpApp$ = -12
 _nRC$ = -4
 _SfCreateSystemSubtask@12 PROC NEAR
 
-; 2640 : {
+; 2644 : {
 
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 16					; 00000010H
 
-; 2641 :    LPTASK      lpCurrentTask;
-; 2642 :    zVIEW       lpNewSubtaskView;
-; 2643 :    LPAPP       lpApp;
-; 2644 :    int         nRC;
-; 2645 : 
-; 2646 : #ifdef DEBUG
-; 2647 :    if ( lpView == 0 )
+; 2645 :    LPTASK      lpCurrentTask;
+; 2646 :    zVIEW       lpNewSubtaskView;
+; 2647 :    LPAPP       lpApp;
+; 2648 :    int         nRC;
+; 2649 : 
+; 2650 : #ifdef DEBUG
+; 2651 :    if ( lpView == 0 )
 
 	cmp	DWORD PTR _lpView$[ebp], 0
-	jne	SHORT $L8239
+	jne	SHORT $L8240
 
-; 2649 :       TraceLine( "SfCreateSystemSubtask now REQUIRES a non-zero qualification view"
-; 2650 :                    "for Application: %s.", cpcAppName );
+; 2653 :       TraceLine( "SfCreateSystemSubtask now REQUIRES a non-zero qualification view"
+; 2654 :                    "for Application: %s.", cpcAppName );
 
 	mov	eax, DWORD PTR _cpcAppName$[ebp]
 	push	eax
@@ -6646,8 +6658,8 @@ _SfCreateSystemSubtask@12 PROC NEAR
 	call	_TraceLine
 	add	esp, 8
 
-; 2651 :       SysMessageBox( 0, "Zeidon OE", "SfCreateSystemSubtask now REQUIRES a "
-; 2652 :                      "non-zero qualification view.  System will now crash", 0 );
+; 2655 :       SysMessageBox( 0, "Zeidon OE", "SfCreateSystemSubtask now REQUIRES a "
+; 2656 :                      "non-zero qualification view.  System will now crash", 0 );
 
 	push	0
 	push	OFFSET FLAT:??_C@_0FJ@JIHH@SfCreateSystemSubtask?5now?5REQUIR@ ; `string'
@@ -6655,23 +6667,23 @@ _SfCreateSystemSubtask@12 PROC NEAR
 	push	0
 	call	_SysMessageBox@16
 
-; 2653 :       nRC = 0;
+; 2657 :       nRC = 0;
 
 	mov	DWORD PTR _nRC$[ebp], 0
 
-; 2654 :       nRC /= nRC;
+; 2658 :       nRC /= nRC;
 
 	mov	eax, DWORD PTR _nRC$[ebp]
 	cdq
 	idiv	DWORD PTR _nRC$[ebp]
 	mov	DWORD PTR _nRC$[ebp], eax
-$L8239:
+$L8240:
 
-; 2656 : #endif
-; 2657 : 
-; 2658 :    // If task not active or disabled, or view invalid, return zCALL_ERROR.
-; 2659 :    if ( (lpCurrentTask = fnOperationCall( iSfCreateSubtask, lpView,
-; 2660 :                                           zVALID_VIEW )) == 0 )
+; 2660 : #endif
+; 2661 : 
+; 2662 :    // If task not active or disabled, or view invalid, return zCALL_ERROR.
+; 2663 :    if ( (lpCurrentTask = fnOperationCall( iSfCreateSubtask, lpView,
+; 2664 :                                           zVALID_VIEW )) == 0 )
 
 	push	1
 	mov	ecx, DWORD PTR _lpView$[ebp]
@@ -6681,32 +6693,32 @@ $L8239:
 	add	esp, 12					; 0000000cH
 	mov	DWORD PTR _lpCurrentTask$[ebp], eax
 	cmp	DWORD PTR _lpCurrentTask$[ebp], 0
-	jne	SHORT $L8242
+	jne	SHORT $L8243
 
-; 2662 :       return( zCALL_ERROR );
+; 2666 :       return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	$L8234
-$L8242:
+	jmp	$L8235
+$L8243:
 
-; 2664 : 
-; 2665 :    // We need to lock the anchor mutex because we might create a new app.
-; 2666 :    zLOCK_MUTEX( zMUTEX_ANCHORBLOCK );
+; 2668 : 
+; 2669 :    // We need to lock the anchor mutex because we might create a new app.
+; 2670 :    zLOCK_MUTEX( zMUTEX_ANCHORBLOCK );
 
 	push	2
 	call	_fnSysLockCoreMutex@4
 
-; 2667 : 
-; 2668 :    if ( cpcAppName && cpcAppName[ 0 ] )
+; 2671 : 
+; 2672 :    if ( cpcAppName && cpcAppName[ 0 ] )
 
 	cmp	DWORD PTR _cpcAppName$[ebp], 0
-	je	SHORT $L8243
+	je	SHORT $L8244
 	mov	edx, DWORD PTR _cpcAppName$[ebp]
 	movsx	eax, BYTE PTR [edx]
 	test	eax, eax
-	je	SHORT $L8243
+	je	SHORT $L8244
 
-; 2670 :       lpApp = fnCreateApp( lpCurrentTask, cpcAppName );
+; 2674 :       lpApp = fnCreateApp( lpCurrentTask, cpcAppName );
 
 	mov	ecx, DWORD PTR _cpcAppName$[ebp]
 	push	ecx
@@ -6716,17 +6728,17 @@ $L8242:
 	add	esp, 8
 	mov	DWORD PTR _lpApp$[ebp], eax
 
-; 2671 :       if ( lpApp == 0 )
+; 2675 :       if ( lpApp == 0 )
 
 	cmp	DWORD PTR _lpApp$[ebp], 0
-	jne	SHORT $L8244
+	jne	SHORT $L8245
 
-; 2673 :          zUNLOCK_MUTEX( zMUTEX_ANCHORBLOCK );
+; 2677 :          zUNLOCK_MUTEX( zMUTEX_ANCHORBLOCK );
 
 	push	2
 	call	_fnSysUnlockCoreMutex@4
 
-; 2674 :          fnOperationReturn( iSfCreateSubtask, lpCurrentTask );
+; 2678 :          fnOperationReturn( iSfCreateSubtask, lpCurrentTask );
 
 	mov	eax, DWORD PTR _lpCurrentTask$[ebp]
 	push	eax
@@ -6734,29 +6746,29 @@ $L8242:
 	call	_fnOperationReturn
 	add	esp, 8
 
-; 2675 :          return( zCALL_ERROR );
+; 2679 :          return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	SHORT $L8234
+	jmp	SHORT $L8235
+$L8245:
+
+; 2682 :    else
+
+	jmp	SHORT $L8246
 $L8244:
 
-; 2678 :    else
-
-	jmp	SHORT $L8245
-$L8243:
-
-; 2679 :       fnGetApplicationForSubtask( &lpApp, lpView );
+; 2683 :       fnGetApplicationForSubtask( &lpApp, lpView );
 
 	mov	ecx, DWORD PTR _lpView$[ebp]
 	push	ecx
 	lea	edx, DWORD PTR _lpApp$[ebp]
 	push	edx
 	call	_fnGetApplicationForSubtask@8
-$L8245:
+$L8246:
 
-; 2680 : 
-; 2681 :    // Use the system task in the call to fnCreateSubtask
-; 2682 :    lpNewSubtaskView = fnCreateSubtask( zGETPTR( AnchorBlock->hMainTask ), lpApp );
+; 2684 : 
+; 2685 :    // Use the system task in the call to fnCreateSubtask
+; 2686 :    lpNewSubtaskView = fnCreateSubtask( zGETPTR( AnchorBlock->hMainTask ), lpApp );
 
 	mov	eax, DWORD PTR _lpApp$[ebp]
 	push	eax
@@ -6769,28 +6781,28 @@ $L8245:
 	add	esp, 8
 	mov	DWORD PTR _lpNewSubtaskView$[ebp], eax
 
-; 2683 : 
-; 2684 :    zUNLOCK_MUTEX( zMUTEX_ANCHORBLOCK );
+; 2687 : 
+; 2688 :    zUNLOCK_MUTEX( zMUTEX_ANCHORBLOCK );
 
 	push	2
 	call	_fnSysUnlockCoreMutex@4
 
-; 2685 : 
-; 2686 :    if ( lpNewSubtaskView )
+; 2689 : 
+; 2690 :    if ( lpNewSubtaskView )
 
 	cmp	DWORD PTR _lpNewSubtaskView$[ebp], 0
-	je	SHORT $L8247
+	je	SHORT $L8248
 
-; 2688 :       *pvReturnSubtask = lpNewSubtaskView;
+; 2692 :       *pvReturnSubtask = lpNewSubtaskView;
 
 	mov	eax, DWORD PTR _pvReturnSubtask$[ebp]
 	mov	ecx, DWORD PTR _lpNewSubtaskView$[ebp]
 	mov	DWORD PTR [eax], ecx
 
-; 2689 : 
-; 2690 :       // When possibly creating a new App struct, we want to preload the
-; 2691 :       // Message Object Definition.
-; 2692 :       ActivateViewObject( lpNewSubtaskView, szlMessageObject, 1 );
+; 2693 : 
+; 2694 :       // When possibly creating a new App struct, we want to preload the
+; 2695 :       // Message Object Definition.
+; 2696 :       ActivateViewObject( lpNewSubtaskView, szlMessageObject, 1 );
 
 	push	1
 	mov	edx, DWORD PTR _szlMessageObject
@@ -6799,22 +6811,22 @@ $L8245:
 	push	eax
 	call	_ActivateViewObject@12
 
-; 2693 :       nRC = 0;
+; 2697 :       nRC = 0;
 
 	mov	DWORD PTR _nRC$[ebp], 0
 
-; 2695 :    else
+; 2699 :    else
 
-	jmp	SHORT $L8248
-$L8247:
-
-; 2696 :       nRC = zCALL_ERROR;
-
-	mov	DWORD PTR _nRC$[ebp], -16		; fffffff0H
+	jmp	SHORT $L8249
 $L8248:
 
-; 2697 : 
-; 2698 :    fnOperationReturn( iSfCreateSubtask, lpCurrentTask );
+; 2700 :       nRC = zCALL_ERROR;
+
+	mov	DWORD PTR _nRC$[ebp], -16		; fffffff0H
+$L8249:
+
+; 2701 : 
+; 2702 :    fnOperationReturn( iSfCreateSubtask, lpCurrentTask );
 
 	mov	ecx, DWORD PTR _lpCurrentTask$[ebp]
 	push	ecx
@@ -6822,12 +6834,12 @@ $L8248:
 	call	_fnOperationReturn
 	add	esp, 8
 
-; 2699 :    return( nRC );
+; 2703 :    return( nRC );
 
 	mov	ax, WORD PTR _nRC$[ebp]
-$L8234:
+$L8235:
 
-; 2700 : }
+; 2704 : }
 
 	mov	esp, ebp
 	pop	ebp
@@ -6841,39 +6853,39 @@ _hView$ = -4
 _hSubtask$ = -12
 _fnCreateSubtask PROC NEAR
 
-; 2712 : {
+; 2716 : {
 
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 16					; 00000010H
 
-; 2713 :    LPSUBTASK lpSubtask;
-; 2714 :    zVIEW     lpView;
-; 2715 :    zPVOID    hView;
-; 2716 :    zPVOID    hSubtask;
-; 2717 : 
-; 2718 :    // Return if application task is invalid.
-; 2719 :    if ( lpTask == 0 || lpTask->nTableID != iTask )
+; 2717 :    LPSUBTASK lpSubtask;
+; 2718 :    zVIEW     lpView;
+; 2719 :    zPVOID    hView;
+; 2720 :    zPVOID    hSubtask;
+; 2721 : 
+; 2722 :    // Return if application task is invalid.
+; 2723 :    if ( lpTask == 0 || lpTask->nTableID != iTask )
 
 	cmp	DWORD PTR _lpTask$[ebp], 0
-	je	SHORT $L8259
+	je	SHORT $L8260
 	mov	eax, DWORD PTR _lpTask$[ebp]
 	movsx	ecx, WORD PTR [eax]
 	cmp	ecx, 10006				; 00002716H
-	je	SHORT $L8258
-$L8259:
+	je	SHORT $L8259
+$L8260:
 
-; 2720 :       return( 0 );
+; 2724 :       return( 0 );
 
 	xor	eax, eax
-	jmp	$L8253
-$L8258:
+	jmp	$L8254
+$L8259:
 
-; 2721 : 
-; 2722 :    // Create an application subtask.
-; 2723 :    // Allocate an application task record.
-; 2724 :    hView = fnAllocDataspace( (LPDATAHEADER) g_hAnchorBlock,
-; 2725 :                              sizeof( ViewRecord ), 1, 0, iView );
+; 2725 : 
+; 2726 :    // Create an application subtask.
+; 2727 :    // Allocate an application task record.
+; 2728 :    hView = fnAllocDataspace( (LPDATAHEADER) g_hAnchorBlock,
+; 2729 :                              sizeof( ViewRecord ), 1, 0, iView );
 
 	push	10021					; 00002725H
 	push	0
@@ -6885,20 +6897,20 @@ $L8258:
 	add	esp, 20					; 00000014H
 	mov	DWORD PTR _hView$[ebp], eax
 
-; 2726 :    lpView = zGETPTR( hView );
+; 2730 :    lpView = zGETPTR( hView );
 
 	mov	eax, DWORD PTR _hView$[ebp]
 	push	eax
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _lpView$[ebp], eax
 
-; 2727 :    if ( lpView )
+; 2731 :    if ( lpView )
 
 	cmp	DWORD PTR _lpView$[ebp], 0
-	je	$L8270
+	je	$L8271
 
-; 2729 :       hSubtask = fnAllocDataspace( (LPDATAHEADER) g_hAnchorBlock,
-; 2730 :                                    sizeof( SubtaskRecord ), 1, 0, iSubtask );
+; 2733 :       hSubtask = fnAllocDataspace( (LPDATAHEADER) g_hAnchorBlock,
+; 2734 :                                    sizeof( SubtaskRecord ), 1, 0, iSubtask );
 
 	push	10010					; 0000271aH
 	push	0
@@ -6910,27 +6922,27 @@ $L8258:
 	add	esp, 20					; 00000014H
 	mov	DWORD PTR _hSubtask$[ebp], eax
 
-; 2731 :       lpSubtask = zGETPTR( hSubtask );
+; 2735 :       lpSubtask = zGETPTR( hSubtask );
 
 	mov	edx, DWORD PTR _hSubtask$[ebp]
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _lpSubtask$[ebp], eax
 
-; 2732 : 
-; 2733 :       // If Allocate was successful, chain to task.
-; 2734 :       if ( lpSubtask )
+; 2736 : 
+; 2737 :       // If Allocate was successful, chain to task.
+; 2738 :       if ( lpSubtask )
 
 	cmp	DWORD PTR _lpSubtask$[ebp], 0
-	je	SHORT $L8267
+	je	SHORT $L8268
 
-; 2736 :          lpView->hSubtask = hSubtask;
+; 2740 :          lpView->hSubtask = hSubtask;
 
 	mov	eax, DWORD PTR _lpView$[ebp]
 	mov	ecx, DWORD PTR _hSubtask$[ebp]
 	mov	DWORD PTR [eax+18], ecx
 
-; 2737 :          lpView->bViewLocked = TRUE; // automatically lock subtask views
+; 2741 :          lpView->bViewLocked = TRUE; // automatically lock subtask views
 
 	mov	edx, DWORD PTR _lpView$[ebp]
 	mov	eax, DWORD PTR [edx+30]
@@ -6938,7 +6950,7 @@ $L8258:
 	mov	ecx, DWORD PTR _lpView$[ebp]
 	mov	DWORD PTR [ecx+30], eax
 
-; 2738 :          lpView->hTask = zGETHNDL( lpTask );
+; 2742 :          lpView->hTask = zGETHNDL( lpTask );
 
 	mov	edx, DWORD PTR _lpTask$[ebp]
 	push	edx
@@ -6946,29 +6958,29 @@ $L8258:
 	mov	ecx, DWORD PTR _lpView$[ebp]
 	mov	DWORD PTR [ecx+14], eax
 
-; 2739 :          lpView->hNextView = lpTask->hFirstView;
+; 2743 :          lpView->hNextView = lpTask->hFirstView;
 
 	mov	edx, DWORD PTR _lpView$[ebp]
 	mov	eax, DWORD PTR _lpTask$[ebp]
 	mov	ecx, DWORD PTR [eax+106]
 	mov	DWORD PTR [edx+2], ecx
 
-; 2740 : 
-; 2741 :          lpSubtask->hNextSubtask = lpTask->hFirstSubtask;
+; 2744 : 
+; 2745 :          lpSubtask->hNextSubtask = lpTask->hFirstSubtask;
 
 	mov	edx, DWORD PTR _lpSubtask$[ebp]
 	mov	eax, DWORD PTR _lpTask$[ebp]
 	mov	ecx, DWORD PTR [eax+6]
 	mov	DWORD PTR [edx+2], ecx
 
-; 2742 :          lpSubtask->hTask = lpView->hTask; // = zGETHNDL( lpTask );
+; 2746 :          lpSubtask->hTask = lpView->hTask; // = zGETHNDL( lpTask );
 
 	mov	edx, DWORD PTR _lpSubtask$[ebp]
 	mov	eax, DWORD PTR _lpView$[ebp]
 	mov	ecx, DWORD PTR [eax+14]
 	mov	DWORD PTR [edx+6], ecx
 
-; 2743 :          lpSubtask->hApp = zGETHNDL( lpApp );
+; 2747 :          lpSubtask->hApp = zGETHNDL( lpApp );
 
 	mov	edx, DWORD PTR _lpApp$[ebp]
 	push	edx
@@ -6976,49 +6988,49 @@ $L8258:
 	mov	ecx, DWORD PTR _lpSubtask$[ebp]
 	mov	DWORD PTR [ecx+10], eax
 
-; 2744 :          lpSubtask->hSubtaskView = hView;
+; 2748 :          lpSubtask->hSubtaskView = hView;
 
 	mov	edx, DWORD PTR _lpSubtask$[ebp]
 	mov	eax, DWORD PTR _hView$[ebp]
 	mov	DWORD PTR [edx+14], eax
 
-; 2745 : 
-; 2746 :          lpTask->hFirstSubtask = hSubtask;
+; 2749 : 
+; 2750 :          lpTask->hFirstSubtask = hSubtask;
 
 	mov	ecx, DWORD PTR _lpTask$[ebp]
 	mov	edx, DWORD PTR _hSubtask$[ebp]
 	mov	DWORD PTR [ecx+6], edx
 
-; 2747 :          lpTask->hFirstView    = hView;
+; 2751 :          lpTask->hFirstView    = hView;
 
 	mov	eax, DWORD PTR _lpTask$[ebp]
 	mov	ecx, DWORD PTR _hView$[ebp]
 	mov	DWORD PTR [eax+106], ecx
 
-; 2751 :       else
+; 2755 :       else
 
-	jmp	SHORT $L8270
-$L8267:
+	jmp	SHORT $L8271
+$L8268:
 
-; 2753 :          fnFreeDataspace( lpView );
+; 2757 :          fnFreeDataspace( lpView );
 
 	mov	edx, DWORD PTR _lpView$[ebp]
 	push	edx
 	call	_fnFreeDataspace
 	add	esp, 4
 
-; 2754 :          lpView = 0;
+; 2758 :          lpView = 0;
 
 	mov	DWORD PTR _lpView$[ebp], 0
-$L8270:
+$L8271:
 
-; 2757 : 
-; 2758 :    return( lpView );
+; 2761 : 
+; 2762 :    return( lpView );
 
 	mov	eax, DWORD PTR _lpView$[ebp]
-$L8253:
+$L8254:
 
-; 2759 : }
+; 2763 : }
 
 	mov	esp, ebp
 	pop	ebp
@@ -7034,19 +7046,19 @@ _lpSubtask$ = -8
 _nRC$ = -4
 _SfDropSubtask@8 PROC NEAR
 
-; 2784 : {
+; 2788 : {
 
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 12					; 0000000cH
 
-; 2785 :    LPTASK    lpCurrentTask;
-; 2786 :    LPSUBTASK lpSubtask;
-; 2787 :    int       nRC;
-; 2788 : 
-; 2789 :    // If task not active or disabled, or subtask view invalid, return zCALL_ERROR.
-; 2790 :    if ( (lpCurrentTask = fnOperationCall( iSfDropSubtask, vSubtask,
-; 2791 :                                           zVALID_SUBTASK_VIEW )) == 0 )
+; 2789 :    LPTASK    lpCurrentTask;
+; 2790 :    LPSUBTASK lpSubtask;
+; 2791 :    int       nRC;
+; 2792 : 
+; 2793 :    // If task not active or disabled, or subtask view invalid, return zCALL_ERROR.
+; 2794 :    if ( (lpCurrentTask = fnOperationCall( iSfDropSubtask, vSubtask,
+; 2795 :                                           zVALID_SUBTASK_VIEW )) == 0 )
 
 	push	3
 	mov	eax, DWORD PTR _vSubtask$[ebp]
@@ -7056,16 +7068,16 @@ _SfDropSubtask@8 PROC NEAR
 	add	esp, 12					; 0000000cH
 	mov	DWORD PTR _lpCurrentTask$[ebp], eax
 	cmp	DWORD PTR _lpCurrentTask$[ebp], 0
-	jne	SHORT $L8279
+	jne	SHORT $L8280
 
-; 2793 :       return( zCALL_ERROR );
+; 2797 :       return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	SHORT $L8275
-$L8279:
+	jmp	SHORT $L8276
+$L8280:
 
-; 2795 : 
-; 2796 :    lpSubtask = zGETPTR( vSubtask->hSubtask );
+; 2799 : 
+; 2800 :    lpSubtask = zGETPTR( vSubtask->hSubtask );
 
 	mov	ecx, DWORD PTR _vSubtask$[ebp]
 	mov	edx, DWORD PTR [ecx+18]
@@ -7073,7 +7085,7 @@ $L8279:
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _lpSubtask$[ebp], eax
 
-; 2797 :    nRC = fnDropSubtask( zGETPTR( lpSubtask->hTask ), lpSubtask, nCleanup );
+; 2801 :    nRC = fnDropSubtask( zGETPTR( lpSubtask->hTask ), lpSubtask, nCleanup );
 
 	mov	ax, WORD PTR _nCleanup$[ebp]
 	push	eax
@@ -7089,8 +7101,8 @@ $L8279:
 	movsx	ecx, ax
 	mov	DWORD PTR _nRC$[ebp], ecx
 
-; 2798 : 
-; 2799 :    fnOperationReturn( iSfDropSubtask, lpCurrentTask );
+; 2802 : 
+; 2803 :    fnOperationReturn( iSfDropSubtask, lpCurrentTask );
 
 	mov	edx, DWORD PTR _lpCurrentTask$[ebp]
 	push	edx
@@ -7098,12 +7110,12 @@ $L8279:
 	call	_fnOperationReturn
 	add	esp, 8
 
-; 2800 :    return( nRC );
+; 2804 :    return( nRC );
 
 	mov	ax, WORD PTR _nRC$[ebp]
-$L8275:
+$L8276:
 
-; 2801 : }
+; 2805 : }
 
 	mov	esp, ebp
 	pop	ebp
@@ -7116,58 +7128,58 @@ _lpTask$ = 8
 _lpDropApp$ = 12
 _lpView$ = -8
 _lpNextView$ = -4
-_lpViewApp$8301 = -12
+_lpViewApp$8302 = -12
 _fnGarbageCollectViews PROC NEAR
 
-; 2821 : {
+; 2825 : {
 
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 12					; 0000000cH
 
-; 2822 :    zVIEW  lpView;
-; 2823 :    zVIEW  lpNextView = 0;
+; 2826 :    zVIEW  lpView;
+; 2827 :    zVIEW  lpNextView = 0;
 
 	mov	DWORD PTR _lpNextView$[ebp], 0
 
-; 2824 : 
-; 2825 :    if ( lpDropApp == 0 )
+; 2828 : 
+; 2829 :    if ( lpDropApp == 0 )
 
 	cmp	DWORD PTR _lpDropApp$[ebp], 0
-	jne	SHORT $L8290
+	jne	SHORT $L8291
 
-; 2826 :       lpDropApp = zGETPTR( lpTask->hApp );
+; 2830 :       lpDropApp = zGETPTR( lpTask->hApp );
 
 	mov	eax, DWORD PTR _lpTask$[ebp]
 	mov	ecx, DWORD PTR [eax+10]
 	push	ecx
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _lpDropApp$[ebp], eax
-$L8290:
+$L8291:
 
-; 2827 : 
-; 2828 :    // Go through views for the task and drop views where nViewName == 0,
-; 2829 :    // unless the View is marked as locked (bViewLocked == TRUE).
-; 2830 :    for ( lpView = zGETPTR( lpTask->hFirstView );
-; 2831 :          lpView;
-; 2832 :          lpView = lpNextView )
+; 2831 : 
+; 2832 :    // Go through views for the task and drop views where nViewName == 0,
+; 2833 :    // unless the View is marked as locked (bViewLocked == TRUE).
+; 2834 :    for ( lpView = zGETPTR( lpTask->hFirstView );
+; 2835 :          lpView;
+; 2836 :          lpView = lpNextView )
 
 	mov	edx, DWORD PTR _lpTask$[ebp]
 	mov	eax, DWORD PTR [edx+106]
 	push	eax
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _lpView$[ebp], eax
-	jmp	SHORT $L8293
-$L8294:
+	jmp	SHORT $L8294
+$L8295:
 	mov	ecx, DWORD PTR _lpNextView$[ebp]
 	mov	DWORD PTR _lpView$[ebp], ecx
-$L8293:
+$L8294:
 	cmp	DWORD PTR _lpView$[ebp], 0
-	je	SHORT $L8295
+	je	SHORT $L8296
 
-; 2834 :       // Get the next view.  We do it here because we might drop the current
-; 2835 :       // lpView in which case lpView->hNextView is undefined.
-; 2836 :       lpNextView = zGETPTR( lpView->hNextView );
+; 2838 :       // Get the next view.  We do it here because we might drop the current
+; 2839 :       // lpView in which case lpView->hNextView is undefined.
+; 2840 :       lpNextView = zGETPTR( lpView->hNextView );
 
 	mov	edx, DWORD PTR _lpView$[ebp]
 	mov	eax, DWORD PTR [edx+2]
@@ -7175,82 +7187,82 @@ $L8293:
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _lpNextView$[ebp], eax
 
-; 2837 : 
-; 2838 :       // Don't drop locked views.
-; 2839 :       if ( lpView->bViewLocked )
+; 2841 : 
+; 2842 :       // Don't drop locked views.
+; 2843 :       if ( lpView->bViewLocked )
 
 	mov	ecx, DWORD PTR _lpView$[ebp]
 	mov	edx, DWORD PTR [ecx+30]
 	shr	edx, 5
 	and	edx, 1
 	test	edx, edx
-	je	SHORT $L8297
+	je	SHORT $L8298
 
-; 2840 :          continue;
+; 2844 :          continue;
 
-	jmp	SHORT $L8294
-$L8297:
+	jmp	SHORT $L8295
+$L8298:
 
-; 2841 : 
-; 2842 :       // If number of view names for the view is greater than the number of
-; 2843 :       // names allowed for auto dropped views (usually 0) then don't drop it.
-; 2844 :       if ( lpView->nViewNames > lpView->nAutoDropNames )
+; 2845 : 
+; 2846 :       // If number of view names for the view is greater than the number of
+; 2847 :       // names allowed for auto dropped views (usually 0) then don't drop it.
+; 2848 :       if ( lpView->nViewNames > lpView->nAutoDropNames )
 
 	mov	eax, DWORD PTR _lpView$[ebp]
 	movsx	ecx, WORD PTR [eax+22]
 	mov	edx, DWORD PTR _lpView$[ebp]
 	movsx	eax, WORD PTR [edx+24]
 	cmp	ecx, eax
-	jle	SHORT $L8298
+	jle	SHORT $L8299
 
-; 2845 :          continue;
+; 2849 :          continue;
 
-	jmp	SHORT $L8294
-$L8298:
+	jmp	SHORT $L8295
+$L8299:
 
-; 2846 : 
-; 2847 :       if ( lpDropApp && lpDropApp != (LPAPP) -1 )
+; 2850 : 
+; 2851 :       if ( lpDropApp && lpDropApp != (LPAPP) -1 )
 
 	cmp	DWORD PTR _lpDropApp$[ebp], 0
-	je	SHORT $L8302
+	je	SHORT $L8303
 	cmp	DWORD PTR _lpDropApp$[ebp], -1
-	je	SHORT $L8302
+	je	SHORT $L8303
 
-; 2849 :          LPAPP lpViewApp;
-; 2850 : 
-; 2851 :          fnGetApplicationForSubtask( &lpViewApp, lpView );
+; 2853 :          LPAPP lpViewApp;
+; 2854 : 
+; 2855 :          fnGetApplicationForSubtask( &lpViewApp, lpView );
 
 	mov	ecx, DWORD PTR _lpView$[ebp]
 	push	ecx
-	lea	edx, DWORD PTR _lpViewApp$8301[ebp]
+	lea	edx, DWORD PTR _lpViewApp$8302[ebp]
 	push	edx
 	call	_fnGetApplicationForSubtask@8
 
-; 2852 :          if ( lpViewApp != lpDropApp )
+; 2856 :          if ( lpViewApp != lpDropApp )
 
-	mov	eax, DWORD PTR _lpViewApp$8301[ebp]
+	mov	eax, DWORD PTR _lpViewApp$8302[ebp]
 	cmp	eax, DWORD PTR _lpDropApp$[ebp]
-	je	SHORT $L8302
+	je	SHORT $L8303
 
-; 2853 :             continue;
+; 2857 :             continue;
 
-	jmp	SHORT $L8294
-$L8302:
+	jmp	SHORT $L8295
+$L8303:
 
-; 2855 : 
-; 2856 :       // If we get here then all conditions indicate we can drop the view.
-; 2857 :       fnDropView( lpView );
+; 2859 : 
+; 2860 :       // If we get here then all conditions indicate we can drop the view.
+; 2861 :       fnDropView( lpView );
 
 	mov	ecx, DWORD PTR _lpView$[ebp]
 	push	ecx
 	call	_fnDropView@4
 
-; 2858 :    }
+; 2862 :    }
 
-	jmp	SHORT $L8294
-$L8295:
+	jmp	SHORT $L8295
+$L8296:
 
-; 2859 : }
+; 2863 : }
 
 	mov	esp, ebp
 	pop	ebp
@@ -7279,19 +7291,19 @@ _szDateTime$ = -20
 _lDiffMinutes$ = -28
 _GarbageCollectViews@8 PROC NEAR
 
-; 2864 : {
+; 2868 : {
 
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 36					; 00000024H
 
-; 2865 :    LPTASK hTask;
-; 2866 :    LPTASK lpTask;
-; 2867 :    LPTASK lpTaskCurr;
-; 2868 :    zCHAR  szDateTime[ 20 ];
-; 2869 :    zLONG  lDiffMinutes;
-; 2870 : 
-; 2871 :    lpTask = zGETPTR( lpTaskView->hTask );
+; 2869 :    LPTASK hTask;
+; 2870 :    LPTASK lpTask;
+; 2871 :    LPTASK lpTaskCurr;
+; 2872 :    zCHAR  szDateTime[ 20 ];
+; 2873 :    zLONG  lDiffMinutes;
+; 2874 : 
+; 2875 :    lpTask = zGETPTR( lpTaskView->hTask );
 
 	mov	eax, DWORD PTR _lpTaskView$[ebp]
 	mov	ecx, DWORD PTR [eax+14]
@@ -7299,7 +7311,7 @@ _GarbageCollectViews@8 PROC NEAR
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _lpTask$[ebp], eax
 
-; 2872 :    fnGarbageCollectViews( lpTask, (LPAPP) lpDropApp );
+; 2876 :    fnGarbageCollectViews( lpTask, (LPAPP) lpDropApp );
 
 	mov	edx, DWORD PTR _lpDropApp$[ebp]
 	push	edx
@@ -7308,8 +7320,8 @@ _GarbageCollectViews@8 PROC NEAR
 	call	_fnGarbageCollectViews
 	add	esp, 8
 
-; 2873 : 
-; 2874 :    fnStartBrowseOfTaskList( lpTaskView->hTask, FALSE );
+; 2877 : 
+; 2878 :    fnStartBrowseOfTaskList( lpTaskView->hTask, FALSE );
 
 	push	0
 	mov	ecx, DWORD PTR _lpTaskView$[ebp]
@@ -7317,47 +7329,47 @@ _GarbageCollectViews@8 PROC NEAR
 	push	edx
 	call	_fnStartBrowseOfTaskList@8
 
-; 2875 :    hTask = AnchorBlock->hFirstTask;
+; 2879 :    hTask = AnchorBlock->hFirstTask;
 
 	mov	eax, DWORD PTR _AnchorBlock
 	mov	ecx, DWORD PTR [eax+130]
 	mov	DWORD PTR _hTask$[ebp], ecx
-$L8316:
+$L8317:
 
-; 2876 :    while ( hTask )
+; 2880 :    while ( hTask )
 
 	cmp	DWORD PTR _hTask$[ebp], 0
-	je	$L8317
+	je	$L8318
 
-; 2878 :       lpTask = zGETPTR( hTask );
+; 2882 :       lpTask = zGETPTR( hTask );
 
 	mov	edx, DWORD PTR _hTask$[ebp]
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _lpTask$[ebp], eax
 
-; 2879 :       if ( lpTask->bTransientTask && hTask != lpTaskView->hTask )
+; 2883 :       if ( lpTask->bTransientTask && hTask != lpTaskView->hTask )
 
 	mov	eax, DWORD PTR _lpTask$[ebp]
 	mov	ecx, DWORD PTR [eax+443]
 	shr	ecx, 10					; 0000000aH
 	and	ecx, 1
 	test	ecx, ecx
-	je	SHORT $L8320
+	je	SHORT $L8321
 	mov	edx, DWORD PTR _lpTaskView$[ebp]
 	mov	eax, DWORD PTR _hTask$[ebp]
 	cmp	eax, DWORD PTR [edx+14]
-	je	SHORT $L8320
+	je	SHORT $L8321
 
-; 2881 :          SysGetDateTime( szDateTime );
+; 2885 :          SysGetDateTime( szDateTime );
 
 	lea	ecx, DWORD PTR _szDateTime$[ebp]
 	push	ecx
 	call	_SysGetDateTime@4
 
-; 2882 :          SysGetDateTimeDifference( &lDiffMinutes,
-; 2883 :                                    lpTask->szTimeStamp,
-; 2884 :                                    szDateTime, zDT_MINUTE );
+; 2886 :          SysGetDateTimeDifference( &lDiffMinutes,
+; 2887 :                                    lpTask->szTimeStamp,
+; 2888 :                                    szDateTime, zDT_MINUTE );
 
 	push	4
 	lea	edx, DWORD PTR _szDateTime$[ebp]
@@ -7369,25 +7381,25 @@ $L8316:
 	push	ecx
 	call	_SysGetDateTimeDifference@16
 
-; 2885 :          if ( lDiffMinutes > 45 )
+; 2889 :          if ( lDiffMinutes > 45 )
 
 	cmp	DWORD PTR _lDiffMinutes$[ebp], 45	; 0000002dH
-	jle	SHORT $L8320
+	jle	SHORT $L8321
 
-; 2887 :             fnEndBrowseOfTaskList( FALSE );
+; 2891 :             fnEndBrowseOfTaskList( FALSE );
 
 	push	0
 	call	_fnEndBrowseOfTaskList@4
 
-; 2888 :             TraceLineX( "GarbageCollectViews Unregistering Task: ",
-; 2889 :                         (zLONG) hTask );
+; 2892 :             TraceLineX( "GarbageCollectViews Unregistering Task: ",
+; 2893 :                         (zLONG) hTask );
 
 	mov	edx, DWORD PTR _hTask$[ebp]
 	push	edx
 	push	OFFSET FLAT:??_C@_0CJ@GIAB@GarbageCollectViews?5Unregisterin@ ; `string'
 	call	_TraceLineX@8
 
-; 2890 :             lpTaskCurr = zGETPTR( lpTaskView->hTask );
+; 2894 :             lpTaskCurr = zGETPTR( lpTaskView->hTask );
 
 	mov	eax, DWORD PTR _lpTaskView$[ebp]
 	mov	ecx, DWORD PTR [eax+14]
@@ -7395,7 +7407,7 @@ $L8316:
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _lpTaskCurr$[ebp], eax
 
-; 2891 :             UnregisterZeidonApplication( zGETPTR( lpTask->hFirstView ) );
+; 2895 :             UnregisterZeidonApplication( zGETPTR( lpTask->hFirstView ) );
 
 	mov	edx, DWORD PTR _lpTask$[ebp]
 	mov	eax, DWORD PTR [edx+106]
@@ -7404,35 +7416,35 @@ $L8316:
 	push	eax
 	call	_UnregisterZeidonApplication@4
 
-; 2892 : 
-; 2893 :             // only remove one at a time so as to mimimize the impact on performance.
-; 2894 :             // This also allows us to remove the lock on the task chain before
-; 2895 :             // calling Unregister.  Unregister will lock it again.
-; 2896 :             return;
+; 2896 : 
+; 2897 :             // only remove one at a time so as to mimimize the impact on performance.
+; 2898 :             // This also allows us to remove the lock on the task chain before
+; 2899 :             // calling Unregister.  Unregister will lock it again.
+; 2900 :             return;
 
-	jmp	SHORT $L8307
-$L8320:
+	jmp	SHORT $L8308
+$L8321:
 
-; 2899 : 
-; 2900 :       hTask = lpTask->hNextTask;
+; 2903 : 
+; 2904 :       hTask = lpTask->hNextTask;
 
 	mov	ecx, DWORD PTR _lpTask$[ebp]
 	mov	edx, DWORD PTR [ecx+2]
 	mov	DWORD PTR _hTask$[ebp], edx
 
-; 2901 :    }
+; 2905 :    }
 
-	jmp	$L8316
-$L8317:
+	jmp	$L8317
+$L8318:
 
-; 2902 : 
-; 2903 :    fnEndBrowseOfTaskList( FALSE );
+; 2906 : 
+; 2907 :    fnEndBrowseOfTaskList( FALSE );
 
 	push	0
 	call	_fnEndBrowseOfTaskList@4
-$L8307:
+$L8308:
 
-; 2904 : }
+; 2908 : }
 
 	mov	esp, ebp
 	pop	ebp
@@ -7446,30 +7458,30 @@ _lpDropApp$ = -4
 _lpViewName$ = -20
 _vSubtask$ = -16
 _hSubtask$ = -8
-_lpView$8346 = -24
-_lpSearchSubtask$8353 = -28
+_lpView$8347 = -24
+_lpSearchSubtask$8354 = -28
 _fnDropSubtask PROC NEAR
 
-; 2933 : {
+; 2937 : {
 
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 28					; 0000001cH
 
-; 2934 :    LPAPP       lpApp;
-; 2935 :    LPAPP       lpDropApp;
-; 2936 :    LPVIEWNAME  lpViewName;
-; 2937 :    zVIEW       vSubtask;
-; 2938 :    LPSUBTASK   hSubtask = zGETHNDL( lpSubtask );
+; 2938 :    LPAPP       lpApp;
+; 2939 :    LPAPP       lpDropApp;
+; 2940 :    LPVIEWNAME  lpViewName;
+; 2941 :    zVIEW       vSubtask;
+; 2942 :    LPSUBTASK   hSubtask = zGETHNDL( lpSubtask );
 
 	mov	eax, DWORD PTR _lpSubtask$[ebp]
 	push	eax
 	call	DWORD PTR _g_pfnGetHndl
 	mov	DWORD PTR _hSubtask$[ebp], eax
 
-; 2939 : 
-; 2940 :    // Get application for subtask
-; 2941 :    lpApp = zGETPTR( lpSubtask->hApp );
+; 2943 : 
+; 2944 :    // Get application for subtask
+; 2945 :    lpApp = zGETPTR( lpSubtask->hApp );
 
 	mov	ecx, DWORD PTR _lpSubtask$[ebp]
 	mov	edx, DWORD PTR [ecx+10]
@@ -7477,31 +7489,31 @@ _fnDropSubtask PROC NEAR
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _lpApp$[ebp], eax
 
-; 2942 :    if ( nCleanup == 2 )
+; 2946 :    if ( nCleanup == 2 )
 
 	movsx	eax, WORD PTR _nCleanup$[ebp]
 	cmp	eax, 2
-	jne	SHORT $L8339
+	jne	SHORT $L8340
 
-; 2943 :       lpDropApp = lpApp;  // drop non-named non-locked views for this subtask
+; 2947 :       lpDropApp = lpApp;  // drop non-named non-locked views for this subtask
 
 	mov	ecx, DWORD PTR _lpApp$[ebp]
 	mov	DWORD PTR _lpDropApp$[ebp], ecx
 
-; 2944 :    else
+; 2948 :    else
 
-	jmp	SHORT $L8340
-$L8339:
-
-; 2945 :       lpDropApp = (LPAPP) -1;  // drop all non-named non-locked views
-
-	mov	DWORD PTR _lpDropApp$[ebp], -1
+	jmp	SHORT $L8341
 $L8340:
 
-; 2946 : 
-; 2947 :    // NULL out the subtask pointer in the subtask view so fnDropView
-; 2948 :    // will remove the view from the task.  Also unlock the view...
-; 2949 :    vSubtask = zGETPTR( lpSubtask->hSubtaskView );
+; 2949 :       lpDropApp = (LPAPP) -1;  // drop all non-named non-locked views
+
+	mov	DWORD PTR _lpDropApp$[ebp], -1
+$L8341:
+
+; 2950 : 
+; 2951 :    // NULL out the subtask pointer in the subtask view so fnDropView
+; 2952 :    // will remove the view from the task.  Also unlock the view...
+; 2953 :    vSubtask = zGETPTR( lpSubtask->hSubtaskView );
 
 	mov	edx, DWORD PTR _lpSubtask$[ebp]
 	mov	eax, DWORD PTR [edx+14]
@@ -7509,12 +7521,12 @@ $L8340:
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _vSubtask$[ebp], eax
 
-; 2950 :    vSubtask->hSubtask = 0;
+; 2954 :    vSubtask->hSubtask = 0;
 
 	mov	ecx, DWORD PTR _vSubtask$[ebp]
 	mov	DWORD PTR [ecx+18], 0
 
-; 2951 :    vSubtask->bViewLocked = 0;
+; 2955 :    vSubtask->bViewLocked = 0;
 
 	mov	edx, DWORD PTR _vSubtask$[ebp]
 	mov	eax, DWORD PTR [edx+30]
@@ -7522,24 +7534,24 @@ $L8340:
 	mov	ecx, DWORD PTR _vSubtask$[ebp]
 	mov	DWORD PTR [ecx+30], eax
 
-; 2952 :    fnDropView( vSubtask );
+; 2956 :    fnDropView( vSubtask );
 
 	mov	edx, DWORD PTR _vSubtask$[ebp]
 	push	edx
 	call	_fnDropView@4
-$L8344:
+$L8345:
 
-; 2953 : 
-; 2954 :    // Drop all the view names chained to the subtask.
-; 2955 :    while ( lpSubtask->hFirstViewName )
+; 2957 : 
+; 2958 :    // Drop all the view names chained to the subtask.
+; 2959 :    while ( lpSubtask->hFirstViewName )
 
 	mov	eax, DWORD PTR _lpSubtask$[ebp]
 	cmp	DWORD PTR [eax+18], 0
-	je	SHORT $L8345
+	je	SHORT $L8346
 
-; 2957 :       zVIEW lpView;
-; 2958 : 
-; 2959 :       lpViewName = zGETPTR( lpSubtask->hFirstViewName );
+; 2961 :       zVIEW lpView;
+; 2962 : 
+; 2963 :       lpViewName = zGETPTR( lpSubtask->hFirstViewName );
 
 	mov	ecx, DWORD PTR _lpSubtask$[ebp]
 	mov	edx, DWORD PTR [ecx+18]
@@ -7547,74 +7559,74 @@ $L8344:
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _lpViewName$[ebp], eax
 
-; 2960 : 
-; 2961 :       // Unchain the current view name.
-; 2962 :       lpSubtask->hFirstViewName = lpViewName->hNextViewName;
+; 2964 : 
+; 2965 :       // Unchain the current view name.
+; 2966 :       lpSubtask->hFirstViewName = lpViewName->hNextViewName;
 
 	mov	eax, DWORD PTR _lpSubtask$[ebp]
 	mov	ecx, DWORD PTR _lpViewName$[ebp]
 	mov	edx, DWORD PTR [ecx+6]
 	mov	DWORD PTR [eax+18], edx
 
-; 2963 : 
-; 2964 :       // Decrement the name count in the View referenced by the ViewName.
-; 2965 :       lpView = zGETPTR( lpViewName->hView );
+; 2967 : 
+; 2968 :       // Decrement the name count in the View referenced by the ViewName.
+; 2969 :       lpView = zGETPTR( lpViewName->hView );
 
 	mov	eax, DWORD PTR _lpViewName$[ebp]
 	mov	ecx, DWORD PTR [eax+2]
 	push	ecx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpView$8346[ebp], eax
+	mov	DWORD PTR _lpView$8347[ebp], eax
 
-; 2966 :       lpView->nViewNames--;
+; 2970 :       lpView->nViewNames--;
 
-	mov	edx, DWORD PTR _lpView$8346[ebp]
+	mov	edx, DWORD PTR _lpView$8347[ebp]
 	mov	ax, WORD PTR [edx+22]
 	sub	ax, 1
-	mov	ecx, DWORD PTR _lpView$8346[ebp]
+	mov	ecx, DWORD PTR _lpView$8347[ebp]
 	mov	WORD PTR [ecx+22], ax
 
-; 2967 : 
-; 2968 :       // Free up storage for name string and the ViewName itself.
-; 2969 :       fnFreeDataspace( lpViewName );
+; 2971 : 
+; 2972 :       // Free up storage for name string and the ViewName itself.
+; 2973 :       fnFreeDataspace( lpViewName );
 
 	mov	edx, DWORD PTR _lpViewName$[ebp]
 	push	edx
 	call	_fnFreeDataspace
 	add	esp, 4
 
-; 2970 :    }
+; 2974 :    }
 
-	jmp	SHORT $L8344
-$L8345:
+	jmp	SHORT $L8345
+$L8346:
 
-; 2971 : 
-; 2972 :    // We're about to unchain a few things (views, subtasks, etc.).  We have
-; 2973 :    // to put this in a mutex so that other tasks won't try to delete an
-; 2974 :    // application while we are unchaining.
-; 2975 :    zLOCK_MUTEX( zMUTEX_ANCHORBLOCK );
+; 2975 : 
+; 2976 :    // We're about to unchain a few things (views, subtasks, etc.).  We have
+; 2977 :    // to put this in a mutex so that other tasks won't try to delete an
+; 2978 :    // application while we are unchaining.
+; 2979 :    zLOCK_MUTEX( zMUTEX_ANCHORBLOCK );
 
 	push	2
 	call	_fnSysLockCoreMutex@4
 
-; 2976 : 
-; 2977 : //
-; 2978 : // NOTE: New parameter, nCleanup, used in view cleanup. When set to a
-; 2979 : //       non-zero value, processing occurs as we did before this parameter
-; 2980 : //       addition, that is, for the task associated with the subtask, we
-; 2981 : //       drop ALL views that are NOT NAMED or are NOT LOCKED.  Specifying
-; 2982 : //       a zero value will bypass this 'garbage' collection.
-; 2983 : //       Note: nCleanup == 1 means drop all non-named non-locked views,
-; 2984 : //       and nCleanup == 2 means drop only non-named non-locked views
-; 2985 : //       associated with the subtask being dropped.
-; 2986 : //
-; 2987 :    if ( nCleanup > 0 )
+; 2980 : 
+; 2981 : //
+; 2982 : // NOTE: New parameter, nCleanup, used in view cleanup. When set to a
+; 2983 : //       non-zero value, processing occurs as we did before this parameter
+; 2984 : //       addition, that is, for the task associated with the subtask, we
+; 2985 : //       drop ALL views that are NOT NAMED or are NOT LOCKED.  Specifying
+; 2986 : //       a zero value will bypass this 'garbage' collection.
+; 2987 : //       Note: nCleanup == 1 means drop all non-named non-locked views,
+; 2988 : //       and nCleanup == 2 means drop only non-named non-locked views
+; 2989 : //       associated with the subtask being dropped.
+; 2990 : //
+; 2991 :    if ( nCleanup > 0 )
 
 	movsx	eax, WORD PTR _nCleanup$[ebp]
 	test	eax, eax
-	jle	SHORT $L8349
+	jle	SHORT $L8350
 
-; 2988 :       fnGarbageCollectViews( zGETPTR( lpSubtask->hTask ), lpDropApp );
+; 2992 :       fnGarbageCollectViews( zGETPTR( lpSubtask->hTask ), lpDropApp );
 
 	mov	ecx, DWORD PTR _lpDropApp$[ebp]
 	push	ecx
@@ -7625,75 +7637,75 @@ $L8345:
 	push	eax
 	call	_fnGarbageCollectViews
 	add	esp, 8
-$L8349:
+$L8350:
 
-; 2989 : 
-; 2990 :    // Unchain the subtask from the task.
-; 2991 :    if ( lpTask->hFirstSubtask == hSubtask )
+; 2993 : 
+; 2994 :    // Unchain the subtask from the task.
+; 2995 :    if ( lpTask->hFirstSubtask == hSubtask )
 
 	mov	ecx, DWORD PTR _lpTask$[ebp]
 	mov	edx, DWORD PTR [ecx+6]
 	cmp	edx, DWORD PTR _hSubtask$[ebp]
-	jne	SHORT $L8351
+	jne	SHORT $L8352
 
-; 2993 :       lpTask->hFirstSubtask = lpSubtask->hNextSubtask;
+; 2997 :       lpTask->hFirstSubtask = lpSubtask->hNextSubtask;
 
 	mov	eax, DWORD PTR _lpTask$[ebp]
 	mov	ecx, DWORD PTR _lpSubtask$[ebp]
 	mov	edx, DWORD PTR [ecx+2]
 	mov	DWORD PTR [eax+6], edx
 
-; 2995 :    else
+; 2999 :    else
 
-	jmp	SHORT $L8359
-$L8351:
+	jmp	SHORT $L8360
+$L8352:
 
-; 2997 :       LPSUBTASK lpSearchSubtask;
-; 2998 : 
-; 2999 :       lpSearchSubtask = zGETPTR( lpTask->hFirstSubtask );
+; 3001 :       LPSUBTASK lpSearchSubtask;
+; 3002 : 
+; 3003 :       lpSearchSubtask = zGETPTR( lpTask->hFirstSubtask );
 
 	mov	eax, DWORD PTR _lpTask$[ebp]
 	mov	ecx, DWORD PTR [eax+6]
 	push	ecx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpSearchSubtask$8353[ebp], eax
-$L8356:
+	mov	DWORD PTR _lpSearchSubtask$8354[ebp], eax
+$L8357:
 
-; 3000 :       while ( lpSearchSubtask->hNextSubtask != hSubtask )
+; 3004 :       while ( lpSearchSubtask->hNextSubtask != hSubtask )
 
-	mov	edx, DWORD PTR _lpSearchSubtask$8353[ebp]
+	mov	edx, DWORD PTR _lpSearchSubtask$8354[ebp]
 	mov	eax, DWORD PTR [edx+2]
 	cmp	eax, DWORD PTR _hSubtask$[ebp]
-	je	SHORT $L8357
+	je	SHORT $L8358
 
-; 3001 :          lpSearchSubtask = zGETPTR( lpSearchSubtask->hNextSubtask );
+; 3005 :          lpSearchSubtask = zGETPTR( lpSearchSubtask->hNextSubtask );
 
-	mov	ecx, DWORD PTR _lpSearchSubtask$8353[ebp]
+	mov	ecx, DWORD PTR _lpSearchSubtask$8354[ebp]
 	mov	edx, DWORD PTR [ecx+2]
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpSearchSubtask$8353[ebp], eax
-	jmp	SHORT $L8356
-$L8357:
+	mov	DWORD PTR _lpSearchSubtask$8354[ebp], eax
+	jmp	SHORT $L8357
+$L8358:
 
-; 3002 : 
-; 3003 :       if ( lpSearchSubtask->hNextSubtask == hSubtask )
+; 3006 : 
+; 3007 :       if ( lpSearchSubtask->hNextSubtask == hSubtask )
 
-	mov	eax, DWORD PTR _lpSearchSubtask$8353[ebp]
+	mov	eax, DWORD PTR _lpSearchSubtask$8354[ebp]
 	mov	ecx, DWORD PTR [eax+2]
 	cmp	ecx, DWORD PTR _hSubtask$[ebp]
-	jne	SHORT $L8359
+	jne	SHORT $L8360
 
-; 3004 :          lpSearchSubtask->hNextSubtask = lpSubtask->hNextSubtask;
+; 3008 :          lpSearchSubtask->hNextSubtask = lpSubtask->hNextSubtask;
 
-	mov	edx, DWORD PTR _lpSearchSubtask$8353[ebp]
+	mov	edx, DWORD PTR _lpSearchSubtask$8354[ebp]
 	mov	eax, DWORD PTR _lpSubtask$[ebp]
 	mov	ecx, DWORD PTR [eax+2]
 	mov	DWORD PTR [edx+2], ecx
-$L8359:
+$L8360:
 
-; 3006 : 
-; 3007 :    lpSubtask = (LPSUBTASK) fnFreeDataspace( lpSubtask );
+; 3010 : 
+; 3011 :    lpSubtask = (LPSUBTASK) fnFreeDataspace( lpSubtask );
 
 	mov	edx, DWORD PTR _lpSubtask$[ebp]
 	push	edx
@@ -7701,44 +7713,44 @@ $L8359:
 	add	esp, 4
 	mov	DWORD PTR _lpSubtask$[ebp], eax
 
-; 3008 : 
-; 3009 :    // If there is an application for the subtask and the application does
-; 3010 :    // not match the startup application for the task, issue a delete for
-; 3011 :    // the application.
-; 3012 :    if ( nCleanup >= 0 && lpApp && lpApp != zGETPTR( lpTask->hApp ) )
+; 3012 : 
+; 3013 :    // If there is an application for the subtask and the application does
+; 3014 :    // not match the startup application for the task, issue a delete for
+; 3015 :    // the application.
+; 3016 :    if ( nCleanup >= 0 && lpApp && lpApp != zGETPTR( lpTask->hApp ) )
 
 	movsx	eax, WORD PTR _nCleanup$[ebp]
 	test	eax, eax
-	jl	SHORT $L8362
+	jl	SHORT $L8363
 	cmp	DWORD PTR _lpApp$[ebp], 0
-	je	SHORT $L8362
+	je	SHORT $L8363
 	mov	ecx, DWORD PTR _lpTask$[ebp]
 	mov	edx, DWORD PTR [ecx+10]
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
 	cmp	DWORD PTR _lpApp$[ebp], eax
-	je	SHORT $L8362
+	je	SHORT $L8363
 
-; 3014 :       fnDeleteApp( lpApp );
+; 3018 :       fnDeleteApp( lpApp );
 
 	mov	eax, DWORD PTR _lpApp$[ebp]
 	push	eax
 	call	_fnDeleteApp
 	add	esp, 4
-$L8362:
+$L8363:
 
-; 3016 : 
-; 3017 :    zUNLOCK_MUTEX( zMUTEX_ANCHORBLOCK );
+; 3020 : 
+; 3021 :    zUNLOCK_MUTEX( zMUTEX_ANCHORBLOCK );
 
 	push	2
 	call	_fnSysUnlockCoreMutex@4
 
-; 3018 : 
-; 3019 :    return( 0 );
+; 3022 : 
+; 3023 :    return( 0 );
 
 	xor	ax, ax
 
-; 3020 : }
+; 3024 : }
 
 	mov	esp, ebp
 	pop	ebp
@@ -7751,13 +7763,13 @@ _vTaskView$ = 8
 _lpTask$ = -4
 _SfCurrentTaskIsServer@4 PROC NEAR
 
-; 3047 : {
+; 3051 : {
 
 	push	ebp
 	mov	ebp, esp
 	push	ecx
 
-; 3048 :    LPTASK lpTask = zGETPTR( vTaskView->hTask );
+; 3052 :    LPTASK lpTask = zGETPTR( vTaskView->hTask );
 
 	mov	eax, DWORD PTR _vTaskView$[ebp]
 	mov	ecx, DWORD PTR [eax+14]
@@ -7765,28 +7777,28 @@ _SfCurrentTaskIsServer@4 PROC NEAR
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _lpTask$[ebp], eax
 
-; 3049 : 
-; 3050 :    if ( lpTask )
+; 3053 : 
+; 3054 :    if ( lpTask )
 
 	cmp	DWORD PTR _lpTask$[ebp], 0
-	je	SHORT $L8368
+	je	SHORT $L8369
 
-; 3051 :       return( lpTask->bServer );
+; 3055 :       return( lpTask->bServer );
 
 	mov	edx, DWORD PTR _lpTask$[ebp]
 	mov	eax, DWORD PTR [edx+443]
 	shr	eax, 6
 	and	eax, 1
-	jmp	SHORT $L8369
-$L8368:
-
-; 3052 :    else
-; 3053 :       return( (zBOOL) zCALL_ERROR );
-
-	mov	al, 240					; 000000f0H
+	jmp	SHORT $L8370
 $L8369:
 
-; 3054 : }
+; 3056 :    else
+; 3057 :       return( (zBOOL) zCALL_ERROR );
+
+	mov	al, 240					; 000000f0H
+$L8370:
+
+; 3058 : }
 
 	mov	esp, ebp
 	pop	ebp
@@ -7799,85 +7811,85 @@ _hTask$ = 8
 _bForWrite$ = 12
 _fnStartBrowseOfTaskList@8 PROC NEAR
 
-; 3086 : {
+; 3090 : {
 
 	push	ebp
 	mov	ebp, esp
 
-; 3087 :    if ( bForWrite )
+; 3091 :    if ( bForWrite )
 
 	mov	eax, DWORD PTR _bForWrite$[ebp]
 	and	eax, 255				; 000000ffH
 	test	eax, eax
-	je	SHORT $L8376
-$L8378:
+	je	SHORT $L8377
+$L8379:
 
-; 3089 :       while ( TRUE )
+; 3093 :       while ( TRUE )
 
 	mov	ecx, 1
 	test	ecx, ecx
-	je	SHORT $L8379
+	je	SHORT $L8380
 
-; 3091 :          // See note below about locking the 'write' mutex to find out
-; 3092 :          // why we use a global variable instead of a regular mutex.
-; 3093 :          zLOCK_MUTEX( zMUTEX_TASKCHAIN_WRITE );
+; 3095 :          // See note below about locking the 'write' mutex to find out
+; 3096 :          // why we use a global variable instead of a regular mutex.
+; 3097 :          zLOCK_MUTEX( zMUTEX_TASKCHAIN_WRITE );
 
 	push	6
 	call	_fnSysLockCoreMutex@4
 
-; 3094 :          if ( AnchorBlock->hTaskChainWriteLockTaskID == 0 )
+; 3098 :          if ( AnchorBlock->hTaskChainWriteLockTaskID == 0 )
 
 	mov	edx, DWORD PTR _AnchorBlock
 	cmp	DWORD PTR [edx+1499], 0
-	jne	SHORT $L8380
+	jne	SHORT $L8381
 
-; 3096 :             AnchorBlock->hTaskChainWriteLockTaskID = (zLONG) hTask;
+; 3100 :             AnchorBlock->hTaskChainWriteLockTaskID = (zLONG) hTask;
 
 	mov	eax, DWORD PTR _AnchorBlock
 	mov	ecx, DWORD PTR _hTask$[ebp]
 	mov	DWORD PTR [eax+1499], ecx
 
-; 3097 :             zUNLOCK_MUTEX( zMUTEX_TASKCHAIN_WRITE );
+; 3101 :             zUNLOCK_MUTEX( zMUTEX_TASKCHAIN_WRITE );
 
 	push	6
 	call	_fnSysUnlockCoreMutex@4
 
-; 3098 :             break;
+; 3102 :             break;
 
-	jmp	SHORT $L8379
-$L8380:
+	jmp	SHORT $L8380
+$L8381:
 
-; 3100 : 
-; 3101 :          zUNLOCK_MUTEX( zMUTEX_TASKCHAIN_WRITE );
+; 3104 : 
+; 3105 :          zUNLOCK_MUTEX( zMUTEX_TASKCHAIN_WRITE );
 
 	push	6
 	call	_fnSysUnlockCoreMutex@4
 
-; 3102 :          SysWait( 0 );
+; 3106 :          SysWait( 0 );
 
 	push	0
 	call	_SysWait@4
 
-; 3103 :       }
+; 3107 :       }
 
-	jmp	SHORT $L8378
-$L8379:
+	jmp	SHORT $L8379
+$L8380:
 
-; 3105 :    else
+; 3109 :    else
 
-	jmp	$L8382
-$L8376:
+	jmp	$L8383
+$L8377:
 
-; 3107 :       // Lock the 'browse' mutex.
-; 3108 :       zLOCK_MUTEX( zMUTEX_TASKCHAIN );
+; 3111 :       // Lock the 'browse' mutex.
+; 3112 :       zLOCK_MUTEX( zMUTEX_TASKCHAIN );
 
 	push	5
 	call	_fnSysLockCoreMutex@4
 
-; 3109 : 
-; 3110 :       // Bump up the counter that keeps track of all the tasks that are
-; 3111 :       // reading the task list.
-; 3112 :       AnchorBlock->nBrowseTaskListCounter++;
+; 3113 : 
+; 3114 :       // Bump up the counter that keeps track of all the tasks that are
+; 3115 :       // reading the task list.
+; 3116 :       AnchorBlock->nBrowseTaskListCounter++;
 
 	mov	edx, DWORD PTR _AnchorBlock
 	mov	ax, WORD PTR [edx+1493]
@@ -7885,90 +7897,90 @@ $L8376:
 	mov	ecx, DWORD PTR _AnchorBlock
 	mov	WORD PTR [ecx+1493], ax
 
-; 3113 : 
-; 3114 :       // If the counter is 1 then this means no other tasks are currently
-; 3115 :       // reading the task list and so we need to make sure no other task
-; 3116 :       // has the 'write' mutex locked.
-; 3117 :       if ( AnchorBlock->nBrowseTaskListCounter == 1 )
+; 3117 : 
+; 3118 :       // If the counter is 1 then this means no other tasks are currently
+; 3119 :       // reading the task list and so we need to make sure no other task
+; 3120 :       // has the 'write' mutex locked.
+; 3121 :       if ( AnchorBlock->nBrowseTaskListCounter == 1 )
 
 	mov	edx, DWORD PTR _AnchorBlock
 	xor	eax, eax
 	mov	ax, WORD PTR [edx+1493]
 	cmp	eax, 1
-	jne	SHORT $L8386
-$L8385:
+	jne	SHORT $L8387
+$L8386:
 
-; 3119 :          // NOTE
-; 3120 :          // We need to lock the 'write' mutex to keep another task from
-; 3121 :          // acquiring a 'write' lock while we are reading the task list.
-; 3122 :          // Since the 'write' mutex can be locked by one task and then
-; 3123 :          // unlocked by another task we will use a global variable to indicate
-; 3124 :          // that the 'write' mutex is locked.  If lTaskChainWriteLockTaskID is
-; 3125 :          // not 0 then the mutex is locked.
-; 3126 :          while ( TRUE )
+; 3123 :          // NOTE
+; 3124 :          // We need to lock the 'write' mutex to keep another task from
+; 3125 :          // acquiring a 'write' lock while we are reading the task list.
+; 3126 :          // Since the 'write' mutex can be locked by one task and then
+; 3127 :          // unlocked by another task we will use a global variable to indicate
+; 3128 :          // that the 'write' mutex is locked.  If lTaskChainWriteLockTaskID is
+; 3129 :          // not 0 then the mutex is locked.
+; 3130 :          while ( TRUE )
 
 	mov	ecx, 1
 	test	ecx, ecx
-	je	SHORT $L8386
+	je	SHORT $L8387
 
-; 3128 :             zLOCK_MUTEX( zMUTEX_TASKCHAIN_WRITE );
+; 3132 :             zLOCK_MUTEX( zMUTEX_TASKCHAIN_WRITE );
 
 	push	6
 	call	_fnSysLockCoreMutex@4
 
-; 3129 :             if ( AnchorBlock->hTaskChainWriteLockTaskID == 0 )
+; 3133 :             if ( AnchorBlock->hTaskChainWriteLockTaskID == 0 )
 
 	mov	edx, DWORD PTR _AnchorBlock
 	cmp	DWORD PTR [edx+1499], 0
-	jne	SHORT $L8387
+	jne	SHORT $L8388
 
-; 3131 :                AnchorBlock->hTaskChainWriteLockTaskID = (zLONG) hTask;
+; 3135 :                AnchorBlock->hTaskChainWriteLockTaskID = (zLONG) hTask;
 
 	mov	eax, DWORD PTR _AnchorBlock
 	mov	ecx, DWORD PTR _hTask$[ebp]
 	mov	DWORD PTR [eax+1499], ecx
 
-; 3132 :                zUNLOCK_MUTEX( zMUTEX_TASKCHAIN_WRITE );
+; 3136 :                zUNLOCK_MUTEX( zMUTEX_TASKCHAIN_WRITE );
 
 	push	6
 	call	_fnSysUnlockCoreMutex@4
 
-; 3133 :                break;
+; 3137 :                break;
 
-	jmp	SHORT $L8386
-$L8387:
+	jmp	SHORT $L8387
+$L8388:
 
-; 3135 : 
-; 3136 :             zUNLOCK_MUTEX( zMUTEX_TASKCHAIN_WRITE );
+; 3139 : 
+; 3140 :             zUNLOCK_MUTEX( zMUTEX_TASKCHAIN_WRITE );
 
 	push	6
 	call	_fnSysUnlockCoreMutex@4
 
-; 3137 :             SysWait( 0 );
+; 3141 :             SysWait( 0 );
 
 	push	0
 	call	_SysWait@4
 
-; 3138 :          }
+; 3142 :          }
 
-	jmp	SHORT $L8385
-$L8386:
+	jmp	SHORT $L8386
+$L8387:
 
-; 3140 : 
-; 3141 :       zUNLOCK_MUTEX( zMUTEX_TASKCHAIN );
+; 3144 : 
+; 3145 :       zUNLOCK_MUTEX( zMUTEX_TASKCHAIN );
 
 	push	5
 	call	_fnSysUnlockCoreMutex@4
-$L8382:
+$L8383:
 
-; 3143 : 
-; 3144 :    // If we get here everything's OK and the current task can now
-; 3145 :    // browse the task list.
-; 3146 :    return( 0 );
+; 3147 : 
+; 3148 :    // If we get here everything's OK and the current task can now
+; 3149 :    // browse the task list.
+; 3150 :    return( 0 );
 
 	xor	ax, ax
 
-; 3147 : }
+; 3151 : }
 
 	pop	ebp
 	ret	8
@@ -7976,50 +7988,50 @@ _fnStartBrowseOfTaskList@8 ENDP
 _bForWrite$ = 8
 _fnEndBrowseOfTaskList@4 PROC NEAR
 
-; 3151 : {
+; 3155 : {
 
 	push	ebp
 	mov	ebp, esp
 
-; 3152 :    if ( bForWrite )
+; 3156 :    if ( bForWrite )
 
 	mov	eax, DWORD PTR _bForWrite$[ebp]
 	and	eax, 255				; 000000ffH
 	test	eax, eax
-	je	SHORT $L8392
+	je	SHORT $L8393
 
-; 3154 :       // See NOTE in fnStartBrowseOfTaskList for an explanation of why
-; 3155 :       // we use a global variable.
-; 3156 :       zLOCK_MUTEX( zMUTEX_TASKCHAIN_WRITE );
+; 3158 :       // See NOTE in fnStartBrowseOfTaskList for an explanation of why
+; 3159 :       // we use a global variable.
+; 3160 :       zLOCK_MUTEX( zMUTEX_TASKCHAIN_WRITE );
 
 	push	6
 	call	_fnSysLockCoreMutex@4
 
-; 3157 :       AnchorBlock->hTaskChainWriteLockTaskID = 0;
+; 3161 :       AnchorBlock->hTaskChainWriteLockTaskID = 0;
 
 	mov	ecx, DWORD PTR _AnchorBlock
 	mov	DWORD PTR [ecx+1499], 0
 
-; 3158 :       zUNLOCK_MUTEX( zMUTEX_TASKCHAIN_WRITE );
+; 3162 :       zUNLOCK_MUTEX( zMUTEX_TASKCHAIN_WRITE );
 
 	push	6
 	call	_fnSysUnlockCoreMutex@4
 
-; 3160 :    else
+; 3164 :    else
 
-	jmp	SHORT $L8393
-$L8392:
+	jmp	SHORT $L8394
+$L8393:
 
-; 3162 :       // Lock the 'browse' mutex.
-; 3163 :       zLOCK_MUTEX( zMUTEX_TASKCHAIN );
+; 3166 :       // Lock the 'browse' mutex.
+; 3167 :       zLOCK_MUTEX( zMUTEX_TASKCHAIN );
 
 	push	5
 	call	_fnSysLockCoreMutex@4
 
-; 3164 : 
-; 3165 :       // Decrement the counter that keeps track of all the tasks that are
-; 3166 :       // reading the task list.
-; 3167 :       AnchorBlock->nBrowseTaskListCounter--;
+; 3168 : 
+; 3169 :       // Decrement the counter that keeps track of all the tasks that are
+; 3170 :       // reading the task list.
+; 3171 :       AnchorBlock->nBrowseTaskListCounter--;
 
 	mov	edx, DWORD PTR _AnchorBlock
 	mov	ax, WORD PTR [edx+1493]
@@ -8027,43 +8039,43 @@ $L8392:
 	mov	ecx, DWORD PTR _AnchorBlock
 	mov	WORD PTR [ecx+1493], ax
 
-; 3168 : 
-; 3169 :       // If the counter is 0 then this means no other tasks are currently
-; 3170 :       // reading the task list and the 'write' lock can be freed.
-; 3171 :       if ( AnchorBlock->nBrowseTaskListCounter == 0 )
+; 3172 : 
+; 3173 :       // If the counter is 0 then this means no other tasks are currently
+; 3174 :       // reading the task list and the 'write' lock can be freed.
+; 3175 :       if ( AnchorBlock->nBrowseTaskListCounter == 0 )
 
 	mov	edx, DWORD PTR _AnchorBlock
 	xor	eax, eax
 	mov	ax, WORD PTR [edx+1493]
 	test	eax, eax
-	jne	SHORT $L8394
+	jne	SHORT $L8395
 
-; 3173 :          // See NOTE in fnStartBrowseOfTaskList for an explanation of why
-; 3174 :          // we use a global variable.
-; 3175 :          zLOCK_MUTEX( zMUTEX_TASKCHAIN_WRITE );
+; 3177 :          // See NOTE in fnStartBrowseOfTaskList for an explanation of why
+; 3178 :          // we use a global variable.
+; 3179 :          zLOCK_MUTEX( zMUTEX_TASKCHAIN_WRITE );
 
 	push	6
 	call	_fnSysLockCoreMutex@4
 
-; 3176 :          AnchorBlock->hTaskChainWriteLockTaskID = 0;
+; 3180 :          AnchorBlock->hTaskChainWriteLockTaskID = 0;
 
 	mov	ecx, DWORD PTR _AnchorBlock
 	mov	DWORD PTR [ecx+1499], 0
 
-; 3177 :          zUNLOCK_MUTEX( zMUTEX_TASKCHAIN_WRITE );
+; 3181 :          zUNLOCK_MUTEX( zMUTEX_TASKCHAIN_WRITE );
 
 	push	6
 	call	_fnSysUnlockCoreMutex@4
-$L8394:
+$L8395:
 
-; 3179 : 
-; 3180 :       zUNLOCK_MUTEX( zMUTEX_TASKCHAIN );
+; 3183 : 
+; 3184 :       zUNLOCK_MUTEX( zMUTEX_TASKCHAIN );
 
 	push	5
 	call	_fnSysUnlockCoreMutex@4
-$L8393:
+$L8394:
 
-; 3182 : }
+; 3186 : }
 
 	pop	ebp
 	ret	4
@@ -8075,85 +8087,85 @@ _hTask$ = 8
 _bForWrite$ = 12
 _fnStartBrowseOfProcessList@8 PROC NEAR
 
-; 3214 : {
+; 3218 : {
 
 	push	ebp
 	mov	ebp, esp
 
-; 3215 :    if ( bForWrite )
+; 3219 :    if ( bForWrite )
 
 	mov	eax, DWORD PTR _bForWrite$[ebp]
 	and	eax, 255				; 000000ffH
 	test	eax, eax
-	je	SHORT $L8400
-$L8402:
+	je	SHORT $L8401
+$L8403:
 
-; 3217 :       while ( TRUE )
+; 3221 :       while ( TRUE )
 
 	mov	ecx, 1
 	test	ecx, ecx
-	je	SHORT $L8403
+	je	SHORT $L8404
 
-; 3219 :          // See note below about locking the 'write' mutex to find out
-; 3220 :          // why we use a global variable instead of a regular mutex.
-; 3221 :          zLOCK_MUTEX( zMUTEX_PROCESSCHAIN_WRITE );
+; 3223 :          // See note below about locking the 'write' mutex to find out
+; 3224 :          // why we use a global variable instead of a regular mutex.
+; 3225 :          zLOCK_MUTEX( zMUTEX_PROCESSCHAIN_WRITE );
 
 	push	14					; 0000000eH
 	call	_fnSysLockCoreMutex@4
 
-; 3222 :          if ( AnchorBlock->hTaskChainWriteLockTaskID == 0 )
+; 3226 :          if ( AnchorBlock->hTaskChainWriteLockTaskID == 0 )
 
 	mov	edx, DWORD PTR _AnchorBlock
 	cmp	DWORD PTR [edx+1499], 0
-	jne	SHORT $L8404
+	jne	SHORT $L8405
 
-; 3224 :             AnchorBlock->hTaskChainWriteLockTaskID = (zLONG) hTask;
+; 3228 :             AnchorBlock->hTaskChainWriteLockTaskID = (zLONG) hTask;
 
 	mov	eax, DWORD PTR _AnchorBlock
 	mov	ecx, DWORD PTR _hTask$[ebp]
 	mov	DWORD PTR [eax+1499], ecx
 
-; 3225 :             zUNLOCK_MUTEX( zMUTEX_PROCESSCHAIN_WRITE );
+; 3229 :             zUNLOCK_MUTEX( zMUTEX_PROCESSCHAIN_WRITE );
 
 	push	14					; 0000000eH
 	call	_fnSysUnlockCoreMutex@4
 
-; 3226 :             break;
+; 3230 :             break;
 
-	jmp	SHORT $L8403
-$L8404:
+	jmp	SHORT $L8404
+$L8405:
 
-; 3228 : 
-; 3229 :          zUNLOCK_MUTEX( zMUTEX_PROCESSCHAIN_WRITE );
+; 3232 : 
+; 3233 :          zUNLOCK_MUTEX( zMUTEX_PROCESSCHAIN_WRITE );
 
 	push	14					; 0000000eH
 	call	_fnSysUnlockCoreMutex@4
 
-; 3230 :          SysWait( 0 );
+; 3234 :          SysWait( 0 );
 
 	push	0
 	call	_SysWait@4
 
-; 3231 :       }
+; 3235 :       }
 
-	jmp	SHORT $L8402
-$L8403:
+	jmp	SHORT $L8403
+$L8404:
 
-; 3233 :    else
+; 3237 :    else
 
-	jmp	$L8406
-$L8400:
+	jmp	$L8407
+$L8401:
 
-; 3235 :       // Lock the 'browse' mutex.
-; 3236 :       zLOCK_MUTEX( zMUTEX_PROCESSCHAIN );
+; 3239 :       // Lock the 'browse' mutex.
+; 3240 :       zLOCK_MUTEX( zMUTEX_PROCESSCHAIN );
 
 	push	13					; 0000000dH
 	call	_fnSysLockCoreMutex@4
 
-; 3237 : 
-; 3238 :       // Bump up the counter that keeps track of all the tasks that are
-; 3239 :       // reading the task list.
-; 3240 :       AnchorBlock->nBrowseTaskListCounter++;
+; 3241 : 
+; 3242 :       // Bump up the counter that keeps track of all the tasks that are
+; 3243 :       // reading the task list.
+; 3244 :       AnchorBlock->nBrowseTaskListCounter++;
 
 	mov	edx, DWORD PTR _AnchorBlock
 	mov	ax, WORD PTR [edx+1493]
@@ -8161,90 +8173,90 @@ $L8400:
 	mov	ecx, DWORD PTR _AnchorBlock
 	mov	WORD PTR [ecx+1493], ax
 
-; 3241 : 
-; 3242 :       // If the counter is 1 then this means no other tasks are currently
-; 3243 :       // reading the task list and so we need to make sure no other task
-; 3244 :       // has the 'write' mutex locked.
-; 3245 :       if ( AnchorBlock->nBrowseTaskListCounter == 1 )
+; 3245 : 
+; 3246 :       // If the counter is 1 then this means no other tasks are currently
+; 3247 :       // reading the task list and so we need to make sure no other task
+; 3248 :       // has the 'write' mutex locked.
+; 3249 :       if ( AnchorBlock->nBrowseTaskListCounter == 1 )
 
 	mov	edx, DWORD PTR _AnchorBlock
 	xor	eax, eax
 	mov	ax, WORD PTR [edx+1493]
 	cmp	eax, 1
-	jne	SHORT $L8410
-$L8409:
+	jne	SHORT $L8411
+$L8410:
 
-; 3247 :          // NOTE
-; 3248 :          // We need to lock the 'write' mutex to keep another task from
-; 3249 :          // acquiring a 'write' lock while we are reading the task list.
-; 3250 :          // Since the 'write' mutex can be locked by one task and then
-; 3251 :          // unlocked by another task we will use a global variable to indicate
-; 3252 :          // that the 'write' mutex is locked.  If lTaskChainWriteLockTaskID is
-; 3253 :          // not 0 then the mutex is locked.
-; 3254 :          while ( TRUE )
+; 3251 :          // NOTE
+; 3252 :          // We need to lock the 'write' mutex to keep another task from
+; 3253 :          // acquiring a 'write' lock while we are reading the task list.
+; 3254 :          // Since the 'write' mutex can be locked by one task and then
+; 3255 :          // unlocked by another task we will use a global variable to indicate
+; 3256 :          // that the 'write' mutex is locked.  If lTaskChainWriteLockTaskID is
+; 3257 :          // not 0 then the mutex is locked.
+; 3258 :          while ( TRUE )
 
 	mov	ecx, 1
 	test	ecx, ecx
-	je	SHORT $L8410
+	je	SHORT $L8411
 
-; 3256 :             zLOCK_MUTEX( zMUTEX_PROCESSCHAIN_WRITE );
+; 3260 :             zLOCK_MUTEX( zMUTEX_PROCESSCHAIN_WRITE );
 
 	push	14					; 0000000eH
 	call	_fnSysLockCoreMutex@4
 
-; 3257 :             if ( AnchorBlock->hTaskChainWriteLockTaskID == 0 )
+; 3261 :             if ( AnchorBlock->hTaskChainWriteLockTaskID == 0 )
 
 	mov	edx, DWORD PTR _AnchorBlock
 	cmp	DWORD PTR [edx+1499], 0
-	jne	SHORT $L8411
+	jne	SHORT $L8412
 
-; 3259 :                AnchorBlock->hTaskChainWriteLockTaskID = (zLONG) hTask;
+; 3263 :                AnchorBlock->hTaskChainWriteLockTaskID = (zLONG) hTask;
 
 	mov	eax, DWORD PTR _AnchorBlock
 	mov	ecx, DWORD PTR _hTask$[ebp]
 	mov	DWORD PTR [eax+1499], ecx
 
-; 3260 :                zUNLOCK_MUTEX( zMUTEX_PROCESSCHAIN_WRITE );
+; 3264 :                zUNLOCK_MUTEX( zMUTEX_PROCESSCHAIN_WRITE );
 
 	push	14					; 0000000eH
 	call	_fnSysUnlockCoreMutex@4
 
-; 3261 :                break;
+; 3265 :                break;
 
-	jmp	SHORT $L8410
-$L8411:
+	jmp	SHORT $L8411
+$L8412:
 
-; 3263 : 
-; 3264 :             zUNLOCK_MUTEX( zMUTEX_PROCESSCHAIN_WRITE );
+; 3267 : 
+; 3268 :             zUNLOCK_MUTEX( zMUTEX_PROCESSCHAIN_WRITE );
 
 	push	14					; 0000000eH
 	call	_fnSysUnlockCoreMutex@4
 
-; 3265 :             SysWait( 0 );
+; 3269 :             SysWait( 0 );
 
 	push	0
 	call	_SysWait@4
 
-; 3266 :          }
+; 3270 :          }
 
-	jmp	SHORT $L8409
-$L8410:
+	jmp	SHORT $L8410
+$L8411:
 
-; 3268 : 
-; 3269 :       zUNLOCK_MUTEX( zMUTEX_PROCESSCHAIN );
+; 3272 : 
+; 3273 :       zUNLOCK_MUTEX( zMUTEX_PROCESSCHAIN );
 
 	push	13					; 0000000dH
 	call	_fnSysUnlockCoreMutex@4
-$L8406:
+$L8407:
 
-; 3271 : 
-; 3272 :    // If we get here everything's OK and the current task can now
-; 3273 :    // browse the task list.
-; 3274 :    return( 0 );
+; 3275 : 
+; 3276 :    // If we get here everything's OK and the current task can now
+; 3277 :    // browse the task list.
+; 3278 :    return( 0 );
 
 	xor	ax, ax
 
-; 3275 : }
+; 3279 : }
 
 	pop	ebp
 	ret	8
@@ -8255,50 +8267,50 @@ _TEXT	SEGMENT
 _bForWrite$ = 8
 _fnEndBrowseOfProcessList@4 PROC NEAR
 
-; 3279 : {
+; 3283 : {
 
 	push	ebp
 	mov	ebp, esp
 
-; 3280 :    if ( bForWrite )
+; 3284 :    if ( bForWrite )
 
 	mov	eax, DWORD PTR _bForWrite$[ebp]
 	and	eax, 255				; 000000ffH
 	test	eax, eax
-	je	SHORT $L8416
+	je	SHORT $L8417
 
-; 3282 :       // See NOTE in fnStartBrowseOfProcessList for an explanation of why
-; 3283 :       // we use a global variable.
-; 3284 :       zLOCK_MUTEX( zMUTEX_PROCESSCHAIN_WRITE );
+; 3286 :       // See NOTE in fnStartBrowseOfProcessList for an explanation of why
+; 3287 :       // we use a global variable.
+; 3288 :       zLOCK_MUTEX( zMUTEX_PROCESSCHAIN_WRITE );
 
 	push	14					; 0000000eH
 	call	_fnSysLockCoreMutex@4
 
-; 3285 :       AnchorBlock->hTaskChainWriteLockTaskID = 0;
+; 3289 :       AnchorBlock->hTaskChainWriteLockTaskID = 0;
 
 	mov	ecx, DWORD PTR _AnchorBlock
 	mov	DWORD PTR [ecx+1499], 0
 
-; 3286 :       zUNLOCK_MUTEX( zMUTEX_PROCESSCHAIN_WRITE );
+; 3290 :       zUNLOCK_MUTEX( zMUTEX_PROCESSCHAIN_WRITE );
 
 	push	14					; 0000000eH
 	call	_fnSysUnlockCoreMutex@4
 
-; 3288 :    else
+; 3292 :    else
 
-	jmp	SHORT $L8417
-$L8416:
+	jmp	SHORT $L8418
+$L8417:
 
-; 3290 :       // Lock the 'browse' mutex.
-; 3291 :       zLOCK_MUTEX( zMUTEX_PROCESSCHAIN );
+; 3294 :       // Lock the 'browse' mutex.
+; 3295 :       zLOCK_MUTEX( zMUTEX_PROCESSCHAIN );
 
 	push	13					; 0000000dH
 	call	_fnSysLockCoreMutex@4
 
-; 3292 : 
-; 3293 :       // Decrement the counter that keeps track of all the tasks that are
-; 3294 :       // reading the task list.
-; 3295 :       AnchorBlock->nBrowseTaskListCounter--;
+; 3296 : 
+; 3297 :       // Decrement the counter that keeps track of all the tasks that are
+; 3298 :       // reading the task list.
+; 3299 :       AnchorBlock->nBrowseTaskListCounter--;
 
 	mov	edx, DWORD PTR _AnchorBlock
 	mov	ax, WORD PTR [edx+1493]
@@ -8306,43 +8318,43 @@ $L8416:
 	mov	ecx, DWORD PTR _AnchorBlock
 	mov	WORD PTR [ecx+1493], ax
 
-; 3296 : 
-; 3297 :       // If the counter is 0 then this means no other tasks are currently
-; 3298 :       // reading the task list and the 'write' lock can be freed.
-; 3299 :       if ( AnchorBlock->nBrowseTaskListCounter == 0 )
+; 3300 : 
+; 3301 :       // If the counter is 0 then this means no other tasks are currently
+; 3302 :       // reading the task list and the 'write' lock can be freed.
+; 3303 :       if ( AnchorBlock->nBrowseTaskListCounter == 0 )
 
 	mov	edx, DWORD PTR _AnchorBlock
 	xor	eax, eax
 	mov	ax, WORD PTR [edx+1493]
 	test	eax, eax
-	jne	SHORT $L8418
+	jne	SHORT $L8419
 
-; 3301 :          // See NOTE in fnStartBrowseOfProcessList for an explanation of why
-; 3302 :          // we use a global variable.
-; 3303 :          zLOCK_MUTEX( zMUTEX_PROCESSCHAIN_WRITE );
+; 3305 :          // See NOTE in fnStartBrowseOfProcessList for an explanation of why
+; 3306 :          // we use a global variable.
+; 3307 :          zLOCK_MUTEX( zMUTEX_PROCESSCHAIN_WRITE );
 
 	push	14					; 0000000eH
 	call	_fnSysLockCoreMutex@4
 
-; 3304 :          AnchorBlock->hTaskChainWriteLockTaskID = 0;
+; 3308 :          AnchorBlock->hTaskChainWriteLockTaskID = 0;
 
 	mov	ecx, DWORD PTR _AnchorBlock
 	mov	DWORD PTR [ecx+1499], 0
 
-; 3305 :          zUNLOCK_MUTEX( zMUTEX_PROCESSCHAIN_WRITE );
+; 3309 :          zUNLOCK_MUTEX( zMUTEX_PROCESSCHAIN_WRITE );
 
 	push	14					; 0000000eH
 	call	_fnSysUnlockCoreMutex@4
-$L8418:
+$L8419:
 
-; 3307 : 
-; 3308 :       zUNLOCK_MUTEX( zMUTEX_PROCESSCHAIN );
+; 3311 : 
+; 3312 :       zUNLOCK_MUTEX( zMUTEX_PROCESSCHAIN );
 
 	push	13					; 0000000dH
 	call	_fnSysUnlockCoreMutex@4
-$L8417:
+$L8418:
 
-; 3310 : }
+; 3314 : }
 
 	pop	ebp
 	ret	4
@@ -8394,49 +8406,49 @@ _lpViewOD$ = -8
 _szMsg$ = -264
 _DisplayOpenFiles@8 PROC NEAR
 
-; 3314 : {
+; 3318 : {
 
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 280				; 00000118H
 
-; 3315 :    LPAPP  lpApp;
-; 3316 :    LPTASK lpTask;
-; 3317 :    zLONG         lProcessID = SysGetProcessID( 0 );
+; 3319 :    LPAPP  lpApp;
+; 3320 :    LPTASK lpTask;
+; 3321 :    zLONG         lProcessID = SysGetProcessID( 0 );
 
 	push	0
 	call	_SysGetProcessID@4
 	mov	DWORD PTR _lProcessID$[ebp], eax
 
-; 3318 :    LPOPENFILE    lpOpenFile;
-; 3319 :    LPVIEWOD      lpViewOD;
-; 3320 :    zCHAR szMsg[ 256 ];
-; 3321 : 
-; 3322 :    TraceLineS( "Display Tasks/Apps ", cpcTitle );
+; 3322 :    LPOPENFILE    lpOpenFile;
+; 3323 :    LPVIEWOD      lpViewOD;
+; 3324 :    zCHAR szMsg[ 256 ];
+; 3325 : 
+; 3326 :    TraceLineS( "Display Tasks/Apps ", cpcTitle );
 
 	mov	eax, DWORD PTR _cpcTitle$[ebp]
 	push	eax
 	push	OFFSET FLAT:??_C@_0BE@FEHD@Display?5Tasks?1Apps?5?$AA@ ; `string'
 	call	_TraceLineS@8
 
-; 3323 : 
-; 3324 :    // Protected by fnStartBrowseOfTaskList.
-; 3325 :    lpTask = zGETPTR( AnchorBlock->hFirstTask );
+; 3327 : 
+; 3328 :    // Protected by fnStartBrowseOfTaskList.
+; 3329 :    lpTask = zGETPTR( AnchorBlock->hFirstTask );
 
 	mov	ecx, DWORD PTR _AnchorBlock
 	mov	edx, DWORD PTR [ecx+130]
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _lpTask$[ebp], eax
-$L8433:
+$L8434:
 
-; 3326 :    while ( lpTask )
+; 3330 :    while ( lpTask )
 
 	cmp	DWORD PTR _lpTask$[ebp], 0
-	je	$L8434
+	je	$L8435
 
-; 3328 :       zsprintf( szMsg, "   Task (0x%08x) %s   Process: %d",
-; 3329 :                 zGETHNDL( lpTask ), lpTask->szTaskTitle, lProcessID );
+; 3332 :       zsprintf( szMsg, "   Task (0x%08x) %s   Process: %d",
+; 3333 :                 zGETHNDL( lpTask ), lpTask->szTaskTitle, lProcessID );
 
 	mov	eax, DWORD PTR _lProcessID$[ebp]
 	push	eax
@@ -8453,18 +8465,18 @@ $L8433:
 	call	DWORD PTR __imp__sprintf
 	add	esp, 20					; 00000014H
 
-; 3330 : 
-; 3331 : //*********************************************************************************
-; 3332 :       // KJS 04/20/09 - Added this so that we could also see who the user
-; 3333 :       // is for this task (because of call sfSetUserIdForTask).
-; 3334 :       if ( lpTask->szUserId[ 0 ] )
+; 3334 : 
+; 3335 : //*********************************************************************************
+; 3336 :       // KJS 04/20/09 - Added this so that we could also see who the user
+; 3337 :       // is for this task (because of call sfSetUserIdForTask).
+; 3338 :       if ( lpTask->szUserId[ 0 ] )
 
 	mov	ecx, DWORD PTR _lpTask$[ebp]
 	movsx	edx, BYTE PTR [ecx+244]
 	test	edx, edx
-	je	SHORT $L8437
+	je	SHORT $L8438
 
-; 3336 :          zstrcat( szMsg, "   UserName: " );
+; 3340 :          zstrcat( szMsg, "   UserName: " );
 
 	push	OFFSET FLAT:??_C@_0O@LIAE@?5?5?5UserName?3?5?$AA@ ; `string'
 	lea	eax, DWORD PTR _szMsg$[ebp]
@@ -8472,7 +8484,7 @@ $L8433:
 	call	_strcat
 	add	esp, 8
 
-; 3337 :          zstrcat( szMsg, lpTask->szUserId );
+; 3341 :          zstrcat( szMsg, lpTask->szUserId );
 
 	mov	ecx, DWORD PTR _lpTask$[ebp]
 	add	ecx, 244				; 000000f4H
@@ -8481,32 +8493,32 @@ $L8433:
 	push	edx
 	call	_strcat
 	add	esp, 8
-$L8437:
+$L8438:
 
-; 3339 : //*********************************************************************************
-; 3340 : 
-; 3341 :       SysMessageList( szMsg );
+; 3343 : //*********************************************************************************
+; 3344 : 
+; 3345 :       SysMessageList( szMsg );
 
 	lea	eax, DWORD PTR _szMsg$[ebp]
 	push	eax
 	call	_SysMessageList@4
 
-; 3342 : 
-; 3343 :       lpOpenFile = zGETPTR( lpTask->hFirstOpenFile );
+; 3346 : 
+; 3347 :       lpOpenFile = zGETPTR( lpTask->hFirstOpenFile );
 
 	mov	ecx, DWORD PTR _lpTask$[ebp]
 	mov	edx, DWORD PTR [ecx+118]
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _lpOpenFile$[ebp], eax
-$L8440:
+$L8441:
 
-; 3344 :       while ( lpOpenFile )
+; 3348 :       while ( lpOpenFile )
 
 	cmp	DWORD PTR _lpOpenFile$[ebp], 0
-	je	SHORT $L8441
+	je	SHORT $L8442
 
-; 3346 :          zsprintf( szMsg, "      Open file: '%s'", lpOpenFile->szFileName );
+; 3350 :          zsprintf( szMsg, "      Open file: '%s'", lpOpenFile->szFileName );
 
 	mov	eax, DWORD PTR _lpOpenFile$[ebp]
 	add	eax, 16					; 00000010H
@@ -8517,13 +8529,13 @@ $L8440:
 	call	DWORD PTR __imp__sprintf
 	add	esp, 12					; 0000000cH
 
-; 3347 :          SysMessageList( szMsg );
+; 3351 :          SysMessageList( szMsg );
 
 	lea	edx, DWORD PTR _szMsg$[ebp]
 	push	edx
 	call	_SysMessageList@4
 
-; 3348 :          lpOpenFile = zGETPTR( lpOpenFile->hNextOpenFile );
+; 3352 :          lpOpenFile = zGETPTR( lpOpenFile->hNextOpenFile );
 
 	mov	eax, DWORD PTR _lpOpenFile$[ebp]
 	mov	ecx, DWORD PTR [eax+6]
@@ -8531,13 +8543,13 @@ $L8440:
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _lpOpenFile$[ebp], eax
 
-; 3349 :       }
+; 3353 :       }
 
-	jmp	SHORT $L8440
-$L8441:
+	jmp	SHORT $L8441
+$L8442:
 
-; 3350 : 
-; 3351 :       lpTask = zGETPTR( lpTask->hNextTask );
+; 3354 : 
+; 3355 :       lpTask = zGETPTR( lpTask->hNextTask );
 
 	mov	edx, DWORD PTR _lpTask$[ebp]
 	mov	eax, DWORD PTR [edx+2]
@@ -8545,39 +8557,39 @@ $L8441:
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _lpTask$[ebp], eax
 
-; 3352 :    }
+; 3356 :    }
 
-	jmp	$L8433
-$L8434:
+	jmp	$L8434
+$L8435:
 
-; 3353 : 
-; 3354 :    lpApp = zGETPTR( AnchorBlock->hFirstApp );
+; 3357 : 
+; 3358 :    lpApp = zGETPTR( AnchorBlock->hFirstApp );
 
 	mov	ecx, DWORD PTR _AnchorBlock
 	mov	edx, DWORD PTR [ecx+126]
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _lpApp$[ebp], eax
-$L8447:
+$L8448:
 
-; 3355 :    while ( lpApp )
+; 3359 :    while ( lpApp )
 
 	cmp	DWORD PTR _lpApp$[ebp], 0
-	je	$L8448
+	je	$L8449
 
-; 3357 :       zsprintf( szMsg, "   App (0x%08x) %s   %s",
-; 3358 :                 zGETHNDL( lpApp ), lpApp->szName, lpApp->bKeepAlive ? "(KeepAlive)" : "" );
+; 3361 :       zsprintf( szMsg, "   App (0x%08x) %s   %s",
+; 3362 :                 zGETHNDL( lpApp ), lpApp->szName, lpApp->bKeepAlive ? "(KeepAlive)" : "" );
 
 	mov	eax, DWORD PTR _lpApp$[ebp]
 	mov	ecx, DWORD PTR [eax+1905]
 	and	ecx, 1
 	test	ecx, ecx
-	je	SHORT $L8570
+	je	SHORT $L8571
 	mov	DWORD PTR -280+[ebp], OFFSET FLAT:??_C@_0M@OGPE@?$CIKeepAlive?$CJ?$AA@ ; `string'
-	jmp	SHORT $L8571
-$L8570:
-	mov	DWORD PTR -280+[ebp], OFFSET FLAT:??_C@_00A@?$AA@ ; `string'
+	jmp	SHORT $L8572
 $L8571:
+	mov	DWORD PTR -280+[ebp], OFFSET FLAT:??_C@_00A@?$AA@ ; `string'
+$L8572:
 	mov	edx, DWORD PTR -280+[ebp]
 	push	edx
 	mov	eax, DWORD PTR _lpApp$[ebp]
@@ -8593,28 +8605,28 @@ $L8571:
 	call	DWORD PTR __imp__sprintf
 	add	esp, 20					; 00000014H
 
-; 3359 :       SysMessageList( szMsg );
+; 3363 :       SysMessageList( szMsg );
 
 	lea	eax, DWORD PTR _szMsg$[ebp]
 	push	eax
 	call	_SysMessageList@4
 
-; 3360 :       lpViewOD = zGETPTR( lpApp->hFirstViewOD );
+; 3364 :       lpViewOD = zGETPTR( lpApp->hFirstViewOD );
 
 	mov	ecx, DWORD PTR _lpApp$[ebp]
 	mov	edx, DWORD PTR [ecx+84]
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _lpViewOD$[ebp], eax
-$L8454:
+$L8455:
 
-; 3361 :       while ( lpViewOD )
+; 3365 :       while ( lpViewOD )
 
 	cmp	DWORD PTR _lpViewOD$[ebp], 0
-	je	SHORT $L8455
+	je	SHORT $L8456
 
-; 3363 :          zsprintf( szMsg, "      View OD (0x%08x): '%s'",
-; 3364 :                    zGETHNDL( lpViewOD), lpViewOD->szName );
+; 3367 :          zsprintf( szMsg, "      View OD (0x%08x): '%s'",
+; 3368 :                    zGETHNDL( lpViewOD), lpViewOD->szName );
 
 	mov	eax, DWORD PTR _lpViewOD$[ebp]
 	add	eax, 10					; 0000000aH
@@ -8629,13 +8641,13 @@ $L8454:
 	call	DWORD PTR __imp__sprintf
 	add	esp, 16					; 00000010H
 
-; 3365 :          SysMessageList( szMsg );
+; 3369 :          SysMessageList( szMsg );
 
 	lea	eax, DWORD PTR _szMsg$[ebp]
 	push	eax
 	call	_SysMessageList@4
 
-; 3366 :          lpViewOD = zGETPTR( lpViewOD->hNextViewOD );
+; 3370 :          lpViewOD = zGETPTR( lpViewOD->hNextViewOD );
 
 	mov	ecx, DWORD PTR _lpViewOD$[ebp]
 	mov	edx, DWORD PTR [ecx+2]
@@ -8643,13 +8655,13 @@ $L8454:
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _lpViewOD$[ebp], eax
 
-; 3367 :       }
+; 3371 :       }
 
-	jmp	SHORT $L8454
-$L8455:
+	jmp	SHORT $L8455
+$L8456:
 
-; 3368 : 
-; 3369 :       lpApp = zGETPTR( lpApp->hNextApp );
+; 3372 : 
+; 3373 :       lpApp = zGETPTR( lpApp->hNextApp );
 
 	mov	eax, DWORD PTR _lpApp$[ebp]
 	mov	ecx, DWORD PTR [eax+2]
@@ -8657,12 +8669,12 @@ $L8455:
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _lpApp$[ebp], eax
 
-; 3370 :    }
+; 3374 :    }
 
-	jmp	$L8447
-$L8448:
+	jmp	$L8448
+$L8449:
 
-; 3371 : }
+; 3375 : }
 
 	mov	esp, ebp
 	pop	ebp

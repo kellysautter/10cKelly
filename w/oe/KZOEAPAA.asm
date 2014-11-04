@@ -274,7 +274,7 @@ $L7536:
 	cmp	DWORD PTR -28+[ebp], 6
 	ja	SHORT $L7549
 	mov	ecx, DWORD PTR -28+[ebp]
-	jmp	DWORD PTR $L8355[ecx*4]
+	jmp	DWORD PTR $L8357[ecx*4]
 $L7542:
 
 ; 117  :       case zAPPL_DIR_LIB:
@@ -434,7 +434,7 @@ $L7523:
 	mov	esp, ebp
 	pop	ebp
 	ret	16					; 00000010H
-$L8355:
+$L8357:
 	DD	$L7548
 	DD	$L7542
 	DD	$L7543
@@ -1727,13 +1727,13 @@ _lpNextDomain$ = -8
 _bFound$ = -16
 _bLName$ = -4
 _nEOF$ = -124
-_k$7857 = -1180
-_hDomain$7874 = -1184
-_hContext$7875 = -1188
-_k$7879 = -1192
-_lpTempTable$7910 = -1196
-_lpCurrContext$8034 = -1204
-_lpNextContext$8035 = -1200
+_k$7858 = -1180
+_hDomain$7876 = -1184
+_hContext$7877 = -1188
+_k$7881 = -1192
+_lpTempTable$7912 = -1196
+_lpCurrContext$8036 = -1204
+_lpNextContext$8037 = -1200
 _fnCreateApp PROC NEAR
 
 ; 582  : {
@@ -2354,7 +2354,7 @@ $L7754:
 	mov	eax, DWORD PTR _szlTYPE
 	movsx	ecx, BYTE PTR [eax]
 	cmp	edx, ecx
-	jne	SHORT $L8361
+	jne	SHORT $L8363
 	mov	edx, DWORD PTR _szlTYPE
 	push	edx
 	lea	eax, DWORD PTR _szWorkString$[ebp]
@@ -2362,8 +2362,8 @@ $L7754:
 	call	_strcmp
 	add	esp, 8
 	mov	DWORD PTR -1208+[ebp], eax
-	jmp	SHORT $L8362
-$L8361:
+	jmp	SHORT $L8364
+$L8363:
 	movsx	ecx, BYTE PTR _szWorkString$[ebp]
 	mov	edx, DWORD PTR _szlTYPE
 	movsx	eax, BYTE PTR [edx]
@@ -2375,7 +2375,7 @@ $L8361:
 	and	edx, 2
 	add	edx, -1
 	mov	DWORD PTR -1208+[ebp], edx
-$L8362:
+$L8364:
 	cmp	DWORD PTR -1208+[ebp], 0
 	jne	SHORT $L7764
 
@@ -2399,7 +2399,7 @@ $L7764:
 	mov	eax, DWORD PTR _szlLNAME
 	movsx	ecx, BYTE PTR [eax]
 	cmp	edx, ecx
-	jne	SHORT $L8363
+	jne	SHORT $L8365
 	mov	edx, DWORD PTR _szlLNAME
 	push	edx
 	lea	eax, DWORD PTR _szWorkString$[ebp]
@@ -2407,8 +2407,8 @@ $L7764:
 	call	_strcmp
 	add	esp, 8
 	mov	DWORD PTR -1212+[ebp], eax
-	jmp	SHORT $L8364
-$L8363:
+	jmp	SHORT $L8366
+$L8365:
 	movsx	ecx, BYTE PTR _szWorkString$[ebp]
 	mov	edx, DWORD PTR _szlLNAME
 	movsx	eax, BYTE PTR [edx]
@@ -2420,7 +2420,7 @@ $L8363:
 	and	edx, 2
 	add	edx, -1
 	mov	DWORD PTR -1212+[ebp], edx
-$L8364:
+$L8366:
 	cmp	DWORD PTR -1212+[ebp], 0
 	jne	SHORT $L7773
 
@@ -2445,7 +2445,7 @@ $L7773:
 	mov	eax, DWORD PTR _szlPNAME
 	movsx	ecx, BYTE PTR [eax]
 	cmp	edx, ecx
-	jne	SHORT $L8365
+	jne	SHORT $L8367
 	mov	edx, DWORD PTR _szlPNAME
 	push	edx
 	lea	eax, DWORD PTR _szWorkString$[ebp]
@@ -2453,8 +2453,8 @@ $L7773:
 	call	_strcmp
 	add	esp, 8
 	mov	DWORD PTR -1216+[ebp], eax
-	jmp	SHORT $L8366
-$L8365:
+	jmp	SHORT $L8368
+$L8367:
 	movsx	ecx, BYTE PTR _szWorkString$[ebp]
 	mov	edx, DWORD PTR _szlPNAME
 	movsx	eax, BYTE PTR [edx]
@@ -2466,7 +2466,7 @@ $L8365:
 	and	edx, 2
 	add	edx, -1
 	mov	DWORD PTR -1216+[ebp], edx
-$L8366:
+$L8368:
 	cmp	DWORD PTR -1216+[ebp], 0
 	jne	SHORT $L7781
 
@@ -2493,7 +2493,7 @@ $L7756:
 	mov	eax, DWORD PTR _szlAPP_DFLT_Dialog
 	movsx	ecx, BYTE PTR [eax]
 	cmp	edx, ecx
-	jne	SHORT $L8367
+	jne	SHORT $L8369
 	mov	edx, DWORD PTR _szlAPP_DFLT_Dialog
 	push	edx
 	lea	eax, DWORD PTR _szWorkString$[ebp]
@@ -2501,8 +2501,8 @@ $L7756:
 	call	_strcmp
 	add	esp, 8
 	mov	DWORD PTR -1220+[ebp], eax
-	jmp	SHORT $L8368
-$L8367:
+	jmp	SHORT $L8370
+$L8369:
 	movsx	ecx, BYTE PTR _szWorkString$[ebp]
 	mov	edx, DWORD PTR _szlAPP_DFLT_Dialog
 	movsx	eax, BYTE PTR [edx]
@@ -2514,7 +2514,7 @@ $L8367:
 	and	edx, 2
 	add	edx, -1
 	mov	DWORD PTR -1220+[ebp], edx
-$L8368:
+$L8370:
 	cmp	DWORD PTR -1220+[ebp], 0
 	jne	SHORT $L7789
 	mov	eax, DWORD PTR _lpApp$[ebp]
@@ -2544,7 +2544,7 @@ $L7789:
 	mov	edx, DWORD PTR _szlAPP_DLL
 	movsx	eax, BYTE PTR [edx]
 	cmp	ecx, eax
-	jne	SHORT $L8369
+	jne	SHORT $L8371
 	mov	ecx, DWORD PTR _szlAPP_DLL
 	push	ecx
 	lea	edx, DWORD PTR _szWorkString$[ebp]
@@ -2552,8 +2552,8 @@ $L7789:
 	call	_strcmp
 	add	esp, 8
 	mov	DWORD PTR -1224+[ebp], eax
-	jmp	SHORT $L8370
-$L8369:
+	jmp	SHORT $L8372
+$L8371:
 	movsx	eax, BYTE PTR _szWorkString$[ebp]
 	mov	ecx, DWORD PTR _szlAPP_DLL
 	movsx	edx, BYTE PTR [ecx]
@@ -2565,7 +2565,7 @@ $L8369:
 	and	ecx, 2
 	add	ecx, -1
 	mov	DWORD PTR -1224+[ebp], ecx
-$L8370:
+$L8372:
 	cmp	DWORD PTR -1224+[ebp], 0
 	jne	SHORT $L7797
 	mov	edx, DWORD PTR _lpApp$[ebp]
@@ -2609,7 +2609,7 @@ $L7797:
 	mov	ecx, DWORD PTR _szlAPP_ADOBIN
 	movsx	edx, BYTE PTR [ecx]
 	cmp	eax, edx
-	jne	SHORT $L8371
+	jne	SHORT $L8373
 	mov	eax, DWORD PTR _szlAPP_ADOBIN
 	push	eax
 	lea	ecx, DWORD PTR _szWorkString$[ebp]
@@ -2617,8 +2617,8 @@ $L7797:
 	call	_strcmp
 	add	esp, 8
 	mov	DWORD PTR -1228+[ebp], eax
-	jmp	SHORT $L8372
-$L8371:
+	jmp	SHORT $L8374
+$L8373:
 	movsx	edx, BYTE PTR _szWorkString$[ebp]
 	mov	eax, DWORD PTR _szlAPP_ADOBIN
 	movsx	ecx, BYTE PTR [eax]
@@ -2630,7 +2630,7 @@ $L8371:
 	and	eax, 2
 	add	eax, -1
 	mov	DWORD PTR -1228+[ebp], eax
-$L8372:
+$L8374:
 	cmp	DWORD PTR -1228+[ebp], 0
 	jne	SHORT $L7805
 	mov	ecx, DWORD PTR _lpApp$[ebp]
@@ -2674,7 +2674,7 @@ $L7805:
 	mov	eax, DWORD PTR _szlAPP_LOCAL
 	movsx	ecx, BYTE PTR [eax]
 	cmp	edx, ecx
-	jne	SHORT $L8373
+	jne	SHORT $L8375
 	mov	edx, DWORD PTR _szlAPP_LOCAL
 	push	edx
 	lea	eax, DWORD PTR _szWorkString$[ebp]
@@ -2682,8 +2682,8 @@ $L7805:
 	call	_strcmp
 	add	esp, 8
 	mov	DWORD PTR -1232+[ebp], eax
-	jmp	SHORT $L8374
-$L8373:
+	jmp	SHORT $L8376
+$L8375:
 	movsx	ecx, BYTE PTR _szWorkString$[ebp]
 	mov	edx, DWORD PTR _szlAPP_LOCAL
 	movsx	eax, BYTE PTR [edx]
@@ -2695,7 +2695,7 @@ $L8373:
 	and	edx, 2
 	add	edx, -1
 	mov	DWORD PTR -1232+[ebp], edx
-$L8374:
+$L8376:
 	cmp	DWORD PTR -1232+[ebp], 0
 	jne	SHORT $L7813
 	mov	eax, DWORD PTR _lpApp$[ebp]
@@ -2739,7 +2739,7 @@ $L7813:
 	mov	edx, DWORD PTR _szlAPP_SHARED
 	movsx	eax, BYTE PTR [edx]
 	cmp	ecx, eax
-	jne	SHORT $L8375
+	jne	SHORT $L8377
 	mov	ecx, DWORD PTR _szlAPP_SHARED
 	push	ecx
 	lea	edx, DWORD PTR _szWorkString$[ebp]
@@ -2747,8 +2747,8 @@ $L7813:
 	call	_strcmp
 	add	esp, 8
 	mov	DWORD PTR -1236+[ebp], eax
-	jmp	SHORT $L8376
-$L8375:
+	jmp	SHORT $L8378
+$L8377:
 	movsx	eax, BYTE PTR _szWorkString$[ebp]
 	mov	ecx, DWORD PTR _szlAPP_SHARED
 	movsx	edx, BYTE PTR [ecx]
@@ -2760,7 +2760,7 @@ $L8375:
 	and	ecx, 2
 	add	ecx, -1
 	mov	DWORD PTR -1236+[ebp], ecx
-$L8376:
+$L8378:
 	cmp	DWORD PTR -1236+[ebp], 0
 	jne	SHORT $L7821
 	mov	edx, DWORD PTR _lpApp$[ebp]
@@ -2804,7 +2804,7 @@ $L7821:
 	mov	ecx, DWORD PTR _szlAPP_QLPLR
 	movsx	edx, BYTE PTR [ecx]
 	cmp	eax, edx
-	jne	SHORT $L8377
+	jne	SHORT $L8379
 	mov	eax, DWORD PTR _szlAPP_QLPLR
 	push	eax
 	lea	ecx, DWORD PTR _szWorkString$[ebp]
@@ -2812,8 +2812,8 @@ $L7821:
 	call	_strcmp
 	add	esp, 8
 	mov	DWORD PTR -1240+[ebp], eax
-	jmp	SHORT $L8378
-$L8377:
+	jmp	SHORT $L8380
+$L8379:
 	movsx	edx, BYTE PTR _szWorkString$[ebp]
 	mov	eax, DWORD PTR _szlAPP_QLPLR
 	movsx	ecx, BYTE PTR [eax]
@@ -2825,7 +2825,7 @@ $L8377:
 	and	eax, 2
 	add	eax, -1
 	mov	DWORD PTR -1240+[ebp], eax
-$L8378:
+$L8380:
 	cmp	DWORD PTR -1240+[ebp], 0
 	jne	SHORT $L7829
 	mov	ecx, DWORD PTR _lpApp$[ebp]
@@ -2869,7 +2869,7 @@ $L7829:
 	mov	eax, DWORD PTR _szlAPP_QXODS
 	movsx	ecx, BYTE PTR [eax]
 	cmp	edx, ecx
-	jne	SHORT $L8379
+	jne	SHORT $L8381
 	mov	edx, DWORD PTR _szlAPP_QXODS
 	push	edx
 	lea	eax, DWORD PTR _szWorkString$[ebp]
@@ -2877,8 +2877,8 @@ $L7829:
 	call	_strcmp
 	add	esp, 8
 	mov	DWORD PTR -1244+[ebp], eax
-	jmp	SHORT $L8380
-$L8379:
+	jmp	SHORT $L8382
+$L8381:
 	movsx	ecx, BYTE PTR _szWorkString$[ebp]
 	mov	edx, DWORD PTR _szlAPP_QXODS
 	movsx	eax, BYTE PTR [edx]
@@ -2890,7 +2890,7 @@ $L8379:
 	and	edx, 2
 	add	edx, -1
 	mov	DWORD PTR -1244+[ebp], edx
-$L8380:
+$L8382:
 	cmp	DWORD PTR -1244+[ebp], 0
 	jne	SHORT $L7837
 	mov	eax, DWORD PTR _lpApp$[ebp]
@@ -2934,7 +2934,7 @@ $L7837:
 	mov	edx, DWORD PTR _szlAPP_SOURCE
 	movsx	eax, BYTE PTR [edx]
 	cmp	ecx, eax
-	jne	SHORT $L8381
+	jne	SHORT $L8383
 	mov	ecx, DWORD PTR _szlAPP_SOURCE
 	push	ecx
 	lea	edx, DWORD PTR _szWorkString$[ebp]
@@ -2942,8 +2942,8 @@ $L7837:
 	call	_strcmp
 	add	esp, 8
 	mov	DWORD PTR -1248+[ebp], eax
-	jmp	SHORT $L8382
-$L8381:
+	jmp	SHORT $L8384
+$L8383:
 	movsx	eax, BYTE PTR _szWorkString$[ebp]
 	mov	ecx, DWORD PTR _szlAPP_SOURCE
 	movsx	edx, BYTE PTR [ecx]
@@ -2955,7 +2955,7 @@ $L8381:
 	and	ecx, 2
 	add	ecx, -1
 	mov	DWORD PTR -1248+[ebp], ecx
-$L8382:
+$L8384:
 	cmp	DWORD PTR -1248+[ebp], 0
 	jne	SHORT $L7845
 	mov	edx, DWORD PTR _lpApp$[ebp]
@@ -3178,7 +3178,7 @@ $L7854:
 	call	DWORD PTR __imp__strchr
 	add	esp, 8
 	test	eax, eax
-	je	SHORT $L7860
+	je	SHORT $L7861
 
 ; 852  :       zSHORT k = zstrlen( szWorkString );
 
@@ -3186,35 +3186,35 @@ $L7854:
 	push	edx
 	call	_strlen
 	add	esp, 4
-	mov	WORD PTR _k$7857[ebp], ax
-$L7859:
+	mov	WORD PTR _k$7858[ebp], ax
+$L7860:
 
 ; 853  :       while( k-- )
 
-	movsx	eax, WORD PTR _k$7857[ebp]
-	mov	cx, WORD PTR _k$7857[ebp]
+	movsx	eax, WORD PTR _k$7858[ebp]
+	mov	cx, WORD PTR _k$7858[ebp]
 	sub	cx, 1
-	mov	WORD PTR _k$7857[ebp], cx
+	mov	WORD PTR _k$7858[ebp], cx
 	test	eax, eax
-	je	SHORT $L7860
+	je	SHORT $L7861
 
 ; 855  :          if ( szWorkString[ k ] == ' ' )
 
-	movsx	edx, WORD PTR _k$7857[ebp]
+	movsx	edx, WORD PTR _k$7858[ebp]
 	movsx	eax, BYTE PTR _szWorkString$[ebp+edx]
 	cmp	eax, 32					; 00000020H
-	jne	SHORT $L7861
+	jne	SHORT $L7862
 
 ; 856  :             szWorkString[ k ] = '_';
 
-	movsx	ecx, WORD PTR _k$7857[ebp]
+	movsx	ecx, WORD PTR _k$7858[ebp]
 	mov	BYTE PTR _szWorkString$[ebp+ecx], 95	; 0000005fH
-$L7861:
+$L7862:
 
 ; 857  :       }
 
-	jmp	SHORT $L7859
-$L7860:
+	jmp	SHORT $L7860
+$L7861:
 
 ; 859  : 
 ; 860  :    SysReadZeidonIni( -1, szWorkString, "Domains", szWorkString2 );
@@ -3234,7 +3234,7 @@ $L7860:
 
 	movsx	ecx, BYTE PTR _szWorkString2$[ebp]
 	test	ecx, ecx
-	je	SHORT $L7863
+	je	SHORT $L7864
 
 ; 866  :       if ( zstrchr( szWorkString2, cDirSep ) )
 
@@ -3245,7 +3245,7 @@ $L7860:
 	call	DWORD PTR __imp__strchr
 	add	esp, 8
 	test	eax, eax
-	je	SHORT $L7864
+	je	SHORT $L7866
 
 ; 867  :          zstrcpy( szWorkString, szWorkString2 );
 
@@ -3258,8 +3258,8 @@ $L7860:
 
 ; 868  :       else
 
-	jmp	SHORT $L7865
-$L7864:
+	jmp	SHORT $L7867
+$L7866:
 
 ; 870  :          zstrcpy( szWorkString, lpApp->szObjectDir );
 
@@ -3285,12 +3285,12 @@ $L7864:
 	push	ecx
 	call	_strcat
 	add	esp, 8
-$L7865:
+$L7867:
 
 ; 875  :    else
 
-	jmp	SHORT $L7866
-$L7863:
+	jmp	SHORT $L7868
+$L7864:
 
 ; 877  :       // Build the file name for the application domains.
 ; 878  :       zstrcpy( szWorkString, lpApp->szObjectDir );
@@ -3317,7 +3317,7 @@ $L7863:
 	push	eax
 	call	_strcat
 	add	esp, 8
-$L7866:
+$L7868:
 
 ; 888  : 
 ; 889  :    if ( AnchorBlock->TraceFlags.bTaskMsgs )
@@ -3327,7 +3327,7 @@ $L7866:
 	shr	edx, 1
 	and	edx, 1
 	test	edx, edx
-	je	SHORT $L7867
+	je	SHORT $L7869
 
 ; 890  :       TraceLineS( "(ap) looking for domains with: ", szWorkString );
 
@@ -3335,7 +3335,7 @@ $L7866:
 	push	eax
 	push	OFFSET FLAT:??_C@_0CA@MKLC@?$CIap?$CJ?5looking?5for?5domains?5with?3?5?$AA@ ; `string'
 	call	_TraceLineS@8
-$L7867:
+$L7869:
 
 ; 891  : 
 ; 892  :    // Open Domains definition file.
@@ -3360,18 +3360,18 @@ $L7867:
 ; 896  :    if ( hFile == -1 )
 
 	cmp	DWORD PTR _hFile$[ebp], -1
-	jne	SHORT $L7869
+	jne	SHORT $L7871
 
 ; 898  :       if ( cpcAppName == 0 )    // the system app will run w/o domains
 
 	cmp	DWORD PTR _cpcAppName$[ebp], 0
-	jne	SHORT $L7870
+	jne	SHORT $L7872
 
 ; 899  :          return( lpApp );
 
 	mov	eax, DWORD PTR _lpApp$[ebp]
 	jmp	$L7684
-$L7870:
+$L7872:
 
 ; 900  : 
 ; 901  :       // "KZOEE011 - Error opening application domains file"
@@ -3401,7 +3401,7 @@ $L7870:
 
 	xor	eax, eax
 	jmp	$L7684
-$L7869:
+$L7871:
 
 ; 906  : 
 ; 907  :    // Process the domain file.
@@ -3448,12 +3448,12 @@ $L7869:
 ; 927  :    nLineNbr = 0;
 
 	mov	WORD PTR _nLineNbr$[ebp], 0
-$L7872:
+$L7874:
 
 ; 928  :    while ( nEOF > 0 )
 
 	cmp	DWORD PTR _nEOF$[ebp], 0
-	jle	$L7873
+	jle	$L7875
 
 ; 930  :       zPVOID hDomain;
 ; 931  :       zPVOID hContext;
@@ -3469,7 +3469,7 @@ $L7872:
 	mov	eax, DWORD PTR _pchLine$[ebp]
 	movsx	ecx, BYTE PTR [eax]
 	cmp	ecx, 101				; 00000065H
-	jne	SHORT $L7876
+	jne	SHORT $L7878
 
 ; 936  :          SysParseLine( szEntityName, &pchLine, pchLine + 1 );
 
@@ -3488,15 +3488,15 @@ $L7872:
 
 ; 939  :       else
 
-	jmp	$L7887
-$L7876:
+	jmp	$L7889
+$L7878:
 
 ; 940  :       if ( pchLine[ 0 ] == 'a' )
 
 	mov	edx, DWORD PTR _pchLine$[ebp]
 	movsx	eax, BYTE PTR [edx]
 	cmp	eax, 97					; 00000061H
-	jne	$L7878
+	jne	$L7880
 
 ; 942  :          zSHORT k;
 ; 943  : 
@@ -3505,27 +3505,27 @@ $L7876:
 ; 946  :          // can't use SysParseLine.
 ; 947  :          for ( k = 0; !zisspace( pchLine[ k + 1 ] ) && pchLine[ k + 1 ]; k++ )
 
-	mov	WORD PTR _k$7879[ebp], 0
-	jmp	SHORT $L7880
-$L7881:
-	mov	cx, WORD PTR _k$7879[ebp]
+	mov	WORD PTR _k$7881[ebp], 0
+	jmp	SHORT $L7882
+$L7883:
+	mov	cx, WORD PTR _k$7881[ebp]
 	add	cx, 1
-	mov	WORD PTR _k$7879[ebp], cx
-$L7880:
+	mov	WORD PTR _k$7881[ebp], cx
+$L7882:
 	mov	edx, DWORD PTR __imp____mb_cur_max
 	cmp	DWORD PTR [edx], 1
-	jle	SHORT $L8383
+	jle	SHORT $L8385
 	push	8
-	movsx	eax, WORD PTR _k$7879[ebp]
+	movsx	eax, WORD PTR _k$7881[ebp]
 	mov	ecx, DWORD PTR _pchLine$[ebp]
 	movsx	edx, BYTE PTR [ecx+eax+1]
 	push	edx
 	call	DWORD PTR __imp___isctype
 	add	esp, 8
 	mov	DWORD PTR -1252+[ebp], eax
-	jmp	SHORT $L8384
-$L8383:
-	movsx	eax, WORD PTR _k$7879[ebp]
+	jmp	SHORT $L8386
+$L8385:
+	movsx	eax, WORD PTR _k$7881[ebp]
 	mov	ecx, DWORD PTR _pchLine$[ebp]
 	movsx	edx, BYTE PTR [ecx+eax+1]
 	mov	eax, DWORD PTR __imp___pctype
@@ -3534,53 +3534,53 @@ $L8383:
 	mov	ax, WORD PTR [ecx+edx*2]
 	and	eax, 8
 	mov	DWORD PTR -1252+[ebp], eax
-$L8384:
+$L8386:
 	cmp	DWORD PTR -1252+[ebp], 0
-	jne	SHORT $L7882
-	movsx	ecx, WORD PTR _k$7879[ebp]
+	jne	SHORT $L7884
+	movsx	ecx, WORD PTR _k$7881[ebp]
 	mov	edx, DWORD PTR _pchLine$[ebp]
 	movsx	eax, BYTE PTR [edx+ecx+1]
 	test	eax, eax
-	je	SHORT $L7882
+	je	SHORT $L7884
 
 ; 948  :             szAttrName[ k ] = pchLine[ k + 1 ];
 
-	movsx	ecx, WORD PTR _k$7879[ebp]
-	movsx	edx, WORD PTR _k$7879[ebp]
+	movsx	ecx, WORD PTR _k$7881[ebp]
+	movsx	edx, WORD PTR _k$7881[ebp]
 	mov	eax, DWORD PTR _pchLine$[ebp]
 	mov	cl, BYTE PTR [eax+ecx+1]
 	mov	BYTE PTR _szAttrName$[ebp+edx], cl
-	jmp	$L7881
-$L7882:
+	jmp	$L7883
+$L7884:
 
 ; 949  : 
 ; 950  :          // Set the null term for the attr name.
 ; 951  :          szAttrName[ k ] = 0;
 
-	movsx	edx, WORD PTR _k$7879[ebp]
+	movsx	edx, WORD PTR _k$7881[ebp]
 	mov	BYTE PTR _szAttrName$[ebp+edx], 0
 
 ; 952  : 
 ; 953  :          // Check for a null attribute value.
 ; 954  :          if ( pchLine[ k + 1 ] == 0 )
 
-	movsx	eax, WORD PTR _k$7879[ebp]
+	movsx	eax, WORD PTR _k$7881[ebp]
 	mov	ecx, DWORD PTR _pchLine$[ebp]
 	movsx	edx, BYTE PTR [ecx+eax+1]
 	test	edx, edx
-	jne	SHORT $L7883
+	jne	SHORT $L7885
 
 ; 955  :             pchLine = pchLine + k + 1;
 
-	movsx	eax, WORD PTR _k$7879[ebp]
+	movsx	eax, WORD PTR _k$7881[ebp]
 	mov	ecx, DWORD PTR _pchLine$[ebp]
 	lea	edx, DWORD PTR [ecx+eax+1]
 	mov	DWORD PTR _pchLine$[ebp], edx
 
 ; 956  :          else
 
-	jmp	SHORT $L7886
-$L7883:
+	jmp	SHORT $L7888
+$L7885:
 
 ; 958  :             // We have an attribute value.  First make sure we've skipped the
 ; 959  :             // appropriate number of spaces.  Example lines:
@@ -3588,9 +3588,9 @@ $L7883:
 ; 961  :             //    aExternalValue Income
 ; 962  :             if ( k < 10 )
 
-	movsx	eax, WORD PTR _k$7879[ebp]
+	movsx	eax, WORD PTR _k$7881[ebp]
 	cmp	eax, 10					; 0000000aH
-	jge	SHORT $L7885
+	jge	SHORT $L7887
 
 ; 963  :                pchLine = pchLine + 11;
 
@@ -3600,16 +3600,16 @@ $L7883:
 
 ; 964  :             else
 
-	jmp	SHORT $L7886
-$L7885:
+	jmp	SHORT $L7888
+$L7887:
 
 ; 965  :                pchLine = pchLine + k + 2;
 
-	movsx	edx, WORD PTR _k$7879[ebp]
+	movsx	edx, WORD PTR _k$7881[ebp]
 	mov	eax, DWORD PTR _pchLine$[ebp]
 	lea	ecx, DWORD PTR [eax+edx+2]
 	mov	DWORD PTR _pchLine$[ebp], ecx
-$L7886:
+$L7888:
 
 ; 967  : 
 ; 968  :          nCurrState = 2;   // attribute line item
@@ -3618,13 +3618,13 @@ $L7886:
 
 ; 970  :       else
 
-	jmp	SHORT $L7887
-$L7878:
+	jmp	SHORT $L7889
+$L7880:
 
 ; 971  :          nCurrState = 99;  // undefined or blank line
 
 	mov	WORD PTR _nCurrState$[ebp], 99		; 00000063H
-$L7887:
+$L7889:
 
 ; 972  : 
 ; 973  :       switch ( nCurrState )
@@ -3633,11 +3633,11 @@ $L7887:
 	movsx	edx, WORD PTR _nCurrState$[ebp]
 	mov	DWORD PTR -1256+[ebp], edx
 	cmp	DWORD PTR -1256+[ebp], 1
-	je	SHORT $L7892
+	je	SHORT $L7894
 	cmp	DWORD PTR -1256+[ebp], 2
-	je	$L7934
-	jmp	$L7889
-$L7892:
+	je	$L7936
+	jmp	$L7891
+$L7894:
 
 ; 975  :          case 1:
 ; 976  :             // We have the beginning of an Entity object.
@@ -3650,7 +3650,7 @@ $L7892:
 	call	DWORD PTR __imp___stricmp
 	add	esp, 8
 	test	eax, eax
-	jne	$L7893
+	jne	$L7895
 
 ; 979  :                // Create the domain (under ANCHORBLOCK mutex).
 ; 980  :                hDomain = fnAllocDataspace( AnchorBlock->hMainFirstDataHeader,
@@ -3665,17 +3665,17 @@ $L7892:
 	push	eax
 	call	_fnAllocDataspace
 	add	esp, 20					; 00000014H
-	mov	DWORD PTR _hDomain$7874[ebp], eax
+	mov	DWORD PTR _hDomain$7876[ebp], eax
 
 ; 982  : 
 ; 983  :                if ( hDomain )
 
-	cmp	DWORD PTR _hDomain$7874[ebp], 0
-	je	SHORT $L7895
+	cmp	DWORD PTR _hDomain$7876[ebp], 0
+	je	SHORT $L7897
 
 ; 985  :                   lpDomain = zGETPTR( hDomain );
 
-	mov	ecx, DWORD PTR _hDomain$7874[ebp]
+	mov	ecx, DWORD PTR _hDomain$7876[ebp]
 	push	ecx
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _lpDomain$[ebp], eax
@@ -3697,7 +3697,7 @@ $L7892:
 ; 989  :                   lpApp->hFirstDomain = hDomain;
 
 	mov	ecx, DWORD PTR _lpApp$[ebp]
-	mov	edx, DWORD PTR _hDomain$7874[ebp]
+	mov	edx, DWORD PTR _hDomain$7876[ebp]
 	mov	DWORD PTR [ecx+72], edx
 
 ; 990  :                   nCurrEntity = 1;  // indicate working with Domain Entity
@@ -3726,8 +3726,8 @@ $L7892:
 
 ; 996  :                   break;
 
-	jmp	$L7889
-$L7895:
+	jmp	$L7891
+$L7897:
 
 ; 998  : 
 ; 999  :                // "KZOEE012 - Error allocating memory"
@@ -3755,7 +3755,7 @@ $L7895:
 
 	xor	eax, eax
 	jmp	$L7684
-$L7893:
+$L7895:
 
 ; 1004 :             else
 ; 1005 :             if ( zstrcmpi( szEntityName, szlCONTEXT ) == 0 )
@@ -3767,7 +3767,7 @@ $L7893:
 	call	DWORD PTR __imp___stricmp
 	add	esp, 8
 	test	eax, eax
-	jne	$L7898
+	jne	$L7900
 
 ; 1007 :                // Create the context (under ANCHORBLOCK mutex).
 ; 1008 :                hContext = fnAllocDataspace( AnchorBlock->hMainFirstDataHeader,
@@ -3783,16 +3783,16 @@ $L7893:
 	push	edx
 	call	_fnAllocDataspace
 	add	esp, 20					; 00000014H
-	mov	DWORD PTR _hContext$7875[ebp], eax
+	mov	DWORD PTR _hContext$7877[ebp], eax
 
 ; 1011 :                if ( hContext )
 
-	cmp	DWORD PTR _hContext$7875[ebp], 0
-	je	SHORT $L7900
+	cmp	DWORD PTR _hContext$7877[ebp], 0
+	je	SHORT $L7902
 
 ; 1013 :                   lpContext = zGETPTR( hContext );
 
-	mov	eax, DWORD PTR _hContext$7875[ebp]
+	mov	eax, DWORD PTR _hContext$7877[ebp]
 	push	eax
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _lpContext$[ebp], eax
@@ -3800,7 +3800,7 @@ $L7893:
 ; 1014 :                   lpContext->hDomain = hDomain;
 
 	mov	ecx, DWORD PTR _lpContext$[ebp]
-	mov	edx, DWORD PTR _hDomain$7874[ebp]
+	mov	edx, DWORD PTR _hDomain$7876[ebp]
 	mov	DWORD PTR [ecx+43], edx
 
 ; 1015 :                   lpContext->hNextContext = lpDomain->hFirstContext;
@@ -3818,7 +3818,7 @@ $L7893:
 ; 1017 :                   lpDomain->hFirstContext = hContext;
 
 	mov	ecx, DWORD PTR _lpDomain$[ebp]
-	mov	edx, DWORD PTR _hContext$7875[ebp]
+	mov	edx, DWORD PTR _hContext$7877[ebp]
 	mov	DWORD PTR [ecx+47], edx
 
 ; 1018 :                   lpTableEntry = 0;
@@ -3839,8 +3839,8 @@ $L7893:
 
 ; 1022 :                   break;
 
-	jmp	$L7889
-$L7900:
+	jmp	$L7891
+$L7902:
 
 ; 1024 : 
 ; 1025 :                // "KZOEE012 - Error allocating memory"
@@ -3868,7 +3868,7 @@ $L7900:
 
 	xor	eax, eax
 	jmp	$L7684
-$L7898:
+$L7900:
 
 ; 1030 :             else
 ; 1031 :             if ( zstrcmpi( szEntityName, szlTABLEENTRY ) == 0 )
@@ -3880,7 +3880,7 @@ $L7898:
 	call	DWORD PTR __imp___stricmp
 	add	esp, 8
 	test	eax, eax
-	jne	$L7903
+	jne	$L7905
 
 ; 1033 :                // Create the table entry (under ANCHORBLOCK mutex).
 ; 1034 :                hTemp = fnAllocDataspace( AnchorBlock->hMainFirstDataHeader,
@@ -3901,7 +3901,7 @@ $L7898:
 ; 1037 :                if ( hTemp )
 
 	cmp	DWORD PTR _hTemp$[ebp], 0
-	je	$L7905
+	je	$L7907
 
 ; 1039 :                   lpTableEntry = zGETPTR( hTemp );
 
@@ -3913,7 +3913,7 @@ $L7898:
 ; 1040 :                   lpTableEntry->hContext = hContext;
 
 	mov	ecx, DWORD PTR _lpTableEntry$[ebp]
-	mov	edx, DWORD PTR _hContext$7875[ebp]
+	mov	edx, DWORD PTR _hContext$7877[ebp]
 	mov	DWORD PTR [ecx+14], edx
 
 ; 1041 : 
@@ -3923,26 +3923,26 @@ $L7898:
 	mov	eax, DWORD PTR _lpDomain$[ebp]
 	movsx	ecx, BYTE PTR [eax+63]
 	cmp	ecx, 76					; 0000004cH
-	je	SHORT $L7908
+	je	SHORT $L7910
 	mov	edx, DWORD PTR _lpDomain$[ebp]
 	movsx	eax, BYTE PTR [edx+63]
 	cmp	eax, 77					; 0000004dH
-	jne	SHORT $L7907
-$L7908:
+	jne	SHORT $L7909
+$L7910:
 
 ; 1045 :                      lpTableEntry->unInternal.lInteger = lNullInteger;
 
 	mov	ecx, DWORD PTR _lpTableEntry$[ebp]
 	mov	edx, DWORD PTR _lNullInteger
 	mov	DWORD PTR [ecx+26], edx
-$L7907:
+$L7909:
 
 ; 1047 : 
 ; 1048 :                   if ( lpContext->hLastTableEntry )
 
 	mov	eax, DWORD PTR _lpContext$[ebp]
 	cmp	DWORD PTR [eax+51], 0
-	je	SHORT $L7909
+	je	SHORT $L7911
 
 ; 1050 :                      LPTABLEENTRY lpTempTable;
 ; 1051 : 
@@ -3952,14 +3952,14 @@ $L7907:
 	mov	edx, DWORD PTR [ecx+51]
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpTempTable$7910[ebp], eax
+	mov	DWORD PTR _lpTempTable$7912[ebp], eax
 
 ; 1053 :                      lpTempTable->hNextTableEntry = hTemp;
 
-	mov	eax, DWORD PTR _lpTempTable$7910[ebp]
+	mov	eax, DWORD PTR _lpTempTable$7912[ebp]
 	mov	ecx, DWORD PTR _hTemp$[ebp]
 	mov	DWORD PTR [eax+2], ecx
-$L7909:
+$L7911:
 
 ; 1055 : 
 ; 1056 :                   lpTableEntry->hPrevTableEntry = lpContext->hLastTableEntry;
@@ -3980,14 +3980,14 @@ $L7909:
 
 	mov	ecx, DWORD PTR _lpContext$[ebp]
 	cmp	DWORD PTR [ecx+47], 0
-	jne	SHORT $L7912
+	jne	SHORT $L7914
 
 ; 1060 :                      lpContext->hFirstTableEntry = hTemp;
 
 	mov	edx, DWORD PTR _lpContext$[ebp]
 	mov	eax, DWORD PTR _hTemp$[ebp]
 	mov	DWORD PTR [edx+47], eax
-$L7912:
+$L7914:
 
 ; 1061 : 
 ; 1062 :                   lpRegExpression = 0;
@@ -4000,8 +4000,8 @@ $L7912:
 
 ; 1064 :                   break;
 
-	jmp	$L7889
-$L7905:
+	jmp	$L7891
+$L7907:
 
 ; 1066 : 
 ; 1067 :                // "KZOEE012 - Error allocating memory"
@@ -4029,7 +4029,7 @@ $L7905:
 
 	xor	eax, eax
 	jmp	$L7684
-$L7903:
+$L7905:
 
 ; 1072 :             else
 ; 1073 :             if ( zstrcmpi( szEntityName, szlNLS_TABLEENTRY ) == 0 )
@@ -4041,13 +4041,13 @@ $L7903:
 	call	DWORD PTR __imp___stricmp
 	add	esp, 8
 	test	eax, eax
-	jne	$L7914
+	jne	$L7916
 
 ; 1075 :                // Don't do anything if there isn't a current table entry.
 ; 1076 :                if ( lpTableEntry )
 
 	cmp	DWORD PTR _lpTableEntry$[ebp], 0
-	je	$L7915
+	je	$L7917
 
 ; 1078 :                   // Create the table entry (under ANCHORBLOCK mutex).
 ; 1079 :                   hTemp = fnAllocDataspace( AnchorBlock->hMainFirstDataHeader,
@@ -4068,7 +4068,7 @@ $L7903:
 ; 1082 :                   if ( hTemp )
 
 	cmp	DWORD PTR _hTemp$[ebp], 0
-	je	SHORT $L7917
+	je	SHORT $L7919
 
 ; 1084 :                      lpNLS_TableEntry = zGETPTR( hTemp );
 
@@ -4102,8 +4102,8 @@ $L7903:
 ; 1093 : 
 ; 1094 :                      break;
 
-	jmp	$L7889
-$L7917:
+	jmp	$L7891
+$L7919:
 
 ; 1096 : 
 ; 1097 :                   // "KZOEE012 - Error allocating memory"
@@ -4131,12 +4131,12 @@ $L7917:
 
 	xor	eax, eax
 	jmp	$L7684
-$L7915:
+$L7917:
 
 ; 1103 :             else
 
-	jmp	$L7934
-$L7914:
+	jmp	$L7936
+$L7916:
 
 ; 1104 :             if ( zstrcmpi( szEntityName, szlREGULAREXPRESSION ) == 0 )
 
@@ -4147,14 +4147,14 @@ $L7914:
 	call	DWORD PTR __imp___stricmp
 	add	esp, 8
 	test	eax, eax
-	jne	$L7920
+	jne	$L7922
 
 ; 1106 :                if ( lpDomain && lpContext )
 
 	cmp	DWORD PTR _lpDomain$[ebp], 0
-	je	$L7921
+	je	$L7923
 	cmp	DWORD PTR _lpContext$[ebp], 0
-	je	$L7921
+	je	$L7923
 
 ; 1108 :                   // Create the regular expression entry (under ANCHORBLOCK mutex).
 ; 1109 :                   hTemp = fnAllocDataspace( AnchorBlock->hMainFirstDataHeader,
@@ -4175,7 +4175,7 @@ $L7914:
 ; 1112 :                   if ( hTemp )
 
 	cmp	DWORD PTR _hTemp$[ebp], 0
-	je	SHORT $L7923
+	je	SHORT $L7925
 
 ; 1114 :                      lpRegExpression = zGETPTR( hTemp );
 
@@ -4187,7 +4187,7 @@ $L7914:
 ; 1115 :                      lpRegExpression->hContext = hContext;
 
 	mov	edx, DWORD PTR _lpRegExpression$[ebp]
-	mov	eax, DWORD PTR _hContext$7875[ebp]
+	mov	eax, DWORD PTR _hContext$7877[ebp]
 	mov	DWORD PTR [edx+10], eax
 
 ; 1116 :                      lpRegExpression->hNextRegExpression =
@@ -4219,8 +4219,8 @@ $L7914:
 
 ; 1123 :                      break;
 
-	jmp	$L7889
-$L7923:
+	jmp	$L7891
+$L7925:
 
 ; 1125 : 
 ; 1126 :                   // "KZOEE012 - Error allocating memory"
@@ -4248,12 +4248,12 @@ $L7923:
 
 	xor	eax, eax
 	jmp	$L7684
-$L7921:
+$L7923:
 
 ; 1132 :             else
 
-	jmp	$L7934
-$L7920:
+	jmp	$L7936
+$L7922:
 
 ; 1133 :             if ( zstrcmpi( szEntityName, "ROOT" ) == 0 )
 
@@ -4263,12 +4263,12 @@ $L7920:
 	call	DWORD PTR __imp___stricmp
 	add	esp, 8
 	test	eax, eax
-	jne	SHORT $L7926
+	jne	SHORT $L7928
 
 ; 1135 :                break;
 
-	jmp	$L7889
-$L7926:
+	jmp	$L7891
+$L7928:
 
 ; 1137 :             else
 ; 1138 :             if ( zstrcmpi( szEntityName, "OBJECT" ) == 0 )
@@ -4279,12 +4279,12 @@ $L7926:
 	call	DWORD PTR __imp___stricmp
 	add	esp, 8
 	test	eax, eax
-	jne	SHORT $L7929
+	jne	SHORT $L7931
 
 ; 1140 :                break;
 
-	jmp	$L7889
-$L7929:
+	jmp	$L7891
+$L7931:
 
 ; 1142 :             else
 ; 1143 :             if ( zstrcmpi( szEntityName, "DomainGroup" ) == 0 )
@@ -4295,12 +4295,12 @@ $L7929:
 	call	DWORD PTR __imp___stricmp
 	add	esp, 8
 	test	eax, eax
-	jne	SHORT $L7932
+	jne	SHORT $L7934
 
 ; 1145 :                break;
 
-	jmp	$L7889
-$L7932:
+	jmp	$L7891
+$L7934:
 
 ; 1149 :                // Invalid Entity Name in Domain object
 ; 1150 :                // "KZOEE018 - Error in Domain file "
@@ -4350,8 +4350,8 @@ $L7932:
 
 ; 1160 :                break;
 
-	jmp	$L7889
-$L7934:
+	jmp	$L7891
+$L7936:
 
 ; 1162 : 
 ; 1163 :          case 2:
@@ -4365,22 +4365,22 @@ $L7934:
 	sub	eax, 1
 	mov	DWORD PTR -1260+[ebp], eax
 	cmp	DWORD PTR -1260+[ebp], 4
-	ja	$L7937
+	ja	$L7939
 	mov	ecx, DWORD PTR -1260+[ebp]
-	jmp	DWORD PTR $L8385[ecx*4]
-$L7940:
+	jmp	DWORD PTR $L8387[ecx*4]
+$L7942:
 
 ; 1167 :                case 1:
 ; 1168 :                   // Current Entity is Domain
 ; 1169 :                   if ( lpDomain == 0 )
 
 	cmp	DWORD PTR _lpDomain$[ebp], 0
-	jne	SHORT $L7941
+	jne	SHORT $L7943
 
 ; 1170 :                      break;   // no domain is 'active' skip this attribute
 
-	jmp	$L7937
-$L7941:
+	jmp	$L7939
+$L7943:
 
 ; 1171 : 
 ; 1172 :                   switch ( szAttrName[ 0 ] )
@@ -4392,12 +4392,12 @@ $L7941:
 	sub	eax, 67					; 00000043H
 	mov	DWORD PTR -1264+[ebp], eax
 	cmp	DWORD PTR -1264+[ebp], 23		; 00000017H
-	ja	$L7943
+	ja	$L7945
 	mov	edx, DWORD PTR -1264+[ebp]
 	xor	ecx, ecx
-	mov	cl, BYTE PTR $L8386[edx]
-	jmp	DWORD PTR $L8387[ecx*4]
-$L7946:
+	mov	cl, BYTE PTR $L8388[edx]
+	jmp	DWORD PTR $L8389[ecx*4]
+$L7948:
 
 ; 1174 :                      case 'C':
 ; 1175 :                         if ( zstrcmpi( szAttrName, szlCONTEXTRESTRICTION ) == 0 )
@@ -4409,7 +4409,7 @@ $L7946:
 	call	DWORD PTR __imp___stricmp
 	add	esp, 8
 	test	eax, eax
-	jne	SHORT $L7947
+	jne	SHORT $L7949
 
 ; 1176 :                            lpDomain->cContextRestriction = pchLine[ 0 ];
 
@@ -4417,13 +4417,13 @@ $L7946:
 	mov	eax, DWORD PTR _pchLine$[ebp]
 	mov	cl, BYTE PTR [eax]
 	mov	BYTE PTR [edx+66], cl
-$L7947:
+$L7949:
 
 ; 1177 : 
 ; 1178 :                         break;
 
-	jmp	$L7943
-$L7948:
+	jmp	$L7945
+$L7950:
 
 ; 1179 : 
 ; 1180 :                      case 'D':
@@ -4436,7 +4436,7 @@ $L7948:
 	call	DWORD PTR __imp___stricmp
 	add	esp, 8
 	test	eax, eax
-	jne	SHORT $L7949
+	jne	SHORT $L7951
 
 ; 1182 :                            lpDomain->cDomainType = pchLine[ 0 ];
 
@@ -4447,8 +4447,8 @@ $L7948:
 
 ; 1183 :                         else
 
-	jmp	$L7955
-$L7949:
+	jmp	$L7957
+$L7951:
 
 ; 1184 :                         if ( zstrcmpi( szAttrName, szlDATATYPE ) == 0 )
 
@@ -4459,7 +4459,7 @@ $L7949:
 	call	DWORD PTR __imp___stricmp
 	add	esp, 8
 	test	eax, eax
-	jne	SHORT $L7951
+	jne	SHORT $L7953
 
 ; 1185 :                            lpDomain->cType = pchLine[ 0 ];
 
@@ -4470,8 +4470,8 @@ $L7949:
 
 ; 1186 :                         else
 
-	jmp	SHORT $L7955
-$L7951:
+	jmp	SHORT $L7957
+$L7953:
 
 ; 1187 :                         if ( zstrcmpi( szAttrName, szlDECIMALFORMAT ) == 0 )
 
@@ -4482,7 +4482,7 @@ $L7951:
 	call	DWORD PTR __imp___stricmp
 	add	esp, 8
 	test	eax, eax
-	jne	SHORT $L7953
+	jne	SHORT $L7955
 
 ; 1189 :                            lpDomain->lDecimalFormat = zatol( pchLine );
 
@@ -4502,8 +4502,8 @@ $L7951:
 
 ; 1192 :                         else
 
-	jmp	SHORT $L7955
-$L7953:
+	jmp	SHORT $L7957
+$L7955:
 
 ; 1193 :                         if ( zstrcmpi( szAttrName, szlDLL_NAME ) == 0 )
 
@@ -4514,7 +4514,7 @@ $L7953:
 	call	DWORD PTR __imp___stricmp
 	add	esp, 8
 	test	eax, eax
-	jne	SHORT $L7955
+	jne	SHORT $L7957
 
 ; 1194 :                            zstrcpy( lpDomain->szLibraryName, pchLine );
 
@@ -4525,13 +4525,13 @@ $L7953:
 	push	edx
 	call	_strcpy
 	add	esp, 8
-$L7955:
+$L7957:
 
 ; 1195 : 
 ; 1196 :                         break;
 
-	jmp	$L7943
-$L7957:
+	jmp	$L7945
+$L7959:
 
 ; 1197 : 
 ; 1198 :                      case 'L':
@@ -4555,7 +4555,7 @@ $L7957:
 	call	DWORD PTR __imp___stricmp
 	add	esp, 8
 	test	eax, eax
-	jne	SHORT $L7958
+	jne	SHORT $L7960
 
 ; 1211 :                            lpDomain->ulMaxStringLth = (zULONG) zatol( pchLine ) + 1;
 
@@ -4566,13 +4566,13 @@ $L7957:
 	add	eax, 1
 	mov	ecx, DWORD PTR _lpDomain$[ebp]
 	mov	DWORD PTR [ecx+59], eax
-$L7958:
+$L7960:
 
 ; 1212 : 
 ; 1213 :                         break;
 
-	jmp	$L7943
-$L7960:
+	jmp	$L7945
+$L7962:
 
 ; 1214 : 
 ; 1215 :                      case 'N':
@@ -4585,7 +4585,7 @@ $L7960:
 	call	DWORD PTR __imp___stricmp
 	add	esp, 8
 	test	eax, eax
-	jne	SHORT $L7961
+	jne	SHORT $L7963
 
 ; 1217 :                            zstrcpy( lpDomain->szName, pchLine );
 
@@ -4596,13 +4596,13 @@ $L7960:
 	push	edx
 	call	_strcpy
 	add	esp, 8
-$L7961:
+$L7963:
 
 ; 1218 : 
 ; 1219 :                         break;
 
-	jmp	$L7943
-$L7962:
+	jmp	$L7945
+$L7964:
 
 ; 1220 : 
 ; 1221 :                      case 'O':
@@ -4614,7 +4614,7 @@ $L7962:
 	call	DWORD PTR __imp___stricmp
 	add	esp, 8
 	test	eax, eax
-	jne	SHORT $L7963
+	jne	SHORT $L7965
 
 ; 1223 :                            zstrcpy( lpDomain->szDomainOper, pchLine );
 
@@ -4628,8 +4628,8 @@ $L7962:
 
 ; 1224 :                         else
 
-	jmp	SHORT $L7966
-$L7963:
+	jmp	SHORT $L7968
+$L7965:
 
 ; 1225 :                         if ( zstrcmpi( szAttrName, "OPERNUMBER" ) == 0 )
 
@@ -4639,7 +4639,7 @@ $L7963:
 	call	DWORD PTR __imp___stricmp
 	add	esp, 8
 	test	eax, eax
-	jne	SHORT $L7966
+	jne	SHORT $L7968
 
 ; 1226 :                            lpDomain->uOperNumber = (zUSHORT) zatol( pchLine );
 
@@ -4649,13 +4649,13 @@ $L7963:
 	add	esp, 4
 	mov	edx, DWORD PTR _lpDomain$[ebp]
 	mov	WORD PTR [edx+145], ax
-$L7966:
+$L7968:
 
 ; 1227 : 
 ; 1228 :                         break;
 
-	jmp	SHORT $L7943
-$L7969:
+	jmp	SHORT $L7945
+$L7971:
 
 ; 1229 : 
 ; 1230 :                      case 'R':
@@ -4669,16 +4669,16 @@ $L7969:
 	call	DWORD PTR __imp___stricmp
 	add	esp, 8
 	test	eax, eax
-	jne	SHORT $L7970
+	jne	SHORT $L7972
 	mov	edx, DWORD PTR _pchLine$[ebp]
 	movsx	eax, BYTE PTR [edx]
 	cmp	eax, 89					; 00000059H
-	je	SHORT $L7971
+	je	SHORT $L7973
 	mov	ecx, DWORD PTR _pchLine$[ebp]
 	movsx	edx, BYTE PTR [ecx]
 	cmp	edx, 121				; 00000079H
-	jne	SHORT $L7970
-$L7971:
+	jne	SHORT $L7972
+$L7973:
 
 ; 1234 :                            lpDomain->bRestricted = TRUE;
 
@@ -4687,13 +4687,13 @@ $L7971:
 	or	ecx, 1
 	mov	edx, DWORD PTR _lpDomain$[ebp]
 	mov	DWORD PTR [edx+141], ecx
-$L7970:
+$L7972:
 
 ; 1236 : 
 ; 1237 :                         break;
 
-	jmp	SHORT $L7943
-$L7972:
+	jmp	SHORT $L7945
+$L7974:
 
 ; 1238 : 
 ; 1239 :                      case 'Z':
@@ -4706,7 +4706,7 @@ $L7972:
 	call	DWORD PTR __imp___stricmp
 	add	esp, 8
 	test	eax, eax
-	jne	SHORT $L7973
+	jne	SHORT $L7975
 
 ; 1241 :                            lpDomain->lApDmTok = zatol( pchLine );
 
@@ -4716,14 +4716,14 @@ $L7972:
 	add	esp, 4
 	mov	ecx, DWORD PTR _lpDomain$[ebp]
 	mov	DWORD PTR [ecx+39], eax
-$L7973:
-$L7943:
+$L7975:
+$L7945:
 
 ; 1245 : 
 ; 1246 :                   break;
 
-	jmp	$L7937
-$L7974:
+	jmp	$L7939
+$L7976:
 
 ; 1247 : 
 ; 1248 :                case 2:
@@ -4731,12 +4731,12 @@ $L7974:
 ; 1250 :                   if ( lpContext == 0 )
 
 	cmp	DWORD PTR _lpContext$[ebp], 0
-	jne	SHORT $L7975
+	jne	SHORT $L7977
 
 ; 1251 :                      break;   // no context is 'active' skip this attribute
 
-	jmp	$L7937
-$L7975:
+	jmp	$L7939
+$L7977:
 
 ; 1252 : 
 ; 1253 :                   switch ( szAttrName[ 0 ] )
@@ -4748,12 +4748,12 @@ $L7975:
 	sub	eax, 68					; 00000044H
 	mov	DWORD PTR -1268+[ebp], eax
 	cmp	DWORD PTR -1268+[ebp], 22		; 00000016H
-	ja	$L7977
+	ja	$L7979
 	mov	edx, DWORD PTR -1268+[ebp]
 	xor	ecx, ecx
-	mov	cl, BYTE PTR $L8388[edx]
-	jmp	DWORD PTR $L8389[ecx*4]
-$L7980:
+	mov	cl, BYTE PTR $L8390[edx]
+	jmp	DWORD PTR $L8391[ecx*4]
+$L7982:
 
 ; 1255 :                      case 'D':
 ; 1256 :                         if ( zstrcmpi( szAttrName, szlDECIMALFORMAT ) == 0 )
@@ -4765,7 +4765,7 @@ $L7980:
 	call	DWORD PTR __imp___stricmp
 	add	esp, 8
 	test	eax, eax
-	jne	SHORT $L7981
+	jne	SHORT $L7983
 
 ; 1257 :                            lpContext->lDecimalFormat = zatol( pchLine );
 
@@ -4775,13 +4775,13 @@ $L7980:
 	add	esp, 4
 	mov	ecx, DWORD PTR _lpContext$[ebp]
 	mov	DWORD PTR [ecx+63], eax
-$L7981:
+$L7983:
 
 ; 1258 : 
 ; 1259 :                         break;
 
-	jmp	$L7977
-$L7982:
+	jmp	$L7979
+$L7984:
 
 ; 1260 : 
 ; 1261 :                      case 'E':
@@ -4794,7 +4794,7 @@ $L7982:
 	call	DWORD PTR __imp___stricmp
 	add	esp, 8
 	test	eax, eax
-	jne	SHORT $L7983
+	jne	SHORT $L7985
 
 ; 1264 :                            lpContext->hEditString =
 ; 1265 :                              fnStoreStringInDataspace( AnchorBlock->hMainFirstDataHeader,
@@ -4809,13 +4809,13 @@ $L7982:
 	add	esp, 8
 	mov	ecx, DWORD PTR _lpContext$[ebp]
 	mov	DWORD PTR [ecx+59], eax
-$L7983:
+$L7985:
 
 ; 1268 : 
 ; 1269 :                         break;
 
-	jmp	$L7977
-$L7984:
+	jmp	$L7979
+$L7986:
 
 ; 1270 : 
 ; 1271 :                      case 'I':
@@ -4829,22 +4829,22 @@ $L7984:
 	call	DWORD PTR __imp___stricmp
 	add	esp, 8
 	test	eax, eax
-	jne	SHORT $L7989
+	jne	SHORT $L7991
 	mov	ecx, DWORD PTR _pchLine$[ebp]
 	movsx	edx, BYTE PTR [ecx]
 	cmp	edx, 89					; 00000059H
-	je	SHORT $L7986
+	je	SHORT $L7988
 	mov	eax, DWORD PTR _pchLine$[ebp]
 	movsx	ecx, BYTE PTR [eax]
 	cmp	ecx, 121				; 00000079H
-	jne	SHORT $L7989
-$L7986:
+	jne	SHORT $L7991
+$L7988:
 
 ; 1275 :                            if ( lpDomain->lDefaultContextZKey )
 
 	mov	edx, DWORD PTR _lpDomain$[ebp]
 	cmp	DWORD PTR [edx+137], 0
-	je	SHORT $L7987
+	je	SHORT $L7989
 
 ; 1276 :                               TraceLineS( "(ap) More than one default Context for Domain: ",
 ; 1277 :                                           lpDomain->szName );
@@ -4857,8 +4857,8 @@ $L7986:
 
 ; 1278 :                            else
 
-	jmp	SHORT $L7989
-$L7987:
+	jmp	SHORT $L7991
+$L7989:
 
 ; 1279 :                               lpDomain->lDefaultContextZKey = lpContext->lContextTok;
 
@@ -4866,13 +4866,13 @@ $L7987:
 	mov	edx, DWORD PTR _lpContext$[ebp]
 	mov	eax, DWORD PTR [edx+39]
 	mov	DWORD PTR [ecx+137], eax
-$L7989:
+$L7991:
 
 ; 1281 : 
 ; 1282 :                         break;
 
-	jmp	SHORT $L7977
-$L7990:
+	jmp	SHORT $L7979
+$L7992:
 
 ; 1283 : 
 ; 1284 :                      case 'N':
@@ -4885,7 +4885,7 @@ $L7990:
 	call	DWORD PTR __imp___stricmp
 	add	esp, 8
 	test	eax, eax
-	jne	SHORT $L7991
+	jne	SHORT $L7993
 
 ; 1286 :                              zstrcpy( lpContext->szName, pchLine );
 
@@ -4896,13 +4896,13 @@ $L7990:
 	push	ecx
 	call	_strcpy
 	add	esp, 8
-$L7991:
+$L7993:
 
 ; 1287 : 
 ; 1288 :                         break;
 
-	jmp	SHORT $L7977
-$L7992:
+	jmp	SHORT $L7979
+$L7994:
 
 ; 1289 : 
 ; 1290 :                      case 'Z':
@@ -4915,7 +4915,7 @@ $L7992:
 	call	DWORD PTR __imp___stricmp
 	add	esp, 8
 	test	eax, eax
-	jne	SHORT $L7993
+	jne	SHORT $L7995
 
 ; 1292 :                              lpContext->lContextTok = zatol( pchLine );
 
@@ -4925,14 +4925,14 @@ $L7992:
 	add	esp, 4
 	mov	edx, DWORD PTR _lpContext$[ebp]
 	mov	DWORD PTR [edx+39], eax
-$L7993:
-$L7977:
+$L7995:
+$L7979:
 
 ; 1296 : 
 ; 1297 :                   break;
 
-	jmp	$L7937
-$L7994:
+	jmp	$L7939
+$L7996:
 
 ; 1298 : 
 ; 1299 :                case 3:
@@ -4940,12 +4940,12 @@ $L7994:
 ; 1301 :                   if ( lpTableEntry == 0 )
 
 	cmp	DWORD PTR _lpTableEntry$[ebp], 0
-	jne	SHORT $L7995
+	jne	SHORT $L7997
 
 ; 1302 :                      break;   // no tableentry is 'active' skip this attribute
 
-	jmp	$L7937
-$L7995:
+	jmp	$L7939
+$L7997:
 
 ; 1303 : 
 ; 1304 :                   switch ( szAttrName[ 0 ] )
@@ -4954,13 +4954,13 @@ $L7995:
 	mov	al, BYTE PTR _szAttrName$[ebp]
 	mov	BYTE PTR -1272+[ebp], al
 	cmp	BYTE PTR -1272+[ebp], 69		; 00000045H
-	je	SHORT $L8000
-	cmp	BYTE PTR -1272+[ebp], 73		; 00000049H
 	je	SHORT $L8002
+	cmp	BYTE PTR -1272+[ebp], 73		; 00000049H
+	je	SHORT $L8004
 	cmp	BYTE PTR -1272+[ebp], 90		; 0000005aH
-	je	$L8007
-	jmp	$L7997
-$L8000:
+	je	$L8009
+	jmp	$L7999
+$L8002:
 
 ; 1306 :                      case 'E':
 ; 1307 :                         if ( zstrcmpi( szAttrName, szlEXTERNALVALUE ) == 0 )
@@ -4972,7 +4972,7 @@ $L8000:
 	call	DWORD PTR __imp___stricmp
 	add	esp, 8
 	test	eax, eax
-	jne	SHORT $L8001
+	jne	SHORT $L8003
 
 ; 1309 :                            lpTableEntry->hExternalValue =
 ; 1310 :                              fnStoreStringInDataspace( AnchorBlock->hMainFirstDataHeader,
@@ -4987,13 +4987,13 @@ $L8000:
 	add	esp, 8
 	mov	ecx, DWORD PTR _lpTableEntry$[ebp]
 	mov	DWORD PTR [ecx+18], eax
-$L8001:
+$L8003:
 
 ; 1313 : 
 ; 1314 :                         break;
 
-	jmp	$L7997
-$L8002:
+	jmp	$L7999
+$L8004:
 
 ; 1315 : 
 ; 1316 :                      case 'I':
@@ -5006,7 +5006,7 @@ $L8002:
 	call	DWORD PTR __imp___stricmp
 	add	esp, 8
 	test	eax, eax
-	jne	SHORT $L8006
+	jne	SHORT $L8008
 
 ; 1319 :                            if ( lpDomain->cType == zTYPE_INTEGER ||
 ; 1320 :                                 lpDomain->cType == zTYPE_DECIMAL )
@@ -5014,12 +5014,12 @@ $L8002:
 	mov	ecx, DWORD PTR _lpDomain$[ebp]
 	movsx	edx, BYTE PTR [ecx+63]
 	cmp	edx, 76					; 0000004cH
-	je	SHORT $L8005
+	je	SHORT $L8007
 	mov	eax, DWORD PTR _lpDomain$[ebp]
 	movsx	ecx, BYTE PTR [eax+63]
 	cmp	ecx, 77					; 0000004dH
-	jne	SHORT $L8004
-$L8005:
+	jne	SHORT $L8006
+$L8007:
 
 ; 1322 :                               lpTableEntry->unInternal.lInteger = zatol( pchLine );
 
@@ -5032,8 +5032,8 @@ $L8005:
 
 ; 1324 :                            else
 
-	jmp	SHORT $L8006
-$L8004:
+	jmp	SHORT $L8008
+$L8006:
 
 ; 1326 :                               lpTableEntry->unInternal.hStringValue  =
 ; 1327 :                                fnStoreStringInDataspace( AnchorBlock->hMainFirstDataHeader,
@@ -5048,13 +5048,13 @@ $L8004:
 	add	esp, 8
 	mov	edx, DWORD PTR _lpTableEntry$[ebp]
 	mov	DWORD PTR [edx+26], eax
-$L8006:
+$L8008:
 
 ; 1331 : 
 ; 1332 :                         break;
 
-	jmp	SHORT $L7997
-$L8007:
+	jmp	SHORT $L7999
+$L8009:
 
 ; 1333 : 
 ; 1334 :                      case 'Z':
@@ -5067,7 +5067,7 @@ $L8007:
 	call	DWORD PTR __imp___stricmp
 	add	esp, 8
 	test	eax, eax
-	jne	SHORT $L8008
+	jne	SHORT $L8010
 
 ; 1336 :                            lpTableEntry->lTableEntryTok = zatol( pchLine );
 
@@ -5077,14 +5077,14 @@ $L8007:
 	add	esp, 4
 	mov	ecx, DWORD PTR _lpTableEntry$[ebp]
 	mov	DWORD PTR [ecx+10], eax
-$L8008:
-$L7997:
+$L8010:
+$L7999:
 
 ; 1340 : 
 ; 1341 :                   break;
 
-	jmp	$L7937
-$L8009:
+	jmp	$L7939
+$L8011:
 
 ; 1342 : 
 ; 1343 :                case 4:
@@ -5092,12 +5092,12 @@ $L8009:
 ; 1345 :                   if ( lpRegExpression == 0 )
 
 	cmp	DWORD PTR _lpRegExpression$[ebp], 0
-	jne	SHORT $L8010
+	jne	SHORT $L8012
 
 ; 1346 :                      break;   // no regular expression is 'active' skip this attr
 
-	jmp	$L7937
-$L8010:
+	jmp	$L7939
+$L8012:
 
 ; 1347 : 
 ; 1348 :                   switch ( szAttrName[ 0 ] )
@@ -5106,9 +5106,9 @@ $L8010:
 	mov	dl, BYTE PTR _szAttrName$[ebp]
 	mov	BYTE PTR -1276+[ebp], dl
 	cmp	BYTE PTR -1276+[ebp], 90		; 0000005aH
-	je	SHORT $L8015
-	jmp	SHORT $L8012
-$L8015:
+	je	SHORT $L8017
+	jmp	SHORT $L8014
+$L8017:
 
 ; 1350 :                      case 'Z':
 ; 1351 :                         if ( zstrcmpi( szAttrName, szlZKEY ) == 0 )
@@ -5120,7 +5120,7 @@ $L8015:
 	call	DWORD PTR __imp___stricmp
 	add	esp, 8
 	test	eax, eax
-	jne	SHORT $L8016
+	jne	SHORT $L8018
 
 ; 1352 :                            lpTableEntry->lTableEntryTok = zatol( pchLine );
 
@@ -5130,14 +5130,14 @@ $L8015:
 	add	esp, 4
 	mov	ecx, DWORD PTR _lpTableEntry$[ebp]
 	mov	DWORD PTR [ecx+10], eax
-$L8016:
-$L8012:
+$L8018:
+$L8014:
 
 ; 1356 : 
 ; 1357 :                   break;
 
-	jmp	$L7937
-$L8017:
+	jmp	$L7939
+$L8019:
 
 ; 1358 : 
 ; 1359 :                case 5:
@@ -5145,12 +5145,12 @@ $L8017:
 ; 1361 :                   if ( lpNLS_TableEntry == 0 )
 
 	cmp	DWORD PTR _lpNLS_TableEntry$[ebp], 0
-	jne	SHORT $L8018
+	jne	SHORT $L8020
 
 ; 1362 :                      break;   // no NLS table entry is 'active' skip this attr
 
-	jmp	SHORT $L7937
-$L8018:
+	jmp	SHORT $L7939
+$L8020:
 
 ; 1363 : 
 ; 1364 :                   switch ( szAttrName[ 0 ] )
@@ -5159,11 +5159,11 @@ $L8018:
 	mov	dl, BYTE PTR _szAttrName$[ebp]
 	mov	BYTE PTR -1280+[ebp], dl
 	cmp	BYTE PTR -1280+[ebp], 76		; 0000004cH
-	je	SHORT $L8023
+	je	SHORT $L8025
 	cmp	BYTE PTR -1280+[ebp], 84		; 00000054H
-	je	SHORT $L8026
-	jmp	SHORT $L8020
-$L8023:
+	je	SHORT $L8028
+	jmp	SHORT $L8022
+$L8025:
 
 ; 1366 :                      case 'L':
 ; 1367 :                         if ( zstrcmpi( szAttrName, szlLanguageIndex ) == 0 )
@@ -5175,7 +5175,7 @@ $L8023:
 	call	DWORD PTR __imp___stricmp
 	add	esp, 8
 	test	eax, eax
-	jne	SHORT $L8024
+	jne	SHORT $L8026
 
 ; 1368 :                            lpNLS_TableEntry->nLanguageCode = (zSHORT) zatol( pchLine );
 
@@ -5185,13 +5185,13 @@ $L8023:
 	add	esp, 4
 	mov	ecx, DWORD PTR _lpNLS_TableEntry$[ebp]
 	mov	WORD PTR [ecx+10], ax
-$L8024:
+$L8026:
 
 ; 1369 : 
 ; 1370 :                         break;
 
-	jmp	SHORT $L8020
-$L8026:
+	jmp	SHORT $L8022
+$L8028:
 
 ; 1371 : 
 ; 1372 :                      case 'T':
@@ -5204,7 +5204,7 @@ $L8026:
 	call	DWORD PTR __imp___stricmp
 	add	esp, 8
 	test	eax, eax
-	jne	SHORT $L8027
+	jne	SHORT $L8029
 
 ; 1375 :                            lpNLS_TableEntry->pszNLS_Text =
 ; 1376 :                              fnStoreStringInDataspace( AnchorBlock->hMainFirstDataHeader,
@@ -5219,10 +5219,10 @@ $L8026:
 	add	esp, 8
 	mov	ecx, DWORD PTR _lpNLS_TableEntry$[ebp]
 	mov	DWORD PTR [ecx+6], eax
-$L8027:
-$L8020:
-$L7937:
-$L7889:
+$L8029:
+$L8022:
+$L7939:
+$L7891:
 
 ; 1393 : 
 ; 1394 :       nEOF = fnSysReadLine( lpTask, &pchLine, hFile, &pvFile );
@@ -5240,8 +5240,8 @@ $L7889:
 
 ; 1395 :    }
 
-	jmp	$L7872
-$L7873:
+	jmp	$L7874
+$L7875:
 
 ; 1396 : 
 ; 1397 :    // Scan through domains.  Drop Domains and Contexts
@@ -5262,15 +5262,15 @@ $L7873:
 	push	ecx
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _lpDomain$[ebp], eax
-	jmp	SHORT $L8031
-$L8032:
+	jmp	SHORT $L8033
+$L8034:
 	mov	edx, DWORD PTR _lpNextDomain$[ebp]
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _lpDomain$[ebp], eax
-$L8031:
+$L8033:
 	cmp	DWORD PTR _lpDomain$[ebp], 0
-	je	$L8033
+	je	$L8035
 
 ; 1407 :       zLPCONTEXT   lpCurrContext;
 ; 1408 :       zLPCONTEXT   lpNextContext;
@@ -5287,7 +5287,7 @@ $L8031:
 	mov	edx, DWORD PTR _lpDomain$[ebp]
 	movsx	eax, BYTE PTR [edx+6]
 	test	eax, eax
-	jne	SHORT $L8036
+	jne	SHORT $L8038
 
 ; 1414 :          fnDeleteContext( lpDomain );  // delete all contexts
 
@@ -5328,7 +5328,7 @@ $L8031:
 ; 1419 :          if ( lpCurrDomain )
 
 	cmp	DWORD PTR _lpCurrDomain$[ebp], 0
-	je	SHORT $L8038
+	je	SHORT $L8040
 
 ; 1420 :             lpCurrDomain->hNextDomain = lpNextDomain;
 
@@ -5338,21 +5338,21 @@ $L8031:
 
 ; 1421 :          else
 
-	jmp	SHORT $L8039
-$L8038:
+	jmp	SHORT $L8041
+$L8040:
 
 ; 1422 :             lpApp->hFirstDomain = lpNextDomain;
 
 	mov	edx, DWORD PTR _lpApp$[ebp]
 	mov	eax, DWORD PTR _lpNextDomain$[ebp]
 	mov	DWORD PTR [edx+72], eax
-$L8039:
+$L8041:
 
 ; 1423 : 
 ; 1424 :          continue;
 
-	jmp	$L8032
-$L8036:
+	jmp	$L8034
+$L8038:
 
 ; 1426 : 
 ; 1427 :       lpCurrDomain = lpDomain;   // indicate curr domain as valid
@@ -5362,7 +5362,7 @@ $L8036:
 
 ; 1428 :       lpCurrContext = 0;   // last valid context, 0 means at head of queue
 
-	mov	DWORD PTR _lpCurrContext$8034[ebp], 0
+	mov	DWORD PTR _lpCurrContext$8036[ebp], 0
 
 ; 1429 :       for ( lpContext = zGETPTR( lpDomain->hFirstContext );
 ; 1430 :             lpContext;
@@ -5373,21 +5373,21 @@ $L8036:
 	push	eax
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _lpContext$[ebp], eax
-	jmp	SHORT $L8042
-$L8043:
-	mov	ecx, DWORD PTR _lpNextContext$8035[ebp]
+	jmp	SHORT $L8044
+$L8045:
+	mov	ecx, DWORD PTR _lpNextContext$8037[ebp]
 	push	ecx
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _lpContext$[ebp], eax
-$L8042:
+$L8044:
 	cmp	DWORD PTR _lpContext$[ebp], 0
-	je	$L8044
+	je	$L8046
 
 ; 1433 :          lpNextContext = lpContext->hNextContext;
 
 	mov	edx, DWORD PTR _lpContext$[ebp]
 	mov	eax, DWORD PTR [edx+2]
-	mov	DWORD PTR _lpNextContext$8035[ebp], eax
+	mov	DWORD PTR _lpNextContext$8037[ebp], eax
 
 ; 1434 : 
 ; 1435 :          if ( lpContext->szName[ 0 ] == 0 )  // if no name, drop it!
@@ -5395,15 +5395,15 @@ $L8042:
 	mov	ecx, DWORD PTR _lpContext$[ebp]
 	movsx	edx, BYTE PTR [ecx+6]
 	test	edx, edx
-	jne	$L8045
-$L8047:
+	jne	$L8047
+$L8049:
 
 ; 1437 :             // delete all table entries for this context
 ; 1438 :             while ( lpContext->hFirstTableEntry )
 
 	mov	eax, DWORD PTR _lpContext$[ebp]
 	cmp	DWORD PTR [eax+47], 0
-	je	SHORT $L8048
+	je	SHORT $L8050
 
 ; 1440 :                hTemp = lpContext->hFirstTableEntry;
 
@@ -5441,8 +5441,8 @@ $L8047:
 
 ; 1445 :             }
 
-	jmp	SHORT $L8047
-$L8048:
+	jmp	SHORT $L8049
+$L8050:
 
 ; 1446 : 
 ; 1447 :             // Delete all regular expressions for this context.
@@ -5450,7 +5450,7 @@ $L8048:
 
 	mov	ecx, DWORD PTR _lpContext$[ebp]
 	cmp	DWORD PTR [ecx+55], 0
-	je	SHORT $L8053
+	je	SHORT $L8055
 
 ; 1450 :                lpRegExpression = zGETPTR( lpContext->hFirstRegExpression );
 
@@ -5479,8 +5479,8 @@ $L8048:
 
 ; 1454 :             }
 
-	jmp	SHORT $L8048
-$L8053:
+	jmp	SHORT $L8050
+$L8055:
 
 ; 1455 : 
 ; 1456 :             lpDomain->hFirstContext = lpContext->hNextContext;
@@ -5511,38 +5511,38 @@ $L8053:
 ; 1460 :             // Fix up the context chain.
 ; 1461 :             if ( lpCurrContext )
 
-	cmp	DWORD PTR _lpCurrContext$8034[ebp], 0
-	je	SHORT $L8057
+	cmp	DWORD PTR _lpCurrContext$8036[ebp], 0
+	je	SHORT $L8059
 
 ; 1462 :                lpCurrContext->hNextContext = lpNextContext;
 
-	mov	eax, DWORD PTR _lpCurrContext$8034[ebp]
-	mov	ecx, DWORD PTR _lpNextContext$8035[ebp]
+	mov	eax, DWORD PTR _lpCurrContext$8036[ebp]
+	mov	ecx, DWORD PTR _lpNextContext$8037[ebp]
 	mov	DWORD PTR [eax+2], ecx
 
 ; 1463 :             else
 
-	jmp	SHORT $L8058
-$L8057:
+	jmp	SHORT $L8060
+$L8059:
 
 ; 1464 :                lpDomain->hFirstContext = lpNextContext;
 
 	mov	edx, DWORD PTR _lpDomain$[ebp]
-	mov	eax, DWORD PTR _lpNextContext$8035[ebp]
+	mov	eax, DWORD PTR _lpNextContext$8037[ebp]
 	mov	DWORD PTR [edx+47], eax
-$L8058:
+$L8060:
 
 ; 1465 : 
 ; 1466 :             continue;
 
-	jmp	$L8043
-$L8045:
+	jmp	$L8045
+$L8047:
 
 ; 1468 : 
 ; 1469 :          lpCurrContext = lpContext; // indicate curr context as valid
 
 	mov	ecx, DWORD PTR _lpContext$[ebp]
-	mov	DWORD PTR _lpCurrContext$8034[ebp], ecx
+	mov	DWORD PTR _lpCurrContext$8036[ebp], ecx
 
 ; 1470 : 
 ; 1471 : // DGC 2000.11.06
@@ -5584,14 +5584,14 @@ $L8045:
 ; 1507 : #endif
 ; 1508 :       }
 
-	jmp	$L8043
-$L8044:
+	jmp	$L8045
+$L8046:
 
 ; 1509 : 
 ; 1510 :    } // while ( lpDomain )...
 
-	jmp	$L8032
-$L8033:
+	jmp	$L8034
+$L8035:
 
 ; 1511 : 
 ; 1512 :    fnSysCloseFile( lpTask, hFile, 0 ); // Close the domain file
@@ -5629,22 +5629,22 @@ $L7684:
 	mov	esp, ebp
 	pop	ebp
 	ret	0
-$L8385:
-	DD	$L7940
-	DD	$L7974
-	DD	$L7994
-	DD	$L8009
-	DD	$L8017
 $L8387:
-	DD	$L7946
+	DD	$L7942
+	DD	$L7976
+	DD	$L7996
+	DD	$L8011
+	DD	$L8019
+$L8389:
 	DD	$L7948
-	DD	$L7957
-	DD	$L7960
+	DD	$L7950
+	DD	$L7959
 	DD	$L7962
-	DD	$L7969
-	DD	$L7972
-	DD	$L7943
-$L8386:
+	DD	$L7964
+	DD	$L7971
+	DD	$L7974
+	DD	$L7945
+$L8388:
 	DB	0
 	DB	1
 	DB	7
@@ -5669,14 +5669,14 @@ $L8386:
 	DB	7
 	DB	7
 	DB	6
-$L8389:
-	DD	$L7980
+$L8391:
 	DD	$L7982
 	DD	$L7984
-	DD	$L7990
+	DD	$L7986
 	DD	$L7992
-	DD	$L7977
-$L8388:
+	DD	$L7994
+	DD	$L7979
+$L8390:
 	DB	0
 	DB	1
 	DB	5
@@ -5707,7 +5707,7 @@ _nMaintainLinks$ = 16
 _lpNLS_TableEntry$ = -8
 _lpNextNLS_TableEntry$ = -12
 _lpDomain$ = -4
-_lpTempTable$8086 = -16
+_lpTempTable$8088 = -16
 _fnDropTableEntry PROC NEAR
 
 ; 1544 : {
@@ -5730,15 +5730,15 @@ _fnDropTableEntry PROC NEAR
 	push	ecx
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _lpNLS_TableEntry$[ebp], eax
-	jmp	SHORT $L8071
-$L8072:
+	jmp	SHORT $L8073
+$L8074:
 	mov	edx, DWORD PTR _lpNextNLS_TableEntry$[ebp]
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _lpNLS_TableEntry$[ebp], eax
-$L8071:
+$L8073:
 	cmp	DWORD PTR _lpNLS_TableEntry$[ebp], 0
-	je	SHORT $L8073
+	je	SHORT $L8075
 
 ; 1554 :       lpNextNLS_TableEntry = lpNLS_TableEntry->hNextNLS_TableEntry;
 
@@ -5751,7 +5751,7 @@ $L8071:
 
 	mov	edx, DWORD PTR _lpNLS_TableEntry$[ebp]
 	cmp	DWORD PTR [edx+6], 0
-	je	SHORT $L8074
+	je	SHORT $L8076
 
 ; 1557 :          fnFreeDataspace( zGETPTR( lpNLS_TableEntry->pszNLS_Text ) );
 
@@ -5762,7 +5762,7 @@ $L8071:
 	push	eax
 	call	_fnFreeDataspace
 	add	esp, 4
-$L8074:
+$L8076:
 
 ; 1558 : 
 ; 1559 :       fnFreeDataspace( lpNLS_TableEntry );
@@ -5774,8 +5774,8 @@ $L8074:
 
 ; 1560 :    }
 
-	jmp	SHORT $L8072
-$L8073:
+	jmp	SHORT $L8074
+$L8075:
 
 ; 1561 : 
 ; 1562 :    lpDomain = zGETPTR( lpContext->hDomain );
@@ -5792,11 +5792,11 @@ $L8073:
 	mov	edx, DWORD PTR _lpDomain$[ebp]
 	movsx	eax, BYTE PTR [edx+63]
 	cmp	eax, 76					; 0000004cH
-	je	SHORT $L8077
+	je	SHORT $L8079
 	mov	ecx, DWORD PTR _lpDomain$[ebp]
 	movsx	edx, BYTE PTR [ecx+63]
 	cmp	edx, 77					; 0000004dH
-	je	SHORT $L8077
+	je	SHORT $L8079
 
 ; 1566 :       if ( lpTableEntry->hExternalValue ==
 ; 1567 :                           lpTableEntry->unInternal.hStringValue )
@@ -5805,7 +5805,7 @@ $L8073:
 	mov	ecx, DWORD PTR _lpTableEntry$[ebp]
 	mov	edx, DWORD PTR [eax+18]
 	cmp	edx, DWORD PTR [ecx+26]
-	jne	SHORT $L8078
+	jne	SHORT $L8080
 
 ; 1569 :          fnFreeDataspace( zGETPTR( lpTableEntry->unInternal.hStringValue ) );
 
@@ -5819,8 +5819,8 @@ $L8073:
 
 ; 1571 :       else
 
-	jmp	SHORT $L8080
-$L8078:
+	jmp	SHORT $L8082
+$L8080:
 
 ; 1573 :          fnFreeDataspace( zGETPTR( lpTableEntry->hExternalValue ) );
 
@@ -5841,12 +5841,12 @@ $L8078:
 	push	eax
 	call	_fnFreeDataspace
 	add	esp, 4
-$L8080:
+$L8082:
 
 ; 1577 :    else
 
-	jmp	SHORT $L8083
-$L8077:
+	jmp	SHORT $L8085
+$L8079:
 
 ; 1578 :       fnFreeDataspace( zGETPTR( lpTableEntry->hExternalValue ) );
 
@@ -5857,14 +5857,14 @@ $L8077:
 	push	eax
 	call	_fnFreeDataspace
 	add	esp, 4
-$L8083:
+$L8085:
 
 ; 1579 : 
 ; 1580 :    if ( nMaintainLinks )
 
 	movsx	edx, WORD PTR _nMaintainLinks$[ebp]
 	test	edx, edx
-	je	$L8095
+	je	$L8097
 
 ; 1582 :       LPTABLEENTRY lpTempTable;
 ; 1583 : 
@@ -5872,7 +5872,7 @@ $L8083:
 
 	mov	eax, DWORD PTR _lpTableEntry$[ebp]
 	cmp	DWORD PTR [eax+2], 0
-	je	SHORT $L8087
+	je	SHORT $L8089
 
 ; 1586 :          // not the tail of the chain
 ; 1587 : 
@@ -5882,11 +5882,11 @@ $L8083:
 	mov	edx, DWORD PTR [ecx+2]
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpTempTable$8086[ebp], eax
+	mov	DWORD PTR _lpTempTable$8088[ebp], eax
 
 ; 1589 :          lpTempTable->hPrevTableEntry = lpTableEntry->hPrevTableEntry;
 
-	mov	eax, DWORD PTR _lpTempTable$8086[ebp]
+	mov	eax, DWORD PTR _lpTempTable$8088[ebp]
 	mov	ecx, DWORD PTR _lpTableEntry$[ebp]
 	mov	edx, DWORD PTR [ecx+6]
 	mov	DWORD PTR [eax+6], edx
@@ -5896,7 +5896,7 @@ $L8083:
 
 	mov	eax, DWORD PTR _lpTableEntry$[ebp]
 	cmp	DWORD PTR [eax+6], 0
-	je	SHORT $L8089
+	je	SHORT $L8091
 
 ; 1593 :             // not the head of the chain
 ; 1594 :             lpTempTable = zGETPTR( lpTableEntry->hPrevTableEntry );
@@ -5905,19 +5905,19 @@ $L8083:
 	mov	edx, DWORD PTR [ecx+6]
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpTempTable$8086[ebp], eax
+	mov	DWORD PTR _lpTempTable$8088[ebp], eax
 
 ; 1595 :             lpTempTable->hNextTableEntry = lpTableEntry->hNextTableEntry;
 
-	mov	eax, DWORD PTR _lpTempTable$8086[ebp]
+	mov	eax, DWORD PTR _lpTempTable$8088[ebp]
 	mov	ecx, DWORD PTR _lpTableEntry$[ebp]
 	mov	edx, DWORD PTR [ecx+2]
 	mov	DWORD PTR [eax+2], edx
 
 ; 1597 :          else
 
-	jmp	SHORT $L8091
-$L8089:
+	jmp	SHORT $L8093
+$L8091:
 
 ; 1598 :             // head of the chain
 ; 1599 :             lpContext->hFirstTableEntry = lpTableEntry->hNextTableEntry;
@@ -5926,12 +5926,12 @@ $L8089:
 	mov	ecx, DWORD PTR _lpTableEntry$[ebp]
 	mov	edx, DWORD PTR [ecx+2]
 	mov	DWORD PTR [eax+47], edx
-$L8091:
+$L8093:
 
 ; 1601 :       else
 
-	jmp	SHORT $L8095
-$L8087:
+	jmp	SHORT $L8097
+$L8089:
 
 ; 1603 :          // deleting the tail of the chain
 ; 1604 :          lpContext->hLastTableEntry = lpTableEntry->hPrevTableEntry;
@@ -5945,7 +5945,7 @@ $L8087:
 
 	mov	eax, DWORD PTR _lpTableEntry$[ebp]
 	cmp	DWORD PTR [eax+6], 0
-	je	SHORT $L8093
+	je	SHORT $L8095
 
 ; 1607 :             // not the only entry in the chain
 ; 1608 :             lpTempTable = zGETPTR( lpTableEntry->hPrevTableEntry );
@@ -5954,24 +5954,24 @@ $L8087:
 	mov	edx, DWORD PTR [ecx+6]
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpTempTable$8086[ebp], eax
+	mov	DWORD PTR _lpTempTable$8088[ebp], eax
 
 ; 1609 :             lpTempTable->hNextTableEntry = 0;
 
-	mov	eax, DWORD PTR _lpTempTable$8086[ebp]
+	mov	eax, DWORD PTR _lpTempTable$8088[ebp]
 	mov	DWORD PTR [eax+2], 0
 
 ; 1611 :          else
 
-	jmp	SHORT $L8095
-$L8093:
+	jmp	SHORT $L8097
+$L8095:
 
 ; 1613 :             // only entry in the chain
 ; 1614 :             lpContext->hFirstTableEntry = 0;
 
 	mov	ecx, DWORD PTR _lpContext$[ebp]
 	mov	DWORD PTR [ecx+47], 0
-$L8095:
+$L8097:
 
 ; 1618 : 
 ; 1619 :    fnFreeDataspace( lpTableEntry );
@@ -5988,9 +5988,9 @@ $L8095:
 	ret	0
 _fnDropTableEntry ENDP
 _lpDomain$ = 8
-_lpContext$8102 = -8
-_lpTableEntry$8103 = -12
-_lpRegExpression$8104 = -4
+_lpContext$8104 = -8
+_lpTableEntry$8105 = -12
+_lpRegExpression$8106 = -4
 _fnDeleteContext PROC NEAR
 
 ; 1641 : {
@@ -5998,13 +5998,13 @@ _fnDeleteContext PROC NEAR
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 12					; 0000000cH
-$L8100:
+$L8102:
 
 ; 1642 :    while ( lpDomain->hFirstContext )
 
 	mov	eax, DWORD PTR _lpDomain$[ebp]
 	cmp	DWORD PTR [eax+47], 0
-	je	$L8101
+	je	$L8103
 
 ; 1644 :       zLPCONTEXT      lpContext;
 ; 1645 :       LPTABLEENTRY    lpTableEntry;
@@ -6017,91 +6017,91 @@ $L8100:
 	mov	edx, DWORD PTR [ecx+47]
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpContext$8102[ebp], eax
-$L8107:
+	mov	DWORD PTR _lpContext$8104[ebp], eax
+$L8109:
 
 ; 1650 :       while ( lpContext->hFirstTableEntry )
 
-	mov	eax, DWORD PTR _lpContext$8102[ebp]
+	mov	eax, DWORD PTR _lpContext$8104[ebp]
 	cmp	DWORD PTR [eax+47], 0
-	je	SHORT $L8108
+	je	SHORT $L8110
 
 ; 1652 :          lpTableEntry = zGETPTR( lpContext->hFirstTableEntry );
 
-	mov	ecx, DWORD PTR _lpContext$8102[ebp]
+	mov	ecx, DWORD PTR _lpContext$8104[ebp]
 	mov	edx, DWORD PTR [ecx+47]
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpTableEntry$8103[ebp], eax
+	mov	DWORD PTR _lpTableEntry$8105[ebp], eax
 
 ; 1653 :          lpContext->hFirstTableEntry = lpTableEntry->hNextTableEntry;
 
-	mov	eax, DWORD PTR _lpContext$8102[ebp]
-	mov	ecx, DWORD PTR _lpTableEntry$8103[ebp]
+	mov	eax, DWORD PTR _lpContext$8104[ebp]
+	mov	ecx, DWORD PTR _lpTableEntry$8105[ebp]
 	mov	edx, DWORD PTR [ecx+2]
 	mov	DWORD PTR [eax+47], edx
 
 ; 1654 :          fnDropTableEntry( lpContext, lpTableEntry, 0 );
 
 	push	0
-	mov	eax, DWORD PTR _lpTableEntry$8103[ebp]
+	mov	eax, DWORD PTR _lpTableEntry$8105[ebp]
 	push	eax
-	mov	ecx, DWORD PTR _lpContext$8102[ebp]
+	mov	ecx, DWORD PTR _lpContext$8104[ebp]
 	push	ecx
 	call	_fnDropTableEntry
 	add	esp, 12					; 0000000cH
 
 ; 1655 :       }
 
-	jmp	SHORT $L8107
-$L8108:
+	jmp	SHORT $L8109
+$L8110:
 
 ; 1656 : 
 ; 1657 :       // Delete all regular expressions for this context.
 ; 1658 :       while ( lpContext->hFirstRegExpression )
 
-	mov	edx, DWORD PTR _lpContext$8102[ebp]
+	mov	edx, DWORD PTR _lpContext$8104[ebp]
 	cmp	DWORD PTR [edx+55], 0
-	je	SHORT $L8112
+	je	SHORT $L8114
 
 ; 1660 :          lpRegExpression = zGETPTR( lpContext->hFirstRegExpression );
 
-	mov	eax, DWORD PTR _lpContext$8102[ebp]
+	mov	eax, DWORD PTR _lpContext$8104[ebp]
 	mov	ecx, DWORD PTR [eax+55]
 	push	ecx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpRegExpression$8104[ebp], eax
+	mov	DWORD PTR _lpRegExpression$8106[ebp], eax
 
 ; 1661 :          lpContext->hFirstRegExpression = lpRegExpression->hNextRegExpression;
 
-	mov	edx, DWORD PTR _lpContext$8102[ebp]
-	mov	eax, DWORD PTR _lpRegExpression$8104[ebp]
+	mov	edx, DWORD PTR _lpContext$8104[ebp]
+	mov	eax, DWORD PTR _lpRegExpression$8106[ebp]
 	mov	ecx, DWORD PTR [eax+2]
 	mov	DWORD PTR [edx+55], ecx
 
 ; 1662 :          fnFreeDataspace( lpRegExpression );
 
-	mov	edx, DWORD PTR _lpRegExpression$8104[ebp]
+	mov	edx, DWORD PTR _lpRegExpression$8106[ebp]
 	push	edx
 	call	_fnFreeDataspace
 	add	esp, 4
 
 ; 1663 :       }
 
-	jmp	SHORT $L8108
-$L8112:
+	jmp	SHORT $L8110
+$L8114:
 
 ; 1664 : 
 ; 1665 :       lpDomain->hFirstContext = lpContext->hNextContext;
 
 	mov	eax, DWORD PTR _lpDomain$[ebp]
-	mov	ecx, DWORD PTR _lpContext$8102[ebp]
+	mov	ecx, DWORD PTR _lpContext$8104[ebp]
 	mov	edx, DWORD PTR [ecx+2]
 	mov	DWORD PTR [eax+47], edx
 
 ; 1666 :       fnFreeDataspace( zGETPTR( lpContext->hEditString ) );
 
-	mov	eax, DWORD PTR _lpContext$8102[ebp]
+	mov	eax, DWORD PTR _lpContext$8104[ebp]
 	mov	ecx, DWORD PTR [eax+59]
 	push	ecx
 	call	DWORD PTR _g_pfnGetPtr
@@ -6111,15 +6111,15 @@ $L8112:
 
 ; 1667 :       fnFreeDataspace( lpContext );
 
-	mov	edx, DWORD PTR _lpContext$8102[ebp]
+	mov	edx, DWORD PTR _lpContext$8104[ebp]
 	push	edx
 	call	_fnFreeDataspace
 	add	esp, 4
 
 ; 1668 :    }
 
-	jmp	$L8100
-$L8101:
+	jmp	$L8102
+$L8103:
 
 ; 1669 : 
 ; 1670 :    return( 0 );
@@ -6251,9 +6251,9 @@ _DATA	SEGMENT
 	DB	'teApp SUCCESSFUL for App: ', 00H		; `string'
 _DATA	ENDS
 _TEXT	SEGMENT
-_lpViewOD$8212 = -72
-_lpViewCsr$8215 = -76
-_hApp2$8268 = -80
+_lpViewOD$8214 = -72
+_lpViewCsr$8217 = -76
+_hApp2$8270 = -80
 _lpApp$ = 8
 _lpPrevApp$ = -20
 _hApp$ = -48
@@ -6271,7 +6271,7 @@ _lpPrevTaskDomain$ = -40
 _lpDomain$ = -4
 _lpViewOI$ = -56
 _pchAppName$ = -52
-_lpViewOD$8166 = -68
+_lpViewOD$8168 = -68
 _fnDeleteApp PROC NEAR
 
 ; 1701 : {
@@ -6300,30 +6300,30 @@ _fnDeleteApp PROC NEAR
 ; 1719 :    if ( AnchorBlock == 0 )
 
 	cmp	DWORD PTR _AnchorBlock, 0
-	jne	SHORT $L8145
+	jne	SHORT $L8147
 
 ; 1720 :       return( -1 );
 
 	or	ax, -1
-	jmp	$L8128
-$L8145:
+	jmp	$L8130
+$L8147:
 
 ; 1721 : 
 ; 1722 :    if ( lpApp == 0 || lpApp->nTableID != iApp )
 
 	cmp	DWORD PTR _lpApp$[ebp], 0
-	je	SHORT $L8147
+	je	SHORT $L8149
 	mov	eax, DWORD PTR _lpApp$[ebp]
 	movsx	ecx, WORD PTR [eax]
 	cmp	ecx, 10003				; 00002713H
-	je	SHORT $L8146
-$L8147:
+	je	SHORT $L8148
+$L8149:
 
 ; 1723 :       return( -1 );
 
 	or	ax, -1
-	jmp	$L8128
-$L8146:
+	jmp	$L8130
+$L8148:
 
 ; 1724 : 
 ; 1725 :    if ( AnchorBlock->TraceFlags.bTaskMsgs )
@@ -6333,7 +6333,7 @@ $L8146:
 	shr	eax, 1
 	and	eax, 1
 	test	eax, eax
-	je	SHORT $L8148
+	je	SHORT $L8150
 
 ; 1727 :       TraceLine( "DeleteApp for App ===================>>>> %s %s",
 ; 1728 :                  lpApp->szName, lpApp->bKeepAlive ? "(KeepAlive)" : "" );
@@ -6342,12 +6342,12 @@ $L8146:
 	mov	edx, DWORD PTR [ecx+1905]
 	and	edx, 1
 	test	edx, edx
-	je	SHORT $L8393
+	je	SHORT $L8395
 	mov	DWORD PTR -84+[ebp], OFFSET FLAT:??_C@_0M@OGPE@?$CIKeepAlive?$CJ?$AA@ ; `string'
-	jmp	SHORT $L8394
-$L8393:
+	jmp	SHORT $L8396
+$L8395:
 	mov	DWORD PTR -84+[ebp], OFFSET FLAT:??_C@_00A@?$AA@ ; `string'
-$L8394:
+$L8396:
 	mov	eax, DWORD PTR -84+[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _lpApp$[ebp]
@@ -6356,7 +6356,7 @@ $L8394:
 	push	OFFSET FLAT:??_C@_0DA@HNEC@DeleteApp?5for?5App?5?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN@ ; `string'
 	call	_TraceLine
 	add	esp, 12					; 0000000cH
-$L8148:
+$L8150:
 
 ; 1730 : 
 ; 1731 :    // Some apps never get dropped, even if no tasks reference them.  Check
@@ -6367,13 +6367,13 @@ $L8148:
 	mov	eax, DWORD PTR [edx+1905]
 	and	eax, 1
 	test	eax, eax
-	je	SHORT $L8152
+	je	SHORT $L8154
 
 ; 1734 :       return( 1 );
 
 	mov	ax, 1
-	jmp	$L8128
-$L8152:
+	jmp	$L8130
+$L8154:
 
 ; 1735 : 
 ; 1736 :    hApp = zGETHNDL( lpApp );
@@ -6398,7 +6398,7 @@ $L8152:
 	mov	eax, DWORD PTR _AnchorBlock
 	mov	ecx, DWORD PTR [eax+130]
 	mov	DWORD PTR _hTask$[ebp], ecx
-$L8156:
+$L8158:
 
 ; 1743 :    while ( (lpTask = zGETPTR( hTask )) != 0 )
 
@@ -6407,7 +6407,7 @@ $L8156:
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _lpTask$[ebp], eax
 	cmp	DWORD PTR _lpTask$[ebp], 0
-	je	$L8157
+	je	$L8159
 
 ; 1745 :       // Kick out if task is connected to app.
 ; 1746 :       if ( lpTask->hApp == hApp )
@@ -6415,7 +6415,7 @@ $L8156:
 	mov	eax, DWORD PTR _lpTask$[ebp]
 	mov	ecx, DWORD PTR [eax+10]
 	cmp	ecx, DWORD PTR _hApp$[ebp]
-	jne	SHORT $L8158
+	jne	SHORT $L8160
 
 ; 1748 :          if ( AnchorBlock->TraceFlags.bTaskMsgs )
 
@@ -6424,7 +6424,7 @@ $L8156:
 	shr	eax, 1
 	and	eax, 1
 	test	eax, eax
-	je	SHORT $L8159
+	je	SHORT $L8161
 
 ; 1749 :             TraceLineS( "fnDeleteApp found Tasks linked to App: ", lpApp->szName );
 
@@ -6433,14 +6433,14 @@ $L8156:
 	push	ecx
 	push	OFFSET FLAT:??_C@_0CI@PMOF@fnDeleteApp?5found?5Tasks?5linked?5t@ ; `string'
 	call	_TraceLineS@8
-$L8159:
+$L8161:
 
 ; 1750 : 
 ; 1751 :          return( 1 );
 
 	mov	ax, 1
-	jmp	$L8128
-$L8158:
+	jmp	$L8130
+$L8160:
 
 ; 1753 : 
 ; 1754 :       // Make sure that no task is using a View OI for one of the object's
@@ -6452,18 +6452,18 @@ $L8158:
 	push	eax
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _lpView$[ebp], eax
-$L8163:
+$L8165:
 
 ; 1757 :       while ( lpView )
 
 	cmp	DWORD PTR _lpView$[ebp], 0
-	je	SHORT $L8164
+	je	SHORT $L8166
 
 ; 1759 :          if ( lpView->hViewOD )
 
 	mov	ecx, DWORD PTR _lpView$[ebp]
 	cmp	DWORD PTR [ecx+6], 0
-	je	SHORT $L8168
+	je	SHORT $L8170
 
 ; 1761 :             LPVIEWOD lpViewOD = zGETPTR( lpView->hViewOD );
 
@@ -6471,16 +6471,16 @@ $L8163:
 	mov	eax, DWORD PTR [edx+6]
 	push	eax
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpViewOD$8166[ebp], eax
+	mov	DWORD PTR _lpViewOD$8168[ebp], eax
 
 ; 1762 : 
 ; 1763 :             // Kick out if ViewOD is connected to app.
 ; 1764 :             if ( lpViewOD->hApp == hApp )
 
-	mov	ecx, DWORD PTR _lpViewOD$8166[ebp]
+	mov	ecx, DWORD PTR _lpViewOD$8168[ebp]
 	mov	edx, DWORD PTR [ecx+6]
 	cmp	edx, DWORD PTR _hApp$[ebp]
-	jne	SHORT $L8168
+	jne	SHORT $L8170
 
 ; 1766 :                if ( AnchorBlock->TraceFlags.bTaskMsgs )
 
@@ -6489,7 +6489,7 @@ $L8163:
 	shr	ecx, 1
 	and	ecx, 1
 	test	ecx, ecx
-	je	SHORT $L8169
+	je	SHORT $L8171
 
 ; 1768 :                   TraceLine( "fnDeleteApp found ViewOD (%s) for task: 0x%08x  linked to App: %s",
 ; 1769 :                              lpViewOD->szName, zGETHNDL( lpTask ), lpApp->szName );
@@ -6501,20 +6501,20 @@ $L8163:
 	push	eax
 	call	DWORD PTR _g_pfnGetHndl
 	push	eax
-	mov	ecx, DWORD PTR _lpViewOD$8166[ebp]
+	mov	ecx, DWORD PTR _lpViewOD$8168[ebp]
 	add	ecx, 10					; 0000000aH
 	push	ecx
 	push	OFFSET FLAT:??_C@_0EC@PMKL@fnDeleteApp?5found?5ViewOD?5?$CI?$CFs?$CJ?5fo@ ; `string'
 	call	_TraceLine
 	add	esp, 16					; 00000010H
-$L8169:
+$L8171:
 
 ; 1771 : 
 ; 1772 :                return( 1 );
 
 	mov	ax, 1
-	jmp	$L8128
-$L8168:
+	jmp	$L8130
+$L8170:
 
 ; 1775 : 
 ; 1776 :          lpView = zGETPTR( lpView->hNextView );
@@ -6527,8 +6527,8 @@ $L8168:
 
 ; 1777 :       }
 
-	jmp	SHORT $L8163
-$L8164:
+	jmp	SHORT $L8165
+$L8166:
 
 ; 1778 : 
 ; 1779 :       // Make sure none of the active subtasks is using the application to
@@ -6540,12 +6540,12 @@ $L8164:
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _lpSubtask$[ebp], eax
-$L8175:
+$L8177:
 
 ; 1782 :       while ( lpSubtask )
 
 	cmp	DWORD PTR _lpSubtask$[ebp], 0
-	je	$L8176
+	je	$L8178
 
 ; 1784 :          // Kick out if subtask is connected to app.
 ; 1785 :          if ( lpSubtask->hApp == hApp )
@@ -6553,14 +6553,14 @@ $L8175:
 	mov	eax, DWORD PTR _lpSubtask$[ebp]
 	mov	ecx, DWORD PTR [eax+10]
 	cmp	ecx, DWORD PTR _hApp$[ebp]
-	jne	SHORT $L8180
+	jne	SHORT $L8182
 
 ; 1787 :             if ( hTask == AnchorBlock->hMainTask )
 
 	mov	edx, DWORD PTR _AnchorBlock
 	mov	eax, DWORD PTR _hTask$[ebp]
 	cmp	eax, DWORD PTR [edx+106]
-	jne	SHORT $L8178
+	jne	SHORT $L8180
 
 ; 1789 :                // Clean up any subtasks for this app in the Main task.
 ; 1790 :                fnDropSubtask( lpTask, lpSubtask, -1 );
@@ -6583,8 +6583,8 @@ $L8175:
 
 ; 1792 :                continue;
 
-	jmp	SHORT $L8175
-$L8178:
+	jmp	SHORT $L8177
+$L8180:
 
 ; 1796 :                if ( AnchorBlock->TraceFlags.bTaskMsgs )
 
@@ -6593,7 +6593,7 @@ $L8178:
 	shr	eax, 1
 	and	eax, 1
 	test	eax, eax
-	je	SHORT $L8181
+	je	SHORT $L8183
 
 ; 1797 :                   TraceLineS( "fnDeleteApp found Subtasks linked to App: ", lpApp->szName );
 
@@ -6602,14 +6602,14 @@ $L8178:
 	push	ecx
 	push	OFFSET FLAT:??_C@_0CL@DFNM@fnDeleteApp?5found?5Subtasks?5linke@ ; `string'
 	call	_TraceLineS@8
-$L8181:
+$L8183:
 
 ; 1798 : 
 ; 1799 :                return( 1 );
 
 	mov	ax, 1
-	jmp	$L8128
-$L8180:
+	jmp	$L8130
+$L8182:
 
 ; 1802 : 
 ; 1803 :          lpSubtask = zGETPTR( lpSubtask->hNextSubtask );
@@ -6622,23 +6622,23 @@ $L8180:
 
 ; 1804 :       }
 
-	jmp	$L8175
-$L8176:
+	jmp	$L8177
+$L8178:
 
 ; 1805 : 
 ; 1806 :       if ( lpView || lpSubtask )
 
 	cmp	DWORD PTR _lpView$[ebp], 0
-	jne	SHORT $L8185
+	jne	SHORT $L8187
 	cmp	DWORD PTR _lpSubtask$[ebp], 0
-	je	SHORT $L8184
-$L8185:
+	je	SHORT $L8186
+$L8187:
 
 ; 1807 :          return( 1 );
 
 	mov	ax, 1
-	jmp	$L8128
-$L8184:
+	jmp	$L8130
+$L8186:
 
 ; 1808 : 
 ; 1809 :       // Check this for leak ... dks 2005.12.01
@@ -6653,12 +6653,12 @@ $L8184:
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _lpTaskDomain$[ebp], eax
-$L8188:
+$L8190:
 
 ; 1812 :       while( lpTaskDomain )
 
 	cmp	DWORD PTR _lpTaskDomain$[ebp], 0
-	je	$L8189
+	je	$L8191
 
 ; 1814 :          lpDomain = zGETPTR( lpTaskDomain->hDomain );
 
@@ -6673,14 +6673,14 @@ $L8188:
 	mov	edx, DWORD PTR _lpDomain$[ebp]
 	mov	eax, DWORD PTR [edx+43]
 	cmp	eax, DWORD PTR _hApp$[ebp]
-	jne	SHORT $L8194
+	jne	SHORT $L8196
 
 ; 1817 :             if ( hTask == AnchorBlock->hMainTask )
 
 	mov	ecx, DWORD PTR _AnchorBlock
 	mov	edx, DWORD PTR _hTask$[ebp]
 	cmp	edx, DWORD PTR [ecx+106]
-	jne	SHORT $L8192
+	jne	SHORT $L8194
 
 ; 1819 :                // Clean up any domains for this app in the Main task.
 ; 1820 :                fnDropTaskDomain( lpTask, lpTaskDomain );
@@ -6702,8 +6702,8 @@ $L8188:
 
 ; 1822 :                continue;
 
-	jmp	SHORT $L8188
-$L8192:
+	jmp	SHORT $L8190
+$L8194:
 
 ; 1826 :                if ( AnchorBlock->TraceFlags.bTaskMsgs )
 
@@ -6712,7 +6712,7 @@ $L8192:
 	shr	edx, 1
 	and	edx, 1
 	test	edx, edx
-	je	SHORT $L8195
+	je	SHORT $L8197
 
 ; 1827 :                   TraceLineS( "fnDeleteApp found Domains linked to App: ", lpApp->szName );
 
@@ -6721,14 +6721,14 @@ $L8192:
 	push	eax
 	push	OFFSET FLAT:??_C@_0CK@IPAG@fnDeleteApp?5found?5Domains?5linked@ ; `string'
 	call	_TraceLineS@8
-$L8195:
+$L8197:
 
 ; 1828 : 
 ; 1829 :                return( 1 );
 
 	mov	ax, 1
-	jmp	$L8128
-$L8194:
+	jmp	$L8130
+$L8196:
 
 ; 1832 : 
 ; 1833 :          lpPrevTaskDomain = lpTaskDomain;
@@ -6746,8 +6746,8 @@ $L8194:
 
 ; 1835 :       }
 
-	jmp	$L8188
-$L8189:
+	jmp	$L8190
+$L8191:
 
 ; 1836 : 
 ; 1837 :       hTask = lpTask->hNextTask;
@@ -6758,8 +6758,8 @@ $L8189:
 
 ; 1838 :    }
 
-	jmp	$L8156
-$L8157:
+	jmp	$L8158
+$L8159:
 
 ; 1839 : 
 ; 1840 :    // If lpTask is set, then the application is still in use either by
@@ -6768,7 +6768,7 @@ $L8157:
 ; 1843 :    if ( lpTask )    // i don't think it is possible to get here ... but who
 
 	cmp	DWORD PTR _lpTask$[ebp], 0
-	je	SHORT $L8198
+	je	SHORT $L8200
 
 ; 1845 :       SysMessageBox( 0, "DKS", "IMPOSSIBLE!!!", -1 );
 
@@ -6781,8 +6781,8 @@ $L8157:
 ; 1846 :       return( 1 );
 
 	mov	ax, 1
-	jmp	$L8128
-$L8198:
+	jmp	$L8130
+$L8200:
 
 ; 1848 : 
 ; 1849 :    if ( AnchorBlock->TraceFlags.bTaskMsgs )
@@ -6792,7 +6792,7 @@ $L8198:
 	shr	ecx, 1
 	and	ecx, 1
 	test	ecx, ecx
-	je	SHORT $L8201
+	je	SHORT $L8203
 
 ; 1850 :       TraceLineS( "(APP) About to delete App: ", pchAppName );
 
@@ -6800,7 +6800,7 @@ $L8198:
 	push	edx
 	push	OFFSET FLAT:??_C@_0BM@OIFA@?$CIAPP?$CJ?5About?5to?5delete?5App?3?5?$AA@ ; `string'
 	call	_TraceLineS@8
-$L8201:
+$L8203:
 
 ; 1851 : 
 ; 1852 :    // Even though the application is not in use, there may yet be instances
@@ -6815,16 +6815,16 @@ $L8201:
 	push	ecx
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _lpTask$[ebp], eax
-	jmp	SHORT $L8205
-$L8206:
+	jmp	SHORT $L8207
+$L8208:
 	mov	edx, DWORD PTR _lpTask$[ebp]
 	mov	eax, DWORD PTR [edx+2]
 	push	eax
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _lpTask$[ebp], eax
-$L8205:
+$L8207:
 	cmp	DWORD PTR _lpTask$[ebp], 0
-	je	$L8207
+	je	$L8209
 
 ; 1859 :       // Make sure that no task is using a View OI for one of the object's
 ; 1860 :       // view instances.
@@ -6835,12 +6835,12 @@ $L8205:
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _lpViewOI$[ebp], eax
-$L8210:
+$L8212:
 
 ; 1862 :       while ( lpViewOI )
 
 	cmp	DWORD PTR _lpViewOI$[ebp], 0
-	je	SHORT $L8211
+	je	SHORT $L8213
 
 ; 1864 :          LPVIEWOD lpViewOD = zGETPTR( lpViewOI->hViewOD );
 
@@ -6848,15 +6848,15 @@ $L8210:
 	mov	ecx, DWORD PTR [eax+6]
 	push	ecx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpViewOD$8212[ebp], eax
+	mov	DWORD PTR _lpViewOD$8214[ebp], eax
 
 ; 1865 : 
 ; 1866 :          if ( lpViewOD->hApp == hApp )
 
-	mov	edx, DWORD PTR _lpViewOD$8212[ebp]
+	mov	edx, DWORD PTR _lpViewOD$8214[ebp]
 	mov	eax, DWORD PTR [edx+6]
 	cmp	eax, DWORD PTR _hApp$[ebp]
-	jne	SHORT $L8214
+	jne	SHORT $L8216
 
 ; 1868 :             LPVIEWCSR lpViewCsr = zGETPTR( lpViewOI->hFirstViewCsr );
 
@@ -6864,12 +6864,12 @@ $L8210:
 	mov	edx, DWORD PTR [ecx+10]
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpViewCsr$8215[ebp], eax
+	mov	DWORD PTR _lpViewCsr$8217[ebp], eax
 
 ; 1869 : 
 ; 1870 :             lpView   = zGETPTR( lpViewCsr->hView );
 
-	mov	eax, DWORD PTR _lpViewCsr$8215[ebp]
+	mov	eax, DWORD PTR _lpViewCsr$8217[ebp]
 	mov	ecx, DWORD PTR [eax+6]
 	push	ecx
 	call	DWORD PTR _g_pfnGetPtr
@@ -6892,8 +6892,8 @@ $L8210:
 
 ; 1874 :          else
 
-	jmp	SHORT $L8219
-$L8214:
+	jmp	SHORT $L8221
+$L8216:
 
 ; 1875 :             lpViewOI = zGETPTR( lpViewOI->hNextViewOI );
 
@@ -6902,17 +6902,17 @@ $L8214:
 	push	eax
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _lpViewOI$[ebp], eax
-$L8219:
+$L8221:
 
 ; 1876 :       }
 
-	jmp	SHORT $L8210
-$L8211:
+	jmp	SHORT $L8212
+$L8213:
 
 ; 1877 :    }
 
-	jmp	$L8206
-$L8207:
+	jmp	$L8208
+$L8209:
 
 ; 1878 : 
 ; 1879 :    if ( AnchorBlock->TraceFlags.bTaskMsgs )
@@ -6922,7 +6922,7 @@ $L8207:
 	shr	edx, 1
 	and	edx, 1
 	test	edx, edx
-	je	SHORT $L8221
+	je	SHORT $L8223
 
 ; 1880 :       TraceLineS( "(APP) Finished dropping Views for App: ", pchAppName );
 
@@ -6930,7 +6930,7 @@ $L8207:
 	push	eax
 	push	OFFSET FLAT:??_C@_0CI@OAOJ@?$CIAPP?$CJ?5Finished?5dropping?5Views?5fo@ ; `string'
 	call	_TraceLineS@8
-$L8221:
+$L8223:
 
 ; 1881 : 
 ; 1882 :    // Drop all the view names chained to the application.
@@ -6938,7 +6938,7 @@ $L8221:
 
 	mov	ecx, DWORD PTR _lpApp$[ebp]
 	cmp	DWORD PTR [ecx+1893], 0
-	je	SHORT $L8225
+	je	SHORT $L8227
 
 ; 1885 :       lpViewName = zGETPTR( lpApp->hFirstViewName );
 
@@ -6986,8 +6986,8 @@ $L8221:
 
 ; 1896 :    }
 
-	jmp	SHORT $L8221
-$L8225:
+	jmp	SHORT $L8223
+$L8227:
 
 ; 1897 : 
 ; 1898 :    if ( AnchorBlock->TraceFlags.bTaskMsgs )
@@ -6997,7 +6997,7 @@ $L8225:
 	shr	edx, 1
 	and	edx, 1
 	test	edx, edx
-	je	SHORT $L8228
+	je	SHORT $L8230
 
 ; 1899 :       TraceLineS( "(APP) Finished dropping View Names for App: ", pchAppName );
 
@@ -7005,7 +7005,7 @@ $L8225:
 	push	eax
 	push	OFFSET FLAT:??_C@_0CN@NHKB@?$CIAPP?$CJ?5Finished?5dropping?5View?5Nam@ ; `string'
 	call	_TraceLineS@8
-$L8228:
+$L8230:
 
 ; 1900 : 
 ; 1901 :    // Drop all the views chained to the application.
@@ -7013,7 +7013,7 @@ $L8228:
 
 	mov	ecx, DWORD PTR _lpApp$[ebp]
 	cmp	DWORD PTR [ecx+1889], 0
-	je	SHORT $L8232
+	je	SHORT $L8234
 
 ; 1904 :       fnDropView( zGETPTR( lpApp->hFirstView ) );
 
@@ -7026,8 +7026,8 @@ $L8228:
 
 ; 1905 :    }
 
-	jmp	SHORT $L8228
-$L8232:
+	jmp	SHORT $L8230
+$L8234:
 
 ; 1906 : 
 ; 1907 :    if ( AnchorBlock->TraceFlags.bTaskMsgs )
@@ -7037,7 +7037,7 @@ $L8232:
 	shr	edx, 1
 	and	edx, 1
 	test	edx, edx
-	je	SHORT $L8234
+	je	SHORT $L8236
 
 ; 1908 :       TraceLineS( "(APP) Finished dropping App Views for App: ", pchAppName );
 
@@ -7045,7 +7045,7 @@ $L8232:
 	push	eax
 	push	OFFSET FLAT:??_C@_0CM@ONOE@?$CIAPP?$CJ?5Finished?5dropping?5App?5View@ ; `string'
 	call	_TraceLineS@8
-$L8234:
+$L8236:
 
 ; 1909 : 
 ; 1910 :    // Clean up application domains.
@@ -7053,7 +7053,7 @@ $L8234:
 
 	mov	ecx, DWORD PTR _lpApp$[ebp]
 	cmp	DWORD PTR [ecx+72], 0
-	je	SHORT $L8238
+	je	SHORT $L8240
 
 ; 1913 :       lpDomain = zGETPTR( lpApp->hFirstDomain );
 
@@ -7086,8 +7086,8 @@ $L8234:
 
 ; 1917 :    }
 
-	jmp	SHORT $L8234
-$L8238:
+	jmp	SHORT $L8236
+$L8240:
 
 ; 1918 : 
 ; 1919 :    if ( AnchorBlock->TraceFlags.bTaskMsgs )
@@ -7097,7 +7097,7 @@ $L8238:
 	shr	ecx, 1
 	and	ecx, 1
 	test	ecx, ecx
-	je	SHORT $L8240
+	je	SHORT $L8242
 
 ; 1920 :       TraceLineS( "(APP) Finished dropping Domains for App: ", pchAppName );
 
@@ -7105,7 +7105,7 @@ $L8238:
 	push	edx
 	push	OFFSET FLAT:??_C@_0CK@PHHJ@?$CIAPP?$CJ?5Finished?5dropping?5Domains?5@ ; `string'
 	call	_TraceLineS@8
-$L8240:
+$L8242:
 
 ; 1921 : 
 ; 1922 :    // Clean up logical names.
@@ -7113,7 +7113,7 @@ $L8240:
 
 	mov	eax, DWORD PTR _lpApp$[ebp]
 	cmp	DWORD PTR [eax+1897], 0
-	je	SHORT $L8244
+	je	SHORT $L8246
 
 ; 1925 :       lpLName = zGETPTR( lpApp->hFirstLName );
 
@@ -7139,8 +7139,8 @@ $L8240:
 
 ; 1928 :    }
 
-	jmp	SHORT $L8240
-$L8244:
+	jmp	SHORT $L8242
+$L8246:
 
 ; 1929 : 
 ; 1930 :    if ( AnchorBlock->TraceFlags.bTaskMsgs )
@@ -7150,7 +7150,7 @@ $L8244:
 	shr	edx, 1
 	and	edx, 1
 	test	edx, edx
-	je	SHORT $L8246
+	je	SHORT $L8248
 
 ; 1931 :       TraceLineS( "(APP) Finished dropping Logical Names for App: ", pchAppName );
 
@@ -7158,7 +7158,7 @@ $L8244:
 	push	eax
 	push	OFFSET FLAT:??_C@_0DA@KPA@?$CIAPP?$CJ?5Finished?5dropping?5Logical?5@ ; `string'
 	call	_TraceLineS@8
-$L8246:
+$L8248:
 
 ; 1932 : 
 ; 1933 :    // Clean up view Objects.
@@ -7166,7 +7166,7 @@ $L8246:
 
 	mov	ecx, DWORD PTR _lpApp$[ebp]
 	cmp	DWORD PTR [ecx+84], 0
-	je	SHORT $L8250
+	je	SHORT $L8252
 
 ; 1935 :       fnDeleteViewObject( zGETPTR( lpApp->hFirstViewOD ) );
 
@@ -7176,8 +7176,8 @@ $L8246:
 	call	DWORD PTR _g_pfnGetPtr
 	push	eax
 	call	_fnDeleteViewObject@4
-	jmp	SHORT $L8246
-$L8250:
+	jmp	SHORT $L8248
+$L8252:
 
 ; 1936 : 
 ; 1937 :    if ( AnchorBlock->TraceFlags.bTaskMsgs )
@@ -7187,7 +7187,7 @@ $L8250:
 	shr	edx, 1
 	and	edx, 1
 	test	edx, edx
-	je	SHORT $L8252
+	je	SHORT $L8254
 
 ; 1938 :       TraceLineS( "(APP) Finished dropping ViewODs for App: ", pchAppName );
 
@@ -7195,7 +7195,7 @@ $L8250:
 	push	eax
 	push	OFFSET FLAT:??_C@_0CK@ILFL@?$CIAPP?$CJ?5Finished?5dropping?5ViewODs?5@ ; `string'
 	call	_TraceLineS@8
-$L8252:
+$L8254:
 
 ; 1939 : 
 ; 1940 :    // Clean up application DB Handlers.
@@ -7203,7 +7203,7 @@ $L8252:
 
 	mov	ecx, DWORD PTR _lpApp$[ebp]
 	cmp	DWORD PTR [ecx+76], 0
-	je	SHORT $L8256
+	je	SHORT $L8258
 
 ; 1943 :       lpDBHandler = zGETPTR( lpApp->hFirstDBHandler );
 
@@ -7229,8 +7229,8 @@ $L8252:
 
 ; 1946 :    }
 
-	jmp	SHORT $L8252
-$L8256:
+	jmp	SHORT $L8254
+$L8258:
 
 ; 1947 : 
 ; 1948 :    if ( AnchorBlock->TraceFlags.bTaskMsgs )
@@ -7240,7 +7240,7 @@ $L8256:
 	shr	eax, 1
 	and	eax, 1
 	test	eax, eax
-	je	SHORT $L8258
+	je	SHORT $L8260
 
 ; 1949 :       TraceLineS( "(APP) Finished dropping DB Handlers for App: ", pchAppName );
 
@@ -7248,7 +7248,7 @@ $L8256:
 	push	ecx
 	push	OFFSET FLAT:??_C@_0CO@JEMD@?$CIAPP?$CJ?5Finished?5dropping?5DB?5Handl@ ; `string'
 	call	_TraceLineS@8
-$L8258:
+$L8260:
 
 ; 1950 : 
 ; 1951 :    // Clean up application GK Handlers.
@@ -7256,7 +7256,7 @@ $L8258:
 
 	mov	edx, DWORD PTR _lpApp$[ebp]
 	cmp	DWORD PTR [edx+80], 0
-	je	SHORT $L8262
+	je	SHORT $L8264
 
 ; 1954 :       lpGKHandler = zGETPTR( lpApp->hFirstGKHandler );
 
@@ -7282,8 +7282,8 @@ $L8258:
 
 ; 1957 :    }
 
-	jmp	SHORT $L8258
-$L8262:
+	jmp	SHORT $L8260
+$L8264:
 
 ; 1958 : 
 ; 1959 :    if ( AnchorBlock->TraceFlags.bTaskMsgs )
@@ -7293,7 +7293,7 @@ $L8262:
 	shr	ecx, 1
 	and	ecx, 1
 	test	ecx, ecx
-	je	SHORT $L8264
+	je	SHORT $L8266
 
 ; 1960 :       TraceLineS( "(APP) Finished dropping GK Handlers for App: ", pchAppName );
 
@@ -7301,7 +7301,7 @@ $L8262:
 	push	edx
 	push	OFFSET FLAT:??_C@_0CO@HIAJ@?$CIAPP?$CJ?5Finished?5dropping?5GK?5Handl@ ; `string'
 	call	_TraceLineS@8
-$L8264:
+$L8266:
 
 ; 1961 : 
 ; 1962 :    // Unchain the application from the Anchor Block.
@@ -7310,7 +7310,7 @@ $L8264:
 	mov	eax, DWORD PTR _AnchorBlock
 	mov	ecx, DWORD PTR [eax+126]
 	cmp	ecx, DWORD PTR _hApp$[ebp]
-	jne	SHORT $L8266
+	jne	SHORT $L8268
 
 ; 1964 :       AnchorBlock->hFirstApp = lpApp->hNextApp;
 
@@ -7321,8 +7321,8 @@ $L8264:
 
 ; 1965 :    else
 
-	jmp	SHORT $L8272
-$L8266:
+	jmp	SHORT $L8274
+$L8268:
 
 ; 1967 :       LPAPP hApp2;
 ; 1968 : 
@@ -7337,21 +7337,21 @@ $L8266:
 	push	eax
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _lpPrevApp$[ebp], eax
-$L8271:
+$L8273:
 
 ; 1974 :       while ( (hApp2 = lpPrevApp->hNextApp) != 0 )
 
 	mov	ecx, DWORD PTR _lpPrevApp$[ebp]
 	mov	edx, DWORD PTR [ecx+2]
-	mov	DWORD PTR _hApp2$8268[ebp], edx
-	cmp	DWORD PTR _hApp2$8268[ebp], 0
-	je	SHORT $L8272
+	mov	DWORD PTR _hApp2$8270[ebp], edx
+	cmp	DWORD PTR _hApp2$8270[ebp], 0
+	je	SHORT $L8274
 
 ; 1976 :          if ( hApp2 == hApp )
 
-	mov	eax, DWORD PTR _hApp2$8268[ebp]
+	mov	eax, DWORD PTR _hApp2$8270[ebp]
 	cmp	eax, DWORD PTR _hApp$[ebp]
-	jne	SHORT $L8273
+	jne	SHORT $L8275
 
 ; 1978 :             lpPrevApp->hNextApp = lpApp->hNextApp;
 
@@ -7362,8 +7362,8 @@ $L8271:
 
 ; 1979 :             break;
 
-	jmp	SHORT $L8272
-$L8273:
+	jmp	SHORT $L8274
+$L8275:
 
 ; 1981 : 
 ; 1982 :          lpPrevApp = zGETPTR( lpPrevApp->hNextApp );
@@ -7376,8 +7376,8 @@ $L8273:
 
 ; 1983 :       }
 
-	jmp	SHORT $L8271
-$L8272:
+	jmp	SHORT $L8273
+$L8274:
 
 ; 1992 : 
 ; 1993 :    // Clean up application.
@@ -7388,7 +7388,7 @@ $L8272:
 	shr	ecx, 1
 	and	ecx, 1
 	test	ecx, ecx
-	je	SHORT $L8275
+	je	SHORT $L8277
 
 ; 1995 :       TraceLineS( "(APP) DeleteApp SUCCESSFUL for App: ", lpApp->szName );
 
@@ -7397,7 +7397,7 @@ $L8272:
 	push	edx
 	push	OFFSET FLAT:??_C@_0CF@PPFE@?$CIAPP?$CJ?5DeleteApp?5SUCCESSFUL?5for?5A@ ; `string'
 	call	_TraceLineS@8
-$L8275:
+$L8277:
 
 ; 1996 : 
 ; 1997 :    fnFreeDataspace( lpApp );
@@ -7410,7 +7410,7 @@ $L8275:
 ; 1998 :    return( 0 );
 
 	xor	ax, ax
-$L8128:
+$L8130:
 
 ; 1999 : }
 
@@ -7419,8 +7419,8 @@ $L8128:
 	ret	0
 _fnDeleteApp ENDP
 _TEXT	ENDS
-PUBLIC	??_C@_08ILBJ@KZDBHQUA?$AA@			; `string'
 PUBLIC	_SetDatabaseUser@12
+PUBLIC	??_C@_08ILBJ@KZDBHQUA?$AA@			; `string'
 PUBLIC	??_C@_0CF@OGEJ@SetDatabaseUser?3?5?$CFs?5for?5task?3?50x@ ; `string'
 PUBLIC	??_C@_0L@EIGE@EntitySpec?$AA@			; `string'
 PUBLIC	??_C@_0L@LOJF@EntityName?$AA@			; `string'
@@ -7493,13 +7493,13 @@ _SetDatabaseUser@12 PROC NEAR
 	add	esp, 12					; 0000000cH
 	mov	DWORD PTR _lpCurrentTask$[ebp], eax
 	cmp	DWORD PTR _lpCurrentTask$[ebp], 0
-	jne	SHORT $L8291
+	jne	SHORT $L8293
 
 ; 2037 :       return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	$L8283
-$L8291:
+	jmp	$L8285
+$L8293:
 
 ; 2039 : 
 ; 2040 :    nRC = SfActivateSysEmptyOI( &lpQualObj, "KZDBHQUA", lpView, zMULTIPLE );
@@ -7517,7 +7517,7 @@ $L8291:
 
 	movsx	eax, WORD PTR _nRC$[ebp]
 	test	eax, eax
-	jge	SHORT $L8293
+	jge	SHORT $L8295
 
 ; 2043 :       nRC = zCALL_ERROR;
 
@@ -7525,8 +7525,8 @@ $L8291:
 
 ; 2044 :       goto EndOfFunction;
 
-	jmp	$EndOfFunction$8294
-$L8293:
+	jmp	$EndOfFunction$8296
+$L8295:
 
 ; 2046 : 
 ; 2047 :    if ( cpcUser == 0 || zstrlen( cpcUser ) > 32 ||
@@ -7534,21 +7534,21 @@ $L8293:
 ; 2049 :         (lpTaskDBHandler = fnGetDBHandlerOper( lpCurrentTask, lpView, &pOper )) == 0 )
 
 	cmp	DWORD PTR _cpcUser$[ebp], 0
-	je	SHORT $L8296
+	je	SHORT $L8298
 	mov	ecx, DWORD PTR _cpcUser$[ebp]
 	push	ecx
 	call	_strlen
 	add	esp, 4
 	cmp	eax, 32					; 00000020H
-	ja	SHORT $L8296
+	ja	SHORT $L8298
 	cmp	DWORD PTR _cpcPassword$[ebp], 0
-	je	SHORT $L8296
+	je	SHORT $L8298
 	mov	edx, DWORD PTR _cpcPassword$[ebp]
 	push	edx
 	call	_strlen
 	add	esp, 4
 	cmp	eax, 32					; 00000020H
-	ja	SHORT $L8296
+	ja	SHORT $L8298
 	lea	eax, DWORD PTR _pOper$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _lpView$[ebp]
@@ -7558,8 +7558,8 @@ $L8293:
 	call	_fnGetDBHandlerOper@12
 	mov	DWORD PTR _lpTaskDBHandler$[ebp], eax
 	cmp	DWORD PTR _lpTaskDBHandler$[ebp], 0
-	jne	SHORT $L8295
-$L8296:
+	jne	SHORT $L8297
+$L8298:
 
 ; 2051 :       nRC = zCALL_ERROR;
 
@@ -7567,8 +7567,8 @@ $L8296:
 
 ; 2052 :       goto EndOfFunction;
 
-	jmp	$EndOfFunction$8294
-$L8295:
+	jmp	$EndOfFunction$8296
+$L8297:
 
 ; 2054 : 
 ; 2055 :    TraceLine( "SetDatabaseUser: %s for task: 0x%08x", cpcUser, lpCurrentTask );
@@ -7651,26 +7651,26 @@ $L8295:
 
 	movsx	eax, WORD PTR _nRC$[ebp]
 	test	eax, eax
-	jge	SHORT $EndOfFunction$8294
+	jge	SHORT $EndOfFunction$8296
 
 ; 2074 :       nRC = zCALL_ERROR;
 
 	mov	WORD PTR _nRC$[ebp], -16		; fffffff0H
-$EndOfFunction$8294:
+$EndOfFunction$8296:
 
 ; 2077 : 
 ; 2078 : EndOfFunction:
 ; 2079 :    if ( lpQualObj )
 
 	cmp	DWORD PTR _lpQualObj$[ebp], 0
-	je	SHORT $L8305
+	je	SHORT $L8307
 
 ; 2080 :       DropView( lpQualObj );
 
 	mov	ecx, DWORD PTR _lpQualObj$[ebp]
 	push	ecx
 	call	_DropView@4
-$L8305:
+$L8307:
 
 ; 2081 : 
 ; 2082 :    fnOperationReturn( iSetDatabaseUser, lpCurrentTask );
@@ -7684,7 +7684,7 @@ $L8305:
 ; 2083 :    return( nRC );
 
 	mov	ax, WORD PTR _nRC$[ebp]
-$L8283:
+$L8285:
 
 ; 2084 : }
 

@@ -307,8 +307,8 @@ $L7702:
 	ja	$L7744
 	mov	ecx, DWORD PTR -40+[ebp]
 	xor	eax, eax
-	mov	al, BYTE PTR $L11819[ecx]
-	jmp	DWORD PTR $L11820[eax*4]
+	mov	al, BYTE PTR $L11820[ecx]
+	jmp	DWORD PTR $L11821[eax*4]
 $L7708:
 
 ; 249  :             zPCHAR   pchRecordString;
@@ -631,14 +631,14 @@ $L7705:
 	mov	esp, ebp
 	pop	ebp
 	ret	0
-$L11820:
+$L11821:
 	DD	$L7728
 	DD	$L7718
 	DD	$L7723
 	DD	$L7708
 	DD	$L7738
 	DD	$L7744
-$L11819:
+$L11820:
 	DB	0
 	DB	5
 	DB	5
@@ -1281,8 +1281,8 @@ $L7833:
 	ja	$L7889
 	mov	eax, DWORD PTR -64+[ebp]
 	xor	edx, edx
-	mov	dl, BYTE PTR $L11825[eax]
-	jmp	DWORD PTR $L11826[edx*4]
+	mov	dl, BYTE PTR $L11826[eax]
+	jmp	DWORD PTR $L11827[edx*4]
 $L7842:
 
 ; 581  :          zSHORT k;
@@ -1720,14 +1720,14 @@ $L7813:
 	mov	esp, ebp
 	pop	ebp
 	ret	0
-$L11826:
+$L11827:
 	DD	$L7870
 	DD	$L7852
 	DD	$L7861
 	DD	$L7842
 	DD	$L7875
 	DD	$L7889
-$L11825:
+$L11826:
 	DB	0
 	DB	5
 	DB	5
@@ -2141,8 +2141,8 @@ $L7948:
 	ja	$L7979
 	mov	ecx, DWORD PTR -432+[ebp]
 	xor	eax, eax
-	mov	al, BYTE PTR $L11830[ecx]
-	jmp	DWORD PTR $L11831[eax*4]
+	mov	al, BYTE PTR $L11831[ecx]
+	jmp	DWORD PTR $L11832[eax*4]
 $L7955:
 
 ; 900  :             if ( ulMaxLth == 0 )
@@ -2436,8 +2436,8 @@ $L7949:
 	ja	SHORT $L7988
 	mov	eax, DWORD PTR -436+[ebp]
 	xor	edx, edx
-	mov	dl, BYTE PTR $L11832[eax]
-	jmp	DWORD PTR $L11833[edx*4]
+	mov	dl, BYTE PTR $L11833[eax]
+	jmp	DWORD PTR $L11834[edx*4]
 $L7987:
 
 ; 980  :          case zTYPE_STRING:
@@ -2503,14 +2503,14 @@ $L7942:
 	mov	esp, ebp
 	pop	ebp
 	ret	0
-$L11831:
+$L11832:
 	DD	$L7977
 	DD	$L7959
 	DD	$L7965
 	DD	$L7955
 	DD	$L7971
 	DD	$L7979
-$L11830:
+$L11831:
 	DB	0
 	DB	5
 	DB	5
@@ -2530,10 +2530,10 @@ $L11830:
 	DB	5
 	DB	3
 	DB	4
-$L11833:
+$L11834:
 	DD	$L7987
 	DD	$L7988
-$L11832:
+$L11833:
 	DB	0
 	DB	1
 	DB	1
@@ -4164,8 +4164,8 @@ $L8210:
 	ja	$L8219
 	mov	eax, DWORD PTR -76+[ebp]
 	xor	edx, edx
-	mov	dl, BYTE PTR $L11842[eax]
-	jmp	DWORD PTR $L11843[edx*4]
+	mov	dl, BYTE PTR $L11843[eax]
+	jmp	DWORD PTR $L11844[edx*4]
 $L8222:
 
 ; 1592 :                   zPCHAR    pchRecordString;
@@ -4424,13 +4424,13 @@ $L8187:
 	mov	esp, ebp
 	pop	ebp
 	ret	12					; 0000000cH
-$L11843:
+$L11844:
 	DD	$L8243
 	DD	$L8229
 	DD	$L8236
 	DD	$L8222
 	DD	$L8219
-$L11842:
+$L11843:
 	DB	0
 	DB	4
 	DB	4
@@ -4813,8 +4813,8 @@ $L8291:
 	ja	SHORT $L8319
 	mov	ecx, DWORD PTR -24+[ebp]
 	xor	eax, eax
-	mov	al, BYTE PTR $L11846[ecx]
-	jmp	DWORD PTR $L11847[eax*4]
+	mov	al, BYTE PTR $L11847[ecx]
+	jmp	DWORD PTR $L11848[eax*4]
 $L8311:
 
 ; 1835 :          case zTYPE_STRING:
@@ -4937,14 +4937,14 @@ $L8285:
 	mov	esp, ebp
 	pop	ebp
 	ret	0
-$L11847:
+$L11848:
 	DD	$L8318
 	DD	$L8312
 	DD	$L8314
 	DD	$L8311
 	DD	$L8316
 	DD	$L8319
-$L11846:
+$L11847:
 	DB	0
 	DB	5
 	DB	5
@@ -5692,8 +5692,8 @@ $L8417:
 	ja	SHORT $L8428
 	mov	edx, DWORD PTR -32+[ebp]
 	xor	ecx, ecx
-	mov	cl, BYTE PTR $L11852[edx]
-	jmp	DWORD PTR $L11853[ecx*4]
+	mov	cl, BYTE PTR $L11853[edx]
+	jmp	DWORD PTR $L11854[ecx*4]
 $L8423:
 
 ; 2099 :          case zTYPE_STRING:
@@ -5806,14 +5806,14 @@ $L8398:
 	mov	esp, ebp
 	pop	ebp
 	ret	0
-$L11853:
+$L11854:
 	DD	$L8427
 	DD	$L8424
 	DD	$L8425
 	DD	$L8423
 	DD	$L8426
 	DD	$L8428
-$L11852:
+$L11853:
 	DB	0
 	DB	5
 	DB	5
@@ -6002,8 +6002,8 @@ _fnGetAttributeLength PROC NEAR
 	ja	$L8477
 	mov	ecx, DWORD PTR -28+[ebp]
 	xor	eax, eax
-	mov	al, BYTE PTR $L11856[ecx]
-	jmp	DWORD PTR $L11857[eax*4]
+	mov	al, BYTE PTR $L11857[ecx]
+	jmp	DWORD PTR $L11858[eax*4]
 $L8464:
 
 ; 2215 :       case zTYPE_STRING:
@@ -6188,14 +6188,14 @@ $L8461:
 	mov	esp, ebp
 	pop	ebp
 	ret	0
-$L11857:
+$L11858:
 	DD	$L8468
 	DD	$L8465
 	DD	$L8466
 	DD	$L8464
 	DD	$L8467
 	DD	$L8477
-$L11856:
+$L11857:
 	DB	0
 	DB	5
 	DB	5
@@ -6380,8 +6380,8 @@ _fnGetActualAttributeLength PROC NEAR
 	ja	$L8540
 	mov	ecx, DWORD PTR -36+[ebp]
 	xor	eax, eax
-	mov	al, BYTE PTR $L11860[ecx]
-	jmp	DWORD PTR $L11861[eax*4]
+	mov	al, BYTE PTR $L11861[ecx]
+	jmp	DWORD PTR $L11862[eax*4]
 $L8515:
 
 ; 2348 :          zCOREMEM lpExternalP;
@@ -6638,14 +6638,14 @@ $L8512:
 	mov	esp, ebp
 	pop	ebp
 	ret	0
-$L11861:
+$L11862:
 	DD	$L8531
 	DD	$L8525
 	DD	$L8527
 	DD	$L8515
 	DD	$L8529
 	DD	$L8540
-$L11860:
+$L11861:
 	DB	0
 	DB	5
 	DB	5
@@ -6915,7 +6915,7 @@ $L8585:
 	cmp	DWORD PTR -92+[ebp], 8
 	ja	$L8609
 	mov	edx, DWORD PTR -92+[ebp]
-	jmp	DWORD PTR $L11864[edx*4]
+	jmp	DWORD PTR $L11865[edx*4]
 $L8590:
 
 ; 2534 :       case zTYPE_STRING:
@@ -7130,7 +7130,7 @@ $L8587:
 	mov	esp, ebp
 	pop	ebp
 	ret	0
-$L11864:
+$L11865:
 	DD	$L8591
 	DD	$L8596
 	DD	$L8609
@@ -9494,8 +9494,8 @@ $L8904:
 	ja	$L8965
 	mov	eax, DWORD PTR -96+[ebp]
 	xor	edx, edx
-	mov	dl, BYTE PTR $L11877[eax]
-	jmp	DWORD PTR $L11878[edx*4]
+	mov	dl, BYTE PTR $L11878[eax]
+	jmp	DWORD PTR $L11879[edx*4]
 $L8910:
 
 ; 3415 :                case zTYPE_STRING:
@@ -10184,14 +10184,14 @@ $L8867:
 	mov	esp, ebp
 	pop	ebp
 	ret	20					; 00000014H
-$L11878:
+$L11879:
 	DD	$L8950
 	DD	$L8920
 	DD	$L8929
 	DD	$L8910
 	DD	$L8939
 	DD	$L8965
-$L11877:
+$L11878:
 	DB	0
 	DB	5
 	DB	5
@@ -11275,8 +11275,8 @@ $L9099:
 	ja	$L9121
 	mov	eax, DWORD PTR -88+[ebp]
 	xor	edx, edx
-	mov	dl, BYTE PTR $L11881[eax]
-	jmp	DWORD PTR $L11882[edx*4]
+	mov	dl, BYTE PTR $L11882[eax]
+	jmp	DWORD PTR $L11883[edx*4]
 $L9108:
 
 ; 3963 :             // If the attribute is a string, we get the length of the
@@ -11422,14 +11422,14 @@ $L9033:
 	mov	esp, ebp
 	pop	ebp
 	ret	20					; 00000014H
-$L11882:
+$L11883:
 	DD	$L9118
 	DD	$L9109
 	DD	$L9112
 	DD	$L9108
 	DD	$L9115
 	DD	$L9121
-$L11881:
+$L11882:
 	DB	0
 	DB	5
 	DB	5
@@ -11732,11 +11732,11 @@ $L9157:
 ; 4147 :    if ( pch && (pch - pchData) < zZEIDON_NAME_LTH)
 
 	cmp	DWORD PTR _pch$[ebp], 0
-	je	SHORT $L9160
+	je	SHORT $L9161
 	mov	edx, DWORD PTR _pch$[ebp]
 	sub	edx, DWORD PTR _pchData$[ebp]
 	cmp	edx, 32					; 00000020H
-	jge	SHORT $L9160
+	jge	SHORT $L9161
 
 ; 4148 :       *pch = 0;
 
@@ -11745,14 +11745,14 @@ $L9157:
 
 ; 4149 :    else
 
-	jmp	SHORT $L9161
-$L9160:
+	jmp	SHORT $L9162
+$L9161:
 
 ; 4150 :       *(pchData + zZEIDON_NAME_LTH) = 0;
 
 	mov	ecx, DWORD PTR _pchData$[ebp]
 	mov	BYTE PTR [ecx+32], 0
-$L9161:
+$L9162:
 
 ; 4151 : 
 ; 4152 :    lpOI_Data = (LPBLOBOI_RECORD) pchData;
@@ -11778,7 +11778,7 @@ $L9161:
 	mov	edx, DWORD PTR _lControl$[ebp]
 	and	edx, 33554432				; 02000000H
 	test	edx, edx
-	je	SHORT $L9165
+	je	SHORT $L9166
 
 ; 4157 :       zstrcpy( lpOI_Data->cpcViewOD_Name, pchReturnViewOD_Name );
 
@@ -11791,13 +11791,13 @@ $L9161:
 
 ; 4158 :    else
 
-	jmp	SHORT $L9167
-$L9165:
+	jmp	SHORT $L9168
+$L9166:
 
 ; 4159 :    if ( pchReturnViewOD_Name )
 
 	cmp	DWORD PTR _pchReturnViewOD_Name$[ebp], 0
-	je	SHORT $L9167
+	je	SHORT $L9168
 
 ; 4160 :       zstrcpy( pchReturnViewOD_Name, lpOI_Data->cpcViewOD_Name );
 
@@ -11807,7 +11807,7 @@ $L9165:
 	push	eax
 	call	_strcpy
 	add	esp, 8
-$L9167:
+$L9168:
 
 ; 4161 : 
 ; 4162 :    // Write the blob to a temp file.
@@ -11824,7 +11824,7 @@ $L9167:
 ; 4164 :    if ( hFile == -1 )
 
 	cmp	DWORD PTR _hFile$[ebp], -1
-	jne	SHORT $L9168
+	jne	SHORT $L9169
 
 ; 4166 :       // "KZOEE190 - Error opening temporary file"
 ; 4167 :       fnIssueCoreError( lpCurrentTask, lpSrcView, 16, 190, 0, szFileName, 0 );
@@ -11845,7 +11845,7 @@ $L9167:
 ; 4168 :       goto EndOfFunction;
 
 	jmp	$EndOfFunction$9159
-$L9168:
+$L9169:
 
 ; 4170 : 
 ; 4171 :    if ( SysWriteFile( vSubtask, hFile, pchData, ulLth ) != (int) ulLth )
@@ -11860,12 +11860,12 @@ $L9168:
 	push	eax
 	call	_SysWriteFile@16
 	cmp	eax, DWORD PTR _ulLth$[ebp]
-	je	SHORT $L9170
+	je	SHORT $L9171
 
 ; 4172 :       goto EndOfFunction;
 
 	jmp	$EndOfFunction$9159
-$L9170:
+$L9171:
 
 ; 4173 : 
 ; 4174 :    SysCloseFile( vSubtask, hFile, 0 );
@@ -11908,10 +11908,10 @@ $L9170:
 
 	movsx	edx, WORD PTR _nRC$[ebp]
 	cmp	edx, -1
-	jne	SHORT $L9171
+	jne	SHORT $L9172
 	mov	eax, DWORD PTR _plpTgtView$[ebp]
 	cmp	DWORD PTR [eax], 0
-	je	SHORT $L9171
+	je	SHORT $L9172
 
 ; 4184 :       // No OI was activated but we were returned an empty OI.  Drop the
 ; 4185 :       // empty OI and reset plpTgtView.
@@ -11930,7 +11930,7 @@ $L9170:
 ; 4189 :    else
 
 	jmp	SHORT $EndOfFunction$9159
-$L9171:
+$L9172:
 
 ; 4190 :    if ( nRC == zCALL_ERROR )
 
@@ -11965,7 +11965,7 @@ $EndOfFunction$9159:
 ; 4199 :    if ( hFile != -1 )
 
 	cmp	DWORD PTR _hFile$[ebp], -1
-	je	SHORT $L9174
+	je	SHORT $L9175
 
 ; 4200 :       SysCloseFile( vSubtask, hFile, 0 );
 
@@ -11975,7 +11975,7 @@ $EndOfFunction$9159:
 	mov	ecx, DWORD PTR _vSubtask$[ebp]
 	push	ecx
 	call	_SysCloseFile@12
-$L9174:
+$L9175:
 
 ; 4201 : 
 ; 4202 :    if ( bFileCreated )
@@ -11983,7 +11983,7 @@ $L9174:
 	mov	edx, DWORD PTR _bFileCreated$[ebp]
 	and	edx, 255				; 000000ffH
 	test	edx, edx
-	je	SHORT $L9175
+	je	SHORT $L9176
 
 ; 4203 :       SysOpenFile( vSubtask, szFileName, COREFILE_DELETE );
 
@@ -11993,7 +11993,7 @@ $L9174:
 	mov	ecx, DWORD PTR _vSubtask$[ebp]
 	push	ecx
 	call	_SysOpenFile@12
-$L9175:
+$L9176:
 
 ; 4204 : 
 ; 4205 :    // Return the results
@@ -12029,7 +12029,7 @@ _lpViewOI$ = -32
 _pchRecord$ = -24
 _bUpdated$ = -28
 _nRC$ = -12
-_lpTask$9201 = -36
+_lpTask$9202 = -36
 _fnSetAttributeFromBlob PROC NEAR
 
 ; 4228 : {
@@ -12097,7 +12097,7 @@ _fnSetAttributeFromBlob PROC NEAR
 	mov	ecx, DWORD PTR _lpViewAttrib$[ebp]
 	movsx	edx, BYTE PTR [ecx+202]
 	cmp	edx, 66					; 00000042H
-	je	SHORT $L9200
+	je	SHORT $L9201
 
 ; 4250 :       LPTASK lpTask = zGETPTR( lpView->hTask );
 
@@ -12105,7 +12105,7 @@ _fnSetAttributeFromBlob PROC NEAR
 	mov	ecx, DWORD PTR [eax+14]
 	push	ecx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpTask$9201[ebp], eax
+	mov	DWORD PTR _lpTask$9202[ebp], eax
 
 ; 4251 :       // "KZOEE239 - Invalid Operation for attribute type"
 ; 4252 :       fnIssueCoreError( lpTask, lpView, 8, 239, 0, lpViewEntity->szName,
@@ -12122,7 +12122,7 @@ _fnSetAttributeFromBlob PROC NEAR
 	push	8
 	mov	ecx, DWORD PTR _lpView$[ebp]
 	push	ecx
-	mov	edx, DWORD PTR _lpTask$9201[ebp]
+	mov	edx, DWORD PTR _lpTask$9202[ebp]
 	push	edx
 	call	_fnIssueCoreError
 	add	esp, 28					; 0000001cH
@@ -12130,8 +12130,8 @@ _fnSetAttributeFromBlob PROC NEAR
 ; 4254 :       return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	$L9186
-$L9200:
+	jmp	$L9187
+$L9201:
 
 ; 4256 : 
 ; 4257 :    // Get record to store into
@@ -12141,7 +12141,7 @@ $L9200:
 	mov	ecx, DWORD PTR [eax+193]
 	and	ecx, 1
 	test	ecx, ecx
-	je	SHORT $L9203
+	je	SHORT $L9204
 
 ; 4260 :       pchRecord = (zPCHAR) zGETPTR( lpEntityInstance->hPersistRecord );
 
@@ -12154,7 +12154,7 @@ $L9200:
 ; 4261 :       if ( pchRecord == 0 )
 
 	cmp	DWORD PTR _pchRecord$[ebp], 0
-	jne	SHORT $L9209
+	jne	SHORT $L9210
 
 ; 4263 :          fnCreateAttributeRecord( lpAllocTask,
 ; 4264 :                                   lpViewEntity, lpEntityInstance );
@@ -12179,18 +12179,18 @@ $L9200:
 ; 4266 :          if ( pchRecord == 0 )
 
 	cmp	DWORD PTR _pchRecord$[ebp], 0
-	jne	SHORT $L9209
+	jne	SHORT $L9210
 
 ; 4267 :             return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	$L9186
-$L9209:
+	jmp	$L9187
+$L9210:
 
 ; 4270 :    else
 
-	jmp	SHORT $L9216
-$L9203:
+	jmp	SHORT $L9217
+$L9204:
 
 ; 4272 :       pchRecord = (zPCHAR) zGETPTR( lpEntityInstance->hNonPersistRecord );
 
@@ -12203,7 +12203,7 @@ $L9203:
 ; 4273 :       if ( pchRecord == 0 )
 
 	cmp	DWORD PTR _pchRecord$[ebp], 0
-	jne	SHORT $L9216
+	jne	SHORT $L9217
 
 ; 4275 :          lpEntityInstance->hNonPersistRecord =
 ; 4276 :                      fnCreateAttributeRecord( lpAllocTask, lpViewEntity, 0 );
@@ -12229,13 +12229,13 @@ $L9203:
 ; 4278 :          if ( pchRecord == 0 )
 
 	cmp	DWORD PTR _pchRecord$[ebp], 0
-	jne	SHORT $L9216
+	jne	SHORT $L9217
 
 ; 4279 :             return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	SHORT $L9186
-$L9216:
+	jmp	SHORT $L9187
+$L9217:
 
 ; 4282 : 
 ; 4283 :    // Set attrib from string.
@@ -12274,13 +12274,13 @@ $L9216:
 
 	movsx	ecx, WORD PTR _nRC$[ebp]
 	test	ecx, ecx
-	je	SHORT $L9218
+	je	SHORT $L9219
 
 ; 4295 :       if ( nRC == 1 )
 
 	movsx	edx, WORD PTR _nRC$[ebp]
 	cmp	edx, 1
-	jne	SHORT $L9218
+	jne	SHORT $L9219
 
 ; 4297 :          bUpdated = TRUE;
 
@@ -12289,7 +12289,7 @@ $L9216:
 ; 4298 :          nRC = 0;
 
 	mov	WORD PTR _nRC$[ebp], 0
-$L9218:
+$L9219:
 
 ; 4301 : 
 ; 4302 :    // Set update indicator.
@@ -12312,7 +12312,7 @@ $L9218:
 ; 4305 :    return( nRC );
 
 	mov	ax, WORD PTR _nRC$[ebp]
-$L9186:
+$L9187:
 
 ; 4306 : }
 
@@ -12360,13 +12360,13 @@ _cSrcDomainType$ = -52
 _cTgtDomainType$ = -16
 _bMustDoDomains$ = -48
 _nRC$ = -12
-_ulReturnSrcLth$9262 = -72
-_lpExternalP$9274 = -76
-_lplLong$9284 = -80
-_lpdDecimal$9289 = -84
-_pvBlob$9294 = -92
-_ulLth$9295 = -88
-_szDateTime$9305 = -112
+_ulReturnSrcLth$9263 = -72
+_lpExternalP$9275 = -76
+_lplLong$9285 = -80
+_lpdDecimal$9290 = -84
+_pvBlob$9295 = -92
+_ulLth$9296 = -88
+_szDateTime$9306 = -112
 _SetAttributeFromAttribute@24 PROC NEAR
 
 ; 4335 : {
@@ -12431,20 +12431,20 @@ _SetAttributeFromAttribute@24 PROC NEAR
 
 	movsx	ecx, WORD PTR _nRC$[ebp]
 	test	ecx, ecx
-	jle	SHORT $L9249
+	jle	SHORT $L9250
 
 ; 4365 :       return( zCALL_ERROR );   // don't call fnOperationReturn
 
 	mov	ax, -16					; fffffff0H
-	jmp	$L9231
-$L9249:
+	jmp	$L9232
+$L9250:
 
 ; 4366 : 
 ; 4367 :    if ( nRC == 0 )
 
 	movsx	edx, WORD PTR _nRC$[ebp]
 	test	edx, edx
-	jne	SHORT $L9250
+	jne	SHORT $L9251
 
 ; 4369 :       // Validate parameters
 ; 4370 :       nRC = fnValidateAttributeParameters( &lpCurrentTask,
@@ -12478,14 +12478,14 @@ $L9249:
 	call	_fnValidateAttributeParameters
 	add	esp, 40					; 00000028H
 	mov	WORD PTR _nRC$[ebp], ax
-$L9250:
+$L9251:
 
 ; 4381 : 
 ; 4382 :    if ( nRC )
 
 	movsx	ecx, WORD PTR _nRC$[ebp]
 	test	ecx, ecx
-	je	SHORT $L9251
+	je	SHORT $L9252
 
 ; 4384 :       fnOperationReturn( iSetAttributeFromAttribute, lpCurrentTask );
 
@@ -12498,8 +12498,8 @@ $L9250:
 ; 4385 :       return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	$L9231
-$L9251:
+	jmp	$L9232
+$L9252:
 
 ; 4387 : 
 ; 4388 :    lpSrcDomain = zGETPTR( lpSrcViewAttrib->hDomain );
@@ -12569,18 +12569,18 @@ $L9251:
 
 	movsx	ecx, WORD PTR _bMustDoDomains$[ebp]
 	test	ecx, ecx
-	je	SHORT $L9254
+	je	SHORT $L9255
 	mov	edx, DWORD PTR _lpTgtDomain$[ebp]
 	cmp	edx, DWORD PTR _lpSrcDomain$[ebp]
-	jne	SHORT $L9254
+	jne	SHORT $L9255
 	movsx	eax, BYTE PTR _cTgtDomainType$[ebp]
 	cmp	eax, 84					; 00000054H
-	je	SHORT $L9254
+	je	SHORT $L9255
 
 ; 4406 :       bMustDoDomains = 0;
 
 	mov	WORD PTR _bMustDoDomains$[ebp], 0
-$L9254:
+$L9255:
 
 ; 4408 : 
 ; 4409 :    // If there is an object operation for the sourced attribute,
@@ -12590,7 +12590,7 @@ $L9254:
 	mov	ecx, DWORD PTR _lpSrcViewAttrib$[ebp]
 	movsx	edx, BYTE PTR [ecx+213]
 	test	edx, edx
-	je	SHORT $L9256
+	je	SHORT $L9257
 
 ; 4413 :       nRC = fnInvokeDerivedOperation( lpSrcView, lpSrcViewEntity,
 ; 4414 :                                       lpSrcViewAttrib,
@@ -12613,7 +12613,7 @@ $L9254:
 
 	movsx	ecx, WORD PTR _nRC$[ebp]
 	cmp	ecx, -16				; fffffff0H
-	jne	SHORT $L9256
+	jne	SHORT $L9257
 
 ; 4418 :          fnOperationReturn( iSetAttributeFromAttribute, lpCurrentTask );
 
@@ -12626,8 +12626,8 @@ $L9254:
 ; 4419 :          return( nRC );
 
 	mov	ax, WORD PTR _nRC$[ebp]
-	jmp	$L9231
-$L9256:
+	jmp	$L9232
+$L9257:
 
 ; 4422 : 
 ; 4423 :    // Try calling the target domain operation to set attribute from attribute.
@@ -12636,7 +12636,7 @@ $L9256:
 	mov	eax, DWORD PTR _lpTgtDomain$[ebp]
 	movsx	ecx, BYTE PTR [eax+100]
 	test	ecx, ecx
-	je	SHORT $L9258
+	je	SHORT $L9259
 
 ; 4426 :       nRC = fnCallDomainOper2( lpCurrentTask, lpTgtTaskDomain,
 ; 4427 :                                zDME_SET_ATTR_FROM_ATTR,
@@ -12673,7 +12673,7 @@ $L9256:
 
 	movsx	ecx, WORD PTR _nRC$[ebp]
 	cmp	ecx, -10				; fffffff6H
-	je	SHORT $L9258
+	je	SHORT $L9259
 
 ; 4438 :          fnOperationReturn( iSetAttributeFromAttribute, lpCurrentTask );
 
@@ -12686,8 +12686,8 @@ $L9256:
 ; 4439 :          return( nRC );
 
 	mov	ax, WORD PTR _nRC$[ebp]
-	jmp	$L9231
-$L9258:
+	jmp	$L9232
+$L9259:
 
 ; 4442 : 
 ; 4443 :    // Try calling the source domain operation to set attribute from attribute.
@@ -12696,7 +12696,7 @@ $L9258:
 	mov	eax, DWORD PTR _lpSrcDomain$[ebp]
 	movsx	ecx, BYTE PTR [eax+100]
 	test	ecx, ecx
-	je	SHORT $L9260
+	je	SHORT $L9261
 
 ; 4446 :       nRC = fnCallDomainOper2( lpCurrentTask, lpSrcTaskDomain,
 ; 4447 :                                zDME_SET_ATTR_TO_ATTR,
@@ -12733,7 +12733,7 @@ $L9258:
 
 	movsx	ecx, WORD PTR _nRC$[ebp]
 	cmp	ecx, -10				; fffffff6H
-	je	SHORT $L9260
+	je	SHORT $L9261
 
 ; 4458 :          fnOperationReturn( iSetAttributeFromAttribute, lpCurrentTask );
 
@@ -12746,8 +12746,8 @@ $L9258:
 ; 4459 :          return( nRC );
 
 	mov	ax, WORD PTR _nRC$[ebp]
-	jmp	$L9231
-$L9260:
+	jmp	$L9232
+$L9261:
 
 ; 4462 : 
 ; 4463 :    // If domains are involved we will jump through some hoops,
@@ -12757,7 +12757,7 @@ $L9260:
 
 	movsx	eax, WORD PTR _bMustDoDomains$[ebp]
 	test	eax, eax
-	je	$L9261
+	je	$L9262
 
 ; 4468 :       zULONG   ulReturnSrcLth;
 ; 4469 : 
@@ -12770,7 +12770,7 @@ $L9260:
 	push	edx
 	mov	eax, DWORD PTR _lpSrcView$[ebp]
 	push	eax
-	lea	ecx, DWORD PTR _ulReturnSrcLth$9262[ebp]
+	lea	ecx, DWORD PTR _ulReturnSrcLth$9263[ebp]
 	push	ecx
 	call	_fnGetActualAttributeLength
 	add	esp, 16					; 00000010H
@@ -12798,12 +12798,12 @@ $L9260:
 
 	movsx	eax, BYTE PTR _cTgtDomainType$[ebp]
 	cmp	eax, 84					; 00000054H
-	jne	SHORT $L9264
+	jne	SHORT $L9265
 	mov	ecx, DWORD PTR _lpSrcViewAttrib$[ebp]
 	mov	edx, DWORD PTR _lpTgtViewAttrib$[ebp]
 	mov	eax, DWORD PTR [ecx+198]
 	cmp	eax, DWORD PTR [edx+198]
-	jne	SHORT $L9264
+	jne	SHORT $L9265
 
 ; 4480 :          lpEntityInstance = zGETPTR( lpTgtViewEntityCsr->hEntityInstance );
 
@@ -12843,8 +12843,8 @@ $L9260:
 ; 4487 :          return( nRC );
 
 	mov	ax, WORD PTR _nRC$[ebp]
-	jmp	$L9231
-$L9264:
+	jmp	$L9232
+$L9265:
 
 ; 4491 :          // Pass the Source Attribute Domain Name as the Context for the
 ; 4492 :          // Target Attribute
@@ -12860,7 +12860,7 @@ $L9264:
 	mov	edx, DWORD PTR _lpCurrentTask$[ebp]
 	push	edx
 	push	0
-	mov	eax, DWORD PTR _ulReturnSrcLth$9262[ebp]
+	mov	eax, DWORD PTR _ulReturnSrcLth$9263[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _lpSrcViewAttrib$[ebp]
 	mov	dl, BYTE PTR [ecx+202]
@@ -12879,8 +12879,8 @@ $L9264:
 
 ; 4502 :    else
 
-	jmp	$L9278
-$L9261:
+	jmp	$L9279
+$L9262:
 
 ; 4504 :       // do the stuff below...
 ; 4505 : 
@@ -12910,7 +12910,7 @@ $L9261:
 ; 4513 :       if ( pchRecord )
 
 	cmp	DWORD PTR _pchRecord$[ebp], 0
-	je	SHORT $L9273
+	je	SHORT $L9274
 
 ; 4515 :          pchRecord += lpSrcViewAttrib->ulRecordOffset;
 
@@ -12925,11 +12925,11 @@ $L9261:
 	mov	ecx, DWORD PTR _lpSrcViewAttrib$[ebp]
 	movsx	edx, BYTE PTR [ecx+202]
 	cmp	edx, 83					; 00000053H
-	jne	SHORT $L9273
+	jne	SHORT $L9274
 	mov	eax, DWORD PTR _pchRecord$[ebp]
 	movsx	ecx, BYTE PTR [eax]
 	cmp	ecx, -1
-	jne	SHORT $L9273
+	jne	SHORT $L9274
 
 ; 4519 :             zCOREMEM  lpExternalP;
 ; 4520 : 
@@ -12937,16 +12937,16 @@ $L9261:
 
 	mov	edx, DWORD PTR _pchRecord$[ebp]
 	add	edx, 1
-	mov	DWORD PTR _lpExternalP$9274[ebp], edx
+	mov	DWORD PTR _lpExternalP$9275[ebp], edx
 
 ; 4522 :             pchRecord = zGETPTR( *lpExternalP );
 
-	mov	eax, DWORD PTR _lpExternalP$9274[ebp]
+	mov	eax, DWORD PTR _lpExternalP$9275[ebp]
 	mov	ecx, DWORD PTR [eax]
 	push	ecx
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _pchRecord$[ebp], eax
-$L9273:
+$L9274:
 
 ; 4525 : 
 ; 4526 :       // Now call the appropriate setting routine with the attribute
@@ -12960,24 +12960,24 @@ $L9273:
 	sub	ecx, 66					; 00000042H
 	mov	DWORD PTR -116+[ebp], ecx
 	cmp	DWORD PTR -116+[ebp], 18		; 00000012H
-	ja	$L9306
+	ja	$L9307
 	mov	eax, DWORD PTR -116+[ebp]
 	xor	edx, edx
-	mov	dl, BYTE PTR $L11886[eax]
-	jmp	DWORD PTR $L11887[edx*4]
-$L9281:
+	mov	dl, BYTE PTR $L11887[eax]
+	jmp	DWORD PTR $L11888[edx*4]
+$L9282:
 
 ; 4529 :          case zTYPE_STRING:
 ; 4530 :             if ( pchRecord == 0 )
 
 	cmp	DWORD PTR _pchRecord$[ebp], 0
-	jne	SHORT $L9282
+	jne	SHORT $L9283
 
 ; 4531 :                pchRecord = szNullS;
 
 	mov	ecx, DWORD PTR _szNullS
 	mov	DWORD PTR _pchRecord$[ebp], ecx
-$L9282:
+$L9283:
 
 ; 4532 : 
 ; 4533 :             nRC = SetAttributeFromString( lpTgtView, cpcTgtEntityName,
@@ -12996,15 +12996,15 @@ $L9282:
 
 ; 4535 :             break;
 
-	jmp	$L9278
-$L9283:
+	jmp	$L9279
+$L9284:
 
 ; 4539 :             zPLONG lplLong;
 ; 4540 : 
 ; 4541 :             if ( pchRecord == 0 )
 
 	cmp	DWORD PTR _pchRecord$[ebp], 0
-	jne	SHORT $L9285
+	jne	SHORT $L9286
 
 ; 4543 :                nRC = SetAttributeFromString( lpTgtView,
 ; 4544 :                                              cpcTgtEntityName,
@@ -13024,20 +13024,20 @@ $L9283:
 
 ; 4548 :             else
 
-	jmp	SHORT $L9286
-$L9285:
+	jmp	SHORT $L9287
+$L9286:
 
 ; 4550 :                lplLong = (zPLONG) pchRecord;
 
 	mov	ecx, DWORD PTR _pchRecord$[ebp]
-	mov	DWORD PTR _lplLong$9284[ebp], ecx
+	mov	DWORD PTR _lplLong$9285[ebp], ecx
 
 ; 4551 :                nRC = SetAttributeFromInteger( lpTgtView,
 ; 4552 :                                              cpcTgtEntityName,
 ; 4553 :                                              cpcTgtAttributeName,
 ; 4554 :                                              *lplLong );
 
-	mov	edx, DWORD PTR _lplLong$9284[ebp]
+	mov	edx, DWORD PTR _lplLong$9285[ebp]
 	mov	eax, DWORD PTR [edx]
 	push	eax
 	mov	ecx, DWORD PTR _cpcTgtAttributeName$[ebp]
@@ -13048,20 +13048,20 @@ $L9285:
 	push	eax
 	call	_SetAttributeFromInteger@16
 	mov	WORD PTR _nRC$[ebp], ax
-$L9286:
+$L9287:
 
 ; 4556 : 
 ; 4557 :             break;
 
-	jmp	$L9278
-$L9288:
+	jmp	$L9279
+$L9289:
 
 ; 4562 :             zPDECIMAL lpdDecimal;
 ; 4563 : 
 ; 4564 :             if ( pchRecord == 0 )
 
 	cmp	DWORD PTR _pchRecord$[ebp], 0
-	jne	SHORT $L9290
+	jne	SHORT $L9291
 
 ; 4566 :                nRC = SetAttributeFromString( lpTgtView,
 ; 4567 :                                              cpcTgtEntityName,
@@ -13081,13 +13081,13 @@ $L9288:
 
 ; 4571 :             else
 
-	jmp	SHORT $L9291
-$L9290:
+	jmp	SHORT $L9292
+$L9291:
 
 ; 4573 :                lpdDecimal = (zPDECIMAL) pchRecord;
 
 	mov	edx, DWORD PTR _pchRecord$[ebp]
-	mov	DWORD PTR _lpdDecimal$9289[ebp], edx
+	mov	DWORD PTR _lpdDecimal$9290[ebp], edx
 
 ; 4574 :                nRC = SetAttributeFromDecimal( lpTgtView,
 ; 4575 :                                               cpcTgtEntityName,
@@ -13096,7 +13096,7 @@ $L9290:
 
 	sub	esp, 40					; 00000028H
 	mov	ecx, 10					; 0000000aH
-	mov	esi, DWORD PTR _lpdDecimal$9289[ebp]
+	mov	esi, DWORD PTR _lpdDecimal$9290[ebp]
 	mov	edi, esp
 	rep movsd
 	mov	eax, DWORD PTR _cpcTgtAttributeName$[ebp]
@@ -13107,13 +13107,13 @@ $L9290:
 	push	edx
 	call	_SetAttributeFromDecimal@52
 	mov	WORD PTR _nRC$[ebp], ax
-$L9291:
+$L9292:
 
 ; 4579 : 
 ; 4580 :             break;
 
-	jmp	$L9278
-$L9293:
+	jmp	$L9279
+$L9294:
 
 ; 4585 :             zPVOID  pvBlob;
 ; 4586 :             zULONG  ulLth;
@@ -13128,7 +13128,7 @@ $L9293:
 	push	ecx
 	mov	edx, DWORD PTR _lpSrcView$[ebp]
 	push	edx
-	lea	eax, DWORD PTR _ulLth$9295[ebp]
+	lea	eax, DWORD PTR _ulLth$9296[ebp]
 	push	eax
 	call	_GetAttributeLength@16
 	mov	WORD PTR _nRC$[ebp], ax
@@ -13137,9 +13137,9 @@ $L9293:
 
 	movsx	ecx, WORD PTR _nRC$[ebp]
 	test	ecx, ecx
-	jne	SHORT $L9301
-	cmp	DWORD PTR _ulLth$9295[ebp], 0
-	je	SHORT $L9301
+	jne	SHORT $L9302
+	cmp	DWORD PTR _ulLth$9296[ebp], 0
+	je	SHORT $L9302
 
 ; 4593 :                nRC = fnGetAddrForAttribute( (zCOREMEM) &pvBlob,
 ; 4594 :                                             lpSrcView,
@@ -13153,7 +13153,7 @@ $L9293:
 	push	eax
 	mov	ecx, DWORD PTR _lpSrcView$[ebp]
 	push	ecx
-	lea	edx, DWORD PTR _pvBlob$9294[ebp]
+	lea	edx, DWORD PTR _pvBlob$9295[ebp]
 	push	edx
 	call	_fnGetAddrForAttribute
 	add	esp, 20					; 00000014H
@@ -13163,7 +13163,7 @@ $L9293:
 
 	movsx	eax, WORD PTR _nRC$[ebp]
 	test	eax, eax
-	je	SHORT $L9298
+	je	SHORT $L9299
 
 ; 4599 :                   TraceLineS( "(at) in SAFA fnGetAddrForAttribute",
 ; 4600 :                               " failed." );
@@ -13174,8 +13174,8 @@ $L9293:
 
 ; 4601 :                   break;
 
-	jmp	SHORT $L9278
-$L9298:
+	jmp	SHORT $L9279
+$L9299:
 
 ; 4603 :                else
 ; 4604 :                   nRC = SetAttributeFromBlob( lpTgtView,
@@ -13184,9 +13184,9 @@ $L9298:
 ; 4607 :                                               pvBlob,
 ; 4608 :                                               ulLth );
 
-	mov	ecx, DWORD PTR _ulLth$9295[ebp]
+	mov	ecx, DWORD PTR _ulLth$9296[ebp]
 	push	ecx
-	mov	edx, DWORD PTR _pvBlob$9294[ebp]
+	mov	edx, DWORD PTR _pvBlob$9295[ebp]
 	push	edx
 	mov	eax, DWORD PTR _cpcTgtAttributeName$[ebp]
 	push	eax
@@ -13196,18 +13196,18 @@ $L9298:
 	push	edx
 	call	_SetAttributeFromBlob@20
 	mov	WORD PTR _nRC$[ebp], ax
-$L9301:
+$L9302:
 
 ; 4612 : 
 ; 4613 :             break;
 
-	jmp	SHORT $L9278
-$L9302:
+	jmp	SHORT $L9279
+$L9303:
 
 ; 4618 :             if ( pchRecord == 0 )
 
 	cmp	DWORD PTR _pchRecord$[ebp], 0
-	jne	SHORT $L9303
+	jne	SHORT $L9304
 
 ; 4620 :                nRC = SetAttributeFromString( lpTgtView,
 ; 4621 :                                              cpcTgtEntityName,
@@ -13227,8 +13227,8 @@ $L9302:
 
 ; 4625 :             else
 
-	jmp	SHORT $L9304
-$L9303:
+	jmp	SHORT $L9305
+$L9304:
 
 ; 4627 :                zCHAR    szDateTime[ 18 ];
 ; 4628 : 
@@ -13244,7 +13244,7 @@ $L9303:
 	mov	eax, DWORD PTR _lpSrcView$[ebp]
 	push	eax
 	push	18					; 00000012H
-	lea	ecx, DWORD PTR _szDateTime$9305[ebp]
+	lea	ecx, DWORD PTR _szDateTime$9306[ebp]
 	push	ecx
 	call	_fnGetStringFromAttribute
 	add	esp, 24					; 00000018H
@@ -13254,7 +13254,7 @@ $L9303:
 ; 4634 :                                              cpcTgtAttributeName,
 ; 4635 :                                              szDateTime );
 
-	lea	edx, DWORD PTR _szDateTime$9305[ebp]
+	lea	edx, DWORD PTR _szDateTime$9306[ebp]
 	push	edx
 	mov	eax, DWORD PTR _cpcTgtAttributeName$[ebp]
 	push	eax
@@ -13264,20 +13264,20 @@ $L9303:
 	push	edx
 	call	_SetAttributeFromString@16
 	mov	WORD PTR _nRC$[ebp], ax
-$L9304:
+$L9305:
 
 ; 4637 : 
 ; 4638 :             break;
 
-	jmp	SHORT $L9278
-$L9306:
+	jmp	SHORT $L9279
+$L9307:
 
 ; 4640 : 
 ; 4641 :          default:
 ; 4642 :             nRC = zCALL_ERROR;
 
 	mov	WORD PTR _nRC$[ebp], -16		; fffffff0H
-$L9278:
+$L9279:
 
 ; 4645 : 
 ; 4646 :    fnOperationReturn( iSetAttributeFromAttribute, lpCurrentTask );
@@ -13291,7 +13291,7 @@ $L9278:
 ; 4647 :    return( nRC );
 
 	mov	ax, WORD PTR _nRC$[ebp]
-$L9231:
+$L9232:
 
 ; 4648 : }
 
@@ -13300,14 +13300,14 @@ $L9231:
 	mov	esp, ebp
 	pop	ebp
 	ret	24					; 00000018H
+$L11888:
+	DD	$L9294
+	DD	$L9284
+	DD	$L9289
+	DD	$L9282
+	DD	$L9303
+	DD	$L9307
 $L11887:
-	DD	$L9293
-	DD	$L9283
-	DD	$L9288
-	DD	$L9281
-	DD	$L9302
-	DD	$L9306
-$L11886:
 	DB	0
 	DB	5
 	DB	5
@@ -13396,20 +13396,20 @@ _SetBlobAttributeFromAttribute@24 PROC NEAR
 
 	movsx	ecx, WORD PTR _nRC$[ebp]
 	test	ecx, ecx
-	jle	SHORT $L9327
+	jle	SHORT $L9328
 
 ; 4700 :       return( zCALL_ERROR );   // don't call fnOperationReturn
 
 	mov	ax, -16					; fffffff0H
-	jmp	SHORT $L9319
-$L9327:
+	jmp	SHORT $L9320
+$L9328:
 
 ; 4701 :    else
 ; 4702 :    if ( nRC )
 
 	movsx	edx, WORD PTR _nRC$[ebp]
 	test	edx, edx
-	je	SHORT $L9329
+	je	SHORT $L9330
 
 ; 4703 :       nRC = zCALL_ERROR;
 
@@ -13417,8 +13417,8 @@ $L9327:
 
 ; 4704 :    else
 
-	jmp	SHORT $L9331
-$L9329:
+	jmp	SHORT $L9332
+$L9330:
 
 ; 4706 :       // Get the length of the source attribute.
 ; 4707 :       fnGetActualAttributeLength( &ulLth, lpSrcView, lpViewEntityCsr,
@@ -13438,7 +13438,7 @@ $L9329:
 ; 4709 :       if ( ulLth )
 
 	cmp	DWORD PTR _ulLth$[ebp], 0
-	je	SHORT $L9331
+	je	SHORT $L9332
 
 ; 4711 :          nRC = fnGetAddrForAttribute( (zCOREMEM) &pvBlob, lpSrcView,
 ; 4712 :                                       lpViewEntityCsr, 0, lpViewAttrib );
@@ -13473,7 +13473,7 @@ $L9329:
 	push	eax
 	call	_SetAttributeFromBlob@20
 	mov	WORD PTR _nRC$[ebp], ax
-$L9331:
+$L9332:
 
 ; 4719 : 
 ; 4720 :    fnOperationReturn( iSetBlobAttributeFromAttribute, lpCurrentTask );
@@ -13487,7 +13487,7 @@ $L9331:
 ; 4721 :    return( nRC );
 
 	mov	ax, WORD PTR _nRC$[ebp]
-$L9319:
+$L9320:
 
 ; 4722 : 
 ; 4723 : }  /* SetBlobAttributeFromAttribute */
@@ -13515,10 +13515,10 @@ _lpTgtViewAttrib$ = -24
 _lpTgtEntityInstance$ = -16
 _nRCa$ = -20
 _nRC$ = -8
-_uReturnLth$9368 = -44
-_szWorkString$9372 = -60
-_uReturnLth$9405 = -64
-_szWorkString$9409 = -76
+_uReturnLth$9369 = -44
+_szWorkString$9373 = -60
+_uReturnLth$9406 = -64
+_szWorkString$9410 = -76
 _SetMatchingAttributesByName@20 PROC NEAR
 
 ; 4769 : {
@@ -13573,20 +13573,20 @@ _SetMatchingAttributesByName@20 PROC NEAR
 
 	movsx	eax, WORD PTR _nRC$[ebp]
 	test	eax, eax
-	jle	SHORT $L9354
+	jle	SHORT $L9355
 
 ; 4792 :       return( zCALL_ERROR );   // don't call fnOperationReturn
 
 	mov	ax, -16					; fffffff0H
-	jmp	$L9343
-$L9354:
+	jmp	$L9344
+$L9355:
 
 ; 4793 : 
 ; 4794 :    if ( nRC == 0 )
 
 	movsx	ecx, WORD PTR _nRC$[ebp]
 	test	ecx, ecx
-	jne	SHORT $L9355
+	jne	SHORT $L9356
 
 ; 4796 :       // Validate parameters for target attribute.
 ; 4797 :       nRC = fnValidateAttributeParameters( &lpCurrentTask,
@@ -13620,14 +13620,14 @@ $L9354:
 	call	_fnValidateAttributeParameters
 	add	esp, 40					; 00000028H
 	mov	WORD PTR _nRC$[ebp], ax
-$L9355:
+$L9356:
 
 ; 4809 : 
 ; 4810 :    if ( nRC )
 
 	movsx	edx, WORD PTR _nRC$[ebp]
 	test	edx, edx
-	je	SHORT $L9356
+	je	SHORT $L9357
 
 ; 4812 :       fnOperationReturn( iSetMatchingAttributesByName, lpCurrentTask );
 
@@ -13640,8 +13640,8 @@ $L9355:
 ; 4813 :       return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	$L9343
-$L9356:
+	jmp	$L9344
+$L9357:
 
 ; 4815 : 
 ; 4816 :    nRC = 0; // Initialize to no errors
@@ -13663,16 +13663,16 @@ $L9356:
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _lpTgtEntityInstance$[ebp], eax
-	jmp	SHORT $L9359
-$L9360:
+	jmp	SHORT $L9360
+$L9361:
 	mov	eax, DWORD PTR _lpTgtViewAttrib$[ebp]
 	mov	ecx, DWORD PTR [eax+2]
 	push	ecx
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _lpTgtViewAttrib$[ebp], eax
-$L9359:
+$L9360:
 	cmp	DWORD PTR _lpTgtViewAttrib$[ebp], 0
-	je	$L9361
+	je	$L9362
 
 ; 4827 :       // Don't set the attribute if one of the following occurs:
 ; 4828 :       //    o  Target attribute is hidden.
@@ -13694,35 +13694,35 @@ $L9359:
 	shr	eax, 5
 	and	eax, 1
 	test	eax, eax
-	jne	SHORT $L9363
+	jne	SHORT $L9364
 	mov	ecx, DWORD PTR _lpTgtViewAttrib$[ebp]
 	movsx	edx, BYTE PTR [ecx+213]
 	test	edx, edx
-	jne	SHORT $L9363
+	jne	SHORT $L9364
 	mov	eax, DWORD PTR _lpTgtViewAttrib$[ebp]
 	mov	ecx, DWORD PTR [eax+193]
 	shr	ecx, 12					; 0000000cH
 	and	ecx, 1
 	test	ecx, ecx
-	jne	SHORT $L9363
+	jne	SHORT $L9364
 	mov	edx, DWORD PTR _lpTgtEntityInstance$[ebp]
 	mov	eax, DWORD PTR [edx+6]
 	shr	eax, 1
 	and	eax, 1
 	test	eax, eax
-	jne	SHORT $L9362
+	jne	SHORT $L9363
 	mov	ecx, DWORD PTR _lpTgtViewAttrib$[ebp]
 	mov	edx, DWORD PTR [ecx+193]
 	shr	edx, 13					; 0000000dH
 	and	edx, 1
 	test	edx, edx
-	je	SHORT $L9362
-$L9363:
+	je	SHORT $L9363
+$L9364:
 
 ; 4842 :          continue;
 
-	jmp	SHORT $L9360
-$L9362:
+	jmp	SHORT $L9361
+$L9363:
 
 ; 4844 : 
 ; 4845 :       if ( lpTgtViewAttrib->bKey )
@@ -13732,7 +13732,7 @@ $L9362:
 	shr	ecx, 1
 	and	ecx, 1
 	test	ecx, ecx
-	je	SHORT $L9365
+	je	SHORT $L9366
 
 ; 4847 :          // Attribute is a 'key', see if user wants to copy keys.  If not,
 ; 4848 :          // continue looping.
@@ -13741,7 +13741,7 @@ $L9362:
 	movsx	edx, WORD PTR _nControl$[ebp]
 	and	edx, 1
 	test	edx, edx
-	jne	SHORT $L9365
+	jne	SHORT $L9366
 
 ; 4851 : #if 0
 ; 4852 :             // Test code dks 2008.12.23
@@ -13758,8 +13758,8 @@ $L9362:
 ; 4863 : #endif
 ; 4864 :             continue; // Ignore the key.
 
-	jmp	$L9360
-$L9365:
+	jmp	$L9361
+$L9366:
 
 ; 4867 : 
 ; 4868 :       // Check to see if user wants to over-write non-null values.
@@ -13768,7 +13768,7 @@ $L9365:
 	movsx	eax, WORD PTR _nControl$[ebp]
 	and	eax, 2
 	test	eax, eax
-	jne	SHORT $L9374
+	jne	SHORT $L9375
 
 ; 4871 :          // The user does NOT want attributes in the target entity that
 ; 4872 :          // already have values (i.e. they are not null) to be over-written
@@ -13780,7 +13780,7 @@ $L9365:
 	mov	ecx, DWORD PTR _lpTgtViewAttrib$[ebp]
 	movsx	edx, BYTE PTR [ecx+202]
 	cmp	edx, 66					; 00000042H
-	jne	SHORT $L9367
+	jne	SHORT $L9368
 
 ; 4878 :             zULONG  uReturnLth;
 ; 4879 : 
@@ -13798,26 +13798,26 @@ $L9365:
 	push	eax
 	mov	eax, DWORD PTR _lpTgtView$[ebp]
 	push	eax
-	lea	ecx, DWORD PTR _uReturnLth$9368[ebp]
+	lea	ecx, DWORD PTR _uReturnLth$9369[ebp]
 	push	ecx
 	call	_fnGetAttributeLength
 	add	esp, 16					; 00000010H
 
 ; 4884 :             if ( uReturnLth > 0 )
 
-	cmp	DWORD PTR _uReturnLth$9368[ebp], 0
-	jbe	SHORT $L9370
+	cmp	DWORD PTR _uReturnLth$9369[ebp], 0
+	jbe	SHORT $L9371
 
 ; 4885 :                // Length of blob is > 0, so attribute is NOT null.
 ; 4886 :                continue;
 
-	jmp	$L9360
-$L9370:
+	jmp	$L9361
+$L9371:
 
 ; 4888 :          else
 
-	jmp	SHORT $L9374
-$L9367:
+	jmp	SHORT $L9375
+$L9368:
 
 ; 4890 :             zCHAR szWorkString[ 16 ];
 ; 4891 : 
@@ -13835,7 +13835,7 @@ $L9367:
 	mov	ecx, DWORD PTR _lpTgtView$[ebp]
 	push	ecx
 	push	16					; 00000010H
-	lea	edx, DWORD PTR _szWorkString$9372[ebp]
+	lea	edx, DWORD PTR _szWorkString$9373[ebp]
 	push	edx
 	call	_fnGetStringFromAttribute
 	add	esp, 24					; 00000018H
@@ -13847,33 +13847,33 @@ $L9367:
 
 	movsx	eax, WORD PTR _nRCa$[ebp]
 	cmp	eax, -1
-	jne	SHORT $L9373
+	jne	SHORT $L9374
 
 ; 4900 :                szWorkString[ 0 ] = 0;
 
-	mov	BYTE PTR _szWorkString$9372[ebp], 0
-$L9373:
+	mov	BYTE PTR _szWorkString$9373[ebp], 0
+$L9374:
 
 ; 4901 : 
 ; 4902 :             // If the first char of szWorkString is NOT null, then the target attribute is
 ; 4903 :             // NOT null, so continue looping.
 ; 4904 :             if ( szWorkString[ 0 ] )
 
-	movsx	ecx, BYTE PTR _szWorkString$9372[ebp]
+	movsx	ecx, BYTE PTR _szWorkString$9373[ebp]
 	test	ecx, ecx
-	je	SHORT $L9374
+	je	SHORT $L9375
 
 ; 4905 :                continue;
 
-	jmp	$L9360
-$L9374:
+	jmp	$L9361
+$L9375:
 
 ; 4908 : 
 ; 4909 :       if ( lpSrcViewEntity == lpTgtViewEntity )
 
 	mov	edx, DWORD PTR _lpSrcViewEntity$[ebp]
 	cmp	edx, DWORD PTR _lpTgtViewEntity$[ebp]
-	jne	SHORT $L9375
+	jne	SHORT $L9376
 
 ; 4910 :          lpSrcViewAttrib = lpTgtViewAttrib;
 
@@ -13882,14 +13882,14 @@ $L9374:
 
 ; 4911 :       else
 
-	jmp	$L9392
-$L9375:
+	jmp	$L9393
+$L9376:
 
 ; 4913 :          // Try and pick up search from where we left off
 ; 4914 :          while ( lpSrcViewAttrib )
 
 	cmp	DWORD PTR _lpSrcViewAttrib$[ebp], 0
-	je	SHORT $L9379
+	je	SHORT $L9380
 
 ; 4916 :             if ( zstrcmp( lpSrcViewAttrib->szName,
 ; 4917 :                           lpTgtViewAttrib->szName ) == 0 )
@@ -13899,7 +13899,7 @@ $L9375:
 	mov	eax, DWORD PTR _lpTgtViewAttrib$[ebp]
 	movsx	ecx, BYTE PTR [eax+10]
 	cmp	edx, ecx
-	jne	SHORT $L11890
+	jne	SHORT $L11891
 	mov	edx, DWORD PTR _lpTgtViewAttrib$[ebp]
 	add	edx, 10					; 0000000aH
 	push	edx
@@ -13909,8 +13909,8 @@ $L9375:
 	call	_strcmp
 	add	esp, 8
 	mov	DWORD PTR -80+[ebp], eax
-	jmp	SHORT $L11891
-$L11890:
+	jmp	SHORT $L11892
+$L11891:
 	mov	ecx, DWORD PTR _lpSrcViewAttrib$[ebp]
 	movsx	edx, BYTE PTR [ecx+10]
 	mov	eax, DWORD PTR _lpTgtViewAttrib$[ebp]
@@ -13923,14 +13923,14 @@ $L11890:
 	and	eax, 2
 	add	eax, -1
 	mov	DWORD PTR -80+[ebp], eax
-$L11891:
+$L11892:
 	cmp	DWORD PTR -80+[ebp], 0
-	jne	SHORT $L9386
+	jne	SHORT $L9387
 
 ; 4919 :                break;
 
-	jmp	SHORT $L9379
-$L9386:
+	jmp	SHORT $L9380
+$L9387:
 
 ; 4921 : 
 ; 4922 :             lpSrcViewAttrib = zGETPTR( lpSrcViewAttrib->hNextOD_Attrib );
@@ -13943,15 +13943,15 @@ $L9386:
 
 ; 4923 :          }
 
-	jmp	SHORT $L9375
-$L9379:
+	jmp	SHORT $L9376
+$L9380:
 
 ; 4924 : 
 ; 4925 :          // If search failed, restart search from beginning of attrs
 ; 4926 :          if ( lpSrcViewAttrib == 0 )
 
 	cmp	DWORD PTR _lpSrcViewAttrib$[ebp], 0
-	jne	$L9392
+	jne	$L9393
 
 ; 4928 :             lpSrcViewAttrib = zGETPTR( lpSrcViewEntity->hFirstOD_Attrib );
 
@@ -13960,12 +13960,12 @@ $L9379:
 	push	ecx
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _lpSrcViewAttrib$[ebp], eax
-$L9391:
+$L9392:
 
 ; 4929 :             while ( lpSrcViewAttrib )
 
 	cmp	DWORD PTR _lpSrcViewAttrib$[ebp], 0
-	je	SHORT $L9392
+	je	SHORT $L9393
 
 ; 4931 :                if ( zstrcmp( lpSrcViewAttrib->szName,
 ; 4932 :                              lpTgtViewAttrib->szName ) == 0 )
@@ -13975,7 +13975,7 @@ $L9391:
 	mov	ecx, DWORD PTR _lpTgtViewAttrib$[ebp]
 	movsx	edx, BYTE PTR [ecx+10]
 	cmp	eax, edx
-	jne	SHORT $L11892
+	jne	SHORT $L11893
 	mov	eax, DWORD PTR _lpTgtViewAttrib$[ebp]
 	add	eax, 10					; 0000000aH
 	push	eax
@@ -13985,8 +13985,8 @@ $L9391:
 	call	_strcmp
 	add	esp, 8
 	mov	DWORD PTR -84+[ebp], eax
-	jmp	SHORT $L11893
-$L11892:
+	jmp	SHORT $L11894
+$L11893:
 	mov	edx, DWORD PTR _lpSrcViewAttrib$[ebp]
 	movsx	eax, BYTE PTR [edx+10]
 	mov	ecx, DWORD PTR _lpTgtViewAttrib$[ebp]
@@ -13999,14 +13999,14 @@ $L11892:
 	and	ecx, 2
 	add	ecx, -1
 	mov	DWORD PTR -84+[ebp], ecx
-$L11893:
+$L11894:
 	cmp	DWORD PTR -84+[ebp], 0
-	jne	SHORT $L9399
+	jne	SHORT $L9400
 
 ; 4934 :                   break;
 
-	jmp	SHORT $L9392
-$L9399:
+	jmp	SHORT $L9393
+$L9400:
 
 ; 4936 : 
 ; 4937 :                lpSrcViewAttrib = zGETPTR( lpSrcViewAttrib->hNextOD_Attrib );
@@ -14019,8 +14019,8 @@ $L9399:
 
 ; 4938 :             }
 
-	jmp	SHORT $L9391
-$L9392:
+	jmp	SHORT $L9392
+$L9393:
 
 ; 4941 : 
 ; 4942 :       // Source attribute cannot be hidden or derived either.
@@ -14028,23 +14028,23 @@ $L9392:
 ; 4944 :            lpSrcViewAttrib->bHidden || lpSrcViewAttrib->szDerivedOper[ 0 ] )
 
 	cmp	DWORD PTR _lpSrcViewAttrib$[ebp], 0
-	je	SHORT $L9402
+	je	SHORT $L9403
 	mov	ecx, DWORD PTR _lpSrcViewAttrib$[ebp]
 	mov	edx, DWORD PTR [ecx+193]
 	shr	edx, 5
 	and	edx, 1
 	test	edx, edx
-	jne	SHORT $L9402
+	jne	SHORT $L9403
 	mov	eax, DWORD PTR _lpSrcViewAttrib$[ebp]
 	movsx	ecx, BYTE PTR [eax+213]
 	test	ecx, ecx
-	je	SHORT $L9401
-$L9402:
+	je	SHORT $L9402
+$L9403:
 
 ; 4946 :          continue;
 
-	jmp	$L9360
-$L9401:
+	jmp	$L9361
+$L9402:
 
 ; 4948 : 
 ; 4949 :       if ( nControl & zSET_SRCNOTNULL )
@@ -14052,7 +14052,7 @@ $L9401:
 	movsx	edx, WORD PTR _nControl$[ebp]
 	and	edx, 4
 	test	edx, edx
-	je	SHORT $L9411
+	je	SHORT $L9412
 
 ; 4951 :          // User doesn't want NULL source attributes to be copied.
 ; 4952 :          if ( lpSrcViewAttrib->cType == zTYPE_BLOB )
@@ -14060,7 +14060,7 @@ $L9401:
 	mov	eax, DWORD PTR _lpSrcViewAttrib$[ebp]
 	movsx	ecx, BYTE PTR [eax+202]
 	cmp	ecx, 66					; 00000042H
-	jne	SHORT $L9404
+	jne	SHORT $L9405
 
 ; 4954 :             zULONG  uReturnLth;
 ; 4955 : 
@@ -14078,26 +14078,26 @@ $L9401:
 	push	eax
 	mov	edx, DWORD PTR _lpSrcView$[ebp]
 	push	edx
-	lea	eax, DWORD PTR _uReturnLth$9405[ebp]
+	lea	eax, DWORD PTR _uReturnLth$9406[ebp]
 	push	eax
 	call	_fnGetAttributeLength
 	add	esp, 16					; 00000010H
 
 ; 4960 :             if ( uReturnLth == 0 )
 
-	cmp	DWORD PTR _uReturnLth$9405[ebp], 0
-	jne	SHORT $L9407
+	cmp	DWORD PTR _uReturnLth$9406[ebp], 0
+	jne	SHORT $L9408
 
 ; 4961 :                // Length of blob is == 0, so attribute is null.
 ; 4962 :                continue;
 
-	jmp	$L9360
-$L9407:
+	jmp	$L9361
+$L9408:
 
 ; 4964 :          else
 
-	jmp	SHORT $L9411
-$L9404:
+	jmp	SHORT $L9412
+$L9405:
 
 ; 4966 : 
 ; 4967 :             zCHAR szWorkString[ 9 ];
@@ -14116,7 +14116,7 @@ $L9404:
 	mov	eax, DWORD PTR _lpSrcView$[ebp]
 	push	eax
 	push	9
-	lea	ecx, DWORD PTR _szWorkString$9409[ebp]
+	lea	ecx, DWORD PTR _szWorkString$9410[ebp]
 	push	ecx
 	call	_fnGetStringFromAttribute
 	add	esp, 24					; 00000018H
@@ -14129,26 +14129,26 @@ $L9404:
 
 	movsx	edx, WORD PTR _nRCa$[ebp]
 	cmp	edx, -1
-	jne	SHORT $L9410
+	jne	SHORT $L9411
 
 ; 4978 :                szWorkString[ 0 ] = 0;
 
-	mov	BYTE PTR _szWorkString$9409[ebp], 0
-$L9410:
+	mov	BYTE PTR _szWorkString$9410[ebp], 0
+$L9411:
 
 ; 4979 : 
 ; 4980 :             // If first char of szWorkString is null, then the source
 ; 4981 :             // attribute is null, so continue looping.
 ; 4982 :             if ( szWorkString[ 0 ] == 0 )
 
-	movsx	eax, BYTE PTR _szWorkString$9409[ebp]
+	movsx	eax, BYTE PTR _szWorkString$9410[ebp]
 	test	eax, eax
-	jne	SHORT $L9411
+	jne	SHORT $L9412
 
 ; 4983 :                continue;
 
-	jmp	$L9360
-$L9411:
+	jmp	$L9361
+$L9412:
 
 ; 4986 : 
 ; 4987 :       // If we found a matching attribute, call SetAttributeFromAttribute
@@ -14179,22 +14179,22 @@ $L9411:
 
 	movsx	ecx, WORD PTR _nRC$[ebp]
 	test	ecx, ecx
-	jne	SHORT $L9412
+	jne	SHORT $L9413
 	movsx	edx, WORD PTR _nRCa$[ebp]
 	test	edx, edx
-	je	SHORT $L9412
+	je	SHORT $L9413
 
 ; 4994 :          nRC = nRCa;
 
 	mov	ax, WORD PTR _nRCa$[ebp]
 	mov	WORD PTR _nRC$[ebp], ax
-$L9412:
+$L9413:
 
 ; 4995 : 
 ; 4996 :    } // for ( lpViewAttribute... )...
 
-	jmp	$L9360
-$L9361:
+	jmp	$L9361
+$L9362:
 
 ; 4997 : 
 ; 4998 :    fnOperationReturn( iSetMatchingAttributesByName, lpCurrentTask );
@@ -14208,7 +14208,7 @@ $L9361:
 ; 4999 :    return( nRC );
 
 	mov	ax, WORD PTR _nRC$[ebp]
-$L9343:
+$L9344:
 
 ; 5000 : }
 
@@ -14284,20 +14284,20 @@ _AddToAttributeFromAttribute@24 PROC NEAR
 
 	movsx	ecx, WORD PTR _nRC$[ebp]
 	test	ecx, ecx
-	jle	SHORT $L9432
+	jle	SHORT $L9433
 
 ; 5048 :       return( zCALL_ERROR );   // don't call fnOperationReturn
 
 	mov	ax, -16					; fffffff0H
-	jmp	SHORT $L9425
-$L9432:
+	jmp	SHORT $L9426
+$L9433:
 
 ; 5049 : 
 ; 5050 :    if ( nRC )
 
 	movsx	edx, WORD PTR _nRC$[ebp]
 	test	edx, edx
-	je	SHORT $L9433
+	je	SHORT $L9434
 
 ; 5051 :       nRC = zCALL_ERROR;
 
@@ -14305,8 +14305,8 @@ $L9432:
 
 ; 5052 :    else
 
-	jmp	SHORT $L9437
-$L9433:
+	jmp	SHORT $L9438
+$L9434:
 
 ; 5054 :       // Get the source attribute as a decimal and add it to the target as
 ; 5055 :       // a decimal value.
@@ -14332,7 +14332,7 @@ $L9433:
 
 	movsx	ecx, WORD PTR _nRC$[ebp]
 	test	ecx, ecx
-	jne	SHORT $L9435
+	jne	SHORT $L9436
 
 ; 5063 :          nRC = AddToAttributeFromDecimal( lpTgtView,
 ; 5064 :                                           cpcTgtEntityName,
@@ -14355,19 +14355,19 @@ $L9433:
 
 ; 5068 :       else
 
-	jmp	SHORT $L9437
-$L9435:
+	jmp	SHORT $L9438
+$L9436:
 
 ; 5069 :       if ( nRC == -1 )
 
 	movsx	edx, WORD PTR _nRC$[ebp]
 	cmp	edx, -1
-	jne	SHORT $L9437
+	jne	SHORT $L9438
 
 ; 5070 :          nRC = 0;
 
 	mov	WORD PTR _nRC$[ebp], 0
-$L9437:
+$L9438:
 
 ; 5072 : 
 ; 5073 :    fnOperationReturn( iAddToAttributeFromAttribute, lpCurrentTask );
@@ -14381,7 +14381,7 @@ $L9437:
 ; 5074 :    return( nRC );
 
 	mov	ax, WORD PTR _nRC$[ebp]
-$L9425:
+$L9426:
 
 ; 5075 : }
 
@@ -14418,28 +14418,28 @@ _cTgtDomainType$ = -16
 _bMustDoDomains$ = -36
 _pchRecord$ = -24
 _nRC$ = -12
-_pchContextName$9473 = -60
-_ulReturnSrcLth$9474 = -68
-_lpSrcDomain$9475 = -64
-_lpDomain$9481 = -72
-_lTempValue$9486 = -332
-_szTemp$9487 = -328
-_plTarget$9499 = -340
-_plSource$9500 = -336
-_dTgtCompare$9513 = -428
-_dSrcCompare$9514 = -380
-_nRC1$9515 = -384
-_nRC2$9516 = -388
-_ulTgtBlobLength$9528 = -436
-_ulSrcBlobLength$9529 = -432
-_TgtBlobAddr$9535 = -444
-_SrcBlobAddr$9536 = -440
-_lpSrcDateTime$9543 = -448
-_lpTgtDateTime$9544 = -452
-_pchSrcString$9549 = -456
-_pchTgtString$9550 = -460
-_szTgtCompare$9565 = -65996
-_szSrcCompare$9566 = -131532
+_pchContextName$9474 = -60
+_ulReturnSrcLth$9475 = -68
+_lpSrcDomain$9476 = -64
+_lpDomain$9482 = -72
+_lTempValue$9487 = -332
+_szTemp$9488 = -328
+_plTarget$9500 = -340
+_plSource$9501 = -336
+_dTgtCompare$9514 = -428
+_dSrcCompare$9515 = -380
+_nRC1$9516 = -384
+_nRC2$9517 = -388
+_ulTgtBlobLength$9529 = -436
+_ulSrcBlobLength$9530 = -432
+_TgtBlobAddr$9536 = -444
+_SrcBlobAddr$9537 = -440
+_lpSrcDateTime$9544 = -448
+_lpTgtDateTime$9545 = -452
+_pchSrcString$9550 = -456
+_pchTgtString$9551 = -460
+_szTgtCompare$9566 = -65996
+_szSrcCompare$9567 = -131532
 _CompareAttributeToAttribute@24 PROC NEAR
 
 ; 5110 : {
@@ -14500,20 +14500,20 @@ _CompareAttributeToAttribute@24 PROC NEAR
 
 	movsx	ecx, WORD PTR _nRC$[ebp]
 	test	ecx, ecx
-	jle	SHORT $L9465
+	jle	SHORT $L9466
 
 ; 5137 :       return( zCALL_ERROR );   // don't call fnOperationReturn
 
 	mov	ax, -16					; fffffff0H
-	jmp	$L9450
-$L9465:
+	jmp	$L9451
+$L9466:
 
 ; 5138 : 
 ; 5139 :    if ( nRC == 0 )
 
 	movsx	edx, WORD PTR _nRC$[ebp]
 	test	edx, edx
-	jne	SHORT $L9466
+	jne	SHORT $L9467
 
 ; 5141 :       // Validate parameters for source attribute.
 ; 5142 :       nRC = fnValidateAttributeParameters( &lpCurrentTask,
@@ -14547,14 +14547,14 @@ $L9465:
 	call	_fnValidateAttributeParameters
 	add	esp, 40					; 00000028H
 	mov	WORD PTR _nRC$[ebp], ax
-$L9466:
+$L9467:
 
 ; 5153 : 
 ; 5154 :    if ( nRC )
 
 	movsx	ecx, WORD PTR _nRC$[ebp]
 	test	ecx, ecx
-	je	SHORT $L9467
+	je	SHORT $L9468
 
 ; 5156 :       fnOperationReturn( iCompareAttributeToAttribute, lpCurrentTask );
 
@@ -14567,8 +14567,8 @@ $L9466:
 ; 5157 :       return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	$L9450
-$L9467:
+	jmp	$L9451
+$L9468:
 
 ; 5159 : 
 ; 5160 :    // Invoke derived operation for Src.
@@ -14577,7 +14577,7 @@ $L9467:
 	mov	eax, DWORD PTR _lpSrcViewAttrib$[ebp]
 	movsx	ecx, BYTE PTR [eax+213]
 	test	ecx, ecx
-	je	SHORT $L9468
+	je	SHORT $L9469
 
 ; 5162 :       fnInvokeDerivedOperation( lpSrcView, lpSrcViewEntity,
 ; 5163 :                                 lpSrcViewAttrib, lpCurrentTask,
@@ -14594,7 +14594,7 @@ $L9467:
 	push	edx
 	call	_fnInvokeDerivedOperation
 	add	esp, 20					; 00000014H
-$L9468:
+$L9469:
 
 ; 5165 : 
 ; 5166 :    cTgtDomainType = fnDomainProcessingRequired( &lpTgtTaskDomain,
@@ -14653,24 +14653,24 @@ $L9468:
 
 	movsx	edx, WORD PTR _bMustDoDomains$[ebp]
 	test	edx, edx
-	je	SHORT $L9471
+	je	SHORT $L9472
 	mov	eax, DWORD PTR _lpTgtViewAttrib$[ebp]
 	mov	ecx, DWORD PTR _lpSrcViewAttrib$[ebp]
 	mov	edx, DWORD PTR [eax+198]
 	cmp	edx, DWORD PTR [ecx+198]
-	jne	SHORT $L9471
+	jne	SHORT $L9472
 
 ; 5181 :       bMustDoDomains = 0;
 
 	mov	WORD PTR _bMustDoDomains$[ebp], 0
-$L9471:
+$L9472:
 
 ; 5183 : 
 ; 5184 :    if ( bMustDoDomains )
 
 	movsx	eax, WORD PTR _bMustDoDomains$[ebp]
 	test	eax, eax
-	je	$L9472
+	je	$L9473
 
 ; 5186 :       zPCHAR   pchContextName;
 ; 5187 :       zULONG   ulReturnSrcLth;
@@ -14684,35 +14684,35 @@ $L9471:
 
 	movsx	ecx, BYTE PTR _cTgtDomainType$[ebp]
 	cmp	ecx, 70					; 00000046H
-	je	SHORT $L9477
+	je	SHORT $L9478
 	movsx	edx, BYTE PTR _cTgtDomainType$[ebp]
 	cmp	edx, 84					; 00000054H
-	jne	SHORT $L9478
+	jne	SHORT $L9479
 	movsx	eax, BYTE PTR _cSrcDomainType$[ebp]
 	cmp	eax, 84					; 00000054H
-	jne	SHORT $L9477
-$L9478:
+	jne	SHORT $L9478
+$L9479:
 	movsx	ecx, BYTE PTR _cSrcDomainType$[ebp]
 	cmp	ecx, 84					; 00000054H
-	jne	SHORT $L9476
+	jne	SHORT $L9477
 	movsx	edx, BYTE PTR _cTgtDomainType$[ebp]
 	cmp	edx, 84					; 00000054H
-	je	SHORT $L9476
-$L9477:
+	je	SHORT $L9477
+$L9478:
 
 ; 5196 :          pchContextName = 0;
 
-	mov	DWORD PTR _pchContextName$9473[ebp], 0
+	mov	DWORD PTR _pchContextName$9474[ebp], 0
 
 ; 5198 :       else
 
-	jmp	SHORT $L9483
-$L9476:
+	jmp	SHORT $L9484
+$L9477:
 
 ; 5199 :       if ( lpSrcTaskDomain )
 
 	cmp	DWORD PTR _lpSrcTaskDomain$[ebp], 0
-	je	SHORT $L9480
+	je	SHORT $L9481
 
 ; 5201 :          LPDOMAIN lpDomain = zGETPTR( lpSrcTaskDomain->hDomain );
 
@@ -14720,24 +14720,24 @@ $L9476:
 	mov	ecx, DWORD PTR [eax+14]
 	push	ecx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpDomain$9481[ebp], eax
+	mov	DWORD PTR _lpDomain$9482[ebp], eax
 
 ; 5202 : 
 ; 5203 :          pchContextName = lpDomain->szName;
 
-	mov	edx, DWORD PTR _lpDomain$9481[ebp]
+	mov	edx, DWORD PTR _lpDomain$9482[ebp]
 	add	edx, 6
-	mov	DWORD PTR _pchContextName$9473[ebp], edx
+	mov	DWORD PTR _pchContextName$9474[ebp], edx
 
 ; 5205 :       else
 
-	jmp	SHORT $L9483
-$L9480:
+	jmp	SHORT $L9484
+$L9481:
 
 ; 5206 :          pchContextName = 0;
 
-	mov	DWORD PTR _pchContextName$9473[ebp], 0
-$L9483:
+	mov	DWORD PTR _pchContextName$9474[ebp], 0
+$L9484:
 
 ; 5207 : 
 ; 5208 :       fnGetActualAttributeLength( &ulReturnSrcLth, lpSrcView,
@@ -14749,7 +14749,7 @@ $L9483:
 	push	ecx
 	mov	edx, DWORD PTR _lpSrcView$[ebp]
 	push	edx
-	lea	eax, DWORD PTR _ulReturnSrcLth$9474[ebp]
+	lea	eax, DWORD PTR _ulReturnSrcLth$9475[ebp]
 	push	eax
 	call	_fnGetActualAttributeLength
 	add	esp, 16					; 00000010H
@@ -14779,10 +14779,10 @@ $L9483:
 
 	movsx	edx, BYTE PTR _cSrcDomainType$[ebp]
 	cmp	edx, 84					; 00000054H
-	jne	$L9485
+	jne	$L9486
 	movsx	eax, BYTE PTR _cTgtDomainType$[ebp]
 	cmp	eax, 84					; 00000054H
-	jne	$L9485
+	jne	$L9486
 
 ; 5220 :          zLONG lTempValue;
 ; 5221 :          zCHAR szTemp[ 254 ];
@@ -14793,19 +14793,19 @@ $L9483:
 	mov	edx, DWORD PTR [ecx+198]
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpSrcDomain$9475[ebp], eax
+	mov	DWORD PTR _lpSrcDomain$9476[ebp], eax
 
 ; 5224 :          if ( lpSrcDomain->cType == zTYPE_DECIMAL )
 
-	mov	eax, DWORD PTR _lpSrcDomain$9475[ebp]
+	mov	eax, DWORD PTR _lpSrcDomain$9476[ebp]
 	movsx	ecx, BYTE PTR [eax+63]
 	cmp	ecx, 77					; 0000004dH
-	jne	SHORT $L9489
+	jne	SHORT $L9490
 
 ; 5226 :             SysConvertDecimalToLong( (zPDECIMAL) pchRecord,
 ; 5227 :                                      &lTempValue );
 
-	lea	edx, DWORD PTR _lTempValue$9486[ebp]
+	lea	edx, DWORD PTR _lTempValue$9487[ebp]
 	push	edx
 	mov	eax, DWORD PTR _pchRecord$[ebp]
 	push	eax
@@ -14816,22 +14816,22 @@ $L9483:
 ; 5230 :                                 pchContextName,
 ; 5231 :                                 &lTempValue );
 
-	lea	ecx, DWORD PTR _lTempValue$9486[ebp]
+	lea	ecx, DWORD PTR _lTempValue$9487[ebp]
 	push	ecx
-	mov	edx, DWORD PTR _pchContextName$9473[ebp]
+	mov	edx, DWORD PTR _pchContextName$9474[ebp]
 	push	edx
-	mov	eax, DWORD PTR _lpSrcDomain$9475[ebp]
+	mov	eax, DWORD PTR _lpSrcDomain$9476[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _lpSrcView$[ebp]
 	push	ecx
-	lea	edx, DWORD PTR _szTemp$9487[ebp]
+	lea	edx, DWORD PTR _szTemp$9488[ebp]
 	push	edx
 	call	_TableEntryIntToExt@20
 
 ; 5233 :          else
 
-	jmp	SHORT $L9492
-$L9489:
+	jmp	SHORT $L9493
+$L9490:
 
 ; 5235 :             TableEntryIntToExt( (zPVOID) szTemp, lpSrcView,
 ; 5236 :                                 lpSrcDomain,
@@ -14840,16 +14840,16 @@ $L9489:
 
 	mov	eax, DWORD PTR _pchRecord$[ebp]
 	push	eax
-	mov	ecx, DWORD PTR _pchContextName$9473[ebp]
+	mov	ecx, DWORD PTR _pchContextName$9474[ebp]
 	push	ecx
-	mov	edx, DWORD PTR _lpSrcDomain$9475[ebp]
+	mov	edx, DWORD PTR _lpSrcDomain$9476[ebp]
 	push	edx
 	mov	eax, DWORD PTR _lpSrcView$[ebp]
 	push	eax
-	lea	ecx, DWORD PTR _szTemp$9487[ebp]
+	lea	ecx, DWORD PTR _szTemp$9488[ebp]
 	push	ecx
 	call	_TableEntryIntToExt@20
-$L9492:
+$L9493:
 
 ; 5240 : 
 ; 5241 :          nRC = fnCompareAttributeToVariable( lpTgtView,
@@ -14864,12 +14864,12 @@ $L9492:
 	push	0
 	mov	edx, DWORD PTR _lpCurrentTask$[ebp]
 	push	edx
-	mov	eax, DWORD PTR _pchContextName$9473[ebp]
+	mov	eax, DWORD PTR _pchContextName$9474[ebp]
 	push	eax
-	mov	ecx, DWORD PTR _ulReturnSrcLth$9474[ebp]
+	mov	ecx, DWORD PTR _ulReturnSrcLth$9475[ebp]
 	push	ecx
 	push	83					; 00000053H
-	lea	edx, DWORD PTR _szTemp$9487[ebp]
+	lea	edx, DWORD PTR _szTemp$9488[ebp]
 	push	edx
 	mov	eax, DWORD PTR _lpTgtViewAttrib$[ebp]
 	push	eax
@@ -14883,8 +14883,8 @@ $L9492:
 
 ; 5250 :       else
 
-	jmp	SHORT $L9495
-$L9485:
+	jmp	SHORT $L9496
+$L9486:
 
 ; 5252 :          nRC = fnCompareAttributeToVariable( lpTgtView,
 ; 5253 :                                              lpTgtViewEntityCsr,
@@ -14898,9 +14898,9 @@ $L9485:
 	push	0
 	mov	eax, DWORD PTR _lpCurrentTask$[ebp]
 	push	eax
-	mov	ecx, DWORD PTR _pchContextName$9473[ebp]
+	mov	ecx, DWORD PTR _pchContextName$9474[ebp]
 	push	ecx
-	mov	edx, DWORD PTR _ulReturnSrcLth$9474[ebp]
+	mov	edx, DWORD PTR _ulReturnSrcLth$9475[ebp]
 	push	edx
 	mov	eax, DWORD PTR _lpSrcViewAttrib$[ebp]
 	mov	cl, BYTE PTR [eax+202]
@@ -14916,12 +14916,12 @@ $L9485:
 	call	_fnCompareAttributeToVariable
 	add	esp, 36					; 00000024H
 	mov	WORD PTR _nRC$[ebp], ax
-$L9495:
+$L9496:
 
 ; 5262 :    else
 
-	jmp	$L9581
-$L9472:
+	jmp	$L9582
+$L9473:
 
 ; 5264 :       // do the stuff below...
 ; 5265 : 
@@ -14939,7 +14939,7 @@ $L9472:
 	mov	eax, DWORD PTR _lpTgtViewAttrib$[ebp]
 	movsx	ecx, BYTE PTR [eax+213]
 	test	ecx, ecx
-	je	SHORT $L9497
+	je	SHORT $L9498
 
 ; 5276 :          fnInvokeDerivedOperation( lpTgtView, lpTgtViewEntity,
 ; 5277 :                                    lpTgtViewAttrib, lpCurrentTask,
@@ -14956,7 +14956,7 @@ $L9472:
 	push	edx
 	call	_fnInvokeDerivedOperation
 	add	esp, 20					; 00000014H
-$L9497:
+$L9498:
 
 ; 5279 : 
 ; 5280 :       nRC = zCALL_ERROR;   // Default nRC to zCALL_ERROR
@@ -14970,11 +14970,11 @@ $L9497:
 	mov	eax, DWORD PTR _lpTgtViewAttrib$[ebp]
 	movsx	ecx, BYTE PTR [eax+202]
 	cmp	ecx, 76					; 0000004cH
-	jne	$L9498
+	jne	$L9499
 	mov	edx, DWORD PTR _lpSrcViewAttrib$[ebp]
 	movsx	eax, BYTE PTR [edx+202]
 	cmp	eax, 76					; 0000004cH
-	jne	$L9498
+	jne	$L9499
 
 ; 5285 :          zPLONG plTarget;
 ; 5286 :          zPLONG plSource;
@@ -14989,7 +14989,7 @@ $L9497:
 	push	edx
 	mov	eax, DWORD PTR _lpSrcView$[ebp]
 	push	eax
-	lea	ecx, DWORD PTR _plSource$9500[ebp]
+	lea	ecx, DWORD PTR _plSource$9501[ebp]
 	push	ecx
 	call	_fnGetAddrForAttribute
 	add	esp, 20					; 00000014H
@@ -15004,18 +15004,18 @@ $L9497:
 	push	eax
 	mov	ecx, DWORD PTR _lpTgtView$[ebp]
 	push	ecx
-	lea	edx, DWORD PTR _plTarget$9499[ebp]
+	lea	edx, DWORD PTR _plTarget$9500[ebp]
 	push	edx
 	call	_fnGetAddrForAttribute
 	add	esp, 20					; 00000014H
 
 ; 5292 :          if ( *plSource == *plTarget )
 
-	mov	eax, DWORD PTR _plSource$9500[ebp]
-	mov	ecx, DWORD PTR _plTarget$9499[ebp]
+	mov	eax, DWORD PTR _plSource$9501[ebp]
+	mov	ecx, DWORD PTR _plTarget$9500[ebp]
 	mov	edx, DWORD PTR [eax]
 	cmp	edx, DWORD PTR [ecx]
-	jne	SHORT $L9503
+	jne	SHORT $L9504
 
 ; 5293 :             nRC = 0;
 
@@ -15023,15 +15023,15 @@ $L9497:
 
 ; 5294 :          else
 
-	jmp	SHORT $L9509
-$L9503:
+	jmp	SHORT $L9510
+$L9504:
 
 ; 5295 :          if ( *plTarget == lNullInteger )
 
-	mov	eax, DWORD PTR _plTarget$9499[ebp]
+	mov	eax, DWORD PTR _plTarget$9500[ebp]
 	mov	ecx, DWORD PTR [eax]
 	cmp	ecx, DWORD PTR _lNullInteger
-	jne	SHORT $L9505
+	jne	SHORT $L9506
 
 ; 5296 :             nRC = -1;
 
@@ -15039,21 +15039,21 @@ $L9503:
 
 ; 5297 :          else
 
-	jmp	SHORT $L9509
-$L9505:
+	jmp	SHORT $L9510
+$L9506:
 
 ; 5298 :          if ( *plSource == lNullInteger || *plSource < *plTarget )
 
-	mov	edx, DWORD PTR _plSource$9500[ebp]
+	mov	edx, DWORD PTR _plSource$9501[ebp]
 	mov	eax, DWORD PTR [edx]
 	cmp	eax, DWORD PTR _lNullInteger
-	je	SHORT $L9508
-	mov	ecx, DWORD PTR _plSource$9500[ebp]
-	mov	edx, DWORD PTR _plTarget$9499[ebp]
+	je	SHORT $L9509
+	mov	ecx, DWORD PTR _plSource$9501[ebp]
+	mov	edx, DWORD PTR _plTarget$9500[ebp]
 	mov	eax, DWORD PTR [ecx]
 	cmp	eax, DWORD PTR [edx]
-	jge	SHORT $L9507
-$L9508:
+	jge	SHORT $L9508
+$L9509:
 
 ; 5299 :             nRC = 1;
 
@@ -15061,18 +15061,18 @@ $L9508:
 
 ; 5300 :          else
 
-	jmp	SHORT $L9509
-$L9507:
+	jmp	SHORT $L9510
+$L9508:
 
 ; 5301 :             nRC = -1;
 
 	mov	WORD PTR _nRC$[ebp], -1
-$L9509:
+$L9510:
 
 ; 5303 :       else
 
-	jmp	$L9581
-$L9498:
+	jmp	$L9582
+$L9499:
 
 ; 5304 :       // If either of the attrs are decimals we will compare them both as
 ; 5305 :       // decimals
@@ -15082,12 +15082,12 @@ $L9498:
 	mov	ecx, DWORD PTR _lpTgtViewAttrib$[ebp]
 	movsx	edx, BYTE PTR [ecx+202]
 	cmp	edx, 77					; 0000004dH
-	je	SHORT $L9512
+	je	SHORT $L9513
 	mov	eax, DWORD PTR _lpSrcViewAttrib$[ebp]
 	movsx	ecx, BYTE PTR [eax+202]
 	cmp	ecx, 77					; 0000004dH
-	jne	$L9511
-$L9512:
+	jne	$L9512
+$L9513:
 
 ; 5309 :          zDECIMAL dTgtCompare;
 ; 5310 :          zDECIMAL dSrcCompare;
@@ -15104,11 +15104,11 @@ $L9512:
 	push	eax
 	mov	ecx, DWORD PTR _lpTgtView$[ebp]
 	push	ecx
-	lea	edx, DWORD PTR _dTgtCompare$9513[ebp]
+	lea	edx, DWORD PTR _dTgtCompare$9514[ebp]
 	push	edx
 	call	_fnGetDecimalFromAttribute
 	add	esp, 16					; 00000010H
-	mov	WORD PTR _nRC1$9515[ebp], ax
+	mov	WORD PTR _nRC1$9516[ebp], ax
 
 ; 5317 : 
 ; 5318 :          nRC2 = fnGetDecimalFromAttribute( &dSrcCompare,
@@ -15122,21 +15122,21 @@ $L9512:
 	push	ecx
 	mov	edx, DWORD PTR _lpSrcView$[ebp]
 	push	edx
-	lea	eax, DWORD PTR _dSrcCompare$9514[ebp]
+	lea	eax, DWORD PTR _dSrcCompare$9515[ebp]
 	push	eax
 	call	_fnGetDecimalFromAttribute
 	add	esp, 16					; 00000010H
-	mov	WORD PTR _nRC2$9516[ebp], ax
+	mov	WORD PTR _nRC2$9517[ebp], ax
 
 ; 5322 :          if ( nRC1 == zCALL_ERROR || nRC2 == zCALL_ERROR )
 
-	movsx	ecx, WORD PTR _nRC1$9515[ebp]
+	movsx	ecx, WORD PTR _nRC1$9516[ebp]
 	cmp	ecx, -16				; fffffff0H
-	je	SHORT $L9518
-	movsx	edx, WORD PTR _nRC2$9516[ebp]
+	je	SHORT $L9519
+	movsx	edx, WORD PTR _nRC2$9517[ebp]
 	cmp	edx, -16				; fffffff0H
-	jne	SHORT $L9517
-$L9518:
+	jne	SHORT $L9518
+$L9519:
 
 ; 5323 :             nRC = zCALL_ERROR;
 
@@ -15144,19 +15144,19 @@ $L9518:
 
 ; 5324 :          else
 
-	jmp	SHORT $L9525
-$L9517:
+	jmp	SHORT $L9526
+$L9518:
 
 ; 5326 :             // If we get here then nRCx must be either -1 (attr is null) or
 ; 5327 :             // 0 (not-null).
 ; 5328 :             if ( nRC1 == -1 && nRC2 == -1 )
 
-	movsx	eax, WORD PTR _nRC1$9515[ebp]
+	movsx	eax, WORD PTR _nRC1$9516[ebp]
 	cmp	eax, -1
-	jne	SHORT $L9520
-	movsx	ecx, WORD PTR _nRC2$9516[ebp]
+	jne	SHORT $L9521
+	movsx	ecx, WORD PTR _nRC2$9517[ebp]
 	cmp	ecx, -1
-	jne	SHORT $L9520
+	jne	SHORT $L9521
 
 ; 5329 :                nRC = 0;    // Both attrs are null so return EQUAL.
 
@@ -15164,41 +15164,41 @@ $L9517:
 
 ; 5330 :             else
 
-	jmp	SHORT $L9525
-$L9520:
+	jmp	SHORT $L9526
+$L9521:
 
 ; 5331 :             if ( nRC1 == 0 && nRC2 == 0 )
 
-	movsx	edx, WORD PTR _nRC1$9515[ebp]
+	movsx	edx, WORD PTR _nRC1$9516[ebp]
 	test	edx, edx
-	jne	SHORT $L9522
-	movsx	eax, WORD PTR _nRC2$9516[ebp]
+	jne	SHORT $L9523
+	movsx	eax, WORD PTR _nRC2$9517[ebp]
 	test	eax, eax
-	jne	SHORT $L9522
+	jne	SHORT $L9523
 
 ; 5332 :                // Both values are not null so call func to compare 'em.
 ; 5333 :                nRC = SysCompareDecimalToDecimal( &dTgtCompare,
 ; 5334 :                                                  &dSrcCompare );
 
-	lea	ecx, DWORD PTR _dSrcCompare$9514[ebp]
+	lea	ecx, DWORD PTR _dSrcCompare$9515[ebp]
 	push	ecx
-	lea	edx, DWORD PTR _dTgtCompare$9513[ebp]
+	lea	edx, DWORD PTR _dTgtCompare$9514[ebp]
 	push	edx
 	call	_SysCompareDecimalToDecimal@8
 	mov	WORD PTR _nRC$[ebp], ax
 
 ; 5335 :             else
 
-	jmp	SHORT $L9525
-$L9522:
+	jmp	SHORT $L9526
+$L9523:
 
 ; 5337 :                // Only one of the values is null.  Find which one it is and
 ; 5338 :                // set the return code accordingly (null < non-null).
 ; 5339 :                if ( nRC1 == -1 )
 
-	movsx	eax, WORD PTR _nRC1$9515[ebp]
+	movsx	eax, WORD PTR _nRC1$9516[ebp]
 	cmp	eax, -1
-	jne	SHORT $L9524
+	jne	SHORT $L9525
 
 ; 5340 :                   nRC = -1;  // Target is null so it's "less than".
 
@@ -15206,18 +15206,18 @@ $L9522:
 
 ; 5341 :                else
 
-	jmp	SHORT $L9525
-$L9524:
+	jmp	SHORT $L9526
+$L9525:
 
 ; 5342 :                   nRC = 1;   // Source is null so it's "less than".
 
 	mov	WORD PTR _nRC$[ebp], 1
-$L9525:
+$L9526:
 
 ; 5346 :       else
 
-	jmp	$L9581
-$L9511:
+	jmp	$L9582
+$L9512:
 
 ; 5347 :       if ( lpTgtViewAttrib->cType == zTYPE_BLOB &&
 ; 5348 :            lpSrcViewAttrib->cType == zTYPE_BLOB )
@@ -15225,11 +15225,11 @@ $L9511:
 	mov	ecx, DWORD PTR _lpTgtViewAttrib$[ebp]
 	movsx	edx, BYTE PTR [ecx+202]
 	cmp	edx, 66					; 00000042H
-	jne	$L9527
+	jne	$L9528
 	mov	eax, DWORD PTR _lpSrcViewAttrib$[ebp]
 	movsx	ecx, BYTE PTR [eax+202]
 	cmp	ecx, 66					; 00000042H
-	jne	$L9527
+	jne	$L9528
 
 ; 5350 :          //compare blobs
 ; 5351 :          zULONG  ulTgtBlobLength;
@@ -15248,7 +15248,7 @@ $L9511:
 	push	eax
 	mov	edx, DWORD PTR _lpTgtView$[ebp]
 	push	edx
-	lea	eax, DWORD PTR _ulTgtBlobLength$9528[ebp]
+	lea	eax, DWORD PTR _ulTgtBlobLength$9529[ebp]
 	push	eax
 	call	_fnGetAttributeLength
 	add	esp, 16					; 00000010H
@@ -15266,21 +15266,21 @@ $L9511:
 	push	eax
 	mov	ecx, DWORD PTR _lpSrcView$[ebp]
 	push	ecx
-	lea	edx, DWORD PTR _ulSrcBlobLength$9529[ebp]
+	lea	edx, DWORD PTR _ulSrcBlobLength$9530[ebp]
 	push	edx
 	call	_fnGetAttributeLength
 	add	esp, 16					; 00000010H
 
 ; 5360 :          if ( ulTgtBlobLength != ulSrcBlobLength )
 
-	mov	eax, DWORD PTR _ulTgtBlobLength$9528[ebp]
-	cmp	eax, DWORD PTR _ulSrcBlobLength$9529[ebp]
-	je	SHORT $L9532
+	mov	eax, DWORD PTR _ulTgtBlobLength$9529[ebp]
+	cmp	eax, DWORD PTR _ulSrcBlobLength$9530[ebp]
+	je	SHORT $L9533
 
 ; 5361 :             nRC = ( ulTgtBlobLength < ulSrcBlobLength ) ? -1 : 1;
 
-	mov	ecx, DWORD PTR _ulTgtBlobLength$9528[ebp]
-	cmp	ecx, DWORD PTR _ulSrcBlobLength$9529[ebp]
+	mov	ecx, DWORD PTR _ulTgtBlobLength$9529[ebp]
+	cmp	ecx, DWORD PTR _ulSrcBlobLength$9530[ebp]
 	sbb	edx, edx
 	and	edx, -2					; fffffffeH
 	add	edx, 1
@@ -15288,13 +15288,13 @@ $L9511:
 
 ; 5362 :          else
 
-	jmp	SHORT $L9540
-$L9532:
+	jmp	SHORT $L9541
+$L9533:
 
 ; 5364 :             if ( ulTgtBlobLength )
 
-	cmp	DWORD PTR _ulTgtBlobLength$9528[ebp], 0
-	je	SHORT $L9534
+	cmp	DWORD PTR _ulTgtBlobLength$9529[ebp], 0
+	je	SHORT $L9535
 
 ; 5366 :                zPVOID TgtBlobAddr;
 ; 5367 :                zPVOID SrcBlobAddr;
@@ -15309,7 +15309,7 @@ $L9532:
 	push	ecx
 	mov	edx, DWORD PTR _lpTgtView$[ebp]
 	push	edx
-	lea	eax, DWORD PTR _TgtBlobAddr$9535[ebp]
+	lea	eax, DWORD PTR _TgtBlobAddr$9536[ebp]
 	push	eax
 	call	_fnGetAddrForAttribute
 	add	esp, 20					; 00000014H
@@ -15324,7 +15324,7 @@ $L9532:
 	push	edx
 	mov	eax, DWORD PTR _lpSrcView$[ebp]
 	push	eax
-	lea	ecx, DWORD PTR _SrcBlobAddr$9536[ebp]
+	lea	ecx, DWORD PTR _SrcBlobAddr$9537[ebp]
 	push	ecx
 	call	_fnGetAddrForAttribute
 	add	esp, 20					; 00000014H
@@ -15332,11 +15332,11 @@ $L9532:
 ; 5373 :                nRC = zmemcmp( TgtBlobAddr, SrcBlobAddr,
 ; 5374 :                               (unsigned int) ulTgtBlobLength );
 
-	mov	edx, DWORD PTR _ulTgtBlobLength$9528[ebp]
+	mov	edx, DWORD PTR _ulTgtBlobLength$9529[ebp]
 	push	edx
-	mov	eax, DWORD PTR _SrcBlobAddr$9536[ebp]
+	mov	eax, DWORD PTR _SrcBlobAddr$9537[ebp]
 	push	eax
-	mov	ecx, DWORD PTR _TgtBlobAddr$9535[ebp]
+	mov	ecx, DWORD PTR _TgtBlobAddr$9536[ebp]
 	push	ecx
 	call	_memcmp
 	add	esp, 12					; 0000000cH
@@ -15344,18 +15344,18 @@ $L9532:
 
 ; 5376 :             else
 
-	jmp	SHORT $L9540
-$L9534:
+	jmp	SHORT $L9541
+$L9535:
 
 ; 5377 :                nRC = 0;
 
 	mov	WORD PTR _nRC$[ebp], 0
-$L9540:
+$L9541:
 
 ; 5380 :       else   // We need some sort of date compare here
 
-	jmp	$L9581
-$L9527:
+	jmp	$L9582
+$L9528:
 
 ; 5381 :       if ( lpTgtViewAttrib->cType == zTYPE_DATETIME &&
 ; 5382 :            lpSrcViewAttrib->cType == zTYPE_DATETIME )
@@ -15363,11 +15363,11 @@ $L9527:
 	mov	edx, DWORD PTR _lpTgtViewAttrib$[ebp]
 	movsx	eax, BYTE PTR [edx+202]
 	cmp	eax, 84					; 00000054H
-	jne	SHORT $L9542
+	jne	SHORT $L9543
 	mov	ecx, DWORD PTR _lpSrcViewAttrib$[ebp]
 	movsx	edx, BYTE PTR [ecx+202]
 	cmp	edx, 84					; 00000054H
-	jne	SHORT $L9542
+	jne	SHORT $L9543
 
 ; 5384 :          LPDTINTERNAL lpSrcDateTime;
 ; 5385 :          LPDTINTERNAL lpTgtDateTime;
@@ -15382,7 +15382,7 @@ $L9527:
 	push	ecx
 	mov	edx, DWORD PTR _lpSrcView$[ebp]
 	push	edx
-	lea	eax, DWORD PTR _lpSrcDateTime$9543[ebp]
+	lea	eax, DWORD PTR _lpSrcDateTime$9544[ebp]
 	push	eax
 	call	_fnGetAddrForAttribute
 	add	esp, 20					; 00000014H
@@ -15397,16 +15397,16 @@ $L9527:
 	push	edx
 	mov	eax, DWORD PTR _lpTgtView$[ebp]
 	push	eax
-	lea	ecx, DWORD PTR _lpTgtDateTime$9544[ebp]
+	lea	ecx, DWORD PTR _lpTgtDateTime$9545[ebp]
 	push	ecx
 	call	_fnGetAddrForAttribute
 	add	esp, 20					; 00000014H
 
 ; 5391 :          nRC = fnCompareDateTimeToDateTime( lpTgtDateTime, lpSrcDateTime );
 
-	mov	edx, DWORD PTR _lpSrcDateTime$9543[ebp]
+	mov	edx, DWORD PTR _lpSrcDateTime$9544[ebp]
 	push	edx
-	mov	eax, DWORD PTR _lpTgtDateTime$9544[ebp]
+	mov	eax, DWORD PTR _lpTgtDateTime$9545[ebp]
 	push	eax
 	call	_fnCompareDateTimeToDateTime
 	add	esp, 8
@@ -15414,8 +15414,8 @@ $L9527:
 
 ; 5393 :       else   // Compare the strings
 
-	jmp	$L9581
-$L9542:
+	jmp	$L9582
+$L9543:
 
 ; 5394 :       if ( lpTgtViewAttrib->cType == zTYPE_STRING &&
 ; 5395 :            lpSrcViewAttrib->cType == zTYPE_STRING )
@@ -15423,11 +15423,11 @@ $L9542:
 	mov	ecx, DWORD PTR _lpTgtViewAttrib$[ebp]
 	movsx	edx, BYTE PTR [ecx+202]
 	cmp	edx, 83					; 00000053H
-	jne	$L9548
+	jne	$L9549
 	mov	eax, DWORD PTR _lpSrcViewAttrib$[ebp]
 	movsx	ecx, BYTE PTR [eax+202]
 	cmp	ecx, 83					; 00000053H
-	jne	$L9548
+	jne	$L9549
 
 ; 5397 :          zPCHAR pchSrcString;
 ; 5398 :          zPCHAR pchTgtString;
@@ -15442,7 +15442,7 @@ $L9542:
 	push	eax
 	mov	ecx, DWORD PTR _lpSrcView$[ebp]
 	push	ecx
-	lea	edx, DWORD PTR _pchSrcString$9549[ebp]
+	lea	edx, DWORD PTR _pchSrcString$9550[ebp]
 	push	edx
 	call	_fnGetAddrForAttribute
 	add	esp, 20					; 00000014H
@@ -15457,7 +15457,7 @@ $L9542:
 	push	ecx
 	mov	edx, DWORD PTR _lpTgtView$[ebp]
 	push	edx
-	lea	eax, DWORD PTR _pchTgtString$9550[ebp]
+	lea	eax, DWORD PTR _pchTgtString$9551[ebp]
 	push	eax
 	call	_fnGetAddrForAttribute
 	add	esp, 20					; 00000014H
@@ -15469,28 +15469,28 @@ $L9542:
 	shr	edx, 6
 	and	edx, 1
 	test	edx, edx
-	je	SHORT $L9553
+	je	SHORT $L9554
 
 ; 5405 :             nRC = zstrcmp( pchTgtString, pchSrcString );
 
-	mov	eax, DWORD PTR _pchTgtString$9550[ebp]
+	mov	eax, DWORD PTR _pchTgtString$9551[ebp]
 	movsx	ecx, BYTE PTR [eax]
-	mov	edx, DWORD PTR _pchSrcString$9549[ebp]
+	mov	edx, DWORD PTR _pchSrcString$9550[ebp]
 	movsx	eax, BYTE PTR [edx]
 	cmp	ecx, eax
-	jne	SHORT $L11896
-	mov	ecx, DWORD PTR _pchSrcString$9549[ebp]
+	jne	SHORT $L11897
+	mov	ecx, DWORD PTR _pchSrcString$9550[ebp]
 	push	ecx
-	mov	edx, DWORD PTR _pchTgtString$9550[ebp]
+	mov	edx, DWORD PTR _pchTgtString$9551[ebp]
 	push	edx
 	call	_strcmp
 	add	esp, 8
 	mov	DWORD PTR -131536+[ebp], eax
-	jmp	SHORT $L11897
-$L11896:
-	mov	eax, DWORD PTR _pchTgtString$9550[ebp]
+	jmp	SHORT $L11898
+$L11897:
+	mov	eax, DWORD PTR _pchTgtString$9551[ebp]
 	movsx	ecx, BYTE PTR [eax]
-	mov	edx, DWORD PTR _pchSrcString$9549[ebp]
+	mov	edx, DWORD PTR _pchSrcString$9550[ebp]
 	movsx	eax, BYTE PTR [edx]
 	sub	ecx, eax
 	xor	edx, edx
@@ -15500,32 +15500,32 @@ $L11896:
 	and	edx, 2
 	add	edx, -1
 	mov	DWORD PTR -131536+[ebp], edx
-$L11897:
+$L11898:
 	mov	ax, WORD PTR -131536+[ebp]
 	mov	WORD PTR _nRC$[ebp], ax
 
 ; 5406 :          else
 
-	jmp	SHORT $L9560
-$L9553:
+	jmp	SHORT $L9561
+$L9554:
 
 ; 5407 :             nRC = zstrcmpi( pchTgtString, pchSrcString );
 
-	mov	ecx, DWORD PTR _pchSrcString$9549[ebp]
+	mov	ecx, DWORD PTR _pchSrcString$9550[ebp]
 	push	ecx
-	mov	edx, DWORD PTR _pchTgtString$9550[ebp]
+	mov	edx, DWORD PTR _pchTgtString$9551[ebp]
 	push	edx
 	call	DWORD PTR __imp___stricmp
 	add	esp, 8
 	mov	WORD PTR _nRC$[ebp], ax
-$L9560:
+$L9561:
 
 ; 5408 : 
 ; 5409 :          if ( nRC < 0 )
 
 	movsx	eax, WORD PTR _nRC$[ebp]
 	test	eax, eax
-	jge	SHORT $L9561
+	jge	SHORT $L9562
 
 ; 5410 :             nRC = -1;
 
@@ -15533,24 +15533,24 @@ $L9560:
 
 ; 5411 :          else
 
-	jmp	SHORT $L9563
-$L9561:
+	jmp	SHORT $L9564
+$L9562:
 
 ; 5412 :          if ( nRC > 0 )
 
 	movsx	ecx, WORD PTR _nRC$[ebp]
 	test	ecx, ecx
-	jle	SHORT $L9563
+	jle	SHORT $L9564
 
 ; 5413 :             nRC = 1;
 
 	mov	WORD PTR _nRC$[ebp], 1
-$L9563:
+$L9564:
 
 ; 5415 :       else
 
-	jmp	$L9581
-$L9548:
+	jmp	$L9582
+$L9549:
 
 ; 5417 :          // all else has failed (mixed internal types),
 ; 5418 :          // we will compare by 'converting' both type to strings
@@ -15576,7 +15576,7 @@ $L9548:
 	mov	ecx, DWORD PTR _lpTgtView$[ebp]
 	push	ecx
 	push	65535					; 0000ffffH
-	lea	edx, DWORD PTR _szTgtCompare$9565[ebp]
+	lea	edx, DWORD PTR _szTgtCompare$9566[ebp]
 	push	edx
 	call	_fnGetStringFromAttribute
 	add	esp, 24					; 00000018H
@@ -15586,11 +15586,11 @@ $L9548:
 
 	movsx	eax, WORD PTR _nRC$[ebp]
 	test	eax, eax
-	je	SHORT $L9568
+	je	SHORT $L9569
 	movsx	ecx, WORD PTR _nRC$[ebp]
 	cmp	ecx, -1
-	jne	$L9581
-$L9568:
+	jne	$L9582
+$L9569:
 
 ; 5434 :             nRC = fnGetStringFromAttribute( szSrcCompare, 65535,
 ; 5435 :                                             lpSrcView,
@@ -15605,7 +15605,7 @@ $L9568:
 	mov	ecx, DWORD PTR _lpSrcView$[ebp]
 	push	ecx
 	push	65535					; 0000ffffH
-	lea	edx, DWORD PTR _szSrcCompare$9566[ebp]
+	lea	edx, DWORD PTR _szSrcCompare$9567[ebp]
 	push	edx
 	call	_fnGetStringFromAttribute
 	add	esp, 24					; 00000018H
@@ -15615,11 +15615,11 @@ $L9568:
 
 	movsx	eax, WORD PTR _nRC$[ebp]
 	test	eax, eax
-	je	SHORT $L9570
+	je	SHORT $L9571
 	movsx	ecx, WORD PTR _nRC$[ebp]
 	cmp	ecx, -1
-	jne	$L9581
-$L9570:
+	jne	$L9582
+$L9571:
 
 ; 5440 :                if ( lpTgtViewAttrib->bCaseSens )
 
@@ -15628,25 +15628,25 @@ $L9570:
 	shr	eax, 6
 	and	eax, 1
 	test	eax, eax
-	je	SHORT $L9571
+	je	SHORT $L9572
 
 ; 5441 :                   nRC = zstrcmp( szTgtCompare, szSrcCompare );
 
-	movsx	ecx, BYTE PTR _szTgtCompare$9565[ebp]
-	movsx	edx, BYTE PTR _szSrcCompare$9566[ebp]
+	movsx	ecx, BYTE PTR _szTgtCompare$9566[ebp]
+	movsx	edx, BYTE PTR _szSrcCompare$9567[ebp]
 	cmp	ecx, edx
-	jne	SHORT $L11898
-	lea	eax, DWORD PTR _szSrcCompare$9566[ebp]
+	jne	SHORT $L11899
+	lea	eax, DWORD PTR _szSrcCompare$9567[ebp]
 	push	eax
-	lea	ecx, DWORD PTR _szTgtCompare$9565[ebp]
+	lea	ecx, DWORD PTR _szTgtCompare$9566[ebp]
 	push	ecx
 	call	_strcmp
 	add	esp, 8
 	mov	DWORD PTR -131540+[ebp], eax
-	jmp	SHORT $L11899
-$L11898:
-	movsx	edx, BYTE PTR _szTgtCompare$9565[ebp]
-	movsx	eax, BYTE PTR _szSrcCompare$9566[ebp]
+	jmp	SHORT $L11900
+$L11899:
+	movsx	edx, BYTE PTR _szTgtCompare$9566[ebp]
+	movsx	eax, BYTE PTR _szSrcCompare$9567[ebp]
 	sub	edx, eax
 	xor	ecx, ecx
 	test	edx, edx
@@ -15655,32 +15655,32 @@ $L11898:
 	and	ecx, 2
 	add	ecx, -1
 	mov	DWORD PTR -131540+[ebp], ecx
-$L11899:
+$L11900:
 	mov	dx, WORD PTR -131540+[ebp]
 	mov	WORD PTR _nRC$[ebp], dx
 
 ; 5442 :                else
 
-	jmp	SHORT $L9578
-$L9571:
+	jmp	SHORT $L9579
+$L9572:
 
 ; 5443 :                   nRC = zstrcmpi( szTgtCompare, szSrcCompare );
 
-	lea	eax, DWORD PTR _szSrcCompare$9566[ebp]
+	lea	eax, DWORD PTR _szSrcCompare$9567[ebp]
 	push	eax
-	lea	ecx, DWORD PTR _szTgtCompare$9565[ebp]
+	lea	ecx, DWORD PTR _szTgtCompare$9566[ebp]
 	push	ecx
 	call	DWORD PTR __imp___stricmp
 	add	esp, 8
 	mov	WORD PTR _nRC$[ebp], ax
-$L9578:
+$L9579:
 
 ; 5444 : 
 ; 5445 :                if ( nRC < 0 )
 
 	movsx	edx, WORD PTR _nRC$[ebp]
 	test	edx, edx
-	jge	SHORT $L9579
+	jge	SHORT $L9580
 
 ; 5446 :                   nRC = -1;
 
@@ -15688,19 +15688,19 @@ $L9578:
 
 ; 5447 :                else
 
-	jmp	SHORT $L9581
-$L9579:
+	jmp	SHORT $L9582
+$L9580:
 
 ; 5448 :                if ( nRC > 0 )
 
 	movsx	eax, WORD PTR _nRC$[ebp]
 	test	eax, eax
-	jle	SHORT $L9581
+	jle	SHORT $L9582
 
 ; 5449 :                   nRC = 1;
 
 	mov	WORD PTR _nRC$[ebp], 1
-$L9581:
+$L9582:
 
 ; 5454 : 
 ; 5455 :    fnOperationReturn( iCompareAttributeToAttribute, lpCurrentTask );
@@ -15714,7 +15714,7 @@ $L9581:
 ; 5456 :    return( nRC );
 
 	mov	ax, WORD PTR _nRC$[ebp]
-$L9450:
+$L9451:
 
 ; 5457 : }
 
@@ -15784,20 +15784,20 @@ _CompareAttributeToString@16 PROC NEAR
 
 	movsx	ecx, WORD PTR _nRC$[ebp]
 	test	ecx, ecx
-	jle	SHORT $L9596
+	jle	SHORT $L9597
 
 ; 5505 :       return( zCALL_ERROR );   // don't call fnOperationReturn
 
 	mov	ax, -16					; fffffff0H
-	jmp	SHORT $L9590
-$L9596:
+	jmp	SHORT $L9591
+$L9597:
 
 ; 5506 : 
 ; 5507 :    if ( nRC )
 
 	movsx	edx, WORD PTR _nRC$[ebp]
 	test	edx, edx
-	je	SHORT $L9597
+	je	SHORT $L9598
 
 ; 5508 :       nRC = zCALL_ERROR;
 
@@ -15805,8 +15805,8 @@ $L9596:
 
 ; 5509 :    else
 
-	jmp	SHORT $L9598
-$L9597:
+	jmp	SHORT $L9599
+$L9598:
 
 ; 5510 :       nRC = fnCompareAttributeToVariable( lpView, lpViewEntityCsr, lpViewAttrib,
 ; 5511 :                                           (zPVOID) cpcSrcString, zTYPE_STRING,
@@ -15829,7 +15829,7 @@ $L9597:
 	call	_fnCompareAttributeToVariable
 	add	esp, 36					; 00000024H
 	mov	WORD PTR _nRC$[ebp], ax
-$L9598:
+$L9599:
 
 ; 5513 : 
 ; 5514 :    fnOperationReturn( iCompareAttributeToString, lpCurrentTask );
@@ -15843,7 +15843,7 @@ $L9598:
 ; 5515 :    return( nRC );
 
 	mov	ax, WORD PTR _nRC$[ebp]
-$L9590:
+$L9591:
 
 ; 5516 : }
 
@@ -15913,20 +15913,20 @@ _CompareAttributeToInteger@16 PROC NEAR
 
 	movsx	ecx, WORD PTR _nRC$[ebp]
 	test	ecx, ecx
-	jle	SHORT $L9614
+	jle	SHORT $L9615
 
 ; 5561 :       return( zCALL_ERROR );   // don't call fnOperationReturn
 
 	mov	ax, -16					; fffffff0H
-	jmp	SHORT $L9608
-$L9614:
+	jmp	SHORT $L9609
+$L9615:
 
 ; 5562 : 
 ; 5563 :    if ( nRC )
 
 	movsx	edx, WORD PTR _nRC$[ebp]
 	test	edx, edx
-	je	SHORT $L9615
+	je	SHORT $L9616
 
 ; 5564 :       nRC = zCALL_ERROR;
 
@@ -15934,8 +15934,8 @@ $L9614:
 
 ; 5565 :    else
 
-	jmp	SHORT $L9616
-$L9615:
+	jmp	SHORT $L9617
+$L9616:
 
 ; 5566 :       nRC = fnCompareAttributeToVariable( lpView, lpViewEntityCsr, lpViewAttrib,
 ; 5567 :                                           (zPVOID) &lSrcInteger, zTYPE_INTEGER,
@@ -15958,7 +15958,7 @@ $L9615:
 	call	_fnCompareAttributeToVariable
 	add	esp, 36					; 00000024H
 	mov	WORD PTR _nRC$[ebp], ax
-$L9616:
+$L9617:
 
 ; 5569 : 
 ; 5570 :    fnOperationReturn( iCompareAttributeToInteger, lpCurrentTask );
@@ -15972,7 +15972,7 @@ $L9616:
 ; 5571 :    return( nRC );
 
 	mov	ax, WORD PTR _nRC$[ebp]
-$L9608:
+$L9609:
 
 ; 5572 : }
 
@@ -16042,20 +16042,20 @@ _CompareAttributeToDecimal@52 PROC NEAR
 
 	movsx	ecx, WORD PTR _nRC$[ebp]
 	test	ecx, ecx
-	jle	SHORT $L9632
+	jle	SHORT $L9633
 
 ; 5617 :       return( zCALL_ERROR );   // don't call fnOperationReturn
 
 	mov	ax, -16					; fffffff0H
-	jmp	SHORT $L9626
-$L9632:
+	jmp	SHORT $L9627
+$L9633:
 
 ; 5618 : 
 ; 5619 :    if ( nRC )
 
 	movsx	edx, WORD PTR _nRC$[ebp]
 	test	edx, edx
-	je	SHORT $L9633
+	je	SHORT $L9634
 
 ; 5620 :       nRC = zCALL_ERROR;
 
@@ -16063,8 +16063,8 @@ $L9632:
 
 ; 5621 :    else
 
-	jmp	SHORT $L9634
-$L9633:
+	jmp	SHORT $L9635
+$L9634:
 
 ; 5622 :       nRC = fnCompareAttributeToVariable( lpView, lpViewEntityCsr, lpViewAttrib,
 ; 5623 :                                           (zPVOID) &dSrcDecimal, zTYPE_DECIMAL,
@@ -16087,7 +16087,7 @@ $L9633:
 	call	_fnCompareAttributeToVariable
 	add	esp, 36					; 00000024H
 	mov	WORD PTR _nRC$[ebp], ax
-$L9634:
+$L9635:
 
 ; 5625 : 
 ; 5626 :    fnOperationReturn( iCompareAttributeToDecimal, lpCurrentTask );
@@ -16101,7 +16101,7 @@ $L9634:
 ; 5627 :    return( nRC );
 
 	mov	ax, WORD PTR _nRC$[ebp]
-$L9626:
+$L9627:
 
 ; 5628 : }
 
@@ -16128,7 +16128,7 @@ _lpTaskDomain$ = -8
 _hTaskDomain$ = -16
 _cDomainType$ = -20
 _lProcessID$ = -4
-_lpLastTaskDomain$9673 = -28
+_lpLastTaskDomain$9674 = -28
 _fnGetTaskDomain PROC NEAR
 
 ; 5643 : {
@@ -16161,13 +16161,13 @@ _fnGetTaskDomain PROC NEAR
 ; 5651 :    if ( lpDomain == 0 )  // no domain pointer ...
 
 	cmp	DWORD PTR _lpDomain$[ebp], 0
-	jne	SHORT $L9650
+	jne	SHORT $L9651
 
 ; 5652 :       return( 0 );       //   return not found!
 
 	xor	eax, eax
-	jmp	$L9642
-$L9650:
+	jmp	$L9643
+$L9651:
 
 ; 5653 : 
 ; 5654 :    lpTaskDomain = zGETPTR( lpDomain->hFirstTaskDomain );
@@ -16177,12 +16177,12 @@ $L9650:
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _lpTaskDomain$[ebp], eax
-$L9653:
+$L9654:
 
 ; 5655 :    while ( lpTaskDomain )
 
 	cmp	DWORD PTR _lpTaskDomain$[ebp], 0
-	je	SHORT $L9654
+	je	SHORT $L9655
 
 ; 5657 :       if ( lpTaskDomain->hTask == hCurrentTask &&
 ; 5658 :            lpTaskDomain->lProcessID == lProcessID )
@@ -16190,17 +16190,17 @@ $L9653:
 	mov	eax, DWORD PTR _lpTaskDomain$[ebp]
 	mov	ecx, DWORD PTR [eax+18]
 	cmp	ecx, DWORD PTR _hCurrentTask$[ebp]
-	jne	SHORT $L9655
+	jne	SHORT $L9656
 	mov	edx, DWORD PTR _lpTaskDomain$[ebp]
 	mov	eax, DWORD PTR [edx+22]
 	cmp	eax, DWORD PTR _lProcessID$[ebp]
-	jne	SHORT $L9655
+	jne	SHORT $L9656
 
 ; 5660 :          return( lpTaskDomain );
 
 	mov	eax, DWORD PTR _lpTaskDomain$[ebp]
-	jmp	$L9642
-$L9655:
+	jmp	$L9643
+$L9656:
 
 ; 5662 : 
 ; 5663 :       lpTaskDomain = zGETPTR( lpTaskDomain->hNextTaskDomainForDomain );
@@ -16213,8 +16213,8 @@ $L9655:
 
 ; 5664 :    }
 
-	jmp	SHORT $L9653
-$L9654:
+	jmp	SHORT $L9654
+$L9655:
 
 ; 5665 : 
 ; 5666 :    cDomainType = lpDomain->cDomainType;
@@ -16233,12 +16233,12 @@ $L9654:
 	sub	eax, 65					; 00000041H
 	mov	DWORD PTR -32+[ebp], eax
 	cmp	DWORD PTR -32+[ebp], 19			; 00000013H
-	ja	$L9658
+	ja	$L9659
 	mov	edx, DWORD PTR -32+[ebp]
 	xor	ecx, ecx
-	mov	cl, BYTE PTR $L11905[edx]
-	jmp	DWORD PTR $L11906[ecx*4]
-$L9661:
+	mov	cl, BYTE PTR $L11906[edx]
+	jmp	DWORD PTR $L11907[ecx*4]
+$L9662:
 
 ; 5670 :       case zDM_TYPE_EXPRESSION:
 ; 5671 :       case zDM_TYPE_ALGORITHM:
@@ -16247,13 +16247,13 @@ $L9661:
 	mov	eax, DWORD PTR _lpDomain$[ebp]
 	movsx	ecx, BYTE PTR [eax+67]
 	test	ecx, ecx
-	jne	SHORT $L9662
+	jne	SHORT $L9663
 
 ; 5673 :             return( 0 );
 
 	xor	eax, eax
-	jmp	$L9642
-$L9662:
+	jmp	$L9643
+$L9663:
 
 ; 5674 : 
 ; 5675 :          hLibrary = SysLoadLibrary( lpView, lpDomain->szLibraryName );
@@ -16269,13 +16269,13 @@ $L9662:
 ; 5676 :          if ( hLibrary == 0 )
 
 	cmp	DWORD PTR _hLibrary$[ebp], 0
-	jne	SHORT $L9663
+	jne	SHORT $L9664
 
 ; 5677 :             return( 0 );
 
 	xor	eax, eax
-	jmp	$L9642
-$L9663:
+	jmp	$L9643
+$L9664:
 
 ; 5684 :          // If a table Domain has an operation, make sure the library routine
 ; 5685 :          // is properly accessed, the same as for Algorithm above.
@@ -16284,15 +16284,15 @@ $L9663:
 
 	movsx	ecx, BYTE PTR _cDomainType$[ebp]
 	cmp	ecx, 84					; 00000054H
-	jne	SHORT $L9665
+	jne	SHORT $L9666
 	mov	edx, DWORD PTR _lpDomain$[ebp]
 	movsx	eax, BYTE PTR [edx+100]
 	test	eax, eax
-	je	SHORT $L9665
+	je	SHORT $L9666
 	mov	ecx, DWORD PTR _lpDomain$[ebp]
 	movsx	edx, BYTE PTR [ecx+67]
 	test	edx, edx
-	je	SHORT $L9665
+	je	SHORT $L9666
 
 ; 5689 :             hLibrary = SysLoadLibrary( lpView, lpDomain->szLibraryName );
 
@@ -16303,7 +16303,7 @@ $L9663:
 	push	ecx
 	call	_SysLoadLibrary@8
 	mov	DWORD PTR _hLibrary$[ebp], eax
-$L9665:
+$L9666:
 
 ; 5691 : 
 ; 5692 :          hTaskDomain = fnAllocDataspace( AnchorBlock->hMainFirstDataHeader,
@@ -16324,13 +16324,13 @@ $L9665:
 ; 5695 :          if ( hTaskDomain == 0 )
 
 	cmp	DWORD PTR _hTaskDomain$[ebp], 0
-	jne	SHORT $L9667
+	jne	SHORT $L9668
 
 ; 5696 :             return( 0 );
 
 	xor	eax, eax
-	jmp	$L9642
-$L9667:
+	jmp	$L9643
+$L9668:
 
 ; 5697 : 
 ; 5698 :          lpTaskDomain = zGETPTR( hTaskDomain );
@@ -16375,13 +16375,13 @@ $L9667:
 	mov	edx, DWORD PTR _AnchorBlock
 	mov	eax, DWORD PTR _hCurrentTask$[ebp]
 	cmp	eax, DWORD PTR [edx+106]
-	jne	SHORT $L9670
+	jne	SHORT $L9671
 
 ; 5708 :             zLOCK_MUTEX( zMUTEX_ANCHORBLOCK );
 
 	push	2
 	call	_fnSysLockCoreMutex@4
-$L9670:
+$L9671:
 
 ; 5709 : 
 ; 5710 :          lpTaskDomain->hNextTaskDomainForTask = lpCurrentTask->hFirstTaskDomain;
@@ -16403,13 +16403,13 @@ $L9670:
 	mov	eax, DWORD PTR _AnchorBlock
 	mov	ecx, DWORD PTR _hCurrentTask$[ebp]
 	cmp	ecx, DWORD PTR [eax+106]
-	jne	SHORT $L9671
+	jne	SHORT $L9672
 
 ; 5714 :             zUNLOCK_MUTEX( zMUTEX_ANCHORBLOCK );
 
 	push	2
 	call	_fnSysUnlockCoreMutex@4
-$L9671:
+$L9672:
 
 ; 5715 : #if 0
 ; 5716 :          // debugging only dks 2005.12.01
@@ -16426,7 +16426,7 @@ $L9671:
 
 	mov	edx, DWORD PTR _lpDomain$[ebp]
 	cmp	DWORD PTR [edx+55], 0
-	je	SHORT $L9672
+	je	SHORT $L9673
 
 ; 5728 :             LPTASKDOMAIN lpLastTaskDomain;
 ; 5729 : 
@@ -16436,11 +16436,11 @@ $L9671:
 	mov	ecx, DWORD PTR [eax+55]
 	push	ecx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpLastTaskDomain$9673[ebp], eax
+	mov	DWORD PTR _lpLastTaskDomain$9674[ebp], eax
 
 ; 5731 :             lpLastTaskDomain->hNextTaskDomainForDomain = hTaskDomain;
 
-	mov	edx, DWORD PTR _lpLastTaskDomain$9673[ebp]
+	mov	edx, DWORD PTR _lpLastTaskDomain$9674[ebp]
 	mov	eax, DWORD PTR _hTaskDomain$[ebp]
 	mov	DWORD PTR [edx+6], eax
 
@@ -16460,8 +16460,8 @@ $L9671:
 
 ; 5736 :          else
 
-	jmp	SHORT $L9675
-$L9672:
+	jmp	SHORT $L9676
+$L9673:
 
 ; 5738 :             lpDomain->hFirstTaskDomain = hTaskDomain;
 
@@ -16474,13 +16474,13 @@ $L9672:
 	mov	edx, DWORD PTR _lpDomain$[ebp]
 	mov	eax, DWORD PTR _hTaskDomain$[ebp]
 	mov	DWORD PTR [edx+55], eax
-$L9675:
+$L9676:
 
 ; 5741 : 
 ; 5742 :          if ( hLibrary )
 
 	cmp	DWORD PTR _hLibrary$[ebp], 0
-	je	SHORT $L9677
+	je	SHORT $L9678
 
 ; 5744 :          // LPLIBRARY lpLibrary = zGETPTR( hLibrary );
 ; 5745 :          // TraceLine( "fnGetTaskDomain Task: 0x%08x   Domain: 0x%08x   Lib: %s",
@@ -16490,7 +16490,7 @@ $L9675:
 	mov	ecx, DWORD PTR _lpDomain$[ebp]
 	movsx	edx, BYTE PTR [ecx+100]
 	test	edx, edx
-	je	SHORT $L9677
+	je	SHORT $L9678
 
 ; 5749 :                lpTaskDomain->pfDomainOper =
 ; 5750 :                               (zPDMOPER) SysGetProc( hLibrary,
@@ -16504,25 +16504,25 @@ $L9675:
 	call	_SysGetProc@8
 	mov	edx, DWORD PTR _lpTaskDomain$[ebp]
 	mov	DWORD PTR [edx+30], eax
-$L9677:
-$L9658:
+$L9678:
+$L9659:
 
 ; 5756 : 
 ; 5757 :    return( lpTaskDomain );
 
 	mov	eax, DWORD PTR _lpTaskDomain$[ebp]
-$L9642:
+$L9643:
 
 ; 5758 : }
 
 	mov	esp, ebp
 	pop	ebp
 	ret	0
+$L11907:
+	DD	$L9662
+	DD	$L9664
+	DD	$L9659
 $L11906:
-	DD	$L9661
-	DD	$L9663
-	DD	$L9658
-$L11905:
 	DB	0
 	DB	2
 	DB	2
@@ -16574,15 +16574,15 @@ _fnRetrieveAttribName@12 PROC NEAR
 ; 5768 :    for ( n = 0; zisalnum( *pchExpr ); pchExpr++ )
 
 	mov	WORD PTR _n$[ebp], 0
-	jmp	SHORT $L9689
-$L9690:
+	jmp	SHORT $L9690
+$L9691:
 	mov	edx, DWORD PTR _pchExpr$[ebp]
 	add	edx, 1
 	mov	DWORD PTR _pchExpr$[ebp], edx
-$L9689:
+$L9690:
 	mov	eax, DWORD PTR __imp____mb_cur_max
 	cmp	DWORD PTR [eax], 1
-	jle	SHORT $L11908
+	jle	SHORT $L11909
 	push	263					; 00000107H
 	mov	ecx, DWORD PTR _pchExpr$[ebp]
 	movsx	edx, BYTE PTR [ecx]
@@ -16590,8 +16590,8 @@ $L9689:
 	call	DWORD PTR __imp___isctype
 	add	esp, 8
 	mov	DWORD PTR -12+[ebp], eax
-	jmp	SHORT $L11909
-$L11908:
+	jmp	SHORT $L11910
+$L11909:
 	mov	eax, DWORD PTR _pchExpr$[ebp]
 	movsx	ecx, BYTE PTR [eax]
 	mov	edx, DWORD PTR __imp___pctype
@@ -16600,9 +16600,9 @@ $L11908:
 	mov	dx, WORD PTR [eax+ecx*2]
 	and	edx, 263				; 00000107H
 	mov	DWORD PTR -12+[ebp], edx
-$L11909:
+$L11910:
 	cmp	DWORD PTR -12+[ebp], 0
-	je	SHORT $L9691
+	je	SHORT $L9692
 
 ; 5769 :       pchAttribName[ n++ ] = *pchExpr;
 
@@ -16614,8 +16614,8 @@ $L11909:
 	mov	ax, WORD PTR _n$[ebp]
 	add	ax, 1
 	mov	WORD PTR _n$[ebp], ax
-	jmp	SHORT $L9690
-$L9691:
+	jmp	SHORT $L9691
+$L9692:
 
 ; 5770 : 
 ; 5771 :    pchAttribName[ n ] = 0;
@@ -16623,7 +16623,7 @@ $L9691:
 	movsx	ecx, WORD PTR _n$[ebp]
 	mov	edx, DWORD PTR _pchAttribName$[ebp]
 	mov	BYTE PTR [edx+ecx], 0
-$L9693:
+$L9694:
 
 ; 5772 : 
 ; 5773 :    // Skip whitespaces.
@@ -16631,7 +16631,7 @@ $L9693:
 
 	mov	eax, DWORD PTR __imp____mb_cur_max
 	cmp	DWORD PTR [eax], 1
-	jle	SHORT $L11910
+	jle	SHORT $L11911
 	push	8
 	mov	ecx, DWORD PTR _pchExpr$[ebp]
 	movsx	edx, BYTE PTR [ecx]
@@ -16639,8 +16639,8 @@ $L9693:
 	call	DWORD PTR __imp___isctype
 	add	esp, 8
 	mov	DWORD PTR -16+[ebp], eax
-	jmp	SHORT $L11911
-$L11910:
+	jmp	SHORT $L11912
+$L11911:
 	mov	eax, DWORD PTR _pchExpr$[ebp]
 	movsx	ecx, BYTE PTR [eax]
 	mov	edx, DWORD PTR __imp___pctype
@@ -16649,17 +16649,17 @@ $L11910:
 	mov	dx, WORD PTR [eax+ecx*2]
 	and	edx, 8
 	mov	DWORD PTR -16+[ebp], edx
-$L11911:
+$L11912:
 	cmp	DWORD PTR -16+[ebp], 0
-	je	SHORT $L9694
+	je	SHORT $L9695
 
 ; 5775 :       pchExpr++;
 
 	mov	eax, DWORD PTR _pchExpr$[ebp]
 	add	eax, 1
 	mov	DWORD PTR _pchExpr$[ebp], eax
-	jmp	SHORT $L9693
-$L9694:
+	jmp	SHORT $L9694
+$L9695:
 
 ; 5776 : 
 ; 5777 :    // Check to see if the character immediately following the attribute name
@@ -16669,14 +16669,14 @@ $L9694:
 	mov	ecx, DWORD PTR _pchExpr$[ebp]
 	movsx	edx, BYTE PTR [ecx]
 	cmp	edx, 91					; 0000005bH
-	jne	$L9695
+	jne	$L9696
 
 ; 5781 :       pchExpr++;
 
 	mov	eax, DWORD PTR _pchExpr$[ebp]
 	add	eax, 1
 	mov	DWORD PTR _pchExpr$[ebp], eax
-$L9697:
+$L9698:
 
 ; 5782 : 
 ; 5783 :       // Skip whitespaces.
@@ -16684,7 +16684,7 @@ $L9697:
 
 	mov	ecx, DWORD PTR __imp____mb_cur_max
 	cmp	DWORD PTR [ecx], 1
-	jle	SHORT $L11912
+	jle	SHORT $L11913
 	push	8
 	mov	edx, DWORD PTR _pchExpr$[ebp]
 	movsx	eax, BYTE PTR [edx]
@@ -16692,8 +16692,8 @@ $L9697:
 	call	DWORD PTR __imp___isctype
 	add	esp, 8
 	mov	DWORD PTR -20+[ebp], eax
-	jmp	SHORT $L11913
-$L11912:
+	jmp	SHORT $L11914
+$L11913:
 	mov	ecx, DWORD PTR _pchExpr$[ebp]
 	movsx	edx, BYTE PTR [ecx]
 	mov	eax, DWORD PTR __imp___pctype
@@ -16702,17 +16702,17 @@ $L11912:
 	mov	ax, WORD PTR [ecx+edx*2]
 	and	eax, 8
 	mov	DWORD PTR -20+[ebp], eax
-$L11913:
+$L11914:
 	cmp	DWORD PTR -20+[ebp], 0
-	je	SHORT $L9698
+	je	SHORT $L9699
 
 ; 5785 :          pchExpr++;
 
 	mov	ecx, DWORD PTR _pchExpr$[ebp]
 	add	ecx, 1
 	mov	DWORD PTR _pchExpr$[ebp], ecx
-	jmp	SHORT $L9697
-$L9698:
+	jmp	SHORT $L9698
+$L9699:
 
 ; 5786 : 
 ; 5787 :       // Retrieve the context name.  We allow any non-space characters to
@@ -16722,19 +16722,19 @@ $L9698:
 ; 5791 :             pchExpr++ )
 
 	mov	WORD PTR _n$[ebp], 0
-	jmp	SHORT $L9699
-$L9700:
+	jmp	SHORT $L9700
+$L9701:
 	mov	edx, DWORD PTR _pchExpr$[ebp]
 	add	edx, 1
 	mov	DWORD PTR _pchExpr$[ebp], edx
-$L9699:
+$L9700:
 	mov	eax, DWORD PTR _pchExpr$[ebp]
 	movsx	ecx, BYTE PTR [eax]
 	test	ecx, ecx
-	je	SHORT $L9701
+	je	SHORT $L9702
 	mov	edx, DWORD PTR __imp____mb_cur_max
 	cmp	DWORD PTR [edx], 1
-	jle	SHORT $L11914
+	jle	SHORT $L11915
 	push	8
 	mov	eax, DWORD PTR _pchExpr$[ebp]
 	movsx	ecx, BYTE PTR [eax]
@@ -16742,8 +16742,8 @@ $L9699:
 	call	DWORD PTR __imp___isctype
 	add	esp, 8
 	mov	DWORD PTR -24+[ebp], eax
-	jmp	SHORT $L11915
-$L11914:
+	jmp	SHORT $L11916
+$L11915:
 	mov	edx, DWORD PTR _pchExpr$[ebp]
 	movsx	eax, BYTE PTR [edx]
 	mov	ecx, DWORD PTR __imp___pctype
@@ -16752,13 +16752,13 @@ $L11914:
 	mov	cx, WORD PTR [edx+eax*2]
 	and	ecx, 8
 	mov	DWORD PTR -24+[ebp], ecx
-$L11915:
+$L11916:
 	cmp	DWORD PTR -24+[ebp], 0
-	jne	SHORT $L9701
+	jne	SHORT $L9702
 	mov	edx, DWORD PTR _pchExpr$[ebp]
 	movsx	eax, BYTE PTR [edx]
 	cmp	eax, 93					; 0000005dH
-	je	SHORT $L9701
+	je	SHORT $L9702
 
 ; 5793 :          pchContextName[ n++ ] = *pchExpr;
 
@@ -16773,8 +16773,8 @@ $L11915:
 
 ; 5794 :       }
 
-	jmp	SHORT $L9700
-$L9701:
+	jmp	SHORT $L9701
+$L9702:
 
 ; 5795 : 
 ; 5796 :       pchContextName[ n ] = 0;
@@ -16782,7 +16782,7 @@ $L9701:
 	movsx	edx, WORD PTR _n$[ebp]
 	mov	eax, DWORD PTR _pchContextName$[ebp]
 	mov	BYTE PTR [eax+edx], 0
-$L9703:
+$L9704:
 
 ; 5797 : 
 ; 5798 :       // Skip whitespaces.
@@ -16790,7 +16790,7 @@ $L9703:
 
 	mov	ecx, DWORD PTR __imp____mb_cur_max
 	cmp	DWORD PTR [ecx], 1
-	jle	SHORT $L11916
+	jle	SHORT $L11917
 	push	8
 	mov	edx, DWORD PTR _pchExpr$[ebp]
 	movsx	eax, BYTE PTR [edx]
@@ -16798,8 +16798,8 @@ $L9703:
 	call	DWORD PTR __imp___isctype
 	add	esp, 8
 	mov	DWORD PTR -28+[ebp], eax
-	jmp	SHORT $L11917
-$L11916:
+	jmp	SHORT $L11918
+$L11917:
 	mov	ecx, DWORD PTR _pchExpr$[ebp]
 	movsx	edx, BYTE PTR [ecx]
 	mov	eax, DWORD PTR __imp___pctype
@@ -16808,17 +16808,17 @@ $L11916:
 	mov	ax, WORD PTR [ecx+edx*2]
 	and	eax, 8
 	mov	DWORD PTR -28+[ebp], eax
-$L11917:
+$L11918:
 	cmp	DWORD PTR -28+[ebp], 0
-	je	SHORT $L9704
+	je	SHORT $L9705
 
 ; 5800 :          pchExpr++;
 
 	mov	ecx, DWORD PTR _pchExpr$[ebp]
 	add	ecx, 1
 	mov	DWORD PTR _pchExpr$[ebp], ecx
-	jmp	SHORT $L9703
-$L9704:
+	jmp	SHORT $L9704
+$L9705:
 
 ; 5801 : 
 ; 5802 :       if ( *pchExpr == ']' )
@@ -16826,7 +16826,7 @@ $L9704:
 	mov	edx, DWORD PTR _pchExpr$[ebp]
 	movsx	eax, BYTE PTR [edx]
 	cmp	eax, 93					; 0000005dH
-	jne	SHORT $L9705
+	jne	SHORT $L9706
 
 ; 5803 :          pchExpr++;
 
@@ -16836,25 +16836,25 @@ $L9704:
 
 ; 5804 :       else
 
-	jmp	SHORT $L9706
-$L9705:
+	jmp	SHORT $L9707
+$L9706:
 
 ; 5805 :          return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	SHORT $L9686
-$L9706:
+	jmp	SHORT $L9687
+$L9707:
 
 ; 5807 :    else
 
-	jmp	SHORT $L9707
-$L9695:
+	jmp	SHORT $L9708
+$L9696:
 
 ; 5808 :      *pchContextName = 0;  // No context.
 
 	mov	edx, DWORD PTR _pchContextName$[ebp]
 	mov	BYTE PTR [edx], 0
-$L9707:
+$L9708:
 
 ; 5809 : 
 ; 5810 :    *ppchInput = pchExpr;
@@ -16867,7 +16867,7 @@ $L9707:
 ; 5812 :    return( 0 );
 
 	xor	ax, ax
-$L9686:
+$L9687:
 
 ; 5813 : }
 
@@ -16895,8 +16895,8 @@ _lIntValue$ = -16
 _dDecValue$ = -128
 _pchExpr$ = -12
 _lpSrcViewAttrib$ = -8
-_dNewValue$9753 = -2176
-_lNewValue$9758 = -2180
+_dNewValue$9754 = -2176
+_lNewValue$9759 = -2180
 _DfExprVML@16 PROC NEAR
 
 ; 5821 : {
@@ -16928,13 +16928,13 @@ _DfExprVML@16 PROC NEAR
 
 	movsx	edx, WORD PTR _nFlag$[ebp]
 	cmp	edx, 1
-	jne	SHORT $L9729
+	jne	SHORT $L9730
 
 ; 5835 :       return( 0 );
 
 	xor	ax, ax
-	jmp	$L9717
-$L9729:
+	jmp	$L9718
+$L9730:
 
 ; 5836 : 
 ; 5837 :    // Initialize each of the temp storage areas.
@@ -16973,16 +16973,16 @@ $L9729:
 ; 5849 :    for ( idx = 0; *pchExpr; pchExpr++ )
 
 	mov	WORD PTR _idx$[ebp], 0
-	jmp	SHORT $L9730
-$L9731:
+	jmp	SHORT $L9731
+$L9732:
 	mov	ecx, DWORD PTR _pchExpr$[ebp]
 	add	ecx, 1
 	mov	DWORD PTR _pchExpr$[ebp], ecx
-$L9730:
+$L9731:
 	mov	edx, DWORD PTR _pchExpr$[ebp]
 	movsx	eax, BYTE PTR [edx]
 	test	eax, eax
-	je	$L9732
+	je	$L9733
 
 ; 5851 :       // Check to see if we are inside a quoted string.  If so we just copy
 ; 5852 :       // the character from the expression to the buffer.
@@ -16991,14 +16991,14 @@ $L9730:
 	mov	ecx, DWORD PTR _bInQuote$[ebp]
 	and	ecx, 255				; 000000ffH
 	test	ecx, ecx
-	je	SHORT $L9733
+	je	SHORT $L9734
 
 ; 5855 :          if ( *pchExpr == '\"' )
 
 	mov	edx, DWORD PTR _pchExpr$[ebp]
 	movsx	eax, BYTE PTR [edx]
 	cmp	eax, 34					; 00000022H
-	jne	SHORT $L9734
+	jne	SHORT $L9735
 
 ; 5857 :             bInQuote = FALSE;
 
@@ -17013,8 +17013,8 @@ $L9730:
 
 ; 5862 :          else
 
-	jmp	SHORT $L9735
-$L9734:
+	jmp	SHORT $L9736
+$L9735:
 
 ; 5863 :             szConcatBuffer[ idx++ ] = *pchExpr;
 
@@ -17025,13 +17025,13 @@ $L9734:
 	mov	dx, WORD PTR _idx$[ebp]
 	add	dx, 1
 	mov	WORD PTR _idx$[ebp], dx
-$L9735:
+$L9736:
 
 ; 5864 : 
 ; 5865 :          continue;
 
-	jmp	SHORT $L9731
-$L9733:
+	jmp	SHORT $L9732
+$L9734:
 
 ; 5867 : 
 ; 5868 :       // Check for plus or minus sign.
@@ -17040,12 +17040,12 @@ $L9733:
 	mov	eax, DWORD PTR _pchExpr$[ebp]
 	movsx	ecx, BYTE PTR [eax]
 	cmp	ecx, 43					; 0000002bH
-	je	SHORT $L9737
+	je	SHORT $L9738
 	mov	edx, DWORD PTR _pchExpr$[ebp]
 	movsx	eax, BYTE PTR [edx]
 	cmp	eax, 45					; 0000002dH
-	jne	SHORT $L9736
-$L9737:
+	jne	SHORT $L9737
+$L9738:
 
 ; 5871 :          chSign = *pchExpr;
 
@@ -17055,8 +17055,8 @@ $L9737:
 
 ; 5872 :          continue;
 
-	jmp	$L9731
-$L9736:
+	jmp	$L9732
+$L9737:
 
 ; 5874 : 
 ; 5875 :       // OK, we're not in a quote or context name.  Check to see if we are
@@ -17066,12 +17066,12 @@ $L9736:
 	mov	eax, DWORD PTR _pchExpr$[ebp]
 	movsx	ecx, BYTE PTR [eax]
 	cmp	ecx, 34					; 00000022H
-	jne	SHORT $L9738
+	jne	SHORT $L9739
 
 ; 5879 :          bInQuote = TRUE;
 
 	mov	BYTE PTR _bInQuote$[ebp], 1
-$L9740:
+$L9741:
 
 ; 5880 : 
 ; 5881 :          // Increment idx so that it points to the null-terminator.  We do
@@ -17082,15 +17082,15 @@ $L9740:
 	movsx	edx, WORD PTR _idx$[ebp]
 	movsx	eax, BYTE PTR _szConcatBuffer$[ebp+edx]
 	test	eax, eax
-	je	SHORT $L9741
+	je	SHORT $L9742
 
 ; 5885 :             idx++;
 
 	mov	cx, WORD PTR _idx$[ebp]
 	add	cx, 1
 	mov	WORD PTR _idx$[ebp], cx
-	jmp	SHORT $L9740
-$L9741:
+	jmp	SHORT $L9741
+$L9742:
 
 ; 5886 : 
 ; 5887 :          // We're starting a new quoted string.  We'll assume that adding
@@ -17108,8 +17108,8 @@ $L9741:
 
 ; 5891 :          continue;
 
-	jmp	$L9731
-$L9738:
+	jmp	$L9732
+$L9739:
 
 ; 5893 : 
 ; 5894 :       // We'll ignore non-alphanumerics.  We can ignore the '+' sign because
@@ -17118,7 +17118,7 @@ $L9738:
 
 	mov	eax, DWORD PTR __imp____mb_cur_max
 	cmp	DWORD PTR [eax], 1
-	jle	SHORT $L11919
+	jle	SHORT $L11920
 	push	263					; 00000107H
 	mov	ecx, DWORD PTR _pchExpr$[ebp]
 	movsx	edx, BYTE PTR [ecx]
@@ -17126,8 +17126,8 @@ $L9738:
 	call	DWORD PTR __imp___isctype
 	add	esp, 8
 	mov	DWORD PTR -2184+[ebp], eax
-	jmp	SHORT $L11920
-$L11919:
+	jmp	SHORT $L11921
+$L11920:
 	mov	eax, DWORD PTR _pchExpr$[ebp]
 	movsx	ecx, BYTE PTR [eax]
 	mov	edx, DWORD PTR __imp___pctype
@@ -17136,14 +17136,14 @@ $L11919:
 	mov	dx, WORD PTR [eax+ecx*2]
 	and	edx, 263				; 00000107H
 	mov	DWORD PTR -2184+[ebp], edx
-$L11920:
+$L11921:
 	cmp	DWORD PTR -2184+[ebp], 0
-	jne	SHORT $L9742
+	jne	SHORT $L9743
 
 ; 5897 :          continue;
 
-	jmp	$L9731
-$L9742:
+	jmp	$L9732
+$L9743:
 
 ; 5898 : 
 ; 5899 :       // At this point pchExpr had better be pointing to an attribute name.
@@ -17159,13 +17159,13 @@ $L9742:
 	call	_fnRetrieveAttribName@12
 	movsx	eax, ax
 	test	eax, eax
-	je	SHORT $L9743
+	je	SHORT $L9744
 
 ; 5902 :          return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	$L9717
-$L9743:
+	jmp	$L9718
+$L9744:
 
 ; 5903 : 
 ; 5904 :       pchExpr--;  // Go back one to the space.
@@ -17190,13 +17190,13 @@ $L9743:
 ; 5906 :       if ( lpSrcViewAttrib == 0 )
 
 	cmp	DWORD PTR _lpSrcViewAttrib$[ebp], 0
-	jne	SHORT $L9744
+	jne	SHORT $L9745
 
 ; 5907 :          return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	$L9717
-$L9744:
+	jmp	$L9718
+$L9745:
 
 ; 5908 : 
 ; 5909 :       // The source attribute type determines how we are going to add a value
@@ -17211,12 +17211,12 @@ $L9744:
 	sub	ecx, 76					; 0000004cH
 	mov	DWORD PTR -2188+[ebp], ecx
 	cmp	DWORD PTR -2188+[ebp], 8
-	ja	$L9746
+	ja	$L9747
 	mov	eax, DWORD PTR -2188+[ebp]
 	xor	edx, edx
-	mov	dl, BYTE PTR $L11921[eax]
-	jmp	DWORD PTR $L11922[edx*4]
-$L9749:
+	mov	dl, BYTE PTR $L11922[eax]
+	jmp	DWORD PTR $L11923[edx*4]
+$L9750:
 
 ; 5913 :          case zTYPE_DATETIME:
 ; 5914 :          case zTYPE_STRING:
@@ -17225,7 +17225,7 @@ $L9749:
 
 	movsx	ecx, BYTE PTR _szContextName$[ebp]
 	test	ecx, ecx
-	je	SHORT $L9750
+	je	SHORT $L9751
 
 ; 5917 :                GetStringFromAttributeByContext( &szConcatBuffer[ idx ], lpView,
 ; 5918 :                                                 lpViewEntity->szName,
@@ -17253,8 +17253,8 @@ $L9749:
 
 ; 5921 :             else
 
-	jmp	SHORT $L9751
-$L9750:
+	jmp	SHORT $L9752
+$L9751:
 
 ; 5922 :                GetStringFromAttribute( &szConcatBuffer[ idx ], lpView,
 ; 5923 :                                        lpViewEntity->szName, szAttribName );
@@ -17270,7 +17270,7 @@ $L9750:
 	lea	edx, DWORD PTR _szConcatBuffer$[ebp+ecx]
 	push	edx
 	call	_GetStringFromAttribute@16
-$L9751:
+$L9752:
 
 ; 5924 : 
 ; 5925 :             // Increment idx so that it points to the null-terminator.
@@ -17287,8 +17287,8 @@ $L9751:
 
 ; 5927 :             break;
 
-	jmp	$L9746
-$L9752:
+	jmp	$L9747
+$L9753:
 
 ; 5931 :             zDECIMAL dNewValue;
 ; 5932 : 
@@ -17298,12 +17298,12 @@ $L9752:
 
 	movsx	eax, BYTE PTR _szContextName$[ebp]
 	test	eax, eax
-	je	SHORT $L9754
+	je	SHORT $L9755
 
 ; 5936 :                szContextName[ 0 ] = 0;  // ignore context on decimals for now
 
 	mov	BYTE PTR _szContextName$[ebp], 0
-$L9754:
+$L9755:
 
 ; 5937 : 
 ; 5938 :             GetDecimalFromAttribute( &dNewValue, lpView,
@@ -17316,7 +17316,7 @@ $L9754:
 	push	edx
 	mov	eax, DWORD PTR _lpView$[ebp]
 	push	eax
-	lea	ecx, DWORD PTR _dNewValue$9753[ebp]
+	lea	ecx, DWORD PTR _dNewValue$9754[ebp]
 	push	ecx
 	call	_GetDecimalFromAttribute@16
 
@@ -17325,11 +17325,11 @@ $L9754:
 
 	movsx	edx, BYTE PTR _chSign$[ebp]
 	cmp	edx, 45					; 0000002dH
-	jne	SHORT $L9755
+	jne	SHORT $L9756
 
 ; 5942 :                SysSubtractDecimalFromDecimal( &dDecValue, &dDecValue, &dNewValue );
 
-	lea	eax, DWORD PTR _dNewValue$9753[ebp]
+	lea	eax, DWORD PTR _dNewValue$9754[ebp]
 	push	eax
 	lea	ecx, DWORD PTR _dDecValue$[ebp]
 	push	ecx
@@ -17339,19 +17339,19 @@ $L9754:
 
 ; 5943 :             else
 
-	jmp	SHORT $L9756
-$L9755:
+	jmp	SHORT $L9757
+$L9756:
 
 ; 5944 :                SysAddDecimalToDecimal( &dDecValue, &dDecValue, &dNewValue );
 
-	lea	eax, DWORD PTR _dNewValue$9753[ebp]
+	lea	eax, DWORD PTR _dNewValue$9754[ebp]
 	push	eax
 	lea	ecx, DWORD PTR _dDecValue$[ebp]
 	push	ecx
 	lea	edx, DWORD PTR _dDecValue$[ebp]
 	push	edx
 	call	_SysAddDecimalToDecimal@12
-$L9756:
+$L9757:
 
 ; 5945 : 
 ; 5946 :             // Add the decimal value to the end of the string.
@@ -17383,8 +17383,8 @@ $L9756:
 ; 5956 :             // buffer.
 ; 5957 :             break;
 
-	jmp	SHORT $L9746
-$L9757:
+	jmp	SHORT $L9747
+$L9758:
 
 ; 5962 :             zLONG lNewValue;
 ; 5963 : 
@@ -17394,12 +17394,12 @@ $L9757:
 
 	movsx	edx, BYTE PTR _szContextName$[ebp]
 	test	edx, edx
-	je	SHORT $L9759
+	je	SHORT $L9760
 
 ; 5967 :                szContextName[ 0 ] = 0;  // ignore context on integers for now
 
 	mov	BYTE PTR _szContextName$[ebp], 0
-$L9759:
+$L9760:
 
 ; 5968 : 
 ; 5969 :             GetIntegerFromAttribute( &lNewValue, lpView,
@@ -17412,7 +17412,7 @@ $L9759:
 	push	ecx
 	mov	edx, DWORD PTR _lpView$[ebp]
 	push	edx
-	lea	eax, DWORD PTR _lNewValue$9758[ebp]
+	lea	eax, DWORD PTR _lNewValue$9759[ebp]
 	push	eax
 	call	_GetIntegerFromAttribute@16
 
@@ -17420,25 +17420,25 @@ $L9759:
 
 	movsx	ecx, BYTE PTR _chSign$[ebp]
 	cmp	ecx, 45					; 0000002dH
-	jne	SHORT $L9760
+	jne	SHORT $L9761
 
 ; 5972 :                lIntValue -= lNewValue;
 
 	mov	edx, DWORD PTR _lIntValue$[ebp]
-	sub	edx, DWORD PTR _lNewValue$9758[ebp]
+	sub	edx, DWORD PTR _lNewValue$9759[ebp]
 	mov	DWORD PTR _lIntValue$[ebp], edx
 
 ; 5973 :             else
 
-	jmp	SHORT $L9761
-$L9760:
+	jmp	SHORT $L9762
+$L9761:
 
 ; 5974 :                lIntValue += lNewValue;
 
 	mov	eax, DWORD PTR _lIntValue$[ebp]
-	add	eax, DWORD PTR _lNewValue$9758[ebp]
+	add	eax, DWORD PTR _lNewValue$9759[ebp]
 	mov	DWORD PTR _lIntValue$[ebp], eax
-$L9761:
+$L9762:
 
 ; 5975 : 
 ; 5976 :             // Add the integer value to the end of the string.
@@ -17463,7 +17463,7 @@ $L9761:
 	mov	edx, DWORD PTR _lIntValue$[ebp]
 	push	edx
 	call	_SysConvertLongToDecimal@8
-$L9746:
+$L9747:
 
 ; 5991 : 
 ; 5992 :       if ( pchExpr[ 0 ] == 0 )
@@ -17471,18 +17471,18 @@ $L9746:
 	mov	eax, DWORD PTR _pchExpr$[ebp]
 	movsx	ecx, BYTE PTR [eax]
 	test	ecx, ecx
-	jne	SHORT $L9762
+	jne	SHORT $L9763
 
 ; 5993 :          break;
 
-	jmp	SHORT $L9732
-$L9762:
+	jmp	SHORT $L9733
+$L9763:
 
 ; 5994 : 
 ; 5995 :    } // for ( idx... )
 
-	jmp	$L9731
-$L9732:
+	jmp	$L9732
+$L9733:
 
 ; 5996 : 
 ; 5997 :    StoreStringInRecord( lpView, lpViewEntity, lpViewAttrib,
@@ -17501,19 +17501,19 @@ $L9732:
 ; 5999 :    return( 0 );
 
 	xor	ax, ax
-$L9717:
+$L9718:
 
 ; 6000 : }
 
 	mov	esp, ebp
 	pop	ebp
 	ret	16					; 00000010H
+$L11923:
+	DD	$L9758
+	DD	$L9753
+	DD	$L9750
+	DD	$L9747
 $L11922:
-	DD	$L9757
-	DD	$L9752
-	DD	$L9749
-	DD	$L9746
-$L11921:
 	DB	0
 	DB	1
 	DB	3
@@ -17674,8 +17674,8 @@ _pchObjectName$ = -64
 _lReturn$ = -60
 _bDropSubtask$ = -28
 _nRC$ = -16
-_lpViewOD$9815 = -72
-_hLibrary$9841 = -76
+_lpViewOD$9816 = -72
+_hLibrary$9842 = -76
 _DfExecuteXPG@16 PROC NEAR
 
 ; 6014 : {
@@ -17716,13 +17716,13 @@ _DfExecuteXPG@16 PROC NEAR
 
 	movsx	ecx, WORD PTR _nFlag$[ebp]
 	cmp	ecx, 1
-	jne	SHORT $L9801
+	jne	SHORT $L9802
 
 ; 6034 :       return( 0 );
 
 	xor	ax, ax
-	jmp	$L9783
-$L9801:
+	jmp	$L9784
+$L9802:
 
 ; 6035 : 
 ; 6036 :    lpCurrentTask = zGETPTR( lpView->hTask );
@@ -17783,7 +17783,7 @@ $L9801:
 ; 6051 :    if ( vSubtask == 0 )
 
 	cmp	DWORD PTR _vSubtask$[ebp], 0
-	jne	SHORT $L9804
+	jne	SHORT $L9805
 
 ; 6053 :       // No parent derived expr.  Do normal init processing.
 ; 6054 :       bDropSubtask = TRUE;
@@ -17813,8 +17813,8 @@ $L9801:
 
 ; 6060 :    else
 
-	jmp	SHORT $L9806
-$L9804:
+	jmp	SHORT $L9807
+$L9805:
 
 ; 6062 :       // We must be in the process of being called recursively.  Don't create
 ; 6063 :       // a new subtask and save the current stack OI.
@@ -17833,7 +17833,7 @@ $L9804:
 	lea	eax, DWORD PTR _vOldStackObject$[ebp]
 	push	eax
 	call	_GetViewByName@16
-$L9806:
+$L9807:
 
 ; 6069 : 
 ; 6070 :    // Get a pointer to the begining of the OI data.  For OIs stored as blobs
@@ -17879,7 +17879,7 @@ $L9806:
 	call	_GetViewByName@16
 	movsx	edx, ax
 	test	edx, edx
-	jge	SHORT $L9812
+	jge	SHORT $L9813
 
 ; 6079 :       nRC = -1;
 
@@ -17887,8 +17887,8 @@ $L9806:
 
 ; 6080 :    else
 
-	jmp	SHORT $L9820
-$L9812:
+	jmp	SHORT $L9821
+$L9813:
 
 ; 6082 :       LPVIEWOD lpViewOD = zGETPTR( lpView->hViewOD );
 
@@ -17896,12 +17896,12 @@ $L9812:
 	mov	ecx, DWORD PTR [eax+6]
 	push	ecx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpViewOD$9815[ebp], eax
+	mov	DWORD PTR _lpViewOD$9816[ebp], eax
 
 ; 6083 : 
 ; 6084 :       pchObjectName = lpViewOD->szName;
 
-	mov	edx, DWORD PTR _lpViewOD$9815[ebp]
+	mov	edx, DWORD PTR _lpViewOD$9816[ebp]
 	add	edx, 10					; 0000000aH
 	mov	DWORD PTR _pchObjectName$[ebp], edx
 
@@ -17917,7 +17917,7 @@ $L9812:
 	call	_CompareAttributeToString@16
 	movsx	edx, ax
 	test	edx, edx
-	jne	SHORT $L9817
+	jne	SHORT $L9818
 
 ; 6088 :          nRC = 0;
 
@@ -17925,20 +17925,20 @@ $L9812:
 
 ; 6090 :       else
 
-	jmp	SHORT $L9820
-$L9817:
+	jmp	SHORT $L9821
+$L9818:
 
 ; 6092 :          nRC = -1;
 
 	mov	WORD PTR _nRC$[ebp], -1
-$L9820:
+$L9821:
 
 ; 6095 : 
 ; 6096 :    if ( nRC < 0 )
 
 	movsx	eax, WORD PTR _nRC$[ebp]
 	test	eax, eax
-	jge	SHORT $L9821
+	jge	SHORT $L9822
 
 ; 6098 :       nRC = fnActivateOI_FromBuffer( &vXPG, "TZVSPOOO", vSubtask,
 ; 6099 :                                      pchData, ulLth, zSINGLE );
@@ -17960,7 +17960,7 @@ $L9820:
 
 	movsx	edx, WORD PTR _nRC$[ebp]
 	test	edx, edx
-	jge	SHORT $L9823
+	jge	SHORT $L9824
 
 ; 6102 :          SysMessageBox( lpView, "Internal Core Error",
 ; 6103 :                         "Error reading OI from buffer", 1 );
@@ -17975,8 +17975,8 @@ $L9820:
 ; 6104 :          return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	$L9783
-$L9823:
+	jmp	$L9784
+$L9824:
 
 ; 6106 : 
 ; 6107 :       SetNameForView( vXPG, "LastXPG", vSubtask, zLEVEL_TASK );
@@ -17988,7 +17988,7 @@ $L9823:
 	mov	edx, DWORD PTR _vXPG$[ebp]
 	push	edx
 	call	_SetNameForView@16
-$L9821:
+$L9822:
 
 ; 6109 : 
 ; 6110 :    SetNameForView( vXPG, "XPG", vSubtask, zLEVEL_SUBTASK );
@@ -18124,7 +18124,7 @@ $L9821:
 ; 6134 :    if ( pfnInterp == 0 )
 
 	cmp	DWORD PTR _?pfnInterp@?1??DfExecuteXPG@@9@9, 0
-	jne	SHORT $L9846
+	jne	SHORT $L9847
 
 ; 6136 :       // Load the library.  We'll let core clean it up for us later.
 ; 6137 :       LPLIBRARY hLibrary = SysLoadLibrary( vSubtask, "TZVMLOPR" );
@@ -18133,13 +18133,13 @@ $L9821:
 	mov	eax, DWORD PTR _vSubtask$[ebp]
 	push	eax
 	call	_SysLoadLibrary@8
-	mov	DWORD PTR _hLibrary$9841[ebp], eax
+	mov	DWORD PTR _hLibrary$9842[ebp], eax
 
 ; 6138 : 
 ; 6139 :       if ( hLibrary == 0 )
 
-	cmp	DWORD PTR _hLibrary$9841[ebp], 0
-	jne	SHORT $L9843
+	cmp	DWORD PTR _hLibrary$9842[ebp], 0
+	jne	SHORT $L9844
 
 ; 6141 :          SysMessageBox( lpView, "Zeidon Interpretor Error",
 ; 6142 :                         "Could not locate TZVMLOPR.DLL", TRUE );
@@ -18153,23 +18153,23 @@ $L9821:
 
 ; 6144 :       else
 
-	jmp	SHORT $L9846
-$L9843:
+	jmp	SHORT $L9847
+$L9844:
 
 ; 6145 :          pfnInterp = (PFNINTERP) SysGetProc( hLibrary, "InvokeInterp" );
 
 	push	OFFSET FLAT:??_C@_0N@JOIE@InvokeInterp?$AA@ ; `string'
-	mov	edx, DWORD PTR _hLibrary$9841[ebp]
+	mov	edx, DWORD PTR _hLibrary$9842[ebp]
 	push	edx
 	call	_SysGetProc@8
 	mov	DWORD PTR _?pfnInterp@?1??DfExecuteXPG@@9@9, eax
-$L9846:
+$L9847:
 
 ; 6147 : 
 ; 6148 :    if ( pfnInterp )
 
 	cmp	DWORD PTR _?pfnInterp@?1??DfExecuteXPG@@9@9, 0
-	je	SHORT $L9849
+	je	SHORT $L9850
 
 ; 6149 :       (*pfnInterp)( vSubtask, vAppSubtask, "", szOperName, &lReturn );
 
@@ -18183,7 +18183,7 @@ $L9846:
 	mov	eax, DWORD PTR _vSubtask$[ebp]
 	push	eax
 	call	DWORD PTR _?pfnInterp@?1??DfExecuteXPG@@9@9
-$L9849:
+$L9850:
 
 ; 6150 : 
 ; 6151 :    // Drop views.  Note that vXPG has already been dropped by InvokeInterp( ).
@@ -18205,7 +18205,7 @@ $L9849:
 	mov	eax, DWORD PTR _bDropSubtask$[ebp]
 	and	eax, 255				; 000000ffH
 	test	eax, eax
-	je	SHORT $L9850
+	je	SHORT $L9851
 
 ; 6155 :       SfDropSubtask( vSubtask, 0 );
 
@@ -18216,8 +18216,8 @@ $L9849:
 
 ; 6156 :    else
 
-	jmp	SHORT $L9851
-$L9850:
+	jmp	SHORT $L9852
+$L9851:
 
 ; 6157 :       SetNameForView( vOldStackObject, "StackObject", vSubtask, zLEVEL_SUBTASK );
 
@@ -18228,13 +18228,13 @@ $L9850:
 	mov	eax, DWORD PTR _vOldStackObject$[ebp]
 	push	eax
 	call	_SetNameForView@16
-$L9851:
+$L9852:
 
 ; 6158 : 
 ; 6159 :    return( 0 );
 
 	xor	ax, ax
-$L9783:
+$L9784:
 
 ; 6160 : }
 
@@ -18267,7 +18267,7 @@ _hTaskOperation$ = -8
 _lpTaskOperation$ = -20
 _bMutexLocked$ = -32
 _lProcessID$ = -4
-_lpTempOperation$9911 = -36
+_lpTempOperation$9912 = -36
 _fnGetAttribOper PROC NEAR
 
 ; 6174 : {
@@ -18302,13 +18302,13 @@ _fnGetAttribOper PROC NEAR
 	mov	ecx, DWORD PTR _lpViewAttrib$[ebp]
 	movsx	edx, BYTE PTR [ecx+213]
 	test	edx, edx
-	jne	SHORT $L9868
+	jne	SHORT $L9869
 
 ; 6186 :       return( 0 );
 
 	xor	eax, eax
-	jmp	$L9858
-$L9868:
+	jmp	$L9859
+$L9869:
 
 ; 6187 : 
 ; 6188 :    lpViewOD = zGETPTR( lpView->hViewOD );
@@ -18329,16 +18329,16 @@ $L9868:
 	push	eax
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _lpTaskOperation$[ebp], eax
-	jmp	SHORT $L9872
-$L9873:
+	jmp	SHORT $L9873
+$L9874:
 	mov	ecx, DWORD PTR _lpTaskOperation$[ebp]
 	mov	edx, DWORD PTR [ecx+6]
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _lpTaskOperation$[ebp], eax
-$L9872:
+$L9873:
 	cmp	DWORD PTR _lpTaskOperation$[ebp], 0
-	je	SHORT $L9874
+	je	SHORT $L9875
 
 ; 6194 :       if ( lpTaskOperation->hTask == hCurrentTask &&
 ; 6195 :            lpTaskOperation->lProcessID == lProcessID )
@@ -18346,23 +18346,23 @@ $L9872:
 	mov	eax, DWORD PTR _lpTaskOperation$[ebp]
 	mov	ecx, DWORD PTR [eax+14]
 	cmp	ecx, DWORD PTR _hCurrentTask$[ebp]
-	jne	SHORT $L9875
+	jne	SHORT $L9876
 	mov	edx, DWORD PTR _lpTaskOperation$[ebp]
 	mov	eax, DWORD PTR [edx+34]
 	cmp	eax, DWORD PTR _lProcessID$[ebp]
-	jne	SHORT $L9875
+	jne	SHORT $L9876
 
 ; 6197 :          return( (zPOBJOPER) lpTaskOperation->pfnTaskOper );
 
 	mov	ecx, DWORD PTR _lpTaskOperation$[ebp]
 	mov	eax, DWORD PTR [ecx+30]
-	jmp	$L9858
-$L9875:
+	jmp	$L9859
+$L9876:
 
 ; 6199 :    }
 
-	jmp	SHORT $L9873
-$L9874:
+	jmp	SHORT $L9874
+$L9875:
 
 ; 6200 : 
 ; 6201 :    if ( lpViewAttrib->bDerivedIntrnl )
@@ -18372,7 +18372,7 @@ $L9874:
 	shr	eax, 15					; 0000000fH
 	and	eax, 1
 	test	eax, eax
-	je	SHORT $L9877
+	je	SHORT $L9878
 
 ; 6202 :       hLibrary = 0;
 
@@ -18380,8 +18380,8 @@ $L9874:
 
 ; 6203 :    else
 
-	jmp	SHORT $L9881
-$L9877:
+	jmp	SHORT $L9882
+$L9878:
 
 ; 6205 :       // No task object oper exists yet, create one if possible.
 ; 6206 :       pchOperLibName = lpViewOD->szOperLibname;
@@ -18393,18 +18393,18 @@ $L9877:
 ; 6207 :       if ( pchOperLibName == 0 || pchOperLibName[ 0 ] == 0 )
 
 	cmp	DWORD PTR _pchOperLibName$[ebp], 0
-	je	SHORT $L9880
+	je	SHORT $L9881
 	mov	edx, DWORD PTR _pchOperLibName$[ebp]
 	movsx	eax, BYTE PTR [edx]
 	test	eax, eax
-	jne	SHORT $L9879
-$L9880:
+	jne	SHORT $L9880
+$L9881:
 
 ; 6208 :          return( 0 );
 
 	xor	eax, eax
-	jmp	$L9858
-$L9879:
+	jmp	$L9859
+$L9880:
 
 ; 6209 : 
 ; 6210 :       hLibrary = SysLoadLibrary( lpView, pchOperLibName );  // dks 2006.04.06  back to 10b
@@ -18419,13 +18419,13 @@ $L9879:
 ; 6211 :       if ( hLibrary == 0 )
 
 	cmp	DWORD PTR _hLibrary$[ebp], 0
-	jne	SHORT $L9881
+	jne	SHORT $L9882
 
 ; 6212 :          return( 0 );
 
 	xor	eax, eax
-	jmp	$L9858
-$L9881:
+	jmp	$L9859
+$L9882:
 
 ; 6214 : 
 ; 6215 :    hTaskOperation = fnAllocDataspace( AnchorBlock->hMainFirstDataHeader,
@@ -18446,13 +18446,13 @@ $L9881:
 ; 6218 :    if ( hTaskOperation == 0 )
 
 	cmp	DWORD PTR _hTaskOperation$[ebp], 0
-	jne	SHORT $L9883
+	jne	SHORT $L9884
 
 ; 6219 :       return( 0 );
 
 	xor	eax, eax
-	jmp	$L9858
-$L9883:
+	jmp	$L9859
+$L9884:
 
 ; 6220 : 
 ; 6221 :    lpTaskOperation = zGETPTR( hTaskOperation );
@@ -18490,7 +18490,7 @@ $L9883:
 	mov	eax, DWORD PTR _AnchorBlock
 	mov	ecx, DWORD PTR _hCurrentTask$[ebp]
 	cmp	ecx, DWORD PTR [eax+106]
-	jne	SHORT $L9886
+	jne	SHORT $L9887
 
 ; 6230 :       bMutexLocked = TRUE;
 
@@ -18503,13 +18503,13 @@ $L9883:
 
 ; 6233 :    else
 
-	jmp	SHORT $L9887
-$L9886:
+	jmp	SHORT $L9888
+$L9887:
 
 ; 6234 :       bMutexLocked = FALSE;
 
 	mov	BYTE PTR _bMutexLocked$[ebp], 0
-$L9887:
+$L9888:
 
 ; 6235 : 
 ; 6236 :    lpTaskOperation->hNextTaskOperationForTask =
@@ -18532,13 +18532,13 @@ $L9887:
 	mov	ecx, DWORD PTR _bMutexLocked$[ebp]
 	and	ecx, 255				; 000000ffH
 	test	ecx, ecx
-	je	SHORT $L9888
+	je	SHORT $L9889
 
 ; 6241 :       zUNLOCK_MUTEX( zMUTEX_ANCHORBLOCK );
 
 	push	2
 	call	_fnSysUnlockCoreMutex@4
-$L9888:
+$L9889:
 
 ; 6242 : 
 ; 6243 :    if ( lpViewAttrib->bDerivedIntrnl )
@@ -18548,7 +18548,7 @@ $L9888:
 	shr	eax, 15					; 0000000fH
 	and	eax, 1
 	test	eax, eax
-	je	$L9889
+	je	$L9890
 
 ; 6245 :       if ( zstrcmp( lpViewAttrib->szDerivedOper, "DfExprVML" ) == 0 )
 
@@ -18556,7 +18556,7 @@ $L9888:
 	movsx	edx, BYTE PTR [ecx+213]
 	movsx	eax, BYTE PTR ??_C@_09JBJF@DfExprVML?$AA@
 	cmp	edx, eax
-	jne	SHORT $L11925
+	jne	SHORT $L11926
 	push	OFFSET FLAT:??_C@_09JBJF@DfExprVML?$AA@	; `string'
 	mov	ecx, DWORD PTR _lpViewAttrib$[ebp]
 	add	ecx, 213				; 000000d5H
@@ -18564,8 +18564,8 @@ $L9888:
 	call	_strcmp
 	add	esp, 8
 	mov	DWORD PTR -40+[ebp], eax
-	jmp	SHORT $L11926
-$L11925:
+	jmp	SHORT $L11927
+$L11926:
 	mov	edx, DWORD PTR _lpViewAttrib$[ebp]
 	movsx	eax, BYTE PTR [edx+213]
 	movsx	ecx, BYTE PTR ??_C@_09JBJF@DfExprVML?$AA@
@@ -18577,9 +18577,9 @@ $L11925:
 	and	edx, 2
 	add	edx, -1
 	mov	DWORD PTR -40+[ebp], edx
-$L11926:
+$L11927:
 	cmp	DWORD PTR -40+[ebp], 0
-	jne	SHORT $L9896
+	jne	SHORT $L9897
 
 ; 6246 :          lpTaskOperation->pfnTaskOper = (zPVOID) DfExprVML;
 
@@ -18588,8 +18588,8 @@ $L11926:
 
 ; 6247 :       else
 
-	jmp	SHORT $L9906
-$L9896:
+	jmp	SHORT $L9907
+$L9897:
 
 ; 6248 :       if ( zstrcmp( lpViewAttrib->szDerivedOper, "*xpg*" ) == 0 )
 
@@ -18597,7 +18597,7 @@ $L9896:
 	movsx	edx, BYTE PTR [ecx+213]
 	movsx	eax, BYTE PTR ??_C@_05GPHN@?$CKxpg?$CK?$AA@
 	cmp	edx, eax
-	jne	SHORT $L11927
+	jne	SHORT $L11928
 	push	OFFSET FLAT:??_C@_05GPHN@?$CKxpg?$CK?$AA@ ; `string'
 	mov	ecx, DWORD PTR _lpViewAttrib$[ebp]
 	add	ecx, 213				; 000000d5H
@@ -18605,8 +18605,8 @@ $L9896:
 	call	_strcmp
 	add	esp, 8
 	mov	DWORD PTR -44+[ebp], eax
-	jmp	SHORT $L11928
-$L11927:
+	jmp	SHORT $L11929
+$L11928:
 	mov	edx, DWORD PTR _lpViewAttrib$[ebp]
 	movsx	eax, BYTE PTR [edx+213]
 	movsx	ecx, BYTE PTR ??_C@_05GPHN@?$CKxpg?$CK?$AA@
@@ -18618,20 +18618,20 @@ $L11927:
 	and	edx, 2
 	add	edx, -1
 	mov	DWORD PTR -44+[ebp], edx
-$L11928:
+$L11929:
 	cmp	DWORD PTR -44+[ebp], 0
-	jne	SHORT $L9906
+	jne	SHORT $L9907
 
 ; 6249 :          lpTaskOperation->pfnTaskOper = (zPVOID) DfExecuteXPG;
 
 	mov	eax, DWORD PTR _lpTaskOperation$[ebp]
 	mov	DWORD PTR [eax+30], OFFSET FLAT:_DfExecuteXPG@16
-$L9906:
+$L9907:
 
 ; 6251 :    else
 
-	jmp	SHORT $L9909
-$L9889:
+	jmp	SHORT $L9910
+$L9890:
 
 ; 6253 :       lpTaskOperation->pfnTaskOper = SysGetProc( hLibrary,
 ; 6254 :                                                  lpViewAttrib->szDerivedOper );
@@ -18644,7 +18644,7 @@ $L9889:
 	call	_SysGetProc@8
 	mov	ecx, DWORD PTR _lpTaskOperation$[ebp]
 	mov	DWORD PTR [ecx+30], eax
-$L9909:
+$L9910:
 
 ; 6256 : 
 ; 6257 :    // Set pointers for TaskOperation chain off of ViewAttrib structure
@@ -18653,7 +18653,7 @@ $L9909:
 
 	mov	edx, DWORD PTR _lpViewAttrib$[ebp]
 	cmp	DWORD PTR [edx+189], 0
-	je	SHORT $L9910
+	je	SHORT $L9911
 
 ; 6261 :       LPTASKOPER  lpTempOperation;
 ; 6262 : 
@@ -18663,11 +18663,11 @@ $L9909:
 	mov	ecx, DWORD PTR [eax+189]
 	push	ecx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpTempOperation$9911[ebp], eax
+	mov	DWORD PTR _lpTempOperation$9912[ebp], eax
 
 ; 6264 :       lpTempOperation->hNextTaskOperationForOEA = hTaskOperation;
 
-	mov	edx, DWORD PTR _lpTempOperation$9911[ebp]
+	mov	edx, DWORD PTR _lpTempOperation$9912[ebp]
 	mov	eax, DWORD PTR _hTaskOperation$[ebp]
 	mov	DWORD PTR [edx+6], eax
 
@@ -18687,8 +18687,8 @@ $L9909:
 
 ; 6269 :    else
 
-	jmp	SHORT $L9913
-$L9910:
+	jmp	SHORT $L9914
+$L9911:
 
 ; 6271 :       lpViewAttrib->hFirstTaskOperation = hTaskOperation;
 
@@ -18701,14 +18701,14 @@ $L9910:
 	mov	edx, DWORD PTR _lpViewAttrib$[ebp]
 	mov	eax, DWORD PTR _hTaskOperation$[ebp]
 	mov	DWORD PTR [edx+189], eax
-$L9913:
+$L9914:
 
 ; 6274 : 
 ; 6275 :    return( (zPOBJOPER) lpTaskOperation->pfnTaskOper );
 
 	mov	ecx, DWORD PTR _lpTaskOperation$[ebp]
 	mov	eax, DWORD PTR [ecx+30]
-$L9858:
+$L9859:
 
 ; 6276 : }
 
@@ -18743,7 +18743,7 @@ _sFormatIn PROC NEAR
 ; 6306 :    j = 0;
 
 	mov	WORD PTR _j$[ebp], 0
-$L9928:
+$L9929:
 
 ; 6307 :    while ( pchString[ j ] )
 
@@ -18751,7 +18751,7 @@ $L9928:
 	mov	ecx, DWORD PTR _pchString$[ebp]
 	movsx	edx, BYTE PTR [ecx+eax]
 	test	edx, edx
-	je	$L9929
+	je	$L9930
 
 ; 6309 :       switch ( pchFormat[ i ] )
 ; 6310 :       {
@@ -18761,19 +18761,19 @@ $L9928:
 	movsx	edx, BYTE PTR [ecx+eax]
 	mov	DWORD PTR -20+[ebp], edx
 	cmp	DWORD PTR -20+[ebp], 97			; 00000061H
-	ja	$L9954
+	ja	$L9955
 	mov	ecx, DWORD PTR -20+[ebp]
 	xor	eax, eax
-	mov	al, BYTE PTR $L11938[ecx]
-	jmp	DWORD PTR $L11939[eax*4]
-$L9934:
+	mov	al, BYTE PTR $L11939[ecx]
+	jmp	DWORD PTR $L11940[eax*4]
+$L9935:
 
 ; 6311 :          case  0:
 ; 6312 :             return( 1 );
 
 	mov	al, 1
-	jmp	$L9922
-$L9935:
+	jmp	$L9923
+$L9936:
 
 ; 6313 : 
 ; 6314 :          case  '9':
@@ -18781,7 +18781,7 @@ $L9935:
 
 	mov	edx, DWORD PTR __imp____mb_cur_max
 	cmp	DWORD PTR [edx], 1
-	jle	SHORT $L11930
+	jle	SHORT $L11931
 	push	4
 	movsx	eax, WORD PTR _j$[ebp]
 	mov	ecx, DWORD PTR _pchString$[ebp]
@@ -18790,8 +18790,8 @@ $L9935:
 	call	DWORD PTR __imp___isctype
 	add	esp, 8
 	mov	DWORD PTR -24+[ebp], eax
-	jmp	SHORT $L11931
-$L11930:
+	jmp	SHORT $L11932
+$L11931:
 	movsx	eax, WORD PTR _j$[ebp]
 	mov	ecx, DWORD PTR _pchString$[ebp]
 	movsx	edx, BYTE PTR [ecx+eax]
@@ -18801,21 +18801,21 @@ $L11930:
 	mov	ax, WORD PTR [ecx+edx*2]
 	and	eax, 4
 	mov	DWORD PTR -24+[ebp], eax
-$L11931:
+$L11932:
 	cmp	DWORD PTR -24+[ebp], 0
-	jne	SHORT $L9936
+	jne	SHORT $L9937
 
 ; 6316 :                return( 1 );
 
 	mov	al, 1
-	jmp	$L9922
-$L9936:
+	jmp	$L9923
+$L9937:
 
 ; 6317 : 
 ; 6318 :             break;
 
-	jmp	$L9931
-$L9937:
+	jmp	$L9932
+$L9938:
 
 ; 6319 : 
 ; 6320 :          case  'A':
@@ -18823,7 +18823,7 @@ $L9937:
 
 	mov	ecx, DWORD PTR __imp____mb_cur_max
 	cmp	DWORD PTR [ecx], 1
-	jle	SHORT $L11932
+	jle	SHORT $L11933
 	push	1
 	movsx	edx, WORD PTR _j$[ebp]
 	mov	eax, DWORD PTR _pchString$[ebp]
@@ -18832,8 +18832,8 @@ $L9937:
 	call	DWORD PTR __imp___isctype
 	add	esp, 8
 	mov	DWORD PTR -28+[ebp], eax
-	jmp	SHORT $L11933
-$L11932:
+	jmp	SHORT $L11934
+$L11933:
 	movsx	edx, WORD PTR _j$[ebp]
 	mov	eax, DWORD PTR _pchString$[ebp]
 	movsx	ecx, BYTE PTR [eax+edx]
@@ -18843,21 +18843,21 @@ $L11932:
 	mov	dx, WORD PTR [eax+ecx*2]
 	and	edx, 1
 	mov	DWORD PTR -28+[ebp], edx
-$L11933:
+$L11934:
 	cmp	DWORD PTR -28+[ebp], 0
-	jne	SHORT $L9938
+	jne	SHORT $L9939
 
 ; 6322 :                return( 1 );
 
 	mov	al, 1
-	jmp	$L9922
-$L9938:
+	jmp	$L9923
+$L9939:
 
 ; 6323 : 
 ; 6324 :             break;
 
-	jmp	$L9931
-$L9939:
+	jmp	$L9932
+$L9940:
 
 ; 6325 : 
 ; 6326 :          case  'a':
@@ -18865,7 +18865,7 @@ $L9939:
 
 	mov	eax, DWORD PTR __imp____mb_cur_max
 	cmp	DWORD PTR [eax], 1
-	jle	SHORT $L11934
+	jle	SHORT $L11935
 	push	259					; 00000103H
 	movsx	ecx, WORD PTR _j$[ebp]
 	mov	edx, DWORD PTR _pchString$[ebp]
@@ -18874,8 +18874,8 @@ $L9939:
 	call	DWORD PTR __imp___isctype
 	add	esp, 8
 	mov	DWORD PTR -32+[ebp], eax
-	jmp	SHORT $L11935
-$L11934:
+	jmp	SHORT $L11936
+$L11935:
 	movsx	ecx, WORD PTR _j$[ebp]
 	mov	edx, DWORD PTR _pchString$[ebp]
 	movsx	eax, BYTE PTR [edx+ecx]
@@ -18885,21 +18885,21 @@ $L11934:
 	mov	cx, WORD PTR [edx+eax*2]
 	and	ecx, 259				; 00000103H
 	mov	DWORD PTR -32+[ebp], ecx
-$L11935:
+$L11936:
 	cmp	DWORD PTR -32+[ebp], 0
-	jne	SHORT $L9940
+	jne	SHORT $L9941
 
 ; 6328 :                return( 1 );
 
 	mov	al, 1
-	jmp	$L9922
-$L9940:
+	jmp	$L9923
+$L9941:
 
 ; 6329 : 
 ; 6330 :             break;
 
-	jmp	$L9931
-$L9941:
+	jmp	$L9932
+$L9942:
 
 ; 6331 : 
 ; 6332 :          case  'X':
@@ -18907,7 +18907,7 @@ $L9941:
 
 	mov	edx, DWORD PTR __imp____mb_cur_max
 	cmp	DWORD PTR [edx], 1
-	jle	SHORT $L11936
+	jle	SHORT $L11937
 	push	263					; 00000107H
 	movsx	eax, WORD PTR _j$[ebp]
 	mov	ecx, DWORD PTR _pchString$[ebp]
@@ -18916,8 +18916,8 @@ $L9941:
 	call	DWORD PTR __imp___isctype
 	add	esp, 8
 	mov	DWORD PTR -36+[ebp], eax
-	jmp	SHORT $L11937
-$L11936:
+	jmp	SHORT $L11938
+$L11937:
 	movsx	eax, WORD PTR _j$[ebp]
 	mov	ecx, DWORD PTR _pchString$[ebp]
 	movsx	edx, BYTE PTR [ecx+eax]
@@ -18927,28 +18927,28 @@ $L11936:
 	mov	ax, WORD PTR [ecx+edx*2]
 	and	eax, 263				; 00000107H
 	mov	DWORD PTR -36+[ebp], eax
-$L11937:
+$L11938:
 	cmp	DWORD PTR -36+[ebp], 0
-	jne	SHORT $L9942
+	jne	SHORT $L9943
 
 ; 6334 :                return( 1 );
 
 	mov	al, 1
-	jmp	$L9922
-$L9942:
+	jmp	$L9923
+$L9943:
 
 ; 6335 : 
 ; 6336 :             break;
 
-	jmp	$L9931
-$L9943:
+	jmp	$L9932
+$L9944:
 
 ; 6337 : 
 ; 6338 :          case  '*':
 ; 6339 :             break;
 
-	jmp	$L9931
-$L9944:
+	jmp	$L9932
+$L9945:
 
 ; 6340 : 
 ; 6341 :          case  '\\':
@@ -18960,8 +18960,8 @@ $L9944:
 
 ; 6343 :             break;
 
-	jmp	$L9931
-$L9945:
+	jmp	$L9932
+$L9946:
 
 ; 6344 : 
 ; 6345 :          case  ' ':
@@ -18971,14 +18971,14 @@ $L9945:
 	mov	eax, DWORD PTR _pchString$[ebp]
 	movsx	ecx, BYTE PTR [eax+edx]
 	cmp	ecx, 32					; 00000020H
-	jne	SHORT $L9946
+	jne	SHORT $L9947
 
 ; 6348 :                k = j + 1;
 
 	movsx	edx, WORD PTR _j$[ebp]
 	add	edx, 1
 	mov	WORD PTR _k$[ebp], dx
-$L9948:
+$L9949:
 
 ; 6349 :                while( pchString[ k ] == ' ' )
 
@@ -18986,22 +18986,22 @@ $L9948:
 	mov	ecx, DWORD PTR _pchString$[ebp]
 	movsx	edx, BYTE PTR [ecx+eax]
 	cmp	edx, 32					; 00000020H
-	jne	SHORT $L9949
+	jne	SHORT $L9950
 
 ; 6350 :                   k++;
 
 	mov	ax, WORD PTR _k$[ebp]
 	add	ax, 1
 	mov	WORD PTR _k$[ebp], ax
-	jmp	SHORT $L9948
-$L9949:
+	jmp	SHORT $L9949
+$L9950:
 
 ; 6351 : 
 ; 6352 :                l = j;
 
 	mov	cx, WORD PTR _j$[ebp]
 	mov	WORD PTR _l$[ebp], cx
-$L9951:
+$L9952:
 
 ; 6355 :                   pchString[ l++ ] = pchString[ k ];
 
@@ -19021,12 +19021,12 @@ $L9951:
 	mov	edx, DWORD PTR _pchString$[ebp]
 	movsx	eax, BYTE PTR [edx+ecx]
 	test	eax, eax
-	jne	SHORT $L9953
+	jne	SHORT $L9954
 
 ; 6357 :                      break;
 
-	jmp	SHORT $L9952
-$L9953:
+	jmp	SHORT $L9953
+$L9954:
 
 ; 6358 : 
 ; 6359 :                   k++;
@@ -19037,21 +19037,21 @@ $L9953:
 
 ; 6360 :                }
 
-	jmp	SHORT $L9951
-$L9952:
+	jmp	SHORT $L9952
+$L9953:
 
 ; 6361 : 
 ; 6362 :                break;
 
-	jmp	SHORT $L9931
-$L9946:
+	jmp	SHORT $L9932
+$L9947:
 
 ; 6364 :             else
 ; 6365 :                return( 1 );
 
 	mov	al, 1
-	jmp	$L9922
-$L9954:
+	jmp	$L9923
+$L9955:
 
 ; 6366 : 
 ; 6367 :          default:
@@ -19064,20 +19064,20 @@ $L9954:
 	mov	eax, DWORD PTR _pchString$[ebp]
 	movsx	edx, BYTE PTR [eax+edx]
 	cmp	ecx, edx
-	je	SHORT $L9956
+	je	SHORT $L9957
 
 ; 6369 :                return( 1 );
 
 	mov	al, 1
-	jmp	SHORT $L9922
-$L9956:
+	jmp	SHORT $L9923
+$L9957:
 
 ; 6370 : 
 ; 6371 :             k = j;
 
 	mov	ax, WORD PTR _j$[ebp]
 	mov	WORD PTR _k$[ebp], ax
-$L9958:
+$L9959:
 
 ; 6374 :                pchString[ k ] = pchString[ k + 1 ];
 
@@ -19094,12 +19094,12 @@ $L9958:
 	mov	eax, DWORD PTR _pchString$[ebp]
 	movsx	ecx, BYTE PTR [eax+edx]
 	test	ecx, ecx
-	jne	SHORT $L9960
+	jne	SHORT $L9961
 
 ; 6376 :                   break;
 
-	jmp	SHORT $L9959
-$L9960:
+	jmp	SHORT $L9960
+$L9961:
 
 ; 6377 : 
 ; 6378 :                k++;
@@ -19110,8 +19110,8 @@ $L9960:
 
 ; 6379 :             }
 
-	jmp	SHORT $L9958
-$L9959:
+	jmp	SHORT $L9959
+$L9960:
 
 ; 6380 : 
 ; 6381 :             j--;
@@ -19119,7 +19119,7 @@ $L9959:
 	mov	ax, WORD PTR _j$[ebp]
 	sub	ax, 1
 	mov	WORD PTR _j$[ebp], ax
-$L9931:
+$L9932:
 
 ; 6383 : 
 ; 6384 :         i++;
@@ -19136,8 +19136,8 @@ $L9931:
 
 ; 6386 :     }
 
-	jmp	$L9928
-$L9929:
+	jmp	$L9929
+$L9930:
 
 ; 6387 : 
 ; 6388 :     if ( pchFormat[ i ] )
@@ -19146,19 +19146,19 @@ $L9929:
 	mov	ecx, DWORD PTR _pchFormat$[ebp]
 	movsx	edx, BYTE PTR [ecx+eax]
 	test	edx, edx
-	je	SHORT $L9961
+	je	SHORT $L9962
 
 ; 6389 :        return( 1 );
 
 	mov	al, 1
-	jmp	SHORT $L9922
-$L9961:
+	jmp	SHORT $L9923
+$L9962:
 
 ; 6390 : 
 ; 6391 :     return( 0 );
 
 	xor	al, al
-$L9922:
+$L9923:
 
 ; 6392 : }
 
@@ -19166,17 +19166,17 @@ $L9922:
 	mov	esp, ebp
 	pop	ebp
 	ret	0
-$L11939:
-	DD	$L9934
-	DD	$L9945
-	DD	$L9943
+$L11940:
 	DD	$L9935
-	DD	$L9937
-	DD	$L9941
+	DD	$L9946
 	DD	$L9944
-	DD	$L9939
-	DD	$L9954
-$L11938:
+	DD	$L9936
+	DD	$L9938
+	DD	$L9942
+	DD	$L9945
+	DD	$L9940
+	DD	$L9955
+$L11939:
 	DB	0
 	DB	8
 	DB	8
@@ -19309,13 +19309,13 @@ _sFormatOut PROC NEAR
 	mov	eax, DWORD PTR _pchString$[ebp]
 	movsx	ecx, BYTE PTR [eax]
 	test	ecx, ecx
-	jne	SHORT $L9971
+	jne	SHORT $L9972
 
 ; 6422 :       return( 0 );
 
 	xor	ax, ax
-	jmp	$L9967
-$L9971:
+	jmp	$L9968
+$L9972:
 
 ; 6423 : 
 ; 6424 :    while ( pchFormat[ i ] )
@@ -19324,7 +19324,7 @@ $L9971:
 	mov	eax, DWORD PTR _pchFormat$[ebp]
 	movsx	ecx, BYTE PTR [eax+edx]
 	test	ecx, ecx
-	je	$L9974
+	je	$L9975
 
 ; 6426 :       switch ( pchFormat[ i ] )
 ; 6427 :       {
@@ -19337,12 +19337,12 @@ $L9971:
 	sub	edx, 42					; 0000002aH
 	mov	DWORD PTR -16+[ebp], edx
 	cmp	DWORD PTR -16+[ebp], 55			; 00000037H
-	ja	SHORT $L9981
+	ja	SHORT $L9982
 	mov	ecx, DWORD PTR -16+[ebp]
 	xor	eax, eax
-	mov	al, BYTE PTR $L11941[ecx]
-	jmp	DWORD PTR $L11942[eax*4]
-$L9979:
+	mov	al, BYTE PTR $L11942[ecx]
+	jmp	DWORD PTR $L11943[eax*4]
+$L9980:
 
 ; 6428 :          case  '9':
 ; 6429 :          case  'A':
@@ -19355,19 +19355,19 @@ $L9979:
 	mov	eax, DWORD PTR _pchString$[ebp]
 	movsx	ecx, BYTE PTR [eax+edx]
 	test	ecx, ecx
-	jne	SHORT $L9980
+	jne	SHORT $L9981
 
 ; 6434 :                return( 1 );
 
 	mov	ax, 1
-	jmp	$L9967
-$L9980:
+	jmp	$L9968
+$L9981:
 
 ; 6435 : 
 ; 6436 :             break;
 
-	jmp	$L9976
-$L9981:
+	jmp	$L9977
+$L9982:
 
 ; 6437 : 
 ; 6438 :          default:
@@ -19377,26 +19377,26 @@ $L9981:
 	mov	eax, DWORD PTR _pchFormat$[ebp]
 	movsx	ecx, BYTE PTR [eax+edx]
 	cmp	ecx, 92					; 0000005cH
-	jne	SHORT $L9982
+	jne	SHORT $L9983
 	movsx	edx, WORD PTR _i$[ebp]
 	mov	eax, DWORD PTR _pchFormat$[ebp]
 	movsx	ecx, BYTE PTR [eax+edx+1]
 	test	ecx, ecx
-	je	SHORT $L9982
+	je	SHORT $L9983
 
 ; 6440 :                i++;
 
 	mov	dx, WORD PTR _i$[ebp]
 	add	dx, 1
 	mov	WORD PTR _i$[ebp], dx
-$L9982:
+$L9983:
 
 ; 6441 : 
 ; 6442 :             k = j;
 
 	mov	ax, WORD PTR _j$[ebp]
 	mov	WORD PTR _k$[ebp], ax
-$L9984:
+$L9985:
 
 ; 6443 :             while ( pchString[ k ] )
 
@@ -19404,15 +19404,15 @@ $L9984:
 	mov	edx, DWORD PTR _pchString$[ebp]
 	movsx	eax, BYTE PTR [edx+ecx]
 	test	eax, eax
-	je	SHORT $L9985
+	je	SHORT $L9986
 
 ; 6444 :                k++;
 
 	mov	cx, WORD PTR _k$[ebp]
 	add	cx, 1
 	mov	WORD PTR _k$[ebp], cx
-	jmp	SHORT $L9984
-$L9985:
+	jmp	SHORT $L9985
+$L9986:
 
 ; 6445 : 
 ; 6446 :             while ( k >= j )
@@ -19420,7 +19420,7 @@ $L9985:
 	movsx	edx, WORD PTR _k$[ebp]
 	movsx	eax, WORD PTR _j$[ebp]
 	cmp	edx, eax
-	jl	SHORT $L9988
+	jl	SHORT $L9989
 
 ; 6448 :                pchString[ k + 1 ] = pchString[ k ];
 
@@ -19439,8 +19439,8 @@ $L9985:
 
 ; 6450 :             }
 
-	jmp	SHORT $L9985
-$L9988:
+	jmp	SHORT $L9986
+$L9989:
 
 ; 6451 : 
 ; 6452 :             pchString[ j ] = pchFormat[ i ];
@@ -19451,7 +19451,7 @@ $L9988:
 	mov	esi, DWORD PTR _pchFormat$[ebp]
 	mov	al, BYTE PTR [esi+eax]
 	mov	BYTE PTR [edx+ecx], al
-$L9976:
+$L9977:
 
 ; 6454 : 
 ; 6455 :       i++;
@@ -19468,14 +19468,14 @@ $L9976:
 
 ; 6457 :    }
 
-	jmp	$L9971
-$L9974:
+	jmp	$L9972
+$L9975:
 
 ; 6458 : 
 ; 6459 :    return( 0 );
 
 	xor	ax, ax
-$L9967:
+$L9968:
 
 ; 6460 : }
 
@@ -19483,10 +19483,10 @@ $L9967:
 	mov	esp, ebp
 	pop	ebp
 	ret	0
+$L11943:
+	DD	$L9980
+	DD	$L9982
 $L11942:
-	DD	$L9979
-	DD	$L9981
-$L11941:
 	DB	0
 	DB	1
 	DB	1
@@ -19574,8 +19574,8 @@ _lpViewEntityCsr$ = -28
 _lpViewAttrib$ = -16
 _lpEntityInstance$ = -8
 _lpVsnInstance$ = -20
-_lpTempEI$10070 = -36
-_lpNextVsn$10094 = -40
+_lpTempEI$10071 = -36
+_lpNextVsn$10095 = -40
 _fnValidateAttributeParameters PROC NEAR
 
 ; 6489 : {
@@ -19598,7 +19598,7 @@ _fnValidateAttributeParameters PROC NEAR
 	movsx	eax, WORD PTR _nFlag$[ebp]
 	and	eax, 4096				; 00001000H
 	test	eax, eax
-	je	SHORT $L10018
+	je	SHORT $L10019
 
 ; 6501 :       lpCurrentTask = *lpReturnTask;
 
@@ -19616,18 +19616,18 @@ _fnValidateAttributeParameters PROC NEAR
 	add	esp, 8
 	movsx	edx, ax
 	test	edx, edx
-	jne	SHORT $L10019
+	jne	SHORT $L10020
 
 ; 6503 :          return( -1 );
 
 	or	ax, -1
-	jmp	$L10009
-$L10019:
+	jmp	$L10010
+$L10020:
 
 ; 6505 :    else
 
-	jmp	SHORT $L10020
-$L10018:
+	jmp	SHORT $L10021
+$L10019:
 
 ; 6507 :       // If task not active or disabled, or view csr invalid, return 1.
 ; 6508 :       if ( (lpCurrentTask = fnOperationCall( iOperationID, lpView,
@@ -19642,13 +19642,13 @@ $L10018:
 	add	esp, 12					; 0000000cH
 	mov	DWORD PTR _lpCurrentTask$[ebp], eax
 	cmp	DWORD PTR _lpCurrentTask$[ebp], 0
-	jne	SHORT $L10021
+	jne	SHORT $L10022
 
 ; 6511 :          return( 1 );  // no need to call fnOperationReturn
 
 	mov	ax, 1
-	jmp	$L10009
-$L10021:
+	jmp	$L10010
+$L10022:
 
 ; 6513 : 
 ; 6514 :       *lpReturnTask = lpCurrentTask;
@@ -19656,7 +19656,7 @@ $L10021:
 	mov	edx, DWORD PTR _lpReturnTask$[ebp]
 	mov	eax, DWORD PTR _lpCurrentTask$[ebp]
 	mov	DWORD PTR [edx], eax
-$L10020:
+$L10021:
 
 ; 6516 : 
 ; 6517 :    // Get the view Object Instance for the view.
@@ -19691,13 +19691,13 @@ $L10020:
 	call	_fnValidViewEntity@16
 	mov	DWORD PTR _lpViewEntity$[ebp], eax
 	cmp	DWORD PTR _lpViewEntity$[ebp], 0
-	jne	SHORT $L10024
+	jne	SHORT $L10025
 
 ; 6525 :       return( -1 );
 
 	or	ax, -1
-	jmp	$L10009
-$L10024:
+	jmp	$L10010
+$L10025:
 
 ; 6527 : 
 ; 6528 :    // Set View Entity and View Entity Cursor for caller.
@@ -19718,7 +19718,7 @@ $L10024:
 ; 6533 :    if ( cpcAttributeName == 0 )
 
 	cmp	DWORD PTR _cpcAttributeName$[ebp], 0
-	jne	SHORT $L10025
+	jne	SHORT $L10026
 
 ; 6535 :       lpViewAttrib = zGETPTR( lpViewEntity->hFirstOD_Attrib );
 
@@ -19731,18 +19731,18 @@ $L10024:
 ; 6536 :       if ( lpViewAttrib == 0 )
 
 	cmp	DWORD PTR _lpViewAttrib$[ebp], 0
-	jne	SHORT $L10027
+	jne	SHORT $L10028
 
 ; 6537 :          return( -1 );
 
 	or	ax, -1
-	jmp	$L10009
-$L10027:
+	jmp	$L10010
+$L10028:
 
 ; 6539 :    else
 
-	jmp	SHORT $L10029
-$L10025:
+	jmp	SHORT $L10030
+$L10026:
 
 ; 6540 :    if ( (lpViewAttrib = fnValidViewAttrib( lpView, lpViewEntity,
 ; 6541 :                                            cpcAttributeName, 0 )) == 0 )
@@ -19758,13 +19758,13 @@ $L10025:
 	add	esp, 16					; 00000010H
 	mov	DWORD PTR _lpViewAttrib$[ebp], eax
 	cmp	DWORD PTR _lpViewAttrib$[ebp], 0
-	jne	SHORT $L10029
+	jne	SHORT $L10030
 
 ; 6543 :       return( -1 );
 
 	or	ax, -1
-	jmp	$L10009
-$L10029:
+	jmp	$L10010
+$L10030:
 
 ; 6545 : 
 ; 6546 :    // If intent is update, fail the call unless the attribute is a work attr.
@@ -19773,24 +19773,24 @@ $L10029:
 
 	movsx	edx, WORD PTR _bUpdate$[ebp]
 	test	edx, edx
-	je	SHORT $L10030
+	je	SHORT $L10031
 	mov	eax, DWORD PTR _lpView$[ebp]
 	mov	ecx, DWORD PTR [eax+30]
 	shr	ecx, 6
 	and	ecx, 1
 	test	ecx, ecx
-	je	SHORT $L10030
+	je	SHORT $L10031
 	mov	edx, DWORD PTR _lpViewAttrib$[ebp]
 	mov	eax, DWORD PTR [edx+193]
 	and	eax, 1
 	test	eax, eax
-	je	SHORT $L10030
+	je	SHORT $L10031
 	mov	ecx, DWORD PTR _lpViewEntity$[ebp]
 	mov	edx, DWORD PTR [ecx+235]
 	shr	edx, 14					; 0000000eH
 	and	edx, 1
 	test	edx, edx
-	jne	SHORT $L10030
+	jne	SHORT $L10031
 
 ; 6550 :       // "KZOEE119 - Invalid View, View is Read Only"
 ; 6551 :       fnIssueCoreError( lpCurrentTask, lpView, 8, 119, 0,
@@ -19817,8 +19817,8 @@ $L10029:
 ; 6555 :       return( -1 );
 
 	or	ax, -1
-	jmp	$L10009
-$L10030:
+	jmp	$L10010
+$L10031:
 
 ; 6557 : 
 ; 6558 :    // Set return view attrib, NOTE that this parameter is optional
@@ -19827,7 +19827,7 @@ $L10030:
 ; 6561 :    if ( pvReturnViewAttrib )
 
 	cmp	DWORD PTR _pvReturnViewAttrib$[ebp], 0
-	je	SHORT $L10031
+	je	SHORT $L10032
 
 ; 6563 :       // Set attribute pointer for caller
 ; 6564 :       *pvReturnViewAttrib = lpViewAttrib;
@@ -19835,7 +19835,7 @@ $L10030:
 	mov	ecx, DWORD PTR _pvReturnViewAttrib$[ebp]
 	mov	edx, DWORD PTR _lpViewAttrib$[ebp]
 	mov	DWORD PTR [ecx], edx
-$L10031:
+$L10032:
 
 ; 6566 : 
 ; 6567 :    // Get Entity Instance pointer.
@@ -19846,12 +19846,12 @@ $L10031:
 	push	ecx
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _lpEntityInstance$[ebp], eax
-$L10034:
+$L10035:
 
 ; 6574 :       if ( lpEntityInstance == UNSET_CSR )
 
 	cmp	DWORD PTR _lpEntityInstance$[ebp], 1
-	jne	SHORT $L10037
+	jne	SHORT $L10038
 
 ; 6575 :          lpEntityInstance = fnEstablishCursorForView( lpViewEntityCsr );
 
@@ -19860,24 +19860,24 @@ $L10034:
 	call	_fnEstablishCursorForView
 	add	esp, 4
 	mov	DWORD PTR _lpEntityInstance$[ebp], eax
-$L10037:
+$L10038:
 
 ; 6576 : 
 ; 6577 :       // Now make sure a cursor exists for the view entity.
 ; 6578 :       if ( lpEntityInstance == 0 )
 
 	cmp	DWORD PTR _lpEntityInstance$[ebp], 0
-	jne	$L10052
-$L10040:
+	jne	$L10053
+$L10041:
 
 ; 6580 :          // Make sure parent to NULL cursor is defined.
 ; 6581 :          while ( lpViewEntityCsr && lpViewEntityCsr->hEntityInstance == 0 )
 
 	cmp	DWORD PTR _lpViewEntityCsr$[ebp], 0
-	je	SHORT $L10041
+	je	SHORT $L10042
 	mov	eax, DWORD PTR _lpViewEntityCsr$[ebp]
 	cmp	DWORD PTR [eax+26], 0
-	jne	SHORT $L10041
+	jne	SHORT $L10042
 
 ; 6582 :             lpViewEntityCsr = zGETPTR( lpViewEntityCsr->hParent );
 
@@ -19886,14 +19886,14 @@ $L10040:
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _lpViewEntityCsr$[ebp], eax
-	jmp	SHORT $L10040
-$L10041:
+	jmp	SHORT $L10041
+$L10042:
 
 ; 6583 : 
 ; 6584 :          if ( lpViewEntityCsr )
 
 	cmp	DWORD PTR _lpViewEntityCsr$[ebp], 0
-	je	SHORT $L10043
+	je	SHORT $L10044
 
 ; 6586 :             lpEntityInstance = zGETPTR( lpViewEntityCsr->hEntityInstance );
 
@@ -19906,7 +19906,7 @@ $L10041:
 ; 6587 :             if ( lpEntityInstance == UNSET_CSR )
 
 	cmp	DWORD PTR _lpEntityInstance$[ebp], 1
-	jne	SHORT $L10046
+	jne	SHORT $L10047
 
 ; 6588 :                lpEntityInstance = fnEstablishCursorForView( lpViewEntityCsr );
 
@@ -19915,12 +19915,12 @@ $L10041:
 	call	_fnEstablishCursorForView
 	add	esp, 4
 	mov	DWORD PTR _lpEntityInstance$[ebp], eax
-$L10046:
+$L10047:
 
 ; 6590 :          else
 
-	jmp	SHORT $L10047
-$L10043:
+	jmp	SHORT $L10048
+$L10044:
 
 ; 6591 :             lpEntityInstance = zGETPTR( lpViewCsr->hViewParentEntityInstance );
 
@@ -19929,7 +19929,7 @@ $L10043:
 	push	ecx
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _lpEntityInstance$[ebp], eax
-$L10047:
+$L10048:
 
 ; 6592 : 
 ; 6593 :          if ( lpEntityInstance == 0 ||
@@ -19938,27 +19938,27 @@ $L10047:
 ; 6596 :               lpEntityInstance->u.nInd.bHidden == FALSE )
 
 	cmp	DWORD PTR _lpEntityInstance$[ebp], 0
-	je	SHORT $L10050
+	je	SHORT $L10051
 	mov	edx, DWORD PTR _lpEntityInstance$[ebp]
 	mov	eax, DWORD PTR [edx+6]
 	shr	eax, 10					; 0000000aH
 	and	eax, 1
 	test	eax, eax
-	jne	SHORT $L10052
-$L10050:
+	jne	SHORT $L10053
+$L10051:
 
 ; 6598 :             if ( nFlag & zACCEPT_NULL_ENTITY )
 
 	movsx	ecx, WORD PTR _nFlag$[ebp]
 	and	ecx, 1
 	test	ecx, ecx
-	je	SHORT $L10051
+	je	SHORT $L10052
 
 ; 6599 :                return( -2 );
 
 	mov	ax, -2					; fffffffeH
-	jmp	$L10009
-$L10051:
+	jmp	$L10010
+$L10052:
 
 ; 6602 :                //  "KZOEE253 - Entity cursor is NULL"
 ; 6603 :                fnIssueCoreError( lpCurrentTask, lpView, 8, 253, 0,
@@ -19985,8 +19985,8 @@ $L10051:
 ; 6607 :                return( -1 );
 
 	or	ax, -1
-	jmp	$L10009
-$L10052:
+	jmp	$L10010
+$L10053:
 
 ; 6611 : 
 ; 6612 :       // If the user wants to update the attribute but the attribute is part of
@@ -19995,12 +19995,12 @@ $L10052:
 
 	movsx	eax, WORD PTR _bUpdate$[ebp]
 	test	eax, eax
-	je	SHORT $L10053
+	je	SHORT $L10054
 	mov	ecx, DWORD PTR _lpEntityInstance$[ebp]
 	mov	edx, DWORD PTR [ecx+6]
 	and	edx, 1
 	test	edx, edx
-	je	SHORT $L10053
+	je	SHORT $L10054
 
 ; 6616 :          //  "KZOEE237 - Attempt to update a non-updateable attribute"
 ; 6617 :          fnIssueCoreError( lpCurrentTask, lpView, 8, 237, 0,
@@ -20028,8 +20028,8 @@ $L10052:
 ; 6621 :          return( -1 );
 
 	or	ax, -1
-	jmp	$L10009
-$L10053:
+	jmp	$L10010
+$L10054:
 
 ; 6623 : 
 ; 6624 :       if ( lpEntityInstance->u.nInd.bHidden )
@@ -20039,7 +20039,7 @@ $L10053:
 	shr	edx, 10					; 0000000aH
 	and	edx, 1
 	test	edx, edx
-	je	$L10054
+	je	$L10055
 
 ; 6626 :          // If we are attempting to update something with an undefined
 ; 6627 :          // cursor, or the highest level cursor in the view is undefined,
@@ -20048,10 +20048,10 @@ $L10053:
 
 	movsx	eax, WORD PTR _bUpdate$[ebp]
 	test	eax, eax
-	jne	SHORT $L10056
+	jne	SHORT $L10057
 	cmp	DWORD PTR _lpViewEntityCsr$[ebp], 0
-	jne	SHORT $L10055
-$L10056:
+	jne	SHORT $L10056
+$L10057:
 
 ; 6631 :             //  "KZOEE254 - Entity cursor is undefined"
 ; 6632 :             fnIssueCoreError( lpCurrentTask, lpView, 8, 254, 0,
@@ -20078,8 +20078,8 @@ $L10056:
 ; 6636 :             return( -1 );
 
 	or	ax, -1
-	jmp	$L10009
-$L10055:
+	jmp	$L10010
+$L10056:
 
 ; 6640 :             // We have found an undefined cursor, try and establish the
 ; 6641 :             // cursor on the next or previous entity at the highest level.
@@ -20087,7 +20087,7 @@ $L10055:
 
 	mov	edx, DWORD PTR _lpEntityInstance$[ebp]
 	cmp	DWORD PTR [edx+22], 0
-	je	SHORT $L10060
+	je	SHORT $L10061
 
 ; 6644 :                lpEntityInstance = zGETPTR( lpEntityInstance->hNextTwin );
 
@@ -20104,17 +20104,17 @@ $L10055:
 	shr	eax, 10					; 0000000aH
 	and	eax, 1
 	test	eax, eax
-	jne	SHORT $L10062
+	jne	SHORT $L10063
 
 ; 6646 :                   break;
 
-	jmp	SHORT $L10060
-$L10062:
+	jmp	SHORT $L10061
+$L10063:
 
 ; 6647 :             }
 
-	jmp	SHORT $L10055
-$L10060:
+	jmp	SHORT $L10056
+$L10061:
 
 ; 6648 : 
 ; 6649 :             if ( lpEntityInstance->u.nInd.bHidden )
@@ -20124,14 +20124,14 @@ $L10060:
 	shr	edx, 10					; 0000000aH
 	and	edx, 1
 	test	edx, edx
-	je	SHORT $L10066
-$L10065:
+	je	SHORT $L10067
+$L10066:
 
 ; 6651 :                while ( lpEntityInstance->hPrevTwin )
 
 	mov	eax, DWORD PTR _lpEntityInstance$[ebp]
 	cmp	DWORD PTR [eax+26], 0
-	je	SHORT $L10066
+	je	SHORT $L10067
 
 ; 6653 :                   lpEntityInstance = zGETPTR( lpEntityInstance->hPrevTwin );
 
@@ -20148,17 +20148,17 @@ $L10065:
 	shr	ecx, 10					; 0000000aH
 	and	ecx, 1
 	test	ecx, ecx
-	jne	SHORT $L10068
+	jne	SHORT $L10069
 
 ; 6655 :                      break;
 
-	jmp	SHORT $L10066
-$L10068:
+	jmp	SHORT $L10067
+$L10069:
 
 ; 6656 :                }
 
-	jmp	SHORT $L10065
-$L10066:
+	jmp	SHORT $L10066
+$L10067:
 
 ; 6658 : 
 ; 6659 :             // If we found a cursor we can establish, try and re-establish
@@ -20170,7 +20170,7 @@ $L10066:
 	shr	eax, 10					; 0000000aH
 	and	eax, 1
 	test	eax, eax
-	jne	$L10069
+	jne	$L10070
 
 ; 6663 :                LPENTITYINSTANCE lpTempEI;
 ; 6664 : 
@@ -20204,28 +20204,28 @@ $L10066:
 	mov	ecx, DWORD PTR [eax+26]
 	push	ecx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpTempEI$10070[ebp], eax
+	mov	DWORD PTR _lpTempEI$10071[ebp], eax
 
 ; 6672 :                if ( lpTempEI == 0 || lpTempEI == UNSET_CSR )
 
-	cmp	DWORD PTR _lpTempEI$10070[ebp], 0
-	je	SHORT $L10075
-	cmp	DWORD PTR _lpTempEI$10070[ebp], 1
-	jne	SHORT $L10077
-$L10075:
+	cmp	DWORD PTR _lpTempEI$10071[ebp], 0
+	je	SHORT $L10076
+	cmp	DWORD PTR _lpTempEI$10071[ebp], 1
+	jne	SHORT $L10078
+$L10076:
 
 ; 6674 :                   if ( nFlag & zACCEPT_NULL_ENTITY )
 
 	movsx	edx, WORD PTR _nFlag$[ebp]
 	and	edx, 1
 	test	edx, edx
-	je	SHORT $L10076
+	je	SHORT $L10077
 
 ; 6675 :                      return( -2 );
 
 	mov	ax, -2					; fffffffeH
-	jmp	$L10009
-$L10076:
+	jmp	$L10010
+$L10077:
 
 ; 6678 :                      // "KZOEE254 - Entity cursor is undefined"
 ; 6679 :                      fnIssueCoreError( lpCurrentTask, lpView, 8, 254, 0,
@@ -20252,26 +20252,26 @@ $L10076:
 ; 6683 :                      return( -1 );
 
 	or	ax, -1
-	jmp	$L10009
-$L10077:
+	jmp	$L10010
+$L10078:
 
 ; 6687 :             else
 
-	jmp	SHORT $L10080
-$L10069:
+	jmp	SHORT $L10081
+$L10070:
 
 ; 6689 :                if ( nFlag & zACCEPT_NULL_ENTITY )
 
 	movsx	ecx, WORD PTR _nFlag$[ebp]
 	and	ecx, 1
 	test	ecx, ecx
-	je	SHORT $L10079
+	je	SHORT $L10080
 
 ; 6690 :                   return( -2 );
 
 	mov	ax, -2					; fffffffeH
-	jmp	$L10009
-$L10079:
+	jmp	$L10010
+$L10080:
 
 ; 6693 :                   //  "KZOEE254 - Entity cursor is undefined"
 ; 6694 :                   fnIssueCoreError( lpCurrentTask, lpView, 8, 254, 0,
@@ -20298,30 +20298,30 @@ $L10079:
 ; 6698 :                   return( -1 );
 
 	or	ax, -1
-	jmp	$L10009
-$L10080:
+	jmp	$L10010
+$L10081:
 
 ; 6703 :       else
 
-	jmp	SHORT $L10081
-$L10054:
+	jmp	SHORT $L10082
+$L10055:
 
 ; 6704 :          break;
 
-	jmp	SHORT $L10035
-$L10081:
+	jmp	SHORT $L10036
+$L10082:
 
 ; 6705 :    }
 
-	jmp	$L10034
-$L10035:
+	jmp	$L10035
+$L10036:
 
 ; 6706 : 
 ; 6707 :    if ( bUpdate )
 
 	movsx	eax, WORD PTR _bUpdate$[ebp]
 	test	eax, eax
-	je	$L10102
+	je	$L10103
 
 ; 6709 :       // If the entity doesn't have update authority then fail the check
 ; 6710 :       // unless the attribute is a work attribute.
@@ -20332,12 +20332,12 @@ $L10035:
 	shr	edx, 2
 	and	edx, 1
 	test	edx, edx
-	jne	SHORT $L10083
+	jne	SHORT $L10084
 	mov	eax, DWORD PTR _lpViewAttrib$[ebp]
 	mov	ecx, DWORD PTR [eax+193]
 	and	ecx, 1
 	test	ecx, ecx
-	je	SHORT $L10083
+	je	SHORT $L10084
 
 ; 6713 :          // "KZOEE106 - Rules violation"
 ; 6714 :          fnIssueCoreError( lpCurrentTask, lpView, 8, 106, 0,
@@ -20362,8 +20362,8 @@ $L10035:
 ; 6718 :          return( -1 );
 
 	or	ax, -1
-	jmp	$L10009
-$L10083:
+	jmp	$L10010
+$L10084:
 
 ; 6720 : 
 ; 6721 :       if ( lpEntityInstance->u.nInd.bPrevVersion )
@@ -20373,7 +20373,7 @@ $L10083:
 	shr	eax, 8
 	and	eax, 1
 	test	eax, eax
-	je	$L10098
+	je	$L10099
 
 ; 6723 :          // We've found an entity instance which may be a previous
 ; 6724 :          // version. Check that it is a non-updateable record version
@@ -20387,7 +20387,7 @@ $L10083:
 
 	mov	edx, DWORD PTR _lpEntityInstance$[ebp]
 	cmp	DWORD PTR [edx+34], 0
-	jne	SHORT $L10091
+	jne	SHORT $L10092
 
 ; 6729 :             lpVsnInstance = zGETPTR( lpEntityInstance->hNextLinked );
 
@@ -20400,14 +20400,14 @@ $L10083:
 ; 6730 :             if ( lpVsnInstance )
 
 	cmp	DWORD PTR _lpVsnInstance$[ebp], 0
-	je	SHORT $L10091
-$L10090:
+	je	SHORT $L10092
+$L10091:
 
 ; 6737 :                   if ( lpVsnInstance == lpEntityInstance )
 
 	mov	edx, DWORD PTR _lpVsnInstance$[ebp]
 	cmp	edx, DWORD PTR _lpEntityInstance$[ebp]
-	jne	SHORT $L10092
+	jne	SHORT $L10093
 
 ; 6739 :                      lpVsnInstance = 0;
 
@@ -20415,15 +20415,15 @@ $L10090:
 
 ; 6740 :                      break;
 
-	jmp	SHORT $L10091
-$L10092:
+	jmp	SHORT $L10092
+$L10093:
 
 ; 6742 : 
 ; 6743 :                   if ( lpVsnInstance->hNextVsn )
 
 	mov	eax, DWORD PTR _lpVsnInstance$[ebp]
 	cmp	DWORD PTR [eax+34], 0
-	je	SHORT $L10096
+	je	SHORT $L10097
 
 ; 6745 :                      LPENTITYINSTANCE lpNextVsn =
 ; 6746 :                                           zGETPTR( lpVsnInstance->hNextVsn );
@@ -20432,21 +20432,21 @@ $L10092:
 	mov	edx, DWORD PTR [ecx+34]
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpNextVsn$10094[ebp], eax
+	mov	DWORD PTR _lpNextVsn$10095[ebp], eax
 
 ; 6747 : 
 ; 6748 :                      if ( lpNextVsn->hPersistRecord != lpEntityInstance->hPersistRecord )
 
-	mov	eax, DWORD PTR _lpNextVsn$10094[ebp]
+	mov	eax, DWORD PTR _lpNextVsn$10095[ebp]
 	mov	ecx, DWORD PTR _lpEntityInstance$[ebp]
 	mov	edx, DWORD PTR [eax+60]
 	cmp	edx, DWORD PTR [ecx+60]
-	je	SHORT $L10096
+	je	SHORT $L10097
 
 ; 6749 :                         break;
 
-	jmp	SHORT $L10091
-$L10096:
+	jmp	SHORT $L10092
+$L10097:
 
 ; 6751 : 
 ; 6752 :                   lpVsnInstance = zGETPTR( lpVsnInstance->hNextLinked );
@@ -20459,14 +20459,14 @@ $L10096:
 
 ; 6753 :                }
 
-	jmp	SHORT $L10090
-$L10091:
+	jmp	SHORT $L10091
+$L10092:
 
 ; 6756 : 
 ; 6757 :          if ( lpVsnInstance )
 
 	cmp	DWORD PTR _lpVsnInstance$[ebp], 0
-	je	SHORT $L10098
+	je	SHORT $L10099
 
 ; 6759 :             //  "KZOEE255 - Attempt to update a previous entity version"
 ; 6760 :             fnIssueCoreError( lpCurrentTask, lpView, 8, 255, 0,
@@ -20494,8 +20494,8 @@ $L10091:
 ; 6764 :             return( -1 );
 
 	or	ax, -1
-	jmp	$L10009
-$L10098:
+	jmp	$L10010
+$L10099:
 
 ; 6767 : 
 ; 6768 :       // Check to make sure attributes are updateable. If cpcAttributeName is
@@ -20505,16 +20505,16 @@ $L10098:
 ; 6772 :             lpViewAttrib;
 ; 6773 :             lpViewAttrib = zGETPTR( lpViewAttrib->hNextOD_Attrib ) )
 
-	jmp	SHORT $L10100
-$L10101:
+	jmp	SHORT $L10101
+$L10102:
 	mov	eax, DWORD PTR _lpViewAttrib$[ebp]
 	mov	ecx, DWORD PTR [eax+2]
 	push	ecx
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _lpViewAttrib$[ebp], eax
-$L10100:
+$L10101:
 	cmp	DWORD PTR _lpViewAttrib$[ebp], 0
-	je	$L10102
+	je	$L10103
 
 ; 6775 :          // Check to see if we should ignore key attributes.
 ; 6776 :          if ( (nFlag & zIGNORE_KEYS) && lpViewAttrib->bKey )
@@ -20522,29 +20522,29 @@ $L10100:
 	movsx	edx, WORD PTR _nFlag$[ebp]
 	and	edx, 16					; 00000010H
 	test	edx, edx
-	je	SHORT $L10105
+	je	SHORT $L10106
 	mov	eax, DWORD PTR _lpViewAttrib$[ebp]
 	mov	ecx, DWORD PTR [eax+193]
 	shr	ecx, 1
 	and	ecx, 1
 	test	ecx, ecx
-	je	SHORT $L10105
+	je	SHORT $L10106
 
 ; 6778 :             if ( cpcAttributeName )
 
 	cmp	DWORD PTR _cpcAttributeName$[ebp], 0
-	je	SHORT $L10104
+	je	SHORT $L10105
 
 ; 6779 :                break;  // We only needed to check 1 attr so break 'for' loop.
 
-	jmp	$L10102
-$L10104:
+	jmp	$L10103
+$L10105:
 
 ; 6780 :             else
 ; 6781 :                continue;
 
-	jmp	SHORT $L10101
-$L10105:
+	jmp	SHORT $L10102
+$L10106:
 
 ; 6783 : 
 ; 6784 :          if ( lpViewAttrib->bNoUpdate )
@@ -20554,7 +20554,7 @@ $L10105:
 	shr	eax, 12					; 0000000cH
 	and	eax, 1
 	test	eax, eax
-	je	SHORT $L10106
+	je	SHORT $L10107
 
 ; 6786 :             //  "KZOEE237 - Attempt to update a non-updateable attribute"
 ; 6787 :             fnIssueCoreError( lpCurrentTask, lpView, 8, 237, 0,
@@ -20582,8 +20582,8 @@ $L10105:
 ; 6791 :             return( -1 );
 
 	or	ax, -1
-	jmp	SHORT $L10009
-$L10106:
+	jmp	SHORT $L10010
+$L10107:
 
 ; 6793 : 
 ; 6794 :          if ( lpViewAttrib->bNoPersistUpd &&
@@ -20594,13 +20594,13 @@ $L10106:
 	shr	eax, 13					; 0000000dH
 	and	eax, 1
 	test	eax, eax
-	je	SHORT $L10107
+	je	SHORT $L10108
 	mov	ecx, DWORD PTR _lpEntityInstance$[ebp]
 	mov	edx, DWORD PTR [ecx+6]
 	shr	edx, 1
 	and	edx, 1
 	test	edx, edx
-	jne	SHORT $L10107
+	jne	SHORT $L10108
 
 ; 6797 :             //  "KZOEE238 - Attempt to update a non-updateable persistent "
 ; 6798 :             //  "           attribute"
@@ -20629,33 +20629,33 @@ $L10106:
 ; 6803 :             return( -1 );
 
 	or	ax, -1
-	jmp	SHORT $L10009
-$L10107:
+	jmp	SHORT $L10010
+$L10108:
 
 ; 6805 : 
 ; 6806 :          // We only need to check 1 attribute if cpcAttributeName is non-null.
 ; 6807 :          if ( cpcAttributeName )
 
 	cmp	DWORD PTR _cpcAttributeName$[ebp], 0
-	je	SHORT $L10108
+	je	SHORT $L10109
 
 ; 6808 :             break;
 
-	jmp	SHORT $L10102
-$L10108:
+	jmp	SHORT $L10103
+$L10109:
 
 ; 6809 : 
 ; 6810 :       } // for...
 
-	jmp	$L10101
-$L10102:
+	jmp	$L10102
+$L10103:
 
 ; 6813 : 
 ; 6814 :    // Everything is AOK, return
 ; 6815 :    return( 0 );
 
 	xor	ax, ax
-$L10009:
+$L10010:
 
 ; 6816 : }
 
@@ -20674,7 +20674,7 @@ _lpdDecimal$ = -8
 _lpDateTime$ = -32
 _lpViewAttrib$ = -24
 _ulBytes$ = -16
-_lpLinkedEntityInstance$10152 = -36
+_lpLinkedEntityInstance$10153 = -36
 _fnCreateAttributeRecord PROC NEAR
 
 ; 6834 : {
@@ -20695,7 +20695,7 @@ _fnCreateAttributeRecord PROC NEAR
 ; 6844 :    if ( lpEntityInstance )
 
 	cmp	DWORD PTR _lpEntityInstance$[ebp], 0
-	je	SHORT $L10124
+	je	SHORT $L10125
 
 ; 6845 :       ulBytes = lpViewEntity->ulRecordSize;
 
@@ -20705,15 +20705,15 @@ _fnCreateAttributeRecord PROC NEAR
 
 ; 6846 :    else
 
-	jmp	SHORT $L10125
-$L10124:
+	jmp	SHORT $L10126
+$L10125:
 
 ; 6847 :       ulBytes = lpViewEntity->ulNonPersistSize;
 
 	mov	edx, DWORD PTR _lpViewEntity$[ebp]
 	mov	eax, DWORD PTR [edx+211]
 	mov	DWORD PTR _ulBytes$[ebp], eax
-$L10125:
+$L10126:
 
 ; 6848 : 
 ; 6849 :    hRecord = fnAllocDataspace( lpAllocTask->hFirstDataHeader, ulBytes, 1, 0,
@@ -20734,13 +20734,13 @@ $L10125:
 ; 6851 :    if ( hRecord == 0 )
 
 	cmp	DWORD PTR _hRecord$[ebp], 0
-	jne	SHORT $L10126
+	jne	SHORT $L10127
 
 ; 6852 :       return( 0 );
 
 	xor	eax, eax
-	jmp	$L10115
-$L10126:
+	jmp	$L10116
+$L10127:
 
 ; 6853 : 
 ; 6854 :    pchRecord = zGETPTR( hRecord );
@@ -20760,47 +20760,47 @@ $L10126:
 	push	eax
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _lpViewAttrib$[ebp], eax
-	jmp	SHORT $L10130
-$L10131:
+	jmp	SHORT $L10131
+$L10132:
 	mov	ecx, DWORD PTR _lpViewAttrib$[ebp]
 	mov	edx, DWORD PTR [ecx+2]
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _lpViewAttrib$[ebp], eax
-$L10130:
+$L10131:
 	cmp	DWORD PTR _lpViewAttrib$[ebp], 0
-	je	$L10132
+	je	$L10133
 
 ; 6860 :       if ( (lpEntityInstance && lpViewAttrib->bPersist) ||
 ; 6861 :            (lpEntityInstance == 0 && lpViewAttrib->bPersist == FALSE) )
 
 	cmp	DWORD PTR _lpEntityInstance$[ebp], 0
-	je	SHORT $L10135
+	je	SHORT $L10136
 	mov	eax, DWORD PTR _lpViewAttrib$[ebp]
 	mov	ecx, DWORD PTR [eax+193]
 	and	ecx, 1
 	test	ecx, ecx
-	jne	SHORT $L10134
-$L10135:
+	jne	SHORT $L10135
+$L10136:
 	cmp	DWORD PTR _lpEntityInstance$[ebp], 0
-	jne	$L10139
+	jne	$L10140
 	mov	edx, DWORD PTR _lpViewAttrib$[ebp]
 	mov	eax, DWORD PTR [edx+193]
 	and	eax, 1
 	test	eax, eax
-	jne	$L10139
-$L10134:
+	jne	$L10140
+$L10135:
 
 ; 6863 :          if ( lpViewAttrib->hInit )
 
 	mov	ecx, DWORD PTR _lpViewAttrib$[ebp]
 	cmp	DWORD PTR [ecx+209], 0
-	je	SHORT $L10136
+	je	SHORT $L10137
 
 ; 6867 :          else
 
-	jmp	$L10139
-$L10136:
+	jmp	$L10140
+$L10137:
 
 ; 6869 :             switch ( lpViewAttrib->cType )
 ; 6870 :             {
@@ -20812,12 +20812,12 @@ $L10136:
 	sub	ecx, 66					; 00000042H
 	mov	DWORD PTR -40+[ebp], ecx
 	cmp	DWORD PTR -40+[ebp], 18			; 00000012H
-	ja	$L10150
+	ja	$L10151
 	mov	eax, DWORD PTR -40+[ebp]
 	xor	edx, edx
-	mov	dl, BYTE PTR $L11945[eax]
-	jmp	DWORD PTR $L11946[edx*4]
-$L10142:
+	mov	dl, BYTE PTR $L11946[eax]
+	jmp	DWORD PTR $L11947[edx*4]
+$L10143:
 
 ; 6871 :                case 'L':
 ; 6872 :                   lplLong = (zLONG zFAR *)
@@ -20836,8 +20836,8 @@ $L10142:
 
 ; 6875 :                   break;
 
-	jmp	SHORT $L10139
-$L10144:
+	jmp	SHORT $L10140
+$L10145:
 
 ; 6876 : 
 ; 6877 :                case zTYPE_DECIMAL:
@@ -20857,8 +20857,8 @@ $L10144:
 
 ; 6881 :                   break;
 
-	jmp	SHORT $L10139
-$L10146:
+	jmp	SHORT $L10140
+$L10147:
 
 ; 6882 : 
 ; 6883 :                case 'T':
@@ -20883,8 +20883,8 @@ $L10146:
 
 ; 6888 :                   break;
 
-	jmp	SHORT $L10139
-$L10148:
+	jmp	SHORT $L10140
+$L10149:
 
 ; 6889 : 
 ; 6890 :                case 'B':
@@ -20900,13 +20900,13 @@ $L10148:
 
 	mov	eax, DWORD PTR _pchChar$[ebp]
 	mov	BYTE PTR [eax], 0
-$L10150:
-$L10139:
+$L10151:
+$L10140:
 
 ; 6901 :    }
 
-	jmp	$L10131
-$L10132:
+	jmp	$L10132
+$L10133:
 
 ; 6902 : 
 ; 6903 :    // Now that the record has been created, put the record into the Entity
@@ -20914,7 +20914,7 @@ $L10132:
 ; 6905 :    if ( lpEntityInstance )
 
 	cmp	DWORD PTR _lpEntityInstance$[ebp], 0
-	je	SHORT $L10157
+	je	SHORT $L10158
 
 ; 6907 :       LPENTITYINSTANCE lpLinkedEntityInstance;
 ; 6908 : 
@@ -20932,7 +20932,7 @@ $L10132:
 
 	mov	eax, DWORD PTR _lpEntityInstance$[ebp]
 	cmp	DWORD PTR [eax+42], 0
-	je	SHORT $L10157
+	je	SHORT $L10158
 
 ; 6916 :          lpLinkedEntityInstance = zGETPTR( lpEntityInstance->hNextLinked );
 
@@ -20940,53 +20940,53 @@ $L10132:
 	mov	edx, DWORD PTR [ecx+42]
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpLinkedEntityInstance$10152[ebp], eax
-$L10156:
+	mov	DWORD PTR _lpLinkedEntityInstance$10153[ebp], eax
+$L10157:
 
 ; 6917 :          while ( lpLinkedEntityInstance != lpEntityInstance )
 
-	mov	eax, DWORD PTR _lpLinkedEntityInstance$10152[ebp]
+	mov	eax, DWORD PTR _lpLinkedEntityInstance$10153[ebp]
 	cmp	eax, DWORD PTR _lpEntityInstance$[ebp]
-	je	SHORT $L10157
+	je	SHORT $L10158
 
 ; 6919 :             lpLinkedEntityInstance->hPersistRecord = hRecord;
 
-	mov	ecx, DWORD PTR _lpLinkedEntityInstance$10152[ebp]
+	mov	ecx, DWORD PTR _lpLinkedEntityInstance$10153[ebp]
 	mov	edx, DWORD PTR _hRecord$[ebp]
 	mov	DWORD PTR [ecx+60], edx
 
 ; 6920 :             lpLinkedEntityInstance =
 ; 6921 :                             zGETPTR( lpLinkedEntityInstance->hNextLinked );
 
-	mov	eax, DWORD PTR _lpLinkedEntityInstance$10152[ebp]
+	mov	eax, DWORD PTR _lpLinkedEntityInstance$10153[ebp]
 	mov	ecx, DWORD PTR [eax+42]
 	push	ecx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpLinkedEntityInstance$10152[ebp], eax
+	mov	DWORD PTR _lpLinkedEntityInstance$10153[ebp], eax
 
 ; 6922 :          }
 
-	jmp	SHORT $L10156
-$L10157:
+	jmp	SHORT $L10157
+$L10158:
 
 ; 6925 : 
 ; 6926 :    return( hRecord );
 
 	mov	eax, DWORD PTR _hRecord$[ebp]
-$L10115:
+$L10116:
 
 ; 6927 : }
 
 	mov	esp, ebp
 	pop	ebp
 	ret	0
+$L11947:
+	DD	$L10149
+	DD	$L10143
+	DD	$L10145
+	DD	$L10147
+	DD	$L10151
 $L11946:
-	DD	$L10148
-	DD	$L10142
-	DD	$L10144
-	DD	$L10146
-	DD	$L10150
-$L11945:
 	DB	0
 	DB	4
 	DB	4
@@ -21015,8 +21015,8 @@ _ulBlobLth$ = 24
 _pulLth$ = -4
 _lpExternalP$ = -12
 _pchExternal$ = -8
-_ulFreespaceLth$10178 = -16
-_hndl$10186 = -20
+_ulFreespaceLth$10179 = -16
+_hndl$10187 = -20
 _fnStoreBlobInRecord PROC NEAR
 
 ; 6949 : {
@@ -21048,7 +21048,7 @@ _fnStoreBlobInRecord PROC NEAR
 	add	ecx, DWORD PTR _ulOffset$[ebp]
 	movsx	edx, BYTE PTR [ecx]
 	cmp	edx, -1
-	jne	SHORT $L10177
+	jne	SHORT $L10178
 
 ; 6958 :       zULONG ulFreespaceLth;
 ; 6959 : 
@@ -21066,18 +21066,18 @@ _fnStoreBlobInRecord PROC NEAR
 	push	edx
 	call	_fnGetDataspaceLength
 	add	esp, 4
-	mov	DWORD PTR _ulFreespaceLth$10178[ebp], eax
+	mov	DWORD PTR _ulFreespaceLth$10179[ebp], eax
 
 ; 6962 : 
 ; 6963 :       // See if this space is big enough to hold the new blob.
 ; 6964 :       if ( ulFreespaceLth < ulBlobLth || ulBlobLth == 0 )
 
-	mov	eax, DWORD PTR _ulFreespaceLth$10178[ebp]
+	mov	eax, DWORD PTR _ulFreespaceLth$10179[ebp]
 	cmp	eax, DWORD PTR _ulBlobLth$[ebp]
-	jb	SHORT $L10181
+	jb	SHORT $L10182
 	cmp	DWORD PTR _ulBlobLth$[ebp], 0
-	jne	SHORT $L10180
-$L10181:
+	jne	SHORT $L10181
+$L10182:
 
 ; 6966 :          *pulLth = 0;
 
@@ -21093,20 +21093,20 @@ $L10181:
 
 ; 6969 :       else
 
-	jmp	SHORT $L10182
-$L10180:
+	jmp	SHORT $L10183
+$L10181:
 
 ; 6971 :          *pulLth = ulBlobLth;
 
 	mov	eax, DWORD PTR _pulLth$[ebp]
 	mov	ecx, DWORD PTR _ulBlobLth$[ebp]
 	mov	DWORD PTR [eax], ecx
-$L10182:
+$L10183:
 
 ; 6974 :    else
 
-	jmp	SHORT $L10183
-$L10177:
+	jmp	SHORT $L10184
+$L10178:
 
 ; 6976 :       // A blob does not exist, set *pulLth to 0 so memory allocation
 ; 6977 :       // takes place below if the Blob length is non-zero.
@@ -21114,14 +21114,14 @@ $L10177:
 
 	mov	edx, DWORD PTR _pulLth$[ebp]
 	mov	DWORD PTR [edx], 0
-$L10183:
+$L10184:
 
 ; 6980 : 
 ; 6981 :    // Get out if there is no data to store.
 ; 6982 :    if ( ulBlobLth == 0 )
 
 	cmp	DWORD PTR _ulBlobLth$[ebp], 0
-	jne	SHORT $L10184
+	jne	SHORT $L10185
 
 ; 6984 :       pchRecord[ ulOffset ] = 0;
 
@@ -21137,8 +21137,8 @@ $L10183:
 ; 6986 :       return( 1 );
 
 	mov	ax, 1
-	jmp	$L10169
-$L10184:
+	jmp	$L10170
+$L10185:
 
 ; 6988 : 
 ; 6989 :    // Now check lpuShort to see if we must allocate a new space.
@@ -21146,7 +21146,7 @@ $L10184:
 
 	mov	edx, DWORD PTR _pulLth$[ebp]
 	cmp	DWORD PTR [edx], 0
-	jne	SHORT $L10185
+	jne	SHORT $L10186
 
 ; 6992 :       zPVOID hndl;
 ; 6993 : 
@@ -21163,11 +21163,11 @@ $L10184:
 	push	edx
 	call	_fnAllocDataspace
 	add	esp, 20					; 00000014H
-	mov	DWORD PTR _hndl$10186[ebp], eax
+	mov	DWORD PTR _hndl$10187[ebp], eax
 
 ; 6996 :       pchExternal = zGETPTR( hndl );
 
-	mov	eax, DWORD PTR _hndl$10186[ebp]
+	mov	eax, DWORD PTR _hndl$10187[ebp]
 	push	eax
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _pchExternal$[ebp], eax
@@ -21175,7 +21175,7 @@ $L10184:
 ; 6997 :       if ( pchExternal == 0 )
 
 	cmp	DWORD PTR _pchExternal$[ebp], 0
-	jne	SHORT $L10188
+	jne	SHORT $L10189
 
 ; 6999 :          pchRecord[ ulOffset ] = 0;
 
@@ -21191,8 +21191,8 @@ $L10184:
 ; 7001 :          return( -1 );
 
 	or	ax, -1
-	jmp	SHORT $L10169
-$L10188:
+	jmp	SHORT $L10170
+$L10189:
 
 ; 7003 : 
 ; 7004 :       pchRecord[ ulOffset ] = (zCHAR) '\xff';
@@ -21204,7 +21204,7 @@ $L10188:
 ; 7005 :       *lpExternalP = hndl;
 
 	mov	ecx, DWORD PTR _lpExternalP$[ebp]
-	mov	edx, DWORD PTR _hndl$10186[ebp]
+	mov	edx, DWORD PTR _hndl$10187[ebp]
 	mov	DWORD PTR [ecx], edx
 
 ; 7006 :       *pulLth = ulBlobLth;
@@ -21212,14 +21212,14 @@ $L10188:
 	mov	eax, DWORD PTR _pulLth$[ebp]
 	mov	ecx, DWORD PTR _ulBlobLth$[ebp]
 	mov	DWORD PTR [eax], ecx
-$L10185:
+$L10186:
 
 ; 7008 : 
 ; 7009 :    // Copy the Blob data
 ; 7010 :    if ( pBlob )
 
 	cmp	DWORD PTR _pBlob$[ebp], 0
-	je	SHORT $L10190
+	je	SHORT $L10191
 
 ; 7011 :       zmemcpy( pchExternal, pBlob, ulBlobLth );
 
@@ -21234,8 +21234,8 @@ $L10185:
 
 ; 7012 :    else
 
-	jmp	SHORT $L10191
-$L10190:
+	jmp	SHORT $L10192
+$L10191:
 
 ; 7013 :       zmemset( pchExternal, 0, *pulLth );  // null out memory
 
@@ -21247,13 +21247,13 @@ $L10190:
 	push	ecx
 	call	_memset
 	add	esp, 12					; 0000000cH
-$L10191:
+$L10192:
 
 ; 7014 : 
 ; 7015 :    return( 1 );   // return that new blob has been stored
 
 	mov	ax, 1
-$L10169:
+$L10170:
 
 ; 7016 : }
 
@@ -21274,8 +21274,8 @@ _uCmprLth$ = -16
 _pulLth$ = -4
 _lpExternalP$ = -12
 _pchExternal$ = -8
-_ulFreespaceLth$10214 = -20
-_hndl$10232 = -24
+_ulFreespaceLth$10215 = -20
+_hndl$10233 = -24
 _fnStoreStringInRecord PROC NEAR
 
 ; 7039 : {
@@ -21293,16 +21293,16 @@ _fnStoreStringInRecord PROC NEAR
 ; 7046 :    if ( ulLth == 0 && bNullTerminated == FALSE )
 
 	cmp	DWORD PTR _ulLth$[ebp], 0
-	jne	SHORT $L10209
+	jne	SHORT $L10210
 	movsx	eax, WORD PTR _bNullTerminated$[ebp]
 	test	eax, eax
-	jne	SHORT $L10209
+	jne	SHORT $L10210
 
 ; 7047 :       return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	$L10204
-$L10209:
+	jmp	$L10205
+$L10210:
 
 ; 7048 : 
 ; 7049 :    // Initialize pchExternal to 0
@@ -21321,14 +21321,14 @@ $L10209:
 
 	movsx	edx, WORD PTR _bNullTerminated$[ebp]
 	test	edx, edx
-	je	SHORT $L10210
+	je	SHORT $L10211
 
 ; 7055 :       ulLth++;
 
 	mov	eax, DWORD PTR _ulLth$[ebp]
 	add	eax, 1
 	mov	DWORD PTR _ulLth$[ebp], eax
-$L10210:
+$L10211:
 
 ; 7056 : 
 ; 7057 :    // Check length to see if it is too big for record.
@@ -21339,14 +21339,14 @@ $L10210:
 	mov	ecx, DWORD PTR _cpcString$[ebp]
 	movsx	edx, BYTE PTR [ecx]
 	cmp	edx, -1
-	je	SHORT $L10213
+	je	SHORT $L10214
 	mov	eax, DWORD PTR _ulLth$[ebp]
 	cmp	eax, DWORD PTR _g_ulMaxRecordStringLth
-	ja	SHORT $L10213
+	ja	SHORT $L10214
 	movsx	ecx, WORD PTR _bNullTerminated$[ebp]
 	test	ecx, ecx
-	jne	$L10212
-$L10213:
+	jne	$L10213
+$L10214:
 
 ; 7062 :       zULONG ulFreespaceLth;
 ; 7063 : 
@@ -21369,7 +21369,7 @@ $L10213:
 	add	eax, DWORD PTR _ulOffset$[ebp]
 	movsx	ecx, BYTE PTR [eax]
 	cmp	ecx, -1
-	jne	$L10219
+	jne	$L10220
 
 ; 7068 :          pchExternal  = zGETPTR( *lpExternalP );
 
@@ -21385,15 +21385,15 @@ $L10213:
 	push	ecx
 	call	_fnGetDataspaceLength
 	add	esp, 4
-	mov	DWORD PTR _ulFreespaceLth$10214[ebp], eax
+	mov	DWORD PTR _ulFreespaceLth$10215[ebp], eax
 
 ; 7070 : 
 ; 7071 :          // See if this space is big enough to hold the new length.
 ; 7072 :          if ( ulFreespaceLth < ulLth )
 
-	mov	edx, DWORD PTR _ulFreespaceLth$10214[ebp]
+	mov	edx, DWORD PTR _ulFreespaceLth$10215[ebp]
 	cmp	edx, DWORD PTR _ulLth$[ebp]
-	jae	SHORT $L10221
+	jae	SHORT $L10222
 
 ; 7074 :             fnFreeDataspace( pchExternal );
 
@@ -21409,8 +21409,8 @@ $L10213:
 
 ; 7077 :          else
 
-	jmp	SHORT $L10222
-$L10221:
+	jmp	SHORT $L10223
+$L10222:
 
 ; 7079 :             if ( *pulLth == ulLth &&
 ; 7080 :                  zstrcmp( pchExternal, cpcString ) == 0 )
@@ -21418,13 +21418,13 @@ $L10221:
 	mov	edx, DWORD PTR _pulLth$[ebp]
 	mov	eax, DWORD PTR [edx]
 	cmp	eax, DWORD PTR _ulLth$[ebp]
-	jne	SHORT $L10229
+	jne	SHORT $L10230
 	mov	ecx, DWORD PTR _pchExternal$[ebp]
 	movsx	edx, BYTE PTR [ecx]
 	mov	eax, DWORD PTR _cpcString$[ebp]
 	movsx	ecx, BYTE PTR [eax]
 	cmp	edx, ecx
-	jne	SHORT $L11949
+	jne	SHORT $L11950
 	mov	edx, DWORD PTR _cpcString$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _pchExternal$[ebp]
@@ -21432,8 +21432,8 @@ $L10221:
 	call	_strcmp
 	add	esp, 8
 	mov	DWORD PTR -28+[ebp], eax
-	jmp	SHORT $L11950
-$L11949:
+	jmp	SHORT $L11951
+$L11950:
 	mov	ecx, DWORD PTR _pchExternal$[ebp]
 	movsx	edx, BYTE PTR [ecx]
 	mov	eax, DWORD PTR _cpcString$[ebp]
@@ -21446,15 +21446,15 @@ $L11949:
 	and	eax, 2
 	add	eax, -1
 	mov	DWORD PTR -28+[ebp], eax
-$L11950:
+$L11951:
 	cmp	DWORD PTR -28+[ebp], 0
-	jne	SHORT $L10229
+	jne	SHORT $L10230
 
 ; 7082 :                return( 0 );  // return 0, data has not changed
 
 	xor	ax, ax
-	jmp	$L10204
-$L10229:
+	jmp	$L10205
+$L10230:
 
 ; 7084 : 
 ; 7085 :             *pulLth = ulLth;
@@ -21462,18 +21462,18 @@ $L10229:
 	mov	ecx, DWORD PTR _pulLth$[ebp]
 	mov	edx, DWORD PTR _ulLth$[ebp]
 	mov	DWORD PTR [ecx], edx
-$L10222:
+$L10223:
 
 ; 7088 :       else
 
-	jmp	SHORT $L10230
-$L10219:
+	jmp	SHORT $L10231
+$L10220:
 
 ; 7089 :          *pulLth = 0;
 
 	mov	eax, DWORD PTR _pulLth$[ebp]
 	mov	DWORD PTR [eax], 0
-$L10230:
+$L10231:
 
 ; 7090 : 
 ; 7091 :       // Now check pulLth to see if we must allocate a new space.
@@ -21481,7 +21481,7 @@ $L10230:
 
 	mov	ecx, DWORD PTR _pulLth$[ebp]
 	cmp	DWORD PTR [ecx], 0
-	jne	SHORT $L10231
+	jne	SHORT $L10232
 
 ; 7094 :          zPVOID hndl;
 ; 7095 : 
@@ -21498,11 +21498,11 @@ $L10230:
 	push	ecx
 	call	_fnAllocDataspace
 	add	esp, 20					; 00000014H
-	mov	DWORD PTR _hndl$10232[ebp], eax
+	mov	DWORD PTR _hndl$10233[ebp], eax
 
 ; 7098 :          pchExternal = zGETPTR( hndl );
 
-	mov	edx, DWORD PTR _hndl$10232[ebp]
+	mov	edx, DWORD PTR _hndl$10233[ebp]
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _pchExternal$[ebp], eax
@@ -21510,7 +21510,7 @@ $L10230:
 ; 7099 :          if ( pchExternal == 0 )
 
 	cmp	DWORD PTR _pchExternal$[ebp], 0
-	jne	SHORT $L10234
+	jne	SHORT $L10235
 
 ; 7101 :             pchRecord[ ulOffset ] = 0;
 
@@ -21521,8 +21521,8 @@ $L10230:
 ; 7102 :             return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	$L10204
-$L10234:
+	jmp	$L10205
+$L10235:
 
 ; 7104 : 
 ; 7105 :          pchRecord[ ulOffset ] = (zCHAR) '\xff';
@@ -21534,9 +21534,9 @@ $L10234:
 ; 7106 :          *lpExternalP = hndl;
 
 	mov	edx, DWORD PTR _lpExternalP$[ebp]
-	mov	eax, DWORD PTR _hndl$10232[ebp]
+	mov	eax, DWORD PTR _hndl$10233[ebp]
 	mov	DWORD PTR [edx], eax
-$L10231:
+$L10232:
 
 ; 7108 : 
 ; 7109 :       // Set length and copy data.
@@ -21563,19 +21563,19 @@ $L10231:
 
 	movsx	eax, WORD PTR _bNullTerminated$[ebp]
 	test	eax, eax
-	je	SHORT $L10237
+	je	SHORT $L10238
 
 ; 7115 :          pchExternal[ ulLth - 1 ] = 0;
 
 	mov	ecx, DWORD PTR _pchExternal$[ebp]
 	add	ecx, DWORD PTR _ulLth$[ebp]
 	mov	BYTE PTR [ecx-1], 0
-$L10237:
+$L10238:
 
 ; 7117 :    else
 
-	jmp	$L10253
-$L10212:
+	jmp	$L10254
+$L10213:
 
 ; 7119 :       if ( pchRecord[ ulOffset ] == (zCHAR) '\xff' )
 
@@ -21583,7 +21583,7 @@ $L10212:
 	add	edx, DWORD PTR _ulOffset$[ebp]
 	movsx	eax, BYTE PTR [edx]
 	cmp	eax, -1
-	jne	SHORT $L10240
+	jne	SHORT $L10241
 
 ; 7121 :          lpExternalP = (zCOREMEM) ((zPCHAR) pchRecord + ulOffset + 1);
 
@@ -21609,8 +21609,8 @@ $L10212:
 
 ; 7125 :       else
 
-	jmp	SHORT $L10251
-$L10240:
+	jmp	SHORT $L10252
+$L10241:
 
 ; 7126 :       if ( zstrcmp( pchRecord + ulOffset, cpcString ) == 0 )
 
@@ -21620,7 +21620,7 @@ $L10240:
 	mov	eax, DWORD PTR _cpcString$[ebp]
 	movsx	ecx, BYTE PTR [eax]
 	cmp	edx, ecx
-	jne	SHORT $L11951
+	jne	SHORT $L11952
 	mov	edx, DWORD PTR _cpcString$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _pchRecord$[ebp]
@@ -21629,8 +21629,8 @@ $L10240:
 	call	_strcmp
 	add	esp, 8
 	mov	DWORD PTR -32+[ebp], eax
-	jmp	SHORT $L11952
-$L11951:
+	jmp	SHORT $L11953
+$L11952:
 	mov	ecx, DWORD PTR _pchRecord$[ebp]
 	add	ecx, DWORD PTR _ulOffset$[ebp]
 	movsx	edx, BYTE PTR [ecx]
@@ -21644,15 +21644,15 @@ $L11951:
 	and	eax, 2
 	add	eax, -1
 	mov	DWORD PTR -32+[ebp], eax
-$L11952:
+$L11953:
 	cmp	DWORD PTR -32+[ebp], 0
-	jne	SHORT $L10251
+	jne	SHORT $L10252
 
 ; 7127 :          return( 0 ); // Return 0 if string has not changed
 
 	xor	ax, ax
-	jmp	SHORT $L10204
-$L10251:
+	jmp	SHORT $L10205
+$L10252:
 
 ; 7128 : 
 ; 7129 :       zmemcpy( pchRecord + ulOffset, cpcString, (unsigned int) ulLth );
@@ -21673,7 +21673,7 @@ $L10251:
 
 	movsx	ecx, WORD PTR _bNullTerminated$[ebp]
 	test	ecx, ecx
-	je	SHORT $L10253
+	je	SHORT $L10254
 
 ; 7133 :          pchRecord[ ulOffset + (ulLth - 1) ] = 0;
 
@@ -21682,13 +21682,13 @@ $L10251:
 	lea	ecx, DWORD PTR [eax+edx-1]
 	mov	edx, DWORD PTR _pchRecord$[ebp]
 	mov	BYTE PTR [edx+ecx], 0
-$L10253:
+$L10254:
 
 ; 7135 : 
 ; 7136 :    return( 1 ); // return that new string has been stored
 
 	mov	ax, 1
-$L10204:
+$L10205:
 
 ; 7137 : }
 
@@ -21713,7 +21713,7 @@ _pchNewExtString$ = -40
 _lpExternalPS$ = -24
 _lpExternalPT$ = -12
 _pulLth$ = -4
-_hndl$10292 = -44
+_hndl$10293 = -44
 _fnCopyAttributeRecord PROC NEAR
 
 ; 7156 : {
@@ -21737,13 +21737,13 @@ _fnCopyAttributeRecord PROC NEAR
 ; 7169 :    if ( cpcSrcRecord == 0 )
 
 	cmp	DWORD PTR _cpcSrcRecord$[ebp], 0
-	jne	SHORT $L10273
+	jne	SHORT $L10274
 
 ; 7170 :       return( 0 );
 
 	xor	eax, eax
-	jmp	$L10262
-$L10273:
+	jmp	$L10263
+$L10274:
 
 ; 7171 : 
 ; 7172 :    // Get size of record to allocate
@@ -21752,7 +21752,7 @@ $L10273:
 	mov	eax, DWORD PTR _bPersist$[ebp]
 	and	eax, 255				; 000000ffH
 	test	eax, eax
-	je	SHORT $L10274
+	je	SHORT $L10275
 
 ; 7174 :       ulBytes = lpSrcViewEntity->ulRecordSize;
 
@@ -21762,15 +21762,15 @@ $L10273:
 
 ; 7175 :    else
 
-	jmp	SHORT $L10275
-$L10274:
+	jmp	SHORT $L10276
+$L10275:
 
 ; 7176 :       ulBytes = lpSrcViewEntity->ulNonPersistSize;
 
 	mov	eax, DWORD PTR _lpSrcViewEntity$[ebp]
 	mov	ecx, DWORD PTR [eax+211]
 	mov	DWORD PTR _ulBytes$[ebp], ecx
-$L10275:
+$L10276:
 
 ; 7177 : 
 ; 7178 :    hNewRecord = fnAllocDataspace( lpAllocTask->hFirstDataHeader,
@@ -21798,13 +21798,13 @@ $L10275:
 ; 7181 :    if ( pchNewRecord == 0 )
 
 	cmp	DWORD PTR _pchNewRecord$[ebp], 0
-	jne	SHORT $L10277
+	jne	SHORT $L10278
 
 ; 7182 :       return( 0 );
 
 	xor	eax, eax
-	jmp	$L10262
-$L10277:
+	jmp	$L10263
+$L10278:
 
 ; 7183 : 
 ; 7184 :    // Copy the old record to the new record.  This will cause all non
@@ -21832,16 +21832,16 @@ $L10277:
 	push	ecx
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _lpViewAttrib$[ebp], eax
-	jmp	SHORT $L10280
-$L10281:
+	jmp	SHORT $L10281
+$L10282:
 	mov	edx, DWORD PTR _lpViewAttrib$[ebp]
 	mov	eax, DWORD PTR [edx+2]
 	push	eax
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _lpViewAttrib$[ebp], eax
-$L10280:
+$L10281:
 	cmp	DWORD PTR _lpViewAttrib$[ebp], 0
-	je	$L10282
+	je	$L10283
 
 ; 7194 :       if ( !lpViewAttrib->bPersist == bPersist )
 
@@ -21854,12 +21854,12 @@ $L10280:
 	mov	eax, DWORD PTR _bPersist$[ebp]
 	and	eax, 255				; 000000ffH
 	cmp	edx, eax
-	jne	SHORT $L10283
+	jne	SHORT $L10284
 
 ; 7195 :          continue;
 
-	jmp	SHORT $L10281
-$L10283:
+	jmp	SHORT $L10282
+$L10284:
 
 ; 7196 : 
 ; 7197 :       switch ( lpViewAttrib->cType )
@@ -21869,11 +21869,11 @@ $L10283:
 	mov	dl, BYTE PTR [ecx+202]
 	mov	BYTE PTR -48+[ebp], dl
 	cmp	BYTE PTR -48+[ebp], 66			; 00000042H
-	je	SHORT $L10288
+	je	SHORT $L10289
 	cmp	BYTE PTR -48+[ebp], 83			; 00000053H
-	je	SHORT $L10288
-	jmp	$L10301
-$L10288:
+	je	SHORT $L10289
+	jmp	$L10302
+$L10289:
 
 ; 7199 :          case zTYPE_STRING:
 ; 7200 :          case zTYPE_BLOB:
@@ -21890,7 +21890,7 @@ $L10288:
 	mov	edx, DWORD PTR _pchRecordStringS$[ebp]
 	movsx	eax, BYTE PTR [edx]
 	cmp	eax, -1
-	jne	$L10298
+	jne	$L10299
 
 ; 7205 :                zPVOID hndl;
 ; 7206 : 
@@ -21934,17 +21934,17 @@ $L10288:
 	push	eax
 	call	_fnAllocDataspace
 	add	esp, 20					; 00000014H
-	mov	DWORD PTR _hndl$10292[ebp], eax
+	mov	DWORD PTR _hndl$10293[ebp], eax
 
 ; 7214 :                *lpExternalPT = hndl;
 
 	mov	ecx, DWORD PTR _lpExternalPT$[ebp]
-	mov	edx, DWORD PTR _hndl$10292[ebp]
+	mov	edx, DWORD PTR _hndl$10293[ebp]
 	mov	DWORD PTR [ecx], edx
 
 ; 7215 :                pchNewExtString = zGETPTR( hndl );
 
-	mov	eax, DWORD PTR _hndl$10292[ebp]
+	mov	eax, DWORD PTR _hndl$10293[ebp]
 	push	eax
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _pchNewExtString$[ebp], eax
@@ -21953,7 +21953,7 @@ $L10288:
 
 	mov	ecx, DWORD PTR _lpExternalPT$[ebp]
 	cmp	DWORD PTR [ecx], 0
-	je	SHORT $L10298
+	je	SHORT $L10299
 
 ; 7218 :                   zmemcpy( pchNewExtString,
 ; 7219 :                            zGETPTR( *lpExternalPS ), (unsigned int) *pulLth );
@@ -21970,20 +21970,20 @@ $L10288:
 	push	eax
 	call	_memcpy
 	add	esp, 12					; 0000000cH
-$L10298:
-$L10301:
+$L10299:
+$L10302:
 
 ; 7228 :    }
 
-	jmp	$L10281
-$L10282:
+	jmp	$L10282
+$L10283:
 
 ; 7229 : 
 ; 7230 :    // return the new record created
 ; 7231 :    return( hNewRecord );
 
 	mov	eax, DWORD PTR _hNewRecord$[ebp]
-$L10262:
+$L10263:
 
 ; 7232 : }
 
@@ -21996,8 +21996,8 @@ _lpEntityInstance$ = 12
 _bPersist$ = 16
 _lpViewAttrib$ = -8
 _pchRecord$ = -4
-_pchRecordString$10322 = -12
-_lpExternalP$10323 = -16
+_pchRecordString$10323 = -12
+_lpExternalP$10324 = -16
 _fnDeleteAttributeRecord PROC NEAR
 
 ; 7250 : {
@@ -22014,7 +22014,7 @@ _fnDeleteAttributeRecord PROC NEAR
 	mov	eax, DWORD PTR _bPersist$[ebp]
 	and	eax, 255				; 000000ffH
 	test	eax, eax
-	je	SHORT $L10311
+	je	SHORT $L10312
 
 ; 7256 :       // Drop the record *UNLESS* it has a previous version and the entity
 ; 7257 :       // is not updatable.  If it's not updatable then we never create
@@ -22024,19 +22024,19 @@ _fnDeleteAttributeRecord PROC NEAR
 
 	mov	ecx, DWORD PTR _lpEntityInstance$[ebp]
 	cmp	DWORD PTR [ecx+38], 0
-	je	SHORT $L10312
+	je	SHORT $L10313
 	mov	edx, DWORD PTR _lpViewEntity$[ebp]
 	mov	eax, DWORD PTR [edx+235]
 	shr	eax, 2
 	and	eax, 1
 	test	eax, eax
-	jne	SHORT $L10312
+	jne	SHORT $L10313
 
 ; 7261 :          return( 0 );
 
 	xor	ax, ax
-	jmp	$L10308
-$L10312:
+	jmp	$L10309
+$L10313:
 
 ; 7262 : 
 ; 7263 :       pchRecord = zGETPTR( lpEntityInstance->hPersistRecord );  // dks 2006.09.18 error while cleaning up client OE
@@ -22049,8 +22049,8 @@ $L10312:
 
 ; 7265 :    else
 
-	jmp	SHORT $L10314
-$L10311:
+	jmp	SHORT $L10315
+$L10312:
 
 ; 7266 :       pchRecord = zGETPTR( lpEntityInstance->hNonPersistRecord );
 
@@ -22059,19 +22059,19 @@ $L10311:
 	push	ecx
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _pchRecord$[ebp], eax
-$L10314:
+$L10315:
 
 ; 7267 : 
 ; 7268 :    if ( pchRecord == 0 )
 
 	cmp	DWORD PTR _pchRecord$[ebp], 0
-	jne	SHORT $L10316
+	jne	SHORT $L10317
 
 ; 7269 :       return( 0 ); // skip if record is null
 
 	xor	ax, ax
-	jmp	$L10308
-$L10316:
+	jmp	$L10309
+$L10317:
 
 ; 7270 : 
 ; 7271 :    // Get first attribute.
@@ -22084,16 +22084,16 @@ $L10316:
 	push	eax
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _lpViewAttrib$[ebp], eax
-	jmp	SHORT $L10319
-$L10320:
+	jmp	SHORT $L10320
+$L10321:
 	mov	ecx, DWORD PTR _lpViewAttrib$[ebp]
 	mov	edx, DWORD PTR [ecx+2]
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _lpViewAttrib$[ebp], eax
-$L10319:
+$L10320:
 	cmp	DWORD PTR _lpViewAttrib$[ebp], 0
-	je	$L10321
+	je	$L10322
 
 ; 7276 :       zPCHAR    pchRecordString;
 ; 7277 :       zCOREMEM  lpExternalP;
@@ -22104,56 +22104,56 @@ $L10319:
 	mov	eax, DWORD PTR _lpViewAttrib$[ebp]
 	movsx	ecx, BYTE PTR [eax+202]
 	cmp	ecx, 83					; 00000053H
-	je	SHORT $L10325
+	je	SHORT $L10326
 	mov	edx, DWORD PTR _lpViewAttrib$[ebp]
 	movsx	eax, BYTE PTR [edx+202]
 	cmp	eax, 66					; 00000042H
-	jne	SHORT $L10327
-$L10325:
+	jne	SHORT $L10328
+$L10326:
 	mov	ecx, DWORD PTR _lpViewAttrib$[ebp]
 	mov	edx, DWORD PTR [ecx+193]
 	and	edx, 1
 	mov	eax, DWORD PTR _bPersist$[ebp]
 	and	eax, 255				; 000000ffH
 	cmp	edx, eax
-	jne	SHORT $L10327
+	jne	SHORT $L10328
 
 ; 7282 :          pchRecordString = pchRecord + lpViewAttrib->ulRecordOffset;
 
 	mov	ecx, DWORD PTR _lpViewAttrib$[ebp]
 	mov	edx, DWORD PTR _pchRecord$[ebp]
 	add	edx, DWORD PTR [ecx+250]
-	mov	DWORD PTR _pchRecordString$10322[ebp], edx
+	mov	DWORD PTR _pchRecordString$10323[ebp], edx
 
 ; 7283 :          if ( pchRecordString[ 0 ] == (zCHAR) '\xff' ) // suballoc'd?
 
-	mov	eax, DWORD PTR _pchRecordString$10322[ebp]
+	mov	eax, DWORD PTR _pchRecordString$10323[ebp]
 	movsx	ecx, BYTE PTR [eax]
 	cmp	ecx, -1
-	jne	SHORT $L10327
+	jne	SHORT $L10328
 
 ; 7285 :             pchRecordString[ 0 ] = (zCHAR) '\x00'; // clear suballoc flag
 
-	mov	edx, DWORD PTR _pchRecordString$10322[ebp]
+	mov	edx, DWORD PTR _pchRecordString$10323[ebp]
 	mov	BYTE PTR [edx], 0
 
 ; 7286 :             lpExternalP = (zCOREMEM) (pchRecordString + 1);
 
-	mov	eax, DWORD PTR _pchRecordString$10322[ebp]
+	mov	eax, DWORD PTR _pchRecordString$10323[ebp]
 	add	eax, 1
-	mov	DWORD PTR _lpExternalP$10323[ebp], eax
+	mov	DWORD PTR _lpExternalP$10324[ebp], eax
 
 ; 7287 :             pchRecordString = zGETPTR( *lpExternalP );
 
-	mov	ecx, DWORD PTR _lpExternalP$10323[ebp]
+	mov	ecx, DWORD PTR _lpExternalP$10324[ebp]
 	mov	edx, DWORD PTR [ecx]
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _pchRecordString$10322[ebp], eax
+	mov	DWORD PTR _pchRecordString$10323[ebp], eax
 
 ; 7288 :             fnFreeDataspace( pchRecordString ); // free associated area
 
-	mov	eax, DWORD PTR _pchRecordString$10322[ebp]
+	mov	eax, DWORD PTR _pchRecordString$10323[ebp]
 	push	eax
 	call	_fnFreeDataspace
 	add	esp, 4
@@ -22162,16 +22162,16 @@ $L10325:
 
 	push	6
 	push	0
-	mov	ecx, DWORD PTR _lpExternalP$10323[ebp]
+	mov	ecx, DWORD PTR _lpExternalP$10324[ebp]
 	push	ecx
 	call	_memset
 	add	esp, 12					; 0000000cH
-$L10327:
+$L10328:
 
 ; 7292 :    }
 
-	jmp	$L10320
-$L10321:
+	jmp	$L10321
+$L10322:
 
 ; 7293 : 
 ; 7294 :    // Now free the record itself.
@@ -22188,7 +22188,7 @@ $L10321:
 	mov	eax, DWORD PTR _bPersist$[ebp]
 	and	eax, 255				; 000000ffH
 	test	eax, eax
-	je	SHORT $L10331
+	je	SHORT $L10332
 
 ; 7298 :       lpEntityInstance->hPersistRecord = 0;
 
@@ -22197,20 +22197,20 @@ $L10321:
 
 ; 7299 :    else
 
-	jmp	SHORT $L10332
-$L10331:
+	jmp	SHORT $L10333
+$L10332:
 
 ; 7300 :       lpEntityInstance->hNonPersistRecord = 0;
 
 	mov	edx, DWORD PTR _lpEntityInstance$[ebp]
 	mov	DWORD PTR [edx+64], 0
-$L10332:
+$L10333:
 
 ; 7301 : 
 ; 7302 :    return( 0 );  // return success
 
 	xor	ax, ax
-$L10308:
+$L10309:
 
 ; 7303 : }
 
@@ -22224,7 +22224,7 @@ _dDecimal$ = 16
 _cpcContextName$ = 56
 _nPrecision$ = -8
 _lpContext$ = -4
-_szDecimal$10350 = -12
+_szDecimal$10351 = -12
 _ConvertDecimalToString@52 PROC NEAR
 
 ; 7343 : {
@@ -22243,7 +22243,7 @@ _ConvertDecimalToString@52 PROC NEAR
 ; 7348 :    if ( lpViewAttrib )
 
 	cmp	DWORD PTR _lpViewAttrib$[ebp], 0
-	je	SHORT $L10353
+	je	SHORT $L10354
 
 ; 7350 :       if ( GetContext( &lpContext, zGETPTR( lpViewAttrib->hDomain ),
 ; 7351 :                        cpcContextName ) )
@@ -22260,7 +22260,7 @@ _ConvertDecimalToString@52 PROC NEAR
 	call	_GetContext@12
 	movsx	ecx, ax
 	test	ecx, ecx
-	je	SHORT $L10346
+	je	SHORT $L10347
 
 ; 7352 :          nPrecision = (zSHORT) lpContext->lDecimalFormat;
 
@@ -22270,15 +22270,15 @@ _ConvertDecimalToString@52 PROC NEAR
 
 ; 7353 :       else
 
-	jmp	SHORT $L10353
-$L10346:
+	jmp	SHORT $L10354
+$L10347:
 
 ; 7354 :       if ( lpViewAttrib->cType == zTYPE_DECIMAL )
 
 	mov	ecx, DWORD PTR _lpViewAttrib$[ebp]
 	movsx	edx, BYTE PTR [ecx+202]
 	cmp	edx, 77					; 0000004dH
-	jne	SHORT $L10349
+	jne	SHORT $L10350
 
 ; 7356 :          zCHAR szDecimal[ 2 ];
 ; 7357 : 
@@ -22286,15 +22286,15 @@ $L10346:
 
 	mov	eax, DWORD PTR _lpViewAttrib$[ebp]
 	mov	cl, BYTE PTR [eax+207]
-	mov	BYTE PTR _szDecimal$10350[ebp], cl
+	mov	BYTE PTR _szDecimal$10351[ebp], cl
 
 ; 7359 :          szDecimal[ 1 ] = 0;
 
-	mov	BYTE PTR _szDecimal$10350[ebp+1], 0
+	mov	BYTE PTR _szDecimal$10351[ebp+1], 0
 
 ; 7360 :          nPrecision = (zSHORT) zatol( szDecimal );
 
-	lea	edx, DWORD PTR _szDecimal$10350[ebp]
+	lea	edx, DWORD PTR _szDecimal$10351[ebp]
 	push	edx
 	call	DWORD PTR __imp__atol
 	add	esp, 4
@@ -22302,20 +22302,20 @@ $L10346:
 
 ; 7362 :       else
 
-	jmp	SHORT $L10353
-$L10349:
+	jmp	SHORT $L10354
+$L10350:
 
 ; 7363 :       if ( lpViewAttrib->cType == zTYPE_INTEGER )
 
 	mov	eax, DWORD PTR _lpViewAttrib$[ebp]
 	movsx	ecx, BYTE PTR [eax+202]
 	cmp	ecx, 76					; 0000004cH
-	jne	SHORT $L10353
+	jne	SHORT $L10354
 
 ; 7364 :          nPrecision = 0;
 
 	mov	WORD PTR _nPrecision$[ebp], 0
-$L10353:
+$L10354:
 
 ; 7366 : 
 ; 7367 :    SysConvertDecimalToString( &dDecimal, pchReturnString, nPrecision );
@@ -22406,20 +22406,20 @@ _SetAttributeFromVariable@32 PROC NEAR
 
 	movsx	ecx, WORD PTR _nRC$[ebp]
 	test	ecx, ecx
-	jle	SHORT $L10377
+	jle	SHORT $L10378
 
 ; 7450 :       return( zCALL_ERROR );   // don't call fnOperationReturn
 
 	mov	ax, -16					; fffffff0H
-	jmp	$L10370
-$L10377:
+	jmp	$L10371
+$L10378:
 
 ; 7451 : 
 ; 7452 :    if ( nRC )
 
 	movsx	edx, WORD PTR _nRC$[ebp]
 	test	edx, edx
-	je	SHORT $L10378
+	je	SHORT $L10379
 
 ; 7453 :       nRC = zCALL_ERROR;
 
@@ -22427,15 +22427,15 @@ $L10377:
 
 ; 7454 :    else
 
-	jmp	$L10379
-$L10378:
+	jmp	$L10380
+$L10379:
 
 ; 7456 :       if ( nFlag & zUSE_DEFAULT_CONTEXT )
 
 	movsx	eax, WORD PTR _nFlag$[ebp]
 	and	eax, 8
 	test	eax, eax
-	je	SHORT $L10383
+	je	SHORT $L10384
 
 ; 7458 :          if ( GetDefaultContext( &lpDefaultContext,
 ; 7459 :                                  zGETPTR( lpViewAttrib->hDomain ) ) )
@@ -22450,7 +22450,7 @@ $L10378:
 	call	_GetDefaultContext@8
 	movsx	ecx, ax
 	test	ecx, ecx
-	je	SHORT $L10382
+	je	SHORT $L10383
 
 ; 7461 :             cpcContextName = lpDefaultContext->szName;
 
@@ -22460,8 +22460,8 @@ $L10378:
 
 ; 7463 :          else
 
-	jmp	SHORT $L10383
-$L10382:
+	jmp	SHORT $L10384
+$L10383:
 
 ; 7465 :             // "KZOEE232 - Operation indicates use default context,
 ; 7466 :             //  none found"
@@ -22503,8 +22503,8 @@ $L10382:
 ; 7472 :             return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	SHORT $L10370
-$L10383:
+	jmp	SHORT $L10371
+$L10384:
 
 ; 7475 : 
 ; 7476 :       // Call fnSetAttributeFromVariable to do the setting
@@ -22535,7 +22535,7 @@ $L10383:
 	call	_fnSetAttributeFromVariable
 	add	esp, 36					; 00000024H
 	mov	WORD PTR _nRC$[ebp], ax
-$L10379:
+$L10380:
 
 ; 7483 : 
 ; 7484 :    fnOperationReturn( iSetAttributeFromVariable, lpCurrentTask );
@@ -22549,7 +22549,7 @@ $L10379:
 ; 7485 :    return( nRC );
 
 	mov	ax, WORD PTR _nRC$[ebp]
-$L10370:
+$L10371:
 
 ; 7486 : }
 
@@ -22640,17 +22640,17 @@ _pdDecimal$ = -40
 _bValidationOnly$ = -28
 _lDomainEntryType$ = -24
 _nRC$ = -12
-_szEntityName$10418 = -296
-_szAttribName$10419 = -552
-_sz1$10442 = -652
-_sz2$10443 = -752
-_lpContext$10447 = -756
-_sz$10450 = -1024
-_pch$10451 = -760
-_hndl$10452 = -768
-_ul$10453 = -764
-_sz1$10461 = -1152
-_szMsg$10473 = -1652
+_szEntityName$10419 = -296
+_szAttribName$10420 = -552
+_sz1$10443 = -652
+_sz2$10444 = -752
+_lpContext$10448 = -756
+_sz$10451 = -1024
+_pch$10452 = -760
+_hndl$10453 = -768
+_ul$10454 = -764
+_sz1$10462 = -1152
+_szMsg$10474 = -1652
 _fnSetAttributeFromVariable PROC NEAR
 
 ; 7509 : {
@@ -22694,17 +22694,17 @@ _fnSetAttributeFromVariable PROC NEAR
 	shr	eax, 4
 	and	eax, 1
 	test	eax, eax
-	je	$L10416
+	je	$L10417
 	movsx	ecx, BYTE PTR _cVariableType$[ebp]
 	cmp	ecx, 83					; 00000053H
-	jne	$L10416
+	jne	$L10417
 	cmp	DWORD PTR _lpVariable$[ebp], 0
-	je	SHORT $L10417
+	je	SHORT $L10418
 	mov	edx, DWORD PTR _lpVariable$[ebp]
 	movsx	eax, BYTE PTR [edx]
 	test	eax, eax
-	jne	$L10416
-$L10417:
+	jne	$L10417
+$L10418:
 
 ; 7531 :       zCHAR  szEntityName[ 255 ];
 ; 7532 :       zCHAR  szAttribName[ 255 ];
@@ -22712,7 +22712,7 @@ $L10417:
 ; 7534 :       strcpy( szEntityName, "Entity:\t" );
 
 	push	OFFSET FLAT:??_C@_08DIIO@Entity?3?7?$AA@ ; `string'
-	lea	ecx, DWORD PTR _szEntityName$10418[ebp]
+	lea	ecx, DWORD PTR _szEntityName$10419[ebp]
 	push	ecx
 	call	_strcpy
 	add	esp, 8
@@ -22722,7 +22722,7 @@ $L10417:
 	mov	edx, DWORD PTR _lpViewEntity$[ebp]
 	add	edx, 14					; 0000000eH
 	push	edx
-	lea	eax, DWORD PTR _szEntityName$10418[ebp]
+	lea	eax, DWORD PTR _szEntityName$10419[ebp]
 	push	eax
 	call	_strcat
 	add	esp, 8
@@ -22731,7 +22731,7 @@ $L10417:
 ; 7537 :       strcpy( szAttribName, "Attribute:\t" );
 
 	push	OFFSET FLAT:??_C@_0M@KHBM@Attribute?3?7?$AA@ ; `string'
-	lea	ecx, DWORD PTR _szAttribName$10419[ebp]
+	lea	ecx, DWORD PTR _szAttribName$10420[ebp]
 	push	ecx
 	call	_strcpy
 	add	esp, 8
@@ -22741,7 +22741,7 @@ $L10417:
 	mov	edx, DWORD PTR _lpViewAttrib$[ebp]
 	add	edx, 10					; 0000000aH
 	push	edx
-	lea	eax, DWORD PTR _szAttribName$10419[ebp]
+	lea	eax, DWORD PTR _szAttribName$10420[ebp]
 	push	eax
 	call	_strcat
 	add	esp, 8
@@ -22753,9 +22753,9 @@ $L10417:
 ; 7543 :                      0, szEntityName,
 ; 7544 :                      szAttribName );
 
-	lea	ecx, DWORD PTR _szAttribName$10419[ebp]
+	lea	ecx, DWORD PTR _szAttribName$10420[ebp]
 	push	ecx
-	lea	edx, DWORD PTR _szEntityName$10418[ebp]
+	lea	edx, DWORD PTR _szEntityName$10419[ebp]
 	push	edx
 	push	0
 	push	400					; 00000190H
@@ -22768,8 +22768,8 @@ $L10417:
 ; 7545 :       return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	$L10403
-$L10416:
+	jmp	$L10404
+$L10417:
 
 ; 7547 : 
 ; 7548 :    // See if we are only doing validation.
@@ -22778,7 +22778,7 @@ $L10416:
 	movsx	ecx, WORD PTR _nFlag$[ebp]
 	and	ecx, 4
 	test	ecx, ecx
-	je	SHORT $L10422
+	je	SHORT $L10423
 
 ; 7551 :       bValidationOnly = TRUE;
 
@@ -22790,8 +22790,8 @@ $L10416:
 
 ; 7554 :    else
 
-	jmp	SHORT $L10424
-$L10422:
+	jmp	SHORT $L10425
+$L10423:
 
 ; 7556 :       bValidationOnly = FALSE;
 
@@ -22800,7 +22800,7 @@ $L10422:
 ; 7557 :       lDomainEntryType = (zLONG) zDME_SET_ATTRIBUTE;
 
 	mov	DWORD PTR _lDomainEntryType$[ebp], 1
-$L10424:
+$L10425:
 
 ; 7559 : 
 ; 7560 :    // If the input type is string and if the value is null, then we
@@ -22818,14 +22818,14 @@ $L10424:
 
 	movsx	edx, BYTE PTR _cVariableType$[ebp]
 	cmp	edx, 83					; 00000053H
-	jne	SHORT $L10427
+	jne	SHORT $L10428
 	cmp	DWORD PTR _lpVariable$[ebp], 0
-	je	SHORT $L10428
+	je	SHORT $L10429
 	mov	eax, DWORD PTR _lpVariable$[ebp]
 	movsx	ecx, BYTE PTR [eax]
 	test	ecx, ecx
-	jne	SHORT $L10427
-$L10428:
+	jne	SHORT $L10428
+$L10429:
 
 ; 7573 :       cDomainType = 0;
 
@@ -22833,8 +22833,8 @@ $L10428:
 
 ; 7575 :    else
 
-	jmp	SHORT $L10431
-$L10427:
+	jmp	SHORT $L10432
+$L10428:
 
 ; 7577 :       lpDomain = zGETPTR( lpViewAttrib->hDomain );
 
@@ -22866,22 +22866,22 @@ $L10427:
 
 	movsx	edx, BYTE PTR _cDomainType$[ebp]
 	test	edx, edx
-	je	SHORT $L10431
+	je	SHORT $L10432
 	movsx	eax, BYTE PTR _cDomainType$[ebp]
 	cmp	eax, 70					; 00000046H
-	jne	SHORT $L10431
+	jne	SHORT $L10432
 	cmp	DWORD PTR _cpcContextName$[ebp], 0
-	je	SHORT $L10432
+	je	SHORT $L10433
 	mov	ecx, DWORD PTR _cpcContextName$[ebp]
 	movsx	edx, BYTE PTR [ecx]
 	test	edx, edx
-	jne	SHORT $L10431
-$L10432:
+	jne	SHORT $L10432
+$L10433:
 
 ; 7585 :          cDomainType = 0;
 
 	mov	BYTE PTR _cDomainType$[ebp], 0
-$L10431:
+$L10432:
 
 ; 7588 : 
 ; 7589 :    switch ( cDomainType )
@@ -22893,12 +22893,12 @@ $L10431:
 	sub	ecx, 65					; 00000041H
 	mov	DWORD PTR -1656+[ebp], ecx
 	cmp	DWORD PTR -1656+[ebp], 19		; 00000013H
-	ja	$L10477
+	ja	$L10478
 	mov	eax, DWORD PTR -1656+[ebp]
 	xor	edx, edx
-	mov	dl, BYTE PTR $L11960[eax]
-	jmp	DWORD PTR $L11961[edx*4]
-$L10437:
+	mov	dl, BYTE PTR $L11961[eax]
+	jmp	DWORD PTR $L11962[edx*4]
+$L10438:
 
 ; 7591 :       case zDM_TYPE_TABLE:
 ; 7592 :          nRC = Table_Handler( lDomainEntryType,
@@ -22933,8 +22933,8 @@ $L10437:
 
 ; 7601 :          break;
 
-	jmp	$L10434
-$L10440:
+	jmp	$L10435
+$L10441:
 
 ; 7602 : 
 ; 7603 :       case zDM_TYPE_FORMAT:
@@ -22942,7 +22942,7 @@ $L10440:
 
 	movsx	eax, BYTE PTR _cVariableType$[ebp]
 	cmp	eax, 83					; 00000053H
-	je	$L10441
+	je	$L10442
 
 ; 7606 :             zCHAR sz1[ 100 ];
 ; 7607 :             zCHAR sz2[ 100 ];
@@ -22950,7 +22950,7 @@ $L10440:
 ; 7609 :             zstrcpy( sz1, "Type: " );
 
 	push	OFFSET FLAT:??_C@_06MJOA@Type?3?5?$AA@	; `string'
-	lea	ecx, DWORD PTR _sz1$10442[ebp]
+	lea	ecx, DWORD PTR _sz1$10443[ebp]
 	push	ecx
 	call	_strcpy
 	add	esp, 8
@@ -22958,16 +22958,16 @@ $L10440:
 ; 7610 :             sz1[ 6 ] = cVariableType;
 
 	mov	dl, BYTE PTR _cVariableType$[ebp]
-	mov	BYTE PTR _sz1$10442[ebp+6], dl
+	mov	BYTE PTR _sz1$10443[ebp+6], dl
 
 ; 7611 :             sz1[ 7 ] = 0;
 
-	mov	BYTE PTR _sz1$10442[ebp+7], 0
+	mov	BYTE PTR _sz1$10443[ebp+7], 0
 
 ; 7612 :             zstrcat( sz1, ", Domain: " );
 
 	push	OFFSET FLAT:??_C@_0L@DBIE@?0?5Domain?3?5?$AA@ ; `string'
-	lea	eax, DWORD PTR _sz1$10442[ebp]
+	lea	eax, DWORD PTR _sz1$10443[ebp]
 	push	eax
 	call	_strcat
 	add	esp, 8
@@ -22977,7 +22977,7 @@ $L10440:
 	mov	ecx, DWORD PTR _lpDomain$[ebp]
 	add	ecx, 6
 	push	ecx
-	lea	edx, DWORD PTR _sz1$10442[ebp]
+	lea	edx, DWORD PTR _sz1$10443[ebp]
 	push	edx
 	call	_strcat
 	add	esp, 8
@@ -22987,7 +22987,7 @@ $L10440:
 	mov	eax, DWORD PTR _lpViewEntity$[ebp]
 	add	eax, 14					; 0000000eH
 	push	eax
-	lea	ecx, DWORD PTR _sz2$10443[ebp]
+	lea	ecx, DWORD PTR _sz2$10444[ebp]
 	push	ecx
 	call	_strcpy
 	add	esp, 8
@@ -22995,7 +22995,7 @@ $L10440:
 ; 7615 :             zstrcpy( sz2, ", " );
 
 	push	OFFSET FLAT:??_C@_02GIEM@?0?5?$AA@	; `string'
-	lea	edx, DWORD PTR _sz2$10443[ebp]
+	lea	edx, DWORD PTR _sz2$10444[ebp]
 	push	edx
 	call	_strcpy
 	add	esp, 8
@@ -23005,7 +23005,7 @@ $L10440:
 	mov	eax, DWORD PTR _lpViewAttrib$[ebp]
 	add	eax, 10					; 0000000aH
 	push	eax
-	lea	ecx, DWORD PTR _sz2$10443[ebp]
+	lea	ecx, DWORD PTR _sz2$10444[ebp]
 	push	ecx
 	call	_strcpy
 	add	esp, 8
@@ -23013,9 +23013,9 @@ $L10440:
 ; 7617 :             // "KZOEE362 - Variable Type not allowed for this Domain Type "
 ; 7618 :             fnIssueCoreError( lpCurrentTask, lpView, 8, 362, 0, sz1, sz2 );
 
-	lea	edx, DWORD PTR _sz2$10443[ebp]
+	lea	edx, DWORD PTR _sz2$10444[ebp]
 	push	edx
-	lea	eax, DWORD PTR _sz1$10442[ebp]
+	lea	eax, DWORD PTR _sz1$10443[ebp]
 	push	eax
 	push	0
 	push	362					; 0000016aH
@@ -23033,8 +23033,8 @@ $L10440:
 
 ; 7621 :          else
 
-	jmp	$L10469
-$L10441:
+	jmp	$L10470
+$L10442:
 
 ; 7623 :             zLPCONTEXT   lpContext;
 ; 7624 : 
@@ -23046,13 +23046,13 @@ $L10441:
 	push	ecx
 	call	_fnGetContext
 	add	esp, 8
-	mov	DWORD PTR _lpContext$10447[ebp], eax
+	mov	DWORD PTR _lpContext$10448[ebp], eax
 
 ; 7626 : 
 ; 7627 :             if ( lpContext == 0 )
 
-	cmp	DWORD PTR _lpContext$10447[ebp], 0
-	jne	SHORT $L10448
+	cmp	DWORD PTR _lpContext$10448[ebp], 0
+	jne	SHORT $L10449
 
 ; 7629 :                // "KZOEE350 - Context Not Valid for Domain"
 ; 7630 :                fnIssueCoreError( lpCurrentTask, lpView, 8, 350, 0,
@@ -23083,14 +23083,14 @@ $L10441:
 
 ; 7635 :             else
 
-	jmp	$L10469
-$L10448:
+	jmp	$L10470
+$L10449:
 
 ; 7637 :                zCHAR    sz[ 256 ];
 ; 7638 :                zPCHAR   pch;
 ; 7639 :                zPVOID   hndl = 0;
 
-	mov	DWORD PTR _hndl$10452[ebp], 0
+	mov	DWORD PTR _hndl$10453[ebp], 0
 
 ; 7640 :                zULONG   ul;
 ; 7641 : 
@@ -23101,12 +23101,12 @@ $L10448:
 	call	_strlen
 	add	esp, 4
 	add	eax, 1
-	mov	DWORD PTR _ul$10453[ebp], eax
+	mov	DWORD PTR _ul$10454[ebp], eax
 
 ; 7643 :                if ( ul > sizeof( sz ) )
 
-	cmp	DWORD PTR _ul$10453[ebp], 256		; 00000100H
-	jbe	SHORT $L10455
+	cmp	DWORD PTR _ul$10454[ebp], 256		; 00000100H
+	jbe	SHORT $L10456
 
 ; 7645 :                   hndl = fnAllocDataspace( lpCurrentTask->hFirstDataHeader,
 ; 7646 :                                            ul, 0, 0, iAttributeString );
@@ -23114,39 +23114,39 @@ $L10448:
 	push	10102					; 00002776H
 	push	0
 	push	0
-	mov	ecx, DWORD PTR _ul$10453[ebp]
+	mov	ecx, DWORD PTR _ul$10454[ebp]
 	push	ecx
 	mov	edx, DWORD PTR _lpCurrentTask$[ebp]
 	mov	eax, DWORD PTR [edx+94]
 	push	eax
 	call	_fnAllocDataspace
 	add	esp, 20					; 00000014H
-	mov	DWORD PTR _hndl$10452[ebp], eax
+	mov	DWORD PTR _hndl$10453[ebp], eax
 
 ; 7647 :                   pch = zGETPTR( hndl );
 
-	mov	ecx, DWORD PTR _hndl$10452[ebp]
+	mov	ecx, DWORD PTR _hndl$10453[ebp]
 	push	ecx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _pch$10451[ebp], eax
+	mov	DWORD PTR _pch$10452[ebp], eax
 
 ; 7649 :                else
 
-	jmp	SHORT $L10457
-$L10455:
+	jmp	SHORT $L10458
+$L10456:
 
 ; 7650 :                   pch = sz;
 
-	lea	edx, DWORD PTR _sz$10450[ebp]
-	mov	DWORD PTR _pch$10451[ebp], edx
-$L10457:
+	lea	edx, DWORD PTR _sz$10451[ebp]
+	mov	DWORD PTR _pch$10452[ebp], edx
+$L10458:
 
 ; 7651 : 
 ; 7652 :                zstrcpy( pch, (zPCHAR) lpVariable );
 
 	mov	eax, DWORD PTR _lpVariable$[ebp]
 	push	eax
-	mov	ecx, DWORD PTR _pch$10451[ebp]
+	mov	ecx, DWORD PTR _pch$10452[ebp]
 	push	ecx
 	call	_strcpy
 	add	esp, 8
@@ -23157,17 +23157,17 @@ $L10457:
 
 ; 7654 :                if ( UfEditFormatString( pch, zGETPTR( lpContext->hEditString ) ) )
 
-	mov	edx, DWORD PTR _lpContext$10447[ebp]
+	mov	edx, DWORD PTR _lpContext$10448[ebp]
 	mov	eax, DWORD PTR [edx+59]
 	push	eax
 	call	DWORD PTR _g_pfnGetPtr
 	push	eax
-	mov	ecx, DWORD PTR _pch$10451[ebp]
+	mov	ecx, DWORD PTR _pch$10452[ebp]
 	push	ecx
 	call	_UfEditFormatString@8
 	movsx	edx, ax
 	test	edx, edx
-	je	$L10460
+	je	$L10461
 
 ; 7656 :                   zCHAR sz1[ 128 ];
 ; 7657 : 
@@ -23176,7 +23176,7 @@ $L10457:
 	mov	eax, DWORD PTR _lpViewEntity$[ebp]
 	add	eax, 14					; 0000000eH
 	push	eax
-	lea	ecx, DWORD PTR _sz1$10461[ebp]
+	lea	ecx, DWORD PTR _sz1$10462[ebp]
 	push	ecx
 	call	_strcpy
 	add	esp, 8
@@ -23184,7 +23184,7 @@ $L10457:
 ; 7659 :                   zstrcat( sz1, "." );
 
 	push	OFFSET FLAT:??_C@_01PJCK@?4?$AA@	; `string'
-	lea	edx, DWORD PTR _sz1$10461[ebp]
+	lea	edx, DWORD PTR _sz1$10462[ebp]
 	push	edx
 	call	_strcat
 	add	esp, 8
@@ -23194,7 +23194,7 @@ $L10457:
 	mov	eax, DWORD PTR _lpViewAttrib$[ebp]
 	add	eax, 10					; 0000000aH
 	push	eax
-	lea	ecx, DWORD PTR _sz1$10461[ebp]
+	lea	ecx, DWORD PTR _sz1$10462[ebp]
 	push	ecx
 	call	_strcat
 	add	esp, 8
@@ -23202,7 +23202,7 @@ $L10457:
 ; 7661 :                   zstrcat( sz1, "." );
 
 	push	OFFSET FLAT:??_C@_01PJCK@?4?$AA@	; `string'
-	lea	edx, DWORD PTR _sz1$10461[ebp]
+	lea	edx, DWORD PTR _sz1$10462[ebp]
 	push	edx
 	call	_strcat
 	add	esp, 8
@@ -23212,7 +23212,7 @@ $L10457:
 	mov	eax, DWORD PTR _lpDomain$[ebp]
 	add	eax, 6
 	push	eax
-	lea	ecx, DWORD PTR _sz1$10461[ebp]
+	lea	ecx, DWORD PTR _sz1$10462[ebp]
 	push	ecx
 	call	_strcpy
 	add	esp, 8
@@ -23220,7 +23220,7 @@ $L10457:
 ; 7663 :                   zstrcat( sz1, "." );
 
 	push	OFFSET FLAT:??_C@_01PJCK@?4?$AA@	; `string'
-	lea	edx, DWORD PTR _sz1$10461[ebp]
+	lea	edx, DWORD PTR _sz1$10462[ebp]
 	push	edx
 	call	_strcat
 	add	esp, 8
@@ -23232,7 +23232,7 @@ $L10457:
 	push	eax
 	call	_TrueName@8
 	push	eax
-	lea	ecx, DWORD PTR _sz1$10461[ebp]
+	lea	ecx, DWORD PTR _sz1$10462[ebp]
 	push	ecx
 	call	_strcat
 	add	esp, 8
@@ -23243,7 +23243,7 @@ $L10457:
 ; 7668 :                   TraceLineS( sz1, "" );
 
 	push	OFFSET FLAT:??_C@_00A@?$AA@		; `string'
-	lea	edx, DWORD PTR _sz1$10461[ebp]
+	lea	edx, DWORD PTR _sz1$10462[ebp]
 	push	edx
 	call	_TraceLineS@8
 
@@ -23254,19 +23254,19 @@ $L10457:
 ; 7673 :                   zstrcpy( sz1, "Invalid data format.  Your data should be in the format: " );
 
 	push	OFFSET FLAT:??_C@_0DK@MIOO@Invalid?5data?5format?4?5?5Your?5data?5@ ; `string'
-	lea	eax, DWORD PTR _sz1$10461[ebp]
+	lea	eax, DWORD PTR _sz1$10462[ebp]
 	push	eax
 	call	_strcpy
 	add	esp, 8
 
 ; 7674 :                   zstrcat( sz1, zGETPTR( lpContext->hEditString ) );
 
-	mov	ecx, DWORD PTR _lpContext$10447[ebp]
+	mov	ecx, DWORD PTR _lpContext$10448[ebp]
 	mov	edx, DWORD PTR [ecx+59]
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
 	push	eax
-	lea	eax, DWORD PTR _sz1$10461[ebp]
+	lea	eax, DWORD PTR _sz1$10462[ebp]
 	push	eax
 	call	_strcat
 	add	esp, 8
@@ -23279,7 +23279,7 @@ $L10457:
 
 	push	0
 	push	4
-	lea	ecx, DWORD PTR _sz1$10461[ebp]
+	lea	ecx, DWORD PTR _sz1$10462[ebp]
 	push	ecx
 	mov	edx, DWORD PTR _szlApplicationLogicError
 	push	edx
@@ -23291,7 +23291,7 @@ $L10457:
 ; 7680 :                   nRC = zCALL_ERROR;
 
 	mov	WORD PTR _nRC$[ebp], -16		; fffffff0H
-$L10460:
+$L10461:
 
 ; 7682 : 
 ; 7683 :                if ( bValidationOnly )
@@ -23299,38 +23299,38 @@ $L10460:
 	mov	ecx, DWORD PTR _bValidationOnly$[ebp]
 	and	ecx, 255				; 000000ffH
 	test	ecx, ecx
-	je	SHORT $L10466
+	je	SHORT $L10467
 
 ; 7684 :                   nRC = (nRC == 0) ? 0 : nRC;
 
 	movsx	edx, WORD PTR _nRC$[ebp]
 	test	edx, edx
-	jne	SHORT $L11958
+	jne	SHORT $L11959
 	mov	DWORD PTR -1660+[ebp], 0
-	jmp	SHORT $L11959
-$L11958:
+	jmp	SHORT $L11960
+$L11959:
 	movsx	eax, WORD PTR _nRC$[ebp]
 	mov	DWORD PTR -1660+[ebp], eax
-$L11959:
+$L11960:
 	mov	cx, WORD PTR -1660+[ebp]
 	mov	WORD PTR _nRC$[ebp], cx
 
 ; 7685 :                else
 
-	jmp	SHORT $L10468
-$L10466:
+	jmp	SHORT $L10469
+$L10467:
 
 ; 7687 :                   if ( nRC == 0 )
 
 	movsx	edx, WORD PTR _nRC$[ebp]
 	test	edx, edx
-	jne	SHORT $L10468
+	jne	SHORT $L10469
 
 ; 7688 :                      nRC = fnSetAttributeFromString( lpView, lpViewEntityCsr,
 ; 7689 :                                                      lpViewAttrib, pch, 0 );
 
 	push	0
-	mov	eax, DWORD PTR _pch$10451[ebp]
+	mov	eax, DWORD PTR _pch$10452[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _lpViewAttrib$[ebp]
 	push	ecx
@@ -23341,27 +23341,27 @@ $L10466:
 	call	_fnSetAttributeFromString
 	add	esp, 20					; 00000014H
 	mov	WORD PTR _nRC$[ebp], ax
-$L10468:
+$L10469:
 
 ; 7691 : 
 ; 7692 :                if ( hndl )
 
-	cmp	DWORD PTR _hndl$10452[ebp], 0
-	je	SHORT $L10469
+	cmp	DWORD PTR _hndl$10453[ebp], 0
+	je	SHORT $L10470
 
 ; 7693 :                   fnFreeDataspace( pch );
 
-	mov	ecx, DWORD PTR _pch$10451[ebp]
+	mov	ecx, DWORD PTR _pch$10452[ebp]
 	push	ecx
 	call	_fnFreeDataspace
 	add	esp, 4
-$L10469:
+$L10470:
 
 ; 7696 : 
 ; 7697 :          break;
 
-	jmp	$L10434
-$L10470:
+	jmp	$L10435
+$L10471:
 
 ; 7698 : 
 ; 7699 :       case zDM_TYPE_EXPRESSION:
@@ -23403,7 +23403,7 @@ $L10470:
 
 	movsx	eax, WORD PTR _nRC$[ebp]
 	cmp	eax, -10				; fffffff6H
-	jne	SHORT $L10472
+	jne	SHORT $L10473
 
 ; 7712 :             zCHAR szMsg[ 500 ];
 ; 7713 : 
@@ -23420,7 +23420,7 @@ $L10470:
 	add	eax, 100				; 00000064H
 	push	eax
 	push	OFFSET FLAT:??_C@_0EE@ELLG@Operation?5?8?$CFs?8?5does?5not?5handle?5a@ ; `string'
-	lea	ecx, DWORD PTR _szMsg$10473[ebp]
+	lea	ecx, DWORD PTR _szMsg$10474[ebp]
 	push	ecx
 	call	DWORD PTR __imp__sprintf
 	add	esp, 20					; 00000014H
@@ -23430,7 +23430,7 @@ $L10470:
 
 	push	0
 	push	200					; 000000c8H
-	lea	edx, DWORD PTR _szMsg$10473[ebp]
+	lea	edx, DWORD PTR _szMsg$10474[ebp]
 	push	edx
 	push	OFFSET FLAT:??_C@_0N@LGH@System?5Error?$AA@ ; `string'
 	push	OFFSET FLAT:??_C@_08MEJN@TZDMD101?$AA@	; `string'
@@ -23441,24 +23441,24 @@ $L10470:
 ; 7719 :             return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	$L10403
-$L10472:
+	jmp	$L10404
+$L10473:
 
 ; 7721 : 
 ; 7722 :          break;
 
-	jmp	$L10434
-$L10477:
+	jmp	$L10435
+$L10478:
 
 ; 7726 :          if ( cVariableType == zTYPE_STRING && lpViewAttrib->cType == zTYPE_BLOB )
 
 	movsx	ecx, BYTE PTR _cVariableType$[ebp]
 	cmp	ecx, 83					; 00000053H
-	jne	SHORT $L10478
+	jne	SHORT $L10479
 	mov	edx, DWORD PTR _lpViewAttrib$[ebp]
 	movsx	eax, BYTE PTR [edx+202]
 	cmp	eax, 66					; 00000042H
-	jne	SHORT $L10478
+	jne	SHORT $L10479
 
 ; 7728 :             cVariableType = zTYPE_BLOB;  // dks 2007.01.11  permit blob to be set from string
 
@@ -23472,7 +23472,7 @@ $L10477:
 	add	esp, 4
 	add	eax, 1
 	mov	DWORD PTR _ulVariableLth$[ebp], eax
-$L10478:
+$L10479:
 
 ; 7731 : 
 ; 7732 :          // do it without a domain ...
@@ -23485,12 +23485,12 @@ $L10478:
 	sub	eax, 66					; 00000042H
 	mov	DWORD PTR -1664+[ebp], eax
 	cmp	DWORD PTR -1664+[ebp], 17		; 00000011H
-	ja	$L10501
+	ja	$L10502
 	mov	edx, DWORD PTR -1664+[ebp]
 	xor	ecx, ecx
-	mov	cl, BYTE PTR $L11962[edx]
-	jmp	DWORD PTR $L11963[ecx*4]
-$L10484:
+	mov	cl, BYTE PTR $L11963[edx]
+	jmp	DWORD PTR $L11964[ecx*4]
+$L10485:
 
 ; 7735 :             case zTYPE_STRING:
 ; 7736 :                if ( bValidationOnly )
@@ -23498,7 +23498,7 @@ $L10484:
 	mov	eax, DWORD PTR _bValidationOnly$[ebp]
 	and	eax, 255				; 000000ffH
 	test	eax, eax
-	je	SHORT $L10485
+	je	SHORT $L10486
 
 ; 7737 :                   nRC = 0;
 
@@ -23506,8 +23506,8 @@ $L10484:
 
 ; 7738 :                else
 
-	jmp	SHORT $L10486
-$L10485:
+	jmp	SHORT $L10487
+$L10486:
 
 ; 7739 :                   nRC = fnSetAttributeFromString( lpView, lpViewEntityCsr,
 ; 7740 :                                                   lpViewAttrib,
@@ -23525,12 +23525,12 @@ $L10485:
 	call	_fnSetAttributeFromString
 	add	esp, 20					; 00000014H
 	mov	WORD PTR _nRC$[ebp], ax
-$L10486:
+$L10487:
 
 ; 7742 :                break;
 
-	jmp	$L10481
-$L10488:
+	jmp	$L10482
+$L10489:
 
 ; 7743 : 
 ; 7744 :             case zTYPE_BLOB:
@@ -23539,7 +23539,7 @@ $L10488:
 	mov	edx, DWORD PTR _bValidationOnly$[ebp]
 	and	edx, 255				; 000000ffH
 	test	edx, edx
-	je	SHORT $L10489
+	je	SHORT $L10490
 
 ; 7746 :                   nRC = 0;
 
@@ -23547,8 +23547,8 @@ $L10488:
 
 ; 7747 :                else
 
-	jmp	SHORT $L10490
-$L10489:
+	jmp	SHORT $L10491
+$L10490:
 
 ; 7748 :                   nRC = fnSetAttributeFromBlob( lpView, lpViewEntityCsr,
 ; 7749 :                                                 lpViewAttrib,
@@ -23568,12 +23568,12 @@ $L10489:
 	call	_fnSetAttributeFromBlob
 	add	esp, 20					; 00000014H
 	mov	WORD PTR _nRC$[ebp], ax
-$L10490:
+$L10491:
 
 ; 7752 :                break;
 
-	jmp	$L10481
-$L10492:
+	jmp	$L10482
+$L10493:
 
 ; 7753 : 
 ; 7754 :             case zTYPE_INTEGER:
@@ -23582,7 +23582,7 @@ $L10492:
 	mov	edx, DWORD PTR _bValidationOnly$[ebp]
 	and	edx, 255				; 000000ffH
 	test	edx, edx
-	je	SHORT $L10493
+	je	SHORT $L10494
 
 ; 7756 :                   nRC = 0;
 
@@ -23590,8 +23590,8 @@ $L10492:
 
 ; 7757 :                else
 
-	jmp	SHORT $L10494
-$L10493:
+	jmp	SHORT $L10495
+$L10494:
 
 ; 7759 :                   plInteger = (zPLONG) lpVariable;
 
@@ -23615,13 +23615,13 @@ $L10493:
 	call	_fnSetAttributeFromInteger
 	add	esp, 16					; 00000010H
 	mov	WORD PTR _nRC$[ebp], ax
-$L10494:
+$L10495:
 
 ; 7765 : 
 ; 7766 :                break;
 
-	jmp	SHORT $L10481
-$L10496:
+	jmp	SHORT $L10482
+$L10497:
 
 ; 7767 : 
 ; 7768 :             case zTYPE_DECIMAL:
@@ -23630,7 +23630,7 @@ $L10496:
 	mov	eax, DWORD PTR _bValidationOnly$[ebp]
 	and	eax, 255				; 000000ffH
 	test	eax, eax
-	je	SHORT $L10497
+	je	SHORT $L10498
 
 ; 7770 :                   nRC = 0;
 
@@ -23638,8 +23638,8 @@ $L10496:
 
 ; 7771 :                else
 
-	jmp	SHORT $L10498
-$L10497:
+	jmp	SHORT $L10499
+$L10498:
 
 ; 7773 :                   pdDecimal = (zPDECIMAL) lpVariable;
 
@@ -23668,13 +23668,13 @@ $L10497:
 	call	_fnSetAttributeFromDecimal
 	add	esp, 52					; 00000034H
 	mov	WORD PTR _nRC$[ebp], ax
-$L10498:
+$L10499:
 
 ; 7779 : 
 ; 7780 :                break;
 
-	jmp	SHORT $L10481
-$L10501:
+	jmp	SHORT $L10482
+$L10502:
 
 ; 7781 : 
 ; 7782 :             default:
@@ -23706,9 +23706,9 @@ $L10501:
 ; 7787 :                return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	SHORT $L10403
-$L10481:
-$L10434:
+	jmp	SHORT $L10404
+$L10482:
+$L10435:
 
 ; 7791 : 
 ; 7792 :    // If there is an object operation for this attribute,
@@ -23718,15 +23718,15 @@ $L10434:
 
 	movsx	ecx, WORD PTR _nRC$[ebp]
 	test	ecx, ecx
-	jne	SHORT $L10502
+	jne	SHORT $L10503
 	mov	edx, DWORD PTR _bValidationOnly$[ebp]
 	and	edx, 255				; 000000ffH
 	test	edx, edx
-	jne	SHORT $L10502
+	jne	SHORT $L10503
 	mov	eax, DWORD PTR _lpViewAttrib$[ebp]
 	movsx	ecx, BYTE PTR [eax+213]
 	test	ecx, ecx
-	je	SHORT $L10502
+	je	SHORT $L10503
 
 ; 7797 :       nRC = fnInvokeDerivedOperation( lpView, lpViewEntity, lpViewAttrib,
 ; 7798 :                                       lpCurrentTask, zDERIVED_SET );
@@ -23743,13 +23743,13 @@ $L10434:
 	call	_fnInvokeDerivedOperation
 	add	esp, 20					; 00000014H
 	mov	WORD PTR _nRC$[ebp], ax
-$L10502:
+$L10503:
 
 ; 7800 : 
 ; 7801 :    return( nRC );
 
 	mov	ax, WORD PTR _nRC$[ebp]
-$L10403:
+$L10404:
 
 ; 7802 : }
 
@@ -23758,12 +23758,12 @@ $L10403:
 	mov	esp, ebp
 	pop	ebp
 	ret	0
+$L11962:
+	DD	$L10471
+	DD	$L10441
+	DD	$L10438
+	DD	$L10478
 $L11961:
-	DD	$L10470
-	DD	$L10440
-	DD	$L10437
-	DD	$L10477
-$L11960:
 	DB	0
 	DB	3
 	DB	3
@@ -23784,13 +23784,13 @@ $L11960:
 	DB	3
 	DB	3
 	DB	2
+$L11964:
+	DD	$L10489
+	DD	$L10493
+	DD	$L10497
+	DD	$L10485
+	DD	$L10502
 $L11963:
-	DD	$L10488
-	DD	$L10492
-	DD	$L10496
-	DD	$L10484
-	DD	$L10501
-$L11962:
 	DB	0
 	DB	4
 	DB	4
@@ -23875,20 +23875,20 @@ _AddToAttributeFromVariable@28 PROC NEAR
 
 	movsx	ecx, WORD PTR _nRC$[ebp]
 	test	ecx, ecx
-	jle	SHORT $L10523
+	jle	SHORT $L10524
 
 ; 7861 :       return( zCALL_ERROR );   // don't call fnOperationReturn
 
 	mov	ax, -16					; fffffff0H
-	jmp	SHORT $L10517
-$L10523:
+	jmp	SHORT $L10518
+$L10524:
 
 ; 7862 : 
 ; 7863 :    if ( nRC )
 
 	movsx	edx, WORD PTR _nRC$[ebp]
 	test	edx, edx
-	je	SHORT $L10524
+	je	SHORT $L10525
 
 ; 7864 :       nRC = zCALL_ERROR;
 
@@ -23896,8 +23896,8 @@ $L10523:
 
 ; 7865 :    else
 
-	jmp	SHORT $L10525
-$L10524:
+	jmp	SHORT $L10526
+$L10525:
 
 ; 7867 :       // Call fnAddToAttributeFromVariable to do the setting.
 ; 7868 :       nRC = fnAddToAttributeFromVariable( lpView, lpViewEntityCsr,
@@ -23925,7 +23925,7 @@ $L10524:
 	call	_fnAddToAttributeFromVariable
 	add	esp, 32					; 00000020H
 	mov	WORD PTR _nRC$[ebp], ax
-$L10525:
+$L10526:
 
 ; 7874 : 
 ; 7875 :    fnOperationReturn( iAddToAttributeFromVariable, lpCurrentTask );
@@ -23939,7 +23939,7 @@ $L10525:
 ; 7876 :    return( nRC );
 
 	mov	ax, WORD PTR _nRC$[ebp]
-$L10517:
+$L10518:
 
 ; 7877 : }
 
@@ -23963,9 +23963,9 @@ _szTempStr$ = -28
 _plInteger$ = -20
 _pdDecimal$ = -32
 _nRC$ = -12
-_szMsg$10562 = -532
-_dDecimalValue$10572 = -572
-_lIntegerValue$10576 = -576
+_szMsg$10563 = -532
+_dDecimalValue$10573 = -572
+_lIntegerValue$10577 = -576
 _fnAddToAttributeFromVariable PROC NEAR
 
 ; 7900 : {
@@ -24024,13 +24024,13 @@ _fnAddToAttributeFromVariable PROC NEAR
 	mov	dl, BYTE PTR _cDomainType$[ebp]
 	mov	BYTE PTR -580+[ebp], dl
 	cmp	BYTE PTR -580+[ebp], 65			; 00000041H
-	je	SHORT $L10560
+	je	SHORT $L10561
 	cmp	BYTE PTR -580+[ebp], 69			; 00000045H
-	je	SHORT $L10560
+	je	SHORT $L10561
 	cmp	BYTE PTR -580+[ebp], 84			; 00000054H
-	je	SHORT $L10557
-	jmp	$L10563
-$L10557:
+	je	SHORT $L10558
+	jmp	$L10564
+$L10558:
 
 ; 7918 :       case zDM_TYPE_TABLE:
 ; 7919 :          nRC = Table_Handler( (zLONG) zDME_ADD_TO_ATTRIBUTE,
@@ -24064,8 +24064,8 @@ $L10557:
 
 ; 7928 :          break;
 
-	jmp	$L10554
-$L10560:
+	jmp	$L10555
+$L10561:
 
 ; 7929 : 
 ; 7930 :       case zDM_TYPE_EXPRESSION:
@@ -24106,7 +24106,7 @@ $L10560:
 
 	movsx	ecx, WORD PTR _nRC$[ebp]
 	cmp	ecx, -10				; fffffff6H
-	jne	SHORT $L10561
+	jne	SHORT $L10562
 
 ; 7943 :             zCHAR szMsg[ 500 ];
 ; 7944 : 
@@ -24122,7 +24122,7 @@ $L10560:
 	add	eax, 100				; 00000064H
 	push	eax
 	push	OFFSET FLAT:??_C@_0EE@ELLG@Operation?5?8?$CFs?8?5does?5not?5handle?5a@ ; `string'
-	lea	ecx, DWORD PTR _szMsg$10562[ebp]
+	lea	ecx, DWORD PTR _szMsg$10563[ebp]
 	push	ecx
 	call	DWORD PTR __imp__sprintf
 	add	esp, 20					; 00000014H
@@ -24132,7 +24132,7 @@ $L10560:
 
 	push	0
 	push	200					; 000000c8H
-	lea	edx, DWORD PTR _szMsg$10562[ebp]
+	lea	edx, DWORD PTR _szMsg$10563[ebp]
 	push	edx
 	push	OFFSET FLAT:??_C@_0N@LGH@System?5Error?$AA@ ; `string'
 	push	OFFSET FLAT:??_C@_08MEJN@TZDMD101?$AA@	; `string'
@@ -24143,14 +24143,14 @@ $L10560:
 ; 7950 :             return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	$L10542
-$L10561:
+	jmp	$L10543
+$L10562:
 
 ; 7952 : 
 ; 7953 :          break;
 
-	jmp	$L10554
-$L10563:
+	jmp	$L10555
+$L10564:
 
 ; 7954 : 
 ; 7955 :       case zDM_TYPE_FORMAT:
@@ -24165,12 +24165,12 @@ $L10563:
 	sub	edx, 66					; 00000042H
 	mov	DWORD PTR -584+[ebp], edx
 	cmp	DWORD PTR -584+[ebp], 17		; 00000011H
-	ja	$L10584
+	ja	$L10585
 	mov	ecx, DWORD PTR -584+[ebp]
 	xor	eax, eax
-	mov	al, BYTE PTR $L11966[ecx]
-	jmp	DWORD PTR $L11967[eax*4]
-$L10568:
+	mov	al, BYTE PTR $L11967[ecx]
+	jmp	DWORD PTR $L11968[eax*4]
+$L10569:
 
 ; 7960 :           case zTYPE_STRING:
 ; 7961 :             if ( *((zPCHAR) lpVariable) == 0 )
@@ -24178,7 +24178,7 @@ $L10568:
 	mov	edx, DWORD PTR _lpVariable$[ebp]
 	movsx	eax, BYTE PTR [edx]
 	test	eax, eax
-	jne	SHORT $L10570
+	jne	SHORT $L10571
 
 ; 7963 :                // a null string, don't bother adding
 ; 7964 :                nRC = zCALL_ERROR;
@@ -24187,8 +24187,8 @@ $L10568:
 
 ; 7965 :                break;
 
-	jmp	$L10565
-$L10570:
+	jmp	$L10566
+$L10571:
 
 ; 7967 : 
 ; 7968 :             if ( lpViewAttrib->cType == zTYPE_DECIMAL )
@@ -24196,14 +24196,14 @@ $L10570:
 	mov	ecx, DWORD PTR _lpViewAttrib$[ebp]
 	movsx	edx, BYTE PTR [ecx+202]
 	cmp	edx, 77					; 0000004dH
-	jne	SHORT $L10571
+	jne	SHORT $L10572
 
 ; 7970 :                zDECIMAL  dDecimalValue;
 ; 7971 : 
 ; 7972 :                SysConvertStringToDecimal( (zPCHAR) lpVariable,
 ; 7973 :                                           &dDecimalValue );
 
-	lea	eax, DWORD PTR _dDecimalValue$10572[ebp]
+	lea	eax, DWORD PTR _dDecimalValue$10573[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _lpVariable$[ebp]
 	push	ecx
@@ -24216,7 +24216,7 @@ $L10570:
 
 	sub	esp, 40					; 00000028H
 	mov	ecx, 10					; 0000000aH
-	lea	esi, DWORD PTR _dDecimalValue$10572[ebp]
+	lea	esi, DWORD PTR _dDecimalValue$10573[ebp]
 	mov	edi, esp
 	rep movsd
 	mov	edx, DWORD PTR _lpViewAttrib$[ebp]
@@ -24231,15 +24231,15 @@ $L10570:
 
 ; 7979 :             else
 
-	jmp	SHORT $L10578
-$L10571:
+	jmp	SHORT $L10579
+$L10572:
 
 ; 7980 :             if ( lpViewAttrib->cType == zTYPE_INTEGER )
 
 	mov	edx, DWORD PTR _lpViewAttrib$[ebp]
 	movsx	eax, BYTE PTR [edx+202]
 	cmp	eax, 76					; 0000004cH
-	jne	SHORT $L10575
+	jne	SHORT $L10576
 
 ; 7982 :                // convert string to long, then add
 ; 7983 :                zLONG lIntegerValue;
@@ -24250,14 +24250,14 @@ $L10571:
 	push	ecx
 	call	DWORD PTR __imp__atol
 	add	esp, 4
-	mov	DWORD PTR _lIntegerValue$10576[ebp], eax
+	mov	DWORD PTR _lIntegerValue$10577[ebp], eax
 
 ; 7986 :                nRC = fnAddToAttributeFromInteger( lpView,
 ; 7987 :                                                   lpViewEntityCsr,
 ; 7988 :                                                   lpViewAttrib,
 ; 7989 :                                                   lIntegerValue );
 
-	mov	edx, DWORD PTR _lIntegerValue$10576[ebp]
+	mov	edx, DWORD PTR _lIntegerValue$10577[ebp]
 	push	edx
 	mov	eax, DWORD PTR _lpViewAttrib$[ebp]
 	push	eax
@@ -24271,19 +24271,19 @@ $L10571:
 
 ; 7991 :             else
 
-	jmp	SHORT $L10578
-$L10575:
+	jmp	SHORT $L10579
+$L10576:
 
 ; 7992 :                nRC = zCALL_ERROR;
 
 	mov	WORD PTR _nRC$[ebp], -16		; fffffff0H
-$L10578:
+$L10579:
 
 ; 7993 : 
 ; 7994 :             break;
 
-	jmp	$L10565
-$L10579:
+	jmp	$L10566
+$L10580:
 
 ; 7995 : 
 ; 7996 :           case zTYPE_BLOB:
@@ -24293,8 +24293,8 @@ $L10579:
 
 ; 7998 :             break;
 
-	jmp	$L10565
-$L10580:
+	jmp	$L10566
+$L10581:
 
 ; 7999 : 
 ; 8000 :           case zTYPE_INTEGER:
@@ -24323,8 +24323,8 @@ $L10580:
 
 ; 8006 :             break;
 
-	jmp	SHORT $L10565
-$L10582:
+	jmp	SHORT $L10566
+$L10583:
 
 ; 8007 : 
 ; 8008 :           case zTYPE_DECIMAL:
@@ -24355,8 +24355,8 @@ $L10582:
 
 ; 8014 :             break;
 
-	jmp	SHORT $L10565
-$L10584:
+	jmp	SHORT $L10566
+$L10585:
 
 ; 8015 : 
 ; 8016 :           default:
@@ -24388,15 +24388,15 @@ $L10584:
 ; 8021 :             return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	SHORT $L10542
-$L10565:
-$L10554:
+	jmp	SHORT $L10543
+$L10566:
+$L10555:
 
 ; 8024 : 
 ; 8025 :    return( nRC );
 
 	mov	ax, WORD PTR _nRC$[ebp]
-$L10542:
+$L10543:
 
 ; 8026 : }
 
@@ -24405,13 +24405,13 @@ $L10542:
 	mov	esp, ebp
 	pop	ebp
 	ret	0
-$L11967:
-	DD	$L10579
+$L11968:
 	DD	$L10580
-	DD	$L10582
-	DD	$L10568
-	DD	$L10584
-$L11966:
+	DD	$L10581
+	DD	$L10583
+	DD	$L10569
+	DD	$L10585
+$L11967:
 	DB	0
 	DB	4
 	DB	4
@@ -24444,11 +24444,11 @@ _dTemp$ = -44
 _lTemp$ = -48
 _lpViewOI$ = -84
 _nRC$ = -4
-_lpExternalP$10610 = -88
-_lpViewCsr$10658 = -92
-_lpView$10660 = -96
-_lpViewCsr$10682 = -100
-_lpView$10684 = -104
+_lpExternalP$10611 = -88
+_lpViewCsr$10659 = -92
+_lpView$10661 = -96
+_lpViewCsr$10683 = -100
+_lpView$10685 = -104
 _fnCompareAttributeToString PROC NEAR
 
 ; 8042 : {
@@ -24485,7 +24485,7 @@ _fnCompareAttributeToString PROC NEAR
 ; 8052 :    if ( pchRecord )
 
 	cmp	DWORD PTR _pchRecord$[ebp], 0
-	je	$L10602
+	je	$L10603
 
 ; 8054 :       pchRecord += lpViewAttrib->ulRecordOffset;
 
@@ -24504,12 +24504,12 @@ _fnCompareAttributeToString PROC NEAR
 	sub	edx, 66					; 00000042H
 	mov	DWORD PTR -108+[ebp], edx
 	cmp	DWORD PTR -108+[ebp], 18		; 00000012H
-	ja	$L10652
+	ja	$L10653
 	mov	ecx, DWORD PTR -108+[ebp]
 	xor	eax, eax
-	mov	al, BYTE PTR $L11975[ecx]
-	jmp	DWORD PTR $L11976[eax*4]
-$L10607:
+	mov	al, BYTE PTR $L11976[ecx]
+	jmp	DWORD PTR $L11977[eax*4]
+$L10608:
 
 ; 8057 :          case zTYPE_STRING:
 ; 8058 :             if ( pchRecord[ 0 ] == (zCHAR) '\xff' )
@@ -24517,7 +24517,7 @@ $L10607:
 	mov	edx, DWORD PTR _pchRecord$[ebp]
 	movsx	eax, BYTE PTR [edx]
 	cmp	eax, -1
-	jne	SHORT $L10609
+	jne	SHORT $L10610
 
 ; 8060 :                zCOREMEM  lpExternalP;
 ; 8061 : 
@@ -24525,16 +24525,16 @@ $L10607:
 
 	mov	ecx, DWORD PTR _pchRecord$[ebp]
 	add	ecx, 1
-	mov	DWORD PTR _lpExternalP$10610[ebp], ecx
+	mov	DWORD PTR _lpExternalP$10611[ebp], ecx
 
 ; 8063 :                pchRecord = zGETPTR( *lpExternalP );
 
-	mov	edx, DWORD PTR _lpExternalP$10610[ebp]
+	mov	edx, DWORD PTR _lpExternalP$10611[ebp]
 	mov	eax, DWORD PTR [edx]
 	push	eax
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _pchRecord$[ebp], eax
-$L10609:
+$L10610:
 
 ; 8065 : 
 ; 8066 :             if ( lpViewAttrib->bCaseSens )
@@ -24544,7 +24544,7 @@ $L10609:
 	shr	edx, 6
 	and	edx, 1
 	test	edx, edx
-	je	SHORT $L10613
+	je	SHORT $L10614
 
 ; 8067 :                nRC = zstrcmp( pchRecord, pchStringValue );
 
@@ -24553,7 +24553,7 @@ $L10609:
 	mov	edx, DWORD PTR _pchStringValue$[ebp]
 	movsx	eax, BYTE PTR [edx]
 	cmp	ecx, eax
-	jne	SHORT $L11969
+	jne	SHORT $L11970
 	mov	ecx, DWORD PTR _pchStringValue$[ebp]
 	push	ecx
 	mov	edx, DWORD PTR _pchRecord$[ebp]
@@ -24561,8 +24561,8 @@ $L10609:
 	call	_strcmp
 	add	esp, 8
 	mov	DWORD PTR -112+[ebp], eax
-	jmp	SHORT $L11970
-$L11969:
+	jmp	SHORT $L11971
+$L11970:
 	mov	eax, DWORD PTR _pchRecord$[ebp]
 	movsx	ecx, BYTE PTR [eax]
 	mov	edx, DWORD PTR _pchStringValue$[ebp]
@@ -24575,14 +24575,14 @@ $L11969:
 	and	edx, 2
 	add	edx, -1
 	mov	DWORD PTR -112+[ebp], edx
-$L11970:
+$L11971:
 	mov	ax, WORD PTR -112+[ebp]
 	mov	WORD PTR _nRC$[ebp], ax
 
 ; 8068 :             else
 
-	jmp	SHORT $L10620
-$L10613:
+	jmp	SHORT $L10621
+$L10614:
 
 ; 8069 :                nRC = zstrcmpi( pchRecord, pchStringValue );
 
@@ -24593,14 +24593,14 @@ $L10613:
 	call	DWORD PTR __imp___stricmp
 	add	esp, 8
 	mov	WORD PTR _nRC$[ebp], ax
-$L10620:
+$L10621:
 
 ; 8070 : 
 ; 8071 :             if ( nRC < 0 )
 
 	movsx	eax, WORD PTR _nRC$[ebp]
 	test	eax, eax
-	jge	SHORT $L10621
+	jge	SHORT $L10622
 
 ; 8072 :                nRC = -1;
 
@@ -24608,25 +24608,25 @@ $L10620:
 
 ; 8073 :             else
 
-	jmp	SHORT $L10623
-$L10621:
+	jmp	SHORT $L10624
+$L10622:
 
 ; 8074 :             if ( nRC > 0 )
 
 	movsx	ecx, WORD PTR _nRC$[ebp]
 	test	ecx, ecx
-	jle	SHORT $L10623
+	jle	SHORT $L10624
 
 ; 8075 :                nRC = 1;
 
 	mov	WORD PTR _nRC$[ebp], 1
-$L10623:
+$L10624:
 
 ; 8076 : 
 ; 8077 :             break;
 
-	jmp	$L10604
-$L10624:
+	jmp	$L10605
+$L10625:
 
 ; 8078 : 
 ; 8079 :          case zTYPE_INTEGER:
@@ -24636,11 +24636,11 @@ $L10624:
 	mov	edx, DWORD PTR _pchStringValue$[ebp]
 	movsx	eax, BYTE PTR [edx]
 	test	eax, eax
-	jne	SHORT $L10626
+	jne	SHORT $L10627
 	mov	ecx, DWORD PTR _pchRecord$[ebp]
 	mov	edx, DWORD PTR [ecx]
 	cmp	edx, DWORD PTR _lNullInteger
-	jne	SHORT $L10626
+	jne	SHORT $L10627
 
 ; 8083 :                // empty string matches NULL integer
 ; 8084 :                nRC = 0;
@@ -24649,8 +24649,8 @@ $L10624:
 
 ; 8085 :                break;
 
-	jmp	$L10604
-$L10626:
+	jmp	$L10605
+$L10627:
 
 ; 8087 : 
 ; 8088 :             lTemp = zatol( szWorkString );
@@ -24666,7 +24666,7 @@ $L10626:
 	mov	ecx, DWORD PTR _pchRecord$[ebp]
 	mov	edx, DWORD PTR [ecx]
 	cmp	edx, DWORD PTR _lTemp$[ebp]
-	jge	SHORT $L10628
+	jge	SHORT $L10629
 
 ; 8090 :                nRC = -1;
 
@@ -24674,15 +24674,15 @@ $L10626:
 
 ; 8091 :             else
 
-	jmp	SHORT $L10632
-$L10628:
+	jmp	SHORT $L10633
+$L10629:
 
 ; 8092 :             if ( *((zPLONG) pchRecord) > lTemp )
 
 	mov	eax, DWORD PTR _pchRecord$[ebp]
 	mov	ecx, DWORD PTR [eax]
 	cmp	ecx, DWORD PTR _lTemp$[ebp]
-	jle	SHORT $L10631
+	jle	SHORT $L10632
 
 ; 8093 :                nRC = 1;
 
@@ -24690,19 +24690,19 @@ $L10628:
 
 ; 8094 :             else
 
-	jmp	SHORT $L10632
-$L10631:
+	jmp	SHORT $L10633
+$L10632:
 
 ; 8095 :                nRC = 0;
 
 	mov	WORD PTR _nRC$[ebp], 0
-$L10632:
+$L10633:
 
 ; 8096 : 
 ; 8097 :             break;
 
-	jmp	$L10604
-$L10633:
+	jmp	$L10605
+$L10634:
 
 ; 8098 : 
 ; 8099 :          case zTYPE_DECIMAL:
@@ -24714,13 +24714,13 @@ $L10633:
 	mov	edx, DWORD PTR _pchStringValue$[ebp]
 	movsx	eax, BYTE PTR [edx]
 	test	eax, eax
-	jne	SHORT $L10635
+	jne	SHORT $L10636
 	mov	ecx, DWORD PTR _pchRecord$[ebp]
 	push	ecx
 	call	_SysCompareDecimalToNull@4
 	movsx	edx, ax
 	test	edx, edx
-	jne	SHORT $L10635
+	jne	SHORT $L10636
 
 ; 8105 :                // empty string matches NULL decimal
 ; 8106 :                nRC = 0;
@@ -24729,8 +24729,8 @@ $L10633:
 
 ; 8107 :                break;
 
-	jmp	$L10604
-$L10635:
+	jmp	$L10605
+$L10636:
 
 ; 8109 : 
 ; 8110 :             SysConvertStringToDecimal( pchStringValue, &dTemp );
@@ -24754,7 +24754,7 @@ $L10635:
 
 	movsx	ecx, WORD PTR _nRC$[ebp]
 	test	ecx, ecx
-	jge	SHORT $L10637
+	jge	SHORT $L10638
 
 ; 8113 :                nRC = -1;
 
@@ -24762,25 +24762,25 @@ $L10635:
 
 ; 8114 :             else
 
-	jmp	SHORT $L10639
-$L10637:
+	jmp	SHORT $L10640
+$L10638:
 
 ; 8115 :             if ( nRC > 0 )
 
 	movsx	edx, WORD PTR _nRC$[ebp]
 	test	edx, edx
-	jle	SHORT $L10639
+	jle	SHORT $L10640
 
 ; 8116 :                nRC = 1;
 
 	mov	WORD PTR _nRC$[ebp], 1
-$L10639:
+$L10640:
 
 ; 8117 : 
 ; 8118 :             break;
 
-	jmp	$L10604
-$L10640:
+	jmp	$L10605
+$L10641:
 
 ; 8119 : 
 ; 8120 :          case zTYPE_DATETIME:
@@ -24799,7 +24799,7 @@ $L10640:
 	mov	eax, DWORD PTR _pchStringValue$[ebp]
 	movsx	ecx, BYTE PTR [eax]
 	cmp	edx, ecx
-	jne	SHORT $L11971
+	jne	SHORT $L11972
 	mov	edx, DWORD PTR _pchStringValue$[ebp]
 	push	edx
 	lea	eax, DWORD PTR _szWorkString$[ebp]
@@ -24807,8 +24807,8 @@ $L10640:
 	call	_strcmp
 	add	esp, 8
 	mov	DWORD PTR -116+[ebp], eax
-	jmp	SHORT $L11972
-$L11971:
+	jmp	SHORT $L11973
+$L11972:
 	movsx	ecx, BYTE PTR _szWorkString$[ebp]
 	mov	edx, DWORD PTR _pchStringValue$[ebp]
 	movsx	eax, BYTE PTR [edx]
@@ -24820,7 +24820,7 @@ $L11971:
 	and	edx, 2
 	add	edx, -1
 	mov	DWORD PTR -116+[ebp], edx
-$L11972:
+$L11973:
 	mov	ax, WORD PTR -116+[ebp]
 	mov	WORD PTR _nRC$[ebp], ax
 
@@ -24828,7 +24828,7 @@ $L11972:
 
 	movsx	ecx, WORD PTR _nRC$[ebp]
 	test	ecx, ecx
-	jge	SHORT $L10648
+	jge	SHORT $L10649
 
 ; 8124 :                nRC = -1;
 
@@ -24836,25 +24836,25 @@ $L11972:
 
 ; 8125 :             else
 
-	jmp	SHORT $L10650
-$L10648:
+	jmp	SHORT $L10651
+$L10649:
 
 ; 8126 :             if ( nRC > 0 )
 
 	movsx	edx, WORD PTR _nRC$[ebp]
 	test	edx, edx
-	jle	SHORT $L10650
+	jle	SHORT $L10651
 
 ; 8127 :                nRC = 1;
 
 	mov	WORD PTR _nRC$[ebp], 1
-$L10650:
+$L10651:
 
 ; 8128 : 
 ; 8129 :             break;
 
-	jmp	$L10604
-$L10651:
+	jmp	$L10605
+$L10652:
 
 ; 8130 : 
 ; 8131 :          case zTYPE_BLOB:
@@ -24863,19 +24863,19 @@ $L10651:
 ; 8134 :             if ( pchStringValue == 0 || pchStringValue[ 0 ] == 0 )
 
 	cmp	DWORD PTR _pchStringValue$[ebp], 0
-	je	SHORT $L10653
+	je	SHORT $L10654
 	mov	eax, DWORD PTR _pchStringValue$[ebp]
 	movsx	ecx, BYTE PTR [eax]
 	test	ecx, ecx
-	jne	SHORT $L10652
-$L10653:
+	jne	SHORT $L10653
+$L10654:
 
 ; 8136 :               if ( pchRecord[ 0 ] != (zCHAR) '\xff' )
 
 	mov	edx, DWORD PTR _pchRecord$[ebp]
 	movsx	eax, BYTE PTR [edx]
 	cmp	eax, -1
-	je	SHORT $L10655
+	je	SHORT $L10656
 
 ; 8137 :                  nRC = 0;
 
@@ -24883,19 +24883,19 @@ $L10653:
 
 ; 8138 :               else
 
-	jmp	SHORT $L10656
-$L10655:
+	jmp	SHORT $L10657
+$L10656:
 
 ; 8139 :                  nRC = -1;
 
 	mov	WORD PTR _nRC$[ebp], -1
-$L10656:
+$L10657:
 
 ; 8140 : 
 ; 8141 :               break;
 
-	jmp	SHORT $L10604
-$L10652:
+	jmp	SHORT $L10605
+$L10653:
 
 ; 8150 :             LPVIEWCSR lpViewCsr = zGETPTR( lpViewEntityCsr->hViewCsr );
 
@@ -24903,15 +24903,15 @@ $L10652:
 	mov	edx, DWORD PTR [ecx+18]
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpViewCsr$10658[ebp], eax
+	mov	DWORD PTR _lpViewCsr$10659[ebp], eax
 
 ; 8151 :             zVIEW     lpView = zGETPTR( lpViewCsr->hView );
 
-	mov	eax, DWORD PTR _lpViewCsr$10658[ebp]
+	mov	eax, DWORD PTR _lpViewCsr$10659[ebp]
 	mov	ecx, DWORD PTR [eax+6]
 	push	ecx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpView$10660[ebp], eax
+	mov	DWORD PTR _lpView$10661[ebp], eax
 
 ; 8152 : 
 ; 8153 :             // "KZOEE239 - Invalid Operation for attribute type"
@@ -24929,9 +24929,9 @@ $L10652:
 	push	0
 	push	239					; 000000efH
 	push	8
-	mov	ecx, DWORD PTR _lpView$10660[ebp]
+	mov	ecx, DWORD PTR _lpView$10661[ebp]
 	push	ecx
-	mov	edx, DWORD PTR _lpView$10660[ebp]
+	mov	edx, DWORD PTR _lpView$10661[ebp]
 	mov	eax, DWORD PTR [edx+14]
 	push	eax
 	call	DWORD PTR _g_pfnGetPtr
@@ -24942,12 +24942,12 @@ $L10652:
 ; 8157 :             nRC = zCALL_ERROR;
 
 	mov	WORD PTR _nRC$[ebp], -16		; fffffff0H
-$L10604:
+$L10605:
 
 ; 8161 :    else
 
-	jmp	$L10665
-$L10602:
+	jmp	$L10666
+$L10603:
 
 ; 8163 :       switch ( lpViewAttrib->cType )
 ; 8164 :       {
@@ -24959,12 +24959,12 @@ $L10602:
 	sub	eax, 66					; 00000042H
 	mov	DWORD PTR -120+[ebp], eax
 	cmp	DWORD PTR -120+[ebp], 18		; 00000012H
-	ja	$L10679
+	ja	$L10680
 	mov	edx, DWORD PTR -120+[ebp]
 	xor	ecx, ecx
-	mov	cl, BYTE PTR $L11977[edx]
-	jmp	DWORD PTR $L11978[ecx*4]
-$L10668:
+	mov	cl, BYTE PTR $L11978[edx]
+	jmp	DWORD PTR $L11979[ecx*4]
+$L10669:
 
 ; 8165 :          case zTYPE_STRING:
 ; 8166 :          case zTYPE_INTEGER:
@@ -24980,7 +24980,7 @@ $L10668:
 	mov	ecx, DWORD PTR _pchStringValue$[ebp]
 	movsx	edx, BYTE PTR [ecx]
 	cmp	eax, edx
-	jne	SHORT $L11973
+	jne	SHORT $L11974
 	mov	eax, DWORD PTR _pchStringValue$[ebp]
 	push	eax
 	lea	ecx, DWORD PTR _szWorkString$[ebp]
@@ -24988,8 +24988,8 @@ $L10668:
 	call	_strcmp
 	add	esp, 8
 	mov	DWORD PTR -124+[ebp], eax
-	jmp	SHORT $L11974
-$L11973:
+	jmp	SHORT $L11975
+$L11974:
 	movsx	edx, BYTE PTR _szWorkString$[ebp]
 	mov	eax, DWORD PTR _pchStringValue$[ebp]
 	movsx	ecx, BYTE PTR [eax]
@@ -25001,7 +25001,7 @@ $L11973:
 	and	eax, 2
 	add	eax, -1
 	mov	DWORD PTR -124+[ebp], eax
-$L11974:
+$L11975:
 	mov	cx, WORD PTR -124+[ebp]
 	mov	WORD PTR _nRC$[ebp], cx
 
@@ -25009,7 +25009,7 @@ $L11974:
 
 	movsx	edx, WORD PTR _nRC$[ebp]
 	test	edx, edx
-	jge	SHORT $L10675
+	jge	SHORT $L10676
 
 ; 8172 :                nRC = -1;
 
@@ -25017,25 +25017,25 @@ $L11974:
 
 ; 8173 :             else
 
-	jmp	SHORT $L10677
-$L10675:
+	jmp	SHORT $L10678
+$L10676:
 
 ; 8174 :             if ( nRC > 0 )
 
 	movsx	eax, WORD PTR _nRC$[ebp]
 	test	eax, eax
-	jle	SHORT $L10677
+	jle	SHORT $L10678
 
 ; 8175 :                nRC = 1;
 
 	mov	WORD PTR _nRC$[ebp], 1
-$L10677:
+$L10678:
 
 ; 8176 : 
 ; 8177 :             break;
 
-	jmp	SHORT $L10665
-$L10678:
+	jmp	SHORT $L10666
+$L10679:
 
 ; 8178 : 
 ; 8179 :          case zTYPE_BLOB:
@@ -25044,12 +25044,12 @@ $L10678:
 ; 8182 :             if ( pchStringValue == 0 || pchStringValue[ 0 ] == 0 )
 
 	cmp	DWORD PTR _pchStringValue$[ebp], 0
-	je	SHORT $L10680
+	je	SHORT $L10681
 	mov	ecx, DWORD PTR _pchStringValue$[ebp]
 	movsx	edx, BYTE PTR [ecx]
 	test	edx, edx
-	jne	SHORT $L10679
-$L10680:
+	jne	SHORT $L10680
+$L10681:
 
 ; 8184 :                nRC = 0;
 
@@ -25057,8 +25057,8 @@ $L10680:
 
 ; 8185 :                break;
 
-	jmp	SHORT $L10665
-$L10679:
+	jmp	SHORT $L10666
+$L10680:
 
 ; 8194 :             LPVIEWCSR lpViewCsr = zGETPTR( lpViewEntityCsr->hViewCsr );
 
@@ -25066,15 +25066,15 @@ $L10679:
 	mov	ecx, DWORD PTR [eax+18]
 	push	ecx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpViewCsr$10682[ebp], eax
+	mov	DWORD PTR _lpViewCsr$10683[ebp], eax
 
 ; 8195 :             zVIEW     lpView = zGETPTR( lpViewCsr->hView );
 
-	mov	edx, DWORD PTR _lpViewCsr$10682[ebp]
+	mov	edx, DWORD PTR _lpViewCsr$10683[ebp]
 	mov	eax, DWORD PTR [edx+6]
 	push	eax
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpView$10684[ebp], eax
+	mov	DWORD PTR _lpView$10685[ebp], eax
 
 ; 8196 : 
 ; 8197 :             // "KZOEE239 - Invalid Operation for attribute type"
@@ -25092,9 +25092,9 @@ $L10679:
 	push	0
 	push	239					; 000000efH
 	push	8
-	mov	eax, DWORD PTR _lpView$10684[ebp]
+	mov	eax, DWORD PTR _lpView$10685[ebp]
 	push	eax
-	mov	ecx, DWORD PTR _lpView$10684[ebp]
+	mov	ecx, DWORD PTR _lpView$10685[ebp]
 	mov	edx, DWORD PTR [ecx+14]
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
@@ -25105,7 +25105,7 @@ $L10679:
 ; 8201 :             nRC = zCALL_ERROR;
 
 	mov	WORD PTR _nRC$[ebp], -16		; fffffff0H
-$L10665:
+$L10666:
 
 ; 8205 : 
 ; 8206 :    return( nRC );
@@ -25117,14 +25117,14 @@ $L10665:
 	mov	esp, ebp
 	pop	ebp
 	ret	0
-$L11976:
-	DD	$L10651
-	DD	$L10624
-	DD	$L10633
-	DD	$L10607
-	DD	$L10640
+$L11977:
 	DD	$L10652
-$L11975:
+	DD	$L10625
+	DD	$L10634
+	DD	$L10608
+	DD	$L10641
+	DD	$L10653
+$L11976:
 	DB	0
 	DB	5
 	DB	5
@@ -25144,11 +25144,11 @@ $L11975:
 	DB	5
 	DB	3
 	DB	4
-$L11978:
-	DD	$L10678
-	DD	$L10668
+$L11979:
 	DD	$L10679
-$L11977:
+	DD	$L10669
+	DD	$L10680
+$L11978:
 	DB	0
 	DB	2
 	DB	2
@@ -25181,11 +25181,11 @@ _lWork$ = -44
 _dWork$ = -40
 _lpViewOI$ = -56
 _nRC$ = -48
-_lpExternalP$10711 = -60
-_lpViewCsr$10719 = -64
-_lpView$10721 = -68
-_lpViewCsr$10731 = -72
-_lpView$10733 = -76
+_lpExternalP$10712 = -60
+_lpViewCsr$10720 = -64
+_lpView$10722 = -68
+_lpViewCsr$10732 = -72
+_lpView$10734 = -76
 _fnCompareAttributeToInteger PROC NEAR
 
 ; 8222 : {
@@ -25221,7 +25221,7 @@ _fnCompareAttributeToInteger PROC NEAR
 ; 8231 :    if ( pchRecord )
 
 	cmp	DWORD PTR _pchRecord$[ebp], 0
-	je	$L10703
+	je	$L10704
 
 ; 8233 :       pchRecord += lpViewAttrib->ulRecordOffset;
 
@@ -25237,13 +25237,13 @@ _fnCompareAttributeToInteger PROC NEAR
 	mov	cl, BYTE PTR [eax+202]
 	mov	BYTE PTR -80+[ebp], cl
 	cmp	BYTE PTR -80+[ebp], 76			; 0000004cH
-	je	SHORT $L10714
+	je	SHORT $L10715
 	cmp	BYTE PTR -80+[ebp], 77			; 0000004dH
-	je	$L10716
+	je	$L10717
 	cmp	BYTE PTR -80+[ebp], 83			; 00000053H
-	je	SHORT $L10708
-	jmp	$L10718
-$L10708:
+	je	SHORT $L10709
+	jmp	$L10719
+$L10709:
 
 ; 8236 :          case zTYPE_STRING:
 ; 8237 :             if ( pchRecord[ 0 ] == (zCHAR) '\xff' )
@@ -25251,7 +25251,7 @@ $L10708:
 	mov	edx, DWORD PTR _pchRecord$[ebp]
 	movsx	eax, BYTE PTR [edx]
 	cmp	eax, -1
-	jne	SHORT $L10710
+	jne	SHORT $L10711
 
 ; 8239 :                zCOREMEM  lpExternalP;
 ; 8240 : 
@@ -25259,16 +25259,16 @@ $L10708:
 
 	mov	ecx, DWORD PTR _pchRecord$[ebp]
 	add	ecx, 1
-	mov	DWORD PTR _lpExternalP$10711[ebp], ecx
+	mov	DWORD PTR _lpExternalP$10712[ebp], ecx
 
 ; 8242 :                pchRecord = zGETPTR( *lpExternalP );
 
-	mov	edx, DWORD PTR _lpExternalP$10711[ebp]
+	mov	edx, DWORD PTR _lpExternalP$10712[ebp]
 	mov	eax, DWORD PTR [edx]
 	push	eax
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _pchRecord$[ebp], eax
-$L10710:
+$L10711:
 
 ; 8244 : 
 ; 8245 :             lWork = zatol( pchRecord );
@@ -25288,10 +25288,10 @@ $L10710:
 ; 8247 :             nRC = (lWork == 0) ? 0 : (lWork < 0) ? -1 : 1;
 
 	cmp	DWORD PTR _lWork$[ebp], 0
-	jne	SHORT $L11980
+	jne	SHORT $L11981
 	mov	DWORD PTR -84+[ebp], 0
-	jmp	SHORT $L11981
-$L11980:
+	jmp	SHORT $L11982
+$L11981:
 	xor	eax, eax
 	cmp	DWORD PTR _lWork$[ebp], 0
 	setge	al
@@ -25299,14 +25299,14 @@ $L11980:
 	and	al, -2					; fffffffeH
 	add	eax, 1
 	mov	DWORD PTR -84+[ebp], eax
-$L11981:
+$L11982:
 	mov	cx, WORD PTR -84+[ebp]
 	mov	WORD PTR _nRC$[ebp], cx
 
 ; 8248 :             break;
 
-	jmp	$L10705
-$L10714:
+	jmp	$L10706
+$L10715:
 
 ; 8249 : 
 ; 8250 :          case zTYPE_INTEGER:
@@ -25320,10 +25320,10 @@ $L10714:
 ; 8252 :             nRC = (lWork == 0) ? 0 : (lWork < 0) ? -1 : 1;
 
 	cmp	DWORD PTR _lWork$[ebp], 0
-	jne	SHORT $L11982
+	jne	SHORT $L11983
 	mov	DWORD PTR -88+[ebp], 0
-	jmp	SHORT $L11983
-$L11982:
+	jmp	SHORT $L11984
+$L11983:
 	xor	ecx, ecx
 	cmp	DWORD PTR _lWork$[ebp], 0
 	setge	cl
@@ -25331,14 +25331,14 @@ $L11982:
 	and	ecx, -2					; fffffffeH
 	add	ecx, 1
 	mov	DWORD PTR -88+[ebp], ecx
-$L11983:
+$L11984:
 	mov	dx, WORD PTR -88+[ebp]
 	mov	WORD PTR _nRC$[ebp], dx
 
 ; 8253 :             break;
 
-	jmp	SHORT $L10705
-$L10716:
+	jmp	SHORT $L10706
+$L10717:
 
 ; 8254 : 
 ; 8255 :          case zTYPE_DECIMAL:
@@ -25361,8 +25361,8 @@ $L10716:
 
 ; 8258 :             break;
 
-	jmp	SHORT $L10705
-$L10718:
+	jmp	SHORT $L10706
+$L10719:
 
 ; 8262 :             LPVIEWCSR lpViewCsr = zGETPTR( lpViewEntityCsr->hViewCsr );
 
@@ -25370,15 +25370,15 @@ $L10718:
 	mov	edx, DWORD PTR [ecx+18]
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpViewCsr$10719[ebp], eax
+	mov	DWORD PTR _lpViewCsr$10720[ebp], eax
 
 ; 8263 :             zVIEW     lpView = zGETPTR( lpViewCsr->hView );
 
-	mov	eax, DWORD PTR _lpViewCsr$10719[ebp]
+	mov	eax, DWORD PTR _lpViewCsr$10720[ebp]
 	mov	ecx, DWORD PTR [eax+6]
 	push	ecx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpView$10721[ebp], eax
+	mov	DWORD PTR _lpView$10722[ebp], eax
 
 ; 8264 : 
 ; 8265 :             // "KZOEE239 - Invalid Operation for attribute type"
@@ -25396,9 +25396,9 @@ $L10718:
 	push	0
 	push	239					; 000000efH
 	push	8
-	mov	ecx, DWORD PTR _lpView$10721[ebp]
+	mov	ecx, DWORD PTR _lpView$10722[ebp]
 	push	ecx
-	mov	edx, DWORD PTR _lpView$10721[ebp]
+	mov	edx, DWORD PTR _lpView$10722[ebp]
 	mov	eax, DWORD PTR [edx+14]
 	push	eax
 	call	DWORD PTR _g_pfnGetPtr
@@ -25409,12 +25409,12 @@ $L10718:
 ; 8269 :             nRC = zCALL_ERROR;
 
 	mov	WORD PTR _nRC$[ebp], -16		; fffffff0H
-$L10705:
+$L10706:
 
 ; 8273 :    else
 
-	jmp	$L10726
-$L10703:
+	jmp	$L10727
+$L10704:
 
 ; 8275 :       switch ( lpViewAttrib->cType )
 ; 8276 :       {
@@ -25423,13 +25423,13 @@ $L10703:
 	mov	dl, BYTE PTR [ecx+202]
 	mov	BYTE PTR -92+[ebp], dl
 	cmp	BYTE PTR -92+[ebp], 76			; 0000004cH
-	jl	SHORT $L10730
+	jl	SHORT $L10731
 	cmp	BYTE PTR -92+[ebp], 77			; 0000004dH
-	jle	SHORT $L10729
+	jle	SHORT $L10730
 	cmp	BYTE PTR -92+[ebp], 83			; 00000053H
-	je	SHORT $L10729
-	jmp	SHORT $L10730
-$L10729:
+	je	SHORT $L10730
+	jmp	SHORT $L10731
+$L10730:
 
 ; 8277 :          case zTYPE_STRING:
 ; 8278 :          case zTYPE_INTEGER:
@@ -25447,10 +25447,10 @@ $L10729:
 ; 8282 :             nRC = (lWork == 0) ? 0 : (lWork < 0) ? -1 : 1;
 
 	cmp	DWORD PTR _lWork$[ebp], 0
-	jne	SHORT $L11984
+	jne	SHORT $L11985
 	mov	DWORD PTR -96+[ebp], 0
-	jmp	SHORT $L11985
-$L11984:
+	jmp	SHORT $L11986
+$L11985:
 	xor	ecx, ecx
 	cmp	DWORD PTR _lWork$[ebp], 0
 	setge	cl
@@ -25458,14 +25458,14 @@ $L11984:
 	and	ecx, -2					; fffffffeH
 	add	ecx, 1
 	mov	DWORD PTR -96+[ebp], ecx
-$L11985:
+$L11986:
 	mov	dx, WORD PTR -96+[ebp]
 	mov	WORD PTR _nRC$[ebp], dx
 
 ; 8283 :             break;
 
-	jmp	SHORT $L10726
-$L10730:
+	jmp	SHORT $L10727
+$L10731:
 
 ; 8287 :             LPVIEWCSR lpViewCsr = zGETPTR( lpViewEntityCsr->hViewCsr );
 
@@ -25473,15 +25473,15 @@ $L10730:
 	mov	ecx, DWORD PTR [eax+18]
 	push	ecx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpViewCsr$10731[ebp], eax
+	mov	DWORD PTR _lpViewCsr$10732[ebp], eax
 
 ; 8288 :             zVIEW     lpView = zGETPTR( lpViewCsr->hView );
 
-	mov	edx, DWORD PTR _lpViewCsr$10731[ebp]
+	mov	edx, DWORD PTR _lpViewCsr$10732[ebp]
 	mov	eax, DWORD PTR [edx+6]
 	push	eax
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpView$10733[ebp], eax
+	mov	DWORD PTR _lpView$10734[ebp], eax
 
 ; 8289 : 
 ; 8290 :             // "KZOEE239 - Invalid Operation for attribute type"
@@ -25499,9 +25499,9 @@ $L10730:
 	push	0
 	push	239					; 000000efH
 	push	8
-	mov	eax, DWORD PTR _lpView$10733[ebp]
+	mov	eax, DWORD PTR _lpView$10734[ebp]
 	push	eax
-	mov	ecx, DWORD PTR _lpView$10733[ebp]
+	mov	ecx, DWORD PTR _lpView$10734[ebp]
 	mov	edx, DWORD PTR [ecx+14]
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
@@ -25512,7 +25512,7 @@ $L10730:
 ; 8294 :             nRC = zCALL_ERROR;
 
 	mov	WORD PTR _nRC$[ebp], -16		; fffffff0H
-$L10726:
+$L10727:
 
 ; 8298 : 
 ; 8299 :    return( nRC );
@@ -25536,11 +25536,11 @@ _pchRecord$ = -48
 _dWork$ = -40
 _lpViewOI$ = -52
 _nRC$ = -44
-_lpExternalP$10759 = -56
-_lpViewCsr$10767 = -60
-_lpView$10769 = -64
-_lpViewCsr$10780 = -68
-_lpView$10782 = -72
+_lpExternalP$10760 = -56
+_lpViewCsr$10768 = -60
+_lpView$10770 = -64
+_lpViewCsr$10781 = -68
+_lpView$10783 = -72
 _fnCompareAttributeToDecimal PROC NEAR
 
 ; 8316 : {
@@ -25575,7 +25575,7 @@ _fnCompareAttributeToDecimal PROC NEAR
 ; 8324 :    if ( pchRecord )
 
 	cmp	DWORD PTR _pchRecord$[ebp], 0
-	je	$L10751
+	je	$L10752
 
 ; 8326 :       pchRecord += lpViewAttrib->ulRecordOffset;
 
@@ -25591,13 +25591,13 @@ _fnCompareAttributeToDecimal PROC NEAR
 	mov	cl, BYTE PTR [eax+202]
 	mov	BYTE PTR -76+[ebp], cl
 	cmp	BYTE PTR -76+[ebp], 76			; 0000004cH
-	je	SHORT $L10762
+	je	SHORT $L10763
 	cmp	BYTE PTR -76+[ebp], 77			; 0000004dH
-	je	SHORT $L10764
+	je	SHORT $L10765
 	cmp	BYTE PTR -76+[ebp], 83			; 00000053H
-	je	SHORT $L10756
-	jmp	SHORT $L10766
-$L10756:
+	je	SHORT $L10757
+	jmp	SHORT $L10767
+$L10757:
 
 ; 8329 :          case zTYPE_STRING:
 ; 8330 :             if ( pchRecord[ 0 ] == (zCHAR) '\xff' )
@@ -25605,7 +25605,7 @@ $L10756:
 	mov	edx, DWORD PTR _pchRecord$[ebp]
 	movsx	eax, BYTE PTR [edx]
 	cmp	eax, -1
-	jne	SHORT $L10758
+	jne	SHORT $L10759
 
 ; 8332 :                zCOREMEM  lpExternalP;
 ; 8333 : 
@@ -25613,16 +25613,16 @@ $L10756:
 
 	mov	ecx, DWORD PTR _pchRecord$[ebp]
 	add	ecx, 1
-	mov	DWORD PTR _lpExternalP$10759[ebp], ecx
+	mov	DWORD PTR _lpExternalP$10760[ebp], ecx
 
 ; 8335 :                pchRecord = zGETPTR( *lpExternalP );
 
-	mov	edx, DWORD PTR _lpExternalP$10759[ebp]
+	mov	edx, DWORD PTR _lpExternalP$10760[ebp]
 	mov	eax, DWORD PTR [edx]
 	push	eax
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _pchRecord$[ebp], eax
-$L10758:
+$L10759:
 
 ; 8337 : 
 ; 8338 :             SysConvertStringToDecimal( pchRecord, &dWork );
@@ -25644,8 +25644,8 @@ $L10758:
 
 ; 8340 :             break;
 
-	jmp	$L10753
-$L10762:
+	jmp	$L10754
+$L10763:
 
 ; 8341 : 
 ; 8342 :          case zTYPE_INTEGER:
@@ -25669,8 +25669,8 @@ $L10762:
 
 ; 8345 :             break;
 
-	jmp	SHORT $L10753
-$L10764:
+	jmp	SHORT $L10754
+$L10765:
 
 ; 8346 : 
 ; 8347 :          case zTYPE_DECIMAL:
@@ -25686,8 +25686,8 @@ $L10764:
 
 ; 8350 :             break;
 
-	jmp	SHORT $L10753
-$L10766:
+	jmp	SHORT $L10754
+$L10767:
 
 ; 8354 :             LPVIEWCSR lpViewCsr = zGETPTR( lpViewEntityCsr->hViewCsr );
 
@@ -25695,15 +25695,15 @@ $L10766:
 	mov	ecx, DWORD PTR [eax+18]
 	push	ecx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpViewCsr$10767[ebp], eax
+	mov	DWORD PTR _lpViewCsr$10768[ebp], eax
 
 ; 8355 :             zVIEW     lpView = zGETPTR( lpViewCsr->hView );
 
-	mov	edx, DWORD PTR _lpViewCsr$10767[ebp]
+	mov	edx, DWORD PTR _lpViewCsr$10768[ebp]
 	mov	eax, DWORD PTR [edx+6]
 	push	eax
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpView$10769[ebp], eax
+	mov	DWORD PTR _lpView$10770[ebp], eax
 
 ; 8356 : 
 ; 8357 :             // "KZOEE239 - Invalid Operation for attribute type"
@@ -25721,9 +25721,9 @@ $L10766:
 	push	0
 	push	239					; 000000efH
 	push	8
-	mov	eax, DWORD PTR _lpView$10769[ebp]
+	mov	eax, DWORD PTR _lpView$10770[ebp]
 	push	eax
-	mov	ecx, DWORD PTR _lpView$10769[ebp]
+	mov	ecx, DWORD PTR _lpView$10770[ebp]
 	mov	edx, DWORD PTR [ecx+14]
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
@@ -25734,12 +25734,12 @@ $L10766:
 ; 8361 :             nRC = zCALL_ERROR;
 
 	mov	WORD PTR _nRC$[ebp], -16		; fffffff0H
-$L10753:
+$L10754:
 
 ; 8365 :    else
 
-	jmp	$L10774
-$L10751:
+	jmp	$L10775
+$L10752:
 
 ; 8367 :       switch ( lpViewAttrib->cType )
 ; 8368 :       {
@@ -25748,13 +25748,13 @@ $L10751:
 	mov	cl, BYTE PTR [eax+202]
 	mov	BYTE PTR -80+[ebp], cl
 	cmp	BYTE PTR -80+[ebp], 76			; 0000004cH
-	jl	SHORT $L10779
+	jl	SHORT $L10780
 	cmp	BYTE PTR -80+[ebp], 77			; 0000004dH
-	jle	SHORT $L10777
+	jle	SHORT $L10778
 	cmp	BYTE PTR -80+[ebp], 83			; 00000053H
-	je	SHORT $L10777
-	jmp	SHORT $L10779
-$L10777:
+	je	SHORT $L10778
+	jmp	SHORT $L10780
+$L10778:
 
 ; 8369 :          case zTYPE_STRING:
 ; 8370 :          case zTYPE_INTEGER:
@@ -25778,8 +25778,8 @@ $L10777:
 
 ; 8375 :             break;
 
-	jmp	SHORT $L10774
-$L10779:
+	jmp	SHORT $L10775
+$L10780:
 
 ; 8379 :             LPVIEWCSR lpViewCsr = zGETPTR( lpViewEntityCsr->hViewCsr );
 
@@ -25787,15 +25787,15 @@ $L10779:
 	mov	eax, DWORD PTR [edx+18]
 	push	eax
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpViewCsr$10780[ebp], eax
+	mov	DWORD PTR _lpViewCsr$10781[ebp], eax
 
 ; 8380 :             zVIEW     lpView = zGETPTR( lpViewCsr->hView );
 
-	mov	ecx, DWORD PTR _lpViewCsr$10780[ebp]
+	mov	ecx, DWORD PTR _lpViewCsr$10781[ebp]
 	mov	edx, DWORD PTR [ecx+6]
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpView$10782[ebp], eax
+	mov	DWORD PTR _lpView$10783[ebp], eax
 
 ; 8381 : 
 ; 8382 :             // "KZOEE239 - Invalid Operation for attribute type"
@@ -25813,9 +25813,9 @@ $L10779:
 	push	0
 	push	239					; 000000efH
 	push	8
-	mov	edx, DWORD PTR _lpView$10782[ebp]
+	mov	edx, DWORD PTR _lpView$10783[ebp]
 	push	edx
-	mov	eax, DWORD PTR _lpView$10782[ebp]
+	mov	eax, DWORD PTR _lpView$10783[ebp]
 	mov	ecx, DWORD PTR [eax+14]
 	push	ecx
 	call	DWORD PTR _g_pfnGetPtr
@@ -25826,7 +25826,7 @@ $L10779:
 ; 8386 :             nRC = zCALL_ERROR;
 
 	mov	WORD PTR _nRC$[ebp], -16		; fffffff0H
-$L10774:
+$L10775:
 
 ; 8390 : 
 ; 8391 :    return( nRC );
@@ -25850,11 +25850,11 @@ _ulBlobLth$ = 24
 _pchRecord$ = -12
 _ulAttrBlobLth$ = -8
 _nRC$ = -4
-_lpExternalP$10804 = -16
-_lpViewCsr$10813 = -20
-_lpView$10815 = -24
-_lpViewCsr$10821 = -28
-_lpView$10823 = -32
+_lpExternalP$10805 = -16
+_lpViewCsr$10814 = -20
+_lpView$10816 = -24
+_lpViewCsr$10822 = -28
+_lpView$10824 = -32
 _fnCompareAttributeToBlob PROC NEAR
 
 ; 8409 : {
@@ -25881,7 +25881,7 @@ _fnCompareAttributeToBlob PROC NEAR
 ; 8416 :    if ( pchRecord )
 
 	cmp	DWORD PTR _pchRecord$[ebp], 0
-	je	$L10800
+	je	$L10801
 
 ; 8418 :       pchRecord += lpViewAttrib->ulRecordOffset;
 
@@ -25895,14 +25895,14 @@ _fnCompareAttributeToBlob PROC NEAR
 	mov	ecx, DWORD PTR _lpViewAttrib$[ebp]
 	movsx	edx, BYTE PTR [ecx+202]
 	cmp	edx, 66					; 00000042H
-	jne	SHORT $L10801
+	jne	SHORT $L10802
 
 ; 8421 :          if ( pchRecord[ 0 ] == (zCHAR) '\xff' )
 
 	mov	eax, DWORD PTR _pchRecord$[ebp]
 	movsx	ecx, BYTE PTR [eax]
 	cmp	ecx, -1
-	jne	SHORT $L10803
+	jne	SHORT $L10804
 
 ; 8423 :             zCOREMEM  lpExternalP;
 ; 8424 : 
@@ -25910,17 +25910,17 @@ _fnCompareAttributeToBlob PROC NEAR
 
 	mov	edx, DWORD PTR _pchRecord$[ebp]
 	add	edx, 1
-	mov	DWORD PTR _lpExternalP$10804[ebp], edx
+	mov	DWORD PTR _lpExternalP$10805[ebp], edx
 
 ; 8426 :             ulAttrBlobLth = *((zPULONG) (lpExternalP + 1));
 
-	mov	eax, DWORD PTR _lpExternalP$10804[ebp]
+	mov	eax, DWORD PTR _lpExternalP$10805[ebp]
 	mov	ecx, DWORD PTR [eax+4]
 	mov	DWORD PTR _ulAttrBlobLth$[ebp], ecx
 
 ; 8427 :             pchRecord = zGETPTR( *lpExternalP );
 
-	mov	edx, DWORD PTR _lpExternalP$10804[ebp]
+	mov	edx, DWORD PTR _lpExternalP$10805[ebp]
 	mov	eax, DWORD PTR [edx]
 	push	eax
 	call	DWORD PTR _g_pfnGetPtr
@@ -25930,7 +25930,7 @@ _fnCompareAttributeToBlob PROC NEAR
 
 	mov	ecx, DWORD PTR _ulAttrBlobLth$[ebp]
 	cmp	ecx, DWORD PTR _ulBlobLth$[ebp]
-	je	SHORT $L10808
+	je	SHORT $L10809
 
 ; 8429 :                nRC = (ulAttrBlobLth < ulBlobLth) ? -1 : 1;
 
@@ -25943,8 +25943,8 @@ _fnCompareAttributeToBlob PROC NEAR
 
 ; 8430 :             else
 
-	jmp	SHORT $L10809
-$L10808:
+	jmp	SHORT $L10810
+$L10809:
 
 ; 8431 :                nRC = zmemcmp( pchRecord, pchBlobValue,
 ; 8432 :                               (unsigned int) ulBlobLth );
@@ -25958,12 +25958,12 @@ $L10808:
 	call	_memcmp
 	add	esp, 12					; 0000000cH
 	mov	WORD PTR _nRC$[ebp], ax
-$L10809:
+$L10810:
 
 ; 8434 :          else
 
-	jmp	SHORT $L10811
-$L10803:
+	jmp	SHORT $L10812
+$L10804:
 
 ; 8436 :             // blob is null
 ; 8437 :             nRC = ( ulBlobLth == 0 ) ? 0 : -1;
@@ -25972,12 +25972,12 @@ $L10803:
 	neg	ecx
 	sbb	ecx, ecx
 	mov	WORD PTR _nRC$[ebp], cx
-$L10811:
+$L10812:
 
 ; 8440 :       else
 
-	jmp	SHORT $L10812
-$L10801:
+	jmp	SHORT $L10813
+$L10802:
 
 ; 8442 :          LPVIEWCSR lpViewCsr = zGETPTR( lpViewEntityCsr->hViewCsr );
 
@@ -25985,15 +25985,15 @@ $L10801:
 	mov	eax, DWORD PTR [edx+18]
 	push	eax
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpViewCsr$10813[ebp], eax
+	mov	DWORD PTR _lpViewCsr$10814[ebp], eax
 
 ; 8443 :          zVIEW     lpView = zGETPTR( lpViewCsr->hView );
 
-	mov	ecx, DWORD PTR _lpViewCsr$10813[ebp]
+	mov	ecx, DWORD PTR _lpViewCsr$10814[ebp]
 	mov	edx, DWORD PTR [ecx+6]
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpView$10815[ebp], eax
+	mov	DWORD PTR _lpView$10816[ebp], eax
 
 ; 8444 : 
 ; 8445 :          // "KZOEE239 - Invalid Operation for attribute type"
@@ -26011,9 +26011,9 @@ $L10801:
 	push	0
 	push	239					; 000000efH
 	push	8
-	mov	edx, DWORD PTR _lpView$10815[ebp]
+	mov	edx, DWORD PTR _lpView$10816[ebp]
 	push	edx
-	mov	eax, DWORD PTR _lpView$10815[ebp]
+	mov	eax, DWORD PTR _lpView$10816[ebp]
 	mov	ecx, DWORD PTR [eax+14]
 	push	ecx
 	call	DWORD PTR _g_pfnGetPtr
@@ -26024,19 +26024,19 @@ $L10801:
 ; 8449 :          nRC = zCALL_ERROR;
 
 	mov	WORD PTR _nRC$[ebp], -16		; fffffff0H
-$L10812:
+$L10813:
 
 ; 8452 :    else
 
-	jmp	SHORT $L10820
-$L10800:
+	jmp	SHORT $L10821
+$L10801:
 
 ; 8454 :       if ( lpViewAttrib->cType == zTYPE_BLOB )
 
 	mov	edx, DWORD PTR _lpViewAttrib$[ebp]
 	movsx	eax, BYTE PTR [edx+202]
 	cmp	eax, 66					; 00000042H
-	jne	SHORT $L10819
+	jne	SHORT $L10820
 
 ; 8455 :          nRC = ( ulBlobLth == 0 ) ? 0 : -1;
 
@@ -26047,8 +26047,8 @@ $L10800:
 
 ; 8456 :       else
 
-	jmp	SHORT $L10820
-$L10819:
+	jmp	SHORT $L10821
+$L10820:
 
 ; 8458 :          LPVIEWCSR lpViewCsr = zGETPTR( lpViewEntityCsr->hViewCsr );
 
@@ -26056,15 +26056,15 @@ $L10819:
 	mov	eax, DWORD PTR [edx+18]
 	push	eax
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpViewCsr$10821[ebp], eax
+	mov	DWORD PTR _lpViewCsr$10822[ebp], eax
 
 ; 8459 :          zVIEW     lpView = zGETPTR( lpViewCsr->hView );
 
-	mov	ecx, DWORD PTR _lpViewCsr$10821[ebp]
+	mov	ecx, DWORD PTR _lpViewCsr$10822[ebp]
 	mov	edx, DWORD PTR [ecx+6]
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpView$10823[ebp], eax
+	mov	DWORD PTR _lpView$10824[ebp], eax
 
 ; 8460 : 
 ; 8461 :          // "KZOEE239 - Invalid Operation for attribute type"
@@ -26082,9 +26082,9 @@ $L10819:
 	push	0
 	push	239					; 000000efH
 	push	8
-	mov	edx, DWORD PTR _lpView$10823[ebp]
+	mov	edx, DWORD PTR _lpView$10824[ebp]
 	push	edx
-	mov	eax, DWORD PTR _lpView$10823[ebp]
+	mov	eax, DWORD PTR _lpView$10824[ebp]
 	mov	ecx, DWORD PTR [eax+14]
 	push	ecx
 	call	DWORD PTR _g_pfnGetPtr
@@ -26095,7 +26095,7 @@ $L10819:
 ; 8465 :          nRC = zCALL_ERROR;
 
 	mov	WORD PTR _nRC$[ebp], -16		; fffffff0H
-$L10820:
+$L10821:
 
 ; 8468 : 
 ; 8469 :    return( nRC );
@@ -26127,7 +26127,7 @@ _fnCompareDateTimeToDateTime PROC NEAR
 	mov	ecx, DWORD PTR _lpDateTime2$[ebp]
 	mov	edx, DWORD PTR [eax]
 	cmp	edx, DWORD PTR [ecx]
-	jne	SHORT $L10832
+	jne	SHORT $L10833
 
 ; 8495 :       if ( (zLONG) lpDateTime1->ulDateMinutes == lNullInteger ||
 ; 8496 :            lpDateTime1->usTSeconds == lpDateTime2->usTSeconds )
@@ -26135,7 +26135,7 @@ _fnCompareDateTimeToDateTime PROC NEAR
 	mov	eax, DWORD PTR _lpDateTime1$[ebp]
 	mov	ecx, DWORD PTR [eax]
 	cmp	ecx, DWORD PTR _lNullInteger
-	je	SHORT $L10835
+	je	SHORT $L10836
 	mov	edx, DWORD PTR _lpDateTime1$[ebp]
 	xor	eax, eax
 	mov	ax, WORD PTR [edx+4]
@@ -26143,8 +26143,8 @@ _fnCompareDateTimeToDateTime PROC NEAR
 	xor	edx, edx
 	mov	dx, WORD PTR [ecx+4]
 	cmp	eax, edx
-	jne	SHORT $L10834
-$L10835:
+	jne	SHORT $L10835
+$L10836:
 
 ; 8498 :          nRC = 0;
 
@@ -26152,8 +26152,8 @@ $L10835:
 
 ; 8500 :       else
 
-	jmp	SHORT $L10836
-$L10834:
+	jmp	SHORT $L10837
+$L10835:
 
 ; 8501 :          nRC = (lpDateTime1->usTSeconds < lpDateTime2->usTSeconds) ? -1 : 1;
 
@@ -26170,19 +26170,19 @@ $L10834:
 	and	edx, -2					; fffffffeH
 	add	edx, 1
 	mov	WORD PTR _nRC$[ebp], dx
-$L10836:
+$L10837:
 
 ; 8503 :    else
 
-	jmp	SHORT $L10843
-$L10832:
+	jmp	SHORT $L10844
+$L10833:
 
 ; 8505 :       if ( (zLONG) lpDateTime1->ulDateMinutes == lNullInteger )
 
 	mov	eax, DWORD PTR _lpDateTime1$[ebp]
 	mov	ecx, DWORD PTR [eax]
 	cmp	ecx, DWORD PTR _lNullInteger
-	jne	SHORT $L10839
+	jne	SHORT $L10840
 
 ; 8506 :          nRC = -1;
 
@@ -26190,15 +26190,15 @@ $L10832:
 
 ; 8507 :       else
 
-	jmp	SHORT $L10843
-$L10839:
+	jmp	SHORT $L10844
+$L10840:
 
 ; 8508 :          if ( (zLONG) lpDateTime2->ulDateMinutes == lNullInteger )
 
 	mov	edx, DWORD PTR _lpDateTime2$[ebp]
 	mov	eax, DWORD PTR [edx]
 	cmp	eax, DWORD PTR _lNullInteger
-	jne	SHORT $L10842
+	jne	SHORT $L10843
 
 ; 8509 :             nRC = 1;
 
@@ -26206,8 +26206,8 @@ $L10839:
 
 ; 8510 :          else
 
-	jmp	SHORT $L10843
-$L10842:
+	jmp	SHORT $L10844
+$L10843:
 
 ; 8511 :             nRC = (lpDateTime1->ulDateMinutes < lpDateTime2->ulDateMinutes) ? -1 : 1;
 
@@ -26219,7 +26219,7 @@ $L10842:
 	and	ecx, -2					; fffffffeH
 	add	ecx, 1
 	mov	WORD PTR _nRC$[ebp], cx
-$L10843:
+$L10844:
 
 ; 8513 : 
 ; 8514 :    return( nRC );
@@ -26243,12 +26243,12 @@ _pchRecord$ = -8
 _stDateTime$ = -20
 _lpRecdDateTime$ = -12
 _nRC$ = -4
-_lpExternalP$10866 = -24
-_lpViewCsr$10877 = -28
-_lpView$10879 = -32
-_stDT$10883 = -40
-_lpViewCsr$10892 = -44
-_lpView$10894 = -48
+_lpExternalP$10867 = -24
+_lpViewCsr$10878 = -28
+_lpView$10880 = -32
+_stDT$10884 = -40
+_lpViewCsr$10893 = -44
+_lpView$10895 = -48
 _fnCompareAttributeToDateTime PROC NEAR
 
 ; 8537 : {
@@ -26276,7 +26276,7 @@ _fnCompareAttributeToDateTime PROC NEAR
 ; 8545 :    if ( pchRecord )
 
 	cmp	DWORD PTR _pchRecord$[ebp], 0
-	je	$L10858
+	je	$L10859
 
 ; 8547 :       pchRecord += lpViewAttrib->ulRecordOffset;
 
@@ -26292,11 +26292,11 @@ _fnCompareAttributeToDateTime PROC NEAR
 	mov	dl, BYTE PTR [ecx+202]
 	mov	BYTE PTR -52+[ebp], dl
 	cmp	BYTE PTR -52+[ebp], 83			; 00000053H
-	je	SHORT $L10863
+	je	SHORT $L10864
 	cmp	BYTE PTR -52+[ebp], 84			; 00000054H
-	je	SHORT $L10873
-	jmp	SHORT $L10876
-$L10863:
+	je	SHORT $L10874
+	jmp	SHORT $L10877
+$L10864:
 
 ; 8550 :          case zTYPE_STRING:
 ; 8551 :             if ( pchRecord[ 0 ] == (zCHAR) '\xff' )
@@ -26304,7 +26304,7 @@ $L10863:
 	mov	eax, DWORD PTR _pchRecord$[ebp]
 	movsx	ecx, BYTE PTR [eax]
 	cmp	ecx, -1
-	jne	SHORT $L10865
+	jne	SHORT $L10866
 
 ; 8553 :                zCOREMEM  lpExternalP;
 ; 8554 : 
@@ -26312,16 +26312,16 @@ $L10863:
 
 	mov	edx, DWORD PTR _pchRecord$[ebp]
 	add	edx, 1
-	mov	DWORD PTR _lpExternalP$10866[ebp], edx
+	mov	DWORD PTR _lpExternalP$10867[ebp], edx
 
 ; 8556 :                pchRecord = zGETPTR( *lpExternalP );
 
-	mov	eax, DWORD PTR _lpExternalP$10866[ebp]
+	mov	eax, DWORD PTR _lpExternalP$10867[ebp]
 	mov	ecx, DWORD PTR [eax]
 	push	ecx
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _pchRecord$[ebp], eax
-$L10865:
+$L10866:
 
 ; 8558 : 
 ; 8559 :             nRC = UfStringToDateTime( pchRecord,
@@ -26338,7 +26338,7 @@ $L10865:
 
 	movsx	ecx, WORD PTR _nRC$[ebp]
 	test	ecx, ecx
-	jne	SHORT $L10870
+	jne	SHORT $L10871
 
 ; 8563 :                nRC = fnCompareDateTimeToDateTime( (LPDTINTERNAL) &stDateTime,
 ; 8564 :                                                   (LPDTINTERNAL) lpDateTime );
@@ -26350,13 +26350,13 @@ $L10865:
 	call	_fnCompareDateTimeToDateTime
 	add	esp, 8
 	mov	WORD PTR _nRC$[ebp], ax
-$L10870:
+$L10871:
 
 ; 8566 : 
 ; 8567 :             break;
 
-	jmp	SHORT $L10860
-$L10873:
+	jmp	SHORT $L10861
+$L10874:
 
 ; 8568 : 
 ; 8569 :          case zTYPE_DATETIME:
@@ -26378,8 +26378,8 @@ $L10873:
 
 ; 8573 :             break;
 
-	jmp	SHORT $L10860
-$L10876:
+	jmp	SHORT $L10861
+$L10877:
 
 ; 8577 :             LPVIEWCSR lpViewCsr = zGETPTR( lpViewEntityCsr->hViewCsr );
 
@@ -26387,15 +26387,15 @@ $L10876:
 	mov	edx, DWORD PTR [ecx+18]
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpViewCsr$10877[ebp], eax
+	mov	DWORD PTR _lpViewCsr$10878[ebp], eax
 
 ; 8578 :             zVIEW     lpView = zGETPTR( lpViewCsr->hView );
 
-	mov	eax, DWORD PTR _lpViewCsr$10877[ebp]
+	mov	eax, DWORD PTR _lpViewCsr$10878[ebp]
 	mov	ecx, DWORD PTR [eax+6]
 	push	ecx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpView$10879[ebp], eax
+	mov	DWORD PTR _lpView$10880[ebp], eax
 
 ; 8579 : 
 ; 8580 :             // "KZOEE239 - Invalid Operation for attribute type"
@@ -26413,9 +26413,9 @@ $L10876:
 	push	0
 	push	239					; 000000efH
 	push	8
-	mov	ecx, DWORD PTR _lpView$10879[ebp]
+	mov	ecx, DWORD PTR _lpView$10880[ebp]
 	push	ecx
-	mov	edx, DWORD PTR _lpView$10879[ebp]
+	mov	edx, DWORD PTR _lpView$10880[ebp]
 	mov	eax, DWORD PTR [edx+14]
 	push	eax
 	call	DWORD PTR _g_pfnGetPtr
@@ -26426,12 +26426,12 @@ $L10876:
 ; 8584 :             nRC = zCALL_ERROR;
 
 	mov	WORD PTR _nRC$[ebp], -16		; fffffff0H
-$L10860:
+$L10861:
 
 ; 8588 :    else
 
-	jmp	$L10885
-$L10858:
+	jmp	$L10886
+$L10859:
 
 ; 8590 :       DateTimeInternalRecord stDT;
 ; 8591 : 
@@ -26442,29 +26442,29 @@ $L10858:
 	mov	dl, BYTE PTR [ecx+202]
 	mov	BYTE PTR -56+[ebp], dl
 	cmp	BYTE PTR -56+[ebp], 83			; 00000053H
-	jl	SHORT $L10891
+	jl	SHORT $L10892
 	cmp	BYTE PTR -56+[ebp], 84			; 00000054H
-	jle	SHORT $L10888
-	jmp	SHORT $L10891
-$L10888:
+	jle	SHORT $L10889
+	jmp	SHORT $L10892
+$L10889:
 
 ; 8594 :          case zTYPE_STRING:
 ; 8595 :          case zTYPE_DATETIME:
 ; 8596 :             stDT.ulDateMinutes = lNullInteger;
 
 	mov	eax, DWORD PTR _lNullInteger
-	mov	DWORD PTR _stDT$10883[ebp], eax
+	mov	DWORD PTR _stDT$10884[ebp], eax
 
 ; 8597 :             stDT.usTSeconds = 0;
 
-	mov	WORD PTR _stDT$10883[ebp+4], 0
+	mov	WORD PTR _stDT$10884[ebp+4], 0
 
 ; 8598 :             nRC = fnCompareDateTimeToDateTime( (LPDTINTERNAL) &stDT,
 ; 8599 :                                                (LPDTINTERNAL) lpDateTime );
 
 	mov	ecx, DWORD PTR _lpDateTime$[ebp]
 	push	ecx
-	lea	edx, DWORD PTR _stDT$10883[ebp]
+	lea	edx, DWORD PTR _stDT$10884[ebp]
 	push	edx
 	call	_fnCompareDateTimeToDateTime
 	add	esp, 8
@@ -26472,8 +26472,8 @@ $L10888:
 
 ; 8600 :             break;
 
-	jmp	SHORT $L10885
-$L10891:
+	jmp	SHORT $L10886
+$L10892:
 
 ; 8604 :             LPVIEWCSR lpViewCsr = zGETPTR( lpViewEntityCsr->hViewCsr );
 
@@ -26481,15 +26481,15 @@ $L10891:
 	mov	ecx, DWORD PTR [eax+18]
 	push	ecx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpViewCsr$10892[ebp], eax
+	mov	DWORD PTR _lpViewCsr$10893[ebp], eax
 
 ; 8605 :             zVIEW     lpView = zGETPTR( lpViewCsr->hView );
 
-	mov	edx, DWORD PTR _lpViewCsr$10892[ebp]
+	mov	edx, DWORD PTR _lpViewCsr$10893[ebp]
 	mov	eax, DWORD PTR [edx+6]
 	push	eax
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpView$10894[ebp], eax
+	mov	DWORD PTR _lpView$10895[ebp], eax
 
 ; 8606 : 
 ; 8607 :             // "KZOEE239 - Invalid Operation for attribute type"
@@ -26507,9 +26507,9 @@ $L10891:
 	push	0
 	push	239					; 000000efH
 	push	8
-	mov	eax, DWORD PTR _lpView$10894[ebp]
+	mov	eax, DWORD PTR _lpView$10895[ebp]
 	push	eax
-	mov	ecx, DWORD PTR _lpView$10894[ebp]
+	mov	ecx, DWORD PTR _lpView$10895[ebp]
 	mov	edx, DWORD PTR [ecx+14]
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
@@ -26520,7 +26520,7 @@ $L10891:
 ; 8611 :             nRC = zCALL_ERROR;
 
 	mov	WORD PTR _nRC$[ebp], -16		; fffffff0H
-$L10885:
+$L10886:
 
 ; 8615 : 
 ; 8616 :    return( nRC );
@@ -26599,20 +26599,20 @@ _CompareAttributeToVariable@32 PROC NEAR
 
 	movsx	ecx, WORD PTR _nRC$[ebp]
 	test	ecx, ecx
-	jle	SHORT $L10919
+	jle	SHORT $L10920
 
 ; 8680 :       return( zCALL_ERROR );   // don't call fnOperationReturn
 
 	mov	ax, -16					; fffffff0H
-	jmp	SHORT $L10913
-$L10919:
+	jmp	SHORT $L10914
+$L10920:
 
 ; 8681 : 
 ; 8682 :    if ( nRC )
 
 	movsx	edx, WORD PTR _nRC$[ebp]
 	test	edx, edx
-	je	SHORT $L10920
+	je	SHORT $L10921
 
 ; 8683 :       nRC = zCALL_ERROR;
 
@@ -26620,8 +26620,8 @@ $L10919:
 
 ; 8684 :    else
 
-	jmp	SHORT $L10921
-$L10920:
+	jmp	SHORT $L10922
+$L10921:
 
 ; 8686 :       // Call fnCompareAttributeToVariable to do the comparing
 ; 8687 :       nRC = fnCompareAttributeToVariable( lpView, lpViewEntityCsr,
@@ -26652,7 +26652,7 @@ $L10920:
 	call	_fnCompareAttributeToVariable
 	add	esp, 36					; 00000024H
 	mov	WORD PTR _nRC$[ebp], ax
-$L10921:
+$L10922:
 
 ; 8694 : 
 ; 8695 :    fnOperationReturn( iCompareAttributeToVariable, lpCurrentTask );
@@ -26666,7 +26666,7 @@ $L10921:
 ; 8696 :    return( nRC );
 
 	mov	ax, WORD PTR _nRC$[ebp]
-$L10913:
+$L10914:
 
 ; 8697 : }
 
@@ -26691,8 +26691,8 @@ _szTempStr$ = -32
 _plInteger$ = -24
 _pdDecimal$ = -36
 _nRC$ = -12
-_szMsg$10965 = -536
-_lpTask$10985 = -540
+_szMsg$10966 = -536
+_lpTask$10986 = -540
 _fnCompareAttributeToVariable PROC NEAR
 
 ; 8719 : {
@@ -26730,7 +26730,7 @@ _fnCompareAttributeToVariable PROC NEAR
 	mov	edx, DWORD PTR _lpViewAttrib$[ebp]
 	movsx	eax, BYTE PTR [edx+213]
 	test	eax, eax
-	je	SHORT $L10953
+	je	SHORT $L10954
 
 ; 8737 :       nRC = fnInvokeDerivedOperation( lpView, lpViewEntity, lpViewAttrib,
 ; 8738 :                                       lpCurrentTask, zDERIVED_GET );
@@ -26752,13 +26752,13 @@ _fnCompareAttributeToVariable PROC NEAR
 
 	movsx	edx, WORD PTR _nRC$[ebp]
 	cmp	edx, -16				; fffffff0H
-	jne	SHORT $L10953
+	jne	SHORT $L10954
 
 ; 8740 :          return( nRC );
 
 	mov	ax, WORD PTR _nRC$[ebp]
-	jmp	$L10941
-$L10953:
+	jmp	$L10942
+$L10954:
 
 ; 8742 : 
 ; 8743 :    lpDomain = zGETPTR( lpViewAttrib->hDomain );
@@ -26790,13 +26790,13 @@ $L10953:
 	mov	al, BYTE PTR _cDomainType$[ebp]
 	mov	BYTE PTR -544+[ebp], al
 	cmp	BYTE PTR -544+[ebp], 65			; 00000041H
-	je	SHORT $L10963
+	je	SHORT $L10964
 	cmp	BYTE PTR -544+[ebp], 69			; 00000045H
-	je	SHORT $L10963
+	je	SHORT $L10964
 	cmp	BYTE PTR -544+[ebp], 84			; 00000054H
-	je	SHORT $L10959
-	jmp	$L10966
-$L10959:
+	je	SHORT $L10960
+	jmp	$L10967
+$L10960:
 
 ; 8748 :       case zDM_TYPE_TABLE:
 ; 8749 :          nRC = Table_Handler( (zLONG) zDME_COMPARE_ATTRIBUTE,
@@ -26830,8 +26830,8 @@ $L10959:
 
 ; 8758 :          break;
 
-	jmp	$L10956
-$L10963:
+	jmp	$L10957
+$L10964:
 
 ; 8759 : 
 ; 8760 :       case zDM_TYPE_EXPRESSION:
@@ -26873,7 +26873,7 @@ $L10963:
 
 	movsx	edx, WORD PTR _nRC$[ebp]
 	cmp	edx, -10				; fffffff6H
-	jne	SHORT $L10964
+	jne	SHORT $L10965
 
 ; 8774 :             zCHAR szMsg[ 500 ];
 ; 8775 : 
@@ -26889,7 +26889,7 @@ $L10963:
 	add	ecx, 100				; 00000064H
 	push	ecx
 	push	OFFSET FLAT:??_C@_0EE@ELLG@Operation?5?8?$CFs?8?5does?5not?5handle?5a@ ; `string'
-	lea	edx, DWORD PTR _szMsg$10965[ebp]
+	lea	edx, DWORD PTR _szMsg$10966[ebp]
 	push	edx
 	call	DWORD PTR __imp__sprintf
 	add	esp, 20					; 00000014H
@@ -26899,7 +26899,7 @@ $L10963:
 
 	push	0
 	push	200					; 000000c8H
-	lea	eax, DWORD PTR _szMsg$10965[ebp]
+	lea	eax, DWORD PTR _szMsg$10966[ebp]
 	push	eax
 	push	OFFSET FLAT:??_C@_0N@LGH@System?5Error?$AA@ ; `string'
 	push	OFFSET FLAT:??_C@_08MEJN@TZDMD101?$AA@	; `string'
@@ -26910,14 +26910,14 @@ $L10963:
 ; 8781 :             return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	$L10941
-$L10964:
+	jmp	$L10942
+$L10965:
 
 ; 8783 : 
 ; 8784 :          break;
 
-	jmp	$L10956
-$L10966:
+	jmp	$L10957
+$L10967:
 
 ; 8785 : 
 ; 8786 :       case zDM_TYPE_FORMAT:
@@ -26942,12 +26942,12 @@ $L10966:
 	sub	edx, 66					; 00000042H
 	mov	DWORD PTR -548+[ebp], edx
 	cmp	DWORD PTR -548+[ebp], 18		; 00000012H
-	ja	$L10984
+	ja	$L10985
 	mov	ecx, DWORD PTR -548+[ebp]
 	xor	eax, eax
-	mov	al, BYTE PTR $L11992[ecx]
-	jmp	DWORD PTR $L11993[eax*4]
-$L10972:
+	mov	al, BYTE PTR $L11993[ecx]
+	jmp	DWORD PTR $L11994[eax*4]
+$L10973:
 
 ; 8794 :             case zTYPE_STRING:
 ; 8795 :                nRC = fnCompareAttributeToString( lpEntityInstance,
@@ -26969,8 +26969,8 @@ $L10972:
 
 ; 8799 :                break;
 
-	jmp	$L10969
-$L10974:
+	jmp	$L10970
+$L10975:
 
 ; 8800 : 
 ; 8801 :             case zTYPE_BLOB:
@@ -26996,8 +26996,8 @@ $L10974:
 
 ; 8807 :                break;
 
-	jmp	$L10969
-$L10976:
+	jmp	$L10970
+$L10977:
 
 ; 8808 : 
 ; 8809 :             case zTYPE_INTEGER:
@@ -27026,8 +27026,8 @@ $L10976:
 
 ; 8815 :                break;
 
-	jmp	$L10969
-$L10979:
+	jmp	$L10970
+$L10980:
 
 ; 8816 : 
 ; 8817 :             case zTYPE_DECIMAL:
@@ -27058,8 +27058,8 @@ $L10979:
 
 ; 8823 :                break;
 
-	jmp	SHORT $L10969
-$L10982:
+	jmp	SHORT $L10970
+$L10983:
 
 ; 8824 : 
 ; 8825 :             case zTYPE_DATETIME:
@@ -27082,8 +27082,8 @@ $L10982:
 
 ; 8830 :                break;
 
-	jmp	SHORT $L10969
-$L10984:
+	jmp	SHORT $L10970
+$L10985:
 
 ; 8834 :                LPTASK lpTask = zGETPTR( lpView->hTask );
 
@@ -27091,7 +27091,7 @@ $L10984:
 	mov	edx, DWORD PTR [ecx+14]
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpTask$10985[ebp], eax
+	mov	DWORD PTR _lpTask$10986[ebp], eax
 
 ; 8835 :                szTempStr[ 0 ] = cVariableType;
 
@@ -27113,7 +27113,7 @@ $L10984:
 	push	8
 	mov	edx, DWORD PTR _lpView$[ebp]
 	push	edx
-	mov	eax, DWORD PTR _lpTask$10985[ebp]
+	mov	eax, DWORD PTR _lpTask$10986[ebp]
 	push	eax
 	call	_fnIssueCoreError
 	add	esp, 28					; 0000001cH
@@ -27121,14 +27121,14 @@ $L10984:
 ; 8839 :                nRC = zCALL_ERROR;
 
 	mov	WORD PTR _nRC$[ebp], -16		; fffffff0H
-$L10969:
-$L10956:
+$L10970:
+$L10957:
 
 ; 8843 : 
 ; 8844 :    return( nRC );
 
 	mov	ax, WORD PTR _nRC$[ebp]
-$L10941:
+$L10942:
 
 ; 8845 : }
 
@@ -27137,14 +27137,14 @@ $L10941:
 	mov	esp, ebp
 	pop	ebp
 	ret	0
+$L11994:
+	DD	$L10975
+	DD	$L10977
+	DD	$L10980
+	DD	$L10973
+	DD	$L10983
+	DD	$L10985
 $L11993:
-	DD	$L10974
-	DD	$L10976
-	DD	$L10979
-	DD	$L10972
-	DD	$L10982
-	DD	$L10984
-$L11992:
 	DB	0
 	DB	5
 	DB	5
@@ -27233,23 +27233,23 @@ _GetVariableFromAttribute@36 PROC NEAR
 
 	movsx	edx, WORD PTR _nRC$[ebp]
 	test	edx, edx
-	jle	SHORT $L11012
+	jle	SHORT $L11013
 
 ; 8931 :       return( zCALL_ERROR );   // don't call fnOperationReturn
 
 	mov	ax, -16					; fffffff0H
-	jmp	$L11005
-$L11012:
+	jmp	$L11006
+$L11013:
 
 ; 8932 : 
 ; 8933 :    if ( nRC && nRC != -2 )
 
 	movsx	eax, WORD PTR _nRC$[ebp]
 	test	eax, eax
-	je	SHORT $L11013
+	je	SHORT $L11014
 	movsx	ecx, WORD PTR _nRC$[ebp]
 	cmp	ecx, -2					; fffffffeH
-	je	SHORT $L11013
+	je	SHORT $L11014
 
 ; 8935 :       fnOperationReturn( iGetVariableFromAttribute, lpCurrentTask );
 
@@ -27262,15 +27262,15 @@ $L11012:
 ; 8936 :       return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	$L11005
-$L11013:
+	jmp	$L11006
+$L11014:
 
 ; 8938 : 
 ; 8939 :    if ( nRC == -2 ) // entity is null
 
 	movsx	eax, WORD PTR _nRC$[ebp]
 	cmp	eax, -2					; fffffffeH
-	jne	SHORT $L11014
+	jne	SHORT $L11015
 
 ; 8941 :       switch ( cVariableType )
 ; 8942 :       {
@@ -27281,12 +27281,12 @@ $L11013:
 	sub	edx, 66					; 00000042H
 	mov	DWORD PTR -28+[ebp], edx
 	cmp	DWORD PTR -28+[ebp], 17			; 00000011H
-	ja	SHORT $L11016
+	ja	SHORT $L11017
 	mov	ecx, DWORD PTR -28+[ebp]
 	xor	eax, eax
-	mov	al, BYTE PTR $L11995[ecx]
-	jmp	DWORD PTR $L11996[eax*4]
-$L11019:
+	mov	al, BYTE PTR $L11996[ecx]
+	jmp	DWORD PTR $L11997[eax*4]
+$L11020:
 
 ; 8943 :          case zTYPE_STRING:
 ; 8944 :             *((zPCHAR) lpVariable) = 0;
@@ -27296,8 +27296,8 @@ $L11019:
 
 ; 8945 :             break;
 
-	jmp	SHORT $L11016
-$L11021:
+	jmp	SHORT $L11017
+$L11022:
 
 ; 8946 : 
 ; 8947 :          case zTYPE_INTEGER:
@@ -27308,8 +27308,8 @@ $L11021:
 
 ; 8949 :             break;
 
-	jmp	SHORT $L11016
-$L11023:
+	jmp	SHORT $L11017
+$L11024:
 
 ; 8950 : 
 ; 8951 :          case zTYPE_DECIMAL:
@@ -27322,8 +27322,8 @@ $L11023:
 
 ; 8953 :             break;
 
-	jmp	SHORT $L11016
-$L11025:
+	jmp	SHORT $L11017
+$L11026:
 
 ; 8954 : 
 ; 8955 :          case zTYPE_BLOB:
@@ -27336,19 +27336,19 @@ $L11025:
 
 	mov	eax, DWORD PTR _lpVariable$[ebp]
 	mov	BYTE PTR [eax], 0
-$L11016:
+$L11017:
 
 ; 8961 :    else
 
-	jmp	$L11027
-$L11014:
+	jmp	$L11028
+$L11015:
 
 ; 8963 :       if ( nFlag & zUSE_DEFAULT_CONTEXT )
 
 	movsx	ecx, WORD PTR _nFlag$[ebp]
 	and	ecx, 8
 	test	ecx, ecx
-	je	SHORT $L11031
+	je	SHORT $L11032
 
 ; 8965 :          if ( GetDefaultContext( &lpDefaultContext,
 ; 8966 :                                  zGETPTR( lpViewAttrib->hDomain ) ) )
@@ -27363,7 +27363,7 @@ $L11014:
 	call	_GetDefaultContext@8
 	movsx	edx, ax
 	test	edx, edx
-	je	SHORT $L11030
+	je	SHORT $L11031
 
 ; 8968 :             cpcContextName = lpDefaultContext->szName;
 
@@ -27373,8 +27373,8 @@ $L11014:
 
 ; 8970 :          else
 
-	jmp	SHORT $L11031
-$L11030:
+	jmp	SHORT $L11032
+$L11031:
 
 ; 8972 :             // "KZOEE232 - Operation indicates use default context,
 ; 8973 :             // none found"
@@ -27416,8 +27416,8 @@ $L11030:
 ; 8979 :             return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	SHORT $L11005
-$L11031:
+	jmp	SHORT $L11006
+$L11032:
 
 ; 8982 : 
 ; 8983 :       // Call fnGetVariableFromAttribute for the actual retrieval
@@ -27452,7 +27452,7 @@ $L11031:
 	call	_fnGetVariableFromAttribute
 	add	esp, 40					; 00000028H
 	mov	WORD PTR _nRC$[ebp], ax
-$L11027:
+$L11028:
 
 ; 8992 : 
 ; 8993 :    fnOperationReturn( iGetVariableFromAttribute, lpCurrentTask );
@@ -27466,20 +27466,20 @@ $L11027:
 ; 8994 :    return( nRC );
 
 	mov	ax, WORD PTR _nRC$[ebp]
-$L11005:
+$L11006:
 
 ; 8995 : }
 
 	mov	esp, ebp
 	pop	ebp
 	ret	36					; 00000024H
+$L11997:
+	DD	$L11026
+	DD	$L11022
+	DD	$L11024
+	DD	$L11020
+	DD	$L11017
 $L11996:
-	DD	$L11025
-	DD	$L11021
-	DD	$L11023
-	DD	$L11019
-	DD	$L11016
-$L11995:
 	DB	0
 	DB	4
 	DB	4
@@ -27527,21 +27527,21 @@ _szTempStr$ = -32
 _plInteger$ = -24
 _pdDecimal$ = -36
 _nRC$ = -12
-_lpContext$11085 = -40
-_u$11088 = -44
-_lpTask$11091 = -48
-_lpTask$11099 = -52
-_lpTask$11102 = -56
-_lpTask$11106 = -60
-_sz1$11108 = -160
-_sz2$11109 = -260
-_lpContext$11117 = -264
-_lpTask$11122 = -268
-_sz1$11124 = -336
-_sz2$11125 = -404
-_lpTask$11128 = -408
-_szMsg$11140 = -908
-_lpTask$11163 = -912
+_lpContext$11086 = -40
+_u$11089 = -44
+_lpTask$11092 = -48
+_lpTask$11100 = -52
+_lpTask$11103 = -56
+_lpTask$11107 = -60
+_sz1$11109 = -160
+_sz2$11110 = -260
+_lpContext$11118 = -264
+_lpTask$11123 = -268
+_sz1$11125 = -336
+_sz2$11126 = -404
+_lpTask$11129 = -408
+_szMsg$11141 = -908
+_lpTask$11164 = -912
 _fnGetVariableFromAttribute PROC NEAR
 
 ; 9018 : {
@@ -27585,17 +27585,17 @@ _fnGetVariableFromAttribute PROC NEAR
 
 	movsx	ecx, BYTE PTR _cVariableType$[ebp]
 	cmp	ecx, 83					; 00000053H
-	je	SHORT $L11066
+	je	SHORT $L11067
 	movsx	edx, BYTE PTR _cVariableType$[ebp]
 	cmp	edx, 80					; 00000050H
-	jne	SHORT $L11065
-$L11066:
+	jne	SHORT $L11066
+$L11067:
 
 ; 9037 :       *((zPCHAR) lpVariable) = 0;
 
 	mov	eax, DWORD PTR _lpVariable$[ebp]
 	mov	BYTE PTR [eax], 0
-$L11065:
+$L11066:
 
 ; 9038 : 
 ; 9039 :    // If there is an object operation for this attribute, invoke it now ...
@@ -27604,7 +27604,7 @@ $L11065:
 	mov	ecx, DWORD PTR _lpViewAttrib$[ebp]
 	movsx	edx, BYTE PTR [ecx+213]
 	test	edx, edx
-	je	SHORT $L11069
+	je	SHORT $L11070
 
 ; 9042 :       nRC = fnInvokeDerivedOperation( lpView, lpViewEntity, lpViewAttrib,
 ; 9043 :                                       lpCurrentTask, zDERIVED_GET );
@@ -27626,13 +27626,13 @@ $L11065:
 
 	movsx	ecx, WORD PTR _nRC$[ebp]
 	cmp	ecx, -16				; fffffff0H
-	jne	SHORT $L11069
+	jne	SHORT $L11070
 
 ; 9045 :          return( nRC );
 
 	mov	ax, WORD PTR _nRC$[ebp]
-	jmp	$L11053
-$L11069:
+	jmp	$L11054
+$L11070:
 
 ; 9047 : 
 ; 9048 :    lpDomain = zGETPTR( lpViewAttrib->hDomain );
@@ -27670,32 +27670,32 @@ $L11069:
 
 	movsx	edx, BYTE PTR _cDomainType$[ebp]
 	test	edx, edx
-	je	SHORT $L11071
+	je	SHORT $L11072
 	movsx	eax, BYTE PTR _cVariableType$[ebp]
 	cmp	eax, 83					; 00000053H
-	je	SHORT $L11072
+	je	SHORT $L11073
 	movsx	ecx, BYTE PTR _cVariableType$[ebp]
 	mov	edx, DWORD PTR _lpViewAttrib$[ebp]
 	movsx	eax, BYTE PTR [edx+202]
 	cmp	ecx, eax
-	jne	SHORT $L11071
-$L11072:
+	jne	SHORT $L11072
+$L11073:
 	cmp	DWORD PTR _cpcContextName$[ebp], 0
-	je	SHORT $L11073
+	je	SHORT $L11074
 	mov	ecx, DWORD PTR _cpcContextName$[ebp]
 	movsx	edx, BYTE PTR [ecx]
 	test	edx, edx
-	jne	SHORT $L11071
-$L11073:
+	jne	SHORT $L11072
+$L11074:
 	movsx	eax, WORD PTR _nFlag$[ebp]
 	and	eax, 8
 	test	eax, eax
-	jne	SHORT $L11071
+	jne	SHORT $L11072
 
 ; 9061 :       cDomainType = 0;
 
 	mov	BYTE PTR _cDomainType$[ebp], 0
-$L11071:
+$L11072:
 
 ; 9063 : 
 ; 9064 :    switch ( cDomainType )
@@ -27707,12 +27707,12 @@ $L11071:
 	sub	edx, 65					; 00000041H
 	mov	DWORD PTR -916+[ebp], edx
 	cmp	DWORD PTR -916+[ebp], 19		; 00000013H
-	ja	$L11141
+	ja	$L11142
 	mov	ecx, DWORD PTR -916+[ebp]
 	xor	eax, eax
-	mov	al, BYTE PTR $L11998[ecx]
-	jmp	DWORD PTR $L11999[eax*4]
-$L11078:
+	mov	al, BYTE PTR $L11999[ecx]
+	jmp	DWORD PTR $L12000[eax*4]
+$L11079:
 
 ; 9066 :       case zDM_TYPE_TABLE:
 ; 9067 :          nRC = Table_Handler( (zLONG) zDME_GET_VARIABLE,
@@ -27748,12 +27748,12 @@ $L11078:
 
 	movsx	eax, WORD PTR _nRC$[ebp]
 	test	eax, eax
-	jne	SHORT $L11081
+	jne	SHORT $L11082
 	movsx	ecx, BYTE PTR _cVariableType$[ebp]
 	cmp	ecx, 83					; 00000053H
-	jne	SHORT $L11081
+	jne	SHORT $L11082
 	cmp	DWORD PTR _pulReturnLth$[ebp], 0
-	je	SHORT $L11081
+	je	SHORT $L11082
 
 ; 9077 :             *pulReturnLth = zstrlen( (zPCHAR) lpVariable );
 
@@ -27763,13 +27763,13 @@ $L11078:
 	add	esp, 4
 	mov	ecx, DWORD PTR _pulReturnLth$[ebp]
 	mov	DWORD PTR [ecx], eax
-$L11081:
+$L11082:
 
 ; 9078 : 
 ; 9079 :          break;
 
-	jmp	$L11075
-$L11083:
+	jmp	$L11076
+$L11084:
 
 ; 9080 : 
 ; 9081 :       case zDM_TYPE_FORMAT:
@@ -27777,7 +27777,7 @@ $L11083:
 
 	movsx	edx, BYTE PTR _cVariableType$[ebp]
 	cmp	edx, 80					; 00000050H
-	jne	$L11084
+	jne	$L11085
 
 ; 9084 :             zLPCONTEXT lpContext = fnGetContext( lpDomain, cpcContextName );
 
@@ -27787,36 +27787,36 @@ $L11083:
 	push	ecx
 	call	_fnGetContext
 	add	esp, 8
-	mov	DWORD PTR _lpContext$11085[ebp], eax
+	mov	DWORD PTR _lpContext$11086[ebp], eax
 
 ; 9085 :             if ( lpContext )
 
-	cmp	DWORD PTR _lpContext$11085[ebp], 0
-	je	$L11086
+	cmp	DWORD PTR _lpContext$11086[ebp], 0
+	je	$L11087
 
 ; 9087 :                if ( lpContext->hEditString )
 
-	mov	edx, DWORD PTR _lpContext$11085[ebp]
+	mov	edx, DWORD PTR _lpContext$11086[ebp]
 	cmp	DWORD PTR [edx+59], 0
-	je	$L11087
+	je	$L11088
 
 ; 9089 :                   zUSHORT u = zstrlen( zGETPTR( lpContext->hEditString ) );
 
-	mov	eax, DWORD PTR _lpContext$11085[ebp]
+	mov	eax, DWORD PTR _lpContext$11086[ebp]
 	mov	ecx, DWORD PTR [eax+59]
 	push	ecx
 	call	DWORD PTR _g_pfnGetPtr
 	push	eax
 	call	_strlen
 	add	esp, 4
-	mov	WORD PTR _u$11088[ebp], ax
+	mov	WORD PTR _u$11089[ebp], ax
 
 ; 9090 :                   if ( u > ulVariableLth )
 
-	mov	edx, DWORD PTR _u$11088[ebp]
+	mov	edx, DWORD PTR _u$11089[ebp]
 	and	edx, 65535				; 0000ffffH
 	cmp	edx, DWORD PTR _ulVariableLth$[ebp]
-	jbe	SHORT $L11090
+	jbe	SHORT $L11091
 
 ; 9092 :                      LPTASK lpTask = zGETPTR( lpView->hTask );
 
@@ -27824,7 +27824,7 @@ $L11083:
 	mov	ecx, DWORD PTR [eax+14]
 	push	ecx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpTask$11091[ebp], eax
+	mov	DWORD PTR _lpTask$11092[ebp], eax
 
 ; 9093 :                      // "KZOEE364 - Picture length exceeds input length "
 ; 9094 :                      fnIssueCoreError( lpTask, lpView, 8, 364, 0,
@@ -27844,7 +27844,7 @@ $L11083:
 	push	8
 	mov	ecx, DWORD PTR _lpView$[ebp]
 	push	ecx
-	mov	edx, DWORD PTR _lpTask$11091[ebp]
+	mov	edx, DWORD PTR _lpTask$11092[ebp]
 	push	edx
 	call	_fnIssueCoreError
 	add	esp, 28					; 0000001cH
@@ -27855,13 +27855,13 @@ $L11083:
 
 ; 9099 :                   else
 
-	jmp	SHORT $L11096
-$L11090:
+	jmp	SHORT $L11097
+$L11091:
 
 ; 9101 :                      zstrcpy( (zPCHAR) lpVariable,
 ; 9102 :                               zGETPTR( lpContext->hEditString ) );
 
-	mov	eax, DWORD PTR _lpContext$11085[ebp]
+	mov	eax, DWORD PTR _lpContext$11086[ebp]
 	mov	ecx, DWORD PTR [eax+59]
 	push	ecx
 	call	DWORD PTR _g_pfnGetPtr
@@ -27878,7 +27878,7 @@ $L11090:
 ; 9104 :                      if ( pulReturnLth )
 
 	cmp	DWORD PTR _pulReturnLth$[ebp], 0
-	je	SHORT $L11096
+	je	SHORT $L11097
 
 ; 9105 :                         *pulReturnLth = zstrlen( (zPCHAR) lpVariable );
 
@@ -27888,12 +27888,12 @@ $L11090:
 	add	esp, 4
 	mov	ecx, DWORD PTR _pulReturnLth$[ebp]
 	mov	DWORD PTR [ecx], eax
-$L11096:
+$L11097:
 
 ; 9108 :                else
 
-	jmp	SHORT $L11098
-$L11087:
+	jmp	SHORT $L11099
+$L11088:
 
 ; 9110 :                   LPTASK lpTask = zGETPTR( lpView->hTask );
 
@@ -27901,7 +27901,7 @@ $L11087:
 	mov	eax, DWORD PTR [edx+14]
 	push	eax
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpTask$11099[ebp], eax
+	mov	DWORD PTR _lpTask$11100[ebp], eax
 
 ; 9111 :                   // "KZOEE363 - Context Edit string is invalid "
 ; 9112 :                   fnIssueCoreError( lpTask, lpView, 8, 363, 0,
@@ -27921,7 +27921,7 @@ $L11087:
 	push	8
 	mov	eax, DWORD PTR _lpView$[ebp]
 	push	eax
-	mov	ecx, DWORD PTR _lpTask$11099[ebp]
+	mov	ecx, DWORD PTR _lpTask$11100[ebp]
 	push	ecx
 	call	_fnIssueCoreError
 	add	esp, 28					; 0000001cH
@@ -27929,12 +27929,12 @@ $L11087:
 ; 9115 :                   nRC = zCALL_ERROR;
 
 	mov	WORD PTR _nRC$[ebp], -16		; fffffff0H
-$L11098:
+$L11099:
 
 ; 9118 :             else
 
-	jmp	SHORT $L11101
-$L11086:
+	jmp	SHORT $L11102
+$L11087:
 
 ; 9120 :                LPTASK lpTask = zGETPTR( lpView->hTask );
 
@@ -27942,7 +27942,7 @@ $L11086:
 	mov	eax, DWORD PTR [edx+14]
 	push	eax
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpTask$11102[ebp], eax
+	mov	DWORD PTR _lpTask$11103[ebp], eax
 
 ; 9121 :                // "KZOEE350 - Context Not Valid for Domain"
 ; 9122 :                fnIssueCoreError( lpTask, lpView, 8, 350, 0, lpDomain->szName,
@@ -27961,7 +27961,7 @@ $L11086:
 	push	8
 	mov	eax, DWORD PTR _lpView$[ebp]
 	push	eax
-	mov	ecx, DWORD PTR _lpTask$11102[ebp]
+	mov	ecx, DWORD PTR _lpTask$11103[ebp]
 	push	ecx
 	call	_fnIssueCoreError
 	add	esp, 28					; 0000001cH
@@ -27969,18 +27969,18 @@ $L11086:
 ; 9124 :                nRC = zCALL_ERROR;
 
 	mov	WORD PTR _nRC$[ebp], -16		; fffffff0H
-$L11101:
+$L11102:
 
 ; 9127 :          else
 
-	jmp	$L11134
-$L11084:
+	jmp	$L11135
+$L11085:
 
 ; 9128 :          if ( cVariableType != zTYPE_STRING )
 
 	movsx	edx, BYTE PTR _cVariableType$[ebp]
 	cmp	edx, 83					; 00000053H
-	je	$L11105
+	je	$L11106
 
 ; 9130 :             LPTASK lpTask = zGETPTR( lpView->hTask );
 
@@ -27988,7 +27988,7 @@ $L11084:
 	mov	ecx, DWORD PTR [eax+14]
 	push	ecx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpTask$11106[ebp], eax
+	mov	DWORD PTR _lpTask$11107[ebp], eax
 
 ; 9131 :             zCHAR sz1[ 100 ];
 ; 9132 :             zCHAR sz2[ 100 ];
@@ -27996,7 +27996,7 @@ $L11084:
 ; 9134 :             zstrcpy( sz1, "Type: " );
 
 	push	OFFSET FLAT:??_C@_06MJOA@Type?3?5?$AA@	; `string'
-	lea	edx, DWORD PTR _sz1$11108[ebp]
+	lea	edx, DWORD PTR _sz1$11109[ebp]
 	push	edx
 	call	_strcpy
 	add	esp, 8
@@ -28004,16 +28004,16 @@ $L11084:
 ; 9135 :             sz1[ 6 ] = cVariableType;
 
 	mov	al, BYTE PTR _cVariableType$[ebp]
-	mov	BYTE PTR _sz1$11108[ebp+6], al
+	mov	BYTE PTR _sz1$11109[ebp+6], al
 
 ; 9136 :             sz1[ 7 ] = 0;
 
-	mov	BYTE PTR _sz1$11108[ebp+7], 0
+	mov	BYTE PTR _sz1$11109[ebp+7], 0
 
 ; 9137 :             zstrcat( sz1, ", Domain: " );
 
 	push	OFFSET FLAT:??_C@_0L@DBIE@?0?5Domain?3?5?$AA@ ; `string'
-	lea	ecx, DWORD PTR _sz1$11108[ebp]
+	lea	ecx, DWORD PTR _sz1$11109[ebp]
 	push	ecx
 	call	_strcat
 	add	esp, 8
@@ -28023,7 +28023,7 @@ $L11084:
 	mov	edx, DWORD PTR _lpDomain$[ebp]
 	add	edx, 6
 	push	edx
-	lea	eax, DWORD PTR _sz1$11108[ebp]
+	lea	eax, DWORD PTR _sz1$11109[ebp]
 	push	eax
 	call	_strcat
 	add	esp, 8
@@ -28033,7 +28033,7 @@ $L11084:
 	mov	ecx, DWORD PTR _lpViewEntity$[ebp]
 	add	ecx, 14					; 0000000eH
 	push	ecx
-	lea	edx, DWORD PTR _sz2$11109[ebp]
+	lea	edx, DWORD PTR _sz2$11110[ebp]
 	push	edx
 	call	_strcpy
 	add	esp, 8
@@ -28041,7 +28041,7 @@ $L11084:
 ; 9140 :             zstrcpy( sz2, ", " );
 
 	push	OFFSET FLAT:??_C@_02GIEM@?0?5?$AA@	; `string'
-	lea	eax, DWORD PTR _sz2$11109[ebp]
+	lea	eax, DWORD PTR _sz2$11110[ebp]
 	push	eax
 	call	_strcpy
 	add	esp, 8
@@ -28051,7 +28051,7 @@ $L11084:
 	mov	ecx, DWORD PTR _lpViewAttrib$[ebp]
 	add	ecx, 10					; 0000000aH
 	push	ecx
-	lea	edx, DWORD PTR _sz2$11109[ebp]
+	lea	edx, DWORD PTR _sz2$11110[ebp]
 	push	edx
 	call	_strcpy
 	add	esp, 8
@@ -28059,16 +28059,16 @@ $L11084:
 ; 9142 :             // "KZOEE362 - Variable Type not allowed for this Domain Type "
 ; 9143 :             fnIssueCoreError( lpTask, lpView, 8, 362, 0, sz1, sz2 );
 
-	lea	eax, DWORD PTR _sz2$11109[ebp]
+	lea	eax, DWORD PTR _sz2$11110[ebp]
 	push	eax
-	lea	ecx, DWORD PTR _sz1$11108[ebp]
+	lea	ecx, DWORD PTR _sz1$11109[ebp]
 	push	ecx
 	push	0
 	push	362					; 0000016aH
 	push	8
 	mov	edx, DWORD PTR _lpView$[ebp]
 	push	edx
-	mov	eax, DWORD PTR _lpTask$11106[ebp]
+	mov	eax, DWORD PTR _lpTask$11107[ebp]
 	push	eax
 	call	_fnIssueCoreError
 	add	esp, 28					; 0000001cH
@@ -28079,8 +28079,8 @@ $L11084:
 
 ; 9146 :          else
 
-	jmp	$L11134
-$L11105:
+	jmp	$L11135
+$L11106:
 
 ; 9148 :             nRC = fnGetStringFromAttribute( (zPCHAR) lpVariable,
 ; 9149 :                                             ulVariableLth,
@@ -28108,9 +28108,9 @@ $L11105:
 	movsx	eax, WORD PTR _nRC$[ebp]
 	mov	DWORD PTR -920+[ebp], eax
 	cmp	DWORD PTR -920+[ebp], 0
-	je	SHORT $L11116
-	jmp	$L11113
-$L11116:
+	je	SHORT $L11117
+	jmp	$L11114
+$L11117:
 
 ; 9156 :                   zLPCONTEXT lpContext = fnGetContext( lpDomain, cpcContextName );
 
@@ -28120,17 +28120,17 @@ $L11116:
 	push	edx
 	call	_fnGetContext
 	add	esp, 8
-	mov	DWORD PTR _lpContext$11117[ebp], eax
+	mov	DWORD PTR _lpContext$11118[ebp], eax
 
 ; 9157 :                   if ( lpContext )
 
-	cmp	DWORD PTR _lpContext$11117[ebp], 0
-	je	$L11118
+	cmp	DWORD PTR _lpContext$11118[ebp], 0
+	je	$L11119
 
 ; 9159 :                      if ( UfFormatString( (zPCHAR) lpVariable,
 ; 9160 :                                           zGETPTR( lpContext->hEditString ) ) )
 
-	mov	eax, DWORD PTR _lpContext$11117[ebp]
+	mov	eax, DWORD PTR _lpContext$11118[ebp]
 	mov	ecx, DWORD PTR [eax+59]
 	push	ecx
 	call	DWORD PTR _g_pfnGetPtr
@@ -28140,7 +28140,7 @@ $L11116:
 	call	_UfFormatString@8
 	movsx	eax, ax
 	test	eax, eax
-	je	$L11121
+	je	$L11122
 
 ; 9162 :                         LPTASK lpTask = zGETPTR( lpView->hTask );
 
@@ -28148,7 +28148,7 @@ $L11116:
 	mov	edx, DWORD PTR [ecx+14]
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpTask$11122[ebp], eax
+	mov	DWORD PTR _lpTask$11123[ebp], eax
 
 ; 9163 :                         zCHAR sz1[ 66 ];
 ; 9164 :                         zCHAR sz2[ 66 ];
@@ -28158,7 +28158,7 @@ $L11116:
 	mov	eax, DWORD PTR _lpViewEntity$[ebp]
 	add	eax, 14					; 0000000eH
 	push	eax
-	lea	ecx, DWORD PTR _sz1$11124[ebp]
+	lea	ecx, DWORD PTR _sz1$11125[ebp]
 	push	ecx
 	call	_strcpy
 	add	esp, 8
@@ -28166,7 +28166,7 @@ $L11116:
 ; 9167 :                         zstrcat( sz1, "/" );
 
 	push	OFFSET FLAT:??_C@_01FDLN@?1?$AA@	; `string'
-	lea	edx, DWORD PTR _sz1$11124[ebp]
+	lea	edx, DWORD PTR _sz1$11125[ebp]
 	push	edx
 	call	_strcat
 	add	esp, 8
@@ -28176,7 +28176,7 @@ $L11116:
 	mov	eax, DWORD PTR _lpViewAttrib$[ebp]
 	add	eax, 10					; 0000000aH
 	push	eax
-	lea	ecx, DWORD PTR _sz1$11124[ebp]
+	lea	ecx, DWORD PTR _sz1$11125[ebp]
 	push	ecx
 	call	_strcat
 	add	esp, 8
@@ -28186,7 +28186,7 @@ $L11116:
 	mov	edx, DWORD PTR _lpDomain$[ebp]
 	add	edx, 6
 	push	edx
-	lea	eax, DWORD PTR _sz2$11125[ebp]
+	lea	eax, DWORD PTR _sz2$11126[ebp]
 	push	eax
 	call	_strcpy
 	add	esp, 8
@@ -28194,7 +28194,7 @@ $L11116:
 ; 9170 :                         zstrcat( sz2, "/" );
 
 	push	OFFSET FLAT:??_C@_01FDLN@?1?$AA@	; `string'
-	lea	ecx, DWORD PTR _sz2$11125[ebp]
+	lea	ecx, DWORD PTR _sz2$11126[ebp]
 	push	ecx
 	call	_strcat
 	add	esp, 8
@@ -28206,7 +28206,7 @@ $L11116:
 	push	edx
 	call	_TrueName@8
 	push	eax
-	lea	eax, DWORD PTR _sz2$11125[ebp]
+	lea	eax, DWORD PTR _sz2$11126[ebp]
 	push	eax
 	call	_strcat
 	add	esp, 8
@@ -28215,16 +28215,16 @@ $L11116:
 ; 9173 :                         //  with Context Format "
 ; 9174 :                         fnIssueCoreError( lpTask, lpView, 8, 361, 0, sz1, sz2 );
 
-	lea	ecx, DWORD PTR _sz2$11125[ebp]
+	lea	ecx, DWORD PTR _sz2$11126[ebp]
 	push	ecx
-	lea	edx, DWORD PTR _sz1$11124[ebp]
+	lea	edx, DWORD PTR _sz1$11125[ebp]
 	push	edx
 	push	0
 	push	361					; 00000169H
 	push	8
 	mov	eax, DWORD PTR _lpView$[ebp]
 	push	eax
-	mov	ecx, DWORD PTR _lpTask$11122[ebp]
+	mov	ecx, DWORD PTR _lpTask$11123[ebp]
 	push	ecx
 	call	_fnIssueCoreError
 	add	esp, 28					; 0000001cH
@@ -28232,12 +28232,12 @@ $L11116:
 ; 9175 :                         nRC = zCALL_ERROR;
 
 	mov	WORD PTR _nRC$[ebp], -16		; fffffff0H
-$L11121:
+$L11122:
 
 ; 9178 :                   else
 
-	jmp	SHORT $L11127
-$L11118:
+	jmp	SHORT $L11128
+$L11119:
 
 ; 9180 :                      LPTASK lpTask = zGETPTR( lpView->hTask );
 
@@ -28245,7 +28245,7 @@ $L11118:
 	mov	eax, DWORD PTR [edx+14]
 	push	eax
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpTask$11128[ebp], eax
+	mov	DWORD PTR _lpTask$11129[ebp], eax
 
 ; 9181 :                      // "KZOEE350 - Context Not Valid for Domain"
 ; 9182 :                      fnIssueCoreError( lpTask, lpView, 8, 350, 0, lpDomain->szName,
@@ -28264,7 +28264,7 @@ $L11118:
 	push	8
 	mov	eax, DWORD PTR _lpView$[ebp]
 	push	eax
-	mov	ecx, DWORD PTR _lpTask$11128[ebp]
+	mov	ecx, DWORD PTR _lpTask$11129[ebp]
 	push	ecx
 	call	_fnIssueCoreError
 	add	esp, 28					; 0000001cH
@@ -28272,20 +28272,20 @@ $L11118:
 ; 9184 :                      nRC = zCALL_ERROR;
 
 	mov	WORD PTR _nRC$[ebp], -16		; fffffff0H
-$L11127:
-$L11113:
+$L11128:
+$L11114:
 
 ; 9194 : 
 ; 9195 :             if ( pulReturnLth )
 
 	cmp	DWORD PTR _pulReturnLth$[ebp], 0
-	je	SHORT $L11134
+	je	SHORT $L11135
 
 ; 9197 :                if ( nRC == 0 )
 
 	movsx	edx, WORD PTR _nRC$[ebp]
 	test	edx, edx
-	jne	SHORT $L11132
+	jne	SHORT $L11133
 
 ; 9198 :                   *pulReturnLth = zstrlen( (zPCHAR) lpVariable );
 
@@ -28298,20 +28298,20 @@ $L11113:
 
 ; 9199 :                else
 
-	jmp	SHORT $L11134
-$L11132:
+	jmp	SHORT $L11135
+$L11133:
 
 ; 9200 :                   *pulReturnLth = 0;
 
 	mov	edx, DWORD PTR _pulReturnLth$[ebp]
 	mov	DWORD PTR [edx], 0
-$L11134:
+$L11135:
 
 ; 9203 : 
 ; 9204 :          break;
 
-	jmp	$L11075
-$L11135:
+	jmp	$L11076
+$L11136:
 
 ; 9205 : 
 ; 9206 :       case zDM_TYPE_EXPRESSION:
@@ -28353,12 +28353,12 @@ $L11135:
 
 	movsx	eax, WORD PTR _nRC$[ebp]
 	test	eax, eax
-	jne	SHORT $L11136
+	jne	SHORT $L11137
 	movsx	ecx, BYTE PTR _cVariableType$[ebp]
 	cmp	ecx, 83					; 00000053H
-	jne	SHORT $L11136
+	jne	SHORT $L11137
 	cmp	DWORD PTR _pulReturnLth$[ebp], 0
-	je	SHORT $L11136
+	je	SHORT $L11137
 
 ; 9219 :             *pulReturnLth = zstrlen( (zPCHAR) lpVariable );
 
@@ -28371,14 +28371,14 @@ $L11135:
 
 ; 9220 :          else
 
-	jmp	SHORT $L11139
-$L11136:
+	jmp	SHORT $L11140
+$L11137:
 
 ; 9221 :          if ( nRC == zDME_NOT_HANDLED )
 
 	movsx	edx, WORD PTR _nRC$[ebp]
 	cmp	edx, -10				; fffffff6H
-	jne	SHORT $L11139
+	jne	SHORT $L11140
 
 ; 9223 :             zCHAR szMsg[ 500 ];
 ; 9224 : 
@@ -28394,7 +28394,7 @@ $L11136:
 	add	ecx, 100				; 00000064H
 	push	ecx
 	push	OFFSET FLAT:??_C@_0EE@ELLG@Operation?5?8?$CFs?8?5does?5not?5handle?5a@ ; `string'
-	lea	edx, DWORD PTR _szMsg$11140[ebp]
+	lea	edx, DWORD PTR _szMsg$11141[ebp]
 	push	edx
 	call	DWORD PTR __imp__sprintf
 	add	esp, 20					; 00000014H
@@ -28404,7 +28404,7 @@ $L11136:
 
 	push	0
 	push	200					; 000000c8H
-	lea	eax, DWORD PTR _szMsg$11140[ebp]
+	lea	eax, DWORD PTR _szMsg$11141[ebp]
 	push	eax
 	push	OFFSET FLAT:??_C@_0N@LGH@System?5Error?$AA@ ; `string'
 	push	OFFSET FLAT:??_C@_08MEJN@TZDMD101?$AA@	; `string'
@@ -28415,24 +28415,24 @@ $L11136:
 ; 9230 :             return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	$L11053
-$L11139:
+	jmp	$L11054
+$L11140:
 
 ; 9232 : 
 ; 9233 :          break;
 
-	jmp	$L11075
-$L11141:
+	jmp	$L11076
+$L11142:
 
 ; 9237 :          if ( cVariableType == zTYPE_STRING && lpViewAttrib->cType == zTYPE_BLOB )
 
 	movsx	edx, BYTE PTR _cVariableType$[ebp]
 	cmp	edx, 83					; 00000053H
-	jne	SHORT $L11143
+	jne	SHORT $L11144
 	mov	eax, DWORD PTR _lpViewAttrib$[ebp]
 	movsx	ecx, BYTE PTR [eax+202]
 	cmp	ecx, 66					; 00000042H
-	jne	SHORT $L11143
+	jne	SHORT $L11144
 
 ; 9239 :             cVariableType = zTYPE_BLOB;  // dks 2007.01.11  permit blob to be set from string
 
@@ -28441,7 +28441,7 @@ $L11141:
 ; 9240 :             if ( ulVariableLth == 0 )
 
 	cmp	DWORD PTR _ulVariableLth$[ebp], 0
-	jne	SHORT $L11143
+	jne	SHORT $L11144
 
 ; 9241 :                ulVariableLth = zstrlen( (zPCHAR) lpVariable );
 
@@ -28450,7 +28450,7 @@ $L11141:
 	call	_strlen
 	add	esp, 4
 	mov	DWORD PTR _ulVariableLth$[ebp], eax
-$L11143:
+$L11144:
 
 ; 9243 : 
 ; 9244 :          // do it without a domain...
@@ -28463,12 +28463,12 @@ $L11143:
 	sub	ecx, 66					; 00000042H
 	mov	DWORD PTR -924+[ebp], ecx
 	cmp	DWORD PTR -924+[ebp], 17		; 00000011H
-	ja	$L11162
+	ja	$L11163
 	mov	eax, DWORD PTR -924+[ebp]
 	xor	edx, edx
-	mov	dl, BYTE PTR $L12000[eax]
-	jmp	DWORD PTR $L12001[edx*4]
-$L11149:
+	mov	dl, BYTE PTR $L12001[eax]
+	jmp	DWORD PTR $L12002[edx*4]
+$L11150:
 
 ; 9247 :             case zTYPE_STRING:
 ; 9248 :                nRC = fnGetStringFromAttribute( (zPCHAR) lpVariable, ulVariableLth,
@@ -28495,13 +28495,13 @@ $L11149:
 ; 9252 :                if ( pulReturnLth )
 
 	cmp	DWORD PTR _pulReturnLth$[ebp], 0
-	je	SHORT $L11154
+	je	SHORT $L11155
 
 ; 9254 :                   if ( nRC == 0 )
 
 	movsx	ecx, WORD PTR _nRC$[ebp]
 	test	ecx, ecx
-	jne	SHORT $L11152
+	jne	SHORT $L11153
 
 ; 9255 :                      *pulReturnLth = zstrlen( (zPCHAR) lpVariable );
 
@@ -28514,20 +28514,20 @@ $L11149:
 
 ; 9256 :                   else
 
-	jmp	SHORT $L11154
-$L11152:
+	jmp	SHORT $L11155
+$L11153:
 
 ; 9257 :                      *pulReturnLth = 0;
 
 	mov	edx, DWORD PTR _pulReturnLth$[ebp]
 	mov	DWORD PTR [edx], 0
-$L11154:
+$L11155:
 
 ; 9259 : 
 ; 9260 :                break;
 
-	jmp	$L11146
-$L11155:
+	jmp	$L11147
+$L11156:
 
 ; 9261 : 
 ; 9262 :             case zTYPE_BLOB:
@@ -28557,8 +28557,8 @@ $L11155:
 
 ; 9267 :                break;
 
-	jmp	$L11146
-$L11156:
+	jmp	$L11147
+$L11157:
 
 ; 9268 : 
 ; 9269 :             case zTYPE_INTEGER:
@@ -28585,8 +28585,8 @@ $L11156:
 
 ; 9274 :                break;
 
-	jmp	$L11146
-$L11158:
+	jmp	$L11147
+$L11159:
 
 ; 9275 : 
 ; 9276 :             case zTYPE_DECIMAL:
@@ -28613,8 +28613,8 @@ $L11158:
 
 ; 9281 :                break;
 
-	jmp	SHORT $L11146
-$L11160:
+	jmp	SHORT $L11147
+$L11161:
 
 ; 9282 : 
 ; 9283 :             case zTYPE_PIC:
@@ -28639,8 +28639,8 @@ $L11160:
 
 ; 9287 :                break;
 
-	jmp	SHORT $L11146
-$L11162:
+	jmp	SHORT $L11147
+$L11163:
 
 ; 9291 :                LPTASK lpTask = zGETPTR( lpView->hTask );
 
@@ -28648,7 +28648,7 @@ $L11162:
 	mov	edx, DWORD PTR [ecx+14]
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpTask$11163[ebp], eax
+	mov	DWORD PTR _lpTask$11164[ebp], eax
 
 ; 9292 :                szTempStr[ 0 ] = cVariableType;
 
@@ -28670,7 +28670,7 @@ $L11162:
 	push	8
 	mov	edx, DWORD PTR _lpView$[ebp]
 	push	edx
-	mov	eax, DWORD PTR _lpTask$11163[ebp]
+	mov	eax, DWORD PTR _lpTask$11164[ebp]
 	push	eax
 	call	_fnIssueCoreError
 	add	esp, 28					; 0000001cH
@@ -28678,27 +28678,27 @@ $L11162:
 ; 9296 :                return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	SHORT $L11053
-$L11146:
-$L11075:
+	jmp	SHORT $L11054
+$L11147:
+$L11076:
 
 ; 9301 : 
 ; 9302 :    return( nRC );
 
 	mov	ax, WORD PTR _nRC$[ebp]
-$L11053:
+$L11054:
 
 ; 9303 : }
 
 	mov	esp, ebp
 	pop	ebp
 	ret	0
+$L12000:
+	DD	$L11136
+	DD	$L11084
+	DD	$L11079
+	DD	$L11142
 $L11999:
-	DD	$L11135
-	DD	$L11083
-	DD	$L11078
-	DD	$L11141
-$L11998:
 	DB	0
 	DB	3
 	DB	3
@@ -28719,14 +28719,14 @@ $L11998:
 	DB	3
 	DB	3
 	DB	2
-$L12001:
-	DD	$L11155
+$L12002:
 	DD	$L11156
-	DD	$L11158
-	DD	$L11160
-	DD	$L11149
-	DD	$L11162
-$L12000:
+	DD	$L11157
+	DD	$L11159
+	DD	$L11161
+	DD	$L11150
+	DD	$L11163
+$L12001:
 	DB	0
 	DB	5
 	DB	5
@@ -28762,8 +28762,8 @@ _lpViewAttrib$ = -16
 _lpTaskDomain$ = -4
 _cDomainType$ = -20
 _nRC$ = -8
-_sz$11196 = -36
-_lpDomain$11197 = -32
+_sz$11197 = -36
+_lpDomain$11198 = -32
 _GetFirstTableEntryForAttribute@24 PROC NEAR
 
 ; 9334 : {
@@ -28816,23 +28816,23 @@ _GetFirstTableEntryForAttribute@24 PROC NEAR
 
 	movsx	ecx, WORD PTR _nRC$[ebp]
 	test	ecx, ecx
-	jle	SHORT $L11185
+	jle	SHORT $L11186
 
 ; 9354 :       return( zCALL_ERROR );   // don't call fnOperationReturn
 
 	mov	ax, -16					; fffffff0H
-	jmp	$L11177
-$L11185:
+	jmp	$L11178
+$L11186:
 
 ; 9355 : 
 ; 9356 :    if ( nRC && nRC != -2 )
 
 	movsx	edx, WORD PTR _nRC$[ebp]
 	test	edx, edx
-	je	SHORT $L11186
+	je	SHORT $L11187
 	movsx	eax, WORD PTR _nRC$[ebp]
 	cmp	eax, -2					; fffffffeH
-	je	SHORT $L11186
+	je	SHORT $L11187
 
 ; 9358 :       fnOperationReturn( iGetFirstTableEntryForAttribute, lpCurrentTask );
 
@@ -28845,8 +28845,8 @@ $L11185:
 ; 9359 :       return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	$L11177
-$L11186:
+	jmp	$L11178
+$L11187:
 
 ; 9361 : 
 ; 9362 :    nRC = zCALL_ERROR;
@@ -28882,12 +28882,12 @@ $L11186:
 	sub	edx, 65					; 00000041H
 	mov	DWORD PTR -40+[ebp], edx
 	cmp	DWORD PTR -40+[ebp], 19			; 00000013H
-	ja	$L11199
+	ja	$L11200
 	mov	ecx, DWORD PTR -40+[ebp]
 	xor	eax, eax
-	mov	al, BYTE PTR $L12003[ecx]
-	jmp	DWORD PTR $L12004[eax*4]
-$L11192:
+	mov	al, BYTE PTR $L12004[ecx]
+	jmp	DWORD PTR $L12005[eax*4]
+$L11193:
 
 ; 9369 :       case zDM_TYPE_EXPRESSION:
 ; 9370 :       case zDM_TYPE_ALGORITHM:
@@ -28922,8 +28922,8 @@ $L11192:
 
 ; 9381 :          break;
 
-	jmp	SHORT $L11189
-$L11195:
+	jmp	SHORT $L11190
+$L11196:
 
 ; 9385 :          zCHAR sz[ 2 ];
 ; 9386 :          LPDOMAIN lpDomain = zGETPTR( lpViewAttrib->hDomain );
@@ -28932,25 +28932,25 @@ $L11195:
 	mov	eax, DWORD PTR [edx+198]
 	push	eax
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpDomain$11197[ebp], eax
+	mov	DWORD PTR _lpDomain$11198[ebp], eax
 
 ; 9387 : 
 ; 9388 :          // "KZOEE355 - Table_Handler invalid for this Domain Type "
 ; 9389 :          sz[ 0 ] = cDomainType;
 
 	mov	cl, BYTE PTR _cDomainType$[ebp]
-	mov	BYTE PTR _sz$11196[ebp], cl
+	mov	BYTE PTR _sz$11197[ebp], cl
 
 ; 9390 :          sz[ 1 ] = 0;
 
-	mov	BYTE PTR _sz$11196[ebp+1], 0
+	mov	BYTE PTR _sz$11197[ebp+1], 0
 
 ; 9391 :          fnIssueCoreError( lpCurrentTask, lpView, 8, 355, 0, sz, lpDomain->szName );
 
-	mov	edx, DWORD PTR _lpDomain$11197[ebp]
+	mov	edx, DWORD PTR _lpDomain$11198[ebp]
 	add	edx, 6
 	push	edx
-	lea	eax, DWORD PTR _sz$11196[ebp]
+	lea	eax, DWORD PTR _sz$11197[ebp]
 	push	eax
 	push	0
 	push	355					; 00000163H
@@ -28968,8 +28968,8 @@ $L11195:
 
 ; 9393 :          break;
 
-	jmp	SHORT $L11189
-$L11199:
+	jmp	SHORT $L11190
+$L11200:
 
 ; 9395 : 
 ; 9396 :       default:
@@ -28994,7 +28994,7 @@ $L11199:
 ; 9400 :          nRC = zCALL_ERROR;
 
 	mov	WORD PTR _nRC$[ebp], -16		; fffffff0H
-$L11189:
+$L11190:
 
 ; 9402 : 
 ; 9403 :    fnOperationReturn( iGetFirstTableEntryForAttribute, lpCurrentTask );
@@ -29008,18 +29008,18 @@ $L11189:
 ; 9404 :    return( nRC );
 
 	mov	ax, WORD PTR _nRC$[ebp]
-$L11177:
+$L11178:
 
 ; 9405 : }
 
 	mov	esp, ebp
 	pop	ebp
 	ret	24					; 00000018H
+$L12005:
+	DD	$L11193
+	DD	$L11196
+	DD	$L11200
 $L12004:
-	DD	$L11192
-	DD	$L11195
-	DD	$L11199
-$L12003:
 	DB	0
 	DB	2
 	DB	2
@@ -29057,8 +29057,8 @@ _lpViewAttrib$ = -16
 _lpTaskDomain$ = -4
 _cDomainType$ = -20
 _nRC$ = -8
-_sz$11231 = -36
-_lpDomain$11232 = -32
+_sz$11232 = -36
+_lpDomain$11233 = -32
 _GetNextTableEntryForAttribute@24 PROC NEAR
 
 ; 9437 : {
@@ -29112,23 +29112,23 @@ _GetNextTableEntryForAttribute@24 PROC NEAR
 
 	movsx	ecx, WORD PTR _nRC$[ebp]
 	test	ecx, ecx
-	jle	SHORT $L11220
+	jle	SHORT $L11221
 
 ; 9458 :       return( zCALL_ERROR );   // don't call fnOperationReturn
 
 	mov	ax, -16					; fffffff0H
-	jmp	$L11212
-$L11220:
+	jmp	$L11213
+$L11221:
 
 ; 9459 : 
 ; 9460 :    if ( nRC && nRC != -2 )
 
 	movsx	edx, WORD PTR _nRC$[ebp]
 	test	edx, edx
-	je	SHORT $L11221
+	je	SHORT $L11222
 	movsx	eax, WORD PTR _nRC$[ebp]
 	cmp	eax, -2					; fffffffeH
-	je	SHORT $L11221
+	je	SHORT $L11222
 
 ; 9462 :       fnOperationReturn( iGetNextTableEntryForAttribute, lpCurrentTask );
 
@@ -29141,8 +29141,8 @@ $L11220:
 ; 9463 :       return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	$L11212
-$L11221:
+	jmp	$L11213
+$L11222:
 
 ; 9465 : 
 ; 9466 :    nRC = zCALL_ERROR;
@@ -29178,12 +29178,12 @@ $L11221:
 	sub	edx, 65					; 00000041H
 	mov	DWORD PTR -40+[ebp], edx
 	cmp	DWORD PTR -40+[ebp], 19			; 00000013H
-	ja	$L11234
+	ja	$L11235
 	mov	ecx, DWORD PTR -40+[ebp]
 	xor	eax, eax
-	mov	al, BYTE PTR $L12006[ecx]
-	jmp	DWORD PTR $L12007[eax*4]
-$L11227:
+	mov	al, BYTE PTR $L12007[ecx]
+	jmp	DWORD PTR $L12008[eax*4]
+$L11228:
 
 ; 9473 :       case zDM_TYPE_EXPRESSION:
 ; 9474 :       case zDM_TYPE_ALGORITHM:
@@ -29218,8 +29218,8 @@ $L11227:
 
 ; 9485 :          break;
 
-	jmp	SHORT $L11224
-$L11230:
+	jmp	SHORT $L11225
+$L11231:
 
 ; 9489 :          zCHAR    sz[ 2 ];
 ; 9490 :          LPDOMAIN lpDomain = zGETPTR( lpViewAttrib->hDomain );
@@ -29228,25 +29228,25 @@ $L11230:
 	mov	eax, DWORD PTR [edx+198]
 	push	eax
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpDomain$11232[ebp], eax
+	mov	DWORD PTR _lpDomain$11233[ebp], eax
 
 ; 9491 : 
 ; 9492 :          // "KZOEE355 - Table_Handler invalid for this Domain Type "
 ; 9493 :          sz[ 0 ] = cDomainType;
 
 	mov	cl, BYTE PTR _cDomainType$[ebp]
-	mov	BYTE PTR _sz$11231[ebp], cl
+	mov	BYTE PTR _sz$11232[ebp], cl
 
 ; 9494 :          sz[ 1 ] = 0;
 
-	mov	BYTE PTR _sz$11231[ebp+1], 0
+	mov	BYTE PTR _sz$11232[ebp+1], 0
 
 ; 9495 :          fnIssueCoreError( lpCurrentTask, lpView, 8, 355, 0, sz, lpDomain->szName );
 
-	mov	edx, DWORD PTR _lpDomain$11232[ebp]
+	mov	edx, DWORD PTR _lpDomain$11233[ebp]
 	add	edx, 6
 	push	edx
-	lea	eax, DWORD PTR _sz$11231[ebp]
+	lea	eax, DWORD PTR _sz$11232[ebp]
 	push	eax
 	push	0
 	push	355					; 00000163H
@@ -29264,8 +29264,8 @@ $L11230:
 
 ; 9497 :          break;
 
-	jmp	SHORT $L11224
-$L11234:
+	jmp	SHORT $L11225
+$L11235:
 
 ; 9499 : 
 ; 9500 :       default:
@@ -29289,7 +29289,7 @@ $L11234:
 ; 9503 :          nRC = zCALL_ERROR;
 
 	mov	WORD PTR _nRC$[ebp], -16		; fffffff0H
-$L11224:
+$L11225:
 
 ; 9505 : 
 ; 9506 :    fnOperationReturn( iGetNextTableEntryForAttribute, lpCurrentTask );
@@ -29303,18 +29303,18 @@ $L11224:
 ; 9507 :    return( nRC );
 
 	mov	ax, WORD PTR _nRC$[ebp]
-$L11212:
+$L11213:
 
 ; 9508 : }
 
 	mov	esp, ebp
 	pop	ebp
 	ret	24					; 00000018H
+$L12008:
+	DD	$L11228
+	DD	$L11231
+	DD	$L11235
 $L12007:
-	DD	$L11227
-	DD	$L11230
-	DD	$L11234
-$L12006:
 	DB	0
 	DB	2
 	DB	2
@@ -29417,15 +29417,15 @@ _ulLth$ = -32
 _pchAttribValue$ = -20
 _bUpdated$ = -36
 _nRC$ = -12
-_hndl$11287 = -52
-_k$11304 = -56
-_lplLong$11313 = -60
-_lplLongInput$11314 = -64
-_lpdDecimal$11322 = -68
-_lpdDecimalInput$11323 = -72
-_k$11331 = -76
-_lpDateTime$11336 = -84
-_lpDateTimeInput$11337 = -80
+_hndl$11288 = -52
+_k$11305 = -56
+_lplLong$11314 = -60
+_lplLongInput$11315 = -64
+_lpdDecimal$11323 = -68
+_lpdDecimalInput$11324 = -72
+_k$11332 = -76
+_lpDateTime$11337 = -84
+_lpDateTimeInput$11338 = -80
 _lpView$ = 8
 _lpViewEntity$ = 12
 _lpViewAttrib$ = 16
@@ -29521,7 +29521,7 @@ _StoreValueInRecord@20 PROC NEAR
 ; 9650 :    if ( lpEntityInstance == 0 )
 
 	cmp	DWORD PTR _lpEntityInstance$[ebp], 0
-	jne	SHORT $L11280
+	jne	SHORT $L11281
 
 ; 9652 :       // "KZOEE253 - Invalid Operation call "
 ; 9653 :       fnIssueCoreError( lpCurrentTask, lpView, 8, 253, 0, 0, 0 );
@@ -29549,14 +29549,14 @@ _StoreValueInRecord@20 PROC NEAR
 ; 9655 :       return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	$L11263
-$L11280:
+	jmp	$L11264
+$L11281:
 
 ; 9657 : 
 ; 9658 :    if ( lpEntityInstance == UNSET_CSR )
 
 	cmp	DWORD PTR _lpEntityInstance$[ebp], 1
-	jne	SHORT $L11282
+	jne	SHORT $L11283
 
 ; 9659 :       lpEntityInstance = fnEstablishCursorForView( lpViewEntityCsr );
 
@@ -29565,7 +29565,7 @@ $L11280:
 	call	_fnEstablishCursorForView
 	add	esp, 4
 	mov	DWORD PTR _lpEntityInstance$[ebp], eax
-$L11282:
+$L11283:
 
 ; 9660 : 
 ; 9661 :    // Get record to store into.
@@ -29575,7 +29575,7 @@ $L11282:
 	mov	edx, DWORD PTR [ecx+193]
 	and	edx, 1
 	test	edx, edx
-	je	SHORT $L11283
+	je	SHORT $L11284
 
 ; 9664 :       pchRecord = (zPCHAR) zGETPTR( lpEntityInstance->hPersistRecord );
 
@@ -29588,7 +29588,7 @@ $L11282:
 ; 9665 :       if ( pchRecord == 0 )
 
 	cmp	DWORD PTR _pchRecord$[ebp], 0
-	jne	SHORT $L11286
+	jne	SHORT $L11287
 
 ; 9667 :          zPVOID hndl = fnCreateAttributeRecord( lpAllocTask,
 ; 9668 :                                                 lpViewEntity,
@@ -29602,17 +29602,17 @@ $L11282:
 	push	ecx
 	call	_fnCreateAttributeRecord
 	add	esp, 12					; 0000000cH
-	mov	DWORD PTR _hndl$11287[ebp], eax
+	mov	DWORD PTR _hndl$11288[ebp], eax
 
 ; 9670 :          if ( hndl == 0 || hndl != lpEntityInstance->hPersistRecord  )
 
-	cmp	DWORD PTR _hndl$11287[ebp], 0
-	je	SHORT $L11289
+	cmp	DWORD PTR _hndl$11288[ebp], 0
+	je	SHORT $L11290
 	mov	edx, DWORD PTR _lpEntityInstance$[ebp]
-	mov	eax, DWORD PTR _hndl$11287[ebp]
+	mov	eax, DWORD PTR _hndl$11288[ebp]
 	cmp	eax, DWORD PTR [edx+60]
-	je	SHORT $L11288
-$L11289:
+	je	SHORT $L11289
+$L11290:
 
 ; 9672 :             fnOperationReturn( iStoreValueInRecord, lpCurrentTask );
 
@@ -29625,8 +29625,8 @@ $L11289:
 ; 9673 :             return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	$L11263
-$L11288:
+	jmp	$L11264
+$L11289:
 
 ; 9675 : 
 ; 9676 :          pchRecord = (zPCHAR) zGETPTR( lpEntityInstance->hPersistRecord );
@@ -29636,12 +29636,12 @@ $L11288:
 	push	eax
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _pchRecord$[ebp], eax
-$L11286:
+$L11287:
 
 ; 9679 :    else
 
-	jmp	SHORT $L11298
-$L11283:
+	jmp	SHORT $L11299
+$L11284:
 
 ; 9681 :       pchRecord = (zPCHAR) zGETPTR( lpEntityInstance->hNonPersistRecord );
 
@@ -29654,7 +29654,7 @@ $L11283:
 ; 9682 :       if ( pchRecord == 0 )
 
 	cmp	DWORD PTR _pchRecord$[ebp], 0
-	jne	SHORT $L11298
+	jne	SHORT $L11299
 
 ; 9684 :          lpEntityInstance->hNonPersistRecord =
 ; 9685 :                      fnCreateAttributeRecord( lpAllocTask, lpViewEntity, 0 );
@@ -29680,7 +29680,7 @@ $L11283:
 ; 9687 :          if ( pchRecord == 0 )
 
 	cmp	DWORD PTR _pchRecord$[ebp], 0
-	jne	SHORT $L11298
+	jne	SHORT $L11299
 
 ; 9689 :             fnOperationReturn( iStoreValueInRecord, lpCurrentTask );
 
@@ -29693,8 +29693,8 @@ $L11283:
 ; 9690 :             return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	$L11263
-$L11298:
+	jmp	$L11264
+$L11299:
 
 ; 9694 : 
 ; 9695 :    // Set attrib from string.
@@ -29717,19 +29717,19 @@ $L11298:
 	sub	edx, 66					; 00000042H
 	mov	DWORD PTR -88+[ebp], edx
 	cmp	DWORD PTR -88+[ebp], 18			; 00000012H
-	ja	$L11349
+	ja	$L11350
 	mov	ecx, DWORD PTR -88+[ebp]
 	xor	eax, eax
-	mov	al, BYTE PTR $L12011[ecx]
-	jmp	DWORD PTR $L12012[eax*4]
-$L11303:
+	mov	al, BYTE PTR $L12012[ecx]
+	jmp	DWORD PTR $L12013[eax*4]
+$L11304:
 
 ; 9703 :          zSHORT k;
 ; 9704 : 
 ; 9705 :          if ( lpValue )
 
 	cmp	DWORD PTR _lpValue$[ebp], 0
-	je	SHORT $L11305
+	je	SHORT $L11306
 
 ; 9706 :             pchAttribValue = (zPCHAR) lpValue;
 
@@ -29738,14 +29738,14 @@ $L11303:
 
 ; 9707 :          else
 
-	jmp	SHORT $L11307
-$L11305:
+	jmp	SHORT $L11308
+$L11306:
 
 ; 9708 :             pchAttribValue = szNullS;
 
 	mov	eax, DWORD PTR _szNullS
 	mov	DWORD PTR _pchAttribValue$[ebp], eax
-$L11307:
+$L11308:
 
 ; 9709 : 
 ; 9710 :          ulLth = zstrlen( pchAttribValue );
@@ -29763,7 +29763,7 @@ $L11307:
 	mov	edx, DWORD PTR _lpViewAttrib$[ebp]
 	mov	eax, DWORD PTR _ulLth$[ebp]
 	cmp	eax, DWORD PTR [edx+203]
-	jb	SHORT $L11308
+	jb	SHORT $L11309
 
 ; 9714 :             ulLth = lpViewAttrib->ulLth - 1;     // subtract 1 for null
 
@@ -29771,7 +29771,7 @@ $L11307:
 	mov	edx, DWORD PTR [ecx+203]
 	sub	edx, 1
 	mov	DWORD PTR _ulLth$[ebp], edx
-$L11308:
+$L11309:
 
 ; 9715 : 
 ; 9716 :          k = fnStoreStringInRecord( lpAllocTask, // so allocation can be done
@@ -29795,20 +29795,20 @@ $L11308:
 	push	edx
 	call	_fnStoreStringInRecord
 	add	esp, 24					; 00000018H
-	mov	WORD PTR _k$11304[ebp], ax
+	mov	WORD PTR _k$11305[ebp], ax
 
 ; 9722 :          // Check return code.
 ; 9723 :          if ( k )
 
-	movsx	eax, WORD PTR _k$11304[ebp]
+	movsx	eax, WORD PTR _k$11305[ebp]
 	test	eax, eax
-	je	SHORT $L11311
+	je	SHORT $L11312
 
 ; 9725 :             if ( k == 1 )
 
-	movsx	ecx, WORD PTR _k$11304[ebp]
+	movsx	ecx, WORD PTR _k$11305[ebp]
 	cmp	ecx, 1
-	jne	SHORT $L11310
+	jne	SHORT $L11311
 
 ; 9726 :                bUpdated = TRUE;
 
@@ -29816,20 +29816,20 @@ $L11308:
 
 ; 9727 :             else
 
-	jmp	SHORT $L11311
-$L11310:
+	jmp	SHORT $L11312
+$L11311:
 
 ; 9728 :                nRC = k;
 
-	mov	dx, WORD PTR _k$11304[ebp]
+	mov	dx, WORD PTR _k$11305[ebp]
 	mov	WORD PTR _nRC$[ebp], dx
-$L11311:
+$L11312:
 
 ; 9730 : 
 ; 9731 :          break;
 
-	jmp	$L11300
-$L11312:
+	jmp	$L11301
+$L11313:
 
 ; 9736 :          zPLONG   lplLong;
 ; 9737 :          zPLONG   lplLongInput;
@@ -29837,70 +29837,70 @@ $L11312:
 ; 9739 :          lplLongInput = (zPLONG) lpValue;
 
 	mov	eax, DWORD PTR _lpValue$[ebp]
-	mov	DWORD PTR _lplLongInput$11314[ebp], eax
+	mov	DWORD PTR _lplLongInput$11315[ebp], eax
 
 ; 9740 :          lplLong = (zPLONG) (pchRecord + lpViewAttrib->ulRecordOffset);
 
 	mov	ecx, DWORD PTR _lpViewAttrib$[ebp]
 	mov	edx, DWORD PTR _pchRecord$[ebp]
 	add	edx, DWORD PTR [ecx+250]
-	mov	DWORD PTR _lplLong$11313[ebp], edx
+	mov	DWORD PTR _lplLong$11314[ebp], edx
 
 ; 9741 :          if ( *lplLongInput == lNullInteger )
 
-	mov	eax, DWORD PTR _lplLongInput$11314[ebp]
+	mov	eax, DWORD PTR _lplLongInput$11315[ebp]
 	mov	ecx, DWORD PTR [eax]
 	cmp	ecx, DWORD PTR _lNullInteger
-	jne	SHORT $L11317
+	jne	SHORT $L11318
 
 ; 9743 :             if ( *lplLong != lNullInteger )
 
-	mov	edx, DWORD PTR _lplLong$11313[ebp]
+	mov	edx, DWORD PTR _lplLong$11314[ebp]
 	mov	eax, DWORD PTR [edx]
 	cmp	eax, DWORD PTR _lNullInteger
-	je	SHORT $L11318
+	je	SHORT $L11319
 
 ; 9745 :                *lplLong = lNullInteger;
 
-	mov	ecx, DWORD PTR _lplLong$11313[ebp]
+	mov	ecx, DWORD PTR _lplLong$11314[ebp]
 	mov	edx, DWORD PTR _lNullInteger
 	mov	DWORD PTR [ecx], edx
 
 ; 9746 :                bUpdated = TRUE;
 
 	mov	BYTE PTR _bUpdated$[ebp], 1
-$L11318:
+$L11319:
 
 ; 9749 :          else
 
-	jmp	SHORT $L11320
-$L11317:
+	jmp	SHORT $L11321
+$L11318:
 
 ; 9750 :          if ( *lplLong != *lplLongInput )
 
-	mov	eax, DWORD PTR _lplLong$11313[ebp]
-	mov	ecx, DWORD PTR _lplLongInput$11314[ebp]
+	mov	eax, DWORD PTR _lplLong$11314[ebp]
+	mov	ecx, DWORD PTR _lplLongInput$11315[ebp]
 	mov	edx, DWORD PTR [eax]
 	cmp	edx, DWORD PTR [ecx]
-	je	SHORT $L11320
+	je	SHORT $L11321
 
 ; 9752 :             *lplLong = *lplLongInput;
 
-	mov	eax, DWORD PTR _lplLong$11313[ebp]
-	mov	ecx, DWORD PTR _lplLongInput$11314[ebp]
+	mov	eax, DWORD PTR _lplLong$11314[ebp]
+	mov	ecx, DWORD PTR _lplLongInput$11315[ebp]
 	mov	edx, DWORD PTR [ecx]
 	mov	DWORD PTR [eax], edx
 
 ; 9753 :             bUpdated = TRUE;
 
 	mov	BYTE PTR _bUpdated$[ebp], 1
-$L11320:
+$L11321:
 
 ; 9755 : 
 ; 9756 :          break;
 
-	jmp	$L11300
-$L11321:
+	jmp	$L11301
+$L11322:
 
 ; 9761 :          zPDECIMAL lpdDecimal;
 ; 9762 :          zPDECIMAL lpdDecimalInput;
@@ -29908,79 +29908,79 @@ $L11321:
 ; 9764 :          lpdDecimalInput = (zPDECIMAL) lpValue;
 
 	mov	eax, DWORD PTR _lpValue$[ebp]
-	mov	DWORD PTR _lpdDecimalInput$11323[ebp], eax
+	mov	DWORD PTR _lpdDecimalInput$11324[ebp], eax
 
 ; 9765 :          lpdDecimal = (zPDECIMAL) (pchRecord + lpViewAttrib->ulRecordOffset);
 
 	mov	ecx, DWORD PTR _lpViewAttrib$[ebp]
 	mov	edx, DWORD PTR _pchRecord$[ebp]
 	add	edx, DWORD PTR [ecx+250]
-	mov	DWORD PTR _lpdDecimal$11322[ebp], edx
+	mov	DWORD PTR _lpdDecimal$11323[ebp], edx
 
 ; 9766 :          if ( SysCompareDecimalToNull( lpdDecimalInput ) == 0 )
 
-	mov	eax, DWORD PTR _lpdDecimalInput$11323[ebp]
+	mov	eax, DWORD PTR _lpdDecimalInput$11324[ebp]
 	push	eax
 	call	_SysCompareDecimalToNull@4
 	movsx	ecx, ax
 	test	ecx, ecx
-	jne	SHORT $L11326
+	jne	SHORT $L11327
 
 ; 9768 :             if ( SysCompareDecimalToNull( lpdDecimal ) != 0 )
 
-	mov	edx, DWORD PTR _lpdDecimal$11322[ebp]
+	mov	edx, DWORD PTR _lpdDecimal$11323[ebp]
 	push	edx
 	call	_SysCompareDecimalToNull@4
 	movsx	eax, ax
 	test	eax, eax
-	je	SHORT $L11327
+	je	SHORT $L11328
 
 ; 9770 :                SysAssignDecimalFromNull( lpdDecimal );
 
-	mov	ecx, DWORD PTR _lpdDecimal$11322[ebp]
+	mov	ecx, DWORD PTR _lpdDecimal$11323[ebp]
 	push	ecx
 	call	_SysAssignDecimalFromNull@4
 
 ; 9771 :                bUpdated = TRUE;
 
 	mov	BYTE PTR _bUpdated$[ebp], 1
-$L11327:
+$L11328:
 
 ; 9774 :          else
 
-	jmp	SHORT $L11329
-$L11326:
+	jmp	SHORT $L11330
+$L11327:
 
 ; 9775 :          if ( SysCompareDecimalToDecimal( lpdDecimal,
 ; 9776 :                                           lpdDecimalInput ) != 0 )
 
-	mov	edx, DWORD PTR _lpdDecimalInput$11323[ebp]
+	mov	edx, DWORD PTR _lpdDecimalInput$11324[ebp]
 	push	edx
-	mov	eax, DWORD PTR _lpdDecimal$11322[ebp]
+	mov	eax, DWORD PTR _lpdDecimal$11323[ebp]
 	push	eax
 	call	_SysCompareDecimalToDecimal@8
 	movsx	ecx, ax
 	test	ecx, ecx
-	je	SHORT $L11329
+	je	SHORT $L11330
 
 ; 9778 :             SysAssignDecimalFromDecimal( lpdDecimal, lpdDecimalInput );
 
-	mov	edx, DWORD PTR _lpdDecimalInput$11323[ebp]
+	mov	edx, DWORD PTR _lpdDecimalInput$11324[ebp]
 	push	edx
-	mov	eax, DWORD PTR _lpdDecimal$11322[ebp]
+	mov	eax, DWORD PTR _lpdDecimal$11323[ebp]
 	push	eax
 	call	_SysAssignDecimalFromDecimal@8
 
 ; 9779 :             bUpdated = TRUE;
 
 	mov	BYTE PTR _bUpdated$[ebp], 1
-$L11329:
+$L11330:
 
 ; 9781 : 
 ; 9782 :          break;
 
-	jmp	$L11300
-$L11330:
+	jmp	$L11301
+$L11331:
 
 ; 9787 :          zSHORT k;
 ; 9788 : 
@@ -30003,20 +30003,20 @@ $L11330:
 	push	eax
 	call	_fnStoreBlobInRecord
 	add	esp, 20					; 00000014H
-	mov	WORD PTR _k$11331[ebp], ax
+	mov	WORD PTR _k$11332[ebp], ax
 
 ; 9794 :          // Check return code
 ; 9795 :          if ( k )
 
-	movsx	ecx, WORD PTR _k$11331[ebp]
+	movsx	ecx, WORD PTR _k$11332[ebp]
 	test	ecx, ecx
-	je	SHORT $L11334
+	je	SHORT $L11335
 
 ; 9797 :             if ( k == 1 )
 
-	movsx	edx, WORD PTR _k$11331[ebp]
+	movsx	edx, WORD PTR _k$11332[ebp]
 	cmp	edx, 1
-	jne	SHORT $L11333
+	jne	SHORT $L11334
 
 ; 9798 :                bUpdated = TRUE;
 
@@ -30024,20 +30024,20 @@ $L11330:
 
 ; 9799 :             else
 
-	jmp	SHORT $L11334
-$L11333:
+	jmp	SHORT $L11335
+$L11334:
 
 ; 9800 :                nRC = k;
 
-	mov	ax, WORD PTR _k$11331[ebp]
+	mov	ax, WORD PTR _k$11332[ebp]
 	mov	WORD PTR _nRC$[ebp], ax
-$L11334:
+$L11335:
 
 ; 9802 : 
 ; 9803 :          break;
 
-	jmp	SHORT $L11300
-$L11335:
+	jmp	SHORT $L11301
+$L11336:
 
 ; 9808 :          LPDTINTERNAL  lpDateTime;
 ; 9809 :          LPDTINTERNAL  lpDateTimeInput;
@@ -30045,7 +30045,7 @@ $L11335:
 ; 9811 :          lpDateTimeInput = (LPDTINTERNAL) lpValue;
 
 	mov	ecx, DWORD PTR _lpValue$[ebp]
-	mov	DWORD PTR _lpDateTimeInput$11337[ebp], ecx
+	mov	DWORD PTR _lpDateTimeInput$11338[ebp], ecx
 
 ; 9812 :          lpDateTime = (LPDTINTERNAL)
 ; 9813 :                               (pchRecord + lpViewAttrib->ulRecordOffset);
@@ -30053,63 +30053,63 @@ $L11335:
 	mov	edx, DWORD PTR _lpViewAttrib$[ebp]
 	mov	eax, DWORD PTR _pchRecord$[ebp]
 	add	eax, DWORD PTR [edx+250]
-	mov	DWORD PTR _lpDateTime$11336[ebp], eax
+	mov	DWORD PTR _lpDateTime$11337[ebp], eax
 
 ; 9814 :          if ( lpDateTimeInput->ulDateMinutes == (zULONG) lNullInteger )
 
-	mov	ecx, DWORD PTR _lpDateTimeInput$11337[ebp]
+	mov	ecx, DWORD PTR _lpDateTimeInput$11338[ebp]
 	mov	edx, DWORD PTR [ecx]
 	cmp	edx, DWORD PTR _lNullInteger
-	jne	SHORT $L11341
+	jne	SHORT $L11342
 
 ; 9816 :             if ( lpDateTime->ulDateMinutes != (zULONG) lNullInteger )
 
-	mov	eax, DWORD PTR _lpDateTime$11336[ebp]
+	mov	eax, DWORD PTR _lpDateTime$11337[ebp]
 	mov	ecx, DWORD PTR [eax]
 	cmp	ecx, DWORD PTR _lNullInteger
-	je	SHORT $L11343
+	je	SHORT $L11344
 
 ; 9818 :                lpDateTime->ulDateMinutes = (zULONG) lNullInteger;
 
-	mov	edx, DWORD PTR _lpDateTime$11336[ebp]
+	mov	edx, DWORD PTR _lpDateTime$11337[ebp]
 	mov	eax, DWORD PTR _lNullInteger
 	mov	DWORD PTR [edx], eax
 
 ; 9819 :                lpDateTime->usTSeconds = 0;
 
-	mov	ecx, DWORD PTR _lpDateTime$11336[ebp]
+	mov	ecx, DWORD PTR _lpDateTime$11337[ebp]
 	mov	WORD PTR [ecx+4], 0
 
 ; 9820 :                bUpdated = TRUE;
 
 	mov	BYTE PTR _bUpdated$[ebp], 1
-$L11343:
+$L11344:
 
 ; 9823 :          else
 
-	jmp	SHORT $L11347
-$L11341:
+	jmp	SHORT $L11348
+$L11342:
 
 ; 9824 :          if ( zmemcmp( lpDateTime, lpDateTimeInput,
 ; 9825 :                        sizeof( DateTimeInternalRecord ) ) != 0 )
 
 	push	6
-	mov	edx, DWORD PTR _lpDateTimeInput$11337[ebp]
+	mov	edx, DWORD PTR _lpDateTimeInput$11338[ebp]
 	push	edx
-	mov	eax, DWORD PTR _lpDateTime$11336[ebp]
+	mov	eax, DWORD PTR _lpDateTime$11337[ebp]
 	push	eax
 	call	_memcmp
 	add	esp, 12					; 0000000cH
 	test	eax, eax
-	je	SHORT $L11347
+	je	SHORT $L11348
 
 ; 9827 :             zmemcpy( lpDateTime, lpDateTimeInput,
 ; 9828 :                      sizeof( DateTimeInternalRecord ) );
 
 	push	6
-	mov	ecx, DWORD PTR _lpDateTimeInput$11337[ebp]
+	mov	ecx, DWORD PTR _lpDateTimeInput$11338[ebp]
 	push	ecx
-	mov	edx, DWORD PTR _lpDateTime$11336[ebp]
+	mov	edx, DWORD PTR _lpDateTime$11337[ebp]
 	push	edx
 	call	_memcpy
 	add	esp, 12					; 0000000cH
@@ -30117,20 +30117,20 @@ $L11341:
 ; 9829 :             bUpdated = TRUE;
 
 	mov	BYTE PTR _bUpdated$[ebp], 1
-$L11347:
+$L11348:
 
 ; 9831 : 
 ; 9832 :          break;
 
-	jmp	SHORT $L11300
-$L11349:
+	jmp	SHORT $L11301
+$L11350:
 
 ; 9834 : 
 ; 9835 :       default:
 ; 9836 :          nRC = zCALL_ERROR;
 
 	mov	WORD PTR _nRC$[ebp], -16		; fffffff0H
-$L11300:
+$L11301:
 
 ; 9838 : 
 ; 9839 :    // Set update indicator.
@@ -30162,21 +30162,21 @@ $L11300:
 ; 9844 :    return( nRC );
 
 	mov	ax, WORD PTR _nRC$[ebp]
-$L11263:
+$L11264:
 
 ; 9845 : }
 
 	mov	esp, ebp
 	pop	ebp
 	ret	20					; 00000014H
+$L12013:
+	DD	$L11331
+	DD	$L11313
+	DD	$L11322
+	DD	$L11304
+	DD	$L11336
+	DD	$L11350
 $L12012:
-	DD	$L11330
-	DD	$L11312
-	DD	$L11321
-	DD	$L11303
-	DD	$L11335
-	DD	$L11349
-$L12011:
 	DB	0
 	DB	5
 	DB	5
@@ -30208,10 +30208,10 @@ _pchRecord$ = 24
 _lpViewCsr$ = -8
 _lpViewOI$ = -12
 _lpAllocTask$ = -4
-_pchAttribValue$11372 = -16
-_lplLong$11379 = -20
-_lpdDecimal$11383 = -24
-_lpDateTime$11388 = -28
+_pchAttribValue$11373 = -16
+_lplLong$11380 = -20
+_lpdDecimal$11384 = -24
+_lpDateTime$11389 = -28
 _StoreBytesInRecord@20 PROC NEAR
 
 ; 9876 : {
@@ -30255,50 +30255,50 @@ _StoreBytesInRecord@20 PROC NEAR
 	sub	edx, 66					; 00000042H
 	mov	DWORD PTR -32+[ebp], edx
 	cmp	DWORD PTR -32+[ebp], 18			; 00000012H
-	ja	$L11368
+	ja	$L11369
 	mov	ecx, DWORD PTR -32+[ebp]
 	xor	eax, eax
-	mov	al, BYTE PTR $L12014[ecx]
-	jmp	DWORD PTR $L12015[eax*4]
-$L11371:
+	mov	al, BYTE PTR $L12015[ecx]
+	jmp	DWORD PTR $L12016[eax*4]
+$L11372:
 
 ; 9885 :          zPCHAR pchAttribValue;
 ; 9886 : 
 ; 9887 :          if ( lpValue )
 
 	cmp	DWORD PTR _lpValue$[ebp], 0
-	je	SHORT $L11373
+	je	SHORT $L11374
 
 ; 9888 :             pchAttribValue = (zPCHAR) lpValue;
 
 	mov	edx, DWORD PTR _lpValue$[ebp]
-	mov	DWORD PTR _pchAttribValue$11372[ebp], edx
+	mov	DWORD PTR _pchAttribValue$11373[ebp], edx
 
 ; 9889 :          else
 
-	jmp	SHORT $L11375
-$L11373:
+	jmp	SHORT $L11376
+$L11374:
 
 ; 9890 :             pchAttribValue = szNullS;
 
 	mov	eax, DWORD PTR _szNullS
-	mov	DWORD PTR _pchAttribValue$11372[ebp], eax
-$L11375:
+	mov	DWORD PTR _pchAttribValue$11373[ebp], eax
+$L11376:
 
 ; 9891 : 
 ; 9892 :          if ( ulLength == 0 )
 
 	cmp	DWORD PTR _ulLength$[ebp], 0
-	jne	SHORT $L11376
+	jne	SHORT $L11377
 
 ; 9893 :             ulLength = zstrlen( pchAttribValue );
 
-	mov	ecx, DWORD PTR _pchAttribValue$11372[ebp]
+	mov	ecx, DWORD PTR _pchAttribValue$11373[ebp]
 	push	ecx
 	call	_strlen
 	add	esp, 4
 	mov	DWORD PTR _ulLength$[ebp], eax
-$L11376:
+$L11377:
 
 ; 9894 : 
 ; 9895 :          // truncate string if necessary
@@ -30307,7 +30307,7 @@ $L11376:
 	mov	edx, DWORD PTR _lpViewAttrib$[ebp]
 	mov	eax, DWORD PTR _ulLength$[ebp]
 	cmp	eax, DWORD PTR [edx+203]
-	jb	SHORT $L11377
+	jb	SHORT $L11378
 
 ; 9897 :             ulLength = lpViewAttrib->ulLth - 1;  // subtract 1 for null
 
@@ -30315,7 +30315,7 @@ $L11376:
 	mov	edx, DWORD PTR [ecx+203]
 	sub	edx, 1
 	mov	DWORD PTR _ulLength$[ebp], edx
-$L11377:
+$L11378:
 
 ; 9898 : 
 ; 9899 :          fnStoreStringInRecord( lpAllocTask,  // so allocation can be done
@@ -30328,7 +30328,7 @@ $L11377:
 	push	1
 	mov	eax, DWORD PTR _ulLength$[ebp]
 	push	eax
-	mov	ecx, DWORD PTR _pchAttribValue$11372[ebp]
+	mov	ecx, DWORD PTR _pchAttribValue$11373[ebp]
 	push	ecx
 	mov	edx, DWORD PTR _lpViewAttrib$[ebp]
 	mov	eax, DWORD PTR [edx+250]
@@ -30342,8 +30342,8 @@ $L11377:
 
 ; 9905 :          break;
 
-	jmp	$L11368
-$L11378:
+	jmp	$L11369
+$L11379:
 
 ; 9910 :          zPLONG   lplLong;
 ; 9911 : 
@@ -30352,11 +30352,11 @@ $L11378:
 	mov	eax, DWORD PTR _lpViewAttrib$[ebp]
 	mov	ecx, DWORD PTR _pchRecord$[ebp]
 	add	ecx, DWORD PTR [eax+250]
-	mov	DWORD PTR _lplLong$11379[ebp], ecx
+	mov	DWORD PTR _lplLong$11380[ebp], ecx
 
 ; 9913 :          *lplLong = *((zPLONG) lpValue);
 
-	mov	edx, DWORD PTR _lplLong$11379[ebp]
+	mov	edx, DWORD PTR _lplLong$11380[ebp]
 	mov	eax, DWORD PTR _lpValue$[ebp]
 	mov	ecx, DWORD PTR [eax]
 	mov	DWORD PTR [edx], ecx
@@ -30364,8 +30364,8 @@ $L11378:
 ; 9914 : 
 ; 9915 :          break;
 
-	jmp	SHORT $L11368
-$L11382:
+	jmp	SHORT $L11369
+$L11383:
 
 ; 9920 :          zPDECIMAL lpdDecimal;
 ; 9921 : #if 0
@@ -30378,14 +30378,14 @@ $L11382:
 	mov	edx, DWORD PTR _lpViewAttrib$[ebp]
 	mov	eax, DWORD PTR _pchRecord$[ebp]
 	add	eax, DWORD PTR [edx+250]
-	mov	DWORD PTR _lpdDecimal$11383[ebp], eax
+	mov	DWORD PTR _lpdDecimal$11384[ebp], eax
 
 ; 9927 :          zmemcpy( lpdDecimal, lpValue, sizeof( zDECIMAL ) );
 
 	push	40					; 00000028H
 	mov	ecx, DWORD PTR _lpValue$[ebp]
 	push	ecx
-	mov	edx, DWORD PTR _lpdDecimal$11383[ebp]
+	mov	edx, DWORD PTR _lpdDecimal$11384[ebp]
 	push	edx
 	call	_memcpy
 	add	esp, 12					; 0000000cH
@@ -30394,8 +30394,8 @@ $L11382:
 ; 9929 : 
 ; 9930 :          break;
 
-	jmp	SHORT $L11368
-$L11386:
+	jmp	SHORT $L11369
+$L11387:
 
 ; 9935 :          fnStoreBlobInRecord( lpAllocTask,  // so allocation can be done
 ; 9936 :                               pchRecord,       // Attribute record
@@ -30419,8 +30419,8 @@ $L11386:
 
 ; 9940 :          break;
 
-	jmp	SHORT $L11368
-$L11387:
+	jmp	SHORT $L11369
+$L11388:
 
 ; 9945 :          LPDTINTERNAL  lpDateTime;
 ; 9946 : 
@@ -30429,18 +30429,18 @@ $L11387:
 	mov	eax, DWORD PTR _lpViewAttrib$[ebp]
 	mov	ecx, DWORD PTR _pchRecord$[ebp]
 	add	ecx, DWORD PTR [eax+250]
-	mov	DWORD PTR _lpDateTime$11388[ebp], ecx
+	mov	DWORD PTR _lpDateTime$11389[ebp], ecx
 
 ; 9948 :          zmemcpy( lpDateTime, lpValue, sizeof( DateTimeInternalRecord ) );
 
 	push	6
 	mov	edx, DWORD PTR _lpValue$[ebp]
 	push	edx
-	mov	eax, DWORD PTR _lpDateTime$11388[ebp]
+	mov	eax, DWORD PTR _lpDateTime$11389[ebp]
 	push	eax
 	call	_memcpy
 	add	esp, 12					; 0000000cH
-$L11368:
+$L11369:
 
 ; 9954 : 
 ; 9955 :    return( 0 );
@@ -30452,14 +30452,14 @@ $L11368:
 	mov	esp, ebp
 	pop	ebp
 	ret	20					; 00000014H
-$L12015:
-	DD	$L11386
-	DD	$L11378
-	DD	$L11382
-	DD	$L11371
+$L12016:
 	DD	$L11387
-	DD	$L11368
-$L12014:
+	DD	$L11379
+	DD	$L11383
+	DD	$L11372
+	DD	$L11388
+	DD	$L11369
+$L12015:
 	DB	0
 	DB	5
 	DB	5
@@ -30533,7 +30533,7 @@ _StoreValueInDerivedAttribute@20 PROC NEAR
 ; 9995 :    if ( lpViewEntity == 0 )
 
 	cmp	DWORD PTR _lpViewEntity$[ebp], 0
-	jne	SHORT $L11407
+	jne	SHORT $L11408
 
 ; 9997 :       fnOperationReturn( iStoreValueInDerivedAttribute, lpCurrentTask );
 
@@ -30546,8 +30546,8 @@ _StoreValueInDerivedAttribute@20 PROC NEAR
 ; 9998 :       return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	SHORT $L11401
-$L11407:
+	jmp	SHORT $L11402
+$L11408:
 
 ; 10000: 
 ; 10001:    lpViewAttrib = fnValidViewAttrib( lpView, lpViewEntity, pchAttribName, 0 );
@@ -30566,7 +30566,7 @@ $L11407:
 ; 10002:    if ( lpViewAttrib == 0 )
 
 	cmp	DWORD PTR _lpViewAttrib$[ebp], 0
-	jne	SHORT $L11408
+	jne	SHORT $L11409
 
 ; 10004:       fnOperationReturn( iStoreValueInDerivedAttribute, lpCurrentTask );
 
@@ -30579,8 +30579,8 @@ $L11407:
 ; 10005:       return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	SHORT $L11401
-$L11408:
+	jmp	SHORT $L11402
+$L11409:
 
 ; 10007: 
 ; 10008:    nRC = StoreValueInRecord( lpView, lpViewEntity, lpViewAttrib,
@@ -30611,7 +30611,7 @@ $L11408:
 ; 10012:    return( nRC );
 
 	mov	ax, WORD PTR _nRC$[ebp]
-$L11401:
+$L11402:
 
 ; 10013: }
 
@@ -30671,7 +30671,7 @@ _StoreStringInDerivedAttribute@16 PROC NEAR
 ; 10051:    if ( lpViewEntity == 0 )
 
 	cmp	DWORD PTR _lpViewEntity$[ebp], 0
-	jne	SHORT $L11423
+	jne	SHORT $L11424
 
 ; 10053:       fnOperationReturn( iStoreStringInDerivedAttribute, lpCurrentTask );
 
@@ -30684,8 +30684,8 @@ _StoreStringInDerivedAttribute@16 PROC NEAR
 ; 10054:       return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	SHORT $L11417
-$L11423:
+	jmp	SHORT $L11418
+$L11424:
 
 ; 10056: 
 ; 10057:    lpViewAttrib = fnValidViewAttrib( lpView, lpViewEntity, pchAttribName, 0 );
@@ -30704,7 +30704,7 @@ $L11423:
 ; 10058:    if ( lpViewAttrib == 0 )
 
 	cmp	DWORD PTR _lpViewAttrib$[ebp], 0
-	jne	SHORT $L11424
+	jne	SHORT $L11425
 
 ; 10060:       fnOperationReturn( iStoreStringInDerivedAttribute, lpCurrentTask );
 
@@ -30717,8 +30717,8 @@ $L11423:
 ; 10061:       return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	SHORT $L11417
-$L11424:
+	jmp	SHORT $L11418
+$L11425:
 
 ; 10063: 
 ; 10064:    nRC = StoreStringInRecord( lpView, lpViewEntity, lpViewAttrib, pchStr );
@@ -30746,7 +30746,7 @@ $L11424:
 ; 10067:    return( nRC );
 
 	mov	ax, WORD PTR _nRC$[ebp]
-$L11417:
+$L11418:
 
 ; 10068: }
 
@@ -30771,12 +30771,12 @@ _lpViewOI$ = -24
 _lpEntityInstance$ = -12
 _pchRecord$ = -16
 _nRC$ = -8
-_pchRecordString$11456 = -36
-_lpExternalP$11457 = -44
-_pulLth$11458 = -40
-_pchBlob$11470 = -48
-_lpExternalP$11471 = -56
-_pulLth$11472 = -52
+_pchRecordString$11457 = -36
+_lpExternalP$11458 = -44
+_pulLth$11459 = -40
+_pchBlob$11471 = -48
+_lpExternalP$11472 = -56
+_pulLth$11473 = -52
 _GetValueFromRecord@24 PROC NEAR
 
 ; 10101: {
@@ -30888,7 +30888,7 @@ _GetValueFromRecord@24 PROC NEAR
 ; 10142:    if ( pchRecord == 0 )
 
 	cmp	DWORD PTR _pchRecord$[ebp], 0
-	jne	SHORT $L11449
+	jne	SHORT $L11450
 
 ; 10144:       *lpReturnAddr = 0;
 
@@ -30902,8 +30902,8 @@ _GetValueFromRecord@24 PROC NEAR
 
 ; 10147:    else
 
-	jmp	$L11452
-$L11449:
+	jmp	$L11453
+$L11450:
 
 ; 10149:       switch ( lpViewAttribute->cType )
 ; 10150:       {
@@ -30915,12 +30915,12 @@ $L11449:
 	sub	ecx, 66					; 00000042H
 	mov	DWORD PTR -60+[ebp], ecx
 	cmp	DWORD PTR -60+[ebp], 18			; 00000012H
-	ja	$L11481
+	ja	$L11482
 	mov	eax, DWORD PTR -60+[ebp]
 	xor	edx, edx
-	mov	dl, BYTE PTR $L12019[eax]
-	jmp	DWORD PTR $L12020[edx*4]
-$L11455:
+	mov	dl, BYTE PTR $L12020[eax]
+	jmp	DWORD PTR $L12021[edx*4]
+$L11456:
 
 ; 10153:             zPCHAR   pchRecordString;
 ; 10154:             zCOREMEM lpExternalP;
@@ -30931,75 +30931,75 @@ $L11455:
 	mov	ecx, DWORD PTR _lpViewAttribute$[ebp]
 	mov	edx, DWORD PTR _pchRecord$[ebp]
 	add	edx, DWORD PTR [ecx+250]
-	mov	DWORD PTR _pchRecordString$11456[ebp], edx
+	mov	DWORD PTR _pchRecordString$11457[ebp], edx
 
 ; 10158:             if ( pchRecordString[ 0 ] == (zCHAR) '\xff' )
 
-	mov	eax, DWORD PTR _pchRecordString$11456[ebp]
+	mov	eax, DWORD PTR _pchRecordString$11457[ebp]
 	movsx	ecx, BYTE PTR [eax]
 	cmp	ecx, -1
-	jne	SHORT $L11460
+	jne	SHORT $L11461
 
 ; 10160:                lpExternalP = (zCOREMEM) (pchRecordString + 1);
 
-	mov	edx, DWORD PTR _pchRecordString$11456[ebp]
+	mov	edx, DWORD PTR _pchRecordString$11457[ebp]
 	add	edx, 1
-	mov	DWORD PTR _lpExternalP$11457[ebp], edx
+	mov	DWORD PTR _lpExternalP$11458[ebp], edx
 
 ; 10161:                pulLth = (zPULONG) (lpExternalP + 1);
 
-	mov	eax, DWORD PTR _lpExternalP$11457[ebp]
+	mov	eax, DWORD PTR _lpExternalP$11458[ebp]
 	add	eax, 4
-	mov	DWORD PTR _pulLth$11458[ebp], eax
+	mov	DWORD PTR _pulLth$11459[ebp], eax
 
 ; 10162:                *pulReturnLth = *pulLth;
 
 	mov	ecx, DWORD PTR _pulReturnLth$[ebp]
-	mov	edx, DWORD PTR _pulLth$11458[ebp]
+	mov	edx, DWORD PTR _pulLth$11459[ebp]
 	mov	eax, DWORD PTR [edx]
 	mov	DWORD PTR [ecx], eax
 
 ; 10163:                pchRecordString = zGETPTR( *lpExternalP );
 
-	mov	ecx, DWORD PTR _lpExternalP$11457[ebp]
+	mov	ecx, DWORD PTR _lpExternalP$11458[ebp]
 	mov	edx, DWORD PTR [ecx]
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _pchRecordString$11456[ebp], eax
+	mov	DWORD PTR _pchRecordString$11457[ebp], eax
 
 ; 10164:                *lpReturnAddr = pchRecordString;
 
 	mov	eax, DWORD PTR _lpReturnAddr$[ebp]
-	mov	ecx, DWORD PTR _pchRecordString$11456[ebp]
+	mov	ecx, DWORD PTR _pchRecordString$11457[ebp]
 	mov	DWORD PTR [eax], ecx
 
 ; 10166:             else
 
-	jmp	SHORT $L11464
-$L11460:
+	jmp	SHORT $L11465
+$L11461:
 
 ; 10168:                *lpReturnAddr = pchRecordString;
 
 	mov	edx, DWORD PTR _lpReturnAddr$[ebp]
-	mov	eax, DWORD PTR _pchRecordString$11456[ebp]
+	mov	eax, DWORD PTR _pchRecordString$11457[ebp]
 	mov	DWORD PTR [edx], eax
 
 ; 10169:                *pulReturnLth = zstrlen( pchRecordString ) + 1;
 
-	mov	ecx, DWORD PTR _pchRecordString$11456[ebp]
+	mov	ecx, DWORD PTR _pchRecordString$11457[ebp]
 	push	ecx
 	call	_strlen
 	add	esp, 4
 	add	eax, 1
 	mov	edx, DWORD PTR _pulReturnLth$[ebp]
 	mov	DWORD PTR [edx], eax
-$L11464:
+$L11465:
 
 ; 10171: 
 ; 10172:             break;
 
-	jmp	$L11452
-$L11465:
+	jmp	$L11453
+$L11466:
 
 ; 10174: 
 ; 10175:          case zTYPE_INTEGER:
@@ -31018,8 +31018,8 @@ $L11465:
 
 ; 10178:             break;
 
-	jmp	$L11452
-$L11467:
+	jmp	$L11453
+$L11468:
 
 ; 10179: 
 ; 10180:          case zTYPE_DECIMAL:
@@ -31038,8 +31038,8 @@ $L11467:
 
 ; 10183:             break;
 
-	jmp	$L11452
-$L11469:
+	jmp	$L11453
+$L11470:
 
 ; 10187:             zPCHAR   pchBlob;
 ; 10188:             zCOREMEM lpExternalP;
@@ -31050,52 +31050,52 @@ $L11469:
 	mov	edx, DWORD PTR _lpViewAttribute$[ebp]
 	mov	eax, DWORD PTR _pchRecord$[ebp]
 	add	eax, DWORD PTR [edx+250]
-	mov	DWORD PTR _pchBlob$11470[ebp], eax
+	mov	DWORD PTR _pchBlob$11471[ebp], eax
 
 ; 10192:             if ( pchBlob[ 0 ] == (zCHAR) '\xff' )
 
-	mov	ecx, DWORD PTR _pchBlob$11470[ebp]
+	mov	ecx, DWORD PTR _pchBlob$11471[ebp]
 	movsx	edx, BYTE PTR [ecx]
 	cmp	edx, -1
-	jne	SHORT $L11474
+	jne	SHORT $L11475
 
 ; 10194:                lpExternalP = (zCOREMEM) (pchBlob + 1);
 
-	mov	eax, DWORD PTR _pchBlob$11470[ebp]
+	mov	eax, DWORD PTR _pchBlob$11471[ebp]
 	add	eax, 1
-	mov	DWORD PTR _lpExternalP$11471[ebp], eax
+	mov	DWORD PTR _lpExternalP$11472[ebp], eax
 
 ; 10195:                pulLth = (zPULONG) (lpExternalP + 1);
 
-	mov	ecx, DWORD PTR _lpExternalP$11471[ebp]
+	mov	ecx, DWORD PTR _lpExternalP$11472[ebp]
 	add	ecx, 4
-	mov	DWORD PTR _pulLth$11472[ebp], ecx
+	mov	DWORD PTR _pulLth$11473[ebp], ecx
 
 ; 10196:                *pulReturnLth = *pulLth;
 
 	mov	edx, DWORD PTR _pulReturnLth$[ebp]
-	mov	eax, DWORD PTR _pulLth$11472[ebp]
+	mov	eax, DWORD PTR _pulLth$11473[ebp]
 	mov	ecx, DWORD PTR [eax]
 	mov	DWORD PTR [edx], ecx
 
 ; 10197:                pchBlob = zGETPTR( *lpExternalP );
 
-	mov	edx, DWORD PTR _lpExternalP$11471[ebp]
+	mov	edx, DWORD PTR _lpExternalP$11472[ebp]
 	mov	eax, DWORD PTR [edx]
 	push	eax
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _pchBlob$11470[ebp], eax
+	mov	DWORD PTR _pchBlob$11471[ebp], eax
 
 ; 10198:                *lpReturnAddr = pchBlob;
 
 	mov	ecx, DWORD PTR _lpReturnAddr$[ebp]
-	mov	edx, DWORD PTR _pchBlob$11470[ebp]
+	mov	edx, DWORD PTR _pchBlob$11471[ebp]
 	mov	DWORD PTR [ecx], edx
 
 ; 10200:             else
 
-	jmp	SHORT $L11478
-$L11474:
+	jmp	SHORT $L11479
+$L11475:
 
 ; 10202:                *lpReturnAddr = 0;
 
@@ -31106,13 +31106,13 @@ $L11474:
 
 	mov	ecx, DWORD PTR _pulReturnLth$[ebp]
 	mov	DWORD PTR [ecx], 0
-$L11478:
+$L11479:
 
 ; 10205: 
 ; 10206:             break;
 
-	jmp	SHORT $L11452
-$L11479:
+	jmp	SHORT $L11453
+$L11480:
 
 ; 10208: 
 ; 10209:          case zTYPE_DATETIME:
@@ -31131,15 +31131,15 @@ $L11479:
 
 ; 10212:             break;
 
-	jmp	SHORT $L11452
-$L11481:
+	jmp	SHORT $L11453
+$L11482:
 
 ; 10213: 
 ; 10214:          default:
 ; 10215:             nRC = zCALL_ERROR;
 
 	mov	WORD PTR _nRC$[ebp], -16		; fffffff0H
-$L11452:
+$L11453:
 
 ; 10218: 
 ; 10219:    fnOperationReturn( iGetValueFromRecord, lpCurrentTask );
@@ -31159,14 +31159,14 @@ $L11452:
 	mov	esp, ebp
 	pop	ebp
 	ret	24					; 00000018H
+$L12021:
+	DD	$L11470
+	DD	$L11466
+	DD	$L11468
+	DD	$L11456
+	DD	$L11480
+	DD	$L11482
 $L12020:
-	DD	$L11469
-	DD	$L11465
-	DD	$L11467
-	DD	$L11455
-	DD	$L11479
-	DD	$L11481
-$L12019:
 	DB	0
 	DB	5
 	DB	5
@@ -31321,13 +31321,13 @@ _GetStringFromRecord@20 PROC NEAR
 	add	esp, 28					; 0000001cH
 	movsx	edx, ax
 	test	edx, edx
-	je	SHORT $L11510
+	je	SHORT $L11511
 
 ; 10309:       return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	SHORT $L11505
-$L11510:
+	jmp	SHORT $L11506
+$L11511:
 
 ; 10311: 
 ; 10312:    nRC = fnGetStringFromAttribute( pchReturnString, uMaxLength, lpView,
@@ -31360,7 +31360,7 @@ $L11510:
 ; 10316:    return( nRC );
 
 	mov	ax, WORD PTR _nRC$[ebp]
-$L11505:
+$L11506:
 
 ; 10317: }
 
@@ -31383,7 +31383,7 @@ _lpDomain$ = -4
 _cDomainType$ = -32
 _lDomainEntryType$ = -24
 _nRC$ = -16
-_szMsg$11552 = -540
+_szMsg$11553 = -540
 _fnSetAttributeValue PROC NEAR
 
 ; 10348: {
@@ -31440,20 +31440,20 @@ _fnSetAttributeValue PROC NEAR
 
 	movsx	edx, WORD PTR _nRC$[ebp]
 	test	edx, edx
-	jle	SHORT $L11532
+	jle	SHORT $L11533
 
 ; 10371:       return( zCALL_ERROR );   // don't call fnOperationReturn
 
 	mov	ax, -16					; fffffff0H
-	jmp	$L11521
-$L11532:
+	jmp	$L11522
+$L11533:
 
 ; 10372: 
 ; 10373:    if ( nRC < 0 )
 
 	movsx	eax, WORD PTR _nRC$[ebp]
 	test	eax, eax
-	jge	SHORT $L11533
+	jge	SHORT $L11534
 
 ; 10375:       fnOperationReturn( iOperationID, lpCurrentTask );
 
@@ -31467,15 +31467,15 @@ $L11532:
 ; 10376:       return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	$L11521
-$L11533:
+	jmp	$L11522
+$L11534:
 
 ; 10378: 
 ; 10379:    if ( lpViewAttrib->hDomain == 0 )
 
 	mov	eax, DWORD PTR _lpViewAttrib$[ebp]
 	cmp	DWORD PTR [eax+198], 0
-	jne	SHORT $L11534
+	jne	SHORT $L11535
 
 ; 10381:       // "KZOEE244 - Attribute has no Domain"
 ; 10382: //    fnIssueCoreError( lpTask, lpView, 8, 244, 0, cpcEntityName, cpcAttributeName );
@@ -31491,8 +31491,8 @@ $L11533:
 ; 10384:       return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	$L11521
-$L11534:
+	jmp	$L11522
+$L11535:
 
 ; 10386: 
 ; 10387:    lpDomain = zGETPTR( lpViewAttrib->hDomain );
@@ -31524,14 +31524,14 @@ $L11534:
 	mov	eax, DWORD PTR _lpViewAttrib$[ebp]
 	movsx	ecx, BYTE PTR [eax+202]
 	cmp	ecx, 83					; 00000053H
-	jne	SHORT $L11537
+	jne	SHORT $L11538
 
 ; 10393:       if ( *((zPCHAR) lpAttrValue) == 0 )
 
 	mov	edx, DWORD PTR _lpAttrValue$[ebp]
 	movsx	eax, BYTE PTR [edx]
 	test	eax, eax
-	jne	SHORT $L11539
+	jne	SHORT $L11540
 
 ; 10395:          // Attribute value is null, it cannot be set to prev/next value
 ; 10396:          fnOperationReturn( iOperationID, lpCurrentTask );
@@ -31546,13 +31546,13 @@ $L11534:
 ; 10397:          return( -1 );
 
 	or	ax, -1
-	jmp	$L11521
-$L11539:
+	jmp	$L11522
+$L11540:
 
 ; 10400:    else
 
-	jmp	SHORT $L11542
-$L11537:
+	jmp	SHORT $L11543
+$L11538:
 
 ; 10402:       // we must be working with an integer type if it isn't a string
 ; 10403:       if ( *((zPLONG) lpAttrValue) == lNullInteger )
@@ -31560,7 +31560,7 @@ $L11537:
 	mov	eax, DWORD PTR _lpAttrValue$[ebp]
 	mov	ecx, DWORD PTR [eax]
 	cmp	ecx, DWORD PTR _lNullInteger
-	jne	SHORT $L11542
+	jne	SHORT $L11543
 
 ; 10405:          // Attribute value is null, it cannot be set to prev/next value
 ; 10406:          fnOperationReturn( iOperationID, lpCurrentTask );
@@ -31575,8 +31575,8 @@ $L11537:
 ; 10407:          return( -1 );
 
 	or	ax, -1
-	jmp	$L11521
-$L11542:
+	jmp	$L11522
+$L11543:
 
 ; 10410: 
 ; 10411:    // Get view Entity from cursor.
@@ -31621,13 +31621,13 @@ $L11542:
 	mov	al, BYTE PTR _cDomainType$[ebp]
 	mov	BYTE PTR -544+[ebp], al
 	cmp	BYTE PTR -544+[ebp], 65			; 00000041H
-	je	SHORT $L11550
+	je	SHORT $L11551
 	cmp	BYTE PTR -544+[ebp], 69			; 00000045H
-	je	SHORT $L11550
+	je	SHORT $L11551
 	cmp	BYTE PTR -544+[ebp], 84			; 00000054H
-	je	SHORT $L11548
-	jmp	$L11553
-$L11548:
+	je	SHORT $L11549
+	jmp	$L11554
+$L11549:
 
 ; 10421:       case zDM_TYPE_TABLE:
 ; 10422:          nRC = Table_Handler( lDomainEntryType,
@@ -31659,8 +31659,8 @@ $L11548:
 
 ; 10431:          break;
 
-	jmp	$L11545
-$L11550:
+	jmp	$L11546
+$L11551:
 
 ; 10432: 
 ; 10433:       case zDM_TYPE_EXPRESSION:
@@ -31700,7 +31700,7 @@ $L11550:
 
 	movsx	ecx, WORD PTR _nRC$[ebp]
 	cmp	ecx, -10				; fffffff6H
-	jne	SHORT $L11551
+	jne	SHORT $L11552
 
 ; 10447:             zCHAR szMsg[ 500 ];
 ; 10448: 
@@ -31717,7 +31717,7 @@ $L11550:
 	add	ecx, 100				; 00000064H
 	push	ecx
 	push	OFFSET FLAT:??_C@_0EE@ELLG@Operation?5?8?$CFs?8?5does?5not?5handle?5a@ ; `string'
-	lea	edx, DWORD PTR _szMsg$11552[ebp]
+	lea	edx, DWORD PTR _szMsg$11553[ebp]
 	push	edx
 	call	DWORD PTR __imp__sprintf
 	add	esp, 20					; 00000014H
@@ -31727,7 +31727,7 @@ $L11550:
 
 	push	0
 	push	200					; 000000c8H
-	lea	eax, DWORD PTR _szMsg$11552[ebp]
+	lea	eax, DWORD PTR _szMsg$11553[ebp]
 	push	eax
 	push	OFFSET FLAT:??_C@_0N@LGH@System?5Error?$AA@ ; `string'
 	push	OFFSET FLAT:??_C@_08MEJN@TZDMD101?$AA@	; `string'
@@ -31747,14 +31747,14 @@ $L11550:
 ; 10455:             return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	SHORT $L11521
-$L11551:
+	jmp	SHORT $L11522
+$L11552:
 
 ; 10457: 
 ; 10458:          break;
 
-	jmp	SHORT $L11545
-$L11553:
+	jmp	SHORT $L11546
+$L11554:
 
 ; 10459: 
 ; 10460:       case zDM_TYPE_FORMAT:
@@ -31762,7 +31762,7 @@ $L11553:
 ; 10462:          nRC = -1;
 
 	mov	WORD PTR _nRC$[ebp], -1
-$L11545:
+$L11546:
 
 ; 10464: 
 ; 10465:    fnOperationReturn( iOperationID, lpCurrentTask );
@@ -31777,7 +31777,7 @@ $L11545:
 ; 10466:    return( nRC );
 
 	mov	ax, WORD PTR _nRC$[ebp]
-$L11521:
+$L11522:
 
 ; 10467: }
 
@@ -31792,8 +31792,8 @@ _lpView$ = 8
 _lpEntityInstance$ = 12
 _lpViewAttrib$ = 16
 _lpAttrValue$ = -4
-_lpTask$11578 = -12
-_lpViewEntity$11580 = -8
+_lpTask$11579 = -12
+_lpViewEntity$11581 = -8
 _fnAttributeValueNull PROC NEAR
 
 ; 10491: {
@@ -31829,12 +31829,12 @@ _fnAttributeValueNull PROC NEAR
 	sub	eax, 66					; 00000042H
 	mov	DWORD PTR -16+[ebp], eax
 	cmp	DWORD PTR -16+[ebp], 18			; 00000012H
-	ja	SHORT $L11577
+	ja	SHORT $L11578
 	mov	edx, DWORD PTR -16+[ebp]
 	xor	ecx, ecx
-	mov	cl, BYTE PTR $L12025[edx]
-	jmp	DWORD PTR $L12026[ecx*4]
-$L11567:
+	mov	cl, BYTE PTR $L12026[edx]
+	jmp	DWORD PTR $L12027[ecx*4]
+$L11568:
 
 ; 10498:       case zTYPE_INTEGER:
 ; 10499:          return( (*((zPLONG) lpAttrValue) == lNullInteger) ? 1 : 0 );
@@ -31844,8 +31844,8 @@ $L11567:
 	xor	eax, eax
 	cmp	ecx, DWORD PTR _lNullInteger
 	sete	al
-	jmp	$L11564
-$L11569:
+	jmp	$L11565
+$L11570:
 
 ; 10500: 
 ; 10501:       case zTYPE_DECIMAL:
@@ -31858,8 +31858,8 @@ $L11569:
 	neg	eax
 	sbb	eax, eax
 	inc	eax
-	jmp	SHORT $L11564
-$L11571:
+	jmp	SHORT $L11565
+$L11572:
 
 ; 10503: 
 ; 10504:       case zTYPE_DATETIME:
@@ -31875,8 +31875,8 @@ $L11571:
 	neg	eax
 	sbb	eax, eax
 	inc	eax
-	jmp	SHORT $L11564
-$L11574:
+	jmp	SHORT $L11565
+$L11575:
 
 ; 10507: 
 ; 10508:       case zTYPE_STRING:
@@ -31887,8 +31887,8 @@ $L11574:
 	neg	eax
 	sbb	eax, eax
 	inc	eax
-	jmp	SHORT $L11564
-$L11576:
+	jmp	SHORT $L11565
+$L11577:
 
 ; 10510: 
 ; 10511:       case zTYPE_BLOB:
@@ -31897,8 +31897,8 @@ $L11576:
 	xor	eax, eax
 	cmp	DWORD PTR _lpAttrValue$[ebp], 0
 	sete	al
-	jmp	SHORT $L11564
-$L11577:
+	jmp	SHORT $L11565
+$L11578:
 
 ; 10516:          LPTASK lpTask = zGETPTR( lpView->hTask );
 
@@ -31906,7 +31906,7 @@ $L11577:
 	mov	eax, DWORD PTR [edx+14]
 	push	eax
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpTask$11578[ebp], eax
+	mov	DWORD PTR _lpTask$11579[ebp], eax
 
 ; 10517:          LPVIEWENTITY lpViewEntity = zGETPTR( lpEntityInstance->hViewEntity );
 
@@ -31914,7 +31914,7 @@ $L11577:
 	mov	edx, DWORD PTR [ecx+2]
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpViewEntity$11580[ebp], eax
+	mov	DWORD PTR _lpViewEntity$11581[ebp], eax
 
 ; 10518: 
 ; 10519:          // "KZOEE246 - Invalid Attribute type "
@@ -31924,7 +31924,7 @@ $L11577:
 	mov	eax, DWORD PTR _lpViewAttrib$[ebp]
 	add	eax, 10					; 0000000aH
 	push	eax
-	mov	ecx, DWORD PTR _lpViewEntity$11580[ebp]
+	mov	ecx, DWORD PTR _lpViewEntity$11581[ebp]
 	add	ecx, 14					; 0000000eH
 	push	ecx
 	push	0
@@ -31932,7 +31932,7 @@ $L11577:
 	push	8
 	mov	edx, DWORD PTR _lpView$[ebp]
 	push	edx
-	mov	eax, DWORD PTR _lpTask$11578[ebp]
+	mov	eax, DWORD PTR _lpTask$11579[ebp]
 	push	eax
 	call	_fnIssueCoreError
 	add	esp, 28					; 0000001cH
@@ -31940,21 +31940,21 @@ $L11577:
 ; 10522:          return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-$L11564:
+$L11565:
 
 ; 10525: }
 
 	mov	esp, ebp
 	pop	ebp
 	ret	0
-$L12026:
-	DD	$L11576
-	DD	$L11567
-	DD	$L11569
-	DD	$L11574
-	DD	$L11571
+$L12027:
 	DD	$L11577
-$L12025:
+	DD	$L11568
+	DD	$L11570
+	DD	$L11575
+	DD	$L11572
+	DD	$L11578
+$L12026:
 	DB	0
 	DB	5
 	DB	5
@@ -31991,7 +31991,7 @@ _fnRecordForEntityAttr PROC NEAR
 	mov	ecx, DWORD PTR [eax+193]
 	and	ecx, 1
 	test	ecx, ecx
-	je	SHORT $L11587
+	je	SHORT $L11588
 
 ; 10547: #if 0
 ; 10548:       if ( SysSendOE_Message( IDM_GETTRACELOGFILE, 0 ) != -1 )
@@ -32013,8 +32013,8 @@ _fnRecordForEntityAttr PROC NEAR
 	mov	eax, DWORD PTR [edx+60]
 	push	eax
 	call	DWORD PTR _g_pfnGetPtr
-	jmp	SHORT $L11590
-$L11587:
+	jmp	SHORT $L11591
+$L11588:
 
 ; 10565: #if 0
 ; 10566:       if ( SysSendOE_Message( IDM_GETTRACELOGFILE, 0 ) != -1 )
@@ -32036,7 +32036,7 @@ $L11587:
 	mov	edx, DWORD PTR [ecx+64]
 	push	edx
 	call	DWORD PTR _g_pfnGetPtr
-$L11590:
+$L11591:
 
 ; 10581: }
 
@@ -32073,7 +32073,7 @@ _fnInvokeDerivedOperation PROC NEAR
 ; 10605:    if ( pfObjectOper )
 
 	cmp	DWORD PTR _pfObjectOper$[ebp], 0
-	je	SHORT $L11605
+	je	SHORT $L11606
 
 ; 10606:       return( (*pfObjectOper)( lpView, lpViewEntity, lpViewAttrib, nControl ) );
 
@@ -32086,14 +32086,14 @@ _fnInvokeDerivedOperation PROC NEAR
 	mov	eax, DWORD PTR _lpView$[ebp]
 	push	eax
 	call	DWORD PTR _pfObjectOper$[ebp]
-	jmp	SHORT $L11603
-$L11605:
+	jmp	SHORT $L11604
+$L11606:
 
 ; 10607: 
 ; 10608:    return( 0 );
 
 	xor	ax, ax
-$L11603:
+$L11604:
 
 ; 10609: }
 
@@ -32114,7 +32114,7 @@ _hFile$ = -16
 _ulLth$ = -12
 _pchData$ = -4
 _nRC$ = -8
-_lpTask$11621 = -20
+_lpTask$11622 = -20
 _fnSetBlobFromFile@16 PROC NEAR
 
 ; 10616: {
@@ -32150,7 +32150,7 @@ _fnSetBlobFromFile@16 PROC NEAR
 ; 10623:    if ( hFile == -1 )
 
 	cmp	DWORD PTR _hFile$[ebp], -1
-	jne	SHORT $L11620
+	jne	SHORT $L11621
 
 ; 10625:       LPTASK lpTask = zGETPTR( lpView->hTask );
 
@@ -32158,7 +32158,7 @@ _fnSetBlobFromFile@16 PROC NEAR
 	mov	eax, DWORD PTR [edx+14]
 	push	eax
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpTask$11621[ebp], eax
+	mov	DWORD PTR _lpTask$11622[ebp], eax
 
 ; 10626:       // "KZOEE024190 - Error opening file"
 ; 10627:       fnIssueCoreError( lpTask, lpView, 16, 24, 0, cpcFileName, 0 );
@@ -32171,15 +32171,15 @@ _fnSetBlobFromFile@16 PROC NEAR
 	push	16					; 00000010H
 	mov	edx, DWORD PTR _lpView$[ebp]
 	push	edx
-	mov	eax, DWORD PTR _lpTask$11621[ebp]
+	mov	eax, DWORD PTR _lpTask$11622[ebp]
 	push	eax
 	call	_fnIssueCoreError
 	add	esp, 28					; 0000001cH
 
 ; 10628:       goto EndOfFunction;
 
-	jmp	$EndOfFunction$11623
-$L11620:
+	jmp	$EndOfFunction$11624
+$L11621:
 
 ; 10630: 
 ; 10631:    // Get the file length.
@@ -32203,12 +32203,12 @@ $L11620:
 ; 10636:    if ( pchData == 0 )
 
 	cmp	DWORD PTR _pchData$[ebp], 0
-	jne	SHORT $L11624
+	jne	SHORT $L11625
 
 ; 10637:       goto EndOfFunction;
 
-	jmp	$EndOfFunction$11623
-$L11624:
+	jmp	$EndOfFunction$11624
+$L11625:
 
 ; 10638: 
 ; 10639:    if ( SysReadFile( lpView, hFile, pchData, ulLth ) != ulLth )
@@ -32223,7 +32223,7 @@ $L11624:
 	push	eax
 	call	_SysReadFile@16
 	cmp	eax, DWORD PTR _ulLth$[ebp]
-	je	SHORT $L11625
+	je	SHORT $L11626
 
 ; 10641:       TraceLineI( "(at) Couldn't read entire file.  Lth = ", ulLth );
 
@@ -32234,8 +32234,8 @@ $L11624:
 
 ; 10642:       goto EndOfFunction;
 
-	jmp	SHORT $EndOfFunction$11623
-$L11625:
+	jmp	SHORT $EndOfFunction$11624
+$L11626:
 
 ; 10644: 
 ; 10645:    // Last thing to do--set blob attribute.
@@ -32244,7 +32244,7 @@ $L11625:
 	mov	edx, DWORD PTR _lpViewAttrib$[ebp]
 	movsx	eax, BYTE PTR [edx+202]
 	cmp	eax, 83					; 00000053H
-	jne	SHORT $L11626
+	jne	SHORT $L11627
 
 ; 10648:       pchData[ ulLth ] = 0;
 
@@ -32272,8 +32272,8 @@ $L11625:
 
 ; 10653:    else
 
-	jmp	SHORT $EndOfFunction$11623
-$L11626:
+	jmp	SHORT $EndOfFunction$11624
+$L11627:
 
 ; 10655:       nRC = fnSetAttributeFromBlob( lpView, lpViewEntityCsr,
 ; 10656:                                     lpViewAttrib, pchData, ulLth );
@@ -32291,7 +32291,7 @@ $L11626:
 	call	_fnSetAttributeFromBlob
 	add	esp, 20					; 00000014H
 	mov	WORD PTR _nRC$[ebp], ax
-$EndOfFunction$11623:
+$EndOfFunction$11624:
 
 ; 10658: 
 ; 10659: EndOfFunction:
@@ -32299,20 +32299,20 @@ $EndOfFunction$11623:
 ; 10661:    if ( pchData )
 
 	cmp	DWORD PTR _pchData$[ebp], 0
-	je	SHORT $L11629
+	je	SHORT $L11630
 
 ; 10662:       SysFree( pchData );
 
 	mov	eax, DWORD PTR _pchData$[ebp]
 	push	eax
 	call	_SysFree@4
-$L11629:
+$L11630:
 
 ; 10663: 
 ; 10664:    if ( hFile != -1 )
 
 	cmp	DWORD PTR _hFile$[ebp], -1
-	je	SHORT $L11630
+	je	SHORT $L11631
 
 ; 10665:       SysCloseFile( lpView, hFile, 0 );
 
@@ -32322,7 +32322,7 @@ $L11629:
 	mov	edx, DWORD PTR _lpView$[ebp]
 	push	edx
 	call	_SysCloseFile@12
-$L11630:
+$L11631:
 
 ; 10666: 
 ; 10667:    return( nRC );
@@ -32397,20 +32397,20 @@ _SetBlobFromFile@16 PROC NEAR
 
 	movsx	ecx, WORD PTR _nRC$[ebp]
 	test	ecx, ecx
-	jle	SHORT $L11645
+	jle	SHORT $L11646
 
 ; 10711:       return( zCALL_ERROR );   // don't call fnOperationReturn
 
 	mov	ax, -16					; fffffff0H
-	jmp	$L11639
-$L11645:
+	jmp	$L11640
+$L11646:
 
 ; 10712: 
 ; 10713:    if ( nRC < 0 )
 
 	movsx	edx, WORD PTR _nRC$[ebp]
 	test	edx, edx
-	jge	SHORT $L11646
+	jge	SHORT $L11647
 
 ; 10715:       fnOperationReturn( iSetBlobFromFile, lpCurrentTask );
 
@@ -32423,8 +32423,8 @@ $L11645:
 ; 10716:       return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	$L11639
-$L11646:
+	jmp	$L11640
+$L11647:
 
 ; 10718: 
 ; 10719:    if ( lpViewAttrib->cType != zTYPE_BLOB &&
@@ -32433,11 +32433,11 @@ $L11646:
 	mov	ecx, DWORD PTR _lpViewAttrib$[ebp]
 	movsx	edx, BYTE PTR [ecx+202]
 	cmp	edx, 66					; 00000042H
-	je	SHORT $L11647
+	je	SHORT $L11648
 	mov	eax, DWORD PTR _lpViewAttrib$[ebp]
 	movsx	ecx, BYTE PTR [eax+202]
 	cmp	ecx, 83					; 00000053H
-	je	SHORT $L11647
+	je	SHORT $L11648
 
 ; 10722:       // "KZOEE191 - Attribute must be a Blob or String for this operation."
 ; 10723:       fnIssueCoreError( lpCurrentTask, lpView, 16, 191, 0, cpcFileName, 0 );
@@ -32466,8 +32466,8 @@ $L11646:
 ; 10725:       return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	SHORT $L11639
-$L11647:
+	jmp	SHORT $L11640
+$L11648:
 
 ; 10727: 
 ; 10728:    // Call fnSetBlobFromFile to do the setting
@@ -32497,7 +32497,7 @@ $L11647:
 ; 10733:    return( nRC );
 
 	mov	ax, WORD PTR _nRC$[ebp]
-$L11639:
+$L11640:
 
 ; 10734: }
 
@@ -32516,7 +32516,7 @@ _hFile$ = -16
 _ulLth$ = -12
 _pchData$ = -4
 _nRC$ = -8
-_lpTask$11666 = -20
+_lpTask$11667 = -20
 _fnWriteBlobToFile@16 PROC NEAR
 
 ; 10741: {
@@ -32572,16 +32572,16 @@ _fnWriteBlobToFile@16 PROC NEAR
 ; 10755:    if ( pchData == 0 || ulLth == 0 )
 
 	cmp	DWORD PTR _pchData$[ebp], 0
-	je	SHORT $L11664
+	je	SHORT $L11665
 	cmp	DWORD PTR _ulLth$[ebp], 0
-	jne	SHORT $L11663
-$L11664:
+	jne	SHORT $L11664
+$L11665:
 
 ; 10756:       return( -1 );
 
 	or	ax, -1
-	jmp	$L11657
-$L11663:
+	jmp	$L11658
+$L11664:
 
 ; 10757: 
 ; 10758:    // Write the blob to a temp file.
@@ -32598,7 +32598,7 @@ $L11663:
 ; 10760:    if ( hFile == -1 )
 
 	cmp	DWORD PTR _hFile$[ebp], -1
-	jne	SHORT $L11665
+	jne	SHORT $L11666
 
 ; 10762:       LPTASK lpTask = zGETPTR( lpView->hTask );
 
@@ -32606,7 +32606,7 @@ $L11663:
 	mov	eax, DWORD PTR [edx+14]
 	push	eax
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpTask$11666[ebp], eax
+	mov	DWORD PTR _lpTask$11667[ebp], eax
 
 ; 10763: 
 ; 10764:       // "KZOEE022 - Error writing file"
@@ -32620,7 +32620,7 @@ $L11663:
 	push	16					; 00000010H
 	mov	edx, DWORD PTR _lpView$[ebp]
 	push	edx
-	mov	eax, DWORD PTR _lpTask$11666[ebp]
+	mov	eax, DWORD PTR _lpTask$11667[ebp]
 	push	eax
 	call	_fnIssueCoreError
 	add	esp, 28					; 0000001cH
@@ -32628,8 +32628,8 @@ $L11663:
 ; 10766:       return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	SHORT $L11657
-$L11665:
+	jmp	SHORT $L11658
+$L11666:
 
 ; 10768: 
 ; 10769:    if ( SysWriteFile( lpView, hFile, pchData, ulLth ) != (int) ulLth )
@@ -32644,7 +32644,7 @@ $L11665:
 	push	ecx
 	call	_SysWriteFile@16
 	cmp	eax, DWORD PTR _ulLth$[ebp]
-	je	SHORT $L11669
+	je	SHORT $L11670
 
 ; 10770:       nRC = zCALL_ERROR;
 
@@ -32652,13 +32652,13 @@ $L11665:
 
 ; 10771:    else
 
-	jmp	SHORT $L11670
-$L11669:
+	jmp	SHORT $L11671
+$L11670:
 
 ; 10772:       nRC = 0;
 
 	mov	WORD PTR _nRC$[ebp], 0
-$L11670:
+$L11671:
 
 ; 10773: 
 ; 10774:    SysCloseFile( lpView, hFile, 0 );
@@ -32678,7 +32678,7 @@ $L11670:
 ; 10777:    return( nRC );
 
 	mov	ax, WORD PTR _nRC$[ebp]
-$L11657:
+$L11658:
 
 ; 10778: }
 
@@ -32748,20 +32748,20 @@ _WriteBlobToFile@16 PROC NEAR
 
 	movsx	ecx, WORD PTR _nRC$[ebp]
 	test	ecx, ecx
-	jle	SHORT $L11685
+	jle	SHORT $L11686
 
 ; 10822:       return( zCALL_ERROR );   // don't call fnOperationReturn
 
 	mov	ax, -16					; fffffff0H
-	jmp	$L11679
-$L11685:
+	jmp	$L11680
+$L11686:
 
 ; 10823: 
 ; 10824:    if ( nRC < 0 )
 
 	movsx	edx, WORD PTR _nRC$[ebp]
 	test	edx, edx
-	jge	SHORT $L11686
+	jge	SHORT $L11687
 
 ; 10826:       fnOperationReturn( iWriteBlobToFile, lpCurrentTask );
 
@@ -32774,8 +32774,8 @@ $L11685:
 ; 10827:       return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	SHORT $L11679
-$L11686:
+	jmp	SHORT $L11680
+$L11687:
 
 ; 10829: 
 ; 10830:    if ( lpViewAttrib->cType != zTYPE_BLOB )
@@ -32783,7 +32783,7 @@ $L11686:
 	mov	ecx, DWORD PTR _lpViewAttrib$[ebp]
 	movsx	edx, BYTE PTR [ecx+202]
 	cmp	edx, 66					; 00000042H
-	je	SHORT $L11687
+	je	SHORT $L11688
 
 ; 10832:       // "KZOEE191 - Attribute must be a Blob for this operation."
 ; 10833:       fnIssueCoreError( lpCurrentTask, lpView, 16, 191, 0, cpcFileName, 0 );
@@ -32812,8 +32812,8 @@ $L11686:
 ; 10835:       return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	SHORT $L11679
-$L11687:
+	jmp	SHORT $L11680
+$L11688:
 
 ; 10837: 
 ; 10838:    // Call fnWriteBlobToFile to do the setting
@@ -32843,7 +32843,7 @@ $L11687:
 ; 10843:    return( nRC );
 
 	mov	ax, WORD PTR _nRC$[ebp]
-$L11679:
+$L11680:
 
 ; 10844: }
 
@@ -32862,10 +32862,10 @@ _bSetLinked$ = 24
 _bUpdateEntity$ = 28
 _lpViewEntity$ = -8
 _bPersist$ = -4
-_lpAttribFlags$11711 = -12
-_lpLinked$11720 = -16
-_lpLinkedViewEntity$11726 = -20
-_lpLinkedOI$11729 = -24
+_lpAttribFlags$11712 = -12
+_lpLinked$11721 = -16
+_lpLinkedViewEntity$11727 = -20
+_lpLinkedOI$11730 = -24
 _fnSetUpdateIndicator PROC NEAR
 
 ; 10875: {
@@ -32890,18 +32890,18 @@ _fnSetUpdateIndicator PROC NEAR
 	mov	edx, DWORD PTR _bUpdated$[ebp]
 	and	edx, 255				; 000000ffH
 	test	edx, edx
-	jne	SHORT $L11704
+	jne	SHORT $L11705
 
 ; 10881:       return;
 
-	jmp	$L11725
-$L11704:
+	jmp	$L11726
+$L11705:
 
 ; 10882: 
 ; 10883:    if ( lpViewOI == 0 )
 
 	cmp	DWORD PTR _lpViewOI$[ebp], 0
-	jne	SHORT $L11705
+	jne	SHORT $L11706
 
 ; 10884:       lpViewOI = zGETPTR( lpEntityInstance->hViewOI );
 
@@ -32910,7 +32910,7 @@ $L11704:
 	push	ecx
 	call	DWORD PTR _g_pfnGetPtr
 	mov	DWORD PTR _lpViewOI$[ebp], eax
-$L11705:
+$L11706:
 
 ; 10885: 
 ; 10886:    if ( lpViewEntity->bDerived || lpViewEntity->bDerivedPath )
@@ -32920,14 +32920,14 @@ $L11705:
 	shr	eax, 13					; 0000000dH
 	and	eax, 1
 	test	eax, eax
-	jne	SHORT $L11708
+	jne	SHORT $L11709
 	mov	ecx, DWORD PTR _lpViewEntity$[ebp]
 	mov	edx, DWORD PTR [ecx+235]
 	shr	edx, 14					; 0000000eH
 	and	edx, 1
 	test	edx, edx
-	je	SHORT $L11707
-$L11708:
+	je	SHORT $L11708
+$L11709:
 
 ; 10887:       bPersist = FALSE;
 
@@ -32935,19 +32935,19 @@ $L11708:
 
 ; 10888:    else
 
-	jmp	SHORT $L11709
-$L11707:
+	jmp	SHORT $L11710
+$L11708:
 
 ; 10889:       bPersist = TRUE;
 
 	mov	BYTE PTR _bPersist$[ebp], 1
-$L11709:
+$L11710:
 
 ; 10890: 
 ; 10891:    if ( lpViewAttrib )
 
 	cmp	DWORD PTR _lpViewAttrib$[ebp], 0
-	je	SHORT $L11710
+	je	SHORT $L11711
 
 ; 10893:       LPATTRIBFLAGS lpAttribFlags;
 ; 10894: 
@@ -32957,12 +32957,12 @@ $L11709:
 	mov	eax, DWORD PTR _lpViewAttrib$[ebp]
 	movsx	ecx, BYTE PTR [eax+213]
 	test	ecx, ecx
-	je	SHORT $L11712
+	je	SHORT $L11713
 
 ; 10897:          return;
 
-	jmp	$L11725
-$L11712:
+	jmp	$L11726
+$L11713:
 
 ; 10898: 
 ; 10899:       if ( lpViewAttrib->bPersist == FALSE )
@@ -32971,7 +32971,7 @@ $L11712:
 	mov	eax, DWORD PTR [edx+193]
 	and	eax, 1
 	test	eax, eax
-	jne	SHORT $L11713
+	jne	SHORT $L11714
 
 ; 10901:          bPersist = FALSE;
 
@@ -32983,7 +32983,7 @@ $L11712:
 ; 10905:          bSetLinked = FALSE;
 
 	mov	BYTE PTR _bSetLinked$[ebp], 0
-$L11713:
+$L11714:
 
 ; 10907: 
 ; 10908:       lpAttribFlags = fnGetAttribFlagsPtr( lpEntityInstance, lpViewAttrib );
@@ -32993,19 +32993,22 @@ $L11713:
 	mov	edx, DWORD PTR _lpEntityInstance$[ebp]
 	push	edx
 	call	_fnGetAttribFlagsPtr@8
-	mov	DWORD PTR _lpAttribFlags$11711[ebp], eax
+	mov	DWORD PTR _lpAttribFlags$11712[ebp], eax
 
 ; 10909:       lpAttribFlags->u.bFlags.bUpdated = TRUE;
 
-	mov	eax, DWORD PTR _lpAttribFlags$11711[ebp]
+	mov	eax, DWORD PTR _lpAttribFlags$11712[ebp]
 	mov	ecx, DWORD PTR [eax]
 	or	ecx, 2
-	mov	edx, DWORD PTR _lpAttribFlags$11711[ebp]
+	mov	edx, DWORD PTR _lpAttribFlags$11712[ebp]
 	mov	DWORD PTR [edx], ecx
-$L11710:
+$L11711:
 
 ; 10911: 
-; 10912:    if ( fnInstanceVersioned( lpEntityInstance ) == 0 )
+; 10912:    // KJS 08/22/14 - I am confused here because fnInstanceVersioned returns 0 if there is no
+; 10913:    // versioning, so it would seem that the check should be > 0.
+; 10914:    //if ( fnInstanceVersioned( lpEntityInstance ) == 0 )
+; 10915:    if ( fnInstanceVersioned( lpEntityInstance ) > 0 )
 
 	mov	eax, DWORD PTR _lpEntityInstance$[ebp]
 	push	eax
@@ -33013,9 +33016,9 @@ $L11710:
 	add	esp, 4
 	and	eax, 255				; 000000ffH
 	test	eax, eax
-	jne	SHORT $L11714
+	jle	SHORT $L11715
 
-; 10914:       lpViewOI->bUpdatedFile = TRUE;
+; 10917:       lpViewOI->bUpdatedFile = TRUE;
 
 	mov	ecx, DWORD PTR _lpViewOI$[ebp]
 	mov	edx, DWORD PTR [ecx+36]
@@ -33023,30 +33026,30 @@ $L11710:
 	mov	eax, DWORD PTR _lpViewOI$[ebp]
 	mov	DWORD PTR [eax+36], edx
 
-; 10915: 
-; 10916:       if ( bPersist )
+; 10918: 
+; 10919:       if ( bPersist )
 
 	mov	ecx, DWORD PTR _bPersist$[ebp]
 	and	ecx, 255				; 000000ffH
 	test	ecx, ecx
-	je	SHORT $L11715
+	je	SHORT $L11716
 
-; 10917:          lpViewOI->bUpdated = TRUE;
+; 10920:          lpViewOI->bUpdated = TRUE;
 
 	mov	edx, DWORD PTR _lpViewOI$[ebp]
 	mov	eax, DWORD PTR [edx+36]
 	or	al, 16					; 00000010H
 	mov	ecx, DWORD PTR _lpViewOI$[ebp]
 	mov	DWORD PTR [ecx+36], eax
+$L11716:
+
+; 10922:    else
+
+	jmp	SHORT $L11718
 $L11715:
 
-; 10919:    else
-
-	jmp	SHORT $L11717
-$L11714:
-
-; 10921:       // The entity instance is versioned, set the version updated flags.
-; 10922:       lpEntityInstance->u.nInd.bVersionUpdFile = TRUE;
+; 10924:       // The entity instance is versioned, set the version updated flags.
+; 10925:       lpEntityInstance->u.nInd.bVersionUpdFile = TRUE;
 
 	mov	edx, DWORD PTR _lpEntityInstance$[ebp]
 	mov	eax, DWORD PTR [edx+6]
@@ -33054,32 +33057,32 @@ $L11714:
 	mov	ecx, DWORD PTR _lpEntityInstance$[ebp]
 	mov	DWORD PTR [ecx+6], eax
 
-; 10923: 
-; 10924:       if ( bPersist )
+; 10926: 
+; 10927:       if ( bPersist )
 
 	mov	edx, DWORD PTR _bPersist$[ebp]
 	and	edx, 255				; 000000ffH
 	test	edx, edx
-	je	SHORT $L11717
+	je	SHORT $L11718
 
-; 10925:          lpEntityInstance->u.nInd.bVersionUpdated = TRUE;
+; 10928:          lpEntityInstance->u.nInd.bVersionUpdated = TRUE;
 
 	mov	eax, DWORD PTR _lpEntityInstance$[ebp]
 	mov	ecx, DWORD PTR [eax+6]
 	or	ecx, 16777216				; 01000000H
 	mov	edx, DWORD PTR _lpEntityInstance$[ebp]
 	mov	DWORD PTR [edx+6], ecx
-$L11717:
+$L11718:
 
-; 10927: 
-; 10928:    if ( bUpdateEntity )
+; 10930: 
+; 10931:    if ( bUpdateEntity )
 
 	mov	eax, DWORD PTR _bUpdateEntity$[ebp]
 	and	eax, 255				; 000000ffH
 	test	eax, eax
-	je	$L11725
+	je	$L11726
 
-; 10930:       lpEntityInstance->u.nInd.bUpdated = TRUE;
+; 10933:       lpEntityInstance->u.nInd.bUpdated = TRUE;
 
 	mov	ecx, DWORD PTR _lpEntityInstance$[ebp]
 	mov	edx, DWORD PTR [ecx+6]
@@ -33087,112 +33090,112 @@ $L11717:
 	mov	eax, DWORD PTR _lpEntityInstance$[ebp]
 	mov	DWORD PTR [eax+6], edx
 
-; 10931: 
-; 10932:       //*******************************************************************
-; 10933:       //*******************************************************************
-; 10934:       // We shouldn't go through and set the update flags for linked OIs if
-; 10935:       // the lpEntityInstance is a subobject version.  Accept should do it.
-; 10936:       // This should be changed at some point.
-; 10937:       //*******************************************************************
-; 10938:       //*******************************************************************
-; 10939:       if ( bSetLinked && lpEntityInstance->hNextLinked )
+; 10934: 
+; 10935:       //*******************************************************************
+; 10936:       //*******************************************************************
+; 10937:       // We shouldn't go through and set the update flags for linked OIs if
+; 10938:       // the lpEntityInstance is a subobject version.  Accept should do it.
+; 10939:       // This should be changed at some point.
+; 10940:       //*******************************************************************
+; 10941:       //*******************************************************************
+; 10942:       if ( bSetLinked && lpEntityInstance->hNextLinked )
 
 	mov	ecx, DWORD PTR _bSetLinked$[ebp]
 	and	ecx, 255				; 000000ffH
 	test	ecx, ecx
-	je	$L11725
+	je	$L11726
 	mov	edx, DWORD PTR _lpEntityInstance$[ebp]
 	cmp	DWORD PTR [edx+42], 0
-	je	$L11725
+	je	$L11726
 
-; 10941:          LPENTITYINSTANCE lpLinked;
-; 10942: 
-; 10943:          for ( lpLinked = zGETPTR( lpEntityInstance->hNextLinked );
-; 10944:                lpLinked != lpEntityInstance;
-; 10945:                lpLinked = zGETPTR( lpLinked->hNextLinked ) )
+; 10944:          LPENTITYINSTANCE lpLinked;
+; 10945: 
+; 10946:          for ( lpLinked = zGETPTR( lpEntityInstance->hNextLinked );
+; 10947:                lpLinked != lpEntityInstance;
+; 10948:                lpLinked = zGETPTR( lpLinked->hNextLinked ) )
 
 	mov	eax, DWORD PTR _lpEntityInstance$[ebp]
 	mov	ecx, DWORD PTR [eax+42]
 	push	ecx
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpLinked$11720[ebp], eax
-	jmp	SHORT $L11723
-$L11724:
-	mov	edx, DWORD PTR _lpLinked$11720[ebp]
+	mov	DWORD PTR _lpLinked$11721[ebp], eax
+	jmp	SHORT $L11724
+$L11725:
+	mov	edx, DWORD PTR _lpLinked$11721[ebp]
 	mov	eax, DWORD PTR [edx+42]
 	push	eax
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpLinked$11720[ebp], eax
-$L11723:
-	mov	ecx, DWORD PTR _lpLinked$11720[ebp]
+	mov	DWORD PTR _lpLinked$11721[ebp], eax
+$L11724:
+	mov	ecx, DWORD PTR _lpLinked$11721[ebp]
 	cmp	ecx, DWORD PTR _lpEntityInstance$[ebp]
-	je	SHORT $L11725
+	je	SHORT $L11726
 
-; 10947:             LPVIEWENTITY lpLinkedViewEntity = zGETPTR( lpLinked->hViewEntity );
+; 10950:             LPVIEWENTITY lpLinkedViewEntity = zGETPTR( lpLinked->hViewEntity );
 
-	mov	edx, DWORD PTR _lpLinked$11720[ebp]
+	mov	edx, DWORD PTR _lpLinked$11721[ebp]
 	mov	eax, DWORD PTR [edx+2]
 	push	eax
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpLinkedViewEntity$11726[ebp], eax
+	mov	DWORD PTR _lpLinkedViewEntity$11727[ebp], eax
 
-; 10948: 
-; 10949:             lpLinked->u.nInd.bUpdated = TRUE;
+; 10951: 
+; 10952:             lpLinked->u.nInd.bUpdated = TRUE;
 
-	mov	ecx, DWORD PTR _lpLinked$11720[ebp]
+	mov	ecx, DWORD PTR _lpLinked$11721[ebp]
 	mov	edx, DWORD PTR [ecx+6]
 	or	edx, 4
-	mov	eax, DWORD PTR _lpLinked$11720[ebp]
+	mov	eax, DWORD PTR _lpLinked$11721[ebp]
 	mov	DWORD PTR [eax+6], edx
 
-; 10950: 
-; 10951:             // Now make sure the OI for the linked EI gets flagged as updated.
-; 10952:             if ( lpLinkedViewEntity->bDerived == FALSE &&
-; 10953:                  lpLinkedViewEntity->bDerivedPath == FALSE )
+; 10953: 
+; 10954:             // Now make sure the OI for the linked EI gets flagged as updated.
+; 10955:             if ( lpLinkedViewEntity->bDerived == FALSE &&
+; 10956:                  lpLinkedViewEntity->bDerivedPath == FALSE )
 
-	mov	ecx, DWORD PTR _lpLinkedViewEntity$11726[ebp]
+	mov	ecx, DWORD PTR _lpLinkedViewEntity$11727[ebp]
 	mov	edx, DWORD PTR [ecx+235]
 	shr	edx, 13					; 0000000dH
 	and	edx, 1
 	test	edx, edx
-	jne	SHORT $L11728
-	mov	eax, DWORD PTR _lpLinkedViewEntity$11726[ebp]
+	jne	SHORT $L11729
+	mov	eax, DWORD PTR _lpLinkedViewEntity$11727[ebp]
 	mov	ecx, DWORD PTR [eax+235]
 	shr	ecx, 14					; 0000000eH
 	and	ecx, 1
 	test	ecx, ecx
-	jne	SHORT $L11728
+	jne	SHORT $L11729
 
-; 10955:                LPVIEWOI lpLinkedOI = zGETPTR( lpLinked->hViewOI );
+; 10958:                LPVIEWOI lpLinkedOI = zGETPTR( lpLinked->hViewOI );
 
-	mov	edx, DWORD PTR _lpLinked$11720[ebp]
+	mov	edx, DWORD PTR _lpLinked$11721[ebp]
 	mov	eax, DWORD PTR [edx+10]
 	push	eax
 	call	DWORD PTR _g_pfnGetPtr
-	mov	DWORD PTR _lpLinkedOI$11729[ebp], eax
+	mov	DWORD PTR _lpLinkedOI$11730[ebp], eax
 
-; 10956: 
-; 10957:                lpLinkedOI->bUpdatedFile = lpLinkedOI->bUpdated = TRUE;
+; 10959: 
+; 10960:                lpLinkedOI->bUpdatedFile = lpLinkedOI->bUpdated = TRUE;
 
-	mov	ecx, DWORD PTR _lpLinkedOI$11729[ebp]
+	mov	ecx, DWORD PTR _lpLinkedOI$11730[ebp]
 	mov	edx, DWORD PTR [ecx+36]
 	or	edx, 16					; 00000010H
-	mov	eax, DWORD PTR _lpLinkedOI$11729[ebp]
+	mov	eax, DWORD PTR _lpLinkedOI$11730[ebp]
 	mov	DWORD PTR [eax+36], edx
-	mov	ecx, DWORD PTR _lpLinkedOI$11729[ebp]
+	mov	ecx, DWORD PTR _lpLinkedOI$11730[ebp]
 	mov	edx, DWORD PTR [ecx+36]
 	or	edx, 32					; 00000020H
-	mov	eax, DWORD PTR _lpLinkedOI$11729[ebp]
+	mov	eax, DWORD PTR _lpLinkedOI$11730[ebp]
 	mov	DWORD PTR [eax+36], edx
-$L11728:
+$L11729:
 
-; 10959:          }
+; 10962:          }
 
-	jmp	$L11724
-$L11725:
+	jmp	$L11725
+$L11726:
 
-; 10962: 
-; 10963: } // fnSetUpdateIndicator
+; 10965: 
+; 10966: } // fnSetUpdateIndicator
 
 	mov	esp, ebp
 	pop	ebp
@@ -33212,10 +33215,10 @@ _cpcScopingEntity$ = 24
 _d$ = -44
 _dTotal$ = -84
 _nRC$ = -4
-$T12035 = 8
+$T12036 = 8
 _zdSUM@16 PROC NEAR
 
-; 10975: {
+; 10978: {
 
 	push	ebp
 	mov	ebp, esp
@@ -33223,19 +33226,19 @@ _zdSUM@16 PROC NEAR
 	push	esi
 	push	edi
 
-; 10976:    zDECIMAL d;
-; 10977:    zDECIMAL dTotal;
-; 10978:    zSHORT   nRC;
-; 10979: 
-; 10980:    SysConvertLongToDecimal( 0L, &dTotal );
+; 10979:    zDECIMAL d;
+; 10980:    zDECIMAL dTotal;
+; 10981:    zSHORT   nRC;
+; 10982: 
+; 10983:    SysConvertLongToDecimal( 0L, &dTotal );
 
 	lea	eax, DWORD PTR _dTotal$[ebp]
 	push	eax
 	push	0
 	call	_SysConvertLongToDecimal@8
 
-; 10981: 
-; 10982:    CreateViewFromViewForTask( &vView, vView, 0 );
+; 10984: 
+; 10985:    CreateViewFromViewForTask( &vView, vView, 0 );
 
 	push	0
 	mov	ecx, DWORD PTR _vView$[ebp]
@@ -33244,10 +33247,10 @@ _zdSUM@16 PROC NEAR
 	push	edx
 	call	_CreateViewFromViewForTask@12
 
-; 10983: 
-; 10984:    for ( nRC = SetCursorFirstEntity( vView, cpcEntityName, cpcScopingEntity );
-; 10985:          nRC >= zCURSOR_SET;
-; 10986:          nRC = SetCursorNextEntity( vView, cpcEntityName, cpcScopingEntity ) )
+; 10986: 
+; 10987:    for ( nRC = SetCursorFirstEntity( vView, cpcEntityName, cpcScopingEntity );
+; 10988:          nRC >= zCURSOR_SET;
+; 10989:          nRC = SetCursorNextEntity( vView, cpcEntityName, cpcScopingEntity ) )
 
 	mov	eax, DWORD PTR _cpcScopingEntity$[ebp]
 	push	eax
@@ -33257,8 +33260,8 @@ _zdSUM@16 PROC NEAR
 	push	edx
 	call	_SetCursorFirstEntity@12
 	mov	WORD PTR _nRC$[ebp], ax
-	jmp	SHORT $L11743
-$L11744:
+	jmp	SHORT $L11744
+$L11745:
 	mov	eax, DWORD PTR _cpcScopingEntity$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _cpcEntityName$[ebp]
@@ -33267,12 +33270,12 @@ $L11744:
 	push	edx
 	call	_SetCursorNextEntity@12
 	mov	WORD PTR _nRC$[ebp], ax
-$L11743:
+$L11744:
 	movsx	eax, WORD PTR _nRC$[ebp]
 	test	eax, eax
-	jl	SHORT $L11745
+	jl	SHORT $L11746
 
-; 10988:       GetDecimalFromAttribute( &d, vView, cpcEntityName, cpcAttrName );
+; 10991:       GetDecimalFromAttribute( &d, vView, cpcEntityName, cpcAttrName );
 
 	mov	ecx, DWORD PTR _cpcAttrName$[ebp]
 	push	ecx
@@ -33284,7 +33287,7 @@ $L11743:
 	push	ecx
 	call	_GetDecimalFromAttribute@16
 
-; 10989:       SysAddDecimalToDecimal( &dTotal, &dTotal, &d );
+; 10992:       SysAddDecimalToDecimal( &dTotal, &dTotal, &d );
 
 	lea	edx, DWORD PTR _d$[ebp]
 	push	edx
@@ -33294,27 +33297,27 @@ $L11743:
 	push	ecx
 	call	_SysAddDecimalToDecimal@12
 
-; 10990:    }
+; 10993:    }
 
-	jmp	SHORT $L11744
-$L11745:
+	jmp	SHORT $L11745
+$L11746:
 
-; 10991: 
-; 10992:    DropView( vView );
+; 10994: 
+; 10995:    DropView( vView );
 
 	mov	edx, DWORD PTR _vView$[ebp]
 	push	edx
 	call	_DropView@4
 
-; 10993:    return( dTotal );
+; 10996:    return( dTotal );
 
 	mov	ecx, 10					; 0000000aH
 	lea	esi, DWORD PTR _dTotal$[ebp]
-	mov	edi, DWORD PTR $T12035[ebp]
+	mov	edi, DWORD PTR $T12036[ebp]
 	rep movsd
-	mov	eax, DWORD PTR $T12035[ebp]
+	mov	eax, DWORD PTR $T12036[ebp]
 
-; 10994: }
+; 10997: }
 
 	pop	edi
 	pop	esi
@@ -33334,20 +33337,20 @@ _lTotal$ = -8
 _nRC$ = -4
 _ziSUM@16 PROC NEAR
 
-; 11001: {
+; 11004: {
 
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 12					; 0000000cH
 
-; 11002:    zLONG   l;
-; 11003:    zLONG   lTotal = 0;
+; 11005:    zLONG   l;
+; 11006:    zLONG   lTotal = 0;
 
 	mov	DWORD PTR _lTotal$[ebp], 0
 
-; 11004:    zSHORT  nRC;
-; 11005: 
-; 11006:    CreateViewFromViewForTask( &vView, vView, 0 );
+; 11007:    zSHORT  nRC;
+; 11008: 
+; 11009:    CreateViewFromViewForTask( &vView, vView, 0 );
 
 	push	0
 	mov	eax, DWORD PTR _vView$[ebp]
@@ -33356,10 +33359,10 @@ _ziSUM@16 PROC NEAR
 	push	ecx
 	call	_CreateViewFromViewForTask@12
 
-; 11007: 
-; 11008:    for ( nRC = SetCursorFirstEntity( vView, cpcEntityName, cpcScopingEntity );
-; 11009:          nRC >= zCURSOR_SET;
-; 11010:          nRC = SetCursorNextEntity( vView, cpcEntityName, cpcScopingEntity ) )
+; 11010: 
+; 11011:    for ( nRC = SetCursorFirstEntity( vView, cpcEntityName, cpcScopingEntity );
+; 11012:          nRC >= zCURSOR_SET;
+; 11013:          nRC = SetCursorNextEntity( vView, cpcEntityName, cpcScopingEntity ) )
 
 	mov	edx, DWORD PTR _cpcScopingEntity$[ebp]
 	push	edx
@@ -33369,8 +33372,8 @@ _ziSUM@16 PROC NEAR
 	push	ecx
 	call	_SetCursorFirstEntity@12
 	mov	WORD PTR _nRC$[ebp], ax
-	jmp	SHORT $L11758
-$L11759:
+	jmp	SHORT $L11759
+$L11760:
 	mov	edx, DWORD PTR _cpcScopingEntity$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _cpcEntityName$[ebp]
@@ -33379,12 +33382,12 @@ $L11759:
 	push	ecx
 	call	_SetCursorNextEntity@12
 	mov	WORD PTR _nRC$[ebp], ax
-$L11758:
+$L11759:
 	movsx	edx, WORD PTR _nRC$[ebp]
 	test	edx, edx
-	jl	SHORT $L11760
+	jl	SHORT $L11761
 
-; 11012:       GetIntegerFromAttribute( &l, vView, cpcEntityName, cpcAttrName );
+; 11015:       GetIntegerFromAttribute( &l, vView, cpcEntityName, cpcAttrName );
 
 	mov	eax, DWORD PTR _cpcAttrName$[ebp]
 	push	eax
@@ -33396,29 +33399,29 @@ $L11758:
 	push	eax
 	call	_GetIntegerFromAttribute@16
 
-; 11013:       lTotal += l;
+; 11016:       lTotal += l;
 
 	mov	ecx, DWORD PTR _lTotal$[ebp]
 	add	ecx, DWORD PTR _l$[ebp]
 	mov	DWORD PTR _lTotal$[ebp], ecx
 
-; 11014:    }
+; 11017:    }
 
-	jmp	SHORT $L11759
-$L11760:
+	jmp	SHORT $L11760
+$L11761:
 
-; 11015: 
-; 11016:    DropView( vView );
+; 11018: 
+; 11019:    DropView( vView );
 
 	mov	edx, DWORD PTR _vView$[ebp]
 	push	edx
 	call	_DropView@4
 
-; 11017:    return( lTotal );
+; 11020:    return( lTotal );
 
 	mov	eax, DWORD PTR _lTotal$[ebp]
 
-; 11018: }
+; 11021: }
 
 	mov	esp, ebp
 	pop	ebp

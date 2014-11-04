@@ -33,7 +33,7 @@ _DATA	ENDS
 ;	COMDAT ??_C@_04FCOP@Type?$AA@
 _DATA	SEGMENT DWORD USE32 PUBLIC 'DATA'
 _DATA	ENDS
-;	COMDAT ??_C@_0BF@JCLN@Apr?522?52014?516?304?359?$AA@
+;	COMDAT ??_C@_0BF@JICA@Nov?5?54?52014?511?315?350?$AA@
 _DATA	SEGMENT DWORD USE32 PUBLIC 'DATA'
 _DATA	ENDS
 ;	COMDAT ??_C@_0CD@BONL@Compile?5date?1time?5for?5KZHSQLXX?5i@
@@ -509,7 +509,7 @@ PUBLIC	??_C@_0CB@LKIL@Can?8t?5find?5DB?9Handler?5work?5view?4@ ; `string'
 PUBLIC	??_C@_0L@PDLM@Zeidon?5DBH?$AA@			; `string'
 PUBLIC	??_C@_00A@?$AA@					; `string'
 PUBLIC	??_C@_04FCOP@Type?$AA@				; `string'
-PUBLIC	??_C@_0BF@JCLN@Apr?522?52014?516?304?359?$AA@	; `string'
+PUBLIC	??_C@_0BF@JICA@Nov?5?54?52014?511?315?350?$AA@	; `string'
 PUBLIC	??_C@_0CD@BONL@Compile?5date?1time?5for?5KZHSQLXX?5i@ ; `string'
 EXTRN	_GetViewByName@16:NEAR
 EXTRN	_CreateEntity@12:NEAR
@@ -541,9 +541,9 @@ _DATA	ENDS
 _DATA	SEGMENT
 ??_C@_04FCOP@Type?$AA@ DB 'Type', 00H			; `string'
 _DATA	ENDS
-;	COMDAT ??_C@_0BF@JCLN@Apr?522?52014?516?304?359?$AA@
+;	COMDAT ??_C@_0BF@JICA@Nov?5?54?52014?511?315?350?$AA@
 _DATA	SEGMENT
-??_C@_0BF@JCLN@Apr?522?52014?516?304?359?$AA@ DB 'Apr 22 2014 16:04:59', 00H ; `string'
+??_C@_0BF@JICA@Nov?5?54?52014?511?315?350?$AA@ DB 'Nov  4 2014 11:15:50', 00H ; `string'
 _DATA	ENDS
 ;	COMDAT ??_C@_0CD@BONL@Compile?5date?1time?5for?5KZHSQLXX?5i@
 _DATA	SEGMENT
@@ -725,7 +725,7 @@ $L57445:
 ; 863  :       TraceLineS( "Compile date/time for " DBHANDLER_NAME " is ",
 ; 864  :                   __DATE__ " " __TIME__ );
 
-	push	OFFSET FLAT:??_C@_0BF@JCLN@Apr?522?52014?516?304?359?$AA@ ; `string'
+	push	OFFSET FLAT:??_C@_0BF@JICA@Nov?5?54?52014?511?315?350?$AA@ ; `string'
 	push	OFFSET FLAT:??_C@_0CD@BONL@Compile?5date?1time?5for?5KZHSQLXX?5i@ ; `string'
 	call	_TraceLineS@8
 
@@ -12298,50 +12298,60 @@ $L58374:
 ; 6069 :                iColLth = 4;
 ; 6070 :                break;
 ; 6071 : 
-; 6072 :             case SQL_REAL:
-; 6073 :             case SQL_FLOAT:
-; 6074 :             case SQL_DOUBLE:
-; 6075 :                szDataType[ 0 ] = zTYPE_DECIMAL;
-; 6076 :                iColLth = 40;
-; 6077 :                break;
-; 6078 : 
-; 6079 :             case SQL_TYPE_DATE:
-; 6080 :             case SQL_DATE:
-; 6081 :                szDataType[ 0 ] = zTYPE_DATE;
-; 6082 :                iColLth = 4;
-; 6083 :                break;
-; 6084 : 
-; 6085 :             case SQL_TYPE_TIME:
-; 6086 :             case SQL_TIME:
-; 6087 :                szDataType[ 0 ] = zTYPE_TIME;
-; 6088 :                iColLth = 4;
-; 6089 :                break;
-; 6090 : 
-; 6091 :             case SQL_TYPE_TIMESTAMP:
-; 6092 :             case SQL_TIMESTAMP:
-; 6093 :                szDataType[ 0 ] = zTYPE_DATETIME;
-; 6094 :                iColLth = 4;
-; 6095 :                break;
-; 6096 : 
-; 6097 :             case SQL_BINARY:
-; 6098 :             case SQL_VARBINARY:
-; 6099 :             case SQL_LONGVARBINARY:
-; 6100 :                szDataType[ 0 ] = zTYPE_BLOB;
-; 6101 :                break;
-; 6102 : 
-; 6103 :             default:
-; 6104 :                TraceLineS( "Unknown datatype = ", szDataTypeName );
-; 6105 :                TraceLineI( "Datatype number = ", sDataType );
-; 6106 :                SysMessageBox( vDTE, "DGC", "Unhandled data type", 1 );
-; 6107 :                break;
-; 6108 :          }
-; 6109 : 
-; 6110 :          // Add null terminator.
-; 6111 :          szDataType[ 1 ] = 0;
+; 6072 :             case -6:  // SQL_TINYINT
+; 6073 :                szDataType[ 0 ] = zTYPE_INTEGER;
+; 6074 :                iColLth = 1;
+; 6075 :                break;
+; 6076 : 
+; 6077 :             case -5:  // SQL_BIGINT
+; 6078 :                szDataType[ 0 ] = zTYPE_INTEGER;
+; 6079 :                iColLth = 8;
+; 6080 :                break;
+; 6081 : 
+; 6082 :             case SQL_REAL:
+; 6083 :             case SQL_FLOAT:
+; 6084 :             case SQL_DOUBLE:
+; 6085 :                szDataType[ 0 ] = zTYPE_DECIMAL;
+; 6086 :                iColLth = 40;
+; 6087 :                break;
+; 6088 : 
+; 6089 :             case SQL_TYPE_DATE:
+; 6090 :             case SQL_DATE:
+; 6091 :                szDataType[ 0 ] = zTYPE_DATE;
+; 6092 :                iColLth = 4;
+; 6093 :                break;
+; 6094 : 
+; 6095 :             case SQL_TYPE_TIME:
+; 6096 :             case SQL_TIME:
+; 6097 :                szDataType[ 0 ] = zTYPE_TIME;
+; 6098 :                iColLth = 4;
+; 6099 :                break;
+; 6100 : 
+; 6101 :             case SQL_TYPE_TIMESTAMP:
+; 6102 :             case SQL_TIMESTAMP:
+; 6103 :                szDataType[ 0 ] = zTYPE_DATETIME;
+; 6104 :                iColLth = 4;
+; 6105 :                break;
+; 6106 : 
+; 6107 :             case SQL_BINARY:
+; 6108 :             case SQL_VARBINARY:
+; 6109 :             case SQL_LONGVARBINARY:
+; 6110 :                szDataType[ 0 ] = zTYPE_BLOB;
+; 6111 :                break;
 ; 6112 : 
-; 6113 : #endif
-; 6114 : 
-; 6115 :       CreateEntity( vDB, "TE_FieldDataRel", zPOS_LAST );
+; 6113 :             default:
+; 6114 :                TraceLineS( "Unknown datatype = ", szDataTypeName );
+; 6115 :                TraceLineI( "Datatype number = ", sDataType );
+; 6116 :                SysMessageBox( vDTE, "DGC", "Unhandled data type", 1 );
+; 6117 :                break;
+; 6118 :          }
+; 6119 : 
+; 6120 :          // Add null terminator.
+; 6121 :          szDataType[ 1 ] = 0;
+; 6122 : 
+; 6123 : #endif
+; 6124 : 
+; 6125 :       CreateEntity( vDB, "TE_FieldDataRel", zPOS_LAST );
 
 	push	2
 	push	OFFSET FLAT:??_C@_0BA@PJGE@TE_FieldDataRel?$AA@ ; `string'
@@ -12349,8 +12359,8 @@ $L58374:
 	push	eax
 	call	_CreateEntity@12
 
-; 6116 :       SetAttributeFromString( vDB, "TE_FieldDataRel", "Name",
-; 6117 :                               szColumnName );
+; 6126 :       SetAttributeFromString( vDB, "TE_FieldDataRel", "Name",
+; 6127 :                               szColumnName );
 
 	lea	ecx, DWORD PTR _szColumnName$[ebp]
 	push	ecx
@@ -12360,8 +12370,8 @@ $L58374:
 	push	edx
 	call	_SetAttributeFromString@16
 
-; 6118 :       SetAttributeFromInteger( vDB, "TE_FieldDataRel", "Length",
-; 6119 :                                iColLth );
+; 6128 :       SetAttributeFromInteger( vDB, "TE_FieldDataRel", "Length",
+; 6129 :                                iColLth );
 
 	mov	eax, DWORD PTR _iColLth$[ebp]
 	push	eax
@@ -12371,8 +12381,8 @@ $L58374:
 	push	ecx
 	call	_SetAttributeFromInteger@16
 
-; 6120 :       SetAttributeFromString( vDB, "TE_FieldDataRel", "DataType",
-; 6121 :                               szDataType );
+; 6130 :       SetAttributeFromString( vDB, "TE_FieldDataRel", "DataType",
+; 6131 :                               szDataType );
 
 	lea	edx, DWORD PTR _szDataType$58376[ebp]
 	push	edx
@@ -12382,29 +12392,29 @@ $L58374:
 	push	eax
 	call	_SetAttributeFromString@16
 
-; 6122 :    }
+; 6132 :    }
 
 	jmp	SHORT $L58374
 $L58375:
 
-; 6123 : 
-; 6124 : #if defined( DB2 ) || defined( ODBC )
-; 6125 : 
-; 6126 :       nRC = SQLCloseCursor( lpConnection->hstmt );
-; 6127 :       SQL_RC( "SQLCloseCursor", nRC, 0, 0, 2 );
-; 6128 : 
-; 6129 : #endif
-; 6130 : 
-; 6131 :    } // For each Table
+; 6133 : 
+; 6134 : #if defined( DB2 ) || defined( ODBC )
+; 6135 : 
+; 6136 :       nRC = SQLCloseCursor( lpConnection->hstmt );
+; 6137 :       SQL_RC( "SQLCloseCursor", nRC, 0, 0, 2 );
+; 6138 : 
+; 6139 : #endif
+; 6140 : 
+; 6141 :    } // For each Table
 
 	jmp	$L58371
 $L58372:
 
-; 6132 : 
-; 6133 :    // Load Indexes.
-; 6134 :    for ( nRC = SetCursorFirstEntity( vDB, "TE_TablRec", 0 );
-; 6135 :          nRC >= zCURSOR_SET;
-; 6136 :          nRC = SetCursorNextEntity( vDB, "TE_TablRec", 0 ) )
+; 6142 : 
+; 6143 :    // Load Indexes.
+; 6144 :    for ( nRC = SetCursorFirstEntity( vDB, "TE_TablRec", 0 );
+; 6145 :          nRC >= zCURSOR_SET;
+; 6146 :          nRC = SetCursorNextEntity( vDB, "TE_TablRec", 0 ) )
 
 	push	0
 	push	OFFSET FLAT:??_C@_0L@NCMM@TE_TablRec?$AA@ ; `string'
@@ -12425,7 +12435,7 @@ $L58381:
 	test	eax, eax
 	jl	$L58383
 
-; 6138 :       GetStringFromAttribute( szTableName, vDB, "TE_TablRec", "Name" );
+; 6148 :       GetStringFromAttribute( szTableName, vDB, "TE_TablRec", "Name" );
 
 	push	OFFSET FLAT:??_C@_04EFNI@Name?$AA@	; `string'
 	push	OFFSET FLAT:??_C@_0L@NCMM@TE_TablRec?$AA@ ; `string'
@@ -12436,45 +12446,45 @@ $L58381:
 	call	_GetStringFromAttribute@16
 $L58385:
 
-; 6139 : 
-; 6140 : #if defined( DB2 ) || defined( ODBC )
-; 6141 :       nRC = SQLStatistics( lpConnection->hstmt, 0, 0, 0, 0, szTableName,
-; 6142 :                         SQL_NTS, SQL_INDEX_ALL, 0 );
-; 6143 :       SQL_RC( "SQLStatistics", nRC, "Get index list", 0, 1 );
-; 6144 : 
-; 6145 :       SQLBindCol( lpConnection->hstmt, 5, SQL_C_CHAR, szIndexQual,
-; 6146 :                   STR_LEN, &cbTableNameLth );
-; 6147 :       SQLBindCol( lpConnection->hstmt, 6, SQL_C_CHAR, szIndexName,
-; 6148 :                   STR_LEN, &cbIndexNameLth );
-; 6149 :       SQLBindCol( lpConnection->hstmt, 9, SQL_C_CHAR, szColumnName,
-; 6150 :                   STR_LEN, &cbColumnNameLth );
-; 6151 :       SQLBindCol( lpConnection->hstmt, 11, SQL_C_SLONG, &iCardinality,
-; 6152 :                   0, &cbCardinality );
-; 6153 : 
-; 6154 : #endif
-; 6155 : 
-; 6156 :       while ( TRUE )
+; 6149 : 
+; 6150 : #if defined( DB2 ) || defined( ODBC )
+; 6151 :       nRC = SQLStatistics( lpConnection->hstmt, 0, 0, 0, 0, szTableName,
+; 6152 :                         SQL_NTS, SQL_INDEX_ALL, 0 );
+; 6153 :       SQL_RC( "SQLStatistics", nRC, "Get index list", 0, 1 );
+; 6154 : 
+; 6155 :       SQLBindCol( lpConnection->hstmt, 5, SQL_C_CHAR, szIndexQual,
+; 6156 :                   STR_LEN, &cbTableNameLth );
+; 6157 :       SQLBindCol( lpConnection->hstmt, 6, SQL_C_CHAR, szIndexName,
+; 6158 :                   STR_LEN, &cbIndexNameLth );
+; 6159 :       SQLBindCol( lpConnection->hstmt, 9, SQL_C_CHAR, szColumnName,
+; 6160 :                   STR_LEN, &cbColumnNameLth );
+; 6161 :       SQLBindCol( lpConnection->hstmt, 11, SQL_C_SLONG, &iCardinality,
+; 6162 :                   0, &cbCardinality );
+; 6163 : 
+; 6164 : #endif
+; 6165 : 
+; 6166 :       while ( TRUE )
 
 	mov	eax, 1
 	test	eax, eax
 	je	$L58386
 
-; 6158 : #if defined( DB2 ) || defined( ODBC )
-; 6159 : 
-; 6160 :          nRC = SQLFetch( lpConnection->hstmt );
-; 6161 :          SQL_RC( "SQLFetch", nRC, "Fetch column name", 0, 1 );
-; 6162 :          if ( !RC_SUCCESSFUL( nRC ) )
-; 6163 :             break;
-; 6164 : 
-; 6165 :          // If index name is null, then the current row is a "stat" table
-; 6166 :          // so we'll ignore it.
-; 6167 :          if ( cbIndexNameLth == SQL_NULL_DATA )
-; 6168 :             continue;
-; 6169 : #endif
-; 6170 : 
-; 6171 :          // Does the index already exist?
-; 6172 :          if ( SetCursorFirstEntityByString( vDB, "TE_TablRecKey", "IndexName",
-; 6173 :                                             szIndexName, 0 ) < zCURSOR_SET )
+; 6168 : #if defined( DB2 ) || defined( ODBC )
+; 6169 : 
+; 6170 :          nRC = SQLFetch( lpConnection->hstmt );
+; 6171 :          SQL_RC( "SQLFetch", nRC, "Fetch column name", 0, 1 );
+; 6172 :          if ( !RC_SUCCESSFUL( nRC ) )
+; 6173 :             break;
+; 6174 : 
+; 6175 :          // If index name is null, then the current row is a "stat" table
+; 6176 :          // so we'll ignore it.
+; 6177 :          if ( cbIndexNameLth == SQL_NULL_DATA )
+; 6178 :             continue;
+; 6179 : #endif
+; 6180 : 
+; 6181 :          // Does the index already exist?
+; 6182 :          if ( SetCursorFirstEntityByString( vDB, "TE_TablRecKey", "IndexName",
+; 6183 :                                             szIndexName, 0 ) < zCURSOR_SET )
 
 	push	0
 	lea	ecx, DWORD PTR _szIndexName$[ebp]
@@ -12488,7 +12498,7 @@ $L58385:
 	test	eax, eax
 	jge	SHORT $L58387
 
-; 6175 :             CreateEntity( vDB, "TE_TablRecKey", zPOS_LAST );
+; 6185 :             CreateEntity( vDB, "TE_TablRecKey", zPOS_LAST );
 
 	push	2
 	push	OFFSET FLAT:??_C@_0O@LKEB@TE_TablRecKey?$AA@ ; `string'
@@ -12496,7 +12506,7 @@ $L58385:
 	push	ecx
 	call	_CreateEntity@12
 
-; 6176 :             SetAttributeFromString( vDB, "TE_TablRecKey", "IndexName", szIndexName );
+; 6186 :             SetAttributeFromString( vDB, "TE_TablRecKey", "IndexName", szIndexName );
 
 	lea	edx, DWORD PTR _szIndexName$[ebp]
 	push	edx
@@ -12506,8 +12516,8 @@ $L58385:
 	push	eax
 	call	_SetAttributeFromString@16
 
-; 6177 :             SetAttributeFromString( vDB, "TE_TablRecKey", "Name",
-; 6178 :                                     "Retrieved From DB" );
+; 6187 :             SetAttributeFromString( vDB, "TE_TablRecKey", "Name",
+; 6188 :                                     "Retrieved From DB" );
 
 	push	OFFSET FLAT:??_C@_0BC@JFAB@Retrieved?5From?5DB?$AA@ ; `string'
 	push	OFFSET FLAT:??_C@_04EFNI@Name?$AA@	; `string'
@@ -12517,10 +12527,10 @@ $L58385:
 	call	_SetAttributeFromString@16
 $L58387:
 
-; 6180 : 
-; 6181 :          // Find the column in the column list.
-; 6182 :          if ( SetCursorFirstEntityByString( vDB, "TE_FieldDataRel", "Name",
-; 6183 :                                             szColumnName, 0 ) >= zCURSOR_SET )
+; 6190 : 
+; 6191 :          // Find the column in the column list.
+; 6192 :          if ( SetCursorFirstEntityByString( vDB, "TE_FieldDataRel", "Name",
+; 6193 :                                             szColumnName, 0 ) >= zCURSOR_SET )
 
 	push	0
 	lea	edx, DWORD PTR _szColumnName$[ebp]
@@ -12534,8 +12544,8 @@ $L58387:
 	test	ecx, ecx
 	jl	SHORT $L58392
 
-; 6185 :             IncludeSubobjectFromSubobject( vDB, "TE_FieldDataRelKey",
-; 6186 :                                            vDB, "TE_FieldDataRel", zPOS_LAST );
+; 6195 :             IncludeSubobjectFromSubobject( vDB, "TE_FieldDataRelKey",
+; 6196 :                                            vDB, "TE_FieldDataRel", zPOS_LAST );
 
 	push	2
 	push	OFFSET FLAT:??_C@_0BA@PJGE@TE_FieldDataRel?$AA@ ; `string'
@@ -12547,38 +12557,38 @@ $L58387:
 	call	_IncludeSubobjectFromSubobject@20
 $L58392:
 
-; 6188 :       }
+; 6198 :       }
 
 	jmp	$L58385
 $L58386:
 
-; 6189 : 
-; 6190 : #if defined( DB2 ) || defined( ODBC )
-; 6191 : 
-; 6192 :       nRC = SQLCloseCursor( lpConnection->hstmt );
-; 6193 :       SQL_RC( "SQLCloseCursor", nRC, 0, 0, 2 );
-; 6194 : 
-; 6195 : #endif
-; 6196 : 
-; 6197 :    } // For each Table
+; 6199 : 
+; 6200 : #if defined( DB2 ) || defined( ODBC )
+; 6201 : 
+; 6202 :       nRC = SQLCloseCursor( lpConnection->hstmt );
+; 6203 :       SQL_RC( "SQLCloseCursor", nRC, 0, 0, 2 );
+; 6204 : 
+; 6205 : #endif
+; 6206 : 
+; 6207 :    } // For each Table
 
 	jmp	$L58382
 $L58383:
 
-; 6198 : 
-; 6199 : #if defined( DB2 ) || defined( ODBC )
-; 6200 : 
-; 6201 :    SQLFreeHandle( SQL_HANDLE_STMT, (SQLHANDLE) lpConnection->hstmt );
-; 6202 :    SQLFreeHandle( SQL_HANDLE_DBC,  (SQLHANDLE) lpConnection->hdbc );
-; 6203 :    SQLFreeHandle( SQL_HANDLE_ENV,  (SQLHANDLE) lpConnection->henv);
-; 6204 : 
-; 6205 : #endif
-; 6206 : 
-; 6207 :    return( 0 );
+; 6208 : 
+; 6209 : #if defined( DB2 ) || defined( ODBC )
+; 6210 : 
+; 6211 :    SQLFreeHandle( SQL_HANDLE_STMT, (SQLHANDLE) lpConnection->hstmt );
+; 6212 :    SQLFreeHandle( SQL_HANDLE_DBC,  (SQLHANDLE) lpConnection->hdbc );
+; 6213 :    SQLFreeHandle( SQL_HANDLE_ENV,  (SQLHANDLE) lpConnection->henv);
+; 6214 : 
+; 6215 : #endif
+; 6216 : 
+; 6217 :    return( 0 );
 
 	xor	ax, ax
 
-; 6208 : }
+; 6218 : }
 
 	pop	edi
 	mov	esp, ebp

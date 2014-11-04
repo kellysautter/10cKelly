@@ -1401,6 +1401,9 @@ _DATA	ENDS
 ;	COMDAT ??_C@_02IALC@z_?$AA@
 _DATA	SEGMENT DWORD USE32 PUBLIC 'DATA'
 _DATA	ENDS
+;	COMDAT ??_C@_0CA@CEEE@TranslateNamesToLowerUnderscore?$AA@
+_DATA	SEGMENT DWORD USE32 PUBLIC 'DATA'
+_DATA	ENDS
 ;	COMDAT ??_C@_02IKBN@B_?$AA@
 _DATA	SEGMENT DWORD USE32 PUBLIC 'DATA'
 _DATA	ENDS
@@ -3742,7 +3745,7 @@ _vTZTEDBLO$ = -272
 _vTZDBHODO$ = -276
 _bTimestampAsString$ = -328
 _l$31017 = -332
-_szTableName$31055 = -664
+_szTableName$31055 = -668
 _szMsg$31056 = -632
 _fnBuildColumn@12 PROC NEAR
 
@@ -3750,7 +3753,7 @@ _fnBuildColumn@12 PROC NEAR
 
 	push	ebp
 	mov	ebp, esp
-	sub	esp, 668				; 0000029cH
+	sub	esp, 672				; 000002a0H
 
 ; 1916 :    zCHAR    szColName[ MAX_NAME_LTH + 1 ];
 ; 1917 :    zPCHAR   pchDataType;
@@ -3758,7 +3761,7 @@ _fnBuildColumn@12 PROC NEAR
 ; 1919 :    zLONG    nLth;
 ; 1920 :    zUSHORT  nMaxColumnNameLth = MAX_COLUMNNAME_LTH;
 
-	mov	WORD PTR _nMaxColumnNameLth$[ebp], 18	; 00000012H
+	mov	WORD PTR _nMaxColumnNameLth$[ebp], 32	; 00000020H
 
 ; 1921 :    zCHAR    szDBH_DataObjectName[ zZEIDON_NAME_LTH + 1 ];
 ; 1922 :    zVIEW    vDBH_Data;
@@ -4188,16 +4191,16 @@ $L31028:
 
 	mov	edx, DWORD PTR _pchDataType$[ebp]
 	movsx	eax, BYTE PTR [edx]
-	mov	DWORD PTR -668+[ebp], eax
-	mov	ecx, DWORD PTR -668+[ebp]
+	mov	DWORD PTR -672+[ebp], eax
+	mov	ecx, DWORD PTR -672+[ebp]
 	sub	ecx, 66					; 00000042H
-	mov	DWORD PTR -668+[ebp], ecx
-	cmp	DWORD PTR -668+[ebp], 22		; 00000016H
+	mov	DWORD PTR -672+[ebp], ecx
+	cmp	DWORD PTR -672+[ebp], 22		; 00000016H
 	ja	$L31054
-	mov	eax, DWORD PTR -668+[ebp]
+	mov	eax, DWORD PTR -672+[ebp]
 	xor	edx, edx
-	mov	dl, BYTE PTR $L32317[eax]
-	jmp	DWORD PTR $L32318[edx*4]
+	mov	dl, BYTE PTR $L32363[eax]
+	jmp	DWORD PTR $L32364[edx*4]
 $L31037:
 
 ; 2155 :       case zTYPE_STRING:
@@ -4730,7 +4733,7 @@ $L30999:
 	mov	esp, ebp
 	pop	ebp
 	ret	12					; 0000000cH
-$L32318:
+$L32364:
 	DD	$L31040
 	DD	$L31048
 	DD	$L31037
@@ -4741,7 +4744,7 @@ $L32318:
 	DD	$L31050
 	DD	$L31052
 	DD	$L31054
-$L32317:
+$L32363:
 	DB	0
 	DB	9
 	DB	1
@@ -4863,27 +4866,27 @@ _DATA	ENDS
 _TEXT	SEGMENT
 _vDTE$ = 8
 _f$ = 12
-_szLine$ = -800
-_pch$ = -36
-_szKeyName$ = -296
-_szOwner$ = -32
-_szTableName$ = -880
-_pchDefaultOwner$ = -848
-_szWorkIdxName$ = -1400
-_szDBH_DataObjectName$ = -844
-_nMaxTableNameLth$ = -40
-_lZKey$ = -884
-_vDBH_Data$ = -808
-_vTZTEDBLO$ = -300
-_vTZDBHODO$ = -804
-_l$31096 = -1404
+_szLine$ = -804
+_pch$ = -40
+_szKeyName$ = -300
+_szOwner$ = -36
+_szTableName$ = -888
+_pchDefaultOwner$ = -852
+_szWorkIdxName$ = -1408
+_szDBH_DataObjectName$ = -848
+_nMaxTableNameLth$ = -44
+_lZKey$ = -892
+_vDBH_Data$ = -812
+_vTZTEDBLO$ = -304
+_vTZDBHODO$ = -808
+_l$31096 = -1412
 _fnBuildFK_Index@8 PROC NEAR
 
 ; 2469 : {
 
 	push	ebp
 	mov	ebp, esp
-	sub	esp, 1404				; 0000057cH
+	sub	esp, 1412				; 00000584H
 
 ; 2470 :    zCHAR    szLine[ 500 ];
 ; 2471 :    zPCHAR   pch;
@@ -4895,7 +4898,7 @@ _fnBuildFK_Index@8 PROC NEAR
 ; 2477 :    zCHAR    szDBH_DataObjectName[ zZEIDON_NAME_LTH + 1 ];
 ; 2478 :    zUSHORT  nMaxTableNameLth = MAX_TABLENAME_LTH;
 
-	mov	WORD PTR _nMaxTableNameLth$[ebp], 30	; 0000001eH
+	mov	WORD PTR _nMaxTableNameLth$[ebp], 32	; 00000020H
 
 ; 2479 :    zLONG    lZKey;
 ; 2480 :    zVIEW    vDBH_Data;
@@ -5430,29 +5433,29 @@ _TEXT	SEGMENT
 _vDTE$ = 8
 _bUnique$ = 12
 _f$ = 16
-_nLoop$ = -296
-_szLine$ = -800
-_szOwner$ = -288
-_pchDefaultOwner$ = -1104
-_szDBH_DataObjectName$ = -844
-_nMaxTableNameLth$ = -292
-_vDBH_Data$ = -808
-_vTZTEDBLO$ = -300
-_vTZDBHODO$ = -804
-_szTableName$ = -1100
+_nLoop$ = -300
+_szLine$ = -804
+_szOwner$ = -292
+_pchDefaultOwner$ = -1108
+_szDBH_DataObjectName$ = -848
+_nMaxTableNameLth$ = -296
+_vDBH_Data$ = -812
+_vTZTEDBLO$ = -304
+_vTZDBHODO$ = -808
+_szTableName$ = -1104
 _szName$ = -256
-_szWorkIdxName$ = -1620
-_l$31148 = -1624
-_pch$31155 = -1628
-_szEntityName$31161 = -1884
-_lZKey$31162 = -1888
+_szWorkIdxName$ = -1624
+_l$31148 = -1628
+_pch$31155 = -1632
+_szEntityName$31161 = -1888
+_lZKey$31162 = -1892
 _fnBuildIndexFromTablRecKey@12 PROC NEAR
 
 ; 2589 : {
 
 	push	ebp
 	mov	ebp, esp
-	sub	esp, 1888				; 00000760H
+	sub	esp, 1892				; 00000764H
 
 ; 2590 :    zSHORT   nLoop;
 ; 2591 :    zCHAR    szLine[ 500 ];
@@ -5461,7 +5464,7 @@ _fnBuildIndexFromTablRecKey@12 PROC NEAR
 ; 2594 :    zCHAR    szDBH_DataObjectName[ zZEIDON_NAME_LTH + 1 ];
 ; 2595 :    zUSHORT  nMaxTableNameLth = MAX_TABLENAME_LTH;
 
-	mov	WORD PTR _nMaxTableNameLth$[ebp], 30	; 0000001eH
+	mov	WORD PTR _nMaxTableNameLth$[ebp], 32	; 00000020H
 
 ; 2596 :    zVIEW    vDBH_Data;
 ; 2597 :    zVIEW    vTZTEDBLO;
@@ -6273,26 +6276,26 @@ _DATA	ENDS
 _TEXT	SEGMENT
 _vDTE$ = 8
 _f$ = 12
-_szTableName$ = -612
-_pch$ = -36
-_pchEnd$ = -352
-_pchDefaultOwner$ = -356
-_szLine$ = -304
-_szOwner$ = -32
-_szDBH_DataObjectName$ = -348
-_nLoop$ = -44
-_vDBH_Data$ = -312
-_vTZTEDBLO$ = -48
-_vTZDBHODO$ = -308
-_nMaxTableNameLth$ = -40
-_l$31216 = -616
+_szTableName$ = -616
+_pch$ = -40
+_pchEnd$ = -356
+_pchDefaultOwner$ = -360
+_szLine$ = -308
+_szOwner$ = -36
+_szDBH_DataObjectName$ = -352
+_nLoop$ = -48
+_vDBH_Data$ = -316
+_vTZTEDBLO$ = -52
+_vTZDBHODO$ = -312
+_nMaxTableNameLth$ = -44
+_l$31216 = -620
 _fnBuildCreateTable@8 PROC NEAR
 
 ; 2788 : {
 
 	push	ebp
 	mov	ebp, esp
-	sub	esp, 616				; 00000268H
+	sub	esp, 620				; 0000026cH
 
 ; 2789 :    zCHAR    szTableName[ MAX_NAME_LTH + 1 ];
 ; 2790 :    zPCHAR   pch;
@@ -6313,7 +6316,7 @@ _fnBuildCreateTable@8 PROC NEAR
 
 ; 2800 :    zUSHORT  nMaxTableNameLth = MAX_TABLENAME_LTH;
 
-	mov	WORD PTR _nMaxTableNameLth$[ebp], 30	; 0000001eH
+	mov	WORD PTR _nMaxTableNameLth$[ebp], 32	; 00000020H
 
 ; 2801 : 
 ; 2802 :    // If it exists get the object that defines the dbhandler type.
@@ -6939,43 +6942,43 @@ _vEMD$ = 12
 _pchFileName$ = 16
 _vSubtask$ = 20
 _pchTableName$ = -4
-_pchDatabaseName$ = -1416
-_pch$ = -48
-_f$ = -1100
-_szLine$ = -1096
-_nLth$ = -312
-_nRC$ = -316
-_nRCTable$ = -308
-_nLoop$ = -836
-_vTZTEDBLO$ = -840
-_vDBH_Data$ = -1108
-_szDBH_DataObjectName$ = -1148
-_nMaxTableNameLth$ = -832
-_szTableName$ = -1412
-_szEntityName$ = -304
-_pchDefaultOwner$ = -1156
-_szOwner$ = -44
-_pchGenCreateIdxs$ = -1152
+_pchDatabaseName$ = -1420
+_pch$ = -52
+_f$ = -1104
+_szLine$ = -1100
+_nLth$ = -316
+_nRC$ = -320
+_nRCTable$ = -312
+_nLoop$ = -840
+_vTZTEDBLO$ = -844
+_vDBH_Data$ = -1112
+_szDBH_DataObjectName$ = -1152
+_nMaxTableNameLth$ = -836
+_szTableName$ = -1416
+_szEntityName$ = -308
+_pchDefaultOwner$ = -1160
+_szOwner$ = -48
+_pchGenCreateIdxs$ = -1156
 _pchGenDropIdxs$ = -12
-_pchGenCreateTables$ = -1112
+_pchGenCreateTables$ = -1116
 _pchGenDropTables$ = -8
-_szMsg$ = -828
-_vTZDBHODO$ = -1104
-_l$31282 = -1420
-_usForeignKeyCntForTable$31303 = -1424
-_szName$31313 = -1680
-_szWorkIdxName$31314 = -2196
-_szKeyName$31322 = -2456
-_pchKeyType$31323 = -2200
-_szWorkIdxName$31324 = -2972
-_pchKeyType$31359 = -2976
+_szMsg$ = -832
+_vTZDBHODO$ = -1108
+_l$31282 = -1424
+_usForeignKeyCntForTable$31303 = -1428
+_szName$31313 = -1684
+_szWorkIdxName$31314 = -2200
+_szKeyName$31322 = -2460
+_pchKeyType$31323 = -2204
+_szWorkIdxName$31324 = -2976
+_pchKeyType$31359 = -2980
 _BuildDDL@16 PROC NEAR
 
 ; 2944 : {
 
 	push	ebp
 	mov	ebp, esp
-	sub	esp, 2976				; 00000ba0H
+	sub	esp, 2980				; 00000ba4H
 
 ; 2945 :    zPCHAR   pchTableName;
 ; 2946 :    zPCHAR   pchDatabaseName;
@@ -7000,7 +7003,7 @@ _BuildDDL@16 PROC NEAR
 ; 2956 :    zCHAR    szDBH_DataObjectName[ zZEIDON_NAME_LTH + 1 ];
 ; 2957 :    zUSHORT  nMaxTableNameLth = MAX_TABLENAME_LTH;
 
-	mov	WORD PTR _nMaxTableNameLth$[ebp], 30	; 0000001eH
+	mov	WORD PTR _nMaxTableNameLth$[ebp], 32	; 00000020H
 
 ; 2958 :    zCHAR    szTableName[ MAX_NAME_LTH + 1 ];
 ; 2959 :    zCHAR    szEntityName[ MAX_NAME_LTH + 1 ];
@@ -8990,48 +8993,48 @@ _vDTE$ = 8
 _vEMD$ = 12
 _pchFileName$ = 20
 _vSubtask$ = 24
-_hLibrary$ = -52
-_f$ = -860
-_pfn$ = -64
+_hLibrary$ = -56
+_f$ = -868
+_pfn$ = -68
 _vDB$ = -8
 _vBoth$ = -16
-_szDLL$ = -356
-_szTableName$ = -912
-_szColumnName$ = -96
-_szOwner$ = -48
-_szLine$ = -856
-_pchDefaultOwner$ = -880
-_pchDBName$ = -868
-_pchDBDesc$ = -876
-_k$ = -872
-_nRC$ = -60
-_nLth$ = -56
+_szDLL$ = -364
+_szTableName$ = -924
+_szColumnName$ = -104
+_szOwner$ = -52
+_szLine$ = -864
+_pchDefaultOwner$ = -888
+_pchDBName$ = -876
+_pchDBDesc$ = -884
+_k$ = -880
+_nRC$ = -64
+_nLth$ = -60
 _nReturn$ = -4
-_bTableDropped$ = -864
-_pchTableName$31445 = -916
-_lDB_Lth$31450 = -936
-_lDTE_Lth$31451 = -932
-_szDB_Type$31452 = -928
-_szDTE_Type$31453 = -948
-_pchColName$31454 = -952
-_pchKeyType$31483 = -956
-_bFirstAlterOfTable$31491 = -960
-_pchMatchFound$31496 = -964
-_pchKeyType$31498 = -968
-_szEntityName$31500 = -1004
-_bFirstAlterForTable$31519 = -1008
-_nIndexDroppedCount$31526 = -1012
-_szEntityName$31529 = -1048
-_szIndex$31535 = -1080
-_pchKeyType$31541 = -1084
-_szMsg$31553 = -2084
+_bTableDropped$ = -872
+_pchTableName$31445 = -928
+_lDB_Lth$31450 = -948
+_lDTE_Lth$31451 = -944
+_szDB_Type$31452 = -940
+_szDTE_Type$31453 = -960
+_pchColName$31454 = -964
+_pchKeyType$31483 = -968
+_bFirstAlterOfTable$31491 = -972
+_pchMatchFound$31496 = -976
+_pchKeyType$31498 = -980
+_szEntityName$31500 = -1016
+_bFirstAlterForTable$31520 = -1020
+_nIndexDroppedCount$31527 = -1024
+_szEntityName$31530 = -1060
+_szIndex$31536 = -1096
+_pchKeyType$31542 = -1100
+_szMsg$31554 = -2100
 _BuildSyncDDL@20 PROC NEAR
 
 ; 3454 : {
 
 	push	ebp
 	mov	ebp, esp
-	sub	esp, 2092				; 0000082cH
+	sub	esp, 2108				; 0000083cH
 
 ; 3455 :    LPLIBRARY hLibrary;
 ; 3456 :    zLONG     f = -1;
@@ -9635,12 +9638,12 @@ $L31455:
 ; 3600 :             {
 
 	mov	al, BYTE PTR _szDB_Type$31452[ebp]
-	mov	BYTE PTR -2088+[ebp], al
-	cmp	BYTE PTR -2088+[ebp], 68		; 00000044H
+	mov	BYTE PTR -2104+[ebp], al
+	cmp	BYTE PTR -2104+[ebp], 68		; 00000044H
 	je	SHORT $L31460
-	cmp	BYTE PTR -2088+[ebp], 73		; 00000049H
+	cmp	BYTE PTR -2104+[ebp], 73		; 00000049H
 	je	SHORT $L31460
-	cmp	BYTE PTR -2088+[ebp], 84		; 00000054H
+	cmp	BYTE PTR -2104+[ebp], 84		; 00000054H
 	je	SHORT $L31460
 	jmp	SHORT $L31457
 $L31460:
@@ -9685,16 +9688,16 @@ $L31461:
 	movsx	eax, BYTE PTR _szDB_Type$31452[ebp]
 	movsx	ecx, BYTE PTR _szDTE_Type$31453[ebp]
 	cmp	eax, ecx
-	jne	SHORT $L32326
+	jne	SHORT $L32372
 	lea	edx, DWORD PTR _szDTE_Type$31453[ebp]
 	push	edx
 	lea	eax, DWORD PTR _szDB_Type$31452[ebp]
 	push	eax
 	call	_strcmp
 	add	esp, 8
-	mov	DWORD PTR -2092+[ebp], eax
-	jmp	SHORT $L32327
-$L32326:
+	mov	DWORD PTR -2108+[ebp], eax
+	jmp	SHORT $L32373
+$L32372:
 	movsx	ecx, BYTE PTR _szDB_Type$31452[ebp]
 	movsx	edx, BYTE PTR _szDTE_Type$31453[ebp]
 	sub	ecx, edx
@@ -9704,9 +9707,9 @@ $L32326:
 	dec	eax
 	and	eax, 2
 	add	eax, -1
-	mov	DWORD PTR -2092+[ebp], eax
-$L32327:
-	cmp	DWORD PTR -2092+[ebp], 0
+	mov	DWORD PTR -2108+[ebp], eax
+$L32373:
+	cmp	DWORD PTR -2108+[ebp], 0
 	je	SHORT $L31469
 $L31470:
 
@@ -10099,7 +10102,7 @@ $L31493:
 	mov	ecx, DWORD PTR _pchMatchFound$31496[ebp]
 	movsx	edx, BYTE PTR [ecx]
 	cmp	edx, 78					; 0000004eH
-	jne	$L31507
+	jne	$L31508
 
 ; 3724 :             zPCHAR pchKeyType;
 ; 3725 : 
@@ -10109,7 +10112,7 @@ $L31493:
 	mov	eax, DWORD PTR _bFirstAlterOfTable$31491[ebp]
 	and	eax, 255				; 000000ffH
 	test	eax, eax
-	je	$L31503
+	je	$L31504
 
 ; 3729 :                zCHAR szEntityName[ zZEIDON_NAME_LTH + 1 ];
 ; 3730 : 
@@ -10117,48 +10120,287 @@ $L31493:
 
 	mov	BYTE PTR _bFirstAlterOfTable$31491[ebp], 0
 
-; 3732 :                GetStringFromAttribute( szEntityName, vDTE, "ER_Entity", "Name" );
+; 3732 : 
+; 3733 : 			   // KJS 10/16/14 - When I have selected "Keep Physical Characteristics..." for the datasource, and the
+; 3734 : 			   // rebuild tables/rels and then "Build Sync DDL", I get to this point and have TE_TablRecs where there
+; 3735 : 			   // is no ER_ENTITY. I am not sure why I don't seem to get that when "Keep ..." is not set.
+; 3736 : 			   if ( CheckExistenceOfEntity( vDTE, "ER_Entity" ) == zCURSOR_SET )
 
-	push	OFFSET FLAT:??_C@_04EFNI@Name?$AA@	; `string'
 	push	OFFSET FLAT:??_C@_09CNO@ER_Entity?$AA@	; `string'
 	mov	ecx, DWORD PTR _vDTE$[ebp]
 	push	ecx
-	lea	edx, DWORD PTR _szEntityName$31500[ebp]
-	push	edx
+	call	_CheckExistenceOfEntity@8
+	movsx	edx, ax
+	test	edx, edx
+	jne	SHORT $L31504
+
+; 3738 :                GetStringFromAttribute( szEntityName, vDTE, "ER_Entity", "Name" );
+
+	push	OFFSET FLAT:??_C@_04EFNI@Name?$AA@	; `string'
+	push	OFFSET FLAT:??_C@_09CNO@ER_Entity?$AA@	; `string'
+	mov	eax, DWORD PTR _vDTE$[ebp]
+	push	eax
+	lea	ecx, DWORD PTR _szEntityName$31500[ebp]
+	push	ecx
 	call	_GetStringFromAttribute@16
 
-; 3733 : 
-; 3734 :                if ( fnWriteLine( vDTE, f, "" ) < 0 )
+; 3739 : 
+; 3740 :                if ( fnWriteLine( vDTE, f, "" ) < 0 )
 
 	push	OFFSET FLAT:??_C@_00A@?$AA@		; `string'
+	mov	edx, DWORD PTR _f$[ebp]
+	push	edx
+	mov	eax, DWORD PTR _vDTE$[ebp]
+	push	eax
+	call	_SysWriteLine@12
+	test	eax, eax
+	jge	SHORT $L31502
+
+; 3741 :                   goto EndOfFunction;
+
+	jmp	$EndOfFunction$31427
+$L31502:
+
+; 3742 : 
+; 3743 :                zsprintf( szLine, "%s Entity %s %s",
+; 3744 :                          COMMENT_START, szEntityName, COMMENT_END );
+
+	push	OFFSET FLAT:??_C@_02BOOO@?$CK?1?$AA@	; `string'
+	lea	ecx, DWORD PTR _szEntityName$31500[ebp]
+	push	ecx
+	push	OFFSET FLAT:??_C@_02FCCF@?1?$CK?$AA@	; `string'
+	push	OFFSET FLAT:??_C@_0BA@LFLL@?$CFs?5Entity?5?$CFs?5?$CFs?$AA@ ; `string'
+	lea	edx, DWORD PTR _szLine$[ebp]
+	push	edx
+	call	DWORD PTR __imp__sprintf
+	add	esp, 20					; 00000014H
+
+; 3745 :                if ( fnWriteLine( vDTE, f, szLine ) < 0 )
+
+	lea	eax, DWORD PTR _szLine$[ebp]
+	push	eax
+	mov	ecx, DWORD PTR _f$[ebp]
+	push	ecx
+	mov	edx, DWORD PTR _vDTE$[ebp]
+	push	edx
+	call	_SysWriteLine@12
+	test	eax, eax
+	jge	SHORT $L31504
+
+; 3746 :                   goto EndOfFunction;
+
+	jmp	$EndOfFunction$31427
+$L31504:
+
+; 3749 : 
+; 3750 :             GetStringFromAttribute( szColumnName, vDTE, "TE_FieldDataRel", "Name" );
+
+	push	OFFSET FLAT:??_C@_04EFNI@Name?$AA@	; `string'
+	push	OFFSET FLAT:??_C@_0BA@PJGE@TE_FieldDataRel?$AA@ ; `string'
+	mov	eax, DWORD PTR _vDTE$[ebp]
+	push	eax
+	lea	ecx, DWORD PTR _szColumnName$[ebp]
+	push	ecx
+	call	_GetStringFromAttribute@16
+
+; 3751 : 
+; 3752 :             zsprintf( szLine, "ALTER TABLE %s " ADD_COLUMN_STMT " ", szTableName );
+
+	lea	edx, DWORD PTR _szTableName$[ebp]
+	push	edx
+	push	OFFSET FLAT:??_C@_0BE@FPJB@ALTER?5TABLE?5?$CFs?5ADD?5?$AA@ ; `string'
+	lea	eax, DWORD PTR _szLine$[ebp]
+	push	eax
+	call	DWORD PTR __imp__sprintf
+	add	esp, 12					; 0000000cH
+
+; 3753 :             fnBuildColumn( vDTE, f, szLine );
+
+	lea	ecx, DWORD PTR _szLine$[ebp]
+	push	ecx
+	mov	edx, DWORD PTR _f$[ebp]
+	push	edx
+	mov	eax, DWORD PTR _vDTE$[ebp]
+	push	eax
+	call	_fnBuildColumn@12
+
+; 3754 :             zstrcat( szLine, LINE_TERMINATOR );
+
+	push	OFFSET FLAT:??_C@_01FAJB@?$DL?$AA@	; `string'
+	lea	ecx, DWORD PTR _szLine$[ebp]
+	push	ecx
+	call	_strcat
+	add	esp, 8
+
+; 3755 :             if ( fnWriteLine( vDTE, f, szLine ) < 0 )
+
+	lea	edx, DWORD PTR _szLine$[ebp]
+	push	edx
 	mov	eax, DWORD PTR _f$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _vDTE$[ebp]
 	push	ecx
 	call	_SysWriteLine@12
 	test	eax, eax
-	jge	SHORT $L31501
+	jge	SHORT $L31506
 
-; 3735 :                   goto EndOfFunction;
+; 3756 :                goto EndOfFunction;
 
 	jmp	$EndOfFunction$31427
-$L31501:
+$L31506:
 
-; 3736 : 
-; 3737 :                zsprintf( szLine, "%s Entity %s %s",
-; 3738 :                          COMMENT_START, szEntityName, COMMENT_END );
+; 3757 : 
+; 3758 :             // If the attribute is not a rel field try the next one.
+; 3759 :             GetAddrForAttribute( &pchKeyType, vDTE, "TE_FieldDataRel",
+; 3760 :                                  "DataOrRelfieldOrSet" );
 
-	push	OFFSET FLAT:??_C@_02BOOO@?$CK?1?$AA@	; `string'
-	lea	edx, DWORD PTR _szEntityName$31500[ebp]
+	push	OFFSET FLAT:??_C@_0BE@ODFA@DataOrRelfieldOrSet?$AA@ ; `string'
+	push	OFFSET FLAT:??_C@_0BA@PJGE@TE_FieldDataRel?$AA@ ; `string'
+	mov	edx, DWORD PTR _vDTE$[ebp]
 	push	edx
-	push	OFFSET FLAT:??_C@_02FCCF@?1?$CK?$AA@	; `string'
-	push	OFFSET FLAT:??_C@_0BA@LFLL@?$CFs?5Entity?5?$CFs?5?$CFs?$AA@ ; `string'
+	lea	eax, DWORD PTR _pchKeyType$31498[ebp]
+	push	eax
+	call	_GetAddrForAttribute@16
+
+; 3761 :             if ( pchKeyType[ 0 ] != 'R' )
+
+	mov	ecx, DWORD PTR _pchKeyType$31498[ebp]
+	movsx	edx, BYTE PTR [ecx]
+	cmp	edx, 82					; 00000052H
+	je	SHORT $L31507
+
+; 3762 :                continue;
+
+	jmp	$L31494
+$L31507:
+
+; 3763 : 
+; 3764 :             if ( fnBuildFK_Index( vDTE, f ) == -1 )
+
+	mov	eax, DWORD PTR _f$[ebp]
+	push	eax
+	mov	ecx, DWORD PTR _vDTE$[ebp]
+	push	ecx
+	call	_fnBuildFK_Index@8
+	movsx	edx, ax
+	cmp	edx, -1
+	jne	SHORT $L31508
+
+; 3765 :                goto EndOfFunction;
+
+	jmp	$EndOfFunction$31427
+$L31508:
+
+; 3767 : 
+; 3768 :       }  // For each TE_FieldDataRel
+
+	jmp	$L31494
+$L31495:
+
+; 3769 : 
+; 3770 :       #if COMMIT_EVERY_TABLE
+; 3771 :          // Commit the table if we altered it.
+; 3772 :          if ( bFirstAlterOfTable == FALSE && fnWriteLine( vDTE, f, COMMIT_STR ) < 0 )
+
+	mov	eax, DWORD PTR _bFirstAlterOfTable$31491[ebp]
+	and	eax, 255				; 000000ffH
+	test	eax, eax
+	jne	SHORT $L31509
+	push	OFFSET FLAT:??_C@_07JAEB@COMMIT?$DL?$AA@ ; `string'
+	mov	ecx, DWORD PTR _f$[ebp]
+	push	ecx
+	mov	edx, DWORD PTR _vDTE$[ebp]
+	push	edx
+	call	_SysWriteLine@12
+	test	eax, eax
+	jge	SHORT $L31509
+
+; 3773 :             return( -1 );
+
+	or	ax, -1
+	jmp	$L31394
+$L31509:
+
+; 3774 :       #endif
+; 3775 : 
+; 3776 :    }  // For each TE_TablRec
+
+	jmp	$L31489
+$L31490:
+
+; 3777 : 
+; 3778 :    // Drop tables.
+; 3779 :    bTableDropped = FALSE;
+
+	mov	BYTE PTR _bTableDropped$[ebp], 0
+
+; 3780 :    for ( nRC = SetCursorFirstEntity( vDB, "TE_TablRec", 0 );
+; 3781 :          nRC >= zCURSOR_SET;
+; 3782 :          nRC = SetCursorNextEntity( vDB, "TE_TablRec", 0 ) )
+
+	push	0
+	push	OFFSET FLAT:??_C@_0L@NCMM@TE_TablRec?$AA@ ; `string'
+	mov	eax, DWORD PTR _vDB$[ebp]
+	push	eax
+	call	_SetCursorFirstEntity@12
+	mov	WORD PTR _nRC$[ebp], ax
+	jmp	SHORT $L31510
+$L31511:
+	push	0
+	push	OFFSET FLAT:??_C@_0L@NCMM@TE_TablRec?$AA@ ; `string'
+	mov	ecx, DWORD PTR _vDB$[ebp]
+	push	ecx
+	call	_SetCursorNextEntity@12
+	mov	WORD PTR _nRC$[ebp], ax
+$L31510:
+	movsx	edx, WORD PTR _nRC$[ebp]
+	test	edx, edx
+	jl	$L31512
+
+; 3784 :       GetStringFromAttribute( szTableName, vDB, "TE_TablRec", "Name" );
+
+	push	OFFSET FLAT:??_C@_04EFNI@Name?$AA@	; `string'
+	push	OFFSET FLAT:??_C@_0L@NCMM@TE_TablRec?$AA@ ; `string'
+	mov	eax, DWORD PTR _vDB$[ebp]
+	push	eax
+	lea	ecx, DWORD PTR _szTableName$[ebp]
+	push	ecx
+	call	_GetStringFromAttribute@16
+
+; 3785 :       RemoveBrackets( szTableName );
+
+	lea	edx, DWORD PTR _szTableName$[ebp]
+	push	edx
+	call	_RemoveBrackets
+	add	esp, 4
+
+; 3786 : 
+; 3787 :       if ( CompareAttributeToString( vDB, "TE_TablRec", "MatchFound", "Y" ) != 0 )
+
+	push	OFFSET FLAT:??_C@_01PCJP@Y?$AA@		; `string'
+	push	OFFSET FLAT:??_C@_0L@FFM@MatchFound?$AA@ ; `string'
+	push	OFFSET FLAT:??_C@_0L@NCMM@TE_TablRec?$AA@ ; `string'
+	mov	eax, DWORD PTR _vDB$[ebp]
+	push	eax
+	call	_CompareAttributeToString@16
+	movsx	ecx, ax
+	test	ecx, ecx
+	je	SHORT $L31513
+
+; 3789 :          zsprintf( szLine, "DROP TABLE %s %s", szTableName,
+; 3790 :                    LINE_TERMINATOR );
+
+	push	OFFSET FLAT:??_C@_01FAJB@?$DL?$AA@	; `string'
+	lea	edx, DWORD PTR _szTableName$[ebp]
+	push	edx
+	push	OFFSET FLAT:??_C@_0BB@MKDI@DROP?5TABLE?5?$CFs?5?$CFs?$AA@ ; `string'
 	lea	eax, DWORD PTR _szLine$[ebp]
 	push	eax
 	call	DWORD PTR __imp__sprintf
-	add	esp, 20					; 00000014H
+	add	esp, 16					; 00000010H
 
-; 3739 :                if ( fnWriteLine( vDTE, f, szLine ) < 0 )
+; 3791 : 
+; 3792 :          if ( fnWriteLine( vDTE, f, szLine ) < 0 )
 
 	lea	ecx, DWORD PTR _szLine$[ebp]
 	push	ecx
@@ -10168,127 +10410,33 @@ $L31501:
 	push	eax
 	call	_SysWriteLine@12
 	test	eax, eax
-	jge	SHORT $L31503
+	jge	SHORT $L31515
 
-; 3740 :                   goto EndOfFunction;
-
-	jmp	$EndOfFunction$31427
-$L31503:
-
-; 3742 : 
-; 3743 :             GetStringFromAttribute( szColumnName, vDTE, "TE_FieldDataRel", "Name" );
-
-	push	OFFSET FLAT:??_C@_04EFNI@Name?$AA@	; `string'
-	push	OFFSET FLAT:??_C@_0BA@PJGE@TE_FieldDataRel?$AA@ ; `string'
-	mov	ecx, DWORD PTR _vDTE$[ebp]
-	push	ecx
-	lea	edx, DWORD PTR _szColumnName$[ebp]
-	push	edx
-	call	_GetStringFromAttribute@16
-
-; 3744 : 
-; 3745 :             zsprintf( szLine, "ALTER TABLE %s " ADD_COLUMN_STMT " ", szTableName );
-
-	lea	eax, DWORD PTR _szTableName$[ebp]
-	push	eax
-	push	OFFSET FLAT:??_C@_0BE@FPJB@ALTER?5TABLE?5?$CFs?5ADD?5?$AA@ ; `string'
-	lea	ecx, DWORD PTR _szLine$[ebp]
-	push	ecx
-	call	DWORD PTR __imp__sprintf
-	add	esp, 12					; 0000000cH
-
-; 3746 :             fnBuildColumn( vDTE, f, szLine );
-
-	lea	edx, DWORD PTR _szLine$[ebp]
-	push	edx
-	mov	eax, DWORD PTR _f$[ebp]
-	push	eax
-	mov	ecx, DWORD PTR _vDTE$[ebp]
-	push	ecx
-	call	_fnBuildColumn@12
-
-; 3747 :             zstrcat( szLine, LINE_TERMINATOR );
-
-	push	OFFSET FLAT:??_C@_01FAJB@?$DL?$AA@	; `string'
-	lea	edx, DWORD PTR _szLine$[ebp]
-	push	edx
-	call	_strcat
-	add	esp, 8
-
-; 3748 :             if ( fnWriteLine( vDTE, f, szLine ) < 0 )
-
-	lea	eax, DWORD PTR _szLine$[ebp]
-	push	eax
-	mov	ecx, DWORD PTR _f$[ebp]
-	push	ecx
-	mov	edx, DWORD PTR _vDTE$[ebp]
-	push	edx
-	call	_SysWriteLine@12
-	test	eax, eax
-	jge	SHORT $L31505
-
-; 3749 :                goto EndOfFunction;
+; 3793 :             goto EndOfFunction;
 
 	jmp	$EndOfFunction$31427
-$L31505:
+$L31515:
 
-; 3750 : 
-; 3751 :             // If the attribute is not a rel field try the next one.
-; 3752 :             GetAddrForAttribute( &pchKeyType, vDTE, "TE_FieldDataRel",
-; 3753 :                                  "DataOrRelfieldOrSet" );
+; 3794 : 
+; 3795 :          bTableDropped = TRUE;
 
-	push	OFFSET FLAT:??_C@_0BE@ODFA@DataOrRelfieldOrSet?$AA@ ; `string'
-	push	OFFSET FLAT:??_C@_0BA@PJGE@TE_FieldDataRel?$AA@ ; `string'
-	mov	eax, DWORD PTR _vDTE$[ebp]
-	push	eax
-	lea	ecx, DWORD PTR _pchKeyType$31498[ebp]
-	push	ecx
-	call	_GetAddrForAttribute@16
+	mov	BYTE PTR _bTableDropped$[ebp], 1
+$L31513:
 
-; 3754 :             if ( pchKeyType[ 0 ] != 'R' )
+; 3797 : 
+; 3798 :    }  // For each TE_TablRec
 
-	mov	edx, DWORD PTR _pchKeyType$31498[ebp]
-	movsx	eax, BYTE PTR [edx]
-	cmp	eax, 82					; 00000052H
-	je	SHORT $L31506
+	jmp	$L31511
+$L31512:
 
-; 3755 :                continue;
+; 3799 : 
+; 3800 :    #if COMMIT_EVERY_TABLE
+; 3801 :       if ( bTableDropped && fnWriteLine( vDTE, f, COMMIT_STR ) < 0 )
 
-	jmp	$L31494
-$L31506:
-
-; 3756 : 
-; 3757 :             if ( fnBuildFK_Index( vDTE, f ) == -1 )
-
-	mov	ecx, DWORD PTR _f$[ebp]
-	push	ecx
-	mov	edx, DWORD PTR _vDTE$[ebp]
-	push	edx
-	call	_fnBuildFK_Index@8
-	movsx	eax, ax
-	cmp	eax, -1
-	jne	SHORT $L31507
-
-; 3758 :                goto EndOfFunction;
-
-	jmp	$EndOfFunction$31427
-$L31507:
-
-; 3760 : 
-; 3761 :       }  // For each TE_FieldDataRel
-
-	jmp	$L31494
-$L31495:
-
-; 3762 : 
-; 3763 :       #if COMMIT_EVERY_TABLE
-; 3764 :          // Commit the table if we altered it.
-; 3765 :          if ( bFirstAlterOfTable == FALSE && fnWriteLine( vDTE, f, COMMIT_STR ) < 0 )
-
-	mov	ecx, DWORD PTR _bFirstAlterOfTable$31491[ebp]
+	mov	ecx, DWORD PTR _bTableDropped$[ebp]
 	and	ecx, 255				; 000000ffH
 	test	ecx, ecx
-	jne	SHORT $L31508
+	je	SHORT $L31516
 	push	OFFSET FLAT:??_C@_07JAEB@COMMIT?$DL?$AA@ ; `string'
 	mov	edx, DWORD PTR _f$[ebp]
 	push	edx
@@ -10296,30 +10444,20 @@ $L31495:
 	push	eax
 	call	_SysWriteLine@12
 	test	eax, eax
-	jge	SHORT $L31508
+	jge	SHORT $L31516
 
-; 3766 :             return( -1 );
+; 3802 :          return( -1 );
 
 	or	ax, -1
 	jmp	$L31394
-$L31508:
+$L31516:
 
-; 3767 :       #endif
-; 3768 : 
-; 3769 :    }  // For each TE_TablRec
-
-	jmp	$L31489
-$L31490:
-
-; 3770 : 
-; 3771 :    // Drop tables.
-; 3772 :    bTableDropped = FALSE;
-
-	mov	BYTE PTR _bTableDropped$[ebp], 0
-
-; 3773 :    for ( nRC = SetCursorFirstEntity( vDB, "TE_TablRec", 0 );
-; 3774 :          nRC >= zCURSOR_SET;
-; 3775 :          nRC = SetCursorNextEntity( vDB, "TE_TablRec", 0 ) )
+; 3803 :    #endif
+; 3804 : 
+; 3805 :    // Drop/alter columns from tables.
+; 3806 :    for ( nRC = SetCursorFirstEntity( vDB, "TE_TablRec", 0 );
+; 3807 :          nRC >= zCURSOR_SET;
+; 3808 :          nRC = SetCursorNextEntity( vDB, "TE_TablRec", 0 ) )
 
 	push	0
 	push	OFFSET FLAT:??_C@_0L@NCMM@TE_TablRec?$AA@ ; `string'
@@ -10327,20 +10465,22 @@ $L31490:
 	push	ecx
 	call	_SetCursorFirstEntity@12
 	mov	WORD PTR _nRC$[ebp], ax
-	jmp	SHORT $L31509
-$L31510:
+	jmp	SHORT $L31517
+$L31518:
 	push	0
 	push	OFFSET FLAT:??_C@_0L@NCMM@TE_TablRec?$AA@ ; `string'
 	mov	edx, DWORD PTR _vDB$[ebp]
 	push	edx
 	call	_SetCursorNextEntity@12
 	mov	WORD PTR _nRC$[ebp], ax
-$L31509:
+$L31517:
 	movsx	eax, WORD PTR _nRC$[ebp]
 	test	eax, eax
-	jl	$L31511
+	jl	$L31519
 
-; 3777 :       GetStringFromAttribute( szTableName, vDB, "TE_TablRec", "Name" );
+; 3810 :       zBOOL bFirstAlterForTable;
+; 3811 : 
+; 3812 :       GetStringFromAttribute( szTableName, vDB, "TE_TablRec", "Name" );
 
 	push	OFFSET FLAT:??_C@_04EFNI@Name?$AA@	; `string'
 	push	OFFSET FLAT:??_C@_0L@NCMM@TE_TablRec?$AA@ ; `string'
@@ -10350,15 +10490,15 @@ $L31509:
 	push	edx
 	call	_GetStringFromAttribute@16
 
-; 3778 :       RemoveBrackets( szTableName );
+; 3813 :       RemoveBrackets( szTableName );
 
 	lea	eax, DWORD PTR _szTableName$[ebp]
 	push	eax
 	call	_RemoveBrackets
 	add	esp, 4
 
-; 3779 : 
-; 3780 :       if ( CompareAttributeToString( vDB, "TE_TablRec", "MatchFound", "Y" ) != 0 )
+; 3814 : 
+; 3815 :       if ( CompareAttributeToString( vDB, "TE_TablRec", "MatchFound", "Y" ) != 0 )
 
 	push	OFFSET FLAT:??_C@_01PCJP@Y?$AA@		; `string'
 	push	OFFSET FLAT:??_C@_0L@FFM@MatchFound?$AA@ ; `string'
@@ -10368,308 +10508,154 @@ $L31509:
 	call	_CompareAttributeToString@16
 	movsx	edx, ax
 	test	edx, edx
-	je	SHORT $L31512
+	je	SHORT $L31521
 
-; 3782 :          zsprintf( szLine, "DROP TABLE %s %s", szTableName,
-; 3783 :                    LINE_TERMINATOR );
+; 3817 :          // Table deleted, go on to next one.
+; 3818 :          continue;
 
-	push	OFFSET FLAT:??_C@_01FAJB@?$DL?$AA@	; `string'
-	lea	eax, DWORD PTR _szTableName$[ebp]
-	push	eax
-	push	OFFSET FLAT:??_C@_0BB@MKDI@DROP?5TABLE?5?$CFs?5?$CFs?$AA@ ; `string'
-	lea	ecx, DWORD PTR _szLine$[ebp]
-	push	ecx
-	call	DWORD PTR __imp__sprintf
-	add	esp, 16					; 00000010H
+	jmp	SHORT $L31518
+$L31521:
 
-; 3784 : 
-; 3785 :          if ( fnWriteLine( vDTE, f, szLine ) < 0 )
-
-	lea	edx, DWORD PTR _szLine$[ebp]
-	push	edx
-	mov	eax, DWORD PTR _f$[ebp]
-	push	eax
-	mov	ecx, DWORD PTR _vDTE$[ebp]
-	push	ecx
-	call	_SysWriteLine@12
-	test	eax, eax
-	jge	SHORT $L31514
-
-; 3786 :             goto EndOfFunction;
-
-	jmp	$EndOfFunction$31427
-$L31514:
-
-; 3787 : 
-; 3788 :          bTableDropped = TRUE;
-
-	mov	BYTE PTR _bTableDropped$[ebp], 1
-$L31512:
-
-; 3790 : 
-; 3791 :    }  // For each TE_TablRec
-
-	jmp	$L31510
-$L31511:
-
-; 3792 : 
-; 3793 :    #if COMMIT_EVERY_TABLE
-; 3794 :       if ( bTableDropped && fnWriteLine( vDTE, f, COMMIT_STR ) < 0 )
-
-	mov	edx, DWORD PTR _bTableDropped$[ebp]
-	and	edx, 255				; 000000ffH
-	test	edx, edx
-	je	SHORT $L31515
-	push	OFFSET FLAT:??_C@_07JAEB@COMMIT?$DL?$AA@ ; `string'
-	mov	eax, DWORD PTR _f$[ebp]
-	push	eax
-	mov	ecx, DWORD PTR _vDTE$[ebp]
-	push	ecx
-	call	_SysWriteLine@12
-	test	eax, eax
-	jge	SHORT $L31515
-
-; 3795 :          return( -1 );
-
-	or	ax, -1
-	jmp	$L31394
-$L31515:
-
-; 3796 :    #endif
-; 3797 : 
-; 3798 :    // Drop/alter columns from tables.
-; 3799 :    for ( nRC = SetCursorFirstEntity( vDB, "TE_TablRec", 0 );
-; 3800 :          nRC >= zCURSOR_SET;
-; 3801 :          nRC = SetCursorNextEntity( vDB, "TE_TablRec", 0 ) )
+; 3820 : 
+; 3821 :       // Set the cursor in the TE to match the one in the DB.
+; 3822 :       SetCursorFirstEntityByAttr( vDTE, "TE_TablRec", "Name",
+; 3823 :                                   vDB,  "TE_TablRec", "Name", 0 );
 
 	push	0
-	push	OFFSET FLAT:??_C@_0L@NCMM@TE_TablRec?$AA@ ; `string'
-	mov	edx, DWORD PTR _vDB$[ebp]
-	push	edx
-	call	_SetCursorFirstEntity@12
-	mov	WORD PTR _nRC$[ebp], ax
-	jmp	SHORT $L31516
-$L31517:
-	push	0
+	push	OFFSET FLAT:??_C@_04EFNI@Name?$AA@	; `string'
 	push	OFFSET FLAT:??_C@_0L@NCMM@TE_TablRec?$AA@ ; `string'
 	mov	eax, DWORD PTR _vDB$[ebp]
 	push	eax
-	call	_SetCursorNextEntity@12
-	mov	WORD PTR _nRC$[ebp], ax
-$L31516:
-	movsx	ecx, WORD PTR _nRC$[ebp]
-	test	ecx, ecx
-	jl	$L31518
-
-; 3803 :       zBOOL bFirstAlterForTable;
-; 3804 : 
-; 3805 :       GetStringFromAttribute( szTableName, vDB, "TE_TablRec", "Name" );
-
 	push	OFFSET FLAT:??_C@_04EFNI@Name?$AA@	; `string'
 	push	OFFSET FLAT:??_C@_0L@NCMM@TE_TablRec?$AA@ ; `string'
-	mov	edx, DWORD PTR _vDB$[ebp]
-	push	edx
-	lea	eax, DWORD PTR _szTableName$[ebp]
-	push	eax
-	call	_GetStringFromAttribute@16
-
-; 3806 :       RemoveBrackets( szTableName );
-
-	lea	ecx, DWORD PTR _szTableName$[ebp]
+	mov	ecx, DWORD PTR _vDTE$[ebp]
 	push	ecx
-	call	_RemoveBrackets
-	add	esp, 4
-
-; 3807 : 
-; 3808 :       if ( CompareAttributeToString( vDB, "TE_TablRec", "MatchFound", "Y" ) != 0 )
-
-	push	OFFSET FLAT:??_C@_01PCJP@Y?$AA@		; `string'
-	push	OFFSET FLAT:??_C@_0L@FFM@MatchFound?$AA@ ; `string'
-	push	OFFSET FLAT:??_C@_0L@NCMM@TE_TablRec?$AA@ ; `string'
-	mov	edx, DWORD PTR _vDB$[ebp]
-	push	edx
-	call	_CompareAttributeToString@16
-	movsx	eax, ax
-	test	eax, eax
-	je	SHORT $L31520
-
-; 3810 :          // Table deleted, go on to next one.
-; 3811 :          continue;
-
-	jmp	SHORT $L31517
-$L31520:
-
-; 3813 : 
-; 3814 :       // Set the cursor in the TE to match the one in the DB.
-; 3815 :       SetCursorFirstEntityByAttr( vDTE, "TE_TablRec", "Name",
-; 3816 :                                   vDB,  "TE_TablRec", "Name", 0 );
-
-	push	0
-	push	OFFSET FLAT:??_C@_04EFNI@Name?$AA@	; `string'
-	push	OFFSET FLAT:??_C@_0L@NCMM@TE_TablRec?$AA@ ; `string'
-	mov	ecx, DWORD PTR _vDB$[ebp]
-	push	ecx
-	push	OFFSET FLAT:??_C@_04EFNI@Name?$AA@	; `string'
-	push	OFFSET FLAT:??_C@_0L@NCMM@TE_TablRec?$AA@ ; `string'
-	mov	edx, DWORD PTR _vDTE$[ebp]
-	push	edx
 	call	_SetCursorFirstEntityByAttr@28
 
-; 3817 : 
-; 3818 :       GetStringFromAttribute( szOwner, vDTE, "TE_TablRec", "SQL_TableOwner" );
+; 3824 : 
+; 3825 :       GetStringFromAttribute( szOwner, vDTE, "TE_TablRec", "SQL_TableOwner" );
 
 	push	OFFSET FLAT:??_C@_0P@CNMG@SQL_TableOwner?$AA@ ; `string'
 	push	OFFSET FLAT:??_C@_0L@NCMM@TE_TablRec?$AA@ ; `string'
-	mov	eax, DWORD PTR _vDTE$[ebp]
-	push	eax
-	lea	ecx, DWORD PTR _szOwner$[ebp]
-	push	ecx
-	call	_GetStringFromAttribute@16
-
-; 3819 :       if ( szOwner[ 0 ] == 0 && pchDefaultOwner )
-
-	movsx	edx, BYTE PTR _szOwner$[ebp]
-	test	edx, edx
-	jne	SHORT $L31521
-	cmp	DWORD PTR _pchDefaultOwner$[ebp], 0
-	je	SHORT $L31521
-
-; 3820 :          zstrcpy( szOwner, pchDefaultOwner );
-
-	mov	eax, DWORD PTR _pchDefaultOwner$[ebp]
-	push	eax
-	lea	ecx, DWORD PTR _szOwner$[ebp]
-	push	ecx
-	call	_strcpy
-	add	esp, 8
-$L31521:
-
-; 3821 : 
-; 3822 :       if ( szOwner[ 0 ] )
-
-	movsx	edx, BYTE PTR _szOwner$[ebp]
-	test	edx, edx
-	je	SHORT $L31522
-
-; 3823 :          zstrcat( szOwner, "." );
-
-	push	OFFSET FLAT:??_C@_01PJCK@?4?$AA@	; `string'
+	mov	edx, DWORD PTR _vDTE$[ebp]
+	push	edx
 	lea	eax, DWORD PTR _szOwner$[ebp]
 	push	eax
-	call	_strcat
+	call	_GetStringFromAttribute@16
+
+; 3826 :       if ( szOwner[ 0 ] == 0 && pchDefaultOwner )
+
+	movsx	ecx, BYTE PTR _szOwner$[ebp]
+	test	ecx, ecx
+	jne	SHORT $L31522
+	cmp	DWORD PTR _pchDefaultOwner$[ebp], 0
+	je	SHORT $L31522
+
+; 3827 :          zstrcpy( szOwner, pchDefaultOwner );
+
+	mov	edx, DWORD PTR _pchDefaultOwner$[ebp]
+	push	edx
+	lea	eax, DWORD PTR _szOwner$[ebp]
+	push	eax
+	call	_strcpy
 	add	esp, 8
 $L31522:
 
-; 3824 : 
-; 3825 :       bFirstAlterForTable = TRUE;
+; 3828 : 
+; 3829 :       if ( szOwner[ 0 ] )
 
-	mov	BYTE PTR _bFirstAlterForTable$31519[ebp], 1
+	movsx	ecx, BYTE PTR _szOwner$[ebp]
+	test	ecx, ecx
+	je	SHORT $L31523
 
-; 3826 :       for ( nRC = SetCursorFirstEntity( vDB, "TE_FieldDataRel", 0 );
-; 3827 :             nRC >= zCURSOR_SET;
-; 3828 :             nRC = SetCursorNextEntity( vDB, "TE_FieldDataRel", 0 ) )
+; 3830 :          zstrcat( szOwner, "." );
 
+	push	OFFSET FLAT:??_C@_01PJCK@?4?$AA@	; `string'
+	lea	edx, DWORD PTR _szOwner$[ebp]
+	push	edx
+	call	_strcat
+	add	esp, 8
+$L31523:
+
+; 3831 : 
+; 3832 :       bFirstAlterForTable = TRUE;
+
+	mov	BYTE PTR _bFirstAlterForTable$31520[ebp], 1
+
+; 3833 :       for ( nRC = SetCursorFirstEntity( vDB, "TE_FieldDataRel", 0 );
+; 3834 :             nRC >= zCURSOR_SET;
+; 3835 :             nRC = SetCursorNextEntity( vDB, "TE_FieldDataRel", 0 ) )
+
+	push	0
+	push	OFFSET FLAT:??_C@_0BA@PJGE@TE_FieldDataRel?$AA@ ; `string'
+	mov	eax, DWORD PTR _vDB$[ebp]
+	push	eax
+	call	_SetCursorFirstEntity@12
+	mov	WORD PTR _nRC$[ebp], ax
+	jmp	SHORT $L31524
+$L31525:
 	push	0
 	push	OFFSET FLAT:??_C@_0BA@PJGE@TE_FieldDataRel?$AA@ ; `string'
 	mov	ecx, DWORD PTR _vDB$[ebp]
 	push	ecx
-	call	_SetCursorFirstEntity@12
-	mov	WORD PTR _nRC$[ebp], ax
-	jmp	SHORT $L31523
-$L31524:
-	push	0
-	push	OFFSET FLAT:??_C@_0BA@PJGE@TE_FieldDataRel?$AA@ ; `string'
-	mov	edx, DWORD PTR _vDB$[ebp]
-	push	edx
 	call	_SetCursorNextEntity@12
 	mov	WORD PTR _nRC$[ebp], ax
-$L31523:
-	movsx	eax, WORD PTR _nRC$[ebp]
-	test	eax, eax
-	jl	$L31525
+$L31524:
+	movsx	edx, WORD PTR _nRC$[ebp]
+	test	edx, edx
+	jl	$L31526
 
-; 3830 :          zSHORT nIndexDroppedCount;
-; 3831 : 
-; 3832 :          // If a match was found for the column, we don't need to do anything.
-; 3833 :          if ( CompareAttributeToString( vDB, "TE_FieldDataRel",
-; 3834 :                                         "MatchFound", "Y" ) == 0 )
+; 3837 :          zSHORT nIndexDroppedCount;
+; 3838 : 
+; 3839 :          // If a match was found for the column, we don't need to do anything.
+; 3840 :          if ( CompareAttributeToString( vDB, "TE_FieldDataRel",
+; 3841 :                                         "MatchFound", "Y" ) == 0 )
 
 	push	OFFSET FLAT:??_C@_01PCJP@Y?$AA@		; `string'
 	push	OFFSET FLAT:??_C@_0L@FFM@MatchFound?$AA@ ; `string'
 	push	OFFSET FLAT:??_C@_0BA@PJGE@TE_FieldDataRel?$AA@ ; `string'
-	mov	ecx, DWORD PTR _vDB$[ebp]
-	push	ecx
+	mov	eax, DWORD PTR _vDB$[ebp]
+	push	eax
 	call	_CompareAttributeToString@16
-	movsx	edx, ax
+	movsx	ecx, ax
+	test	ecx, ecx
+	jne	SHORT $L31528
+
+; 3843 :             continue;
+
+	jmp	SHORT $L31525
+$L31528:
+
+; 3845 : 
+; 3846 :          // Print out a comment if this is the first ALTER for the current
+; 3847 :          // table.
+; 3848 :          if ( bFirstAlterForTable )
+
+	mov	edx, DWORD PTR _bFirstAlterForTable$31520[ebp]
+	and	edx, 255				; 000000ffH
 	test	edx, edx
-	jne	SHORT $L31527
+	je	$L31532
 
-; 3836 :             continue;
+; 3850 :             zCHAR szEntityName[ zZEIDON_NAME_LTH + 1 ];
+; 3851 : 
+; 3852 :             bFirstAlterForTable = FALSE;
 
-	jmp	SHORT $L31524
-$L31527:
+	mov	BYTE PTR _bFirstAlterForTable$31520[ebp], 0
 
-; 3838 : 
-; 3839 :          // Print out a comment if this is the first ALTER for the current
-; 3840 :          // table.
-; 3841 :          if ( bFirstAlterForTable )
-
-	mov	eax, DWORD PTR _bFirstAlterForTable$31519[ebp]
-	and	eax, 255				; 000000ffH
-	test	eax, eax
-	je	$L31531
-
-; 3843 :             zCHAR szEntityName[ zZEIDON_NAME_LTH + 1 ];
-; 3844 : 
-; 3845 :             bFirstAlterForTable = FALSE;
-
-	mov	BYTE PTR _bFirstAlterForTable$31519[ebp], 0
-
-; 3846 :             GetStringFromAttribute( szEntityName, vDTE, "ER_Entity", "Name" );
+; 3853 :             GetStringFromAttribute( szEntityName, vDTE, "ER_Entity", "Name" );
 
 	push	OFFSET FLAT:??_C@_04EFNI@Name?$AA@	; `string'
 	push	OFFSET FLAT:??_C@_09CNO@ER_Entity?$AA@	; `string'
-	mov	ecx, DWORD PTR _vDTE$[ebp]
+	mov	eax, DWORD PTR _vDTE$[ebp]
+	push	eax
+	lea	ecx, DWORD PTR _szEntityName$31530[ebp]
 	push	ecx
-	lea	edx, DWORD PTR _szEntityName$31529[ebp]
-	push	edx
 	call	_GetStringFromAttribute@16
 
-; 3847 : 
-; 3848 :             if ( fnWriteLine( vDTE, f, "" ) < 0 )
+; 3854 : 
+; 3855 :             if ( fnWriteLine( vDTE, f, "" ) < 0 )
 
 	push	OFFSET FLAT:??_C@_00A@?$AA@		; `string'
-	mov	eax, DWORD PTR _f$[ebp]
-	push	eax
-	mov	ecx, DWORD PTR _vDTE$[ebp]
-	push	ecx
-	call	_SysWriteLine@12
-	test	eax, eax
-	jge	SHORT $L31530
-
-; 3849 :                goto EndOfFunction;
-
-	jmp	$EndOfFunction$31427
-$L31530:
-
-; 3850 : 
-; 3851 :             zsprintf( szLine, "%s Entity %s %s",
-; 3852 :                       COMMENT_START, szEntityName, COMMENT_END );
-
-	push	OFFSET FLAT:??_C@_02BOOO@?$CK?1?$AA@	; `string'
-	lea	edx, DWORD PTR _szEntityName$31529[ebp]
-	push	edx
-	push	OFFSET FLAT:??_C@_02FCCF@?1?$CK?$AA@	; `string'
-	push	OFFSET FLAT:??_C@_0BA@LFLL@?$CFs?5Entity?5?$CFs?5?$CFs?$AA@ ; `string'
-	lea	eax, DWORD PTR _szLine$[ebp]
-	push	eax
-	call	DWORD PTR __imp__sprintf
-	add	esp, 20					; 00000014H
-
-; 3853 :             if ( fnWriteLine( vDTE, f, szLine ) < 0 )
-
-	lea	ecx, DWORD PTR _szLine$[ebp]
-	push	ecx
 	mov	edx, DWORD PTR _f$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _vDTE$[ebp]
@@ -10678,48 +10664,68 @@ $L31530:
 	test	eax, eax
 	jge	SHORT $L31531
 
-; 3854 :                goto EndOfFunction;
+; 3856 :                goto EndOfFunction;
 
 	jmp	$EndOfFunction$31427
 $L31531:
 
-; 3856 : 
-; 3857 :          GetStringFromAttribute( szColumnName, vDB, "TE_FieldDataRel", "Name" );
+; 3857 : 
+; 3858 :             zsprintf( szLine, "%s Entity %s %s",
+; 3859 :                       COMMENT_START, szEntityName, COMMENT_END );
+
+	push	OFFSET FLAT:??_C@_02BOOO@?$CK?1?$AA@	; `string'
+	lea	ecx, DWORD PTR _szEntityName$31530[ebp]
+	push	ecx
+	push	OFFSET FLAT:??_C@_02FCCF@?1?$CK?$AA@	; `string'
+	push	OFFSET FLAT:??_C@_0BA@LFLL@?$CFs?5Entity?5?$CFs?5?$CFs?$AA@ ; `string'
+	lea	edx, DWORD PTR _szLine$[ebp]
+	push	edx
+	call	DWORD PTR __imp__sprintf
+	add	esp, 20					; 00000014H
+
+; 3860 :             if ( fnWriteLine( vDTE, f, szLine ) < 0 )
+
+	lea	eax, DWORD PTR _szLine$[ebp]
+	push	eax
+	mov	ecx, DWORD PTR _f$[ebp]
+	push	ecx
+	mov	edx, DWORD PTR _vDTE$[ebp]
+	push	edx
+	call	_SysWriteLine@12
+	test	eax, eax
+	jge	SHORT $L31532
+
+; 3861 :                goto EndOfFunction;
+
+	jmp	$EndOfFunction$31427
+$L31532:
+
+; 3863 : 
+; 3864 :          GetStringFromAttribute( szColumnName, vDB, "TE_FieldDataRel", "Name" );
 
 	push	OFFSET FLAT:??_C@_04EFNI@Name?$AA@	; `string'
 	push	OFFSET FLAT:??_C@_0BA@PJGE@TE_FieldDataRel?$AA@ ; `string'
-	mov	ecx, DWORD PTR _vDB$[ebp]
+	mov	eax, DWORD PTR _vDB$[ebp]
+	push	eax
+	lea	ecx, DWORD PTR _szColumnName$[ebp]
 	push	ecx
-	lea	edx, DWORD PTR _szColumnName$[ebp]
-	push	edx
 	call	_GetStringFromAttribute@16
 
-; 3858 : 
-; 3859 :          // Check to see if there is an index on the column.  If there is,
-; 3860 :          // then we need to drop it.
-; 3861 :          nIndexDroppedCount = 0;
+; 3865 : 
+; 3866 :          // Check to see if there is an index on the column.  If there is,
+; 3867 :          // then we need to drop it.
+; 3868 :          nIndexDroppedCount = 0;
 
-	mov	WORD PTR _nIndexDroppedCount$31526[ebp], 0
+	mov	WORD PTR _nIndexDroppedCount$31527[ebp], 0
 
-; 3862 :          for ( nRC = SetCursorFirstEntityByString( vDB, "TE_FieldDataRelKey",
-; 3863 :                                                    "Name", szColumnName,
-; 3864 :                                                    "TE_TablRec" );
-; 3865 :                nRC >= zCURSOR_SET;
-; 3866 :                nRC = SetCursorNextEntityByString( vDB, "TE_FieldDataRelKey",
-; 3867 :                                                   "Name", szColumnName,
-; 3868 :                                                   "TE_TablRec" ) )
+; 3869 :          for ( nRC = SetCursorFirstEntityByString( vDB, "TE_FieldDataRelKey",
+; 3870 :                                                    "Name", szColumnName,
+; 3871 :                                                    "TE_TablRec" );
+; 3872 :                nRC >= zCURSOR_SET;
+; 3873 :                nRC = SetCursorNextEntityByString( vDB, "TE_FieldDataRelKey",
+; 3874 :                                                   "Name", szColumnName,
+; 3875 :                                                   "TE_TablRec" ) )
 
-	push	OFFSET FLAT:??_C@_0L@NCMM@TE_TablRec?$AA@ ; `string'
-	lea	eax, DWORD PTR _szColumnName$[ebp]
-	push	eax
-	push	OFFSET FLAT:??_C@_04EFNI@Name?$AA@	; `string'
-	push	OFFSET FLAT:??_C@_0BD@EGMP@TE_FieldDataRelKey?$AA@ ; `string'
-	mov	ecx, DWORD PTR _vDB$[ebp]
-	push	ecx
-	call	_SetCursorFirstEntityByString@20
-	mov	WORD PTR _nRC$[ebp], ax
-	jmp	SHORT $L31532
-$L31533:
 	push	OFFSET FLAT:??_C@_0L@NCMM@TE_TablRec?$AA@ ; `string'
 	lea	edx, DWORD PTR _szColumnName$[ebp]
 	push	edx
@@ -10727,255 +10733,255 @@ $L31533:
 	push	OFFSET FLAT:??_C@_0BD@EGMP@TE_FieldDataRelKey?$AA@ ; `string'
 	mov	eax, DWORD PTR _vDB$[ebp]
 	push	eax
-	call	_SetCursorNextEntityByString@20
+	call	_SetCursorFirstEntityByString@20
 	mov	WORD PTR _nRC$[ebp], ax
-$L31532:
-	movsx	ecx, WORD PTR _nRC$[ebp]
-	test	ecx, ecx
-	jl	SHORT $L31534
-
-; 3870 :             zCHAR szIndex[ MAX_TABLENAME_LTH + 1 ];
-; 3871 : 
-; 3872 :             GetStringFromAttribute( szIndex, vDB, "TE_TablRecKey", "IndexName" );
-
-	push	OFFSET FLAT:??_C@_09CEBI@IndexName?$AA@	; `string'
-	push	OFFSET FLAT:??_C@_0O@LKEB@TE_TablRecKey?$AA@ ; `string'
-	mov	edx, DWORD PTR _vDB$[ebp]
-	push	edx
-	lea	eax, DWORD PTR _szIndex$31535[ebp]
-	push	eax
-	call	_GetStringFromAttribute@16
-
-; 3873 :             fnBuildDropIndex( vDB, szIndex, szOwner, szTableName, f );
-
-	mov	ecx, DWORD PTR _f$[ebp]
-	push	ecx
-	lea	edx, DWORD PTR _szTableName$[ebp]
-	push	edx
-	lea	eax, DWORD PTR _szOwner$[ebp]
-	push	eax
-	lea	ecx, DWORD PTR _szIndex$31535[ebp]
-	push	ecx
-	mov	edx, DWORD PTR _vDB$[ebp]
-	push	edx
-	call	_fnBuildDropIndex@20
-
-; 3874 :             nIndexDroppedCount++;
-
-	mov	ax, WORD PTR _nIndexDroppedCount$31526[ebp]
-	add	ax, 1
-	mov	WORD PTR _nIndexDroppedCount$31526[ebp], ax
-
-; 3875 :          }
-
 	jmp	SHORT $L31533
 $L31534:
-
-; 3876 : 
-; 3877 :          // Check to see if the column needs to be altered or dropped.
-; 3878 :          if ( CompareAttributeToString( vDB, "TE_FieldDataRel",
-; 3879 :                                         "MatchFound", "N" ) == 0 )
-
-	push	OFFSET FLAT:??_C@_01OAK@N?$AA@		; `string'
-	push	OFFSET FLAT:??_C@_0L@FFM@MatchFound?$AA@ ; `string'
-	push	OFFSET FLAT:??_C@_0BA@PJGE@TE_FieldDataRel?$AA@ ; `string'
-	mov	ecx, DWORD PTR _vDB$[ebp]
-	push	ecx
-	call	_CompareAttributeToString@16
-	movsx	edx, ax
-	test	edx, edx
-	jne	SHORT $L31536
-
-; 3881 :             // Drop the column.
-; 3882 :             zsprintf( szLine, "ALTER TABLE %s%s " DROP_COLUMN_STMT " %s %s",
-; 3883 :                       szOwner, szTableName, szColumnName, LINE_TERMINATOR );
-
-	push	OFFSET FLAT:??_C@_01FAJB@?$DL?$AA@	; `string'
-	lea	eax, DWORD PTR _szColumnName$[ebp]
-	push	eax
-	lea	ecx, DWORD PTR _szTableName$[ebp]
-	push	ecx
-	lea	edx, DWORD PTR _szOwner$[ebp]
-	push	edx
-	push	OFFSET FLAT:??_C@_0CD@OHJM@ALTER?5TABLE?5?$CFs?$CFs?5DROP?5COLUMN?5?$CFs?5@ ; `string'
-	lea	eax, DWORD PTR _szLine$[ebp]
-	push	eax
-	call	DWORD PTR __imp__sprintf
-	add	esp, 24					; 00000018H
-
-; 3884 : 
-; 3885 :             if ( fnWriteLine( vDTE, f, szLine ) < 0 )
-
-	lea	ecx, DWORD PTR _szLine$[ebp]
-	push	ecx
-	mov	edx, DWORD PTR _f$[ebp]
-	push	edx
-	mov	eax, DWORD PTR _vDTE$[ebp]
-	push	eax
-	call	_SysWriteLine@12
-	test	eax, eax
-	jge	SHORT $L31538
-
-; 3886 :                goto EndOfFunction;
-
-	jmp	$EndOfFunction$31427
-$L31538:
-
-; 3888 :          else
-
-	jmp	$L31558
-$L31536:
-
-; 3889 :          if ( CompareAttributeToString( vDB, "TE_FieldDataRel",
-; 3890 :                                         "MatchFound", "D" ) == 0 )
-
-	push	OFFSET FLAT:??_C@_01PJM@D?$AA@		; `string'
-	push	OFFSET FLAT:??_C@_0L@FFM@MatchFound?$AA@ ; `string'
-	push	OFFSET FLAT:??_C@_0BA@PJGE@TE_FieldDataRel?$AA@ ; `string'
-	mov	ecx, DWORD PTR _vDB$[ebp]
-	push	ecx
-	call	_CompareAttributeToString@16
-	movsx	edx, ax
-	test	edx, edx
-	jne	$L31558
-
-; 3892 :             zPCHAR pchKeyType;
-; 3893 : 
-; 3894 :             // Alter the column to match the datatype in the TE.
-; 3895 :             zsprintf( szLine, "ALTER TABLE %s%-*s ALTER COLUMN ",
-; 3896 :                       szOwner, (int) MAX_TABLENAME_LTH, szTableName );
-
-	lea	eax, DWORD PTR _szTableName$[ebp]
-	push	eax
-	push	30					; 0000001eH
-	lea	ecx, DWORD PTR _szOwner$[ebp]
-	push	ecx
-	push	OFFSET FLAT:??_C@_0CB@MGNG@ALTER?5TABLE?5?$CFs?$CF?9?$CKs?5ALTER?5COLUMN?5@ ; `string'
-	lea	edx, DWORD PTR _szLine$[ebp]
-	push	edx
-	call	DWORD PTR __imp__sprintf
-	add	esp, 20					; 00000014H
-
-; 3897 : 
-; 3898 :             fnBuildColumn( vDB, f, szLine );
-
-	lea	eax, DWORD PTR _szLine$[ebp]
-	push	eax
-	mov	ecx, DWORD PTR _f$[ebp]
-	push	ecx
-	mov	edx, DWORD PTR _vDB$[ebp]
-	push	edx
-	call	_fnBuildColumn@12
-
-; 3899 :             zstrcat( szLine, LINE_TERMINATOR );
-
-	push	OFFSET FLAT:??_C@_01FAJB@?$DL?$AA@	; `string'
-	lea	eax, DWORD PTR _szLine$[ebp]
-	push	eax
-	call	_strcat
-	add	esp, 8
-
-; 3900 : 
-; 3901 :             if ( fnWriteLine( vDTE, f, szLine ) < 0 )
-
-	lea	ecx, DWORD PTR _szLine$[ebp]
-	push	ecx
-	mov	edx, DWORD PTR _f$[ebp]
-	push	edx
-	mov	eax, DWORD PTR _vDTE$[ebp]
-	push	eax
-	call	_SysWriteLine@12
-	test	eax, eax
-	jge	SHORT $L31544
-
-; 3902 :                goto EndOfFunction;
-
-	jmp	$EndOfFunction$31427
-$L31544:
-
-; 3903 : 
-; 3904 :             // Check to see if we need to re-create any indexes.
-; 3905 :             GetAddrForAttribute( &pchKeyType, vDTE, "TE_FieldDataRel",
-; 3906 :                                  "DataOrRelfieldOrSet" );
-
-	push	OFFSET FLAT:??_C@_0BE@ODFA@DataOrRelfieldOrSet?$AA@ ; `string'
-	push	OFFSET FLAT:??_C@_0BA@PJGE@TE_FieldDataRel?$AA@ ; `string'
-	mov	ecx, DWORD PTR _vDTE$[ebp]
-	push	ecx
-	lea	edx, DWORD PTR _pchKeyType$31541[ebp]
-	push	edx
-	call	_GetAddrForAttribute@16
-
-; 3907 :             if ( pchKeyType[ 0 ] == 'R' )
-
-	mov	eax, DWORD PTR _pchKeyType$31541[ebp]
-	movsx	ecx, BYTE PTR [eax]
-	cmp	ecx, 82					; 00000052H
-	jne	SHORT $L31545
-
-; 3909 :                if ( fnBuildFK_Index( vDTE, f ) == -1 )
-
-	mov	edx, DWORD PTR _f$[ebp]
-	push	edx
-	mov	eax, DWORD PTR _vDTE$[ebp]
-	push	eax
-	call	_fnBuildFK_Index@8
-	movsx	ecx, ax
-	cmp	ecx, -1
-	jne	SHORT $L31546
-
-; 3910 :                  goto EndOfFunction;
-
-	jmp	$EndOfFunction$31427
-$L31546:
-
-; 3911 : 
-; 3912 :                // We re-created one of the indexes dropped earlier so decrement
-; 3913 :                // count so we'll know if we recreated all the indexes.
-; 3914 :                nIndexDroppedCount--;
-
-	mov	dx, WORD PTR _nIndexDroppedCount$31526[ebp]
-	sub	dx, 1
-	mov	WORD PTR _nIndexDroppedCount$31526[ebp], dx
-$L31545:
-
-; 3916 : 
-; 3917 :             // If no more indexes need to be recreated, go on to the next col.
-; 3918 :             if ( nIndexDroppedCount == 0 )
-
-	movsx	eax, WORD PTR _nIndexDroppedCount$31526[ebp]
-	test	eax, eax
-	jne	SHORT $L31547
-
-; 3919 :                continue;
-
-	jmp	$L31524
-$L31547:
-
-; 3920 : 
-; 3921 :             // Check to see if the column we altered is contained in the list of
-; 3922 :             // identifiers for the table.  If it is we need to recreate
-; 3923 :             // the indexes that were dropped above.
-; 3924 :             for ( nRC = SetCursorFirstEntityByString( vDTE, "TE_FieldDataRelKey",
-; 3925 :                                                       "Name", szColumnName,
-; 3926 :                                                       "TE_TablRec" );
-; 3927 : 
-; 3928 :                   nRC >= zCURSOR_SET;
-; 3929 :                   nRC = SetCursorNextEntityByString( vDTE, "TE_FieldDataRelKey",
-; 3930 :                                                      "Name", szColumnName,
-; 3931 :                                                       "TE_TablRec" ) )
-
 	push	OFFSET FLAT:??_C@_0L@NCMM@TE_TablRec?$AA@ ; `string'
 	lea	ecx, DWORD PTR _szColumnName$[ebp]
 	push	ecx
 	push	OFFSET FLAT:??_C@_04EFNI@Name?$AA@	; `string'
 	push	OFFSET FLAT:??_C@_0BD@EGMP@TE_FieldDataRelKey?$AA@ ; `string'
+	mov	edx, DWORD PTR _vDB$[ebp]
+	push	edx
+	call	_SetCursorNextEntityByString@20
+	mov	WORD PTR _nRC$[ebp], ax
+$L31533:
+	movsx	eax, WORD PTR _nRC$[ebp]
+	test	eax, eax
+	jl	SHORT $L31535
+
+; 3877 :             zCHAR szIndex[ MAX_TABLENAME_LTH + 1 ];
+; 3878 : 
+; 3879 :             GetStringFromAttribute( szIndex, vDB, "TE_TablRecKey", "IndexName" );
+
+	push	OFFSET FLAT:??_C@_09CEBI@IndexName?$AA@	; `string'
+	push	OFFSET FLAT:??_C@_0O@LKEB@TE_TablRecKey?$AA@ ; `string'
+	mov	ecx, DWORD PTR _vDB$[ebp]
+	push	ecx
+	lea	edx, DWORD PTR _szIndex$31536[ebp]
+	push	edx
+	call	_GetStringFromAttribute@16
+
+; 3880 :             fnBuildDropIndex( vDB, szIndex, szOwner, szTableName, f );
+
+	mov	eax, DWORD PTR _f$[ebp]
+	push	eax
+	lea	ecx, DWORD PTR _szTableName$[ebp]
+	push	ecx
+	lea	edx, DWORD PTR _szOwner$[ebp]
+	push	edx
+	lea	eax, DWORD PTR _szIndex$31536[ebp]
+	push	eax
+	mov	ecx, DWORD PTR _vDB$[ebp]
+	push	ecx
+	call	_fnBuildDropIndex@20
+
+; 3881 :             nIndexDroppedCount++;
+
+	mov	dx, WORD PTR _nIndexDroppedCount$31527[ebp]
+	add	dx, 1
+	mov	WORD PTR _nIndexDroppedCount$31527[ebp], dx
+
+; 3882 :          }
+
+	jmp	SHORT $L31534
+$L31535:
+
+; 3883 : 
+; 3884 :          // Check to see if the column needs to be altered or dropped.
+; 3885 :          if ( CompareAttributeToString( vDB, "TE_FieldDataRel",
+; 3886 :                                         "MatchFound", "N" ) == 0 )
+
+	push	OFFSET FLAT:??_C@_01OAK@N?$AA@		; `string'
+	push	OFFSET FLAT:??_C@_0L@FFM@MatchFound?$AA@ ; `string'
+	push	OFFSET FLAT:??_C@_0BA@PJGE@TE_FieldDataRel?$AA@ ; `string'
+	mov	eax, DWORD PTR _vDB$[ebp]
+	push	eax
+	call	_CompareAttributeToString@16
+	movsx	ecx, ax
+	test	ecx, ecx
+	jne	SHORT $L31537
+
+; 3888 :             // Drop the column.
+; 3889 :             zsprintf( szLine, "ALTER TABLE %s%s " DROP_COLUMN_STMT " %s %s",
+; 3890 :                       szOwner, szTableName, szColumnName, LINE_TERMINATOR );
+
+	push	OFFSET FLAT:??_C@_01FAJB@?$DL?$AA@	; `string'
+	lea	edx, DWORD PTR _szColumnName$[ebp]
+	push	edx
+	lea	eax, DWORD PTR _szTableName$[ebp]
+	push	eax
+	lea	ecx, DWORD PTR _szOwner$[ebp]
+	push	ecx
+	push	OFFSET FLAT:??_C@_0CD@OHJM@ALTER?5TABLE?5?$CFs?$CFs?5DROP?5COLUMN?5?$CFs?5@ ; `string'
+	lea	edx, DWORD PTR _szLine$[ebp]
+	push	edx
+	call	DWORD PTR __imp__sprintf
+	add	esp, 24					; 00000018H
+
+; 3891 : 
+; 3892 :             if ( fnWriteLine( vDTE, f, szLine ) < 0 )
+
+	lea	eax, DWORD PTR _szLine$[ebp]
+	push	eax
+	mov	ecx, DWORD PTR _f$[ebp]
+	push	ecx
 	mov	edx, DWORD PTR _vDTE$[ebp]
 	push	edx
-	call	_SetCursorFirstEntityByString@20
-	mov	WORD PTR _nRC$[ebp], ax
-	jmp	SHORT $L31548
-$L31549:
+	call	_SysWriteLine@12
+	test	eax, eax
+	jge	SHORT $L31539
+
+; 3893 :                goto EndOfFunction;
+
+	jmp	$EndOfFunction$31427
+$L31539:
+
+; 3895 :          else
+
+	jmp	$L31559
+$L31537:
+
+; 3896 :          if ( CompareAttributeToString( vDB, "TE_FieldDataRel",
+; 3897 :                                         "MatchFound", "D" ) == 0 )
+
+	push	OFFSET FLAT:??_C@_01PJM@D?$AA@		; `string'
+	push	OFFSET FLAT:??_C@_0L@FFM@MatchFound?$AA@ ; `string'
+	push	OFFSET FLAT:??_C@_0BA@PJGE@TE_FieldDataRel?$AA@ ; `string'
+	mov	eax, DWORD PTR _vDB$[ebp]
+	push	eax
+	call	_CompareAttributeToString@16
+	movsx	ecx, ax
+	test	ecx, ecx
+	jne	$L31559
+
+; 3899 :             zPCHAR pchKeyType;
+; 3900 : 
+; 3901 :             // Alter the column to match the datatype in the TE.
+; 3902 :             zsprintf( szLine, "ALTER TABLE %s%-*s ALTER COLUMN ",
+; 3903 :                       szOwner, (int) MAX_TABLENAME_LTH, szTableName );
+
+	lea	edx, DWORD PTR _szTableName$[ebp]
+	push	edx
+	push	32					; 00000020H
+	lea	eax, DWORD PTR _szOwner$[ebp]
+	push	eax
+	push	OFFSET FLAT:??_C@_0CB@MGNG@ALTER?5TABLE?5?$CFs?$CF?9?$CKs?5ALTER?5COLUMN?5@ ; `string'
+	lea	ecx, DWORD PTR _szLine$[ebp]
+	push	ecx
+	call	DWORD PTR __imp__sprintf
+	add	esp, 20					; 00000014H
+
+; 3904 : 
+; 3905 :             fnBuildColumn( vDB, f, szLine );
+
+	lea	edx, DWORD PTR _szLine$[ebp]
+	push	edx
+	mov	eax, DWORD PTR _f$[ebp]
+	push	eax
+	mov	ecx, DWORD PTR _vDB$[ebp]
+	push	ecx
+	call	_fnBuildColumn@12
+
+; 3906 :             zstrcat( szLine, LINE_TERMINATOR );
+
+	push	OFFSET FLAT:??_C@_01FAJB@?$DL?$AA@	; `string'
+	lea	edx, DWORD PTR _szLine$[ebp]
+	push	edx
+	call	_strcat
+	add	esp, 8
+
+; 3907 : 
+; 3908 :             if ( fnWriteLine( vDTE, f, szLine ) < 0 )
+
+	lea	eax, DWORD PTR _szLine$[ebp]
+	push	eax
+	mov	ecx, DWORD PTR _f$[ebp]
+	push	ecx
+	mov	edx, DWORD PTR _vDTE$[ebp]
+	push	edx
+	call	_SysWriteLine@12
+	test	eax, eax
+	jge	SHORT $L31545
+
+; 3909 :                goto EndOfFunction;
+
+	jmp	$EndOfFunction$31427
+$L31545:
+
+; 3910 : 
+; 3911 :             // Check to see if we need to re-create any indexes.
+; 3912 :             GetAddrForAttribute( &pchKeyType, vDTE, "TE_FieldDataRel",
+; 3913 :                                  "DataOrRelfieldOrSet" );
+
+	push	OFFSET FLAT:??_C@_0BE@ODFA@DataOrRelfieldOrSet?$AA@ ; `string'
+	push	OFFSET FLAT:??_C@_0BA@PJGE@TE_FieldDataRel?$AA@ ; `string'
+	mov	eax, DWORD PTR _vDTE$[ebp]
+	push	eax
+	lea	ecx, DWORD PTR _pchKeyType$31542[ebp]
+	push	ecx
+	call	_GetAddrForAttribute@16
+
+; 3914 :             if ( pchKeyType[ 0 ] == 'R' )
+
+	mov	edx, DWORD PTR _pchKeyType$31542[ebp]
+	movsx	eax, BYTE PTR [edx]
+	cmp	eax, 82					; 00000052H
+	jne	SHORT $L31546
+
+; 3916 :                if ( fnBuildFK_Index( vDTE, f ) == -1 )
+
+	mov	ecx, DWORD PTR _f$[ebp]
+	push	ecx
+	mov	edx, DWORD PTR _vDTE$[ebp]
+	push	edx
+	call	_fnBuildFK_Index@8
+	movsx	eax, ax
+	cmp	eax, -1
+	jne	SHORT $L31547
+
+; 3917 :                  goto EndOfFunction;
+
+	jmp	$EndOfFunction$31427
+$L31547:
+
+; 3918 : 
+; 3919 :                // We re-created one of the indexes dropped earlier so decrement
+; 3920 :                // count so we'll know if we recreated all the indexes.
+; 3921 :                nIndexDroppedCount--;
+
+	mov	cx, WORD PTR _nIndexDroppedCount$31527[ebp]
+	sub	cx, 1
+	mov	WORD PTR _nIndexDroppedCount$31527[ebp], cx
+$L31546:
+
+; 3923 : 
+; 3924 :             // If no more indexes need to be recreated, go on to the next col.
+; 3925 :             if ( nIndexDroppedCount == 0 )
+
+	movsx	edx, WORD PTR _nIndexDroppedCount$31527[ebp]
+	test	edx, edx
+	jne	SHORT $L31548
+
+; 3926 :                continue;
+
+	jmp	$L31525
+$L31548:
+
+; 3927 : 
+; 3928 :             // Check to see if the column we altered is contained in the list of
+; 3929 :             // identifiers for the table.  If it is we need to recreate
+; 3930 :             // the indexes that were dropped above.
+; 3931 :             for ( nRC = SetCursorFirstEntityByString( vDTE, "TE_FieldDataRelKey",
+; 3932 :                                                       "Name", szColumnName,
+; 3933 :                                                       "TE_TablRec" );
+; 3934 : 
+; 3935 :                   nRC >= zCURSOR_SET;
+; 3936 :                   nRC = SetCursorNextEntityByString( vDTE, "TE_FieldDataRelKey",
+; 3937 :                                                      "Name", szColumnName,
+; 3938 :                                                       "TE_TablRec" ) )
+
 	push	OFFSET FLAT:??_C@_0L@NCMM@TE_TablRec?$AA@ ; `string'
 	lea	eax, DWORD PTR _szColumnName$[ebp]
 	push	eax
@@ -10983,215 +10989,226 @@ $L31549:
 	push	OFFSET FLAT:??_C@_0BD@EGMP@TE_FieldDataRelKey?$AA@ ; `string'
 	mov	ecx, DWORD PTR _vDTE$[ebp]
 	push	ecx
-	call	_SetCursorNextEntityByString@20
+	call	_SetCursorFirstEntityByString@20
 	mov	WORD PTR _nRC$[ebp], ax
-$L31548:
-	movsx	edx, WORD PTR _nRC$[ebp]
-	test	edx, edx
-	jl	SHORT $L31550
-
-; 3933 :                if ( fnBuildIndexFromTablRecKey( vDTE, FALSE, f ) == -1 )
-
-	mov	eax, DWORD PTR _f$[ebp]
-	push	eax
-	push	0
-	mov	ecx, DWORD PTR _vDTE$[ebp]
-	push	ecx
-	call	_fnBuildIndexFromTablRecKey@12
-	movsx	edx, ax
-	cmp	edx, -1
-	jne	SHORT $L31551
-
-; 3934 :                   goto EndOfFunction;
-
-	jmp	$EndOfFunction$31427
-$L31551:
-
-; 3935 : 
-; 3936 :                // We re-created one of the indexes dropped earlier so decrement
-; 3937 :                // count so we'll know if we recreated all the indexes.
-; 3938 :                nIndexDroppedCount--;
-
-	mov	ax, WORD PTR _nIndexDroppedCount$31526[ebp]
-	sub	ax, 1
-	mov	WORD PTR _nIndexDroppedCount$31526[ebp], ax
-
-; 3939 :             }
-
 	jmp	SHORT $L31549
 $L31550:
-
-; 3940 : 
-; 3941 :             if ( nIndexDroppedCount )
-
-	movsx	ecx, WORD PTR _nIndexDroppedCount$31526[ebp]
-	test	ecx, ecx
-	je	$L31558
-
-; 3943 :                zCHAR szMsg[ 1000 ];
-; 3944 : 
-; 3945 :                // An index has been dropped for this column because it has been
-; 3946 :                // modified but it is not a FK so we don't normally create an
-; 3947 :                // index on it.  We'll display a warning and try to create an
-; 3948 :                // index for the column.
-; 3949 :                zsprintf( szMsg, "WARNING: The data type for the column %s.%s "
-; 3950 :                          "has been changed and therefore had an index deleted.  "
-; 3951 :                          "The column is NOT a key and therefore the index was "
-; 3952 :                          "added by the DBA.  An attempt has been made to "
-; 3953 :                          "recreate the index in the DDL.  Look for 'WARNING' "
-; 3954 :                          "in the DDL file",
-; 3955 :                          szTableName, szColumnName );
-
+	push	OFFSET FLAT:??_C@_0L@NCMM@TE_TablRec?$AA@ ; `string'
 	lea	edx, DWORD PTR _szColumnName$[ebp]
 	push	edx
-	lea	eax, DWORD PTR _szTableName$[ebp]
+	push	OFFSET FLAT:??_C@_04EFNI@Name?$AA@	; `string'
+	push	OFFSET FLAT:??_C@_0BD@EGMP@TE_FieldDataRelKey?$AA@ ; `string'
+	mov	eax, DWORD PTR _vDTE$[ebp]
 	push	eax
-	push	OFFSET FLAT:??_C@_0BAI@KIFF@WARNING?3?5The?5data?5type?5for?5the?5c@ ; `string'
-	lea	ecx, DWORD PTR _szMsg$31553[ebp]
+	call	_SetCursorNextEntityByString@20
+	mov	WORD PTR _nRC$[ebp], ax
+$L31549:
+	movsx	ecx, WORD PTR _nRC$[ebp]
+	test	ecx, ecx
+	jl	SHORT $L31551
+
+; 3940 :                if ( fnBuildIndexFromTablRecKey( vDTE, FALSE, f ) == -1 )
+
+	mov	edx, DWORD PTR _f$[ebp]
+	push	edx
+	push	0
+	mov	eax, DWORD PTR _vDTE$[ebp]
+	push	eax
+	call	_fnBuildIndexFromTablRecKey@12
+	movsx	ecx, ax
+	cmp	ecx, -1
+	jne	SHORT $L31552
+
+; 3941 :                   goto EndOfFunction;
+
+	jmp	$EndOfFunction$31427
+$L31552:
+
+; 3942 : 
+; 3943 :                // We re-created one of the indexes dropped earlier so decrement
+; 3944 :                // count so we'll know if we recreated all the indexes.
+; 3945 :                nIndexDroppedCount--;
+
+	mov	dx, WORD PTR _nIndexDroppedCount$31527[ebp]
+	sub	dx, 1
+	mov	WORD PTR _nIndexDroppedCount$31527[ebp], dx
+
+; 3946 :             }
+
+	jmp	SHORT $L31550
+$L31551:
+
+; 3947 : 
+; 3948 :             if ( nIndexDroppedCount )
+
+	movsx	eax, WORD PTR _nIndexDroppedCount$31527[ebp]
+	test	eax, eax
+	je	$L31559
+
+; 3950 :                zCHAR szMsg[ 1000 ];
+; 3951 : 
+; 3952 :                // An index has been dropped for this column because it has been
+; 3953 :                // modified but it is not a FK so we don't normally create an
+; 3954 :                // index on it.  We'll display a warning and try to create an
+; 3955 :                // index for the column.
+; 3956 :                zsprintf( szMsg, "WARNING: The data type for the column %s.%s "
+; 3957 :                          "has been changed and therefore had an index deleted.  "
+; 3958 :                          "The column is NOT a key and therefore the index was "
+; 3959 :                          "added by the DBA.  An attempt has been made to "
+; 3960 :                          "recreate the index in the DDL.  Look for 'WARNING' "
+; 3961 :                          "in the DDL file",
+; 3962 :                          szTableName, szColumnName );
+
+	lea	ecx, DWORD PTR _szColumnName$[ebp]
 	push	ecx
+	lea	edx, DWORD PTR _szTableName$[ebp]
+	push	edx
+	push	OFFSET FLAT:??_C@_0BAI@KIFF@WARNING?3?5The?5data?5type?5for?5the?5c@ ; `string'
+	lea	eax, DWORD PTR _szMsg$31554[ebp]
+	push	eax
 	call	DWORD PTR __imp__sprintf
 	add	esp, 16					; 00000010H
 
-; 3956 :                SysMessageBox( vDTE, "DDL Generationg Warning", szMsg, 0 );
+; 3963 :                SysMessageBox( vDTE, "DDL Generationg Warning", szMsg, 0 );
 
 	push	0
-	lea	edx, DWORD PTR _szMsg$31553[ebp]
-	push	edx
+	lea	ecx, DWORD PTR _szMsg$31554[ebp]
+	push	ecx
 	push	OFFSET FLAT:??_C@_0BI@HFPH@DDL?5Generationg?5Warning?$AA@ ; `string'
-	mov	eax, DWORD PTR _vDTE$[ebp]
-	push	eax
+	mov	edx, DWORD PTR _vDTE$[ebp]
+	push	edx
 	call	_SysMessageBox@16
 
-; 3957 : 
-; 3958 :                zsprintf( szMsg, "%s WARNING--Following index may not have the "
-; 3959 :                          " same the columns as the original index: %s",
-; 3960 :                          COMMENT_START, COMMENT_END );
+; 3964 : 
+; 3965 :                zsprintf( szMsg, "%s WARNING--Following index may not have the "
+; 3966 :                          " same the columns as the original index: %s",
+; 3967 :                          COMMENT_START, COMMENT_END );
 
 	push	OFFSET FLAT:??_C@_02BOOO@?$CK?1?$AA@	; `string'
 	push	OFFSET FLAT:??_C@_02FCCF@?1?$CK?$AA@	; `string'
 	push	OFFSET FLAT:??_C@_0FJ@KCOE@?$CFs?5WARNING?9?9Following?5index?5may?5@ ; `string'
-	lea	ecx, DWORD PTR _szMsg$31553[ebp]
-	push	ecx
+	lea	eax, DWORD PTR _szMsg$31554[ebp]
+	push	eax
 	call	DWORD PTR __imp__sprintf
 	add	esp, 16					; 00000010H
 
-; 3961 :                if ( fnWriteLine( vDTE, f, szMsg ) < 0 )
+; 3968 :                if ( fnWriteLine( vDTE, f, szMsg ) < 0 )
 
-	lea	edx, DWORD PTR _szMsg$31553[ebp]
-	push	edx
-	mov	eax, DWORD PTR _f$[ebp]
-	push	eax
-	mov	ecx, DWORD PTR _vDTE$[ebp]
+	lea	ecx, DWORD PTR _szMsg$31554[ebp]
 	push	ecx
-	call	_SysWriteLine@12
-	test	eax, eax
-	jge	SHORT $L31557
-
-; 3962 :                   goto EndOfFunction;
-
-	jmp	SHORT $EndOfFunction$31427
-$L31557:
-
-; 3963 : 
-; 3964 :                if ( fnBuildFK_Index( vDTE, f ) == -1 )
-
 	mov	edx, DWORD PTR _f$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _vDTE$[ebp]
 	push	eax
-	call	_fnBuildFK_Index@8
-	movsx	ecx, ax
-	cmp	ecx, -1
-	jne	SHORT $L31558
+	call	_SysWriteLine@12
+	test	eax, eax
+	jge	SHORT $L31558
 
-; 3965 :                  goto EndOfFunction;
+; 3969 :                   goto EndOfFunction;
 
 	jmp	SHORT $EndOfFunction$31427
 $L31558:
 
-; 3968 : 
-; 3969 :       }  // For each TE_FieldDataRel
-
-	jmp	$L31524
-$L31525:
-
 ; 3970 : 
-; 3971 :       #if COMMIT_EVERY_TABLE
-; 3972 :          // Commit the table if we altered it.
-; 3973 :          if ( bFirstAlterForTable == FALSE && fnWriteLine( vDTE, f, COMMIT_STR ) < 0 )
+; 3971 :                if ( fnBuildFK_Index( vDTE, f ) == -1 )
 
-	mov	edx, DWORD PTR _bFirstAlterForTable$31519[ebp]
-	and	edx, 255				; 000000ffH
-	test	edx, edx
-	jne	SHORT $L31559
-	push	OFFSET FLAT:??_C@_07JAEB@COMMIT?$DL?$AA@ ; `string'
-	mov	eax, DWORD PTR _f$[ebp]
-	push	eax
-	mov	ecx, DWORD PTR _vDTE$[ebp]
+	mov	ecx, DWORD PTR _f$[ebp]
 	push	ecx
+	mov	edx, DWORD PTR _vDTE$[ebp]
+	push	edx
+	call	_fnBuildFK_Index@8
+	movsx	eax, ax
+	cmp	eax, -1
+	jne	SHORT $L31559
+
+; 3972 :                  goto EndOfFunction;
+
+	jmp	SHORT $EndOfFunction$31427
+$L31559:
+
+; 3975 : 
+; 3976 :       }  // For each TE_FieldDataRel
+
+	jmp	$L31525
+$L31526:
+
+; 3977 : 
+; 3978 :       #if COMMIT_EVERY_TABLE
+; 3979 :          // Commit the table if we altered it.
+; 3980 :          if ( bFirstAlterForTable == FALSE && fnWriteLine( vDTE, f, COMMIT_STR ) < 0 )
+
+	mov	ecx, DWORD PTR _bFirstAlterForTable$31520[ebp]
+	and	ecx, 255				; 000000ffH
+	test	ecx, ecx
+	jne	SHORT $L31560
+	push	OFFSET FLAT:??_C@_07JAEB@COMMIT?$DL?$AA@ ; `string'
+	mov	edx, DWORD PTR _f$[ebp]
+	push	edx
+	mov	eax, DWORD PTR _vDTE$[ebp]
+	push	eax
 	call	_SysWriteLine@12
 	test	eax, eax
-	jge	SHORT $L31559
+	jge	SHORT $L31560
 
-; 3974 :             return( -1 );
+; 3981 :             return( -1 );
 
 	or	ax, -1
 	jmp	SHORT $L31394
-$L31559:
+$L31560:
 
-; 3975 :       #endif
-; 3976 : 
-; 3977 :    }  // For each TE_TablRec
+; 3982 :       #endif
+; 3983 : 
+; 3984 :    }  // For each TE_TablRec
 
-	jmp	$L31517
-$L31518:
+	jmp	$L31518
+$L31519:
 
-; 3978 : 
-; 3979 :    // If we get here, then everything's ok.
-; 3980 :    nReturn = 0;
+; 3985 : 
+; 3986 :    // If we get here, then everything's ok.
+; 3987 :    nReturn = 0;
 
 	mov	WORD PTR _nReturn$[ebp], 0
 $EndOfFunction$31427:
 
-; 3981 : 
-; 3982 : EndOfFunction:
-; 3983 :    if ( f >= 0 )
+; 3988 : 
+; 3989 : EndOfFunction:
+; 3990 :    if ( f >= 0 )
 
 	cmp	DWORD PTR _f$[ebp], 0
-	jl	SHORT $L31560
+	jl	SHORT $L31561
 
-; 3984 :       SysCloseFile( vSubtask, f, 0 );
+; 3991 :       SysCloseFile( vSubtask, f, 0 );
 
 	push	0
-	mov	edx, DWORD PTR _f$[ebp]
+	mov	ecx, DWORD PTR _f$[ebp]
+	push	ecx
+	mov	edx, DWORD PTR _vSubtask$[ebp]
 	push	edx
-	mov	eax, DWORD PTR _vSubtask$[ebp]
-	push	eax
 	call	_SysCloseFile@12
-$L31560:
+$L31561:
 
-; 3985 : 
-; 3986 :    // Drop the view copies.
-; 3987 :    DropView( vDTE );
+; 3992 : 
+; 3993 :    // Drop the view copies.
+; 3994 :    DropView( vDTE );
 
-	mov	ecx, DWORD PTR _vDTE$[ebp]
+	mov	eax, DWORD PTR _vDTE$[ebp]
+	push	eax
+	call	_DropView@4
+
+; 3995 :    DropView( vEMD );
+
+	mov	ecx, DWORD PTR _vEMD$[ebp]
 	push	ecx
 	call	_DropView@4
 
-; 3988 :    DropView( vEMD );
-
-	mov	edx, DWORD PTR _vEMD$[ebp]
-	push	edx
-	call	_DropView@4
-
-; 3989 : 
-; 3990 :    return( nReturn );
+; 3996 : 
+; 3997 :    return( nReturn );
 
 	mov	ax, WORD PTR _nReturn$[ebp]
 $L31394:
 
-; 3991 : 
-; 3992 : } // BuildSyncDDL
+; 3998 : 
+; 3999 : } // BuildSyncDDL
 
 	mov	esp, ebp
 	pop	ebp
@@ -11310,15 +11327,15 @@ _TEXT	SEGMENT
 _vType$ = 8
 _LoadDataTypes@4 PROC NEAR
 
-; 3996 : {
+; 4003 : {
 
 	push	ebp
 	mov	ebp, esp
 
-; 3997 :    //
-; 3998 :    // Following are standard types.
-; 3999 :    //
-; 4000 :    CreateEntity( vType, "DB_DataTypes", zPOS_LAST );
+; 4004 :    //
+; 4005 :    // Following are standard types.
+; 4006 :    //
+; 4007 :    CreateEntity( vType, "DB_DataTypes", zPOS_LAST );
 
 	push	2
 	push	OFFSET FLAT:??_C@_0N@INLJ@DB_DataTypes?$AA@ ; `string'
@@ -11326,7 +11343,7 @@ _LoadDataTypes@4 PROC NEAR
 	push	eax
 	call	_CreateEntity@12
 
-; 4001 :    SetAttributeFromString( vType, "DB_DataTypes", "InternalName", "S" );
+; 4008 :    SetAttributeFromString( vType, "DB_DataTypes", "InternalName", "S" );
 
 	push	OFFSET FLAT:??_C@_01PDAJ@S?$AA@		; `string'
 	push	OFFSET FLAT:??_C@_0N@CCA@InternalName?$AA@ ; `string'
@@ -11335,8 +11352,8 @@ _LoadDataTypes@4 PROC NEAR
 	push	ecx
 	call	_SetAttributeFromString@16
 
-; 4002 :    SetAttributeFromString( vType, "DB_DataTypes", "ExternalName",
-; 4003 :                            "String" );
+; 4009 :    SetAttributeFromString( vType, "DB_DataTypes", "ExternalName",
+; 4010 :                            "String" );
 
 	push	OFFSET FLAT:??_C@_06PINC@String?$AA@	; `string'
 	push	OFFSET FLAT:??_C@_0N@NAC@ExternalName?$AA@ ; `string'
@@ -11345,8 +11362,8 @@ _LoadDataTypes@4 PROC NEAR
 	push	edx
 	call	_SetAttributeFromString@16
 
-; 4004 : 
-; 4005 :    CreateEntity( vType, "DB_DataTypes", zPOS_LAST );
+; 4011 : 
+; 4012 :    CreateEntity( vType, "DB_DataTypes", zPOS_LAST );
 
 	push	2
 	push	OFFSET FLAT:??_C@_0N@INLJ@DB_DataTypes?$AA@ ; `string'
@@ -11354,7 +11371,7 @@ _LoadDataTypes@4 PROC NEAR
 	push	eax
 	call	_CreateEntity@12
 
-; 4006 :    SetAttributeFromString( vType, "DB_DataTypes", "InternalName", "L" );
+; 4013 :    SetAttributeFromString( vType, "DB_DataTypes", "InternalName", "L" );
 
 	push	OFFSET FLAT:??_C@_01FLCE@L?$AA@		; `string'
 	push	OFFSET FLAT:??_C@_0N@CCA@InternalName?$AA@ ; `string'
@@ -11363,8 +11380,8 @@ _LoadDataTypes@4 PROC NEAR
 	push	ecx
 	call	_SetAttributeFromString@16
 
-; 4007 :    SetAttributeFromString( vType, "DB_DataTypes", "ExternalName",
-; 4008 :                            "Integer" );
+; 4014 :    SetAttributeFromString( vType, "DB_DataTypes", "ExternalName",
+; 4015 :                            "Integer" );
 
 	push	OFFSET FLAT:??_C@_07HDOI@Integer?$AA@	; `string'
 	push	OFFSET FLAT:??_C@_0N@NAC@ExternalName?$AA@ ; `string'
@@ -11373,8 +11390,8 @@ _LoadDataTypes@4 PROC NEAR
 	push	edx
 	call	_SetAttributeFromString@16
 
-; 4009 : 
-; 4010 :    CreateEntity( vType, "DB_DataTypes", zPOS_LAST );
+; 4016 : 
+; 4017 :    CreateEntity( vType, "DB_DataTypes", zPOS_LAST );
 
 	push	2
 	push	OFFSET FLAT:??_C@_0N@INLJ@DB_DataTypes?$AA@ ; `string'
@@ -11382,7 +11399,7 @@ _LoadDataTypes@4 PROC NEAR
 	push	eax
 	call	_CreateEntity@12
 
-; 4011 :    SetAttributeFromString( vType, "DB_DataTypes", "InternalName", "M" );
+; 4018 :    SetAttributeFromString( vType, "DB_DataTypes", "InternalName", "M" );
 
 	push	OFFSET FLAT:??_C@_01PBLD@M?$AA@		; `string'
 	push	OFFSET FLAT:??_C@_0N@CCA@InternalName?$AA@ ; `string'
@@ -11391,8 +11408,8 @@ _LoadDataTypes@4 PROC NEAR
 	push	ecx
 	call	_SetAttributeFromString@16
 
-; 4012 :    SetAttributeFromString( vType, "DB_DataTypes", "ExternalName",
-; 4013 :                            "Decimal" );
+; 4019 :    SetAttributeFromString( vType, "DB_DataTypes", "ExternalName",
+; 4020 :                            "Decimal" );
 
 	push	OFFSET FLAT:??_C@_07DBJI@Decimal?$AA@	; `string'
 	push	OFFSET FLAT:??_C@_0N@NAC@ExternalName?$AA@ ; `string'
@@ -11401,8 +11418,8 @@ _LoadDataTypes@4 PROC NEAR
 	push	edx
 	call	_SetAttributeFromString@16
 
-; 4014 : 
-; 4015 :    CreateEntity( vType, "DB_DataTypes", zPOS_LAST );
+; 4021 : 
+; 4022 :    CreateEntity( vType, "DB_DataTypes", zPOS_LAST );
 
 	push	2
 	push	OFFSET FLAT:??_C@_0N@INLJ@DB_DataTypes?$AA@ ; `string'
@@ -11410,7 +11427,7 @@ _LoadDataTypes@4 PROC NEAR
 	push	eax
 	call	_CreateEntity@12
 
-; 4016 :    SetAttributeFromString( vType, "DB_DataTypes", "InternalName", "T" );
+; 4023 :    SetAttributeFromString( vType, "DB_DataTypes", "InternalName", "T" );
 
 	push	OFFSET FLAT:??_C@_01KGOM@T?$AA@		; `string'
 	push	OFFSET FLAT:??_C@_0N@CCA@InternalName?$AA@ ; `string'
@@ -11419,8 +11436,8 @@ _LoadDataTypes@4 PROC NEAR
 	push	ecx
 	call	_SetAttributeFromString@16
 
-; 4017 :    SetAttributeFromString( vType, "DB_DataTypes", "ExternalName",
-; 4018 :                            "Timestamp" );
+; 4024 :    SetAttributeFromString( vType, "DB_DataTypes", "ExternalName",
+; 4025 :                            "Timestamp" );
 
 	push	OFFSET FLAT:??_C@_09KMOL@Timestamp?$AA@	; `string'
 	push	OFFSET FLAT:??_C@_0N@NAC@ExternalName?$AA@ ; `string'
@@ -11429,8 +11446,8 @@ _LoadDataTypes@4 PROC NEAR
 	push	edx
 	call	_SetAttributeFromString@16
 
-; 4019 : 
-; 4020 :    CreateEntity( vType, "DB_DataTypes", zPOS_LAST );
+; 4026 : 
+; 4027 :    CreateEntity( vType, "DB_DataTypes", zPOS_LAST );
 
 	push	2
 	push	OFFSET FLAT:??_C@_0N@INLJ@DB_DataTypes?$AA@ ; `string'
@@ -11438,7 +11455,7 @@ _LoadDataTypes@4 PROC NEAR
 	push	eax
 	call	_CreateEntity@12
 
-; 4021 :    SetAttributeFromString( vType, "DB_DataTypes", "InternalName", "X" );
+; 4028 :    SetAttributeFromString( vType, "DB_DataTypes", "InternalName", "X" );
 
 	push	OFFSET FLAT:??_C@_01FIAI@X?$AA@		; `string'
 	push	OFFSET FLAT:??_C@_0N@CCA@InternalName?$AA@ ; `string'
@@ -11447,8 +11464,8 @@ _LoadDataTypes@4 PROC NEAR
 	push	ecx
 	call	_SetAttributeFromString@16
 
-; 4022 :    SetAttributeFromString( vType, "DB_DataTypes", "ExternalName",
-; 4023 :                            "TimeStampEx" );
+; 4029 :    SetAttributeFromString( vType, "DB_DataTypes", "ExternalName",
+; 4030 :                            "TimeStampEx" );
 
 	push	OFFSET FLAT:??_C@_0M@BADB@TimeStampEx?$AA@ ; `string'
 	push	OFFSET FLAT:??_C@_0N@NAC@ExternalName?$AA@ ; `string'
@@ -11457,20 +11474,20 @@ _LoadDataTypes@4 PROC NEAR
 	push	edx
 	call	_SetAttributeFromString@16
 
-; 4024 : 
-; 4025 : #if defined( SQLSERVER ) && !defined( QUINSOFT )
-; 4026 :    /*
-; 4027 :    ** The ODBC-driver for SqlServer doesn't support SQL_DATE and SQL_TIME
-; 4028 :    */
-; 4029 :    CreateEntity( vType, "DB_DataTypes", zPOS_LAST );
-; 4030 :    SetAttributeFromString( vType, "DB_DataTypes", "InternalName", "T" );
-; 4031 :    SetAttributeFromString( vType, "DB_DataTypes", "ExternalName", "Date" );
-; 4032 : 
-; 4033 :    CreateEntity( vType, "DB_DataTypes", zPOS_LAST );
-; 4034 :    SetAttributeFromString( vType, "DB_DataTypes", "InternalName", "T" );
-; 4035 :    SetAttributeFromString( vType, "DB_DataTypes", "ExternalName", "Time" );
-; 4036 : #else
-; 4037 :    CreateEntity( vType, "DB_DataTypes", zPOS_LAST );
+; 4031 : 
+; 4032 : #if defined( SQLSERVER ) && !defined( QUINSOFT )
+; 4033 :    /*
+; 4034 :    ** The ODBC-driver for SqlServer doesn't support SQL_DATE and SQL_TIME
+; 4035 :    */
+; 4036 :    CreateEntity( vType, "DB_DataTypes", zPOS_LAST );
+; 4037 :    SetAttributeFromString( vType, "DB_DataTypes", "InternalName", "T" );
+; 4038 :    SetAttributeFromString( vType, "DB_DataTypes", "ExternalName", "Date" );
+; 4039 : 
+; 4040 :    CreateEntity( vType, "DB_DataTypes", zPOS_LAST );
+; 4041 :    SetAttributeFromString( vType, "DB_DataTypes", "InternalName", "T" );
+; 4042 :    SetAttributeFromString( vType, "DB_DataTypes", "ExternalName", "Time" );
+; 4043 : #else
+; 4044 :    CreateEntity( vType, "DB_DataTypes", zPOS_LAST );
 
 	push	2
 	push	OFFSET FLAT:??_C@_0N@INLJ@DB_DataTypes?$AA@ ; `string'
@@ -11478,7 +11495,7 @@ _LoadDataTypes@4 PROC NEAR
 	push	eax
 	call	_CreateEntity@12
 
-; 4038 :    SetAttributeFromString( vType, "DB_DataTypes", "InternalName", "D" );
+; 4045 :    SetAttributeFromString( vType, "DB_DataTypes", "InternalName", "D" );
 
 	push	OFFSET FLAT:??_C@_01PJM@D?$AA@		; `string'
 	push	OFFSET FLAT:??_C@_0N@CCA@InternalName?$AA@ ; `string'
@@ -11487,7 +11504,7 @@ _LoadDataTypes@4 PROC NEAR
 	push	ecx
 	call	_SetAttributeFromString@16
 
-; 4039 :    SetAttributeFromString( vType, "DB_DataTypes", "ExternalName", "Date" );
+; 4046 :    SetAttributeFromString( vType, "DB_DataTypes", "ExternalName", "Date" );
 
 	push	OFFSET FLAT:??_C@_04OMLL@Date?$AA@	; `string'
 	push	OFFSET FLAT:??_C@_0N@NAC@ExternalName?$AA@ ; `string'
@@ -11496,8 +11513,8 @@ _LoadDataTypes@4 PROC NEAR
 	push	edx
 	call	_SetAttributeFromString@16
 
-; 4040 : 
-; 4041 :    CreateEntity( vType, "DB_DataTypes", zPOS_LAST );
+; 4047 : 
+; 4048 :    CreateEntity( vType, "DB_DataTypes", zPOS_LAST );
 
 	push	2
 	push	OFFSET FLAT:??_C@_0N@INLJ@DB_DataTypes?$AA@ ; `string'
@@ -11505,7 +11522,7 @@ _LoadDataTypes@4 PROC NEAR
 	push	eax
 	call	_CreateEntity@12
 
-; 4042 :    SetAttributeFromString( vType, "DB_DataTypes", "InternalName", "I" );
+; 4049 :    SetAttributeFromString( vType, "DB_DataTypes", "InternalName", "I" );
 
 	push	OFFSET FLAT:??_C@_01FLOP@I?$AA@		; `string'
 	push	OFFSET FLAT:??_C@_0N@CCA@InternalName?$AA@ ; `string'
@@ -11514,7 +11531,7 @@ _LoadDataTypes@4 PROC NEAR
 	push	ecx
 	call	_SetAttributeFromString@16
 
-; 4043 :    SetAttributeFromString( vType, "DB_DataTypes", "ExternalName", "Time" );
+; 4050 :    SetAttributeFromString( vType, "DB_DataTypes", "ExternalName", "Time" );
 
 	push	OFFSET FLAT:??_C@_04OAHI@Time?$AA@	; `string'
 	push	OFFSET FLAT:??_C@_0N@NAC@ExternalName?$AA@ ; `string'
@@ -11523,9 +11540,9 @@ _LoadDataTypes@4 PROC NEAR
 	push	edx
 	call	_SetAttributeFromString@16
 
-; 4044 : #endif
-; 4045 : 
-; 4046 :    CreateEntity( vType, "DB_DataTypes", zPOS_LAST );
+; 4051 : #endif
+; 4052 : 
+; 4053 :    CreateEntity( vType, "DB_DataTypes", zPOS_LAST );
 
 	push	2
 	push	OFFSET FLAT:??_C@_0N@INLJ@DB_DataTypes?$AA@ ; `string'
@@ -11533,7 +11550,7 @@ _LoadDataTypes@4 PROC NEAR
 	push	eax
 	call	_CreateEntity@12
 
-; 4047 :    SetAttributeFromString( vType, "DB_DataTypes", "InternalName", "F" );
+; 4054 :    SetAttributeFromString( vType, "DB_DataTypes", "InternalName", "F" );
 
 	push	OFFSET FLAT:??_C@_01FKLC@F?$AA@		; `string'
 	push	OFFSET FLAT:??_C@_0N@CCA@InternalName?$AA@ ; `string'
@@ -11542,7 +11559,7 @@ _LoadDataTypes@4 PROC NEAR
 	push	ecx
 	call	_SetAttributeFromString@16
 
-; 4048 :    SetAttributeFromString( vType, "DB_DataTypes", "ExternalName", "FixedChar" );
+; 4055 :    SetAttributeFromString( vType, "DB_DataTypes", "ExternalName", "FixedChar" );
 
 	push	OFFSET FLAT:??_C@_09GOGB@FixedChar?$AA@	; `string'
 	push	OFFSET FLAT:??_C@_0N@NAC@ExternalName?$AA@ ; `string'
@@ -11551,54 +11568,54 @@ _LoadDataTypes@4 PROC NEAR
 	push	edx
 	call	_SetAttributeFromString@16
 
-; 4049 : 
-; 4050 : #if defined( ACCESS )
-; 4051 : 
-; 4052 :    CreateEntity( vType, "DB_DataTypes", zPOS_LAST );
-; 4053 :    SetAttributeFromString( vType, "DB_DataTypes", "InternalName", "B" );
-; 4054 :    SetAttributeFromString( vType, "DB_DataTypes", "ExternalName",
-; 4055 :                            "Blob (Memo)" );     // Blob name.
 ; 4056 : 
-; 4057 :    //
-; 4058 :    // Following are DB-specific types.
-; 4059 :    //
-; 4060 : 
-; 4061 :    CreateEntity( vType, "DB_DataTypes", zPOS_LAST );
-; 4062 :    SetAttributeFromString( vType, "DB_DataTypes", "InternalName", "V" );
-; 4063 :    SetAttributeFromString( vType, "DB_DataTypes", "ExternalName", "Memo" );
-; 4064 : 
-; 4065 : #elif defined( DB2 )
-; 4066 : 
-; 4067 :    CreateEntity( vType, "DB_DataTypes", zPOS_LAST );
-; 4068 :    SetAttributeFromString( vType, "DB_DataTypes", "InternalName", "B" );
-; 4069 :    SetAttributeFromString( vType, "DB_DataTypes", "ExternalName", "Blob" );
-; 4070 : 
-; 4071 :    //
-; 4072 :    // Following are DB-specific types.
-; 4073 :    //
-; 4074 : 
-; 4075 :    CreateEntity( vType, "DB_DataTypes", zPOS_LAST );
-; 4076 :    SetAttributeFromString( vType, "DB_DataTypes", "InternalName", "V" );
-; 4077 :    SetAttributeFromString( vType, "DB_DataTypes", "ExternalName", "CLOB" );
-; 4078 : 
-; 4079 : #elif defined( SQLBASE ) || defined( ODBC )
-; 4080 : 
-; 4081 :    CreateEntity( vType, "DB_DataTypes", zPOS_LAST );
-; 4082 :    SetAttributeFromString( vType, "DB_DataTypes", "InternalName", "B" );
-; 4083 :    SetAttributeFromString( vType, "DB_DataTypes", "ExternalName",
-; 4084 :                            "Blob (VarChar)" );     // Blob name.
+; 4057 : #if defined( ACCESS )
+; 4058 : 
+; 4059 :    CreateEntity( vType, "DB_DataTypes", zPOS_LAST );
+; 4060 :    SetAttributeFromString( vType, "DB_DataTypes", "InternalName", "B" );
+; 4061 :    SetAttributeFromString( vType, "DB_DataTypes", "ExternalName",
+; 4062 :                            "Blob (Memo)" );     // Blob name.
+; 4063 : 
+; 4064 :    //
+; 4065 :    // Following are DB-specific types.
+; 4066 :    //
+; 4067 : 
+; 4068 :    CreateEntity( vType, "DB_DataTypes", zPOS_LAST );
+; 4069 :    SetAttributeFromString( vType, "DB_DataTypes", "InternalName", "V" );
+; 4070 :    SetAttributeFromString( vType, "DB_DataTypes", "ExternalName", "Memo" );
+; 4071 : 
+; 4072 : #elif defined( DB2 )
+; 4073 : 
+; 4074 :    CreateEntity( vType, "DB_DataTypes", zPOS_LAST );
+; 4075 :    SetAttributeFromString( vType, "DB_DataTypes", "InternalName", "B" );
+; 4076 :    SetAttributeFromString( vType, "DB_DataTypes", "ExternalName", "Blob" );
+; 4077 : 
+; 4078 :    //
+; 4079 :    // Following are DB-specific types.
+; 4080 :    //
+; 4081 : 
+; 4082 :    CreateEntity( vType, "DB_DataTypes", zPOS_LAST );
+; 4083 :    SetAttributeFromString( vType, "DB_DataTypes", "InternalName", "V" );
+; 4084 :    SetAttributeFromString( vType, "DB_DataTypes", "ExternalName", "CLOB" );
 ; 4085 : 
-; 4086 :    //
-; 4087 :    // Following are DB-specific types.
-; 4088 :    //
-; 4089 : 
-; 4090 :    CreateEntity( vType, "DB_DataTypes", zPOS_LAST );
-; 4091 :    SetAttributeFromString( vType, "DB_DataTypes", "InternalName", "V" );
-; 4092 :    SetAttributeFromString( vType, "DB_DataTypes", "ExternalName", "VarChar" );
-; 4093 : 
-; 4094 : #elif defined( MYSQL )
-; 4095 : 
-; 4096 :    CreateEntity( vType, "DB_DataTypes", zPOS_LAST );
+; 4086 : #elif defined( SQLBASE ) || defined( ODBC )
+; 4087 : 
+; 4088 :    CreateEntity( vType, "DB_DataTypes", zPOS_LAST );
+; 4089 :    SetAttributeFromString( vType, "DB_DataTypes", "InternalName", "B" );
+; 4090 :    SetAttributeFromString( vType, "DB_DataTypes", "ExternalName",
+; 4091 :                            "Blob (VarChar)" );     // Blob name.
+; 4092 : 
+; 4093 :    //
+; 4094 :    // Following are DB-specific types.
+; 4095 :    //
+; 4096 : 
+; 4097 :    CreateEntity( vType, "DB_DataTypes", zPOS_LAST );
+; 4098 :    SetAttributeFromString( vType, "DB_DataTypes", "InternalName", "V" );
+; 4099 :    SetAttributeFromString( vType, "DB_DataTypes", "ExternalName", "VarChar" );
+; 4100 : 
+; 4101 : #elif defined( MYSQL )
+; 4102 : 
+; 4103 :    CreateEntity( vType, "DB_DataTypes", zPOS_LAST );
 
 	push	2
 	push	OFFSET FLAT:??_C@_0N@INLJ@DB_DataTypes?$AA@ ; `string'
@@ -11606,7 +11623,7 @@ _LoadDataTypes@4 PROC NEAR
 	push	eax
 	call	_CreateEntity@12
 
-; 4097 :    SetAttributeFromString( vType, "DB_DataTypes", "InternalName", "B" );
+; 4104 :    SetAttributeFromString( vType, "DB_DataTypes", "InternalName", "B" );
 
 	push	OFFSET FLAT:??_C@_01PAOO@B?$AA@		; `string'
 	push	OFFSET FLAT:??_C@_0N@CCA@InternalName?$AA@ ; `string'
@@ -11615,8 +11632,8 @@ _LoadDataTypes@4 PROC NEAR
 	push	ecx
 	call	_SetAttributeFromString@16
 
-; 4098 :    SetAttributeFromString( vType, "DB_DataTypes", "ExternalName",
-; 4099 :                            "Blob (longblob)" );       // Blob name.
+; 4105 :    SetAttributeFromString( vType, "DB_DataTypes", "ExternalName",
+; 4106 :                            "Blob (longblob)" );       // Blob name.
 
 	push	OFFSET FLAT:??_C@_0BA@IMGI@Blob?5?$CIlongblob?$CJ?$AA@ ; `string'
 	push	OFFSET FLAT:??_C@_0N@NAC@ExternalName?$AA@ ; `string'
@@ -11625,12 +11642,12 @@ _LoadDataTypes@4 PROC NEAR
 	push	edx
 	call	_SetAttributeFromString@16
 
-; 4100 : 
-; 4101 :    //
-; 4102 :    // Following are DB-specific types.
-; 4103 :    //
-; 4104 : 
-; 4105 :    CreateEntity( vType, "DB_DataTypes", zPOS_LAST );
+; 4107 : 
+; 4108 :    //
+; 4109 :    // Following are DB-specific types.
+; 4110 :    //
+; 4111 : 
+; 4112 :    CreateEntity( vType, "DB_DataTypes", zPOS_LAST );
 
 	push	2
 	push	OFFSET FLAT:??_C@_0N@INLJ@DB_DataTypes?$AA@ ; `string'
@@ -11638,7 +11655,7 @@ _LoadDataTypes@4 PROC NEAR
 	push	eax
 	call	_CreateEntity@12
 
-; 4106 :    SetAttributeFromString( vType, "DB_DataTypes", "InternalName", "V" );
+; 4113 :    SetAttributeFromString( vType, "DB_DataTypes", "InternalName", "V" );
 
 	push	OFFSET FLAT:??_C@_01PDMC@V?$AA@		; `string'
 	push	OFFSET FLAT:??_C@_0N@CCA@InternalName?$AA@ ; `string'
@@ -11647,7 +11664,7 @@ _LoadDataTypes@4 PROC NEAR
 	push	ecx
 	call	_SetAttributeFromString@16
 
-; 4107 :    SetAttributeFromString( vType, "DB_DataTypes", "ExternalName", "Text (longtext)" );
+; 4114 :    SetAttributeFromString( vType, "DB_DataTypes", "ExternalName", "Text (longtext)" );
 
 	push	OFFSET FLAT:??_C@_0BA@NGGL@Text?5?$CIlongtext?$CJ?$AA@ ; `string'
 	push	OFFSET FLAT:??_C@_0N@NAC@ExternalName?$AA@ ; `string'
@@ -11656,30 +11673,30 @@ _LoadDataTypes@4 PROC NEAR
 	push	edx
 	call	_SetAttributeFromString@16
 
-; 4108 : 
-; 4109 : #elif defined( POSTGRESQL ) || defined( SQLSERVER )
-; 4110 : 
-; 4111 :    CreateEntity( vType, "DB_DataTypes", zPOS_LAST );
-; 4112 :    SetAttributeFromString( vType, "DB_DataTypes", "InternalName", "B" );
-; 4113 :    SetAttributeFromString( vType, "DB_DataTypes", "ExternalName",
-; 4114 :                            "Blob (bytea)" );       // Blob name.
 ; 4115 : 
-; 4116 :    //
-; 4117 :    // Following are DB-specific types.
-; 4118 :    //
-; 4119 : 
-; 4120 :    CreateEntity( vType, "DB_DataTypes", zPOS_LAST );
-; 4121 :    SetAttributeFromString( vType, "DB_DataTypes", "InternalName", "V" );
-; 4122 :    SetAttributeFromString( vType, "DB_DataTypes", "ExternalName", "Text" );
-; 4123 : 
-; 4124 : #endif
-; 4125 : 
-; 4126 :    return( 0 );
+; 4116 : #elif defined( POSTGRESQL ) || defined( SQLSERVER )
+; 4117 : 
+; 4118 :    CreateEntity( vType, "DB_DataTypes", zPOS_LAST );
+; 4119 :    SetAttributeFromString( vType, "DB_DataTypes", "InternalName", "B" );
+; 4120 :    SetAttributeFromString( vType, "DB_DataTypes", "ExternalName",
+; 4121 :                            "Blob (bytea)" );       // Blob name.
+; 4122 : 
+; 4123 :    //
+; 4124 :    // Following are DB-specific types.
+; 4125 :    //
+; 4126 : 
+; 4127 :    CreateEntity( vType, "DB_DataTypes", zPOS_LAST );
+; 4128 :    SetAttributeFromString( vType, "DB_DataTypes", "InternalName", "V" );
+; 4129 :    SetAttributeFromString( vType, "DB_DataTypes", "ExternalName", "Text" );
+; 4130 : 
+; 4131 : #endif
+; 4132 : 
+; 4133 :    return( 0 );
 
 	xor	ax, ax
 
-; 4127 : 
-; 4128 : } // LoadDataTypes
+; 4134 : 
+; 4135 : } // LoadDataTypes
 
 	pop	ebp
 	ret	4
@@ -11734,63 +11751,63 @@ _bSetDefault$ = 12
 _pchDataType$ = -8
 _lLth$ = -4
 _bTimestampAsString$ = -12
-_pchDomainName$31606 = -16
-_vTZTEDBLO$31607 = -20
-_vTZDBHODO$31608 = -28
-_vDBH_Data$31609 = -24
-_szDBH_DataObjectName$31610 = -64
+_pchDomainName$31607 = -16
+_vTZTEDBLO$31608 = -20
+_vTZDBHODO$31609 = -28
+_vDBH_Data$31610 = -24
+_szDBH_DataObjectName$31611 = -64
 _SetDataType@8 PROC NEAR
 
-; 4150 : {
+; 4157 : {
 
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 72					; 00000048H
 
-; 4151 :    zPCHAR pchDataType;
-; 4152 :    zLONG  lLth;
-; 4153 :    zBOOL  bTimestampAsString = FALSE;
+; 4158 :    zPCHAR pchDataType;
+; 4159 :    zLONG  lLth;
+; 4160 :    zBOOL  bTimestampAsString = FALSE;
 
 	mov	BYTE PTR _bTimestampAsString$[ebp], 0
 
-; 4154 : 
-; 4155 :    if ( bSetDefault )
+; 4161 : 
+; 4162 :    if ( bSetDefault )
 
 	mov	eax, DWORD PTR _bSetDefault$[ebp]
 	and	eax, 255				; 000000ffH
 	test	eax, eax
-	je	$L31624
+	je	$L31625
 
-; 4157 :       zPCHAR pchDomainName;
-; 4158 :       zVIEW  vTZTEDBLO;
-; 4159 :       zVIEW  vTZDBHODO = 0;
+; 4164 :       zPCHAR pchDomainName;
+; 4165 :       zVIEW  vTZTEDBLO;
+; 4166 :       zVIEW  vTZDBHODO = 0;
 
-	mov	DWORD PTR _vTZDBHODO$31608[ebp], 0
+	mov	DWORD PTR _vTZDBHODO$31609[ebp], 0
 
-; 4160 :       zVIEW  vDBH_Data = 0;
+; 4167 :       zVIEW  vDBH_Data = 0;
 
-	mov	DWORD PTR _vDBH_Data$31609[ebp], 0
+	mov	DWORD PTR _vDBH_Data$31610[ebp], 0
 
-; 4161 :       zCHAR  szDBH_DataObjectName[ zZEIDON_NAME_LTH + 1 ];
-; 4162 : 
-; 4163 :       // If it exists get the object that defines the dbhandler type.
-; 4164 :       GetViewByName( &vTZTEDBLO, "TZTEDBLO", vDTE, zLEVEL_TASK );  // vDTE added dks 2009.11.11
+; 4168 :       zCHAR  szDBH_DataObjectName[ zZEIDON_NAME_LTH + 1 ];
+; 4169 : 
+; 4170 :       // If it exists get the object that defines the dbhandler type.
+; 4171 :       GetViewByName( &vTZTEDBLO, "TZTEDBLO", vDTE, zLEVEL_TASK );  // vDTE added dks 2009.11.11
 
 	push	2
 	mov	ecx, DWORD PTR _vDTE$[ebp]
 	push	ecx
 	push	OFFSET FLAT:??_C@_08IAKB@TZTEDBLO?$AA@	; `string'
-	lea	edx, DWORD PTR _vTZTEDBLO$31607[ebp]
+	lea	edx, DWORD PTR _vTZTEDBLO$31608[ebp]
 	push	edx
 	call	_GetViewByName@16
 
-; 4165 :       if ( vTZTEDBLO )
+; 4172 :       if ( vTZTEDBLO )
 
-	cmp	DWORD PTR _vTZTEDBLO$31607[ebp], 0
-	je	SHORT $L31611
+	cmp	DWORD PTR _vTZTEDBLO$31608[ebp], 0
+	je	SHORT $L31612
 
-; 4166 :          SetCursorFirstEntityByAttr( vTZTEDBLO, "TE_DBMS_Source", "DBMS",
-; 4167 :                                      vDTE,      "TE_DBMS_Source", "DBMS", 0 );
+; 4173 :          SetCursorFirstEntityByAttr( vTZTEDBLO, "TE_DBMS_Source", "DBMS",
+; 4174 :                                      vDTE,      "TE_DBMS_Source", "DBMS", 0 );
 
 	push	0
 	push	OFFSET FLAT:??_C@_04EALC@DBMS?$AA@	; `string'
@@ -11799,15 +11816,15 @@ _SetDataType@8 PROC NEAR
 	push	eax
 	push	OFFSET FLAT:??_C@_04EALC@DBMS?$AA@	; `string'
 	push	OFFSET FLAT:??_C@_0P@BCDD@TE_DBMS_Source?$AA@ ; `string'
-	mov	ecx, DWORD PTR _vTZTEDBLO$31607[ebp]
+	mov	ecx, DWORD PTR _vTZTEDBLO$31608[ebp]
 	push	ecx
 	call	_SetCursorFirstEntityByAttr@28
-$L31611:
+$L31612:
 
-; 4168 : 
-; 4169 :       // Try to get the OI that contains DBH-specific data.
-; 4170 :       SetOI_FromBlob( &vDBH_Data, szDBH_DataObjectName, vDTE, vDTE,
-; 4171 :                       "TE_DBMS_Source", "DBH_Data", zNOI_OKAY );
+; 4175 : 
+; 4176 :       // Try to get the OI that contains DBH-specific data.
+; 4177 :       SetOI_FromBlob( &vDBH_Data, szDBH_DataObjectName, vDTE, vDTE,
+; 4178 :                       "TE_DBMS_Source", "DBH_Data", zNOI_OKAY );
 
 	push	512					; 00000200H
 	push	OFFSET FLAT:??_C@_08DKGC@DBH_Data?$AA@	; `string'
@@ -11816,78 +11833,78 @@ $L31611:
 	push	edx
 	mov	eax, DWORD PTR _vDTE$[ebp]
 	push	eax
-	lea	ecx, DWORD PTR _szDBH_DataObjectName$31610[ebp]
+	lea	ecx, DWORD PTR _szDBH_DataObjectName$31611[ebp]
 	push	ecx
-	lea	edx, DWORD PTR _vDBH_Data$31609[ebp]
+	lea	edx, DWORD PTR _vDBH_Data$31610[ebp]
 	push	edx
 	call	_SetOI_FromBlob@28
 
-; 4172 : 
-; 4173 :       #if defined( ACCESS ) || defined( ODBC )
-; 4174 : 
-; 4175 :          // Try to get the ODBC definition.
-; 4176 :          SetOI_FromBlob( &vTZDBHODO, 0, vDTE, vTZTEDBLO,
-; 4177 :                          "TE_DBMS_Source", "DBH_Data", zNOI_OKAY );
-; 4178 : 
-; 4179 :          // Check to see if there is DBH data set in the TE.
-; 4180 :          if ( vDBH_Data )
-; 4181 :          {
-; 4182 :             bTimestampAsString =
-; 4183 :                          ( CompareAttributeToString( vDBH_Data, "ODBC",
-; 4184 :                                                      "TimestampAsString",
-; 4185 :                                                      "Y" ) == 0 );
-; 4186 :          }
-; 4187 :          else
-; 4188 :          // Check to see if there is DBH data set in the DB List object.
-; 4189 :          if ( vTZDBHODO )
-; 4190 :          {
-; 4191 :                bTimestampAsString =
-; 4192 :                          ( CompareAttributeToString( vTZDBHODO, "ODBC",
-; 4193 :                                                      "TimestampAsString",
-; 4194 :                                                      "Y" ) == 0 );
-; 4195 :          }
-; 4196 : 
-; 4197 :       #endif
-; 4198 : 
-; 4199 :       // Set the default data type from the ER attribute domain.  If the
-; 4200 :       // domain name is "Date" or "Time" then use SqlBase date/time types.
-; 4201 :       GetAddrForAttribute( &pchDomainName, vDTE, "Domain", "Name" );
+; 4179 : 
+; 4180 :       #if defined( ACCESS ) || defined( ODBC )
+; 4181 : 
+; 4182 :          // Try to get the ODBC definition.
+; 4183 :          SetOI_FromBlob( &vTZDBHODO, 0, vDTE, vTZTEDBLO,
+; 4184 :                          "TE_DBMS_Source", "DBH_Data", zNOI_OKAY );
+; 4185 : 
+; 4186 :          // Check to see if there is DBH data set in the TE.
+; 4187 :          if ( vDBH_Data )
+; 4188 :          {
+; 4189 :             bTimestampAsString =
+; 4190 :                          ( CompareAttributeToString( vDBH_Data, "ODBC",
+; 4191 :                                                      "TimestampAsString",
+; 4192 :                                                      "Y" ) == 0 );
+; 4193 :          }
+; 4194 :          else
+; 4195 :          // Check to see if there is DBH data set in the DB List object.
+; 4196 :          if ( vTZDBHODO )
+; 4197 :          {
+; 4198 :                bTimestampAsString =
+; 4199 :                          ( CompareAttributeToString( vTZDBHODO, "ODBC",
+; 4200 :                                                      "TimestampAsString",
+; 4201 :                                                      "Y" ) == 0 );
+; 4202 :          }
+; 4203 : 
+; 4204 :       #endif
+; 4205 : 
+; 4206 :       // Set the default data type from the ER attribute domain.  If the
+; 4207 :       // domain name is "Date" or "Time" then use SqlBase date/time types.
+; 4208 :       GetAddrForAttribute( &pchDomainName, vDTE, "Domain", "Name" );
 
 	push	OFFSET FLAT:??_C@_04EFNI@Name?$AA@	; `string'
 	push	OFFSET FLAT:??_C@_06CDGA@Domain?$AA@	; `string'
 	mov	eax, DWORD PTR _vDTE$[ebp]
 	push	eax
-	lea	ecx, DWORD PTR _pchDomainName$31606[ebp]
+	lea	ecx, DWORD PTR _pchDomainName$31607[ebp]
 	push	ecx
 	call	_GetAddrForAttribute@16
 
-; 4202 : 
-; 4203 : #if defined( SQLSERVER ) && !defined( QUINSOFT )
-; 4204 :       if ( zstrcmpi( pchDomainName, "Date" ) == 0 ||
-; 4205 :            zstrcmpi( pchDomainName, "Time" ) == 0 )
-; 4206 :       {
-; 4207 :          SetAttributeFromString( vDTE, "TE_FieldDataRel", "DataType", "T" );
-; 4208 :       }
-; 4209 :       else
-; 4210 :       if ( zstrcmpi( pchDomainName, "TimeStampEx" ) == 0 )
-; 4211 :          SetAttributeFromString( vDTE, "TE_FieldDataRel", "DataType", "X" );
-; 4212 :       else
-; 4213 :          // Domain is not Date or Time, so just set the default data type the
-; 4214 :          // same as the domain's data type.
-; 4215 :          SetAttributeFromAttribute( vDTE, "TE_FieldDataRel", "DataType",
-; 4216 :                                     vDTE, "Domain", "DataType" );
-; 4217 : #else
-; 4218 :       if ( zstrcmpi( pchDomainName, "Date" ) == 0 )
+; 4209 : 
+; 4210 : #if defined( SQLSERVER ) && !defined( QUINSOFT )
+; 4211 :       if ( zstrcmpi( pchDomainName, "Date" ) == 0 ||
+; 4212 :            zstrcmpi( pchDomainName, "Time" ) == 0 )
+; 4213 :       {
+; 4214 :          SetAttributeFromString( vDTE, "TE_FieldDataRel", "DataType", "T" );
+; 4215 :       }
+; 4216 :       else
+; 4217 :       if ( zstrcmpi( pchDomainName, "TimeStampEx" ) == 0 )
+; 4218 :          SetAttributeFromString( vDTE, "TE_FieldDataRel", "DataType", "X" );
+; 4219 :       else
+; 4220 :          // Domain is not Date or Time, so just set the default data type the
+; 4221 :          // same as the domain's data type.
+; 4222 :          SetAttributeFromAttribute( vDTE, "TE_FieldDataRel", "DataType",
+; 4223 :                                     vDTE, "Domain", "DataType" );
+; 4224 : #else
+; 4225 :       if ( zstrcmpi( pchDomainName, "Date" ) == 0 )
 
 	push	OFFSET FLAT:??_C@_04OMLL@Date?$AA@	; `string'
-	mov	edx, DWORD PTR _pchDomainName$31606[ebp]
+	mov	edx, DWORD PTR _pchDomainName$31607[ebp]
 	push	edx
 	call	DWORD PTR __imp___stricmp
 	add	esp, 8
 	test	eax, eax
-	jne	SHORT $L31613
+	jne	SHORT $L31614
 
-; 4219 :          SetAttributeFromString( vDTE, "TE_FieldDataRel", "DataType", "D" );
+; 4226 :          SetAttributeFromString( vDTE, "TE_FieldDataRel", "DataType", "D" );
 
 	push	OFFSET FLAT:??_C@_01PJM@D?$AA@		; `string'
 	push	OFFSET FLAT:??_C@_08FNON@DataType?$AA@	; `string'
@@ -11896,22 +11913,22 @@ $L31611:
 	push	eax
 	call	_SetAttributeFromString@16
 
-; 4220 :       else
+; 4227 :       else
 
-	jmp	$L31618
-$L31613:
+	jmp	$L31619
+$L31614:
 
-; 4221 :       if ( zstrcmpi( pchDomainName, "Time" ) == 0 )
+; 4228 :       if ( zstrcmpi( pchDomainName, "Time" ) == 0 )
 
 	push	OFFSET FLAT:??_C@_04OAHI@Time?$AA@	; `string'
-	mov	ecx, DWORD PTR _pchDomainName$31606[ebp]
+	mov	ecx, DWORD PTR _pchDomainName$31607[ebp]
 	push	ecx
 	call	DWORD PTR __imp___stricmp
 	add	esp, 8
 	test	eax, eax
-	jne	SHORT $L31615
+	jne	SHORT $L31616
 
-; 4222 :          SetAttributeFromString( vDTE, "TE_FieldDataRel", "DataType", "I" );
+; 4229 :          SetAttributeFromString( vDTE, "TE_FieldDataRel", "DataType", "I" );
 
 	push	OFFSET FLAT:??_C@_01FLOP@I?$AA@		; `string'
 	push	OFFSET FLAT:??_C@_08FNON@DataType?$AA@	; `string'
@@ -11920,22 +11937,22 @@ $L31613:
 	push	edx
 	call	_SetAttributeFromString@16
 
-; 4223 :       else
+; 4230 :       else
 
-	jmp	SHORT $L31618
-$L31615:
+	jmp	SHORT $L31619
+$L31616:
 
-; 4224 :       if ( zstrcmpi( pchDomainName, "TimeStampEx" ) == 0 )
+; 4231 :       if ( zstrcmpi( pchDomainName, "TimeStampEx" ) == 0 )
 
 	push	OFFSET FLAT:??_C@_0M@BADB@TimeStampEx?$AA@ ; `string'
-	mov	eax, DWORD PTR _pchDomainName$31606[ebp]
+	mov	eax, DWORD PTR _pchDomainName$31607[ebp]
 	push	eax
 	call	DWORD PTR __imp___stricmp
 	add	esp, 8
 	test	eax, eax
-	jne	SHORT $L31617
+	jne	SHORT $L31618
 
-; 4225 :          SetAttributeFromString( vDTE, "TE_FieldDataRel", "DataType", "X" );
+; 4232 :          SetAttributeFromString( vDTE, "TE_FieldDataRel", "DataType", "X" );
 
 	push	OFFSET FLAT:??_C@_01FIAI@X?$AA@		; `string'
 	push	OFFSET FLAT:??_C@_08FNON@DataType?$AA@	; `string'
@@ -11944,15 +11961,15 @@ $L31615:
 	push	ecx
 	call	_SetAttributeFromString@16
 
-; 4226 :       else
+; 4233 :       else
 
-	jmp	SHORT $L31618
-$L31617:
+	jmp	SHORT $L31619
+$L31618:
 
-; 4227 :          // Domain is not Date or Time, so just set the default data type the
-; 4228 :          // same as the domain's data type.
-; 4229 :          SetAttributeFromAttribute( vDTE, "TE_FieldDataRel", "DataType",
-; 4230 :                                     vDTE, "Domain", "DataType" );
+; 4234 :          // Domain is not Date or Time, so just set the default data type the
+; 4235 :          // same as the domain's data type.
+; 4236 :          SetAttributeFromAttribute( vDTE, "TE_FieldDataRel", "DataType",
+; 4237 :                                     vDTE, "Domain", "DataType" );
 
 	push	OFFSET FLAT:??_C@_08FNON@DataType?$AA@	; `string'
 	push	OFFSET FLAT:??_C@_06CDGA@Domain?$AA@	; `string'
@@ -11963,12 +11980,12 @@ $L31617:
 	mov	eax, DWORD PTR _vDTE$[ebp]
 	push	eax
 	call	_SetAttributeFromAttribute@24
-$L31618:
+$L31619:
 
-; 4231 : #endif
-; 4232 : 
-; 4233 :       // Strings with a length > 254 must have a data type of VarChar.
-; 4234 :       GetAddrForAttribute( &pchDataType, vDTE, "Domain", "DataType" );
+; 4238 : #endif
+; 4239 : 
+; 4240 :       // Strings with a length > 254 must have a data type of VarChar.
+; 4241 :       GetAddrForAttribute( &pchDataType, vDTE, "Domain", "DataType" );
 
 	push	OFFSET FLAT:??_C@_08FNON@DataType?$AA@	; `string'
 	push	OFFSET FLAT:??_C@_06CDGA@Domain?$AA@	; `string'
@@ -11978,14 +11995,14 @@ $L31618:
 	push	edx
 	call	_GetAddrForAttribute@16
 
-; 4235 :       if ( pchDataType[ 0 ] == zTYPE_STRING )
+; 4242 :       if ( pchDataType[ 0 ] == zTYPE_STRING )
 
 	mov	eax, DWORD PTR _pchDataType$[ebp]
 	movsx	ecx, BYTE PTR [eax]
 	cmp	ecx, 83					; 00000053H
-	jne	SHORT $L31624
+	jne	SHORT $L31625
 
-; 4237 :          GetIntegerFromAttribute( &lLth, vDTE, "ER_Attribute", "Lth" );
+; 4244 :          GetIntegerFromAttribute( &lLth, vDTE, "ER_Attribute", "Lth" );
 
 	push	OFFSET FLAT:??_C@_03LBCJ@Lth?$AA@	; `string'
 	push	OFFSET FLAT:??_C@_0N@IKDH@ER_Attribute?$AA@ ; `string'
@@ -11995,12 +12012,12 @@ $L31618:
 	push	eax
 	call	_GetIntegerFromAttribute@16
 
-; 4238 :          if ( lLth == 0  )
+; 4245 :          if ( lLth == 0  )
 
 	cmp	DWORD PTR _lLth$[ebp], 0
-	jne	SHORT $L31622
+	jne	SHORT $L31623
 
-; 4239 :             GetIntegerFromAttribute( &lLth, vDTE, "Domain", "MaxStringLth" );
+; 4246 :             GetIntegerFromAttribute( &lLth, vDTE, "Domain", "MaxStringLth" );
 
 	push	OFFSET FLAT:??_C@_0N@FPPC@MaxStringLth?$AA@ ; `string'
 	push	OFFSET FLAT:??_C@_06CDGA@Domain?$AA@	; `string'
@@ -12009,15 +12026,15 @@ $L31618:
 	lea	edx, DWORD PTR _lLth$[ebp]
 	push	edx
 	call	_GetIntegerFromAttribute@16
-$L31622:
+$L31623:
 
-; 4240 : 
-; 4241 :          if ( lLth > MAX_LTH_FOR_STRING )
+; 4247 : 
+; 4248 :          if ( lLth > MAX_LTH_FOR_STRING )
 
 	cmp	DWORD PTR _lLth$[ebp], 254		; 000000feH
-	jle	SHORT $L31624
+	jle	SHORT $L31625
 
-; 4242 :             SetAttributeFromString( vDTE, "TE_FieldDataRel", "DataType", "V" );
+; 4249 :             SetAttributeFromString( vDTE, "TE_FieldDataRel", "DataType", "V" );
 
 	push	OFFSET FLAT:??_C@_01PDMC@V?$AA@		; `string'
 	push	OFFSET FLAT:??_C@_08FNON@DataType?$AA@	; `string'
@@ -12025,11 +12042,11 @@ $L31622:
 	mov	eax, DWORD PTR _vDTE$[ebp]
 	push	eax
 	call	_SetAttributeFromString@16
-$L31624:
+$L31625:
 
-; 4250 : 
-; 4251 :    // Get the data type.
-; 4252 :    GetAddrForAttribute( &pchDataType, vDTE, "TE_FieldDataRel", "DataType" );
+; 4257 : 
+; 4258 :    // Get the data type.
+; 4259 :    GetAddrForAttribute( &pchDataType, vDTE, "TE_FieldDataRel", "DataType" );
 
 	push	OFFSET FLAT:??_C@_08FNON@DataType?$AA@	; `string'
 	push	OFFSET FLAT:??_C@_0BA@PJGE@TE_FieldDataRel?$AA@ ; `string'
@@ -12039,10 +12056,10 @@ $L31624:
 	push	edx
 	call	_GetAddrForAttribute@16
 
-; 4253 : 
-; 4254 :    // Now set the length according to the physical data type.
-; 4255 :    switch ( pchDataType[ 0 ] )
-; 4256 :    {
+; 4260 : 
+; 4261 :    // Now set the length according to the physical data type.
+; 4262 :    switch ( pchDataType[ 0 ] )
+; 4263 :    {
 
 	mov	eax, DWORD PTR _pchDataType$[ebp]
 	movsx	ecx, BYTE PTR [eax]
@@ -12051,18 +12068,18 @@ $L31624:
 	sub	edx, 66					; 00000042H
 	mov	DWORD PTR -68+[ebp], edx
 	cmp	DWORD PTR -68+[ebp], 22			; 00000016H
-	ja	$L31648
+	ja	$L31649
 	mov	ecx, DWORD PTR -68+[ebp]
 	xor	eax, eax
-	mov	al, BYTE PTR $L32330[ecx]
-	jmp	DWORD PTR $L32331[eax*4]
-$L31629:
+	mov	al, BYTE PTR $L32376[ecx]
+	jmp	DWORD PTR $L32377[eax*4]
+$L31630:
 
-; 4257 : 
-; 4258 :       case zTYPE_STRING:
-; 4259 :       case 'V':
-; 4260 :       case zTYPE_FIXEDCHAR:
-; 4261 :          GetIntegerFromAttribute( &lLth, vDTE, "ER_Attribute", "Lth" );
+; 4264 : 
+; 4265 :       case zTYPE_STRING:
+; 4266 :       case 'V':
+; 4267 :       case zTYPE_FIXEDCHAR:
+; 4268 :          GetIntegerFromAttribute( &lLth, vDTE, "ER_Attribute", "Lth" );
 
 	push	OFFSET FLAT:??_C@_03LBCJ@Lth?$AA@	; `string'
 	push	OFFSET FLAT:??_C@_0N@IKDH@ER_Attribute?$AA@ ; `string'
@@ -12072,12 +12089,12 @@ $L31629:
 	push	eax
 	call	_GetIntegerFromAttribute@16
 
-; 4262 :          if ( lLth == 0  )
+; 4269 :          if ( lLth == 0  )
 
 	cmp	DWORD PTR _lLth$[ebp], 0
-	jne	SHORT $L31630
+	jne	SHORT $L31631
 
-; 4263 :             GetIntegerFromAttribute( &lLth, vDTE, "Domain", "MaxStringLth" );
+; 4270 :             GetIntegerFromAttribute( &lLth, vDTE, "Domain", "MaxStringLth" );
 
 	push	OFFSET FLAT:??_C@_0N@FPPC@MaxStringLth?$AA@ ; `string'
 	push	OFFSET FLAT:??_C@_06CDGA@Domain?$AA@	; `string'
@@ -12086,10 +12103,10 @@ $L31629:
 	lea	edx, DWORD PTR _lLth$[ebp]
 	push	edx
 	call	_GetIntegerFromAttribute@16
-$L31630:
+$L31631:
 
-; 4264 : 
-; 4265 :          SetAttributeFromInteger( vDTE, "TE_FieldDataRel", "Length", lLth );
+; 4271 : 
+; 4272 :          SetAttributeFromInteger( vDTE, "TE_FieldDataRel", "Length", lLth );
 
 	mov	eax, DWORD PTR _lLth$[ebp]
 	push	eax
@@ -12099,27 +12116,27 @@ $L31630:
 	push	ecx
 	call	_SetAttributeFromInteger@16
 
-; 4266 :          break;
+; 4273 :          break;
 
-	jmp	$L31626
-$L31631:
+	jmp	$L31627
+$L31632:
 
-; 4267 : 
-; 4268 :       case zTYPE_BLOB:
-; 4269 : 
-; 4270 : #if defined( DB2 )
-; 4271 :          // DB2 needs a blob length.
-; 4272 :          GetIntegerFromAttribute( &lLth, vDTE, "ER_Attribute", "Lth" );
-; 4273 :          if ( lLth == 0  )
-; 4274 :             GetIntegerFromAttribute( &lLth, vDTE, "Domain", "MaxStringLth" );
-; 4275 : 
-; 4276 :          if ( lLth == 0  )
-; 4277 :             lLth = 65536;   // Default length for blobs.
-; 4278 : 
-; 4279 :          SetAttributeFromInteger( vDTE, "TE_FieldDataRel", "Length", lLth );
-; 4280 : #else
-; 4281 :          SetAttributeFromAttribute( vDTE, "TE_FieldDataRel", "Length",
-; 4282 :                                     vDTE, "ER_Attribute",    "Lth" );
+; 4274 : 
+; 4275 :       case zTYPE_BLOB:
+; 4276 : 
+; 4277 : #if defined( DB2 )
+; 4278 :          // DB2 needs a blob length.
+; 4279 :          GetIntegerFromAttribute( &lLth, vDTE, "ER_Attribute", "Lth" );
+; 4280 :          if ( lLth == 0  )
+; 4281 :             GetIntegerFromAttribute( &lLth, vDTE, "Domain", "MaxStringLth" );
+; 4282 : 
+; 4283 :          if ( lLth == 0  )
+; 4284 :             lLth = 65536;   // Default length for blobs.
+; 4285 : 
+; 4286 :          SetAttributeFromInteger( vDTE, "TE_FieldDataRel", "Length", lLth );
+; 4287 : #else
+; 4288 :          SetAttributeFromAttribute( vDTE, "TE_FieldDataRel", "Length",
+; 4289 :                                     vDTE, "ER_Attribute",    "Lth" );
 
 	push	OFFSET FLAT:??_C@_03LBCJ@Lth?$AA@	; `string'
 	push	OFFSET FLAT:??_C@_0N@IKDH@ER_Attribute?$AA@ ; `string'
@@ -12131,16 +12148,16 @@ $L31631:
 	push	eax
 	call	_SetAttributeFromAttribute@24
 
-; 4283 : #endif
-; 4284 : 
-; 4285 :          break;
+; 4290 : #endif
+; 4291 : 
+; 4292 :          break;
 
-	jmp	$L31626
-$L31632:
+	jmp	$L31627
+$L31633:
 
-; 4286 : 
-; 4287 :       case zTYPE_INTEGER:
-; 4288 :          SetAttributeFromInteger( vDTE, "TE_FieldDataRel", "Length", 4 );
+; 4293 : 
+; 4294 :       case zTYPE_INTEGER:
+; 4295 :          SetAttributeFromInteger( vDTE, "TE_FieldDataRel", "Length", 4 );
 
 	push	4
 	push	OFFSET FLAT:??_C@_06CAAP@Length?$AA@	; `string'
@@ -12149,14 +12166,14 @@ $L31632:
 	push	ecx
 	call	_SetAttributeFromInteger@16
 
-; 4289 :          break;
+; 4296 :          break;
 
-	jmp	$L31626
-$L31633:
+	jmp	$L31627
+$L31634:
 
-; 4290 : 
-; 4291 :       case zTYPE_DECIMAL:
-; 4292 :          GetIntegerFromAttribute( &lLth, vDTE, "ER_Attribute", "Lth" );
+; 4297 : 
+; 4298 :       case zTYPE_DECIMAL:
+; 4299 :          GetIntegerFromAttribute( &lLth, vDTE, "ER_Attribute", "Lth" );
 
 	push	OFFSET FLAT:??_C@_03LBCJ@Lth?$AA@	; `string'
 	push	OFFSET FLAT:??_C@_0N@IKDH@ER_Attribute?$AA@ ; `string'
@@ -12166,12 +12183,12 @@ $L31633:
 	push	eax
 	call	_GetIntegerFromAttribute@16
 
-; 4293 :          if ( lLth == 0  )
+; 4300 :          if ( lLth == 0  )
 
 	cmp	DWORD PTR _lLth$[ebp], 0
-	jne	SHORT $L31635
+	jne	SHORT $L31636
 
-; 4295 :             GetIntegerFromAttribute( &lLth, vDTE, "Domain", "MaxStringLth" );
+; 4302 :             GetIntegerFromAttribute( &lLth, vDTE, "Domain", "MaxStringLth" );
 
 	push	OFFSET FLAT:??_C@_0N@FPPC@MaxStringLth?$AA@ ; `string'
 	push	OFFSET FLAT:??_C@_06CDGA@Domain?$AA@	; `string'
@@ -12181,17 +12198,17 @@ $L31633:
 	push	edx
 	call	_GetIntegerFromAttribute@16
 
-; 4296 :             if ( lLth == 0 )
+; 4303 :             if ( lLth == 0 )
 
 	cmp	DWORD PTR _lLth$[ebp], 0
-	jne	SHORT $L31635
+	jne	SHORT $L31636
 
-; 4297 :                lLth = sizeof( zDECIMAL );
+; 4304 :                lLth = sizeof( zDECIMAL );
 
 	mov	DWORD PTR _lLth$[ebp], 40		; 00000028H
-$L31635:
+$L31636:
 
-; 4299 :          SetAttributeFromInteger( vDTE, "TE_FieldDataRel", "Length", lLth );
+; 4306 :          SetAttributeFromInteger( vDTE, "TE_FieldDataRel", "Length", lLth );
 
 	mov	eax, DWORD PTR _lLth$[ebp]
 	push	eax
@@ -12201,24 +12218,24 @@ $L31635:
 	push	ecx
 	call	_SetAttributeFromInteger@16
 
-; 4300 :          break;
+; 4307 :          break;
 
-	jmp	$L31626
-$L31637:
+	jmp	$L31627
+$L31638:
 
-; 4301 : 
-; 4302 :       case zTYPE_DATETIME:
-; 4303 :       case zTYPE_TIME:
-; 4304 :          if ( bTimestampAsString )
+; 4308 : 
+; 4309 :       case zTYPE_DATETIME:
+; 4310 :       case zTYPE_TIME:
+; 4311 :          if ( bTimestampAsString )
 
 	mov	edx, DWORD PTR _bTimestampAsString$[ebp]
 	and	edx, 255				; 000000ffH
 	test	edx, edx
-	je	SHORT $L31638
+	je	SHORT $L31639
 
-; 4306 :             // This is only true when we are setting the default value of the
-; 4307 :             // data type.  Change the datatype to be a string.
-; 4308 :             SetAttributeFromString( vDTE, "TE_FieldDataRel", "DataType", "S" );
+; 4313 :             // This is only true when we are setting the default value of the
+; 4314 :             // data type.  Change the datatype to be a string.
+; 4315 :             SetAttributeFromString( vDTE, "TE_FieldDataRel", "DataType", "S" );
 
 	push	OFFSET FLAT:??_C@_01PDAJ@S?$AA@		; `string'
 	push	OFFSET FLAT:??_C@_08FNON@DataType?$AA@	; `string'
@@ -12227,7 +12244,7 @@ $L31637:
 	push	eax
 	call	_SetAttributeFromString@16
 
-; 4309 :             SetAttributeFromInteger( vDTE, "TE_FieldDataRel", "Length", 25 );
+; 4316 :             SetAttributeFromInteger( vDTE, "TE_FieldDataRel", "Length", 25 );
 
 	push	25					; 00000019H
 	push	OFFSET FLAT:??_C@_06CAAP@Length?$AA@	; `string'
@@ -12236,26 +12253,26 @@ $L31637:
 	push	ecx
 	call	_SetAttributeFromInteger@16
 
-; 4311 :          else
+; 4318 :          else
 
-	jmp	SHORT $L31641
-$L31638:
+	jmp	SHORT $L31642
+$L31639:
 
-; 4313 :             switch ( pchDataType[ 0 ] )
-; 4314 :             {
+; 4320 :             switch ( pchDataType[ 0 ] )
+; 4321 :             {
 
 	mov	edx, DWORD PTR _pchDataType$[ebp]
 	mov	al, BYTE PTR [edx]
 	mov	BYTE PTR -72+[ebp], al
 	cmp	BYTE PTR -72+[ebp], 73			; 00000049H
-	je	SHORT $L31645
+	je	SHORT $L31646
 	cmp	BYTE PTR -72+[ebp], 84			; 00000054H
-	je	SHORT $L31644
-	jmp	SHORT $L31641
-$L31644:
+	je	SHORT $L31645
+	jmp	SHORT $L31642
+$L31645:
 
-; 4315 :                case zTYPE_DATETIME:
-; 4316 :                   SetAttributeFromInteger( vDTE, "TE_FieldDataRel", "Length", 4 );
+; 4322 :                case zTYPE_DATETIME:
+; 4323 :                   SetAttributeFromInteger( vDTE, "TE_FieldDataRel", "Length", 4 );
 
 	push	4
 	push	OFFSET FLAT:??_C@_06CAAP@Length?$AA@	; `string'
@@ -12264,14 +12281,14 @@ $L31644:
 	push	ecx
 	call	_SetAttributeFromInteger@16
 
-; 4317 :                   break;
+; 4324 :                   break;
 
-	jmp	SHORT $L31641
-$L31645:
+	jmp	SHORT $L31642
+$L31646:
 
-; 4318 : 
-; 4319 :                case zTYPE_TIME:
-; 4320 :                   SetAttributeFromInteger( vDTE, "TE_FieldDataRel", "Length", 8 );
+; 4325 : 
+; 4326 :                case zTYPE_TIME:
+; 4327 :                   SetAttributeFromInteger( vDTE, "TE_FieldDataRel", "Length", 8 );
 
 	push	8
 	push	OFFSET FLAT:??_C@_06CAAP@Length?$AA@	; `string'
@@ -12279,17 +12296,17 @@ $L31645:
 	mov	edx, DWORD PTR _vDTE$[ebp]
 	push	edx
 	call	_SetAttributeFromInteger@16
-$L31641:
+$L31642:
 
-; 4324 : 
-; 4325 :          break;
+; 4331 : 
+; 4332 :          break;
 
-	jmp	SHORT $L31626
-$L31646:
+	jmp	SHORT $L31627
+$L31647:
 
-; 4326 : 
-; 4327 :       case zTYPE_DATE:
-; 4328 :          SetAttributeFromInteger( vDTE, "TE_FieldDataRel", "Length", 4 );
+; 4333 : 
+; 4334 :       case zTYPE_DATE:
+; 4335 :          SetAttributeFromInteger( vDTE, "TE_FieldDataRel", "Length", 4 );
 
 	push	4
 	push	OFFSET FLAT:??_C@_06CAAP@Length?$AA@	; `string'
@@ -12298,14 +12315,14 @@ $L31646:
 	push	eax
 	call	_SetAttributeFromInteger@16
 
-; 4329 :          break;
+; 4336 :          break;
 
-	jmp	SHORT $L31626
-$L31647:
+	jmp	SHORT $L31627
+$L31648:
 
-; 4330 : 
-; 4331 :       case 'X':
-; 4332 :          SetAttributeFromInteger( vDTE, "TE_FieldDataRel", "Length", 30 );
+; 4337 : 
+; 4338 :       case 'X':
+; 4339 :          SetAttributeFromInteger( vDTE, "TE_FieldDataRel", "Length", 30 );
 
 	push	30					; 0000001eH
 	push	OFFSET FLAT:??_C@_06CAAP@Length?$AA@	; `string'
@@ -12314,21 +12331,21 @@ $L31647:
 	push	ecx
 	call	_SetAttributeFromInteger@16
 
-; 4333 :          break;
+; 4340 :          break;
 
-	jmp	SHORT $L31626
-$L31648:
+	jmp	SHORT $L31627
+$L31649:
 
-; 4334 : 
-; 4335 :       default:
-; 4336 :          TraceLineS( "(TE) Invalid Physical Data type = ", pchDataType );
+; 4341 : 
+; 4342 :       default:
+; 4343 :          TraceLineS( "(TE) Invalid Physical Data type = ", pchDataType );
 
 	mov	edx, DWORD PTR _pchDataType$[ebp]
 	push	edx
 	push	OFFSET FLAT:??_C@_0CD@CCFO@?$CITE?$CJ?5Invalid?5Physical?5Data?5type?5@ ; `string'
 	call	_TraceLineS@8
 
-; 4337 :          SysMessageBox( vDTE, "Zeidon TE", "Invalid Physical Data type.", 1 );
+; 4344 :          SysMessageBox( vDTE, "Zeidon TE", "Invalid Physical Data type.", 1 );
 
 	push	1
 	push	OFFSET FLAT:??_C@_0BM@EEGE@Invalid?5Physical?5Data?5type?4?$AA@ ; `string'
@@ -12337,34 +12354,34 @@ $L31648:
 	push	eax
 	call	_SysMessageBox@16
 
-; 4338 :          return( 0 );
+; 4345 :          return( 0 );
 
 	xor	ax, ax
-	jmp	SHORT $L31601
-$L31626:
+	jmp	SHORT $L31602
+$L31627:
 
-; 4340 : 
-; 4341 :    return( 0 );
+; 4347 : 
+; 4348 :    return( 0 );
 
 	xor	ax, ax
-$L31601:
+$L31602:
 
-; 4342 : 
-; 4343 : } // SetDataType
+; 4349 : 
+; 4350 : } // SetDataType
 
 	mov	esp, ebp
 	pop	ebp
 	ret	8
-$L32331:
-	DD	$L31631
-	DD	$L31646
-	DD	$L31629
-	DD	$L31637
+$L32377:
 	DD	$L31632
-	DD	$L31633
 	DD	$L31647
+	DD	$L31630
+	DD	$L31638
+	DD	$L31633
+	DD	$L31634
 	DD	$L31648
-$L32330:
+	DD	$L31649
+$L32376:
 	DB	0
 	DB	7
 	DB	1
@@ -12401,35 +12418,35 @@ _TEXT	SEGMENT
 _pchName$ = 8
 _k$ = -8
 _j$ = -4
-_szTemp$31662 = -108
+_szTemp$31663 = -108
 _fnChangeReservedName@4 PROC NEAR
 
-; 4348 : {
+; 4355 : {
 
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 108				; 0000006cH
 	push	edi
 
-; 4349 :    zSHORT   k, j;
-; 4350 : 
-; 4351 :    // List of reserved names is terminated by a empty string.
-; 4352 :    for ( k = 0; szReservedName[ k ][ 0 ]; k++ )
+; 4356 :    zSHORT   k, j;
+; 4357 : 
+; 4358 :    // List of reserved names is terminated by a empty string.
+; 4359 :    for ( k = 0; szReservedName[ k ][ 0 ]; k++ )
 
 	mov	WORD PTR _k$[ebp], 0
-	jmp	SHORT $L31658
-$L31659:
+	jmp	SHORT $L31659
+$L31660:
 	mov	ax, WORD PTR _k$[ebp]
 	add	ax, 1
 	mov	WORD PTR _k$[ebp], ax
-$L31658:
+$L31659:
 	movsx	ecx, WORD PTR _k$[ebp]
 	mov	edx, DWORD PTR _szReservedName[ecx*4]
 	movsx	eax, BYTE PTR [edx]
 	test	eax, eax
-	je	SHORT $L31660
+	je	SHORT $L31661
 
-; 4354 :       j = zstrcmpi( szReservedName[ k ], pchName );
+; 4361 :       j = zstrcmpi( szReservedName[ k ], pchName );
 
 	mov	ecx, DWORD PTR _pchName$[ebp]
 	push	ecx
@@ -12440,72 +12457,72 @@ $L31658:
 	add	esp, 8
 	mov	WORD PTR _j$[ebp], ax
 
-; 4355 :       if ( j == 0 )
+; 4362 :       if ( j == 0 )
 
 	movsx	ecx, WORD PTR _j$[ebp]
 	test	ecx, ecx
-	jne	SHORT $L31661
+	jne	SHORT $L31662
 
-; 4357 :          zCHAR szTemp[ 100 ] = "z_";
+; 4364 :          zCHAR szTemp[ 100 ] = "z_";
 
 	mov	dx, WORD PTR ??_C@_02IALC@z_?$AA@
-	mov	WORD PTR _szTemp$31662[ebp], dx
+	mov	WORD PTR _szTemp$31663[ebp], dx
 	mov	al, BYTE PTR ??_C@_02IALC@z_?$AA@+2
-	mov	BYTE PTR _szTemp$31662[ebp+2], al
+	mov	BYTE PTR _szTemp$31663[ebp+2], al
 	mov	ecx, 24					; 00000018H
 	xor	eax, eax
-	lea	edi, DWORD PTR _szTemp$31662[ebp+3]
+	lea	edi, DWORD PTR _szTemp$31663[ebp+3]
 	rep stosd
 	stosb
 
-; 4358 : 
-; 4359 :          // Since we know that all the reserved words are at least 2 chars
-; 4360 :          // shorter then the max column/table length, then don't worry about
-; 4361 :          // compressing the name.
-; 4362 :          zstrcat( szTemp, pchName );
+; 4365 : 
+; 4366 :          // Since we know that all the reserved words are at least 2 chars
+; 4367 :          // shorter then the max column/table length, then don't worry about
+; 4368 :          // compressing the name.
+; 4369 :          zstrcat( szTemp, pchName );
 
 	mov	ecx, DWORD PTR _pchName$[ebp]
 	push	ecx
-	lea	edx, DWORD PTR _szTemp$31662[ebp]
+	lea	edx, DWORD PTR _szTemp$31663[ebp]
 	push	edx
 	call	_strcat
 	add	esp, 8
 
-; 4363 :          zstrcpy( pchName, szTemp );
+; 4370 :          zstrcpy( pchName, szTemp );
 
-	lea	eax, DWORD PTR _szTemp$31662[ebp]
+	lea	eax, DWORD PTR _szTemp$31663[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _pchName$[ebp]
 	push	ecx
 	call	_strcpy
 	add	esp, 8
 
-; 4364 :          return;
+; 4371 :          return;
 
-	jmp	SHORT $L31660
-$L31661:
+	jmp	SHORT $L31661
+$L31662:
 
-; 4366 : 
-; 4367 :       // Reserved words are listed in alphabetical order.  If the compare
-; 4368 :       // returned a value greater than 0, then pchName comes before the current
-; 4369 :       // szReservedName, which means there cannot be a match.
-; 4370 :       if ( j > 0 )
+; 4373 : 
+; 4374 :       // Reserved words are listed in alphabetical order.  If the compare
+; 4375 :       // returned a value greater than 0, then pchName comes before the current
+; 4376 :       // szReservedName, which means there cannot be a match.
+; 4377 :       if ( j > 0 )
 
 	movsx	edx, WORD PTR _j$[ebp]
 	test	edx, edx
-	jle	SHORT $L31664
+	jle	SHORT $L31665
 
-; 4371 :          return;
+; 4378 :          return;
 
-	jmp	SHORT $L31660
-$L31664:
+	jmp	SHORT $L31661
+$L31665:
 
-; 4372 :    }
+; 4379 :    }
 
-	jmp	$L31659
-$L31660:
+	jmp	$L31660
+$L31661:
 
-; 4373 : }
+; 4380 : }
 
 	pop	edi
 	mov	esp, ebp
@@ -12513,21 +12530,381 @@ $L31660:
 	ret	4
 _fnChangeReservedName@4 ENDP
 _TEXT	ENDS
-PUBLIC	_GenerateName@12
+PUBLIC	_TranslateToUnderscoreCase@12
+EXTRN	_SysTranslateString@8:NEAR
+_BSS	SEGMENT
+_?nMaxLth@?1??TranslateToUnderscoreCase@@9@9 DW 01H DUP (?)
+_BSS	ENDS
+_TEXT	SEGMENT
+_pchSrc$ = 8
+_pchTarget$ = 12
+_cMetaType$ = 16
+_vDBH_Data$ = -12
+_l$ = -16
+_targetEnd$ = -276
+_original$ = -8
+_p$ = -4
+_sz$ = -272
+_TranslateToUnderscoreCase@12 PROC NEAR
+
+; 4412 : {
+
+	push	ebp
+	mov	ebp, esp
+	sub	esp, 280				; 00000118H
+
+; 4413 :    zVIEW  vDBH_Data = 0;
+
+	mov	DWORD PTR _vDBH_Data$[ebp], 0
+
+; 4414 :    //zCHAR  szDBH_DataObjectName[ zZEIDON_NAME_LTH + 1 ];
+; 4415 :    //zCHAR  szCreateUnderscore[ 2 ];
+; 4416 :    zLONG  l;
+; 4417 :    zPCHAR targetEnd; // = pchTarget + targetLth - 1; // Point to last char in target buffer.
+; 4418 :    zPCHAR original = pchSrc;
+
+	mov	eax, DWORD PTR _pchSrc$[ebp]
+	mov	DWORD PTR _original$[ebp], eax
+
+; 4419 :    zPCHAR p;
+; 4420 :    zCHAR  sz[ 256 ];
+; 4421 :    static zSHORT nMaxLth;      // Used to keep track of duplicate names.
+; 4422 : 
+; 4423 :    switch ( cMetaType )
+; 4424 :    {
+
+	mov	cl, BYTE PTR _cMetaType$[ebp]
+	mov	BYTE PTR -280+[ebp], cl
+	cmp	BYTE PTR -280+[ebp], 65			; 00000041H
+	je	SHORT $L31690
+	cmp	BYTE PTR -280+[ebp], 69			; 00000045H
+	je	SHORT $L31686
+	jmp	SHORT $L31683
+$L31686:
+
+; 4425 :       case 'E':      // Meta type is Entity
+; 4426 : 
+; 4427 :          // Try getting the max length from the DBH-Specific OI.  If one is
+; 4428 :          // not specified use the default length.
+; 4429 :          if ( vDBH_Data &&
+; 4430 :               GetIntegerFromAttribute( &l, vDBH_Data, "ODBC",
+; 4431 :                                        "MaxTableNameLength" ) != -1 )
+
+	cmp	DWORD PTR _vDBH_Data$[ebp], 0
+	je	SHORT $L31687
+	push	OFFSET FLAT:??_C@_0BD@KOPE@MaxTableNameLength?$AA@ ; `string'
+	push	OFFSET FLAT:??_C@_04JENC@ODBC?$AA@	; `string'
+	mov	edx, DWORD PTR _vDBH_Data$[ebp]
+	push	edx
+	lea	eax, DWORD PTR _l$[ebp]
+	push	eax
+	call	_GetIntegerFromAttribute@16
+	movsx	ecx, ax
+	cmp	ecx, -1
+	je	SHORT $L31687
+
+; 4433 :             nMaxLth = (zSHORT) l;
+
+	mov	dx, WORD PTR _l$[ebp]
+	mov	WORD PTR _?nMaxLth@?1??TranslateToUnderscoreCase@@9@9, dx
+
+; 4435 :          else
+
+	jmp	SHORT $L31689
+$L31687:
+
+; 4436 :             nMaxLth = MAX_TABLENAME_LTH;
+
+	mov	WORD PTR _?nMaxLth@?1??TranslateToUnderscoreCase@@9@9, 32 ; 00000020H
+$L31689:
+
+; 4437 : 
+; 4438 :          break;
+
+	jmp	SHORT $L31683
+$L31690:
+
+; 4439 : 
+; 4440 :       case 'A':      // Meta type is Attribute
+; 4441 : 
+; 4442 :          // Try getting the max length from the DBH-Specific OI.  If one is
+; 4443 :          // not specified use the default length.
+; 4444 :          if ( vDBH_Data &&
+; 4445 :               GetIntegerFromAttribute( &l, vDBH_Data, "ODBC",
+; 4446 :                                        "MaxColumnNameLength" ) != -1 )
+
+	cmp	DWORD PTR _vDBH_Data$[ebp], 0
+	je	SHORT $L31691
+	push	OFFSET FLAT:??_C@_0BE@GNCH@MaxColumnNameLength?$AA@ ; `string'
+	push	OFFSET FLAT:??_C@_04JENC@ODBC?$AA@	; `string'
+	mov	eax, DWORD PTR _vDBH_Data$[ebp]
+	push	eax
+	lea	ecx, DWORD PTR _l$[ebp]
+	push	ecx
+	call	_GetIntegerFromAttribute@16
+	movsx	edx, ax
+	cmp	edx, -1
+	je	SHORT $L31691
+
+; 4448 :             nMaxLth = (zSHORT) l;
+
+	mov	ax, WORD PTR _l$[ebp]
+	mov	WORD PTR _?nMaxLth@?1??TranslateToUnderscoreCase@@9@9, ax
+
+; 4450 :          else
+
+	jmp	SHORT $L31693
+$L31691:
+
+; 4451 :             nMaxLth = MAX_COLUMNNAME_LTH;
+
+	mov	WORD PTR _?nMaxLth@?1??TranslateToUnderscoreCase@@9@9, 32 ; 00000020H
+$L31693:
+$L31683:
+
+; 4456 : 
+; 4457 :    if ( nMaxLth >= BUFF_SIZE )
+
+	movsx	ecx, WORD PTR _?nMaxLth@?1??TranslateToUnderscoreCase@@9@9
+	cmp	ecx, 256				; 00000100H
+	jl	SHORT $L31694
+
+; 4458 :       nMaxLth = BUFF_SIZE - 1;
+
+	mov	WORD PTR _?nMaxLth@?1??TranslateToUnderscoreCase@@9@9, 255 ; 000000ffH
+$L31694:
+
+; 4459 : 
+; 4460 :   targetEnd = pchTarget + nMaxLth - 1;
+
+	movsx	edx, WORD PTR _?nMaxLth@?1??TranslateToUnderscoreCase@@9@9
+	mov	eax, DWORD PTR _pchTarget$[ebp]
+	lea	ecx, DWORD PTR [eax+edx-1]
+	mov	DWORD PTR _targetEnd$[ebp], ecx
+
+; 4461 : 
+; 4462 :   // Defensive programming...
+; 4463 :   *targetEnd = 0;
+
+	mov	edx, DWORD PTR _targetEnd$[ebp]
+	mov	BYTE PTR [edx], 0
+
+; 4464 : 
+; 4465 :   if ( zstrlen( pchSrc ) >= nMaxLth )
+
+	mov	eax, DWORD PTR _pchSrc$[ebp]
+	push	eax
+	call	_strlen
+	add	esp, 4
+	movsx	ecx, WORD PTR _?nMaxLth@?1??TranslateToUnderscoreCase@@9@9
+	cmp	eax, ecx
+	jb	SHORT $L31695
+
+; 4466 :      return zCALL_ERROR;
+
+	mov	ax, -16					; fffffff0H
+	jmp	$L31673
+$L31695:
+
+; 4467 : 
+; 4468 :   zstrcpy( sz, pchSrc );
+
+	mov	edx, DWORD PTR _pchSrc$[ebp]
+	push	edx
+	lea	eax, DWORD PTR _sz$[ebp]
+	push	eax
+	call	_strcpy
+	add	esp, 8
+
+; 4469 : 
+; 4470 :   //p = pchTarget;
+; 4471 :   p = &sz;
+
+	lea	ecx, DWORD PTR _sz$[ebp]
+	mov	DWORD PTR _p$[ebp], ecx
+
+; 4472 : 
+; 4473 :   // Copy first char to target.
+; 4474 :   *p++ = *pchSrc++;
+
+	mov	edx, DWORD PTR _p$[ebp]
+	mov	eax, DWORD PTR _pchSrc$[ebp]
+	mov	cl, BYTE PTR [eax]
+	mov	BYTE PTR [edx], cl
+	mov	edx, DWORD PTR _p$[ebp]
+	add	edx, 1
+	mov	DWORD PTR _p$[ebp], edx
+	mov	eax, DWORD PTR _pchSrc$[ebp]
+	add	eax, 1
+	mov	DWORD PTR _pchSrc$[ebp], eax
+$L31697:
+
+; 4475 :   while ( *pchSrc != 0 )
+
+	mov	ecx, DWORD PTR _pchSrc$[ebp]
+	movsx	edx, BYTE PTR [ecx]
+	test	edx, edx
+	je	$L31698
+
+; 4477 :       // Do we have enough space to add two more chars?
+; 4478 :       if ( p + 2 > targetEnd )
+
+	mov	eax, DWORD PTR _p$[ebp]
+	add	eax, 2
+	cmp	eax, DWORD PTR _targetEnd$[ebp]
+	jbe	SHORT $L31699
+
+; 4479 :   	 return -16;
+
+	mov	ax, -16					; fffffff0H
+	jmp	$L31673
+$L31699:
+
+; 4480 : 
+; 4481 :       if ( *pchSrc >= 'A' && *pchSrc <= 'Z' )
+
+	mov	ecx, DWORD PTR _pchSrc$[ebp]
+	movsx	edx, BYTE PTR [ecx]
+	cmp	edx, 65					; 00000041H
+	jl	SHORT $L31704
+	mov	eax, DWORD PTR _pchSrc$[ebp]
+	movsx	ecx, BYTE PTR [eax]
+	cmp	ecx, 90					; 0000005aH
+	jg	SHORT $L31704
+
+; 4483 : 	  // We have a capital letter.  Is previous letter upper?
+; 4484 : 	  if ( *(p-1) < 'A' || *(p-1) > 'Z' )
+
+	mov	edx, DWORD PTR _p$[ebp]
+	movsx	eax, BYTE PTR [edx-1]
+	cmp	eax, 65					; 00000041H
+	jl	SHORT $L31702
+	mov	ecx, DWORD PTR _p$[ebp]
+	movsx	edx, BYTE PTR [ecx-1]
+	cmp	edx, 90					; 0000005aH
+	jle	SHORT $L31701
+$L31702:
+
+; 4485 : 	    // No, so copy _.
+; 4486 : 	    *p++ = '_';
+
+	mov	eax, DWORD PTR _p$[ebp]
+	mov	BYTE PTR [eax], 95			; 0000005fH
+	mov	ecx, DWORD PTR _p$[ebp]
+	add	ecx, 1
+	mov	DWORD PTR _p$[ebp], ecx
+
+; 4487 : 	  else
+
+	jmp	SHORT $L31704
+$L31701:
+
+; 4488 : 	    // Previous letter is also upper.  Insert _ if next char is lower.
+; 4489 : 	    if ( ( *(pchSrc+1) < 'A' || *(pchSrc+1) > 'Z' ) && *(pchSrc+1) != 0 )
+
+	mov	edx, DWORD PTR _pchSrc$[ebp]
+	movsx	eax, BYTE PTR [edx+1]
+	cmp	eax, 65					; 00000041H
+	jl	SHORT $L31705
+	mov	ecx, DWORD PTR _pchSrc$[ebp]
+	movsx	edx, BYTE PTR [ecx+1]
+	cmp	edx, 90					; 0000005aH
+	jle	SHORT $L31704
+$L31705:
+	mov	eax, DWORD PTR _pchSrc$[ebp]
+	movsx	ecx, BYTE PTR [eax+1]
+	test	ecx, ecx
+	je	SHORT $L31704
+
+; 4490 : 	      *p++ = '_';
+
+	mov	edx, DWORD PTR _p$[ebp]
+	mov	BYTE PTR [edx], 95			; 0000005fH
+	mov	eax, DWORD PTR _p$[ebp]
+	add	eax, 1
+	mov	DWORD PTR _p$[ebp], eax
+$L31704:
+
+; 4492 :       *p++ = *pchSrc++;
+
+	mov	ecx, DWORD PTR _p$[ebp]
+	mov	edx, DWORD PTR _pchSrc$[ebp]
+	mov	al, BYTE PTR [edx]
+	mov	BYTE PTR [ecx], al
+	mov	ecx, DWORD PTR _p$[ebp]
+	add	ecx, 1
+	mov	DWORD PTR _p$[ebp], ecx
+	mov	edx, DWORD PTR _pchSrc$[ebp]
+	add	edx, 1
+	mov	DWORD PTR _pchSrc$[ebp], edx
+
+; 4493 :     }
+
+	jmp	$L31697
+$L31698:
+
+; 4494 : //
+; 4495 :   *p++ = 0;
+
+	mov	eax, DWORD PTR _p$[ebp]
+	mov	BYTE PTR [eax], 0
+	mov	ecx, DWORD PTR _p$[ebp]
+	add	ecx, 1
+	mov	DWORD PTR _p$[ebp], ecx
+
+; 4496 :   
+; 4497 :   // Now convert to all lower.
+; 4498 :   SysTranslateString( p, 'L' );
+
+	push	76					; 0000004cH
+	mov	edx, DWORD PTR _p$[ebp]
+	push	edx
+	call	_SysTranslateString@8
+
+; 4499 :   zstrcpy( pchTarget, sz );
+
+	lea	eax, DWORD PTR _sz$[ebp]
+	push	eax
+	mov	ecx, DWORD PTR _pchTarget$[ebp]
+	push	ecx
+	call	_strcpy
+	add	esp, 8
+
+; 4500 : 
+; 4501 :   return 0;
+
+	xor	ax, ax
+$L31673:
+
+; 4502 : }
+
+	mov	esp, ebp
+	pop	ebp
+	ret	12					; 0000000cH
+_TranslateToUnderscoreCase@12 ENDP
+_TEXT	ENDS
 PUBLIC	??_C@_02IKBN@B_?$AA@				; `string'
 PUBLIC	??_C@_02IPGJ@Bc?$AA@				; `string'
-EXTRN	_SysTranslateString@8:NEAR
+PUBLIC	_GenerateName@12
+PUBLIC	??_C@_0CA@CEEE@TranslateNamesToLowerUnderscore?$AA@ ; `string'
 EXTRN	__imp____mb_cur_max:DWORD
 EXTRN	__imp___pctype:DWORD
 EXTRN	__imp___isctype:NEAR
 _BSS	SEGMENT
+	ALIGN	4
+
 _?nNameCount@?1??GenerateName@@9@9 DW 01H DUP (?)
 	ALIGN	4
 
 _?nMaxLth@?1??GenerateName@@9@9 DW 01H DUP (?)
 _BSS	ENDS
-;	COMDAT ??_C@_02IKBN@B_?$AA@
+;	COMDAT ??_C@_0CA@CEEE@TranslateNamesToLowerUnderscore?$AA@
 ; File C:\10C\a\oe\KZHSQLXB.C
+_DATA	SEGMENT
+??_C@_0CA@CEEE@TranslateNamesToLowerUnderscore?$AA@ DB 'TranslateNamesToL'
+	DB	'owerUnderscore', 00H			; `string'
+_DATA	ENDS
+;	COMDAT ??_C@_02IKBN@B_?$AA@
 _DATA	SEGMENT
 ??_C@_02IKBN@B_?$AA@ DB 'B_', 00H			; `string'
 _DATA	ENDS
@@ -12541,33 +12918,35 @@ _pchName$ = 12
 _cMetaType$ = 16
 _vDBH_Data$ = -4
 _szDBH_DataObjectName$ = -40
+_szCreateUnderscore$ = -52
 _pch1$ = -48
-_pch2$ = -52
+_pch2$ = -56
 _l$ = -44
-_nLth$31700 = -56
+_nLth$31743 = -60
 _GenerateName@12 PROC NEAR
 
-; 4399 : {
+; 4535 : {
 
 	push	ebp
 	mov	ebp, esp
-	sub	esp, 64					; 00000040H
+	sub	esp, 68					; 00000044H
 
-; 4400 :    static zSHORT nNameCount;   // Used to keep track of duplicate names.
-; 4401 :    static zSHORT nMaxLth;      // Used to keep track of duplicate names.
-; 4402 : 
-; 4403 :    zVIEW  vDBH_Data = 0;
+; 4536 :    static zSHORT nNameCount;   // Used to keep track of duplicate names.
+; 4537 :    static zSHORT nMaxLth;      // Used to keep track of duplicate names.
+; 4538 : 
+; 4539 :    zVIEW  vDBH_Data = 0;
 
 	mov	DWORD PTR _vDBH_Data$[ebp], 0
 
-; 4404 :    zCHAR  szDBH_DataObjectName[ zZEIDON_NAME_LTH + 1 ];
-; 4405 :    zPCHAR pch1;
-; 4406 :    zPCHAR pch2;
-; 4407 :    zLONG  l;
-; 4408 : 
-; 4409 :    // Try to get the OI that contains DBH-specific data.
-; 4410 :    SetOI_FromBlob( &vDBH_Data, szDBH_DataObjectName, vDTE, vDTE,
-; 4411 :                    "TE_DBMS_Source", "DBH_Data", zNOI_OKAY );
+; 4540 :    zCHAR  szDBH_DataObjectName[ zZEIDON_NAME_LTH + 1 ];
+; 4541 :    zCHAR  szCreateUnderscore[ 2 ];
+; 4542 :    zPCHAR pch1;
+; 4543 :    zPCHAR pch2;
+; 4544 :    zLONG  l;
+; 4545 : 
+; 4546 :    // Try to get the OI that contains DBH-specific data.
+; 4547 :    SetOI_FromBlob( &vDBH_Data, szDBH_DataObjectName, vDTE, vDTE,
+; 4548 :                    "TE_DBMS_Source", "DBH_Data", zNOI_OKAY );
 
 	push	512					; 00000200H
 	push	OFFSET FLAT:??_C@_08DKGC@DBH_Data?$AA@	; `string'
@@ -12582,40 +12961,40 @@ _GenerateName@12 PROC NEAR
 	push	eax
 	call	_SetOI_FromBlob@28
 
-; 4412 : 
-; 4413 :    // Eliminate invalid chars.
-; 4414 :    for ( pch1 = pch2 = pchName; *pch2; pch2++ )
+; 4549 : 
+; 4550 :    // Eliminate invalid chars.
+; 4551 :    for ( pch1 = pch2 = pchName; *pch2; pch2++ )
 
 	mov	ecx, DWORD PTR _pchName$[ebp]
 	mov	DWORD PTR _pch2$[ebp], ecx
 	mov	edx, DWORD PTR _pch2$[ebp]
 	mov	DWORD PTR _pch1$[ebp], edx
-	jmp	SHORT $L31682
-$L31683:
+	jmp	SHORT $L31724
+$L31725:
 	mov	eax, DWORD PTR _pch2$[ebp]
 	add	eax, 1
 	mov	DWORD PTR _pch2$[ebp], eax
-$L31682:
+$L31724:
 	mov	ecx, DWORD PTR _pch2$[ebp]
 	movsx	edx, BYTE PTR [ecx]
 	test	edx, edx
-	je	SHORT $L31684
+	je	SHORT $L31726
 
-; 4416 :       // Even though SQLBase allows '@', '#', and '$' we don't generate them.
-; 4417 :       if ( zisalnum( *pch2 ) || *pch2 == '_' )
+; 4553 :       // Even though SQLBase allows '@', '#', and '$' we don't generate them.
+; 4554 :       if ( zisalnum( *pch2 ) || *pch2 == '_' )
 
 	mov	eax, DWORD PTR __imp____mb_cur_max
 	cmp	DWORD PTR [eax], 1
-	jle	SHORT $L32334
+	jle	SHORT $L32381
 	push	263					; 00000107H
 	mov	ecx, DWORD PTR _pch2$[ebp]
 	movsx	edx, BYTE PTR [ecx]
 	push	edx
 	call	DWORD PTR __imp___isctype
 	add	esp, 8
-	mov	DWORD PTR -60+[ebp], eax
-	jmp	SHORT $L32335
-$L32334:
+	mov	DWORD PTR -64+[ebp], eax
+	jmp	SHORT $L32382
+$L32381:
 	mov	eax, DWORD PTR _pch2$[ebp]
 	movsx	ecx, BYTE PTR [eax]
 	mov	edx, DWORD PTR __imp___pctype
@@ -12623,17 +13002,17 @@ $L32334:
 	xor	edx, edx
 	mov	dx, WORD PTR [eax+ecx*2]
 	and	edx, 263				; 00000107H
-	mov	DWORD PTR -60+[ebp], edx
-$L32335:
-	cmp	DWORD PTR -60+[ebp], 0
-	jne	SHORT $L31686
+	mov	DWORD PTR -64+[ebp], edx
+$L32382:
+	cmp	DWORD PTR -64+[ebp], 0
+	jne	SHORT $L31728
 	mov	eax, DWORD PTR _pch2$[ebp]
 	movsx	ecx, BYTE PTR [eax]
 	cmp	ecx, 95					; 0000005fH
-	jne	SHORT $L31685
-$L31686:
+	jne	SHORT $L31727
+$L31728:
 
-; 4418 :          *pch1++ = *pch2;  // Copy valid char.
+; 4555 :          *pch1++ = *pch2;  // Copy valid char.
 
 	mov	edx, DWORD PTR _pch1$[ebp]
 	mov	eax, DWORD PTR _pch2$[ebp]
@@ -12642,50 +13021,109 @@ $L31686:
 	mov	edx, DWORD PTR _pch1$[ebp]
 	add	edx, 1
 	mov	DWORD PTR _pch1$[ebp], edx
-$L31685:
+$L31727:
 
-; 4419 :    }
+; 4556 :    }
 
-	jmp	SHORT $L31683
-$L31684:
+	jmp	SHORT $L31725
+$L31726:
 
-; 4420 : 
-; 4421 :    // Null-terminate string.
-; 4422 :    pch1[ 0 ] = 0;
+; 4557 : 
+; 4558 :    // Null-terminate string.
+; 4559 :    pch1[ 0 ] = 0;
 
 	mov	eax, DWORD PTR _pch1$[ebp]
 	mov	BYTE PTR [eax], 0
 
-; 4423 : 
-; 4424 :    switch ( cMetaType )
-; 4425 :    {
+; 4560 : 
+; 4561 :    // KJS 08/07/14 - DG wants to be able to create names Like EntityName to entity_name. This is the ini setting.
+; 4562 :    GetStringFromAttribute (szCreateUnderscore, vDTE, "TE_DBMS_Source", "TranslateNamesToLowerUnderscore");
 
-	mov	cl, BYTE PTR _cMetaType$[ebp]
-	mov	BYTE PTR -64+[ebp], cl
-	cmp	BYTE PTR -64+[ebp], 65			; 00000041H
-	je	SHORT $L31695
-	cmp	BYTE PTR -64+[ebp], 69			; 00000045H
-	je	SHORT $L31691
-	cmp	BYTE PTR -64+[ebp], 88			; 00000058H
-	je	$L31699
-	jmp	$L31688
-$L31691:
+	push	OFFSET FLAT:??_C@_0CA@CEEE@TranslateNamesToLowerUnderscore?$AA@ ; `string'
+	push	OFFSET FLAT:??_C@_0P@BCDD@TE_DBMS_Source?$AA@ ; `string'
+	mov	ecx, DWORD PTR _vDTE$[ebp]
+	push	ecx
+	lea	edx, DWORD PTR _szCreateUnderscore$[ebp]
+	push	edx
+	call	_GetStringFromAttribute@16
 
-; 4426 :       case 'E':      // Meta type is Entity
-; 4427 :          nNameCount = 1;
+; 4563 : 
+; 4564 :    switch ( cMetaType )
+; 4565 :    {
+
+	mov	al, BYTE PTR _cMetaType$[ebp]
+	mov	BYTE PTR -68+[ebp], al
+	cmp	BYTE PTR -68+[ebp], 65			; 00000041H
+	je	SHORT $L31738
+	cmp	BYTE PTR -68+[ebp], 69			; 00000045H
+	je	SHORT $L31734
+	cmp	BYTE PTR -68+[ebp], 88			; 00000058H
+	je	$L31742
+	jmp	$L31731
+$L31734:
+
+; 4566 :       case 'E':      // Meta type is Entity
+; 4567 :          nNameCount = 1;
 
 	mov	WORD PTR _?nNameCount@?1??GenerateName@@9@9, 1
 
-; 4428 : 
-; 4429 :          // Try getting the max length from the DBH-Specific OI.  If one is
-; 4430 :          // not specified use the default length.
-; 4431 :          if ( vDBH_Data &&
-; 4432 :               GetIntegerFromAttribute( &l, vDBH_Data, "ODBC",
-; 4433 :                                        "MaxTableNameLength" ) != -1 )
+; 4568 : 
+; 4569 :          // Try getting the max length from the DBH-Specific OI.  If one is
+; 4570 :          // not specified use the default length.
+; 4571 :          if ( vDBH_Data &&
+; 4572 :               GetIntegerFromAttribute( &l, vDBH_Data, "ODBC",
+; 4573 :                                        "MaxTableNameLength" ) != -1 )
 
 	cmp	DWORD PTR _vDBH_Data$[ebp], 0
-	je	SHORT $L31692
+	je	SHORT $L31735
 	push	OFFSET FLAT:??_C@_0BD@KOPE@MaxTableNameLength?$AA@ ; `string'
+	push	OFFSET FLAT:??_C@_04JENC@ODBC?$AA@	; `string'
+	mov	ecx, DWORD PTR _vDBH_Data$[ebp]
+	push	ecx
+	lea	edx, DWORD PTR _l$[ebp]
+	push	edx
+	call	_GetIntegerFromAttribute@16
+	movsx	eax, ax
+	cmp	eax, -1
+	je	SHORT $L31735
+
+; 4575 :             nMaxLth = (zSHORT) l;
+
+	mov	cx, WORD PTR _l$[ebp]
+	mov	WORD PTR _?nMaxLth@?1??GenerateName@@9@9, cx
+
+; 4577 :          else
+
+	jmp	SHORT $L31737
+$L31735:
+
+; 4578 :             nMaxLth = MAX_TABLENAME_LTH;
+
+	mov	WORD PTR _?nMaxLth@?1??GenerateName@@9@9, 32 ; 00000020H
+$L31737:
+
+; 4579 : 
+; 4580 :          break;
+
+	jmp	$L31731
+$L31738:
+
+; 4581 : 
+; 4582 :       case 'A':      // Meta type is Attribute
+; 4583 :          nNameCount = 1;
+
+	mov	WORD PTR _?nNameCount@?1??GenerateName@@9@9, 1
+
+; 4584 : 
+; 4585 :          // Try getting the max length from the DBH-Specific OI.  If one is
+; 4586 :          // not specified use the default length.
+; 4587 :          if ( vDBH_Data &&
+; 4588 :               GetIntegerFromAttribute( &l, vDBH_Data, "ODBC",
+; 4589 :                                        "MaxColumnNameLength" ) != -1 )
+
+	cmp	DWORD PTR _vDBH_Data$[ebp], 0
+	je	SHORT $L31739
+	push	OFFSET FLAT:??_C@_0BE@GNCH@MaxColumnNameLength?$AA@ ; `string'
 	push	OFFSET FLAT:??_C@_04JENC@ODBC?$AA@	; `string'
 	mov	edx, DWORD PTR _vDBH_Data$[ebp]
 	push	edx
@@ -12694,211 +13132,184 @@ $L31691:
 	call	_GetIntegerFromAttribute@16
 	movsx	ecx, ax
 	cmp	ecx, -1
-	je	SHORT $L31692
+	je	SHORT $L31739
 
-; 4435 :             nMaxLth = (zSHORT) l;
+; 4591 :             nMaxLth = (zSHORT) l;
 
 	mov	dx, WORD PTR _l$[ebp]
 	mov	WORD PTR _?nMaxLth@?1??GenerateName@@9@9, dx
 
-; 4437 :          else
+; 4593 :          else
 
-	jmp	SHORT $L31694
-$L31692:
+	jmp	SHORT $L31741
+$L31739:
 
-; 4438 :             nMaxLth = MAX_TABLENAME_LTH;
+; 4594 :             nMaxLth = MAX_COLUMNNAME_LTH;
 
-	mov	WORD PTR _?nMaxLth@?1??GenerateName@@9@9, 30 ; 0000001eH
-$L31694:
+	mov	WORD PTR _?nMaxLth@?1??GenerateName@@9@9, 32 ; 00000020H
+$L31741:
 
-; 4439 : 
-; 4440 :          break;
+; 4595 : 
+; 4596 :          break;
 
-	jmp	$L31688
-$L31695:
+	jmp	SHORT $L31731
+$L31742:
 
-; 4441 : 
-; 4442 :       case 'A':      // Meta type is Attribute
-; 4443 :          nNameCount = 1;
+; 4600 :          zSHORT nLth;
+; 4601 : 
+; 4602 :          // When generating new names, we just tack on an incrementing
+; 4603 :          // number.  For example, "ColName" becomes "ColName02", "ColName02"
+; 4604 :          // becomes "ColName03", etc.
+; 4605 : 
+; 4606 :          nNameCount++;
 
-	mov	WORD PTR _?nNameCount@?1??GenerateName@@9@9, 1
+	mov	ax, WORD PTR _?nNameCount@?1??GenerateName@@9@9
+	add	ax, 1
+	mov	WORD PTR _?nNameCount@?1??GenerateName@@9@9, ax
 
-; 4444 : 
-; 4445 :          // Try getting the max length from the DBH-Specific OI.  If one is
-; 4446 :          // not specified use the default length.
-; 4447 :          if ( vDBH_Data &&
-; 4448 :               GetIntegerFromAttribute( &l, vDBH_Data, "ODBC",
-; 4449 :                                        "MaxColumnNameLength" ) != -1 )
+; 4607 :          nLth = zstrlen( pchName );
 
-	cmp	DWORD PTR _vDBH_Data$[ebp], 0
-	je	SHORT $L31696
-	push	OFFSET FLAT:??_C@_0BE@GNCH@MaxColumnNameLength?$AA@ ; `string'
-	push	OFFSET FLAT:??_C@_04JENC@ODBC?$AA@	; `string'
-	mov	eax, DWORD PTR _vDBH_Data$[ebp]
-	push	eax
-	lea	ecx, DWORD PTR _l$[ebp]
+	mov	ecx, DWORD PTR _pchName$[ebp]
 	push	ecx
-	call	_GetIntegerFromAttribute@16
-	movsx	edx, ax
-	cmp	edx, -1
-	je	SHORT $L31696
-
-; 4451 :             nMaxLth = (zSHORT) l;
-
-	mov	ax, WORD PTR _l$[ebp]
-	mov	WORD PTR _?nMaxLth@?1??GenerateName@@9@9, ax
-
-; 4453 :          else
-
-	jmp	SHORT $L31698
-$L31696:
-
-; 4454 :             nMaxLth = MAX_COLUMNNAME_LTH;
-
-	mov	WORD PTR _?nMaxLth@?1??GenerateName@@9@9, 18 ; 00000012H
-$L31698:
-
-; 4455 : 
-; 4456 :          break;
-
-	jmp	$L31688
-$L31699:
-
-; 4460 :          zSHORT nLth;
-; 4461 : 
-; 4462 :          // When generating new names, we just tack on an incrementing
-; 4463 :          // number.  For example, "ColName" becomes "ColName02", "ColName02"
-; 4464 :          // becomes "ColName03", etc.
-; 4465 : 
-; 4466 :          nNameCount++;
-
-	mov	cx, WORD PTR _?nNameCount@?1??GenerateName@@9@9
-	add	cx, 1
-	mov	WORD PTR _?nNameCount@?1??GenerateName@@9@9, cx
-
-; 4467 :          nLth = zstrlen( pchName );
-
-	mov	edx, DWORD PTR _pchName$[ebp]
-	push	edx
 	call	_strlen
 	add	esp, 4
-	mov	WORD PTR _nLth$31700[ebp], ax
+	mov	WORD PTR _nLth$31743[ebp], ax
 
-; 4468 :          if ( nNameCount > 2 )
-
-	movsx	eax, WORD PTR _?nNameCount@?1??GenerateName@@9@9
-	cmp	eax, 2
-	jle	SHORT $L31701
-
-; 4469 :             nLth = nLth - 2;
-
-	movsx	ecx, WORD PTR _nLth$31700[ebp]
-	sub	ecx, 2
-	mov	WORD PTR _nLth$31700[ebp], cx
-
-; 4470 :          else
-
-	jmp	SHORT $L31703
-$L31701:
-
-; 4471 :          if ( nLth > nMaxLth - 2 )
-
-	movsx	edx, WORD PTR _nLth$31700[ebp]
-	movsx	eax, WORD PTR _?nMaxLth@?1??GenerateName@@9@9
-	sub	eax, 2
-	cmp	edx, eax
-	jle	SHORT $L31703
-
-; 4472 :             nLth = nMaxLth - 2;
-
-	movsx	ecx, WORD PTR _?nMaxLth@?1??GenerateName@@9@9
-	sub	ecx, 2
-	mov	WORD PTR _nLth$31700[ebp], cx
-$L31703:
-
-; 4473 : 
-; 4474 :          zsprintf( pchName + nLth, "%02d", nNameCount );
+; 4608 :          if ( nNameCount > 2 )
 
 	movsx	edx, WORD PTR _?nNameCount@?1??GenerateName@@9@9
-	push	edx
-	push	OFFSET FLAT:??_C@_04LGDF@?$CF02d?$AA@	; `string'
-	movsx	eax, WORD PTR _nLth$31700[ebp]
-	mov	ecx, DWORD PTR _pchName$[ebp]
-	add	ecx, eax
+	cmp	edx, 2
+	jle	SHORT $L31744
+
+; 4609 :             nLth = nLth - 2;
+
+	movsx	eax, WORD PTR _nLth$31743[ebp]
+	sub	eax, 2
+	mov	WORD PTR _nLth$31743[ebp], ax
+
+; 4610 :          else
+
+	jmp	SHORT $L31746
+$L31744:
+
+; 4611 :          if ( nLth > nMaxLth - 2 )
+
+	movsx	ecx, WORD PTR _nLth$31743[ebp]
+	movsx	edx, WORD PTR _?nMaxLth@?1??GenerateName@@9@9
+	sub	edx, 2
+	cmp	ecx, edx
+	jle	SHORT $L31746
+
+; 4612 :             nLth = nMaxLth - 2;
+
+	movsx	eax, WORD PTR _?nMaxLth@?1??GenerateName@@9@9
+	sub	eax, 2
+	mov	WORD PTR _nLth$31743[ebp], ax
+$L31746:
+
+; 4613 : 
+; 4614 :          zsprintf( pchName + nLth, "%02d", nNameCount );
+
+	movsx	ecx, WORD PTR _?nNameCount@?1??GenerateName@@9@9
 	push	ecx
+	push	OFFSET FLAT:??_C@_04LGDF@?$CF02d?$AA@	; `string'
+	movsx	edx, WORD PTR _nLth$31743[ebp]
+	mov	eax, DWORD PTR _pchName$[ebp]
+	add	eax, edx
+	push	eax
 	call	DWORD PTR __imp__sprintf
 	add	esp, 12					; 0000000cH
 
-; 4475 : 
-; 4476 :          // We know name is short enough and no reserved words contain numbers
-; 4477 :          // so just return.
-; 4478 :          return( 0 );
+; 4615 : 
+; 4616 :          // We know name is short enough and no reserved words contain numbers
+; 4617 :          // so just return.
+; 4618 :          return( 0 );
 
 	xor	ax, ax
-	jmp	SHORT $L31672
-$L31688:
+	jmp	SHORT $L31713
+$L31731:
 
-; 4481 : 
-; 4482 :    if ( nMaxLth >= BUFF_SIZE )
+; 4621 : 
+; 4622 :    if ( nMaxLth >= BUFF_SIZE )
 
-	movsx	edx, WORD PTR _?nMaxLth@?1??GenerateName@@9@9
-	cmp	edx, 256				; 00000100H
-	jl	SHORT $L31704
+	movsx	ecx, WORD PTR _?nMaxLth@?1??GenerateName@@9@9
+	cmp	ecx, 256				; 00000100H
+	jl	SHORT $L31747
 
-; 4483 :       nMaxLth = BUFF_SIZE - 1;
+; 4623 :       nMaxLth = BUFF_SIZE - 1;
 
 	mov	WORD PTR _?nMaxLth@?1??GenerateName@@9@9, 255 ; 000000ffH
-$L31704:
+$L31747:
 
-; 4484 : 
-; 4485 :    // Compress the name if it needs it.
-; 4486 :    UfCompressName( pchName,   // Original name.
-; 4487 :                    pchName,   // New (shorter) name.
-; 4488 :                    nMaxLth,   // Max length of string.
-; 4489 :                    "",        // Remove embedded spaces.
-; 4490 :                    "",        // Ignore '_' (for now).
-; 4491 :                    "Bc",      // Remove lower-case vowels starting from back.
-; 4492 :                    "B_",      // Remove '_' starting from back.
-; 4493 :                    0 );       // Stop when the name is short enough.
+; 4624 : 
+; 4625 :    // Compress the name if it needs it.
+; 4626 :    UfCompressName( pchName,   // Original name.
+; 4627 :                    pchName,   // New (shorter) name.
+; 4628 :                    nMaxLth,   // Max length of string.
+; 4629 :                    "",        // Remove embedded spaces.
+; 4630 :                    "",        // Ignore '_' (for now).
+; 4631 :                    "Bc",      // Remove lower-case vowels starting from back.
+; 4632 :                    "B_",      // Remove '_' starting from back.
+; 4633 :                    0 );       // Stop when the name is short enough.
 
 	push	0
 	push	OFFSET FLAT:??_C@_02IKBN@B_?$AA@	; `string'
 	push	OFFSET FLAT:??_C@_02IPGJ@Bc?$AA@	; `string'
 	push	OFFSET FLAT:??_C@_00A@?$AA@		; `string'
 	push	OFFSET FLAT:??_C@_00A@?$AA@		; `string'
-	mov	ax, WORD PTR _?nMaxLth@?1??GenerateName@@9@9
+	mov	dx, WORD PTR _?nMaxLth@?1??GenerateName@@9@9
+	push	edx
+	mov	eax, DWORD PTR _pchName$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _pchName$[ebp]
 	push	ecx
-	mov	edx, DWORD PTR _pchName$[ebp]
-	push	edx
 	call	_UfCompressName@32
 
-; 4494 : 
-; 4495 :    // Change string to all upper-case.
-; 4496 :    SysTranslateString( pchName, 'U' );
+; 4634 : 
+; 4635 :    if ( szCreateUnderscore[ 0 ] == 'Y' )
 
-	push	85					; 00000055H
+	movsx	edx, BYTE PTR _szCreateUnderscore$[ebp]
+	cmp	edx, 89					; 00000059H
+	jne	SHORT $L31750
+
+; 4636 :       // KJS 08/07/14 - Change string to all lower-case if we are creating table/column names with underscore.
+; 4637 :       SysTranslateString( pchName, 'L' );
+
+	push	76					; 0000004cH
 	mov	eax, DWORD PTR _pchName$[ebp]
 	push	eax
 	call	_SysTranslateString@8
 
-; 4497 : 
-; 4498 :    // Make sure generated name doesn't match a reserved word.
-; 4499 :    fnChangeReservedName( pchName );
+; 4638 :    else
 
+	jmp	SHORT $L31751
+$L31750:
+
+; 4639 :       // Change string to all upper-case.
+; 4640 :       SysTranslateString( pchName, 'U' );
+
+	push	85					; 00000055H
 	mov	ecx, DWORD PTR _pchName$[ebp]
 	push	ecx
+	call	_SysTranslateString@8
+$L31751:
+
+; 4641 : 
+; 4642 :    // Make sure generated name doesn't match a reserved word.
+; 4643 :    fnChangeReservedName( pchName );
+
+	mov	edx, DWORD PTR _pchName$[ebp]
+	push	edx
 	call	_fnChangeReservedName@4
 
-; 4500 : 
-; 4501 :    return( 0 );
+; 4644 : 
+; 4645 :    return( 0 );
 
 	xor	ax, ax
-$L31672:
+$L31713:
 
-; 4502 : 
-; 4503 : } // GenerateName
+; 4646 : 
+; 4647 : } // GenerateName
 
 	mov	esp, ebp
 	pop	ebp
@@ -12954,24 +13365,24 @@ _nRC$ = -48
 _szEntityName$ = -44
 _vXOD$ = -4
 _vXOD2$ = -8
-_lPos$31721 = -56
+_lPos$31766 = -56
 _fnSortDataFields@4 PROC NEAR
 
-; 6361 : {
+; 6511 : {
 
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 60					; 0000003cH
 
-; 6362 :    zUSHORT usReturnLevel;
-; 6363 :    zSHORT  nRC;
-; 6364 :    zCHAR   szEntityName[ 33 ];
-; 6365 :    zVIEW   vXOD;
-; 6366 :    zVIEW   vXOD2;
-; 6367 : 
-; 6368 :    // If there is no DATARECORD for the root entity then there is nothing
-; 6369 :    // to do (this LOD has no physical info).
-; 6370 :    if ( CheckExistenceOfEntity( vTZZOXODO, "DATARECORD" ) != zCURSOR_SET )
+; 6512 :    zUSHORT usReturnLevel;
+; 6513 :    zSHORT  nRC;
+; 6514 :    zCHAR   szEntityName[ 33 ];
+; 6515 :    zVIEW   vXOD;
+; 6516 :    zVIEW   vXOD2;
+; 6517 : 
+; 6518 :    // If there is no DATARECORD for the root entity then there is nothing
+; 6519 :    // to do (this LOD has no physical info).
+; 6520 :    if ( CheckExistenceOfEntity( vTZZOXODO, "DATARECORD" ) != zCURSOR_SET )
 
 	push	OFFSET FLAT:??_C@_0L@PPLE@DATARECORD?$AA@ ; `string'
 	mov	eax, DWORD PTR _vTZZOXODO$[ebp]
@@ -12979,16 +13390,16 @@ _fnSortDataFields@4 PROC NEAR
 	call	_CheckExistenceOfEntity@8
 	movsx	ecx, ax
 	test	ecx, ecx
-	je	SHORT $L31716
+	je	SHORT $L31761
 
-; 6371 :       return( 0 );
+; 6521 :       return( 0 );
 
 	xor	ax, ax
-	jmp	$L31710
-$L31716:
+	jmp	$L31755
+$L31761:
 
-; 6372 : 
-; 6373 :    CreateViewFromViewForTask( &vTZZOXODO, vTZZOXODO, 0 );
+; 6522 : 
+; 6523 :    CreateViewFromViewForTask( &vTZZOXODO, vTZZOXODO, 0 );
 
 	push	0
 	mov	edx, DWORD PTR _vTZZOXODO$[ebp]
@@ -12997,7 +13408,7 @@ $L31716:
 	push	eax
 	call	_CreateViewFromViewForTask@12
 
-; 6374 :    CreateViewFromViewForTask( &vXOD, vTZZOXODO, 0 );
+; 6524 :    CreateViewFromViewForTask( &vXOD, vTZZOXODO, 0 );
 
 	push	0
 	mov	ecx, DWORD PTR _vTZZOXODO$[ebp]
@@ -13006,7 +13417,7 @@ $L31716:
 	push	edx
 	call	_CreateViewFromViewForTask@12
 
-; 6375 :    CreateViewFromViewForTask( &vXOD2, vTZZOXODO, 0 );
+; 6525 :    CreateViewFromViewForTask( &vXOD2, vTZZOXODO, 0 );
 
 	push	0
 	mov	eax, DWORD PTR _vTZZOXODO$[ebp]
@@ -13015,10 +13426,10 @@ $L31716:
 	push	ecx
 	call	_CreateViewFromViewForTask@12
 
-; 6376 : 
-; 6377 :    // Initialize DATARECORD into szEntityName so that we reference the first
-; 6378 :    // ENTITY.
-; 6379 :    zstrcpy( szEntityName, "DATARECORD" );
+; 6526 : 
+; 6527 :    // Initialize DATARECORD into szEntityName so that we reference the first
+; 6528 :    // ENTITY.
+; 6529 :    zstrcpy( szEntityName, "DATARECORD" );
 
 	push	OFFSET FLAT:??_C@_0L@PPLE@DATARECORD?$AA@ ; `string'
 	lea	edx, DWORD PTR _szEntityName$[ebp]
@@ -13026,19 +13437,19 @@ $L31716:
 	call	_strcpy
 	add	esp, 8
 
-; 6380 : 
-; 6381 :    for ( nRC = DefineHierarchicalCursor( vTZZOXODO, "DATARECORD" );
-; 6382 :          nRC >= zCURSOR_SET;
-; 6383 :          nRC = SetCursorNextEntityHierarchical( &usReturnLevel,
-; 6384 :                                                 szEntityName, vTZZOXODO ) )
+; 6530 : 
+; 6531 :    for ( nRC = DefineHierarchicalCursor( vTZZOXODO, "DATARECORD" );
+; 6532 :          nRC >= zCURSOR_SET;
+; 6533 :          nRC = SetCursorNextEntityHierarchical( &usReturnLevel,
+; 6534 :                                                 szEntityName, vTZZOXODO ) )
 
 	push	OFFSET FLAT:??_C@_0L@PPLE@DATARECORD?$AA@ ; `string'
 	mov	eax, DWORD PTR _vTZZOXODO$[ebp]
 	push	eax
 	call	_DefineHierarchicalCursor@8
 	mov	WORD PTR _nRC$[ebp], ax
-	jmp	SHORT $L31718
-$L31719:
+	jmp	SHORT $L31763
+$L31764:
 	mov	ecx, DWORD PTR _vTZZOXODO$[ebp]
 	push	ecx
 	lea	edx, DWORD PTR _szEntityName$[ebp]
@@ -13047,42 +13458,42 @@ $L31719:
 	push	eax
 	call	_SetCursorNextEntityHierarchical@12
 	mov	WORD PTR _nRC$[ebp], ax
-$L31718:
+$L31763:
 	movsx	ecx, WORD PTR _nRC$[ebp]
 	test	ecx, ecx
-	jl	$L31720
+	jl	$L31765
 
-; 6386 :       zLONG lPos;
-; 6387 : 
-; 6388 :       if ( nRC == zCURSOR_SET_RECURSIVECHILD )
+; 6536 :       zLONG lPos;
+; 6537 : 
+; 6538 :       if ( nRC == zCURSOR_SET_RECURSIVECHILD )
 
 	movsx	edx, WORD PTR _nRC$[ebp]
 	cmp	edx, 2
-	jne	SHORT $L31722
+	jne	SHORT $L31767
 
-; 6389 :          SetViewToSubobject( vTZZOXODO, "CHILDENTITY" );
+; 6539 :          SetViewToSubobject( vTZZOXODO, "CHILDENTITY" );
 
 	push	OFFSET FLAT:??_C@_0M@PNOD@CHILDENTITY?$AA@ ; `string'
 	mov	eax, DWORD PTR _vTZZOXODO$[ebp]
 	push	eax
 	call	_SetViewToSubobject@8
-$L31722:
+$L31767:
 
-; 6390 : 
-; 6391 :       if ( zstrcmp( szEntityName, "DATARECORD" ) != 0 )
+; 6540 : 
+; 6541 :       if ( zstrcmp( szEntityName, "DATARECORD" ) != 0 )
 
 	movsx	ecx, BYTE PTR _szEntityName$[ebp]
 	movsx	edx, BYTE PTR ??_C@_0L@PPLE@DATARECORD?$AA@
 	cmp	ecx, edx
-	jne	SHORT $L32337
+	jne	SHORT $L32384
 	push	OFFSET FLAT:??_C@_0L@PPLE@DATARECORD?$AA@ ; `string'
 	lea	eax, DWORD PTR _szEntityName$[ebp]
 	push	eax
 	call	_strcmp
 	add	esp, 8
 	mov	DWORD PTR -60+[ebp], eax
-	jmp	SHORT $L32338
-$L32337:
+	jmp	SHORT $L32385
+$L32384:
 	movsx	ecx, BYTE PTR _szEntityName$[ebp]
 	movsx	edx, BYTE PTR ??_C@_0L@PPLE@DATARECORD?$AA@
 	sub	ecx, edx
@@ -13093,28 +13504,28 @@ $L32337:
 	and	eax, 2
 	add	eax, -1
 	mov	DWORD PTR -60+[ebp], eax
-$L32338:
+$L32385:
 	cmp	DWORD PTR -60+[ebp], 0
-	je	SHORT $L31730
+	je	SHORT $L31775
 
-; 6392 :          continue;
+; 6542 :          continue;
 
-	jmp	$L31719
-$L31730:
+	jmp	$L31764
+$L31775:
 
-; 6393 : 
-; 6394 :       GetAbsolutePositionForEntity( &lPos, vTZZOXODO, "DATARECORD" );
+; 6543 : 
+; 6544 :       GetAbsolutePositionForEntity( &lPos, vTZZOXODO, "DATARECORD" );
 
 	push	OFFSET FLAT:??_C@_0L@PPLE@DATARECORD?$AA@ ; `string'
 	mov	ecx, DWORD PTR _vTZZOXODO$[ebp]
 	push	ecx
-	lea	edx, DWORD PTR _lPos$31721[ebp]
+	lea	edx, DWORD PTR _lPos$31766[ebp]
 	push	edx
 	call	_GetAbsolutePositionForEntity@12
 
-; 6395 :       SetCursorAbsolutePosition( szEntityName, vXOD, lPos );
+; 6545 :       SetCursorAbsolutePosition( szEntityName, vXOD, lPos );
 
-	mov	eax, DWORD PTR _lPos$31721[ebp]
+	mov	eax, DWORD PTR _lPos$31766[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _vXOD$[ebp]
 	push	ecx
@@ -13122,11 +13533,11 @@ $L31730:
 	push	edx
 	call	_SetCursorAbsolutePosition@12
 
-; 6396 : 
-; 6397 :       // Move blob fields to the end.  We'll start at the end and go back
-; 6398 :       // to the beginning. We'll skip the very last entity since it's already
-; 6399 :       // last.
-; 6400 :       SetCursorLastEntity( vXOD, "DATAFIELD", 0 );
+; 6546 : 
+; 6547 :       // Move blob fields to the end.  We'll start at the end and go back
+; 6548 :       // to the beginning. We'll skip the very last entity since it's already
+; 6549 :       // last.
+; 6550 :       SetCursorLastEntity( vXOD, "DATAFIELD", 0 );
 
 	push	0
 	push	OFFSET FLAT:??_C@_09JEIA@DATAFIELD?$AA@	; `string'
@@ -13134,7 +13545,7 @@ $L31730:
 	push	eax
 	call	_SetCursorLastEntity@12
 
-; 6401 :       nRC = SetCursorPrevEntity( vXOD, "DATAFIELD", 0 );
+; 6551 :       nRC = SetCursorPrevEntity( vXOD, "DATAFIELD", 0 );
 
 	push	0
 	push	OFFSET FLAT:??_C@_09JEIA@DATAFIELD?$AA@	; `string'
@@ -13142,15 +13553,15 @@ $L31730:
 	push	ecx
 	call	_SetCursorPrevEntity@12
 	mov	WORD PTR _nRC$[ebp], ax
-$L31733:
+$L31778:
 
-; 6402 :       while ( nRC >= zCURSOR_SET )
+; 6552 :       while ( nRC >= zCURSOR_SET )
 
 	movsx	edx, WORD PTR _nRC$[ebp]
 	test	edx, edx
-	jl	SHORT $L31734
+	jl	SHORT $L31779
 
-; 6404 :          SetViewFromView( vXOD2, vXOD );
+; 6554 :          SetViewFromView( vXOD2, vXOD );
 
 	mov	eax, DWORD PTR _vXOD$[ebp]
 	push	eax
@@ -13158,7 +13569,7 @@ $L31733:
 	push	ecx
 	call	_SetViewFromView@8
 
-; 6405 :          nRC = SetCursorPrevEntity( vXOD, "DATAFIELD", 0 );
+; 6555 :          nRC = SetCursorPrevEntity( vXOD, "DATAFIELD", 0 );
 
 	push	0
 	push	OFFSET FLAT:??_C@_09JEIA@DATAFIELD?$AA@	; `string'
@@ -13167,11 +13578,11 @@ $L31733:
 	call	_SetCursorPrevEntity@12
 	mov	WORD PTR _nRC$[ebp], ax
 
-; 6406 : 
-; 6407 :          if ( CompareAttributeToString( vXOD2, "DATAFIELD", "FLDTYPE",
-; 6408 :                                         "V" ) == 0 ||
-; 6409 :               CompareAttributeToString( vXOD2, "DATAFIELD", "FLDTYPE",
-; 6410 :                                         "B" ) == 0 )
+; 6556 : 
+; 6557 :          if ( CompareAttributeToString( vXOD2, "DATAFIELD", "FLDTYPE",
+; 6558 :                                         "V" ) == 0 ||
+; 6559 :               CompareAttributeToString( vXOD2, "DATAFIELD", "FLDTYPE",
+; 6560 :                                         "B" ) == 0 )
 
 	push	OFFSET FLAT:??_C@_01PDMC@V?$AA@		; `string'
 	push	OFFSET FLAT:??_C@_07MPNE@FLDTYPE?$AA@	; `string'
@@ -13181,7 +13592,7 @@ $L31733:
 	call	_CompareAttributeToString@16
 	movsx	ecx, ax
 	test	ecx, ecx
-	je	SHORT $L31736
+	je	SHORT $L31781
 	push	OFFSET FLAT:??_C@_01PAOO@B?$AA@		; `string'
 	push	OFFSET FLAT:??_C@_07MPNE@FLDTYPE?$AA@	; `string'
 	push	OFFSET FLAT:??_C@_09JEIA@DATAFIELD?$AA@	; `string'
@@ -13190,12 +13601,12 @@ $L31733:
 	call	_CompareAttributeToString@16
 	movsx	eax, ax
 	test	eax, eax
-	jne	SHORT $L31735
-$L31736:
+	jne	SHORT $L31780
+$L31781:
 
-; 6412 :             // Move current DATAFIELD to the end.
-; 6413 :             MoveSubobject( vXOD2, "DATAFIELD", vXOD2, "DATAFIELD",
-; 6414 :                            zPOS_LAST, zREPOS_PREV );
+; 6562 :             // Move current DATAFIELD to the end.
+; 6563 :             MoveSubobject( vXOD2, "DATAFIELD", vXOD2, "DATAFIELD",
+; 6564 :                            zPOS_LAST, zREPOS_PREV );
 
 	push	4
 	push	2
@@ -13206,18 +13617,18 @@ $L31736:
 	mov	edx, DWORD PTR _vXOD2$[ebp]
 	push	edx
 	call	_MoveSubobject@24
-$L31735:
+$L31780:
 
-; 6416 :       }
+; 6566 :       }
 
-	jmp	$L31733
-$L31734:
+	jmp	$L31778
+$L31779:
 
-; 6417 : 
-; 6418 :       // Move Keys fields to the beginning.  We'll start at the end and go back
-; 6419 :       // to the beginning. We'll skip the very first entity since it's already
-; 6420 :       // first.
-; 6421 :       SetViewFromView( vXOD2, vXOD );
+; 6567 : 
+; 6568 :       // Move Keys fields to the beginning.  We'll start at the end and go back
+; 6569 :       // to the beginning. We'll skip the very first entity since it's already
+; 6570 :       // first.
+; 6571 :       SetViewFromView( vXOD2, vXOD );
 
 	mov	eax, DWORD PTR _vXOD$[ebp]
 	push	eax
@@ -13225,7 +13636,7 @@ $L31734:
 	push	ecx
 	call	_SetViewFromView@8
 
-; 6422 :       SetCursorFirstEntity( vXOD, "DATAFIELD", 0 );
+; 6572 :       SetCursorFirstEntity( vXOD, "DATAFIELD", 0 );
 
 	push	0
 	push	OFFSET FLAT:??_C@_09JEIA@DATAFIELD?$AA@	; `string'
@@ -13233,7 +13644,7 @@ $L31734:
 	push	edx
 	call	_SetCursorFirstEntity@12
 
-; 6423 :       nRC = SetCursorNextEntity( vXOD, "DATAFIELD", 0 );
+; 6573 :       nRC = SetCursorNextEntity( vXOD, "DATAFIELD", 0 );
 
 	push	0
 	push	OFFSET FLAT:??_C@_09JEIA@DATAFIELD?$AA@	; `string'
@@ -13241,17 +13652,17 @@ $L31734:
 	push	eax
 	call	_SetCursorNextEntity@12
 	mov	WORD PTR _nRC$[ebp], ax
-$L31740:
+$L31785:
 
-; 6424 :       while ( nRC >= zCURSOR_SET )
+; 6574 :       while ( nRC >= zCURSOR_SET )
 
 	movsx	ecx, WORD PTR _nRC$[ebp]
 	test	ecx, ecx
-	jl	$L31741
+	jl	$L31786
 
-; 6426 :          // Find the correct ATTRIB entity.
-; 6427 :          SetCursorFirstEntityByAttr( vXOD, "ATTRIB", "XVAATT_TOK",
-; 6428 :                                      vXOD, "DATAFIELD", "XVAATT_TOK", 0 );
+; 6576 :          // Find the correct ATTRIB entity.
+; 6577 :          SetCursorFirstEntityByAttr( vXOD, "ATTRIB", "XVAATT_TOK",
+; 6578 :                                      vXOD, "DATAFIELD", "XVAATT_TOK", 0 );
 
 	push	0
 	push	OFFSET FLAT:??_C@_0L@CDIB@XVAATT_TOK?$AA@ ; `string'
@@ -13264,8 +13675,8 @@ $L31740:
 	push	eax
 	call	_SetCursorFirstEntityByAttr@28
 
-; 6429 : 
-; 6430 :          SetViewFromView( vXOD2, vXOD );
+; 6579 : 
+; 6580 :          SetViewFromView( vXOD2, vXOD );
 
 	mov	ecx, DWORD PTR _vXOD$[ebp]
 	push	ecx
@@ -13273,7 +13684,7 @@ $L31740:
 	push	edx
 	call	_SetViewFromView@8
 
-; 6431 :          nRC = SetCursorNextEntity( vXOD, "DATAFIELD", 0 );
+; 6581 :          nRC = SetCursorNextEntity( vXOD, "DATAFIELD", 0 );
 
 	push	0
 	push	OFFSET FLAT:??_C@_09JEIA@DATAFIELD?$AA@	; `string'
@@ -13282,9 +13693,9 @@ $L31740:
 	call	_SetCursorNextEntity@12
 	mov	WORD PTR _nRC$[ebp], ax
 
-; 6432 : 
-; 6433 :          // If the attribute is a key move it to the beginning.
-; 6434 :          if ( CompareAttributeToString( vXOD2, "ATTRIB", "KEY", "Y" ) == 0 )
+; 6582 : 
+; 6583 :          // If the attribute is a key move it to the beginning.
+; 6584 :          if ( CompareAttributeToString( vXOD2, "ATTRIB", "KEY", "Y" ) == 0 )
 
 	push	OFFSET FLAT:??_C@_01PCJP@Y?$AA@		; `string'
 	push	OFFSET FLAT:??_C@_03PHBO@KEY?$AA@	; `string'
@@ -13294,12 +13705,12 @@ $L31740:
 	call	_CompareAttributeToString@16
 	movsx	edx, ax
 	test	edx, edx
-	jne	SHORT $L31744
+	jne	SHORT $L31789
 
-; 6436 : 
-; 6437 :             // Move current DATAFIELD to the beginning.
-; 6438 :             MoveSubobject( vXOD2, "DATAFIELD", vXOD2, "DATAFIELD",
-; 6439 :                            zPOS_FIRST, zREPOS_NEXT );
+; 6586 : 
+; 6587 :             // Move current DATAFIELD to the beginning.
+; 6588 :             MoveSubobject( vXOD2, "DATAFIELD", vXOD2, "DATAFIELD",
+; 6589 :                            zPOS_FIRST, zREPOS_NEXT );
 
 	push	3
 	push	1
@@ -13310,50 +13721,50 @@ $L31740:
 	mov	ecx, DWORD PTR _vXOD2$[ebp]
 	push	ecx
 	call	_MoveSubobject@24
-$L31744:
+$L31789:
 
-; 6441 :       }
+; 6591 :       }
 
-	jmp	$L31740
-$L31741:
+	jmp	$L31785
+$L31786:
 
-; 6442 :    }
+; 6592 :    }
 
-	jmp	$L31719
-$L31720:
+	jmp	$L31764
+$L31765:
 
-; 6443 : 
-; 6444 :    DropHierarchicalCursor( vTZZOXODO );
+; 6593 : 
+; 6594 :    DropHierarchicalCursor( vTZZOXODO );
 
 	mov	edx, DWORD PTR _vTZZOXODO$[ebp]
 	push	edx
 	call	_DropHierarchicalCursor@4
 
-; 6445 :    DropView( vXOD );
+; 6595 :    DropView( vXOD );
 
 	mov	eax, DWORD PTR _vXOD$[ebp]
 	push	eax
 	call	_DropView@4
 
-; 6446 :    DropView( vXOD2 );
+; 6596 :    DropView( vXOD2 );
 
 	mov	ecx, DWORD PTR _vXOD2$[ebp]
 	push	ecx
 	call	_DropView@4
 
-; 6447 :    DropView( vTZZOXODO );
+; 6597 :    DropView( vTZZOXODO );
 
 	mov	edx, DWORD PTR _vTZZOXODO$[ebp]
 	push	edx
 	call	_DropView@4
 
-; 6448 : 
-; 6449 :    return( 0 );
+; 6598 : 
+; 6599 :    return( 0 );
 
 	xor	ax, ax
-$L31710:
+$L31755:
 
-; 6450 : }
+; 6600 : }
 
 	mov	esp, ebp
 	pop	ebp
@@ -13420,20 +13831,20 @@ _vTZZOLODO$ = 8
 _vTZZOXODO$ = 12
 _lDBMS_ZKey$ = 16
 _nRC$ = -4
-_lER_EntTok$31769 = -8
-_lER_RelTok$31770 = -12
+_lER_EntTok$31814 = -8
+_lER_RelTok$31815 = -12
 _fnSetEntityInformation@12 PROC NEAR
 
-; 6455 : {
+; 6605 : {
 
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 12					; 0000000cH
 
-; 6456 :    zSHORT nRC;
-; 6457 : 
-; 6458 :    // First, make sure we've got an entity with DB information.
-; 6459 :    if ( CheckExistenceOfEntity( vTZZOXODO, "DATARECORD" ) < zCURSOR_SET )
+; 6606 :    zSHORT nRC;
+; 6607 : 
+; 6608 :    // First, make sure we've got an entity with DB information.
+; 6609 :    if ( CheckExistenceOfEntity( vTZZOXODO, "DATARECORD" ) < zCURSOR_SET )
 
 	push	OFFSET FLAT:??_C@_0L@PPLE@DATARECORD?$AA@ ; `string'
 	mov	eax, DWORD PTR _vTZZOXODO$[ebp]
@@ -13441,18 +13852,18 @@ _fnSetEntityInformation@12 PROC NEAR
 	call	_CheckExistenceOfEntity@8
 	movsx	ecx, ax
 	test	ecx, ecx
-	jge	SHORT $L31755
+	jge	SHORT $L31800
 
-; 6460 :       return;
+; 6610 :       return;
 
-	jmp	$L31768
-$L31755:
+	jmp	$L31813
+$L31800:
 
-; 6461 : 
-; 6462 :    // Find out if a POD_Entity exists for the DBMS.
-; 6463 :    if ( SetCursorFirstEntityByInteger( vTZZOLODO, "TE_DBMS_SourceForEntity",
-; 6464 :                                        "ZKey", lDBMS_ZKey,
-; 6465 :                                        "LOD_EntityParent" ) == zCURSOR_SET )
+; 6611 : 
+; 6612 :    // Find out if a POD_Entity exists for the DBMS.
+; 6613 :    if ( SetCursorFirstEntityByInteger( vTZZOLODO, "TE_DBMS_SourceForEntity",
+; 6614 :                                        "ZKey", lDBMS_ZKey,
+; 6615 :                                        "LOD_EntityParent" ) == zCURSOR_SET )
 
 	push	OFFSET FLAT:??_C@_0BB@NHDL@LOD_EntityParent?$AA@ ; `string'
 	mov	edx, DWORD PTR _lDBMS_ZKey$[ebp]
@@ -13464,11 +13875,11 @@ $L31755:
 	call	_SetCursorFirstEntityByInteger@20
 	movsx	ecx, ax
 	test	ecx, ecx
-	jne	SHORT $L31756
+	jne	SHORT $L31801
 
-; 6467 :       // Got a POD_Entity.  Check the JOIN flag.
-; 6468 :       if ( CompareAttributeToString( vTZZOLODO, "POD_Entity",
-; 6469 :                                      "SQL_JoinWithParent", "Y" ) == 0 )
+; 6617 :       // Got a POD_Entity.  Check the JOIN flag.
+; 6618 :       if ( CompareAttributeToString( vTZZOLODO, "POD_Entity",
+; 6619 :                                      "SQL_JoinWithParent", "Y" ) == 0 )
 
 	push	OFFSET FLAT:??_C@_01PCJP@Y?$AA@		; `string'
 	push	OFFSET FLAT:??_C@_0BD@GNEF@SQL_JoinWithParent?$AA@ ; `string'
@@ -13478,9 +13889,9 @@ $L31755:
 	call	_CompareAttributeToString@16
 	movsx	eax, ax
 	test	eax, eax
-	jne	SHORT $L31759
+	jne	SHORT $L31804
 
-; 6471 :          SetAttributeFromString( vTZZOXODO, "DATARECORD", "JOIN", "Y" );
+; 6621 :          SetAttributeFromString( vTZZOXODO, "DATARECORD", "JOIN", "Y" );
 
 	push	OFFSET FLAT:??_C@_01PCJP@Y?$AA@		; `string'
 	push	OFFSET FLAT:??_C@_04JIJO@JOIN?$AA@	; `string'
@@ -13488,16 +13899,16 @@ $L31755:
 	mov	ecx, DWORD PTR _vTZZOXODO$[ebp]
 	push	ecx
 	call	_SetAttributeFromString@16
-$L31759:
+$L31804:
 
-; 6474 :    else
+; 6624 :    else
 
-	jmp	SHORT $L31763
-$L31756:
+	jmp	SHORT $L31808
+$L31801:
 
-; 6475 :    if ( CheckExistenceOfEntity( vTZZOLODO, "ER_RelLinkRec" ) == zCURSOR_SET &&
-; 6476 :         CompareAttributeToInteger( vTZZOLODO, "ER_RelLinkRec",
-; 6477 :                                    "CardMax", 1 ) == 0 )
+; 6625 :    if ( CheckExistenceOfEntity( vTZZOLODO, "ER_RelLinkRec" ) == zCURSOR_SET &&
+; 6626 :         CompareAttributeToInteger( vTZZOLODO, "ER_RelLinkRec",
+; 6627 :                                    "CardMax", 1 ) == 0 )
 
 	push	OFFSET FLAT:??_C@_0O@FFFI@ER_RelLinkRec?$AA@ ; `string'
 	mov	edx, DWORD PTR _vTZZOLODO$[ebp]
@@ -13505,7 +13916,7 @@ $L31756:
 	call	_CheckExistenceOfEntity@8
 	movsx	eax, ax
 	test	eax, eax
-	jne	SHORT $L31763
+	jne	SHORT $L31808
 	push	1
 	push	OFFSET FLAT:??_C@_07NHPD@CardMax?$AA@	; `string'
 	push	OFFSET FLAT:??_C@_0O@FFFI@ER_RelLinkRec?$AA@ ; `string'
@@ -13514,11 +13925,11 @@ $L31756:
 	call	_CompareAttributeToInteger@16
 	movsx	edx, ax
 	test	edx, edx
-	jne	SHORT $L31763
+	jne	SHORT $L31808
 
-; 6479 :       // Join is defaulted to Y if the entity has a x-to-1 relationship
-; 6480 :       // with it's parent.
-; 6481 :       SetAttributeFromString( vTZZOXODO, "DATARECORD", "JOIN", "Y" );
+; 6629 :       // Join is defaulted to Y if the entity has a x-to-1 relationship
+; 6630 :       // with it's parent.
+; 6631 :       SetAttributeFromString( vTZZOXODO, "DATARECORD", "JOIN", "Y" );
 
 	push	OFFSET FLAT:??_C@_01PCJP@Y?$AA@		; `string'
 	push	OFFSET FLAT:??_C@_04JIJO@JOIN?$AA@	; `string'
@@ -13526,13 +13937,13 @@ $L31756:
 	mov	eax, DWORD PTR _vTZZOXODO$[ebp]
 	push	eax
 	call	_SetAttributeFromString@16
-$L31763:
+$L31808:
 
-; 6483 : 
-; 6484 :    // Now do the same thing for any children.
-; 6485 :    for ( nRC = SetCursorFirstEntity( vTZZOXODO, "CHILDENTITY", 0 );
-; 6486 :          nRC >= zCURSOR_SET;
-; 6487 :          nRC = SetCursorNextEntity( vTZZOXODO, "CHILDENTITY", 0 ) )
+; 6633 : 
+; 6634 :    // Now do the same thing for any children.
+; 6635 :    for ( nRC = SetCursorFirstEntity( vTZZOXODO, "CHILDENTITY", 0 );
+; 6636 :          nRC >= zCURSOR_SET;
+; 6637 :          nRC = SetCursorNextEntity( vTZZOXODO, "CHILDENTITY", 0 ) )
 
 	push	0
 	push	OFFSET FLAT:??_C@_0M@PNOD@CHILDENTITY?$AA@ ; `string'
@@ -13540,49 +13951,49 @@ $L31763:
 	push	ecx
 	call	_SetCursorFirstEntity@12
 	mov	WORD PTR _nRC$[ebp], ax
-	jmp	SHORT $L31766
-$L31767:
+	jmp	SHORT $L31811
+$L31812:
 	push	0
 	push	OFFSET FLAT:??_C@_0M@PNOD@CHILDENTITY?$AA@ ; `string'
 	mov	edx, DWORD PTR _vTZZOXODO$[ebp]
 	push	edx
 	call	_SetCursorNextEntity@12
 	mov	WORD PTR _nRC$[ebp], ax
-$L31766:
+$L31811:
 	movsx	eax, WORD PTR _nRC$[ebp]
 	test	eax, eax
-	jl	$L31768
+	jl	$L31813
 
-; 6489 :       zLONG lER_EntTok;
-; 6490 :       zLONG lER_RelTok;
-; 6491 : 
-; 6492 :       GetIntegerFromAttribute( &lER_EntTok, vTZZOXODO, "CHILDENTITY",
-; 6493 :                                "ERENT_TOK" );
+; 6639 :       zLONG lER_EntTok;
+; 6640 :       zLONG lER_RelTok;
+; 6641 : 
+; 6642 :       GetIntegerFromAttribute( &lER_EntTok, vTZZOXODO, "CHILDENTITY",
+; 6643 :                                "ERENT_TOK" );
 
 	push	OFFSET FLAT:??_C@_09PPA@ERENT_TOK?$AA@	; `string'
 	push	OFFSET FLAT:??_C@_0M@PNOD@CHILDENTITY?$AA@ ; `string'
 	mov	ecx, DWORD PTR _vTZZOXODO$[ebp]
 	push	ecx
-	lea	edx, DWORD PTR _lER_EntTok$31769[ebp]
+	lea	edx, DWORD PTR _lER_EntTok$31814[ebp]
 	push	edx
 	call	_GetIntegerFromAttribute@16
 
-; 6494 :       GetIntegerFromAttribute( &lER_RelTok, vTZZOXODO, "CHILDENTITY",
-; 6495 :                                "ERREL_TOK" );
+; 6644 :       GetIntegerFromAttribute( &lER_RelTok, vTZZOXODO, "CHILDENTITY",
+; 6645 :                                "ERREL_TOK" );
 
 	push	OFFSET FLAT:??_C@_09DPNM@ERREL_TOK?$AA@	; `string'
 	push	OFFSET FLAT:??_C@_0M@PNOD@CHILDENTITY?$AA@ ; `string'
 	mov	eax, DWORD PTR _vTZZOXODO$[ebp]
 	push	eax
-	lea	ecx, DWORD PTR _lER_RelTok$31770[ebp]
+	lea	ecx, DWORD PTR _lER_RelTok$31815[ebp]
 	push	ecx
 	call	_GetIntegerFromAttribute@16
 
-; 6496 : 
-; 6497 :       // Find a matching entity in the LOD.
-; 6498 :       for ( nRC = SetCursorFirstEntity( vTZZOLODO, "LOD_EntityChild", 0 );
-; 6499 :             nRC >= zCURSOR_SET;
-; 6500 :             nRC = SetCursorNextEntity( vTZZOLODO, "LOD_EntityChild", 0 ) )
+; 6646 : 
+; 6647 :       // Find a matching entity in the LOD.
+; 6648 :       for ( nRC = SetCursorFirstEntity( vTZZOLODO, "LOD_EntityChild", 0 );
+; 6649 :             nRC >= zCURSOR_SET;
+; 6650 :             nRC = SetCursorNextEntity( vTZZOLODO, "LOD_EntityChild", 0 ) )
 
 	push	0
 	push	OFFSET FLAT:??_C@_0BA@DPMI@LOD_EntityChild?$AA@ ; `string'
@@ -13590,35 +14001,35 @@ $L31766:
 	push	edx
 	call	_SetCursorFirstEntity@12
 	mov	WORD PTR _nRC$[ebp], ax
-	jmp	SHORT $L31773
-$L31774:
+	jmp	SHORT $L31818
+$L31819:
 	push	0
 	push	OFFSET FLAT:??_C@_0BA@DPMI@LOD_EntityChild?$AA@ ; `string'
 	mov	eax, DWORD PTR _vTZZOLODO$[ebp]
 	push	eax
 	call	_SetCursorNextEntity@12
 	mov	WORD PTR _nRC$[ebp], ax
-$L31773:
+$L31818:
 	movsx	ecx, WORD PTR _nRC$[ebp]
 	test	ecx, ecx
-	jl	$L31775
+	jl	$L31820
 
-; 6502 :          SetViewToSubobject( vTZZOLODO, "LOD_EntityChild" );
+; 6652 :          SetViewToSubobject( vTZZOLODO, "LOD_EntityChild" );
 
 	push	OFFSET FLAT:??_C@_0BA@DPMI@LOD_EntityChild?$AA@ ; `string'
 	mov	edx, DWORD PTR _vTZZOLODO$[ebp]
 	push	edx
 	call	_SetViewToSubobject@8
 
-; 6503 : 
-; 6504 :          if ( CheckExistenceOfEntity( vTZZOLODO,
-; 6505 :                                       "ER_EntityRec" ) == zCURSOR_SET &&
-; 6506 :               CompareAttributeToInteger( vTZZOLODO, "ER_EntityRec", "ZKey",
-; 6507 :                                          lER_EntTok ) == 0 &&
-; 6508 :               CheckExistenceOfEntity( vTZZOLODO,
-; 6509 :                                       "ER_RelLinkRec" ) == zCURSOR_SET &&
-; 6510 :               CompareAttributeToInteger( vTZZOLODO, "ER_RelLinkRec", "ZKey",
-; 6511 :                                          lER_EntTok ) == 0 )
+; 6653 : 
+; 6654 :          if ( CheckExistenceOfEntity( vTZZOLODO,
+; 6655 :                                       "ER_EntityRec" ) == zCURSOR_SET &&
+; 6656 :               CompareAttributeToInteger( vTZZOLODO, "ER_EntityRec", "ZKey",
+; 6657 :                                          lER_EntTok ) == 0 &&
+; 6658 :               CheckExistenceOfEntity( vTZZOLODO,
+; 6659 :                                       "ER_RelLinkRec" ) == zCURSOR_SET &&
+; 6660 :               CompareAttributeToInteger( vTZZOLODO, "ER_RelLinkRec", "ZKey",
+; 6661 :                                          lER_EntTok ) == 0 )
 
 	push	OFFSET FLAT:??_C@_0N@NFHJ@ER_EntityRec?$AA@ ; `string'
 	mov	eax, DWORD PTR _vTZZOLODO$[ebp]
@@ -13626,8 +14037,8 @@ $L31773:
 	call	_CheckExistenceOfEntity@8
 	movsx	ecx, ax
 	test	ecx, ecx
-	jne	SHORT $L31777
-	mov	edx, DWORD PTR _lER_EntTok$31769[ebp]
+	jne	SHORT $L31822
+	mov	edx, DWORD PTR _lER_EntTok$31814[ebp]
 	push	edx
 	push	OFFSET FLAT:??_C@_04BBDM@ZKey?$AA@	; `string'
 	push	OFFSET FLAT:??_C@_0N@NFHJ@ER_EntityRec?$AA@ ; `string'
@@ -13636,15 +14047,15 @@ $L31773:
 	call	_CompareAttributeToInteger@16
 	movsx	ecx, ax
 	test	ecx, ecx
-	jne	SHORT $L31777
+	jne	SHORT $L31822
 	push	OFFSET FLAT:??_C@_0O@FFFI@ER_RelLinkRec?$AA@ ; `string'
 	mov	edx, DWORD PTR _vTZZOLODO$[ebp]
 	push	edx
 	call	_CheckExistenceOfEntity@8
 	movsx	eax, ax
 	test	eax, eax
-	jne	SHORT $L31777
-	mov	ecx, DWORD PTR _lER_EntTok$31769[ebp]
+	jne	SHORT $L31822
+	mov	ecx, DWORD PTR _lER_EntTok$31814[ebp]
 	push	ecx
 	push	OFFSET FLAT:??_C@_04BBDM@ZKey?$AA@	; `string'
 	push	OFFSET FLAT:??_C@_0O@FFFI@ER_RelLinkRec?$AA@ ; `string'
@@ -13653,39 +14064,39 @@ $L31773:
 	call	_CompareAttributeToInteger@16
 	movsx	eax, ax
 	test	eax, eax
-	jne	SHORT $L31777
+	jne	SHORT $L31822
 
-; 6513 :             // We found the child entity that matches the CHILDENTITY
-; 6514 :             // in the XOD.  Stop 'for' loop.
-; 6515 :             break;
+; 6663 :             // We found the child entity that matches the CHILDENTITY
+; 6664 :             // in the XOD.  Stop 'for' loop.
+; 6665 :             break;
 
-	jmp	SHORT $L31775
-$L31777:
+	jmp	SHORT $L31820
+$L31822:
 
-; 6517 : 
-; 6518 :          // That wasn't the right child so reset the subobject.
-; 6519 :          ResetViewFromSubobject( vTZZOLODO );
+; 6667 : 
+; 6668 :          // That wasn't the right child so reset the subobject.
+; 6669 :          ResetViewFromSubobject( vTZZOLODO );
 
 	mov	ecx, DWORD PTR _vTZZOLODO$[ebp]
 	push	ecx
 	call	_ResetViewFromSubobject@4
 
-; 6520 :       }
+; 6670 :       }
 
-	jmp	$L31774
-$L31775:
+	jmp	$L31819
+$L31820:
 
-; 6521 : 
-; 6522 :       // Once we get here, "LOD_EntityParent" should match "CHILDENTITY".
-; 6523 :       // Move "CHILDENTITY" up and call ourselves recursively.
-; 6524 :       SetViewToSubobject( vTZZOXODO, "CHILDENTITY" );
+; 6671 : 
+; 6672 :       // Once we get here, "LOD_EntityParent" should match "CHILDENTITY".
+; 6673 :       // Move "CHILDENTITY" up and call ourselves recursively.
+; 6674 :       SetViewToSubobject( vTZZOXODO, "CHILDENTITY" );
 
 	push	OFFSET FLAT:??_C@_0M@PNOD@CHILDENTITY?$AA@ ; `string'
 	mov	edx, DWORD PTR _vTZZOXODO$[ebp]
 	push	edx
 	call	_SetViewToSubobject@8
 
-; 6525 :       fnSetEntityInformation( vTZZOLODO, vTZZOXODO, lDBMS_ZKey );
+; 6675 :       fnSetEntityInformation( vTZZOLODO, vTZZOXODO, lDBMS_ZKey );
 
 	mov	eax, DWORD PTR _lDBMS_ZKey$[ebp]
 	push	eax
@@ -13695,27 +14106,27 @@ $L31775:
 	push	edx
 	call	_fnSetEntityInformation@12
 
-; 6526 : 
-; 6527 :       // Now reset the cursors.
-; 6528 :       ResetViewFromSubobject( vTZZOLODO );
+; 6676 : 
+; 6677 :       // Now reset the cursors.
+; 6678 :       ResetViewFromSubobject( vTZZOLODO );
 
 	mov	eax, DWORD PTR _vTZZOLODO$[ebp]
 	push	eax
 	call	_ResetViewFromSubobject@4
 
-; 6529 :       ResetViewFromSubobject( vTZZOXODO );
+; 6679 :       ResetViewFromSubobject( vTZZOXODO );
 
 	mov	ecx, DWORD PTR _vTZZOXODO$[ebp]
 	push	ecx
 	call	_ResetViewFromSubobject@4
 
-; 6530 :    }
+; 6680 :    }
 
-	jmp	$L31767
-$L31768:
+	jmp	$L31812
+$L31813:
 
-; 6531 : 
-; 6532 : }
+; 6681 : 
+; 6682 : }
 
 	mov	esp, ebp
 	pop	ebp
@@ -13772,22 +14183,22 @@ _vTZZOLODO$ = 16
 _vTZTENVRO_REF$ = 24
 _szObjectName$ = -40
 _vOI$ = -4
-_lDBMS_ZKey$31807 = -44
-_sData$31808 = -148
+_lDBMS_ZKey$31852 = -44
+_sData$31853 = -148
 _PostXOD_BuildHook@20 PROC NEAR
 
-; 6546 : {
+; 6696 : {
 
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 152				; 00000098H
 
-; 6547 :    zCHAR szObjectName[ zZEIDON_NAME_LTH + 1 ];
-; 6548 :    zVIEW vOI;
-; 6549 : 
-; 6550 :    // See if there is a blob stored in DBH_Data for the TE.
-; 6551 :    SetOI_FromBlob( &vOI, szObjectName, vTZZOXODO, vTZTENVRO_REF,
-; 6552 :                    "TE_DBMS_Source", "DBH_Data", zMULTIPLE );
+; 6697 :    zCHAR szObjectName[ zZEIDON_NAME_LTH + 1 ];
+; 6698 :    zVIEW vOI;
+; 6699 : 
+; 6700 :    // See if there is a blob stored in DBH_Data for the TE.
+; 6701 :    SetOI_FromBlob( &vOI, szObjectName, vTZZOXODO, vTZTENVRO_REF,
+; 6702 :                    "TE_DBMS_Source", "DBH_Data", zMULTIPLE );
 
 	push	256					; 00000100H
 	push	OFFSET FLAT:??_C@_08DKGC@DBH_Data?$AA@	; `string'
@@ -13802,15 +14213,15 @@ _PostXOD_BuildHook@20 PROC NEAR
 	push	eax
 	call	_SetOI_FromBlob@28
 
-; 6553 : 
-; 6554 :    if ( vOI == 0 )
+; 6703 : 
+; 6704 :    if ( vOI == 0 )
 
 	cmp	DWORD PTR _vOI$[ebp], 0
-	jne	SHORT $L31793
+	jne	SHORT $L31838
 
-; 6555 :        // No blob in the TE.  Get it from the DB list object.
-; 6556 :       SetOI_FromBlob( &vOI, szObjectName, vTZZOXODO, vTZTEDBLO,
-; 6557 :                       "TE_DBMS_Source", "DBH_Data", zMULTIPLE );
+; 6705 :        // No blob in the TE.  Get it from the DB list object.
+; 6706 :       SetOI_FromBlob( &vOI, szObjectName, vTZZOXODO, vTZTEDBLO,
+; 6707 :                       "TE_DBMS_Source", "DBH_Data", zMULTIPLE );
 
 	push	256					; 00000100H
 	push	OFFSET FLAT:??_C@_08DKGC@DBH_Data?$AA@	; `string'
@@ -13824,20 +14235,20 @@ _PostXOD_BuildHook@20 PROC NEAR
 	lea	ecx, DWORD PTR _vOI$[ebp]
 	push	ecx
 	call	_SetOI_FromBlob@28
-$L31793:
+$L31838:
 
-; 6558 : 
-; 6559 :    if ( vOI == 0 )
+; 6708 : 
+; 6709 :    if ( vOI == 0 )
 
 	cmp	DWORD PTR _vOI$[ebp], 0
-	jne	SHORT $L31794
+	jne	SHORT $L31839
 
-; 6561 :       // KJS - 08/22/12 - This is being put in because we were getting an 'Invalid View' error on the DropView( vOI ) if
-; 6562 :      // a 'Set DBH' hadn't been done on the data source and the db handler was PostgreSQL since TZDBHODO was not ever set.
-; 6563 :      // Not actually sure if this is much of an error (should I just put the DropView in the below "If") or if there could
-; 6564 :      // be problems if TZDBHODO is not a valid view.
-; 6565 :       MessageSend( vTZZOXODO, "PostXOD_BuildHook", "Zeidon Tools",
-; 6566 :                    "You need to do a 'Set DBH' for this data source before building the xods.", zMSGQ_SYSTEM_ERROR, TRUE );
+; 6711 :       // KJS - 08/22/12 - This is being put in because we were getting an 'Invalid View' error on the DropView( vOI ) if
+; 6712 :      // a 'Set DBH' hadn't been done on the data source and the db handler was PostgreSQL since TZDBHODO was not ever set.
+; 6713 :      // Not actually sure if this is much of an error (should I just put the DropView in the below "If") or if there could
+; 6714 :      // be problems if TZDBHODO is not a valid view.
+; 6715 :       MessageSend( vTZZOXODO, "PostXOD_BuildHook", "Zeidon Tools",
+; 6716 :                    "You need to do a 'Set DBH' for this data source before building the xods.", zMSGQ_SYSTEM_ERROR, TRUE );
 
 	push	1
 	push	1000					; 000003e8H
@@ -13848,34 +14259,34 @@ $L31793:
 	push	edx
 	call	_MessageSend@24
 
-; 6567 :       TraceLineS( "*** PostXOD_BuildHook TZDBHODO does not exist. ", "" );
+; 6717 :       TraceLineS( "*** PostXOD_BuildHook TZDBHODO does not exist. ", "" );
 
 	push	OFFSET FLAT:??_C@_00A@?$AA@		; `string'
 	push	OFFSET FLAT:??_C@_0DA@JMGI@?$CK?$CK?$CK?5PostXOD_BuildHook?5TZDBHODO?5d@ ; `string'
 	call	_TraceLineS@8
 
-; 6568 :       return( zCALL_ERROR );
+; 6718 :       return( zCALL_ERROR );
 
 	mov	ax, -16					; fffffff0H
-	jmp	$L31790
-$L31794:
+	jmp	$L31835
+$L31839:
 
-; 6570 : 
-; 6571 :    // Check for ODBC object.
-; 6572 :    if ( zstrcmp( szObjectName, "TZDBHODO" ) == 0 )
+; 6720 : 
+; 6721 :    // Check for ODBC object.
+; 6722 :    if ( zstrcmp( szObjectName, "TZDBHODO" ) == 0 )
 
 	movsx	eax, BYTE PTR _szObjectName$[ebp]
 	movsx	ecx, BYTE PTR ??_C@_08DKCM@TZDBHODO?$AA@
 	cmp	eax, ecx
-	jne	SHORT $L32341
+	jne	SHORT $L32388
 	push	OFFSET FLAT:??_C@_08DKCM@TZDBHODO?$AA@	; `string'
 	lea	edx, DWORD PTR _szObjectName$[ebp]
 	push	edx
 	call	_strcmp
 	add	esp, 8
 	mov	DWORD PTR -152+[ebp], eax
-	jmp	SHORT $L32342
-$L32341:
+	jmp	SHORT $L32389
+$L32388:
 	movsx	eax, BYTE PTR _szObjectName$[ebp]
 	movsx	ecx, BYTE PTR ??_C@_08DKCM@TZDBHODO?$AA@
 	sub	eax, ecx
@@ -13886,46 +14297,46 @@ $L32341:
 	and	edx, 2
 	add	edx, -1
 	mov	DWORD PTR -152+[ebp], edx
-$L32342:
+$L32389:
 	cmp	DWORD PTR -152+[ebp], 0
-	jne	$L31805
+	jne	$L31850
 
-; 6574 :       zLONG                 lDBMS_ZKey;
-; 6575 :       ODBC_ObjectDataRecord sData;
-; 6576 : 
-; 6577 :       // For ODBC databases we need to sort the DataFields so that the VarChar
-; 6578 :       // fields come last in each table.  We also need to put keys first.
-; 6579 :       fnSortDataFields( vTZZOXODO );
+; 6724 :       zLONG                 lDBMS_ZKey;
+; 6725 :       ODBC_ObjectDataRecord sData;
+; 6726 : 
+; 6727 :       // For ODBC databases we need to sort the DataFields so that the VarChar
+; 6728 :       // fields come last in each table.  We also need to put keys first.
+; 6729 :       fnSortDataFields( vTZZOXODO );
 
 	mov	eax, DWORD PTR _vTZZOXODO$[ebp]
 	push	eax
 	call	_fnSortDataFields@4
 
-; 6580 : 
-; 6581 :       // Set-up ODBC-specific information.
-; 6582 :       zmemset( &sData, 0, sizeof( sData ) );
+; 6730 : 
+; 6731 :       // Set-up ODBC-specific information.
+; 6732 :       zmemset( &sData, 0, sizeof( sData ) );
 
 	push	104					; 00000068H
 	push	0
-	lea	ecx, DWORD PTR _sData$31808[ebp]
+	lea	ecx, DWORD PTR _sData$31853[ebp]
 	push	ecx
 	call	_memset
 	add	esp, 12					; 0000000cH
 
-; 6583 :       GetIntegerFromAttribute( &sData.nTimestampPrecision,
-; 6584 :                                vOI, "ODBC", "TimestampPrecision" );
+; 6733 :       GetIntegerFromAttribute( &sData.nTimestampPrecision,
+; 6734 :                                vOI, "ODBC", "TimestampPrecision" );
 
 	push	OFFSET FLAT:??_C@_0BD@KPGG@TimestampPrecision?$AA@ ; `string'
 	push	OFFSET FLAT:??_C@_04JENC@ODBC?$AA@	; `string'
 	mov	edx, DWORD PTR _vOI$[ebp]
 	push	edx
-	lea	eax, DWORD PTR _sData$31808[ebp]
+	lea	eax, DWORD PTR _sData$31853[ebp]
 	push	eax
 	call	_GetIntegerFromAttribute@16
 
-; 6585 :       sData.bStoreTimestampAsString =
-; 6586 :             ( CompareAttributeToString( vOI, "ODBC",
-; 6587 :                                         "TimestampAsString", "Y" ) == 0 );
+; 6735 :       sData.bStoreTimestampAsString =
+; 6736 :             ( CompareAttributeToString( vOI, "ODBC",
+; 6737 :                                         "TimestampAsString", "Y" ) == 0 );
 
 	push	OFFSET FLAT:??_C@_01PCJP@Y?$AA@		; `string'
 	push	OFFSET FLAT:??_C@_0BC@KJKI@TimestampAsString?$AA@ ; `string'
@@ -13937,14 +14348,14 @@ $L32342:
 	neg	edx
 	sbb	edx, edx
 	inc	edx
-	mov	BYTE PTR _sData$31808[ebp+4], dl
+	mov	BYTE PTR _sData$31853[ebp+4], dl
 
-; 6588 : 
-; 6589 :       SetAttributeFromBlob( vTZZOXODO, "OBJECT", "DBH_Data", (zPVOID) &sData,
-; 6590 :                             sizeof( sData ) );
+; 6738 : 
+; 6739 :       SetAttributeFromBlob( vTZZOXODO, "OBJECT", "DBH_Data", (zPVOID) &sData,
+; 6740 :                             sizeof( sData ) );
 
 	push	104					; 00000068H
-	lea	eax, DWORD PTR _sData$31808[ebp]
+	lea	eax, DWORD PTR _sData$31853[ebp]
 	push	eax
 	push	OFFSET FLAT:??_C@_08DKGC@DBH_Data?$AA@	; `string'
 	push	OFFSET FLAT:??_C@_06PIJH@OBJECT?$AA@	; `string'
@@ -13952,23 +14363,23 @@ $L32342:
 	push	ecx
 	call	_SetAttributeFromBlob@20
 
-; 6591 : 
-; 6592 :       // Go through the LOD and set dbh-specific information for each entity.
-; 6593 :       ResetView( vTZZOLODO );
+; 6741 : 
+; 6742 :       // Go through the LOD and set dbh-specific information for each entity.
+; 6743 :       ResetView( vTZZOLODO );
 
 	mov	edx, DWORD PTR _vTZZOLODO$[ebp]
 	push	edx
 	call	_ResetView@4
 
-; 6594 :       ResetView( vTZZOXODO );
+; 6744 :       ResetView( vTZZOXODO );
 
 	mov	eax, DWORD PTR _vTZZOXODO$[ebp]
 	push	eax
 	call	_ResetView@4
 
-; 6595 : 
-; 6596 :       // Set the cursor to the first non-hidden entity.
-; 6597 :       SetCursorFirstEntity( vTZZOXODO, "OBJECT", 0 );
+; 6745 : 
+; 6746 :       // Set the cursor to the first non-hidden entity.
+; 6747 :       SetCursorFirstEntity( vTZZOXODO, "OBJECT", 0 );
 
 	push	0
 	push	OFFSET FLAT:??_C@_06PIJH@OBJECT?$AA@	; `string'
@@ -13976,44 +14387,44 @@ $L32342:
 	push	ecx
 	call	_SetCursorFirstEntity@12
 
-; 6598 : 
-; 6599 :       GetIntegerFromAttribute( &lDBMS_ZKey, vTZTENVRO_REF, "TE_DBMS_Source",
-; 6600 :                                "ZKey" );
+; 6748 : 
+; 6749 :       GetIntegerFromAttribute( &lDBMS_ZKey, vTZTENVRO_REF, "TE_DBMS_Source",
+; 6750 :                                "ZKey" );
 
 	push	OFFSET FLAT:??_C@_04BBDM@ZKey?$AA@	; `string'
 	push	OFFSET FLAT:??_C@_0P@BCDD@TE_DBMS_Source?$AA@ ; `string'
 	mov	edx, DWORD PTR _vTZTENVRO_REF$[ebp]
 	push	edx
-	lea	eax, DWORD PTR _lDBMS_ZKey$31807[ebp]
+	lea	eax, DWORD PTR _lDBMS_ZKey$31852[ebp]
 	push	eax
 	call	_GetIntegerFromAttribute@16
 
-; 6601 :       fnSetEntityInformation( vTZZOLODO, vTZZOXODO, lDBMS_ZKey );
+; 6751 :       fnSetEntityInformation( vTZZOLODO, vTZZOXODO, lDBMS_ZKey );
 
-	mov	ecx, DWORD PTR _lDBMS_ZKey$31807[ebp]
+	mov	ecx, DWORD PTR _lDBMS_ZKey$31852[ebp]
 	push	ecx
 	mov	edx, DWORD PTR _vTZZOXODO$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _vTZZOLODO$[ebp]
 	push	eax
 	call	_fnSetEntityInformation@12
-$L31805:
+$L31850:
 
-; 6603 : 
-; 6604 :    DropView( vOI );
+; 6753 : 
+; 6754 :    DropView( vOI );
 
 	mov	ecx, DWORD PTR _vOI$[ebp]
 	push	ecx
 	call	_DropView@4
 
-; 6605 : 
-; 6606 :    return( 0 );
+; 6755 : 
+; 6756 :    return( 0 );
 
 	xor	ax, ax
-$L31790:
+$L31835:
 
-; 6607 : 
-; 6608 : } // PostXOD_BuildHook
+; 6757 : 
+; 6758 : } // PostXOD_BuildHook
 
 	mov	esp, ebp
 	pop	ebp
@@ -14026,15 +14437,15 @@ _pch$ = 8
 _pchKlammer$ = -4
 _RemoveBrackets PROC NEAR
 
-; 6616 : {
+; 6766 : {
 
 	push	ebp
 	mov	ebp, esp
 	push	ecx
 
-; 6617 :    zPCHAR pchKlammer;
-; 6618 : 
-; 6619 :    pchKlammer = strchr( pch, '[' );
+; 6767 :    zPCHAR pchKlammer;
+; 6768 : 
+; 6769 :    pchKlammer = strchr( pch, '[' );
 
 	push	91					; 0000005bH
 	mov	eax, DWORD PTR _pch$[ebp]
@@ -14043,51 +14454,51 @@ _RemoveBrackets PROC NEAR
 	add	esp, 8
 	mov	DWORD PTR _pchKlammer$[ebp], eax
 
-; 6620 :    if ( pchKlammer )
+; 6770 :    if ( pchKlammer )
 
 	cmp	DWORD PTR _pchKlammer$[ebp], 0
-	je	SHORT $L31816
-$L31818:
+	je	SHORT $L31861
+$L31863:
 
-; 6622 :       // Klammern [] wegnehmen.
-; 6623 :       while ( *(pchKlammer + 1) != ']' && *(pchKlammer + 1) )
+; 6772 :       // Klammern [] wegnehmen.
+; 6773 :       while ( *(pchKlammer + 1) != ']' && *(pchKlammer + 1) )
 
 	mov	ecx, DWORD PTR _pchKlammer$[ebp]
 	movsx	edx, BYTE PTR [ecx+1]
 	cmp	edx, 93					; 0000005dH
-	je	SHORT $L31819
+	je	SHORT $L31864
 	mov	eax, DWORD PTR _pchKlammer$[ebp]
 	movsx	ecx, BYTE PTR [eax+1]
 	test	ecx, ecx
-	je	SHORT $L31819
+	je	SHORT $L31864
 
-; 6625 :          *pchKlammer = *(pchKlammer + 1);
+; 6775 :          *pchKlammer = *(pchKlammer + 1);
 
 	mov	edx, DWORD PTR _pchKlammer$[ebp]
 	mov	eax, DWORD PTR _pchKlammer$[ebp]
 	mov	cl, BYTE PTR [eax+1]
 	mov	BYTE PTR [edx], cl
 
-; 6626 :          pchKlammer++;
+; 6776 :          pchKlammer++;
 
 	mov	edx, DWORD PTR _pchKlammer$[ebp]
 	add	edx, 1
 	mov	DWORD PTR _pchKlammer$[ebp], edx
 
-; 6627 :       }
+; 6777 :       }
 
-	jmp	SHORT $L31818
-$L31819:
+	jmp	SHORT $L31863
+$L31864:
 
-; 6628 : 
-; 6629 :       *pchKlammer = 0;
+; 6778 : 
+; 6779 :       *pchKlammer = 0;
 
 	mov	eax, DWORD PTR _pchKlammer$[ebp]
 	mov	BYTE PTR [eax], 0
-$L31816:
+$L31861:
 
-; 6631 : 
-; 6632 : } // RemoveBrackets
+; 6781 : 
+; 6782 : } // RemoveBrackets
 
 	mov	esp, ebp
 	pop	ebp

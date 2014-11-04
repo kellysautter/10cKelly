@@ -603,6 +603,7 @@ EXTRN	__imp__WinExec@8:NEAR
 EXTRN	__imp__MessageBoxA@16:NEAR
 EXTRN	__imp__SetTimer@16:NEAR
 EXTRN	__imp__KillTimer@8:NEAR
+EXTRN	_SysConvertEnvironmentString@8:NEAR
 EXTRN	__imp__PostMessageA@16:NEAR
 EXTRN	_SysGetDateTime@4:NEAR
 EXTRN	_SysGetDateTimeDifference@16:NEAR
@@ -642,36 +643,37 @@ _uMsg$ = 12
 _wParam$ = 16
 _lParam$ = 20
 _szFileName$59597 = -264
-_uIdTimer$59598 = -4
-_lDiffSeconds$59600 = -288
-_szDateTime$59601 = -284
-_nRC$59603 = -292
+_szTempName$59598 = -524
+_uIdTimer$59599 = -4
+_lDiffSeconds$59601 = -548
+_szDateTime$59602 = -544
+_nRC$59604 = -552
 _MainThrdWndProc@16 PROC NEAR
 
 ; 290  : {
 
 	push	ebp
 	mov	ebp, esp
-	sub	esp, 296				; 00000128H
+	sub	esp, 556				; 0000022cH
 
 ; 291  :    switch ( uMsg )
 ; 292  :    {
 
 	mov	eax, DWORD PTR _uMsg$[ebp]
-	mov	DWORD PTR -296+[ebp], eax
-	cmp	DWORD PTR -296+[ebp], 273		; 00000111H
-	ja	SHORT $L60780
-	cmp	DWORD PTR -296+[ebp], 273		; 00000111H
-	je	$L59615
-	cmp	DWORD PTR -296+[ebp], 2
+	mov	DWORD PTR -556+[ebp], eax
+	cmp	DWORD PTR -556+[ebp], 273		; 00000111H
+	ja	SHORT $L60783
+	cmp	DWORD PTR -556+[ebp], 273		; 00000111H
+	je	$L59616
+	cmp	DWORD PTR -556+[ebp], 2
 	je	SHORT $L59595
-	cmp	DWORD PTR -296+[ebp], 16		; 00000010H
-	je	$L59614
-	jmp	$L59616
-$L60780:
-	cmp	DWORD PTR -296+[ebp], 275		; 00000113H
+	cmp	DWORD PTR -556+[ebp], 16		; 00000010H
+	je	$L59615
+	jmp	$L59617
+$L60783:
+	cmp	DWORD PTR -556+[ebp], 275		; 00000113H
 	je	SHORT $L59596
-	jmp	$L59616
+	jmp	$L59617
 $L59595:
 
 ; 293  :       case WM_DESTROY:                // message: window being destroyed
@@ -686,55 +688,56 @@ $L59595:
 $L59596:
 
 ; 299  :          zCHAR szFileName[ zMAX_FILENAME_LTH + 1 ];
-; 300  :          UINT uIdTimer = wParam;
+; 300  :          zCHAR szTempName[ zMAX_FILENAME_LTH + 1 ];
+; 301  :          UINT uIdTimer = wParam;
 
 	mov	ecx, DWORD PTR _wParam$[ebp]
-	mov	DWORD PTR _uIdTimer$59598[ebp], ecx
+	mov	DWORD PTR _uIdTimer$59599[ebp], ecx
 
-; 301  : 
-; 302  :       // TraceLine( "WM_TIMER !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! %d  Wnd: 0x%08x", uIdTimer, hWnd );
-; 303  : 
-; 304  :          if ( uIdTimer == g_uIdleTimerId )
+; 302  : 
+; 303  :       // TraceLine( "WM_TIMER !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! %d  Wnd: 0x%08x", uIdTimer, hWnd );
+; 304  : 
+; 305  :          if ( uIdTimer == g_uIdleTimerId )
 
-	mov	edx, DWORD PTR _uIdTimer$59598[ebp]
+	mov	edx, DWORD PTR _uIdTimer$59599[ebp]
 	cmp	edx, DWORD PTR _g_uIdleTimerId
-	jne	$L59599
+	jne	$L59600
 
-; 306  :             zLONG lDiffSeconds;
-; 307  :             zCHAR szDateTime[ 20 ];
-; 308  : 
-; 309  :          // TraceLine( "App idle for count %d", lCount );
-; 310  : 
-; 311  :             SysGetDateTime( szDateTime );
+; 307  :             zLONG lDiffSeconds;
+; 308  :             zCHAR szDateTime[ 20 ];
+; 309  : 
+; 310  :          // TraceLine( "App idle for count %d", lCount );
+; 311  : 
+; 312  :             SysGetDateTime( szDateTime );
 
-	lea	eax, DWORD PTR _szDateTime$59601[ebp]
+	lea	eax, DWORD PTR _szDateTime$59602[ebp]
 	push	eax
 	call	_SysGetDateTime@4
 
-; 312  :             SysGetDateTimeDifference( &lDiffSeconds,
-; 313  :                                       g_szTimeStamp,
-; 314  :                                       szDateTime, zDT_SECOND );
+; 313  :             SysGetDateTimeDifference( &lDiffSeconds,
+; 314  :                                       g_szTimeStamp,
+; 315  :                                       szDateTime, zDT_SECOND );
 
 	push	5
-	lea	ecx, DWORD PTR _szDateTime$59601[ebp]
+	lea	ecx, DWORD PTR _szDateTime$59602[ebp]
 	push	ecx
 	push	OFFSET FLAT:_g_szTimeStamp
-	lea	edx, DWORD PTR _lDiffSeconds$59600[ebp]
+	lea	edx, DWORD PTR _lDiffSeconds$59601[ebp]
 	push	edx
 	call	_SysGetDateTimeDifference@16
 
-; 315  :             if ( g_uKillTimerId == 0 && lDiffSeconds > g_lTimeOut )
+; 316  :             if ( g_uKillTimerId == 0 && lDiffSeconds > g_lTimeOut )
 
 	cmp	DWORD PTR _g_uKillTimerId, 0
-	jne	$L59607
-	mov	eax, DWORD PTR _lDiffSeconds$59600[ebp]
+	jne	$L59608
+	mov	eax, DWORD PTR _lDiffSeconds$59601[ebp]
 	cmp	eax, DWORD PTR _g_lTimeOut
-	jle	$L59607
+	jle	$L59608
 
-; 317  :                int nRC;
-; 318  : 
-; 319  :                TraceLine( "OE Setting Kill Timer for hWnd: 0x%08x   g_hWndMainFrame: 0x%08x  Id: %d",
-; 320  :                           hWnd, g_hWndMainFrame, g_nIdKillEvt );
+; 318  :                int nRC;
+; 319  : 
+; 320  :                TraceLine( "OE Setting Kill Timer for hWnd: 0x%08x   g_hWndMainFrame: 0x%08x  Id: %d",
+; 321  :                           hWnd, g_hWndMainFrame, g_nIdKillEvt );
 
 	mov	ecx, DWORD PTR _g_nIdKillEvt
 	push	ecx
@@ -746,8 +749,8 @@ $L59596:
 	call	_TraceLine
 	add	esp, 16					; 00000010H
 
-; 321  :                g_uKillTimerId = SetTimer( hWnd, g_nIdKillEvt,
-; 322  :                                           60000, 0 );  // 60000 ==> one minute
+; 322  :                g_uKillTimerId = SetTimer( hWnd, g_nIdKillEvt,
+; 323  :                                           60000, 0 );  // 60000 ==> one minute
 
 	push	0
 	push	60000					; 0000ea60H
@@ -758,10 +761,10 @@ $L59596:
 	call	DWORD PTR __imp__SetTimer@16
 	mov	DWORD PTR _g_uKillTimerId, eax
 
-; 323  :                nRC = MessageBox( hWnd, "Due to inactivity, your Zencas session will\n"
-; 324  :                                    "be timed out in one minute. Click OK if you\n"
-; 325  :                                    "want to continue using Zencas.",
-; 326  :                                  "Zencas Timeout", MB_OK | MB_ICONSTOP | MB_TOPMOST | MB_APPLMODAL );
+; 324  :                nRC = MessageBox( hWnd, "Due to inactivity, your Zencas session will\n"
+; 325  :                                    "be timed out in one minute. Click OK if you\n"
+; 326  :                                    "want to continue using Zencas.",
+; 327  :                                  "Zencas Timeout", MB_OK | MB_ICONSTOP | MB_TOPMOST | MB_APPLMODAL );
 
 	push	262160					; 00040010H
 	push	OFFSET FLAT:??_C@_0P@DHCP@Zencas?5Timeout?$AA@ ; `string'
@@ -769,19 +772,19 @@ $L59596:
 	mov	eax, DWORD PTR _hWnd$[ebp]
 	push	eax
 	call	DWORD PTR __imp__MessageBoxA@16
-	mov	DWORD PTR _nRC$59603[ebp], eax
+	mov	DWORD PTR _nRC$59604[ebp], eax
 
-; 327  :                if ( nRC == IDOK )
+; 328  :                if ( nRC == IDOK )
 
-	cmp	DWORD PTR _nRC$59603[ebp], 1
-	jne	SHORT $L59607
+	cmp	DWORD PTR _nRC$59604[ebp], 1
+	jne	SHORT $L59608
 
-; 329  :                   if ( g_uKillTimerId )
+; 330  :                   if ( g_uKillTimerId )
 
 	cmp	DWORD PTR _g_uKillTimerId, 0
-	je	SHORT $L59608
+	je	SHORT $L59609
 
-; 331  :                      KillTimer( hWnd, g_uKillTimerId );
+; 332  :                      KillTimer( hWnd, g_uKillTimerId );
 
 	mov	ecx, DWORD PTR _g_uKillTimerId
 	push	ecx
@@ -789,33 +792,33 @@ $L59596:
 	push	edx
 	call	DWORD PTR __imp__KillTimer@8
 
-; 332  :                      g_uKillTimerId = 0;
+; 333  :                      g_uKillTimerId = 0;
 
 	mov	DWORD PTR _g_uKillTimerId, 0
-$L59608:
+$L59609:
 
-; 334  : 
-; 335  :                   SysGetDateTime( g_szTimeStamp );
+; 335  : 
+; 336  :                   SysGetDateTime( g_szTimeStamp );
 
 	push	OFFSET FLAT:_g_szTimeStamp
 	call	_SysGetDateTime@4
-$L59607:
+$L59608:
 
-; 338  : 
-; 339  :             return( 0 );  // an application should return zero if it processes this message
+; 339  : 
+; 340  :             return( 0 );  // an application should return zero if it processes this message
 
 	xor	eax, eax
 	jmp	$L59590
-$L59599:
+$L59600:
 
-; 341  : 
-; 342  :          if ( uIdTimer == g_uKillTimerId )
+; 342  : 
+; 343  :          if ( uIdTimer == g_uKillTimerId )
 
-	mov	eax, DWORD PTR _uIdTimer$59598[ebp]
+	mov	eax, DWORD PTR _uIdTimer$59599[ebp]
 	cmp	eax, DWORD PTR _g_uKillTimerId
-	jne	SHORT $L59609
+	jne	$L59610
 
-; 344  :             KillTimer( g_hWndMainFrame, g_uKillTimerId );
+; 345  :             KillTimer( g_hWndMainFrame, g_uKillTimerId );
 
 	mov	ecx, DWORD PTR _g_uKillTimerId
 	push	ecx
@@ -823,63 +826,78 @@ $L59599:
 	push	edx
 	call	DWORD PTR __imp__KillTimer@8
 
-; 345  :             g_uKillTimerId = 0;
+; 346  :             g_uKillTimerId = 0;
 
 	mov	DWORD PTR _g_uKillTimerId, 0
 
-; 346  : 
-; 347  :             SysReadZeidonIni( -1, "[ObjectEngine]", "KillZeidon", szFileName );
+; 347  : 
+; 348  :             SysReadZeidonIni( -1, "[ObjectEngine]", "KillZeidon", szTempName );
 
-	lea	eax, DWORD PTR _szFileName$59597[ebp]
+	lea	eax, DWORD PTR _szTempName$59598[ebp]
 	push	eax
 	push	OFFSET FLAT:??_C@_0L@NDGH@KillZeidon?$AA@ ; `string'
 	push	OFFSET FLAT:??_C@_0P@CGC@?$FLObjectEngine?$FN?$AA@ ; `string'
 	push	-1
 	call	_SysReadZeidonIni@16
 
-; 348  :             if ( szFileName[ 0 ] )
+; 349  :             SysConvertEnvironmentString( szFileName, szTempName );
+
+	lea	ecx, DWORD PTR _szTempName$59598[ebp]
+	push	ecx
+	lea	edx, DWORD PTR _szFileName$59597[ebp]
+	push	edx
+	call	_SysConvertEnvironmentString@8
+
+; 350  :             TraceLineS( "KillZeidon: ", szFileName );
+
+	lea	eax, DWORD PTR _szFileName$59597[ebp]
+	push	eax
+	push	OFFSET FLAT:??_C@_0N@FEGN@KillZeidon?3?5?$AA@ ; `string'
+	call	_TraceLineS@8
+
+; 351  :             if ( szFileName[ 0 ] )
 
 	movsx	ecx, BYTE PTR _szFileName$59597[ebp]
 	test	ecx, ecx
-	je	SHORT $L59612
+	je	SHORT $L59614
 
-; 350  :                TraceLineS( "KillZeidon: ", szFileName );
+; 353  :                TraceLineS( "KillZeidon: ", szFileName );
 
 	lea	edx, DWORD PTR _szFileName$59597[ebp]
 	push	edx
 	push	OFFSET FLAT:??_C@_0N@FEGN@KillZeidon?3?5?$AA@ ; `string'
 	call	_TraceLineS@8
 
-; 351  :                Sleep( 5000 );
+; 354  :                Sleep( 5000 );
 
 	push	5000					; 00001388H
 	call	DWORD PTR __imp__Sleep@4
 
-; 352  :                WinExec( szFileName, SW_SHOWNORMAL );
+; 355  :                WinExec( szFileName, SW_SHOWNORMAL );
 
 	push	1
 	lea	eax, DWORD PTR _szFileName$59597[ebp]
 	push	eax
 	call	DWORD PTR __imp__WinExec@8
-$L59612:
+$L59614:
 
-; 354  : 
-; 355  :             return( 0 );  // an application should return zero if it processes this message
+; 357  : 
+; 358  :             return( 0 );  // an application should return zero if it processes this message
 
 	xor	eax, eax
 	jmp	SHORT $L59590
-$L59609:
+$L59610:
 
-; 357  : 
-; 358  :          return( 1 ); // we did not process the timer message
+; 360  : 
+; 361  :          return( 1 ); // we did not process the timer message
 
 	mov	eax, 1
 	jmp	SHORT $L59590
-$L59614:
+$L59615:
 
-; 360  : 
-; 361  :       case WM_CLOSE:
-; 362  :          PostMessage( g_hWndMainFrame, WM_CLOSE, 0, 0 );
+; 363  : 
+; 364  :       case WM_CLOSE:
+; 365  :          PostMessage( g_hWndMainFrame, WM_CLOSE, 0, 0 );
 
 	push	0
 	push	0
@@ -888,25 +906,25 @@ $L59614:
 	push	ecx
 	call	DWORD PTR __imp__PostMessageA@16
 
-; 363  :          return( 0 ); // do not call DefWindProc
+; 366  :          return( 0 ); // do not call DefWindProc
 
 	xor	eax, eax
 	jmp	SHORT $L59590
-$L59615:
+$L59616:
 
-; 364  :                       // Hartmut:
-; 365  :                       // I think, I solved the problem.  It is triggered
-; 366  :                       // by "DropEngineIfNoTasks".  The invisible
-; 367  :                       // "Thread Main Window" gets WM_CLOSE and promotes
-; 368  :                       // the WM_CLOSE to the visible main window.  It
-; 369  :                       // should NOT call DefWndProc (which sends
-; 370  :                       // WM_DESTROY), which causes the problem of
-; 371  :                       // extremely slow shutdown ... probably due to a
-; 372  :                       // race condition (MUTEX) between the 2 threads.
-; 373  :       // break;
-; 374  : 
-; 375  :       case WM_COMMAND:
-; 376  :          return( MainWndProc( hWnd, uMsg, wParam, lParam ) );
+; 367  :                       // Hartmut:
+; 368  :                       // I think, I solved the problem.  It is triggered
+; 369  :                       // by "DropEngineIfNoTasks".  The invisible
+; 370  :                       // "Thread Main Window" gets WM_CLOSE and promotes
+; 371  :                       // the WM_CLOSE to the visible main window.  It
+; 372  :                       // should NOT call DefWndProc (which sends
+; 373  :                       // WM_DESTROY), which causes the problem of
+; 374  :                       // extremely slow shutdown ... probably due to a
+; 375  :                       // race condition (MUTEX) between the 2 threads.
+; 376  :       // break;
+; 377  : 
+; 378  :       case WM_COMMAND:
+; 379  :          return( MainWndProc( hWnd, uMsg, wParam, lParam ) );
 
 	mov	edx, DWORD PTR _lParam$[ebp]
 	push	edx
@@ -918,17 +936,17 @@ $L59615:
 	push	edx
 	call	_MainWndProc@16
 	jmp	SHORT $L59590
-$L59616:
+$L59617:
 
-; 377  : 
-; 378  :       default:
-; 379  :          if ( uMsg == g_wOENG_Message )
+; 380  : 
+; 381  :       default:
+; 382  :          if ( uMsg == g_wOENG_Message )
 
 	mov	eax, DWORD PTR _uMsg$[ebp]
 	cmp	eax, DWORD PTR _g_wOENG_Message
-	jne	SHORT $L59617
+	jne	SHORT $L59618
 
-; 380  :             fnProcessOENG_Message( hWnd, uMsg, wParam, lParam );
+; 383  :             fnProcessOENG_Message( hWnd, uMsg, wParam, lParam );
 
 	mov	ecx, DWORD PTR _lParam$[ebp]
 	push	ecx
@@ -940,11 +958,11 @@ $L59616:
 	push	ecx
 	call	_fnProcessOENG_Message
 	add	esp, 16					; 00000010H
-$L59617:
+$L59618:
 $L59592:
 
-; 382  : 
-; 383  :    return( DefWindowProc( hWnd, uMsg, wParam, lParam ) );
+; 385  : 
+; 386  :    return( DefWindowProc( hWnd, uMsg, wParam, lParam ) );
 
 	mov	edx, DWORD PTR _lParam$[ebp]
 	push	edx
@@ -957,7 +975,7 @@ $L59592:
 	call	DWORD PTR __imp__DefWindowProcA@16
 $L59590:
 
-; 384  : }
+; 387  : }
 
 	mov	esp, ebp
 	pop	ebp
@@ -1071,43 +1089,43 @@ _pchSrc$ = -1068
 _pchTgt$ = -1072
 _WinMain@16 PROC NEAR
 
-; 399  : {
+; 402  : {
 
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 1112				; 00000458H
 
-; 400  :    MSG    msg;        // message
-; 401  :    HACCEL hAccel;
-; 402  :    HMENU  hMenu;
-; 403  :    zCHAR  szWork[ MAX_PATH + 1 ];
-; 404  : 
-; 405  : #ifdef __WIN32__
-; 406  :    char szCmdLineBuffer[ 3 * MAX_PATH ];
-; 407  :    HANDLE hMutex1 = 0;
+; 403  :    MSG    msg;        // message
+; 404  :    HACCEL hAccel;
+; 405  :    HMENU  hMenu;
+; 406  :    zCHAR  szWork[ MAX_PATH + 1 ];
+; 407  : 
+; 408  : #ifdef __WIN32__
+; 409  :    char szCmdLineBuffer[ 3 * MAX_PATH ];
+; 410  :    HANDLE hMutex1 = 0;
 
 	mov	DWORD PTR _hMutex1$[ebp], 0
 
-; 408  :    HANDLE hMutex2 = 0;
+; 411  :    HANDLE hMutex2 = 0;
 
 	mov	DWORD PTR _hMutex2$[ebp], 0
 
-; 409  :    HANDLE hServicesStarted;
-; 410  : 
-; 411  :    LPSTR pchZeidonDir = NULL;
+; 412  :    HANDLE hServicesStarted;
+; 413  : 
+; 414  :    LPSTR pchZeidonDir = NULL;
 
 	mov	DWORD PTR _pchZeidonDir$[ebp], 0
 
-; 412  :    LPSTR pchSrc = NULL;
+; 415  :    LPSTR pchSrc = NULL;
 
 	mov	DWORD PTR _pchSrc$[ebp], 0
 
-; 413  :    LPSTR pchTgt = NULL;
+; 416  :    LPSTR pchTgt = NULL;
 
 	mov	DWORD PTR _pchTgt$[ebp], 0
 
-; 414  : 
-; 415  :    memset( szCmdLineBuffer, 0, 3 * MAX_PATH );
+; 417  : 
+; 418  :    memset( szCmdLineBuffer, 0, 3 * MAX_PATH );
 
 	push	780					; 0000030cH
 	push	0
@@ -1116,7 +1134,7 @@ _WinMain@16 PROC NEAR
 	call	_memset
 	add	esp, 12					; 0000000cH
 
-; 416  :    memset( g_szZeidonEnvDirectory, 0, MAX_PATH + 1 );
+; 419  :    memset( g_szZeidonEnvDirectory, 0, MAX_PATH + 1 );
 
 	push	261					; 00000105H
 	push	0
@@ -1124,27 +1142,27 @@ _WinMain@16 PROC NEAR
 	call	_memset
 	add	esp, 12					; 0000000cH
 
-; 417  :    pchSrc = lpCmdLine;
+; 420  :    pchSrc = lpCmdLine;
 
 	mov	ecx, DWORD PTR _lpCmdLine$[ebp]
 	mov	DWORD PTR _pchSrc$[ebp], ecx
 
-; 418  :    pchTgt = szCmdLineBuffer;
+; 421  :    pchTgt = szCmdLineBuffer;
 
 	lea	edx, DWORD PTR _szCmdLineBuffer$[ebp]
 	mov	DWORD PTR _pchTgt$[ebp], edx
-$L59642:
+$L59643:
 
-; 419  : 
-; 420  :    // convert everything to uppercase
-; 421  :    while( *pchSrc )
+; 422  : 
+; 423  :    // convert everything to uppercase
+; 424  :    while( *pchSrc )
 
 	mov	eax, DWORD PTR _pchSrc$[ebp]
 	movsx	ecx, BYTE PTR [eax]
 	test	ecx, ecx
-	je	SHORT $L59643
+	je	SHORT $L59644
 
-; 423  :       *pchTgt = toupper( *pchSrc );
+; 426  :       *pchTgt = toupper( *pchSrc );
 
 	mov	edx, DWORD PTR _pchSrc$[ebp]
 	movsx	eax, BYTE PTR [edx]
@@ -1154,26 +1172,26 @@ $L59642:
 	mov	ecx, DWORD PTR _pchTgt$[ebp]
 	mov	BYTE PTR [ecx], al
 
-; 424  :       pchSrc++;
+; 427  :       pchSrc++;
 
 	mov	edx, DWORD PTR _pchSrc$[ebp]
 	add	edx, 1
 	mov	DWORD PTR _pchSrc$[ebp], edx
 
-; 425  :       pchTgt++;
+; 428  :       pchTgt++;
 
 	mov	eax, DWORD PTR _pchTgt$[ebp]
 	add	eax, 1
 	mov	DWORD PTR _pchTgt$[ebp], eax
 
-; 426  :    }
+; 429  :    }
 
-	jmp	SHORT $L59642
-$L59643:
+	jmp	SHORT $L59643
+$L59644:
 
-; 427  : 
-; 428  :    // search for "ZEIDON" token
-; 429  :    pchZeidonDir = strstr( szCmdLineBuffer, szZeidonParmName );
+; 430  : 
+; 431  :    // search for "ZEIDON" token
+; 432  :    pchZeidonDir = strstr( szCmdLineBuffer, szZeidonParmName );
 
 	push	OFFSET FLAT:_szZeidonParmName
 	lea	ecx, DWORD PTR _szCmdLineBuffer$[ebp]
@@ -1181,51 +1199,51 @@ $L59643:
 	call	_strstr
 	add	esp, 8
 	mov	DWORD PTR _pchZeidonDir$[ebp], eax
-$L59645:
-
-; 430  :    while( pchZeidonDir && *pchZeidonDir != '=' )
-
-	cmp	DWORD PTR _pchZeidonDir$[ebp], 0
-	je	SHORT $L59646
-	mov	edx, DWORD PTR _pchZeidonDir$[ebp]
-	movsx	eax, BYTE PTR [edx]
-	cmp	eax, 61					; 0000003dH
-	je	SHORT $L59646
-
-; 431  :       pchZeidonDir++;
-
-	mov	ecx, DWORD PTR _pchZeidonDir$[ebp]
-	add	ecx, 1
-	mov	DWORD PTR _pchZeidonDir$[ebp], ecx
-	jmp	SHORT $L59645
 $L59646:
 
-; 432  : 
-; 433  :    // skip '='
-; 434  :    if ( pchZeidonDir && *pchZeidonDir == '=' )
+; 433  :    while( pchZeidonDir && *pchZeidonDir != '=' )
 
 	cmp	DWORD PTR _pchZeidonDir$[ebp], 0
 	je	SHORT $L59647
 	mov	edx, DWORD PTR _pchZeidonDir$[ebp]
 	movsx	eax, BYTE PTR [edx]
 	cmp	eax, 61					; 0000003dH
-	jne	SHORT $L59647
+	je	SHORT $L59647
 
-; 435  :       pchZeidonDir++;
+; 434  :       pchZeidonDir++;
 
 	mov	ecx, DWORD PTR _pchZeidonDir$[ebp]
 	add	ecx, 1
 	mov	DWORD PTR _pchZeidonDir$[ebp], ecx
+	jmp	SHORT $L59646
 $L59647:
 
-; 436  : 
-; 437  :    // eliminate leading whitespaces
-; 438  :    while ( pchZeidonDir && isspace( *pchZeidonDir ) )
+; 435  : 
+; 436  :    // skip '='
+; 437  :    if ( pchZeidonDir && *pchZeidonDir == '=' )
 
 	cmp	DWORD PTR _pchZeidonDir$[ebp], 0
-	je	SHORT $L59650
+	je	SHORT $L59648
+	mov	edx, DWORD PTR _pchZeidonDir$[ebp]
+	movsx	eax, BYTE PTR [edx]
+	cmp	eax, 61					; 0000003dH
+	jne	SHORT $L59648
+
+; 438  :       pchZeidonDir++;
+
+	mov	ecx, DWORD PTR _pchZeidonDir$[ebp]
+	add	ecx, 1
+	mov	DWORD PTR _pchZeidonDir$[ebp], ecx
+$L59648:
+
+; 439  : 
+; 440  :    // eliminate leading whitespaces
+; 441  :    while ( pchZeidonDir && isspace( *pchZeidonDir ) )
+
+	cmp	DWORD PTR _pchZeidonDir$[ebp], 0
+	je	SHORT $L59651
 	cmp	DWORD PTR ___mb_cur_max, 1
-	jle	SHORT $L60782
+	jle	SHORT $L60785
 	push	8
 	mov	edx, DWORD PTR _pchZeidonDir$[ebp]
 	movsx	eax, BYTE PTR [edx]
@@ -1233,8 +1251,8 @@ $L59647:
 	call	__isctype
 	add	esp, 8
 	mov	DWORD PTR -1108+[ebp], eax
-	jmp	SHORT $L60783
-$L60782:
+	jmp	SHORT $L60786
+$L60785:
 	mov	ecx, DWORD PTR _pchZeidonDir$[ebp]
 	movsx	edx, BYTE PTR [ecx]
 	mov	eax, DWORD PTR __pctype
@@ -1242,95 +1260,95 @@ $L60782:
 	mov	cx, WORD PTR [eax+edx*2]
 	and	ecx, 8
 	mov	DWORD PTR -1108+[ebp], ecx
-$L60783:
+$L60786:
 	cmp	DWORD PTR -1108+[ebp], 0
-	je	SHORT $L59650
+	je	SHORT $L59651
 
-; 439  :       pchZeidonDir++;
+; 442  :       pchZeidonDir++;
 
 	mov	edx, DWORD PTR _pchZeidonDir$[ebp]
 	add	edx, 1
 	mov	DWORD PTR _pchZeidonDir$[ebp], edx
-	jmp	SHORT $L59647
-$L59650:
+	jmp	SHORT $L59648
+$L59651:
 
-; 440  : 
-; 441  :    // if current char is a " we have to copy anything up to the next " char
-; 442  :    if ( pchZeidonDir && *pchZeidonDir == '"' )
+; 443  : 
+; 444  :    // if current char is a " we have to copy anything up to the next " char
+; 445  :    if ( pchZeidonDir && *pchZeidonDir == '"' )
 
 	cmp	DWORD PTR _pchZeidonDir$[ebp], 0
-	je	SHORT $L59651
+	je	SHORT $L59652
 	mov	eax, DWORD PTR _pchZeidonDir$[ebp]
 	movsx	ecx, BYTE PTR [eax]
 	cmp	ecx, 34					; 00000022H
-	jne	SHORT $L59651
+	jne	SHORT $L59652
 
-; 444  :       pchZeidonDir++;
+; 447  :       pchZeidonDir++;
 
 	mov	edx, DWORD PTR _pchZeidonDir$[ebp]
 	add	edx, 1
 	mov	DWORD PTR _pchZeidonDir$[ebp], edx
 
-; 445  :       pchTgt = g_szZeidonEnvDirectory;
+; 448  :       pchTgt = g_szZeidonEnvDirectory;
 
 	mov	DWORD PTR _pchTgt$[ebp], OFFSET FLAT:_g_szZeidonEnvDirectory
-$L59653:
+$L59654:
 
-; 446  :       while( *pchZeidonDir != '"' && *pchZeidonDir )
+; 449  :       while( *pchZeidonDir != '"' && *pchZeidonDir )
 
 	mov	eax, DWORD PTR _pchZeidonDir$[ebp]
 	movsx	ecx, BYTE PTR [eax]
 	cmp	ecx, 34					; 00000022H
-	je	SHORT $L59654
+	je	SHORT $L59655
 	mov	edx, DWORD PTR _pchZeidonDir$[ebp]
 	movsx	eax, BYTE PTR [edx]
 	test	eax, eax
-	je	SHORT $L59654
+	je	SHORT $L59655
 
-; 448  :          *pchTgt = *pchZeidonDir;
+; 451  :          *pchTgt = *pchZeidonDir;
 
 	mov	ecx, DWORD PTR _pchTgt$[ebp]
 	mov	edx, DWORD PTR _pchZeidonDir$[ebp]
 	mov	al, BYTE PTR [edx]
 	mov	BYTE PTR [ecx], al
 
-; 449  :          pchTgt++;
+; 452  :          pchTgt++;
 
 	mov	ecx, DWORD PTR _pchTgt$[ebp]
 	add	ecx, 1
 	mov	DWORD PTR _pchTgt$[ebp], ecx
 
-; 450  :          pchZeidonDir++;
+; 453  :          pchZeidonDir++;
 
 	mov	edx, DWORD PTR _pchZeidonDir$[ebp]
 	add	edx, 1
 	mov	DWORD PTR _pchZeidonDir$[ebp], edx
 
-; 451  :       }
+; 454  :       }
 
-	jmp	SHORT $L59653
-$L59654:
+	jmp	SHORT $L59654
+$L59655:
 
-; 453  :    else // otherwise we copy anything up to the next whitespace
+; 456  :    else // otherwise we copy anything up to the next whitespace
 
-	jmp	$L59658
-$L59651:
+	jmp	$L59659
+$L59652:
 
-; 455  :       pchTgt = g_szZeidonEnvDirectory;
+; 458  :       pchTgt = g_szZeidonEnvDirectory;
 
 	mov	DWORD PTR _pchTgt$[ebp], OFFSET FLAT:_g_szZeidonEnvDirectory
-$L59657:
+$L59658:
 
-; 456  :       while( pchZeidonDir && *pchZeidonDir && ! isspace( *pchZeidonDir ) )
+; 459  :       while( pchZeidonDir && *pchZeidonDir && ! isspace( *pchZeidonDir ) )
 
 	cmp	DWORD PTR _pchZeidonDir$[ebp], 0
-	je	$L59658
+	je	$L59659
 	mov	eax, DWORD PTR _pchZeidonDir$[ebp]
 	movsx	ecx, BYTE PTR [eax]
 	test	ecx, ecx
-	je	SHORT $L59658
+	je	SHORT $L59659
 	cmp	DWORD PTR ___mb_cur_max, 1
-	jle	SHORT $L60784
+	jle	SHORT $L60787
 	push	8
 	mov	edx, DWORD PTR _pchZeidonDir$[ebp]
 	movsx	eax, BYTE PTR [edx]
@@ -1338,8 +1356,8 @@ $L59657:
 	call	__isctype
 	add	esp, 8
 	mov	DWORD PTR -1112+[ebp], eax
-	jmp	SHORT $L60785
-$L60784:
+	jmp	SHORT $L60788
+$L60787:
 	mov	ecx, DWORD PTR _pchZeidonDir$[ebp]
 	movsx	edx, BYTE PTR [ecx]
 	mov	eax, DWORD PTR __pctype
@@ -1347,38 +1365,38 @@ $L60784:
 	mov	cx, WORD PTR [eax+edx*2]
 	and	ecx, 8
 	mov	DWORD PTR -1112+[ebp], ecx
-$L60785:
+$L60788:
 	cmp	DWORD PTR -1112+[ebp], 0
-	jne	SHORT $L59658
+	jne	SHORT $L59659
 
-; 458  :          *pchTgt = *pchZeidonDir;
+; 461  :          *pchTgt = *pchZeidonDir;
 
 	mov	edx, DWORD PTR _pchTgt$[ebp]
 	mov	eax, DWORD PTR _pchZeidonDir$[ebp]
 	mov	cl, BYTE PTR [eax]
 	mov	BYTE PTR [edx], cl
 
-; 459  :          pchTgt++;
+; 462  :          pchTgt++;
 
 	mov	edx, DWORD PTR _pchTgt$[ebp]
 	add	edx, 1
 	mov	DWORD PTR _pchTgt$[ebp], edx
 
-; 460  :          pchZeidonDir++;
+; 463  :          pchZeidonDir++;
 
 	mov	eax, DWORD PTR _pchZeidonDir$[ebp]
 	add	eax, 1
 	mov	DWORD PTR _pchZeidonDir$[ebp], eax
 
-; 461  :       }
+; 464  :       }
 
-	jmp	$L59657
-$L59658:
+	jmp	$L59658
+$L59659:
 
-; 463  : 
-; 464  :    // Make sure only one copy of kzoengwa is running.  Start by creating
-; 465  :    // a mutex to protect process of checking.
-; 466  :    if ( (hMutex1 = CreateMutex( NULL, FALSE, "KZOENGWA - INIT" )) == 0 )
+; 466  : 
+; 467  :    // Make sure only one copy of kzoengwa is running.  Start by creating
+; 468  :    // a mutex to protect process of checking.
+; 469  :    if ( (hMutex1 = CreateMutex( NULL, FALSE, "KZOENGWA - INIT" )) == 0 )
 
 	push	OFFSET FLAT:??_C@_0BA@DEP@KZOENGWA?5?9?5INIT?$AA@ ; `string'
 	push	0
@@ -1386,9 +1404,9 @@ $L59658:
 	call	DWORD PTR __imp__CreateMutexA@12
 	mov	DWORD PTR _hMutex1$[ebp], eax
 	cmp	DWORD PTR _hMutex1$[ebp], 0
-	jne	SHORT $L59660
+	jne	SHORT $L59661
 
-; 468  :       SysMessageBox( 0, "Zeidon Object Engine", "Can't create init mutex", 1 );
+; 471  :       SysMessageBox( 0, "Zeidon Object Engine", "Can't create init mutex", 1 );
 
 	push	1
 	push	OFFSET FLAT:??_C@_0BI@LPGD@Can?8t?5create?5init?5mutex?$AA@ ; `string'
@@ -1396,26 +1414,26 @@ $L59658:
 	push	0
 	call	_SysMessageBox@16
 
-; 469  :       return( FALSE );
+; 472  :       return( FALSE );
 
 	xor	eax, eax
-	jmp	$L59626
-$L59660:
+	jmp	$L59627
+$L59661:
 
-; 471  : 
-; 472  :    // Lock mutex.
-; 473  :    WaitForSingleObject( hMutex1, INFINITE );
+; 474  : 
+; 475  :    // Lock mutex.
+; 476  :    WaitForSingleObject( hMutex1, INFINITE );
 
 	push	-1
 	mov	ecx, DWORD PTR _hMutex1$[ebp]
 	push	ecx
 	call	DWORD PTR __imp__WaitForSingleObject@8
 
-; 474  : 
-; 475  :    // Now see if a second mutex has already been created.  If it has then
-; 476  :    // KZOENGWA has already been started.
-; 477  :    if ( (hMutex2 = OpenMutex( MUTEX_ALL_ACCESS,
-; 478  :                               FALSE, "KZOENGWA - INIT 2!!!" )) != 0 )
+; 477  : 
+; 478  :    // Now see if a second mutex has already been created.  If it has then
+; 479  :    // KZOENGWA has already been started.
+; 480  :    if ( (hMutex2 = OpenMutex( MUTEX_ALL_ACCESS,
+; 481  :                               FALSE, "KZOENGWA - INIT 2!!!" )) != 0 )
 
 	push	OFFSET FLAT:??_C@_0BF@EHCJ@KZOENGWA?5?9?5INIT?52?$CB?$CB?$CB?$AA@ ; `string'
 	push	0
@@ -1423,30 +1441,30 @@ $L59660:
 	call	DWORD PTR __imp__OpenMutexA@12
 	mov	DWORD PTR _hMutex2$[ebp], eax
 	cmp	DWORD PTR _hMutex2$[ebp], 0
-	je	SHORT $L59664
+	je	SHORT $L59665
 
-; 480  :       // Close all the mutexes and get out.
-; 481  :       CloseHandle( hMutex2 );
+; 483  :       // Close all the mutexes and get out.
+; 484  :       CloseHandle( hMutex2 );
 
 	mov	edx, DWORD PTR _hMutex2$[ebp]
 	push	edx
 	call	DWORD PTR __imp__CloseHandle@4
 
-; 482  :       ReleaseMutex( hMutex1 );
+; 485  :       ReleaseMutex( hMutex1 );
 
 	mov	eax, DWORD PTR _hMutex1$[ebp]
 	push	eax
 	call	DWORD PTR __imp__ReleaseMutex@4
 
-; 483  :       CloseHandle( hMutex1 );
+; 486  :       CloseHandle( hMutex1 );
 
 	mov	ecx, DWORD PTR _hMutex1$[ebp]
 	push	ecx
 	call	DWORD PTR __imp__CloseHandle@4
 
-; 484  : 
-; 485  :       SysMessageBox( 0, "Zeidon Object Engine",
-; 486  :                      "Only one instance of KZOENGWA can exist at once.", 1 );
+; 487  : 
+; 488  :       SysMessageBox( 0, "Zeidon Object Engine",
+; 489  :                      "Only one instance of KZOENGWA can exist at once.", 1 );
 
 	push	1
 	push	OFFSET FLAT:??_C@_0DB@OEHN@Only?5one?5instance?5of?5KZOENGWA?5ca@ ; `string'
@@ -1454,17 +1472,17 @@ $L59660:
 	push	0
 	call	_SysMessageBox@16
 
-; 487  : 
-; 488  :       return( FALSE );
+; 490  : 
+; 491  :       return( FALSE );
 
 	xor	eax, eax
-	jmp	$L59626
-$L59664:
+	jmp	$L59627
+$L59665:
 
-; 490  : 
-; 491  :    // If we get here then this is the only instance of KZOENGWA so
-; 492  :    // create the second mutes.  Note that we DON'T lock it.
-; 493  :    hMutex2 = CreateMutex( NULL, FALSE, "KZOENGWA - INIT 2!!!" );
+; 493  : 
+; 494  :    // If we get here then this is the only instance of KZOENGWA so
+; 495  :    // create the second mutes.  Note that we DON'T lock it.
+; 496  :    hMutex2 = CreateMutex( NULL, FALSE, "KZOENGWA - INIT 2!!!" );
 
 	push	OFFSET FLAT:??_C@_0BF@EHCJ@KZOENGWA?5?9?5INIT?52?$CB?$CB?$CB?$AA@ ; `string'
 	push	0
@@ -1472,80 +1490,80 @@ $L59664:
 	call	DWORD PTR __imp__CreateMutexA@12
 	mov	DWORD PTR _hMutex2$[ebp], eax
 
-; 494  : 
-; 495  :    // We don't need it anymore so dump the first mutex.
-; 496  :    ReleaseMutex( hMutex1 );
+; 497  : 
+; 498  :    // We don't need it anymore so dump the first mutex.
+; 499  :    ReleaseMutex( hMutex1 );
 
 	mov	edx, DWORD PTR _hMutex1$[ebp]
 	push	edx
 	call	DWORD PTR __imp__ReleaseMutex@4
 
-; 497  :    CloseHandle( hMutex1 );
+; 500  :    CloseHandle( hMutex1 );
 
 	mov	eax, DWORD PTR _hMutex1$[ebp]
 	push	eax
 	call	DWORD PTR __imp__CloseHandle@4
 
-; 498  : 
-; 499  :    if ( InitApplication( hInstance ) == 0 ) // Initialize shared things
+; 501  : 
+; 502  :    if ( InitApplication( hInstance ) == 0 ) // Initialize shared things
 
 	mov	ecx, DWORD PTR _hInstance$[ebp]
 	push	ecx
 	call	_InitApplication
 	add	esp, 4
 	test	eax, eax
-	jne	SHORT $L59668
+	jne	SHORT $L59669
 
-; 501  :       CloseHandle( hMutex2 );    // Get rid of the instance mutex
+; 504  :       CloseHandle( hMutex2 );    // Get rid of the instance mutex
 
 	mov	edx, DWORD PTR _hMutex2$[ebp]
 	push	edx
 	call	DWORD PTR __imp__CloseHandle@4
 
-; 502  :       return( FALSE );           // Exits if unable to initialize
+; 505  :       return( FALSE );           // Exits if unable to initialize
 
 	xor	eax, eax
-	jmp	$L59626
-$L59668:
+	jmp	$L59627
+$L59669:
 
-; 504  : 
-; 505  : #else
-; 506  :    if ( hPrevInstance == 0 )     // Other instances of app running?
-; 507  :    {
-; 508  :       // If we need to increase the size of the message queue, here is where
-; 509  :       // it will need to be done.  We need to do this to prevent the loss
-; 510  :       // of TraceLine messages.
-; 511  : 
-; 512  :       zSHORT nMsg = 32;  // the maximum size is 120, the default size is 8
-; 513  : 
-; 514  :       while ( nMsg > 8 && SetMessageQueue( nMsg ) == 0 )
-; 515  :          nMsg -= 8;
+; 507  : 
+; 508  : #else
+; 509  :    if ( hPrevInstance == 0 )     // Other instances of app running?
+; 510  :    {
+; 511  :       // If we need to increase the size of the message queue, here is where
+; 512  :       // it will need to be done.  We need to do this to prevent the loss
+; 513  :       // of TraceLine messages.
+; 514  : 
+; 515  :       zSHORT nMsg = 32;  // the maximum size is 120, the default size is 8
 ; 516  : 
-; 517  : 
-; 518  :       // run in enhanced or protected mode only - not in real mode
-; 519  :       if ( (GetWinFlags( ) & WF_PMODE) != WF_PMODE )
-; 520  :       {
-; 521  :          MessageBox( GetActiveWindow( ),
-; 522  :                      "Zeidon cannot be executed in real mode",
-; 523  :                      "Zeidon", MB_ICONSTOP | MB_OK );
-; 524  :          return( FALSE );
-; 525  :       }
-; 526  : 
-; 527  :       if ( InitApplication( hInstance ) == 0 ) // Initialize shared things
-; 528  :          return( FALSE );                      // Exits if unable to initialize
-; 529  :    }
-; 530  :    else
-; 531  :    {
-; 532  :       AnchorBlock = SysGetAnchorBlock( );
-; 533  :       if ( AnchorBlock )
-; 534  :          SetActiveWindow( (HWND) AnchorBlock->lOE_hMainWnd );
-; 535  : 
-; 536  :       return( FALSE );
-; 537  :    }
-; 538  : #endif
-; 539  : 
-; 540  :    // Perform initializations that apply to a specific instance
-; 541  :    if ( InitInstance( hInstance, nCmdShow ) == 0 )
+; 517  :       while ( nMsg > 8 && SetMessageQueue( nMsg ) == 0 )
+; 518  :          nMsg -= 8;
+; 519  : 
+; 520  : 
+; 521  :       // run in enhanced or protected mode only - not in real mode
+; 522  :       if ( (GetWinFlags( ) & WF_PMODE) != WF_PMODE )
+; 523  :       {
+; 524  :          MessageBox( GetActiveWindow( ),
+; 525  :                      "Zeidon cannot be executed in real mode",
+; 526  :                      "Zeidon", MB_ICONSTOP | MB_OK );
+; 527  :          return( FALSE );
+; 528  :       }
+; 529  : 
+; 530  :       if ( InitApplication( hInstance ) == 0 ) // Initialize shared things
+; 531  :          return( FALSE );                      // Exits if unable to initialize
+; 532  :    }
+; 533  :    else
+; 534  :    {
+; 535  :       AnchorBlock = SysGetAnchorBlock( );
+; 536  :       if ( AnchorBlock )
+; 537  :          SetActiveWindow( (HWND) AnchorBlock->lOE_hMainWnd );
+; 538  : 
+; 539  :       return( FALSE );
+; 540  :    }
+; 541  : #endif
+; 542  : 
+; 543  :    // Perform initializations that apply to a specific instance
+; 544  :    if ( InitInstance( hInstance, nCmdShow ) == 0 )
 
 	mov	eax, DWORD PTR _nCmdShow$[ebp]
 	push	eax
@@ -1554,34 +1572,34 @@ $L59668:
 	call	_InitInstance
 	add	esp, 8
 	test	eax, eax
-	jne	SHORT $L59669
+	jne	SHORT $L59670
 
-; 543  : #ifdef __WIN32__
-; 544  :       // Get rid of the second instance mutex.
-; 545  :       CloseHandle( hMutex2 );
+; 546  : #ifdef __WIN32__
+; 547  :       // Get rid of the second instance mutex.
+; 548  :       CloseHandle( hMutex2 );
 
 	mov	edx, DWORD PTR _hMutex2$[ebp]
 	push	edx
 	call	DWORD PTR __imp__CloseHandle@4
 
-; 546  : #endif
-; 547  :       return( FALSE );
+; 549  : #endif
+; 550  :       return( FALSE );
 
 	xor	eax, eax
-	jmp	$L59626
-$L59669:
+	jmp	$L59627
+$L59670:
 
-; 549  : 
-; 550  : #ifdef __WIN32__
-; 551  :    TraceLineS( "Engine started for Win32", "" );
+; 552  : 
+; 553  : #ifdef __WIN32__
+; 554  :    TraceLineS( "Engine started for Win32", "" );
 
 	push	OFFSET FLAT:??_C@_00A@?$AA@		; `string'
 	push	OFFSET FLAT:??_C@_0BJ@MKDE@Engine?5started?5for?5Win32?$AA@ ; `string'
 	call	_TraceLineS@8
 
-; 552  : #endif
-; 553  : 
-; 554  :    hAccel = LoadAccelerators( hInstance, "TRACE_ACCEL" );
+; 555  : #endif
+; 556  : 
+; 557  :    hAccel = LoadAccelerators( hInstance, "TRACE_ACCEL" );
 
 	push	OFFSET FLAT:??_C@_0M@CLEH@TRACE_ACCEL?$AA@ ; `string'
 	mov	eax, DWORD PTR _hInstance$[ebp]
@@ -1589,21 +1607,21 @@ $L59669:
 	call	DWORD PTR __imp__LoadAcceleratorsA@8
 	mov	DWORD PTR _hAccel$[ebp], eax
 
-; 555  : 
-; 556  : #ifndef ALLOC_FREE_TRACE
-; 557  :    hMenu = GetMenu( g_hWndMainFrame );
+; 558  : 
+; 559  : #ifndef ALLOC_FREE_TRACE
+; 560  :    hMenu = GetMenu( g_hWndMainFrame );
 
 	mov	ecx, DWORD PTR _g_hWndMainFrame
 	push	ecx
 	call	DWORD PTR __imp__GetMenu@4
 	mov	DWORD PTR _hMenu$[ebp], eax
 
-; 558  :    if ( hMenu )
+; 561  :    if ( hMenu )
 
 	cmp	DWORD PTR _hMenu$[ebp], 0
-	je	SHORT $L59673
+	je	SHORT $L59674
 
-; 560  :       hMenu = GetSubMenu( hMenu, 1 );
+; 563  :       hMenu = GetSubMenu( hMenu, 1 );
 
 	push	1
 	mov	edx, DWORD PTR _hMenu$[ebp]
@@ -1611,8 +1629,8 @@ $L59669:
 	call	DWORD PTR __imp__GetSubMenu@8
 	mov	DWORD PTR _hMenu$[ebp], eax
 
-; 561  :    // DeleteMenu( hMenu, IDM_SETMEMORYTRACE, MF_BYCOMMAND );
-; 562  :       RemoveMenu( hMenu, 9, MF_BYPOSITION );
+; 564  :    // DeleteMenu( hMenu, IDM_SETMEMORYTRACE, MF_BYCOMMAND );
+; 565  :       RemoveMenu( hMenu, 9, MF_BYPOSITION );
 
 	push	1024					; 00000400H
 	push	9
@@ -1620,29 +1638,29 @@ $L59669:
 	push	eax
 	call	DWORD PTR __imp__RemoveMenu@12
 
-; 563  :       DrawMenuBar( g_hWndMainFrame );
+; 566  :       DrawMenuBar( g_hWndMainFrame );
 
 	mov	ecx, DWORD PTR _g_hWndMainFrame
 	push	ecx
 	call	DWORD PTR __imp__DrawMenuBar@4
-$L59673:
+$L59674:
 
-; 565  : #endif
-; 566  : 
-; 567  : #ifndef LOAD_FREE_TRACE
-; 568  :    hMenu = GetMenu( g_hWndMainFrame );
+; 568  : #endif
+; 569  : 
+; 570  : #ifndef LOAD_FREE_TRACE
+; 571  :    hMenu = GetMenu( g_hWndMainFrame );
 
 	mov	edx, DWORD PTR _g_hWndMainFrame
 	push	edx
 	call	DWORD PTR __imp__GetMenu@4
 	mov	DWORD PTR _hMenu$[ebp], eax
 
-; 569  :    if ( hMenu )
+; 572  :    if ( hMenu )
 
 	cmp	DWORD PTR _hMenu$[ebp], 0
-	je	SHORT $L59674
+	je	SHORT $L59675
 
-; 571  :       hMenu = GetSubMenu( hMenu, 1 );
+; 574  :       hMenu = GetSubMenu( hMenu, 1 );
 
 	push	1
 	mov	eax, DWORD PTR _hMenu$[ebp]
@@ -1650,8 +1668,8 @@ $L59673:
 	call	DWORD PTR __imp__GetSubMenu@8
 	mov	DWORD PTR _hMenu$[ebp], eax
 
-; 572  :    // DeleteMenu( hMenu, IDM_SETLOADTRACE, MF_BYCOMMAND );
-; 573  :       RemoveMenu( hMenu, 13, MF_BYPOSITION );
+; 575  :    // DeleteMenu( hMenu, IDM_SETLOADTRACE, MF_BYCOMMAND );
+; 576  :       RemoveMenu( hMenu, 13, MF_BYPOSITION );
 
 	push	1024					; 00000400H
 	push	13					; 0000000dH
@@ -1659,24 +1677,24 @@ $L59673:
 	push	ecx
 	call	DWORD PTR __imp__RemoveMenu@12
 
-; 574  :       DrawMenuBar( g_hWndMainFrame );
+; 577  :       DrawMenuBar( g_hWndMainFrame );
 
 	mov	edx, DWORD PTR _g_hWndMainFrame
 	push	edx
 	call	DWORD PTR __imp__DrawMenuBar@4
-$L59674:
+$L59675:
 
-; 576  : #endif
-; 577  : 
-; 578  :    AnchorBlock->nStatus = AnchorInitialized; // Flag init as complete
+; 579  : #endif
+; 580  : 
+; 581  :    AnchorBlock->nStatus = AnchorInitialized; // Flag init as complete
 
 	mov	eax, DWORD PTR _AnchorBlock
 	mov	WORD PTR [eax+84], 10			; 0000000aH
 
-; 579  : 
-; 580  :    // Open a Win32 event so we can signal to everybody that we're done.
-; 581  :    hServicesStarted = CreateEvent( NULL, TRUE, FALSE,
-; 582  :                                    "Zeidon - Object Services Init" );
+; 582  : 
+; 583  :    // Open a Win32 event so we can signal to everybody that we're done.
+; 584  :    hServicesStarted = CreateEvent( NULL, TRUE, FALSE,
+; 585  :                                    "Zeidon - Object Services Init" );
 
 	push	OFFSET FLAT:??_C@_0BO@GCKC@Zeidon?5?9?5Object?5Services?5Init?$AA@ ; `string'
 	push	0
@@ -1685,20 +1703,20 @@ $L59674:
 	call	DWORD PTR __imp__CreateEventA@16
 	mov	DWORD PTR _hServicesStarted$[ebp], eax
 
-; 583  :    SetEvent( hServicesStarted );
+; 586  :    SetEvent( hServicesStarted );
 
 	mov	ecx, DWORD PTR _hServicesStarted$[ebp]
 	push	ecx
 	call	DWORD PTR __imp__SetEvent@4
 
-; 584  :    CloseHandle( hServicesStarted );
+; 587  :    CloseHandle( hServicesStarted );
 
 	mov	edx, DWORD PTR _hServicesStarted$[ebp]
 	push	edx
 	call	DWORD PTR __imp__CloseHandle@4
 
-; 585  : 
-; 586  :    SysReadZeidonIni( -1, "[ObjectEngine]", "TimeOut", szWork );
+; 588  : 
+; 589  :    SysReadZeidonIni( -1, "[ObjectEngine]", "TimeOut", szWork );
 
 	lea	eax, DWORD PTR _szWork$[ebp]
 	push	eax
@@ -1707,20 +1725,20 @@ $L59674:
 	push	-1
 	call	_SysReadZeidonIni@16
 
-; 587  :    if ( szWork[ 0 ] && (g_lTimeOut = zatol( szWork )) != 0 )
+; 590  :    if ( szWork[ 0 ] && (g_lTimeOut = zatol( szWork )) != 0 )
 
 	movsx	ecx, BYTE PTR _szWork$[ebp]
 	test	ecx, ecx
-	je	SHORT $L59680
+	je	SHORT $L59681
 	lea	edx, DWORD PTR _szWork$[ebp]
 	push	edx
 	call	_atol
 	add	esp, 4
 	mov	DWORD PTR _g_lTimeOut, eax
 	cmp	DWORD PTR _g_lTimeOut, 0
-	je	SHORT $L59680
+	je	SHORT $L59681
 
-; 589  :       SysReadZeidonIni( -1, "[ObjectEngine]", "KillZeidon", szWork );
+; 592  :       SysReadZeidonIni( -1, "[ObjectEngine]", "KillZeidon", szWork );
 
 	lea	eax, DWORD PTR _szWork$[ebp]
 	push	eax
@@ -1729,24 +1747,24 @@ $L59674:
 	push	-1
 	call	_SysReadZeidonIni@16
 
-; 590  :       if ( szWork[ 0 ] )
+; 593  :       if ( szWork[ 0 ] )
 
 	movsx	ecx, BYTE PTR _szWork$[ebp]
 	test	ecx, ecx
-	je	SHORT $L59679
+	je	SHORT $L59680
 
-; 591  :          SysGetDateTime( g_szTimeStamp );
+; 594  :          SysGetDateTime( g_szTimeStamp );
 
 	push	OFFSET FLAT:_g_szTimeStamp
 	call	_SysGetDateTime@4
 
-; 592  :       else
+; 595  :       else
 
-	jmp	SHORT $L59680
-$L59679:
+	jmp	SHORT $L59681
+$L59680:
 
-; 594  :          MessageBox( 0, "TimeOut requires KillZeidon specification",
-; 595  :                      "Object Services", MB_OK );
+; 597  :          MessageBox( 0, "TimeOut requires KillZeidon specification",
+; 598  :                      "Object Services", MB_OK );
 
 	push	0
 	push	OFFSET FLAT:??_C@_0BA@CBEN@Object?5Services?$AA@ ; `string'
@@ -1754,17 +1772,17 @@ $L59679:
 	push	0
 	call	DWORD PTR __imp__MessageBoxA@16
 
-; 596  :          g_lTimeOut = 0;
+; 599  :          g_lTimeOut = 0;
 
 	mov	DWORD PTR _g_lTimeOut, 0
-$L59680:
+$L59681:
 
-; 599  : 
-; 600  :    // Acquire and dispatch messages until a WM_QUIT message is received
-; 601  :    while ( GetMessage( &msg,     // message structure
-; 602  :                        0,        // handle of window receiving the message
-; 603  :                        0,        // lowest message to examine
-; 604  :                        0 ) )     // highest message to examine
+; 602  : 
+; 603  :    // Acquire and dispatch messages until a WM_QUIT message is received
+; 604  :    while ( GetMessage( &msg,     // message structure
+; 605  :                        0,        // handle of window receiving the message
+; 606  :                        0,        // lowest message to examine
+; 607  :                        0 ) )     // highest message to examine
 
 	push	0
 	push	0
@@ -1773,9 +1791,9 @@ $L59680:
 	push	edx
 	call	DWORD PTR __imp__GetMessageA@16
 	test	eax, eax
-	je	SHORT $L59685
+	je	SHORT $L59686
 
-; 606  :       if ( !TranslateAccelerator( g_hWndMainFrame, hAccel, &msg ) )
+; 609  :       if ( !TranslateAccelerator( g_hWndMainFrame, hAccel, &msg ) )
 
 	lea	eax, DWORD PTR _msg$[ebp]
 	push	eax
@@ -1785,43 +1803,43 @@ $L59680:
 	push	edx
 	call	DWORD PTR __imp__TranslateAcceleratorA@12
 	test	eax, eax
-	jne	SHORT $L59686
+	jne	SHORT $L59687
 
-; 608  :          TranslateMessage( &msg );  // Translate message
+; 611  :          TranslateMessage( &msg );  // Translate message
 
 	lea	eax, DWORD PTR _msg$[ebp]
 	push	eax
 	call	DWORD PTR __imp__TranslateMessage@4
 
-; 609  :          DispatchMessage( &msg );   // Dispatches message to window
+; 612  :          DispatchMessage( &msg );   // Dispatches message to window
 
 	lea	ecx, DWORD PTR _msg$[ebp]
 	push	ecx
 	call	DWORD PTR __imp__DispatchMessageA@4
+$L59687:
+
+; 614  :    }
+
+	jmp	SHORT $L59681
 $L59686:
 
-; 611  :    }
-
-	jmp	SHORT $L59680
-$L59685:
-
-; 612  : 
-; 613  : #ifdef __WIN32__
-; 614  :    // Get rid of the second instance mutex.
-; 615  :    CloseHandle( hMutex2 );
+; 615  : 
+; 616  : #ifdef __WIN32__
+; 617  :    // Get rid of the second instance mutex.
+; 618  :    CloseHandle( hMutex2 );
 
 	mov	edx, DWORD PTR _hMutex2$[ebp]
 	push	edx
 	call	DWORD PTR __imp__CloseHandle@4
 
-; 616  : #endif
-; 617  : 
-; 618  :    return( msg.wParam );         // Returns the value from PostQuitMessage
+; 619  : #endif
+; 620  : 
+; 621  :    return( msg.wParam );         // Returns the value from PostQuitMessage
 
 	mov	eax, DWORD PTR _msg$[ebp+8]
-$L59626:
+$L59627:
 
-; 619  : }
+; 622  : }
 
 	mov	esp, ebp
 	pop	ebp
@@ -1841,38 +1859,38 @@ _wItemCnt$ = -532
 _k$ = -528
 _WriteTraceToLog PROC NEAR
 
-; 623  : {
+; 626  : {
 
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 532				; 00000214H
 
-; 624  :    char   szTraceText[ 512 ];
-; 625  :    zPVOID ppvFile = 0;
+; 627  :    char   szTraceText[ 512 ];
+; 628  :    zPVOID ppvFile = 0;
 
 	mov	DWORD PTR _ppvFile$[ebp], 0
 
-; 626  :    zSHORT idx;
-; 627  :    WORD   wItem;
-; 628  :    WORD   wItemCnt;
-; 629  :    UINT   k;
-; 630  : 
-; 631  :    // The file has been opened, get all text from all the
-; 632  :    // list boxes and write it to the trace file
-; 633  :    for ( k = 0; k < g_nTraceWindowCnt; k++ )
+; 629  :    zSHORT idx;
+; 630  :    WORD   wItem;
+; 631  :    WORD   wItemCnt;
+; 632  :    UINT   k;
+; 633  : 
+; 634  :    // The file has been opened, get all text from all the
+; 635  :    // list boxes and write it to the trace file
+; 636  :    for ( k = 0; k < g_nTraceWindowCnt; k++ )
 
 	mov	DWORD PTR _k$[ebp], 0
-	jmp	SHORT $L59697
-$L59698:
+	jmp	SHORT $L59698
+$L59699:
 	mov	eax, DWORD PTR _k$[ebp]
 	add	eax, 1
 	mov	DWORD PTR _k$[ebp], eax
-$L59697:
+$L59698:
 	mov	ecx, DWORD PTR _k$[ebp]
 	cmp	ecx, DWORD PTR _g_nTraceWindowCnt
-	jae	$L59699
+	jae	$L59700
 
-; 635  :       idx = (g_nTraceWindowHead + k + 1) % g_nTraceWindowCnt;
+; 638  :       idx = (g_nTraceWindowHead + k + 1) % g_nTraceWindowCnt;
 
 	mov	edx, DWORD PTR _k$[ebp]
 	mov	eax, DWORD PTR _g_nTraceWindowHead
@@ -1881,8 +1899,8 @@ $L59697:
 	div	DWORD PTR _g_nTraceWindowCnt
 	mov	WORD PTR _idx$[ebp], dx
 
-; 636  :       wItemCnt = (WORD) SendMessage( g_hwndTraceWindow[ idx ],
-; 637  :                                      LB_GETCOUNT, 0, 0L );
+; 639  :       wItemCnt = (WORD) SendMessage( g_hwndTraceWindow[ idx ],
+; 640  :                                      LB_GETCOUNT, 0, 0L );
 
 	push	0
 	push	0
@@ -1893,24 +1911,24 @@ $L59697:
 	call	DWORD PTR __imp__SendMessageA@16
 	mov	WORD PTR _wItemCnt$[ebp], ax
 
-; 638  :       for ( wItem = 0; wItem < wItemCnt; wItem++ )
+; 641  :       for ( wItem = 0; wItem < wItemCnt; wItem++ )
 
 	mov	WORD PTR _wItem$[ebp], 0
-	jmp	SHORT $L59701
-$L59702:
+	jmp	SHORT $L59702
+$L59703:
 	mov	ax, WORD PTR _wItem$[ebp]
 	add	ax, 1
 	mov	WORD PTR _wItem$[ebp], ax
-$L59701:
+$L59702:
 	mov	ecx, DWORD PTR _wItem$[ebp]
 	and	ecx, 65535				; 0000ffffH
 	mov	edx, DWORD PTR _wItemCnt$[ebp]
 	and	edx, 65535				; 0000ffffH
 	cmp	ecx, edx
-	jge	SHORT $L59703
+	jge	SHORT $L59704
 
-; 640  :          SendMessage( g_hwndTraceWindow[ idx ], LB_GETTEXT, wItem,
-; 641  :                       (LONG)(LPSTR) szTraceText );
+; 643  :          SendMessage( g_hwndTraceWindow[ idx ], LB_GETTEXT, wItem,
+; 644  :                       (LONG)(LPSTR) szTraceText );
 
 	lea	eax, DWORD PTR _szTraceText$[ebp]
 	push	eax
@@ -1923,7 +1941,7 @@ $L59701:
 	push	eax
 	call	DWORD PTR __imp__SendMessageA@16
 
-; 642  :          fnSysWriteLine( lpTask, g_hLogFile, &ppvFile, szTraceText );
+; 645  :          fnSysWriteLine( lpTask, g_hLogFile, &ppvFile, szTraceText );
 
 	lea	ecx, DWORD PTR _szTraceText$[ebp]
 	push	ecx
@@ -1935,17 +1953,17 @@ $L59701:
 	push	ecx
 	call	_fnSysWriteLine@16
 
-; 643  :       }
+; 646  :       }
 
-	jmp	SHORT $L59702
-$L59703:
+	jmp	SHORT $L59703
+$L59704:
 
-; 644  :    }
+; 647  :    }
 
-	jmp	$L59698
-$L59699:
+	jmp	$L59699
+$L59700:
 
-; 645  : }
+; 648  : }
 
 	mov	esp, ebp
 	pop	ebp
@@ -2046,7 +2064,6 @@ EXTRN	_fnSysCloseFile@12:NEAR
 EXTRN	_sprintf:NEAR
 EXTRN	_SysCreateInternational@0:NEAR
 EXTRN	_SysFreeInternational@4:NEAR
-EXTRN	_SysConvertEnvironmentString@8:NEAR
 EXTRN	_strcpy:NEAR
 EXTRN	_strcat:NEAR
 EXTRN	_strlen:NEAR
@@ -2328,151 +2345,152 @@ _uMsg$ = 12
 _wParam$ = 16
 _lParam$ = 20
 _rect$ = -16
-_point$59729 = -24
-_i$59732 = -28
-_wCommand$59737 = -32
-_szFindString$59772 = -544
-_szText$59773 = -1060
-_nFound$59774 = -548
-_hwndTrace$59775 = -1064
-_wItemCnt$59776 = -1076
-_wCurSel$59778 = -1068
-_k$59780 = -1072
-_wCurSel$59816 = -1084
-_lTextLth$59818 = -1080
-_pchMem$59822 = -1088
-_wCurSel$59828 = -1092
-_wCurSel$59833 = -1096
-_wCurSel$59837 = -1108
-_nLth$59839 = -1100
-_j$59840 = -1104
-_k$59841 = -1112
-_hMenu$59850 = -1116
-_hMenu$59862 = -1120
-_hMenu$59866 = -1124
-_hTask$59880 = -1136
-_lpTask$59881 = -1132
-_nResponse$59882 = -1128
-_szFileName$59891 = -1396
-_lpIntl$59895 = -1400
-_k$59923 = -1404
-_szMessage$59945 = -1928
-_lpDataHeader$59946 = -1932
-_lpFreespace$59947 = -1936
-_ulAlloc$59948 = -1412
-_ulUsed$59949 = -1416
-_ulFree$59950 = -1408
-_szMsg$59961 = -5936
-_lpApp$59966 = -6104
-_lpViewOD$59967 = -5940
-_szMessage$59968 = -6100
-_idx$60025 = -6108
-_iDiff$60026 = -6120
-_nNewTraceWindow$60027 = -6116
-_nOldTraceWindow$60028 = -6112
-_hTask$60034 = -6136
-_lpTask$60035 = -6132
-_lpTaskTemp$60036 = -6140
-_nResponse$60037 = -6124
-_hTermMutex$60038 = -6128
-_szIniName$60050 = -6836
-_szFileName$60051 = -6532
-_szTempName$60052 = -7096
-_szBuffer$60053 = -6272
-_wp$60054 = -6576
-_lpTask2$60087 = -7100
-_lpTask$60097 = -7104
-_hNewInt$60103 = -7108
-_lpOldInt$60104 = -7112
-_SysTime$60109 = -7396
-_hTask$60110 = -7380
-_lpTask$60111 = -7376
-_szFileName$60112 = -7372
-_hLogFile$60113 = -7116
-_szTraceText$60117 = -7908
+_point$59730 = -24
+_i$59733 = -28
+_wCommand$59738 = -32
+_szFindString$59773 = -544
+_szText$59774 = -1060
+_nFound$59775 = -548
+_hwndTrace$59776 = -1064
+_wItemCnt$59777 = -1076
+_wCurSel$59779 = -1068
+_k$59781 = -1072
+_wCurSel$59817 = -1084
+_lTextLth$59819 = -1080
+_pchMem$59823 = -1088
+_wCurSel$59829 = -1092
+_wCurSel$59834 = -1096
+_wCurSel$59838 = -1108
+_nLth$59840 = -1100
+_j$59841 = -1104
+_k$59842 = -1112
+_hMenu$59851 = -1116
+_hMenu$59863 = -1120
+_hMenu$59867 = -1124
+_hTask$59881 = -1136
+_lpTask$59882 = -1132
+_nResponse$59883 = -1128
+_szFileName$59892 = -1396
+_szTempName$59893 = -1656
+_lpIntl$59897 = -1660
+_k$59925 = -1664
+_szMessage$59947 = -2188
+_lpDataHeader$59948 = -2192
+_lpFreespace$59949 = -2196
+_ulAlloc$59950 = -1672
+_ulUsed$59951 = -1676
+_ulFree$59952 = -1668
+_szMsg$59963 = -6196
+_lpApp$59968 = -6364
+_lpViewOD$59969 = -6200
+_szMessage$59970 = -6360
+_idx$60027 = -6368
+_iDiff$60028 = -6380
+_nNewTraceWindow$60029 = -6376
+_nOldTraceWindow$60030 = -6372
+_hTask$60036 = -6396
+_lpTask$60037 = -6392
+_lpTaskTemp$60038 = -6400
+_nResponse$60039 = -6384
+_hTermMutex$60040 = -6388
+_szIniName$60052 = -7096
+_szFileName$60053 = -6792
+_szTempName$60054 = -7356
+_szBuffer$60055 = -6532
+_wp$60056 = -6836
+_lpTask2$60089 = -7360
+_lpTask$60099 = -7364
+_hNewInt$60105 = -7368
+_lpOldInt$60106 = -7372
+_SysTime$60111 = -7656
+_hTask$60112 = -7640
+_lpTask$60113 = -7636
+_szFileName$60114 = -7632
+_hLogFile$60115 = -7376
+_szTraceText$60119 = -8168
 _MainWndProc@16 PROC NEAR
 
-; 666  : {
+; 669  : {
 
 	push	ebp
 	mov	ebp, esp
-	mov	eax, 7916				; 00001eecH
+	mov	eax, 8176				; 00001ff0H
 	call	__chkstk
 
-; 667  :    RECT   rect;
-; 668  : 
-; 669  :    switch ( uMsg )
-; 670  :    {
+; 670  :    RECT   rect;
+; 671  : 
+; 672  :    switch ( uMsg )
+; 673  :    {
 
 	mov	eax, DWORD PTR _uMsg$[ebp]
-	mov	DWORD PTR -7912+[ebp], eax
-	cmp	DWORD PTR -7912+[ebp], 273		; 00000111H
-	ja	SHORT $L60789
-	cmp	DWORD PTR -7912+[ebp], 273		; 00000111H
-	je	$L59736
-	mov	ecx, DWORD PTR -7912+[ebp]
+	mov	DWORD PTR -8172+[ebp], eax
+	cmp	DWORD PTR -8172+[ebp], 273		; 00000111H
+	ja	SHORT $L60792
+	cmp	DWORD PTR -8172+[ebp], 273		; 00000111H
+	je	$L59737
+	mov	ecx, DWORD PTR -8172+[ebp]
 	sub	ecx, 2
-	mov	DWORD PTR -7912+[ebp], ecx
-	cmp	DWORD PTR -7912+[ebp], 24		; 00000018H
-	ja	$L60120
-	mov	eax, DWORD PTR -7912+[ebp]
+	mov	DWORD PTR -8172+[ebp], ecx
+	cmp	DWORD PTR -8172+[ebp], 24		; 00000018H
+	ja	$L60122
+	mov	eax, DWORD PTR -8172+[ebp]
 	xor	edx, edx
-	mov	dl, BYTE PTR $L60792[eax]
-	jmp	DWORD PTR $L60793[edx*4]
-$L60789:
-	cmp	DWORD PTR -7912+[ebp], 2050		; 00000802H
-	ja	SHORT $L60790
-	cmp	DWORD PTR -7912+[ebp], 2050		; 00000802H
-	je	$L60119
-	cmp	DWORD PTR -7912+[ebp], 274		; 00000112H
-	je	SHORT $L59730
-	cmp	DWORD PTR -7912+[ebp], 2049		; 00000801H
-	je	$L60108
-	jmp	$L60120
-$L60790:
-	cmp	DWORD PTR -7912+[ebp], 32868		; 00008064H
-	je	SHORT $L59727
-	jmp	$L60120
-$L59727:
+	mov	dl, BYTE PTR $L60795[eax]
+	jmp	DWORD PTR $L60796[edx*4]
+$L60792:
+	cmp	DWORD PTR -8172+[ebp], 2050		; 00000802H
+	ja	SHORT $L60793
+	cmp	DWORD PTR -8172+[ebp], 2050		; 00000802H
+	je	$L60121
+	cmp	DWORD PTR -8172+[ebp], 274		; 00000112H
+	je	SHORT $L59731
+	cmp	DWORD PTR -8172+[ebp], 2049		; 00000801H
+	je	$L60110
+	jmp	$L60122
+$L60793:
+	cmp	DWORD PTR -8172+[ebp], 32868		; 00008064H
+	je	SHORT $L59728
+	jmp	$L60122
+$L59728:
 
-; 671  :       //entry for systray notifications
-; 672  :       case zWM_NOTIFYICON:
-; 673  :          if (lParam == WM_RBUTTONDOWN )
+; 674  :       //entry for systray notifications
+; 675  :       case zWM_NOTIFYICON:
+; 676  :          if (lParam == WM_RBUTTONDOWN )
 
 	cmp	DWORD PTR _lParam$[ebp], 516		; 00000204H
-	jne	SHORT $L59728
+	jne	SHORT $L59729
 
-; 675  :             POINT point;
-; 676  : 
-; 677  :             GetCursorPos( &point );
+; 678  :             POINT point;
+; 679  : 
+; 680  :             GetCursorPos( &point );
 
-	lea	ecx, DWORD PTR _point$59729[ebp]
+	lea	ecx, DWORD PTR _point$59730[ebp]
 	push	ecx
 	call	DWORD PTR __imp__GetCursorPos@4
 
-; 678  :             HandlePopupMenu( hWnd, point );
+; 681  :             HandlePopupMenu( hWnd, point );
 
-	mov	edx, DWORD PTR _point$59729[ebp+4]
+	mov	edx, DWORD PTR _point$59730[ebp+4]
 	push	edx
-	mov	eax, DWORD PTR _point$59729[ebp]
+	mov	eax, DWORD PTR _point$59730[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _hWnd$[ebp]
 	push	ecx
 	call	_HandlePopupMenu@12
-$L59728:
+$L59729:
 
-; 680  : 
-; 681  :          break;
+; 683  : 
+; 684  :          break;
 
-	jmp	$L59724
-$L59730:
+	jmp	$L59725
+$L59731:
 
-; 682  : 
-; 683  :       case WM_SYSCOMMAND:
-; 684  :          //if ( (wParam & 0xFFF0) == SC_MINIMIZE )
-; 685  :          //   return( 0 );
-; 686  : 
-; 687  :          return( DefWindowProc( hWnd, uMsg, wParam, lParam ) );
+; 685  : 
+; 686  :       case WM_SYSCOMMAND:
+; 687  :          //if ( (wParam & 0xFFF0) == SC_MINIMIZE )
+; 688  :          //   return( 0 );
+; 689  : 
+; 690  :          return( DefWindowProc( hWnd, uMsg, wParam, lParam ) );
 
 	mov	edx, DWORD PTR _lParam$[ebp]
 	push	edx
@@ -2483,12 +2501,12 @@ $L59730:
 	mov	edx, DWORD PTR _hWnd$[ebp]
 	push	edx
 	call	DWORD PTR __imp__DefWindowProcA@16
-	jmp	$L59721
-$L59731:
+	jmp	$L59722
+$L59732:
 
-; 691  :          UINT i;
-; 692  : 
-; 693  :          GetClientRect( hWnd, &rect );
+; 694  :          UINT i;
+; 695  : 
+; 696  :          GetClientRect( hWnd, &rect );
 
 	lea	eax, DWORD PTR _rect$[ebp]
 	push	eax
@@ -2496,22 +2514,22 @@ $L59731:
 	push	ecx
 	call	DWORD PTR __imp__GetClientRect@8
 
-; 694  : 
-; 695  :          for ( i = 0; i < g_nTraceWindowCnt; i++ )
+; 697  : 
+; 698  :          for ( i = 0; i < g_nTraceWindowCnt; i++ )
 
-	mov	DWORD PTR _i$59732[ebp], 0
-	jmp	SHORT $L59733
-$L59734:
-	mov	edx, DWORD PTR _i$59732[ebp]
+	mov	DWORD PTR _i$59733[ebp], 0
+	jmp	SHORT $L59734
+$L59735:
+	mov	edx, DWORD PTR _i$59733[ebp]
 	add	edx, 1
-	mov	DWORD PTR _i$59732[ebp], edx
-$L59733:
-	mov	eax, DWORD PTR _i$59732[ebp]
+	mov	DWORD PTR _i$59733[ebp], edx
+$L59734:
+	mov	eax, DWORD PTR _i$59733[ebp]
 	cmp	eax, DWORD PTR _g_nTraceWindowCnt
-	jae	SHORT $L59735
+	jae	SHORT $L59736
 
-; 696  :             MoveWindow( g_hwndTraceWindow[ i ], rect.left, rect.top,
-; 697  :                         rect.right - rect.left, rect.bottom - rect.top, TRUE );
+; 699  :             MoveWindow( g_hwndTraceWindow[ i ], rect.left, rect.top,
+; 700  :                         rect.right - rect.left, rect.bottom - rect.top, TRUE );
 
 	push	1
 	mov	ecx, DWORD PTR _rect$[ebp+12]
@@ -2524,56 +2542,56 @@ $L59733:
 	push	eax
 	mov	ecx, DWORD PTR _rect$[ebp]
 	push	ecx
-	mov	edx, DWORD PTR _i$59732[ebp]
+	mov	edx, DWORD PTR _i$59733[ebp]
 	mov	eax, DWORD PTR _g_hwndTraceWindow[edx*4]
 	push	eax
 	call	DWORD PTR __imp__MoveWindow@24
-	jmp	SHORT $L59734
-$L59735:
-
-; 698  :          break;
-
-	jmp	$L59724
+	jmp	SHORT $L59735
 $L59736:
 
-; 703  :          WORD wCommand;
-; 704  : #ifdef __WIN32__
-; 705  :          wCommand = LOWORD( wParam ); // command identifier
+; 701  :          break;
+
+	jmp	$L59725
+$L59737:
+
+; 706  :          WORD wCommand;
+; 707  : #ifdef __WIN32__
+; 708  :          wCommand = LOWORD( wParam ); // command identifier
 
 	mov	cx, WORD PTR _wParam$[ebp]
-	mov	WORD PTR _wCommand$59737[ebp], cx
+	mov	WORD PTR _wCommand$59738[ebp], cx
 
-; 706  : #else
-; 707  :          wCommand = wParam;         // command identifier
-; 708  : #endif
-; 709  : //       TraceLineI( "OE WM_COMMAND wCommand: ", wCommand );
-; 710  :          if ( wCommand == IDM_SHOWTRACE )
+; 709  : #else
+; 710  :          wCommand = wParam;         // command identifier
+; 711  : #endif
+; 712  : //       TraceLineI( "OE WM_COMMAND wCommand: ", wCommand );
+; 713  :          if ( wCommand == IDM_SHOWTRACE )
 
-	mov	edx, DWORD PTR _wCommand$59737[ebp]
+	mov	edx, DWORD PTR _wCommand$59738[ebp]
 	and	edx, 65535				; 0000ffffH
 	cmp	edx, 321				; 00000141H
-	jne	SHORT $L59739
+	jne	SHORT $L59740
 
-; 712  :             ShowWindow( g_hWndMainFrame, SW_RESTORE );
+; 715  :             ShowWindow( g_hWndMainFrame, SW_RESTORE );
 
 	push	9
 	mov	eax, DWORD PTR _g_hWndMainFrame
 	push	eax
 	call	DWORD PTR __imp__ShowWindow@8
 
-; 714  :          else
+; 717  :          else
 
-	jmp	$L60024
-$L59739:
+	jmp	$L60026
+$L59740:
 
-; 715  :          if ( wCommand == IDM_LOGON )
+; 718  :          if ( wCommand == IDM_LOGON )
 
-	mov	ecx, DWORD PTR _wCommand$59737[ebp]
+	mov	ecx, DWORD PTR _wCommand$59738[ebp]
 	and	ecx, 65535				; 0000ffffH
 	cmp	ecx, 111				; 0000006fH
-	jne	SHORT $L59741
+	jne	SHORT $L59742
 
-; 717  :             DialogBox( hInst, MAKEINTRESOURCE( IDD_LOGON ), hWnd, fpLogon );
+; 720  :             DialogBox( hInst, MAKEINTRESOURCE( IDD_LOGON ), hWnd, fpLogon );
 
 	push	0
 	mov	edx, DWORD PTR _fpLogon
@@ -2585,20 +2603,20 @@ $L59739:
 	push	ecx
 	call	DWORD PTR __imp__DialogBoxParamA@20
 
-; 719  :          else
+; 722  :          else
 
-	jmp	$L60024
-$L59741:
+	jmp	$L60026
+$L59742:
 
-; 720  :          if ( wCommand == IDM_LOGTRACE )
+; 723  :          if ( wCommand == IDM_LOGTRACE )
 
-	mov	edx, DWORD PTR _wCommand$59737[ebp]
+	mov	edx, DWORD PTR _wCommand$59738[ebp]
 	and	edx, 65535				; 0000ffffH
 	cmp	edx, 121				; 00000079H
-	jne	SHORT $L59746
+	jne	SHORT $L59747
 
-; 722  :             DialogBox( hInst, MAKEINTRESOURCE( IDD_LOGTRACE ),
-; 723  :                        hWnd, fpLogTrace );
+; 725  :             DialogBox( hInst, MAKEINTRESOURCE( IDD_LOGTRACE ),
+; 726  :                        hWnd, fpLogTrace );
 
 	push	0
 	mov	eax, DWORD PTR _fpLogTrace
@@ -2610,20 +2628,20 @@ $L59741:
 	push	edx
 	call	DWORD PTR __imp__DialogBoxParamA@20
 
-; 725  :          else
+; 728  :          else
 
-	jmp	$L60024
-$L59746:
+	jmp	$L60026
+$L59747:
 
-; 726  :          if ( wCommand == IDM_SHOWDLL )
+; 729  :          if ( wCommand == IDM_SHOWDLL )
 
-	mov	eax, DWORD PTR _wCommand$59737[ebp]
+	mov	eax, DWORD PTR _wCommand$59738[ebp]
 	and	eax, 65535				; 0000ffffH
 	cmp	eax, 114				; 00000072H
-	jne	SHORT $L59751
+	jne	SHORT $L59752
 
-; 728  :             DialogBox( hInst, MAKEINTRESOURCE( IDD_SHOWDLL ),
-; 729  :                        hWnd, fpShowDLL );
+; 731  :             DialogBox( hInst, MAKEINTRESOURCE( IDD_SHOWDLL ),
+; 732  :                        hWnd, fpShowDLL );
 
 	push	0
 	mov	ecx, DWORD PTR _fpShowDLL
@@ -2635,20 +2653,20 @@ $L59746:
 	push	eax
 	call	DWORD PTR __imp__DialogBoxParamA@20
 
-; 731  :          else
+; 734  :          else
 
-	jmp	$L60024
-$L59751:
+	jmp	$L60026
+$L59752:
 
-; 732  :          if ( wCommand == IDM_LINELIMIT )
+; 735  :          if ( wCommand == IDM_LINELIMIT )
 
-	mov	ecx, DWORD PTR _wCommand$59737[ebp]
+	mov	ecx, DWORD PTR _wCommand$59738[ebp]
 	and	ecx, 65535				; 0000ffffH
 	cmp	ecx, 123				; 0000007bH
-	jne	SHORT $L59756
+	jne	SHORT $L59757
 
-; 734  :             DialogBox( hInst, MAKEINTRESOURCE( IDD_LINELIMIT ),
-; 735  :                        hWnd, fpLineLimit );
+; 737  :             DialogBox( hInst, MAKEINTRESOURCE( IDD_LINELIMIT ),
+; 738  :                        hWnd, fpLineLimit );
 
 	push	0
 	mov	edx, DWORD PTR _fpLineLimit
@@ -2660,12 +2678,12 @@ $L59751:
 	push	ecx
 	call	DWORD PTR __imp__DialogBoxParamA@20
 
-; 736  :             if ( g_uTraceLineLimit == 0 )
+; 739  :             if ( g_uTraceLineLimit == 0 )
 
 	cmp	DWORD PTR _g_uTraceLineLimit, 0
-	jne	SHORT $L59760
+	jne	SHORT $L59761
 
-; 738  :                SendMessage( g_hWndLB, LB_RESETCONTENT, 0, 0L );
+; 741  :                SendMessage( g_hWndLB, LB_RESETCONTENT, 0, 0L );
 
 	push	0
 	push	0
@@ -2674,7 +2692,7 @@ $L59751:
 	push	edx
 	call	DWORD PTR __imp__SendMessageA@16
 
-; 739  :                AnchorBlock->bTraceCnt = FALSE;
+; 742  :                AnchorBlock->bTraceCnt = FALSE;
 
 	mov	eax, DWORD PTR _AnchorBlock
 	mov	ecx, DWORD PTR [eax+1495]
@@ -2682,52 +2700,52 @@ $L59751:
 	mov	edx, DWORD PTR _AnchorBlock
 	mov	DWORD PTR [edx+1495], ecx
 
-; 741  :             else
+; 744  :             else
 
-	jmp	SHORT $L59761
-$L59760:
+	jmp	SHORT $L59762
+$L59761:
 
-; 742  :                AnchorBlock->bTraceCnt = TRUE;
+; 745  :                AnchorBlock->bTraceCnt = TRUE;
 
 	mov	eax, DWORD PTR _AnchorBlock
 	mov	ecx, DWORD PTR [eax+1495]
 	or	ecx, 2
 	mov	edx, DWORD PTR _AnchorBlock
 	mov	DWORD PTR [edx+1495], ecx
-$L59761:
+$L59762:
 
-; 744  :          else
+; 747  :          else
 
-	jmp	$L60024
-$L59756:
+	jmp	$L60026
+$L59757:
 
-; 745  :          if ( wCommand == IDM_FINDSTRING ||
-; 746  :               wCommand == IDM_FINDNEXT ||
-; 747  :               wCommand == IDM_FINDPREV )
+; 748  :          if ( wCommand == IDM_FINDSTRING ||
+; 749  :               wCommand == IDM_FINDNEXT ||
+; 750  :               wCommand == IDM_FINDPREV )
 
-	mov	eax, DWORD PTR _wCommand$59737[ebp]
+	mov	eax, DWORD PTR _wCommand$59738[ebp]
 	and	eax, 65535				; 0000ffffH
 	cmp	eax, 150				; 00000096H
-	je	SHORT $L59764
-	mov	ecx, DWORD PTR _wCommand$59737[ebp]
+	je	SHORT $L59765
+	mov	ecx, DWORD PTR _wCommand$59738[ebp]
 	and	ecx, 65535				; 0000ffffH
 	cmp	ecx, 151				; 00000097H
-	je	SHORT $L59764
-	mov	edx, DWORD PTR _wCommand$59737[ebp]
+	je	SHORT $L59765
+	mov	edx, DWORD PTR _wCommand$59738[ebp]
 	and	edx, 65535				; 0000ffffH
 	cmp	edx, 152				; 00000098H
-	jne	$L59763
-$L59764:
+	jne	$L59764
+$L59765:
 
-; 749  :             if ( wCommand == IDM_FINDSTRING )
+; 752  :             if ( wCommand == IDM_FINDSTRING )
 
-	mov	eax, DWORD PTR _wCommand$59737[ebp]
+	mov	eax, DWORD PTR _wCommand$59738[ebp]
 	and	eax, 65535				; 0000ffffH
 	cmp	eax, 150				; 00000096H
-	jne	SHORT $L59769
+	jne	SHORT $L59770
 
-; 751  :                if ( DialogBox( hInst, MAKEINTRESOURCE( IDD_FINDSTRING ),
-; 752  :                                hWnd, fpFindString ) != IDOK )
+; 754  :                if ( DialogBox( hInst, MAKEINTRESOURCE( IDD_FINDSTRING ),
+; 755  :                                hWnd, fpFindString ) != IDOK )
 
 	push	0
 	mov	ecx, DWORD PTR _fpFindString
@@ -2739,278 +2757,278 @@ $L59764:
 	push	eax
 	call	DWORD PTR __imp__DialogBoxParamA@20
 	cmp	eax, 1
-	je	SHORT $L59769
+	je	SHORT $L59770
 
-; 754  :                   break;
+; 757  :                   break;
 
-	jmp	$L59724
-$L59769:
+	jmp	$L59725
+$L59770:
 
-; 757  : 
-; 758  :             if ( g_szFindString[ 0 ] == 0 )
+; 760  : 
+; 761  :             if ( g_szFindString[ 0 ] == 0 )
 
 	movsx	ecx, BYTE PTR _g_szFindString
 	test	ecx, ecx
-	jne	SHORT $L59770
+	jne	SHORT $L59771
 
-; 759  :                break;
+; 762  :                break;
 
-	jmp	$L59724
-$L59770:
+	jmp	$L59725
+$L59771:
 
-; 762  :                char szFindString[ 512 ];
-; 763  :                char szText[ 512 ];
-; 764  :                int  nFound = 0;
+; 765  :                char szFindString[ 512 ];
+; 766  :                char szText[ 512 ];
+; 767  :                int  nFound = 0;
 
-	mov	DWORD PTR _nFound$59774[ebp], 0
+	mov	DWORD PTR _nFound$59775[ebp], 0
 
-; 765  :                HWND hwndTrace = g_hwndTraceWindow[ g_nTraceWindowDisplayed ];
+; 768  :                HWND hwndTrace = g_hwndTraceWindow[ g_nTraceWindowDisplayed ];
 
 	mov	edx, DWORD PTR _g_nTraceWindowDisplayed
 	mov	eax, DWORD PTR _g_hwndTraceWindow[edx*4]
-	mov	DWORD PTR _hwndTrace$59775[ebp], eax
+	mov	DWORD PTR _hwndTrace$59776[ebp], eax
 
-; 766  :                WORD wItemCnt = (WORD) SendMessage( hwndTrace, LB_GETCOUNT, 0, 0 );
+; 769  :                WORD wItemCnt = (WORD) SendMessage( hwndTrace, LB_GETCOUNT, 0, 0 );
 
 	push	0
 	push	0
 	push	395					; 0000018bH
-	mov	ecx, DWORD PTR _hwndTrace$59775[ebp]
+	mov	ecx, DWORD PTR _hwndTrace$59776[ebp]
 	push	ecx
 	call	DWORD PTR __imp__SendMessageA@16
-	mov	WORD PTR _wItemCnt$59776[ebp], ax
+	mov	WORD PTR _wItemCnt$59777[ebp], ax
 
-; 767  :                WORD wCurSel = (WORD) SendMessage( hwndTrace, LB_GETCURSEL, 0, 0L );
+; 770  :                WORD wCurSel = (WORD) SendMessage( hwndTrace, LB_GETCURSEL, 0, 0L );
 
 	push	0
 	push	0
 	push	392					; 00000188H
-	mov	edx, DWORD PTR _hwndTrace$59775[ebp]
+	mov	edx, DWORD PTR _hwndTrace$59776[ebp]
 	push	edx
 	call	DWORD PTR __imp__SendMessageA@16
-	mov	WORD PTR _wCurSel$59778[ebp], ax
+	mov	WORD PTR _wCurSel$59779[ebp], ax
 
-; 768  :                WORD k;
-; 769  : 
-; 770  :                zstrcpy( szFindString, g_szFindString );
+; 771  :                WORD k;
+; 772  : 
+; 773  :                zstrcpy( szFindString, g_szFindString );
 
 	push	OFFSET FLAT:_g_szFindString
-	lea	eax, DWORD PTR _szFindString$59772[ebp]
+	lea	eax, DWORD PTR _szFindString$59773[ebp]
 	push	eax
 	call	_strcpy
 	add	esp, 8
 
-; 771  :                SysTranslateString( szFindString, 'L' );
+; 774  :                SysTranslateString( szFindString, 'L' );
 
 	push	76					; 0000004cH
-	lea	ecx, DWORD PTR _szFindString$59772[ebp]
+	lea	ecx, DWORD PTR _szFindString$59773[ebp]
 	push	ecx
 	call	_SysTranslateString@8
 
-; 772  :                if ( wCommand == IDM_FINDPREV )
+; 775  :                if ( wCommand == IDM_FINDPREV )
 
-	mov	edx, DWORD PTR _wCommand$59737[ebp]
+	mov	edx, DWORD PTR _wCommand$59738[ebp]
 	and	edx, 65535				; 0000ffffH
 	cmp	edx, 152				; 00000098H
-	jne	SHORT $L59781
+	jne	SHORT $L59782
 
-; 774  :                   if ( wCurSel <= 0 )
+; 777  :                   if ( wCurSel <= 0 )
 
-	mov	eax, DWORD PTR _wCurSel$59778[ebp]
+	mov	eax, DWORD PTR _wCurSel$59779[ebp]
 	and	eax, 65535				; 0000ffffH
 	test	eax, eax
-	jg	SHORT $L59782
+	jg	SHORT $L59783
 
-; 776  :                      wCurSel = wItemCnt;
+; 779  :                      wCurSel = wItemCnt;
 
-	mov	cx, WORD PTR _wItemCnt$59776[ebp]
-	mov	WORD PTR _wCurSel$59778[ebp], cx
+	mov	cx, WORD PTR _wItemCnt$59777[ebp]
+	mov	WORD PTR _wCurSel$59779[ebp], cx
 
-; 777  :                      k = wItemCnt - 1;
+; 780  :                      k = wItemCnt - 1;
 
-	mov	edx, DWORD PTR _wItemCnt$59776[ebp]
+	mov	edx, DWORD PTR _wItemCnt$59777[ebp]
 	and	edx, 65535				; 0000ffffH
 	sub	edx, 1
-	mov	WORD PTR _k$59780[ebp], dx
+	mov	WORD PTR _k$59781[ebp], dx
 
-; 779  :                   else
+; 782  :                   else
 
-	jmp	SHORT $L59783
-$L59782:
-
-; 781  :                      k = wCurSel - 1;
-
-	mov	eax, DWORD PTR _wCurSel$59778[ebp]
-	and	eax, 65535				; 0000ffffH
-	sub	eax, 1
-	mov	WORD PTR _k$59780[ebp], ax
+	jmp	SHORT $L59784
 $L59783:
 
-; 784  :                else
+; 784  :                      k = wCurSel - 1;
 
-	jmp	SHORT $L59789
-$L59781:
+	mov	eax, DWORD PTR _wCurSel$59779[ebp]
+	and	eax, 65535				; 0000ffffH
+	sub	eax, 1
+	mov	WORD PTR _k$59781[ebp], ax
+$L59784:
 
-; 786  :                   if ( wCurSel > wItemCnt - 1 || wCurSel == (WORD) -1 )
+; 787  :                else
 
-	mov	ecx, DWORD PTR _wCurSel$59778[ebp]
+	jmp	SHORT $L59790
+$L59782:
+
+; 789  :                   if ( wCurSel > wItemCnt - 1 || wCurSel == (WORD) -1 )
+
+	mov	ecx, DWORD PTR _wCurSel$59779[ebp]
 	and	ecx, 65535				; 0000ffffH
-	mov	edx, DWORD PTR _wItemCnt$59776[ebp]
+	mov	edx, DWORD PTR _wItemCnt$59777[ebp]
 	and	edx, 65535				; 0000ffffH
 	sub	edx, 1
 	cmp	ecx, edx
-	jg	SHORT $L59787
-	mov	eax, DWORD PTR _wCurSel$59778[ebp]
+	jg	SHORT $L59788
+	mov	eax, DWORD PTR _wCurSel$59779[ebp]
 	and	eax, 65535				; 0000ffffH
 	cmp	eax, 65535				; 0000ffffH
-	jne	SHORT $L59786
+	jne	SHORT $L59787
+$L59788:
+
+; 791  :                      wCurSel = (WORD) -1;
+
+	mov	WORD PTR _wCurSel$59779[ebp], 65535	; 0000ffffH
+
+; 792  :                      k = 0;
+
+	mov	WORD PTR _k$59781[ebp], 0
+
+; 794  :                   else
+
+	jmp	SHORT $L59790
 $L59787:
 
-; 788  :                      wCurSel = (WORD) -1;
+; 796  :                      k = wCurSel + 1;
 
-	mov	WORD PTR _wCurSel$59778[ebp], 65535	; 0000ffffH
-
-; 789  :                      k = 0;
-
-	mov	WORD PTR _k$59780[ebp], 0
-
-; 791  :                   else
-
-	jmp	SHORT $L59789
-$L59786:
-
-; 793  :                      k = wCurSel + 1;
-
-	mov	ecx, DWORD PTR _wCurSel$59778[ebp]
+	mov	ecx, DWORD PTR _wCurSel$59779[ebp]
 	and	ecx, 65535				; 0000ffffH
 	add	ecx, 1
-	mov	WORD PTR _k$59780[ebp], cx
-$L59789:
+	mov	WORD PTR _k$59781[ebp], cx
+$L59790:
 
-; 796  : 
-; 797  :                while ( wItemCnt )
+; 799  : 
+; 800  :                while ( wItemCnt )
 
-	mov	edx, DWORD PTR _wItemCnt$59776[ebp]
+	mov	edx, DWORD PTR _wItemCnt$59777[ebp]
 	and	edx, 65535				; 0000ffffH
 	test	edx, edx
-	je	$L59792
+	je	$L59793
 
-; 799  :                   if ( k < wItemCnt )
+; 802  :                   if ( k < wItemCnt )
 
-	mov	eax, DWORD PTR _k$59780[ebp]
+	mov	eax, DWORD PTR _k$59781[ebp]
 	and	eax, 65535				; 0000ffffH
-	mov	ecx, DWORD PTR _wItemCnt$59776[ebp]
+	mov	ecx, DWORD PTR _wItemCnt$59777[ebp]
 	and	ecx, 65535				; 0000ffffH
 	cmp	eax, ecx
-	jge	$L59795
+	jge	$L59796
 
-; 801  :                      SendMessage( hwndTrace, LB_GETTEXT, k, (LPARAM) szText );
+; 804  :                      SendMessage( hwndTrace, LB_GETTEXT, k, (LPARAM) szText );
 
-	lea	edx, DWORD PTR _szText$59773[ebp]
+	lea	edx, DWORD PTR _szText$59774[ebp]
 	push	edx
-	mov	eax, DWORD PTR _k$59780[ebp]
+	mov	eax, DWORD PTR _k$59781[ebp]
 	and	eax, 65535				; 0000ffffH
 	push	eax
 	push	393					; 00000189H
-	mov	ecx, DWORD PTR _hwndTrace$59775[ebp]
+	mov	ecx, DWORD PTR _hwndTrace$59776[ebp]
 	push	ecx
 	call	DWORD PTR __imp__SendMessageA@16
 
-; 802  :                      SysTranslateString( szText, 'L' );
+; 805  :                      SysTranslateString( szText, 'L' );
 
 	push	76					; 0000004cH
-	lea	edx, DWORD PTR _szText$59773[ebp]
+	lea	edx, DWORD PTR _szText$59774[ebp]
 	push	edx
 	call	_SysTranslateString@8
 
-; 803  :                      if ( zstrstr( szText, szFindString ) )
+; 806  :                      if ( zstrstr( szText, szFindString ) )
 
-	lea	eax, DWORD PTR _szFindString$59772[ebp]
+	lea	eax, DWORD PTR _szFindString$59773[ebp]
 	push	eax
-	lea	ecx, DWORD PTR _szText$59773[ebp]
+	lea	ecx, DWORD PTR _szText$59774[ebp]
 	push	ecx
 	call	_strstr
 	add	esp, 8
 	test	eax, eax
-	je	SHORT $L59795
+	je	SHORT $L59796
 
-; 805  :                         SendMessage( hwndTrace, LB_SETCURSEL, k, 0L );
+; 808  :                         SendMessage( hwndTrace, LB_SETCURSEL, k, 0L );
 
 	push	0
-	mov	edx, DWORD PTR _k$59780[ebp]
+	mov	edx, DWORD PTR _k$59781[ebp]
 	and	edx, 65535				; 0000ffffH
 	push	edx
 	push	390					; 00000186H
-	mov	eax, DWORD PTR _hwndTrace$59775[ebp]
+	mov	eax, DWORD PTR _hwndTrace$59776[ebp]
 	push	eax
 	call	DWORD PTR __imp__SendMessageA@16
 
-; 806  :                         SetFocus( hwndTrace );
+; 809  :                         SetFocus( hwndTrace );
 
-	mov	ecx, DWORD PTR _hwndTrace$59775[ebp]
+	mov	ecx, DWORD PTR _hwndTrace$59776[ebp]
 	push	ecx
 	call	DWORD PTR __imp__SetFocus@4
 
-; 807  :                         nFound++;
+; 810  :                         nFound++;
 
-	mov	edx, DWORD PTR _nFound$59774[ebp]
+	mov	edx, DWORD PTR _nFound$59775[ebp]
 	add	edx, 1
-	mov	DWORD PTR _nFound$59774[ebp], edx
+	mov	DWORD PTR _nFound$59775[ebp], edx
 
-; 808  :                         break;
+; 811  :                         break;
 
-	jmp	$L59792
-$L59795:
-
-; 811  : 
-; 812  :                   if ( k == wCurSel )
-
-	mov	eax, DWORD PTR _k$59780[ebp]
-	and	eax, 65535				; 0000ffffH
-	mov	ecx, DWORD PTR _wCurSel$59778[ebp]
-	and	ecx, 65535				; 0000ffffH
-	cmp	eax, ecx
-	jne	SHORT $L59796
-
-; 813  :                      break;
-
-	jmp	$L59792
+	jmp	$L59793
 $L59796:
 
-; 814  :                   else
-; 815  :                   if ( wCommand == IDM_FINDPREV )
+; 814  : 
+; 815  :                   if ( k == wCurSel )
 
-	mov	edx, DWORD PTR _wCommand$59737[ebp]
+	mov	eax, DWORD PTR _k$59781[ebp]
+	and	eax, 65535				; 0000ffffH
+	mov	ecx, DWORD PTR _wCurSel$59779[ebp]
+	and	ecx, 65535				; 0000ffffH
+	cmp	eax, ecx
+	jne	SHORT $L59797
+
+; 816  :                      break;
+
+	jmp	$L59793
+$L59797:
+
+; 817  :                   else
+; 818  :                   if ( wCommand == IDM_FINDPREV )
+
+	mov	edx, DWORD PTR _wCommand$59738[ebp]
 	and	edx, 65535				; 0000ffffH
 	cmp	edx, 152				; 00000098H
-	jne	$L59798
+	jne	$L59799
 
-; 817  :                      if ( k <= 0 )
+; 820  :                      if ( k <= 0 )
 
-	mov	eax, DWORD PTR _k$59780[ebp]
+	mov	eax, DWORD PTR _k$59781[ebp]
 	and	eax, 65535				; 0000ffffH
 	test	eax, eax
-	jg	SHORT $L59799
+	jg	SHORT $L59800
 
-; 819  :                         if ( wCurSel == wItemCnt )
+; 822  :                         if ( wCurSel == wItemCnt )
 
-	mov	ecx, DWORD PTR _wCurSel$59778[ebp]
+	mov	ecx, DWORD PTR _wCurSel$59779[ebp]
 	and	ecx, 65535				; 0000ffffH
-	mov	edx, DWORD PTR _wItemCnt$59776[ebp]
+	mov	edx, DWORD PTR _wItemCnt$59777[ebp]
 	and	edx, 65535				; 0000ffffH
 	cmp	ecx, edx
-	jne	SHORT $L59800
+	jne	SHORT $L59801
 
-; 820  :                            break;       // no need to wrap
+; 823  :                            break;       // no need to wrap
 
-	jmp	$L59792
-$L59800:
+	jmp	$L59793
+$L59801:
 
-; 821  :                         else
-; 822  :                         if ( MessageBox( hWnd, "Wrap to continue search?",
-; 823  :                                          "Zeidon Object Services",
-; 824  :                                          MB_ICONQUESTION |
-; 825  :                                             MB_YESNO | MB_APPLMODAL ) == IDNO )
+; 824  :                         else
+; 825  :                         if ( MessageBox( hWnd, "Wrap to continue search?",
+; 826  :                                          "Zeidon Object Services",
+; 827  :                                          MB_ICONQUESTION |
+; 828  :                                             MB_YESNO | MB_APPLMODAL ) == IDNO )
 
 	push	36					; 00000024H
 	push	OFFSET FLAT:??_C@_0BH@MPNN@Zeidon?5Object?5Services?$AA@ ; `string'
@@ -3019,75 +3037,75 @@ $L59800:
 	push	eax
 	call	DWORD PTR __imp__MessageBoxA@16
 	cmp	eax, 7
-	jne	SHORT $L59802
+	jne	SHORT $L59803
 
-; 827  :                            SetFocus( hwndTrace );
+; 830  :                            SetFocus( hwndTrace );
 
-	mov	ecx, DWORD PTR _hwndTrace$59775[ebp]
+	mov	ecx, DWORD PTR _hwndTrace$59776[ebp]
 	push	ecx
 	call	DWORD PTR __imp__SetFocus@4
 
-; 828  :                            nFound = 1;  // pretend we found one
+; 831  :                            nFound = 1;  // pretend we found one
 
-	mov	DWORD PTR _nFound$59774[ebp], 1
+	mov	DWORD PTR _nFound$59775[ebp], 1
 
-; 829  :                            break;       // don't keep looking
+; 832  :                            break;       // don't keep looking
 
-	jmp	$L59792
-$L59802:
+	jmp	$L59793
+$L59803:
 
-; 831  : 
-; 832  :                         k = wItemCnt - 1;
+; 834  : 
+; 835  :                         k = wItemCnt - 1;
 
-	mov	edx, DWORD PTR _wItemCnt$59776[ebp]
+	mov	edx, DWORD PTR _wItemCnt$59777[ebp]
 	and	edx, 65535				; 0000ffffH
 	sub	edx, 1
-	mov	WORD PTR _k$59780[ebp], dx
+	mov	WORD PTR _k$59781[ebp], dx
 
-; 834  :                      else
+; 837  :                      else
 
-	jmp	SHORT $L59804
+	jmp	SHORT $L59805
+$L59800:
+
+; 839  :                         k--;
+
+	mov	ax, WORD PTR _k$59781[ebp]
+	sub	ax, 1
+	mov	WORD PTR _k$59781[ebp], ax
+$L59805:
+
+; 842  :                   else
+
+	jmp	$L59811
 $L59799:
 
-; 836  :                         k--;
+; 844  :                      if ( k >= wItemCnt - 1 )
 
-	mov	ax, WORD PTR _k$59780[ebp]
-	sub	ax, 1
-	mov	WORD PTR _k$59780[ebp], ax
-$L59804:
-
-; 839  :                   else
-
-	jmp	$L59810
-$L59798:
-
-; 841  :                      if ( k >= wItemCnt - 1 )
-
-	mov	ecx, DWORD PTR _k$59780[ebp]
+	mov	ecx, DWORD PTR _k$59781[ebp]
 	and	ecx, 65535				; 0000ffffH
-	mov	edx, DWORD PTR _wItemCnt$59776[ebp]
+	mov	edx, DWORD PTR _wItemCnt$59777[ebp]
 	and	edx, 65535				; 0000ffffH
 	sub	edx, 1
 	cmp	ecx, edx
-	jl	SHORT $L59806
+	jl	SHORT $L59807
 
-; 843  :                         if ( wCurSel == -1 )
+; 846  :                         if ( wCurSel == -1 )
 
-	mov	eax, DWORD PTR _wCurSel$59778[ebp]
+	mov	eax, DWORD PTR _wCurSel$59779[ebp]
 	and	eax, 65535				; 0000ffffH
 	cmp	eax, -1
-	jne	SHORT $L59807
+	jne	SHORT $L59808
 
-; 844  :                            break;       // no need to wrap
+; 847  :                            break;       // no need to wrap
 
-	jmp	SHORT $L59792
-$L59807:
+	jmp	SHORT $L59793
+$L59808:
 
-; 845  :                         else
-; 846  :                         if ( MessageBox( hWnd, "Wrap to continue search?",
-; 847  :                                          "Zeidon Object Services",
-; 848  :                                          MB_ICONQUESTION |
-; 849  :                                             MB_YESNO | MB_APPLMODAL ) == IDNO )
+; 848  :                         else
+; 849  :                         if ( MessageBox( hWnd, "Wrap to continue search?",
+; 850  :                                          "Zeidon Object Services",
+; 851  :                                          MB_ICONQUESTION |
+; 852  :                                             MB_YESNO | MB_APPLMODAL ) == IDNO )
 
 	push	36					; 00000024H
 	push	OFFSET FLAT:??_C@_0BH@MPNN@Zeidon?5Object?5Services?$AA@ ; `string'
@@ -3096,98 +3114,98 @@ $L59807:
 	push	ecx
 	call	DWORD PTR __imp__MessageBoxA@16
 	cmp	eax, 7
-	jne	SHORT $L59809
+	jne	SHORT $L59810
 
-; 851  :                            SetFocus( hwndTrace );
+; 854  :                            SetFocus( hwndTrace );
 
-	mov	edx, DWORD PTR _hwndTrace$59775[ebp]
+	mov	edx, DWORD PTR _hwndTrace$59776[ebp]
 	push	edx
 	call	DWORD PTR __imp__SetFocus@4
 
-; 852  :                            nFound = 1;  // pretend we found one
+; 855  :                            nFound = 1;  // pretend we found one
 
-	mov	DWORD PTR _nFound$59774[ebp], 1
+	mov	DWORD PTR _nFound$59775[ebp], 1
 
-; 853  :                            break;       // don't keep looking
+; 856  :                            break;       // don't keep looking
 
-	jmp	SHORT $L59792
-$L59809:
-
-; 855  : 
-; 856  :                         k = 0;
-
-	mov	WORD PTR _k$59780[ebp], 0
-
-; 858  :                      else
-
-	jmp	SHORT $L59810
-$L59806:
-
-; 860  :                         k++;
-
-	mov	ax, WORD PTR _k$59780[ebp]
-	add	ax, 1
-	mov	WORD PTR _k$59780[ebp], ax
+	jmp	SHORT $L59793
 $L59810:
 
-; 863  :                }
+; 858  : 
+; 859  :                         k = 0;
 
-	jmp	$L59789
-$L59792:
+	mov	WORD PTR _k$59781[ebp], 0
 
-; 864  : 
-; 865  :                if ( nFound == 0 )
+; 861  :                      else
 
-	cmp	DWORD PTR _nFound$59774[ebp], 0
-	jne	SHORT $L59811
+	jmp	SHORT $L59811
+$L59807:
 
-; 867  :                   zstrcpy( szText, "Search string not found - " );
+; 863  :                         k++;
+
+	mov	ax, WORD PTR _k$59781[ebp]
+	add	ax, 1
+	mov	WORD PTR _k$59781[ebp], ax
+$L59811:
+
+; 866  :                }
+
+	jmp	$L59790
+$L59793:
+
+; 867  : 
+; 868  :                if ( nFound == 0 )
+
+	cmp	DWORD PTR _nFound$59775[ebp], 0
+	jne	SHORT $L59812
+
+; 870  :                   zstrcpy( szText, "Search string not found - " );
 
 	push	OFFSET FLAT:??_C@_0BL@KPKA@Search?5string?5not?5found?5?9?5?$AA@ ; `string'
-	lea	ecx, DWORD PTR _szText$59773[ebp]
+	lea	ecx, DWORD PTR _szText$59774[ebp]
 	push	ecx
 	call	_strcpy
 	add	esp, 8
 
-; 868  :                   zstrcat( szText, g_szFindString );
+; 871  :                   zstrcat( szText, g_szFindString );
 
 	push	OFFSET FLAT:_g_szFindString
-	lea	edx, DWORD PTR _szText$59773[ebp]
+	lea	edx, DWORD PTR _szText$59774[ebp]
 	push	edx
 	call	_strcat
 	add	esp, 8
 
-; 869  :                   MessageBox( hWnd, szText, "Zeidon Object Engine",
-; 870  :                               MB_OK | MB_ICONINFORMATION );
+; 872  :                   MessageBox( hWnd, szText, "Zeidon Object Engine",
+; 873  :                               MB_OK | MB_ICONINFORMATION );
 
 	push	64					; 00000040H
 	push	OFFSET FLAT:??_C@_0BF@INJH@Zeidon?5Object?5Engine?$AA@ ; `string'
-	lea	eax, DWORD PTR _szText$59773[ebp]
+	lea	eax, DWORD PTR _szText$59774[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _hWnd$[ebp]
 	push	ecx
 	call	DWORD PTR __imp__MessageBoxA@16
-$L59811:
+$L59812:
 
-; 874  :          else
+; 877  :          else
 
-	jmp	$L60024
-$L59763:
+	jmp	$L60026
+$L59764:
 
-; 875  :          if ( wCommand == IDM_COPYSTRING || wCommand == IDM_CUTSTRING )
+; 878  :          if ( wCommand == IDM_COPYSTRING || wCommand == IDM_CUTSTRING )
 
-	mov	edx, DWORD PTR _wCommand$59737[ebp]
+	mov	edx, DWORD PTR _wCommand$59738[ebp]
 	and	edx, 65535				; 0000ffffH
 	cmp	edx, 165				; 000000a5H
-	je	SHORT $L59815
-	mov	eax, DWORD PTR _wCommand$59737[ebp]
+	je	SHORT $L59816
+	mov	eax, DWORD PTR _wCommand$59738[ebp]
 	and	eax, 65535				; 0000ffffH
 	cmp	eax, 167				; 000000a7H
-	jne	$L59814
-$L59815:
+	jne	$L59815
+$L59816:
 
-; 877  :             WORD wCurSel = (WORD) SendMessage( g_hwndTraceWindow[ g_nTraceWindowDisplayed ],
-; 878  :                                                LB_GETCURSEL, 0, 0 );
+; 880  :             WORD wCurSel = (WORD) SendMessage( g_hwndTraceWindow[ g_nTraceWindowDisplayed ],
+; 881  :                                                LB_GETCURSEL, 0, 0 );
 
 	push	0
 	push	0
@@ -3196,14 +3214,14 @@ $L59815:
 	mov	edx, DWORD PTR _g_hwndTraceWindow[ecx*4]
 	push	edx
 	call	DWORD PTR __imp__SendMessageA@16
-	mov	WORD PTR _wCurSel$59816[ebp], ax
+	mov	WORD PTR _wCurSel$59817[ebp], ax
 
-; 879  :             zLONG lTextLth =
-; 880  :                 SendMessage( g_hwndTraceWindow[ g_nTraceWindowDisplayed ],
-; 881  :                              LB_GETTEXTLEN, wCurSel, 0L );
+; 882  :             zLONG lTextLth =
+; 883  :                 SendMessage( g_hwndTraceWindow[ g_nTraceWindowDisplayed ],
+; 884  :                              LB_GETTEXTLEN, wCurSel, 0L );
 
 	push	0
-	mov	eax, DWORD PTR _wCurSel$59816[ebp]
+	mov	eax, DWORD PTR _wCurSel$59817[ebp]
 	and	eax, 65535				; 0000ffffH
 	push	eax
 	push	394					; 0000018aH
@@ -3211,18 +3229,18 @@ $L59815:
 	mov	edx, DWORD PTR _g_hwndTraceWindow[ecx*4]
 	push	edx
 	call	DWORD PTR __imp__SendMessageA@16
-	mov	DWORD PTR _lTextLth$59818[ebp], eax
+	mov	DWORD PTR _lTextLth$59819[ebp], eax
 
-; 882  :             if ( lTextLth < sizeof( g_szCopyBuffer ) )
+; 885  :             if ( lTextLth < sizeof( g_szCopyBuffer ) )
 
-	cmp	DWORD PTR _lTextLth$59818[ebp], 512	; 00000200H
-	jae	SHORT $L59819
+	cmp	DWORD PTR _lTextLth$59819[ebp], 512	; 00000200H
+	jae	SHORT $L59820
 
-; 884  :                SendMessage( g_hwndTraceWindow[ g_nTraceWindowDisplayed ],
-; 885  :                             LB_GETTEXT, wCurSel, (LPARAM) g_szCopyBuffer );
+; 887  :                SendMessage( g_hwndTraceWindow[ g_nTraceWindowDisplayed ],
+; 888  :                             LB_GETTEXT, wCurSel, (LPARAM) g_szCopyBuffer );
 
 	push	OFFSET FLAT:_g_szCopyBuffer
-	mov	eax, DWORD PTR _wCurSel$59816[ebp]
+	mov	eax, DWORD PTR _wCurSel$59817[ebp]
 	and	eax, 65535				; 0000ffffH
 	push	eax
 	push	393					; 00000189H
@@ -3231,31 +3249,31 @@ $L59815:
 	push	edx
 	call	DWORD PTR __imp__SendMessageA@16
 
-; 887  :             else
+; 890  :             else
 
-	jmp	SHORT $L59821
-$L59819:
+	jmp	SHORT $L59822
+$L59820:
 
-; 889  :                char *pchMem;
-; 890  : 
-; 891  :                SfAllocTaskMemory( g_vSystemTaskView,
-; 892  :                                   (zCOREMEM) &pchMem, lTextLth + 1 );
+; 892  :                char *pchMem;
+; 893  : 
+; 894  :                SfAllocTaskMemory( g_vSystemTaskView,
+; 895  :                                   (zCOREMEM) &pchMem, lTextLth + 1 );
 
-	mov	eax, DWORD PTR _lTextLth$59818[ebp]
+	mov	eax, DWORD PTR _lTextLth$59819[ebp]
 	add	eax, 1
 	push	eax
-	lea	ecx, DWORD PTR _pchMem$59822[ebp]
+	lea	ecx, DWORD PTR _pchMem$59823[ebp]
 	push	ecx
 	mov	edx, DWORD PTR _g_vSystemTaskView
 	push	edx
 	call	_SfAllocTaskMemory@12
 
-; 893  :                SendMessage( g_hwndTraceWindow[ g_nTraceWindowDisplayed ],
-; 894  :                             LB_GETTEXT, wCurSel, (LPARAM) pchMem );
+; 896  :                SendMessage( g_hwndTraceWindow[ g_nTraceWindowDisplayed ],
+; 897  :                             LB_GETTEXT, wCurSel, (LPARAM) pchMem );
 
-	mov	eax, DWORD PTR _pchMem$59822[ebp]
+	mov	eax, DWORD PTR _pchMem$59823[ebp]
 	push	eax
-	mov	ecx, DWORD PTR _wCurSel$59816[ebp]
+	mov	ecx, DWORD PTR _wCurSel$59817[ebp]
 	and	ecx, 65535				; 0000ffffH
 	push	ecx
 	push	393					; 00000189H
@@ -3264,39 +3282,39 @@ $L59819:
 	push	eax
 	call	DWORD PTR __imp__SendMessageA@16
 
-; 895  :                pchMem[ sizeof( g_szCopyBuffer ) - 1 ] = 0;
+; 898  :                pchMem[ sizeof( g_szCopyBuffer ) - 1 ] = 0;
 
-	mov	ecx, DWORD PTR _pchMem$59822[ebp]
+	mov	ecx, DWORD PTR _pchMem$59823[ebp]
 	mov	BYTE PTR [ecx+511], 0
 
-; 896  :                strcpy( g_szCopyBuffer, pchMem );
+; 899  :                strcpy( g_szCopyBuffer, pchMem );
 
-	mov	edx, DWORD PTR _pchMem$59822[ebp]
+	mov	edx, DWORD PTR _pchMem$59823[ebp]
 	push	edx
 	push	OFFSET FLAT:_g_szCopyBuffer
 	call	_strcpy
 	add	esp, 8
 
-; 897  :                SfFreeTaskMemory( pchMem );
+; 900  :                SfFreeTaskMemory( pchMem );
 
-	mov	eax, DWORD PTR _pchMem$59822[ebp]
+	mov	eax, DWORD PTR _pchMem$59823[ebp]
 	push	eax
 	call	_SfFreeTaskMemory@4
-$L59821:
+$L59822:
 
-; 899  : 
-; 900  :             if ( wCommand == IDM_CUTSTRING )
+; 902  : 
+; 903  :             if ( wCommand == IDM_CUTSTRING )
 
-	mov	ecx, DWORD PTR _wCommand$59737[ebp]
+	mov	ecx, DWORD PTR _wCommand$59738[ebp]
 	and	ecx, 65535				; 0000ffffH
 	cmp	ecx, 167				; 000000a7H
-	jne	SHORT $L59825
+	jne	SHORT $L59826
 
-; 902  :                SendMessage( g_hwndTraceWindow[ g_nTraceWindowDisplayed ],
-; 903  :                             LB_DELETESTRING, wCurSel, 0L );
+; 905  :                SendMessage( g_hwndTraceWindow[ g_nTraceWindowDisplayed ],
+; 906  :                             LB_DELETESTRING, wCurSel, 0L );
 
 	push	0
-	mov	edx, DWORD PTR _wCurSel$59816[ebp]
+	mov	edx, DWORD PTR _wCurSel$59817[ebp]
 	and	edx, 65535				; 0000ffffH
 	push	edx
 	push	386					; 00000182H
@@ -3305,11 +3323,11 @@ $L59821:
 	push	ecx
 	call	DWORD PTR __imp__SendMessageA@16
 
-; 904  :                SendMessage( g_hwndTraceWindow[ g_nTraceWindowDisplayed ],
-; 905  :                             LB_SETCURSEL, wCurSel, 0L );
+; 907  :                SendMessage( g_hwndTraceWindow[ g_nTraceWindowDisplayed ],
+; 908  :                             LB_SETCURSEL, wCurSel, 0L );
 
 	push	0
-	mov	edx, DWORD PTR _wCurSel$59816[ebp]
+	mov	edx, DWORD PTR _wCurSel$59817[ebp]
 	and	edx, 65535				; 0000ffffH
 	push	edx
 	push	390					; 00000186H
@@ -3317,23 +3335,23 @@ $L59821:
 	mov	ecx, DWORD PTR _g_hwndTraceWindow[eax*4]
 	push	ecx
 	call	DWORD PTR __imp__SendMessageA@16
-$L59825:
+$L59826:
 
-; 908  :          else
+; 911  :          else
 
-	jmp	$L60024
-$L59814:
+	jmp	$L60026
+$L59815:
 
-; 909  :          if ( wCommand == IDM_PASTESTRING )
+; 912  :          if ( wCommand == IDM_PASTESTRING )
 
-	mov	edx, DWORD PTR _wCommand$59737[ebp]
+	mov	edx, DWORD PTR _wCommand$59738[ebp]
 	and	edx, 65535				; 0000ffffH
 	cmp	edx, 166				; 000000a6H
-	jne	SHORT $L59827
+	jne	SHORT $L59828
 
-; 911  :             WORD wCurSel =
-; 912  :                (WORD) SendMessage( g_hwndTraceWindow[ g_nTraceWindowDisplayed ],
-; 913  :                                    LB_GETCURSEL, 0, 0 );
+; 914  :             WORD wCurSel =
+; 915  :                (WORD) SendMessage( g_hwndTraceWindow[ g_nTraceWindowDisplayed ],
+; 916  :                                    LB_GETCURSEL, 0, 0 );
 
 	push	0
 	push	0
@@ -3342,14 +3360,14 @@ $L59814:
 	mov	ecx, DWORD PTR _g_hwndTraceWindow[eax*4]
 	push	ecx
 	call	DWORD PTR __imp__SendMessageA@16
-	mov	WORD PTR _wCurSel$59828[ebp], ax
+	mov	WORD PTR _wCurSel$59829[ebp], ax
 
-; 914  :             SendMessage( g_hwndTraceWindow[ g_nTraceWindowDisplayed ],
-; 915  :                          LB_INSERTSTRING,
-; 916  :                          wCurSel + 1, (LPARAM) g_szCopyBuffer );
+; 917  :             SendMessage( g_hwndTraceWindow[ g_nTraceWindowDisplayed ],
+; 918  :                          LB_INSERTSTRING,
+; 919  :                          wCurSel + 1, (LPARAM) g_szCopyBuffer );
 
 	push	OFFSET FLAT:_g_szCopyBuffer
-	mov	edx, DWORD PTR _wCurSel$59828[ebp]
+	mov	edx, DWORD PTR _wCurSel$59829[ebp]
 	and	edx, 65535				; 0000ffffH
 	add	edx, 1
 	push	edx
@@ -3359,11 +3377,11 @@ $L59814:
 	push	ecx
 	call	DWORD PTR __imp__SendMessageA@16
 
-; 917  :             SendMessage( g_hwndTraceWindow[ g_nTraceWindowDisplayed ],
-; 918  :                          LB_SETCURSEL, wCurSel + 1, 0L );
+; 920  :             SendMessage( g_hwndTraceWindow[ g_nTraceWindowDisplayed ],
+; 921  :                          LB_SETCURSEL, wCurSel + 1, 0L );
 
 	push	0
-	mov	edx, DWORD PTR _wCurSel$59828[ebp]
+	mov	edx, DWORD PTR _wCurSel$59829[ebp]
 	and	edx, 65535				; 0000ffffH
 	add	edx, 1
 	push	edx
@@ -3373,20 +3391,20 @@ $L59814:
 	push	ecx
 	call	DWORD PTR __imp__SendMessageA@16
 
-; 920  :          else
+; 923  :          else
 
-	jmp	$L60024
-$L59827:
+	jmp	$L60026
+$L59828:
 
-; 921  :          if ( wCommand == IDM_DELETESELECTED )
+; 924  :          if ( wCommand == IDM_DELETESELECTED )
 
-	mov	edx, DWORD PTR _wCommand$59737[ebp]
+	mov	edx, DWORD PTR _wCommand$59738[ebp]
 	and	edx, 65535				; 0000ffffH
 	cmp	edx, 154				; 0000009aH
-	jne	SHORT $L59832
+	jne	SHORT $L59833
 
-; 923  :             WORD wCurSel = (WORD) SendMessage( g_hwndTraceWindow[ g_nTraceWindowDisplayed ],
-; 924  :                                                LB_GETCURSEL, 0, 0 );
+; 926  :             WORD wCurSel = (WORD) SendMessage( g_hwndTraceWindow[ g_nTraceWindowDisplayed ],
+; 927  :                                                LB_GETCURSEL, 0, 0 );
 
 	push	0
 	push	0
@@ -3395,13 +3413,13 @@ $L59827:
 	mov	ecx, DWORD PTR _g_hwndTraceWindow[eax*4]
 	push	ecx
 	call	DWORD PTR __imp__SendMessageA@16
-	mov	WORD PTR _wCurSel$59833[ebp], ax
+	mov	WORD PTR _wCurSel$59834[ebp], ax
 
-; 925  :             SendMessage( g_hwndTraceWindow[ g_nTraceWindowDisplayed ],
-; 926  :                          LB_DELETESTRING, wCurSel, 0L );
+; 928  :             SendMessage( g_hwndTraceWindow[ g_nTraceWindowDisplayed ],
+; 929  :                          LB_DELETESTRING, wCurSel, 0L );
 
 	push	0
-	mov	edx, DWORD PTR _wCurSel$59833[ebp]
+	mov	edx, DWORD PTR _wCurSel$59834[ebp]
 	and	edx, 65535				; 0000ffffH
 	push	edx
 	push	386					; 00000182H
@@ -3410,11 +3428,11 @@ $L59827:
 	push	ecx
 	call	DWORD PTR __imp__SendMessageA@16
 
-; 927  :             SendMessage( g_hwndTraceWindow[ g_nTraceWindowDisplayed ],
-; 928  :                          LB_SETCURSEL, wCurSel, 0L );
+; 930  :             SendMessage( g_hwndTraceWindow[ g_nTraceWindowDisplayed ],
+; 931  :                          LB_SETCURSEL, wCurSel, 0L );
 
 	push	0
-	mov	edx, DWORD PTR _wCurSel$59833[ebp]
+	mov	edx, DWORD PTR _wCurSel$59834[ebp]
 	and	edx, 65535				; 0000ffffH
 	push	edx
 	push	390					; 00000186H
@@ -3423,20 +3441,20 @@ $L59827:
 	push	ecx
 	call	DWORD PTR __imp__SendMessageA@16
 
-; 930  :          else
+; 933  :          else
 
-	jmp	$L60024
-$L59832:
+	jmp	$L60026
+$L59833:
 
-; 931  :          if ( wCommand == IDM_INSERTMARKER )
+; 934  :          if ( wCommand == IDM_INSERTMARKER )
 
-	mov	edx, DWORD PTR _wCommand$59737[ebp]
+	mov	edx, DWORD PTR _wCommand$59738[ebp]
 	and	edx, 65535				; 0000ffffH
 	cmp	edx, 155				; 0000009bH
-	jne	$L59836
+	jne	$L59837
 
-; 933  :             WORD wCurSel = (WORD) SendMessage( g_hwndTraceWindow[ g_nTraceWindowDisplayed ],
-; 934  :                                                LB_GETCURSEL, 0, 0 );
+; 936  :             WORD wCurSel = (WORD) SendMessage( g_hwndTraceWindow[ g_nTraceWindowDisplayed ],
+; 937  :                                                LB_GETCURSEL, 0, 0 );
 
 	push	0
 	push	0
@@ -3445,72 +3463,72 @@ $L59832:
 	mov	ecx, DWORD PTR _g_hwndTraceWindow[eax*4]
 	push	ecx
 	call	DWORD PTR __imp__SendMessageA@16
-	mov	WORD PTR _wCurSel$59837[ebp], ax
+	mov	WORD PTR _wCurSel$59838[ebp], ax
 
-; 935  :             zSHORT nLth = sizeof( szMark ) - 1;
+; 938  :             zSHORT nLth = sizeof( szMark ) - 1;
 
-	mov	WORD PTR _nLth$59839[ebp], 103		; 00000067H
+	mov	WORD PTR _nLth$59840[ebp], 103		; 00000067H
 
-; 936  :             zLONG  j, k;
-; 937  : 
-; 938  :             g_lMark++;
+; 939  :             zLONG  j, k;
+; 940  : 
+; 941  :             g_lMark++;
 
 	mov	edx, DWORD PTR _g_lMark
 	add	edx, 1
 	mov	DWORD PTR _g_lMark, edx
 
-; 939  :             k = g_lMark;
+; 942  :             k = g_lMark;
 
 	mov	eax, DWORD PTR _g_lMark
-	mov	DWORD PTR _k$59841[ebp], eax
-$L59843:
-
-; 940  :             while ( k )
-
-	cmp	DWORD PTR _k$59841[ebp], 0
-	je	SHORT $L59844
-
-; 942  :                nLth--;
-
-	mov	cx, WORD PTR _nLth$59839[ebp]
-	sub	cx, 1
-	mov	WORD PTR _nLth$59839[ebp], cx
-
-; 943  :                j = k % 10;
-
-	mov	eax, DWORD PTR _k$59841[ebp]
-	cdq
-	mov	ecx, 10					; 0000000aH
-	idiv	ecx
-	mov	DWORD PTR _j$59840[ebp], edx
-
-; 944  :                szMark[ nLth ] = (char) (j + '0');
-
-	mov	edx, DWORD PTR _j$59840[ebp]
-	add	edx, 48					; 00000030H
-	movsx	eax, WORD PTR _nLth$59839[ebp]
-	mov	BYTE PTR _szMark[eax], dl
-
-; 945  :                k /= 10;
-
-	mov	eax, DWORD PTR _k$59841[ebp]
-	cdq
-	mov	ecx, 10					; 0000000aH
-	idiv	ecx
-	mov	DWORD PTR _k$59841[ebp], eax
-
-; 946  :             }
-
-	jmp	SHORT $L59843
+	mov	DWORD PTR _k$59842[ebp], eax
 $L59844:
 
-; 947  : 
-; 948  :             SendMessage( g_hwndTraceWindow[ g_nTraceWindowDisplayed ],
-; 949  :                          LB_INSERTSTRING,
-; 950  :                          wCurSel + 1, (LPARAM) szMark );
+; 943  :             while ( k )
+
+	cmp	DWORD PTR _k$59842[ebp], 0
+	je	SHORT $L59845
+
+; 945  :                nLth--;
+
+	mov	cx, WORD PTR _nLth$59840[ebp]
+	sub	cx, 1
+	mov	WORD PTR _nLth$59840[ebp], cx
+
+; 946  :                j = k % 10;
+
+	mov	eax, DWORD PTR _k$59842[ebp]
+	cdq
+	mov	ecx, 10					; 0000000aH
+	idiv	ecx
+	mov	DWORD PTR _j$59841[ebp], edx
+
+; 947  :                szMark[ nLth ] = (char) (j + '0');
+
+	mov	edx, DWORD PTR _j$59841[ebp]
+	add	edx, 48					; 00000030H
+	movsx	eax, WORD PTR _nLth$59840[ebp]
+	mov	BYTE PTR _szMark[eax], dl
+
+; 948  :                k /= 10;
+
+	mov	eax, DWORD PTR _k$59842[ebp]
+	cdq
+	mov	ecx, 10					; 0000000aH
+	idiv	ecx
+	mov	DWORD PTR _k$59842[ebp], eax
+
+; 949  :             }
+
+	jmp	SHORT $L59844
+$L59845:
+
+; 950  : 
+; 951  :             SendMessage( g_hwndTraceWindow[ g_nTraceWindowDisplayed ],
+; 952  :                          LB_INSERTSTRING,
+; 953  :                          wCurSel + 1, (LPARAM) szMark );
 
 	push	OFFSET FLAT:_szMark
-	mov	edx, DWORD PTR _wCurSel$59837[ebp]
+	mov	edx, DWORD PTR _wCurSel$59838[ebp]
 	and	edx, 65535				; 0000ffffH
 	add	edx, 1
 	push	edx
@@ -3520,11 +3538,11 @@ $L59844:
 	push	ecx
 	call	DWORD PTR __imp__SendMessageA@16
 
-; 951  :             SendMessage( g_hwndTraceWindow[ g_nTraceWindowDisplayed ],
-; 952  :                          LB_SETCURSEL, wCurSel + 1, 0L );
+; 954  :             SendMessage( g_hwndTraceWindow[ g_nTraceWindowDisplayed ],
+; 955  :                          LB_SETCURSEL, wCurSel + 1, 0L );
 
 	push	0
-	mov	edx, DWORD PTR _wCurSel$59837[ebp]
+	mov	edx, DWORD PTR _wCurSel$59838[ebp]
 	and	edx, 65535				; 0000ffffH
 	add	edx, 1
 	push	edx
@@ -3534,210 +3552,210 @@ $L59844:
 	push	ecx
 	call	DWORD PTR __imp__SendMessageA@16
 
-; 954  :          else
+; 957  :          else
 
-	jmp	$L60024
-$L59836:
+	jmp	$L60026
+$L59837:
 
-; 955  :          if ( wCommand == IDM_PRINTPREVIEW    ||
-; 956  :               wCommand == IDM_PREVIEW_ZOOMOUT ||
-; 957  :               wCommand == IDM_PREVIEW_ZOOM    ||
-; 958  :               wCommand == IDM_PREVIEW_ZOOMIN )
+; 958  :          if ( wCommand == IDM_PRINTPREVIEW    ||
+; 959  :               wCommand == IDM_PREVIEW_ZOOMOUT ||
+; 960  :               wCommand == IDM_PREVIEW_ZOOM    ||
+; 961  :               wCommand == IDM_PREVIEW_ZOOMIN )
 
-	mov	edx, DWORD PTR _wCommand$59737[ebp]
+	mov	edx, DWORD PTR _wCommand$59738[ebp]
 	and	edx, 65535				; 0000ffffH
 	cmp	edx, 160				; 000000a0H
-	je	SHORT $L59849
-	mov	eax, DWORD PTR _wCommand$59737[ebp]
+	je	SHORT $L59850
+	mov	eax, DWORD PTR _wCommand$59738[ebp]
 	and	eax, 65535				; 0000ffffH
 	cmp	eax, 161				; 000000a1H
-	je	SHORT $L59849
-	mov	ecx, DWORD PTR _wCommand$59737[ebp]
+	je	SHORT $L59850
+	mov	ecx, DWORD PTR _wCommand$59738[ebp]
 	and	ecx, 65535				; 0000ffffH
 	cmp	ecx, 162				; 000000a2H
-	je	SHORT $L59849
-	mov	edx, DWORD PTR _wCommand$59737[ebp]
+	je	SHORT $L59850
+	mov	edx, DWORD PTR _wCommand$59738[ebp]
 	and	edx, 65535				; 0000ffffH
 	cmp	edx, 163				; 000000a3H
-	jne	$L59848
-$L59849:
+	jne	$L59849
+$L59850:
 
-; 960  :             HMENU hMenu = GetMenu( hWnd );
+; 963  :             HMENU hMenu = GetMenu( hWnd );
 
 	mov	eax, DWORD PTR _hWnd$[ebp]
 	push	eax
 	call	DWORD PTR __imp__GetMenu@4
-	mov	DWORD PTR _hMenu$59850[ebp], eax
+	mov	DWORD PTR _hMenu$59851[ebp], eax
 
-; 961  : 
-; 962  :             CheckMenuItem( hMenu, IDM_PRINTPREVIEW,
-; 963  :                            MF_BYCOMMAND | MF_UNCHECKED );
+; 964  : 
+; 965  :             CheckMenuItem( hMenu, IDM_PRINTPREVIEW,
+; 966  :                            MF_BYCOMMAND | MF_UNCHECKED );
 
 	push	0
 	push	160					; 000000a0H
-	mov	ecx, DWORD PTR _hMenu$59850[ebp]
+	mov	ecx, DWORD PTR _hMenu$59851[ebp]
 	push	ecx
 	call	DWORD PTR __imp__CheckMenuItem@12
 
-; 964  :             CheckMenuItem( hMenu, IDM_PREVIEW_ZOOMOUT,
-; 965  :                            MF_BYCOMMAND | MF_UNCHECKED );
+; 967  :             CheckMenuItem( hMenu, IDM_PREVIEW_ZOOMOUT,
+; 968  :                            MF_BYCOMMAND | MF_UNCHECKED );
 
 	push	0
 	push	161					; 000000a1H
-	mov	edx, DWORD PTR _hMenu$59850[ebp]
+	mov	edx, DWORD PTR _hMenu$59851[ebp]
 	push	edx
 	call	DWORD PTR __imp__CheckMenuItem@12
 
-; 966  :             CheckMenuItem( hMenu, IDM_PREVIEW_ZOOM,
-; 967  :                            MF_BYCOMMAND | MF_UNCHECKED );
+; 969  :             CheckMenuItem( hMenu, IDM_PREVIEW_ZOOM,
+; 970  :                            MF_BYCOMMAND | MF_UNCHECKED );
 
 	push	0
 	push	162					; 000000a2H
-	mov	eax, DWORD PTR _hMenu$59850[ebp]
+	mov	eax, DWORD PTR _hMenu$59851[ebp]
 	push	eax
 	call	DWORD PTR __imp__CheckMenuItem@12
 
-; 968  :             CheckMenuItem( hMenu, IDM_PREVIEW_ZOOMIN,
-; 969  :                            MF_BYCOMMAND | MF_UNCHECKED );
+; 971  :             CheckMenuItem( hMenu, IDM_PREVIEW_ZOOMIN,
+; 972  :                            MF_BYCOMMAND | MF_UNCHECKED );
 
 	push	0
 	push	163					; 000000a3H
-	mov	ecx, DWORD PTR _hMenu$59850[ebp]
+	mov	ecx, DWORD PTR _hMenu$59851[ebp]
 	push	ecx
 	call	DWORD PTR __imp__CheckMenuItem@12
 
-; 970  :             switch ( wCommand )
-; 971  :             {
+; 973  :             switch ( wCommand )
+; 974  :             {
 
-	mov	edx, DWORD PTR _wCommand$59737[ebp]
+	mov	edx, DWORD PTR _wCommand$59738[ebp]
 	and	edx, 65535				; 0000ffffH
-	mov	DWORD PTR -7916+[ebp], edx
-	cmp	DWORD PTR -7916+[ebp], 161		; 000000a1H
-	je	SHORT $L59855
-	cmp	DWORD PTR -7916+[ebp], 162		; 000000a2H
+	mov	DWORD PTR -8176+[ebp], edx
+	cmp	DWORD PTR -8176+[ebp], 161		; 000000a1H
 	je	SHORT $L59856
-	cmp	DWORD PTR -7916+[ebp], 163		; 000000a3H
+	cmp	DWORD PTR -8176+[ebp], 162		; 000000a2H
 	je	SHORT $L59857
-	jmp	SHORT $L59858
-$L59855:
+	cmp	DWORD PTR -8176+[ebp], 163		; 000000a3H
+	je	SHORT $L59858
+	jmp	SHORT $L59859
+$L59856:
 
-; 972  :                case IDM_PREVIEW_ZOOMOUT:
-; 973  :                   g_chPrintPreview = '0';
+; 975  :                case IDM_PREVIEW_ZOOMOUT:
+; 976  :                   g_chPrintPreview = '0';
 
 	mov	BYTE PTR _g_chPrintPreview, 48		; 00000030H
 
-; 974  :                   CheckMenuItem( hMenu, IDM_PREVIEW_ZOOMOUT,
-; 975  :                                  MF_BYCOMMAND | MF_CHECKED );
+; 977  :                   CheckMenuItem( hMenu, IDM_PREVIEW_ZOOMOUT,
+; 978  :                                  MF_BYCOMMAND | MF_CHECKED );
 
 	push	8
 	push	161					; 000000a1H
-	mov	eax, DWORD PTR _hMenu$59850[ebp]
+	mov	eax, DWORD PTR _hMenu$59851[ebp]
 	push	eax
 	call	DWORD PTR __imp__CheckMenuItem@12
 
-; 976  :                   break;
+; 979  :                   break;
 
-	jmp	SHORT $L59852
-$L59856:
+	jmp	SHORT $L59853
+$L59857:
 
-; 977  : 
-; 978  :                case IDM_PREVIEW_ZOOM:
-; 979  :                   g_chPrintPreview = '1';
+; 980  : 
+; 981  :                case IDM_PREVIEW_ZOOM:
+; 982  :                   g_chPrintPreview = '1';
 
 	mov	BYTE PTR _g_chPrintPreview, 49		; 00000031H
 
-; 980  :                   CheckMenuItem( hMenu, IDM_PREVIEW_ZOOM,
-; 981  :                                  MF_BYCOMMAND | MF_CHECKED );
+; 983  :                   CheckMenuItem( hMenu, IDM_PREVIEW_ZOOM,
+; 984  :                                  MF_BYCOMMAND | MF_CHECKED );
 
 	push	8
 	push	162					; 000000a2H
-	mov	ecx, DWORD PTR _hMenu$59850[ebp]
+	mov	ecx, DWORD PTR _hMenu$59851[ebp]
 	push	ecx
 	call	DWORD PTR __imp__CheckMenuItem@12
 
-; 982  :                   break;
+; 985  :                   break;
 
-	jmp	SHORT $L59852
-$L59857:
+	jmp	SHORT $L59853
+$L59858:
 
-; 983  : 
-; 984  :                case IDM_PREVIEW_ZOOMIN:
-; 985  :                   g_chPrintPreview = '2';
+; 986  : 
+; 987  :                case IDM_PREVIEW_ZOOMIN:
+; 988  :                   g_chPrintPreview = '2';
 
 	mov	BYTE PTR _g_chPrintPreview, 50		; 00000032H
 
-; 986  :                   CheckMenuItem( hMenu, IDM_PREVIEW_ZOOMIN,
-; 987  :                                  MF_BYCOMMAND | MF_CHECKED );
+; 989  :                   CheckMenuItem( hMenu, IDM_PREVIEW_ZOOMIN,
+; 990  :                                  MF_BYCOMMAND | MF_CHECKED );
 
 	push	8
 	push	163					; 000000a3H
-	mov	edx, DWORD PTR _hMenu$59850[ebp]
+	mov	edx, DWORD PTR _hMenu$59851[ebp]
 	push	edx
 	call	DWORD PTR __imp__CheckMenuItem@12
 
-; 988  :                   break;
+; 991  :                   break;
 
-	jmp	SHORT $L59852
-$L59858:
+	jmp	SHORT $L59853
+$L59859:
 
-; 989  : 
-; 990  :                case IDM_PRINTPREVIEW:
-; 991  :                default:
-; 992  :                   g_chPrintPreview = 0;
+; 992  : 
+; 993  :                case IDM_PRINTPREVIEW:
+; 994  :                default:
+; 995  :                   g_chPrintPreview = 0;
 
 	mov	BYTE PTR _g_chPrintPreview, 0
 
-; 993  :                   CheckMenuItem( hMenu, IDM_PRINTPREVIEW,
-; 994  :                                  MF_BYCOMMAND | MF_CHECKED );
+; 996  :                   CheckMenuItem( hMenu, IDM_PRINTPREVIEW,
+; 997  :                                  MF_BYCOMMAND | MF_CHECKED );
 
 	push	8
 	push	160					; 000000a0H
-	mov	eax, DWORD PTR _hMenu$59850[ebp]
+	mov	eax, DWORD PTR _hMenu$59851[ebp]
 	push	eax
 	call	DWORD PTR __imp__CheckMenuItem@12
-$L59852:
+$L59853:
 
-; 997  : 
-; 998  :             if ( g_chPrintPreview )
+; 1000 : 
+; 1001 :             if ( g_chPrintPreview )
 
 	movsx	ecx, BYTE PTR _g_chPrintPreview
 	test	ecx, ecx
-	je	SHORT $L59859
+	je	SHORT $L59860
 
-; 1000 :                g_chPrintDialog = 0;
+; 1003 :                g_chPrintDialog = 0;
 
 	mov	BYTE PTR _g_chPrintDialog, 0
 
-; 1001 :                CheckMenuItem( hMenu, IDM_PRINTDIALOG,
-; 1002 :                               MF_BYCOMMAND | MF_UNCHECKED );
+; 1004 :                CheckMenuItem( hMenu, IDM_PRINTDIALOG,
+; 1005 :                               MF_BYCOMMAND | MF_UNCHECKED );
 
 	push	0
 	push	164					; 000000a4H
-	mov	edx, DWORD PTR _hMenu$59850[ebp]
+	mov	edx, DWORD PTR _hMenu$59851[ebp]
 	push	edx
 	call	DWORD PTR __imp__CheckMenuItem@12
-$L59859:
+$L59860:
 
-; 1005 :          else
+; 1008 :          else
 
-	jmp	$L60024
-$L59848:
+	jmp	$L60026
+$L59849:
 
-; 1006 :          if ( wCommand == IDM_PRINTDIALOG )
+; 1009 :          if ( wCommand == IDM_PRINTDIALOG )
 
-	mov	eax, DWORD PTR _wCommand$59737[ebp]
+	mov	eax, DWORD PTR _wCommand$59738[ebp]
 	and	eax, 65535				; 0000ffffH
 	cmp	eax, 164				; 000000a4H
-	jne	$L59861
+	jne	$L59862
 
-; 1008 :             HMENU hMenu = GetMenu( hWnd );
+; 1011 :             HMENU hMenu = GetMenu( hWnd );
 
 	mov	ecx, DWORD PTR _hWnd$[ebp]
 	push	ecx
 	call	DWORD PTR __imp__GetMenu@4
-	mov	DWORD PTR _hMenu$59862[ebp], eax
+	mov	DWORD PTR _hMenu$59863[ebp], eax
 
-; 1009 :             g_chPrintDialog = g_chPrintDialog ? 0 : 'Y';
+; 1012 :             g_chPrintDialog = g_chPrintDialog ? 0 : 'Y';
 
 	movsx	edx, BYTE PTR _g_chPrintDialog
 	neg	edx
@@ -3746,9 +3764,9 @@ $L59848:
 	add	edx, 89					; 00000059H
 	mov	BYTE PTR _g_chPrintDialog, dl
 
-; 1010 :             CheckMenuItem( hMenu, IDM_PRINTDIALOG,
-; 1011 :                            MF_BYCOMMAND |
-; 1012 :                              (g_chPrintDialog ? MF_CHECKED : MF_UNCHECKED) );
+; 1013 :             CheckMenuItem( hMenu, IDM_PRINTDIALOG,
+; 1014 :                            MF_BYCOMMAND |
+; 1015 :                              (g_chPrintDialog ? MF_CHECKED : MF_UNCHECKED) );
 
 	movsx	eax, BYTE PTR _g_chPrintDialog
 	neg	eax
@@ -3756,85 +3774,85 @@ $L59848:
 	and	eax, 8
 	push	eax
 	push	164					; 000000a4H
-	mov	ecx, DWORD PTR _hMenu$59862[ebp]
+	mov	ecx, DWORD PTR _hMenu$59863[ebp]
 	push	ecx
 	call	DWORD PTR __imp__CheckMenuItem@12
 
-; 1013 :             if ( g_chPrintDialog == 'Y' )
+; 1016 :             if ( g_chPrintDialog == 'Y' )
 
 	movsx	edx, BYTE PTR _g_chPrintDialog
 	cmp	edx, 89					; 00000059H
-	jne	SHORT $L59863
+	jne	SHORT $L59864
 
-; 1015 :                g_chPrintPreview = 0;
+; 1018 :                g_chPrintPreview = 0;
 
 	mov	BYTE PTR _g_chPrintPreview, 0
 
-; 1016 :                CheckMenuItem( hMenu, IDM_PRINTPREVIEW,
-; 1017 :                               MF_BYCOMMAND | MF_CHECKED );
+; 1019 :                CheckMenuItem( hMenu, IDM_PRINTPREVIEW,
+; 1020 :                               MF_BYCOMMAND | MF_CHECKED );
 
 	push	8
 	push	160					; 000000a0H
-	mov	eax, DWORD PTR _hMenu$59862[ebp]
+	mov	eax, DWORD PTR _hMenu$59863[ebp]
 	push	eax
 	call	DWORD PTR __imp__CheckMenuItem@12
 
-; 1018 :                CheckMenuItem( hMenu, IDM_PREVIEW_ZOOMOUT,
-; 1019 :                               MF_BYCOMMAND | MF_UNCHECKED );
+; 1021 :                CheckMenuItem( hMenu, IDM_PREVIEW_ZOOMOUT,
+; 1022 :                               MF_BYCOMMAND | MF_UNCHECKED );
 
 	push	0
 	push	161					; 000000a1H
-	mov	ecx, DWORD PTR _hMenu$59862[ebp]
+	mov	ecx, DWORD PTR _hMenu$59863[ebp]
 	push	ecx
 	call	DWORD PTR __imp__CheckMenuItem@12
 
-; 1020 :                CheckMenuItem( hMenu, IDM_PREVIEW_ZOOM,
-; 1021 :                               MF_BYCOMMAND | MF_UNCHECKED );
+; 1023 :                CheckMenuItem( hMenu, IDM_PREVIEW_ZOOM,
+; 1024 :                               MF_BYCOMMAND | MF_UNCHECKED );
 
 	push	0
 	push	162					; 000000a2H
-	mov	edx, DWORD PTR _hMenu$59862[ebp]
+	mov	edx, DWORD PTR _hMenu$59863[ebp]
 	push	edx
 	call	DWORD PTR __imp__CheckMenuItem@12
 
-; 1022 :                CheckMenuItem( hMenu, IDM_PREVIEW_ZOOMIN,
-; 1023 :                               MF_BYCOMMAND | MF_UNCHECKED );
+; 1025 :                CheckMenuItem( hMenu, IDM_PREVIEW_ZOOMIN,
+; 1026 :                               MF_BYCOMMAND | MF_UNCHECKED );
 
 	push	0
 	push	163					; 000000a3H
-	mov	eax, DWORD PTR _hMenu$59862[ebp]
+	mov	eax, DWORD PTR _hMenu$59863[ebp]
 	push	eax
 	call	DWORD PTR __imp__CheckMenuItem@12
-$L59863:
+$L59864:
 
-; 1026 :          else
+; 1029 :          else
 
-	jmp	$L60024
-$L59861:
+	jmp	$L60026
+$L59862:
 
-; 1027 :          if ( wCommand == IDM_SHOWTASKID )
+; 1030 :          if ( wCommand == IDM_SHOWTASKID )
 
-	mov	ecx, DWORD PTR _wCommand$59737[ebp]
+	mov	ecx, DWORD PTR _wCommand$59738[ebp]
 	and	ecx, 65535				; 0000ffffH
 	cmp	ecx, 124				; 0000007cH
-	jne	SHORT $L59865
+	jne	SHORT $L59866
 
-; 1029 :             HMENU hMenu = GetMenu( hWnd );
+; 1032 :             HMENU hMenu = GetMenu( hWnd );
 
 	mov	edx, DWORD PTR _hWnd$[ebp]
 	push	edx
 	call	DWORD PTR __imp__GetMenu@4
-	mov	DWORD PTR _hMenu$59866[ebp], eax
+	mov	DWORD PTR _hMenu$59867[ebp], eax
 
-; 1030 :             if ( AnchorBlock->bShowTaskID )
+; 1033 :             if ( AnchorBlock->bShowTaskID )
 
 	mov	eax, DWORD PTR _AnchorBlock
 	mov	ecx, DWORD PTR [eax+1495]
 	and	ecx, 1
 	test	ecx, ecx
-	je	SHORT $L59867
+	je	SHORT $L59868
 
-; 1032 :                AnchorBlock->bShowTaskID = 0;
+; 1035 :                AnchorBlock->bShowTaskID = 0;
 
 	mov	edx, DWORD PTR _AnchorBlock
 	mov	eax, DWORD PTR [edx+1495]
@@ -3842,21 +3860,21 @@ $L59861:
 	mov	ecx, DWORD PTR _AnchorBlock
 	mov	DWORD PTR [ecx+1495], eax
 
-; 1033 :                CheckMenuItem( hMenu, IDM_SHOWTASKID,
-; 1034 :                               MF_BYCOMMAND | MF_UNCHECKED );
+; 1036 :                CheckMenuItem( hMenu, IDM_SHOWTASKID,
+; 1037 :                               MF_BYCOMMAND | MF_UNCHECKED );
 
 	push	0
 	push	124					; 0000007cH
-	mov	edx, DWORD PTR _hMenu$59866[ebp]
+	mov	edx, DWORD PTR _hMenu$59867[ebp]
 	push	edx
 	call	DWORD PTR __imp__CheckMenuItem@12
 
-; 1036 :             else
+; 1039 :             else
 
-	jmp	SHORT $L59868
-$L59867:
+	jmp	SHORT $L59869
+$L59868:
 
-; 1038 :                AnchorBlock->bShowTaskID = 1;
+; 1041 :                AnchorBlock->bShowTaskID = 1;
 
 	mov	eax, DWORD PTR _AnchorBlock
 	mov	ecx, DWORD PTR [eax+1495]
@@ -3864,29 +3882,29 @@ $L59867:
 	mov	edx, DWORD PTR _AnchorBlock
 	mov	DWORD PTR [edx+1495], ecx
 
-; 1039 :                CheckMenuItem( hMenu, IDM_SHOWTASKID,
-; 1040 :                               MF_BYCOMMAND | MF_CHECKED );
+; 1042 :                CheckMenuItem( hMenu, IDM_SHOWTASKID,
+; 1043 :                               MF_BYCOMMAND | MF_CHECKED );
 
 	push	8
 	push	124					; 0000007cH
-	mov	eax, DWORD PTR _hMenu$59866[ebp]
+	mov	eax, DWORD PTR _hMenu$59867[ebp]
 	push	eax
 	call	DWORD PTR __imp__CheckMenuItem@12
-$L59868:
+$L59869:
 
-; 1043 :          else
+; 1046 :          else
 
-	jmp	$L60024
-$L59865:
+	jmp	$L60026
+$L59866:
 
-; 1044 :          if ( wCommand == IDM_ABOUT )
+; 1047 :          if ( wCommand == IDM_ABOUT )
 
-	mov	ecx, DWORD PTR _wCommand$59737[ebp]
+	mov	ecx, DWORD PTR _wCommand$59738[ebp]
 	and	ecx, 65535				; 0000ffffH
 	cmp	ecx, 131				; 00000083H
-	jne	SHORT $L59870
+	jne	SHORT $L59871
 
-; 1046 :             DialogBox( hInst, MAKEINTRESOURCE( IDD_ABOUT ), hWnd, fpAbout );
+; 1049 :             DialogBox( hInst, MAKEINTRESOURCE( IDD_ABOUT ), hWnd, fpAbout );
 
 	push	0
 	mov	edx, DWORD PTR _fpAbout
@@ -3898,40 +3916,40 @@ $L59865:
 	push	ecx
 	call	DWORD PTR __imp__DialogBoxParamA@20
 
-; 1048 :          else
+; 1051 :          else
 
-	jmp	$L60024
-$L59870:
+	jmp	$L60026
+$L59871:
 
-; 1049 :          if ( wCommand == IDM_HIDEWINDOW )   // If launched in systray mode
+; 1052 :          if ( wCommand == IDM_HIDEWINDOW )   // If launched in systray mode
 
-	mov	edx, DWORD PTR _wCommand$59737[ebp]
+	mov	edx, DWORD PTR _wCommand$59738[ebp]
 	and	edx, 65535				; 0000ffffH
 	cmp	edx, 320				; 00000140H
-	jne	SHORT $L59875
+	jne	SHORT $L59876
 
-; 1051 :             ShowWindow( hWnd, SW_HIDE );     // having no Exit option but a hide Window
+; 1054 :             ShowWindow( hWnd, SW_HIDE );     // having no Exit option but a hide Window
 
 	push	0
 	mov	eax, DWORD PTR _hWnd$[ebp]
 	push	eax
 	call	DWORD PTR __imp__ShowWindow@8
 
-; 1053 :          else
+; 1056 :          else
 
-	jmp	$L60024
-$L59875:
+	jmp	$L60026
+$L59876:
 
-; 1054 :          if ( wCommand == IDM_EXITPROGRAM )   // F3 Exit
+; 1057 :          if ( wCommand == IDM_EXITPROGRAM )   // F3 Exit
 
-	mov	ecx, DWORD PTR _wCommand$59737[ebp]
+	mov	ecx, DWORD PTR _wCommand$59738[ebp]
 	and	ecx, 65535				; 0000ffffH
 	cmp	ecx, 116				; 00000074H
-	jne	SHORT $L59877
+	jne	SHORT $L59878
 
-; 1056 :          // SendMessage( (HWND) AnchorBlock->lOE_hMainWnd, // hWnd,
-; 1057 :          //              WM_COMMAND, (WPARAM) IDM_LISTTASKS, 10000L );
-; 1058 :             PostMessage( hWnd, WM_CLOSE, 0, 0L );
+; 1059 :          // SendMessage( (HWND) AnchorBlock->lOE_hMainWnd, // hWnd,
+; 1060 :          //              WM_COMMAND, (WPARAM) IDM_LISTTASKS, 10000L );
+; 1061 :             PostMessage( hWnd, WM_CLOSE, 0, 0L );
 
 	push	0
 	push	0
@@ -3940,94 +3958,94 @@ $L59875:
 	push	edx
 	call	DWORD PTR __imp__PostMessageA@16
 
-; 1059 :             break;
+; 1062 :             break;
 
-	jmp	$L59724
-$L59877:
+	jmp	$L59725
+$L59878:
 
-; 1061 :          else
-; 1062 :          if ( wCommand == IDM_KILLZEIDON )   // Kill Zeidon
+; 1064 :          else
+; 1065 :          if ( wCommand == IDM_KILLZEIDON )   // Kill Zeidon
 
-	mov	eax, DWORD PTR _wCommand$59737[ebp]
+	mov	eax, DWORD PTR _wCommand$59738[ebp]
 	and	eax, 65535				; 0000ffffH
 	cmp	eax, 117				; 00000075H
-	jne	$L59879
+	jne	$L59880
 
-; 1064 :             LPTASK hTask;
-; 1065 :             LPTASK lpTask;
-; 1066 :             int nResponse = IDYES;
+; 1067 :             LPTASK hTask;
+; 1068 :             LPTASK lpTask;
+; 1069 :             int nResponse = IDYES;
 
-	mov	DWORD PTR _nResponse$59882[ebp], 6
+	mov	DWORD PTR _nResponse$59883[ebp], 6
 
-; 1067 : 
-; 1068 :             // See if any tasks are active.
-; 1069 :             hTask = AnchorBlock->hFirstTask;
+; 1070 : 
+; 1071 :             // See if any tasks are active.
+; 1072 :             hTask = AnchorBlock->hFirstTask;
 
 	mov	ecx, DWORD PTR _AnchorBlock
 	mov	edx, DWORD PTR [ecx+130]
-	mov	DWORD PTR _hTask$59880[ebp], edx
+	mov	DWORD PTR _hTask$59881[ebp], edx
 
-; 1070 :             lpTask = zGETPTR( hTask );
+; 1073 :             lpTask = zGETPTR( hTask );
 
-	mov	eax, DWORD PTR _hTask$59880[ebp]
+	mov	eax, DWORD PTR _hTask$59881[ebp]
 	push	eax
 	call	_SysGetPointerFromHandle@4
-	mov	DWORD PTR _lpTask$59881[ebp], eax
-$L59884:
+	mov	DWORD PTR _lpTask$59882[ebp], eax
+$L59885:
 
-; 1071 : 
-; 1072 :             while ( lpTask )
+; 1074 : 
+; 1075 :             while ( lpTask )
 
-	cmp	DWORD PTR _lpTask$59881[ebp], 0
-	je	SHORT $L59885
+	cmp	DWORD PTR _lpTask$59882[ebp], 0
+	je	SHORT $L59886
 
-; 1074 :                if ( hTask != AnchorBlock->hMainTask &&
-; 1075 :                     IsWindow( (HWND) lpTask->hMainWnd ) )
+; 1077 :                if ( hTask != AnchorBlock->hMainTask &&
+; 1078 :                     IsWindow( (HWND) lpTask->hMainWnd ) )
 
 	mov	ecx, DWORD PTR _AnchorBlock
-	mov	edx, DWORD PTR _hTask$59880[ebp]
+	mov	edx, DWORD PTR _hTask$59881[ebp]
 	cmp	edx, DWORD PTR [ecx+106]
-	je	SHORT $L59887
-	mov	eax, DWORD PTR _lpTask$59881[ebp]
+	je	SHORT $L59888
+	mov	eax, DWORD PTR _lpTask$59882[ebp]
 	mov	ecx, DWORD PTR [eax+22]
 	push	ecx
 	call	DWORD PTR __imp__IsWindow@4
 	test	eax, eax
-	je	SHORT $L59887
+	je	SHORT $L59888
 
-; 1077 :                   break;
+; 1080 :                   break;
 
-	jmp	SHORT $L59885
-$L59887:
+	jmp	SHORT $L59886
+$L59888:
 
-; 1079 : 
-; 1080 :                lpTask = zGETPTR( lpTask->hNextTask );
+; 1082 : 
+; 1083 :                lpTask = zGETPTR( lpTask->hNextTask );
 
-	mov	edx, DWORD PTR _lpTask$59881[ebp]
+	mov	edx, DWORD PTR _lpTask$59882[ebp]
 	mov	eax, DWORD PTR [edx+2]
 	push	eax
 	call	_SysGetPointerFromHandle@4
-	mov	DWORD PTR _lpTask$59881[ebp], eax
+	mov	DWORD PTR _lpTask$59882[ebp], eax
 
-; 1081 :             }
+; 1084 :             }
 
-	jmp	SHORT $L59884
-$L59885:
+	jmp	SHORT $L59885
+$L59886:
 
-; 1082 : 
-; 1083 :             if ( lpTask )
+; 1085 : 
+; 1086 :             if ( lpTask )
 
-	cmp	DWORD PTR _lpTask$59881[ebp], 0
-	je	SHORT $L59888
+	cmp	DWORD PTR _lpTask$59882[ebp], 0
+	je	SHORT $L59889
 
-; 1085 :                nResponse =
-; 1086 :                   MessageBox( hWnd,
-; 1087 :                               "Zeidon Applications are still active.\n"
-; 1088 :                               "If you continue, you will lose unsaved data.\n"
-; 1089 :                               "Do you still want to kill Zeidon?",
-; 1090 :                               "Zeidon Object Services",
-; 1091 :                               MB_ICONEXCLAMATION |
-; 1092 :                               MB_YESNO | MB_TASKMODAL );
+; 1088 :                nResponse =
+; 1089 :                   MessageBox( hWnd,
+; 1090 :                               "Zeidon Applications are still active.\n"
+; 1091 :                               "If you continue, you will lose unsaved data.\n"
+; 1092 :                               "Do you still want to kill Zeidon?",
+; 1093 :                               "Zeidon Object Services",
+; 1094 :                               MB_ICONEXCLAMATION |
+; 1095 :                               MB_YESNO | MB_TASKMODAL );
 
 	push	8244					; 00002034H
 	push	OFFSET FLAT:??_C@_0BH@MPNN@Zeidon?5Object?5Services?$AA@ ; `string'
@@ -4035,1314 +4053,274 @@ $L59885:
 	mov	ecx, DWORD PTR _hWnd$[ebp]
 	push	ecx
 	call	DWORD PTR __imp__MessageBoxA@16
-	mov	DWORD PTR _nResponse$59882[ebp], eax
-$L59888:
+	mov	DWORD PTR _nResponse$59883[ebp], eax
+$L59889:
 
-; 1094 : 
-; 1095 :             if ( nResponse == IDYES )
+; 1097 : 
+; 1098 :             if ( nResponse == IDYES )
 
-	cmp	DWORD PTR _nResponse$59882[ebp], 6
-	jne	SHORT $L59892
+	cmp	DWORD PTR _nResponse$59883[ebp], 6
+	jne	SHORT $L59894
 
-; 1097 :                zCHAR szFileName[ zMAX_FILENAME_LTH + 1 ];
-; 1098 : 
-; 1099 :                SysReadZeidonIni( -1, "[ObjectEngine]", "KillZeidon", szFileName );
+; 1100 :                zCHAR szFileName[ zMAX_FILENAME_LTH + 1 ];
+; 1101 :                zCHAR szTempName[ zMAX_FILENAME_LTH + 1 ];
+; 1102 : 
+; 1103 :                SysReadZeidonIni( -1, "[ObjectEngine]", "KillZeidon", szTempName );
 
-	lea	edx, DWORD PTR _szFileName$59891[ebp]
+	lea	edx, DWORD PTR _szTempName$59893[ebp]
 	push	edx
 	push	OFFSET FLAT:??_C@_0L@NDGH@KillZeidon?$AA@ ; `string'
 	push	OFFSET FLAT:??_C@_0P@CGC@?$FLObjectEngine?$FN?$AA@ ; `string'
 	push	-1
 	call	_SysReadZeidonIni@16
 
-; 1100 :                if ( szFileName[ 0 ] )
+; 1104 :                SysConvertEnvironmentString( szFileName, szTempName );
 
-	movsx	eax, BYTE PTR _szFileName$59891[ebp]
-	test	eax, eax
-	je	SHORT $L59892
+	lea	eax, DWORD PTR _szTempName$59893[ebp]
+	push	eax
+	lea	ecx, DWORD PTR _szFileName$59892[ebp]
+	push	ecx
+	call	_SysConvertEnvironmentString@8
 
-; 1101 :                   WinExec( szFileName, SW_SHOWNORMAL );
+; 1105 :                if ( szFileName[ 0 ] )
+
+	movsx	edx, BYTE PTR _szFileName$59892[ebp]
+	test	edx, edx
+	je	SHORT $L59894
+
+; 1106 :                   WinExec( szFileName, SW_SHOWNORMAL );
 
 	push	1
-	lea	ecx, DWORD PTR _szFileName$59891[ebp]
-	push	ecx
-	call	DWORD PTR __imp__WinExec@8
-$L59892:
-
-; 1103 : 
-; 1104 :             break;
-
-	jmp	$L59724
-$L59879:
-
-; 1106 :          else
-; 1107 :          if ( wCommand == IDM_SHOWINTL )
-
-	mov	edx, DWORD PTR _wCommand$59737[ebp]
-	and	edx, 65535				; 0000ffffH
-	cmp	edx, 115				; 00000073H
-	jne	$L59894
-
-; 1109 :             LPINTERNATIONAL lpIntl = zGETPTR( AnchorBlock->hInternational );
-
-	mov	eax, DWORD PTR _AnchorBlock
-	mov	ecx, DWORD PTR [eax+2515]
-	push	ecx
-	call	_SysGetPointerFromHandle@4
-	mov	DWORD PTR _lpIntl$59895[ebp], eax
-
-; 1110 :             if ( lpIntl )
-
-	cmp	DWORD PTR _lpIntl$59895[ebp], 0
-	je	$L59896
-
-; 1112 :                TraceLineI( "(wa) nCountry :    ", lpIntl->nCountry );
-
-	mov	edx, DWORD PTR _lpIntl$59895[ebp]
-	movsx	eax, WORD PTR [edx+2]
+	lea	eax, DWORD PTR _szFileName$59892[ebp]
 	push	eax
+	call	DWORD PTR __imp__WinExec@8
+$L59894:
+
+; 1108 : 
+; 1109 :             break;
+
+	jmp	$L59725
+$L59880:
+
+; 1111 :          else
+; 1112 :          if ( wCommand == IDM_SHOWINTL )
+
+	mov	ecx, DWORD PTR _wCommand$59738[ebp]
+	and	ecx, 65535				; 0000ffffH
+	cmp	ecx, 115				; 00000073H
+	jne	$L59896
+
+; 1114 :             LPINTERNATIONAL lpIntl = zGETPTR( AnchorBlock->hInternational );
+
+	mov	edx, DWORD PTR _AnchorBlock
+	mov	eax, DWORD PTR [edx+2515]
+	push	eax
+	call	_SysGetPointerFromHandle@4
+	mov	DWORD PTR _lpIntl$59897[ebp], eax
+
+; 1115 :             if ( lpIntl )
+
+	cmp	DWORD PTR _lpIntl$59897[ebp], 0
+	je	$L59898
+
+; 1117 :                TraceLineI( "(wa) nCountry :    ", lpIntl->nCountry );
+
+	mov	ecx, DWORD PTR _lpIntl$59897[ebp]
+	movsx	edx, WORD PTR [ecx+2]
+	push	edx
 	push	OFFSET FLAT:??_C@_0BE@NOHJ@?$CIwa?$CJ?5nCountry?5?3?5?5?5?5?$AA@ ; `string'
 	call	_TraceLineI@8
 
-; 1113 :                TraceLineS( "(wa) lpCountry :   ", lpIntl->szCountry );
+; 1118 :                TraceLineS( "(wa) lpCountry :   ", lpIntl->szCountry );
 
-	mov	ecx, DWORD PTR _lpIntl$59895[ebp]
-	add	ecx, 4
-	push	ecx
+	mov	eax, DWORD PTR _lpIntl$59897[ebp]
+	add	eax, 4
+	push	eax
 	push	OFFSET FLAT:??_C@_0BE@HBGB@?$CIwa?$CJ?5lpCountry?5?3?5?5?5?$AA@ ; `string'
 	call	_TraceLineS@8
 
-; 1114 :                TraceLineS( "(wa) lpLanguage :  ", lpIntl->szLanguage );
+; 1119 :                TraceLineS( "(wa) lpLanguage :  ", lpIntl->szLanguage );
 
-	mov	edx, DWORD PTR _lpIntl$59895[ebp]
-	add	edx, 37					; 00000025H
-	push	edx
+	mov	ecx, DWORD PTR _lpIntl$59897[ebp]
+	add	ecx, 37					; 00000025H
+	push	ecx
 	push	OFFSET FLAT:??_C@_0BE@KHIN@?$CIwa?$CJ?5lpLanguage?5?3?5?5?$AA@ ; `string'
 	call	_TraceLineS@8
 
-; 1115 :                TraceLineS( "(wa) lpList :      ", lpIntl->szList );
+; 1120 :                TraceLineS( "(wa) lpList :      ", lpIntl->szList );
 
-	mov	eax, DWORD PTR _lpIntl$59895[ebp]
-	add	eax, 72					; 00000048H
-	push	eax
+	mov	edx, DWORD PTR _lpIntl$59897[ebp]
+	add	edx, 72					; 00000048H
+	push	edx
 	push	OFFSET FLAT:??_C@_0BE@LFNC@?$CIwa?$CJ?5lpList?5?3?5?5?5?5?5?5?$AA@ ; `string'
 	call	_TraceLineS@8
 
-; 1116 :                TraceLineI( "(wa) nMeasure :    ", lpIntl->nMeasure );
+; 1121 :                TraceLineI( "(wa) nMeasure :    ", lpIntl->nMeasure );
 
-	mov	ecx, DWORD PTR _lpIntl$59895[ebp]
-	movsx	edx, WORD PTR [ecx+77]
-	push	edx
+	mov	eax, DWORD PTR _lpIntl$59897[ebp]
+	movsx	ecx, WORD PTR [eax+77]
+	push	ecx
 	push	OFFSET FLAT:??_C@_0BE@NDCM@?$CIwa?$CJ?5nMeasure?5?3?5?5?5?5?$AA@ ; `string'
 	call	_TraceLineI@8
 
-; 1117 :                TraceLineI( "(wa) nTime :       ", lpIntl->nTime );
+; 1122 :                TraceLineI( "(wa) nTime :       ", lpIntl->nTime );
 
-	mov	eax, DWORD PTR _lpIntl$59895[ebp]
-	movsx	ecx, WORD PTR [eax+79]
-	push	ecx
+	mov	edx, DWORD PTR _lpIntl$59897[ebp]
+	movsx	eax, WORD PTR [edx+79]
+	push	eax
 	push	OFFSET FLAT:??_C@_0BE@KAEI@?$CIwa?$CJ?5nTime?5?3?5?5?5?5?5?5?5?$AA@ ; `string'
 	call	_TraceLineI@8
 
-; 1118 :                TraceLineS( "(wa) lpTime :      ", lpIntl->szTime );
+; 1123 :                TraceLineS( "(wa) lpTime :      ", lpIntl->szTime );
 
-	mov	edx, DWORD PTR _lpIntl$59895[ebp]
-	add	edx, 81					; 00000051H
-	push	edx
+	mov	ecx, DWORD PTR _lpIntl$59897[ebp]
+	add	ecx, 81					; 00000051H
+	push	ecx
 	push	OFFSET FLAT:??_C@_0BE@EAFP@?$CIwa?$CJ?5lpTime?5?3?5?5?5?5?5?5?$AA@ ; `string'
 	call	_TraceLineS@8
 
-; 1119 :                TraceLineS( "(wa) lp1159 :      ", lpIntl->sz1159 );
+; 1124 :                TraceLineS( "(wa) lp1159 :      ", lpIntl->sz1159 );
 
-	mov	eax, DWORD PTR _lpIntl$59895[ebp]
-	add	eax, 86					; 00000056H
-	push	eax
+	mov	edx, DWORD PTR _lpIntl$59897[ebp]
+	add	edx, 86					; 00000056H
+	push	edx
 	push	OFFSET FLAT:??_C@_0BE@NNND@?$CIwa?$CJ?5lp1159?5?3?5?5?5?5?5?5?$AA@ ; `string'
 	call	_TraceLineS@8
 
-; 1120 :                TraceLineS( "(wa) lp2359 :      ", lpIntl->sz2359 );
+; 1125 :                TraceLineS( "(wa) lp2359 :      ", lpIntl->sz2359 );
 
-	mov	ecx, DWORD PTR _lpIntl$59895[ebp]
-	add	ecx, 91					; 0000005bH
-	push	ecx
+	mov	eax, DWORD PTR _lpIntl$59897[ebp]
+	add	eax, 91					; 0000005bH
+	push	eax
 	push	OFFSET FLAT:??_C@_0BE@LOPD@?$CIwa?$CJ?5lp2359?5?3?5?5?5?5?5?5?$AA@ ; `string'
 	call	_TraceLineS@8
 
-; 1121 :                TraceLineI( "(wa) nTLZero :     ", lpIntl->nTLZero );
+; 1126 :                TraceLineI( "(wa) nTLZero :     ", lpIntl->nTLZero );
 
-	mov	edx, DWORD PTR _lpIntl$59895[ebp]
-	movsx	eax, WORD PTR [edx+96]
-	push	eax
+	mov	ecx, DWORD PTR _lpIntl$59897[ebp]
+	movsx	edx, WORD PTR [ecx+96]
+	push	edx
 	push	OFFSET FLAT:??_C@_0BE@KEHA@?$CIwa?$CJ?5nTLZero?5?3?5?5?5?5?5?$AA@ ; `string'
 	call	_TraceLineI@8
 
-; 1122 :                TraceLineS( "(wa) lpShortDate : ", lpIntl->hShortDate );
+; 1127 :                TraceLineS( "(wa) lpShortDate : ", lpIntl->hShortDate );
 
-	mov	ecx, DWORD PTR _lpIntl$59895[ebp]
-	mov	edx, DWORD PTR [ecx+98]
-	push	edx
+	mov	eax, DWORD PTR _lpIntl$59897[ebp]
+	mov	ecx, DWORD PTR [eax+98]
+	push	ecx
 	push	OFFSET FLAT:??_C@_0BE@BLBB@?$CIwa?$CJ?5lpShortDate?5?3?5?$AA@ ; `string'
 	call	_TraceLineS@8
 
-; 1123 :                TraceLineS( "(wa) lpLongDate :  ", lpIntl->hLongDate );
+; 1128 :                TraceLineS( "(wa) lpLongDate :  ", lpIntl->hLongDate );
 
-	mov	eax, DWORD PTR _lpIntl$59895[ebp]
-	mov	ecx, DWORD PTR [eax+102]
-	push	ecx
+	mov	edx, DWORD PTR _lpIntl$59897[ebp]
+	mov	eax, DWORD PTR [edx+102]
+	push	eax
 	push	OFFSET FLAT:??_C@_0BE@KHCE@?$CIwa?$CJ?5lpLongDate?5?3?5?5?$AA@ ; `string'
 	call	_TraceLineS@8
 
-; 1124 :                TraceLineS( "(wa) lpTimeFmt :   ", lpIntl->hTimeFmt );
+; 1129 :                TraceLineS( "(wa) lpTimeFmt :   ", lpIntl->hTimeFmt );
 
-	mov	edx, DWORD PTR _lpIntl$59895[ebp]
-	mov	eax, DWORD PTR [edx+106]
-	push	eax
+	mov	ecx, DWORD PTR _lpIntl$59897[ebp]
+	mov	edx, DWORD PTR [ecx+106]
+	push	edx
 	push	OFFSET FLAT:??_C@_0BE@CKIL@?$CIwa?$CJ?5lpTimeFmt?5?3?5?5?5?$AA@ ; `string'
 	call	_TraceLineS@8
 
-; 1125 :                TraceLineS( "(wa) lpCurrency :  ", lpIntl->szCurrency );
+; 1130 :                TraceLineS( "(wa) lpCurrency :  ", lpIntl->szCurrency );
 
-	mov	ecx, DWORD PTR _lpIntl$59895[ebp]
-	add	ecx, 110				; 0000006eH
-	push	ecx
+	mov	eax, DWORD PTR _lpIntl$59897[ebp]
+	add	eax, 110				; 0000006eH
+	push	eax
 	push	OFFSET FLAT:??_C@_0BE@HDJM@?$CIwa?$CJ?5lpCurrency?5?3?5?5?$AA@ ; `string'
 	call	_TraceLineS@8
 
-; 1126 :                TraceLineI( "(wa) nCurrency :   ", lpIntl->nCurrency );
+; 1131 :                TraceLineI( "(wa) nCurrency :   ", lpIntl->nCurrency );
 
-	mov	edx, DWORD PTR _lpIntl$59895[ebp]
-	movsx	eax, WORD PTR [edx+120]
-	push	eax
+	mov	ecx, DWORD PTR _lpIntl$59897[ebp]
+	movsx	edx, WORD PTR [ecx+120]
+	push	edx
 	push	OFFSET FLAT:??_C@_0BE@CFHL@?$CIwa?$CJ?5nCurrency?5?3?5?5?5?$AA@ ; `string'
 	call	_TraceLineI@8
 
-; 1127 :                TraceLineI( "(wa) nCurrDigits : ", lpIntl->nCurrDigits );
+; 1132 :                TraceLineI( "(wa) nCurrDigits : ", lpIntl->nCurrDigits );
 
-	mov	ecx, DWORD PTR _lpIntl$59895[ebp]
-	movsx	edx, WORD PTR [ecx+122]
-	push	edx
+	mov	eax, DWORD PTR _lpIntl$59897[ebp]
+	movsx	ecx, WORD PTR [eax+122]
+	push	ecx
 	push	OFFSET FLAT:??_C@_0BE@JENA@?$CIwa?$CJ?5nCurrDigits?5?3?5?$AA@ ; `string'
 	call	_TraceLineI@8
 
-; 1128 :                TraceLineI( "(wa) nNegCurr :    ", lpIntl->nNegCurr );
+; 1133 :                TraceLineI( "(wa) nNegCurr :    ", lpIntl->nNegCurr );
 
-	mov	eax, DWORD PTR _lpIntl$59895[ebp]
-	movsx	ecx, WORD PTR [eax+124]
-	push	ecx
+	mov	edx, DWORD PTR _lpIntl$59897[ebp]
+	movsx	eax, WORD PTR [edx+124]
+	push	eax
 	push	OFFSET FLAT:??_C@_0BE@HLGF@?$CIwa?$CJ?5nNegCurr?5?3?5?5?5?5?$AA@ ; `string'
 	call	_TraceLineI@8
 
-; 1129 :                TraceLineS( "(wa) lpThousand :  ", lpIntl->szThousand );
+; 1134 :                TraceLineS( "(wa) lpThousand :  ", lpIntl->szThousand );
 
-	mov	edx, DWORD PTR _lpIntl$59895[ebp]
-	add	edx, 126				; 0000007eH
-	push	edx
+	mov	ecx, DWORD PTR _lpIntl$59897[ebp]
+	add	ecx, 126				; 0000007eH
+	push	ecx
 	push	OFFSET FLAT:??_C@_0BE@KPDD@?$CIwa?$CJ?5lpThousand?5?3?5?5?$AA@ ; `string'
 	call	_TraceLineS@8
 
-; 1130 :                TraceLineS( "(wa) lpDecimal :   ", lpIntl->szDecimal );
+; 1135 :                TraceLineS( "(wa) lpDecimal :   ", lpIntl->szDecimal );
 
-	mov	eax, DWORD PTR _lpIntl$59895[ebp]
-	add	eax, 131				; 00000083H
-	push	eax
+	mov	edx, DWORD PTR _lpIntl$59897[ebp]
+	add	edx, 131				; 00000083H
+	push	edx
 	push	OFFSET FLAT:??_C@_0BE@OKLB@?$CIwa?$CJ?5lpDecimal?5?3?5?5?5?$AA@ ; `string'
 	call	_TraceLineS@8
 
-; 1131 :                TraceLineI( "(wa) nDigits :     ", lpIntl->nDigits );
+; 1136 :                TraceLineI( "(wa) nDigits :     ", lpIntl->nDigits );
 
-	mov	ecx, DWORD PTR _lpIntl$59895[ebp]
-	movsx	edx, WORD PTR [ecx+136]
-	push	edx
+	mov	eax, DWORD PTR _lpIntl$59897[ebp]
+	movsx	ecx, WORD PTR [eax+136]
+	push	ecx
 	push	OFFSET FLAT:??_C@_0BE@BHPJ@?$CIwa?$CJ?5nDigits?5?3?5?5?5?5?5?$AA@ ; `string'
 	call	_TraceLineI@8
 
-; 1132 :                TraceLineI( "(wa) nLZero :      ", lpIntl->nLZero );
+; 1137 :                TraceLineI( "(wa) nLZero :      ", lpIntl->nLZero );
 
-	mov	eax, DWORD PTR _lpIntl$59895[ebp]
-	movsx	ecx, WORD PTR [eax+138]
-	push	ecx
+	mov	edx, DWORD PTR _lpIntl$59897[ebp]
+	movsx	eax, WORD PTR [edx+138]
+	push	eax
 	push	OFFSET FLAT:??_C@_0BE@LDIE@?$CIwa?$CJ?5nLZero?5?3?5?5?5?5?5?5?$AA@ ; `string'
 	call	_TraceLineI@8
 
-; 1134 :             else
+; 1139 :             else
 
-	jmp	SHORT $L59918
-$L59896:
+	jmp	SHORT $L59920
+$L59898:
 
-; 1135 :                TraceLineS( "(wa) No international information ",
-; 1136 :                            "is available" );
+; 1140 :                TraceLineS( "(wa) No international information ",
+; 1141 :                            "is available" );
 
 	push	OFFSET FLAT:??_C@_0N@JDNP@is?5available?$AA@ ; `string'
 	push	OFFSET FLAT:??_C@_0CD@LNDP@?$CIwa?$CJ?5No?5international?5informatio@ ; `string'
 	call	_TraceLineS@8
-$L59918:
+$L59920:
 
-; 1137 :             break;
+; 1142 :             break;
 
-	jmp	$L59724
-$L59894:
+	jmp	$L59725
+$L59896:
 
-; 1139 :          else
-; 1140 :          if ( wCommand == IDM_CLEARTRACE )    // Empty all trace windows
+; 1144 :          else
+; 1145 :          if ( wCommand == IDM_CLEARTRACE )    // Empty all trace windows
 
-	mov	edx, DWORD PTR _wCommand$59737[ebp]
-	and	edx, 65535				; 0000ffffH
-	cmp	edx, 122				; 0000007aH
-	jne	$L59922
+	mov	ecx, DWORD PTR _wCommand$59738[ebp]
+	and	ecx, 65535				; 0000ffffH
+	cmp	ecx, 122				; 0000007aH
+	jne	$L59924
 
-; 1142 :             UINT k;
-; 1143 : 
-; 1144 :             ShowWindow( g_hwndTraceWindow[ g_nTraceWindowDisplayed ],
-; 1145 :                         SW_HIDE );
-
-	push	0
-	mov	eax, DWORD PTR _g_nTraceWindowDisplayed
-	mov	ecx, DWORD PTR _g_hwndTraceWindow[eax*4]
-	push	ecx
-	call	DWORD PTR __imp__ShowWindow@8
-
-; 1146 :             for ( k = 0; k < g_nTraceWindowCnt; k++ )
-
-	mov	DWORD PTR _k$59923[ebp], 0
-	jmp	SHORT $L59924
-$L59925:
-	mov	edx, DWORD PTR _k$59923[ebp]
-	add	edx, 1
-	mov	DWORD PTR _k$59923[ebp], edx
-$L59924:
-	mov	eax, DWORD PTR _k$59923[ebp]
-	cmp	eax, DWORD PTR _g_nTraceWindowCnt
-	jae	SHORT $L59926
-
-; 1147 :                SendMessage( g_hwndTraceWindow[ k ], LB_RESETCONTENT, 0, 0 );
-
-	push	0
-	push	0
-	push	388					; 00000184H
-	mov	ecx, DWORD PTR _k$59923[ebp]
-	mov	edx, DWORD PTR _g_hwndTraceWindow[ecx*4]
-	push	edx
-	call	DWORD PTR __imp__SendMessageA@16
-	jmp	SHORT $L59925
-$L59926:
-
+; 1147 :             UINT k;
 ; 1148 : 
-; 1149 :             ShowWindow( g_hwndTraceWindow[ 0 ], SW_SHOW );
-
-	push	5
-	mov	eax, DWORD PTR _g_hwndTraceWindow
-	push	eax
-	call	DWORD PTR __imp__ShowWindow@8
-
-; 1150 :             g_nTraceWindowHead      = 0;
-
-	mov	DWORD PTR _g_nTraceWindowHead, 0
-
-; 1151 :             g_nTraceWindowDisplayed = 0;
-
-	mov	DWORD PTR _g_nTraceWindowDisplayed, 0
-
-; 1153 :          else
-
-	jmp	$L60024
-$L59922:
-
-; 1154 :          if ( wCommand == IDM_SETDBHTRACE )   // Set DBHandler trace level
-
-	mov	ecx, DWORD PTR _wCommand$59737[ebp]
-	and	ecx, 65535				; 0000ffffH
-	cmp	ecx, 132				; 00000084H
-	jne	SHORT $L59928
-
-; 1156 :             DialogBox( hInst, MAKEINTRESOURCE( IDD_SETTRACE ),
-; 1157 :                        hWnd, fpSetTrace );
-
-	push	0
-	mov	edx, DWORD PTR _fpSetTrace
-	push	edx
-	mov	eax, DWORD PTR _hWnd$[ebp]
-	push	eax
-	push	106					; 0000006aH
-	mov	ecx, DWORD PTR _hInst
-	push	ecx
-	call	DWORD PTR __imp__DialogBoxParamA@20
-
-; 1159 :          else
-
-	jmp	$L60024
-$L59928:
-
-; 1160 :          if ( wCommand == IDM_SETOETRACE )   // Set OE Warning trace
-
-	mov	edx, DWORD PTR _wCommand$59737[ebp]
-	and	edx, 65535				; 0000ffffH
-	cmp	edx, 133				; 00000085H
-	jne	SHORT $L59933
-
-; 1162 :             g_chTraceOE_Warning = g_chTraceOE_Warning ? 0 : 'Y';
-
-	movsx	eax, BYTE PTR _g_chTraceOE_Warning
-	neg	eax
-	sbb	eax, eax
-	and	al, -89					; ffffffa7H
-	add	eax, 89					; 00000059H
-	mov	BYTE PTR _g_chTraceOE_Warning, al
-
-; 1163 :             CheckMenuItem( GetMenu( hWnd ), IDM_SETOETRACE,
-; 1164 :                            MF_BYCOMMAND |
-; 1165 :                            (g_chTraceOE_Warning == 0 ? MF_UNCHECKED :
-; 1166 :                                                        MF_CHECKED) );
-
-	movsx	ecx, BYTE PTR _g_chTraceOE_Warning
-	neg	ecx
-	sbb	ecx, ecx
-	and	ecx, 8
-	push	ecx
-	push	133					; 00000085H
-	mov	edx, DWORD PTR _hWnd$[ebp]
-	push	edx
-	call	DWORD PTR __imp__GetMenu@4
-	push	eax
-	call	DWORD PTR __imp__CheckMenuItem@12
-
-; 1168 :          else
-
-	jmp	$L60024
-$L59933:
-
-; 1169 :          if ( wCommand == IDM_SETZDRTRACE )   // Set ZDr Action trace
-
-	mov	eax, DWORD PTR _wCommand$59737[ebp]
-	and	eax, 65535				; 0000ffffH
-	cmp	eax, 134				; 00000086H
-	jne	SHORT $L59935
-
-; 1171 :             g_chTraceZDrActions = g_chTraceZDrActions ? 0 : 'Y';
-
-	movsx	ecx, BYTE PTR _g_chTraceZDrActions
-	neg	ecx
-	sbb	ecx, ecx
-	and	ecx, -89				; ffffffa7H
-	add	ecx, 89					; 00000059H
-	mov	BYTE PTR _g_chTraceZDrActions, cl
-
-; 1172 :             CheckMenuItem( GetMenu( hWnd ), IDM_SETZDRTRACE,
-; 1173 :                            MF_BYCOMMAND |
-; 1174 :                            (g_chTraceZDrActions == 0 ? MF_UNCHECKED :
-; 1175 :                                                        MF_CHECKED) );
-
-	movsx	edx, BYTE PTR _g_chTraceZDrActions
-	neg	edx
-	sbb	edx, edx
-	and	edx, 8
-	push	edx
-	push	134					; 00000086H
-	mov	eax, DWORD PTR _hWnd$[ebp]
-	push	eax
-	call	DWORD PTR __imp__GetMenu@4
-	push	eax
-	call	DWORD PTR __imp__CheckMenuItem@12
-
-; 1177 :          else
-
-	jmp	$L60024
-$L59935:
-
-; 1178 :          if ( wCommand == IDM_SETWEBTRACE )   // Set ZDr Action trace
-
-	mov	ecx, DWORD PTR _wCommand$59737[ebp]
-	and	ecx, 65535				; 0000ffffH
-	cmp	ecx, 135				; 00000087H
-	jne	SHORT $L59937
-
-; 1180 :             g_chTraceWebActions = g_chTraceWebActions ? 0 : 'Y';
-
-	movsx	edx, BYTE PTR _g_chTraceWebActions
-	neg	edx
-	sbb	edx, edx
-	and	edx, -89				; ffffffa7H
-	add	edx, 89					; 00000059H
-	mov	BYTE PTR _g_chTraceWebActions, dl
-
-; 1181 :             CheckMenuItem( GetMenu( hWnd ), IDM_SETWEBTRACE,
-; 1182 :                            MF_BYCOMMAND |
-; 1183 :                            (g_chTraceWebActions == 0 ? MF_UNCHECKED :
-; 1184 :                                                        MF_CHECKED) );
-
-	movsx	eax, BYTE PTR _g_chTraceWebActions
-	neg	eax
-	sbb	eax, eax
-	and	eax, 8
-	push	eax
-	push	135					; 00000087H
-	mov	ecx, DWORD PTR _hWnd$[ebp]
-	push	ecx
-	call	DWORD PTR __imp__GetMenu@4
-	push	eax
-	call	DWORD PTR __imp__CheckMenuItem@12
-
-; 1186 : #ifdef ALLOC_FREE_TRACE
-; 1187 :          else
-; 1188 :          if ( wCommand == IDM_SETMEMORYTRACE )   // Set Memory trace
-; 1189 :          {
-; 1190 :             g_chTraceMemory = g_chTraceMemory ? 0 : 'Y';
-; 1191 :             AnchorBlock->bTraceMem = g_chTraceMemory ? TRUE : FALSE;
-; 1192 :             CheckMenuItem( GetMenu( hWnd ), IDM_SETMEMORYTRACE,
-; 1193 :                            MF_BYCOMMAND |
-; 1194 :                            (g_chTraceMemory == 0 ? MF_UNCHECKED :
-; 1195 :                                                    MF_CHECKED) );
-; 1196 :          }
-; 1197 :          else
-; 1198 :          if ( wCommand == IDM_TRACEMEMORYALLOCATIONS )
-; 1199 :          {
-; 1200 :             if ( AnchorBlock->bTraceMem )
-; 1201 :                fnListDataspaceLeak( AnchorBlock, 0, 1 );
-; 1202 :          }
-; 1203 :          else
-; 1204 :          if ( wCommand == IDM_TRACEMEMORYDATA )
-; 1205 :          {
-; 1206 :             if ( AnchorBlock->bTraceMem )
-; 1207 :                fnListDataspaceLeak( AnchorBlock, 0, 2 );
-; 1208 :          }
-; 1209 :          else
-; 1210 :          if ( wCommand == IDM_CLEARMEMORYALLOCATIONS )
-; 1211 :          {
-; 1212 :             if ( AnchorBlock->bTraceMem )
-; 1213 :                fnListDataspaceLeak( AnchorBlock, 0, -1 );
-; 1214 :          }
-; 1215 : #endif
-; 1216 : #ifdef LOAD_FREE_TRACE
-; 1217 :          else
-; 1218 :          if ( wCommand == IDM_SETLOADTRACE )   // Set Load trace
-; 1219 :          {
-; 1220 :             g_chTraceLoad = g_chTraceLoad ? 0 : 'Y';
-; 1221 :             AnchorBlock->bTraceLoad = g_chTraceLoad ? TRUE : FALSE;
-; 1222 :             CheckMenuItem( GetMenu( hWnd ), IDM_SETLOADTRACE,
-; 1223 :                            MF_BYCOMMAND |
-; 1224 :                            (g_chTraceLoad == 0 ? MF_UNCHECKED :
-; 1225 :                                                    MF_CHECKED) );
-; 1226 :          }
-; 1227 :          else
-; 1228 :          if ( wCommand == IDM_TRACELOADALLOCATIONS )
-; 1229 :          {
-; 1230 :             if ( AnchorBlock->bTraceLoad )
-; 1231 :                fnListDataspaceLeak( AnchorBlock, 0, 1 );
-; 1232 :          }
-; 1233 :          else
-; 1234 :          if ( wCommand == IDM_TRACELOADDATA )
-; 1235 :          {
-; 1236 :             if ( AnchorBlock->bTraceLoad )
-; 1237 :                fnListDataspaceLeak( AnchorBlock, 0, 2 );
-; 1238 :          }
-; 1239 :          else
-; 1240 :          if ( wCommand == IDM_CLEARLOADALLOCATIONS )
-; 1241 :          {
-; 1242 :             if ( AnchorBlock->bTraceLoad )
-; 1243 :                fnListDataspaceLeak( AnchorBlock, 0, -1 );
-; 1244 :          }
-; 1245 : #endif
-; 1246 :          else
-
-	jmp	$L60024
-$L59937:
-
-; 1247 :          if ( wCommand == IDM_SCROLLTRACE )   // Scroll trace
-
-	mov	edx, DWORD PTR _wCommand$59737[ebp]
-	and	edx, 65535				; 0000ffffH
-	cmp	edx, 136				; 00000088H
-	jne	SHORT $L59939
-
-; 1249 :             g_chScrollTrace = g_chScrollTrace ? 0 : 'Y';
-
-	movsx	eax, BYTE PTR _g_chScrollTrace
-	neg	eax
-	sbb	eax, eax
-	and	al, -89					; ffffffa7H
-	add	eax, 89					; 00000059H
-	mov	BYTE PTR _g_chScrollTrace, al
-
-; 1250 :             CheckMenuItem( GetMenu( hWnd ), IDM_SCROLLTRACE,
-; 1251 :                            MF_BYCOMMAND |
-; 1252 :                               (g_chScrollTrace ? MF_CHECKED : MF_UNCHECKED) );
-
-	movsx	ecx, BYTE PTR _g_chScrollTrace
-	neg	ecx
-	sbb	ecx, ecx
-	and	ecx, 8
-	push	ecx
-	push	136					; 00000088H
-	mov	edx, DWORD PTR _hWnd$[ebp]
-	push	edx
-	call	DWORD PTR __imp__GetMenu@4
-	push	eax
-	call	DWORD PTR __imp__CheckMenuItem@12
-
-; 1254 :          else
-
-	jmp	$L60024
-$L59939:
-
-; 1255 :          if ( wCommand == IDM_TRACEDATASPACE )
-
-	mov	eax, DWORD PTR _wCommand$59737[ebp]
-	and	eax, 65535				; 0000ffffH
-	cmp	eax, 153				; 00000099H
-	jne	SHORT $L59941
-
-; 1257 :             MiListOE_Memory( 0, -1 );  // toggle dataspace alloc/free tracing
-
-	push	-1
-	push	0
-	call	_MiListOE_Memory@8
-
-; 1259 :          else
-
-	jmp	$L60024
-$L59941:
-
-; 1260 :          if ( wCommand == IDM_LISTTASKS )   // Display task information
-
-	mov	ecx, DWORD PTR _wCommand$59737[ebp]
-	and	ecx, 65535				; 0000ffffH
-	cmp	ecx, 112				; 00000070H
-	jne	$L59943
-
-; 1262 :             if ( AnchorBlock )
-
-	cmp	DWORD PTR _AnchorBlock, 0
-	je	$L59944
-
-; 1264 :             // LPTASK lpTask;
-; 1265 :             // LPTASK hTask;
-; 1266 :                char   szMessage[ 512 ];
-; 1267 : 
-; 1268 : #if 1  // DGC 6/13/97  Can't print allocated memory right now.
-; 1269 :                LPDATAHEADER    lpDataHeader;
-; 1270 :                FreespaceRecord *lpFreespace;
-; 1271 :                zULONG ulAlloc;
-; 1272 :                zULONG ulUsed;
-; 1273 :                zULONG ulFree;
-; 1274 : 
-; 1275 :                // Get System available memory
-; 1276 :             // lFree = GlobalCompact( 0 );
-; 1277 :             // lFree = (lFree / 1024) + 10000;
-; 1278 :             // zstrcpy( szMessage, "System Memory Available:" );
-; 1279 :             // zltoa( lFree, szMessage + 200 );
-; 1280 :             // zstrcat( szMessage, szMessage + 201 );
-; 1281 :             // zstrcat( szMessage, "K" );
-; 1282 :             // SysMessageList( szMessage );
-; 1283 : 
-; 1284 :                // Display Anchor block memory utilization
-; 1285 :                lpDataHeader = (LPDATAHEADER) AnchorBlock;
-
-	mov	edx, DWORD PTR _AnchorBlock
-	mov	DWORD PTR _lpDataHeader$59946[ebp], edx
-
-; 1286 :                ulFree  = 0;
-
-	mov	DWORD PTR _ulFree$59950[ebp], 0
-
-; 1287 :                ulUsed  = 0;
-
-	mov	DWORD PTR _ulUsed$59949[ebp], 0
-
-; 1288 :                ulAlloc = lpDataHeader->ulUseableSize; // used memory spaces
-
-	mov	eax, DWORD PTR _lpDataHeader$59946[ebp]
-	mov	ecx, DWORD PTR [eax+10]
-	mov	DWORD PTR _ulAlloc$59948[ebp], ecx
-
-; 1289 :                lpFreespace = &lpDataHeader->Freespace;
-
-	mov	edx, DWORD PTR _lpDataHeader$59946[ebp]
-	add	edx, 46					; 0000002eH
-	mov	DWORD PTR _lpFreespace$59947[ebp], edx
-$L59953:
-
-; 1290 :                while ( lpFreespace )
-
-	cmp	DWORD PTR _lpFreespace$59947[ebp], 0
-	je	SHORT $L59954
-
-; 1292 :                   ulFree += lpFreespace->ulFreeLth;
-
-	mov	eax, DWORD PTR _lpFreespace$59947[ebp]
-	mov	ecx, DWORD PTR _ulFree$59950[ebp]
-	add	ecx, DWORD PTR [eax+6]
-	mov	DWORD PTR _ulFree$59950[ebp], ecx
-
-; 1293 :                   lpFreespace = zGETPTR( lpFreespace->hNextFreespace );
-
-	mov	edx, DWORD PTR _lpFreespace$59947[ebp]
-	mov	eax, DWORD PTR [edx+14]
-	push	eax
-	call	_SysGetPointerFromHandle@4
-	mov	DWORD PTR _lpFreespace$59947[ebp], eax
-
-; 1294 :                }
-
-	jmp	SHORT $L59953
-$L59954:
-
-; 1295 : 
-; 1296 :                zstrcpy( szMessage, "Anchor Block  Alloc: " );
-
-	push	OFFSET FLAT:??_C@_0BG@HELH@Anchor?5Block?5?5Alloc?3?5?$AA@ ; `string'
-	lea	ecx, DWORD PTR _szMessage$59945[ebp]
-	push	ecx
-	call	_strcpy
-	add	esp, 8
-
-; 1297 :                ulUsed = ulAlloc - ulFree;
-
-	mov	edx, DWORD PTR _ulAlloc$59948[ebp]
-	sub	edx, DWORD PTR _ulFree$59950[ebp]
-	mov	DWORD PTR _ulUsed$59949[ebp], edx
-
-; 1298 :                zltoa( ulAlloc, szMessage + 200 );
-
-	push	10					; 0000000aH
-	lea	eax, DWORD PTR _szMessage$59945[ebp+200]
-	push	eax
-	mov	ecx, DWORD PTR _ulAlloc$59948[ebp]
-	push	ecx
-	call	__ltoa
-	add	esp, 12					; 0000000cH
-
-; 1299 :                zstrcat( szMessage, szMessage + 200 );
-
-	lea	edx, DWORD PTR _szMessage$59945[ebp+200]
-	push	edx
-	lea	eax, DWORD PTR _szMessage$59945[ebp]
-	push	eax
-	call	_strcat
-	add	esp, 8
-
-; 1300 :                zstrcat( szMessage, "   Used: " );
-
-	push	OFFSET FLAT:??_C@_09DEGO@?5?5?5Used?3?5?$AA@ ; `string'
-	lea	ecx, DWORD PTR _szMessage$59945[ebp]
-	push	ecx
-	call	_strcat
-	add	esp, 8
-
-; 1301 :                zltoa( ulUsed, szMessage + 200 );
-
-	push	10					; 0000000aH
-	lea	edx, DWORD PTR _szMessage$59945[ebp+200]
-	push	edx
-	mov	eax, DWORD PTR _ulUsed$59949[ebp]
-	push	eax
-	call	__ltoa
-	add	esp, 12					; 0000000cH
-
-; 1302 :                zstrcat( szMessage, szMessage + 200 );
-
-	lea	ecx, DWORD PTR _szMessage$59945[ebp+200]
-	push	ecx
-	lea	edx, DWORD PTR _szMessage$59945[ebp]
-	push	edx
-	call	_strcat
-	add	esp, 8
-
-; 1303 :                zstrcat( szMessage, "   Free: " );
-
-	push	OFFSET FLAT:??_C@_09CCLP@?5?5?5Free?3?5?$AA@ ; `string'
-	lea	eax, DWORD PTR _szMessage$59945[ebp]
-	push	eax
-	call	_strcat
-	add	esp, 8
-
-; 1304 :                zltoa( ulFree, szMessage + 200 );
-
-	push	10					; 0000000aH
-	lea	ecx, DWORD PTR _szMessage$59945[ebp+200]
-	push	ecx
-	mov	edx, DWORD PTR _ulFree$59950[ebp]
-	push	edx
-	call	__ltoa
-	add	esp, 12					; 0000000cH
-
-; 1305 :                zstrcat( szMessage, szMessage + 200 );
-
-	lea	eax, DWORD PTR _szMessage$59945[ebp+200]
-	push	eax
-	lea	ecx, DWORD PTR _szMessage$59945[ebp]
-	push	ecx
-	call	_strcat
-	add	esp, 8
-
-; 1306 :                SysMessageList( szMessage );
-
-	lea	edx, DWORD PTR _szMessage$59945[ebp]
-	push	edx
-	call	_SysMessageList@4
-
-; 1307 : #endif
-; 1308 : 
-; 1309 : #if 1
-; 1310 :                // Display open files.
-; 1311 :                DisplayOpenFiles( "ListTasks:", 0 );
-
-	push	0
-	push	OFFSET FLAT:??_C@_0L@LCKF@ListTasks?3?$AA@ ; `string'
-	call	_DisplayOpenFiles@8
-$L59944:
-
-; 1549 :          else
-
-	jmp	$L60024
-$L59943:
-
-; 1550 :          if ( wCommand == IDM_LISTMUTEXSTATUS )
-
-	mov	eax, DWORD PTR _wCommand$59737[ebp]
-	and	eax, 65535				; 0000ffffH
-	cmp	eax, 170				; 000000aaH
-	jne	SHORT $L59960
-
-; 1552 :             char szMsg[ 4000 ];
-; 1553 : 
-; 1554 :             SysMutexQueryStatus( );
-
-	call	_SysMutexQueryStatus@0
-
-; 1555 :             TraceLineS( "", "" );
-
-	push	OFFSET FLAT:??_C@_00A@?$AA@		; `string'
-	push	OFFSET FLAT:??_C@_00A@?$AA@		; `string'
-	call	_TraceLineS@8
-
-; 1556 :             MiListOE_Memory( 0, 0 );
-
-	push	0
-	push	0
-	call	_MiListOE_Memory@8
-
-; 1557 :             SysDescribeZeidonPageTable( szMsg );
-
-	lea	ecx, DWORD PTR _szMsg$59961[ebp]
-	push	ecx
-	call	_SysDescribeZeidonPageTable@4
-
-; 1558 :             TraceLineS( " Page table info - ", szMsg );
-
-	lea	edx, DWORD PTR _szMsg$59961[ebp]
-	push	edx
-	push	OFFSET FLAT:??_C@_0BE@BDI@?5Page?5table?5info?5?9?5?$AA@ ; `string'
-	call	_TraceLineS@8
-
-; 1560 :          else
-
-	jmp	$L60024
-$L59960:
-
-; 1561 :          if ( wCommand == IDM_LISTVOBJS )   // Display objects
-
-	mov	eax, DWORD PTR _wCommand$59737[ebp]
-	and	eax, 65535				; 0000ffffH
-	cmp	eax, 113				; 00000071H
-	jne	$L59964
-
-; 1563 :             if ( AnchorBlock )
-
-	cmp	DWORD PTR _AnchorBlock, 0
-	je	$L59971
-
-; 1565 :                LPAPP    lpApp;
-; 1566 :                LPVIEWOD lpViewOD;
-; 1567 :                char szMessage[ 160 ];
-; 1568 : 
-; 1569 :                lpApp = zGETPTR( AnchorBlock->hFirstApp );
-
-	mov	ecx, DWORD PTR _AnchorBlock
-	mov	edx, DWORD PTR [ecx+126]
-	push	edx
-	call	_SysGetPointerFromHandle@4
-	mov	DWORD PTR _lpApp$59966[ebp], eax
-$L59970:
-
-; 1570 :                while ( lpApp )
-
-	cmp	DWORD PTR _lpApp$59966[ebp], 0
-	je	$L59971
-
-; 1572 :                   zstrcpy( szMessage, "Application:'" );
-
-	push	OFFSET FLAT:??_C@_0O@ENOG@Application?3?8?$AA@ ; `string'
-	lea	eax, DWORD PTR _szMessage$59968[ebp]
-	push	eax
-	call	_strcpy
-	add	esp, 8
-
-; 1573 :                   if ( *lpApp->szName )
-
-	mov	ecx, DWORD PTR _lpApp$59966[ebp]
-	movsx	edx, BYTE PTR [ecx+6]
-	test	edx, edx
-	je	SHORT $L59973
-
-; 1574 :                      zstrcat( szMessage, lpApp->szName );
-
-	mov	eax, DWORD PTR _lpApp$59966[ebp]
-	add	eax, 6
-	push	eax
-	lea	ecx, DWORD PTR _szMessage$59968[ebp]
-	push	ecx
-	call	_strcat
-	add	esp, 8
-$L59973:
-
-; 1575 : 
-; 1576 :                   zstrcat( szMessage, "'" );
-
-	push	OFFSET FLAT:??_C@_01HAF@?8?$AA@		; `string'
-	lea	edx, DWORD PTR _szMessage$59968[ebp]
-	push	edx
-	call	_strcat
-	add	esp, 8
-
-; 1577 :                   SysMessageList( szMessage );
-
-	lea	eax, DWORD PTR _szMessage$59968[ebp]
-	push	eax
-	call	_SysMessageList@4
-
-; 1578 :                   lpViewOD = zGETPTR( lpApp->hFirstViewOD );
-
-	mov	ecx, DWORD PTR _lpApp$59966[ebp]
-	mov	edx, DWORD PTR [ecx+84]
-	push	edx
-	call	_SysGetPointerFromHandle@4
-	mov	DWORD PTR _lpViewOD$59967[ebp], eax
-$L59976:
-
-; 1579 :                   while ( lpViewOD )
-
-	cmp	DWORD PTR _lpViewOD$59967[ebp], 0
-	je	SHORT $L59977
-
-; 1581 :                      zstrcpy( szMessage, "   View Object:'" );
-
-	push	OFFSET FLAT:??_C@_0BB@FJJG@?5?5?5View?5Object?3?8?$AA@ ; `string'
-	lea	eax, DWORD PTR _szMessage$59968[ebp]
-	push	eax
-	call	_strcpy
-	add	esp, 8
-
-; 1582 :                      if ( *lpViewOD->szName )
-
-	mov	ecx, DWORD PTR _lpViewOD$59967[ebp]
-	movsx	edx, BYTE PTR [ecx+10]
-	test	edx, edx
-	je	SHORT $L59979
-
-; 1583 :                         zstrcat( szMessage, lpViewOD->szName );
-
-	mov	eax, DWORD PTR _lpViewOD$59967[ebp]
-	add	eax, 10					; 0000000aH
-	push	eax
-	lea	ecx, DWORD PTR _szMessage$59968[ebp]
-	push	ecx
-	call	_strcat
-	add	esp, 8
-$L59979:
-
-; 1584 : 
-; 1585 :                      zstrcat( szMessage, "'" );
-
-	push	OFFSET FLAT:??_C@_01HAF@?8?$AA@		; `string'
-	lea	edx, DWORD PTR _szMessage$59968[ebp]
-	push	edx
-	call	_strcat
-	add	esp, 8
-
-; 1586 :                      SysMessageList( szMessage );
-
-	lea	eax, DWORD PTR _szMessage$59968[ebp]
-	push	eax
-	call	_SysMessageList@4
-
-; 1587 :                      lpViewOD = zGETPTR( lpViewOD->hNextViewOD );
-
-	mov	ecx, DWORD PTR _lpViewOD$59967[ebp]
-	mov	edx, DWORD PTR [ecx+2]
-	push	edx
-	call	_SysGetPointerFromHandle@4
-	mov	DWORD PTR _lpViewOD$59967[ebp], eax
-
-; 1588 :                   }
-
-	jmp	SHORT $L59976
-$L59977:
-
-; 1589 : 
-; 1590 :                   lpApp = zGETPTR( lpApp->hNextApp );
-
-	mov	eax, DWORD PTR _lpApp$59966[ebp]
-	mov	ecx, DWORD PTR [eax+2]
-	push	ecx
-	call	_SysGetPointerFromHandle@4
-	mov	DWORD PTR _lpApp$59966[ebp], eax
-
-; 1591 :                }
-
-	jmp	$L59970
-$L59971:
-
-; 1594 :          else
-
-	jmp	$L60024
-$L59964:
-
-; 1595 :          if ( wCommand == IDM_RESETTIMEOUT )
-
-	mov	edx, DWORD PTR _wCommand$59737[ebp]
-	and	edx, 65535				; 0000ffffH
-	cmp	edx, 218				; 000000daH
-	jne	SHORT $L59981
-
-; 1597 :             if ( g_lTimeOut )
-
-	cmp	DWORD PTR _g_lTimeOut, 0
-	je	SHORT $L59982
-
-; 1598 :                SysGetDateTime( g_szTimeStamp );
-
-	push	OFFSET FLAT:_g_szTimeStamp
-	call	_SysGetDateTime@4
-$L59982:
-
-; 1599 : 
-; 1600 :             return( 0 );
-
-	xor	eax, eax
-	jmp	$L59721
-$L59981:
-
-; 1602 :          else
-; 1603 :          if ( wCommand == IDM_IDLE )
-
-	mov	eax, DWORD PTR _wCommand$59737[ebp]
-	and	eax, 65535				; 0000ffffH
-	cmp	eax, 219				; 000000dbH
-	jne	SHORT $L59984
-
-; 1605 :             if ( g_lTimeOut && g_uIdleTimerId == 0 )
-
-	cmp	DWORD PTR _g_lTimeOut, 0
-	je	SHORT $L59985
-	cmp	DWORD PTR _g_uIdleTimerId, 0
-	jne	SHORT $L59985
-
-; 1607 :                SysGetDateTime( g_szTimeStamp );
-
-	push	OFFSET FLAT:_g_szTimeStamp
-	call	_SysGetDateTime@4
-
-; 1608 :                TraceLine( "OE Setting Idle Timer for hWnd: 0x%08x   g_hWndMainFrame: 0x%08x  Id: %d",
-; 1609 :                           hWnd, g_hWndMainFrame, g_nIdIdleEvt );
-
-	mov	ecx, DWORD PTR _g_nIdIdleEvt
-	push	ecx
-	mov	edx, DWORD PTR _g_hWndMainFrame
-	push	edx
-	mov	eax, DWORD PTR _hWnd$[ebp]
-	push	eax
-	push	OFFSET FLAT:??_C@_0EJ@LIIE@OE?5Setting?5Idle?5Timer?5for?5hWnd?3?5@ ; `string'
-	call	_TraceLine
-	add	esp, 16					; 00000010H
-
-; 1610 :                g_uIdleTimerId = SetTimer( hWnd, g_nIdIdleEvt,
-; 1611 :                                           30000, 0 );  // 30000 ==> 30 seconds
-
-	push	0
-	push	30000					; 00007530H
-	mov	ecx, DWORD PTR _g_nIdIdleEvt
-	push	ecx
-	mov	edx, DWORD PTR _hWnd$[ebp]
-	push	edx
-	call	DWORD PTR __imp__SetTimer@16
-	mov	DWORD PTR _g_uIdleTimerId, eax
-$L59985:
-
-; 1613 : 
-; 1614 :             return( 0 );
-
-	xor	eax, eax
-	jmp	$L59721
-$L59984:
-
-; 1616 :          else
-; 1617 :          if ( wCommand == IDM_GETOEWARNINGTRACE )
-
-	mov	eax, DWORD PTR _wCommand$59737[ebp]
-	and	eax, 65535				; 0000ffffH
-	cmp	eax, 215				; 000000d7H
-	jne	SHORT $L59988
-
-; 1618 :             return( (zLONG) g_chTraceOE_Warning );
-
-	movsx	eax, BYTE PTR _g_chTraceOE_Warning
-	jmp	$L59721
-$L59988:
-
-; 1619 :          else
-; 1620 :          if ( wCommand == IDM_GETACTIONTRACE )
-
-	mov	ecx, DWORD PTR _wCommand$59737[ebp]
-	and	ecx, 65535				; 0000ffffH
-	cmp	ecx, 204				; 000000ccH
-	jne	SHORT $L59991
-
-; 1621 :             return( (zLONG) g_chTraceZDrActions );
-
-	movsx	eax, BYTE PTR _g_chTraceZDrActions
-	jmp	$L59721
-$L59991:
-
-; 1622 :          else
-; 1623 :          if ( wCommand == IDM_GETWEBTRACE )
-
-	mov	edx, DWORD PTR _wCommand$59737[ebp]
-	and	edx, 65535				; 0000ffffH
-	cmp	edx, 214				; 000000d6H
-	jne	SHORT $L59994
-
-; 1624 :             return( (zLONG) g_chTraceWebActions );
-
-	movsx	eax, BYTE PTR _g_chTraceWebActions
-	jmp	$L59721
-$L59994:
-
-; 1625 :          else
-; 1626 :          if ( wCommand == IDM_GETMEMORYTRACE )
-
-	mov	eax, DWORD PTR _wCommand$59737[ebp]
-	and	eax, 65535				; 0000ffffH
-	cmp	eax, 217				; 000000d9H
-	jne	SHORT $L59997
-
-; 1627 :             return( (zLONG) g_chTraceMemory );
-
-	movsx	eax, BYTE PTR _g_chTraceMemory
-	jmp	$L59721
-$L59997:
-
-; 1628 :          else
-; 1629 :          if ( wCommand == IDM_GETTRACELOGFILE )
-
-	mov	ecx, DWORD PTR _wCommand$59737[ebp]
-	and	ecx, 65535				; 0000ffffH
-	cmp	ecx, 216				; 000000d8H
-	jne	SHORT $L60000
-
-; 1630 :             return( (zLONG) g_hLogFile );
-
-	mov	eax, DWORD PTR _g_hLogFile
-	jmp	$L59721
-$L60000:
-
-; 1631 :          else
-; 1632 :          if ( wCommand == IDM_GETOEMAINHWND )
-
-	mov	edx, DWORD PTR _wCommand$59737[ebp]
-	and	edx, 65535				; 0000ffffH
-	cmp	edx, 200				; 000000c8H
-	jne	SHORT $L60003
-
-; 1633 :             return( (zLONG) g_hWndMainFrame );
-
-	mov	eax, DWORD PTR _g_hWndMainFrame
-	jmp	$L59721
-$L60003:
-
-; 1634 :          else
-; 1635 :          if ( wCommand == IDM_GETOELISTHWND )
-
-	mov	eax, DWORD PTR _wCommand$59737[ebp]
-	and	eax, 65535				; 0000ffffH
-	cmp	eax, 201				; 000000c9H
-	jne	SHORT $L60006
-
-; 1636 :             return( (zLONG) g_hwndTraceWindow[ g_nTraceWindowHead ] );
-
-	mov	ecx, DWORD PTR _g_nTraceWindowHead
-	mov	eax, DWORD PTR _g_hwndTraceWindow[ecx*4]
-	jmp	$L59721
-$L60006:
-
-; 1637 :          else
-; 1638 :          if ( wCommand == IDM_GETTRACELIMIT )
-
-	mov	edx, DWORD PTR _wCommand$59737[ebp]
-	and	edx, 65535				; 0000ffffH
-	cmp	edx, 202				; 000000caH
-	jne	SHORT $L60009
-
-; 1639 :             return( (zLONG) g_uTraceLineLimit );
-
-	mov	eax, DWORD PTR _g_uTraceLineLimit
-	jmp	$L59721
-$L60009:
-
-; 1640 :          else
-; 1641 :          if ( wCommand == IDM_GETSCROLLTRACE )
-
-	mov	eax, DWORD PTR _wCommand$59737[ebp]
-	and	eax, 65535				; 0000ffffH
-	cmp	eax, 203				; 000000cbH
-	jne	SHORT $L60012
-
-; 1642 :             return( (zLONG) g_chScrollTrace );
-
-	movsx	eax, BYTE PTR _g_chScrollTrace
-	jmp	$L59721
-$L60012:
-
-; 1643 :          else
-; 1644 :          if ( wCommand == IDM_GETPRINTPREVIEW )
-
-	mov	ecx, DWORD PTR _wCommand$59737[ebp]
-	and	ecx, 65535				; 0000ffffH
-	cmp	ecx, 206				; 000000ceH
-	jne	SHORT $L60015
-
-; 1645 :             return( (zLONG) g_chPrintPreview );
-
-	movsx	eax, BYTE PTR _g_chPrintPreview
-	jmp	$L59721
-$L60015:
-
-; 1646 :          else
-; 1647 :          if ( wCommand == IDM_GETPRINTDIALOG )
-
-	mov	edx, DWORD PTR _wCommand$59737[ebp]
-	and	edx, 65535				; 0000ffffH
-	cmp	edx, 207				; 000000cfH
-	jne	SHORT $L60018
-
-; 1648 :             return( (zLONG) g_chPrintDialog );
-
-	movsx	eax, BYTE PTR _g_chPrintDialog
-	jmp	$L59721
-$L60018:
-
-; 1649 :          else
-; 1650 :          if ( wCommand == IDM_GETFINDSTRING )
-
-	mov	eax, DWORD PTR _wCommand$59737[ebp]
-	and	eax, 65535				; 0000ffffH
-	cmp	eax, 205				; 000000cdH
-	jne	SHORT $L60021
-
-; 1652 :             zstrcpy( (zPCHAR) lParam, g_szFindString );
-
-	push	OFFSET FLAT:_g_szFindString
-	mov	ecx, DWORD PTR _lParam$[ebp]
-	push	ecx
-	call	_strcpy
-	add	esp, 8
-
-; 1653 :             return( zstrlen( g_szFindString ) );
-
-	push	OFFSET FLAT:_g_szFindString
-	call	_strlen
-	add	esp, 4
-	jmp	$L59721
-$L60021:
-
-; 1655 :          else
-; 1656 :          if ( wCommand >= IDM_TRACEWINDOW01 && wCommand <= IDM_TRACEWINDOW20 )
-
-	mov	edx, DWORD PTR _wCommand$59737[ebp]
-	and	edx, 65535				; 0000ffffH
-	cmp	edx, 300				; 0000012cH
-	jl	$L60024
-	mov	eax, DWORD PTR _wCommand$59737[ebp]
-	and	eax, 65535				; 0000ffffH
-	cmp	eax, 319				; 0000013fH
-	jg	$L60024
-
-; 1658 :             UINT idx = wCommand - IDM_TRACEWINDOW01;
-
-	mov	ecx, DWORD PTR _wCommand$59737[ebp]
-	and	ecx, 65535				; 0000ffffH
-	sub	ecx, 300				; 0000012cH
-	mov	DWORD PTR _idx$60025[ebp], ecx
-
-; 1659 :             UINT iDiff;
-; 1660 :             UINT nNewTraceWindow;
-; 1661 :             UINT nOldTraceWindow;
-; 1662 : 
-; 1663 :             nNewTraceWindow = (g_nTraceWindowHead + g_nTraceWindowCnt - idx)
-; 1664 :                                                           % g_nTraceWindowCnt;
-
-	mov	eax, DWORD PTR _g_nTraceWindowHead
-	add	eax, DWORD PTR _g_nTraceWindowCnt
-	sub	eax, DWORD PTR _idx$60025[ebp]
-	xor	edx, edx
-	div	DWORD PTR _g_nTraceWindowCnt
-	mov	DWORD PTR _nNewTraceWindow$60027[ebp], edx
-
-; 1665 : 
-; 1666 :             // If user selected the window already displayed then don't do
-; 1667 :             // anything.
-; 1668 :             if ( nNewTraceWindow == g_nTraceWindowDisplayed )
-
-	mov	edx, DWORD PTR _nNewTraceWindow$60027[ebp]
-	cmp	edx, DWORD PTR _g_nTraceWindowDisplayed
-	jne	SHORT $L60029
-
-; 1669 :                break;
-
-	jmp	$L59724
-$L60029:
-
-; 1670 : 
-; 1671 :             // Find the difference between the displayed window and the head.
-; 1672 :             iDiff = ( g_nTraceWindowDisplayed + g_nTraceWindowCnt -
-; 1673 :                                     g_nTraceWindowHead ) % g_nTraceWindowCnt;
-
-	mov	eax, DWORD PTR _g_nTraceWindowDisplayed
-	add	eax, DWORD PTR _g_nTraceWindowCnt
-	sub	eax, DWORD PTR _g_nTraceWindowHead
-	xor	edx, edx
-	div	DWORD PTR _g_nTraceWindowCnt
-	mov	DWORD PTR _iDiff$60026[ebp], edx
-
-; 1674 : 
-; 1675 :             // Determine the old trace window index.
-; 1676 :             nOldTraceWindow = ( g_nTraceWindowCnt - iDiff )
-; 1677 :                                                           % g_nTraceWindowCnt;
-
-	mov	eax, DWORD PTR _g_nTraceWindowCnt
-	sub	eax, DWORD PTR _iDiff$60026[ebp]
-	xor	edx, edx
-	div	DWORD PTR _g_nTraceWindowCnt
-	mov	DWORD PTR _nOldTraceWindow$60028[ebp], edx
-
-; 1678 : 
-; 1679 :             // Turn off the check mark...we will no longer be displaying the
-; 1680 :             // current window.
-; 1681 :             CheckMenuItem( GetMenu( hWnd ),
-; 1682 :                            IDM_TRACEWINDOW01 + nOldTraceWindow,
-; 1683 :                            MF_BYCOMMAND | MF_UNCHECKED );
-
-	push	0
-	mov	eax, DWORD PTR _nOldTraceWindow$60028[ebp]
-	add	eax, 300				; 0000012cH
-	push	eax
-	mov	ecx, DWORD PTR _hWnd$[ebp]
-	push	ecx
-	call	DWORD PTR __imp__GetMenu@4
-	push	eax
-	call	DWORD PTR __imp__CheckMenuItem@12
-
-; 1684 : 
-; 1685 :             // Make the current window invisible.
-; 1686 :             ShowWindow( g_hwndTraceWindow[ g_nTraceWindowDisplayed ], SW_HIDE );
+; 1149 :             ShowWindow( g_hwndTraceWindow[ g_nTraceWindowDisplayed ],
+; 1150 :                         SW_HIDE );
 
 	push	0
 	mov	edx, DWORD PTR _g_nTraceWindowDisplayed
@@ -5350,1110 +4328,2143 @@ $L60029:
 	push	eax
 	call	DWORD PTR __imp__ShowWindow@8
 
-; 1687 : 
-; 1688 :             // Turn on the check for the window the user wants.
-; 1689 :             CheckMenuItem( GetMenu( hWnd ), wCommand,
-; 1690 :                            MF_BYCOMMAND | MF_CHECKED );
+; 1151 :             for ( k = 0; k < g_nTraceWindowCnt; k++ )
 
-	push	8
-	mov	ecx, DWORD PTR _wCommand$59737[ebp]
-	and	ecx, 65535				; 0000ffffH
+	mov	DWORD PTR _k$59925[ebp], 0
+	jmp	SHORT $L59926
+$L59927:
+	mov	ecx, DWORD PTR _k$59925[ebp]
+	add	ecx, 1
+	mov	DWORD PTR _k$59925[ebp], ecx
+$L59926:
+	mov	edx, DWORD PTR _k$59925[ebp]
+	cmp	edx, DWORD PTR _g_nTraceWindowCnt
+	jae	SHORT $L59928
+
+; 1152 :                SendMessage( g_hwndTraceWindow[ k ], LB_RESETCONTENT, 0, 0 );
+
+	push	0
+	push	0
+	push	388					; 00000184H
+	mov	eax, DWORD PTR _k$59925[ebp]
+	mov	ecx, DWORD PTR _g_hwndTraceWindow[eax*4]
 	push	ecx
+	call	DWORD PTR __imp__SendMessageA@16
+	jmp	SHORT $L59927
+$L59928:
+
+; 1153 : 
+; 1154 :             ShowWindow( g_hwndTraceWindow[ 0 ], SW_SHOW );
+
+	push	5
+	mov	edx, DWORD PTR _g_hwndTraceWindow
+	push	edx
+	call	DWORD PTR __imp__ShowWindow@8
+
+; 1155 :             g_nTraceWindowHead      = 0;
+
+	mov	DWORD PTR _g_nTraceWindowHead, 0
+
+; 1156 :             g_nTraceWindowDisplayed = 0;
+
+	mov	DWORD PTR _g_nTraceWindowDisplayed, 0
+
+; 1158 :          else
+
+	jmp	$L60026
+$L59924:
+
+; 1159 :          if ( wCommand == IDM_SETDBHTRACE )   // Set DBHandler trace level
+
+	mov	eax, DWORD PTR _wCommand$59738[ebp]
+	and	eax, 65535				; 0000ffffH
+	cmp	eax, 132				; 00000084H
+	jne	SHORT $L59930
+
+; 1161 :             DialogBox( hInst, MAKEINTRESOURCE( IDD_SETTRACE ),
+; 1162 :                        hWnd, fpSetTrace );
+
+	push	0
+	mov	ecx, DWORD PTR _fpSetTrace
+	push	ecx
+	mov	edx, DWORD PTR _hWnd$[ebp]
+	push	edx
+	push	106					; 0000006aH
+	mov	eax, DWORD PTR _hInst
+	push	eax
+	call	DWORD PTR __imp__DialogBoxParamA@20
+
+; 1164 :          else
+
+	jmp	$L60026
+$L59930:
+
+; 1165 :          if ( wCommand == IDM_SETOETRACE )   // Set OE Warning trace
+
+	mov	ecx, DWORD PTR _wCommand$59738[ebp]
+	and	ecx, 65535				; 0000ffffH
+	cmp	ecx, 133				; 00000085H
+	jne	SHORT $L59935
+
+; 1167 :             g_chTraceOE_Warning = g_chTraceOE_Warning ? 0 : 'Y';
+
+	movsx	edx, BYTE PTR _g_chTraceOE_Warning
+	neg	edx
+	sbb	edx, edx
+	and	edx, -89				; ffffffa7H
+	add	edx, 89					; 00000059H
+	mov	BYTE PTR _g_chTraceOE_Warning, dl
+
+; 1168 :             CheckMenuItem( GetMenu( hWnd ), IDM_SETOETRACE,
+; 1169 :                            MF_BYCOMMAND |
+; 1170 :                            (g_chTraceOE_Warning == 0 ? MF_UNCHECKED :
+; 1171 :                                                        MF_CHECKED) );
+
+	movsx	eax, BYTE PTR _g_chTraceOE_Warning
+	neg	eax
+	sbb	eax, eax
+	and	eax, 8
+	push	eax
+	push	133					; 00000085H
+	mov	ecx, DWORD PTR _hWnd$[ebp]
+	push	ecx
+	call	DWORD PTR __imp__GetMenu@4
+	push	eax
+	call	DWORD PTR __imp__CheckMenuItem@12
+
+; 1173 :          else
+
+	jmp	$L60026
+$L59935:
+
+; 1174 :          if ( wCommand == IDM_SETZDRTRACE )   // Set ZDr Action trace
+
+	mov	edx, DWORD PTR _wCommand$59738[ebp]
+	and	edx, 65535				; 0000ffffH
+	cmp	edx, 134				; 00000086H
+	jne	SHORT $L59937
+
+; 1176 :             g_chTraceZDrActions = g_chTraceZDrActions ? 0 : 'Y';
+
+	movsx	eax, BYTE PTR _g_chTraceZDrActions
+	neg	eax
+	sbb	eax, eax
+	and	al, -89					; ffffffa7H
+	add	eax, 89					; 00000059H
+	mov	BYTE PTR _g_chTraceZDrActions, al
+
+; 1177 :             CheckMenuItem( GetMenu( hWnd ), IDM_SETZDRTRACE,
+; 1178 :                            MF_BYCOMMAND |
+; 1179 :                            (g_chTraceZDrActions == 0 ? MF_UNCHECKED :
+; 1180 :                                                        MF_CHECKED) );
+
+	movsx	ecx, BYTE PTR _g_chTraceZDrActions
+	neg	ecx
+	sbb	ecx, ecx
+	and	ecx, 8
+	push	ecx
+	push	134					; 00000086H
 	mov	edx, DWORD PTR _hWnd$[ebp]
 	push	edx
 	call	DWORD PTR __imp__GetMenu@4
 	push	eax
 	call	DWORD PTR __imp__CheckMenuItem@12
 
-; 1691 : 
-; 1692 :             g_nTraceWindowDisplayed = nNewTraceWindow;
+; 1182 :          else
 
-	mov	eax, DWORD PTR _nNewTraceWindow$60027[ebp]
-	mov	DWORD PTR _g_nTraceWindowDisplayed, eax
+	jmp	$L60026
+$L59937:
 
-; 1693 : 
-; 1694 :             // Make the new current window visible.
-; 1695 :             ShowWindow( g_hwndTraceWindow[ g_nTraceWindowDisplayed ], SW_SHOW );
+; 1183 :          if ( wCommand == IDM_SETWEBTRACE )   // Set ZDr Action trace
 
-	push	5
+	mov	eax, DWORD PTR _wCommand$59738[ebp]
+	and	eax, 65535				; 0000ffffH
+	cmp	eax, 135				; 00000087H
+	jne	SHORT $L59939
+
+; 1185 :             g_chTraceWebActions = g_chTraceWebActions ? 0 : 'Y';
+
+	movsx	ecx, BYTE PTR _g_chTraceWebActions
+	neg	ecx
+	sbb	ecx, ecx
+	and	ecx, -89				; ffffffa7H
+	add	ecx, 89					; 00000059H
+	mov	BYTE PTR _g_chTraceWebActions, cl
+
+; 1186 :             CheckMenuItem( GetMenu( hWnd ), IDM_SETWEBTRACE,
+; 1187 :                            MF_BYCOMMAND |
+; 1188 :                            (g_chTraceWebActions == 0 ? MF_UNCHECKED :
+; 1189 :                                                        MF_CHECKED) );
+
+	movsx	edx, BYTE PTR _g_chTraceWebActions
+	neg	edx
+	sbb	edx, edx
+	and	edx, 8
+	push	edx
+	push	135					; 00000087H
+	mov	eax, DWORD PTR _hWnd$[ebp]
+	push	eax
+	call	DWORD PTR __imp__GetMenu@4
+	push	eax
+	call	DWORD PTR __imp__CheckMenuItem@12
+
+; 1191 : #ifdef ALLOC_FREE_TRACE
+; 1192 :          else
+; 1193 :          if ( wCommand == IDM_SETMEMORYTRACE )   // Set Memory trace
+; 1194 :          {
+; 1195 :             g_chTraceMemory = g_chTraceMemory ? 0 : 'Y';
+; 1196 :             AnchorBlock->bTraceMem = g_chTraceMemory ? TRUE : FALSE;
+; 1197 :             CheckMenuItem( GetMenu( hWnd ), IDM_SETMEMORYTRACE,
+; 1198 :                            MF_BYCOMMAND |
+; 1199 :                            (g_chTraceMemory == 0 ? MF_UNCHECKED :
+; 1200 :                                                    MF_CHECKED) );
+; 1201 :          }
+; 1202 :          else
+; 1203 :          if ( wCommand == IDM_TRACEMEMORYALLOCATIONS )
+; 1204 :          {
+; 1205 :             if ( AnchorBlock->bTraceMem )
+; 1206 :                fnListDataspaceLeak( AnchorBlock, 0, 1 );
+; 1207 :          }
+; 1208 :          else
+; 1209 :          if ( wCommand == IDM_TRACEMEMORYDATA )
+; 1210 :          {
+; 1211 :             if ( AnchorBlock->bTraceMem )
+; 1212 :                fnListDataspaceLeak( AnchorBlock, 0, 2 );
+; 1213 :          }
+; 1214 :          else
+; 1215 :          if ( wCommand == IDM_CLEARMEMORYALLOCATIONS )
+; 1216 :          {
+; 1217 :             if ( AnchorBlock->bTraceMem )
+; 1218 :                fnListDataspaceLeak( AnchorBlock, 0, -1 );
+; 1219 :          }
+; 1220 : #endif
+; 1221 : #ifdef LOAD_FREE_TRACE
+; 1222 :          else
+; 1223 :          if ( wCommand == IDM_SETLOADTRACE )   // Set Load trace
+; 1224 :          {
+; 1225 :             g_chTraceLoad = g_chTraceLoad ? 0 : 'Y';
+; 1226 :             AnchorBlock->bTraceLoad = g_chTraceLoad ? TRUE : FALSE;
+; 1227 :             CheckMenuItem( GetMenu( hWnd ), IDM_SETLOADTRACE,
+; 1228 :                            MF_BYCOMMAND |
+; 1229 :                            (g_chTraceLoad == 0 ? MF_UNCHECKED :
+; 1230 :                                                    MF_CHECKED) );
+; 1231 :          }
+; 1232 :          else
+; 1233 :          if ( wCommand == IDM_TRACELOADALLOCATIONS )
+; 1234 :          {
+; 1235 :             if ( AnchorBlock->bTraceLoad )
+; 1236 :                fnListDataspaceLeak( AnchorBlock, 0, 1 );
+; 1237 :          }
+; 1238 :          else
+; 1239 :          if ( wCommand == IDM_TRACELOADDATA )
+; 1240 :          {
+; 1241 :             if ( AnchorBlock->bTraceLoad )
+; 1242 :                fnListDataspaceLeak( AnchorBlock, 0, 2 );
+; 1243 :          }
+; 1244 :          else
+; 1245 :          if ( wCommand == IDM_CLEARLOADALLOCATIONS )
+; 1246 :          {
+; 1247 :             if ( AnchorBlock->bTraceLoad )
+; 1248 :                fnListDataspaceLeak( AnchorBlock, 0, -1 );
+; 1249 :          }
+; 1250 : #endif
+; 1251 :          else
+
+	jmp	$L60026
+$L59939:
+
+; 1252 :          if ( wCommand == IDM_SCROLLTRACE )   // Scroll trace
+
+	mov	ecx, DWORD PTR _wCommand$59738[ebp]
+	and	ecx, 65535				; 0000ffffH
+	cmp	ecx, 136				; 00000088H
+	jne	SHORT $L59941
+
+; 1254 :             g_chScrollTrace = g_chScrollTrace ? 0 : 'Y';
+
+	movsx	edx, BYTE PTR _g_chScrollTrace
+	neg	edx
+	sbb	edx, edx
+	and	edx, -89				; ffffffa7H
+	add	edx, 89					; 00000059H
+	mov	BYTE PTR _g_chScrollTrace, dl
+
+; 1255 :             CheckMenuItem( GetMenu( hWnd ), IDM_SCROLLTRACE,
+; 1256 :                            MF_BYCOMMAND |
+; 1257 :                               (g_chScrollTrace ? MF_CHECKED : MF_UNCHECKED) );
+
+	movsx	eax, BYTE PTR _g_chScrollTrace
+	neg	eax
+	sbb	eax, eax
+	and	eax, 8
+	push	eax
+	push	136					; 00000088H
+	mov	ecx, DWORD PTR _hWnd$[ebp]
+	push	ecx
+	call	DWORD PTR __imp__GetMenu@4
+	push	eax
+	call	DWORD PTR __imp__CheckMenuItem@12
+
+; 1259 :          else
+
+	jmp	$L60026
+$L59941:
+
+; 1260 :          if ( wCommand == IDM_TRACEDATASPACE )
+
+	mov	edx, DWORD PTR _wCommand$59738[ebp]
+	and	edx, 65535				; 0000ffffH
+	cmp	edx, 153				; 00000099H
+	jne	SHORT $L59943
+
+; 1262 :             MiListOE_Memory( 0, -1 );  // toggle dataspace alloc/free tracing
+
+	push	-1
+	push	0
+	call	_MiListOE_Memory@8
+
+; 1264 :          else
+
+	jmp	$L60026
+$L59943:
+
+; 1265 :          if ( wCommand == IDM_LISTTASKS )   // Display task information
+
+	mov	eax, DWORD PTR _wCommand$59738[ebp]
+	and	eax, 65535				; 0000ffffH
+	cmp	eax, 112				; 00000070H
+	jne	$L59945
+
+; 1267 :             if ( AnchorBlock )
+
+	cmp	DWORD PTR _AnchorBlock, 0
+	je	$L59946
+
+; 1269 :             // LPTASK lpTask;
+; 1270 :             // LPTASK hTask;
+; 1271 :                char   szMessage[ 512 ];
+; 1272 : 
+; 1273 : #if 1  // DGC 6/13/97  Can't print allocated memory right now.
+; 1274 :                LPDATAHEADER    lpDataHeader;
+; 1275 :                FreespaceRecord *lpFreespace;
+; 1276 :                zULONG ulAlloc;
+; 1277 :                zULONG ulUsed;
+; 1278 :                zULONG ulFree;
+; 1279 : 
+; 1280 :                // Get System available memory
+; 1281 :             // lFree = GlobalCompact( 0 );
+; 1282 :             // lFree = (lFree / 1024) + 10000;
+; 1283 :             // zstrcpy( szMessage, "System Memory Available:" );
+; 1284 :             // zltoa( lFree, szMessage + 200 );
+; 1285 :             // zstrcat( szMessage, szMessage + 201 );
+; 1286 :             // zstrcat( szMessage, "K" );
+; 1287 :             // SysMessageList( szMessage );
+; 1288 : 
+; 1289 :                // Display Anchor block memory utilization
+; 1290 :                lpDataHeader = (LPDATAHEADER) AnchorBlock;
+
+	mov	ecx, DWORD PTR _AnchorBlock
+	mov	DWORD PTR _lpDataHeader$59948[ebp], ecx
+
+; 1291 :                ulFree  = 0;
+
+	mov	DWORD PTR _ulFree$59952[ebp], 0
+
+; 1292 :                ulUsed  = 0;
+
+	mov	DWORD PTR _ulUsed$59951[ebp], 0
+
+; 1293 :                ulAlloc = lpDataHeader->ulUseableSize; // used memory spaces
+
+	mov	edx, DWORD PTR _lpDataHeader$59948[ebp]
+	mov	eax, DWORD PTR [edx+10]
+	mov	DWORD PTR _ulAlloc$59950[ebp], eax
+
+; 1294 :                lpFreespace = &lpDataHeader->Freespace;
+
+	mov	ecx, DWORD PTR _lpDataHeader$59948[ebp]
+	add	ecx, 46					; 0000002eH
+	mov	DWORD PTR _lpFreespace$59949[ebp], ecx
+$L59955:
+
+; 1295 :                while ( lpFreespace )
+
+	cmp	DWORD PTR _lpFreespace$59949[ebp], 0
+	je	SHORT $L59956
+
+; 1297 :                   ulFree += lpFreespace->ulFreeLth;
+
+	mov	edx, DWORD PTR _lpFreespace$59949[ebp]
+	mov	eax, DWORD PTR _ulFree$59952[ebp]
+	add	eax, DWORD PTR [edx+6]
+	mov	DWORD PTR _ulFree$59952[ebp], eax
+
+; 1298 :                   lpFreespace = zGETPTR( lpFreespace->hNextFreespace );
+
+	mov	ecx, DWORD PTR _lpFreespace$59949[ebp]
+	mov	edx, DWORD PTR [ecx+14]
+	push	edx
+	call	_SysGetPointerFromHandle@4
+	mov	DWORD PTR _lpFreespace$59949[ebp], eax
+
+; 1299 :                }
+
+	jmp	SHORT $L59955
+$L59956:
+
+; 1300 : 
+; 1301 :                zstrcpy( szMessage, "Anchor Block  Alloc: " );
+
+	push	OFFSET FLAT:??_C@_0BG@HELH@Anchor?5Block?5?5Alloc?3?5?$AA@ ; `string'
+	lea	eax, DWORD PTR _szMessage$59947[ebp]
+	push	eax
+	call	_strcpy
+	add	esp, 8
+
+; 1302 :                ulUsed = ulAlloc - ulFree;
+
+	mov	ecx, DWORD PTR _ulAlloc$59950[ebp]
+	sub	ecx, DWORD PTR _ulFree$59952[ebp]
+	mov	DWORD PTR _ulUsed$59951[ebp], ecx
+
+; 1303 :                zltoa( ulAlloc, szMessage + 200 );
+
+	push	10					; 0000000aH
+	lea	edx, DWORD PTR _szMessage$59947[ebp+200]
+	push	edx
+	mov	eax, DWORD PTR _ulAlloc$59950[ebp]
+	push	eax
+	call	__ltoa
+	add	esp, 12					; 0000000cH
+
+; 1304 :                zstrcat( szMessage, szMessage + 200 );
+
+	lea	ecx, DWORD PTR _szMessage$59947[ebp+200]
+	push	ecx
+	lea	edx, DWORD PTR _szMessage$59947[ebp]
+	push	edx
+	call	_strcat
+	add	esp, 8
+
+; 1305 :                zstrcat( szMessage, "   Used: " );
+
+	push	OFFSET FLAT:??_C@_09DEGO@?5?5?5Used?3?5?$AA@ ; `string'
+	lea	eax, DWORD PTR _szMessage$59947[ebp]
+	push	eax
+	call	_strcat
+	add	esp, 8
+
+; 1306 :                zltoa( ulUsed, szMessage + 200 );
+
+	push	10					; 0000000aH
+	lea	ecx, DWORD PTR _szMessage$59947[ebp+200]
+	push	ecx
+	mov	edx, DWORD PTR _ulUsed$59951[ebp]
+	push	edx
+	call	__ltoa
+	add	esp, 12					; 0000000cH
+
+; 1307 :                zstrcat( szMessage, szMessage + 200 );
+
+	lea	eax, DWORD PTR _szMessage$59947[ebp+200]
+	push	eax
+	lea	ecx, DWORD PTR _szMessage$59947[ebp]
+	push	ecx
+	call	_strcat
+	add	esp, 8
+
+; 1308 :                zstrcat( szMessage, "   Free: " );
+
+	push	OFFSET FLAT:??_C@_09CCLP@?5?5?5Free?3?5?$AA@ ; `string'
+	lea	edx, DWORD PTR _szMessage$59947[ebp]
+	push	edx
+	call	_strcat
+	add	esp, 8
+
+; 1309 :                zltoa( ulFree, szMessage + 200 );
+
+	push	10					; 0000000aH
+	lea	eax, DWORD PTR _szMessage$59947[ebp+200]
+	push	eax
+	mov	ecx, DWORD PTR _ulFree$59952[ebp]
+	push	ecx
+	call	__ltoa
+	add	esp, 12					; 0000000cH
+
+; 1310 :                zstrcat( szMessage, szMessage + 200 );
+
+	lea	edx, DWORD PTR _szMessage$59947[ebp+200]
+	push	edx
+	lea	eax, DWORD PTR _szMessage$59947[ebp]
+	push	eax
+	call	_strcat
+	add	esp, 8
+
+; 1311 :                SysMessageList( szMessage );
+
+	lea	ecx, DWORD PTR _szMessage$59947[ebp]
+	push	ecx
+	call	_SysMessageList@4
+
+; 1312 : #endif
+; 1313 : 
+; 1314 : #if 1
+; 1315 :                // Display open files.
+; 1316 :                DisplayOpenFiles( "ListTasks:", 0 );
+
+	push	0
+	push	OFFSET FLAT:??_C@_0L@LCKF@ListTasks?3?$AA@ ; `string'
+	call	_DisplayOpenFiles@8
+$L59946:
+
+; 1554 :          else
+
+	jmp	$L60026
+$L59945:
+
+; 1555 :          if ( wCommand == IDM_LISTMUTEXSTATUS )
+
+	mov	edx, DWORD PTR _wCommand$59738[ebp]
+	and	edx, 65535				; 0000ffffH
+	cmp	edx, 170				; 000000aaH
+	jne	SHORT $L59962
+
+; 1557 :             char szMsg[ 4000 ];
+; 1558 : 
+; 1559 :             SysMutexQueryStatus( );
+
+	call	_SysMutexQueryStatus@0
+
+; 1560 :             TraceLineS( "", "" );
+
+	push	OFFSET FLAT:??_C@_00A@?$AA@		; `string'
+	push	OFFSET FLAT:??_C@_00A@?$AA@		; `string'
+	call	_TraceLineS@8
+
+; 1561 :             MiListOE_Memory( 0, 0 );
+
+	push	0
+	push	0
+	call	_MiListOE_Memory@8
+
+; 1562 :             SysDescribeZeidonPageTable( szMsg );
+
+	lea	eax, DWORD PTR _szMsg$59963[ebp]
+	push	eax
+	call	_SysDescribeZeidonPageTable@4
+
+; 1563 :             TraceLineS( " Page table info - ", szMsg );
+
+	lea	ecx, DWORD PTR _szMsg$59963[ebp]
+	push	ecx
+	push	OFFSET FLAT:??_C@_0BE@BDI@?5Page?5table?5info?5?9?5?$AA@ ; `string'
+	call	_TraceLineS@8
+
+; 1565 :          else
+
+	jmp	$L60026
+$L59962:
+
+; 1566 :          if ( wCommand == IDM_LISTVOBJS )   // Display objects
+
+	mov	edx, DWORD PTR _wCommand$59738[ebp]
+	and	edx, 65535				; 0000ffffH
+	cmp	edx, 113				; 00000071H
+	jne	$L59966
+
+; 1568 :             if ( AnchorBlock )
+
+	cmp	DWORD PTR _AnchorBlock, 0
+	je	$L59973
+
+; 1570 :                LPAPP    lpApp;
+; 1571 :                LPVIEWOD lpViewOD;
+; 1572 :                char szMessage[ 160 ];
+; 1573 : 
+; 1574 :                lpApp = zGETPTR( AnchorBlock->hFirstApp );
+
+	mov	eax, DWORD PTR _AnchorBlock
+	mov	ecx, DWORD PTR [eax+126]
+	push	ecx
+	call	_SysGetPointerFromHandle@4
+	mov	DWORD PTR _lpApp$59968[ebp], eax
+$L59972:
+
+; 1575 :                while ( lpApp )
+
+	cmp	DWORD PTR _lpApp$59968[ebp], 0
+	je	$L59973
+
+; 1577 :                   zstrcpy( szMessage, "Application:'" );
+
+	push	OFFSET FLAT:??_C@_0O@ENOG@Application?3?8?$AA@ ; `string'
+	lea	edx, DWORD PTR _szMessage$59970[ebp]
+	push	edx
+	call	_strcpy
+	add	esp, 8
+
+; 1578 :                   if ( *lpApp->szName )
+
+	mov	eax, DWORD PTR _lpApp$59968[ebp]
+	movsx	ecx, BYTE PTR [eax+6]
+	test	ecx, ecx
+	je	SHORT $L59975
+
+; 1579 :                      zstrcat( szMessage, lpApp->szName );
+
+	mov	edx, DWORD PTR _lpApp$59968[ebp]
+	add	edx, 6
+	push	edx
+	lea	eax, DWORD PTR _szMessage$59970[ebp]
+	push	eax
+	call	_strcat
+	add	esp, 8
+$L59975:
+
+; 1580 : 
+; 1581 :                   zstrcat( szMessage, "'" );
+
+	push	OFFSET FLAT:??_C@_01HAF@?8?$AA@		; `string'
+	lea	ecx, DWORD PTR _szMessage$59970[ebp]
+	push	ecx
+	call	_strcat
+	add	esp, 8
+
+; 1582 :                   SysMessageList( szMessage );
+
+	lea	edx, DWORD PTR _szMessage$59970[ebp]
+	push	edx
+	call	_SysMessageList@4
+
+; 1583 :                   lpViewOD = zGETPTR( lpApp->hFirstViewOD );
+
+	mov	eax, DWORD PTR _lpApp$59968[ebp]
+	mov	ecx, DWORD PTR [eax+84]
+	push	ecx
+	call	_SysGetPointerFromHandle@4
+	mov	DWORD PTR _lpViewOD$59969[ebp], eax
+$L59978:
+
+; 1584 :                   while ( lpViewOD )
+
+	cmp	DWORD PTR _lpViewOD$59969[ebp], 0
+	je	SHORT $L59979
+
+; 1586 :                      zstrcpy( szMessage, "   View Object:'" );
+
+	push	OFFSET FLAT:??_C@_0BB@FJJG@?5?5?5View?5Object?3?8?$AA@ ; `string'
+	lea	edx, DWORD PTR _szMessage$59970[ebp]
+	push	edx
+	call	_strcpy
+	add	esp, 8
+
+; 1587 :                      if ( *lpViewOD->szName )
+
+	mov	eax, DWORD PTR _lpViewOD$59969[ebp]
+	movsx	ecx, BYTE PTR [eax+10]
+	test	ecx, ecx
+	je	SHORT $L59981
+
+; 1588 :                         zstrcat( szMessage, lpViewOD->szName );
+
+	mov	edx, DWORD PTR _lpViewOD$59969[ebp]
+	add	edx, 10					; 0000000aH
+	push	edx
+	lea	eax, DWORD PTR _szMessage$59970[ebp]
+	push	eax
+	call	_strcat
+	add	esp, 8
+$L59981:
+
+; 1589 : 
+; 1590 :                      zstrcat( szMessage, "'" );
+
+	push	OFFSET FLAT:??_C@_01HAF@?8?$AA@		; `string'
+	lea	ecx, DWORD PTR _szMessage$59970[ebp]
+	push	ecx
+	call	_strcat
+	add	esp, 8
+
+; 1591 :                      SysMessageList( szMessage );
+
+	lea	edx, DWORD PTR _szMessage$59970[ebp]
+	push	edx
+	call	_SysMessageList@4
+
+; 1592 :                      lpViewOD = zGETPTR( lpViewOD->hNextViewOD );
+
+	mov	eax, DWORD PTR _lpViewOD$59969[ebp]
+	mov	ecx, DWORD PTR [eax+2]
+	push	ecx
+	call	_SysGetPointerFromHandle@4
+	mov	DWORD PTR _lpViewOD$59969[ebp], eax
+
+; 1593 :                   }
+
+	jmp	SHORT $L59978
+$L59979:
+
+; 1594 : 
+; 1595 :                   lpApp = zGETPTR( lpApp->hNextApp );
+
+	mov	edx, DWORD PTR _lpApp$59968[ebp]
+	mov	eax, DWORD PTR [edx+2]
+	push	eax
+	call	_SysGetPointerFromHandle@4
+	mov	DWORD PTR _lpApp$59968[ebp], eax
+
+; 1596 :                }
+
+	jmp	$L59972
+$L59973:
+
+; 1599 :          else
+
+	jmp	$L60026
+$L59966:
+
+; 1600 :          if ( wCommand == IDM_RESETTIMEOUT )
+
+	mov	ecx, DWORD PTR _wCommand$59738[ebp]
+	and	ecx, 65535				; 0000ffffH
+	cmp	ecx, 218				; 000000daH
+	jne	SHORT $L59983
+
+; 1602 :             if ( g_lTimeOut )
+
+	cmp	DWORD PTR _g_lTimeOut, 0
+	je	SHORT $L59984
+
+; 1603 :                SysGetDateTime( g_szTimeStamp );
+
+	push	OFFSET FLAT:_g_szTimeStamp
+	call	_SysGetDateTime@4
+$L59984:
+
+; 1604 : 
+; 1605 :             return( 0 );
+
+	xor	eax, eax
+	jmp	$L59722
+$L59983:
+
+; 1607 :          else
+; 1608 :          if ( wCommand == IDM_IDLE )
+
+	mov	edx, DWORD PTR _wCommand$59738[ebp]
+	and	edx, 65535				; 0000ffffH
+	cmp	edx, 219				; 000000dbH
+	jne	SHORT $L59986
+
+; 1610 :             if ( g_lTimeOut && g_uIdleTimerId == 0 )
+
+	cmp	DWORD PTR _g_lTimeOut, 0
+	je	SHORT $L59987
+	cmp	DWORD PTR _g_uIdleTimerId, 0
+	jne	SHORT $L59987
+
+; 1612 :                SysGetDateTime( g_szTimeStamp );
+
+	push	OFFSET FLAT:_g_szTimeStamp
+	call	_SysGetDateTime@4
+
+; 1613 :                TraceLine( "OE Setting Idle Timer for hWnd: 0x%08x   g_hWndMainFrame: 0x%08x  Id: %d",
+; 1614 :                           hWnd, g_hWndMainFrame, g_nIdIdleEvt );
+
+	mov	eax, DWORD PTR _g_nIdIdleEvt
+	push	eax
+	mov	ecx, DWORD PTR _g_hWndMainFrame
+	push	ecx
+	mov	edx, DWORD PTR _hWnd$[ebp]
+	push	edx
+	push	OFFSET FLAT:??_C@_0EJ@LIIE@OE?5Setting?5Idle?5Timer?5for?5hWnd?3?5@ ; `string'
+	call	_TraceLine
+	add	esp, 16					; 00000010H
+
+; 1615 :                g_uIdleTimerId = SetTimer( hWnd, g_nIdIdleEvt,
+; 1616 :                                           30000, 0 );  // 30000 ==> 30 seconds
+
+	push	0
+	push	30000					; 00007530H
+	mov	eax, DWORD PTR _g_nIdIdleEvt
+	push	eax
+	mov	ecx, DWORD PTR _hWnd$[ebp]
+	push	ecx
+	call	DWORD PTR __imp__SetTimer@16
+	mov	DWORD PTR _g_uIdleTimerId, eax
+$L59987:
+
+; 1618 : 
+; 1619 :             return( 0 );
+
+	xor	eax, eax
+	jmp	$L59722
+$L59986:
+
+; 1621 :          else
+; 1622 :          if ( wCommand == IDM_GETOEWARNINGTRACE )
+
+	mov	edx, DWORD PTR _wCommand$59738[ebp]
+	and	edx, 65535				; 0000ffffH
+	cmp	edx, 215				; 000000d7H
+	jne	SHORT $L59990
+
+; 1623 :             return( (zLONG) g_chTraceOE_Warning );
+
+	movsx	eax, BYTE PTR _g_chTraceOE_Warning
+	jmp	$L59722
+$L59990:
+
+; 1624 :          else
+; 1625 :          if ( wCommand == IDM_GETACTIONTRACE )
+
+	mov	eax, DWORD PTR _wCommand$59738[ebp]
+	and	eax, 65535				; 0000ffffH
+	cmp	eax, 204				; 000000ccH
+	jne	SHORT $L59993
+
+; 1626 :             return( (zLONG) g_chTraceZDrActions );
+
+	movsx	eax, BYTE PTR _g_chTraceZDrActions
+	jmp	$L59722
+$L59993:
+
+; 1627 :          else
+; 1628 :          if ( wCommand == IDM_GETWEBTRACE )
+
+	mov	ecx, DWORD PTR _wCommand$59738[ebp]
+	and	ecx, 65535				; 0000ffffH
+	cmp	ecx, 214				; 000000d6H
+	jne	SHORT $L59996
+
+; 1629 :             return( (zLONG) g_chTraceWebActions );
+
+	movsx	eax, BYTE PTR _g_chTraceWebActions
+	jmp	$L59722
+$L59996:
+
+; 1630 :          else
+; 1631 :          if ( wCommand == IDM_GETMEMORYTRACE )
+
+	mov	edx, DWORD PTR _wCommand$59738[ebp]
+	and	edx, 65535				; 0000ffffH
+	cmp	edx, 217				; 000000d9H
+	jne	SHORT $L59999
+
+; 1632 :             return( (zLONG) g_chTraceMemory );
+
+	movsx	eax, BYTE PTR _g_chTraceMemory
+	jmp	$L59722
+$L59999:
+
+; 1633 :          else
+; 1634 :          if ( wCommand == IDM_GETTRACELOGFILE )
+
+	mov	eax, DWORD PTR _wCommand$59738[ebp]
+	and	eax, 65535				; 0000ffffH
+	cmp	eax, 216				; 000000d8H
+	jne	SHORT $L60002
+
+; 1635 :             return( (zLONG) g_hLogFile );
+
+	mov	eax, DWORD PTR _g_hLogFile
+	jmp	$L59722
+$L60002:
+
+; 1636 :          else
+; 1637 :          if ( wCommand == IDM_GETOEMAINHWND )
+
+	mov	ecx, DWORD PTR _wCommand$59738[ebp]
+	and	ecx, 65535				; 0000ffffH
+	cmp	ecx, 200				; 000000c8H
+	jne	SHORT $L60005
+
+; 1638 :             return( (zLONG) g_hWndMainFrame );
+
+	mov	eax, DWORD PTR _g_hWndMainFrame
+	jmp	$L59722
+$L60005:
+
+; 1639 :          else
+; 1640 :          if ( wCommand == IDM_GETOELISTHWND )
+
+	mov	edx, DWORD PTR _wCommand$59738[ebp]
+	and	edx, 65535				; 0000ffffH
+	cmp	edx, 201				; 000000c9H
+	jne	SHORT $L60008
+
+; 1641 :             return( (zLONG) g_hwndTraceWindow[ g_nTraceWindowHead ] );
+
+	mov	eax, DWORD PTR _g_nTraceWindowHead
+	mov	eax, DWORD PTR _g_hwndTraceWindow[eax*4]
+	jmp	$L59722
+$L60008:
+
+; 1642 :          else
+; 1643 :          if ( wCommand == IDM_GETTRACELIMIT )
+
+	mov	ecx, DWORD PTR _wCommand$59738[ebp]
+	and	ecx, 65535				; 0000ffffH
+	cmp	ecx, 202				; 000000caH
+	jne	SHORT $L60011
+
+; 1644 :             return( (zLONG) g_uTraceLineLimit );
+
+	mov	eax, DWORD PTR _g_uTraceLineLimit
+	jmp	$L59722
+$L60011:
+
+; 1645 :          else
+; 1646 :          if ( wCommand == IDM_GETSCROLLTRACE )
+
+	mov	edx, DWORD PTR _wCommand$59738[ebp]
+	and	edx, 65535				; 0000ffffH
+	cmp	edx, 203				; 000000cbH
+	jne	SHORT $L60014
+
+; 1647 :             return( (zLONG) g_chScrollTrace );
+
+	movsx	eax, BYTE PTR _g_chScrollTrace
+	jmp	$L59722
+$L60014:
+
+; 1648 :          else
+; 1649 :          if ( wCommand == IDM_GETPRINTPREVIEW )
+
+	mov	eax, DWORD PTR _wCommand$59738[ebp]
+	and	eax, 65535				; 0000ffffH
+	cmp	eax, 206				; 000000ceH
+	jne	SHORT $L60017
+
+; 1650 :             return( (zLONG) g_chPrintPreview );
+
+	movsx	eax, BYTE PTR _g_chPrintPreview
+	jmp	$L59722
+$L60017:
+
+; 1651 :          else
+; 1652 :          if ( wCommand == IDM_GETPRINTDIALOG )
+
+	mov	ecx, DWORD PTR _wCommand$59738[ebp]
+	and	ecx, 65535				; 0000ffffH
+	cmp	ecx, 207				; 000000cfH
+	jne	SHORT $L60020
+
+; 1653 :             return( (zLONG) g_chPrintDialog );
+
+	movsx	eax, BYTE PTR _g_chPrintDialog
+	jmp	$L59722
+$L60020:
+
+; 1654 :          else
+; 1655 :          if ( wCommand == IDM_GETFINDSTRING )
+
+	mov	edx, DWORD PTR _wCommand$59738[ebp]
+	and	edx, 65535				; 0000ffffH
+	cmp	edx, 205				; 000000cdH
+	jne	SHORT $L60023
+
+; 1657 :             zstrcpy( (zPCHAR) lParam, g_szFindString );
+
+	push	OFFSET FLAT:_g_szFindString
+	mov	eax, DWORD PTR _lParam$[ebp]
+	push	eax
+	call	_strcpy
+	add	esp, 8
+
+; 1658 :             return( zstrlen( g_szFindString ) );
+
+	push	OFFSET FLAT:_g_szFindString
+	call	_strlen
+	add	esp, 4
+	jmp	$L59722
+$L60023:
+
+; 1660 :          else
+; 1661 :          if ( wCommand >= IDM_TRACEWINDOW01 && wCommand <= IDM_TRACEWINDOW20 )
+
+	mov	ecx, DWORD PTR _wCommand$59738[ebp]
+	and	ecx, 65535				; 0000ffffH
+	cmp	ecx, 300				; 0000012cH
+	jl	$L60026
+	mov	edx, DWORD PTR _wCommand$59738[ebp]
+	and	edx, 65535				; 0000ffffH
+	cmp	edx, 319				; 0000013fH
+	jg	$L60026
+
+; 1663 :             UINT idx = wCommand - IDM_TRACEWINDOW01;
+
+	mov	eax, DWORD PTR _wCommand$59738[ebp]
+	and	eax, 65535				; 0000ffffH
+	sub	eax, 300				; 0000012cH
+	mov	DWORD PTR _idx$60027[ebp], eax
+
+; 1664 :             UINT iDiff;
+; 1665 :             UINT nNewTraceWindow;
+; 1666 :             UINT nOldTraceWindow;
+; 1667 : 
+; 1668 :             nNewTraceWindow = (g_nTraceWindowHead + g_nTraceWindowCnt - idx)
+; 1669 :                                                           % g_nTraceWindowCnt;
+
+	mov	eax, DWORD PTR _g_nTraceWindowHead
+	add	eax, DWORD PTR _g_nTraceWindowCnt
+	sub	eax, DWORD PTR _idx$60027[ebp]
+	xor	edx, edx
+	div	DWORD PTR _g_nTraceWindowCnt
+	mov	DWORD PTR _nNewTraceWindow$60029[ebp], edx
+
+; 1670 : 
+; 1671 :             // If user selected the window already displayed then don't do
+; 1672 :             // anything.
+; 1673 :             if ( nNewTraceWindow == g_nTraceWindowDisplayed )
+
+	mov	ecx, DWORD PTR _nNewTraceWindow$60029[ebp]
+	cmp	ecx, DWORD PTR _g_nTraceWindowDisplayed
+	jne	SHORT $L60031
+
+; 1674 :                break;
+
+	jmp	$L59725
+$L60031:
+
+; 1675 : 
+; 1676 :             // Find the difference between the displayed window and the head.
+; 1677 :             iDiff = ( g_nTraceWindowDisplayed + g_nTraceWindowCnt -
+; 1678 :                                     g_nTraceWindowHead ) % g_nTraceWindowCnt;
+
+	mov	eax, DWORD PTR _g_nTraceWindowDisplayed
+	add	eax, DWORD PTR _g_nTraceWindowCnt
+	sub	eax, DWORD PTR _g_nTraceWindowHead
+	xor	edx, edx
+	div	DWORD PTR _g_nTraceWindowCnt
+	mov	DWORD PTR _iDiff$60028[ebp], edx
+
+; 1679 : 
+; 1680 :             // Determine the old trace window index.
+; 1681 :             nOldTraceWindow = ( g_nTraceWindowCnt - iDiff )
+; 1682 :                                                           % g_nTraceWindowCnt;
+
+	mov	eax, DWORD PTR _g_nTraceWindowCnt
+	sub	eax, DWORD PTR _iDiff$60028[ebp]
+	xor	edx, edx
+	div	DWORD PTR _g_nTraceWindowCnt
+	mov	DWORD PTR _nOldTraceWindow$60030[ebp], edx
+
+; 1683 : 
+; 1684 :             // Turn off the check mark...we will no longer be displaying the
+; 1685 :             // current window.
+; 1686 :             CheckMenuItem( GetMenu( hWnd ),
+; 1687 :                            IDM_TRACEWINDOW01 + nOldTraceWindow,
+; 1688 :                            MF_BYCOMMAND | MF_UNCHECKED );
+
+	push	0
+	mov	edx, DWORD PTR _nOldTraceWindow$60030[ebp]
+	add	edx, 300				; 0000012cH
+	push	edx
+	mov	eax, DWORD PTR _hWnd$[ebp]
+	push	eax
+	call	DWORD PTR __imp__GetMenu@4
+	push	eax
+	call	DWORD PTR __imp__CheckMenuItem@12
+
+; 1689 : 
+; 1690 :             // Make the current window invisible.
+; 1691 :             ShowWindow( g_hwndTraceWindow[ g_nTraceWindowDisplayed ], SW_HIDE );
+
+	push	0
 	mov	ecx, DWORD PTR _g_nTraceWindowDisplayed
 	mov	edx, DWORD PTR _g_hwndTraceWindow[ecx*4]
 	push	edx
 	call	DWORD PTR __imp__ShowWindow@8
-$L60024:
 
-; 1697 : 
-; 1698 :          break;
+; 1692 : 
+; 1693 :             // Turn on the check for the window the user wants.
+; 1694 :             CheckMenuItem( GetMenu( hWnd ), wCommand,
+; 1695 :                            MF_BYCOMMAND | MF_CHECKED );
 
-	jmp	$L59724
-$L60030:
+	push	8
+	mov	eax, DWORD PTR _wCommand$59738[ebp]
+	and	eax, 65535				; 0000ffffH
+	push	eax
+	mov	ecx, DWORD PTR _hWnd$[ebp]
+	push	ecx
+	call	DWORD PTR __imp__GetMenu@4
+	push	eax
+	call	DWORD PTR __imp__CheckMenuItem@12
 
-; 1700 : 
-; 1701 :       case WM_QUERYENDSESSION:
-; 1702 :       case WM_CLOSE:
-; 1703 :          // Close message, if any zeidon tasks are still registered,
-; 1704 :          // prompt whether to send a close message to each one and
-; 1705 :          // try and bring it down. If either the user says no to
-; 1706 :          // automatically closing tasks or any tasks rejects the close
-; 1707 :          // message, reject the close and set focus to the first
-; 1708 :          // remaining active task.
-; 1709 :          // When we receive a WM_QUERYENDSESSION, the user is shutting
-; 1710 :          // down Windows.  If any Zeidon tasks are still active, then
-; 1711 :          // don't permit Windows to shut down.
-; 1712 :          if ( szLogFileName[ 0 ] )
+; 1696 : 
+; 1697 :             g_nTraceWindowDisplayed = nNewTraceWindow;
 
-	movsx	eax, BYTE PTR _szLogFileName
-	test	eax, eax
-	je	SHORT $L60031
+	mov	edx, DWORD PTR _nNewTraceWindow$60029[ebp]
+	mov	DWORD PTR _g_nTraceWindowDisplayed, edx
 
-; 1713 :             SysUpdateZeidonIni( szlWorkstation, "LogFile", szLogFileName );
+; 1698 : 
+; 1699 :             // Make the new current window visible.
+; 1700 :             ShowWindow( g_hwndTraceWindow[ g_nTraceWindowDisplayed ], SW_SHOW );
+
+	push	5
+	mov	eax, DWORD PTR _g_nTraceWindowDisplayed
+	mov	ecx, DWORD PTR _g_hwndTraceWindow[eax*4]
+	push	ecx
+	call	DWORD PTR __imp__ShowWindow@8
+$L60026:
+
+; 1702 : 
+; 1703 :          break;
+
+	jmp	$L59725
+$L60032:
+
+; 1705 : 
+; 1706 :       case WM_QUERYENDSESSION:
+; 1707 :       case WM_CLOSE:
+; 1708 :          // Close message, if any zeidon tasks are still registered,
+; 1709 :          // prompt whether to send a close message to each one and
+; 1710 :          // try and bring it down. If either the user says no to
+; 1711 :          // automatically closing tasks or any tasks rejects the close
+; 1712 :          // message, reject the close and set focus to the first
+; 1713 :          // remaining active task.
+; 1714 :          // When we receive a WM_QUERYENDSESSION, the user is shutting
+; 1715 :          // down Windows.  If any Zeidon tasks are still active, then
+; 1716 :          // don't permit Windows to shut down.
+; 1717 :          if ( szLogFileName[ 0 ] )
+
+	movsx	edx, BYTE PTR _szLogFileName
+	test	edx, edx
+	je	SHORT $L60033
+
+; 1718 :             SysUpdateZeidonIni( szlWorkstation, "LogFile", szLogFileName );
 
 	push	OFFSET FLAT:_szLogFileName
 	push	OFFSET FLAT:??_C@_07HGKM@LogFile?$AA@	; `string'
 	push	OFFSET FLAT:_szlWorkstation
 	call	_SysUpdateZeidonIni@12
-$L60031:
+$L60033:
 
-; 1714 : 
-; 1715 :          if ( AnchorBlock )       // Anchor block OK?
+; 1719 : 
+; 1720 :          if ( AnchorBlock )       // Anchor block OK?
 
 	cmp	DWORD PTR _AnchorBlock, 0
-	je	$L60095
+	je	$L60097
 
-; 1717 :             LPTASK hTask;
-; 1718 :             LPTASK lpTask;
-; 1719 :             LPTASK lpTaskTemp;
-; 1720 :             int nResponse = IDNO;
+; 1722 :             LPTASK hTask;
+; 1723 :             LPTASK lpTask;
+; 1724 :             LPTASK lpTaskTemp;
+; 1725 :             int nResponse = IDNO;
 
-	mov	DWORD PTR _nResponse$60037[ebp], 7
+	mov	DWORD PTR _nResponse$60039[ebp], 7
 
-; 1721 :             HANDLE hTermMutex;
-; 1722 : 
-; 1723 :             // Create a mutex.  Code in kzoesyaa.c will check to see if this
-; 1724 :             // mutex exists during registration.  If it does then Core will
-; 1725 :             // fail the registration.  This makes sure that core is completely
-; 1726 :             // shut down before the registration can start.  Note that we'll
-; 1727 :             // let the Win32 OS clean up the mutex for us when we shut down.
-; 1728 :             hTermMutex = CreateMutex( NULL, FALSE, "KZOENGWA - Termination" );
+; 1726 :             HANDLE hTermMutex;
+; 1727 : 
+; 1728 :             // Create a mutex.  Code in kzoesyaa.c will check to see if this
+; 1729 :             // mutex exists during registration.  If it does then Core will
+; 1730 :             // fail the registration.  This makes sure that core is completely
+; 1731 :             // shut down before the registration can start.  Note that we'll
+; 1732 :             // let the Win32 OS clean up the mutex for us when we shut down.
+; 1733 :             hTermMutex = CreateMutex( NULL, FALSE, "KZOENGWA - Termination" );
 
 	push	OFFSET FLAT:??_C@_0BH@IIPE@KZOENGWA?5?9?5Termination?$AA@ ; `string'
 	push	0
 	push	0
 	call	DWORD PTR __imp__CreateMutexA@12
-	mov	DWORD PTR _hTermMutex$60038[ebp], eax
+	mov	DWORD PTR _hTermMutex$60040[ebp], eax
 
-; 1729 : 
-; 1730 :             // First, see if any tasks are active
-; 1731 :             hTask = AnchorBlock->hFirstTask;
-
-	mov	ecx, DWORD PTR _AnchorBlock
-	mov	edx, DWORD PTR [ecx+130]
-	mov	DWORD PTR _hTask$60034[ebp], edx
-
-; 1732 :             lpTask = zGETPTR( hTask );
-
-	mov	eax, DWORD PTR _hTask$60034[ebp]
-	push	eax
-	call	_SysGetPointerFromHandle@4
-	mov	DWORD PTR _lpTask$60035[ebp], eax
-
-; 1733 : 
-; 1734 :             // If the logfile is still open then close it.
-; 1735 :             if ( lpTask && g_hLogFile != -1 )
-
-	cmp	DWORD PTR _lpTask$60035[ebp], 0
-	je	SHORT $L60041
-	cmp	DWORD PTR _g_hLogFile, -1
-	je	SHORT $L60041
-
-; 1737 :                fnSysCloseFile( lpTask, g_hLogFile, 0 );
-
-	push	0
-	mov	ecx, DWORD PTR _g_hLogFile
-	push	ecx
-	mov	edx, DWORD PTR _lpTask$60035[ebp]
-	push	edx
-	call	_fnSysCloseFile@12
-
-; 1738 :                g_hLogFile = -1;
-
-	mov	DWORD PTR _g_hLogFile, -1
-$L60041:
-
-; 1740 : 
-; 1741 :             while ( lpTask )
-
-	cmp	DWORD PTR _lpTask$60035[ebp], 0
-	je	SHORT $L60044
-
-; 1743 :                if ( hTask != AnchorBlock->hMainTask &&
-; 1744 :                     IsWindow( (HWND) lpTask->hMainWnd ) )
-
-	mov	eax, DWORD PTR _AnchorBlock
-	mov	ecx, DWORD PTR _hTask$60034[ebp]
-	cmp	ecx, DWORD PTR [eax+106]
-	je	SHORT $L60046
-	mov	edx, DWORD PTR _lpTask$60035[ebp]
-	mov	eax, DWORD PTR [edx+22]
-	push	eax
-	call	DWORD PTR __imp__IsWindow@4
-	test	eax, eax
-	je	SHORT $L60046
-
-; 1746 :                   break;
-
-	jmp	SHORT $L60044
-$L60046:
-
-; 1748 : 
-; 1749 :                lpTask = zGETPTR( lpTask->hNextTask );
-
-	mov	ecx, DWORD PTR _lpTask$60035[ebp]
-	mov	edx, DWORD PTR [ecx+2]
-	push	edx
-	call	_SysGetPointerFromHandle@4
-	mov	DWORD PTR _lpTask$60035[ebp], eax
-
-; 1750 :             }
-
-	jmp	SHORT $L60041
-$L60044:
-
-; 1751 : 
-; 1752 :             if ( lpTask == 0 )
-
-	cmp	DWORD PTR _lpTask$60035[ebp], 0
-	jne	SHORT $L60047
-
-; 1753 :                lpTaskTemp = zGETPTR( AnchorBlock->hFirstTask );
+; 1734 : 
+; 1735 :             // First, see if any tasks are active
+; 1736 :             hTask = AnchorBlock->hFirstTask;
 
 	mov	eax, DWORD PTR _AnchorBlock
 	mov	ecx, DWORD PTR [eax+130]
-	push	ecx
+	mov	DWORD PTR _hTask$60036[ebp], ecx
+
+; 1737 :             lpTask = zGETPTR( hTask );
+
+	mov	edx, DWORD PTR _hTask$60036[ebp]
+	push	edx
 	call	_SysGetPointerFromHandle@4
-	mov	DWORD PTR _lpTaskTemp$60036[ebp], eax
+	mov	DWORD PTR _lpTask$60037[ebp], eax
 
-; 1754 :             else
+; 1738 : 
+; 1739 :             // If the logfile is still open then close it.
+; 1740 :             if ( lpTask && g_hLogFile != -1 )
 
-	jmp	SHORT $L60048
-$L60047:
+	cmp	DWORD PTR _lpTask$60037[ebp], 0
+	je	SHORT $L60043
+	cmp	DWORD PTR _g_hLogFile, -1
+	je	SHORT $L60043
 
-; 1755 :                lpTaskTemp = lpTask;
+; 1742 :                fnSysCloseFile( lpTask, g_hLogFile, 0 );
 
-	mov	edx, DWORD PTR _lpTask$60035[ebp]
-	mov	DWORD PTR _lpTaskTemp$60036[ebp], edx
+	push	0
+	mov	eax, DWORD PTR _g_hLogFile
+	push	eax
+	mov	ecx, DWORD PTR _lpTask$60037[ebp]
+	push	ecx
+	call	_fnSysCloseFile@12
+
+; 1743 :                g_hLogFile = -1;
+
+	mov	DWORD PTR _g_hLogFile, -1
+$L60043:
+
+; 1745 : 
+; 1746 :             while ( lpTask )
+
+	cmp	DWORD PTR _lpTask$60037[ebp], 0
+	je	SHORT $L60046
+
+; 1748 :                if ( hTask != AnchorBlock->hMainTask &&
+; 1749 :                     IsWindow( (HWND) lpTask->hMainWnd ) )
+
+	mov	edx, DWORD PTR _AnchorBlock
+	mov	eax, DWORD PTR _hTask$60036[ebp]
+	cmp	eax, DWORD PTR [edx+106]
+	je	SHORT $L60048
+	mov	ecx, DWORD PTR _lpTask$60037[ebp]
+	mov	edx, DWORD PTR [ecx+22]
+	push	edx
+	call	DWORD PTR __imp__IsWindow@4
+	test	eax, eax
+	je	SHORT $L60048
+
+; 1751 :                   break;
+
+	jmp	SHORT $L60046
 $L60048:
 
+; 1753 : 
+; 1754 :                lpTask = zGETPTR( lpTask->hNextTask );
+
+	mov	eax, DWORD PTR _lpTask$60037[ebp]
+	mov	ecx, DWORD PTR [eax+2]
+	push	ecx
+	call	_SysGetPointerFromHandle@4
+	mov	DWORD PTR _lpTask$60037[ebp], eax
+
+; 1755 :             }
+
+	jmp	SHORT $L60043
+$L60046:
+
 ; 1756 : 
-; 1757 :             if ( uMsg == WM_CLOSE )
+; 1757 :             if ( lpTask == 0 )
+
+	cmp	DWORD PTR _lpTask$60037[ebp], 0
+	jne	SHORT $L60049
+
+; 1758 :                lpTaskTemp = zGETPTR( AnchorBlock->hFirstTask );
+
+	mov	edx, DWORD PTR _AnchorBlock
+	mov	eax, DWORD PTR [edx+130]
+	push	eax
+	call	_SysGetPointerFromHandle@4
+	mov	DWORD PTR _lpTaskTemp$60038[ebp], eax
+
+; 1759 :             else
+
+	jmp	SHORT $L60050
+$L60049:
+
+; 1760 :                lpTaskTemp = lpTask;
+
+	mov	ecx, DWORD PTR _lpTask$60037[ebp]
+	mov	DWORD PTR _lpTaskTemp$60038[ebp], ecx
+$L60050:
+
+; 1761 : 
+; 1762 :             if ( uMsg == WM_CLOSE )
 
 	cmp	DWORD PTR _uMsg$[ebp], 16		; 00000010H
-	jne	$L60049
+	jne	$L60051
 
-; 1759 :                char  szIniName[ 260 ];
-; 1760 :                char  szFileName[ 260 ];
-; 1761 :                char  szTempName[ 260 ];
-; 1762 :                char  szBuffer[ sizeof( "-2147483647," ) * 10 ];
-; 1763 :                WINDOWPLACEMENT wp;
-; 1764 : 
-; 1765 :                wp.length = sizeof( wp );
+; 1764 :                char  szIniName[ 260 ];
+; 1765 :                char  szFileName[ 260 ];
+; 1766 :                char  szTempName[ 260 ];
+; 1767 :                char  szBuffer[ sizeof( "-2147483647," ) * 10 ];
+; 1768 :                WINDOWPLACEMENT wp;
+; 1769 : 
+; 1770 :                wp.length = sizeof( wp );
 
-	mov	DWORD PTR _wp$60054[ebp], 44		; 0000002cH
+	mov	DWORD PTR _wp$60056[ebp], 44		; 0000002cH
 
-; 1766 :                if ( GetWindowPlacement( hWnd, &wp ) )
+; 1771 :                if ( GetWindowPlacement( hWnd, &wp ) )
 
-	lea	eax, DWORD PTR _wp$60054[ebp]
+	lea	edx, DWORD PTR _wp$60056[ebp]
+	push	edx
+	mov	eax, DWORD PTR _hWnd$[ebp]
 	push	eax
-	mov	ecx, DWORD PTR _hWnd$[ebp]
-	push	ecx
 	call	DWORD PTR __imp__GetWindowPlacement@8
 	test	eax, eax
-	je	SHORT $L60055
+	je	SHORT $L60057
 
-; 1768 :                   // write window placement to Zeidon.ini file.
-; 1769 : 
-; 1770 :                   wsprintf( szBuffer, szPlaceFormat,
-; 1771 :                             wp.flags, wp.showCmd,
-; 1772 :                             wp.ptMinPosition.x, wp.ptMinPosition.y,
-; 1773 :                             wp.ptMaxPosition.x, wp.ptMaxPosition.y,
-; 1774 :                             wp.rcNormalPosition.left,
-; 1775 :                             wp.rcNormalPosition.top,
-; 1776 :                             wp.rcNormalPosition.right,
-; 1777 :                             wp.rcNormalPosition.bottom );
+; 1773 :                   // write window placement to Zeidon.ini file.
+; 1774 : 
+; 1775 :                   wsprintf( szBuffer, szPlaceFormat,
+; 1776 :                             wp.flags, wp.showCmd,
+; 1777 :                             wp.ptMinPosition.x, wp.ptMinPosition.y,
+; 1778 :                             wp.ptMaxPosition.x, wp.ptMaxPosition.y,
+; 1779 :                             wp.rcNormalPosition.left,
+; 1780 :                             wp.rcNormalPosition.top,
+; 1781 :                             wp.rcNormalPosition.right,
+; 1782 :                             wp.rcNormalPosition.bottom );
 
-	mov	edx, DWORD PTR _wp$60054[ebp+40]
-	push	edx
-	mov	eax, DWORD PTR _wp$60054[ebp+36]
-	push	eax
-	mov	ecx, DWORD PTR _wp$60054[ebp+32]
+	mov	ecx, DWORD PTR _wp$60056[ebp+40]
 	push	ecx
-	mov	edx, DWORD PTR _wp$60054[ebp+28]
+	mov	edx, DWORD PTR _wp$60056[ebp+36]
 	push	edx
-	mov	eax, DWORD PTR _wp$60054[ebp+24]
+	mov	eax, DWORD PTR _wp$60056[ebp+32]
 	push	eax
-	mov	ecx, DWORD PTR _wp$60054[ebp+20]
+	mov	ecx, DWORD PTR _wp$60056[ebp+28]
 	push	ecx
-	mov	edx, DWORD PTR _wp$60054[ebp+16]
+	mov	edx, DWORD PTR _wp$60056[ebp+24]
 	push	edx
-	mov	eax, DWORD PTR _wp$60054[ebp+12]
+	mov	eax, DWORD PTR _wp$60056[ebp+20]
 	push	eax
-	mov	ecx, DWORD PTR _wp$60054[ebp+8]
+	mov	ecx, DWORD PTR _wp$60056[ebp+16]
 	push	ecx
-	mov	edx, DWORD PTR _wp$60054[ebp+4]
+	mov	edx, DWORD PTR _wp$60056[ebp+12]
 	push	edx
+	mov	eax, DWORD PTR _wp$60056[ebp+8]
+	push	eax
+	mov	ecx, DWORD PTR _wp$60056[ebp+4]
+	push	ecx
 	push	OFFSET FLAT:_szPlaceFormat
-	lea	eax, DWORD PTR _szBuffer$60053[ebp]
-	push	eax
+	lea	edx, DWORD PTR _szBuffer$60055[ebp]
+	push	edx
 	call	DWORD PTR __imp__wsprintfA
 	add	esp, 48					; 00000030H
 
-; 1779 :                else
+; 1784 :                else
 
-	jmp	SHORT $L60056
-$L60055:
+	jmp	SHORT $L60058
+$L60057:
 
-; 1780 :                   szBuffer[ 0 ] = 0;
+; 1785 :                   szBuffer[ 0 ] = 0;
 
-	mov	BYTE PTR _szBuffer$60053[ebp], 0
-$L60056:
+	mov	BYTE PTR _szBuffer$60055[ebp], 0
+$L60058:
 
-; 1781 : 
-; 1782 :             // SysReadZeidonIni( -1, szlWorkstation, "LocalDir", szTempName );
-; 1783 :                GetEnvironmentVariable( "ZEIDON", szIniName, sizeof( szIniName ) );
+; 1786 : 
+; 1787 :             // SysReadZeidonIni( -1, szlWorkstation, "LocalDir", szTempName );
+; 1788 :                GetEnvironmentVariable( "ZEIDON", szIniName, sizeof( szIniName ) );
 
 	push	260					; 00000104H
-	lea	ecx, DWORD PTR _szIniName$60050[ebp]
-	push	ecx
+	lea	eax, DWORD PTR _szIniName$60052[ebp]
+	push	eax
 	push	OFFSET FLAT:??_C@_06HLLH@ZEIDON?$AA@	; `string'
 	call	DWORD PTR __imp__GetEnvironmentVariableA@12
 
-; 1784 :                zstrcat( szIniName, "\\zeidon.ini" );
+; 1789 :                zstrcat( szIniName, "\\zeidon.ini" );
 
 	push	OFFSET FLAT:??_C@_0M@BDD@?2zeidon?4ini?$AA@ ; `string'
-	lea	edx, DWORD PTR _szIniName$60050[ebp]
-	push	edx
+	lea	ecx, DWORD PTR _szIniName$60052[ebp]
+	push	ecx
 	call	_strcat
 	add	esp, 8
 
-; 1785 :                GetPrivateProfileString( "Workstation", "LocalDir", "",
-; 1786 :                                         szTempName, sizeof( szTempName ), szIniName );
+; 1790 :                GetPrivateProfileString( "Workstation", "LocalDir", "",
+; 1791 :                                         szTempName, sizeof( szTempName ), szIniName );
 
-	lea	eax, DWORD PTR _szIniName$60050[ebp]
-	push	eax
+	lea	edx, DWORD PTR _szIniName$60052[ebp]
+	push	edx
 	push	260					; 00000104H
-	lea	ecx, DWORD PTR _szTempName$60052[ebp]
-	push	ecx
+	lea	eax, DWORD PTR _szTempName$60054[ebp]
+	push	eax
 	push	OFFSET FLAT:??_C@_00A@?$AA@		; `string'
 	push	OFFSET FLAT:??_C@_08DEFM@LocalDir?$AA@	; `string'
 	push	OFFSET FLAT:??_C@_0M@PHEL@Workstation?$AA@ ; `string'
 	call	DWORD PTR __imp__GetPrivateProfileStringA@24
 
-; 1787 :                SysConvertEnvironmentString( szFileName, szTempName );
+; 1792 :                SysConvertEnvironmentString( szFileName, szTempName );
 
-	lea	edx, DWORD PTR _szTempName$60052[ebp]
+	lea	ecx, DWORD PTR _szTempName$60054[ebp]
+	push	ecx
+	lea	edx, DWORD PTR _szFileName$60053[ebp]
 	push	edx
-	lea	eax, DWORD PTR _szFileName$60051[ebp]
-	push	eax
 	call	_SysConvertEnvironmentString@8
 
-; 1788 :                if ( szFileName[ 0 ] )
+; 1793 :                if ( szFileName[ 0 ] )
 
-	movsx	ecx, BYTE PTR _szFileName$60051[ebp]
-	test	ecx, ecx
-	je	SHORT $L60061
+	movsx	eax, BYTE PTR _szFileName$60053[ebp]
+	test	eax, eax
+	je	SHORT $L60063
 
-; 1790 :                   SysAppendcDirSep( szFileName );
+; 1795 :                   SysAppendcDirSep( szFileName );
 
-	lea	edx, DWORD PTR _szFileName$60051[ebp]
-	push	edx
+	lea	ecx, DWORD PTR _szFileName$60053[ebp]
+	push	ecx
 	call	_SysAppendcDirSep@4
 
-; 1791 :                   zstrcat( szFileName, "ZeidonRT.ini" );
+; 1796 :                   zstrcat( szFileName, "ZeidonRT.ini" );
 
 	push	OFFSET FLAT:??_C@_0N@KGLP@ZeidonRT?4ini?$AA@ ; `string'
-	lea	eax, DWORD PTR _szFileName$60051[ebp]
-	push	eax
+	lea	edx, DWORD PTR _szFileName$60053[ebp]
+	push	edx
 	call	_strcat
 	add	esp, 8
 
-; 1793 :                else
+; 1798 :                else
 
-	jmp	SHORT $L60063
-$L60061:
-
-; 1794 :                   zstrcpy( szFileName, szIniName );
-
-	lea	ecx, DWORD PTR _szIniName$60050[ebp]
-	push	ecx
-	lea	edx, DWORD PTR _szFileName$60051[ebp]
-	push	edx
-	call	_strcpy
-	add	esp, 8
+	jmp	SHORT $L60065
 $L60063:
 
-; 1795 : 
-; 1796 :                WritePrivateProfileString( "ObjectEngine", // section name
-; 1797 :                                           "WindowPos",    // key name
-; 1798 :                                           szBuffer,       // string to add
-; 1799 :                                           szFileName );   // ini filename
+; 1799 :                   zstrcpy( szFileName, szIniName );
 
-	lea	eax, DWORD PTR _szFileName$60051[ebp]
+	lea	eax, DWORD PTR _szIniName$60052[ebp]
 	push	eax
-	lea	ecx, DWORD PTR _szBuffer$60053[ebp]
+	lea	ecx, DWORD PTR _szFileName$60053[ebp]
 	push	ecx
+	call	_strcpy
+	add	esp, 8
+$L60065:
+
+; 1800 : 
+; 1801 :                WritePrivateProfileString( "ObjectEngine", // section name
+; 1802 :                                           "WindowPos",    // key name
+; 1803 :                                           szBuffer,       // string to add
+; 1804 :                                           szFileName );   // ini filename
+
+	lea	edx, DWORD PTR _szFileName$60053[ebp]
+	push	edx
+	lea	eax, DWORD PTR _szBuffer$60055[ebp]
+	push	eax
 	push	OFFSET FLAT:??_C@_09DHE@WindowPos?$AA@	; `string'
 	push	OFFSET FLAT:??_C@_0N@JELK@ObjectEngine?$AA@ ; `string'
 	call	DWORD PTR __imp__WritePrivateProfileStringA@16
 
-; 1800 :                zltoa( g_uTraceLineLimit, szBuffer );
+; 1805 :                zltoa( g_uTraceLineLimit, szBuffer );
 
 	push	10					; 0000000aH
-	lea	edx, DWORD PTR _szBuffer$60053[ebp]
+	lea	ecx, DWORD PTR _szBuffer$60055[ebp]
+	push	ecx
+	mov	edx, DWORD PTR _g_uTraceLineLimit
 	push	edx
-	mov	eax, DWORD PTR _g_uTraceLineLimit
-	push	eax
 	call	__ltoa
 	add	esp, 12					; 0000000cH
 
-; 1801 :                WritePrivateProfileString( "ObjectEngine", "LineLimit",
-; 1802 :                                           szBuffer, szFileName );
+; 1806 :                WritePrivateProfileString( "ObjectEngine", "LineLimit",
+; 1807 :                                           szBuffer, szFileName );
 
-	lea	ecx, DWORD PTR _szFileName$60051[ebp]
+	lea	eax, DWORD PTR _szFileName$60053[ebp]
+	push	eax
+	lea	ecx, DWORD PTR _szBuffer$60055[ebp]
 	push	ecx
-	lea	edx, DWORD PTR _szBuffer$60053[ebp]
-	push	edx
 	push	OFFSET FLAT:??_C@_09GJAL@LineLimit?$AA@	; `string'
 	push	OFFSET FLAT:??_C@_0N@JELK@ObjectEngine?$AA@ ; `string'
 	call	DWORD PTR __imp__WritePrivateProfileStringA@16
 
-; 1803 :                WritePrivateProfileString( "ObjectEngine", "FindString",
-; 1804 :                                           g_szFindString, szFileName );
+; 1808 :                WritePrivateProfileString( "ObjectEngine", "FindString",
+; 1809 :                                           g_szFindString, szFileName );
 
-	lea	eax, DWORD PTR _szFileName$60051[ebp]
-	push	eax
+	lea	edx, DWORD PTR _szFileName$60053[ebp]
+	push	edx
 	push	OFFSET FLAT:_g_szFindString
 	push	OFFSET FLAT:??_C@_0L@BBKE@FindString?$AA@ ; `string'
 	push	OFFSET FLAT:??_C@_0N@JELK@ObjectEngine?$AA@ ; `string'
 	call	DWORD PTR __imp__WritePrivateProfileStringA@16
 
-; 1805 :                szBuffer[ 1 ] = 0;
+; 1810 :                szBuffer[ 1 ] = 0;
 
-	mov	BYTE PTR _szBuffer$60053[ebp+1], 0
+	mov	BYTE PTR _szBuffer$60055[ebp+1], 0
 
-; 1806 :                szBuffer[ 0 ] = g_chScrollTrace;
+; 1811 :                szBuffer[ 0 ] = g_chScrollTrace;
 
-	mov	cl, BYTE PTR _g_chScrollTrace
-	mov	BYTE PTR _szBuffer$60053[ebp], cl
+	mov	al, BYTE PTR _g_chScrollTrace
+	mov	BYTE PTR _szBuffer$60055[ebp], al
 
-; 1807 :                WritePrivateProfileString( "ObjectEngine", "ScrollTrace",
-; 1808 :                                           szBuffer, szFileName );
+; 1812 :                WritePrivateProfileString( "ObjectEngine", "ScrollTrace",
+; 1813 :                                           szBuffer, szFileName );
 
-	lea	edx, DWORD PTR _szFileName$60051[ebp]
+	lea	ecx, DWORD PTR _szFileName$60053[ebp]
+	push	ecx
+	lea	edx, DWORD PTR _szBuffer$60055[ebp]
 	push	edx
-	lea	eax, DWORD PTR _szBuffer$60053[ebp]
-	push	eax
 	push	OFFSET FLAT:??_C@_0M@LCCA@ScrollTrace?$AA@ ; `string'
 	push	OFFSET FLAT:??_C@_0N@JELK@ObjectEngine?$AA@ ; `string'
 	call	DWORD PTR __imp__WritePrivateProfileStringA@16
 
-; 1809 :                szBuffer[ 0 ] = g_chPrintPreview;
+; 1814 :                szBuffer[ 0 ] = g_chPrintPreview;
 
-	mov	cl, BYTE PTR _g_chPrintPreview
-	mov	BYTE PTR _szBuffer$60053[ebp], cl
+	mov	al, BYTE PTR _g_chPrintPreview
+	mov	BYTE PTR _szBuffer$60055[ebp], al
 
-; 1810 :                WritePrivateProfileString( "ObjectEngine", "PrintPreview",
-; 1811 :                                           szBuffer, szFileName );
+; 1815 :                WritePrivateProfileString( "ObjectEngine", "PrintPreview",
+; 1816 :                                           szBuffer, szFileName );
 
-	lea	edx, DWORD PTR _szFileName$60051[ebp]
+	lea	ecx, DWORD PTR _szFileName$60053[ebp]
+	push	ecx
+	lea	edx, DWORD PTR _szBuffer$60055[ebp]
 	push	edx
-	lea	eax, DWORD PTR _szBuffer$60053[ebp]
-	push	eax
 	push	OFFSET FLAT:??_C@_0N@LPJH@PrintPreview?$AA@ ; `string'
 	push	OFFSET FLAT:??_C@_0N@JELK@ObjectEngine?$AA@ ; `string'
 	call	DWORD PTR __imp__WritePrivateProfileStringA@16
 
-; 1812 :                szBuffer[ 0 ] = g_chPrintDialog;
+; 1817 :                szBuffer[ 0 ] = g_chPrintDialog;
 
-	mov	cl, BYTE PTR _g_chPrintDialog
-	mov	BYTE PTR _szBuffer$60053[ebp], cl
+	mov	al, BYTE PTR _g_chPrintDialog
+	mov	BYTE PTR _szBuffer$60055[ebp], al
 
-; 1813 :                WritePrivateProfileString( "ObjectEngine", "PrintDialog",
-; 1814 :                                           szBuffer, szFileName );
+; 1818 :                WritePrivateProfileString( "ObjectEngine", "PrintDialog",
+; 1819 :                                           szBuffer, szFileName );
 
-	lea	edx, DWORD PTR _szFileName$60051[ebp]
+	lea	ecx, DWORD PTR _szFileName$60053[ebp]
+	push	ecx
+	lea	edx, DWORD PTR _szBuffer$60055[ebp]
 	push	edx
-	lea	eax, DWORD PTR _szBuffer$60053[ebp]
-	push	eax
 	push	OFFSET FLAT:??_C@_0M@GPAK@PrintDialog?$AA@ ; `string'
 	push	OFFSET FLAT:??_C@_0N@JELK@ObjectEngine?$AA@ ; `string'
 	call	DWORD PTR __imp__WritePrivateProfileStringA@16
 
-; 1815 :                szBuffer[ 0 ] = g_chTraceOE_Warning;
+; 1820 :                szBuffer[ 0 ] = g_chTraceOE_Warning;
 
-	mov	cl, BYTE PTR _g_chTraceOE_Warning
-	mov	BYTE PTR _szBuffer$60053[ebp], cl
+	mov	al, BYTE PTR _g_chTraceOE_Warning
+	mov	BYTE PTR _szBuffer$60055[ebp], al
 
-; 1816 :                WritePrivateProfileString( "ObjectEngine", "TraceOE_Warning",
-; 1817 :                                           szBuffer, szFileName );
+; 1821 :                WritePrivateProfileString( "ObjectEngine", "TraceOE_Warning",
+; 1822 :                                           szBuffer, szFileName );
 
-	lea	edx, DWORD PTR _szFileName$60051[ebp]
+	lea	ecx, DWORD PTR _szFileName$60053[ebp]
+	push	ecx
+	lea	edx, DWORD PTR _szBuffer$60055[ebp]
 	push	edx
-	lea	eax, DWORD PTR _szBuffer$60053[ebp]
-	push	eax
 	push	OFFSET FLAT:??_C@_0BA@ONLI@TraceOE_Warning?$AA@ ; `string'
 	push	OFFSET FLAT:??_C@_0N@JELK@ObjectEngine?$AA@ ; `string'
 	call	DWORD PTR __imp__WritePrivateProfileStringA@16
 
-; 1818 :                szBuffer[ 0 ] = g_chTraceZDrActions;
+; 1823 :                szBuffer[ 0 ] = g_chTraceZDrActions;
 
-	mov	cl, BYTE PTR _g_chTraceZDrActions
-	mov	BYTE PTR _szBuffer$60053[ebp], cl
+	mov	al, BYTE PTR _g_chTraceZDrActions
+	mov	BYTE PTR _szBuffer$60055[ebp], al
 
-; 1819 :                WritePrivateProfileString( "ObjectEngine", "TraceAction",
-; 1820 :                                           szBuffer, szFileName );
+; 1824 :                WritePrivateProfileString( "ObjectEngine", "TraceAction",
+; 1825 :                                           szBuffer, szFileName );
 
-	lea	edx, DWORD PTR _szFileName$60051[ebp]
+	lea	ecx, DWORD PTR _szFileName$60053[ebp]
+	push	ecx
+	lea	edx, DWORD PTR _szBuffer$60055[ebp]
 	push	edx
-	lea	eax, DWORD PTR _szBuffer$60053[ebp]
-	push	eax
 	push	OFFSET FLAT:??_C@_0M@LKED@TraceAction?$AA@ ; `string'
 	push	OFFSET FLAT:??_C@_0N@JELK@ObjectEngine?$AA@ ; `string'
 	call	DWORD PTR __imp__WritePrivateProfileStringA@16
 
-; 1821 :                szBuffer[ 0 ] = g_chTraceWebActions;
+; 1826 :                szBuffer[ 0 ] = g_chTraceWebActions;
 
-	mov	cl, BYTE PTR _g_chTraceWebActions
-	mov	BYTE PTR _szBuffer$60053[ebp], cl
+	mov	al, BYTE PTR _g_chTraceWebActions
+	mov	BYTE PTR _szBuffer$60055[ebp], al
 
-; 1822 :                WritePrivateProfileString( "ObjectEngine", "TraceWeb",
-; 1823 :                                           szBuffer, szFileName );
+; 1827 :                WritePrivateProfileString( "ObjectEngine", "TraceWeb",
+; 1828 :                                           szBuffer, szFileName );
 
-	lea	edx, DWORD PTR _szFileName$60051[ebp]
+	lea	ecx, DWORD PTR _szFileName$60053[ebp]
+	push	ecx
+	lea	edx, DWORD PTR _szBuffer$60055[ebp]
 	push	edx
-	lea	eax, DWORD PTR _szBuffer$60053[ebp]
-	push	eax
 	push	OFFSET FLAT:??_C@_08LOC@TraceWeb?$AA@	; `string'
 	push	OFFSET FLAT:??_C@_0N@JELK@ObjectEngine?$AA@ ; `string'
 	call	DWORD PTR __imp__WritePrivateProfileStringA@16
 
-; 1824 :                if ( AnchorBlock && AnchorBlock->bShowTaskID )
+; 1829 :                if ( AnchorBlock && AnchorBlock->bShowTaskID )
 
 	cmp	DWORD PTR _AnchorBlock, 0
-	je	SHORT $L60074
-	mov	ecx, DWORD PTR _AnchorBlock
-	mov	edx, DWORD PTR [ecx+1495]
-	and	edx, 1
-	test	edx, edx
-	je	SHORT $L60074
+	je	SHORT $L60076
+	mov	eax, DWORD PTR _AnchorBlock
+	mov	ecx, DWORD PTR [eax+1495]
+	and	ecx, 1
+	test	ecx, ecx
+	je	SHORT $L60076
 
-; 1825 :                   szBuffer[ 0 ] = 'Y';
+; 1830 :                   szBuffer[ 0 ] = 'Y';
 
-	mov	BYTE PTR _szBuffer$60053[ebp], 89	; 00000059H
+	mov	BYTE PTR _szBuffer$60055[ebp], 89	; 00000059H
 
-; 1826 :                else
+; 1831 :                else
 
-	jmp	SHORT $L60075
-$L60074:
+	jmp	SHORT $L60077
+$L60076:
 
-; 1827 :                   szBuffer[ 0 ] = 0;
+; 1832 :                   szBuffer[ 0 ] = 0;
 
-	mov	BYTE PTR _szBuffer$60053[ebp], 0
-$L60075:
+	mov	BYTE PTR _szBuffer$60055[ebp], 0
+$L60077:
 
-; 1828 : 
-; 1829 :                WritePrivateProfileString( "ObjectEngine", "ShowTaskID",
-; 1830 :                                           szBuffer, szFileName );
+; 1833 : 
+; 1834 :                WritePrivateProfileString( "ObjectEngine", "ShowTaskID",
+; 1835 :                                           szBuffer, szFileName );
 
-	lea	eax, DWORD PTR _szFileName$60051[ebp]
+	lea	edx, DWORD PTR _szFileName$60053[ebp]
+	push	edx
+	lea	eax, DWORD PTR _szBuffer$60055[ebp]
 	push	eax
-	lea	ecx, DWORD PTR _szBuffer$60053[ebp]
-	push	ecx
 	push	OFFSET FLAT:??_C@_0L@BPGN@ShowTaskID?$AA@ ; `string'
 	push	OFFSET FLAT:??_C@_0N@JELK@ObjectEngine?$AA@ ; `string'
 	call	DWORD PTR __imp__WritePrivateProfileStringA@16
-$L60049:
+$L60051:
 
-; 1832 : 
-; 1833 :             if ( uMsg == WM_QUERYENDSESSION )
+; 1837 : 
+; 1838 :             if ( uMsg == WM_QUERYENDSESSION )
 
 	cmp	DWORD PTR _uMsg$[ebp], 17		; 00000011H
-	jne	SHORT $L60077
+	jne	SHORT $L60079
 
-; 1835 :                if ( lpTask )
+; 1840 :                if ( lpTask )
 
-	cmp	DWORD PTR _lpTask$60035[ebp], 0
-	je	SHORT $L60080
+	cmp	DWORD PTR _lpTask$60037[ebp], 0
+	je	SHORT $L60082
 
-; 1837 :                   // There are Zeidon tasks running.  Determine if the user
-; 1838 :                   // really wants to shut down.
-; 1839 :                   nResponse =
-; 1840 :                         MessageBox( hWnd,
-; 1841 :                                     "Zeidon Applications are still active.\n"
-; 1842 :                                     "Do you still want to shut down?",
-; 1843 :                                     "Zeidon Object Services",
-; 1844 :                                     MB_ICONEXCLAMATION |
-; 1845 :                                     MB_YESNO | MB_TASKMODAL );
+; 1842 :                   // There are Zeidon tasks running.  Determine if the user
+; 1843 :                   // really wants to shut down.
+; 1844 :                   nResponse =
+; 1845 :                         MessageBox( hWnd,
+; 1846 :                                     "Zeidon Applications are still active.\n"
+; 1847 :                                     "Do you still want to shut down?",
+; 1848 :                                     "Zeidon Object Services",
+; 1849 :                                     MB_ICONEXCLAMATION |
+; 1850 :                                     MB_YESNO | MB_TASKMODAL );
 
 	push	8244					; 00002034H
 	push	OFFSET FLAT:??_C@_0BH@MPNN@Zeidon?5Object?5Services?$AA@ ; `string'
 	push	OFFSET FLAT:??_C@_0EG@IDAN@Zeidon?5Applications?5are?5still?5ac@ ; `string'
-	mov	edx, DWORD PTR _hWnd$[ebp]
-	push	edx
+	mov	ecx, DWORD PTR _hWnd$[ebp]
+	push	ecx
 	call	DWORD PTR __imp__MessageBoxA@16
-	mov	DWORD PTR _nResponse$60037[ebp], eax
+	mov	DWORD PTR _nResponse$60039[ebp], eax
 
-; 1846 :                   if ( nResponse == IDNO )
+; 1851 :                   if ( nResponse == IDNO )
 
-	cmp	DWORD PTR _nResponse$60037[ebp], 7
-	jne	SHORT $L60080
+	cmp	DWORD PTR _nResponse$60039[ebp], 7
+	jne	SHORT $L60082
 
-; 1848 :                      ReleaseMutex( hTermMutex );
+; 1853 :                      ReleaseMutex( hTermMutex );
 
-	mov	eax, DWORD PTR _hTermMutex$60038[ebp]
-	push	eax
+	mov	edx, DWORD PTR _hTermMutex$60040[ebp]
+	push	edx
 	call	DWORD PTR __imp__ReleaseMutex@4
 
-; 1849 :                      CloseHandle( hTermMutex );
+; 1854 :                      CloseHandle( hTermMutex );
 
-	mov	ecx, DWORD PTR _hTermMutex$60038[ebp]
-	push	ecx
+	mov	eax, DWORD PTR _hTermMutex$60040[ebp]
+	push	eax
 	call	DWORD PTR __imp__CloseHandle@4
 
-; 1850 :                      return( FALSE );  // User doesn't want to shut down.
+; 1855 :                      return( FALSE );  // User doesn't want to shut down.
 
 	xor	eax, eax
-	jmp	$L59721
-$L60080:
+	jmp	$L59722
+$L60082:
 
-; 1853 : 
-; 1854 :                return( TRUE );   // Allow shutdown.
+; 1858 : 
+; 1859 :                return( TRUE );   // Allow shutdown.
 
 	mov	eax, 1
-	jmp	$L59721
-$L60077:
+	jmp	$L59722
+$L60079:
 
-; 1856 : 
-; 1857 : #define zZEIDON_DRIVER_MSG                                   0x4000
-; 1858 : #define zZEIDON_COMMUNICATE_OE              (zZEIDON_DRIVER_MSG + 1)
-; 1859 : #define zZEIDON_POSTED_CLOSE                (zZEIDON_DRIVER_MSG + 2)
-; 1860 : 
-; 1861 :             // If any tasks are active, prompt for shutdown
-; 1862 :             if ( lpTask )
+; 1861 : 
+; 1862 : #define zZEIDON_DRIVER_MSG                                   0x4000
+; 1863 : #define zZEIDON_COMMUNICATE_OE              (zZEIDON_DRIVER_MSG + 1)
+; 1864 : #define zZEIDON_POSTED_CLOSE                (zZEIDON_DRIVER_MSG + 2)
+; 1865 : 
+; 1866 :             // If any tasks are active, prompt for shutdown
+; 1867 :             if ( lpTask )
 
-	cmp	DWORD PTR _lpTask$60035[ebp], 0
-	je	$L60093
+	cmp	DWORD PTR _lpTask$60037[ebp], 0
+	je	$L60095
 
-; 1864 :                MessageBeep( 0 );
+; 1869 :                MessageBeep( 0 );
 
 	push	0
 	call	DWORD PTR __imp__MessageBeep@4
 
-; 1865 : #if 0
-; 1866 :                nResponse = IDYES;
-; 1867 :                MessageBox( hWnd,
-; 1868 :                            "Zeidon Applications are still active.\n"
-; 1869 :                            "Please close them before exiting!",
-; 1870 :                            "Zeidon Object Services",
-; 1871 :                            MB_TASKMODAL | MB_ICONEXCLAMATION | MB_OK );
-; 1872 : #else
-; 1873 :                nResponse =
-; 1874 :                      MessageBox( hWnd,
-; 1875 :                                  "Zeidon Applications are still active.\n"
-; 1876 :                                  "Do you wish to try and close them?",
-; 1877 :                                  "Zeidon Object Services",
-; 1878 :                                  MB_ICONQUESTION | MB_YESNO |
-; 1879 :                                  MB_TASKMODAL | MB_DEFBUTTON2 );
+; 1870 : #if 0
+; 1871 :                nResponse = IDYES;
+; 1872 :                MessageBox( hWnd,
+; 1873 :                            "Zeidon Applications are still active.\n"
+; 1874 :                            "Please close them before exiting!",
+; 1875 :                            "Zeidon Object Services",
+; 1876 :                            MB_TASKMODAL | MB_ICONEXCLAMATION | MB_OK );
+; 1877 : #else
+; 1878 :                nResponse =
+; 1879 :                      MessageBox( hWnd,
+; 1880 :                                  "Zeidon Applications are still active.\n"
+; 1881 :                                  "Do you wish to try and close them?",
+; 1882 :                                  "Zeidon Object Services",
+; 1883 :                                  MB_ICONQUESTION | MB_YESNO |
+; 1884 :                                  MB_TASKMODAL | MB_DEFBUTTON2 );
 
 	push	8484					; 00002124H
 	push	OFFSET FLAT:??_C@_0BH@MPNN@Zeidon?5Object?5Services?$AA@ ; `string'
 	push	OFFSET FLAT:??_C@_0EJ@DBP@Zeidon?5Applications?5are?5still?5ac@ ; `string'
-	mov	edx, DWORD PTR _hWnd$[ebp]
-	push	edx
+	mov	ecx, DWORD PTR _hWnd$[ebp]
+	push	ecx
 	call	DWORD PTR __imp__MessageBoxA@16
-	mov	DWORD PTR _nResponse$60037[ebp], eax
+	mov	DWORD PTR _nResponse$60039[ebp], eax
 
-; 1880 :                if ( nResponse == IDYES )
+; 1885 :                if ( nResponse == IDYES )
 
-	cmp	DWORD PTR _nResponse$60037[ebp], 6
-	jne	$L60083
+	cmp	DWORD PTR _nResponse$60039[ebp], 6
+	jne	$L60085
 
-; 1882 :                   nResponse = IDNO;
+; 1887 :                   nResponse = IDNO;
 
-	mov	DWORD PTR _nResponse$60037[ebp], 7
+	mov	DWORD PTR _nResponse$60039[ebp], 7
 
-; 1883 :                   lpTask = zGETPTR( AnchorBlock->hFirstTask );
+; 1888 :                   lpTask = zGETPTR( AnchorBlock->hFirstTask );
 
-	mov	eax, DWORD PTR _AnchorBlock
-	mov	ecx, DWORD PTR [eax+130]
-	push	ecx
-	call	_SysGetPointerFromHandle@4
-	mov	DWORD PTR _lpTask$60035[ebp], eax
-$L60085:
-
-; 1884 :                   while ( TRUE )
-
-	mov	edx, 1
-	test	edx, edx
-	je	$L60086
-
-; 1886 :                      LPTASK lpTask2;
-; 1887 : 
-; 1888 :                      if ( lpTask == 0 )
-
-	cmp	DWORD PTR _lpTask$60035[ebp], 0
-	jne	SHORT $L60088
-
-; 1889 :                         break;
-
-	jmp	$L60086
-$L60088:
-
-; 1890 : 
-; 1891 :                      // Chain forward 1 so close can remove this task
-; 1892 :                      lpTask2 = zGETPTR( lpTask->hNextTask );
-
-	mov	eax, DWORD PTR _lpTask$60035[ebp]
-	mov	ecx, DWORD PTR [eax+2]
-	push	ecx
-	call	_SysGetPointerFromHandle@4
-	mov	DWORD PTR _lpTask2$60087[ebp], eax
-
-; 1893 :                      if ( zGETHNDL( lpTask ) != AnchorBlock->hMainTask &&
-; 1894 :                           IsWindow( (HWND) lpTask->hMainWnd ) &&
-; 1895 :                           SendMessage( (HWND) lpTask->hMainWnd,
-; 1896 :                                        zZEIDON_COMMUNICATE_OE, 0, -1L ) == -1 )
-
-	mov	edx, DWORD PTR _lpTask$60035[ebp]
-	push	edx
-	call	_SysGetHandleFromPointer@4
-	mov	ecx, DWORD PTR _AnchorBlock
-	cmp	eax, DWORD PTR [ecx+106]
-	je	SHORT $L60091
-	mov	edx, DWORD PTR _lpTask$60035[ebp]
-	mov	eax, DWORD PTR [edx+22]
+	mov	edx, DWORD PTR _AnchorBlock
+	mov	eax, DWORD PTR [edx+130]
 	push	eax
+	call	_SysGetPointerFromHandle@4
+	mov	DWORD PTR _lpTask$60037[ebp], eax
+$L60087:
+
+; 1889 :                   while ( TRUE )
+
+	mov	ecx, 1
+	test	ecx, ecx
+	je	$L60088
+
+; 1891 :                      LPTASK lpTask2;
+; 1892 : 
+; 1893 :                      if ( lpTask == 0 )
+
+	cmp	DWORD PTR _lpTask$60037[ebp], 0
+	jne	SHORT $L60090
+
+; 1894 :                         break;
+
+	jmp	$L60088
+$L60090:
+
+; 1895 : 
+; 1896 :                      // Chain forward 1 so close can remove this task
+; 1897 :                      lpTask2 = zGETPTR( lpTask->hNextTask );
+
+	mov	edx, DWORD PTR _lpTask$60037[ebp]
+	mov	eax, DWORD PTR [edx+2]
+	push	eax
+	call	_SysGetPointerFromHandle@4
+	mov	DWORD PTR _lpTask2$60089[ebp], eax
+
+; 1898 :                      if ( zGETHNDL( lpTask ) != AnchorBlock->hMainTask &&
+; 1899 :                           IsWindow( (HWND) lpTask->hMainWnd ) &&
+; 1900 :                           SendMessage( (HWND) lpTask->hMainWnd,
+; 1901 :                                        zZEIDON_COMMUNICATE_OE, 0, -1L ) == -1 )
+
+	mov	ecx, DWORD PTR _lpTask$60037[ebp]
+	push	ecx
+	call	_SysGetHandleFromPointer@4
+	mov	edx, DWORD PTR _AnchorBlock
+	cmp	eax, DWORD PTR [edx+106]
+	je	SHORT $L60093
+	mov	eax, DWORD PTR _lpTask$60037[ebp]
+	mov	ecx, DWORD PTR [eax+22]
+	push	ecx
 	call	DWORD PTR __imp__IsWindow@4
 	test	eax, eax
-	je	SHORT $L60091
+	je	SHORT $L60093
 	push	-1
 	push	0
 	push	16385					; 00004001H
-	mov	ecx, DWORD PTR _lpTask$60035[ebp]
-	mov	edx, DWORD PTR [ecx+22]
-	push	edx
+	mov	edx, DWORD PTR _lpTask$60037[ebp]
+	mov	eax, DWORD PTR [edx+22]
+	push	eax
 	call	DWORD PTR __imp__SendMessageA@16
 	cmp	eax, -1
-	jne	SHORT $L60091
+	jne	SHORT $L60093
 
-; 1898 :                         nResponse = IDYES;
+; 1903 :                         nResponse = IDYES;
 
-	mov	DWORD PTR _nResponse$60037[ebp], 6
+	mov	DWORD PTR _nResponse$60039[ebp], 6
 
-; 1899 :                      // TraceLineI( "OE IDYES for Task: ", lpTask->lTaskID );
-; 1900 : 
-; 1901 :                         PostMessage( (HWND) lpTask->hMainWnd,
-; 1902 :                                      zZEIDON_POSTED_CLOSE, 0, 0L );
+; 1904 :                      // TraceLineI( "OE IDYES for Task: ", lpTask->lTaskID );
+; 1905 : 
+; 1906 :                         PostMessage( (HWND) lpTask->hMainWnd,
+; 1907 :                                      zZEIDON_POSTED_CLOSE, 0, 0L );
 
 	push	0
 	push	0
 	push	16386					; 00004002H
-	mov	eax, DWORD PTR _lpTask$60035[ebp]
-	mov	ecx, DWORD PTR [eax+22]
-	push	ecx
+	mov	ecx, DWORD PTR _lpTask$60037[ebp]
+	mov	edx, DWORD PTR [ecx+22]
+	push	edx
 	call	DWORD PTR __imp__PostMessageA@16
-$L60091:
-
-; 1904 :                   // else
-; 1905 :                   //    TraceLineI( "OE IDNO for Task: ", lpTask->lTaskID );
-; 1906 : 
-; 1907 :                      lpTask = lpTask2;
-
-	mov	edx, DWORD PTR _lpTask2$60087[ebp]
-	mov	DWORD PTR _lpTask$60035[ebp], edx
-
-; 1908 :                   }
-
-	jmp	$L60085
-$L60086:
-
-; 1910 :                else
-
-	jmp	SHORT $L60093
-$L60083:
-
-; 1912 :                   ReleaseMutex( hTermMutex );
-
-	mov	eax, DWORD PTR _hTermMutex$60038[ebp]
-	push	eax
-	call	DWORD PTR __imp__ReleaseMutex@4
-
-; 1913 :                   CloseHandle( hTermMutex );
-
-	mov	ecx, DWORD PTR _hTermMutex$60038[ebp]
-	push	ecx
-	call	DWORD PTR __imp__CloseHandle@4
-
-; 1914 :                   SetActiveWindow( (HWND) lpTask->hMainWnd );
-
-	mov	edx, DWORD PTR _lpTask$60035[ebp]
-	mov	eax, DWORD PTR [edx+22]
-	push	eax
-	call	DWORD PTR __imp__SetActiveWindow@4
-
-; 1915 :                   return( 1 );
-
-	mov	eax, 1
-	jmp	$L59721
 $L60093:
 
-; 1919 : 
-; 1920 :             // If an attempt was made to close applications, then
-; 1921 :             // see if all applications have left.
-; 1922 :             lpTask = zGETPTR( AnchorBlock->hFirstTask );
+; 1909 :                   // else
+; 1910 :                   //    TraceLineI( "OE IDNO for Task: ", lpTask->lTaskID );
+; 1911 : 
+; 1912 :                      lpTask = lpTask2;
+
+	mov	eax, DWORD PTR _lpTask2$60089[ebp]
+	mov	DWORD PTR _lpTask$60037[ebp], eax
+
+; 1913 :                   }
+
+	jmp	$L60087
+$L60088:
+
+; 1915 :                else
+
+	jmp	SHORT $L60095
+$L60085:
+
+; 1917 :                   ReleaseMutex( hTermMutex );
+
+	mov	ecx, DWORD PTR _hTermMutex$60040[ebp]
+	push	ecx
+	call	DWORD PTR __imp__ReleaseMutex@4
+
+; 1918 :                   CloseHandle( hTermMutex );
+
+	mov	edx, DWORD PTR _hTermMutex$60040[ebp]
+	push	edx
+	call	DWORD PTR __imp__CloseHandle@4
+
+; 1919 :                   SetActiveWindow( (HWND) lpTask->hMainWnd );
+
+	mov	eax, DWORD PTR _lpTask$60037[ebp]
+	mov	ecx, DWORD PTR [eax+22]
+	push	ecx
+	call	DWORD PTR __imp__SetActiveWindow@4
+
+; 1920 :                   return( 1 );
+
+	mov	eax, 1
+	jmp	$L59722
+$L60095:
+
+; 1924 : 
+; 1925 :             // If an attempt was made to close applications, then
+; 1926 :             // see if all applications have left.
+; 1927 :             lpTask = zGETPTR( AnchorBlock->hFirstTask );
+
+	mov	edx, DWORD PTR _AnchorBlock
+	mov	eax, DWORD PTR [edx+130]
+	push	eax
+	call	_SysGetPointerFromHandle@4
+	mov	DWORD PTR _lpTask$60037[ebp], eax
+
+; 1928 :             if ( nResponse == IDYES )
+
+	cmp	DWORD PTR _nResponse$60039[ebp], 6
+	jne	SHORT $L60097
+
+; 1930 :                // We stay up so other tasks have time to come down cleanly
+; 1931 : // Stay up!    PostMessage( hWnd, WM_CLOSE, 0, 0L );
+; 1932 :                return( 0 );
+
+	xor	eax, eax
+	jmp	$L59722
+$L60097:
+
+; 1935 : 
+; 1936 :          break;
+
+	jmp	$L59725
+$L60098:
+
+; 1940 :          LPTASK lpTask = zGETPTR( AnchorBlock->hFirstTask );
 
 	mov	ecx, DWORD PTR _AnchorBlock
 	mov	edx, DWORD PTR [ecx+130]
 	push	edx
 	call	_SysGetPointerFromHandle@4
-	mov	DWORD PTR _lpTask$60035[ebp], eax
+	mov	DWORD PTR _lpTask$60099[ebp], eax
 
-; 1923 :             if ( nResponse == IDYES )
-
-	cmp	DWORD PTR _nResponse$60037[ebp], 6
-	jne	SHORT $L60095
-
-; 1925 :                // We stay up so other tasks have time to come down cleanly
-; 1926 : // Stay up!    PostMessage( hWnd, WM_CLOSE, 0, 0L );
-; 1927 :                return( 0 );
-
-	xor	eax, eax
-	jmp	$L59721
-$L60095:
-
-; 1930 : 
-; 1931 :          break;
-
-	jmp	$L59724
-$L60096:
-
-; 1935 :          LPTASK lpTask = zGETPTR( AnchorBlock->hFirstTask );
-
-	mov	eax, DWORD PTR _AnchorBlock
-	mov	ecx, DWORD PTR [eax+130]
-	push	ecx
-	call	_SysGetPointerFromHandle@4
-	mov	DWORD PTR _lpTask$60097[ebp], eax
-
-; 1936 :          // It's OK to leave, Shutdown Object Services
-; 1937 : 
-; 1938 :          if ( g_uKillTimerId )
+; 1941 :          // It's OK to leave, Shutdown Object Services
+; 1942 : 
+; 1943 :          if ( g_uKillTimerId )
 
 	cmp	DWORD PTR _g_uKillTimerId, 0
-	je	SHORT $L60098
+	je	SHORT $L60100
 
-; 1939 :             KillTimer( hWnd, g_uKillTimerId );
+; 1944 :             KillTimer( hWnd, g_uKillTimerId );
 
-	mov	edx, DWORD PTR _g_uKillTimerId
-	push	edx
-	mov	eax, DWORD PTR _hWnd$[ebp]
+	mov	eax, DWORD PTR _g_uKillTimerId
 	push	eax
+	mov	ecx, DWORD PTR _hWnd$[ebp]
+	push	ecx
 	call	DWORD PTR __imp__KillTimer@8
-$L60098:
+$L60100:
 
-; 1940 : 
-; 1941 : #ifdef __WIN32__
-; 1942 :          DetachSysTray( ); // remove Icon from systray
+; 1945 : 
+; 1946 : #ifdef __WIN32__
+; 1947 :          DetachSysTray( ); // remove Icon from systray
 
 	call	_DetachSysTray
 
-; 1943 :          DestroyWindow( g_hThreadWnd );
+; 1948 :          DestroyWindow( g_hThreadWnd );
 
-	mov	ecx, DWORD PTR _g_hThreadWnd
-	push	ecx
+	mov	edx, DWORD PTR _g_hThreadWnd
+	push	edx
 	call	DWORD PTR __imp__DestroyWindow@4
 
-; 1944 : #endif
-; 1945 : 
-; 1946 :          FreeProcInstance( fpAbout );
-; 1947 :          FreeProcInstance( fpLogon );
-; 1948 :          FreeProcInstance( fpSetTrace );
-; 1949 :          FreeProcInstance( fpLogTrace );
-; 1950 :          FreeProcInstance( fpTraceList );
-; 1951 :          FreeProcInstance( fpLineLimit );
-; 1952 :          FreeProcInstance( fpFindString );
-; 1953 :          FreeProcInstance( fpShowDLL );
-; 1954 :          FreeProcInstance( fpSqlServerErrHandler );
-; 1955 :          FreeProcInstance( fpSqlServerMsgHandler );
-; 1956 : 
-; 1957 :          lpTask->bOE_TaskShutdown = TRUE;
+; 1949 : #endif
+; 1950 : 
+; 1951 :          FreeProcInstance( fpAbout );
+; 1952 :          FreeProcInstance( fpLogon );
+; 1953 :          FreeProcInstance( fpSetTrace );
+; 1954 :          FreeProcInstance( fpLogTrace );
+; 1955 :          FreeProcInstance( fpTraceList );
+; 1956 :          FreeProcInstance( fpLineLimit );
+; 1957 :          FreeProcInstance( fpFindString );
+; 1958 :          FreeProcInstance( fpShowDLL );
+; 1959 :          FreeProcInstance( fpSqlServerErrHandler );
+; 1960 :          FreeProcInstance( fpSqlServerMsgHandler );
+; 1961 : 
+; 1962 :          lpTask->bOE_TaskShutdown = TRUE;
 
-	mov	edx, DWORD PTR _lpTask$60097[ebp]
-	mov	eax, DWORD PTR [edx+443]
-	or	ah, -128				; ffffff80H
-	mov	ecx, DWORD PTR _lpTask$60097[ebp]
-	mov	DWORD PTR [ecx+443], eax
+	mov	eax, DWORD PTR _lpTask$60099[ebp]
+	mov	ecx, DWORD PTR [eax+443]
+	or	ch, -128				; ffffff80H
+	mov	edx, DWORD PTR _lpTask$60099[ebp]
+	mov	DWORD PTR [edx+443], ecx
 
-; 1958 :          FreeAnchorBlock( lpTask );
+; 1963 :          FreeAnchorBlock( lpTask );
 
-	mov	edx, DWORD PTR _lpTask$60097[ebp]
-	push	edx
+	mov	eax, DWORD PTR _lpTask$60099[ebp]
+	push	eax
 	call	_FreeAnchorBlock@4
 
-; 1959 :          AnchorBlock = 0;
+; 1964 :          AnchorBlock = 0;
 
 	mov	DWORD PTR _AnchorBlock, 0
 
-; 1960 : 
-; 1961 :          PostQuitMessage( 0 );
+; 1965 : 
+; 1966 :          PostQuitMessage( 0 );
 
 	push	0
 	call	DWORD PTR __imp__PostQuitMessage@4
 
-; 1962 :          break;
+; 1967 :          break;
 
-	jmp	$L59724
-$L60099:
+	jmp	$L59725
+$L60101:
 
-; 1964 : 
-; 1965 :       case WM_WININICHANGE:
-; 1966 :          // If multiple sections or the Intl section of the win.ini
-; 1967 :          // file has been updated, go rebuild the international info
-; 1968 :          if ( lParam == 0L || zstrcmpi( szlINTL, (zPCHAR) lParam ) == 0 )
+; 1969 : 
+; 1970 :       case WM_WININICHANGE:
+; 1971 :          // If multiple sections or the Intl section of the win.ini
+; 1972 :          // file has been updated, go rebuild the international info
+; 1973 :          if ( lParam == 0L || zstrcmpi( szlINTL, (zPCHAR) lParam ) == 0 )
 
 	cmp	DWORD PTR _lParam$[ebp], 0
-	je	SHORT $L60102
-	mov	eax, DWORD PTR _lParam$[ebp]
-	push	eax
+	je	SHORT $L60104
+	mov	ecx, DWORD PTR _lParam$[ebp]
+	push	ecx
 	push	OFFSET FLAT:_szlINTL
 	call	__stricmp
 	add	esp, 8
 	test	eax, eax
-	jne	SHORT $L60105
-$L60102:
+	jne	SHORT $L60107
+$L60104:
 
-; 1970 :             zPVOID            hNewInt;
-; 1971 :             LPINTERNATIONAL   lpOldInt;
-; 1972 : 
-; 1973 :             // Get possible changes
-; 1974 :             if ( (hNewInt = SysCreateInternational( )) != 0 )
+; 1975 :             zPVOID            hNewInt;
+; 1976 :             LPINTERNATIONAL   lpOldInt;
+; 1977 : 
+; 1978 :             // Get possible changes
+; 1979 :             if ( (hNewInt = SysCreateInternational( )) != 0 )
 
 	call	_SysCreateInternational@0
-	mov	DWORD PTR _hNewInt$60103[ebp], eax
-	cmp	DWORD PTR _hNewInt$60103[ebp], 0
-	je	SHORT $L60105
+	mov	DWORD PTR _hNewInt$60105[ebp], eax
+	cmp	DWORD PTR _hNewInt$60105[ebp], 0
+	je	SHORT $L60107
 
-; 1976 :                TraceLineS( "(wa) changing international info - ",
-; 1977 :                            (zPCHAR) lParam );
+; 1981 :                TraceLineS( "(wa) changing international info - ",
+; 1982 :                            (zPCHAR) lParam );
 
-	mov	ecx, DWORD PTR _lParam$[ebp]
-	push	ecx
+	mov	edx, DWORD PTR _lParam$[ebp]
+	push	edx
 	push	OFFSET FLAT:??_C@_0CE@GKN@?$CIwa?$CJ?5changing?5international?5info@ ; `string'
 	call	_TraceLineS@8
 
-; 1978 : 
-; 1979 :                // switch pointers
-; 1980 :                lpOldInt = zGETPTR( AnchorBlock->hInternational );
+; 1983 : 
+; 1984 :                // switch pointers
+; 1985 :                lpOldInt = zGETPTR( AnchorBlock->hInternational );
+
+	mov	eax, DWORD PTR _AnchorBlock
+	mov	ecx, DWORD PTR [eax+2515]
+	push	ecx
+	call	_SysGetPointerFromHandle@4
+	mov	DWORD PTR _lpOldInt$60106[ebp], eax
+
+; 1986 :                AnchorBlock->hInternational = hNewInt;
 
 	mov	edx, DWORD PTR _AnchorBlock
-	mov	eax, DWORD PTR [edx+2515]
-	push	eax
-	call	_SysGetPointerFromHandle@4
-	mov	DWORD PTR _lpOldInt$60104[ebp], eax
-
-; 1981 :                AnchorBlock->hInternational = hNewInt;
-
-	mov	ecx, DWORD PTR _AnchorBlock
-	mov	edx, DWORD PTR _hNewInt$60103[ebp]
-	mov	DWORD PTR [ecx+2515], edx
-
-; 1982 : 
-; 1983 :                // free old values
-; 1984 :                SysFreeInternational( lpOldInt );
-
-	mov	eax, DWORD PTR _lpOldInt$60104[ebp]
-	push	eax
-	call	_SysFreeInternational@4
-$L60105:
+	mov	eax, DWORD PTR _hNewInt$60105[ebp]
+	mov	DWORD PTR [edx+2515], eax
 
 ; 1987 : 
-; 1988 :          break;
+; 1988 :                // free old values
+; 1989 :                SysFreeInternational( lpOldInt );
 
-	jmp	$L59724
-$L60108:
+	mov	ecx, DWORD PTR _lpOldInt$60106[ebp]
+	push	ecx
+	call	_SysFreeInternational@4
+$L60107:
 
-; 1992 :             SYSTEMTIME SysTime;
-; 1993 :             LPTASK hTask;
-; 1994 :             LPTASK lpTask;
-; 1995 :             char szFileName[ 256 ];
-; 1996 :             long hLogFile = g_hLogFile;
+; 1992 : 
+; 1993 :          break;
 
-	mov	ecx, DWORD PTR _g_hLogFile
-	mov	DWORD PTR _hLogFile$60113[ebp], ecx
+	jmp	$L59725
+$L60110:
 
-; 1997 : 
-; 1998 :             GetLocalTime( &SysTime );
+; 1997 :             SYSTEMTIME SysTime;
+; 1998 :             LPTASK hTask;
+; 1999 :             LPTASK lpTask;
+; 2000 :             char szFileName[ 256 ];
+; 2001 :             long hLogFile = g_hLogFile;
 
-	lea	edx, DWORD PTR _SysTime$60109[ebp]
-	push	edx
+	mov	edx, DWORD PTR _g_hLogFile
+	mov	DWORD PTR _hLogFile$60115[ebp], edx
+
+; 2002 : 
+; 2003 :             GetLocalTime( &SysTime );
+
+	lea	eax, DWORD PTR _SysTime$60111[ebp]
+	push	eax
 	call	DWORD PTR __imp__GetLocalTime@4
 
-; 1999 : 
-; 2000 :             // szFileName looks like this:  YYYYMMDDhhmmss
-; 2001 :             sprintf( szFileName, "%04d%02d%02d%02d%02d%02d.log",
-; 2002 :                      SysTime.wYear, SysTime.wMonth,
-; 2003 :                      SysTime.wDay, SysTime.wHour,
-; 2004 :                      SysTime.wMinute, SysTime.wSecond );
+; 2004 : 
+; 2005 :             // szFileName looks like this:  YYYYMMDDhhmmss
+; 2006 :             sprintf( szFileName, "%04d%02d%02d%02d%02d%02d.log",
+; 2007 :                      SysTime.wYear, SysTime.wMonth,
+; 2008 :                      SysTime.wDay, SysTime.wHour,
+; 2009 :                      SysTime.wMinute, SysTime.wSecond );
 
-	mov	eax, DWORD PTR _SysTime$60109[ebp+12]
-	and	eax, 65535				; 0000ffffH
-	push	eax
-	mov	ecx, DWORD PTR _SysTime$60109[ebp+10]
+	mov	ecx, DWORD PTR _SysTime$60111[ebp+12]
 	and	ecx, 65535				; 0000ffffH
 	push	ecx
-	mov	edx, DWORD PTR _SysTime$60109[ebp+8]
+	mov	edx, DWORD PTR _SysTime$60111[ebp+10]
 	and	edx, 65535				; 0000ffffH
 	push	edx
-	mov	eax, DWORD PTR _SysTime$60109[ebp+6]
+	mov	eax, DWORD PTR _SysTime$60111[ebp+8]
 	and	eax, 65535				; 0000ffffH
 	push	eax
-	mov	ecx, DWORD PTR _SysTime$60109[ebp+2]
+	mov	ecx, DWORD PTR _SysTime$60111[ebp+6]
 	and	ecx, 65535				; 0000ffffH
 	push	ecx
-	mov	edx, DWORD PTR _SysTime$60109[ebp]
+	mov	edx, DWORD PTR _SysTime$60111[ebp+2]
 	and	edx, 65535				; 0000ffffH
 	push	edx
+	mov	eax, DWORD PTR _SysTime$60111[ebp]
+	and	eax, 65535				; 0000ffffH
+	push	eax
 	push	OFFSET FLAT:??_C@_0BN@JBPE@?$CF04d?$CF02d?$CF02d?$CF02d?$CF02d?$CF02d?4log?$AA@ ; `string'
-	lea	eax, DWORD PTR _szFileName$60112[ebp]
-	push	eax
+	lea	ecx, DWORD PTR _szFileName$60114[ebp]
+	push	ecx
 	call	_sprintf
 	add	esp, 32					; 00000020H
 
-; 2005 : 
-; 2006 :             // First, see if any tasks are active
-; 2007 :             hTask = AnchorBlock->hFirstTask;
+; 2010 : 
+; 2011 :             // First, see if any tasks are active
+; 2012 :             hTask = AnchorBlock->hFirstTask;
 
-	mov	ecx, DWORD PTR _AnchorBlock
-	mov	edx, DWORD PTR [ecx+130]
-	mov	DWORD PTR _hTask$60110[ebp], edx
+	mov	edx, DWORD PTR _AnchorBlock
+	mov	eax, DWORD PTR [edx+130]
+	mov	DWORD PTR _hTask$60112[ebp], eax
 
-; 2008 :             lpTask = zGETPTR( hTask );
+; 2013 :             lpTask = zGETPTR( hTask );
 
-	mov	eax, DWORD PTR _hTask$60110[ebp]
-	push	eax
+	mov	ecx, DWORD PTR _hTask$60112[ebp]
+	push	ecx
 	call	_SysGetPointerFromHandle@4
-	mov	DWORD PTR _lpTask$60111[ebp], eax
+	mov	DWORD PTR _lpTask$60113[ebp], eax
 
-; 2009 : 
-; 2010 :             if ( lpTask && szFileName[ 0 ] )
+; 2014 : 
+; 2015 :             if ( lpTask && szFileName[ 0 ] )
 
-	cmp	DWORD PTR _lpTask$60111[ebp], 0
-	je	$L60116
-	movsx	ecx, BYTE PTR _szFileName$60112[ebp]
-	test	ecx, ecx
-	je	SHORT $L60116
+	cmp	DWORD PTR _lpTask$60113[ebp], 0
+	je	$L60118
+	movsx	edx, BYTE PTR _szFileName$60114[ebp]
+	test	edx, edx
+	je	SHORT $L60118
 
-; 2012 :                if ( (g_hLogFile = fnSysOpenFile( lpTask, szFileName,
-; 2013 :                                                  COREFILE_CREATE )) != -1 )
+; 2017 :                if ( (g_hLogFile = fnSysOpenFile( lpTask, szFileName,
+; 2018 :                                                  COREFILE_CREATE )) != -1 )
 
 	push	32					; 00000020H
-	lea	edx, DWORD PTR _szFileName$60112[ebp]
-	push	edx
-	mov	eax, DWORD PTR _lpTask$60111[ebp]
+	lea	eax, DWORD PTR _szFileName$60114[ebp]
 	push	eax
+	mov	ecx, DWORD PTR _lpTask$60113[ebp]
+	push	ecx
 	call	_fnSysOpenFile@12
 	mov	DWORD PTR _g_hLogFile, eax
 	cmp	DWORD PTR _g_hLogFile, -1
-	je	SHORT $L60116
+	je	SHORT $L60118
 
-; 2015 :                   char szTraceText[ 512 ];
-; 2016 : 
-; 2017 :                   // Send message that log file opened.
-; 2018 :                   zstrcpy( szTraceText, "(ng) Log file Opened '" );
+; 2020 :                   char szTraceText[ 512 ];
+; 2021 : 
+; 2022 :                   // Send message that log file opened.
+; 2023 :                   zstrcpy( szTraceText, "(ng) Log file Opened '" );
 
 	push	OFFSET FLAT:??_C@_0BH@GAAD@?$CIng?$CJ?5Log?5file?5Opened?5?8?$AA@ ; `string'
-	lea	ecx, DWORD PTR _szTraceText$60117[ebp]
-	push	ecx
+	lea	edx, DWORD PTR _szTraceText$60119[ebp]
+	push	edx
 	call	_strcpy
 	add	esp, 8
 
-; 2019 :                   zstrcat( szTraceText, szFileName );
+; 2024 :                   zstrcat( szTraceText, szFileName );
 
-	lea	edx, DWORD PTR _szFileName$60112[ebp]
-	push	edx
-	lea	eax, DWORD PTR _szTraceText$60117[ebp]
+	lea	eax, DWORD PTR _szFileName$60114[ebp]
 	push	eax
+	lea	ecx, DWORD PTR _szTraceText$60119[ebp]
+	push	ecx
 	call	_strcat
 	add	esp, 8
 
-; 2020 :                   zstrcat( szTraceText, "'" );
+; 2025 :                   zstrcat( szTraceText, "'" );
 
 	push	OFFSET FLAT:??_C@_01HAF@?8?$AA@		; `string'
-	lea	ecx, DWORD PTR _szTraceText$60117[ebp]
-	push	ecx
+	lea	edx, DWORD PTR _szTraceText$60119[ebp]
+	push	edx
 	call	_strcat
 	add	esp, 8
 
-; 2021 :                   SysMessageList( szTraceText );
+; 2026 :                   SysMessageList( szTraceText );
 
-	lea	edx, DWORD PTR _szTraceText$60117[ebp]
-	push	edx
+	lea	eax, DWORD PTR _szTraceText$60119[ebp]
+	push	eax
 	call	_SysMessageList@4
 
-; 2022 : 
-; 2023 :                   WriteTraceToLog( lpTask );
+; 2027 : 
+; 2028 :                   WriteTraceToLog( lpTask );
 
-	mov	eax, DWORD PTR _lpTask$60111[ebp]
-	push	eax
+	mov	ecx, DWORD PTR _lpTask$60113[ebp]
+	push	ecx
 	call	_WriteTraceToLog
 	add	esp, 4
-$L60116:
-
-; 2026 : 
-; 2027 :             g_hLogFile = hLogFile;
-
-	mov	ecx, DWORD PTR _hLogFile$60113[ebp]
-	mov	DWORD PTR _g_hLogFile, ecx
-
-; 2029 : 
-; 2030 :          return( 0 );
-
-	xor	eax, eax
-	jmp	SHORT $L59721
-$L60119:
+$L60118:
 
 ; 2031 : 
-; 2032 :       case WM_QUERYALIVE:
-; 2033 :          return( -1 );   // yup ... we're still here
+; 2032 :             g_hLogFile = hLogFile;
 
-	or	eax, -1
-	jmp	SHORT $L59721
-$L60120:
+	mov	edx, DWORD PTR _hLogFile$60115[ebp]
+	mov	DWORD PTR _g_hLogFile, edx
 
 ; 2034 : 
-; 2035 :       default:
-; 2036 :          if ( uMsg == g_wOENG_Message )
+; 2035 :          return( 0 );
 
-	mov	edx, DWORD PTR _uMsg$[ebp]
-	cmp	edx, DWORD PTR _g_wOENG_Message
-	jne	SHORT $L60121
-
-; 2037 :             fnProcessOENG_Message( hWnd, uMsg, wParam, lParam );
-
-	mov	eax, DWORD PTR _lParam$[ebp]
-	push	eax
-	mov	ecx, DWORD PTR _wParam$[ebp]
-	push	ecx
-	mov	edx, DWORD PTR _uMsg$[ebp]
-	push	edx
-	mov	eax, DWORD PTR _hWnd$[ebp]
-	push	eax
-	call	_fnProcessOENG_Message
-	add	esp, 16					; 00000010H
+	xor	eax, eax
+	jmp	SHORT $L59722
 $L60121:
-$L59724:
 
-; 2041 : 
-; 2042 :    return( DefWindowProc( hWnd, uMsg, wParam, lParam ) );
+; 2036 : 
+; 2037 :       case WM_QUERYALIVE:
+; 2038 :          return( -1 );   // yup ... we're still here
+
+	or	eax, -1
+	jmp	SHORT $L59722
+$L60122:
+
+; 2039 : 
+; 2040 :       default:
+; 2041 :          if ( uMsg == g_wOENG_Message )
+
+	mov	eax, DWORD PTR _uMsg$[ebp]
+	cmp	eax, DWORD PTR _g_wOENG_Message
+	jne	SHORT $L60123
+
+; 2042 :             fnProcessOENG_Message( hWnd, uMsg, wParam, lParam );
 
 	mov	ecx, DWORD PTR _lParam$[ebp]
 	push	ecx
@@ -6463,21 +6474,37 @@ $L59724:
 	push	eax
 	mov	ecx, DWORD PTR _hWnd$[ebp]
 	push	ecx
-	call	DWORD PTR __imp__DefWindowProcA@16
-$L59721:
+	call	_fnProcessOENG_Message
+	add	esp, 16					; 00000010H
+$L60123:
+$L59725:
 
-; 2043 : }
+; 2046 : 
+; 2047 :    return( DefWindowProc( hWnd, uMsg, wParam, lParam ) );
+
+	mov	edx, DWORD PTR _lParam$[ebp]
+	push	edx
+	mov	eax, DWORD PTR _wParam$[ebp]
+	push	eax
+	mov	ecx, DWORD PTR _uMsg$[ebp]
+	push	ecx
+	mov	edx, DWORD PTR _hWnd$[ebp]
+	push	edx
+	call	DWORD PTR __imp__DefWindowProcA@16
+$L59722:
+
+; 2048 : }
 
 	mov	esp, ebp
 	pop	ebp
 	ret	16					; 00000010H
-$L60793:
-	DD	$L60096
-	DD	$L59731
-	DD	$L60030
-	DD	$L60099
-	DD	$L60120
-$L60792:
+$L60796:
+	DD	$L60098
+	DD	$L59732
+	DD	$L60032
+	DD	$L60101
+	DD	$L60122
+$L60795:
 	DB	0
 	DB	4
 	DB	4
@@ -6511,15 +6538,15 @@ _wParam$ = 16
 _lParam$ = 20
 _fnProcessOENG_Message PROC NEAR
 
-; 2056 : {
+; 2061 : {
 
 	push	ebp
 	mov	ebp, esp
 
-; 2057 : #ifdef __WIN32__
-; 2058 : 
-; 2059 :    // We'll let core handle it.
-; 2060 :    ProcessZeidonMessage( wParam, lParam );
+; 2062 : #ifdef __WIN32__
+; 2063 : 
+; 2064 :    // We'll let core handle it.
+; 2065 :    ProcessZeidonMessage( wParam, lParam );
 
 	mov	eax, DWORD PTR _lParam$[ebp]
 	push	eax
@@ -6527,30 +6554,30 @@ _fnProcessOENG_Message PROC NEAR
 	push	ecx
 	call	_ProcessZeidonMessage@8
 
-; 2061 :    return;
-; 2062 : 
-; 2063 : #else
-; 2064 : 
-; 2065 :    // The only thing we handle in Win 3.x is conversion from decimal to string.
-; 2066 : 
-; 2067 :    zPDECIMAL pdDecimal  = (zPDECIMAL) lParam;
-; 2068 :    zSHORT    nPrecision = (zSHORT) wParam;
-; 2069 :    zCHAR     szStr[ 100 ] = "abcdefghijklmnopqrstuvwxyz";
-; 2070 :    zPCHAR    pszReturn;
+; 2066 :    return;
+; 2067 : 
+; 2068 : #else
+; 2069 : 
+; 2070 :    // The only thing we handle in Win 3.x is conversion from decimal to string.
 ; 2071 : 
-; 2072 : // SysMessageBox( "DGC", "processing message", 1 );
-; 2073 : 
-; 2074 :    pszReturn = (zPCHAR) ((zLONG) lParam + sizeof( zPDECIMAL ));
-; 2075 : 
-; 2076 :    if ( nPrecision > 0 )
-; 2077 :       zsprintf( szStr, "%*Lf", (int) wParam, *pdDecimal );
-; 2078 :    else
-; 2079 :       zsprintf( szStr, "%Lf", *pdDecimal );
+; 2072 :    zPDECIMAL pdDecimal  = (zPDECIMAL) lParam;
+; 2073 :    zSHORT    nPrecision = (zSHORT) wParam;
+; 2074 :    zCHAR     szStr[ 100 ] = "abcdefghijklmnopqrstuvwxyz";
+; 2075 :    zPCHAR    pszReturn;
+; 2076 : 
+; 2077 : // SysMessageBox( "DGC", "processing message", 1 );
+; 2078 : 
+; 2079 :    pszReturn = (zPCHAR) ((zLONG) lParam + sizeof( zPDECIMAL ));
 ; 2080 : 
-; 2081 :    zstrcpy( pszReturn, szStr );
-; 2082 : 
-; 2083 : #endif
-; 2084 : }
+; 2081 :    if ( nPrecision > 0 )
+; 2082 :       zsprintf( szStr, "%*Lf", (int) wParam, *pdDecimal );
+; 2083 :    else
+; 2084 :       zsprintf( szStr, "%Lf", *pdDecimal );
+; 2085 : 
+; 2086 :    zstrcpy( pszReturn, szStr );
+; 2087 : 
+; 2088 : #endif
+; 2089 : }
 
 	pop	ebp
 	ret	0
@@ -6563,51 +6590,51 @@ _hDlg$ = 8
 _uMsg$ = 12
 _AboutDlgProc@16 PROC NEAR
 
-; 2098 : {
+; 2103 : {
 
 	push	ebp
 	mov	ebp, esp
 	push	ecx
 
-; 2099 :    switch ( uMsg )
-; 2100 :    {
+; 2104 :    switch ( uMsg )
+; 2105 :    {
 
 	mov	eax, DWORD PTR _uMsg$[ebp]
 	mov	DWORD PTR -4+[ebp], eax
 	cmp	DWORD PTR -4+[ebp], 272			; 00000110H
-	je	SHORT $L60145
+	je	SHORT $L60147
 	cmp	DWORD PTR -4+[ebp], 273			; 00000111H
-	je	SHORT $L60144
-	jmp	SHORT $L60146
-$L60144:
+	je	SHORT $L60146
+	jmp	SHORT $L60148
+$L60146:
 
-; 2101 :       case WM_COMMAND:
-; 2102 :          EndDialog( hDlg, TRUE );
+; 2106 :       case WM_COMMAND:
+; 2107 :          EndDialog( hDlg, TRUE );
 
 	push	1
 	mov	ecx, DWORD PTR _hDlg$[ebp]
 	push	ecx
 	call	DWORD PTR __imp__EndDialog@8
-$L60145:
-
-; 2103 : 
-; 2104 :          // fall through
-; 2105 : 
-; 2106 :       case WM_INITDIALOG:
-; 2107 :          return( TRUE );
-
-	mov	eax, 1
-	jmp	SHORT $L60141
-$L60146:
+$L60147:
 
 ; 2108 : 
-; 2109 :       default:
-; 2110 :          return( FALSE );
+; 2109 :          // fall through
+; 2110 : 
+; 2111 :       case WM_INITDIALOG:
+; 2112 :          return( TRUE );
+
+	mov	eax, 1
+	jmp	SHORT $L60143
+$L60148:
+
+; 2113 : 
+; 2114 :       default:
+; 2115 :          return( FALSE );
 
 	xor	eax, eax
-$L60141:
+$L60143:
 
-; 2112 : }
+; 2117 : }
 
 	mov	esp, ebp
 	pop	ebp
@@ -6623,40 +6650,40 @@ _hInstance$ = 8
 _wc$ = -40
 _InitApplication PROC NEAR
 
-; 2123 : {
+; 2128 : {
 
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 40					; 00000028H
 
-; 2124 :     WNDCLASS  wc;
-; 2125 : 
-; 2126 :     // Fill in window class structure with parameters that describe the
-; 2127 :     // main window.
-; 2128 : 
-; 2129 :     wc.style = 0;                     // Class style(s).
+; 2129 :     WNDCLASS  wc;
+; 2130 : 
+; 2131 :     // Fill in window class structure with parameters that describe the
+; 2132 :     // main window.
+; 2133 : 
+; 2134 :     wc.style = 0;                     // Class style(s).
 
 	mov	DWORD PTR _wc$[ebp], 0
 
-; 2130 :     wc.lpfnWndProc = MainWndProc;     // Function to retrieve messages for
+; 2135 :     wc.lpfnWndProc = MainWndProc;     // Function to retrieve messages for
 
 	mov	DWORD PTR _wc$[ebp+4], OFFSET FLAT:_MainWndProc@16
 
-; 2131 :                                       // windows of this class.
-; 2132 :     wc.cbClsExtra = 0;                // No per-class extra data.
+; 2136 :                                       // windows of this class.
+; 2137 :     wc.cbClsExtra = 0;                // No per-class extra data.
 
 	mov	DWORD PTR _wc$[ebp+8], 0
 
-; 2133 :     wc.cbWndExtra = 0;                // No per-window extra data.
+; 2138 :     wc.cbWndExtra = 0;                // No per-window extra data.
 
 	mov	DWORD PTR _wc$[ebp+12], 0
 
-; 2134 :     wc.hInstance = hInstance;         // Application that owns the class.
+; 2139 :     wc.hInstance = hInstance;         // Application that owns the class.
 
 	mov	eax, DWORD PTR _hInstance$[ebp]
 	mov	DWORD PTR _wc$[ebp+16], eax
 
-; 2135 :     wc.hIcon = LoadIcon( hInstance, "ZEIDON" );
+; 2140 :     wc.hIcon = LoadIcon( hInstance, "ZEIDON" );
 
 	push	OFFSET FLAT:??_C@_06HLLH@ZEIDON?$AA@	; `string'
 	mov	ecx, DWORD PTR _hInstance$[ebp]
@@ -6664,94 +6691,94 @@ _InitApplication PROC NEAR
 	call	DWORD PTR __imp__LoadIconA@8
 	mov	DWORD PTR _wc$[ebp+20], eax
 
-; 2136 :     wc.hCursor = LoadCursor( 0, IDC_ARROW );
+; 2141 :     wc.hCursor = LoadCursor( 0, IDC_ARROW );
 
 	push	32512					; 00007f00H
 	push	0
 	call	DWORD PTR __imp__LoadCursorA@8
 	mov	DWORD PTR _wc$[ebp+24], eax
 
-; 2137 :     wc.hbrBackground = GetStockObject( WHITE_BRUSH );
+; 2142 :     wc.hbrBackground = GetStockObject( WHITE_BRUSH );
 
 	push	0
 	call	DWORD PTR __imp__GetStockObject@4
 	mov	DWORD PTR _wc$[ebp+28], eax
 
-; 2138 :     wc.lpszMenuName =  0;             // Name of menu resource in .RC file.
+; 2143 :     wc.lpszMenuName =  0;             // Name of menu resource in .RC file.
 
 	mov	DWORD PTR _wc$[ebp+32], 0
 
-; 2139 :     wc.lpszClassName = szClassName;   // Name used in call to CreateWindow.
+; 2144 :     wc.lpszClassName = szClassName;   // Name used in call to CreateWindow.
 
 	mov	DWORD PTR _wc$[ebp+36], OFFSET FLAT:_szClassName
 
-; 2140 : 
-; 2141 : #ifdef __WIN32__
-; 2142 :    // For Win32 we need to create an invisible window to handle Zeidon msgs.
-; 2143 : 
-; 2144 :    if ( !RegisterClass( &wc ) )
+; 2145 : 
+; 2146 : #ifdef __WIN32__
+; 2147 :    // For Win32 we need to create an invisible window to handle Zeidon msgs.
+; 2148 : 
+; 2149 :    if ( !RegisterClass( &wc ) )
 
 	lea	edx, DWORD PTR _wc$[ebp]
 	push	edx
 	call	DWORD PTR __imp__RegisterClassA@4
 	and	eax, 65535				; 0000ffffH
 	test	eax, eax
-	jne	SHORT $L60154
+	jne	SHORT $L60156
 
-; 2145 :       return( FALSE );
+; 2150 :       return( FALSE );
 
 	xor	eax, eax
-	jmp	SHORT $L60149
-$L60154:
+	jmp	SHORT $L60151
+$L60156:
 
-; 2146 : 
-; 2147 :     wc.style = 0;                       // Class style(s).
+; 2151 : 
+; 2152 :     wc.style = 0;                       // Class style(s).
 
 	mov	DWORD PTR _wc$[ebp], 0
 
-; 2148 :     wc.lpfnWndProc = MainThrdWndProc;   // Function to retrieve messages.
+; 2153 :     wc.lpfnWndProc = MainThrdWndProc;   // Function to retrieve messages.
 
 	mov	DWORD PTR _wc$[ebp+4], OFFSET FLAT:_MainThrdWndProc@16
 
-; 2149 :     wc.cbClsExtra = 0;                  // No per-class extra data.
+; 2154 :     wc.cbClsExtra = 0;                  // No per-class extra data.
 
 	mov	DWORD PTR _wc$[ebp+8], 0
 
-; 2150 :     wc.cbWndExtra = 0;                  // No per-window extra data.
+; 2155 :     wc.cbWndExtra = 0;                  // No per-window extra data.
 
 	mov	DWORD PTR _wc$[ebp+12], 0
 
-; 2151 :     wc.hInstance  = hInstance;          // Application that owns the class.
+; 2156 :     wc.hInstance  = hInstance;          // Application that owns the class.
 
 	mov	eax, DWORD PTR _hInstance$[ebp]
 	mov	DWORD PTR _wc$[ebp+16], eax
 
-; 2152 :     wc.hIcon      = 0;
+; 2157 :     wc.hIcon      = 0;
 
 	mov	DWORD PTR _wc$[ebp+20], 0
 
-; 2153 :     wc.lpszMenuName =  0;               // Name of menu resource in .RC file.
+; 2158 :     wc.lpszMenuName =  0;               // Name of menu resource in .RC file.
 
 	mov	DWORD PTR _wc$[ebp+32], 0
 
-; 2154 :     wc.lpszClassName = szThreadClassName; // Name used in call to CreateWindow.
+; 2159 :     wc.lpszClassName = szThreadClassName; // Name used in call to CreateWindow.
 
 	mov	DWORD PTR _wc$[ebp+36], OFFSET FLAT:_szThreadClassName
 
-; 2155 : 
-; 2156 : #endif
-; 2157 : 
-; 2158 :     // Register the window class and return success/failure code.
-; 2159 : 
-; 2160 :     return( RegisterClass( &wc ));
+; 2160 : 
+; 2161 : #endif
+; 2162 : 
+; 2163 :     // Register the window class and return success/failure code.
+; 2164 : 
+; 2165 :     return( RegisterClass( &wc ));
 
 	lea	ecx, DWORD PTR _wc$[ebp]
 	push	ecx
 	call	DWORD PTR __imp__RegisterClassA@4
 	and	eax, 65535				; 0000ffffH
-$L60149:
+$L60151:
 
-; 2161 : }
+; 2166 : }
 
 	mov	esp, ebp
 	pop	ebp
@@ -6937,56 +6964,56 @@ _szTempName$ = -936
 _szBuffer$ = -256
 _lpTraceFlags$ = -540
 _dwStyle$ = -940
-_hNetApi$60273 = -1096
-_lpfnNetWkstaGetInfo$60274 = -1204
-_Buffer$60275 = -1024
-_szLanUser$60276 = -1088
-_szIniUser$60277 = -1168
-_szIniPassword$60278 = -1056
-_szPassword$60279 = -1200
-_szUser$60280 = -1132
-_szEncrypted$60281 = -944
-_uReturnLth$60282 = -1100
-_uLth$60283 = -1092
-_uRC$60284 = -1136
+_hNetApi$60275 = -1096
+_lpfnNetWkstaGetInfo$60276 = -1204
+_Buffer$60277 = -1024
+_szLanUser$60278 = -1088
+_szIniUser$60279 = -1168
+_szIniPassword$60280 = -1056
+_szPassword$60281 = -1200
+_szUser$60282 = -1132
+_szEncrypted$60283 = -944
+_uReturnLth$60284 = -1100
+_uLth$60285 = -1092
+_uRC$60286 = -1136
 _InitInstance PROC NEAR
 
-; 2182 : {
+; 2187 : {
 
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 1240				; 000004d8H
 
-; 2183 :    zVIEW        vDbhWork;
-; 2184 :    RECT         rect;
-; 2185 :    HDC          hDC;  // handle to the context display
-; 2186 :    TEXTMETRIC   txtm; // characteristics of text chars
-; 2187 :    UINT         i;
-; 2188 :    int          nHeight, nPosY;
-; 2189 :    int          nWidth, nPosX;
-; 2190 : // FARPROC      lpFarProc[ 2 ];
-; 2191 :    LPTASK       lpTask;
-; 2192 :    HMENU        hMenu;
-; 2193 :    HWND         hProcessWnd;
-; 2194 :    WINDOWPLACEMENT wp;
-; 2195 :    char         szFileName[ zMAX_FILENAME_LTH + 1 ];
-; 2196 :    char         szTempName[ zMAX_FILENAME_LTH + 1 ];
-; 2197 :    char         szBuffer[ 256 ];
-; 2198 :    LPTRACINGFLAGS lpTraceFlags;
-; 2199 :    DWORD dwStyle = 0;
+; 2188 :    zVIEW        vDbhWork;
+; 2189 :    RECT         rect;
+; 2190 :    HDC          hDC;  // handle to the context display
+; 2191 :    TEXTMETRIC   txtm; // characteristics of text chars
+; 2192 :    UINT         i;
+; 2193 :    int          nHeight, nPosY;
+; 2194 :    int          nWidth, nPosX;
+; 2195 : // FARPROC      lpFarProc[ 2 ];
+; 2196 :    LPTASK       lpTask;
+; 2197 :    HMENU        hMenu;
+; 2198 :    HWND         hProcessWnd;
+; 2199 :    WINDOWPLACEMENT wp;
+; 2200 :    char         szFileName[ zMAX_FILENAME_LTH + 1 ];
+; 2201 :    char         szTempName[ zMAX_FILENAME_LTH + 1 ];
+; 2202 :    char         szBuffer[ 256 ];
+; 2203 :    LPTRACINGFLAGS lpTraceFlags;
+; 2204 :    DWORD dwStyle = 0;
 
 	mov	DWORD PTR _dwStyle$[ebp], 0
 
-; 2200 : 
-; 2201 :    // Save the instance handle in static variable, which will be used in
-; 2202 :    // many subsequence calls from this application to Windows.
-; 2203 : 
-; 2204 :    hInst = hInstance;
+; 2205 : 
+; 2206 :    // Save the instance handle in static variable, which will be used in
+; 2207 :    // many subsequence calls from this application to Windows.
+; 2208 : 
+; 2209 :    hInst = hInstance;
 
 	mov	eax, DWORD PTR _hInstance$[ebp]
 	mov	DWORD PTR _hInst, eax
 
-; 2205 :    zmemset( szFileName, 0, zMAX_FILENAME_LTH + 1 );
+; 2210 :    zmemset( szFileName, 0, zMAX_FILENAME_LTH + 1 );
 
 	push	257					; 00000101H
 	push	0
@@ -6995,9 +7022,9 @@ _InitInstance PROC NEAR
 	call	_memset
 	add	esp, 12					; 0000000cH
 
-; 2206 : 
-; 2207 :    // Get the dimensions of the screen.
-; 2208 :    nWidth = (GetSystemMetrics( SM_CXSCREEN ) * 3) / 4;
+; 2211 : 
+; 2212 :    // Get the dimensions of the screen.
+; 2213 :    nWidth = (GetSystemMetrics( SM_CXSCREEN ) * 3) / 4;
 
 	push	0
 	call	DWORD PTR __imp__GetSystemMetrics@4
@@ -7008,7 +7035,7 @@ _InitInstance PROC NEAR
 	sar	eax, 2
 	mov	DWORD PTR _nWidth$[ebp], eax
 
-; 2209 :    nHeight = (GetSystemMetrics( SM_CYSCREEN ) * 3) / 4;
+; 2214 :    nHeight = (GetSystemMetrics( SM_CYSCREEN ) * 3) / 4;
 
 	push	1
 	call	DWORD PTR __imp__GetSystemMetrics@4
@@ -7019,7 +7046,7 @@ _InitInstance PROC NEAR
 	sar	eax, 2
 	mov	DWORD PTR _nHeight$[ebp], eax
 
-; 2210 :    nPosX =  GetSystemMetrics( SM_CXSCREEN ) / 8;
+; 2215 :    nPosX =  GetSystemMetrics( SM_CXSCREEN ) / 8;
 
 	push	0
 	call	DWORD PTR __imp__GetSystemMetrics@4
@@ -7029,7 +7056,7 @@ _InitInstance PROC NEAR
 	sar	eax, 3
 	mov	DWORD PTR _nPosX$[ebp], eax
 
-; 2211 :    nPosY =  GetSystemMetrics( SM_CYSCREEN ) / 8;
+; 2216 :    nPosY =  GetSystemMetrics( SM_CYSCREEN ) / 8;
 
 	push	1
 	call	DWORD PTR __imp__GetSystemMetrics@4
@@ -7039,9 +7066,9 @@ _InitInstance PROC NEAR
 	sar	eax, 3
 	mov	DWORD PTR _nPosY$[ebp], eax
 
-; 2212 : 
-; 2213 :    // Create a main window for this application instance.
-; 2214 :    hMenu = LoadMenu( hInstance, "KZOENGWA" );
+; 2217 : 
+; 2218 :    // Create a main window for this application instance.
+; 2219 :    hMenu = LoadMenu( hInstance, "KZOENGWA" );
 
 	push	OFFSET FLAT:??_C@_08MHKG@KZOENGWA?$AA@	; `string'
 	mov	edx, DWORD PTR _hInstance$[ebp]
@@ -7049,18 +7076,18 @@ _InitInstance PROC NEAR
 	call	DWORD PTR __imp__LoadMenuA@8
 	mov	DWORD PTR _hMenu$[ebp], eax
 
-; 2215 :    g_hWndMainFrame = CreateWindow(
-; 2216 :       szClassName,                    // see RegisterClass( ) call
-; 2217 :       "Zeidon Object Services",       // text for window title bar
-; 2218 :       WS_OVERLAPPEDWINDOW,            // window style
-; 2219 :       nPosX,                          // default horizontal position
-; 2220 :       nPosY,                          // default vertical position
-; 2221 :       nWidth,                         // default width
-; 2222 :       nHeight,                        // default height
-; 2223 :       0,                              // overlapped windows have no parent
-; 2224 :       hMenu,                          // menu for trace window
-; 2225 :       hInstance,                      // this instance owns this window
-; 2226 :       0 );                            // pointer not needed
+; 2220 :    g_hWndMainFrame = CreateWindow(
+; 2221 :       szClassName,                    // see RegisterClass( ) call
+; 2222 :       "Zeidon Object Services",       // text for window title bar
+; 2223 :       WS_OVERLAPPEDWINDOW,            // window style
+; 2224 :       nPosX,                          // default horizontal position
+; 2225 :       nPosY,                          // default vertical position
+; 2226 :       nWidth,                         // default width
+; 2227 :       nHeight,                        // default height
+; 2228 :       0,                              // overlapped windows have no parent
+; 2229 :       hMenu,                          // menu for trace window
+; 2230 :       hInstance,                      // this instance owns this window
+; 2231 :       0 );                            // pointer not needed
 
 	push	0
 	mov	eax, DWORD PTR _hInstance$[ebp]
@@ -7083,21 +7110,21 @@ _InitInstance PROC NEAR
 	call	DWORD PTR __imp__CreateWindowExA@48
 	mov	DWORD PTR _g_hWndMainFrame, eax
 
-; 2227 : 
-; 2228 :    // If window could not be created, return "failure".
-; 2229 :    if ( g_hWndMainFrame == 0 )
+; 2232 : 
+; 2233 :    // If window could not be created, return "failure".
+; 2234 :    if ( g_hWndMainFrame == 0 )
 
 	cmp	DWORD PTR _g_hWndMainFrame, 0
-	jne	SHORT $L60179
+	jne	SHORT $L60181
 
-; 2230 :       return( FALSE );
+; 2235 :       return( FALSE );
 
 	xor	eax, eax
-	jmp	$L60159
-$L60179:
+	jmp	$L60161
+$L60181:
 
-; 2231 : 
-; 2232 :    GetClientRect( g_hWndMainFrame, &rect );
+; 2236 : 
+; 2237 :    GetClientRect( g_hWndMainFrame, &rect );
 
 	lea	eax, DWORD PTR _rect$[ebp]
 	push	eax
@@ -7105,23 +7132,23 @@ $L60179:
 	push	ecx
 	call	DWORD PTR __imp__GetClientRect@8
 
-; 2233 : 
-; 2234 :    // First, create the listbox that will receive TraceLine messages from
-; 2235 :    // core.
-; 2236 :    g_hWndLB = CreateWindow(
-; 2237 :       "ListBox",                      // see RegisterClass( ) call
-; 2238 :       "Trace Window",                 // text for window title bar
-; 2239 :       WS_CHILD | WS_VSCROLL | WS_HSCROLL |
-; 2240 :          WS_CAPTION | LBS_NOINTEGRALHEIGHT,
-; 2241 :       rect.left,                      // default horizontal position
-; 2242 :       rect.top,                       // default vertical position
-; 2243 :       (rect.right - rect.left),       // default width
-; 2244 :       (rect.bottom - rect.top),       // default height
-; 2245 :       g_hWndMainFrame,                // parent Window
-; 2246 :       0,                              // use the window class menu
-; 2247 :       hInstance,                      // this instance owns this window
-; 2248 :       0                               // pointer not needed
-; 2249 :    );
+; 2238 : 
+; 2239 :    // First, create the listbox that will receive TraceLine messages from
+; 2240 :    // core.
+; 2241 :    g_hWndLB = CreateWindow(
+; 2242 :       "ListBox",                      // see RegisterClass( ) call
+; 2243 :       "Trace Window",                 // text for window title bar
+; 2244 :       WS_CHILD | WS_VSCROLL | WS_HSCROLL |
+; 2245 :          WS_CAPTION | LBS_NOINTEGRALHEIGHT,
+; 2246 :       rect.left,                      // default horizontal position
+; 2247 :       rect.top,                       // default vertical position
+; 2248 :       (rect.right - rect.left),       // default width
+; 2249 :       (rect.bottom - rect.top),       // default height
+; 2250 :       g_hWndMainFrame,                // parent Window
+; 2251 :       0,                              // use the window class menu
+; 2252 :       hInstance,                      // this instance owns this window
+; 2253 :       0                               // pointer not needed
+; 2254 :    );
 
 	push	0
 	mov	edx, DWORD PTR _hInstance$[ebp]
@@ -7146,24 +7173,24 @@ $L60179:
 	call	DWORD PTR __imp__CreateWindowExA@48
 	mov	DWORD PTR _g_hWndLB, eax
 
-; 2250 : 
-; 2251 :    if ( strlen( g_szZeidonEnvDirectory ) > 0 )
+; 2255 : 
+; 2256 :    if ( strlen( g_szZeidonEnvDirectory ) > 0 )
 
 	push	OFFSET FLAT:_g_szZeidonEnvDirectory
 	call	_strlen
 	add	esp, 4
 	test	eax, eax
-	jbe	SHORT $L60182
+	jbe	SHORT $L60184
 
-; 2252 :       SetEnvironmentVariable( "ZEIDON", g_szZeidonEnvDirectory );
+; 2257 :       SetEnvironmentVariable( "ZEIDON", g_szZeidonEnvDirectory );
 
 	push	OFFSET FLAT:_g_szZeidonEnvDirectory
 	push	OFFSET FLAT:??_C@_06HLLH@ZEIDON?$AA@	; `string'
 	call	DWORD PTR __imp__SetEnvironmentVariableA@8
-$L60182:
+$L60184:
 
-; 2253 : 
-; 2254 :    GetEnvironmentVariable( "ZEIDON", szFileName, zMAX_FILENAME_LTH + 1 );
+; 2258 : 
+; 2259 :    GetEnvironmentVariable( "ZEIDON", szFileName, zMAX_FILENAME_LTH + 1 );
 
 	push	257					; 00000101H
 	lea	edx, DWORD PTR _szFileName$[ebp]
@@ -7171,7 +7198,7 @@ $L60182:
 	push	OFFSET FLAT:??_C@_06HLLH@ZEIDON?$AA@	; `string'
 	call	DWORD PTR __imp__GetEnvironmentVariableA@12
 
-; 2255 :    zstrcat( szFileName, "\\zeidon.ini" );
+; 2260 :    zstrcat( szFileName, "\\zeidon.ini" );
 
 	push	OFFSET FLAT:??_C@_0M@BDD@?2zeidon?4ini?$AA@ ; `string'
 	lea	eax, DWORD PTR _szFileName$[ebp]
@@ -7179,8 +7206,8 @@ $L60182:
 	call	_strcat
 	add	esp, 8
 
-; 2256 :    g_nTraceWindowCnt = GetPrivateProfileInt( "ObjectEngine", "TraceWindows",
-; 2257 :                                              2, szFileName );
+; 2261 :    g_nTraceWindowCnt = GetPrivateProfileInt( "ObjectEngine", "TraceWindows",
+; 2262 :                                              2, szFileName );
 
 	lea	ecx, DWORD PTR _szFileName$[ebp]
 	push	ecx
@@ -7190,59 +7217,59 @@ $L60182:
 	call	DWORD PTR __imp__GetPrivateProfileIntA@16
 	mov	DWORD PTR _g_nTraceWindowCnt, eax
 
-; 2258 :    if ( g_nTraceWindowCnt < 1 )
+; 2263 :    if ( g_nTraceWindowCnt < 1 )
 
 	cmp	DWORD PTR _g_nTraceWindowCnt, 1
-	jae	SHORT $L60184
+	jae	SHORT $L60186
 
-; 2259 :       g_nTraceWindowCnt = 2;
+; 2264 :       g_nTraceWindowCnt = 2;
 
 	mov	DWORD PTR _g_nTraceWindowCnt, 2
 
-; 2260 :    else
+; 2265 :    else
 
-	jmp	SHORT $L60186
-$L60184:
-
-; 2261 :    if ( g_nTraceWindowCnt > MAX_TRACE_WINDOWS )
-
-	cmp	DWORD PTR _g_nTraceWindowCnt, 20	; 00000014H
-	jbe	SHORT $L60186
-
-; 2262 :       g_nTraceWindowCnt = MAX_TRACE_WINDOWS;
-
-	mov	DWORD PTR _g_nTraceWindowCnt, 20	; 00000014H
+	jmp	SHORT $L60188
 $L60186:
 
-; 2263 : 
-; 2264 :    // Create the trace windows in the circuluar list.
-; 2265 :    for ( i = 0; i < g_nTraceWindowCnt; i++ )
+; 2266 :    if ( g_nTraceWindowCnt > MAX_TRACE_WINDOWS )
+
+	cmp	DWORD PTR _g_nTraceWindowCnt, 20	; 00000014H
+	jbe	SHORT $L60188
+
+; 2267 :       g_nTraceWindowCnt = MAX_TRACE_WINDOWS;
+
+	mov	DWORD PTR _g_nTraceWindowCnt, 20	; 00000014H
+$L60188:
+
+; 2268 : 
+; 2269 :    // Create the trace windows in the circuluar list.
+; 2270 :    for ( i = 0; i < g_nTraceWindowCnt; i++ )
 
 	mov	DWORD PTR _i$[ebp], 0
-	jmp	SHORT $L60187
-$L60188:
+	jmp	SHORT $L60189
+$L60190:
 	mov	edx, DWORD PTR _i$[ebp]
 	add	edx, 1
 	mov	DWORD PTR _i$[ebp], edx
-$L60187:
+$L60189:
 	mov	eax, DWORD PTR _i$[ebp]
 	cmp	eax, DWORD PTR _g_nTraceWindowCnt
-	jae	$L60189
+	jae	$L60191
 
-; 2267 :       g_hwndTraceWindow[ i ] = CreateWindow(
-; 2268 :          "ListBox",                      // see RegisterClass( ) call
-; 2269 :          "Trace Window",                 // text for window title bar
-; 2270 :          WS_CHILD | WS_VSCROLL | WS_HSCROLL |
-; 2271 :             WS_CAPTION | LBS_NOINTEGRALHEIGHT,
-; 2272 :          rect.left,                      // default horizontal position
-; 2273 :          rect.top,                       // default vertical position
-; 2274 :          (rect.right - rect.left),       // default width
-; 2275 :          (rect.bottom - rect.top),       // default height
-; 2276 :          g_hWndMainFrame,                // parent Window
-; 2277 :          0,                              // use the window class menu
-; 2278 :          hInstance,                      // this instance owns this window
-; 2279 :          0                               // pointer not needed
-; 2280 :       );
+; 2272 :       g_hwndTraceWindow[ i ] = CreateWindow(
+; 2273 :          "ListBox",                      // see RegisterClass( ) call
+; 2274 :          "Trace Window",                 // text for window title bar
+; 2275 :          WS_CHILD | WS_VSCROLL | WS_HSCROLL |
+; 2276 :             WS_CAPTION | LBS_NOINTEGRALHEIGHT,
+; 2277 :          rect.left,                      // default horizontal position
+; 2278 :          rect.top,                       // default vertical position
+; 2279 :          (rect.right - rect.left),       // default width
+; 2280 :          (rect.bottom - rect.top),       // default height
+; 2281 :          g_hWndMainFrame,                // parent Window
+; 2282 :          0,                              // use the window class menu
+; 2283 :          hInstance,                      // this instance owns this window
+; 2284 :          0                               // pointer not needed
+; 2285 :       );
 
 	push	0
 	mov	ecx, DWORD PTR _hInstance$[ebp]
@@ -7268,9 +7295,9 @@ $L60187:
 	mov	ecx, DWORD PTR _i$[ebp]
 	mov	DWORD PTR _g_hwndTraceWindow[ecx*4], eax
 
-; 2281 : 
-; 2282 :       SendMessage( g_hwndTraceWindow[ i ], WM_SETFONT,
-; 2283 :                    (WPARAM) GetStockObject( SYSTEM_FIXED_FONT ), 0 );
+; 2286 : 
+; 2287 :       SendMessage( g_hwndTraceWindow[ i ], WM_SETFONT,
+; 2288 :                    (WPARAM) GetStockObject( SYSTEM_FIXED_FONT ), 0 );
 
 	push	0
 	push	16					; 00000010H
@@ -7282,8 +7309,8 @@ $L60187:
 	push	eax
 	call	DWORD PTR __imp__SendMessageA@16
 
-; 2284 : 
-; 2285 :       hDC = GetDC( g_hwndTraceWindow[ i ] );         // get the display context
+; 2289 : 
+; 2290 :       hDC = GetDC( g_hwndTraceWindow[ i ] );         // get the display context
 
 	mov	ecx, DWORD PTR _i$[ebp]
 	mov	edx, DWORD PTR _g_hwndTraceWindow[ecx*4]
@@ -7291,7 +7318,7 @@ $L60187:
 	call	DWORD PTR __imp__GetDC@4
 	mov	DWORD PTR _hDC$[ebp], eax
 
-; 2286 :       GetTextMetrics( hDC, &txtm );
+; 2291 :       GetTextMetrics( hDC, &txtm );
 
 	lea	eax, DWORD PTR _txtm$[ebp]
 	push	eax
@@ -7299,7 +7326,7 @@ $L60187:
 	push	ecx
 	call	DWORD PTR __imp__GetTextMetricsA@8
 
-; 2287 :       ReleaseDC ( g_hwndTraceWindow[ i ], hDC );     // free the resource
+; 2292 :       ReleaseDC ( g_hwndTraceWindow[ i ], hDC );     // free the resource
 
 	mov	edx, DWORD PTR _hDC$[ebp]
 	push	edx
@@ -7308,8 +7335,8 @@ $L60187:
 	push	ecx
 	call	DWORD PTR __imp__ReleaseDC@8
 
-; 2288 :       SendMessage( g_hwndTraceWindow[ i ], LB_SETHORIZONTALEXTENT,
-; 2289 :                    txtm.tmMaxCharWidth * 256, 0L );
+; 2293 :       SendMessage( g_hwndTraceWindow[ i ], LB_SETHORIZONTALEXTENT,
+; 2294 :                    txtm.tmMaxCharWidth * 256, 0L );
 
 	push	0
 	mov	edx, DWORD PTR _txtm$[ebp+24]
@@ -7321,35 +7348,35 @@ $L60187:
 	push	ecx
 	call	DWORD PTR __imp__SendMessageA@16
 
-; 2290 :    }
+; 2295 :    }
 
-	jmp	$L60188
-$L60189:
+	jmp	$L60190
+$L60191:
 
-; 2291 : 
-; 2292 :    hMenu = GetMenu( g_hWndMainFrame );
+; 2296 : 
+; 2297 :    hMenu = GetMenu( g_hWndMainFrame );
 
 	mov	edx, DWORD PTR _g_hWndMainFrame
 	push	edx
 	call	DWORD PTR __imp__GetMenu@4
 	mov	DWORD PTR _hMenu$[ebp], eax
 
-; 2293 : 
-; 2294 :    // Delete the unused menu items.
-; 2295 :    for ( i = g_nTraceWindowCnt; i < MAX_TRACE_WINDOWS; i++ )
+; 2298 : 
+; 2299 :    // Delete the unused menu items.
+; 2300 :    for ( i = g_nTraceWindowCnt; i < MAX_TRACE_WINDOWS; i++ )
 
 	mov	eax, DWORD PTR _g_nTraceWindowCnt
 	mov	DWORD PTR _i$[ebp], eax
-	jmp	SHORT $L60191
-$L60192:
+	jmp	SHORT $L60193
+$L60194:
 	mov	ecx, DWORD PTR _i$[ebp]
 	add	ecx, 1
 	mov	DWORD PTR _i$[ebp], ecx
-$L60191:
+$L60193:
 	cmp	DWORD PTR _i$[ebp], 20			; 00000014H
-	jae	SHORT $L60193
+	jae	SHORT $L60195
 
-; 2296 :       DeleteMenu( hMenu, IDM_TRACEWINDOW01 + i, MF_BYCOMMAND );
+; 2301 :       DeleteMenu( hMenu, IDM_TRACEWINDOW01 + i, MF_BYCOMMAND );
 
 	push	0
 	mov	edx, DWORD PTR _i$[ebp]
@@ -7358,28 +7385,28 @@ $L60191:
 	mov	eax, DWORD PTR _hMenu$[ebp]
 	push	eax
 	call	DWORD PTR __imp__DeleteMenu@12
-	jmp	SHORT $L60192
-$L60193:
+	jmp	SHORT $L60194
+$L60195:
 
-; 2297 : 
-; 2298 :    ShowWindow( g_hwndTraceWindow[ 0 ], SW_SHOW );
+; 2302 : 
+; 2303 :    ShowWindow( g_hwndTraceWindow[ 0 ], SW_SHOW );
 
 	push	5
 	mov	ecx, DWORD PTR _g_hwndTraceWindow
 	push	ecx
 	call	DWORD PTR __imp__ShowWindow@8
 
-; 2299 :    g_nTraceWindowHead      = 0;
+; 2304 :    g_nTraceWindowHead      = 0;
 
 	mov	DWORD PTR _g_nTraceWindowHead, 0
 
-; 2300 :    g_nTraceWindowDisplayed = 0;
+; 2305 :    g_nTraceWindowDisplayed = 0;
 
 	mov	DWORD PTR _g_nTraceWindowDisplayed, 0
 
-; 2301 : 
-; 2302 :    CheckMenuItem( hMenu, IDM_TRACEWINDOW01,
-; 2303 :                   MF_BYCOMMAND | MF_CHECKED );
+; 2306 : 
+; 2307 :    CheckMenuItem( hMenu, IDM_TRACEWINDOW01,
+; 2308 :                   MF_BYCOMMAND | MF_CHECKED );
 
 	push	8
 	push	300					; 0000012cH
@@ -7387,53 +7414,53 @@ $L60193:
 	push	edx
 	call	DWORD PTR __imp__CheckMenuItem@12
 
-; 2304 : 
-; 2305 :    // Make proc instances for message procedures
-; 2306 :    fpAbout = (zFARPROC_CALLBACK)
-; 2307 :       MakeProcInstance( (FARPROC) AboutDlgProc, hInstance );
+; 2309 : 
+; 2310 :    // Make proc instances for message procedures
+; 2311 :    fpAbout = (zFARPROC_CALLBACK)
+; 2312 :       MakeProcInstance( (FARPROC) AboutDlgProc, hInstance );
 
 	mov	DWORD PTR _fpAbout, OFFSET FLAT:_AboutDlgProc@16
 
-; 2308 :    fpLogon = (zFARPROC_CALLBACK)
-; 2309 :       MakeProcInstance( (FARPROC) LogonDlgProc, hInstance );
+; 2313 :    fpLogon = (zFARPROC_CALLBACK)
+; 2314 :       MakeProcInstance( (FARPROC) LogonDlgProc, hInstance );
 
 	mov	DWORD PTR _fpLogon, OFFSET FLAT:_LogonDlgProc@16
 
-; 2310 :    fpSetTrace = (zFARPROC_CALLBACK)
-; 2311 :       MakeProcInstance( (FARPROC) SetTraceDlgProc, hInstance );
+; 2315 :    fpSetTrace = (zFARPROC_CALLBACK)
+; 2316 :       MakeProcInstance( (FARPROC) SetTraceDlgProc, hInstance );
 
 	mov	DWORD PTR _fpSetTrace, OFFSET FLAT:_SetTraceDlgProc@16
 
-; 2312 :    fpLogTrace = (zFARPROC_CALLBACK)
-; 2313 :       MakeProcInstance( (FARPROC) LogTraceDlgProc, hInstance );
+; 2317 :    fpLogTrace = (zFARPROC_CALLBACK)
+; 2318 :       MakeProcInstance( (FARPROC) LogTraceDlgProc, hInstance );
 
 	mov	DWORD PTR _fpLogTrace, OFFSET FLAT:_LogTraceDlgProc@16
 
-; 2314 :    fpTraceList = (zFARPROC_CALLBACK)
-; 2315 :       MakeProcInstance( (FARPROC) TraceListWndProc, hInstance );
+; 2319 :    fpTraceList = (zFARPROC_CALLBACK)
+; 2320 :       MakeProcInstance( (FARPROC) TraceListWndProc, hInstance );
 
 	mov	DWORD PTR _fpTraceList, OFFSET FLAT:_TraceListWndProc@16
 
-; 2316 :    fpLineLimit = (zFARPROC_CALLBACK)
-; 2317 :       MakeProcInstance( (FARPROC) LimitDlgProc, hInstance );
+; 2321 :    fpLineLimit = (zFARPROC_CALLBACK)
+; 2322 :       MakeProcInstance( (FARPROC) LimitDlgProc, hInstance );
 
 	mov	DWORD PTR _fpLineLimit, OFFSET FLAT:_LimitDlgProc@16
 
-; 2318 :    fpFindString = (zFARPROC_CALLBACK)
-; 2319 :       MakeProcInstance( (FARPROC) FindStringDlgProc, hInstance );
+; 2323 :    fpFindString = (zFARPROC_CALLBACK)
+; 2324 :       MakeProcInstance( (FARPROC) FindStringDlgProc, hInstance );
 
 	mov	DWORD PTR _fpFindString, OFFSET FLAT:_FindStringDlgProc@16
 
-; 2320 :    fpShowDLL = (zFARPROC_CALLBACK)
-; 2321 :       MakeProcInstance( (FARPROC) ShowDLLDlgProc, hInstance );
+; 2325 :    fpShowDLL = (zFARPROC_CALLBACK)
+; 2326 :       MakeProcInstance( (FARPROC) ShowDLLDlgProc, hInstance );
 
 	mov	DWORD PTR _fpShowDLL, OFFSET FLAT:_ShowDLLDlgProc@16
 
-; 2322 : 
-; 2323 :    // Change the WndProc for the list window so we can trap LB_ADDSTRING
-; 2324 :    // messages and write them to the trace log (if open)
-; 2325 :    fpDfltListWndProc = (zFARPROC_CALLBACK)
-; 2326 :       SetWindowLong( g_hWndLB, GWL_WNDPROC, (DWORD) TraceListWndProc );
+; 2327 : 
+; 2328 :    // Change the WndProc for the list window so we can trap LB_ADDSTRING
+; 2329 :    // messages and write them to the trace log (if open)
+; 2330 :    fpDfltListWndProc = (zFARPROC_CALLBACK)
+; 2331 :       SetWindowLong( g_hWndLB, GWL_WNDPROC, (DWORD) TraceListWndProc );
 
 	push	OFFSET FLAT:_TraceListWndProc@16
 	push	-4					; fffffffcH
@@ -7442,34 +7469,34 @@ $L60193:
 	call	DWORD PTR __imp__SetWindowLongA@12
 	mov	DWORD PTR _fpDfltListWndProc, eax
 
-; 2327 : 
-; 2328 :    // Register message of Object Services.
-; 2329 :    g_wOENG_Message = RegisterWindowMessage( "KZOESRVC" );
+; 2332 : 
+; 2333 :    // Register message of Object Services.
+; 2334 :    g_wOENG_Message = RegisterWindowMessage( "KZOESRVC" );
 
 	push	OFFSET FLAT:??_C@_08HAKP@KZOESRVC?$AA@	; `string'
 	call	DWORD PTR __imp__RegisterWindowMessageA@4
 	mov	DWORD PTR _g_wOENG_Message, eax
 
-; 2330 : 
-; 2331 : #ifdef __WIN32__
-; 2332 :    // We need to start up the message loop thread.
-; 2333 :    g_bThreadStarted = FALSE;
+; 2335 : 
+; 2336 : #ifdef __WIN32__
+; 2337 :    // We need to start up the message loop thread.
+; 2338 :    g_bThreadStarted = FALSE;
 
 	mov	BYTE PTR _g_bThreadStarted, 0
 
-; 2334 : 
-; 2335 : #ifdef __BORLANDC__
-; 2336 :    // start address, stack size, argument, security, initflag, thread address
-; 2337 :    // unsigned long _RTLENTRY _EXPFUNC
-; 2338 :    // _beginthreadNT( void (_USERENTRY *__start)(void *),
-; 2339 :    //                 unsigned __stksize, void *__arg,
-; 2340 :    //                 void *__security_attr,
-; 2341 :    //                 unsigned long __create_flags,
-; 2342 :    //                 unsigned long *__thread_id );
-; 2343 : 
-; 2344 : #else
-; 2345 :    // security, stack size, start address, arglist, initflag, thread address
-; 2346 :    g_hThread = _beginthreadex( NULL, 0, fnThreadProc, 0, 0, &g_dwThreadID );
+; 2339 : 
+; 2340 : #ifdef __BORLANDC__
+; 2341 :    // start address, stack size, argument, security, initflag, thread address
+; 2342 :    // unsigned long _RTLENTRY _EXPFUNC
+; 2343 :    // _beginthreadNT( void (_USERENTRY *__start)(void *),
+; 2344 :    //                 unsigned __stksize, void *__arg,
+; 2345 :    //                 void *__security_attr,
+; 2346 :    //                 unsigned long __create_flags,
+; 2347 :    //                 unsigned long *__thread_id );
+; 2348 : 
+; 2349 : #else
+; 2350 :    // security, stack size, start address, arglist, initflag, thread address
+; 2351 :    g_hThread = _beginthreadex( NULL, 0, fnThreadProc, 0, 0, &g_dwThreadID );
 
 	push	OFFSET FLAT:_g_dwThreadID
 	push	0
@@ -7481,51 +7508,51 @@ $L60193:
 	add	esp, 24					; 00000018H
 	mov	DWORD PTR _g_hThread, eax
 
-; 2347 : #endif
-; 2348 : 
-; 2349 :    if ( g_hThread )
+; 2352 : #endif
+; 2353 : 
+; 2354 :    if ( g_hThread )
 
 	cmp	DWORD PTR _g_hThread, 0
-	je	SHORT $L60214
+	je	SHORT $L60216
 
-; 2350 :       CloseHandle( (HANDLE) g_hThread );
+; 2355 :       CloseHandle( (HANDLE) g_hThread );
 
 	mov	ecx, DWORD PTR _g_hThread
 	push	ecx
 	call	DWORD PTR __imp__CloseHandle@4
-$L60214:
+$L60216:
 
-; 2351 : 
-; 2352 :    // Now wait until the thread has finished its initialization.
-; 2353 :    while ( g_bThreadStarted == FALSE )
+; 2356 : 
+; 2357 :    // Now wait until the thread has finished its initialization.
+; 2358 :    while ( g_bThreadStarted == FALSE )
 
 	xor	edx, edx
 	mov	dl, BYTE PTR _g_bThreadStarted
 	test	edx, edx
-	jne	SHORT $L60218
+	jne	SHORT $L60220
 
-; 2354 :       Sleep( 10 );
+; 2359 :       Sleep( 10 );
 
 	push	10					; 0000000aH
 	call	DWORD PTR __imp__Sleep@4
-	jmp	SHORT $L60214
-$L60218:
+	jmp	SHORT $L60216
+$L60220:
 
-; 2355 : 
-; 2356 :    hProcessWnd = g_hThreadWnd;
+; 2360 : 
+; 2361 :    hProcessWnd = g_hThreadWnd;
 
 	mov	eax, DWORD PTR _g_hThreadWnd
 	mov	DWORD PTR _hProcessWnd$[ebp], eax
 
-; 2357 : #else
-; 2358 :    hProcessWnd = g_hWndMainFrame;
-; 2359 : #endif
-; 2360 : 
-; 2361 :    // Initialize Object services anchor block
-; 2362 :    AnchorBlock = InitializeAnchorBlock( (zLONG) hInstance,
-; 2363 :                                         (zLONG) hProcessWnd,
-; 2364 :                                         (zLONG) g_hWndLB,
-; 2365 :                                         (zLONG) g_wOENG_Message );
+; 2362 : #else
+; 2363 :    hProcessWnd = g_hWndMainFrame;
+; 2364 : #endif
+; 2365 : 
+; 2366 :    // Initialize Object services anchor block
+; 2367 :    AnchorBlock = InitializeAnchorBlock( (zLONG) hInstance,
+; 2368 :                                         (zLONG) hProcessWnd,
+; 2369 :                                         (zLONG) g_hWndLB,
+; 2370 :                                         (zLONG) g_wOENG_Message );
 
 	mov	ecx, DWORD PTR _g_wOENG_Message
 	push	ecx
@@ -7538,36 +7565,36 @@ $L60218:
 	call	_InitializeAnchorBlock@16
 	mov	DWORD PTR _AnchorBlock, eax
 
-; 2366 : 
-; 2367 :    // If initialization failed, destroy the instance and return.
-; 2368 :    if ( AnchorBlock == 0 || AnchorBlock == (LPANCHOR) zCALL_ERROR )
+; 2371 : 
+; 2372 :    // If initialization failed, destroy the instance and return.
+; 2373 :    if ( AnchorBlock == 0 || AnchorBlock == (LPANCHOR) zCALL_ERROR )
 
 	cmp	DWORD PTR _AnchorBlock, 0
-	je	SHORT $L60225
+	je	SHORT $L60227
 	cmp	DWORD PTR _AnchorBlock, -16		; fffffff0H
-	jne	SHORT $L60224
-$L60225:
+	jne	SHORT $L60226
+$L60227:
 
-; 2370 :       DestroyWindow( g_hWndMainFrame );
+; 2375 :       DestroyWindow( g_hWndMainFrame );
 
 	mov	edx, DWORD PTR _g_hWndMainFrame
 	push	edx
 	call	DWORD PTR __imp__DestroyWindow@4
 
-; 2371 :       return( 0 );
+; 2376 :       return( 0 );
 
 	xor	eax, eax
-	jmp	$L60159
-$L60224:
+	jmp	$L60161
+$L60226:
 
-; 2373 : 
-; 2374 :    AnchorBlock->OS_Data.hMainWindow = (zLONG) g_hWndMainFrame;
+; 2378 : 
+; 2379 :    AnchorBlock->OS_Data.hMainWindow = (zLONG) g_hWndMainFrame;
 
 	mov	eax, DWORD PTR _AnchorBlock
 	mov	ecx, DWORD PTR _g_hWndMainFrame
 	mov	DWORD PTR [eax+1503], ecx
 
-; 2375 :    lpTask            = zGETPTR( AnchorBlock->hMainTask );
+; 2380 :    lpTask            = zGETPTR( AnchorBlock->hMainTask );
 
 	mov	edx, DWORD PTR _AnchorBlock
 	mov	eax, DWORD PTR [edx+106]
@@ -7575,7 +7602,7 @@ $L60224:
 	call	_SysGetPointerFromHandle@4
 	mov	DWORD PTR _lpTask$[ebp], eax
 
-; 2376 :    g_vSystemTaskView = zGETPTR( lpTask->hFirstView );
+; 2381 :    g_vSystemTaskView = zGETPTR( lpTask->hFirstView );
 
 	mov	ecx, DWORD PTR _lpTask$[ebp]
 	mov	edx, DWORD PTR [ecx+106]
@@ -7583,15 +7610,15 @@ $L60224:
 	call	_SysGetPointerFromHandle@4
 	mov	DWORD PTR _g_vSystemTaskView, eax
 
-; 2377 : 
-; 2378 :    TraceLineS( "----Zeidon configuration file: ", szFileName );
+; 2382 : 
+; 2383 :    TraceLineS( "----Zeidon configuration file: ", szFileName );
 
 	lea	eax, DWORD PTR _szFileName$[ebp]
 	push	eax
 	push	OFFSET FLAT:??_C@_0CA@IALB@?9?9?9?9Zeidon?5configuration?5file?3?5?$AA@ ; `string'
 	call	_TraceLineS@8
 
-; 2379 :    SysReadZeidonIni( -1, szlWorkstation, "LocalDir", szTempName );
+; 2384 :    SysReadZeidonIni( -1, szlWorkstation, "LocalDir", szTempName );
 
 	lea	ecx, DWORD PTR _szTempName$[ebp]
 	push	ecx
@@ -7600,7 +7627,7 @@ $L60224:
 	push	-1
 	call	_SysReadZeidonIni@16
 
-; 2380 :    SysConvertEnvironmentString( szFileName, szTempName );
+; 2385 :    SysConvertEnvironmentString( szFileName, szTempName );
 
 	lea	edx, DWORD PTR _szTempName$[ebp]
 	push	edx
@@ -7608,19 +7635,19 @@ $L60224:
 	push	eax
 	call	_SysConvertEnvironmentString@8
 
-; 2381 :    if ( szFileName[ 0 ] )
+; 2386 :    if ( szFileName[ 0 ] )
 
 	movsx	ecx, BYTE PTR _szFileName$[ebp]
 	test	ecx, ecx
-	je	$L60228
+	je	$L60230
 
-; 2383 :       SysAppendcDirSep( szFileName );
+; 2388 :       SysAppendcDirSep( szFileName );
 
 	lea	edx, DWORD PTR _szFileName$[ebp]
 	push	edx
 	call	_SysAppendcDirSep@4
 
-; 2384 :       zstrcat( szFileName, "ZeidonRT.ini" );
+; 2389 :       zstrcat( szFileName, "ZeidonRT.ini" );
 
 	push	OFFSET FLAT:??_C@_0N@KGLP@ZeidonRT?4ini?$AA@ ; `string'
 	lea	eax, DWORD PTR _szFileName$[ebp]
@@ -7628,15 +7655,15 @@ $L60224:
 	call	_strcat
 	add	esp, 8
 
-; 2385 :       TraceLineS( "--LocalDir configuration file: ", szFileName );
+; 2390 :       TraceLineS( "--LocalDir configuration file: ", szFileName );
 
 	lea	ecx, DWORD PTR _szFileName$[ebp]
 	push	ecx
 	push	OFFSET FLAT:??_C@_0CA@CFIG@?9?9LocalDir?5configuration?5file?3?5?$AA@ ; `string'
 	call	_TraceLineS@8
 
-; 2386 :       GetPrivateProfileString( "ObjectEngine", "LineLimit", "",
-; 2387 :                                szBuffer, sizeof( szBuffer ), szFileName );
+; 2391 :       GetPrivateProfileString( "ObjectEngine", "LineLimit", "",
+; 2392 :                                szBuffer, sizeof( szBuffer ), szFileName );
 
 	lea	edx, DWORD PTR _szFileName$[ebp]
 	push	edx
@@ -7648,13 +7675,13 @@ $L60224:
 	push	OFFSET FLAT:??_C@_0N@JELK@ObjectEngine?$AA@ ; `string'
 	call	DWORD PTR __imp__GetPrivateProfileStringA@24
 
-; 2388 :       if ( szBuffer[ 0 ] )
+; 2393 :       if ( szBuffer[ 0 ] )
 
 	movsx	ecx, BYTE PTR _szBuffer$[ebp]
 	test	ecx, ecx
-	je	SHORT $L60231
+	je	SHORT $L60233
 
-; 2390 :          g_uTraceLineLimit = atoi( szBuffer );
+; 2395 :          g_uTraceLineLimit = atoi( szBuffer );
 
 	lea	edx, DWORD PTR _szBuffer$[ebp]
 	push	edx
@@ -7662,12 +7689,12 @@ $L60224:
 	add	esp, 4
 	mov	DWORD PTR _g_uTraceLineLimit, eax
 
-; 2391 :          if ( g_uTraceLineLimit == 0 )
+; 2396 :          if ( g_uTraceLineLimit == 0 )
 
 	cmp	DWORD PTR _g_uTraceLineLimit, 0
-	jne	SHORT $L60231
+	jne	SHORT $L60233
 
-; 2393 :             AnchorBlock->bTraceCnt = FALSE;
+; 2398 :             AnchorBlock->bTraceCnt = FALSE;
 
 	mov	eax, DWORD PTR _AnchorBlock
 	mov	ecx, DWORD PTR [eax+1495]
@@ -7675,7 +7702,7 @@ $L60224:
 	mov	edx, DWORD PTR _AnchorBlock
 	mov	DWORD PTR [edx+1495], ecx
 
-; 2394 :             SendMessage( g_hWndLB, LB_RESETCONTENT, 0, 0L );
+; 2399 :             SendMessage( g_hWndLB, LB_RESETCONTENT, 0, 0L );
 
 	push	0
 	push	0
@@ -7683,11 +7710,11 @@ $L60224:
 	mov	eax, DWORD PTR _g_hWndLB
 	push	eax
 	call	DWORD PTR __imp__SendMessageA@16
-$L60231:
+$L60233:
 
-; 2397 : 
-; 2398 :       GetPrivateProfileString( "ObjectEngine", "FindString", "",
-; 2399 :                                szBuffer, sizeof( szBuffer ), szFileName );
+; 2402 : 
+; 2403 :       GetPrivateProfileString( "ObjectEngine", "FindString", "",
+; 2404 :                                szBuffer, sizeof( szBuffer ), szFileName );
 
 	lea	ecx, DWORD PTR _szFileName$[ebp]
 	push	ecx
@@ -7699,7 +7726,7 @@ $L60231:
 	push	OFFSET FLAT:??_C@_0N@JELK@ObjectEngine?$AA@ ; `string'
 	call	DWORD PTR __imp__GetPrivateProfileStringA@24
 
-; 2400 :       zstrcpy( g_szFindString, szBuffer );
+; 2405 :       zstrcpy( g_szFindString, szBuffer );
 
 	lea	eax, DWORD PTR _szBuffer$[ebp]
 	push	eax
@@ -7707,8 +7734,8 @@ $L60231:
 	call	_strcpy
 	add	esp, 8
 
-; 2401 :       GetPrivateProfileString( "ObjectEngine", "ScrollTrace", "",
-; 2402 :                                szBuffer, sizeof( szBuffer ), szFileName );
+; 2406 :       GetPrivateProfileString( "ObjectEngine", "ScrollTrace", "",
+; 2407 :                                szBuffer, sizeof( szBuffer ), szFileName );
 
 	lea	ecx, DWORD PTR _szFileName$[ebp]
 	push	ecx
@@ -7720,21 +7747,21 @@ $L60231:
 	push	OFFSET FLAT:??_C@_0N@JELK@ObjectEngine?$AA@ ; `string'
 	call	DWORD PTR __imp__GetPrivateProfileStringA@24
 
-; 2403 :       if ( szBuffer[ 0 ] )
+; 2408 :       if ( szBuffer[ 0 ] )
 
 	movsx	eax, BYTE PTR _szBuffer$[ebp]
 	test	eax, eax
-	je	SHORT $L60232
+	je	SHORT $L60234
 
-; 2404 :          g_chScrollTrace = szBuffer[ 0 ];
+; 2409 :          g_chScrollTrace = szBuffer[ 0 ];
 
 	mov	cl, BYTE PTR _szBuffer$[ebp]
 	mov	BYTE PTR _g_chScrollTrace, cl
-$L60232:
+$L60234:
 
-; 2405 : 
-; 2406 :       GetPrivateProfileString( "ObjectEngine", "PrintPreview", "",
-; 2407 :                                szBuffer, sizeof( szBuffer ), szFileName );
+; 2410 : 
+; 2411 :       GetPrivateProfileString( "ObjectEngine", "PrintPreview", "",
+; 2412 :                                szBuffer, sizeof( szBuffer ), szFileName );
 
 	lea	edx, DWORD PTR _szFileName$[ebp]
 	push	edx
@@ -7746,31 +7773,31 @@ $L60232:
 	push	OFFSET FLAT:??_C@_0N@JELK@ObjectEngine?$AA@ ; `string'
 	call	DWORD PTR __imp__GetPrivateProfileStringA@24
 
-; 2408 :       if ( szBuffer[ 0 ] )
+; 2413 :       if ( szBuffer[ 0 ] )
 
 	movsx	ecx, BYTE PTR _szBuffer$[ebp]
 	test	ecx, ecx
-	je	SHORT $L60234
+	je	SHORT $L60236
 
-; 2410 :          g_chPrintPreview = szBuffer[ 0 ];
+; 2415 :          g_chPrintPreview = szBuffer[ 0 ];
 
 	mov	dl, BYTE PTR _szBuffer$[ebp]
 	mov	BYTE PTR _g_chPrintPreview, dl
 
-; 2411 :          if ( g_chPrintPreview == 'Y' )
+; 2416 :          if ( g_chPrintPreview == 'Y' )
 
 	movsx	eax, BYTE PTR _g_chPrintPreview
 	cmp	eax, 89					; 00000059H
-	jne	SHORT $L60234
+	jne	SHORT $L60236
 
-; 2412 :             g_chPrintPreview = '0';
+; 2417 :             g_chPrintPreview = '0';
 
 	mov	BYTE PTR _g_chPrintPreview, 48		; 00000030H
-$L60234:
+$L60236:
 
-; 2414 : 
-; 2415 :       GetPrivateProfileString( "ObjectEngine", "PrintDialog", "",
-; 2416 :                                szBuffer, sizeof( szBuffer ), szFileName );
+; 2419 : 
+; 2420 :       GetPrivateProfileString( "ObjectEngine", "PrintDialog", "",
+; 2421 :                                szBuffer, sizeof( szBuffer ), szFileName );
 
 	lea	ecx, DWORD PTR _szFileName$[ebp]
 	push	ecx
@@ -7782,21 +7809,21 @@ $L60234:
 	push	OFFSET FLAT:??_C@_0N@JELK@ObjectEngine?$AA@ ; `string'
 	call	DWORD PTR __imp__GetPrivateProfileStringA@24
 
-; 2417 :       if ( szBuffer[ 0 ] )
+; 2422 :       if ( szBuffer[ 0 ] )
 
 	movsx	eax, BYTE PTR _szBuffer$[ebp]
 	test	eax, eax
-	je	SHORT $L60235
+	je	SHORT $L60237
 
-; 2418 :          g_chPrintDialog = szBuffer[ 0 ];
+; 2423 :          g_chPrintDialog = szBuffer[ 0 ];
 
 	mov	cl, BYTE PTR _szBuffer$[ebp]
 	mov	BYTE PTR _g_chPrintDialog, cl
-$L60235:
+$L60237:
 
-; 2419 : 
-; 2420 :       GetPrivateProfileString( "ObjectEngine", "TraceOE_Warning", "",
-; 2421 :                                szBuffer, sizeof( szBuffer ), szFileName );
+; 2424 : 
+; 2425 :       GetPrivateProfileString( "ObjectEngine", "TraceOE_Warning", "",
+; 2426 :                                szBuffer, sizeof( szBuffer ), szFileName );
 
 	lea	edx, DWORD PTR _szFileName$[ebp]
 	push	edx
@@ -7808,21 +7835,21 @@ $L60235:
 	push	OFFSET FLAT:??_C@_0N@JELK@ObjectEngine?$AA@ ; `string'
 	call	DWORD PTR __imp__GetPrivateProfileStringA@24
 
-; 2422 :       if ( szBuffer[ 0 ] )
+; 2427 :       if ( szBuffer[ 0 ] )
 
 	movsx	ecx, BYTE PTR _szBuffer$[ebp]
 	test	ecx, ecx
-	je	SHORT $L60236
+	je	SHORT $L60238
 
-; 2423 :          g_chTraceOE_Warning = szBuffer[ 0 ];
+; 2428 :          g_chTraceOE_Warning = szBuffer[ 0 ];
 
 	mov	dl, BYTE PTR _szBuffer$[ebp]
 	mov	BYTE PTR _g_chTraceOE_Warning, dl
-$L60236:
+$L60238:
 
-; 2424 : 
-; 2425 :       GetPrivateProfileString( "ObjectEngine", "TraceAction", "",
-; 2426 :                                szBuffer, sizeof( szBuffer ), szFileName );
+; 2429 : 
+; 2430 :       GetPrivateProfileString( "ObjectEngine", "TraceAction", "",
+; 2431 :                                szBuffer, sizeof( szBuffer ), szFileName );
 
 	lea	eax, DWORD PTR _szFileName$[ebp]
 	push	eax
@@ -7834,21 +7861,21 @@ $L60236:
 	push	OFFSET FLAT:??_C@_0N@JELK@ObjectEngine?$AA@ ; `string'
 	call	DWORD PTR __imp__GetPrivateProfileStringA@24
 
-; 2427 :       if ( szBuffer[ 0 ] )
+; 2432 :       if ( szBuffer[ 0 ] )
 
 	movsx	edx, BYTE PTR _szBuffer$[ebp]
 	test	edx, edx
-	je	SHORT $L60237
+	je	SHORT $L60239
 
-; 2428 :          g_chTraceZDrActions = szBuffer[ 0 ];
+; 2433 :          g_chTraceZDrActions = szBuffer[ 0 ];
 
 	mov	al, BYTE PTR _szBuffer$[ebp]
 	mov	BYTE PTR _g_chTraceZDrActions, al
-$L60237:
+$L60239:
 
-; 2429 : 
-; 2430 :       GetPrivateProfileString( "ObjectEngine", "TraceWeb", "",
-; 2431 :                                szBuffer, sizeof( szBuffer ), szFileName );
+; 2434 : 
+; 2435 :       GetPrivateProfileString( "ObjectEngine", "TraceWeb", "",
+; 2436 :                                szBuffer, sizeof( szBuffer ), szFileName );
 
 	lea	ecx, DWORD PTR _szFileName$[ebp]
 	push	ecx
@@ -7860,21 +7887,21 @@ $L60237:
 	push	OFFSET FLAT:??_C@_0N@JELK@ObjectEngine?$AA@ ; `string'
 	call	DWORD PTR __imp__GetPrivateProfileStringA@24
 
-; 2432 :       if ( szBuffer[ 0 ] )
+; 2437 :       if ( szBuffer[ 0 ] )
 
 	movsx	eax, BYTE PTR _szBuffer$[ebp]
 	test	eax, eax
-	je	SHORT $L60238
+	je	SHORT $L60240
 
-; 2433 :          g_chTraceWebActions = szBuffer[ 0 ];
+; 2438 :          g_chTraceWebActions = szBuffer[ 0 ];
 
 	mov	cl, BYTE PTR _szBuffer$[ebp]
 	mov	BYTE PTR _g_chTraceWebActions, cl
-$L60238:
+$L60240:
 
-; 2434 : 
-; 2435 :       GetPrivateProfileString( "ObjectEngine", "ShowTaskID", "",
-; 2436 :                                szBuffer, sizeof( szBuffer ), szFileName );
+; 2439 : 
+; 2440 :       GetPrivateProfileString( "ObjectEngine", "ShowTaskID", "",
+; 2441 :                                szBuffer, sizeof( szBuffer ), szFileName );
 
 	lea	edx, DWORD PTR _szFileName$[ebp]
 	push	edx
@@ -7886,30 +7913,30 @@ $L60238:
 	push	OFFSET FLAT:??_C@_0N@JELK@ObjectEngine?$AA@ ; `string'
 	call	DWORD PTR __imp__GetPrivateProfileStringA@24
 
-; 2437 :       if ( szBuffer[ 0 ] )
+; 2442 :       if ( szBuffer[ 0 ] )
 
 	movsx	ecx, BYTE PTR _szBuffer$[ebp]
 	test	ecx, ecx
-	je	SHORT $L60239
+	je	SHORT $L60241
 
-; 2438 :          AnchorBlock->bShowTaskID = 1;
+; 2443 :          AnchorBlock->bShowTaskID = 1;
 
 	mov	edx, DWORD PTR _AnchorBlock
 	mov	eax, DWORD PTR [edx+1495]
 	or	al, 1
 	mov	ecx, DWORD PTR _AnchorBlock
 	mov	DWORD PTR [ecx+1495], eax
-$L60239:
+$L60241:
 
-; 2439 : 
-; 2440 :       lpTraceFlags = GetTracingFlags( );
+; 2444 : 
+; 2445 :       lpTraceFlags = GetTracingFlags( );
 
 	call	_GetTracingFlags@0
 	mov	DWORD PTR _lpTraceFlags$[ebp], eax
 
-; 2441 : 
-; 2442 :       GetPrivateProfileString( "ObjectEngine", "ShowOpenFile", "",
-; 2443 :                                szBuffer, sizeof( szBuffer ), szFileName );
+; 2446 : 
+; 2447 :       GetPrivateProfileString( "ObjectEngine", "ShowOpenFile", "",
+; 2448 :                                szBuffer, sizeof( szBuffer ), szFileName );
 
 	lea	edx, DWORD PTR _szFileName$[ebp]
 	push	edx
@@ -7921,7 +7948,7 @@ $L60239:
 	push	OFFSET FLAT:??_C@_0N@JELK@ObjectEngine?$AA@ ; `string'
 	call	DWORD PTR __imp__GetPrivateProfileStringA@24
 
-; 2444 :       lpTraceFlags->bOpenFile = (toupper( szBuffer[ 0 ] ) == 'Y') ? TRUE : FALSE;
+; 2449 :       lpTraceFlags->bOpenFile = (toupper( szBuffer[ 0 ] ) == 'Y') ? TRUE : FALSE;
 
 	movsx	ecx, BYTE PTR _szBuffer$[ebp]
 	push	ecx
@@ -7940,9 +7967,9 @@ $L60239:
 	mov	edx, DWORD PTR _lpTraceFlags$[ebp]
 	mov	DWORD PTR [edx], ecx
 
-; 2445 : 
-; 2446 :       GetPrivateProfileString( "ObjectEngine", "ShowOI_Times", "",
-; 2447 :                                szBuffer, sizeof( szBuffer ), szFileName );
+; 2450 : 
+; 2451 :       GetPrivateProfileString( "ObjectEngine", "ShowOI_Times", "",
+; 2452 :                                szBuffer, sizeof( szBuffer ), szFileName );
 
 	lea	eax, DWORD PTR _szFileName$[ebp]
 	push	eax
@@ -7954,7 +7981,7 @@ $L60239:
 	push	OFFSET FLAT:??_C@_0N@JELK@ObjectEngine?$AA@ ; `string'
 	call	DWORD PTR __imp__GetPrivateProfileStringA@24
 
-; 2448 :       lpTraceFlags->bOI_Times = (toupper( szBuffer[ 0 ] ) == 'Y') ? TRUE : FALSE;
+; 2453 :       lpTraceFlags->bOI_Times = (toupper( szBuffer[ 0 ] ) == 'Y') ? TRUE : FALSE;
 
 	movsx	edx, BYTE PTR _szBuffer$[ebp]
 	push	edx
@@ -7972,9 +7999,9 @@ $L60239:
 	mov	eax, DWORD PTR _lpTraceFlags$[ebp]
 	mov	DWORD PTR [eax], edx
 
-; 2449 : 
-; 2450 :       GetPrivateProfileString( "ObjectEngine", "ShowTaskMsgs", "",
-; 2451 :                                szBuffer, sizeof( szBuffer ), szFileName );
+; 2454 : 
+; 2455 :       GetPrivateProfileString( "ObjectEngine", "ShowTaskMsgs", "",
+; 2456 :                                szBuffer, sizeof( szBuffer ), szFileName );
 
 	lea	ecx, DWORD PTR _szFileName$[ebp]
 	push	ecx
@@ -7986,7 +8013,7 @@ $L60239:
 	push	OFFSET FLAT:??_C@_0N@JELK@ObjectEngine?$AA@ ; `string'
 	call	DWORD PTR __imp__GetPrivateProfileStringA@24
 
-; 2452 :       lpTraceFlags->bTaskMsgs = (toupper( szBuffer[ 0 ] ) == 'Y') ? TRUE : FALSE;
+; 2457 :       lpTraceFlags->bTaskMsgs = (toupper( szBuffer[ 0 ] ) == 'Y') ? TRUE : FALSE;
 
 	movsx	eax, BYTE PTR _szBuffer$[ebp]
 	push	eax
@@ -8005,12 +8032,12 @@ $L60239:
 	mov	ecx, DWORD PTR _lpTraceFlags$[ebp]
 	mov	DWORD PTR [ecx], eax
 
-; 2454 :    else
+; 2459 :    else
 
-	jmp	$L60243
-$L60228:
+	jmp	$L60245
+$L60230:
 
-; 2456 :       SysReadZeidonIni( -1, "[ObjectEngine]", "LineLimit", szBuffer );
+; 2461 :       SysReadZeidonIni( -1, "[ObjectEngine]", "LineLimit", szBuffer );
 
 	lea	edx, DWORD PTR _szBuffer$[ebp]
 	push	edx
@@ -8019,13 +8046,13 @@ $L60228:
 	push	-1
 	call	_SysReadZeidonIni@16
 
-; 2457 :       if ( szBuffer[ 0 ] )
+; 2462 :       if ( szBuffer[ 0 ] )
 
 	movsx	eax, BYTE PTR _szBuffer$[ebp]
 	test	eax, eax
-	je	SHORT $L60245
+	je	SHORT $L60247
 
-; 2459 :          g_uTraceLineLimit = atoi( szBuffer );
+; 2464 :          g_uTraceLineLimit = atoi( szBuffer );
 
 	lea	ecx, DWORD PTR _szBuffer$[ebp]
 	push	ecx
@@ -8033,12 +8060,12 @@ $L60228:
 	add	esp, 4
 	mov	DWORD PTR _g_uTraceLineLimit, eax
 
-; 2460 :          if ( g_uTraceLineLimit == 0 )
+; 2465 :          if ( g_uTraceLineLimit == 0 )
 
 	cmp	DWORD PTR _g_uTraceLineLimit, 0
-	jne	SHORT $L60245
+	jne	SHORT $L60247
 
-; 2462 :             AnchorBlock->bTraceCnt = FALSE;
+; 2467 :             AnchorBlock->bTraceCnt = FALSE;
 
 	mov	edx, DWORD PTR _AnchorBlock
 	mov	eax, DWORD PTR [edx+1495]
@@ -8046,7 +8073,7 @@ $L60228:
 	mov	ecx, DWORD PTR _AnchorBlock
 	mov	DWORD PTR [ecx+1495], eax
 
-; 2463 :             SendMessage( g_hWndLB, LB_RESETCONTENT, 0, 0L );
+; 2468 :             SendMessage( g_hWndLB, LB_RESETCONTENT, 0, 0L );
 
 	push	0
 	push	0
@@ -8054,10 +8081,10 @@ $L60228:
 	mov	edx, DWORD PTR _g_hWndLB
 	push	edx
 	call	DWORD PTR __imp__SendMessageA@16
-$L60245:
+$L60247:
 
-; 2466 : 
-; 2467 :       SysReadZeidonIni( -1, "[ObjectEngine]", "FindString", szBuffer );
+; 2471 : 
+; 2472 :       SysReadZeidonIni( -1, "[ObjectEngine]", "FindString", szBuffer );
 
 	lea	eax, DWORD PTR _szBuffer$[ebp]
 	push	eax
@@ -8066,7 +8093,7 @@ $L60245:
 	push	-1
 	call	_SysReadZeidonIni@16
 
-; 2468 :       zstrcpy( g_szFindString, szBuffer );
+; 2473 :       zstrcpy( g_szFindString, szBuffer );
 
 	lea	ecx, DWORD PTR _szBuffer$[ebp]
 	push	ecx
@@ -8074,7 +8101,7 @@ $L60245:
 	call	_strcpy
 	add	esp, 8
 
-; 2469 :       SysReadZeidonIni( -1, "[ObjectEngine]", "ScrollTrace", szBuffer );
+; 2474 :       SysReadZeidonIni( -1, "[ObjectEngine]", "ScrollTrace", szBuffer );
 
 	lea	edx, DWORD PTR _szBuffer$[ebp]
 	push	edx
@@ -8083,20 +8110,20 @@ $L60245:
 	push	-1
 	call	_SysReadZeidonIni@16
 
-; 2470 :       if ( szBuffer[ 0 ] )
+; 2475 :       if ( szBuffer[ 0 ] )
 
 	movsx	eax, BYTE PTR _szBuffer$[ebp]
 	test	eax, eax
-	je	SHORT $L60246
+	je	SHORT $L60248
 
-; 2471 :          g_chScrollTrace = szBuffer[ 0 ];
+; 2476 :          g_chScrollTrace = szBuffer[ 0 ];
 
 	mov	cl, BYTE PTR _szBuffer$[ebp]
 	mov	BYTE PTR _g_chScrollTrace, cl
-$L60246:
+$L60248:
 
-; 2472 : 
-; 2473 :       SysReadZeidonIni( -1, "[ObjectEngine]", "PrintPreview", szBuffer );
+; 2477 : 
+; 2478 :       SysReadZeidonIni( -1, "[ObjectEngine]", "PrintPreview", szBuffer );
 
 	lea	edx, DWORD PTR _szBuffer$[ebp]
 	push	edx
@@ -8105,30 +8132,30 @@ $L60246:
 	push	-1
 	call	_SysReadZeidonIni@16
 
-; 2474 :       if ( szBuffer[ 0 ] )
+; 2479 :       if ( szBuffer[ 0 ] )
 
 	movsx	eax, BYTE PTR _szBuffer$[ebp]
 	test	eax, eax
-	je	SHORT $L60248
+	je	SHORT $L60250
 
-; 2476 :          g_chPrintPreview = szBuffer[ 0 ];
+; 2481 :          g_chPrintPreview = szBuffer[ 0 ];
 
 	mov	cl, BYTE PTR _szBuffer$[ebp]
 	mov	BYTE PTR _g_chPrintPreview, cl
 
-; 2477 :          if ( g_chPrintPreview == 'Y' )
+; 2482 :          if ( g_chPrintPreview == 'Y' )
 
 	movsx	edx, BYTE PTR _g_chPrintPreview
 	cmp	edx, 89					; 00000059H
-	jne	SHORT $L60248
+	jne	SHORT $L60250
 
-; 2478 :             g_chPrintPreview = '0';
+; 2483 :             g_chPrintPreview = '0';
 
 	mov	BYTE PTR _g_chPrintPreview, 48		; 00000030H
-$L60248:
+$L60250:
 
-; 2480 : 
-; 2481 :       SysReadZeidonIni( -1, "[ObjectEngine]", "PrintDialog", szBuffer );
+; 2485 : 
+; 2486 :       SysReadZeidonIni( -1, "[ObjectEngine]", "PrintDialog", szBuffer );
 
 	lea	eax, DWORD PTR _szBuffer$[ebp]
 	push	eax
@@ -8137,20 +8164,20 @@ $L60248:
 	push	-1
 	call	_SysReadZeidonIni@16
 
-; 2482 :       if ( szBuffer[ 0 ] )
+; 2487 :       if ( szBuffer[ 0 ] )
 
 	movsx	ecx, BYTE PTR _szBuffer$[ebp]
 	test	ecx, ecx
-	je	SHORT $L60249
+	je	SHORT $L60251
 
-; 2483 :          g_chPrintDialog = szBuffer[ 0 ];
+; 2488 :          g_chPrintDialog = szBuffer[ 0 ];
 
 	mov	dl, BYTE PTR _szBuffer$[ebp]
 	mov	BYTE PTR _g_chPrintDialog, dl
-$L60249:
+$L60251:
 
-; 2484 : 
-; 2485 :       SysReadZeidonIni( -1, "[ObjectEngine]", "TraceOE_Warning", szBuffer );
+; 2489 : 
+; 2490 :       SysReadZeidonIni( -1, "[ObjectEngine]", "TraceOE_Warning", szBuffer );
 
 	lea	eax, DWORD PTR _szBuffer$[ebp]
 	push	eax
@@ -8159,20 +8186,20 @@ $L60249:
 	push	-1
 	call	_SysReadZeidonIni@16
 
-; 2486 :       if ( szBuffer[ 0 ] )
+; 2491 :       if ( szBuffer[ 0 ] )
 
 	movsx	ecx, BYTE PTR _szBuffer$[ebp]
 	test	ecx, ecx
-	je	SHORT $L60250
+	je	SHORT $L60252
 
-; 2487 :          g_chTraceOE_Warning = szBuffer[ 0 ];
+; 2492 :          g_chTraceOE_Warning = szBuffer[ 0 ];
 
 	mov	dl, BYTE PTR _szBuffer$[ebp]
 	mov	BYTE PTR _g_chTraceOE_Warning, dl
-$L60250:
+$L60252:
 
-; 2488 : 
-; 2489 :       SysReadZeidonIni( -1, "[ObjectEngine]", "TraceAction", szBuffer );
+; 2493 : 
+; 2494 :       SysReadZeidonIni( -1, "[ObjectEngine]", "TraceAction", szBuffer );
 
 	lea	eax, DWORD PTR _szBuffer$[ebp]
 	push	eax
@@ -8181,20 +8208,20 @@ $L60250:
 	push	-1
 	call	_SysReadZeidonIni@16
 
-; 2490 :       if ( szBuffer[ 0 ] )
+; 2495 :       if ( szBuffer[ 0 ] )
 
 	movsx	ecx, BYTE PTR _szBuffer$[ebp]
 	test	ecx, ecx
-	je	SHORT $L60251
+	je	SHORT $L60253
 
-; 2491 :          g_chTraceZDrActions = szBuffer[ 0 ];
+; 2496 :          g_chTraceZDrActions = szBuffer[ 0 ];
 
 	mov	dl, BYTE PTR _szBuffer$[ebp]
 	mov	BYTE PTR _g_chTraceZDrActions, dl
-$L60251:
+$L60253:
 
-; 2492 : 
-; 2493 :       SysReadZeidonIni( -1, "[ObjectEngine]", "TraceWeb", szBuffer );
+; 2497 : 
+; 2498 :       SysReadZeidonIni( -1, "[ObjectEngine]", "TraceWeb", szBuffer );
 
 	lea	eax, DWORD PTR _szBuffer$[ebp]
 	push	eax
@@ -8203,20 +8230,20 @@ $L60251:
 	push	-1
 	call	_SysReadZeidonIni@16
 
-; 2494 :       if ( szBuffer[ 0 ] )
+; 2499 :       if ( szBuffer[ 0 ] )
 
 	movsx	ecx, BYTE PTR _szBuffer$[ebp]
 	test	ecx, ecx
-	je	SHORT $L60252
+	je	SHORT $L60254
 
-; 2495 :          g_chTraceWebActions = szBuffer[ 0 ];
+; 2500 :          g_chTraceWebActions = szBuffer[ 0 ];
 
 	mov	dl, BYTE PTR _szBuffer$[ebp]
 	mov	BYTE PTR _g_chTraceWebActions, dl
-$L60252:
+$L60254:
 
-; 2496 : 
-; 2497 :       SysReadZeidonIni( -1, "[ObjectEngine]", "ShowTaskID", szBuffer );
+; 2501 : 
+; 2502 :       SysReadZeidonIni( -1, "[ObjectEngine]", "ShowTaskID", szBuffer );
 
 	lea	eax, DWORD PTR _szBuffer$[ebp]
 	push	eax
@@ -8225,29 +8252,29 @@ $L60252:
 	push	-1
 	call	_SysReadZeidonIni@16
 
-; 2498 :       if ( szBuffer[ 0 ] )
+; 2503 :       if ( szBuffer[ 0 ] )
 
 	movsx	ecx, BYTE PTR _szBuffer$[ebp]
 	test	ecx, ecx
-	je	SHORT $L60253
+	je	SHORT $L60255
 
-; 2499 :          AnchorBlock->bShowTaskID = 1;
+; 2504 :          AnchorBlock->bShowTaskID = 1;
 
 	mov	edx, DWORD PTR _AnchorBlock
 	mov	eax, DWORD PTR [edx+1495]
 	or	al, 1
 	mov	ecx, DWORD PTR _AnchorBlock
 	mov	DWORD PTR [ecx+1495], eax
-$L60253:
+$L60255:
 
-; 2500 : 
-; 2501 :       lpTraceFlags = GetTracingFlags( );
+; 2505 : 
+; 2506 :       lpTraceFlags = GetTracingFlags( );
 
 	call	_GetTracingFlags@0
 	mov	DWORD PTR _lpTraceFlags$[ebp], eax
 
-; 2502 : 
-; 2503 :       SysReadZeidonIni( -1, "[ObjectEngine]", "ShowOpenFile", szBuffer );
+; 2507 : 
+; 2508 :       SysReadZeidonIni( -1, "[ObjectEngine]", "ShowOpenFile", szBuffer );
 
 	lea	edx, DWORD PTR _szBuffer$[ebp]
 	push	edx
@@ -8256,7 +8283,7 @@ $L60253:
 	push	-1
 	call	_SysReadZeidonIni@16
 
-; 2504 :       lpTraceFlags->bOpenFile = (toupper( szBuffer[ 0 ] ) == 'Y') ? TRUE : FALSE;
+; 2509 :       lpTraceFlags->bOpenFile = (toupper( szBuffer[ 0 ] ) == 'Y') ? TRUE : FALSE;
 
 	movsx	eax, BYTE PTR _szBuffer$[ebp]
 	push	eax
@@ -8275,8 +8302,8 @@ $L60253:
 	mov	ecx, DWORD PTR _lpTraceFlags$[ebp]
 	mov	DWORD PTR [ecx], eax
 
-; 2505 : 
-; 2506 :       SysReadZeidonIni( -1, "[ObjectEngine]", "ShowOI_Times", szBuffer );
+; 2510 : 
+; 2511 :       SysReadZeidonIni( -1, "[ObjectEngine]", "ShowOI_Times", szBuffer );
 
 	lea	edx, DWORD PTR _szBuffer$[ebp]
 	push	edx
@@ -8285,7 +8312,7 @@ $L60253:
 	push	-1
 	call	_SysReadZeidonIni@16
 
-; 2507 :       lpTraceFlags->bOI_Times = (toupper( szBuffer[ 0 ] ) == 'Y') ? TRUE : FALSE;
+; 2512 :       lpTraceFlags->bOI_Times = (toupper( szBuffer[ 0 ] ) == 'Y') ? TRUE : FALSE;
 
 	movsx	eax, BYTE PTR _szBuffer$[ebp]
 	push	eax
@@ -8303,8 +8330,8 @@ $L60253:
 	mov	ecx, DWORD PTR _lpTraceFlags$[ebp]
 	mov	DWORD PTR [ecx], eax
 
-; 2508 : 
-; 2509 :       SysReadZeidonIni( -1, "[ObjectEngine]", "ShowTaskMsgs", szBuffer );
+; 2513 : 
+; 2514 :       SysReadZeidonIni( -1, "[ObjectEngine]", "ShowTaskMsgs", szBuffer );
 
 	lea	edx, DWORD PTR _szBuffer$[ebp]
 	push	edx
@@ -8313,7 +8340,7 @@ $L60253:
 	push	-1
 	call	_SysReadZeidonIni@16
 
-; 2510 :       lpTraceFlags->bTaskMsgs = (toupper( szBuffer[ 0 ] ) == 'Y') ? TRUE : FALSE;
+; 2515 :       lpTraceFlags->bTaskMsgs = (toupper( szBuffer[ 0 ] ) == 'Y') ? TRUE : FALSE;
 
 	movsx	eax, BYTE PTR _szBuffer$[ebp]
 	push	eax
@@ -8331,12 +8358,12 @@ $L60253:
 	or	eax, ecx
 	mov	ecx, DWORD PTR _lpTraceFlags$[ebp]
 	mov	DWORD PTR [ecx], eax
-$L60243:
+$L60245:
 
-; 2512 : 
-; 2513 :    // Retrieve WindowStartup parameter and show window in hidden,
-; 2514 :    // systray or normal mode.
-; 2515 :    SysReadZeidonIni( -1, "[ObjectEngine]", "WindowStartup", szBuffer );
+; 2517 : 
+; 2518 :    // Retrieve WindowStartup parameter and show window in hidden,
+; 2519 :    // systray or normal mode.
+; 2520 :    SysReadZeidonIni( -1, "[ObjectEngine]", "WindowStartup", szBuffer );
 
 	lea	edx, DWORD PTR _szBuffer$[ebp]
 	push	edx
@@ -8345,7 +8372,7 @@ $L60243:
 	push	-1
 	call	_SysReadZeidonIni@16
 
-; 2516 :    if ( zstricmp( szBuffer, "Hidden" ) == 0 )
+; 2521 :    if ( zstricmp( szBuffer, "Hidden" ) == 0 )
 
 	push	OFFSET FLAT:??_C@_06OCEO@Hidden?$AA@	; `string'
 	lea	eax, DWORD PTR _szBuffer$[ebp]
@@ -8353,21 +8380,21 @@ $L60243:
 	call	_stricmp
 	add	esp, 8
 	test	eax, eax
-	jne	SHORT $L60255
+	jne	SHORT $L60257
 
-; 2518 :       ShowWindow( g_hWndMainFrame, SW_HIDE );
+; 2523 :       ShowWindow( g_hWndMainFrame, SW_HIDE );
 
 	push	0
 	mov	ecx, DWORD PTR _g_hWndMainFrame
 	push	ecx
 	call	DWORD PTR __imp__ShowWindow@8
 
-; 2520 :    else
+; 2525 :    else
 
-	jmp	$L60270
-$L60255:
+	jmp	$L60272
+$L60257:
 
-; 2521 :    if ( zstricmp( szBuffer, "SysTray" ) == 0 )
+; 2526 :    if ( zstricmp( szBuffer, "SysTray" ) == 0 )
 
 	push	OFFSET FLAT:??_C@_07HBBA@SysTray?$AA@	; `string'
 	lea	edx, DWORD PTR _szBuffer$[ebp]
@@ -8375,9 +8402,9 @@ $L60255:
 	call	_stricmp
 	add	esp, 8
 	test	eax, eax
-	jne	$L60258
+	jne	$L60260
 
-; 2523 :       if ( ReadWindowPlacement( lpTask, &wp ) && CheckWindowPos( &wp ) )
+; 2528 :       if ( ReadWindowPlacement( lpTask, &wp ) && CheckWindowPos( &wp ) )
 
 	lea	eax, DWORD PTR _wp$[ebp]
 	push	eax
@@ -8387,61 +8414,61 @@ $L60255:
 	add	esp, 8
 	and	eax, 255				; 000000ffH
 	test	eax, eax
-	je	SHORT $L60260
+	je	SHORT $L60262
 	lea	edx, DWORD PTR _wp$[ebp]
 	push	edx
 	call	_CheckWindowPos
 	add	esp, 4
 	and	eax, 255				; 000000ffH
 	test	eax, eax
-	je	SHORT $L60260
+	je	SHORT $L60262
 
-; 2524 :          SetWindowPlacement( g_hWndMainFrame, &wp );
+; 2529 :          SetWindowPlacement( g_hWndMainFrame, &wp );
 
 	lea	eax, DWORD PTR _wp$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _g_hWndMainFrame
 	push	ecx
 	call	DWORD PTR __imp__SetWindowPlacement@8
-$L60260:
+$L60262:
 
-; 2525 : 
-; 2526 :       ShowWindow( g_hWndMainFrame, SW_HIDE );
+; 2530 : 
+; 2531 :       ShowWindow( g_hWndMainFrame, SW_HIDE );
 
 	push	0
 	mov	edx, DWORD PTR _g_hWndMainFrame
 	push	edx
 	call	DWORD PTR __imp__ShowWindow@8
 
-; 2527 :       SetupSysTray( hInstance );
+; 2532 :       SetupSysTray( hInstance );
 
 	mov	eax, DWORD PTR _hInstance$[ebp]
 	push	eax
 	call	_SetupSysTray
 	add	esp, 4
 
-; 2528 :       hMenu = GetMenu( g_hWndMainFrame );
+; 2533 :       hMenu = GetMenu( g_hWndMainFrame );
 
 	mov	ecx, DWORD PTR _g_hWndMainFrame
 	push	ecx
 	call	DWORD PTR __imp__GetMenu@4
 	mov	DWORD PTR _hMenu$[ebp], eax
 
-; 2529 :       if ( hMenu )
+; 2534 :       if ( hMenu )
 
 	cmp	DWORD PTR _hMenu$[ebp], 0
-	je	SHORT $L60261
+	je	SHORT $L60263
 
-; 2530 :          DestroyMenu( hMenu );
+; 2535 :          DestroyMenu( hMenu );
 
 	mov	edx, DWORD PTR _hMenu$[ebp]
 	push	edx
 	call	DWORD PTR __imp__DestroyMenu@4
-$L60261:
+$L60263:
 
-; 2531 : 
-; 2532 :       // Load Systray specific menu.
-; 2533 :       hMenu = LoadMenu( hInst, MAKEINTRESOURCE( ID_KZOENGWA_MNU ));
+; 2536 : 
+; 2537 :       // Load Systray specific menu.
+; 2538 :       hMenu = LoadMenu( hInst, MAKEINTRESOURCE( ID_KZOENGWA_MNU ));
 
 	push	322					; 00000142H
 	mov	eax, DWORD PTR _hInst
@@ -8449,21 +8476,21 @@ $L60261:
 	call	DWORD PTR __imp__LoadMenuA@8
 	mov	DWORD PTR _hMenu$[ebp], eax
 
-; 2534 :       // Delete the unused menu items.
-; 2535 :       for ( i = g_nTraceWindowCnt; i < MAX_TRACE_WINDOWS; i++ )
+; 2539 :       // Delete the unused menu items.
+; 2540 :       for ( i = g_nTraceWindowCnt; i < MAX_TRACE_WINDOWS; i++ )
 
 	mov	ecx, DWORD PTR _g_nTraceWindowCnt
 	mov	DWORD PTR _i$[ebp], ecx
-	jmp	SHORT $L60265
-$L60266:
+	jmp	SHORT $L60267
+$L60268:
 	mov	edx, DWORD PTR _i$[ebp]
 	add	edx, 1
 	mov	DWORD PTR _i$[ebp], edx
-$L60265:
+$L60267:
 	cmp	DWORD PTR _i$[ebp], 20			; 00000014H
-	jae	SHORT $L60267
+	jae	SHORT $L60269
 
-; 2536 :          DeleteMenu( hMenu, IDM_TRACEWINDOW01 + i, MF_BYCOMMAND );
+; 2541 :          DeleteMenu( hMenu, IDM_TRACEWINDOW01 + i, MF_BYCOMMAND );
 
 	push	0
 	mov	eax, DWORD PTR _i$[ebp]
@@ -8472,11 +8499,11 @@ $L60265:
 	mov	ecx, DWORD PTR _hMenu$[ebp]
 	push	ecx
 	call	DWORD PTR __imp__DeleteMenu@12
-	jmp	SHORT $L60266
-$L60267:
+	jmp	SHORT $L60268
+$L60269:
 
-; 2537 : 
-; 2538 :       SetMenu( g_hWndMainFrame, hMenu );
+; 2542 : 
+; 2543 :       SetMenu( g_hWndMainFrame, hMenu );
 
 	mov	edx, DWORD PTR _hMenu$[ebp]
 	push	edx
@@ -8484,12 +8511,12 @@ $L60267:
 	push	eax
 	call	DWORD PTR __imp__SetMenu@8
 
-; 2540 :    else
+; 2545 :    else
 
-	jmp	SHORT $L60270
-$L60258:
+	jmp	SHORT $L60272
+$L60260:
 
-; 2541 :    if ( ReadWindowPlacement( lpTask, &wp ) && CheckWindowPos( &wp ) )
+; 2546 :    if ( ReadWindowPlacement( lpTask, &wp ) && CheckWindowPos( &wp ) )
 
 	lea	ecx, DWORD PTR _wp$[ebp]
 	push	ecx
@@ -8499,16 +8526,16 @@ $L60258:
 	add	esp, 8
 	and	eax, 255				; 000000ffH
 	test	eax, eax
-	je	SHORT $L60269
+	je	SHORT $L60271
 	lea	eax, DWORD PTR _wp$[ebp]
 	push	eax
 	call	_CheckWindowPos
 	add	esp, 4
 	and	eax, 255				; 000000ffH
 	test	eax, eax
-	je	SHORT $L60269
+	je	SHORT $L60271
 
-; 2542 :       SetWindowPlacement( g_hWndMainFrame, &wp );
+; 2547 :       SetWindowPlacement( g_hWndMainFrame, &wp );
 
 	lea	ecx, DWORD PTR _wp$[ebp]
 	push	ecx
@@ -8516,21 +8543,21 @@ $L60258:
 	push	edx
 	call	DWORD PTR __imp__SetWindowPlacement@8
 
-; 2543 :    else
+; 2548 :    else
 
-	jmp	SHORT $L60270
-$L60269:
+	jmp	SHORT $L60272
+$L60271:
 
-; 2544 :       ShowWindow( g_hWndMainFrame, SW_SHOW );  // Show the window
+; 2549 :       ShowWindow( g_hWndMainFrame, SW_SHOW );  // Show the window
 
 	push	5
 	mov	eax, DWORD PTR _g_hWndMainFrame
 	push	eax
 	call	DWORD PTR __imp__ShowWindow@8
-$L60270:
+$L60272:
 
-; 2545 : 
-; 2546 :    SysReadZeidonIni( -1, "ObjectEngine", "DropEngineIfNoTasks", szBuffer );
+; 2550 : 
+; 2551 :    SysReadZeidonIni( -1, "ObjectEngine", "DropEngineIfNoTasks", szBuffer );
 
 	lea	ecx, DWORD PTR _szBuffer$[ebp]
 	push	ecx
@@ -8539,28 +8566,28 @@ $L60270:
 	push	-1
 	call	_SysReadZeidonIni@16
 
-; 2547 :    if ( ztoupper( *szBuffer ) == 'Y' )
+; 2552 :    if ( ztoupper( *szBuffer ) == 'Y' )
 
 	movsx	edx, BYTE PTR _szBuffer$[ebp]
 	push	edx
 	call	_toupper
 	add	esp, 4
 	cmp	eax, 89					; 00000059H
-	jne	SHORT $L60272
+	jne	SHORT $L60274
 
-; 2548 :       AnchorBlock->bDropEngineIfNoTasks = TRUE;
+; 2553 :       AnchorBlock->bDropEngineIfNoTasks = TRUE;
 
 	mov	eax, DWORD PTR _AnchorBlock
 	mov	ecx, DWORD PTR [eax+1495]
 	or	ecx, 4
 	mov	edx, DWORD PTR _AnchorBlock
 	mov	DWORD PTR [edx+1495], ecx
-$L60272:
+$L60274:
 
-; 2549 : 
-; 2550 :    CheckMenuItem( hMenu, IDM_SCROLLTRACE,
-; 2551 :                   MF_BYCOMMAND |
-; 2552 :                      (g_chScrollTrace ? MF_CHECKED : MF_UNCHECKED) );
+; 2554 : 
+; 2555 :    CheckMenuItem( hMenu, IDM_SCROLLTRACE,
+; 2556 :                   MF_BYCOMMAND |
+; 2557 :                      (g_chScrollTrace ? MF_CHECKED : MF_UNCHECKED) );
 
 	movsx	eax, BYTE PTR _g_chScrollTrace
 	neg	eax
@@ -8572,9 +8599,9 @@ $L60272:
 	push	ecx
 	call	DWORD PTR __imp__CheckMenuItem@12
 
-; 2553 :    CheckMenuItem( hMenu, IDM_PRINTPREVIEW,
-; 2554 :                   MF_BYCOMMAND |
-; 2555 :                      (g_chPrintPreview ? MF_UNCHECKED : MF_CHECKED) );
+; 2558 :    CheckMenuItem( hMenu, IDM_PRINTPREVIEW,
+; 2559 :                   MF_BYCOMMAND |
+; 2560 :                      (g_chPrintPreview ? MF_UNCHECKED : MF_CHECKED) );
 
 	movsx	edx, BYTE PTR _g_chPrintPreview
 	neg	edx
@@ -8587,9 +8614,9 @@ $L60272:
 	push	eax
 	call	DWORD PTR __imp__CheckMenuItem@12
 
-; 2556 :    CheckMenuItem( hMenu, IDM_PREVIEW_ZOOMOUT,
-; 2557 :                   MF_BYCOMMAND |
-; 2558 :                      (g_chPrintPreview == '0' ? MF_CHECKED : MF_UNCHECKED) );
+; 2561 :    CheckMenuItem( hMenu, IDM_PREVIEW_ZOOMOUT,
+; 2562 :                   MF_BYCOMMAND |
+; 2563 :                      (g_chPrintPreview == '0' ? MF_CHECKED : MF_UNCHECKED) );
 
 	movsx	ecx, BYTE PTR _g_chPrintPreview
 	sub	ecx, 48					; 00000030H
@@ -8603,9 +8630,9 @@ $L60272:
 	push	edx
 	call	DWORD PTR __imp__CheckMenuItem@12
 
-; 2559 :    CheckMenuItem( hMenu, IDM_PREVIEW_ZOOM,
-; 2560 :                   MF_BYCOMMAND |
-; 2561 :                      (g_chPrintPreview == '1' ? MF_CHECKED : MF_UNCHECKED) );
+; 2564 :    CheckMenuItem( hMenu, IDM_PREVIEW_ZOOM,
+; 2565 :                   MF_BYCOMMAND |
+; 2566 :                      (g_chPrintPreview == '1' ? MF_CHECKED : MF_UNCHECKED) );
 
 	movsx	eax, BYTE PTR _g_chPrintPreview
 	sub	eax, 49					; 00000031H
@@ -8619,9 +8646,9 @@ $L60272:
 	push	ecx
 	call	DWORD PTR __imp__CheckMenuItem@12
 
-; 2562 :    CheckMenuItem( hMenu, IDM_PREVIEW_ZOOMIN,
-; 2563 :                   MF_BYCOMMAND |
-; 2564 :                      (g_chPrintPreview == '2' ? MF_CHECKED : MF_UNCHECKED) );
+; 2567 :    CheckMenuItem( hMenu, IDM_PREVIEW_ZOOMIN,
+; 2568 :                   MF_BYCOMMAND |
+; 2569 :                      (g_chPrintPreview == '2' ? MF_CHECKED : MF_UNCHECKED) );
 
 	movsx	edx, BYTE PTR _g_chPrintPreview
 	sub	edx, 50					; 00000032H
@@ -8635,9 +8662,9 @@ $L60272:
 	push	eax
 	call	DWORD PTR __imp__CheckMenuItem@12
 
-; 2565 :    CheckMenuItem( hMenu, IDM_PRINTDIALOG,
-; 2566 :                   MF_BYCOMMAND |
-; 2567 :                      (g_chPrintDialog ? MF_CHECKED : MF_UNCHECKED) );
+; 2570 :    CheckMenuItem( hMenu, IDM_PRINTDIALOG,
+; 2571 :                   MF_BYCOMMAND |
+; 2572 :                      (g_chPrintDialog ? MF_CHECKED : MF_UNCHECKED) );
 
 	movsx	ecx, BYTE PTR _g_chPrintDialog
 	neg	ecx
@@ -8649,9 +8676,9 @@ $L60272:
 	push	edx
 	call	DWORD PTR __imp__CheckMenuItem@12
 
-; 2568 :    CheckMenuItem( hMenu, IDM_SHOWTASKID,
-; 2569 :                   MF_BYCOMMAND |
-; 2570 :                     (AnchorBlock->bShowTaskID ? MF_CHECKED : MF_UNCHECKED) );
+; 2573 :    CheckMenuItem( hMenu, IDM_SHOWTASKID,
+; 2574 :                   MF_BYCOMMAND |
+; 2575 :                     (AnchorBlock->bShowTaskID ? MF_CHECKED : MF_UNCHECKED) );
 
 	mov	eax, DWORD PTR _AnchorBlock
 	mov	ecx, DWORD PTR [eax+1495]
@@ -8665,27 +8692,27 @@ $L60272:
 	push	edx
 	call	DWORD PTR __imp__CheckMenuItem@12
 
-; 2571 :    CheckMenuItem( hMenu, IDM_SETOETRACE,
-; 2572 :                   MF_BYCOMMAND |
-; 2573 :                      (g_chTraceOE_Warning == 0 ||
-; 2574 :                         g_chTraceOE_Warning == 'n' ||
-; 2575 :                         g_chTraceOE_Warning == 'N' ? MF_UNCHECKED :
-; 2576 :                                                      MF_CHECKED) );
+; 2576 :    CheckMenuItem( hMenu, IDM_SETOETRACE,
+; 2577 :                   MF_BYCOMMAND |
+; 2578 :                      (g_chTraceOE_Warning == 0 ||
+; 2579 :                         g_chTraceOE_Warning == 'n' ||
+; 2580 :                         g_chTraceOE_Warning == 'N' ? MF_UNCHECKED :
+; 2581 :                                                      MF_CHECKED) );
 
 	movsx	eax, BYTE PTR _g_chTraceOE_Warning
 	test	eax, eax
-	je	SHORT $L60798
+	je	SHORT $L60801
 	movsx	ecx, BYTE PTR _g_chTraceOE_Warning
 	cmp	ecx, 110				; 0000006eH
-	je	SHORT $L60798
+	je	SHORT $L60801
 	movsx	edx, BYTE PTR _g_chTraceOE_Warning
 	cmp	edx, 78					; 0000004eH
-	je	SHORT $L60798
+	je	SHORT $L60801
 	mov	DWORD PTR -1232+[ebp], 8
-	jmp	SHORT $L60799
-$L60798:
+	jmp	SHORT $L60802
+$L60801:
 	mov	DWORD PTR -1232+[ebp], 0
-$L60799:
+$L60802:
 	mov	eax, DWORD PTR -1232+[ebp]
 	push	eax
 	push	133					; 00000085H
@@ -8693,27 +8720,27 @@ $L60799:
 	push	ecx
 	call	DWORD PTR __imp__CheckMenuItem@12
 
-; 2577 :    CheckMenuItem( hMenu, IDM_SETZDRTRACE,
-; 2578 :                   MF_BYCOMMAND |
-; 2579 :                      (g_chTraceZDrActions == 0 ||
-; 2580 :                         g_chTraceZDrActions == 'n' ||
-; 2581 :                         g_chTraceZDrActions == 'N' ? MF_UNCHECKED :
-; 2582 :                                                      MF_CHECKED) );
+; 2582 :    CheckMenuItem( hMenu, IDM_SETZDRTRACE,
+; 2583 :                   MF_BYCOMMAND |
+; 2584 :                      (g_chTraceZDrActions == 0 ||
+; 2585 :                         g_chTraceZDrActions == 'n' ||
+; 2586 :                         g_chTraceZDrActions == 'N' ? MF_UNCHECKED :
+; 2587 :                                                      MF_CHECKED) );
 
 	movsx	edx, BYTE PTR _g_chTraceZDrActions
 	test	edx, edx
-	je	SHORT $L60800
+	je	SHORT $L60803
 	movsx	eax, BYTE PTR _g_chTraceZDrActions
 	cmp	eax, 110				; 0000006eH
-	je	SHORT $L60800
+	je	SHORT $L60803
 	movsx	ecx, BYTE PTR _g_chTraceZDrActions
 	cmp	ecx, 78					; 0000004eH
-	je	SHORT $L60800
+	je	SHORT $L60803
 	mov	DWORD PTR -1236+[ebp], 8
-	jmp	SHORT $L60801
-$L60800:
+	jmp	SHORT $L60804
+$L60803:
 	mov	DWORD PTR -1236+[ebp], 0
-$L60801:
+$L60804:
 	mov	edx, DWORD PTR -1236+[ebp]
 	push	edx
 	push	134					; 00000086H
@@ -8721,27 +8748,27 @@ $L60801:
 	push	eax
 	call	DWORD PTR __imp__CheckMenuItem@12
 
-; 2583 :    CheckMenuItem( hMenu, IDM_SETWEBTRACE,
-; 2584 :                   MF_BYCOMMAND |
-; 2585 :                      (g_chTraceWebActions == 0 ||
-; 2586 :                         g_chTraceWebActions == 'n' ||
-; 2587 :                         g_chTraceWebActions == 'N' ? MF_UNCHECKED :
-; 2588 :                                                      MF_CHECKED) );
+; 2588 :    CheckMenuItem( hMenu, IDM_SETWEBTRACE,
+; 2589 :                   MF_BYCOMMAND |
+; 2590 :                      (g_chTraceWebActions == 0 ||
+; 2591 :                         g_chTraceWebActions == 'n' ||
+; 2592 :                         g_chTraceWebActions == 'N' ? MF_UNCHECKED :
+; 2593 :                                                      MF_CHECKED) );
 
 	movsx	ecx, BYTE PTR _g_chTraceWebActions
 	test	ecx, ecx
-	je	SHORT $L60802
+	je	SHORT $L60805
 	movsx	edx, BYTE PTR _g_chTraceWebActions
 	cmp	edx, 110				; 0000006eH
-	je	SHORT $L60802
+	je	SHORT $L60805
 	movsx	eax, BYTE PTR _g_chTraceWebActions
 	cmp	eax, 78					; 0000004eH
-	je	SHORT $L60802
+	je	SHORT $L60805
 	mov	DWORD PTR -1240+[ebp], 8
-	jmp	SHORT $L60803
-$L60802:
+	jmp	SHORT $L60806
+$L60805:
 	mov	DWORD PTR -1240+[ebp], 0
-$L60803:
+$L60806:
 	mov	ecx, DWORD PTR -1240+[ebp]
 	push	ecx
 	push	135					; 00000087H
@@ -8749,237 +8776,237 @@ $L60803:
 	push	edx
 	call	DWORD PTR __imp__CheckMenuItem@12
 
-; 2593 :       HANDLE hNetApi;
-; 2594 :       FARPROC lpfnNetWkstaGetInfo;
-; 2595 :       char far * Buffer[ 20 ];
-; 2596 :       char    szLanUser[ 32 ];
-; 2597 :       char    szIniUser[ 32 ];
-; 2598 :       char    szIniPassword[ 32 ];
-; 2599 :       char    szPassword[ 32 ];
-; 2600 :       char    szUser[ 32 ];
-; 2601 : 	  char    szEncrypted[ 1 ];
-; 2602 :       USHORT  uReturnLth;
-; 2603 : 	  USHORT  uLth;
-; 2604 :       USHORT  uRC;
-; 2605 : 
-; 2606 :       SysReadZeidonIni( -1, szlWorkstation, szlUserID, szIniUser );
+; 2598 :       HANDLE hNetApi;
+; 2599 :       FARPROC lpfnNetWkstaGetInfo;
+; 2600 :       char far * Buffer[ 20 ];
+; 2601 :       char    szLanUser[ 32 ];
+; 2602 :       char    szIniUser[ 32 ];
+; 2603 :       char    szIniPassword[ 32 ];
+; 2604 :       char    szPassword[ 32 ];
+; 2605 :       char    szUser[ 32 ];
+; 2606 :       char    szEncrypted[ 1 ];
+; 2607 :       USHORT  uReturnLth;
+; 2608 :       USHORT  uLth;
+; 2609 :       USHORT  uRC;
+; 2610 : 
+; 2611 :       SysReadZeidonIni( -1, szlWorkstation, szlUserID, szIniUser );
 
-	lea	eax, DWORD PTR _szIniUser$60277[ebp]
+	lea	eax, DWORD PTR _szIniUser$60279[ebp]
 	push	eax
 	push	OFFSET FLAT:_szlUserID
 	push	OFFSET FLAT:_szlWorkstation
 	push	-1
 	call	_SysReadZeidonIni@16
 
-; 2607 :       SysReadZeidonIni( -1, szlWorkstation, szlPassword, szIniPassword );
+; 2612 :       SysReadZeidonIni( -1, szlWorkstation, szlPassword, szIniPassword );
 
-	lea	ecx, DWORD PTR _szIniPassword$60278[ebp]
+	lea	ecx, DWORD PTR _szIniPassword$60280[ebp]
 	push	ecx
 	push	OFFSET FLAT:_szlPassword
 	push	OFFSET FLAT:_szlWorkstation
 	push	-1
 	call	_SysReadZeidonIni@16
 
-; 2608 :       szLanUser[ 0 ] = 0;
+; 2613 :       szLanUser[ 0 ] = 0;
 
-	mov	BYTE PTR _szLanUser$60276[ebp], 0
+	mov	BYTE PTR _szLanUser$60278[ebp], 0
 
-; 2609 :       if ( (hNetApi = GetModuleHandle( "NETAPI" )) != 0 )
+; 2614 :       if ( (hNetApi = GetModuleHandle( "NETAPI" )) != 0 )
 
 	push	OFFSET FLAT:??_C@_06EJJP@NETAPI?$AA@	; `string'
 	call	DWORD PTR __imp__GetModuleHandleA@4
-	mov	DWORD PTR _hNetApi$60273[ebp], eax
-	cmp	DWORD PTR _hNetApi$60273[ebp], 0
-	je	SHORT $L60295
+	mov	DWORD PTR _hNetApi$60275[ebp], eax
+	cmp	DWORD PTR _hNetApi$60275[ebp], 0
+	je	SHORT $L60297
 
-; 2611 :          if ( (lpfnNetWkstaGetInfo =
-; 2612 :                       GetProcAddress( hNetApi, "NetWkstaGetInfo" )) != 0 )
+; 2616 :          if ( (lpfnNetWkstaGetInfo =
+; 2617 :                       GetProcAddress( hNetApi, "NetWkstaGetInfo" )) != 0 )
 
 	push	OFFSET FLAT:??_C@_0BA@CCDD@NetWkstaGetInfo?$AA@ ; `string'
-	mov	edx, DWORD PTR _hNetApi$60273[ebp]
+	mov	edx, DWORD PTR _hNetApi$60275[ebp]
 	push	edx
 	call	DWORD PTR __imp__GetProcAddress@8
-	mov	DWORD PTR _lpfnNetWkstaGetInfo$60274[ebp], eax
-	cmp	DWORD PTR _lpfnNetWkstaGetInfo$60274[ebp], 0
-	je	SHORT $L60295
+	mov	DWORD PTR _lpfnNetWkstaGetInfo$60276[ebp], eax
+	cmp	DWORD PTR _lpfnNetWkstaGetInfo$60276[ebp], 0
+	je	SHORT $L60297
 
-; 2614 :             uRC = (*lpfnNetWkstaGetInfo)( (zPCHAR) NULL, (zUSHORT) 10,
-; 2615 :                                           (zPCHAR) &Buffer[ 0 ],
-; 2616 :                                           (zUSHORT) 80,
-; 2617 :                                           (zPUSHORT) &uReturnLth );
+; 2619 :             uRC = (*lpfnNetWkstaGetInfo)( (zPCHAR) NULL, (zUSHORT) 10,
+; 2620 :                                           (zPCHAR) &Buffer[ 0 ],
+; 2621 :                                           (zUSHORT) 80,
+; 2622 :                                           (zPUSHORT) &uReturnLth );
 
-	lea	eax, DWORD PTR _uReturnLth$60282[ebp]
+	lea	eax, DWORD PTR _uReturnLth$60284[ebp]
 	push	eax
 	push	80					; 00000050H
-	lea	ecx, DWORD PTR _Buffer$60275[ebp]
+	lea	ecx, DWORD PTR _Buffer$60277[ebp]
 	push	ecx
 	push	10					; 0000000aH
 	push	0
-	call	DWORD PTR _lpfnNetWkstaGetInfo$60274[ebp]
-	mov	WORD PTR _uRC$60284[ebp], ax
+	call	DWORD PTR _lpfnNetWkstaGetInfo$60276[ebp]
+	mov	WORD PTR _uRC$60286[ebp], ax
 
-; 2618 :             if ( uRC == 0 )
+; 2623 :             if ( uRC == 0 )
 
-	mov	edx, DWORD PTR _uRC$60284[ebp]
+	mov	edx, DWORD PTR _uRC$60286[ebp]
 	and	edx, 65535				; 0000ffffH
 	test	edx, edx
-	jne	SHORT $L60295
+	jne	SHORT $L60297
 
-; 2619 :                zstrcpy( szLanUser, Buffer[ 1 ] );
+; 2624 :                zstrcpy( szLanUser, Buffer[ 1 ] );
 
-	mov	eax, DWORD PTR _Buffer$60275[ebp+4]
+	mov	eax, DWORD PTR _Buffer$60277[ebp+4]
 	push	eax
-	lea	ecx, DWORD PTR _szLanUser$60276[ebp]
+	lea	ecx, DWORD PTR _szLanUser$60278[ebp]
 	push	ecx
 	call	_strcpy
 	add	esp, 8
-$L60295:
-
-; 2622 : 
-; 2623 :       if ( szLanUser[ 0 ] || szIniUser[ 0 ] )
-
-	movsx	edx, BYTE PTR _szLanUser$60276[ebp]
-	test	edx, edx
-	jne	SHORT $L60297
-	movsx	eax, BYTE PTR _szIniUser$60277[ebp]
-	test	eax, eax
-	je	$L60296
 $L60297:
 
-; 2625 :          SysReadZeidonIni( -1, szlWorkstation, "Encrypted", szEncrypted );
+; 2627 : 
+; 2628 :       if ( szLanUser[ 0 ] || szIniUser[ 0 ] )
 
-	lea	ecx, DWORD PTR _szEncrypted$60281[ebp]
+	movsx	edx, BYTE PTR _szLanUser$60278[ebp]
+	test	edx, edx
+	jne	SHORT $L60299
+	movsx	eax, BYTE PTR _szIniUser$60279[ebp]
+	test	eax, eax
+	je	$L60298
+$L60299:
+
+; 2630 :          SysReadZeidonIni( -1, szlWorkstation, "Encrypted", szEncrypted );
+
+	lea	ecx, DWORD PTR _szEncrypted$60283[ebp]
 	push	ecx
 	push	OFFSET FLAT:??_C@_09MKCM@Encrypted?$AA@	; `string'
 	push	OFFSET FLAT:_szlWorkstation
 	push	-1
 	call	_SysReadZeidonIni@16
 
-; 2626 : 
-; 2627 :          if ( szIniUser[ 0 ] == 0 )
+; 2631 : 
+; 2632 :          if ( szIniUser[ 0 ] == 0 )
 
-	movsx	edx, BYTE PTR _szIniUser$60277[ebp]
+	movsx	edx, BYTE PTR _szIniUser$60279[ebp]
 	test	edx, edx
-	jne	SHORT $L60299
+	jne	SHORT $L60301
 
-; 2628 :             zstrcpy( szIniUser, szLanUser );
+; 2633 :             zstrcpy( szIniUser, szLanUser );
 
-	lea	eax, DWORD PTR _szLanUser$60276[ebp]
+	lea	eax, DWORD PTR _szLanUser$60278[ebp]
 	push	eax
-	lea	ecx, DWORD PTR _szIniUser$60277[ebp]
+	lea	ecx, DWORD PTR _szIniUser$60279[ebp]
 	push	ecx
 	call	_strcpy
 	add	esp, 8
-$L60299:
-
-; 2629 : 
-; 2630 :          if ( szEncrypted[ 0 ] == 'E' || szEncrypted[ 0 ] == 'e' )
-
-	movsx	edx, BYTE PTR _szEncrypted$60281[ebp]
-	cmp	edx, 69					; 00000045H
-	je	SHORT $L60301
-	movsx	eax, BYTE PTR _szEncrypted$60281[ebp]
-	cmp	eax, 101				; 00000065H
-	jne	SHORT $L60300
 $L60301:
 
-; 2632 :          /*
-; 2633 :          UfEncryptString (szUser, "sa", 26 );
-; 2634 :                   TraceLineS( "----Encrypted Username: ", szUser );
-; 2635 :          UfEncryptString (szPassword, "sql!4ever&ever", 26 );
-; 2636 :                   TraceLineS( "----Encrypted Password: ", szPassword );
-; 2637 : 
-; 2638 :                   UfDecryptString( szIniUser, szUser,  26 );
-; 2639 :                   TraceLineS( "----Decrypted Username: ", szIniUser );
-; 2640 :                   UfDecryptString( szIniPassword, szPassword, 26 );
-; 2641 :                   TraceLineS( "----Decrypted Password: ", szIniPassword );
-; 2642 :          */
-; 2643 : 
-; 2644 :          uLth = zstrlen( szIniUser );
+; 2634 : 
+; 2635 :          if ( szEncrypted[ 0 ] == 'E' || szEncrypted[ 0 ] == 'e' )
 
-	lea	ecx, DWORD PTR _szIniUser$60277[ebp]
+	movsx	edx, BYTE PTR _szEncrypted$60283[ebp]
+	cmp	edx, 69					; 00000045H
+	je	SHORT $L60303
+	movsx	eax, BYTE PTR _szEncrypted$60283[ebp]
+	cmp	eax, 101				; 00000065H
+	jne	SHORT $L60302
+$L60303:
+
+; 2637 :          /*
+; 2638 :             UfEncryptString( szUser, "sa", 26 );
+; 2639 :                              TraceLineS( "----Encrypted Username: ", szUser );
+; 2640 :             UfEncryptString( szPassword, "sql!4ever&ever", 26 );
+; 2641 :                              TraceLineS( "----Encrypted Password: ", szPassword );
+; 2642 : 
+; 2643 :                              UfDecryptString( szIniUser, szUser,  26 );
+; 2644 :                              TraceLineS( "----Decrypted Username: ", szIniUser );
+; 2645 :                              UfDecryptString( szIniPassword, szPassword, 26 );
+; 2646 :                              TraceLineS( "----Decrypted Password: ", szIniPassword );
+; 2647 :          */
+; 2648 : 
+; 2649 :             uLth = zstrlen( szIniUser );
+
+	lea	ecx, DWORD PTR _szIniUser$60279[ebp]
 	push	ecx
 	call	_strlen
 	add	esp, 4
-	mov	WORD PTR _uLth$60283[ebp], ax
+	mov	WORD PTR _uLth$60285[ebp], ax
 
-; 2645 :                   UfDecryptString( szUser, szIniUser, uLth );
+; 2650 :             UfDecryptString( szUser, szIniUser, uLth );
 
-	mov	dx, WORD PTR _uLth$60283[ebp]
+	mov	dx, WORD PTR _uLth$60285[ebp]
 	push	edx
-	lea	eax, DWORD PTR _szIniUser$60277[ebp]
+	lea	eax, DWORD PTR _szIniUser$60279[ebp]
 	push	eax
-	lea	ecx, DWORD PTR _szUser$60280[ebp]
+	lea	ecx, DWORD PTR _szUser$60282[ebp]
 	push	ecx
 	call	_UfDecryptString@12
 
-; 2646 :                   //TraceLineS( "----Decrypted Username2: ", szUser );
-; 2647 :          uLth = zstrlen( szIniPassword );
+; 2651 :          // TraceLineS( "----Decrypted Username2: ", szUser );
+; 2652 :             uLth = zstrlen( szIniPassword );
 
-	lea	edx, DWORD PTR _szIniPassword$60278[ebp]
+	lea	edx, DWORD PTR _szIniPassword$60280[ebp]
 	push	edx
 	call	_strlen
 	add	esp, 4
-	mov	WORD PTR _uLth$60283[ebp], ax
+	mov	WORD PTR _uLth$60285[ebp], ax
 
-; 2648 :                   UfDecryptString( szPassword, szIniPassword, uLth );
+; 2653 :             UfDecryptString( szPassword, szIniPassword, uLth );
 
-	mov	ax, WORD PTR _uLth$60283[ebp]
+	mov	ax, WORD PTR _uLth$60285[ebp]
 	push	eax
-	lea	ecx, DWORD PTR _szIniPassword$60278[ebp]
+	lea	ecx, DWORD PTR _szIniPassword$60280[ebp]
 	push	ecx
-	lea	edx, DWORD PTR _szPassword$60279[ebp]
+	lea	edx, DWORD PTR _szPassword$60281[ebp]
 	push	edx
 	call	_UfDecryptString@12
 
-; 2651 :          else
+; 2656 :          else
 
-	jmp	SHORT $L60302
-$L60300:
-
-; 2653 :                   zstrcpy( szUser, szIniUser );
-
-	lea	eax, DWORD PTR _szIniUser$60277[ebp]
-	push	eax
-	lea	ecx, DWORD PTR _szUser$60280[ebp]
-	push	ecx
-	call	_strcpy
-	add	esp, 8
-
-; 2654 :                   zstrcpy( szPassword, szIniPassword );
-
-	lea	edx, DWORD PTR _szIniPassword$60278[ebp]
-	push	edx
-	lea	eax, DWORD PTR _szPassword$60279[ebp]
-	push	eax
-	call	_strcpy
-	add	esp, 8
+	jmp	SHORT $L60304
 $L60302:
 
-; 2656 : 
-; 2657 :       // if ( zstrlen( szIniPassword ) == 26 )
-; 2658 :       //    UfDecryptString( szPassword, szIniPassword, 26 );
-; 2659 :       // else
-; 2660 :       //    zstrcpy( szPassword, szIniPassword );
-; 2661 : 
-; 2662 :          SysSetUserID( lpTask, szUser, szPassword );
+; 2658 :             zstrcpy( szUser, szIniUser );
 
-	lea	ecx, DWORD PTR _szPassword$60279[ebp]
+	lea	eax, DWORD PTR _szIniUser$60279[ebp]
+	push	eax
+	lea	ecx, DWORD PTR _szUser$60282[ebp]
 	push	ecx
-	lea	edx, DWORD PTR _szUser$60280[ebp]
+	call	_strcpy
+	add	esp, 8
+
+; 2659 :             zstrcpy( szPassword, szIniPassword );
+
+	lea	edx, DWORD PTR _szIniPassword$60280[ebp]
+	push	edx
+	lea	eax, DWORD PTR _szPassword$60281[ebp]
+	push	eax
+	call	_strcpy
+	add	esp, 8
+$L60304:
+
+; 2661 : 
+; 2662 :       // if ( zstrlen( szIniPassword ) == 26 )
+; 2663 :       //    UfDecryptString( szPassword, szIniPassword, 26 );
+; 2664 :       // else
+; 2665 :       //    zstrcpy( szPassword, szIniPassword );
+; 2666 : 
+; 2667 :          SysSetUserID( lpTask, szUser, szPassword );
+
+	lea	ecx, DWORD PTR _szPassword$60281[ebp]
+	push	ecx
+	lea	edx, DWORD PTR _szUser$60282[ebp]
 	push	edx
 	mov	eax, DWORD PTR _lpTask$[ebp]
 	push	eax
 	call	_SysSetUserID@12
 
-; 2664 :       else
+; 2669 :       else
 
-	jmp	SHORT $L60303
-$L60296:
+	jmp	SHORT $L60305
+$L60298:
 
-; 2666 :          // Throw up the Logon dialog box
-; 2667 :          DialogBox( hInst, MAKEINTRESOURCE( IDD_LOGON ),
-; 2668 :                     g_hWndMainFrame, fpLogon );
+; 2671 :          // Throw up the Logon dialog box
+; 2672 :          DialogBox( hInst, MAKEINTRESOURCE( IDD_LOGON ),
+; 2673 :                     g_hWndMainFrame, fpLogon );
 
 	push	0
 	mov	ecx, DWORD PTR _fpLogon
@@ -8990,13 +9017,13 @@ $L60296:
 	mov	eax, DWORD PTR _hInst
 	push	eax
 	call	DWORD PTR __imp__DialogBoxParamA@20
-$L60303:
+$L60305:
 
-; 2671 : #endif
-; 2672 : 
-; 2673 :    // Create the DBH work object and name the view for later use.
-; 2674 :    GetViewByName( &vDbhWork, zDBHANDLER_WORK_VIEW_NAME,
-; 2675 :                   g_vSystemTaskView, zLEVEL_SYSTEM );
+; 2676 : #endif
+; 2677 : 
+; 2678 :    // Create the DBH work object and name the view for later use.
+; 2679 :    GetViewByName( &vDbhWork, zDBHANDLER_WORK_VIEW_NAME,
+; 2680 :                   g_vSystemTaskView, zLEVEL_SYSTEM );
 
 	push	8
 	mov	ecx, DWORD PTR _g_vSystemTaskView
@@ -9006,13 +9033,13 @@ $L60303:
 	push	edx
 	call	_GetViewByName@16
 
-; 2676 :    if ( vDbhWork == 0 )
+; 2681 :    if ( vDbhWork == 0 )
 
 	cmp	DWORD PTR _vDbhWork$[ebp], 0
-	jne	SHORT $L60308
+	jne	SHORT $L60310
 
-; 2678 :       SfActivateSysEmptyOI( &vDbhWork, "KZDBHWOB",
-; 2679 :                             g_vSystemTaskView, zSINGLE );
+; 2683 :       SfActivateSysEmptyOI( &vDbhWork, "KZDBHWOB",
+; 2684 :                             g_vSystemTaskView, zSINGLE );
 
 	push	0
 	mov	eax, DWORD PTR _g_vSystemTaskView
@@ -9022,13 +9049,13 @@ $L60303:
 	push	ecx
 	call	_SfActivateSysEmptyOI@16
 
-; 2680 :       SfLockView( vDbhWork );
+; 2685 :       SfLockView( vDbhWork );
 
 	mov	edx, DWORD PTR _vDbhWork$[ebp]
 	push	edx
 	call	_SfLockView@4
 
-; 2681 :       CreateEntity( vDbhWork, "ROOT", zPOS_AFTER );
+; 2686 :       CreateEntity( vDbhWork, "ROOT", zPOS_AFTER );
 
 	push	3
 	push	OFFSET FLAT:??_C@_04DIDG@ROOT?$AA@	; `string'
@@ -9036,8 +9063,8 @@ $L60303:
 	push	eax
 	call	_CreateEntity@12
 
-; 2682 :       SetNameForView( vDbhWork, zDBHANDLER_WORK_VIEW_NAME,
-; 2683 :                       g_vSystemTaskView, zLEVEL_SYSTEM );
+; 2687 :       SetNameForView( vDbhWork, zDBHANDLER_WORK_VIEW_NAME,
+; 2688 :                       g_vSystemTaskView, zLEVEL_SYSTEM );
 
 	push	8
 	mov	ecx, DWORD PTR _g_vSystemTaskView
@@ -9046,11 +9073,11 @@ $L60303:
 	mov	edx, DWORD PTR _vDbhWork$[ebp]
 	push	edx
 	call	_SetNameForView@16
-$L60308:
+$L60310:
 
-; 2685 : 
-; 2686 :    // Just a way to test if we are opening the right INI file.
-; 2687 :    SysReadZeidonIni( -1, "[Debug]", "StartMessage", szBuffer );
+; 2690 : 
+; 2691 :    // Just a way to test if we are opening the right INI file.
+; 2692 :    SysReadZeidonIni( -1, "[Debug]", "StartMessage", szBuffer );
 
 	lea	eax, DWORD PTR _szBuffer$[ebp]
 	push	eax
@@ -9059,13 +9086,13 @@ $L60308:
 	push	-1
 	call	_SysReadZeidonIni@16
 
-; 2688 :    if ( szBuffer[ 0 ] )
+; 2693 :    if ( szBuffer[ 0 ] )
 
 	movsx	ecx, BYTE PTR _szBuffer$[ebp]
 	test	ecx, ecx
-	je	SHORT $L60314
+	je	SHORT $L60316
 
-; 2689 :       fnSysMessageBox( lpTask, "Object Engine Start Message", szBuffer, 0 );
+; 2694 :       fnSysMessageBox( lpTask, "Object Engine Start Message", szBuffer, 0 );
 
 	push	0
 	lea	edx, DWORD PTR _szBuffer$[ebp]
@@ -9074,69 +9101,69 @@ $L60308:
 	mov	eax, DWORD PTR _lpTask$[ebp]
 	push	eax
 	call	_fnSysMessageBox@16
-$L60314:
+$L60316:
 
-; 2690 : 
-; 2691 :    // Now automatically start all networks.
-; 2692 :    SfStartNetworks( g_vSystemTaskView, 0 );
+; 2695 : 
+; 2696 :    // Now automatically start all networks.
+; 2697 :    SfStartNetworks( g_vSystemTaskView, 0 );
 
 	push	0
 	mov	ecx, DWORD PTR _g_vSystemTaskView
 	push	ecx
 	call	_SfStartNetworks@8
 
-; 2693 : 
-; 2694 : #if 0 // moving to RegisterZeidon  2005.04.18  dks
-; 2695 : 
-; 2696 :    // Check to see if there is an application update function.
-; 2697 :    SysReadZeidonIni( -1, "[Zeidon]", "ApplicationUpdate", szBuffer );
-; 2698 :    if ( *szBuffer )
-; 2699 :    {
-; 2700 :       zSHORT (POPERATION pfn )( void );
-; 2701 :       LPLIBRARY hLibrary = SysLoadLibrary( vDbhWork, szBuffer );
-; 2702 : 
-; 2703 :       if ( hLibrary )
-; 2704 :       {
-; 2705 :          pfn = SysGetProc( hLibrary, "PerformApplicationUpdate" );
-; 2706 :          if ( pfn )
-; 2707 :             (*pfn)( );
-; 2708 : 
-; 2709 :          fnSysFreeLibrary( lpTask, hLibrary, FALSE );
-; 2710 :       }
-; 2711 :    }
-; 2712 : 
-; 2713 : #endif
-; 2714 : 
-; 2715 :    // If we were activated by a RegisterZeidonApplication, then some other
-; 2716 :    // window is probably active and wants focus. Check to see if another
-; 2717 :    // task exists and set focus to it after the logon is complete.
-; 2718 :    if ( lpTask && zGETHNDL( lpTask ) != AnchorBlock->hMainTask )
+; 2698 : 
+; 2699 : #if 0 // moving to RegisterZeidon  2005.04.18  dks
+; 2700 : 
+; 2701 :    // Check to see if there is an application update function.
+; 2702 :    SysReadZeidonIni( -1, "[Zeidon]", "ApplicationUpdate", szBuffer );
+; 2703 :    if ( *szBuffer )
+; 2704 :    {
+; 2705 :       zSHORT (POPERATION pfn )( void );
+; 2706 :       LPLIBRARY hLibrary = SysLoadLibrary( vDbhWork, szBuffer );
+; 2707 : 
+; 2708 :       if ( hLibrary )
+; 2709 :       {
+; 2710 :          pfn = SysGetProc( hLibrary, "PerformApplicationUpdate" );
+; 2711 :          if ( pfn )
+; 2712 :             (*pfn)( );
+; 2713 : 
+; 2714 :          fnSysFreeLibrary( lpTask, hLibrary, FALSE );
+; 2715 :       }
+; 2716 :    }
+; 2717 : 
+; 2718 : #endif
+; 2719 : 
+; 2720 :    // If we were activated by a RegisterZeidonApplication, then some other
+; 2721 :    // window is probably active and wants focus. Check to see if another
+; 2722 :    // task exists and set focus to it after the logon is complete.
+; 2723 :    if ( lpTask && zGETHNDL( lpTask ) != AnchorBlock->hMainTask )
 
 	cmp	DWORD PTR _lpTask$[ebp], 0
-	je	SHORT $L60316
+	je	SHORT $L60318
 	mov	edx, DWORD PTR _lpTask$[ebp]
 	push	edx
 	call	_SysGetHandleFromPointer@4
 	mov	ecx, DWORD PTR _AnchorBlock
 	cmp	eax, DWORD PTR [ecx+106]
-	je	SHORT $L60316
+	je	SHORT $L60318
 
-; 2720 :       SetActiveWindow( (HWND) lpTask->hMainWnd );
+; 2725 :       SetActiveWindow( (HWND) lpTask->hMainWnd );
 
 	mov	edx, DWORD PTR _lpTask$[ebp]
 	mov	eax, DWORD PTR [edx+22]
 	push	eax
 	call	DWORD PTR __imp__SetActiveWindow@4
-$L60316:
+$L60318:
 
-; 2722 : 
-; 2723 :    // Make the window visible; update its client area; and return "success"
-; 2724 :    return( g_hWndMainFrame );         // Returns the value from PostQuitMessage
+; 2727 : 
+; 2728 :    // Make the window visible; update its client area; and return "success"
+; 2729 :    return( g_hWndMainFrame );         // Returns the value from PostQuitMessage
 
 	mov	eax, DWORD PTR _g_hWndMainFrame
-$L60159:
+$L60161:
 
-; 2725 : }
+; 2730 : }
 
 	mov	esp, ebp
 	pop	ebp
@@ -9157,36 +9184,36 @@ _szPassword$ = -96
 _szEncrypt$ = -64
 _LogonDlgProc@16 PROC NEAR
 
-; 2731 : {
+; 2736 : {
 
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 100				; 00000064H
 
-; 2732 :    char szUserID[ 32 ];
-; 2733 :    char szPassword[ 32 ];
-; 2734 :    char szEncrypt[ 32 ];
-; 2735 : 
-; 2736 :    switch ( uMsg )
-; 2737 :    {
+; 2737 :    char szUserID[ 32 ];
+; 2738 :    char szPassword[ 32 ];
+; 2739 :    char szEncrypt[ 32 ];
+; 2740 : 
+; 2741 :    switch ( uMsg )
+; 2742 :    {
 
 	mov	eax, DWORD PTR _uMsg$[ebp]
 	mov	DWORD PTR -100+[ebp], eax
 	cmp	DWORD PTR -100+[ebp], 272		; 00000110H
-	je	$L60341
+	je	$L60343
 	cmp	DWORD PTR -100+[ebp], 273		; 00000111H
-	je	SHORT $L60334
-	jmp	$L60343
-$L60334:
+	je	SHORT $L60336
+	jmp	$L60345
+$L60336:
 
-; 2738 :       case WM_COMMAND:
-; 2739 :          if ( wParam == IDC_OK )
+; 2743 :       case WM_COMMAND:
+; 2744 :          if ( wParam == IDC_OK )
 
 	cmp	DWORD PTR _wParam$[ebp], 201		; 000000c9H
-	jne	$L60335
+	jne	$L60337
 
-; 2741 :             GetDlgItemText( hWndDlg, IDC_USERID,
-; 2742 :                             szUserID, sizeof( szUserID ) );
+; 2746 :             GetDlgItemText( hWndDlg, IDC_USERID,
+; 2747 :                             szUserID, sizeof( szUserID ) );
 
 	push	32					; 00000020H
 	lea	ecx, DWORD PTR _szUserID$[ebp]
@@ -9196,8 +9223,8 @@ $L60334:
 	push	edx
 	call	DWORD PTR __imp__GetDlgItemTextA@16
 
-; 2743 :             GetDlgItemText( hWndDlg, IDC_PASSWORD,
-; 2744 :                             szPassword, sizeof( szPassword ) );
+; 2748 :             GetDlgItemText( hWndDlg, IDC_PASSWORD,
+; 2749 :                             szPassword, sizeof( szPassword ) );
 
 	push	32					; 00000020H
 	lea	eax, DWORD PTR _szPassword$[ebp]
@@ -9207,15 +9234,15 @@ $L60334:
 	push	ecx
 	call	DWORD PTR __imp__GetDlgItemTextA@16
 
-; 2745 : 
-; 2746 :             if ( szUserID[ 0 ] )
+; 2750 : 
+; 2751 :             if ( szUserID[ 0 ] )
 
 	movsx	edx, BYTE PTR _szUserID$[ebp]
 	test	edx, edx
-	je	SHORT $L60336
+	je	SHORT $L60338
 
-; 2748 :                // Set global Userid and password in CORE
-; 2749 :                SysSetUserID( 0, szUserID, szPassword );
+; 2753 :                // Set global Userid and password in CORE
+; 2754 :                SysSetUserID( 0, szUserID, szPassword );
 
 	lea	eax, DWORD PTR _szPassword$[ebp]
 	push	eax
@@ -9224,9 +9251,9 @@ $L60334:
 	push	0
 	call	_SysSetUserID@12
 
-; 2750 :                // See if the save button is checked
-; 2751 :                if ( SendDlgItemMessage( hWndDlg, IDC_SAVEUSERID,
-; 2752 :                                         BM_GETCHECK, 0, 0L ) )
+; 2755 :                // See if the save button is checked
+; 2756 :                if ( SendDlgItemMessage( hWndDlg, IDC_SAVEUSERID,
+; 2757 :                                         BM_GETCHECK, 0, 0L ) )
 
 	push	0
 	push	0
@@ -9236,9 +9263,9 @@ $L60334:
 	push	edx
 	call	DWORD PTR __imp__SendDlgItemMessageA@20
 	test	eax, eax
-	je	SHORT $L60337
+	je	SHORT $L60339
 
-; 2754 :                   SysUpdateZeidonIni( szlWorkstation, szlUserID, szUserID );
+; 2759 :                   SysUpdateZeidonIni( szlWorkstation, szlUserID, szUserID );
 
 	lea	eax, DWORD PTR _szUserID$[ebp]
 	push	eax
@@ -9246,7 +9273,7 @@ $L60334:
 	push	OFFSET FLAT:_szlWorkstation
 	call	_SysUpdateZeidonIni@12
 
-; 2755 :                   UfEncryptString( szEncrypt, szPassword, 26 );
+; 2760 :                   UfEncryptString( szEncrypt, szPassword, 26 );
 
 	push	26					; 0000001aH
 	lea	ecx, DWORD PTR _szPassword$[ebp]
@@ -9255,67 +9282,67 @@ $L60334:
 	push	edx
 	call	_UfEncryptString@12
 
-; 2756 :                   SysUpdateZeidonIni( szlWorkstation, szlPassword, szEncrypt );
+; 2761 :                   SysUpdateZeidonIni( szlWorkstation, szlPassword, szEncrypt );
 
 	lea	eax, DWORD PTR _szEncrypt$[ebp]
 	push	eax
 	push	OFFSET FLAT:_szlPassword
 	push	OFFSET FLAT:_szlWorkstation
 	call	_SysUpdateZeidonIni@12
-$L60337:
+$L60339:
 
-; 2758 : 
-; 2759 :                EndDialog( hWndDlg, TRUE );
+; 2763 : 
+; 2764 :                EndDialog( hWndDlg, TRUE );
 
 	push	1
 	mov	ecx, DWORD PTR _hWndDlg$[ebp]
 	push	ecx
 	call	DWORD PTR __imp__EndDialog@8
 
-; 2761 :             else
+; 2766 :             else
 
-	jmp	SHORT $L60338
-$L60336:
-
-; 2762 :                return( FALSE );
-
-	xor	eax, eax
-	jmp	SHORT $L60331
+	jmp	SHORT $L60340
 $L60338:
 
-; 2764 :          else
+; 2767 :                return( FALSE );
 
-	jmp	SHORT $L60341
-$L60335:
+	xor	eax, eax
+	jmp	SHORT $L60333
+$L60340:
 
-; 2765 :          if ( wParam == IDC_CANCEL )
+; 2769 :          else
+
+	jmp	SHORT $L60343
+$L60337:
+
+; 2770 :          if ( wParam == IDC_CANCEL )
 
 	cmp	DWORD PTR _wParam$[ebp], 202		; 000000caH
-	jne	SHORT $L60340
+	jne	SHORT $L60342
 
-; 2766 :             EndDialog( hWndDlg, TRUE );
+; 2771 :             EndDialog( hWndDlg, TRUE );
 
 	push	1
 	mov	edx, DWORD PTR _hWndDlg$[ebp]
 	push	edx
 	call	DWORD PTR __imp__EndDialog@8
 
-; 2767 :          else
+; 2772 :          else
 
-	jmp	SHORT $L60341
-$L60340:
+	jmp	SHORT $L60343
+$L60342:
 
-; 2768 :             return( FALSE );
+; 2773 :             return( FALSE );
 
 	xor	eax, eax
-	jmp	SHORT $L60331
-$L60341:
+	jmp	SHORT $L60333
+$L60343:
 
-; 2769 : 
-; 2770 :          // fall through
-; 2771 : 
-; 2772 :       case WM_INITDIALOG:
-; 2773 :          SysGetUserID( 0, szUserID, szPassword );
+; 2774 : 
+; 2775 :          // fall through
+; 2776 : 
+; 2777 :       case WM_INITDIALOG:
+; 2778 :          SysGetUserID( 0, szUserID, szPassword );
 
 	lea	eax, DWORD PTR _szPassword$[ebp]
 	push	eax
@@ -9324,7 +9351,7 @@ $L60341:
 	push	0
 	call	_SysGetUserID@12
 
-; 2774 :          SetDlgItemText( hWndDlg, IDC_USERID, szUserID );
+; 2779 :          SetDlgItemText( hWndDlg, IDC_USERID, szUserID );
 
 	lea	edx, DWORD PTR _szUserID$[ebp]
 	push	edx
@@ -9333,7 +9360,7 @@ $L60341:
 	push	eax
 	call	DWORD PTR __imp__SetDlgItemTextA@12
 
-; 2775 :          SetDlgItemText( hWndDlg, IDC_PASSWORD, szPassword );
+; 2780 :          SetDlgItemText( hWndDlg, IDC_PASSWORD, szPassword );
 
 	lea	ecx, DWORD PTR _szPassword$[ebp]
 	push	ecx
@@ -9342,20 +9369,20 @@ $L60341:
 	push	edx
 	call	DWORD PTR __imp__SetDlgItemTextA@12
 
-; 2776 :          return( TRUE );
+; 2781 :          return( TRUE );
 
 	mov	eax, 1
-	jmp	SHORT $L60331
-$L60343:
+	jmp	SHORT $L60333
+$L60345:
 
-; 2777 : 
-; 2778 :       default:
-; 2779 :          return( FALSE );
+; 2782 : 
+; 2783 :       default:
+; 2784 :          return( FALSE );
 
 	xor	eax, eax
-$L60331:
+$L60333:
 
-; 2781 : }
+; 2786 : }
 
 	mov	esp, ebp
 	pop	ebp
@@ -9366,32 +9393,32 @@ _uMsg$ = 12
 _wParam$ = 16
 _FindStringDlgProc@16 PROC NEAR
 
-; 2787 : {
+; 2792 : {
 
 	push	ebp
 	mov	ebp, esp
 	push	ecx
 
-; 2788 :    switch ( uMsg )
-; 2789 :    {
+; 2793 :    switch ( uMsg )
+; 2794 :    {
 
 	mov	eax, DWORD PTR _uMsg$[ebp]
 	mov	DWORD PTR -4+[ebp], eax
 	cmp	DWORD PTR -4+[ebp], 272			; 00000110H
-	je	SHORT $L60362
+	je	SHORT $L60364
 	cmp	DWORD PTR -4+[ebp], 273			; 00000111H
-	je	SHORT $L60357
-	jmp	$L60363
-$L60357:
+	je	SHORT $L60359
+	jmp	$L60365
+$L60359:
 
-; 2790 :       case WM_COMMAND:
-; 2791 :          if ( wParam == IDC_OK )
+; 2795 :       case WM_COMMAND:
+; 2796 :          if ( wParam == IDC_OK )
 
 	cmp	DWORD PTR _wParam$[ebp], 201		; 000000c9H
-	jne	SHORT $L60358
+	jne	SHORT $L60360
 
-; 2793 :             GetDlgItemText( hWndDlg, IDC_FINDSTRING,
-; 2794 :                             g_szFindString, sizeof( g_szFindString ) );
+; 2798 :             GetDlgItemText( hWndDlg, IDC_FINDSTRING,
+; 2799 :                             g_szFindString, sizeof( g_szFindString ) );
 
 	push	256					; 00000100H
 	push	OFFSET FLAT:_g_szFindString
@@ -9400,52 +9427,52 @@ $L60357:
 	push	ecx
 	call	DWORD PTR __imp__GetDlgItemTextA@16
 
-; 2795 :             EndDialog( hWndDlg, IDOK );
+; 2800 :             EndDialog( hWndDlg, IDOK );
 
 	push	1
 	mov	edx, DWORD PTR _hWndDlg$[ebp]
 	push	edx
 	call	DWORD PTR __imp__EndDialog@8
 
-; 2797 :          else
+; 2802 :          else
 
-	jmp	SHORT $L60361
-$L60358:
+	jmp	SHORT $L60363
+$L60360:
 
-; 2798 :          if ( wParam == IDC_CANCEL )
+; 2803 :          if ( wParam == IDC_CANCEL )
 
 	cmp	DWORD PTR _wParam$[ebp], 202		; 000000caH
-	jne	SHORT $L60360
+	jne	SHORT $L60362
 
-; 2799 :             EndDialog( hWndDlg, IDCANCEL );
+; 2804 :             EndDialog( hWndDlg, IDCANCEL );
 
 	push	2
 	mov	eax, DWORD PTR _hWndDlg$[ebp]
 	push	eax
 	call	DWORD PTR __imp__EndDialog@8
 
-; 2800 :          else
+; 2805 :          else
 
-	jmp	SHORT $L60361
-$L60360:
-
-; 2801 :             return( FALSE );
-
-	xor	eax, eax
-	jmp	SHORT $L60354
-$L60361:
-
-; 2802 : 
-; 2803 :          return( TRUE );
-
-	mov	eax, 1
-	jmp	SHORT $L60354
+	jmp	SHORT $L60363
 $L60362:
 
-; 2804 : 
-; 2805 :       case WM_INITDIALOG:
-; 2806 :          SendDlgItemMessage( hWndDlg, IDC_FINDSTRING, EM_LIMITTEXT,
-; 2807 :                              sizeof( g_szFindString ), 0L );
+; 2806 :             return( FALSE );
+
+	xor	eax, eax
+	jmp	SHORT $L60356
+$L60363:
+
+; 2807 : 
+; 2808 :          return( TRUE );
+
+	mov	eax, 1
+	jmp	SHORT $L60356
+$L60364:
+
+; 2809 : 
+; 2810 :       case WM_INITDIALOG:
+; 2811 :          SendDlgItemMessage( hWndDlg, IDC_FINDSTRING, EM_LIMITTEXT,
+; 2812 :                              sizeof( g_szFindString ), 0L );
 
 	push	0
 	push	256					; 00000100H
@@ -9455,7 +9482,7 @@ $L60362:
 	push	ecx
 	call	DWORD PTR __imp__SendDlgItemMessageA@20
 
-; 2808 :          SetDlgItemText( hWndDlg, IDC_FINDSTRING, g_szFindString );
+; 2813 :          SetDlgItemText( hWndDlg, IDC_FINDSTRING, g_szFindString );
 
 	push	OFFSET FLAT:_g_szFindString
 	push	224					; 000000e0H
@@ -9463,20 +9490,20 @@ $L60362:
 	push	edx
 	call	DWORD PTR __imp__SetDlgItemTextA@12
 
-; 2809 :          return( TRUE );
+; 2814 :          return( TRUE );
 
 	mov	eax, 1
-	jmp	SHORT $L60354
-$L60363:
+	jmp	SHORT $L60356
+$L60365:
 
-; 2810 : 
-; 2811 :       default:
-; 2812 :          return( FALSE );
+; 2815 : 
+; 2816 :       default:
+; 2817 :          return( FALSE );
 
 	xor	eax, eax
-$L60354:
+$L60356:
 
-; 2814 : }
+; 2819 : }
 
 	mov	esp, ebp
 	pop	ebp
@@ -9494,40 +9521,40 @@ _TEXT	SEGMENT
 _hWndDlg$ = 8
 _uMsg$ = 12
 _wParam$ = 16
-_iTraceLevel$60379 = -4
-_lpTask$60388 = -8
+_iTraceLevel$60381 = -4
+_lpTask$60390 = -8
 _SetTraceDlgProc@16 PROC NEAR
 
-; 2820 : {
+; 2825 : {
 
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 12					; 0000000cH
 
-; 2821 :    switch ( uMsg )
-; 2822 :    {
+; 2826 :    switch ( uMsg )
+; 2827 :    {
 
 	mov	eax, DWORD PTR _uMsg$[ebp]
 	mov	DWORD PTR -12+[ebp], eax
 	cmp	DWORD PTR -12+[ebp], 272		; 00000110H
-	je	$L60397
+	je	$L60399
 	cmp	DWORD PTR -12+[ebp], 273		; 00000111H
-	je	SHORT $L60377
-	jmp	$L60398
-$L60377:
+	je	SHORT $L60379
+	jmp	$L60400
+$L60379:
 
-; 2823 :       case WM_COMMAND:
-; 2824 :          if ( wParam == IDC_OK )
+; 2828 :       case WM_COMMAND:
+; 2829 :          if ( wParam == IDC_OK )
 
 	cmp	DWORD PTR _wParam$[ebp], 201		; 000000c9H
-	jne	$L60378
+	jne	$L60380
 
-; 2826 :             int iTraceLevel = -1;
+; 2831 :             int iTraceLevel = -1;
 
-	mov	DWORD PTR _iTraceLevel$60379[ebp], -1
+	mov	DWORD PTR _iTraceLevel$60381[ebp], -1
 
-; 2827 : 
-; 2828 :             if ( SendDlgItemMessage( hWndDlg, IDC_TRACE0, BM_GETCHECK, 0, 0 ) )
+; 2832 : 
+; 2833 :             if ( SendDlgItemMessage( hWndDlg, IDC_TRACE0, BM_GETCHECK, 0, 0 ) )
 
 	push	0
 	push	0
@@ -9537,18 +9564,18 @@ $L60377:
 	push	ecx
 	call	DWORD PTR __imp__SendDlgItemMessageA@20
 	test	eax, eax
-	je	SHORT $L60380
+	je	SHORT $L60382
 
-; 2829 :                iTraceLevel = 0;
+; 2834 :                iTraceLevel = 0;
 
-	mov	DWORD PTR _iTraceLevel$60379[ebp], 0
+	mov	DWORD PTR _iTraceLevel$60381[ebp], 0
 
-; 2830 :             else
+; 2835 :             else
 
-	jmp	SHORT $L60386
-$L60380:
+	jmp	SHORT $L60388
+$L60382:
 
-; 2831 :             if ( SendDlgItemMessage( hWndDlg, IDC_TRACE1, BM_GETCHECK, 0, 0 ) )
+; 2836 :             if ( SendDlgItemMessage( hWndDlg, IDC_TRACE1, BM_GETCHECK, 0, 0 ) )
 
 	push	0
 	push	0
@@ -9558,18 +9585,18 @@ $L60380:
 	push	edx
 	call	DWORD PTR __imp__SendDlgItemMessageA@20
 	test	eax, eax
-	je	SHORT $L60382
+	je	SHORT $L60384
 
-; 2832 :                iTraceLevel = 1;
+; 2837 :                iTraceLevel = 1;
 
-	mov	DWORD PTR _iTraceLevel$60379[ebp], 1
+	mov	DWORD PTR _iTraceLevel$60381[ebp], 1
 
-; 2833 :             else
+; 2838 :             else
 
-	jmp	SHORT $L60386
-$L60382:
+	jmp	SHORT $L60388
+$L60384:
 
-; 2834 :             if ( SendDlgItemMessage( hWndDlg, IDC_TRACE2, BM_GETCHECK, 0, 0 ) )
+; 2839 :             if ( SendDlgItemMessage( hWndDlg, IDC_TRACE2, BM_GETCHECK, 0, 0 ) )
 
 	push	0
 	push	0
@@ -9579,18 +9606,18 @@ $L60382:
 	push	eax
 	call	DWORD PTR __imp__SendDlgItemMessageA@20
 	test	eax, eax
-	je	SHORT $L60384
+	je	SHORT $L60386
 
-; 2835 :                iTraceLevel = 2;
+; 2840 :                iTraceLevel = 2;
 
-	mov	DWORD PTR _iTraceLevel$60379[ebp], 2
+	mov	DWORD PTR _iTraceLevel$60381[ebp], 2
 
-; 2836 :             else
+; 2841 :             else
 
-	jmp	SHORT $L60386
-$L60384:
+	jmp	SHORT $L60388
+$L60386:
 
-; 2837 :             if ( SendDlgItemMessage( hWndDlg, IDC_TRACE3, BM_GETCHECK, 0, 0 ) )
+; 2842 :             if ( SendDlgItemMessage( hWndDlg, IDC_TRACE3, BM_GETCHECK, 0, 0 ) )
 
 	push	0
 	push	0
@@ -9600,121 +9627,121 @@ $L60384:
 	push	ecx
 	call	DWORD PTR __imp__SendDlgItemMessageA@20
 	test	eax, eax
-	je	SHORT $L60386
+	je	SHORT $L60388
 
-; 2838 :                iTraceLevel = 3;
+; 2843 :                iTraceLevel = 3;
 
-	mov	DWORD PTR _iTraceLevel$60379[ebp], 3
-$L60386:
+	mov	DWORD PTR _iTraceLevel$60381[ebp], 3
+$L60388:
 
-; 2839 : 
-; 2840 :             if ( iTraceLevel >= 0 )
+; 2844 : 
+; 2845 :             if ( iTraceLevel >= 0 )
 
-	cmp	DWORD PTR _iTraceLevel$60379[ebp], 0
-	jl	SHORT $L60387
+	cmp	DWORD PTR _iTraceLevel$60381[ebp], 0
+	jl	SHORT $L60389
 
-; 2842 :                LPTASK lpTask;
-; 2843 : 
-; 2844 :                for ( lpTask = zGETPTR( AnchorBlock->hFirstTask );
-; 2845 :                      lpTask;
-; 2846 :                      lpTask = zGETPTR( lpTask->hNextTask ) )
+; 2847 :                LPTASK lpTask;
+; 2848 : 
+; 2849 :                for ( lpTask = zGETPTR( AnchorBlock->hFirstTask );
+; 2850 :                      lpTask;
+; 2851 :                      lpTask = zGETPTR( lpTask->hNextTask ) )
 
 	mov	edx, DWORD PTR _AnchorBlock
 	mov	eax, DWORD PTR [edx+130]
 	push	eax
 	call	_SysGetPointerFromHandle@4
-	mov	DWORD PTR _lpTask$60388[ebp], eax
-	jmp	SHORT $L60389
-$L60390:
-	mov	ecx, DWORD PTR _lpTask$60388[ebp]
+	mov	DWORD PTR _lpTask$60390[ebp], eax
+	jmp	SHORT $L60391
+$L60392:
+	mov	ecx, DWORD PTR _lpTask$60390[ebp]
 	mov	edx, DWORD PTR [ecx+2]
 	push	edx
 	call	_SysGetPointerFromHandle@4
-	mov	DWORD PTR _lpTask$60388[ebp], eax
-$L60389:
-	cmp	DWORD PTR _lpTask$60388[ebp], 0
-	je	SHORT $L60391
+	mov	DWORD PTR _lpTask$60390[ebp], eax
+$L60391:
+	cmp	DWORD PTR _lpTask$60390[ebp], 0
+	je	SHORT $L60393
 
-; 2848 :                   lpTask->nDBHandlerTraceLevel = iTraceLevel;
+; 2853 :                   lpTask->nDBHandlerTraceLevel = iTraceLevel;
 
-	mov	eax, DWORD PTR _lpTask$60388[ebp]
-	mov	cx, WORD PTR _iTraceLevel$60379[ebp]
+	mov	eax, DWORD PTR _lpTask$60390[ebp]
+	mov	cx, WORD PTR _iTraceLevel$60381[ebp]
 	mov	WORD PTR [eax+92], cx
 
-; 2849 :                }
+; 2854 :                }
 
-	jmp	SHORT $L60390
-$L60391:
+	jmp	SHORT $L60392
+$L60393:
 
-; 2850 : 
-; 2851 :                TraceLineI( "(kzoengwa) DBH Trace Level for all tasks set to ",
-; 2852 :                            (zLONG) iTraceLevel );
+; 2855 : 
+; 2856 :                TraceLineI( "(kzoengwa) DBH Trace Level for all tasks set to ",
+; 2857 :                            (zLONG) iTraceLevel );
 
-	mov	edx, DWORD PTR _iTraceLevel$60379[ebp]
+	mov	edx, DWORD PTR _iTraceLevel$60381[ebp]
 	push	edx
 	push	OFFSET FLAT:??_C@_0DB@GEK@?$CIkzoengwa?$CJ?5DBH?5Trace?5Level?5for?5a@ ; `string'
 	call	_TraceLineI@8
-$L60387:
+$L60389:
 
-; 2854 : 
-; 2855 :             EndDialog( hWndDlg, TRUE );
+; 2859 : 
+; 2860 :             EndDialog( hWndDlg, TRUE );
 
 	push	1
 	mov	eax, DWORD PTR _hWndDlg$[ebp]
 	push	eax
 	call	DWORD PTR __imp__EndDialog@8
 
-; 2857 :          else
+; 2862 :          else
 
-	jmp	SHORT $L60396
-$L60378:
+	jmp	SHORT $L60398
+$L60380:
 
-; 2858 :          if ( wParam == IDC_CANCEL )
+; 2863 :          if ( wParam == IDC_CANCEL )
 
 	cmp	DWORD PTR _wParam$[ebp], 202		; 000000caH
-	jne	SHORT $L60395
+	jne	SHORT $L60397
 
-; 2859 :             EndDialog( hWndDlg, TRUE );
+; 2864 :             EndDialog( hWndDlg, TRUE );
 
 	push	1
 	mov	ecx, DWORD PTR _hWndDlg$[ebp]
 	push	ecx
 	call	DWORD PTR __imp__EndDialog@8
 
-; 2860 :          else
+; 2865 :          else
 
-	jmp	SHORT $L60396
-$L60395:
-
-; 2861 :             return( FALSE );
-
-	xor	eax, eax
-	jmp	SHORT $L60374
-$L60396:
-
-; 2862 : 
-; 2863 :          return( TRUE );
-
-	mov	eax, 1
-	jmp	SHORT $L60374
+	jmp	SHORT $L60398
 $L60397:
 
-; 2864 : 
-; 2865 :       case WM_INITDIALOG:
-; 2866 :          return( FALSE );
+; 2866 :             return( FALSE );
 
 	xor	eax, eax
-	jmp	SHORT $L60374
+	jmp	SHORT $L60376
 $L60398:
 
 ; 2867 : 
-; 2868 :       default:
-; 2869 :          return( FALSE );
+; 2868 :          return( TRUE );
+
+	mov	eax, 1
+	jmp	SHORT $L60376
+$L60399:
+
+; 2869 : 
+; 2870 :       case WM_INITDIALOG:
+; 2871 :          return( FALSE );
 
 	xor	eax, eax
-$L60374:
+	jmp	SHORT $L60376
+$L60400:
 
-; 2871 : }
+; 2872 : 
+; 2873 :       default:
+; 2874 :          return( FALSE );
+
+	xor	eax, eax
+$L60376:
+
+; 2876 : }
 
 	mov	esp, ebp
 	pop	ebp
@@ -9724,42 +9751,42 @@ _TEXT	ENDS
 EXTRN	__imp__SetDlgItemInt@16:NEAR
 EXTRN	__imp__GetDlgItemInt@16:NEAR
 _TEXT	SEGMENT
+_nTransFlag$60416 = -4
 _hWndDlg$ = 8
 _uMsg$ = 12
 _wParam$ = 16
-_nTransFlag$60414 = -4
 _LimitDlgProc@16 PROC NEAR
 
-; 2877 : {
+; 2882 : {
 
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 8
 
-; 2878 :    switch ( uMsg )
-; 2879 :    {
+; 2883 :    switch ( uMsg )
+; 2884 :    {
 
 	mov	eax, DWORD PTR _uMsg$[ebp]
 	mov	DWORD PTR -8+[ebp], eax
 	cmp	DWORD PTR -8+[ebp], 272			; 00000110H
-	je	SHORT $L60417
+	je	SHORT $L60419
 	cmp	DWORD PTR -8+[ebp], 273			; 00000111H
-	je	SHORT $L60412
-	jmp	$L60420
-$L60412:
+	je	SHORT $L60414
+	jmp	$L60422
+$L60414:
 
-; 2880 :       case WM_COMMAND:
-; 2881 :          if ( wParam == IDC_OK )
+; 2885 :       case WM_COMMAND:
+; 2886 :          if ( wParam == IDC_OK )
 
 	cmp	DWORD PTR _wParam$[ebp], 201		; 000000c9H
-	jne	SHORT $L60413
+	jne	SHORT $L60415
 
-; 2883 :             BOOL nTransFlag;
-; 2884 :             g_uTraceLineLimit = GetDlgItemInt( hWndDlg, IDC_LINELIMIT,
-; 2885 :                                                &nTransFlag, 0 );
+; 2888 :             BOOL nTransFlag;
+; 2889 :             g_uTraceLineLimit = GetDlgItemInt( hWndDlg, IDC_LINELIMIT,
+; 2890 :                                                &nTransFlag, 0 );
 
 	push	0
-	lea	ecx, DWORD PTR _nTransFlag$60414[ebp]
+	lea	ecx, DWORD PTR _nTransFlag$60416[ebp]
 	push	ecx
 	push	206					; 000000ceH
 	mov	edx, DWORD PTR _hWndDlg$[ebp]
@@ -9767,46 +9794,46 @@ $L60412:
 	call	DWORD PTR __imp__GetDlgItemInt@16
 	mov	DWORD PTR _g_uTraceLineLimit, eax
 
-; 2886 :             EndDialog( hWndDlg, TRUE );
+; 2891 :             EndDialog( hWndDlg, TRUE );
 
 	push	1
 	mov	eax, DWORD PTR _hWndDlg$[ebp]
 	push	eax
 	call	DWORD PTR __imp__EndDialog@8
 
-; 2888 :          else
+; 2893 :          else
 
-	jmp	SHORT $L60417
-$L60413:
+	jmp	SHORT $L60419
+$L60415:
 
-; 2889 :          if ( wParam == IDC_CANCEL )
+; 2894 :          if ( wParam == IDC_CANCEL )
 
 	cmp	DWORD PTR _wParam$[ebp], 202		; 000000caH
-	jne	SHORT $L60416
+	jne	SHORT $L60418
 
-; 2890 :             EndDialog( hWndDlg, TRUE );
+; 2895 :             EndDialog( hWndDlg, TRUE );
 
 	push	1
 	mov	ecx, DWORD PTR _hWndDlg$[ebp]
 	push	ecx
 	call	DWORD PTR __imp__EndDialog@8
 
-; 2891 :          else
+; 2896 :          else
 
-	jmp	SHORT $L60417
-$L60416:
+	jmp	SHORT $L60419
+$L60418:
 
-; 2892 :             return( FALSE );
+; 2897 :             return( FALSE );
 
 	xor	eax, eax
-	jmp	SHORT $L60409
-$L60417:
+	jmp	SHORT $L60411
+$L60419:
 
-; 2893 : 
-; 2894 :          // fall through
-; 2895 : 
-; 2896 :       case WM_INITDIALOG:
-; 2897 :          SetDlgItemInt( hWndDlg, IDC_LINELIMIT, g_uTraceLineLimit, 0 );
+; 2898 : 
+; 2899 :          // fall through
+; 2900 : 
+; 2901 :       case WM_INITDIALOG:
+; 2902 :          SetDlgItemInt( hWndDlg, IDC_LINELIMIT, g_uTraceLineLimit, 0 );
 
 	push	0
 	mov	edx, DWORD PTR _g_uTraceLineLimit
@@ -9816,9 +9843,9 @@ $L60417:
 	push	eax
 	call	DWORD PTR __imp__SetDlgItemInt@16
 
-; 2898 :          SetDlgItemInt( hWndDlg, IDC_LINEUSAGE,
-; 2899 :                         (WORD) SendMessage( g_hWndLB,
-; 2900 :                                             LB_GETCOUNT, 0, 0 ), 0 );
+; 2903 :          SetDlgItemInt( hWndDlg, IDC_LINEUSAGE,
+; 2904 :                         (WORD) SendMessage( g_hWndLB,
+; 2905 :                                             LB_GETCOUNT, 0, 0 ), 0 );
 
 	push	0
 	push	0
@@ -9834,20 +9861,20 @@ $L60417:
 	push	edx
 	call	DWORD PTR __imp__SetDlgItemInt@16
 
-; 2901 :          return( TRUE );
+; 2906 :          return( TRUE );
 
 	mov	eax, 1
-	jmp	SHORT $L60409
-$L60420:
+	jmp	SHORT $L60411
+$L60422:
 
-; 2902 : 
-; 2903 :       default:
-; 2904 :          return( FALSE );
+; 2907 : 
+; 2908 :       default:
+; 2909 :          return( FALSE );
 
 	xor	eax, eax
-$L60409:
+$L60411:
 
-; 2906 : }
+; 2911 : }
 
 	mov	esp, ebp
 	pop	ebp
@@ -9855,181 +9882,181 @@ $L60409:
 _LimitDlgProc@16 ENDP
 _ShowDLLDlgProc@16 PROC NEAR
 
-; 2912 : {
+; 2917 : {
 
 	push	ebp
 	mov	ebp, esp
 
-; 2913 : #ifdef __WIN32__
-; 2914 :    return( 0 );
+; 2918 : #ifdef __WIN32__
+; 2919 :    return( 0 );
 
 	xor	eax, eax
 
-; 2915 : #else
-; 2916 :    WORD  wLBIndex;
-; 2917 :    WORD  wCheckState;
-; 2918 : 
-; 2919 :    switch ( uMsg )
-; 2920 :    {
-; 2921 :       case WM_COMMAND:
-; 2922 : #if 0
-; 2923 :          {
-; 2924 :             zCHAR szWorkString[ 256 ];
-; 2925 : 
-; 2926 :             zstrcpy( szWorkString, "DLLDlg WM_COMMAND  Message " );
-; 2927 : 
-; 2928 :             zltoa( (zLONG) (unsigned) uMsg,
-; 2929 :                    (szWorkString + zstrlen( szWorkString )) );
-; 2930 :             zstrcat( szWorkString, "(" );
-; 2931 :             _ltoa( (zLONG) (unsigned) uMsg,
-; 2932 :                    (szWorkString + zstrlen( szWorkString )), 16 );
-; 2933 : 
-; 2934 :             zstrcat( szWorkString, ") wParam " );
-; 2935 :             zltoa( (zLONG) wParam, (szWorkString + zstrlen( szWorkString )) );
-; 2936 :             zstrcat( szWorkString, "(" );
-; 2937 :             _ltoa( (zLONG) wParam,
-; 2938 :                    (szWorkString + zstrlen( szWorkString )), 16 );
-; 2939 : 
-; 2940 :             zstrcat( szWorkString, ") lParam " );
-; 2941 :             zltoa( lParam, (szWorkString + zstrlen( szWorkString )) );
-; 2942 :             zstrcat( szWorkString, "(" );
-; 2943 :             _ltoa( lParam, (szWorkString + zstrlen( szWorkString )), 16 );
-; 2944 :             zstrcat( szWorkString, ")" );
-; 2945 : 
-; 2946 :             SendMessage( g_hWndLB, LB_ADDSTRING, 0,
-; 2947 :                          (zLONG)(zPCHAR) szWorkString );
-; 2948 :          }
-; 2949 : #endif
-; 2950 :          switch ( wParam )
-; 2951 :          {
-; 2952 :             case IDC_OK:
-; 2953 :             {
-; 2954 :                wLBIndex = (WORD) SendDlgItemMessage( hWndDlg, IDC_DLLLB,
-; 2955 :                                                      LB_GETCURSEL, 0, 0L );
-; 2956 :                if ( wLBIndex != LB_ERR )
-; 2957 :                {
-; 2958 :                   wCheckState = (WORD) SendDlgItemMessage( hWndDlg,
-; 2959 :                                                            IDC_FREEDLL,
-; 2960 :                                                            BM_GETCHECK,
-; 2961 :                                                            0, 0L );
-; 2962 : #if 0
-; 2963 :                   if ( wCheckState == 1 )
-; 2964 :                   {
-; 2965 :                      WORD  hModHandle;
-; 2966 :                      zCHAR szWorkString[ 256 ];
-; 2967 : 
-; 2968 :                      zstrcpy( szWorkString, "Selected item: " );
-; 2969 :                      SendDlgItemMessage( hWndDlg, IDC_DLLLB, LB_GETTEXT,
-; 2970 :                                       wLBIndex,
-; 2971 :                                       (zLONG)(zPCHAR)
-; 2972 :                                       (szWorkString + zstrlen( szWorkString )));
-; 2973 :                      zstrcat( szWorkString, " Handle: " );
-; 2974 :                      hModHandle = LOWORD( (LPARAM) SendDlgItemMessage
-; 2975 :                                             ( hWndDlg, IDC_DLLLB,
-; 2976 :                                               LB_GETITEMDATA, wLBIndex, 0L ) );
-; 2977 :                      _ltoa( (zLONG) (WORD) hModHandle,
-; 2978 :                             (szWorkString + zstrlen( szWorkString )), 16 );
-; 2979 :                      SendMessage( g_hWndLB, LB_ADDSTRING, 0,
-; 2980 :                                   (zLONG)(zPCHAR) szWorkString );
-; 2981 :                      FreeLibrary( hModHandle );
-; 2982 :                   }
-; 2983 : #endif
-; 2984 :                }
-; 2985 : 
-; 2986 :                EndDialog( hWndDlg, TRUE );
-; 2987 :                return( FALSE );
-; 2988 :             }
-; 2989 : 
-; 2990 :             case IDC_CANCEL:
+; 2920 : #else
+; 2921 :    WORD  wLBIndex;
+; 2922 :    WORD  wCheckState;
+; 2923 : 
+; 2924 :    switch ( uMsg )
+; 2925 :    {
+; 2926 :       case WM_COMMAND:
+; 2927 : #if 0
+; 2928 :          {
+; 2929 :             zCHAR szWorkString[ 256 ];
+; 2930 : 
+; 2931 :             zstrcpy( szWorkString, "DLLDlg WM_COMMAND  Message " );
+; 2932 : 
+; 2933 :             zltoa( (zLONG) (unsigned) uMsg,
+; 2934 :                    (szWorkString + zstrlen( szWorkString )) );
+; 2935 :             zstrcat( szWorkString, "(" );
+; 2936 :             _ltoa( (zLONG) (unsigned) uMsg,
+; 2937 :                    (szWorkString + zstrlen( szWorkString )), 16 );
+; 2938 : 
+; 2939 :             zstrcat( szWorkString, ") wParam " );
+; 2940 :             zltoa( (zLONG) wParam, (szWorkString + zstrlen( szWorkString )) );
+; 2941 :             zstrcat( szWorkString, "(" );
+; 2942 :             _ltoa( (zLONG) wParam,
+; 2943 :                    (szWorkString + zstrlen( szWorkString )), 16 );
+; 2944 : 
+; 2945 :             zstrcat( szWorkString, ") lParam " );
+; 2946 :             zltoa( lParam, (szWorkString + zstrlen( szWorkString )) );
+; 2947 :             zstrcat( szWorkString, "(" );
+; 2948 :             _ltoa( lParam, (szWorkString + zstrlen( szWorkString )), 16 );
+; 2949 :             zstrcat( szWorkString, ")" );
+; 2950 : 
+; 2951 :             SendMessage( g_hWndLB, LB_ADDSTRING, 0,
+; 2952 :                          (zLONG)(zPCHAR) szWorkString );
+; 2953 :          }
+; 2954 : #endif
+; 2955 :          switch ( wParam )
+; 2956 :          {
+; 2957 :             case IDC_OK:
+; 2958 :             {
+; 2959 :                wLBIndex = (WORD) SendDlgItemMessage( hWndDlg, IDC_DLLLB,
+; 2960 :                                                      LB_GETCURSEL, 0, 0L );
+; 2961 :                if ( wLBIndex != LB_ERR )
+; 2962 :                {
+; 2963 :                   wCheckState = (WORD) SendDlgItemMessage( hWndDlg,
+; 2964 :                                                            IDC_FREEDLL,
+; 2965 :                                                            BM_GETCHECK,
+; 2966 :                                                            0, 0L );
+; 2967 : #if 0
+; 2968 :                   if ( wCheckState == 1 )
+; 2969 :                   {
+; 2970 :                      WORD  hModHandle;
+; 2971 :                      zCHAR szWorkString[ 256 ];
+; 2972 : 
+; 2973 :                      zstrcpy( szWorkString, "Selected item: " );
+; 2974 :                      SendDlgItemMessage( hWndDlg, IDC_DLLLB, LB_GETTEXT,
+; 2975 :                                       wLBIndex,
+; 2976 :                                       (zLONG)(zPCHAR)
+; 2977 :                                       (szWorkString + zstrlen( szWorkString )));
+; 2978 :                      zstrcat( szWorkString, " Handle: " );
+; 2979 :                      hModHandle = LOWORD( (LPARAM) SendDlgItemMessage
+; 2980 :                                             ( hWndDlg, IDC_DLLLB,
+; 2981 :                                               LB_GETITEMDATA, wLBIndex, 0L ) );
+; 2982 :                      _ltoa( (zLONG) (WORD) hModHandle,
+; 2983 :                             (szWorkString + zstrlen( szWorkString )), 16 );
+; 2984 :                      SendMessage( g_hWndLB, LB_ADDSTRING, 0,
+; 2985 :                                   (zLONG)(zPCHAR) szWorkString );
+; 2986 :                      FreeLibrary( hModHandle );
+; 2987 :                   }
+; 2988 : #endif
+; 2989 :                }
+; 2990 : 
 ; 2991 :                EndDialog( hWndDlg, TRUE );
 ; 2992 :                return( FALSE );
-; 2993 : 
-; 2994 :             case IDC_FREEDLL:
-; 2995 :                return( FALSE );
-; 2996 : 
-; 2997 :             case IDC_DLLLB:
-; 2998 :                return( FALSE );
-; 2999 : 
-; 3000 :             default:
-; 3001 :                return( FALSE );
-; 3002 :          }
-; 3003 : 
-; 3004 :          // fall through
-; 3005 : 
-; 3006 :       case WM_INITDIALOG:
-; 3007 :       {
-; 3008 :          zCHAR       szLBItem[ 80 ];
-; 3009 :          GLOBALENTRY ge;
-; 3010 :          WORD        wFlags = GLOBAL_ALL;
-; 3011 :          BOOL        bOkay;
-; 3012 :          UINT        nShow = WM_USER;
-; 3013 : #if 0
-; 3014 :          zltoa( (zLONG) nShow, szLBItem );
-; 3015 :          SendMessage( g_hWndLB, LB_ADDSTRING, 0, (zLONG)(zPCHAR) szLBItem );
-; 3016 : #endif
-; 3017 :          zmemset( (zPCHAR) &ge, 0, sizeof( ge ) );
-; 3018 :          ge.dwSize = sizeof( GLOBALENTRY );
-; 3019 :          bOkay = GlobalFirst( &ge, wFlags );
-; 3020 :          while ( bOkay )
-; 3021 :          {
-; 3022 :             if ( ge.wType == GT_MODULE )
-; 3023 :             {
-; 3024 :                int   nCCount, i;
-; 3025 :                char  ModuleName[ 13 ];
-; 3026 :                WORD  wSel;
-; 3027 :                WORD  wModNamePtr_Offset = 38; // offset in modules segment
-; 3028 :                WORD  wModName_Offset;
-; 3029 :                WORD  wLoadCount_Offset = 2;  // offset in modules segment
-; 3030 :                WORD  wHandle_Offset = 82;    // offset in modules segment
-; 3031 :                WORD  far *lpwLoadCount;
-; 3032 :                WORD  far *lpwModuleNamePtr;
-; 3033 :                char  far *lpcModuleName;
-; 3034 :                WORD  far *lpwHandle;
-; 3035 : 
-; 3036 :                wSel = GlobalHandleToSel( ge.hOwner );
-; 3037 : 
-; 3038 :                lpwModuleNamePtr = MAKELP( wSel, wModNamePtr_Offset );
-; 3039 :                wModName_Offset = *lpwModuleNamePtr;
-; 3040 :                lpcModuleName = MAKELP( wSel, wModName_Offset );
-; 3041 :                lpwLoadCount = MAKELP( wSel, wLoadCount_Offset );
-; 3042 :                lpwHandle = MAKELP( wSel, wHandle_Offset );
-; 3043 : 
-; 3044 :                nCCount = *lpcModuleName++;
-; 3045 :                for ( i = 0; i < nCCount; i++ )
-; 3046 :                   ModuleName[ i ] = *lpcModuleName++;
-; 3047 : 
-; 3048 :                ModuleName[ i ] = 0;
-; 3049 : 
-; 3050 :                zstrcpy( szLBItem, ModuleName );
-; 3051 :                i = zstrlen( szLBItem );
-; 3052 :                while ( i < 9 )
-; 3053 :                   szLBItem[ i++ ] = ' ';
+; 2993 :             }
+; 2994 : 
+; 2995 :             case IDC_CANCEL:
+; 2996 :                EndDialog( hWndDlg, TRUE );
+; 2997 :                return( FALSE );
+; 2998 : 
+; 2999 :             case IDC_FREEDLL:
+; 3000 :                return( FALSE );
+; 3001 : 
+; 3002 :             case IDC_DLLLB:
+; 3003 :                return( FALSE );
+; 3004 : 
+; 3005 :             default:
+; 3006 :                return( FALSE );
+; 3007 :          }
+; 3008 : 
+; 3009 :          // fall through
+; 3010 : 
+; 3011 :       case WM_INITDIALOG:
+; 3012 :       {
+; 3013 :          zCHAR       szLBItem[ 80 ];
+; 3014 :          GLOBALENTRY ge;
+; 3015 :          WORD        wFlags = GLOBAL_ALL;
+; 3016 :          BOOL        bOkay;
+; 3017 :          UINT        nShow = WM_USER;
+; 3018 : #if 0
+; 3019 :          zltoa( (zLONG) nShow, szLBItem );
+; 3020 :          SendMessage( g_hWndLB, LB_ADDSTRING, 0, (zLONG)(zPCHAR) szLBItem );
+; 3021 : #endif
+; 3022 :          zmemset( (zPCHAR) &ge, 0, sizeof( ge ) );
+; 3023 :          ge.dwSize = sizeof( GLOBALENTRY );
+; 3024 :          bOkay = GlobalFirst( &ge, wFlags );
+; 3025 :          while ( bOkay )
+; 3026 :          {
+; 3027 :             if ( ge.wType == GT_MODULE )
+; 3028 :             {
+; 3029 :                int   nCCount, i;
+; 3030 :                char  ModuleName[ 13 ];
+; 3031 :                WORD  wSel;
+; 3032 :                WORD  wModNamePtr_Offset = 38; // offset in modules segment
+; 3033 :                WORD  wModName_Offset;
+; 3034 :                WORD  wLoadCount_Offset = 2;  // offset in modules segment
+; 3035 :                WORD  wHandle_Offset = 82;    // offset in modules segment
+; 3036 :                WORD  far *lpwLoadCount;
+; 3037 :                WORD  far *lpwModuleNamePtr;
+; 3038 :                char  far *lpcModuleName;
+; 3039 :                WORD  far *lpwHandle;
+; 3040 : 
+; 3041 :                wSel = GlobalHandleToSel( ge.hOwner );
+; 3042 : 
+; 3043 :                lpwModuleNamePtr = MAKELP( wSel, wModNamePtr_Offset );
+; 3044 :                wModName_Offset = *lpwModuleNamePtr;
+; 3045 :                lpcModuleName = MAKELP( wSel, wModName_Offset );
+; 3046 :                lpwLoadCount = MAKELP( wSel, wLoadCount_Offset );
+; 3047 :                lpwHandle = MAKELP( wSel, wHandle_Offset );
+; 3048 : 
+; 3049 :                nCCount = *lpcModuleName++;
+; 3050 :                for ( i = 0; i < nCCount; i++ )
+; 3051 :                   ModuleName[ i ] = *lpcModuleName++;
+; 3052 : 
+; 3053 :                ModuleName[ i ] = 0;
 ; 3054 : 
-; 3055 :                szLBItem[ i ] = 0;
-; 3056 : 
-; 3057 :                // show load count for module
-; 3058 :                zltoa( *lpwLoadCount, szLBItem + zstrlen( szLBItem ) );
+; 3055 :                zstrcpy( szLBItem, ModuleName );
+; 3056 :                i = zstrlen( szLBItem );
+; 3057 :                while ( i < 9 )
+; 3058 :                   szLBItem[ i++ ] = ' ';
 ; 3059 : 
-; 3060 :                //  add name and count to listbox
-; 3061 :                wLBIndex = (WORD) SendDlgItemMessage( hWndDlg, IDC_DLLLB,
-; 3062 :                                                  LB_ADDSTRING, 0,
-; 3063 :                                                  (zLONG)(zPCHAR) szLBItem );
-; 3064 :                // save handle of library
-; 3065 :                SendDlgItemMessage( hWndDlg, IDC_DLLLB, LB_SETITEMDATA,
-; 3066 :                                    wLBIndex, MAKELPARAM( *lpwHandle, 0 ) );
-; 3067 :             }
-; 3068 : 
-; 3069 :             bOkay = GlobalNext( &ge, wFlags );
-; 3070 :          }
-; 3071 : 
-; 3072 :          return( TRUE );
-; 3073 :       }
-; 3074 : 
-; 3075 :       default:
-; 3076 :          return( FALSE );
-; 3077 :    }
-; 3078 : #endif
-; 3079 : }
+; 3060 :                szLBItem[ i ] = 0;
+; 3061 : 
+; 3062 :                // show load count for module
+; 3063 :                zltoa( *lpwLoadCount, szLBItem + zstrlen( szLBItem ) );
+; 3064 : 
+; 3065 :                //  add name and count to listbox
+; 3066 :                wLBIndex = (WORD) SendDlgItemMessage( hWndDlg, IDC_DLLLB,
+; 3067 :                                                  LB_ADDSTRING, 0,
+; 3068 :                                                  (zLONG)(zPCHAR) szLBItem );
+; 3069 :                // save handle of library
+; 3070 :                SendDlgItemMessage( hWndDlg, IDC_DLLLB, LB_SETITEMDATA,
+; 3071 :                                    wLBIndex, MAKELPARAM( *lpwHandle, 0 ) );
+; 3072 :             }
+; 3073 : 
+; 3074 :             bOkay = GlobalNext( &ge, wFlags );
+; 3075 :          }
+; 3076 : 
+; 3077 :          return( TRUE );
+; 3078 :       }
+; 3079 : 
+; 3080 :       default:
+; 3081 :          return( FALSE );
+; 3082 :    }
+; 3083 : #endif
+; 3084 : }
 
 	pop	ebp
 	ret	16					; 00000010H
@@ -10038,45 +10065,45 @@ _hWnd$ = 8
 _uMsg$ = 12
 _wParam$ = 16
 _lParam$ = 20
-_lpData$60444 = -4
-_nItemCount$60449 = -8
-_lpTask$60451 = -12
-_nOldHead$60456 = -16
-_wCmd$60459 = -20
-_iDiff$60460 = -24
+_lpData$60446 = -4
+_nItemCount$60451 = -8
+_lpTask$60453 = -12
+_nOldHead$60458 = -16
+_wCmd$60461 = -20
+_iDiff$60462 = -24
 _TraceListWndProc@16 PROC NEAR
 
-; 3085 : {
+; 3090 : {
 
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 28					; 0000001cH
 
-; 3086 :    switch ( uMsg )
-; 3087 :    {
+; 3091 :    switch ( uMsg )
+; 3092 :    {
 
 	mov	eax, DWORD PTR _uMsg$[ebp]
 	mov	DWORD PTR -28+[ebp], eax
 	cmp	DWORD PTR -28+[ebp], 74			; 0000004aH
-	je	SHORT $L60443
+	je	SHORT $L60445
 	cmp	DWORD PTR -28+[ebp], 384		; 00000180H
-	je	SHORT $L60448
-	jmp	$L60464
-$L60443:
+	je	SHORT $L60450
+	jmp	$L60466
+$L60445:
 
-; 3090 :          COPYDATASTRUCT * lpData = (COPYDATASTRUCT *) lParam;
+; 3095 :          COPYDATASTRUCT * lpData = (COPYDATASTRUCT *) lParam;
 
 	mov	ecx, DWORD PTR _lParam$[ebp]
-	mov	DWORD PTR _lpData$60444[ebp], ecx
+	mov	DWORD PTR _lpData$60446[ebp], ecx
 
-; 3091 : 
-; 3092 :          if ( lpData->dwData != LB_ADDSTRING )
+; 3096 : 
+; 3097 :          if ( lpData->dwData != LB_ADDSTRING )
 
-	mov	edx, DWORD PTR _lpData$60444[ebp]
+	mov	edx, DWORD PTR _lpData$60446[ebp]
 	cmp	DWORD PTR [edx], 384			; 00000180H
-	je	SHORT $L60446
+	je	SHORT $L60448
 
-; 3093 :             return fpDfltListWndProc( hWnd, uMsg, wParam, lParam );
+; 3098 :             return fpDfltListWndProc( hWnd, uMsg, wParam, lParam );
 
 	mov	eax, DWORD PTR _lParam$[ebp]
 	push	eax
@@ -10087,62 +10114,62 @@ $L60443:
 	mov	eax, DWORD PTR _hWnd$[ebp]
 	push	eax
 	call	DWORD PTR _fpDfltListWndProc
-	jmp	$L60440
-$L60446:
-
-; 3094 : 
-; 3095 :          lParam = (LPARAM) lpData->lpData;
-
-	mov	ecx, DWORD PTR _lpData$60444[ebp]
-	mov	edx, DWORD PTR [ecx+8]
-	mov	DWORD PTR _lParam$[ebp], edx
+	jmp	$L60442
 $L60448:
 
-; 3102 :          WORD nItemCount;
-; 3103 : 
-; 3104 :          if ( g_hLogFile != -1 )
+; 3099 : 
+; 3100 :          lParam = (LPARAM) lpData->lpData;
+
+	mov	ecx, DWORD PTR _lpData$60446[ebp]
+	mov	edx, DWORD PTR [ecx+8]
+	mov	DWORD PTR _lParam$[ebp], edx
+$L60450:
+
+; 3107 :          WORD nItemCount;
+; 3108 : 
+; 3109 :          if ( g_hLogFile != -1 )
 
 	cmp	DWORD PTR _g_hLogFile, -1
-	je	SHORT $L60450
+	je	SHORT $L60452
 
-; 3106 :             LPTASK lpTask = zGETPTR( AnchorBlock->hFirstTask );
+; 3111 :             LPTASK lpTask = zGETPTR( AnchorBlock->hFirstTask );
 
 	mov	eax, DWORD PTR _AnchorBlock
 	mov	ecx, DWORD PTR [eax+130]
 	push	ecx
 	call	_SysGetPointerFromHandle@4
-	mov	DWORD PTR _lpTask$60451[ebp], eax
+	mov	DWORD PTR _lpTask$60453[ebp], eax
 
-; 3107 :             fnSysWriteLine( lpTask, g_hLogFile, 0, (zPCHAR) lParam );
+; 3112 :             fnSysWriteLine( lpTask, g_hLogFile, 0, (zPCHAR) lParam );
 
 	mov	edx, DWORD PTR _lParam$[ebp]
 	push	edx
 	push	0
 	mov	eax, DWORD PTR _g_hLogFile
 	push	eax
-	mov	ecx, DWORD PTR _lpTask$60451[ebp]
+	mov	ecx, DWORD PTR _lpTask$60453[ebp]
 	push	ecx
 	call	_fnSysWriteLine@16
-$L60450:
+$L60452:
 
-; 3109 : 
-; 3110 :          // If g_uTraceLineLimit is 0 then don't add lines to trace window.
-; 3111 :          if ( g_uTraceLineLimit == 0 )
+; 3114 : 
+; 3115 :          // If g_uTraceLineLimit is 0 then don't add lines to trace window.
+; 3116 :          if ( g_uTraceLineLimit == 0 )
 
 	cmp	DWORD PTR _g_uTraceLineLimit, 0
-	jne	SHORT $L60453
+	jne	SHORT $L60455
 
-; 3112 :             return( 0 );
+; 3117 :             return( 0 );
 
 	xor	eax, eax
-	jmp	$L60440
-$L60453:
+	jmp	$L60442
+$L60455:
 
-; 3113 : 
-; 3114 :          // Add the trace line to the trace listbox.  If the line we added
-; 3115 :          // puts the listbox over the limit start filling the next listbox.
-; 3116 :          nItemCount = (WORD) SendMessage( g_hwndTraceWindow[ g_nTraceWindowHead ],
-; 3117 :                                           LB_ADDSTRING, 0, lParam );
+; 3118 : 
+; 3119 :          // Add the trace line to the trace listbox.  If the line we added
+; 3120 :          // puts the listbox over the limit start filling the next listbox.
+; 3121 :          nItemCount = (WORD) SendMessage( g_hwndTraceWindow[ g_nTraceWindowHead ],
+; 3122 :                                           LB_ADDSTRING, 0, lParam );
 
 	mov	edx, DWORD PTR _lParam$[ebp]
 	push	edx
@@ -10152,23 +10179,23 @@ $L60453:
 	mov	ecx, DWORD PTR _g_hwndTraceWindow[eax*4]
 	push	ecx
 	call	DWORD PTR __imp__SendMessageA@16
-	mov	WORD PTR _nItemCount$60449[ebp], ax
+	mov	WORD PTR _nItemCount$60451[ebp], ax
 
-; 3118 :          if ( nItemCount >= g_uTraceLineLimit )
+; 3123 :          if ( nItemCount >= g_uTraceLineLimit )
 
-	mov	edx, DWORD PTR _nItemCount$60449[ebp]
+	mov	edx, DWORD PTR _nItemCount$60451[ebp]
 	and	edx, 65535				; 0000ffffH
 	cmp	edx, DWORD PTR _g_uTraceLineLimit
-	jb	$L60455
+	jb	$L60457
 
-; 3120 :             UINT nOldHead = g_nTraceWindowHead;
+; 3125 :             UINT nOldHead = g_nTraceWindowHead;
 
 	mov	eax, DWORD PTR _g_nTraceWindowHead
-	mov	DWORD PTR _nOldHead$60456[ebp], eax
+	mov	DWORD PTR _nOldHead$60458[ebp], eax
 
-; 3121 : 
-; 3122 :             // Set head to next window.
-; 3123 :             g_nTraceWindowHead = ( g_nTraceWindowHead + 1 ) % g_nTraceWindowCnt;
+; 3126 : 
+; 3127 :             // Set head to next window.
+; 3128 :             g_nTraceWindowHead = ( g_nTraceWindowHead + 1 ) % g_nTraceWindowCnt;
 
 	mov	eax, DWORD PTR _g_nTraceWindowHead
 	add	eax, 1
@@ -10176,10 +10203,10 @@ $L60453:
 	div	DWORD PTR _g_nTraceWindowCnt
 	mov	DWORD PTR _g_nTraceWindowHead, edx
 
-; 3124 : 
-; 3125 :             // Clear the new listbox.
-; 3126 :             SendMessage( g_hwndTraceWindow[ g_nTraceWindowHead ],
-; 3127 :                          LB_RESETCONTENT, 0, 0 );
+; 3129 : 
+; 3130 :             // Clear the new listbox.
+; 3131 :             SendMessage( g_hwndTraceWindow[ g_nTraceWindowHead ],
+; 3132 :                          LB_RESETCONTENT, 0, 0 );
 
 	push	0
 	push	0
@@ -10189,24 +10216,24 @@ $L60453:
 	push	edx
 	call	DWORD PTR __imp__SendMessageA@16
 
-; 3128 : 
-; 3129 :             // Change the listbox that is displayed unless the head listbox
-; 3130 :             // is not the one currently being displayed.
-; 3131 :             if ( nOldHead == g_nTraceWindowDisplayed )
+; 3133 : 
+; 3134 :             // Change the listbox that is displayed unless the head listbox
+; 3135 :             // is not the one currently being displayed.
+; 3136 :             if ( nOldHead == g_nTraceWindowDisplayed )
 
-	mov	eax, DWORD PTR _nOldHead$60456[ebp]
+	mov	eax, DWORD PTR _nOldHead$60458[ebp]
 	cmp	eax, DWORD PTR _g_nTraceWindowDisplayed
-	jne	SHORT $L60457
+	jne	SHORT $L60459
 
-; 3133 :                ShowWindow( g_hwndTraceWindow[ nOldHead ], SW_HIDE );
+; 3138 :                ShowWindow( g_hwndTraceWindow[ nOldHead ], SW_HIDE );
 
 	push	0
-	mov	ecx, DWORD PTR _nOldHead$60456[ebp]
+	mov	ecx, DWORD PTR _nOldHead$60458[ebp]
 	mov	edx, DWORD PTR _g_hwndTraceWindow[ecx*4]
 	push	edx
 	call	DWORD PTR __imp__ShowWindow@8
 
-; 3134 :                ShowWindow( g_hwndTraceWindow[ g_nTraceWindowHead ], SW_SHOW );
+; 3139 :                ShowWindow( g_hwndTraceWindow[ g_nTraceWindowHead ], SW_SHOW );
 
 	push	5
 	mov	eax, DWORD PTR _g_nTraceWindowHead
@@ -10214,53 +10241,53 @@ $L60453:
 	push	ecx
 	call	DWORD PTR __imp__ShowWindow@8
 
-; 3135 :                g_nTraceWindowDisplayed = g_nTraceWindowHead;
+; 3140 :                g_nTraceWindowDisplayed = g_nTraceWindowHead;
 
 	mov	edx, DWORD PTR _g_nTraceWindowHead
 	mov	DWORD PTR _g_nTraceWindowDisplayed, edx
 
-; 3137 :             else
+; 3142 :             else
 
-	jmp	$L60458
-$L60457:
+	jmp	$L60460
+$L60459:
 
-; 3139 :                // OK...user is looking at an older trace window.  We will keep
-; 3140 :                // the user on this trace window but we need to change the
-; 3141 :                // checkboxes.
-; 3142 :                WORD wCmd;
-; 3143 :                UINT iDiff;
-; 3144 : 
-; 3145 :                // Find the difference between the displayed window and the head.
-; 3146 :                iDiff = (g_nTraceWindowDisplayed + g_nTraceWindowCnt -
-; 3147 :                                                nOldHead) % g_nTraceWindowCnt;
+; 3144 :                // OK...user is looking at an older trace window.  We will keep
+; 3145 :                // the user on this trace window but we need to change the
+; 3146 :                // checkboxes.
+; 3147 :                WORD wCmd;
+; 3148 :                UINT iDiff;
+; 3149 : 
+; 3150 :                // Find the difference between the displayed window and the head.
+; 3151 :                iDiff = (g_nTraceWindowDisplayed + g_nTraceWindowCnt -
+; 3152 :                                                nOldHead) % g_nTraceWindowCnt;
 
 	mov	eax, DWORD PTR _g_nTraceWindowDisplayed
 	add	eax, DWORD PTR _g_nTraceWindowCnt
-	sub	eax, DWORD PTR _nOldHead$60456[ebp]
+	sub	eax, DWORD PTR _nOldHead$60458[ebp]
 	xor	edx, edx
 	div	DWORD PTR _g_nTraceWindowCnt
-	mov	DWORD PTR _iDiff$60460[ebp], edx
+	mov	DWORD PTR _iDiff$60462[ebp], edx
 
-; 3148 : 
-; 3149 :                // Determine the old trace window index.
-; 3150 :                wCmd = (g_nTraceWindowCnt - iDiff) % g_nTraceWindowCnt +
-; 3151 :                                                            IDM_TRACEWINDOW01;
+; 3153 : 
+; 3154 :                // Determine the old trace window index.
+; 3155 :                wCmd = (g_nTraceWindowCnt - iDiff) % g_nTraceWindowCnt +
+; 3156 :                                                            IDM_TRACEWINDOW01;
 
 	mov	eax, DWORD PTR _g_nTraceWindowCnt
-	sub	eax, DWORD PTR _iDiff$60460[ebp]
+	sub	eax, DWORD PTR _iDiff$60462[ebp]
 	xor	edx, edx
 	div	DWORD PTR _g_nTraceWindowCnt
 	add	edx, 300				; 0000012cH
-	mov	WORD PTR _wCmd$60459[ebp], dx
+	mov	WORD PTR _wCmd$60461[ebp], dx
 
-; 3152 : 
-; 3153 :                // Turn off the check mark...we will no longer be displaying the
-; 3154 :                // current window.
-; 3155 :                CheckMenuItem( GetMenu( g_hWndMainFrame ), wCmd,
-; 3156 :                               MF_BYCOMMAND | MF_UNCHECKED );
+; 3157 : 
+; 3158 :                // Turn off the check mark...we will no longer be displaying the
+; 3159 :                // current window.
+; 3160 :                CheckMenuItem( GetMenu( g_hWndMainFrame ), wCmd,
+; 3161 :                               MF_BYCOMMAND | MF_UNCHECKED );
 
 	push	0
-	mov	eax, DWORD PTR _wCmd$60459[ebp]
+	mov	eax, DWORD PTR _wCmd$60461[ebp]
 	and	eax, 65535				; 0000ffffH
 	push	eax
 	mov	ecx, DWORD PTR _g_hWndMainFrame
@@ -10269,34 +10296,34 @@ $L60457:
 	push	eax
 	call	DWORD PTR __imp__CheckMenuItem@12
 
-; 3157 : 
-; 3158 :                wCmd++;
+; 3162 : 
+; 3163 :                wCmd++;
 
-	mov	dx, WORD PTR _wCmd$60459[ebp]
+	mov	dx, WORD PTR _wCmd$60461[ebp]
 	add	dx, 1
-	mov	WORD PTR _wCmd$60459[ebp], dx
+	mov	WORD PTR _wCmd$60461[ebp], dx
 
-; 3159 :                if ( wCmd >= IDM_TRACEWINDOW01 + g_nTraceWindowCnt )
+; 3164 :                if ( wCmd >= IDM_TRACEWINDOW01 + g_nTraceWindowCnt )
 
-	mov	eax, DWORD PTR _wCmd$60459[ebp]
+	mov	eax, DWORD PTR _wCmd$60461[ebp]
 	and	eax, 65535				; 0000ffffH
 	mov	ecx, DWORD PTR _g_nTraceWindowCnt
 	add	ecx, 300				; 0000012cH
 	cmp	eax, ecx
-	jb	SHORT $L60461
+	jb	SHORT $L60463
 
-; 3160 :                   wCmd = IDM_TRACEWINDOW01;
+; 3165 :                   wCmd = IDM_TRACEWINDOW01;
 
-	mov	WORD PTR _wCmd$60459[ebp], 300		; 0000012cH
-$L60461:
+	mov	WORD PTR _wCmd$60461[ebp], 300		; 0000012cH
+$L60463:
 
-; 3161 : 
-; 3162 :                // Turn the next one on.
-; 3163 :                CheckMenuItem( GetMenu( g_hWndMainFrame ), wCmd,
-; 3164 :                               MF_BYCOMMAND | MF_CHECKED );
+; 3166 : 
+; 3167 :                // Turn the next one on.
+; 3168 :                CheckMenuItem( GetMenu( g_hWndMainFrame ), wCmd,
+; 3169 :                               MF_BYCOMMAND | MF_CHECKED );
 
 	push	8
-	mov	edx, DWORD PTR _wCmd$60459[ebp]
+	mov	edx, DWORD PTR _wCmd$60461[ebp]
 	and	edx, 65535				; 0000ffffH
 	push	edx
 	mov	eax, DWORD PTR _g_hWndMainFrame
@@ -10304,24 +10331,24 @@ $L60461:
 	call	DWORD PTR __imp__GetMenu@4
 	push	eax
 	call	DWORD PTR __imp__CheckMenuItem@12
-$L60458:
+$L60460:
 
-; 3168 :          else
+; 3173 :          else
 
-	jmp	SHORT $L60463
-$L60455:
+	jmp	SHORT $L60465
+$L60457:
 
-; 3169 :          if ( g_chScrollTrace )
+; 3174 :          if ( g_chScrollTrace )
 
 	movsx	ecx, BYTE PTR _g_chScrollTrace
 	test	ecx, ecx
-	je	SHORT $L60463
+	je	SHORT $L60465
 
-; 3170 :             SendMessage( g_hwndTraceWindow[ g_nTraceWindowHead ],
-; 3171 :                          LB_SETCURSEL, nItemCount, 0L );
+; 3175 :             SendMessage( g_hwndTraceWindow[ g_nTraceWindowHead ],
+; 3176 :                          LB_SETCURSEL, nItemCount, 0L );
 
 	push	0
-	mov	edx, DWORD PTR _nItemCount$60449[ebp]
+	mov	edx, DWORD PTR _nItemCount$60451[ebp]
 	and	edx, 65535				; 0000ffffH
 	push	edx
 	push	390					; 00000186H
@@ -10329,19 +10356,19 @@ $L60455:
 	mov	ecx, DWORD PTR _g_hwndTraceWindow[eax*4]
 	push	ecx
 	call	DWORD PTR __imp__SendMessageA@16
-$L60463:
+$L60465:
 
-; 3172 : 
-; 3173 :          return( nItemCount );
+; 3177 : 
+; 3178 :          return( nItemCount );
 
-	mov	eax, DWORD PTR _nItemCount$60449[ebp]
+	mov	eax, DWORD PTR _nItemCount$60451[ebp]
 	and	eax, 65535				; 0000ffffH
-	jmp	SHORT $L60440
-$L60464:
+	jmp	SHORT $L60442
+$L60466:
 
-; 3175 : 
-; 3176 :       default:
-; 3177 :          return( fpDfltListWndProc( hWnd, uMsg, wParam, lParam ) );
+; 3180 : 
+; 3181 :       default:
+; 3182 :          return( fpDfltListWndProc( hWnd, uMsg, wParam, lParam ) );
 
 	mov	edx, DWORD PTR _lParam$[ebp]
 	push	edx
@@ -10352,9 +10379,9 @@ $L60464:
 	mov	edx, DWORD PTR _hWnd$[ebp]
 	push	edx
 	call	DWORD PTR _fpDfltListWndProc
-$L60440:
+$L60442:
 
-; 3179 : }
+; 3184 : }
 
 	mov	esp, ebp
 	pop	ebp
@@ -10391,45 +10418,45 @@ _TEXT	SEGMENT
 _hWndDlg$ = 8
 _uMsg$ = 12
 _wParam$ = 16
-_lpTask$60480 = -4
-_szTraceText$60484 = -516
-_lpTask$60487 = -520
+_lpTask$60482 = -4
+_szTraceText$60486 = -516
+_lpTask$60489 = -520
 _LogTraceDlgProc@16 PROC NEAR
 
-; 3185 : {
+; 3190 : {
 
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 524				; 0000020cH
 
-; 3186 :    switch ( uMsg )
-; 3187 :    {
+; 3191 :    switch ( uMsg )
+; 3192 :    {
 
 	mov	eax, DWORD PTR _uMsg$[ebp]
 	mov	DWORD PTR -524+[ebp], eax
 	cmp	DWORD PTR -524+[ebp], 272		; 00000110H
-	je	$L60491
+	je	$L60493
 	cmp	DWORD PTR -524+[ebp], 273		; 00000111H
-	je	SHORT $L60478
-	jmp	$L60503
-$L60478:
+	je	SHORT $L60480
+	jmp	$L60505
+$L60480:
 
-; 3188 :       case WM_COMMAND:
-; 3189 :          if ( wParam == IDC_OPEN ) // open pushbutton
+; 3193 :       case WM_COMMAND:
+; 3194 :          if ( wParam == IDC_OPEN ) // open pushbutton
 
 	cmp	DWORD PTR _wParam$[ebp], 203		; 000000cbH
-	jne	$L60479
+	jne	$L60481
 
-; 3191 :             LPTASK lpTask = zGETPTR( AnchorBlock->hFirstTask );
+; 3196 :             LPTASK lpTask = zGETPTR( AnchorBlock->hFirstTask );
 
 	mov	ecx, DWORD PTR _AnchorBlock
 	mov	edx, DWORD PTR [ecx+130]
 	push	edx
 	call	_SysGetPointerFromHandle@4
-	mov	DWORD PTR _lpTask$60480[ebp], eax
+	mov	DWORD PTR _lpTask$60482[ebp], eax
 
-; 3192 :             GetDlgItemText( hWndDlg, IDC_LOGFILE,
-; 3193 :                             szLogFileName, sizeof( szLogFileName ) );
+; 3197 :             GetDlgItemText( hWndDlg, IDC_LOGFILE,
+; 3198 :                             szLogFileName, sizeof( szLogFileName ) );
 
 	push	256					; 00000100H
 	push	OFFSET FLAT:_szLogFileName
@@ -10438,21 +10465,21 @@ $L60478:
 	push	eax
 	call	DWORD PTR __imp__GetDlgItemTextA@16
 
-; 3194 :             if ( (g_hLogFile = fnSysOpenFile( lpTask, szLogFileName,
-; 3195 :                                               COREFILE_CREATE )) == -1 )
+; 3199 :             if ( (g_hLogFile = fnSysOpenFile( lpTask, szLogFileName,
+; 3200 :                                               COREFILE_CREATE )) == -1 )
 
 	push	32					; 00000020H
 	push	OFFSET FLAT:_szLogFileName
-	mov	ecx, DWORD PTR _lpTask$60480[ebp]
+	mov	ecx, DWORD PTR _lpTask$60482[ebp]
 	push	ecx
 	call	_fnSysOpenFile@12
 	mov	DWORD PTR _g_hLogFile, eax
 	cmp	DWORD PTR _g_hLogFile, -1
-	jne	SHORT $L60481
+	jne	SHORT $L60483
 
-; 3197 :                MessageBox( GetActiveWindow( ),
-; 3198 :                            "Error opening trace file!",
-; 3199 :                            "Zeidon Object Services", MB_ICONSTOP | MB_OK );
+; 3202 :                MessageBox( GetActiveWindow( ),
+; 3203 :                            "Error opening trace file!",
+; 3204 :                            "Zeidon Object Services", MB_ICONSTOP | MB_OK );
 
 	push	16					; 00000010H
 	push	OFFSET FLAT:??_C@_0BH@MPNN@Zeidon?5Object?5Services?$AA@ ; `string'
@@ -10461,142 +10488,142 @@ $L60478:
 	push	eax
 	call	DWORD PTR __imp__MessageBoxA@16
 
-; 3201 :             else
+; 3206 :             else
 
-	jmp	SHORT $L60483
-$L60481:
+	jmp	SHORT $L60485
+$L60483:
 
-; 3203 :                char szTraceText[ 512 ];
-; 3204 : 
-; 3205 :                // Send message that log file opened.
-; 3206 :                zstrcpy( szTraceText, "(ng) Log file Opened '" );
+; 3208 :                char szTraceText[ 512 ];
+; 3209 : 
+; 3210 :                // Send message that log file opened.
+; 3211 :                zstrcpy( szTraceText, "(ng) Log file Opened '" );
 
 	push	OFFSET FLAT:??_C@_0BH@GAAD@?$CIng?$CJ?5Log?5file?5Opened?5?8?$AA@ ; `string'
-	lea	edx, DWORD PTR _szTraceText$60484[ebp]
+	lea	edx, DWORD PTR _szTraceText$60486[ebp]
 	push	edx
 	call	_strcpy
 	add	esp, 8
 
-; 3207 :                zstrcat( szTraceText, szLogFileName );
+; 3212 :                zstrcat( szTraceText, szLogFileName );
 
 	push	OFFSET FLAT:_szLogFileName
-	lea	eax, DWORD PTR _szTraceText$60484[ebp]
+	lea	eax, DWORD PTR _szTraceText$60486[ebp]
 	push	eax
 	call	_strcat
 	add	esp, 8
 
-; 3208 :                zstrcat( szTraceText, "'" );
+; 3213 :                zstrcat( szTraceText, "'" );
 
 	push	OFFSET FLAT:??_C@_01HAF@?8?$AA@		; `string'
-	lea	ecx, DWORD PTR _szTraceText$60484[ebp]
+	lea	ecx, DWORD PTR _szTraceText$60486[ebp]
 	push	ecx
 	call	_strcat
 	add	esp, 8
 
-; 3209 :                SysMessageList( szTraceText );
+; 3214 :                SysMessageList( szTraceText );
 
-	lea	edx, DWORD PTR _szTraceText$60484[ebp]
+	lea	edx, DWORD PTR _szTraceText$60486[ebp]
 	push	edx
 	call	_SysMessageList@4
 
-; 3210 : 
-; 3211 :                WriteTraceToLog( lpTask );
+; 3215 : 
+; 3216 :                WriteTraceToLog( lpTask );
 
-	mov	eax, DWORD PTR _lpTask$60480[ebp]
+	mov	eax, DWORD PTR _lpTask$60482[ebp]
 	push	eax
 	call	_WriteTraceToLog
 	add	esp, 4
 
-; 3212 : 
-; 3213 :                EndDialog( hWndDlg, TRUE );
+; 3217 : 
+; 3218 :                EndDialog( hWndDlg, TRUE );
 
 	push	1
 	mov	ecx, DWORD PTR _hWndDlg$[ebp]
 	push	ecx
 	call	DWORD PTR __imp__EndDialog@8
-$L60483:
+$L60485:
 
-; 3216 :          else
+; 3221 :          else
 
-	jmp	SHORT $L60491
-$L60479:
+	jmp	SHORT $L60493
+$L60481:
 
-; 3217 :          if ( wParam == IDC_CLOSE )
+; 3222 :          if ( wParam == IDC_CLOSE )
 
 	cmp	DWORD PTR _wParam$[ebp], 204		; 000000ccH
-	jne	SHORT $L60486
+	jne	SHORT $L60488
 
-; 3219 :             LPTASK lpTask = zGETPTR( AnchorBlock->hFirstTask );
+; 3224 :             LPTASK lpTask = zGETPTR( AnchorBlock->hFirstTask );
 
 	mov	edx, DWORD PTR _AnchorBlock
 	mov	eax, DWORD PTR [edx+130]
 	push	eax
 	call	_SysGetPointerFromHandle@4
-	mov	DWORD PTR _lpTask$60487[ebp], eax
+	mov	DWORD PTR _lpTask$60489[ebp], eax
 
-; 3220 :             SysMessageList( "(ng) End of Log" );
+; 3225 :             SysMessageList( "(ng) End of Log" );
 
 	push	OFFSET FLAT:??_C@_0BA@OAGF@?$CIng?$CJ?5End?5of?5Log?$AA@ ; `string'
 	call	_SysMessageList@4
 
-; 3221 :             fnSysCloseFile( lpTask, g_hLogFile, 0 );
+; 3226 :             fnSysCloseFile( lpTask, g_hLogFile, 0 );
 
 	push	0
 	mov	ecx, DWORD PTR _g_hLogFile
 	push	ecx
-	mov	edx, DWORD PTR _lpTask$60487[ebp]
+	mov	edx, DWORD PTR _lpTask$60489[ebp]
 	push	edx
 	call	_fnSysCloseFile@12
 
-; 3222 :             g_hLogFile = -1;
+; 3227 :             g_hLogFile = -1;
 
 	mov	DWORD PTR _g_hLogFile, -1
 
-; 3223 :             EndDialog( hWndDlg, TRUE );
+; 3228 :             EndDialog( hWndDlg, TRUE );
 
 	push	1
 	mov	eax, DWORD PTR _hWndDlg$[ebp]
 	push	eax
 	call	DWORD PTR __imp__EndDialog@8
 
-; 3225 :          else
+; 3230 :          else
 
-	jmp	SHORT $L60491
-$L60486:
+	jmp	SHORT $L60493
+$L60488:
 
-; 3226 :          if ( wParam == IDC_CANCEL )
+; 3231 :          if ( wParam == IDC_CANCEL )
 
 	cmp	DWORD PTR _wParam$[ebp], 202		; 000000caH
-	jne	SHORT $L60490
+	jne	SHORT $L60492
 
-; 3227 :             EndDialog( hWndDlg, TRUE );
+; 3232 :             EndDialog( hWndDlg, TRUE );
 
 	push	1
 	mov	ecx, DWORD PTR _hWndDlg$[ebp]
 	push	ecx
 	call	DWORD PTR __imp__EndDialog@8
 
-; 3228 :          else
+; 3233 :          else
 
-	jmp	SHORT $L60491
-$L60490:
+	jmp	SHORT $L60493
+$L60492:
 
-; 3229 :             return( FALSE );
+; 3234 :             return( FALSE );
 
 	xor	eax, eax
-	jmp	$L60475
-$L60491:
+	jmp	$L60477
+$L60493:
 
-; 3230 : 
-; 3231 :          // fall through
-; 3232 : 
-; 3233 :       case WM_INITDIALOG:
-; 3234 :          if ( g_hLogFile != -1 )
+; 3235 : 
+; 3236 :          // fall through
+; 3237 : 
+; 3238 :       case WM_INITDIALOG:
+; 3239 :          if ( g_hLogFile != -1 )
 
 	cmp	DWORD PTR _g_hLogFile, -1
-	je	SHORT $L60493
+	je	SHORT $L60495
 
-; 3236 :             EnableWindow( GetDlgItem( hWndDlg, IDC_OPEN ), FALSE );
+; 3241 :             EnableWindow( GetDlgItem( hWndDlg, IDC_OPEN ), FALSE );
 
 	push	0
 	push	203					; 000000cbH
@@ -10606,7 +10633,7 @@ $L60491:
 	push	eax
 	call	DWORD PTR __imp__EnableWindow@8
 
-; 3237 :             SetDlgItemText( hWndDlg, IDC_LOGFILE, szLogFileName );
+; 3242 :             SetDlgItemText( hWndDlg, IDC_LOGFILE, szLogFileName );
 
 	push	OFFSET FLAT:_szLogFileName
 	push	205					; 000000cdH
@@ -10614,9 +10641,9 @@ $L60491:
 	push	eax
 	call	DWORD PTR __imp__SetDlgItemTextA@12
 
-; 3238 :             SendDlgItemMessage( hWndDlg, IDC_CLOSE,
-; 3239 :                                 BM_SETSTYLE,
-; 3240 :                                 (WORD) BS_DEFPUSHBUTTON, 1L );
+; 3243 :             SendDlgItemMessage( hWndDlg, IDC_CLOSE,
+; 3244 :                                 BM_SETSTYLE,
+; 3245 :                                 (WORD) BS_DEFPUSHBUTTON, 1L );
 
 	push	1
 	push	1
@@ -10626,7 +10653,7 @@ $L60491:
 	push	ecx
 	call	DWORD PTR __imp__SendDlgItemMessageA@20
 
-; 3241 :             SetFocus( GetDlgItem( hWndDlg, IDC_CLOSE ) );
+; 3246 :             SetFocus( GetDlgItem( hWndDlg, IDC_CLOSE ) );
 
 	push	204					; 000000ccH
 	mov	edx, DWORD PTR _hWndDlg$[ebp]
@@ -10635,7 +10662,7 @@ $L60491:
 	push	eax
 	call	DWORD PTR __imp__SetFocus@4
 
-; 3242 :             EnableWindow( GetDlgItem( hWndDlg, IDC_LOGFILE ), FALSE );
+; 3247 :             EnableWindow( GetDlgItem( hWndDlg, IDC_LOGFILE ), FALSE );
 
 	push	0
 	push	205					; 000000cdH
@@ -10645,12 +10672,12 @@ $L60491:
 	push	eax
 	call	DWORD PTR __imp__EnableWindow@8
 
-; 3244 :          else
+; 3249 :          else
 
-	jmp	$L60495
-$L60493:
+	jmp	$L60497
+$L60495:
 
-; 3246 :             EnableWindow( GetDlgItem( hWndDlg, IDC_CLOSE ), FALSE );
+; 3251 :             EnableWindow( GetDlgItem( hWndDlg, IDC_CLOSE ), FALSE );
 
 	push	0
 	push	204					; 000000ccH
@@ -10660,9 +10687,9 @@ $L60493:
 	push	eax
 	call	DWORD PTR __imp__EnableWindow@8
 
-; 3247 :             SendDlgItemMessage( hWndDlg, IDC_OPEN,
-; 3248 :                                 BM_SETSTYLE,
-; 3249 :                                 (WORD) BS_DEFPUSHBUTTON, 1L );
+; 3252 :             SendDlgItemMessage( hWndDlg, IDC_OPEN,
+; 3253 :                                 BM_SETSTYLE,
+; 3254 :                                 (WORD) BS_DEFPUSHBUTTON, 1L );
 
 	push	1
 	push	1
@@ -10672,13 +10699,13 @@ $L60493:
 	push	edx
 	call	DWORD PTR __imp__SendDlgItemMessageA@20
 
-; 3250 :             if ( szLogFileName[ 0 ] == 0 )
+; 3255 :             if ( szLogFileName[ 0 ] == 0 )
 
 	movsx	eax, BYTE PTR _szLogFileName
 	test	eax, eax
-	jne	SHORT $L60498
+	jne	SHORT $L60500
 
-; 3252 :                SysReadZeidonIni( -1, szlWorkstation, "LogFile", szLogFileName );
+; 3257 :                SysReadZeidonIni( -1, szlWorkstation, "LogFile", szLogFileName );
 
 	push	OFFSET FLAT:_szLogFileName
 	push	OFFSET FLAT:??_C@_07HGKM@LogFile?$AA@	; `string'
@@ -10686,20 +10713,20 @@ $L60493:
 	push	-1
 	call	_SysReadZeidonIni@16
 
-; 3253 :                if ( szLogFileName[ 0 ] == 0 )
+; 3258 :                if ( szLogFileName[ 0 ] == 0 )
 
 	movsx	ecx, BYTE PTR _szLogFileName
 	test	ecx, ecx
-	jne	SHORT $L60498
+	jne	SHORT $L60500
 
-; 3255 :                   if ( AnchorBlock->szZeidonLoc[ 0 ] )
+; 3260 :                   if ( AnchorBlock->szZeidonLoc[ 0 ] )
 
 	mov	edx, DWORD PTR _AnchorBlock
 	movsx	eax, BYTE PTR [edx+909]
 	test	eax, eax
-	je	SHORT $L60499
+	je	SHORT $L60501
 
-; 3256 :                      zstrcpy( szLogFileName, AnchorBlock->szZeidonLoc );
+; 3261 :                      zstrcpy( szLogFileName, AnchorBlock->szZeidonLoc );
 
 	mov	ecx, DWORD PTR _AnchorBlock
 	add	ecx, 909				; 0000038dH
@@ -10708,31 +10735,31 @@ $L60493:
 	call	_strcpy
 	add	esp, 8
 
-; 3257 :                   else
+; 3262 :                   else
 
-	jmp	SHORT $L60500
-$L60499:
+	jmp	SHORT $L60502
+$L60501:
 
-; 3258 :                      zstrcpy( szLogFileName, "\\" );
+; 3263 :                      zstrcpy( szLogFileName, "\\" );
 
 	push	OFFSET FLAT:??_C@_01PCFE@?2?$AA@	; `string'
 	push	OFFSET FLAT:_szLogFileName
 	call	_strcpy
 	add	esp, 8
-$L60500:
+$L60502:
 
-; 3259 : 
-; 3260 :                   zstrcat( szLogFileName, "ZEIDON00.LOG" );
+; 3264 : 
+; 3265 :                   zstrcat( szLogFileName, "ZEIDON00.LOG" );
 
 	push	OFFSET FLAT:??_C@_0N@IJAA@ZEIDON00?4LOG?$AA@ ; `string'
 	push	OFFSET FLAT:_szLogFileName
 	call	_strcat
 	add	esp, 8
-$L60498:
+$L60500:
 
-; 3263 : 
-; 3264 :             SetWindowText( GetDlgItem( hWndDlg, IDC_LOGFILE ),
-; 3265 :                            szLogFileName );
+; 3268 : 
+; 3269 :             SetWindowText( GetDlgItem( hWndDlg, IDC_LOGFILE ),
+; 3270 :                            szLogFileName );
 
 	push	OFFSET FLAT:_szLogFileName
 	push	205					; 000000cdH
@@ -10741,23 +10768,23 @@ $L60498:
 	call	DWORD PTR __imp__GetDlgItem@8
 	push	eax
 	call	DWORD PTR __imp__SetWindowTextA@8
-$L60495:
+$L60497:
 
-; 3267 : 
-; 3268 :          return( TRUE );
+; 3272 : 
+; 3273 :          return( TRUE );
 
 	mov	eax, 1
-	jmp	SHORT $L60475
-$L60503:
+	jmp	SHORT $L60477
+$L60505:
 
-; 3269 : 
-; 3270 :       default:
-; 3271 :          return( FALSE );
+; 3274 : 
+; 3275 :       default:
+; 3276 :          return( FALSE );
 
 	xor	eax, eax
-$L60475:
+$L60477:
 
-; 3273 : }
+; 3278 : }
 
 	mov	esp, ebp
 	pop	ebp
@@ -10770,25 +10797,25 @@ _uSizeX$ = -4
 _uSizeY$ = -8
 _CheckWindowPos PROC NEAR
 
-; 3283 : {
+; 3288 : {
 
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 16					; 00000010H
 
-; 3284 :    zUSHORT uSquareX = GetSystemMetrics( SM_CXICON );
+; 3289 :    zUSHORT uSquareX = GetSystemMetrics( SM_CXICON );
 
 	push	11					; 0000000bH
 	call	DWORD PTR __imp__GetSystemMetrics@4
 	mov	WORD PTR _uSquareX$[ebp], ax
 
-; 3285 :    zUSHORT uSquareY = GetSystemMetrics( SM_CYICON );
+; 3290 :    zUSHORT uSquareY = GetSystemMetrics( SM_CYICON );
 
 	push	12					; 0000000cH
 	call	DWORD PTR __imp__GetSystemMetrics@4
 	mov	WORD PTR _uSquareY$[ebp], ax
 
-; 3286 :    zUSHORT uSizeX = GetSystemMetrics( SM_CXSCREEN ) - uSquareX;
+; 3291 :    zUSHORT uSizeX = GetSystemMetrics( SM_CXSCREEN ) - uSquareX;
 
 	push	0
 	call	DWORD PTR __imp__GetSystemMetrics@4
@@ -10797,7 +10824,7 @@ _CheckWindowPos PROC NEAR
 	sub	eax, ecx
 	mov	WORD PTR _uSizeX$[ebp], ax
 
-; 3287 :    zUSHORT uSizeY = GetSystemMetrics( SM_CYSCREEN ) - uSquareY;
+; 3292 :    zUSHORT uSizeY = GetSystemMetrics( SM_CYSCREEN ) - uSquareY;
 
 	push	1
 	call	DWORD PTR __imp__GetSystemMetrics@4
@@ -10806,51 +10833,51 @@ _CheckWindowPos PROC NEAR
 	sub	eax, edx
 	mov	WORD PTR _uSizeY$[ebp], ax
 
-; 3288 : 
-; 3289 :    // If the restored position is not visible, let default positioning occur.
-; 3290 : // TraceRect( "CheckWindowPos Rect:", wp->rcNormalPosition );
-; 3291 : // TraceLineI( "uSizeX: ", uSizeX );
-; 3292 : // TraceLineI( "uSizeY: ", uSizeY );
-; 3293 :    if ( pwp->rcNormalPosition.top > uSizeY ||
-; 3294 :         pwp->rcNormalPosition.left > uSizeX ||
-; 3295 :         pwp->rcNormalPosition.bottom <= uSquareY ||
-; 3296 :         pwp->rcNormalPosition.right <= uSquareX )
+; 3293 : 
+; 3294 :    // If the restored position is not visible, let default positioning occur.
+; 3295 : // TraceRect( "CheckWindowPos Rect:", wp->rcNormalPosition );
+; 3296 : // TraceLineI( "uSizeX: ", uSizeX );
+; 3297 : // TraceLineI( "uSizeY: ", uSizeY );
+; 3298 :    if ( pwp->rcNormalPosition.top > uSizeY ||
+; 3299 :         pwp->rcNormalPosition.left > uSizeX ||
+; 3300 :         pwp->rcNormalPosition.bottom <= uSquareY ||
+; 3301 :         pwp->rcNormalPosition.right <= uSquareX )
 
 	mov	eax, DWORD PTR _uSizeY$[ebp]
 	and	eax, 65535				; 0000ffffH
 	mov	ecx, DWORD PTR _pwp$[ebp]
 	cmp	DWORD PTR [ecx+32], eax
-	jg	SHORT $L60512
+	jg	SHORT $L60514
 	mov	edx, DWORD PTR _uSizeX$[ebp]
 	and	edx, 65535				; 0000ffffH
 	mov	eax, DWORD PTR _pwp$[ebp]
 	cmp	DWORD PTR [eax+28], edx
-	jg	SHORT $L60512
+	jg	SHORT $L60514
 	mov	ecx, DWORD PTR _uSquareY$[ebp]
 	and	ecx, 65535				; 0000ffffH
 	mov	edx, DWORD PTR _pwp$[ebp]
 	cmp	DWORD PTR [edx+40], ecx
-	jle	SHORT $L60512
+	jle	SHORT $L60514
 	mov	eax, DWORD PTR _uSquareX$[ebp]
 	and	eax, 65535				; 0000ffffH
 	mov	ecx, DWORD PTR _pwp$[ebp]
 	cmp	DWORD PTR [ecx+36], eax
-	jg	SHORT $L60511
-$L60512:
+	jg	SHORT $L60513
+$L60514:
 
-; 3298 :       return( FALSE );
+; 3303 :       return( FALSE );
 
 	xor	al, al
-	jmp	SHORT $L60506
-$L60511:
+	jmp	SHORT $L60508
+$L60513:
 
-; 3300 : 
-; 3301 :    return( TRUE );
+; 3305 : 
+; 3306 :    return( TRUE );
 
 	mov	al, 1
-$L60506:
+$L60508:
 
-; 3302 : }
+; 3307 : }
 
 	mov	esp, ebp
 	pop	ebp
@@ -10865,12 +10892,12 @@ _szFileName$ = -516
 _szTempName$ = -824
 _szBuffer$ = -256
 _nRead$ = -564
-_pch$60526 = -828
-_pchComma$60527 = -832
-_lValue$60528 = -836
+_pch$60528 = -828
+_pchComma$60529 = -832
+_lValue$60530 = -836
 _ReadWindowPlacement PROC NEAR
 
-; 3306 : {
+; 3311 : {
 
 	push	ebp
 	mov	ebp, esp
@@ -10878,16 +10905,16 @@ _ReadWindowPlacement PROC NEAR
 	push	esi
 	push	edi
 
-; 3307 :    WINDOWPLACEMENT wp;
-; 3308 :    char szFileName[ 260 ];
-; 3309 :    char szTempName[ 260 ];
-; 3310 :    char szBuffer[ 256 ];
-; 3311 :    int nRead = 0;
+; 3312 :    WINDOWPLACEMENT wp;
+; 3313 :    char szFileName[ 260 ];
+; 3314 :    char szTempName[ 260 ];
+; 3315 :    char szBuffer[ 256 ];
+; 3316 :    int nRead = 0;
 
 	mov	DWORD PTR _nRead$[ebp], 0
 
-; 3312 : 
-; 3313 :    SysReadZeidonIni( -1, szlWorkstation, "LocalDir", szTempName );
+; 3317 : 
+; 3318 :    SysReadZeidonIni( -1, szlWorkstation, "LocalDir", szTempName );
 
 	lea	eax, DWORD PTR _szTempName$[ebp]
 	push	eax
@@ -10896,7 +10923,7 @@ _ReadWindowPlacement PROC NEAR
 	push	-1
 	call	_SysReadZeidonIni@16
 
-; 3314 :    SysConvertEnvironmentString( szFileName, szTempName );
+; 3319 :    SysConvertEnvironmentString( szFileName, szTempName );
 
 	lea	ecx, DWORD PTR _szTempName$[ebp]
 	push	ecx
@@ -10904,19 +10931,19 @@ _ReadWindowPlacement PROC NEAR
 	push	edx
 	call	_SysConvertEnvironmentString@8
 
-; 3315 :    if ( szFileName[ 0 ] )
+; 3320 :    if ( szFileName[ 0 ] )
 
 	movsx	eax, BYTE PTR _szFileName$[ebp]
 	test	eax, eax
-	je	SHORT $L60523
+	je	SHORT $L60525
 
-; 3317 :       SysAppendcDirSep( szFileName );
+; 3322 :       SysAppendcDirSep( szFileName );
 
 	lea	ecx, DWORD PTR _szFileName$[ebp]
 	push	ecx
 	call	_SysAppendcDirSep@4
 
-; 3318 :       zstrcat( szFileName, "ZeidonRT.ini" );
+; 3323 :       zstrcat( szFileName, "ZeidonRT.ini" );
 
 	push	OFFSET FLAT:??_C@_0N@KGLP@ZeidonRT?4ini?$AA@ ; `string'
 	lea	edx, DWORD PTR _szFileName$[ebp]
@@ -10924,12 +10951,12 @@ _ReadWindowPlacement PROC NEAR
 	call	_strcat
 	add	esp, 8
 
-; 3319 :       GetPrivateProfileString( "ObjectEngine",     // section name
-; 3320 :                                "WindowPos",        // key name
-; 3321 :                                "",                 // default string
-; 3322 :                                szBuffer,           // destination buffer
-; 3323 :                                sizeof( szBuffer ), // size of destination buffer
-; 3324 :                                szFileName );       // ini filename
+; 3324 :       GetPrivateProfileString( "ObjectEngine",     // section name
+; 3325 :                                "WindowPos",        // key name
+; 3326 :                                "",                 // default string
+; 3327 :                                szBuffer,           // destination buffer
+; 3328 :                                sizeof( szBuffer ), // size of destination buffer
+; 3329 :                                szFileName );       // ini filename
 
 	lea	eax, DWORD PTR _szFileName$[ebp]
 	push	eax
@@ -10941,12 +10968,12 @@ _ReadWindowPlacement PROC NEAR
 	push	OFFSET FLAT:??_C@_0N@JELK@ObjectEngine?$AA@ ; `string'
 	call	DWORD PTR __imp__GetPrivateProfileStringA@24
 
-; 3326 :    else
+; 3331 :    else
 
-	jmp	SHORT $L60524
-$L60523:
+	jmp	SHORT $L60526
+$L60525:
 
-; 3327 :       SysReadZeidonIni( -1, "[ObjectEngine]", "WindowPos", szBuffer );
+; 3332 :       SysReadZeidonIni( -1, "[ObjectEngine]", "WindowPos", szBuffer );
 
 	lea	edx, DWORD PTR _szBuffer$[ebp]
 	push	edx
@@ -10954,265 +10981,265 @@ $L60523:
 	push	OFFSET FLAT:??_C@_0P@CGC@?$FLObjectEngine?$FN?$AA@ ; `string'
 	push	-1
 	call	_SysReadZeidonIni@16
-$L60524:
+$L60526:
 
-; 3328 : 
-; 3329 :    if ( szBuffer[ 0 ] )
+; 3333 : 
+; 3334 :    if ( szBuffer[ 0 ] )
 
 	movsx	eax, BYTE PTR _szBuffer$[ebp]
 	test	eax, eax
-	je	$L60531
+	je	$L60533
 
-; 3331 :    // nRead = scanf( szBuffer, szPlaceFormat,
-; 3332 :    //                &wp.flags, &wp.showCmd,
-; 3333 :    //                &wp.ptMinPosition.x, &wp.ptMinPosition.y,
-; 3334 :    //                &wp.ptMaxPosition.x, &wp.ptMaxPosition.y,
-; 3335 :    //                &wp.rcNormalPosition.left,
-; 3336 :    //                &wp.rcNormalPosition.top,
-; 3337 :    //                &wp.rcNormalPosition.right,
-; 3338 :    //                &wp.rcNormalPosition.bottom );
-; 3339 :       zPCHAR pch = szBuffer;
+; 3336 :    // nRead = scanf( szBuffer, szPlaceFormat,
+; 3337 :    //                &wp.flags, &wp.showCmd,
+; 3338 :    //                &wp.ptMinPosition.x, &wp.ptMinPosition.y,
+; 3339 :    //                &wp.ptMaxPosition.x, &wp.ptMaxPosition.y,
+; 3340 :    //                &wp.rcNormalPosition.left,
+; 3341 :    //                &wp.rcNormalPosition.top,
+; 3342 :    //                &wp.rcNormalPosition.right,
+; 3343 :    //                &wp.rcNormalPosition.bottom );
+; 3344 :       zPCHAR pch = szBuffer;
 
 	lea	ecx, DWORD PTR _szBuffer$[ebp]
-	mov	DWORD PTR _pch$60526[ebp], ecx
-$L60530:
+	mov	DWORD PTR _pch$60528[ebp], ecx
+$L60532:
 
-; 3340 :       zPCHAR pchComma;
-; 3341 :       zLONG  lValue;
-; 3342 : 
-; 3343 :       while ( pch )
+; 3345 :       zPCHAR pchComma;
+; 3346 :       zLONG  lValue;
+; 3347 : 
+; 3348 :       while ( pch )
 
-	cmp	DWORD PTR _pch$60526[ebp], 0
-	je	$L60531
+	cmp	DWORD PTR _pch$60528[ebp], 0
+	je	$L60533
 
-; 3345 :          pchComma = zstrchr( pch, ',' );
+; 3350 :          pchComma = zstrchr( pch, ',' );
 
 	push	44					; 0000002cH
-	mov	edx, DWORD PTR _pch$60526[ebp]
+	mov	edx, DWORD PTR _pch$60528[ebp]
 	push	edx
 	call	_strchr
 	add	esp, 8
-	mov	DWORD PTR _pchComma$60527[ebp], eax
+	mov	DWORD PTR _pchComma$60529[ebp], eax
 
-; 3346 :          if ( pchComma )
+; 3351 :          if ( pchComma )
 
-	cmp	DWORD PTR _pchComma$60527[ebp], 0
-	je	SHORT $L60532
+	cmp	DWORD PTR _pchComma$60529[ebp], 0
+	je	SHORT $L60535
 
-; 3348 :             *pchComma = 0;
+; 3353 :             *pchComma = 0;
 
-	mov	eax, DWORD PTR _pchComma$60527[ebp]
+	mov	eax, DWORD PTR _pchComma$60529[ebp]
 	mov	BYTE PTR [eax], 0
 
-; 3349 :             pchComma++;
+; 3354 :             pchComma++;
 
-	mov	ecx, DWORD PTR _pchComma$60527[ebp]
+	mov	ecx, DWORD PTR _pchComma$60529[ebp]
 	add	ecx, 1
-	mov	DWORD PTR _pchComma$60527[ebp], ecx
-$L60532:
+	mov	DWORD PTR _pchComma$60529[ebp], ecx
+$L60535:
 
-; 3351 : 
-; 3352 :          lValue = zatol( pch );
+; 3356 : 
+; 3357 :          lValue = zatol( pch );
 
-	mov	edx, DWORD PTR _pch$60526[ebp]
+	mov	edx, DWORD PTR _pch$60528[ebp]
 	push	edx
 	call	_atol
 	add	esp, 4
-	mov	DWORD PTR _lValue$60528[ebp], eax
+	mov	DWORD PTR _lValue$60530[ebp], eax
 
-; 3353 :          nRead++;
+; 3358 :          nRead++;
 
 	mov	eax, DWORD PTR _nRead$[ebp]
 	add	eax, 1
 	mov	DWORD PTR _nRead$[ebp], eax
 
-; 3354 :          if ( nRead == 1 )
+; 3359 :          if ( nRead == 1 )
 
 	cmp	DWORD PTR _nRead$[ebp], 1
-	jne	SHORT $L60533
+	jne	SHORT $L60536
 
-; 3355 :             wp.flags = lValue;
+; 3360 :             wp.flags = lValue;
 
-	mov	ecx, DWORD PTR _lValue$60528[ebp]
+	mov	ecx, DWORD PTR _lValue$60530[ebp]
 	mov	DWORD PTR _wp$[ebp+4], ecx
 
-; 3356 :          else
+; 3361 :          else
 
-	jmp	$L60551
-$L60533:
+	jmp	$L60554
+$L60536:
 
-; 3357 :          if ( nRead == 2 )
+; 3362 :          if ( nRead == 2 )
 
 	cmp	DWORD PTR _nRead$[ebp], 2
-	jne	SHORT $L60535
+	jne	SHORT $L60538
 
-; 3358 :             wp.showCmd = lValue;
+; 3363 :             wp.showCmd = lValue;
 
-	mov	edx, DWORD PTR _lValue$60528[ebp]
+	mov	edx, DWORD PTR _lValue$60530[ebp]
 	mov	DWORD PTR _wp$[ebp+8], edx
 
-; 3359 :          else
+; 3364 :          else
 
-	jmp	$L60551
-$L60535:
+	jmp	$L60554
+$L60538:
 
-; 3360 :          if ( nRead == 3 )
+; 3365 :          if ( nRead == 3 )
 
 	cmp	DWORD PTR _nRead$[ebp], 3
-	jne	SHORT $L60537
+	jne	SHORT $L60540
 
-; 3361 :             wp.ptMinPosition.x = lValue;
+; 3366 :             wp.ptMinPosition.x = lValue;
 
-	mov	eax, DWORD PTR _lValue$60528[ebp]
+	mov	eax, DWORD PTR _lValue$60530[ebp]
 	mov	DWORD PTR _wp$[ebp+12], eax
 
-; 3362 :          else
+; 3367 :          else
 
-	jmp	$L60551
-$L60537:
+	jmp	$L60554
+$L60540:
 
-; 3363 :          if ( nRead == 4 )
+; 3368 :          if ( nRead == 4 )
 
 	cmp	DWORD PTR _nRead$[ebp], 4
-	jne	SHORT $L60539
+	jne	SHORT $L60542
 
-; 3364 :             wp.ptMinPosition.y = lValue;
+; 3369 :             wp.ptMinPosition.y = lValue;
 
-	mov	ecx, DWORD PTR _lValue$60528[ebp]
+	mov	ecx, DWORD PTR _lValue$60530[ebp]
 	mov	DWORD PTR _wp$[ebp+16], ecx
 
-; 3365 :          else
+; 3370 :          else
 
-	jmp	$L60551
-$L60539:
+	jmp	$L60554
+$L60542:
 
-; 3366 :          if ( nRead == 5 )
+; 3371 :          if ( nRead == 5 )
 
 	cmp	DWORD PTR _nRead$[ebp], 5
-	jne	SHORT $L60541
+	jne	SHORT $L60544
 
-; 3367 :             wp.ptMaxPosition.x = lValue;
+; 3372 :             wp.ptMaxPosition.x = lValue;
 
-	mov	edx, DWORD PTR _lValue$60528[ebp]
+	mov	edx, DWORD PTR _lValue$60530[ebp]
 	mov	DWORD PTR _wp$[ebp+20], edx
 
-; 3368 :          else
+; 3373 :          else
 
-	jmp	SHORT $L60551
-$L60541:
+	jmp	SHORT $L60554
+$L60544:
 
-; 3369 :          if ( nRead == 6 )
+; 3374 :          if ( nRead == 6 )
 
 	cmp	DWORD PTR _nRead$[ebp], 6
-	jne	SHORT $L60543
+	jne	SHORT $L60546
 
-; 3370 :             wp.ptMaxPosition.y = lValue;
+; 3375 :             wp.ptMaxPosition.y = lValue;
 
-	mov	eax, DWORD PTR _lValue$60528[ebp]
+	mov	eax, DWORD PTR _lValue$60530[ebp]
 	mov	DWORD PTR _wp$[ebp+24], eax
 
-; 3371 :          else
+; 3376 :          else
 
-	jmp	SHORT $L60551
-$L60543:
+	jmp	SHORT $L60554
+$L60546:
 
-; 3372 :          if ( nRead == 7 )
+; 3377 :          if ( nRead == 7 )
 
 	cmp	DWORD PTR _nRead$[ebp], 7
-	jne	SHORT $L60545
+	jne	SHORT $L60548
 
-; 3373 :             wp.rcNormalPosition.left = lValue;
+; 3378 :             wp.rcNormalPosition.left = lValue;
 
-	mov	ecx, DWORD PTR _lValue$60528[ebp]
+	mov	ecx, DWORD PTR _lValue$60530[ebp]
 	mov	DWORD PTR _wp$[ebp+28], ecx
 
-; 3374 :          else
+; 3379 :          else
 
-	jmp	SHORT $L60551
-$L60545:
+	jmp	SHORT $L60554
+$L60548:
 
-; 3375 :          if ( nRead == 8 )
+; 3380 :          if ( nRead == 8 )
 
 	cmp	DWORD PTR _nRead$[ebp], 8
-	jne	SHORT $L60547
+	jne	SHORT $L60550
 
-; 3376 :             wp.rcNormalPosition.top = lValue;
+; 3381 :             wp.rcNormalPosition.top = lValue;
 
-	mov	edx, DWORD PTR _lValue$60528[ebp]
+	mov	edx, DWORD PTR _lValue$60530[ebp]
 	mov	DWORD PTR _wp$[ebp+32], edx
 
-; 3377 :          else
+; 3382 :          else
 
-	jmp	SHORT $L60551
-$L60547:
+	jmp	SHORT $L60554
+$L60550:
 
-; 3378 :          if ( nRead == 9 )
+; 3383 :          if ( nRead == 9 )
 
 	cmp	DWORD PTR _nRead$[ebp], 9
-	jne	SHORT $L60549
+	jne	SHORT $L60552
 
-; 3379 :             wp.rcNormalPosition.right = lValue;
+; 3384 :             wp.rcNormalPosition.right = lValue;
 
-	mov	eax, DWORD PTR _lValue$60528[ebp]
+	mov	eax, DWORD PTR _lValue$60530[ebp]
 	mov	DWORD PTR _wp$[ebp+36], eax
 
-; 3380 :          else
+; 3385 :          else
 
-	jmp	SHORT $L60551
-$L60549:
-
-; 3381 :          if ( nRead == 10 )
-
-	cmp	DWORD PTR _nRead$[ebp], 10		; 0000000aH
-	jne	SHORT $L60551
-
-; 3382 :             wp.rcNormalPosition.bottom = lValue;
-
-	mov	ecx, DWORD PTR _lValue$60528[ebp]
-	mov	DWORD PTR _wp$[ebp+40], ecx
-$L60551:
-
-; 3383 : 
-; 3384 :          pch = pchComma;
-
-	mov	edx, DWORD PTR _pchComma$60527[ebp]
-	mov	DWORD PTR _pch$60526[ebp], edx
-
-; 3385 :       }
-
-	jmp	$L60530
-$L60531:
-
-; 3387 : 
-; 3388 :    if ( nRead != 10 )
-
-	cmp	DWORD PTR _nRead$[ebp], 10		; 0000000aH
-	je	SHORT $L60552
-
-; 3389 :       return( FALSE );
-
-	xor	al, al
-	jmp	SHORT $L60517
+	jmp	SHORT $L60554
 $L60552:
 
-; 3390 : 
-; 3391 :    wp.length = sizeof( wp );
+; 3386 :          if ( nRead == 10 )
+
+	cmp	DWORD PTR _nRead$[ebp], 10		; 0000000aH
+	jne	SHORT $L60554
+
+; 3387 :             wp.rcNormalPosition.bottom = lValue;
+
+	mov	ecx, DWORD PTR _lValue$60530[ebp]
+	mov	DWORD PTR _wp$[ebp+40], ecx
+$L60554:
+
+; 3388 : 
+; 3389 :          pch = pchComma;
+
+	mov	edx, DWORD PTR _pchComma$60529[ebp]
+	mov	DWORD PTR _pch$60528[ebp], edx
+
+; 3390 :       }
+
+	jmp	$L60532
+$L60533:
+
+; 3392 : 
+; 3393 :    if ( nRead != 10 )
+
+	cmp	DWORD PTR _nRead$[ebp], 10		; 0000000aH
+	je	SHORT $L60555
+
+; 3394 :       return( FALSE );
+
+	xor	al, al
+	jmp	SHORT $L60519
+$L60555:
+
+; 3395 : 
+; 3396 :    wp.length = sizeof( wp );
 
 	mov	DWORD PTR _wp$[ebp], 44			; 0000002cH
 
-; 3392 :    *pwp = wp;
+; 3397 :    *pwp = wp;
 
 	mov	ecx, 11					; 0000000bH
 	lea	esi, DWORD PTR _wp$[ebp]
 	mov	edi, DWORD PTR _pwp$[ebp]
 	rep movsd
 
-; 3393 :    return( TRUE );
+; 3398 :    return( TRUE );
 
 	mov	al, 1
-$L60517:
+$L60519:
 
-; 3394 : }
+; 3399 : }
 
 	pop	edi
 	pop	esi
@@ -11234,50 +11261,50 @@ _res$ = -4
 _tnd$ = -92
 _TrayMessage PROC NEAR
 
-; 3412 : {
+; 3417 : {
 
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 92					; 0000005cH
 
-; 3413 :    zBOOL res;
-; 3414 : 
-; 3415 :    NOTIFYICONDATA tnd;
-; 3416 : 
-; 3417 :    tnd.cbSize      = sizeof( NOTIFYICONDATA );
+; 3418 :    zBOOL res;
+; 3419 : 
+; 3420 :    NOTIFYICONDATA tnd;
+; 3421 : 
+; 3422 :    tnd.cbSize      = sizeof( NOTIFYICONDATA );
 
 	mov	DWORD PTR _tnd$[ebp], 88		; 00000058H
 
-; 3418 :    tnd.hWnd        = g_hWndMainFrame;
+; 3423 :    tnd.hWnd        = g_hWndMainFrame;
 
 	mov	eax, DWORD PTR _g_hWndMainFrame
 	mov	DWORD PTR _tnd$[ebp+4], eax
 
-; 3419 :    tnd.uID         = uID;
+; 3424 :    tnd.uID         = uID;
 
 	mov	ecx, DWORD PTR _uID$[ebp]
 	mov	DWORD PTR _tnd$[ebp+8], ecx
 
-; 3420 : 
-; 3421 :    tnd.uFlags      = NIF_MESSAGE | NIF_ICON | NIF_TIP;
+; 3425 : 
+; 3426 :    tnd.uFlags      = NIF_MESSAGE | NIF_ICON | NIF_TIP;
 
 	mov	DWORD PTR _tnd$[ebp+12], 7
 
-; 3422 :    tnd.uCallbackMessage = zWM_NOTIFYICON;// notification message for message loop
+; 3427 :    tnd.uCallbackMessage = zWM_NOTIFYICON;// notification message for message loop
 
 	mov	DWORD PTR _tnd$[ebp+16], 32868		; 00008064H
 
-; 3423 :    tnd.hIcon      = hIcon;
+; 3428 :    tnd.hIcon      = hIcon;
 
 	mov	edx, DWORD PTR _hIcon$[ebp]
 	mov	DWORD PTR _tnd$[ebp+20], edx
 
-; 3424 :    if ( pszTip )
+; 3429 :    if ( pszTip )
 
 	cmp	DWORD PTR _pszTip$[ebp], 0
-	je	SHORT $L60565
+	je	SHORT $L60568
 
-; 3426 :       lstrcpyn( tnd.szTip, pszTip, sizeof( tnd.szTip ) );
+; 3431 :       lstrcpyn( tnd.szTip, pszTip, sizeof( tnd.szTip ) );
 
 	push	64					; 00000040H
 	mov	eax, DWORD PTR _pszTip$[ebp]
@@ -11286,18 +11313,18 @@ _TrayMessage PROC NEAR
 	push	ecx
 	call	DWORD PTR __imp__lstrcpynA@12
 
-; 3428 :    else
+; 3433 :    else
 
-	jmp	SHORT $L60566
-$L60565:
+	jmp	SHORT $L60569
+$L60568:
 
-; 3430 :       tnd.szTip[ 0 ] = 0;
+; 3435 :       tnd.szTip[ 0 ] = 0;
 
 	mov	BYTE PTR _tnd$[ebp+24], 0
-$L60566:
+$L60569:
 
-; 3432 : 
-; 3433 :    res = Shell_NotifyIcon(dwMessage, &tnd);
+; 3437 : 
+; 3438 :    res = Shell_NotifyIcon(dwMessage, &tnd);
 
 	lea	edx, DWORD PTR _tnd$[ebp]
 	push	edx
@@ -11306,25 +11333,25 @@ $L60566:
 	call	DWORD PTR __imp__Shell_NotifyIconA@8
 	mov	BYTE PTR _res$[ebp], al
 
-; 3434 : 
-; 3435 :    if ( hIcon )
+; 3439 : 
+; 3440 :    if ( hIcon )
 
 	cmp	DWORD PTR _hIcon$[ebp], 0
-	je	SHORT $L60567
+	je	SHORT $L60570
 
-; 3436 :        DestroyIcon( hIcon );
+; 3441 :        DestroyIcon( hIcon );
 
 	mov	ecx, DWORD PTR _hIcon$[ebp]
 	push	ecx
 	call	DWORD PTR __imp__DestroyIcon@4
-$L60567:
+$L60570:
 
-; 3437 : 
-; 3438 :    return( res );
+; 3442 : 
+; 3443 :    return( res );
 
 	mov	al, BYTE PTR _res$[ebp]
 
-; 3439 : }
+; 3444 : }
 
 	mov	esp, ebp
 	pop	ebp
@@ -11339,23 +11366,23 @@ _hIcon$ = -4
 _szTip$ = -132
 _SetupSysTray PROC NEAR
 
-; 3454 : {
+; 3459 : {
 
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 136				; 00000088H
 
-; 3455 :    zBOOL bReturn = FALSE;
+; 3460 :    zBOOL bReturn = FALSE;
 
 	mov	BYTE PTR _bReturn$[ebp], 0
 
-; 3456 :    HICON hIcon = NULL;
+; 3461 :    HICON hIcon = NULL;
 
 	mov	DWORD PTR _hIcon$[ebp], 0
 
-; 3457 :    char szTip[ 128 ];
-; 3458 : 
-; 3459 :    hIcon = LoadIcon( hInstance, "ZEIDON" );
+; 3462 :    char szTip[ 128 ];
+; 3463 : 
+; 3464 :    hIcon = LoadIcon( hInstance, "ZEIDON" );
 
 	push	OFFSET FLAT:??_C@_06HLLH@ZEIDON?$AA@	; `string'
 	mov	eax, DWORD PTR _hInstance$[ebp]
@@ -11363,7 +11390,7 @@ _SetupSysTray PROC NEAR
 	call	DWORD PTR __imp__LoadIconA@8
 	mov	DWORD PTR _hIcon$[ebp], eax
 
-; 3460 :    GetWindowText( g_hWndMainFrame, szTip, 127 );
+; 3465 :    GetWindowText( g_hWndMainFrame, szTip, 127 );
 
 	push	127					; 0000007fH
 	lea	ecx, DWORD PTR _szTip$[ebp]
@@ -11372,7 +11399,7 @@ _SetupSysTray PROC NEAR
 	push	edx
 	call	DWORD PTR __imp__GetWindowTextA@12
 
-; 3461 :    bReturn = TrayMessage( NIM_ADD, zTRAY_MESSAGE_SHOW, hIcon, szTip );
+; 3466 :    bReturn = TrayMessage( NIM_ADD, zTRAY_MESSAGE_SHOW, hIcon, szTip );
 
 	lea	eax, DWORD PTR _szTip$[ebp]
 	push	eax
@@ -11384,12 +11411,12 @@ _SetupSysTray PROC NEAR
 	add	esp, 16					; 00000010H
 	mov	BYTE PTR _bReturn$[ebp], al
 
-; 3462 : 
-; 3463 :    return bReturn;
+; 3467 : 
+; 3468 :    return bReturn;
 
 	mov	al, BYTE PTR _bReturn$[ebp]
 
-; 3464 : }
+; 3469 : }
 
 	mov	esp, ebp
 	pop	ebp
@@ -11397,12 +11424,12 @@ _SetupSysTray PROC NEAR
 _SetupSysTray ENDP
 _DetachSysTray PROC NEAR
 
-; 3479 : {
+; 3484 : {
 
 	push	ebp
 	mov	ebp, esp
 
-; 3480 :    TrayMessage( NIM_DELETE, zTRAY_MESSAGE_SHOW, NULL, NULL);
+; 3485 :    TrayMessage( NIM_DELETE, zTRAY_MESSAGE_SHOW, NULL, NULL);
 
 	push	0
 	push	0
@@ -11411,7 +11438,7 @@ _DetachSysTray PROC NEAR
 	call	_TrayMessage
 	add	esp, 16					; 00000010H
 
-; 3481 : }
+; 3486 : }
 
 	pop	ebp
 	ret	0
@@ -11429,18 +11456,18 @@ _hMenuTrackPopup$ = -8
 _bIsVisible$ = -12
 _HandlePopupMenu@12 PROC NEAR
 
-; 3497 : {
+; 3502 : {
 
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 24					; 00000018H
 
-; 3498 : 
-; 3499 :    HMENU hMenu;
-; 3500 :    HMENU hMenuTrackPopup;
-; 3501 :    BOOL bIsVisible;
-; 3502 :    // Get the menu for the windows
-; 3503 :    hMenu = LoadMenu( hInst, MAKEINTRESOURCE( ID_SYSTRAY_MNU ) );
+; 3503 : 
+; 3504 :    HMENU hMenu;
+; 3505 :    HMENU hMenuTrackPopup;
+; 3506 :    BOOL bIsVisible;
+; 3507 :    // Get the menu for the windows
+; 3508 :    hMenu = LoadMenu( hInst, MAKEINTRESOURCE( ID_SYSTRAY_MNU ) );
 
 	push	323					; 00000143H
 	mov	eax, DWORD PTR _hInst
@@ -11448,23 +11475,23 @@ _HandlePopupMenu@12 PROC NEAR
 	call	DWORD PTR __imp__LoadMenuA@8
 	mov	DWORD PTR _hMenu$[ebp], eax
 
-; 3504 : 
-; 3505 :    if ( hMenu == 0 )
+; 3509 : 
+; 3510 :    if ( hMenu == 0 )
 
 	cmp	DWORD PTR _hMenu$[ebp], 0
-	jne	SHORT $L60589
+	jne	SHORT $L60592
 
-; 3506 :       return;
+; 3511 :       return;
 
-	jmp	$L60582
-$L60589:
+	jmp	$L60585
+$L60592:
 
-; 3507 : 
-; 3508 :    // Get the first menu in it which we will use for the call to
-; 3509 :    // TrackPopup( ). This could also have been created on the fly using
-; 3510 :    // CreatePopupMenu and then we could have used InsertMenu( ) or
-; 3511 :    // AppendMenu.
-; 3512 :    hMenuTrackPopup = GetSubMenu( hMenu, 0 );
+; 3512 : 
+; 3513 :    // Get the first menu in it which we will use for the call to
+; 3514 :    // TrackPopup( ). This could also have been created on the fly using
+; 3515 :    // CreatePopupMenu and then we could have used InsertMenu( ) or
+; 3516 :    // AppendMenu.
+; 3517 :    hMenuTrackPopup = GetSubMenu( hMenu, 0 );
 
 	push	0
 	mov	ecx, DWORD PTR _hMenu$[ebp]
@@ -11472,10 +11499,10 @@ $L60589:
 	call	DWORD PTR __imp__GetSubMenu@8
 	mov	DWORD PTR _hMenuTrackPopup$[ebp], eax
 
-; 3513 : 
-; 3514 :    CheckMenuItem( hMenu, IDM_SHOWTASKID,
-; 3515 :                   MF_BYCOMMAND |
-; 3516 :                     (AnchorBlock->bShowTaskID ? MF_CHECKED : MF_UNCHECKED) );
+; 3518 : 
+; 3519 :    CheckMenuItem( hMenu, IDM_SHOWTASKID,
+; 3520 :                   MF_BYCOMMAND |
+; 3521 :                     (AnchorBlock->bShowTaskID ? MF_CHECKED : MF_UNCHECKED) );
 
 	mov	edx, DWORD PTR _AnchorBlock
 	mov	eax, DWORD PTR [edx+1495]
@@ -11489,27 +11516,27 @@ $L60589:
 	push	ecx
 	call	DWORD PTR __imp__CheckMenuItem@12
 
-; 3517 :    CheckMenuItem( hMenu, IDM_SETOETRACE,
-; 3518 :                   MF_BYCOMMAND |
-; 3519 :                      (g_chTraceOE_Warning == 0 ||
-; 3520 :                         g_chTraceOE_Warning == 'n' ||
-; 3521 :                         g_chTraceOE_Warning == 'N' ? MF_UNCHECKED :
-; 3522 :                                                      MF_CHECKED) );
+; 3522 :    CheckMenuItem( hMenu, IDM_SETOETRACE,
+; 3523 :                   MF_BYCOMMAND |
+; 3524 :                      (g_chTraceOE_Warning == 0 ||
+; 3525 :                         g_chTraceOE_Warning == 'n' ||
+; 3526 :                         g_chTraceOE_Warning == 'N' ? MF_UNCHECKED :
+; 3527 :                                                      MF_CHECKED) );
 
 	movsx	edx, BYTE PTR _g_chTraceOE_Warning
 	test	edx, edx
-	je	SHORT $L60817
+	je	SHORT $L60820
 	movsx	eax, BYTE PTR _g_chTraceOE_Warning
 	cmp	eax, 110				; 0000006eH
-	je	SHORT $L60817
+	je	SHORT $L60820
 	movsx	ecx, BYTE PTR _g_chTraceOE_Warning
 	cmp	ecx, 78					; 0000004eH
-	je	SHORT $L60817
+	je	SHORT $L60820
 	mov	DWORD PTR -16+[ebp], 8
-	jmp	SHORT $L60818
-$L60817:
+	jmp	SHORT $L60821
+$L60820:
 	mov	DWORD PTR -16+[ebp], 0
-$L60818:
+$L60821:
 	mov	edx, DWORD PTR -16+[ebp]
 	push	edx
 	push	133					; 00000085H
@@ -11517,27 +11544,27 @@ $L60818:
 	push	eax
 	call	DWORD PTR __imp__CheckMenuItem@12
 
-; 3523 :    CheckMenuItem( hMenu, IDM_SETZDRTRACE,
-; 3524 :                   MF_BYCOMMAND |
-; 3525 :                      (g_chTraceZDrActions == 0 ||
-; 3526 :                         g_chTraceZDrActions == 'n' ||
-; 3527 :                         g_chTraceZDrActions == 'N' ? MF_UNCHECKED :
-; 3528 :                                                      MF_CHECKED) );
+; 3528 :    CheckMenuItem( hMenu, IDM_SETZDRTRACE,
+; 3529 :                   MF_BYCOMMAND |
+; 3530 :                      (g_chTraceZDrActions == 0 ||
+; 3531 :                         g_chTraceZDrActions == 'n' ||
+; 3532 :                         g_chTraceZDrActions == 'N' ? MF_UNCHECKED :
+; 3533 :                                                      MF_CHECKED) );
 
 	movsx	ecx, BYTE PTR _g_chTraceZDrActions
 	test	ecx, ecx
-	je	SHORT $L60819
+	je	SHORT $L60822
 	movsx	edx, BYTE PTR _g_chTraceZDrActions
 	cmp	edx, 110				; 0000006eH
-	je	SHORT $L60819
+	je	SHORT $L60822
 	movsx	eax, BYTE PTR _g_chTraceZDrActions
 	cmp	eax, 78					; 0000004eH
-	je	SHORT $L60819
+	je	SHORT $L60822
 	mov	DWORD PTR -20+[ebp], 8
-	jmp	SHORT $L60820
-$L60819:
+	jmp	SHORT $L60823
+$L60822:
 	mov	DWORD PTR -20+[ebp], 0
-$L60820:
+$L60823:
 	mov	ecx, DWORD PTR -20+[ebp]
 	push	ecx
 	push	134					; 00000086H
@@ -11545,27 +11572,27 @@ $L60820:
 	push	edx
 	call	DWORD PTR __imp__CheckMenuItem@12
 
-; 3529 :    CheckMenuItem( hMenu, IDM_SETWEBTRACE,
-; 3530 :                   MF_BYCOMMAND |
-; 3531 :                      (g_chTraceWebActions == 0 ||
-; 3532 :                         g_chTraceWebActions == 'n' ||
-; 3533 :                         g_chTraceWebActions == 'N' ? MF_UNCHECKED :
-; 3534 :                                                      MF_CHECKED) );
+; 3534 :    CheckMenuItem( hMenu, IDM_SETWEBTRACE,
+; 3535 :                   MF_BYCOMMAND |
+; 3536 :                      (g_chTraceWebActions == 0 ||
+; 3537 :                         g_chTraceWebActions == 'n' ||
+; 3538 :                         g_chTraceWebActions == 'N' ? MF_UNCHECKED :
+; 3539 :                                                      MF_CHECKED) );
 
 	movsx	eax, BYTE PTR _g_chTraceWebActions
 	test	eax, eax
-	je	SHORT $L60821
+	je	SHORT $L60824
 	movsx	ecx, BYTE PTR _g_chTraceWebActions
 	cmp	ecx, 110				; 0000006eH
-	je	SHORT $L60821
+	je	SHORT $L60824
 	movsx	edx, BYTE PTR _g_chTraceWebActions
 	cmp	edx, 78					; 0000004eH
-	je	SHORT $L60821
+	je	SHORT $L60824
 	mov	DWORD PTR -24+[ebp], 8
-	jmp	SHORT $L60822
-$L60821:
+	jmp	SHORT $L60825
+$L60824:
 	mov	DWORD PTR -24+[ebp], 0
-$L60822:
+$L60825:
 	mov	eax, DWORD PTR -24+[ebp]
 	push	eax
 	push	135					; 00000087H
@@ -11573,24 +11600,24 @@ $L60822:
 	push	ecx
 	call	DWORD PTR __imp__CheckMenuItem@12
 
-; 3535 : 
-; 3536 :    // This is required when using a notify icon -- see KB article
-; 3537 :    // PRB: Menus for Notification Icons Don't Work Correctly
-; 3538 :    SetForegroundWindow( hwnd );
+; 3540 : 
+; 3541 :    // This is required when using a notify icon -- see KB article
+; 3542 :    // PRB: Menus for Notification Icons Don't Work Correctly
+; 3543 :    SetForegroundWindow( hwnd );
 
 	mov	edx, DWORD PTR _hwnd$[ebp]
 	push	edx
 	call	DWORD PTR __imp__SetForegroundWindow@4
 
-; 3539 : 
-; 3540 :    bIsVisible = IsWindowVisible( hwnd );
+; 3544 : 
+; 3545 :    bIsVisible = IsWindowVisible( hwnd );
 
 	mov	eax, DWORD PTR _hwnd$[ebp]
 	push	eax
 	call	DWORD PTR __imp__IsWindowVisible@4
 	mov	DWORD PTR _bIsVisible$[ebp], eax
 
-; 3541 :    EnableMenuItem( hMenu, IDM_SHOWTRACE, bIsVisible ? MF_GRAYED : MF_ENABLED );
+; 3546 :    EnableMenuItem( hMenu, IDM_SHOWTRACE, bIsVisible ? MF_GRAYED : MF_ENABLED );
 
 	xor	ecx, ecx
 	cmp	DWORD PTR _bIsVisible$[ebp], 0
@@ -11601,7 +11628,7 @@ $L60822:
 	push	edx
 	call	DWORD PTR __imp__EnableMenuItem@12
 
-; 3542 :    EnableMenuItem( hMenu, IDM_HIDEWINDOW, bIsVisible ? MF_ENABLED : MF_GRAYED );
+; 3547 :    EnableMenuItem( hMenu, IDM_HIDEWINDOW, bIsVisible ? MF_ENABLED : MF_GRAYED );
 
 	xor	eax, eax
 	cmp	DWORD PTR _bIsVisible$[ebp], 0
@@ -11612,10 +11639,10 @@ $L60822:
 	push	ecx
 	call	DWORD PTR __imp__EnableMenuItem@12
 
-; 3543 : 
-; 3544 : 
-; 3545 :    TrackPopupMenu( hMenuTrackPopup, TPM_LEFTBUTTON | TPM_RIGHTBUTTON,
-; 3546 :                    point.x, point.y, 0, hwnd, NULL );
+; 3548 : 
+; 3549 : 
+; 3550 :    TrackPopupMenu( hMenuTrackPopup, TPM_LEFTBUTTON | TPM_RIGHTBUTTON,
+; 3551 :                    point.x, point.y, 0, hwnd, NULL );
 
 	push	0
 	mov	edx, DWORD PTR _hwnd$[ebp]
@@ -11630,10 +11657,10 @@ $L60822:
 	push	edx
 	call	DWORD PTR __imp__TrackPopupMenu@28
 
-; 3547 : 
-; 3548 :    // This is required when using a notify icon -- see KB article
-; 3549 :    // PRB: Menus for Notification Icons Don't Work Correctly
-; 3550 :    PostMessage( hwnd, WM_USER, 0, 0 );
+; 3552 : 
+; 3553 :    // This is required when using a notify icon -- see KB article
+; 3554 :    // PRB: Menus for Notification Icons Don't Work Correctly
+; 3555 :    PostMessage( hwnd, WM_USER, 0, 0 );
 
 	push	0
 	push	0
@@ -11641,9 +11668,9 @@ $L60822:
 	mov	eax, DWORD PTR _hwnd$[ebp]
 	push	eax
 	call	DWORD PTR __imp__PostMessageA@16
-$L60582:
+$L60585:
 
-; 3551 : }
+; 3556 : }
 
 	mov	esp, ebp
 	pop	ebp
