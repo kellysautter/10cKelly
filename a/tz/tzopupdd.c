@@ -319,6 +319,9 @@ zwfnSaveOperation( zVIEW vSubtask,
    MergeGlobalPrototypes( vOperGrpTmp, szMetaName, "GlobalOperationGroup",
                           vCM_List );
    DropView( vOperGrpTmp );
+   
+   // Make sure that the global executable is generated.
+   oTZOGSRCO_GenerateXOG( vOperGrp );
 
    if ( GetSubtaskForWindowName( vSubtask, &vWindow, "OPERGRPLIST" ) >= 0 )
       RefreshWindow( vWindow );
