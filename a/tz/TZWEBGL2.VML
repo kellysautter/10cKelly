@@ -4518,7 +4518,7 @@ GenJSPJ_InputMapRecurs( VIEW vDialog BASED ON LOD TZWDLGSO,
 
                         IF vDialog.Control.Subtype >= 20480 AND vDialog.Control.Subtype <= 21252   // IF Auto Include
                            // For Auto Include, we must decrement nRelPos for blank entry.
-                           szWriteBuffer = "            nRelPos--;    // For Auto Include combos, we need to decrement for the blank entry."
+                           szWriteBuffer = "               nRelPos--;    // For Auto Include combos, we need to decrement for the blank entry."
                            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
                         END
 
@@ -4527,22 +4527,20 @@ GenJSPJ_InputMapRecurs( VIEW vDialog BASED ON LOD TZWDLGSO,
                         WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
                         szWriteBuffer = "            }"
                         WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-                        szWriteBuffer = "         }  // checkExistenceofEntity"
-                        WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
 
                         IF vDialog.Control.Subtype >= 36864 AND vDialog.Control.Subtype <= 45056   // IF Set Foreign Key
                            //Set Foreign Key
                            szWriteBuffer = " "
                            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-                           szWriteBuffer = "         // Set Foreign Key Code "
+                           szWriteBuffer = "            // Set Foreign Key Code "
                            //Check the existence of the edit mapping entity
                            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-                           szWriteBuffer = "         nRC = " + szViewName + ".cursor( ^" +
+                           szWriteBuffer = "            nRC = " + szViewName + ".cursor( ^" +
                                            vDialog.CtrlMapRelatedEntity.Name + "^ ).checkExistenceOfEntity( ).toInt();"
                            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-                           szWriteBuffer = "         if ( nRC >= 0 )"
+                           szWriteBuffer = "            if ( nRC >= 0 )"
                            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-                           szWriteBuffer = "         {"
+                           szWriteBuffer = "            {"
                            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
 
                            IF vDialog2.CtrlMapContext EXISTS
@@ -4558,7 +4556,7 @@ GenJSPJ_InputMapRecurs( VIEW vDialog BASED ON LOD TZWDLGSO,
                               szMaxStringLength = "254"
                            END
 
-                           szWriteBuffer = "            strMapValue = " + vDialog2.CtrlMapView.Name + ".cursor( ^" +
+                           szWriteBuffer = "               strMapValue = " + vDialog2.CtrlMapView.Name + ".cursor( ^" +
                               vDialog2.CtrlMapRelatedEntity.Name + "^ ).getStringFromAttribute( ^" +
                               vDialog2.CtrlMapER_Attribute.Name + "^, ^" + szContextName + "^ );"
                            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
@@ -4571,36 +4569,36 @@ GenJSPJ_InputMapRecurs( VIEW vDialog BASED ON LOD TZWDLGSO,
                            END
 
                            // try
-                           szWriteBuffer = "         try"
+                           szWriteBuffer = "            try"
                            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-                           szWriteBuffer = "         {"
+                           szWriteBuffer = "            {"
                            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-                           szWriteBuffer = "            if ( webMapping )"
+                           szWriteBuffer = "               if ( webMapping )"
                            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-                           szWriteBuffer = "               VmlOperation.CreateMessage( task, ^" +
+                           szWriteBuffer = "                  VmlOperation.CreateMessage( task, ^" +
                                                               szCtrlTag + "^, ^^, strMapValue );"
                            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-                           szWriteBuffer = "            else"
+                           szWriteBuffer = "               else"
                            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-                           szWriteBuffer = "               " + szViewName + ".cursor( ^" +
+                           szWriteBuffer = "                  " + szViewName + ".cursor( ^" +
                               vDialog.CtrlMapRelatedEntity.Name + "^ ).setAttribute( ^" +
                               vDialog.CtrlMapER_Attribute.Name + "^, strMapValue, ^" + szContextName + "^ );"
                            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-                           szWriteBuffer = "         }"
+                           szWriteBuffer = "            }"
                            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
                            // catch
-                           szWriteBuffer = "         catch ( InvalidAttributeValueException e )"
+                           szWriteBuffer = "            catch ( InvalidAttributeValueException e )"
                            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-                           szWriteBuffer = "         {"
+                           szWriteBuffer = "            {"
                            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-                           szWriteBuffer = "            nMapError = -16;"
+                           szWriteBuffer = "               nMapError = -16;"
                            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-                           szWriteBuffer = "            VmlOperation.CreateMessage( task, ^" + szCtrlTag + "^, e.getReason( ), strMapValue );"
+                           szWriteBuffer = "               VmlOperation.CreateMessage( task, ^" + szCtrlTag + "^, e.getReason( ), strMapValue );"
                            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
                            // end of try/catch
-                           szWriteBuffer = "         }"
+                           szWriteBuffer = "            }"
                            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-                           szWriteBuffer = "         }"
+                           szWriteBuffer = "            }"
                            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
 
                         END
@@ -4610,96 +4608,99 @@ GenJSPJ_InputMapRecurs( VIEW vDialog BASED ON LOD TZWDLGSO,
                            // Auto Include only.
                            szWriteBuffer = " "
                            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-                           szWriteBuffer = "         // Auto Include Code "
+                           szWriteBuffer = "            // Auto Include Code "
                            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-                           szWriteBuffer = "         // If the value is ^0^ then the user has selected the null entry, we do not want to do an include."
+                           szWriteBuffer = "            // If the value is ^0^ then the user has selected the null entry, we do not want to do an include."
                            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-                           szWriteBuffer = "         // If there is an entity, we want to exclude it. "
-                           WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-
-                           szWriteBuffer = "         if ( !StringUtils.equals( strMapValue, ^0^ ) )"
-                           WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-                           szWriteBuffer = "         {"
+                           szWriteBuffer = "            // If there is an entity, we want to exclude it. "
                            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
 
-                           szWriteBuffer = "            nRC = " + szViewName + ".cursor( ^" +
-                                           vDialog.CtrlMapRelatedEntity.Name + "^ ).checkExistenceOfEntity( ).toInt();"
-                           WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-                           szWriteBuffer = "            if ( nRC >= 0 )"
+                           szWriteBuffer = "            if ( !StringUtils.equals( strMapValue, ^0^ ) )"
                            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
                            szWriteBuffer = "            {"
+                           WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+
+                           szWriteBuffer = "               nRC = " + szViewName + ".cursor( ^" +
+                                           vDialog.CtrlMapRelatedEntity.Name + "^ ).checkExistenceOfEntity( ).toInt();"
+                           WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+                           szWriteBuffer = "               if ( nRC >= 0 )"
+                           WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+                           szWriteBuffer = "               {"
                            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
 
                            //KJS 12/11/07 - Adding code to check if we are already positioned on the correct
                            //Entity, so then we would not want to exclude and include.  Seems like this is only
                            //going to matter if this combo box is in a grid.
                            //KELLY121008
-                           szWriteBuffer = "               // Only do the automatic include if this is a different entity"
+                           szWriteBuffer = "                  // Only do the automatic include if this is a different entity"
                            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-                           szWriteBuffer = "               strTemp = " + szViewName + ".cursor( ^" +
+                           szWriteBuffer = "                  strTemp = " + szViewName + ".cursor( ^" +
                                            vDialog.CtrlMapRelatedEntity.Name + "^ ).getStringFromAttribute( ^" + vDialog.CtrlMapER_Attribute.Name + "^ );"
 
                            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
 
-                           szWriteBuffer = "               if ( !StringUtils.equals( strTemp, " + vDialog2.CtrlMapView.Name +
+                           szWriteBuffer = "                  if ( !StringUtils.equals( strTemp, " + vDialog2.CtrlMapView.Name +
                                            ".cursor( ^" + vDialog2.CtrlMapRelatedEntity.Name +
                                            "^ ).getStringFromAttribute( ^" + vDialog2.CtrlMapER_Attribute.Name + "^ ))) "
 
                            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-                           szWriteBuffer = "               {"
+                           szWriteBuffer = "                  {"
                            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-                           szWriteBuffer = "                  " + szViewName + ".cursor( ^" +
+                           szWriteBuffer = "                     " + szViewName + ".cursor( ^" +
                                            vDialog.CtrlMapRelatedEntity.Name +
                                            "^ ).excludeEntity( CursorPosition.NONE );"
                            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
 
-                           szWriteBuffer = "                  " + szViewName + ".cursor( ^" +
+                           szWriteBuffer = "                     " + szViewName + ".cursor( ^" +
                                            vDialog.CtrlMapRelatedEntity.Name + "^ ).includeSubobject( " +
                                            vDialog2.CtrlMapView.Name + ".cursor( ^" +
                                            vDialog2.CtrlMapRelatedEntity.Name +
                                            "^ ), CursorPosition.NEXT );"
                            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+                           szWriteBuffer = "                  }"
+                           WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+
                            szWriteBuffer = "               }"
                            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+                           szWriteBuffer = "               else"
+                           WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+                           szWriteBuffer = "                     " + szViewName + ".cursor( ^" +
+                                           vDialog.CtrlMapRelatedEntity.Name + "^ ).includeSubobject( " +
+                                           vDialog2.CtrlMapView.Name + ".cursor( ^" +
+                                           vDialog2.CtrlMapRelatedEntity.Name +
+                                           "^ ), CursorPosition.NEXT );"
+                           WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+
 
                            szWriteBuffer = "            }"
                            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
                            szWriteBuffer = "            else"
                            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-                           szWriteBuffer = "                  " + szViewName + ".cursor( ^" +
-                                           vDialog.CtrlMapRelatedEntity.Name + "^ ).includeSubobject( " +
-                                           vDialog2.CtrlMapView.Name + ".cursor( ^" +
-                                           vDialog2.CtrlMapRelatedEntity.Name +
-                                           "^ ), CursorPosition.NEXT );"
-                           WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-
-
-                           szWriteBuffer = "         }"
-                           WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-                           szWriteBuffer = "         else"
-                           WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-                           szWriteBuffer = "         {"
-                           WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-                           szWriteBuffer = "            nRC = " + szViewName + ".cursor( ^" +
-                                           vDialog.CtrlMapRelatedEntity.Name + "^ ).checkExistenceOfEntity( ).toInt();"
-                           WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-                           szWriteBuffer = "            if ( nRC >= 0 )"
-                           WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
                            szWriteBuffer = "            {"
                            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-                           szWriteBuffer = "                  " + szViewName + ".cursor( ^" +
+                           szWriteBuffer = "               nRC = " + szViewName + ".cursor( ^" +
+                                           vDialog.CtrlMapRelatedEntity.Name + "^ ).checkExistenceOfEntity( ).toInt();"
+                           WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+                           szWriteBuffer = "               if ( nRC >= 0 )"
+                           WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+                           szWriteBuffer = "               {"
+                           WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+                           szWriteBuffer = "                     " + szViewName + ".cursor( ^" +
                                            vDialog.CtrlMapRelatedEntity.Name +
                                            "^ ).excludeEntity( CursorPosition.NONE );"
                            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-                           szWriteBuffer = "            }"
+                           szWriteBuffer = "               }"
                            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-                           szWriteBuffer = "         }"
+                           szWriteBuffer = "            }"
                            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
 
                         END
 
-                        szWriteBuffer = "      }"
+                        szWriteBuffer = "         }"
                         WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
+                        
+                        szWriteBuffer = "         }  // checkExistenceofEntity"
+                        WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
 
                      ELSE
                         MessageSend( vDialog, "", "XSL Generation",
@@ -5192,7 +5193,7 @@ GenJSPJ_InputMapRecurs( VIEW vDialog BASED ON LOD TZWDLGSO,
                                  WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
                                  IF vDialog.Control.Subtype >= 20480 AND vDialog.Control.Subtype <= 21252   // IF Auto Include
                                     // For Auto Include, we must decrement nRelPos for blank entry.
-                                    szWriteBuffer = "                  nRelPos--;    // For Auto Include combos, we need to decrement for the blank entry."
+                                    szWriteBuffer = "               nRelPos--;    // For Auto Include combos, we need to decrement for the blank entry."
                                     WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
                                  END
                                  szWriteBuffer = "            " + vDialog2.CtrlMapView.Name+ ".cursor( ^" + szListMappingEntityName + "^ )" +
@@ -5203,6 +5204,7 @@ GenJSPJ_InputMapRecurs( VIEW vDialog BASED ON LOD TZWDLGSO,
                                  WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
                                  szWriteBuffer = "         }  // checkExistenceOfEntity"
                                  WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+                        IssueError( vDialog,0,0, "At second" )
 
                                  IF vDialog.Control.Subtype >= 36864 AND vDialog.Control.Subtype <= 45056   // IF Set Foreign Key
                                     //Set Foreign Key
