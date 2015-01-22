@@ -6032,10 +6032,12 @@ GenJSPJ_Action( VIEW vDialog     BASED ON LOD TZWDLGSO,
    STRING ( 1 )     szWebRedirection
    STRING ( 1 )     szRepeatingGroupFlag
    STRING ( 1 )     szProductionMode
+   STRING ( 1 )     szGridScopeOI
    INTEGER          lControl
    INTEGER          lMaxStringLength
    INTEGER          lActionType
    INTEGER          lAutoSubAction
+   INTEGER          lSubtypeX
    SHORT            nViewNameLth
    SHORT            nGridParent
    SHORT            nRC
@@ -6474,6 +6476,7 @@ GenJSPJ_Action( VIEW vDialog     BASED ON LOD TZWDLGSO,
          // Identify if this Control is inside a Grid. Or if this control is inside a repeating group (or maybe both).
          nRC = 0
          nGridParent = 0
+         szGridScopeOI = ""
          szBuffer = ""
          // For correct setEntityKey placement later, we need to know if this action is on a repeating group (even if it's within a grid). Because of this
          // we need to keep reseting the view from subobject because we could be down several groups.
@@ -6520,6 +6523,12 @@ GenJSPJ_Action( VIEW vDialog     BASED ON LOD TZWDLGSO,
                   // The parent of the this control is a Grid, so indicate for later.
                   IF vDialogTemp.ControlDef.Tag = "Grid"
                      nGridParent = 1
+                     // KJS 01/13/15 - Check if the grid is using Scope OI
+                     lSubtypeX = vDialogTemp.Control.ExtendedStyle
+                     lSubtypeX = IsFlagSequenceSet( lSubtypeX, zSS_SCOPE_OI )
+                     IF lSubtypeX = 0
+                        szGridScopeOI = "Y"
+                     END
                   END
                END
             END
@@ -6597,11 +6606,20 @@ GenJSPJ_Action( VIEW vDialog     BASED ON LOD TZWDLGSO,
                   WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
                END 
                IF nGridParent = 1 //AND szScopingName != ""
-                  //szWriteBuffer = "            csrRCk = " + szViewName + ".cursor( ^" + szScopingName + "^ ).setFirst( );"
-                  IF szScopingName = ""  
-                     szWriteBuffer = szBuffer + "            csrRCk = " + szViewName + ".cursor( ^" + szEntityName + "^ ).setFirst( );"
+               
+
+                  // If we are using SCOPE_OI on the grid, then we want to use setFirstWithinOi.
+                  lSubtypeX = vDialog.Control.ExtendedStyle
+                  lSubtypeX = IsFlagSequenceSet( lSubtypeX, zSS_SCOPE_OI )
+                  IF szGridScopeOI = "Y"
+               
+                     IF szScopingName = ""  
+                        szWriteBuffer = szBuffer + "            csrRCk = " + szViewName + ".cursor( ^" + szEntityName + "^ ).setFirst( );"
+                     ELSE
+                        szWriteBuffer = szBuffer + "            csrRCk = " + szViewName + ".cursor( ^" + szEntityName + "^ ).setFirst(^" + szScopingName + "^ );"
+                     END
                   ELSE
-                     szWriteBuffer = szBuffer + "            csrRCk = " + szViewName + ".cursor( ^" + szEntityName + "^ ).setFirst(^" + szScopingName + "^ );"
+                        szWriteBuffer = szBuffer + "            csrRCk = " + szViewName + ".cursor( ^" + szEntityName + "^ ).setFirstWithinOi( );"
                   END
                   WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
                   szWriteBuffer = szBuffer + "            while ( csrRCk.isSet() && !bFound )"

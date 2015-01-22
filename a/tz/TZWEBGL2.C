@@ -13015,6 +13015,8 @@ GenJSPJ_Action( zVIEW     vDialog,
    zCHAR     szRepeatingGroupFlag[ 2 ] = { 0 }; 
    //:STRING ( 1 )     szProductionMode
    zCHAR     szProductionMode[ 2 ] = { 0 }; 
+   //:STRING ( 1 )     szGridScopeOI
+   zCHAR     szGridScopeOI[ 2 ] = { 0 }; 
    //:INTEGER          lControl
    zLONG     lControl = 0; 
    //:INTEGER          lMaxStringLength
@@ -13023,6 +13025,8 @@ GenJSPJ_Action( zVIEW     vDialog,
    zLONG     lActionType = 0; 
    //:INTEGER          lAutoSubAction
    zLONG     lAutoSubAction = 0; 
+   //:INTEGER          lSubtypeX
+   zLONG     lSubtypeX = 0; 
    //:SHORT            nViewNameLth
    zSHORT    nViewNameLth = 0; 
    //:SHORT            nGridParent
@@ -14023,6 +14027,8 @@ GenJSPJ_Action( zVIEW     vDialog,
          nRC = 0;
          //:nGridParent = 0
          nGridParent = 0;
+         //:szGridScopeOI = ""
+         ZeidonStringCopy( szGridScopeOI, 1, 0, "", 1, 0, 2 );
          //:szBuffer = ""
          ZeidonStringCopy( szBuffer, 1, 0, "", 1, 0, 4 );
          //:// For correct setEntityKey placement later, we need to know if this action is on a repeating group (even if it's within a grid). Because of this
@@ -14128,6 +14134,19 @@ GenJSPJ_Action( zVIEW     vDialog,
                   { 
                      //:nGridParent = 1
                      nGridParent = 1;
+                     //:// KJS 01/13/15 - Check if the grid is using Scope OI
+                     //:lSubtypeX = vDialogTemp.Control.ExtendedStyle
+                     GetIntegerFromAttribute( &lSubtypeX, vDialogTemp, "Control", "ExtendedStyle" );
+                     //:lSubtypeX = IsFlagSequenceSet( lSubtypeX, zSS_SCOPE_OI )
+                     lSubtypeX = IsFlagSequenceSet( lSubtypeX, zSS_SCOPE_OI );
+                     //:IF lSubtypeX = 0
+                     if ( lSubtypeX == 0 )
+                     { 
+                        //:szGridScopeOI = "Y"
+                        ZeidonStringCopy( szGridScopeOI, 1, 0, "Y", 1, 0, 2 );
+                     } 
+
+                     //:END
                   } 
 
                   //:END
@@ -14285,30 +14304,54 @@ GenJSPJ_Action( zVIEW     vDialog,
                //:IF nGridParent = 1 //AND szScopingName != ""
                if ( nGridParent == 1 )
                { 
-                  //://szWriteBuffer = "            csrRCk = " + szViewName + ".cursor( ^" + szScopingName + "^ ).setFirst( );"
-                  //:IF szScopingName = ""  
-                  if ( ZeidonStringCompare( szScopingName, 1, 0, "", 1, 0, 33 ) == 0 )
+
+
+                  //:// If we are using SCOPE_OI on the grid, then we want to use setFirstWithinOi.
+                  //:lSubtypeX = vDialog.Control.ExtendedStyle
+                  GetIntegerFromAttribute( &lSubtypeX, vDialog, "Control", "ExtendedStyle" );
+                  //:lSubtypeX = IsFlagSequenceSet( lSubtypeX, zSS_SCOPE_OI )
+                  lSubtypeX = IsFlagSequenceSet( lSubtypeX, zSS_SCOPE_OI );
+                  //:IF szGridScopeOI = "Y"
+                  if ( ZeidonStringCompare( szGridScopeOI, 1, 0, "Y", 1, 0, 2 ) == 0 )
                   { 
-                     //:szWriteBuffer = szBuffer + "            csrRCk = " + szViewName + ".cursor( ^" + szEntityName + "^ ).setFirst( );"
-                     ZeidonStringCopy( szWriteBuffer, 1, 0, szBuffer, 1, 0, 10001 );
-                     ZeidonStringConcat( szWriteBuffer, 1, 0, "            csrRCk = ", 1, 0, 10001 );
-                     ZeidonStringConcat( szWriteBuffer, 1, 0, szViewName, 1, 0, 10001 );
-                     ZeidonStringConcat( szWriteBuffer, 1, 0, ".cursor( ^", 1, 0, 10001 );
-                     ZeidonStringConcat( szWriteBuffer, 1, 0, szEntityName, 1, 0, 10001 );
-                     ZeidonStringConcat( szWriteBuffer, 1, 0, "^ ).setFirst( );", 1, 0, 10001 );
+
+                     //:IF szScopingName = ""  
+                     if ( ZeidonStringCompare( szScopingName, 1, 0, "", 1, 0, 33 ) == 0 )
+                     { 
+                        //:szWriteBuffer = szBuffer + "            csrRCk = " + szViewName + ".cursor( ^" + szEntityName + "^ ).setFirst( );"
+                        ZeidonStringCopy( szWriteBuffer, 1, 0, szBuffer, 1, 0, 10001 );
+                        ZeidonStringConcat( szWriteBuffer, 1, 0, "            csrRCk = ", 1, 0, 10001 );
+                        ZeidonStringConcat( szWriteBuffer, 1, 0, szViewName, 1, 0, 10001 );
+                        ZeidonStringConcat( szWriteBuffer, 1, 0, ".cursor( ^", 1, 0, 10001 );
+                        ZeidonStringConcat( szWriteBuffer, 1, 0, szEntityName, 1, 0, 10001 );
+                        ZeidonStringConcat( szWriteBuffer, 1, 0, "^ ).setFirst( );", 1, 0, 10001 );
+                        //:ELSE
+                     } 
+                     else
+                     { 
+                        //:szWriteBuffer = szBuffer + "            csrRCk = " + szViewName + ".cursor( ^" + szEntityName + "^ ).setFirst(^" + szScopingName + "^ );"
+                        ZeidonStringCopy( szWriteBuffer, 1, 0, szBuffer, 1, 0, 10001 );
+                        ZeidonStringConcat( szWriteBuffer, 1, 0, "            csrRCk = ", 1, 0, 10001 );
+                        ZeidonStringConcat( szWriteBuffer, 1, 0, szViewName, 1, 0, 10001 );
+                        ZeidonStringConcat( szWriteBuffer, 1, 0, ".cursor( ^", 1, 0, 10001 );
+                        ZeidonStringConcat( szWriteBuffer, 1, 0, szEntityName, 1, 0, 10001 );
+                        ZeidonStringConcat( szWriteBuffer, 1, 0, "^ ).setFirst(^", 1, 0, 10001 );
+                        ZeidonStringConcat( szWriteBuffer, 1, 0, szScopingName, 1, 0, 10001 );
+                        ZeidonStringConcat( szWriteBuffer, 1, 0, "^ );", 1, 0, 10001 );
+                     } 
+
+                     //:END
                      //:ELSE
                   } 
                   else
                   { 
-                     //:szWriteBuffer = szBuffer + "            csrRCk = " + szViewName + ".cursor( ^" + szEntityName + "^ ).setFirst(^" + szScopingName + "^ );"
+                     //:   szWriteBuffer = szBuffer + "            csrRCk = " + szViewName + ".cursor( ^" + szEntityName + "^ ).setFirstWithinOi( );"
                      ZeidonStringCopy( szWriteBuffer, 1, 0, szBuffer, 1, 0, 10001 );
                      ZeidonStringConcat( szWriteBuffer, 1, 0, "            csrRCk = ", 1, 0, 10001 );
                      ZeidonStringConcat( szWriteBuffer, 1, 0, szViewName, 1, 0, 10001 );
                      ZeidonStringConcat( szWriteBuffer, 1, 0, ".cursor( ^", 1, 0, 10001 );
                      ZeidonStringConcat( szWriteBuffer, 1, 0, szEntityName, 1, 0, 10001 );
-                     ZeidonStringConcat( szWriteBuffer, 1, 0, "^ ).setFirst(^", 1, 0, 10001 );
-                     ZeidonStringConcat( szWriteBuffer, 1, 0, szScopingName, 1, 0, 10001 );
-                     ZeidonStringConcat( szWriteBuffer, 1, 0, "^ );", 1, 0, 10001 );
+                     ZeidonStringConcat( szWriteBuffer, 1, 0, "^ ).setFirstWithinOi( );", 1, 0, 10001 );
                   } 
 
                   //:END
