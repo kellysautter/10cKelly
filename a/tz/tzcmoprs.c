@@ -1033,7 +1033,10 @@ fnActivateMetaOI( zVIEW   vSubtask,
       zstrcat( szFileName, "\\TZCMULWO.POR" );
       nRC = ActivateOI_FromFile( &vTZCMULWO, "TZCMULWO", vTaskLPLR, szFileName, zIGNORE_ERRORS | zLEVEL_TASK );
       if ( nRC >= 0 )
+      {
          OrderEntityForView( vTZCMULWO, "User", "GenerationStartZKeyPrefix A" );
+      // DisplayObjectInstance( vTZCMULWO, "", "" );
+      }
       else
       {
          ActivateEmptyObjectInstance( &vTZCMULWO, "TZCMULWO", vTaskLPLR, zSINGLE | zLEVEL_TASK );

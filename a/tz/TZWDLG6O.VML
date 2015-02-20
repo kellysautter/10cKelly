@@ -2675,6 +2675,27 @@ DKS_TRACE_END */
    szWriteBuffer = "}"
    WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 )
 
+   // KJS 02/11/15 - Couldn't seem to get link to disable, so let's try hiding them.
+   szWriteBuffer = "   // Instead of disabling links, hide them."
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   szWriteBuffer = "   lis = document.getElementsByTagName( ^a^ );"
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   szWriteBuffer = "   for ( k = 0; k < lis.length; k++ )"
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   szWriteBuffer = "   {"
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   szWriteBuffer = "      thisLi = lis[ k ];"
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   szWriteBuffer = "      thisLi.style.display = 'none';"
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   szWriteBuffer = "   }"
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 )
+
+   szWriteBuffer = "   return bRC;"
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   szWriteBuffer = "}"
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 )
+
    // Default button function.
    IF vDialog.Window.DfltButton != ""
       CreateViewFromView( vDialogTemp, vDialog )
