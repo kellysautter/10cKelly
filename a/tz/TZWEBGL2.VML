@@ -6085,7 +6085,7 @@ GenJSPJ_Action( VIEW vDialog     BASED ON LOD TZWDLGSO,
             IF vDialogTemp.ActWndEvent.Type = 1 OR vDialogTemp.ActWndEvent.Type = 2
 
                IF vDialogTemp.ActOper EXISTS
-               
+
                   // Don't want to add this comment twice if there is an operation for both prebuild and postbuild.
                   IF szCommentAdded = "N"
                      szWriteBuffer = "      // Prebuild/Postbuild Operations."
@@ -6100,8 +6100,6 @@ GenJSPJ_Action( VIEW vDialog     BASED ON LOD TZWDLGSO,
                   // In order to call a dialog operation we need to create an instance of the dialog class.  We only want to do this once.
                   IF szDialogClassCreated = "N"
                      IF szDlgTagRoot != vDialogTemp.Dialog.Tag
-                        szWriteBuffer = "      " +  vDialogTemp.Dialog.Tag + "_Dialog " + vDialogTemp.Dialog.Tag + " = new " +
-                                        vDialogTemp.Dialog.Tag + "_Dialog( vKZXMLPGO );"
                         szWriteBuffer = "      " +  vDialogTemp.Dialog.Tag + "_Dialog " + vDialogTemp.Dialog.Tag + " = new " +
                                         vDialogTemp.Dialog.Tag + "_Dialog( vKZXMLPGO );"
                         WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
@@ -6721,8 +6719,6 @@ GenJSPJ_Action( VIEW vDialog     BASED ON LOD TZWDLGSO,
    // szWriteBuffer = "      task.log().info( ^ZeidonOperation: " + szDlgTag + "." + szOperName + " called from " + szFormName + ".jsp^ );"  // keep us informed of where we are ...  dks 2011.11.11
       szWriteBuffer = "      VmlOperation.SetZeidonSessionAttribute( null, task, ^" + szFormName + ".jsp^, ^" + szDlgTag + "." + szOperName + "^ );"
       WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-      
-      
       // KJS 08/06/14 - I had put a try/catch around the operation call because it seemed better than getting the exception
       // crash. But that might be true in production but when developing, we'd really like to see the stack trace. Want to make
       // this an ini setting but for now I think I am just going to make the operation call and skip the try/catch.
