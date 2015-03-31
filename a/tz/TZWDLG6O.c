@@ -52,6 +52,8 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
    zCHAR     szLPLR_Name[ 33 ] = { 0 }; 
    //:STRING ( 1024 )  szJSP_FileName
    zCHAR     szJSP_FileName[ 1025 ] = { 0 }; 
+   //:STRING ( 1024 )  szJS_FileName
+   zCHAR     szJS_FileName[ 1025 ] = { 0 }; 
    //:STRING ( 1024 )  szJAVA_FileName
    zCHAR     szJAVA_FileName[ 1025 ] = { 0 }; 
    //:STRING ( 1024 )  szDirectoryName
@@ -3196,9 +3198,25 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
       //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
       WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
 
+      //:szJS_FileName = ""
+      ZeidonStringCopy( szJS_FileName, 1, 0, "", 1, 0, 1025 );
+      //:SysReadZeidonIni( -1, szSystemIniApplName, "TinyMCEJavaScript", szJS_FileName )
+      SysReadZeidonIni( -1, szSystemIniApplName, "TinyMCEJavaScript", szJS_FileName );
+      //:IF szJS_FileName = ""
+      if ( ZeidonStringCompare( szJS_FileName, 1, 0, "", 1, 0, 1025 ) == 0 )
+      { 
+         //:szJS_FileName = "./js/tinymce/jscripts/tiny_mce/tiny_mce.js"
+         ZeidonStringCopy( szJS_FileName, 1, 0, "./js/tinymce/jscripts/tiny_mce/tiny_mce.js", 1, 0, 1025 );
+      } 
+
+      //:END
+
       //:// Use TinyMCE rather than widgEditor.
-      //:szWriteBuffer = "<script language=^JavaScript^ type=^text/javascript^ src=^./js/tinymce/jscripts/tiny_mce/tiny_mce.js^></script>"
-      ZeidonStringCopy( szWriteBuffer, 1, 0, "<script language=^JavaScript^ type=^text/javascript^ src=^./js/tinymce/jscripts/tiny_mce/tiny_mce.js^></script>", 1, 0, 10001 );
+      //:szWriteBuffer = "<script language=^JavaScript^ type=^text/javascript^ src=^" + szJS_FileName
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "<script language=^JavaScript^ type=^text/javascript^ src=^", 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, szJS_FileName, 1, 0, 10001 );
+      //:szWriteBuffer = szWriteBuffer + "^></script>"
+      ZeidonStringConcat( szWriteBuffer, 1, 0, "^></script>", 1, 0, 10001 );
       //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
       WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
 
@@ -3732,8 +3750,8 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
    ZeidonStringCopy( szWriteBuffer, 1, 0, "   if ( $el.length > 0 ) {", 1, 0, 10001 );
    //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
    WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
-   //:szWriteBuffer = "      bRC = $el.attr( ^disabled^ );"
-   ZeidonStringCopy( szWriteBuffer, 1, 0, "      bRC = $el.attr( ^disabled^ );", 1, 0, 10001 );
+   //:szWriteBuffer = "      bRC = $el[0].disabled;"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "      bRC = $el[0].disabled;", 1, 0, 10001 );
    //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
    WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
    //:szWriteBuffer = "   }"
@@ -3783,6 +3801,58 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
    //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 )
    WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 );
 
+   //:// Controls on the window may have been set as disabled through javascript but
+   //:// when we try to get the values for these controls in jsp (response.getParameter)
+   //:// they will always be null.  Set any disabled fields to enabled for this reason.
+   //:szWriteBuffer = "   // Controls on the window may have been set as disabled through javascript but"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "   // Controls on the window may have been set as disabled through javascript but", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "   // when we try to get the values for these controls in jsp (response.getParameter)"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "   // when we try to get the values for these controls in jsp (response.getParameter)", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "   // they will always be null.  Set any disabled fields to enabled for this reason."
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "   // they will always be null.  Set any disabled fields to enabled for this reason.", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "   for ( j = 0; j < document.forms.length; j++ )"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "   for ( j = 0; j < document.forms.length; j++ )", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "   {"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "   {", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "      theForm = document.forms[ j ];"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "      theForm = document.forms[ j ];", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "      for ( k = 0; k < theForm.length; k++ )"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "      for ( k = 0; k < theForm.length; k++ )", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "      {"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "      {", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "         if (theForm.elements[ k ].disabled == true)"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "         if (theForm.elements[ k ].disabled == true)", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "             theForm.elements[ k ].disabled = false;"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "             theForm.elements[ k ].disabled = false;", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "      }"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "      }", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "   }"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "   }", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 );
+
    //:szWriteBuffer = "   var $el = $(^#zDisable^);"
    ZeidonStringCopy( szWriteBuffer, 1, 0, "   var $el = $(^#zDisable^);", 1, 0, 10001 );
    //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
@@ -3791,8 +3861,8 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
    ZeidonStringCopy( szWriteBuffer, 1, 0, "   if ( $el.length > 0 ) {", 1, 0, 10001 );
    //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
    WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
-   //:szWriteBuffer = "      $el.attr( ^disabled^, bDisabled );"
-   ZeidonStringCopy( szWriteBuffer, 1, 0, "      $el.attr( ^disabled^, bDisabled );", 1, 0, 10001 );
+   //:szWriteBuffer = "      $el[0].disabled = true;"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "      $el[0].disabled = true;", 1, 0, 10001 );
    //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
    WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
    //:szWriteBuffer = "      bRC = true;"
