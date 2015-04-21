@@ -26,17 +26,23 @@ BuildMainNavSection( zVIEW     vDialog,
    zCHAR     szNavigationTitle[ 51 ] = { 0 }; 
    //:STRING ( 256 )   szHTML_Address
    zCHAR     szHTML_Address[ 257 ] = { 0 }; 
+   //:STRING ( 256 )   szClass
+   zCHAR     szClass[ 257 ] = { 0 }; 
    //:STRING ( 50 )    szDialogName
    zCHAR     szDialogName[ 51 ] = { 0 }; 
+   //:STRING ( 50 )    szMenuName
+   zCHAR     szMenuName[ 51 ] = { 0 }; 
    //:STRING ( 34 )    szActionName
    zCHAR     szActionName[ 35 ] = { 0 }; 
    //:INTEGER          ActionType
    zLONG     ActionType = 0; 
    //:SHORT            nRC
    zSHORT    nRC = 0; 
+   zCHAR     szTempString_0[ 255 ]; 
    zSHORT    RESULT; 
+   zCHAR     szTempString_1[ 255 ]; 
    zSHORT    lTempInteger_0; 
-   zCHAR     szTempString_0[ 33 ]; 
+   zCHAR     szTempString_2[ 33 ]; 
    zSHORT    lTempInteger_1; 
    zLONG     lTempInteger_2; 
 
@@ -51,8 +57,27 @@ BuildMainNavSection( zVIEW     vDialog,
    ZeidonStringCopy( szWriteBuffer, 1, 0, "<div id=^mainnavigation^>", 1, 0, 10001 );
    //:WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
    WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 );
-   //:szWriteBuffer = "   <ul>"
-   ZeidonStringCopy( szWriteBuffer, 1, 0, "   <ul>", 1, 0, 10001 );
+   //:szMenuName = vDialogRoot.Menu.Tag 
+   GetVariableFromAttribute( szMenuName, 0, 'S', 51, vDialogRoot, "Menu", "Tag", "", 0 );
+   //:IF vDialogRoot.Menu.CSS_Class != ""
+   if ( CompareAttributeToString( vDialogRoot, "Menu", "CSS_Class", "" ) != 0 )
+   { 
+      //:szClass = " class=^" + vDialogRoot.Menu.CSS_Class + "^ " 
+      GetVariableFromAttribute( szTempString_0, 0, 'S', 255, vDialogRoot, "Menu", "CSS_Class", "", 0 );
+      ZeidonStringCopy( szClass, 1, 0, " class=^", 1, 0, 257 );
+      ZeidonStringConcat( szClass, 1, 0, szTempString_0, 1, 0, 257 );
+      ZeidonStringConcat( szClass, 1, 0, "^ ", 1, 0, 257 );
+   } 
+
+   //:END
+   //:szWriteBuffer = "   <ul id=^" + szMenuName + "^ name=^" + szMenuName + "^" + szClass + ">"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "   <ul id=^", 1, 0, 10001 );
+   ZeidonStringConcat( szWriteBuffer, 1, 0, szMenuName, 1, 0, 10001 );
+   ZeidonStringConcat( szWriteBuffer, 1, 0, "^ name=^", 1, 0, 10001 );
+   ZeidonStringConcat( szWriteBuffer, 1, 0, szMenuName, 1, 0, 10001 );
+   ZeidonStringConcat( szWriteBuffer, 1, 0, "^", 1, 0, 10001 );
+   ZeidonStringConcat( szWriteBuffer, 1, 0, szClass, 1, 0, 10001 );
+   ZeidonStringConcat( szWriteBuffer, 1, 0, ">", 1, 0, 10001 );
    //:WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
    WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 );
 
@@ -73,6 +98,24 @@ BuildMainNavSection( zVIEW     vDialog,
 
       //:END
 
+      //:IF vDialogRoot.Option.CSS_Class != ""
+      if ( CompareAttributeToString( vDialogRoot, "Option", "CSS_Class", "" ) != 0 )
+      { 
+         //:szClass = " class=^" + vDialogRoot.Option.CSS_Class + "^ "
+         GetVariableFromAttribute( szTempString_1, 0, 'S', 255, vDialogRoot, "Option", "CSS_Class", "", 0 );
+         ZeidonStringCopy( szClass, 1, 0, " class=^", 1, 0, 257 );
+         ZeidonStringConcat( szClass, 1, 0, szTempString_1, 1, 0, 257 );
+         ZeidonStringConcat( szClass, 1, 0, "^ ", 1, 0, 257 );
+         //:ELSE
+      } 
+      else
+      { 
+         //:szClass = ""
+         ZeidonStringCopy( szClass, 1, 0, "", 1, 0, 257 );
+      } 
+
+      //:END
+
       //:IF vDialogRoot.OptAct EXISTS
       lTempInteger_0 = CheckExistenceOfEntity( vDialogRoot, "OptAct" );
       if ( lTempInteger_0 == 0 )
@@ -81,9 +124,9 @@ BuildMainNavSection( zVIEW     vDialog,
          //://actions, we need to make sure these actions are unique.  We will prefix a
          //://"m" to the main menu actions and prefix a "sm" to the side menu actions.
          //:szActionName = "m" + vDialogRoot.OptAct.Tag
-         GetVariableFromAttribute( szTempString_0, 0, 'S', 33, vDialogRoot, "OptAct", "Tag", "", 0 );
+         GetVariableFromAttribute( szTempString_2, 0, 'S', 33, vDialogRoot, "OptAct", "Tag", "", 0 );
          ZeidonStringCopy( szActionName, 1, 0, "m", 1, 0, 35 );
-         ZeidonStringConcat( szActionName, 1, 0, szTempString_0, 1, 0, 35 );
+         ZeidonStringConcat( szActionName, 1, 0, szTempString_2, 1, 0, 35 );
          //:ActionType = vDialogRoot.OptAct.Type
          GetIntegerFromAttribute( &ActionType, vDialogRoot, "OptAct", "Type" );
          //:ELSE
@@ -115,8 +158,14 @@ BuildMainNavSection( zVIEW     vDialog,
          } 
 
          //:END
-         //:szWriteBuffer = "       <li><a href=^" + szHTML_Address + "^ target=^_blank^>" + szNavigationTitle + "</a></li>"
-         ZeidonStringCopy( szWriteBuffer, 1, 0, "       <li><a href=^", 1, 0, 10001 );
+         //:szWriteBuffer = "       <li id=^l" + szActionName + "^ name=^l" + szActionName + "^ " + szClass + "><a href=^" + szHTML_Address + "^ target=^_blank^>" + szNavigationTitle + "</a></li>"
+         ZeidonStringCopy( szWriteBuffer, 1, 0, "       <li id=^l", 1, 0, 10001 );
+         ZeidonStringConcat( szWriteBuffer, 1, 0, szActionName, 1, 0, 10001 );
+         ZeidonStringConcat( szWriteBuffer, 1, 0, "^ name=^l", 1, 0, 10001 );
+         ZeidonStringConcat( szWriteBuffer, 1, 0, szActionName, 1, 0, 10001 );
+         ZeidonStringConcat( szWriteBuffer, 1, 0, "^ ", 1, 0, 10001 );
+         ZeidonStringConcat( szWriteBuffer, 1, 0, szClass, 1, 0, 10001 );
+         ZeidonStringConcat( szWriteBuffer, 1, 0, "><a href=^", 1, 0, 10001 );
          ZeidonStringConcat( szWriteBuffer, 1, 0, szHTML_Address, 1, 0, 10001 );
          ZeidonStringConcat( szWriteBuffer, 1, 0, "^ target=^_blank^>", 1, 0, 10001 );
          ZeidonStringConcat( szWriteBuffer, 1, 0, szNavigationTitle, 1, 0, 10001 );
@@ -127,12 +176,14 @@ BuildMainNavSection( zVIEW     vDialog,
       { 
          //:// Regular Action
 
-         //:szWriteBuffer = "       <li id=^l" + szActionName + "^ name=^l" + szActionName + "^><a href=^#^ onclick=^" + szActionName + "()^>" + szNavigationTitle + "</a></li>"
+         //:szWriteBuffer = "       <li id=^l" + szActionName + "^ name=^l" + szActionName + "^ " + szClass + "><a href=^#^ onclick=^" + szActionName + "()^>" + szNavigationTitle + "</a></li>"
          ZeidonStringCopy( szWriteBuffer, 1, 0, "       <li id=^l", 1, 0, 10001 );
          ZeidonStringConcat( szWriteBuffer, 1, 0, szActionName, 1, 0, 10001 );
          ZeidonStringConcat( szWriteBuffer, 1, 0, "^ name=^l", 1, 0, 10001 );
          ZeidonStringConcat( szWriteBuffer, 1, 0, szActionName, 1, 0, 10001 );
-         ZeidonStringConcat( szWriteBuffer, 1, 0, "^><a href=^#^ onclick=^", 1, 0, 10001 );
+         ZeidonStringConcat( szWriteBuffer, 1, 0, "^ ", 1, 0, 10001 );
+         ZeidonStringConcat( szWriteBuffer, 1, 0, szClass, 1, 0, 10001 );
+         ZeidonStringConcat( szWriteBuffer, 1, 0, "><a href=^#^ onclick=^", 1, 0, 10001 );
          ZeidonStringConcat( szWriteBuffer, 1, 0, szActionName, 1, 0, 10001 );
          ZeidonStringConcat( szWriteBuffer, 1, 0, "()^>", 1, 0, 10001 );
          ZeidonStringConcat( szWriteBuffer, 1, 0, szNavigationTitle, 1, 0, 10001 );
@@ -7254,18 +7305,20 @@ BuildSideNavSection( zVIEW     vDialog,
    zCHAR     szWriteBuffer[ 10001 ] = { 0 }; 
    //:STRING ( 50 )    szNavigationTitle
    zCHAR     szNavigationTitle[ 51 ] = { 0 }; 
-   //:STRING ( 50 )    szCSS_Class
-   zCHAR     szCSS_Class[ 51 ] = { 0 }; 
    //:STRING ( 50 )    szHTML_Name
    zCHAR     szHTML_Name[ 51 ] = { 0 }; 
    //:STRING ( 50 )    szDialogName
    zCHAR     szDialogName[ 51 ] = { 0 }; 
    //:STRING ( 50 )    szOptionTag
    zCHAR     szOptionTag[ 51 ] = { 0 }; 
+   //:STRING ( 50 )    szMenuName
+   zCHAR     szMenuName[ 51 ] = { 0 }; 
    //:STRING ( 34 )    szActionName
    zCHAR     szActionName[ 35 ] = { 0 }; 
-   //:STRING ( 34 )    szClass
-   zCHAR     szClass[ 35 ] = { 0 }; 
+   //:STRING ( 256 )   szClass
+   zCHAR     szClass[ 257 ] = { 0 }; 
+   //:STRING ( 256 )   szClass2
+   zCHAR     szClass2[ 257 ] = { 0 }; 
    //:INTEGER          ActionType
    zLONG     ActionType = 0; 
    //:INTEGER          lLth
@@ -7273,18 +7326,22 @@ BuildSideNavSection( zVIEW     vDialog,
    //:SHORT            nRC
    zSHORT    nRC = 0; 
    zCHAR     szTempString_0[ 1026 ]; 
+   zCHAR     szTempString_1[ 255 ]; 
    zSHORT    RESULT; 
+   zCHAR     szTempString_2[ 33 ]; 
    zSHORT    lTempInteger_0; 
-   zCHAR     szTempString_1[ 33 ]; 
+   zCHAR     szTempString_3[ 33 ]; 
+   zCHAR     szTempString_4[ 255 ]; 
    zLONG     lTempInteger_1; 
    zSHORT    lTempInteger_2; 
-   zCHAR     szTempString_2[ 255 ]; 
+   zCHAR     szTempString_5[ 255 ]; 
+   zCHAR     szTempString_6[ 255 ]; 
 
 
    //:// SIDE NAVIGATION BAR
-   //:TraceLineS( "*** BuildSideNavSection Window *** ", vDialog.Window.Tag )
+   //:TraceLineS( "*** BuildSideNavSection Window! *** ", vDialog.Window.Tag )
    GetStringFromAttribute( szTempString_0, vDialog, "Window", "Tag" );
-   TraceLineS( "*** BuildSideNavSection Window *** ", szTempString_0 );
+   TraceLineS( "*** BuildSideNavSection Window! *** ", szTempString_0 );
 
    //:szWriteBuffer = ""
    ZeidonStringCopy( szWriteBuffer, 1, 0, "", 1, 0, 10001 );
@@ -7302,8 +7359,28 @@ BuildSideNavSection( zVIEW     vDialog,
    ZeidonStringCopy( szWriteBuffer, 1, 0, "<div id=^sidenavigation^>", 1, 0, 10001 );
    //:WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
    WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 );
-   //:szWriteBuffer = "   <ul>"
-   ZeidonStringCopy( szWriteBuffer, 1, 0, "   <ul>", 1, 0, 10001 );
+   //:szMenuName = vDialogRoot.Menu.Tag 
+   GetVariableFromAttribute( szMenuName, 0, 'S', 51, vDialogRoot, "Menu", "Tag", "", 0 );
+   //:IF vDialogRoot.Menu.CSS_Class != ""
+   if ( CompareAttributeToString( vDialogRoot, "Menu", "CSS_Class", "" ) != 0 )
+   { 
+      //:szClass = " class=^" + vDialogRoot.Menu.CSS_Class + "^ " 
+      GetVariableFromAttribute( szTempString_1, 0, 'S', 255, vDialogRoot, "Menu", "CSS_Class", "", 0 );
+      ZeidonStringCopy( szClass, 1, 0, " class=^", 1, 0, 257 );
+      ZeidonStringConcat( szClass, 1, 0, szTempString_1, 1, 0, 257 );
+      ZeidonStringConcat( szClass, 1, 0, "^ ", 1, 0, 257 );
+   } 
+
+   //:END
+   //:szWriteBuffer = "   <ul id=^" + szMenuName + "^ name=^" + szMenuName + "^" + szClass + ">"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "   <ul id=^", 1, 0, 10001 );
+   ZeidonStringConcat( szWriteBuffer, 1, 0, szMenuName, 1, 0, 10001 );
+   ZeidonStringConcat( szWriteBuffer, 1, 0, "^ name=^", 1, 0, 10001 );
+   ZeidonStringConcat( szWriteBuffer, 1, 0, szMenuName, 1, 0, 10001 );
+   ZeidonStringConcat( szWriteBuffer, 1, 0, "^", 1, 0, 10001 );
+   ZeidonStringConcat( szWriteBuffer, 1, 0, szClass, 1, 0, 10001 );
+   ZeidonStringConcat( szWriteBuffer, 1, 0, ">", 1, 0, 10001 );
+   //://szWriteBuffer = "   <ul>"
    //:WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
    WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 );
 
@@ -7324,6 +7401,23 @@ BuildSideNavSection( zVIEW     vDialog,
 
       //:END
 
+      //:IF szReusableMenu = "Y"
+      if ( ZeidonStringCompare( szReusableMenu, 1, 0, "Y", 1, 0, 2 ) == 0 )
+      { 
+         //:szMenuName = "sm" + vDialogRoot.Option.Tag
+         GetVariableFromAttribute( szTempString_2, 0, 'S', 33, vDialogRoot, "Option", "Tag", "", 0 );
+         ZeidonStringCopy( szMenuName, 1, 0, "sm", 1, 0, 51 );
+         ZeidonStringConcat( szMenuName, 1, 0, szTempString_2, 1, 0, 51 );
+         //:ELSE
+      } 
+      else
+      { 
+         //:szMenuName = vDialogRoot.Option.Tag
+         GetVariableFromAttribute( szMenuName, 0, 'S', 51, vDialogRoot, "Option", "Tag", "", 0 );
+      } 
+
+      //:END
+
       //:// szHTML_Name = szDialogName + vDialogRoot.OptAct.WindowName + ".jsp"
       //:IF vDialogRoot.OptAct EXISTS
       lTempInteger_0 = CheckExistenceOfEntity( vDialogRoot, "OptAct" );
@@ -7337,9 +7431,9 @@ BuildSideNavSection( zVIEW     vDialog,
          if ( ZeidonStringCompare( szReusableMenu, 1, 0, "Y", 1, 0, 2 ) == 0 )
          { 
             //:szActionName = "sm" + vDialogRoot.OptAct.Tag
-            GetVariableFromAttribute( szTempString_1, 0, 'S', 33, vDialogRoot, "OptAct", "Tag", "", 0 );
+            GetVariableFromAttribute( szTempString_3, 0, 'S', 33, vDialogRoot, "OptAct", "Tag", "", 0 );
             ZeidonStringCopy( szActionName, 1, 0, "sm", 1, 0, 35 );
-            ZeidonStringConcat( szActionName, 1, 0, szTempString_1, 1, 0, 35 );
+            ZeidonStringConcat( szActionName, 1, 0, szTempString_3, 1, 0, 35 );
             //:lLth = zstrlen( szActionName )
             lLth = zstrlen( szActionName );
             //:IF lLth > 32
@@ -7381,14 +7475,32 @@ BuildSideNavSection( zVIEW     vDialog,
       //:IF vDialogRoot.OptAct.WindowName = vDialog.Window.Tag
       if ( CompareAttributeToAttribute( vDialogRoot, "OptAct", "WindowName", vDialog, "Window", "Tag" ) == 0 )
       { 
-         //:szClass = "class=^sideselected^ "
-         ZeidonStringCopy( szClass, 1, 0, "class=^sideselected^ ", 1, 0, 35 );
+         //:szClass2 = " class=^sideselected^ "
+         ZeidonStringCopy( szClass2, 1, 0, " class=^sideselected^ ", 1, 0, 257 );
+         //:ELSE
+      } 
+      else
+      { 
+         //:szClass2 = ""
+         ZeidonStringCopy( szClass2, 1, 0, "", 1, 0, 257 );
+      } 
+
+      //:END
+
+      //:IF vDialogRoot.Option.CSS_Class != "" 
+      if ( CompareAttributeToString( vDialogRoot, "Option", "CSS_Class", "" ) != 0 )
+      { 
+         //:szClass = " class=^" + vDialogRoot.Option.CSS_Class + "^"
+         GetVariableFromAttribute( szTempString_4, 0, 'S', 255, vDialogRoot, "Option", "CSS_Class", "", 0 );
+         ZeidonStringCopy( szClass, 1, 0, " class=^", 1, 0, 257 );
+         ZeidonStringConcat( szClass, 1, 0, szTempString_4, 1, 0, 257 );
+         ZeidonStringConcat( szClass, 1, 0, "^", 1, 0, 257 );
          //:ELSE
       } 
       else
       { 
          //:szClass = ""
-         ZeidonStringCopy( szClass, 1, 0, "", 1, 0, 35 );
+         ZeidonStringCopy( szClass, 1, 0, "", 1, 0, 257 );
       } 
 
       //:END
@@ -7418,9 +7530,15 @@ BuildSideNavSection( zVIEW     vDialog,
       //:WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
       WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 );
 
-      //:szWriteBuffer = "       <li><a href=^#^ " + szClass + " onclick=^" + szActionName + "()^>" + szNavigationTitle + "</a></li>"
-      ZeidonStringCopy( szWriteBuffer, 1, 0, "       <li><a href=^#^ ", 1, 0, 10001 );
+      //:szWriteBuffer = "       <li id=^" + szMenuName + "^ name=^" + szMenuName + "^" + szClass + "><a href=^#^ " + szClass2 + " onclick=^" + szActionName + "()^>" + szNavigationTitle + "</a></li>"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "       <li id=^", 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, szMenuName, 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, "^ name=^", 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, szMenuName, 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, "^", 1, 0, 10001 );
       ZeidonStringConcat( szWriteBuffer, 1, 0, szClass, 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, "><a href=^#^ ", 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, szClass2, 1, 0, 10001 );
       ZeidonStringConcat( szWriteBuffer, 1, 0, " onclick=^", 1, 0, 10001 );
       ZeidonStringConcat( szWriteBuffer, 1, 0, szActionName, 1, 0, 10001 );
       ZeidonStringConcat( szWriteBuffer, 1, 0, "()^>", 1, 0, 10001 );
@@ -7444,7 +7562,7 @@ BuildSideNavSection( zVIEW     vDialog,
       RESULT = SetCursorNextEntity( vDialogRoot, "OptAct", "Menu" );
    } 
 
-   //:END
+   //:END  // FOR EACH
 
    //:// This is for building a default menu?
    //:// Trying to get this file to compile.
@@ -7494,20 +7612,41 @@ BuildSideNavSection( zVIEW     vDialog,
 
          //:END
 
+         //:szMenuName = vDialogRoot.Option.Tag         
+         GetVariableFromAttribute( szMenuName, 0, 'S', 51, vDialogRoot, "Option", "Tag", "", 0 );
+
          //:// If the window we are currently generating is the same window that this
          //:// side menu points to, then we want to set a class on this option.  The
          //:// reason is so that we can tell which side menu option the user has selected.
          //:IF vDialogMenu.OptAct.WindowName = vDialog.Window.Tag
          if ( CompareAttributeToAttribute( vDialogMenu, "OptAct", "WindowName", vDialog, "Window", "Tag" ) == 0 )
          { 
-            //:szClass = "class=^sideselected^ "
-            ZeidonStringCopy( szClass, 1, 0, "class=^sideselected^ ", 1, 0, 35 );
+            //:szClass2 = "class=^sideselected^ "
+            ZeidonStringCopy( szClass2, 1, 0, "class=^sideselected^ ", 1, 0, 257 );
+            //:ELSE
+         } 
+         else
+         { 
+            //:szClass2 = ""
+            ZeidonStringCopy( szClass2, 1, 0, "", 1, 0, 257 );
+         } 
+
+         //:END
+
+         //:IF vDialogMenu.Option.CSS_Class != "" 
+         if ( CompareAttributeToString( vDialogMenu, "Option", "CSS_Class", "" ) != 0 )
+         { 
+            //:szClass = "class=^" + vDialogMenu.Option.CSS_Class + "^"
+            GetVariableFromAttribute( szTempString_5, 0, 'S', 255, vDialogMenu, "Option", "CSS_Class", "", 0 );
+            ZeidonStringCopy( szClass, 1, 0, "class=^", 1, 0, 257 );
+            ZeidonStringConcat( szClass, 1, 0, szTempString_5, 1, 0, 257 );
+            ZeidonStringConcat( szClass, 1, 0, "^", 1, 0, 257 );
             //:ELSE
          } 
          else
          { 
             //:szClass = ""
-            ZeidonStringCopy( szClass, 1, 0, "", 1, 0, 35 );
+            ZeidonStringCopy( szClass, 1, 0, "", 1, 0, 257 );
          } 
 
          //:END
@@ -7539,9 +7678,15 @@ BuildSideNavSection( zVIEW     vDialog,
          //:WL_QC( vDialogMenu, lFile, szWriteBuffer, "^", 0 )
          WL_QC( vDialogMenu, lFile, szWriteBuffer, "^", 0 );
 
-         //:szWriteBuffer = "       <li><a href=^#^ " + szClass + " onclick=^" + szActionName + "()^>" + szNavigationTitle + "</a></li>"
-         ZeidonStringCopy( szWriteBuffer, 1, 0, "       <li><a href=^#^ ", 1, 0, 10001 );
+         //:szWriteBuffer = "       <li id=^" + szMenuName + "^ name=^" + szMenuName + "^" + szClass + "><a href=^#^ " + szClass2 + " onclick=^" + szActionName + "()^>" + szNavigationTitle + "</a></li>"
+         ZeidonStringCopy( szWriteBuffer, 1, 0, "       <li id=^", 1, 0, 10001 );
+         ZeidonStringConcat( szWriteBuffer, 1, 0, szMenuName, 1, 0, 10001 );
+         ZeidonStringConcat( szWriteBuffer, 1, 0, "^ name=^", 1, 0, 10001 );
+         ZeidonStringConcat( szWriteBuffer, 1, 0, szMenuName, 1, 0, 10001 );
+         ZeidonStringConcat( szWriteBuffer, 1, 0, "^", 1, 0, 10001 );
          ZeidonStringConcat( szWriteBuffer, 1, 0, szClass, 1, 0, 10001 );
+         ZeidonStringConcat( szWriteBuffer, 1, 0, "><a href=^#^ ", 1, 0, 10001 );
+         ZeidonStringConcat( szWriteBuffer, 1, 0, szClass2, 1, 0, 10001 );
          ZeidonStringConcat( szWriteBuffer, 1, 0, " onclick=^", 1, 0, 10001 );
          ZeidonStringConcat( szWriteBuffer, 1, 0, szActionName, 1, 0, 10001 );
          ZeidonStringConcat( szWriteBuffer, 1, 0, "()^>", 1, 0, 10001 );
@@ -7565,13 +7710,13 @@ BuildSideNavSection( zVIEW     vDialog,
          RESULT = SetCursorNextEntity( vDialogMenu, "OptAct", "Menu" );
       } 
 
-      //:END
+      //:END  // FOR EACH
 
       //:DropView( vDialogMenu )
       DropView( vDialogMenu );
    } 
 
-   //:END
+   //:END  // vDialogMenu != 0
 
    //:// Division ending for Navigation Bar.
    //:szWriteBuffer = "   </ul>"
@@ -7591,9 +7736,9 @@ BuildSideNavSection( zVIEW     vDialog,
       //:WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
       WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 );
       //:szWriteBuffer = "<%@ include file=^" + vDialogRoot.Dialog.WEB_LeftSideInclude + "^ %>"
-      GetVariableFromAttribute( szTempString_2, 0, 'S', 255, vDialogRoot, "Dialog", "WEB_LeftSideInclude", "", 0 );
+      GetVariableFromAttribute( szTempString_6, 0, 'S', 255, vDialogRoot, "Dialog", "WEB_LeftSideInclude", "", 0 );
       ZeidonStringCopy( szWriteBuffer, 1, 0, "<%@ include file=^", 1, 0, 10001 );
-      ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_2, 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_6, 1, 0, 10001 );
       ZeidonStringConcat( szWriteBuffer, 1, 0, "^ %>", 1, 0, 10001 );
       //:WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 1 )
       WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 1 );

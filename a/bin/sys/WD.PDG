@@ -1,4 +1,4 @@
-z1000-Zeidon    WD       TZDGSRCO 09/16/14   13:13:47 1.0a2    
+z1000-Zeidon    WD       TZDGSRCO 04/14/15   15:49:31 1.0a2    
 eDomainGroup 1
 aZKey      1320467
 aName      WD
@@ -32,6 +32,35 @@ eTableEntry 4
 aZKey      1320471
 aExternalValue Yes
 aInternalValue Y
+
+eDomain    2
+aJavaClass com.quinsoft.zeidon.domains.StaticTableDomain
+aZKey      130001474
+aName      WD_WebJSPGenerationPositioning
+aDomainType T
+aDataType  S
+aMaxStringLth 1
+aContextRestriction N
+
+eContext   3
+aZKey      130001475
+aName      WD_WebJSPGenerationPositioning
+aIsDefault Y
+
+eTableEntry 4
+aZKey      130001476
+aExternalValue Absolute Positioning
+aInternalValue A
+
+eTableEntry 4
+aZKey      130001477
+aExternalValue Relative Positioning
+aInternalValue R
+
+eTableEntry 4
+aZKey      130001478
+aExternalValue No Positioning
+aInternalValue N
 
 eDomain    2
 aJavaClass com.quinsoft.zeidon.domains.StaticTableDomain
@@ -89,9 +118,6 @@ eContext   3
 aZKey      92709479
 aName      WD_WebTextControlProperties
 aIsDefault Y
-
-eTableEntry 4
-aZKey      92709609
 
 eTableEntry 4
 aZKey      92709482
@@ -402,9 +428,6 @@ eContext   3
 aZKey      68304366
 aName      WD_WebGroupControlProperties
 aIsDefault Y
-
-eTableEntry 4
-aZKey      130000002
 
 eTableEntry 4
 aZKey      68304367
@@ -1900,6 +1923,6 @@ aType      13
 aLastUpdateDate 19950908094926000
 aLastCheckInDate 19951102203051110
 
-i192       189
-i195       189
-i350       189
+i195       192
+i198       192
+i353       192

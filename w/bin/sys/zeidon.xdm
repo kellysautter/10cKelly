@@ -1,4 +1,4 @@
-z1000-Zeidon    ZEIDON   TZDMXGPO 11/04/14   11:02:30 1.0a2    
+z1000-Zeidon    ZEIDON   TZDMXGPO 04/15/15   13:15:18 1.0a2    
 eDomainGroup 1
 aName      Zeidon9B
 
@@ -6724,9 +6724,6 @@ aName      WD_WebGroupControlProperties
 aIsDefault Y
 
 eTableEntry 4
-aZKey      130000002
-
-eTableEntry 4
 aZKey      68304367
 aExternalValue Div
 aInternalValue Div
@@ -6818,6 +6815,35 @@ aInternalValue Scrollable
 
 eDomain    2
 aJavaClass com.quinsoft.zeidon.domains.StaticTableDomain
+aZKey      130001474
+aName      WD_WebJSPGenerationPositioning
+aDomainType T
+aDataType  S
+aMaxStringLth 1
+aContextRestriction N
+
+eContext   3
+aZKey      130001475
+aName      WD_WebJSPGenerationPositioning
+aIsDefault Y
+
+eTableEntry 4
+aZKey      130001476
+aExternalValue Absolute Positioning
+aInternalValue A
+
+eTableEntry 4
+aZKey      130001477
+aExternalValue Relative Positioning
+aInternalValue R
+
+eTableEntry 4
+aZKey      130001478
+aExternalValue No Positioning
+aInternalValue N
+
+eDomain    2
+aJavaClass com.quinsoft.zeidon.domains.StaticTableDomain
 aZKey      68544962
 aName      WD_WebPushControlProperties
 aDesc      Web control type for Push Button controls
@@ -6884,9 +6910,6 @@ eContext   3
 aZKey      92709479
 aName      WD_WebTextControlProperties
 aIsDefault Y
-
-eTableEntry 4
-aZKey      92709609
 
 eTableEntry 4
 aZKey      92709482
