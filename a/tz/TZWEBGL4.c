@@ -73,10 +73,6 @@ BuildSideNavSectionJ( zVIEW     vDialog,
    ZeidonStringCopy( szWriteBuffer, 1, 0, "<!-- Side Navigation *********************** -->", 1, 0, 10001 );
    //:WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
    WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 );
-   //:szWriteBuffer = "<div id=^sidenavigation^>"
-   ZeidonStringCopy( szWriteBuffer, 1, 0, "<div id=^sidenavigation^>", 1, 0, 10001 );
-   //:WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
-   WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 );
    //:szMenuName = vDialogRoot.Menu.Tag 
    GetVariableFromAttribute( szMenuName, 0, 'S', 51, vDialogRoot, "Menu", "Tag", "", 0 );
    //:IF vDialogRoot.Menu.CSS_Class != ""
@@ -90,14 +86,19 @@ BuildSideNavSectionJ( zVIEW     vDialog,
    } 
 
    //:END
-   //:szWriteBuffer = "   <ul id=^" + szMenuName + "^ name=^" + szMenuName + "^" + szClass + ">"
+   //:szWriteBuffer = "<div id=^sidenavigation^" + szClass + ">"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "<div id=^sidenavigation^", 1, 0, 10001 );
+   ZeidonStringConcat( szWriteBuffer, 1, 0, szClass, 1, 0, 10001 );
+   ZeidonStringConcat( szWriteBuffer, 1, 0, ">", 1, 0, 10001 );
+   //:WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
+   WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 );
+   //://szWriteBuffer = "   <ul id=^" + szMenuName + "^ name=^" + szMenuName + "^" + szClass + ">"
+   //:szWriteBuffer = "   <ul id=^" + szMenuName + "^ name=^" + szMenuName + "^>"
    ZeidonStringCopy( szWriteBuffer, 1, 0, "   <ul id=^", 1, 0, 10001 );
    ZeidonStringConcat( szWriteBuffer, 1, 0, szMenuName, 1, 0, 10001 );
    ZeidonStringConcat( szWriteBuffer, 1, 0, "^ name=^", 1, 0, 10001 );
    ZeidonStringConcat( szWriteBuffer, 1, 0, szMenuName, 1, 0, 10001 );
-   ZeidonStringConcat( szWriteBuffer, 1, 0, "^", 1, 0, 10001 );
-   ZeidonStringConcat( szWriteBuffer, 1, 0, szClass, 1, 0, 10001 );
-   ZeidonStringConcat( szWriteBuffer, 1, 0, ">", 1, 0, 10001 );
+   ZeidonStringConcat( szWriteBuffer, 1, 0, "^>", 1, 0, 10001 );
    //:WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
    WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 );
 

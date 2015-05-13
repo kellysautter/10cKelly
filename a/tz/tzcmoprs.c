@@ -664,6 +664,7 @@ InitializeLPLR( zVIEW  vSubtask,
    GetIntegerFromAttribute( &lTaskUseCnt, vLPLR, "LPLR", "TaskUseCount" );
    lTaskUseCnt++;
    SetAttributeFromInteger( vLPLR, "LPLR", "TaskUseCount", lTaskUseCnt );
+
    return( 1 );
 }
 

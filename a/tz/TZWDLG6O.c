@@ -2802,6 +2802,9 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
    //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
 
+   //:szJavaScript = ""
+   ZeidonStringCopy( szJavaScript, 1, 0, "", 1, 0, 10001 );
+
    //:// Actions Section Trailer, including prebuild and postbuild code.
    //:InsertBlankFlag = "N"
    ZeidonStringCopy( InsertBlankFlag, 1, 0, "N", 1, 0, 2 );
@@ -2824,6 +2827,16 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
                ZeidonStringCopy( szWriteBuffer, 1, 0, "", 1, 0, 10001 );
                //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
                WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
+            } 
+
+            //:END
+
+            //:// KJS 04/30/15
+            //:IF vDialog.ActWndEvent.Type = 1 AND vDialog.Action.WebJavaScript != ""
+            if ( CompareAttributeToInteger( vDialog, "ActWndEvent", "Type", 1 ) == 0 && CompareAttributeToString( vDialog, "Action", "WebJavaScript", "" ) != 0 )
+            { 
+               //:szJavaScript = vDialog.Action.WebJavaScript
+               GetVariableFromAttribute( szJavaScript, 0, 'S', 10001, vDialog, "Action", "WebJavaScript", "", 0 );
             } 
 
             //:END
@@ -3118,58 +3131,51 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
 
    //:END
 
-   //:IF szNoPositioning = "Y" OR szNoPositioning = "S"
-   if ( ZeidonStringCompare( szNoPositioning, 1, 0, "Y", 1, 0, 2 ) == 0 || ZeidonStringCompare( szNoPositioning, 1, 0, "S", 1, 0, 2 ) == 0 )
+   //:// KJS 04/30/15 - I can't think why we have the myheader.inc, why we would have that for pages absolute pages. 
+   //:// We didn't have Window.WEB_PageHeadInclude in the painter, but now it is there.
+   //://IF szNoPositioning = "Y" OR szNoPositioning = "S"
+   //:   IF vDialog.Window.WEB_PageHeadInclude != ""
+   if ( CompareAttributeToString( vDialog, "Window", "WEB_PageHeadInclude", "" ) != 0 )
    { 
-      //:IF vDialog.Window.WEB_PageHeadInclude != ""
-      if ( CompareAttributeToString( vDialog, "Window", "WEB_PageHeadInclude", "" ) != 0 )
+      //:   szWriteBuffer = "<%@ include file=^" + vDialog.Window.WEB_PageHeadInclude + "^ %>"
+      GetVariableFromAttribute( szTempString_10, 0, 'S', 255, vDialog, "Window", "WEB_PageHeadInclude", "", 0 );
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "<%@ include file=^", 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_10, 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, "^ %>", 1, 0, 10001 );
+      //:   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
+      //:ELSE
+   } 
+   else
+   { 
+      //:   IF vDialog.Dialog.WEB_PageHeadInclude != ""
+      if ( CompareAttributeToString( vDialog, "Dialog", "WEB_PageHeadInclude", "" ) != 0 )
       { 
-         //:szWriteBuffer = "<%@ include file=^" + vDialog.Window.WEB_PageHeadInclude + "^ %>"
-         GetVariableFromAttribute( szTempString_10, 0, 'S', 255, vDialog, "Window", "WEB_PageHeadInclude", "", 0 );
+         //:   szWriteBuffer = "<%@ include file=^" + vDialog.Dialog.WEB_PageHeadInclude  + "^ %>"
+         GetVariableFromAttribute( szTempString_11, 0, 'S', 255, vDialog, "Dialog", "WEB_PageHeadInclude", "", 0 );
          ZeidonStringCopy( szWriteBuffer, 1, 0, "<%@ include file=^", 1, 0, 10001 );
-         ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_10, 1, 0, 10001 );
+         ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_11, 1, 0, 10001 );
          ZeidonStringConcat( szWriteBuffer, 1, 0, "^ %>", 1, 0, 10001 );
-         //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+         //:   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
          WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
          //:ELSE
       } 
       else
       { 
-         //:IF vDialog.Dialog.WEB_PageHeadInclude != ""
-         if ( CompareAttributeToString( vDialog, "Dialog", "WEB_PageHeadInclude", "" ) != 0 )
-         { 
-            //:szWriteBuffer = "<%@ include file=^" + vDialog.Dialog.WEB_PageHeadInclude  + "^ %>"
-            GetVariableFromAttribute( szTempString_11, 0, 'S', 255, vDialog, "Dialog", "WEB_PageHeadInclude", "", 0 );
-            ZeidonStringCopy( szWriteBuffer, 1, 0, "<%@ include file=^", 1, 0, 10001 );
-            ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_11, 1, 0, 10001 );
-            ZeidonStringConcat( szWriteBuffer, 1, 0, "^ %>", 1, 0, 10001 );
-            //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
-            WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
-            //:ELSE
-         } 
-         else
-         { 
-            //:szWriteBuffer = "<%@ include file=^./include/head.inc^ %>"
-            ZeidonStringCopy( szWriteBuffer, 1, 0, "<%@ include file=^./include/head.inc^ %>", 1, 0, 10001 );
-            //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
-            WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
-         } 
-
-         //:END
+         //:   szWriteBuffer = "<%@ include file=^./include/head.inc^ %>"
+         ZeidonStringCopy( szWriteBuffer, 1, 0, "<%@ include file=^./include/head.inc^ %>", 1, 0, 10001 );
+         //:   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+         WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
       } 
 
-      //:END
-      //:ELSE
-   } 
-   else
-   { 
-      //:szWriteBuffer = "<%@ include file=^./include/myheader.inc^ %>"
-      ZeidonStringCopy( szWriteBuffer, 1, 0, "<%@ include file=^./include/myheader.inc^ %>", 1, 0, 10001 );
-      //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
-      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
+      //:   END
    } 
 
-   //:END
+   //:   END
+   //://ELSE
+   //://   szWriteBuffer = "<%@ include file=^./include/myheader.inc^ %>"
+   //://   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   //://END
 
    //:// KJS 2/19/08 - Trying to help Jeff with timeout.  Place a
    //:// timeout value in timeout.inc for when to timeout.
@@ -3234,10 +3240,9 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
    //:// KJS 06/09/11 - I am not sure that we want to always include this js file because at the moment, I am putting
    //:// this in because we want to do a md5 hash conversion.
-   //:szWriteBuffer = "<script language=^JavaScript^ type=^text/javascript^ src=^./js/md5.js^></script>"
-   ZeidonStringCopy( szWriteBuffer, 1, 0, "<script language=^JavaScript^ type=^text/javascript^ src=^./js/md5.js^></script>", 1, 0, 10001 );
-   //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
-   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
+   //:// KJS 04/30/15 - Now I am taking this out because I don't think we use this and if we do, we should add it to head.inc not here.
+   //://szWriteBuffer = "<script language=^JavaScript^ type=^text/javascript^ src=^./js/md5.js^></script>"
+   //://WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    //:// DKS 03/02/15 - To disable UI while processing
    //:szWriteBuffer = "<script language=^JavaScript^ type=^text/javascript^ src=^./js/jquery.blockUI.js^></script>"
    ZeidonStringCopy( szWriteBuffer, 1, 0, "<script language=^JavaScript^ type=^text/javascript^ src=^./js/jquery.blockUI.js^></script>", 1, 0, 10001 );
@@ -3354,6 +3359,33 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
 
    //:END
 
+   //:// KJS 04/30/15 - If we have any javascript code on a window prebuild action, we should add it here.
+   //:IF szJavaScript != ""
+   if ( ZeidonStringCompare( szJavaScript, 1, 0, "", 1, 0, 10001 ) != 0 )
+   { 
+      //:szWriteBuffer = "<script language=^JavaScript^ type=^text/javascript^ >"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "<script language=^JavaScript^ type=^text/javascript^ >", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "      // Javascript code entered by user for Window action prebuild."
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "      // Javascript code entered by user for Window action prebuild.", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 );
+      //:szWriteBuffer = szJavaScript
+      ZeidonStringCopy( szWriteBuffer, 1, 0, szJavaScript, 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 );
+      //:szWriteBuffer = "      // END of Javascript code entered by user."
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "      // END of Javascript code entered by user.", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 );
+      //:szWriteBuffer = "</script>"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "</script>", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
+   } 
+
+   //:END
 
    //:/********************** JAVASCRIPT function Generation. ***********************************/
    //:// KJS 08/02/13 - Going to try putting the javascript code in a separate .js file becuase
