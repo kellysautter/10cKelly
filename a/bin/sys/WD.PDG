@@ -1,4 +1,4 @@
-z1000-Zeidon    WD       TZDGSRCO 04/14/15   15:49:31 1.0a2    
+z1000-Zeidon    WD       TZDGSRCO 05/13/15   17:22:35 1.0a2    
 eDomainGroup 1
 aZKey      1320467
 aName      WD
@@ -619,6 +619,11 @@ eTableEntry 4
 aZKey      1141809
 aExternalValue Email Subject Line
 aInternalValue EmailSubject
+
+eTableEntry 4
+aZKey      130003879
+aExternalValue Escape special HTML characters
+aInternalValue escapeHTML
 
 eTableEntry 4
 aZKey      1141816
@@ -1923,6 +1928,6 @@ aType      13
 aLastUpdateDate 19950908094926000
 aLastCheckInDate 19951102203051110
 
-i195       192
-i198       192
-i353       192
+i196       193
+i199       193
+i354       193

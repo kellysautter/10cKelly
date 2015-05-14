@@ -1,4 +1,4 @@
-z1000-Zeidon    ZEIDON   TZDMXGPO 04/15/15   13:15:18 1.0a2    
+z1000-Zeidon    ZEIDON   TZDMXGPO 05/13/15   17:22:35 1.0a2    
 eDomainGroup 1
 aName      Zeidon9B
 
@@ -6541,6 +6541,11 @@ aExternalValue Email Subject Line
 aInternalValue EmailSubject
 
 eTableEntry 4
+aZKey      130003879
+aExternalValue Escape special HTML characters
+aInternalValue escapeHTML
+
+eTableEntry 4
 aZKey      1141816
 aExternalValue Hidden - not displayed
 aInternalValue Hidden
@@ -6722,6 +6727,9 @@ eContext   3
 aZKey      68304366
 aName      WD_WebGroupControlProperties
 aIsDefault Y
+
+eTableEntry 4
+aZKey      130000002
 
 eTableEntry 4
 aZKey      68304367
@@ -6910,6 +6918,9 @@ eContext   3
 aZKey      92709479
 aName      WD_WebTextControlProperties
 aIsDefault Y
+
+eTableEntry 4
+aZKey      92709609
 
 eTableEntry 4
 aZKey      92709482

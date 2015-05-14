@@ -31,9 +31,11 @@ BuildSideNavSectionJ( VIEW vDialog,
    WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 1 )
    szWriteBuffer = "<!-- Side Navigation *********************** -->"
    WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
-   szMenuName = vDialogRoot.Menu.Tag 
-   IF vDialogRoot.Menu.CSS_Class != ""
-      szClass = " class=^" + vDialogRoot.Menu.CSS_Class + "^ " 
+   IF vDialogRoot.Menu EXISTS 
+      szMenuName = vDialogRoot.Menu.Tag 
+      IF vDialogRoot.Menu.CSS_Class != ""
+         szClass = " class=^" + vDialogRoot.Menu.CSS_Class + "^ " 
+      END
    END
    szWriteBuffer = "<div id=^sidenavigation^" + szClass + ">"
    WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
@@ -47,7 +49,7 @@ BuildSideNavSectionJ( VIEW vDialog,
       IF szDialogName = ""
          szDialogName = "NoDialogName"
       END
-      
+
       IF szReusableMenu = "Y"
          szMenuName = "sm" + vDialogRoot.Option.Tag
       ELSE
@@ -136,7 +138,7 @@ BuildSideNavSectionJ( VIEW vDialog,
             szActionName = ""
             ActionType = 0
          END
-         
+
          szMenuName = vDialogRoot.Option.Tag         
 
          // If the window we are currently generating is the same window that this
@@ -305,7 +307,7 @@ GenJSPJ_CrteCalendar( VIEW vDialog BASED ON LOD TZWDLGSO,
       WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
       szWriteBuffer = "         else"
       WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-      szWriteBuffer = "            task.log( ).debug( ^Entity does not exist: ^ + ^" +
+      szWriteBuffer = "            task.log( ).debug( ^Entity does not exist for " + szCtrlTag + ": ^ + ^" +
                       vDialog.CtrlMapView.Name +
                       "." + vDialog.CtrlMapRelatedEntity.Name + "^ );"
       WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
@@ -362,7 +364,7 @@ GenJSPJ_CrteCalendar( VIEW vDialog BASED ON LOD TZWDLGSO,
          szStyle = "" // No style information
          szStyleCalendar = ""
       END
-      
+
       CreateTabIndexString( vDialog, szTabIndex )
 
       CreateDisabledString( vDialog, szDisabled )
@@ -487,7 +489,7 @@ GenJSPJ_CrteCheckBox( VIEW vDialog BASED ON LOD TZWDLGSO,
    END
 
    szStyle = "style=^" + szPosition + "^" + szTabIndex
-   
+
    IF szNoPositioning = "S"
       szStyle = "" // No style
    END
@@ -1213,7 +1215,7 @@ GenJSPJ_CrteCtrlsRadio( VIEW vDialog BASED ON LOD TZWDLGSO,
       //CreateAbsolPosString( vDialog, szPosition, 0, 0 )
       CreateDisabledString( vDialog, szDisabled )
       FixStyleString( szStyle, szPosition, "", "" )
-      
+
       IF szNoPositioning = "S"
          szStyle = "" // No style information
       END
@@ -2004,16 +2006,16 @@ GenJSPJ_CrteGroupTable( VIEW vDialog BASED ON LOD TZWDLGSO,
             szWriteBuffer = "         {"
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
             IF vDialog.CtrlMapContext EXISTS
-                    szContextName = vDialog.CtrlMapContext.Name
+               szContextName = vDialog.CtrlMapContext.Name
             ELSE
-                    szContextName = ""
+               szContextName = ""
             END
 
             IF vDialog.CtrlMapER_Domain.MaxStringLth > 254
-                    lMaxStringLength = vDialog.CtrlMapER_Domain.MaxStringLth
-                    szMaxStringLength = lMaxStringLength
+               lMaxStringLength = vDialog.CtrlMapER_Domain.MaxStringLth
+               szMaxStringLength = lMaxStringLength
             ELSE
-                    szMaxStringLength = "254"
+               szMaxStringLength = "254"
             END
 
             szWriteBuffer = "            strErrorMapValue = " +
@@ -2022,6 +2024,14 @@ GenJSPJ_CrteGroupTable( VIEW vDialog BASED ON LOD TZWDLGSO,
                             vDialog.CtrlMapER_Attribute.Name + "^ ).getString( ^" +
                             szContextName + "^ );"
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+            IF vDialog.Control.WebCtrlType = "escapeHTML"
+               szWriteBuffer = "               task.log().debug( ^" + szCtrlTag + " prior to unescape: ^ + strErrorMapValue );"
+               WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+               szWriteBuffer = "               strErrorMapValue = StringEscapeUtils.unescapeHtml4( strErrorMapValue );"
+               WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+               szWriteBuffer = "               task.log().debug( ^" + szCtrlTag + " after unescape: ^ + strErrorMapValue );"
+               WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+            END
 
             // KJS 02/15/11 - Thinking I need to add code to change values returned as null to "".
             szWriteBuffer = "            if ( strErrorMapValue == null )"
@@ -2036,7 +2046,7 @@ GenJSPJ_CrteGroupTable( VIEW vDialog BASED ON LOD TZWDLGSO,
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
             szWriteBuffer = "         else"
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-            szWriteBuffer = "            task.log( ).debug( ^Entity does not exist: ^ + ^" +
+            szWriteBuffer = "            task.log( ).debug( ^Entity does not exist for " + szCtrlTag + ": ^ + ^" +
                             vDialog.CtrlMapView.Name +
                             "." + vDialog.CtrlMapRelatedEntity.Name + "^ );"
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
@@ -2302,12 +2312,20 @@ GenJSPJ_CrteEditBox( VIEW vDialog BASED ON LOD TZWDLGSO,
       ELSE
          szMaxStringLength = "254"
       END
-      szWriteBuffer = "            strErrorMapValue = " +
+      szWriteBuffer = "               strErrorMapValue = " +
                       vDialog.CtrlMapView.Name + ".cursor( ^" +
                       vDialog.CtrlMapRelatedEntity.Name + "^ ).getAttribute( ^" +
                       vDialog.CtrlMapER_Attribute.Name + "^ ).getString( ^" +
                       szContextName + "^ );"
       WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+      IF vDialog.Control.WebCtrlType = "escapeHTML"
+         szWriteBuffer = "               task.log().debug( ^" + szCtrlTag + " prior to unescape: ^ + strErrorMapValue );"
+         WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+         szWriteBuffer = "               strErrorMapValue = StringEscapeUtils.unescapeHtml4( strErrorMapValue );"
+         WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+         szWriteBuffer = "               task.log().debug( ^" + szCtrlTag + " after unescape: ^ + strErrorMapValue );"
+         WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+      END
 
       szWriteBuffer = "            }"
       WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
@@ -2344,7 +2362,7 @@ GenJSPJ_CrteEditBox( VIEW vDialog BASED ON LOD TZWDLGSO,
       WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
       szWriteBuffer = "         else"
       WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-      szWriteBuffer = "            task.log( ).debug( ^Entity does not exist: ^ + ^" +
+      szWriteBuffer = "            task.log( ).debug( ^Entity does not exist for " + szCtrlTag + ": ^ + ^" +
                       vDialog.CtrlMapView.Name +
                       "." + vDialog.CtrlMapRelatedEntity.Name + "^ );"
       WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
@@ -3438,7 +3456,7 @@ GenJSPJ_CrteMLEdit( VIEW vDialog BASED ON LOD TZWDLGSO,
       WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
       szWriteBuffer = "         else"
       WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-      szWriteBuffer = "            task.log( ).info( ^Entity does not exist: ^ + ^" +
+      szWriteBuffer = "            task.log( ).info( ^Entity does not exist for " + szCtrlTag + ": ^ + ^" +
                       vDialog.CtrlMapView.Name +
                       "." + vDialog.CtrlMapRelatedEntity.Name + "^ );"
       WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
