@@ -4282,7 +4282,7 @@ DKS_TRACE_END */
       IF vDialogTemp.Control.CSS_Class != ""
          szClass = " class=^" + vDialogTemp.Control.CSS_Class + "^"
       END
-      szWriteBuffer = "<div" + szStyle + szClass + ">  <!-- " + vDialogTemp.Control.Tag + " --> "
+      szWriteBuffer = "<div " + szStyle + szClass + ">  <!-- " + vDialogTemp.Control.Tag + " --> "
       WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
 
       // Get Group positions for adding to subcontrols.
@@ -4394,8 +4394,9 @@ DKS_TRACE_END */
       END
       ResetViewFromSubobject( vDialogTemp )
 
-      szWriteBuffer = "</div>"
+      szWriteBuffer = "</div>  <!-- " + vDialogTemp.Control.Tag + " --> "
       WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+
       szWriteBuffer = "</form>"
       WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
 

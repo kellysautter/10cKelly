@@ -312,7 +312,8 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
    zSHORT    lTempInteger_52; 
    zCHAR     szTempString_35[ 255 ]; 
    zCHAR     szTempString_36[ 255 ]; 
-   zCHAR     szTempString_37[ 255 ]; 
+   zCHAR     szTempString_37[ 33 ]; 
+   zCHAR     szTempString_38[ 255 ]; 
 
 
    //:// Generate a JSP file for formatting the Window that has current position.
@@ -7064,8 +7065,8 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
       } 
 
       //:END
-      //:szWriteBuffer = "<div" + szStyle + szClass + ">  <!-- " + vDialogTemp.Control.Tag + " --> "
-      ZeidonStringCopy( szWriteBuffer, 1, 0, "<div", 1, 0, 10001 );
+      //:szWriteBuffer = "<div " + szStyle + szClass + ">  <!-- " + vDialogTemp.Control.Tag + " --> "
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "<div ", 1, 0, 10001 );
       ZeidonStringConcat( szWriteBuffer, 1, 0, szStyle, 1, 0, 10001 );
       ZeidonStringConcat( szWriteBuffer, 1, 0, szClass, 1, 0, 10001 );
       ZeidonStringConcat( szWriteBuffer, 1, 0, ">  <!-- ", 1, 0, 10001 );
@@ -7366,10 +7367,14 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
       //:ResetViewFromSubobject( vDialogTemp )
       ResetViewFromSubobject( vDialogTemp );
 
-      //:szWriteBuffer = "</div>"
-      ZeidonStringCopy( szWriteBuffer, 1, 0, "</div>", 1, 0, 10001 );
+      //:szWriteBuffer = "</div>  <!-- " + vDialogTemp.Control.Tag + " --> "
+      GetVariableFromAttribute( szTempString_37, 0, 'S', 33, vDialogTemp, "Control", "Tag", "", 0 );
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "</div>  <!-- ", 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_37, 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, " --> ", 1, 0, 10001 );
       //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
       WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
+
       //:szWriteBuffer = "</form>"
       ZeidonStringCopy( szWriteBuffer, 1, 0, "</form>", 1, 0, 10001 );
       //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
@@ -7435,9 +7440,9 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
       else
       { 
          //:szWriteBuffer = "<%@ include file=^" + vDialogRoot.Dialog.WEB_FooterInclude + "^ %>"
-         GetVariableFromAttribute( szTempString_37, 0, 'S', 255, vDialogRoot, "Dialog", "WEB_FooterInclude", "", 0 );
+         GetVariableFromAttribute( szTempString_38, 0, 'S', 255, vDialogRoot, "Dialog", "WEB_FooterInclude", "", 0 );
          ZeidonStringCopy( szWriteBuffer, 1, 0, "<%@ include file=^", 1, 0, 10001 );
-         ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_37, 1, 0, 10001 );
+         ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_38, 1, 0, 10001 );
          ZeidonStringConcat( szWriteBuffer, 1, 0, "^ %>", 1, 0, 10001 );
          //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
          WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 );
