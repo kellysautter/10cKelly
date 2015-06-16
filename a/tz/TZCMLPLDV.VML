@@ -366,6 +366,7 @@ CREATE_NewLPLR( VIEW ViewToWindow )
    SHORT nRC
    INTEGER lHighZKey
    INTEGER lHighPrefix
+   INTEGER nLth
    
    // KJS 05/18/15 - For right now I am not using this because we were running into errors with 
    // the xlp, hky file not being created and zeidon.app not updated. I modified nzwTZCMLPLD_CreateNewLPLR to
@@ -723,7 +724,7 @@ IMPORT_LPLR( VIEW ViewToWindow )
    STRING ( 513 ) szMsg
    STRING ( 513 ) szTZCMULWOFileName
    STRING ( 513 ) szXLPFileName
-   STRING ( 513 ) szLLPFileName
+   STRING ( 513 ) szStr
    STRING ( 513 ) szFileName
    STRING ( 1 )   szSlash
    STRING ( 30 )  szOperatorArea
@@ -758,6 +759,9 @@ IMPORT_LPLR( VIEW ViewToWindow )
   nRC = zSearchSubString( szXLPFileName, "\"  , "b", nLth )
   //nRC = zSearchSubString( szXLPFileName, "\"  , "b", nRC - 1 )
   
+  // Keep track of original MetSrcDir
+  szStr = TZCMLPLO.LPLR.MetaSrcDir
+  
   nRC = ZeidonStringCopy( szFileName, 1, 0, szXLPFileName, 1, nRC, 513 )
 
 // KJS 06/05/15 - Probably not here, but if the user puts in a directory for the meta source that doesn't
@@ -777,6 +781,20 @@ IMPORT_LPLR( VIEW ViewToWindow )
       ELSE
          NAME VIEW TZCMULWO "TZCMULWO"
       END  
+   // KJS 06/16/15 - Should we see if there is an ExecutableSubDirecory, and if not, create one based on the ExecDir.
+   IF TZCMULWO.Installation.ExecutableSubDirectory = "" AND TZCMLPLO.LPLR.ExecDir != "" 
+      szFileName = TZCMLPLO.LPLR.ExecDir 
+      // Get the part of the filename that is different between the Meta and Exec dirs.
+      zSearchAndReplace( szFileName, 513, szStr, "" )
+      nRC = zSearchSubString( szFileName, "\"  , "f", 0 )
+      IF nRC = 0
+         // Now replace the starting "\" if there is one.
+         nRC = ZeidonStringCopy( szFileName, 1, 0, szFileName, 2, 0, 513 )          
+      END
+      // Do we need to get rid of the first /?
+      TZCMULWO.Installation.ExecutableSubDirectory = szFileName
+      TZCMLPLO.LPLR.wExecutableSubDirectory = szFileName
+   END
   
   //zstrncpy( szFileName, szXLPFileName, nRC, nLth ) 
 

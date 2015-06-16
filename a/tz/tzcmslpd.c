@@ -367,11 +367,11 @@ zwTZCMSLPD_RebuildMetaLists( zVIEW vSubtask )
    zstrncpy( szLPLR_FileName, szLPLR_Name, 33 );
    zstrcat( szLPLR_FileSpec, szLPLR_FileName );
    zstrcat( szLPLR_FileSpec, ".LLP" );
-   if ( CommitOI_ToFile( LPLR_View, szLPLR_FileSpec, zSINGLE ) == 0 ) // zBINARY | zSINGLE ) == 0 )
+   if ( CommitOI_ToFile( LPLR_View, szLPLR_FileSpec, zSINGLE ) != 0 ) 
    {
       zstrcpy( szMsg, "Project " );
       zstrcat( szMsg, szLPLR_Name );
-      zstrcat( szMsg, " LLP has been rebuilt in\n" );
+      zstrcat( szMsg, " LLP could not be rebuilt in\n" );
       zstrcat( szMsg, szLPLR_FileSpec );
       MessageSend( vSubtask, "CM00608", "Configuration Management",
                    szMsg,

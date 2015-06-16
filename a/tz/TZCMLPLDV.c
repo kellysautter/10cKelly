@@ -822,6 +822,8 @@ CREATE_NewLPLR( zVIEW     ViewToWindow )
    zLONG     lHighZKey = 0; 
    //:INTEGER lHighPrefix
    zLONG     lHighPrefix = 0; 
+   //:INTEGER nLth
+   zLONG     nLth = 0; 
    zCHAR     szTempString_0[ 255 ]; 
    zCHAR     szTempString_1[ 33 ]; 
    zCHAR     szTempString_2[ 255 ]; 
@@ -1368,8 +1370,8 @@ IMPORT_LPLR( zVIEW     ViewToWindow )
    zCHAR     szTZCMULWOFileName[ 514 ] = { 0 }; 
    //:STRING ( 513 ) szXLPFileName
    zCHAR     szXLPFileName[ 514 ] = { 0 }; 
-   //:STRING ( 513 ) szLLPFileName
-   zCHAR     szLLPFileName[ 514 ] = { 0 }; 
+   //:STRING ( 513 ) szStr
+   zCHAR     szStr[ 514 ] = { 0 }; 
    //:STRING ( 513 ) szFileName
    zCHAR     szFileName[ 514 ] = { 0 }; 
    //:STRING ( 1 )   szSlash
@@ -1437,6 +1439,10 @@ IMPORT_LPLR( zVIEW     ViewToWindow )
    nRC = zSearchSubString( szXLPFileName, "\\", "b", nLth );
    //://nRC = zSearchSubString( szXLPFileName, "\"  , "b", nRC - 1 )
 
+   //:// Keep track of original MetSrcDir
+   //:szStr = TZCMLPLO.LPLR.MetaSrcDir
+   GetVariableFromAttribute( szStr, 0, 'S', 514, TZCMLPLO, "LPLR", "MetaSrcDir", "", 0 );
+
    //:nRC = ZeidonStringCopy( szFileName, 1, 0, szXLPFileName, 1, nRC, 513 )
    nRC = ZeidonStringCopy( szFileName, 1, 0, szXLPFileName, 1, (zLONG) nRC, 513 );
 
@@ -1474,6 +1480,34 @@ IMPORT_LPLR( zVIEW     ViewToWindow )
    } 
 
    //:   END  
+   //:// KJS 06/16/15 - Should we see if there is an ExecutableSubDirecory, and if not, create one based on the ExecDir.
+   //:IF TZCMULWO.Installation.ExecutableSubDirectory = "" AND TZCMLPLO.LPLR.ExecDir != "" 
+   if ( CompareAttributeToString( TZCMULWO, "Installation", "ExecutableSubDirectory", "" ) == 0 && CompareAttributeToString( TZCMLPLO, "LPLR", "ExecDir", "" ) != 0 )
+   { 
+      //:szFileName = TZCMLPLO.LPLR.ExecDir 
+      GetVariableFromAttribute( szFileName, 0, 'S', 514, TZCMLPLO, "LPLR", "ExecDir", "", 0 );
+      //:// Get the part of the filename that is different between the Meta and Exec dirs.
+      //:zSearchAndReplace( szFileName, 513, szStr, "" )
+      zSearchAndReplace( szFileName, 513, szStr, "" );
+      //:nRC = zSearchSubString( szFileName, "\"  , "f", 0 )
+      nRC = zSearchSubString( szFileName, "\\", "f", 0 );
+      //:IF nRC = 0
+      if ( nRC == 0 )
+      { 
+         //:// Now replace the starting "\" if there is one.
+         //:nRC = ZeidonStringCopy( szFileName, 1, 0, szFileName, 2, 0, 513 )          
+         nRC = ZeidonStringCopy( szFileName, 1, 0, szFileName, 2, 0, 513 );
+      } 
+
+      //:END
+      //:// Do we need to get rid of the first /?
+      //:TZCMULWO.Installation.ExecutableSubDirectory = szFileName
+      SetAttributeFromString( TZCMULWO, "Installation", "ExecutableSubDirectory", szFileName );
+      //:TZCMLPLO.LPLR.wExecutableSubDirectory = szFileName
+      SetAttributeFromString( TZCMLPLO, "LPLR", "wExecutableSubDirectory", szFileName );
+   } 
+
+   //:END
    return( 0 );
 //   
 //   //zstrncpy( szFileName, szXLPFileName, nRC, nLth ) 
