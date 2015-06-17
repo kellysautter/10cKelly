@@ -387,6 +387,25 @@ CREATE_NewLPLR( VIEW ViewToWindow )
       END
    END
    lHighZKey = lHighZKey + 1   
+
+   // Make sure there is a correct APPLICATION entry for the new LPLR in the ZEIDON.APP object and save it.
+   SysGetEnvVar( szFileName, "ZEIDON", 128 )
+   szFileName = szFileName + "\ZEIDON.APP"
+
+   GET VIEW KZAPPLOO NAMED "KZAPPLOO"
+   IF RESULT < 0 
+      nRC = ActivateOI_FromFile ( KZAPPLOO, "KZAPPLOO", ViewToWindow, szFileName, 512 )
+      IF nRC < 0
+         MessageSend( ViewToWindow, "", "Configuration Management",
+                      "An error occurred when reading the ZEIDON.APP file.",
+                      zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
+         SetWindowActionBehavior( ViewToWindow, zWAB_StayOnWindow, 0, 0 )
+         DropView( KZAPPLOO )
+         RETURN -1
+      ELSE
+         NAME VIEW KZAPPLOO "KZAPPLOO"
+      END
+   END
    
    IF TZCMLPLO.LPLR.LPLR_Type = "2"    // "2" is new empty
       // LPLR is new empty. 
@@ -409,23 +428,10 @@ CREATE_NewLPLR( VIEW ViewToWindow )
       TZCMULWO.User.GenerationStartZKeyPrefix = 11
       TZCMULWO.User.GenerationStartZKey = 110000000
             
-      
-      // KJS 06/05/15 - Probably not here, but if the user puts in a directory for the meta source that doesn't
+      // KJS 06/05/15 - If the user puts in a directory for the meta source that doesn't
       // exist, do we want to create one for them?
       szFileName = TZCMLPLO.LPLR.MetaSrcDir 
       SysValidDirOrFile( szFileName, TRUE, TRUE, 512)
-      szFileName = TZCMLPLO.LPLR.MetaSrcDir + "\" + TZCMULWO.Installation.ExecutableSubDirectory
-      SysValidDirOrFile( szFileName, TRUE, TRUE, 512)
-      
-      //zgSortEntityWithinParent( zASCENDING, vTZCMLPLO,
-      //                          "W_MetaType", "Type", 0 );
-      
-      // Copy the Hotkey file "ZEIDON.HKY" to the new LPLR directory.
-      szFileName = TZCMLPLO.LPLR.ExecDir
-      szFileName = szFileName + "\ZEIDON.HKY"
-      szFromFileName = KZAPPLOO.ZEIDON.ZEIDON_SYS 
-      szFromFileName = szFromFileName + "\ZEIDON.HKY" 
-      SysCopyFile( ViewToWindow, szFromFileName, szFileName, TRUE )
          
    ELSE
       // LPLR is new existing. Being Imported.
@@ -455,9 +461,22 @@ CREATE_NewLPLR( VIEW ViewToWindow )
          TZCMULWO.User.GenerationStartZKey = lHighPrefix    
       END
    END
-      
-   TZCMLPLO.LPLR.PgmSrcDir = TZCMLPLO.LPLR.MetaSrcDir       
+
+   // Set the executable directory. Create it if it doesn't exist and also copy the zeidon.hky if it doesn't exist.
+   szFileName = TZCMLPLO.LPLR.MetaSrcDir + "\" + TZCMULWO.Installation.ExecutableSubDirectory
+   SysValidDirOrFile( szFileName, TRUE, TRUE, 512)
    TZCMLPLO.LPLR.ExecDir = TZCMLPLO.LPLR.MetaSrcDir + "\" + TZCMULWO.Installation.ExecutableSubDirectory
+   
+   // Copy the Hotkey file "ZEIDON.HKY" to the new LPLR executable directory.
+   szFileName = szFileName + "\ZEIDON.HKY"
+   nRC = SysValidDirOrFile( szFileName, FALSE, FALSE, 512 )
+   IF nRC <= 0 
+      szFromFileName = KZAPPLOO.ZEIDON.ZEIDON_SYS 
+      szFromFileName = szFromFileName + "\ZEIDON.HKY" 
+      SysCopyFile( ViewToWindow, szFromFileName, szFileName, TRUE )
+   END                         
+
+   TZCMLPLO.LPLR.PgmSrcDir = TZCMLPLO.LPLR.MetaSrcDir       
    TZCMLPLO.LPLR.TempDesc = TZCMLPLO.LPLR.Desc 
    
    // TZCMWKSO
@@ -515,25 +534,6 @@ CREATE_NewLPLR( VIEW ViewToWindow )
    CommitOI_ToFile( TZCMLPLO, szFileName, zSINGLE )
    szFileName = TZCMLPLO.LPLR.MetaSrcDir + "\" + szLPLRName + ".LLP"
    CommitOI_ToFile( TZCMLPLO, szFileName, zSINGLE )
-
-   // Make sure there is a correct APPLICATION entry for the new LPLR in the ZEIDON.APP object and save it.
-   SysGetEnvVar( szFileName, "ZEIDON", 128 )
-   szFileName = szFileName + "\ZEIDON.APP"
-
-   GET VIEW KZAPPLOO NAMED "KZAPPLOO"
-   IF RESULT < 0 
-      nRC = ActivateOI_FromFile ( KZAPPLOO, "KZAPPLOO", ViewToWindow, szFileName, 512 )
-      IF nRC < 0
-         MessageSend( ViewToWindow, "", "Configuration Management",
-                      "An error occurred when reading the ZEIDON.APP file.",
-                      zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
-         SetWindowActionBehavior( ViewToWindow, zWAB_StayOnWindow, 0, 0 )
-         DropView( KZAPPLOO )
-         RETURN -1
-      ELSE
-         NAME VIEW KZAPPLOO "KZAPPLOO"
-      END
-   END
    
    // Make sure the APPLICATION entry exists and is correct.
    SET CURSOR FIRST KZAPPLOO.APPLICATION WHERE KZAPPLOO.APPLICATION.APP_NAME = TZCMLPLO.LPLR.Name 
@@ -545,6 +545,9 @@ CREATE_NewLPLR( VIEW ViewToWindow )
    KZAPPLOO.APPLICATION.APP_ADOBIN = TZCMLPLO.LPLR.ExecDir 
    KZAPPLOO.APPLICATION.APP_LOCAL  = KZAPPLOO.ZEIDON.ZEIDON_LOC 
    KZAPPLOO.APPLICATION.APP_SHARED = KZAPPLOO.ZEIDON.ZEIDON_SHR 
+
+   SysGetEnvVar( szFileName, "ZEIDON", 128 )
+   szFileName = szFileName + "\ZEIDON.APP"
    
    // Commit the ZEIDON.APP object.
    nRC = CommitOI_ToFile( KZAPPLOO, szFileName, zASCII )
