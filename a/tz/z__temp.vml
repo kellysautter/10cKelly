@@ -3254,20 +3254,17 @@ DKS_TRACE_END */
             // the submit in).
             szWriteBuffer = "   if ( _IsDocDisabled( ) == false )"
             WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
-	            szWriteBuffer = "   {"
+            szWriteBuffer = "   {"
             WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
 
-            // DKS 2015.06.20 - remove prebuild javascript if it is being inserted in _AfterPageLoaded
-            IF lActionType != 1 OR szInsertPrebuildJavascriptInline != "Y"  // prebuild
-               szJavaScript = vDialog.Action.WebJavaScript
-               IF  szJavaScript != ""
-                  szWriteBuffer = "      // Javascript code entered by user."
-                  WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 )
-                  szWriteBuffer = szJavaScript
-                  WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 )
-                  szWriteBuffer = "      // END of Javascript code entered by user."
-                  WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 )
-               END
+            szJavaScript = vDialog.Action.WebJavaScript
+            IF  szJavaScript != ""
+               szWriteBuffer = "      // Javascript code entered by user."
+               WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 )
+               szWriteBuffer = szJavaScript
+               WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 )
+               szWriteBuffer = "      // END of Javascript code entered by user."
+               WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 )
             END
 
             szWriteBuffer = "   }"
