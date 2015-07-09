@@ -1,11 +1,11 @@
-z1000-Zeidon    ZEIDON   TZCMLPLO 06/25/15   16:43:40 1.0a2    
+z1000-Zeidon    ZEIDON   TZCMLPLO 07/01/15   09:47:48 1.0a2    
 eLPLR      1
 aName      Zeidon
 aZKey      4106137
 aPgmSrcDir c:\10c\a\tz
 aExecDir   c:\10c\w\bin\sys
 aMetaSrcDir c:\10c\a\bin\sys
-aTaskUseCount 0
+aTaskUseCount 1
 aJavaPackageName com\quinsoft\zeidon\zeidontools
 awFullyQualifiedFileName \10C_Prejava\a\bin\sys
 
@@ -79,35 +79,35 @@ aCPLR_ZKey 1319604
 aStatus    1
 aUpdateInd 2
 aName      ActivateEmptyMetaOI
-aLastUpdateDate 20150623092659140
+aLastUpdateDate 20150623093044406
 
 eW_MetaDef 3
 aCPLR_ZKey 1319608
 aStatus    1
 aUpdateInd 2
 aName      ActivateMetaOI
-aLastUpdateDate 20150623092659140
+aLastUpdateDate 20150623093044406
 
 eW_MetaDef 3
 aCPLR_ZKey 1319613
 aStatus    1
 aUpdateInd 2
 aName      ActivateMetaOI_ByName
-aLastUpdateDate 20150623092659140
+aLastUpdateDate 20150623093044406
 
 eW_MetaDef 3
 aCPLR_ZKey 1319620
 aStatus    1
 aUpdateInd 2
 aName      ActivateMetaOI_ByZKey
-aLastUpdateDate 20150623092659140
+aLastUpdateDate 20150623093044406
 
 eW_MetaDef 3
 aCPLR_ZKey 1502623
 aStatus    1
 aUpdateInd 2
 aName      ActivateMetaOI_KeepList
-aLastUpdateDate 20150623092659140
+aLastUpdateDate 20150623093044406
 
 eW_MetaDef 3
 aCPLR_ZKey 88002174
@@ -128,7 +128,7 @@ aCPLR_ZKey 1319627
 aStatus    1
 aUpdateInd 2
 aName      AssignZKeyToMetaOI
-aLastUpdateDate 20150623092659140
+aLastUpdateDate 20150623093044406
 
 eW_MetaDef 3
 aCPLR_ZKey 1141825
@@ -163,14 +163,14 @@ aCPLR_ZKey 97419311
 aStatus    1
 aUpdateInd 2
 aName      CheckAllDuplicateName
-aLastUpdateDate 20150623092659140
+aLastUpdateDate 20150623093044406
 
 eW_MetaDef 3
 aCPLR_ZKey 97419303
 aStatus    1
 aUpdateInd 2
 aName      CheckDuplicateComponents
-aLastUpdateDate 20150623092659140
+aLastUpdateDate 20150623093044406
 
 eW_MetaDef 3
 aCPLR_ZKey 70061434
@@ -184,49 +184,49 @@ aCPLR_ZKey 97420599
 aStatus    1
 aUpdateInd 2
 aName      CheckDuplicateName
-aLastUpdateDate 20150623092659140
+aLastUpdateDate 20150623093044406
 
 eW_MetaDef 3
 aCPLR_ZKey 97420604
 aStatus    1
 aUpdateInd 2
 aName      CheckDuplicateNameForRefresh
-aLastUpdateDate 20150623092659140
+aLastUpdateDate 20150623093044406
 
 eW_MetaDef 3
 aCPLR_ZKey 1319631
 aStatus    1
 aUpdateInd 2
 aName      CheckExistenceOfMetaOI
-aLastUpdateDate 20150623092659140
+aLastUpdateDate 20150623093044406
 
 eW_MetaDef 3
 aCPLR_ZKey 1319632
 aStatus    1
 aUpdateInd 2
 aName      CheckExistenceOfMetaOI_ByZKey
-aLastUpdateDate 20150623092659140
+aLastUpdateDate 20150623093044406
 
 eW_MetaDef 3
 aCPLR_ZKey 97367215
 aStatus    1
 aUpdateInd 2
 aName      CheckOutStateForCurrentWindow
-aLastUpdateDate 20150623092659140
+aLastUpdateDate 20150623093044406
 
 eW_MetaDef 3
 aCPLR_ZKey 1319635
 aStatus    1
 aUpdateInd 2
 aName      CommitMetaOI
-aLastUpdateDate 20150623092659140
+aLastUpdateDate 20150623093044406
 
 eW_MetaDef 3
 aCPLR_ZKey 97356512
 aStatus    1
 aUpdateInd 2
 aName      ComponentIsCheckedOut
-aLastUpdateDate 20150623092659140
+aLastUpdateDate 20150623093044406
 
 eW_MetaDef 3
 aCPLR_ZKey 91075123
@@ -289,14 +289,14 @@ aCPLR_ZKey 1319641
 aStatus    1
 aUpdateInd 2
 aName      CreateFileNameFromZKey
-aLastUpdateDate 20150623092659140
+aLastUpdateDate 20150623093044406
 
 eW_MetaDef 3
 aCPLR_ZKey 1319645
 aStatus    1
 aUpdateInd 2
 aName      CreateMetaEntity
-aLastUpdateDate 20150623092659140
+aLastUpdateDate 20150623093044406
 
 eW_MetaDef 3
 aCPLR_ZKey 89582408
@@ -359,21 +359,21 @@ aCPLR_ZKey 1319649
 aStatus    1
 aUpdateInd 2
 aName      DeleteMetaOI
-aLastUpdateDate 20150623092659140
+aLastUpdateDate 20150623093044406
 
 eW_MetaDef 3
 aCPLR_ZKey 1319652
 aStatus    1
 aUpdateInd 2
 aName      DropMetaOI
-aLastUpdateDate 20150623092659140
+aLastUpdateDate 20150623093044406
 
 eW_MetaDef 3
 aCPLR_ZKey 1502634
 aStatus    1
 aUpdateInd 2
 aName      DropMetaOI_FromList
-aLastUpdateDate 20150623092659140
+aLastUpdateDate 20150623093044406
 
 eW_MetaDef 3
 aCPLR_ZKey 1319655
@@ -716,21 +716,21 @@ aCPLR_ZKey 1319674
 aStatus    1
 aUpdateInd 2
 aName      InitializeDefaultLPL
-aLastUpdateDate 20150623092659140
+aLastUpdateDate 20150623093044406
 
 eW_MetaDef 3
 aCPLR_ZKey 1319676
 aStatus    1
 aUpdateInd 2
 aName      InitializeLPLR
-aLastUpdateDate 20150623092659140
+aLastUpdateDate 20150623093044406
 
 eW_MetaDef 3
 aCPLR_ZKey 121043349
 aStatus    1
 aUpdateInd 2
 aName      IntGenFullQualPathFromRelPath
-aLastUpdateDate 20150623092659140
+aLastUpdateDate 20150623093044406
 
 eW_MetaDef 3
 aCPLR_ZKey 89389057
@@ -779,7 +779,7 @@ aCPLR_ZKey 97356455
 aStatus    1
 aUpdateInd 2
 aName      LoadZeidonPPE
-aLastUpdateDate 20150623092659140
+aLastUpdateDate 20150623093044406
 
 eW_MetaDef 3
 aCPLR_ZKey 89389247
@@ -817,18 +817,18 @@ aName      PIX_PER_DU
 aLastUpdateDate 20130306155650000
 
 eW_MetaDef 3
-aCPLR_ZKey 1319686
-aStatus    1
-aUpdateInd 2
-aName      PrintActiveWindow
-aLastUpdateDate 20130306155658000
-
-eW_MetaDef 3
 aCPLR_ZKey 1419686
 aStatus    1
 aUpdateInd 2
 aName      PrintActiveWindow
 aLastUpdateDate 20130306155654000
+
+eW_MetaDef 3
+aCPLR_ZKey 1319686
+aStatus    1
+aUpdateInd 2
+aName      PrintActiveWindow
+aLastUpdateDate 20130306155658000
 
 eW_MetaDef 3
 aCPLR_ZKey 130069308
@@ -867,7 +867,7 @@ aCPLR_ZKey 1319692
 aStatus    1
 aUpdateInd 2
 aName      RetrieveViewForMetaList
-aLastUpdateDate 20150623092659140
+aLastUpdateDate 20150623093044406
 
 eW_MetaDef 3
 aCPLR_ZKey 1157959
@@ -881,7 +881,7 @@ aCPLR_ZKey 97367559
 aStatus    1
 aUpdateInd 2
 aName      SaveSortOrder
-aLastUpdateDate 20150623092659140
+aLastUpdateDate 20150623093044406
 
 eW_MetaDef 3
 aCPLR_ZKey 91002326
@@ -895,7 +895,7 @@ aCPLR_ZKey 121059281
 aStatus    1
 aUpdateInd 2
 aName      SetCompSpecPaths
-aLastUpdateDate 20150623092659140
+aLastUpdateDate 20150623093044406
 
 eW_MetaDef 3
 aCPLR_ZKey 92717751
@@ -909,14 +909,14 @@ aCPLR_ZKey 97367200
 aStatus    1
 aUpdateInd 2
 aName      SetTitleWithCheckOutState
-aLastUpdateDate 20150623092659140
+aLastUpdateDate 20150623093044406
 
 eW_MetaDef 3
 aCPLR_ZKey 1004637
 aStatus    1
 aUpdateInd 2
 aName      SetUpMapLOD
-aLastUpdateDate 20150623092659140
+aLastUpdateDate 20150623093044406
 
 eW_MetaDef 3
 aCPLR_ZKey 91056525
@@ -937,7 +937,7 @@ aCPLR_ZKey 97367563
 aStatus    1
 aUpdateInd 2
 aName      SortComponents
-aLastUpdateDate 20150623092659140
+aLastUpdateDate 20150623093044406
 
 eW_MetaDef 3
 aCPLR_ZKey 1319699
@@ -965,7 +965,7 @@ aCPLR_ZKey 1319705
 aStatus    1
 aUpdateInd 2
 aName      TerminateLPLR
-aLastUpdateDate 20150623092659140
+aLastUpdateDate 20150623093044406
 
 eW_MetaDef 3
 aCPLR_ZKey 89389244
@@ -1077,7 +1077,7 @@ aCPLR_ZKey 1319716
 aStatus    1
 aUpdateInd 2
 aName      zltoxa
-aLastUpdateDate 20150623092659140
+aLastUpdateDate 20150623093044406
 
 eW_MetaType 2
 aType      3
@@ -3267,8 +3267,8 @@ aStatus    1
 aUpdateInd 2
 aName      TZWDLGSO
 aDesc      Source Dialog Definition
-aLastSyncDate 20150417115043218
-aLastUpdateDate 20150417115043218
+aLastSyncDate 20150701094747697
+aLastUpdateDate 20150701094747697
 
 eW_MetaDef 3
 aCPLR_ZKey 1326496
@@ -7287,30 +7287,30 @@ eW_MetaDef 3
 aGroupName TZWEBGL1
 
 eW_MetaDef 3
-aGroupName KZDRVRAA
+aGroupName ZDRAPP
 
 eW_MetaDef 3
-aGroupName ZDRAPP
+aGroupName KZDRVRAA
 
 eW_MetaDef 3
 aCPLR_ZKey 130069308
 aStatus    1
 aName      RebuildMetaLists
-aLastUpdateDate 20150623092659140
+aLastUpdateDate 20150623093044406
 aGroupName TZCM_OPR
 
 eW_MetaDef 3
 aCPLR_ZKey 130069475
 aStatus    1
 aName      RebuildXDM
-aLastUpdateDate 20150623092659140
+aLastUpdateDate 20150623093044406
 aGroupName TZCM_OPR
 
 eW_MetaDef 3
 aCPLR_ZKey 130069473
 aStatus    1
 aName      RebuildXODs
-aLastUpdateDate 20150623092659140
+aLastUpdateDate 20150623093044406
 aGroupName TZCM_OPR
 
 eW_MetaDef 3
@@ -9983,154 +9983,154 @@ i1137      284
 i1138      285
 i1139      286
 i1141      288
-i1143      290
-i1144      291
-i1145      292
-i1146      293
-i1147      294
-i1148      295
-i1149      296
-i1150      297
-i1151      298
-i1152      299
-i1153      300
+i1143      341
+i1144      353
+i1145      428
+i1146      436
+i1147      432
+i1148      437
+i1149      386
+i1150      423
+i1151      292
+i1152      416
+i1153      307
 i1154      301
-i1155      302
-i1156      303
-i1157      304
-i1158      305
-i1159      306
-i1160      307
-i1161      308
-i1162      309
+i1155      290
+i1156      371
+i1157      408
+i1158      311
+i1159      356
+i1160      405
+i1161      434
+i1162      402
 i1163      310
-i1164      311
-i1165      312
-i1166      313
+i1164      389
+i1165      393
+i1166      385
 i1167      314
-i1168      315
-i1169      316
-i1170      317
-i1171      318
-i1172      319
-i1173      320
-i1174      321
-i1175      322
-i1176      323
-i1177      324
-i1178      325
-i1179      326
-i1180      327
-i1181      328
-i1182      329
-i1183      330
-i1184      331
-i1185      332
-i1186      333
-i1187      334
-i1188      335
-i1189      336
-i1190      337
-i1191      338
-i1192      339
-i1193      340
-i1194      341
-i1195      342
-i1196      343
-i1197      344
-i1198      345
-i1199      346
-i1200      347
-i1201      348
-i1202      349
-i1203      350
-i1204      351
-i1205      352
-i1206      353
-i1207      354
-i1208      355
-i1209      356
-i1210      357
-i1211      358
-i1212      359
-i1213      360
-i1214      361
-i1215      362
-i1216      363
-i1217      364
-i1218      365
-i1219      366
-i1220      367
-i1221      368
-i1222      369
-i1223      370
-i1224      371
-i1225      372
-i1226      373
-i1227      374
-i1228      375
-i1229      376
-i1230      377
-i1231      378
-i1232      379
-i1233      380
-i1234      381
-i1235      382
-i1236      383
-i1237      384
-i1238      385
-i1239      386
-i1240      387
-i1241      388
-i1242      389
-i1243      390
-i1244      391
-i1245      392
-i1246      393
-i1247      394
-i1248      395
-i1249      396
-i1250      397
-i1251      398
-i1252      399
-i1253      400
-i1254      401
-i1255      402
-i1256      403
-i1257      404
-i1258      405
-i1259      406
-i1260      407
-i1261      408
-i1262      409
-i1263      410
-i1264      411
-i1265      412
-i1266      413
-i1267      414
-i1268      415
-i1269      416
-i1270      417
-i1271      418
-i1272      419
-i1273      420
-i1274      421
-i1275      422
-i1276      423
-i1277      424
-i1278      425
-i1279      426
-i1280      427
-i1281      428
-i1282      429
-i1283      430
-i1284      431
-i1285      432
-i1286      433
-i1287      434
-i1288      435
-i1289      436
-i1290      437
+i1168      419
+i1169      293
+i1170      420
+i1171      401
+i1172      329
+i1173      291
+i1174      355
+i1175      325
+i1176      344
+i1177      412
+i1178      313
+i1179      302
+i1180      421
+i1181      363
+i1182      372
+i1183      406
+i1184      321
+i1185      392
+i1186      427
+i1187      336
+i1188      368
+i1189      425
+i1190      383
+i1191      306
+i1192      330
+i1193      374
+i1194      380
+i1195      303
+i1196      352
+i1197      382
+i1198      417
+i1199      317
+i1200      411
+i1201      340
+i1202      394
+i1203      358
+i1204      391
+i1205      426
+i1206      339
+i1207      396
+i1208      387
+i1209      384
+i1210      359
+i1211      400
+i1212      378
+i1213      413
+i1214      333
+i1215      348
+i1216      418
+i1217      320
+i1218      316
+i1219      404
+i1220      312
+i1221      309
+i1222      424
+i1223      343
+i1224      429
+i1225      397
+i1226      376
+i1227      342
+i1228      410
+i1229      326
+i1230      364
+i1231      357
+i1232      431
+i1233      362
+i1234      403
+i1235      315
+i1236      377
+i1237      360
+i1238      399
+i1239      308
+i1240      294
+i1241      318
+i1242      407
+i1243      324
+i1244      435
+i1245      415
+i1246      350
+i1247      398
+i1248      373
+i1249      414
+i1250      328
+i1251      346
+i1252      370
+i1253      331
+i1254      338
+i1255      332
+i1256      296
+i1257      379
+i1258      327
+i1259      395
+i1260      433
+i1261      335
+i1262      347
+i1263      375
+i1264      390
+i1265      367
+i1266      334
+i1267      381
+i1268      305
+i1269      388
+i1270      366
+i1271      422
+i1272      409
+i1273      304
+i1274      430
+i1275      323
+i1276      319
+i1277      365
+i1278      351
+i1279      345
+i1280      337
+i1281      322
+i1282      297
+i1283      349
+i1284      354
+i1285      369
+i1286      361
+i1287      298
+i1288      295
+i1289      299
+i1290      300
 i1293      591
 i1294      454
 i1295      453

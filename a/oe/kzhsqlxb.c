@@ -708,7 +708,7 @@ the brackets for the DDL-command
    #define MAX_TABLENAME_LTH     64
    #define MAX_COLUMNNAME_LTH    64
    #define MAX_DATATYPE_LTH      20
-   #define COMMIT_STR            "";
+   #define COMMIT_STR            ""
    #define COLUMN_INDENT         10
    #define CREATE_DB             0
    #define GRANT_ALL             0
@@ -4904,7 +4904,7 @@ TranslateToUnderscoreCase( zPCHAR pchSrc, zPCHAR pchTarget, zCHAR  cMetaType )
    zPCHAR original = pchSrc;
    zPCHAR p;
    zCHAR  sz[ 256 ];
-   static zSHORT nMaxLth;      // Used to keep track of duplicate names.
+   zSHORT nMaxLth;      // Used to keep track of duplicate names.
 
    switch ( cMetaType )
    {
@@ -4938,6 +4938,9 @@ TranslateToUnderscoreCase( zPCHAR pchSrc, zPCHAR pchTarget, zCHAR  cMetaType )
 
          break;
 
+	  default:
+	     zstrcpy( pchTarget, pchSrc );
+		 return 0;
    }
 
    if ( nMaxLth >= BUFF_SIZE )
@@ -4948,23 +4951,23 @@ TranslateToUnderscoreCase( zPCHAR pchSrc, zPCHAR pchTarget, zCHAR  cMetaType )
   // Defensive programming...
   *targetEnd = 0;
 
-  if ( zstrlen( pchSrc ) >= nMaxLth )
+  if ( (zSHORT) zstrlen( pchSrc ) >= nMaxLth )
      return zCALL_ERROR;
 
   zstrcpy( sz, pchSrc );
 
   //p = pchTarget;
-  p = &sz;
+  p = sz;
 
   // Copy first char to target.
   *p++ = *pchSrc++;
   while ( *pchSrc != 0 )
-    {
+  {
       // Do we have enough space to add two more chars?
-      if ( p + 2 > targetEnd )
-  	 return -16;
+    if ( p + 2 > targetEnd )
+  	  return -16;
 
-      if ( *pchSrc >= 'A' && *pchSrc <= 'Z' )
+    if ( *pchSrc >= 'A' && *pchSrc <= 'Z' )
 	{
 	  // We have a capital letter.  Is previous letter upper?
 	  if ( *(p-1) < 'A' || *(p-1) > 'Z' )
@@ -4973,7 +4976,7 @@ TranslateToUnderscoreCase( zPCHAR pchSrc, zPCHAR pchTarget, zCHAR  cMetaType )
 	  else
 	    // Previous letter is also upper.  Insert _ if next char is lower.
 	    if ( ( *(pchSrc+1) < 'A' || *(pchSrc+1) > 'Z' ) && *(pchSrc+1) != 0 )
-	      *p++ = '_';
+			*p++ = '_';
 	}
       *p++ = *pchSrc++;
     }

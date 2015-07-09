@@ -485,7 +485,7 @@ $(kz_obj)\KZHSQLLB.OBJ : {$(kz_src_concat)}KZHSQLXB.C \
    @echo --------------- KZHSQLLB.OBJ ---------------------------
    @echo --------------------------------------------------------
    qspawn $(kz_base)\a\oe\KZHSQLLB.ERR $(cl) @<<
-$(DLLFLAG) -DMYSQL -DSQLITE /Fd$(kz_basew)\bin\kzhsqllb.PDB
+$(DLLFLAG) -DSQLITE /Fd$(kz_basew)\bin\kzhsqllb.PDB
 -I\$(KZV)\a\tz
 $(kz_base)\a\oe\KZHSQLXB.C
 <<

@@ -1,0 +1,177 @@
+z1000-Zeidon    TZZOLFLO TZZOLODO 03/11/03   08:50:49 1.0a2    
+eLOD       1
+aZKey      91109195
+aName      TZZOLFLO
+aDesc      The list of Query Views (LODs) from Zeidon Tools named TZZOLFLO
+
+eLOD_EntityParent 2
+aName      LPLR
+aIndentName LPLR
+aIndentLvl 0
+aZKey      91109196
+aCreate    N
+aDelete    N
+aUpdate    N
+aInclude   N
+aInclSrc   Y
+aExclude   N
+aRecursive N
+aDerived   N
+aWork      Y
+aParentDeleteBehave -
+aDupEntityInstance N
+aDupRelationshipInstance N
+
+eLOD_EntityChild 3
+aName      QueryW_MetaType
+aIndentName    QueryW_MetaType
+aIndentLvl 3
+aZKey      91109197
+aCreate    N
+aDelete    N
+aUpdate    N
+aInclude   N
+aInclSrc   Y
+aExclude   N
+aRecursive N
+aDerived   N
+aWork      Y
+aParentDeleteBehave R
+aDupEntityInstance N
+aDupRelationshipInstance N
+
+eLOD_EntityChild 4
+aName      QueryW_MetaDef
+aIndentName       QueryW_MetaDef
+aIndentLvl 6
+aZKey      91109198
+aCreate    N
+aDelete    N
+aUpdate    N
+aInclude   N
+aInclSrc   Y
+aExclude   N
+aRecursive N
+aDerived   N
+aWork      Y
+aParentDeleteBehave R
+aDupEntityInstance N
+aDupRelationshipInstance N
+
+eLOD_AttributeRec 5
+aZKey      91109203
+aWork      Y
+aUpdate    Y
+aSeqOrder  Y
+
+eER_AttributeRec 6
+aName      Name
+aZKey      91109204
+
+eDomainRec 7
+aZKey      86698253
+aName      Text
+aDomainType E
+aDataType  S
+aMaxStringLth 254
+aDesc      Any Character String
+aContextRestriction N
+
+eLOD_AttributeRec 5
+aZKey      91109205
+aWork      Y
+aUpdate    Y
+aSeqOrder  Y
+
+eER_AttributeRec 6
+aName      Desc
+aZKey      91109206
+
+eDomainRec 7
+
+eLOD_AttributeRec 4
+aZKey      91109201
+aWork      Y
+aUpdate    Y
+aSeqOrder  Y
+
+eER_AttributeRec 5
+aName      Type
+aZKey      91109202
+
+eDomainRec 6
+aZKey      86698255
+aName      Integer
+aDomainType E
+aDataType  L
+aMaxStringLth 4
+aDecimalFormat 0
+aDesc      Integer numbers from -lots to +lots
+aContextRestriction N
+
+eLOD_AttributeRec 3
+aZKey      91109199
+aWork      Y
+aUpdate    Y
+aSeqOrder  Y
+
+eER_AttributeRec 4
+aName      Name
+aZKey      91109200
+
+eDomainRec 5
+
+eLOD_Entity 2
+awkSelectedAttributeForDragSort 1
+
+eLOD_Attribute 3
+awkSequence 1
+
+eER_Attribute 4
+
+eDomain    5
+
+eLOD_Entity 2
+awkSelectedAttributeForDragSort 1
+
+eLOD_Attribute 3
+awkSequence 1
+
+eER_Attribute 4
+
+eDomain    5
+
+eLOD_Entity 2
+awkSelectedAttributeForDragSort 2
+
+eLOD_Attribute 3
+awkSequence 1
+
+eER_Attribute 4
+
+eDomain    5
+
+eLOD_Attribute 3
+awkSequence 2
+
+eER_Attribute 4
+
+eDomain    5
+
+i9         6
+i15        6
+i16        1
+i17        13
+i18        14
+i19        6
+i20        2
+i21        10
+i22        11
+i23        12
+i24        3
+i25        4
+i26        5
+i27        6
+i28        7
+i29        8
+i30        6
