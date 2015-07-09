@@ -2633,7 +2633,11 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
                IF szSelectSet = "Y"
                   // if ( set.isSelected( View.Entity )
                   // Maybe use field WebFileName on the control as the SelectSet name? Since that is only for group box...
-                  szWriteBuffer = "      SelectSet set = " + vDialog.CtrlMapView.Name + ".getSelectSet( ^" + vDialog.Control.WebFileName + "^ );"
+                  IF vDialog.Control.WebFileName != ""
+                     szWriteBuffer = "      SelectSet set = " + vDialog.CtrlMapView.Name + ".getSelectSet( ^" + vDialog.Control.WebFileName + "^ );"
+                  ELSE
+                     szWriteBuffer = "      SelectSet set = " + vDialog.CtrlMapView.Name + ".getSelectSet( );"
+                  END
                   WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
                END
 
