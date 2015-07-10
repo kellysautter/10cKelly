@@ -39,7 +39,7 @@ zgGetZeidonToolsDir( zVIEW  vSubtask,
 
 // DGC 10/17/95 -----------------------------------------------------------
 
-//start TZWDLGSO 2015.07.07 13:55:51
+//start TZWDLGSO 2015.07.10 12:11:40
 zOPER_EXPORT zSHORT OPERATION
 oTZWDLGSO_CloneCtrlMap( zVIEW vViewToInstance0,
                         zVIEW vNewWC1,

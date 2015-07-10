@@ -1,4 +1,4 @@
-z1000-Zeidon    ZEIDON   TZDMXGPO 07/08/15   13:16:54 1.0a2    
+z1000-Zeidon    ZEIDON   TZDMXGPO 07/10/15   13:12:03 1.0a2    
 eDomainGroup 1
 aName      Zeidon9B
 
@@ -52,6 +52,7 @@ aExternalValue Update
 aInternalValue 1
 
 eDomain    2
+aJavaClass com.quinsoft.zeidon.domains.StaticTableDomain
 aZKey      110002502
 aName      AD_WebWindowStyle
 aDomainType T
@@ -6810,6 +6811,11 @@ eTableEntry 4
 aZKey      68304372
 aExternalValue Repeating Group
 aInternalValue Repeating Group
+
+eTableEntry 4
+aZKey      130069814
+aExternalValue Select Set (Repeat Grp)
+aInternalValue Select Set (Repeat Grp)
 
 eTableEntry 4
 aZKey      68544987

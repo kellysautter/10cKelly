@@ -1,4 +1,4 @@
-z1000-Zeidon    WD       TZDGSRCO 07/08/15   13:16:49 1.0a2    
+z1000-Zeidon    WD       TZDGSRCO 07/10/15   13:11:26 1.0a2    
 eDomainGroup 1
 aZKey      1320467
 aName      WD
@@ -37,6 +37,7 @@ eDomain    2
 aZKey      110002502
 aName      AD_WebWindowStyle
 aDomainType T
+aJavaClass com.quinsoft.zeidon.domains.StaticTableDomain
 aDataType  S
 aMaxStringLth 50
 aContextRestriction N
@@ -511,6 +512,11 @@ eTableEntry 4
 aZKey      68304372
 aExternalValue Repeating Group
 aInternalValue Repeating Group
+
+eTableEntry 4
+aZKey      130069814
+aExternalValue Select Set (Repeat Grp)
+aInternalValue Select Set (Repeat Grp)
 
 eTableEntry 4
 aZKey      68544987
@@ -1951,6 +1957,6 @@ aType      13
 aLastUpdateDate 19950908094926000
 aLastCheckInDate 19951102203051110
 
-i200       197
-i203       197
-i358       197
+i201       198
+i204       198
+i359       198
