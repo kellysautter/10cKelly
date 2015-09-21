@@ -39,7 +39,7 @@ zgGetZeidonToolsDir( zVIEW  vSubtask,
 
 // DGC 10/17/95 -----------------------------------------------------------
 
-//start TZWDLGSO 2015.07.10 12:11:40
+//start TZWDLGSO 2015.07.27 15:17:31
 zOPER_EXPORT zSHORT OPERATION
 oTZWDLGSO_CloneCtrlMap( zVIEW vViewToInstance0,
                         zVIEW vNewWC1,
@@ -129,6 +129,10 @@ oTZWDLGSO_GenJSP_ProcessFileIn( zVIEW vViewToInstance0,
 zOPER_EXPORT zSHORT OPERATION
 oTZWDLGSO_GenerateJSPJava( zVIEW vViewToInstance0,
                            zVIEW vvSubtask1 );
+
+zOPER_EXPORT zSHORT OPERATION
+oTZWDLGSO_GenerateJSPJavaInc( zVIEW vViewToInstance0,
+                              zVIEW vvSubtask1 );
 
 zOPER_EXPORT zSHORT OPERATION
 oTZWDLGSO_GenJSPJ_ProcessFileIn( zVIEW vViewToInstance0,

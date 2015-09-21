@@ -2269,6 +2269,11 @@ DKS_TRACE_END */
 
    CreateViewFromView( vDialogTemp, vDialog )
 
+   // KJS 08/20/15 - We commented out the below code in 08/27/13 in the GenJspJava code. I guess I didn't do that here. :(
+   // KJS 08/27/13 - I am commenting this code out because we call the Postbuild javascript code below (comment KJS 09/21/2009), so
+   // this code means we call the javascript code twice. Maybe we should have this instead but for now I am taking it out (the below code
+   // only looks for Postbuild action (not prebuild) because this is after the page has been rendered.
+   /*
    // Check of prebuild and postbuild action jsp code.
    FOR EACH vDialogTemp.Action
       FOR EACH vDialogTemp.ActWndEvent
@@ -2289,6 +2294,7 @@ DKS_TRACE_END */
          END
       END
    END
+   */
 
    // If this Window/Page has a "Start Web Popup" Action with mapping, then we need the following code
    // to actually start up the Popup, since the script code for the Action had to do the submit to

@@ -21,14 +21,14 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
    VIEW vEntity  BASED ON LOD TZWDLGSO  // identifies entity mapping for list entries
    VIEW vScope   BASED ON LOD TZWDLGSO  // identifies scoping entity for list entries
    VIEW vLPLR    BASED ON LOD TZCMLPLO
-   STRING ( 32 )  szLPLR_Name
-   STRING ( 32 )  szContextName
-   STRING ( 32 )  szScopingEntityName
-   STRING ( 32 )  szListEntityName
+   STRING ( 100 ) szLPLR_Name
+   STRING ( 100 ) szContextName
+   STRING ( 100 ) szScopingEntityName
+   STRING ( 100 ) szListEntityName
    STRING ( 64 )  szViewName
-   STRING ( 32 )  szMapEntityName
-   STRING ( 32 )  szMapAttributeName
-   STRING ( 32 )  szActionName
+   STRING ( 100 ) szMapEntityName
+   STRING ( 100 ) szMapAttributeName
+   STRING ( 100 ) szActionName
    STRING ( 256 ) szAction
    STRING ( 10 )  szSelectAction
    STRING ( 10 )  szSelectFunction
@@ -36,7 +36,7 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
    STRING ( 50 )  szCtrlCtrlTag
    STRING ( 50 )  szControlType
    STRING ( 50 )  szCtrlCtrlType
-   STRING ( 32 )  szListCtrlTag
+   STRING ( 100 ) szListCtrlTag
    STRING ( 100 ) szIndentGroup
    STRING ( 100 ) szIndentHold
    STRING ( 100 ) szNoPositioningHold
@@ -51,11 +51,11 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
    STRING ( 256 ) szTitleHTML
    STRING ( 50 )  ListBoxDoubleClickAction
    STRING ( 16 )  szTabIndex
-   STRING ( 32 )  szSize
+   STRING ( 100 ) szSize
    STRING ( 16 )  szWidth
    STRING ( 16 )  szHeight
    STRING ( 1 )   szBorder
-   STRING ( 32 )  szRadioGroupName
+   STRING ( 100 ) szRadioGroupName
    STRING ( 256 ) szWidget
    STRING ( 256 ) szText
    STRING ( 64 )  szTerm
@@ -4079,7 +4079,7 @@ END
 /////////////////////////////////////////////////////////////////////////////
 GLOBAL OPERATION
 GenJSPJ_InputMapRecurs( VIEW vDialog BASED ON LOD TZWDLGSO,
-                        STRING ( 32 )    ViewName,
+                        STRING ( 100 )   ViewName,
                         INTEGER          lFile,
                         STRING ( 10000 ) szWriteBuffer,
                         INTEGER          lTableRowCnt,
@@ -4087,9 +4087,9 @@ GenJSPJ_InputMapRecurs( VIEW vDialog BASED ON LOD TZWDLGSO,
 
    VIEW vDialog2 BASED ON LOD TZWDLGSO
    VIEW vDialog3 BASED ON LOD TZWDLGSO
-   STRING ( 32 )  szContextName
-   STRING ( 32 )  szScopingEntityName
-   STRING ( 32 )  szListMappingEntityName
+   STRING ( 100 )  szContextName
+   STRING ( 100 )  szScopingEntityName
+   STRING ( 100 )  szListMappingEntityName
    STRING ( 100 ) szViewName
    STRING ( 50 )  szControlType
    STRING ( 50 )  szCtrlCtrlType
@@ -5976,19 +5976,19 @@ GenJSPJ_Action( VIEW vDialog     BASED ON LOD TZWDLGSO,
    STRING ( 10000 ) szJavaScript
    STRING ( 32 )    szJavaScriptLocation
    STRING ( 64 )    szSystemIniApplName
-   STRING ( 32 )    szViewName
-   STRING ( 32 )    szEntityName
-   STRING ( 32 )    szEntityNameR
-   STRING ( 32 )    szScopingName
-   STRING ( 32 )    szContextName
+   STRING ( 100 )   szViewName
+   STRING ( 100 )   szEntityName
+   STRING ( 100 )   szEntityNameR
+   STRING ( 100 )   szScopingName
+   STRING ( 100 )   szContextName
    STRING ( 32 )    szDlgTagRoot
-   STRING ( 32 )    szWndTagRoot
-   STRING ( 32 )    szCtrlTag
-   STRING ( 32 )    szDlgTag
+   STRING ( 100 )   szWndTagRoot
+   STRING ( 100 )   szCtrlTag
+   STRING ( 100 )   szDlgTag
 // STRING ( 32 )    szWndTag
    STRING ( 64 )    szOperName
-   STRING ( 32 )    szDownloadViewName
-   STRING ( 32 )    szUploadViewName
+   STRING ( 100 )   szDownloadViewName
+   STRING ( 100 )   szUploadViewName
    STRING ( 64 )    szWAB
    STRING ( 10 )    szMaxStringLength
    STRING ( 50 )    szPrivateKey
@@ -6007,6 +6007,7 @@ GenJSPJ_Action( VIEW vDialog     BASED ON LOD TZWDLGSO,
    INTEGER          lMaxStringLength
    INTEGER          lActionType
    INTEGER          lAutoSubAction
+   INTEGER          lAutoNextPrev
    INTEGER          lSubtypeX
    SHORT            nViewNameLth
    SHORT            nGridParent
@@ -6950,15 +6951,27 @@ GenJSPJ_Action( VIEW vDialog     BASED ON LOD TZWDLGSO,
       END
       
       // Add Object Functions Accept, Cancel, Create Temporal Entity and Create Temporal Subobject Version.
+      // Also looking at the auto setNext/Prev
+      lAutoNextPrev = vDialog.Action.SB_NextPrev
       lAutoSubAction = vDialog.Action.SB_SubAction 
       IF lAutoSubAction = 1 OR    // Accept
          lAutoSubAction = 2 OR    // Cancel
+         lAutoSubAction = 4 OR    // Delete
+         lAutoSubAction = 16 OR   // Create
          lAutoSubAction = 32 OR   // Create Temporal Entity
-         lAutoSubAction = 64      // Create Subobject Version
+         lAutoSubAction = 64 OR   // Create Subobject Version
+         lAutoNextPrev = 128 OR   // Next
+         lAutoNextPrev = 256      // Previous
          
          szWriteBuffer = "      // Action Auto Object Function"
          WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
          szWriteBuffer = "      nRC = 0;"
+         WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+         
+         // Let's put a try/catch around the auto action.
+         szWriteBuffer = "      try"
+         WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+         szWriteBuffer = "      {"
          WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
          
          // Get View and Entity names from the Action.
@@ -6968,6 +6981,17 @@ GenJSPJ_Action( VIEW vDialog     BASED ON LOD TZWDLGSO,
          IF vDialog.ActMapLOD_Entity EXISTS
             szEntityName = vDialog.ActMapLOD_Entity.Name 
          END
+
+         // See if a scoping entity has been specified, and if so, use it.
+         CreateViewFromView( vDialogTemp, vDialog )
+         SET CURSOR NEXT vDialogTemp.ActMap
+         IF RESULT >= zCURSOR_SET AND vDialogTemp.ActMapLOD_Entity EXISTS
+            szScopingName = "^" + vDialogTemp.ActMapLOD_Entity.Name + "^"
+         ELSE
+            szScopingName = ""
+         END
+         DropView(vDialogTemp)
+
          
          // We don't want the getViewByName if it was generated above with the code:
          // IF nGridParent = 1 OR szRepeatingGroupFlag = "Y"
@@ -6980,8 +7004,8 @@ GenJSPJ_Action( VIEW vDialog     BASED ON LOD TZWDLGSO,
          szWriteBuffer = "      EntityCursor cursor = " + szViewName + ".cursor( ^" + szEntityName + "^ );"
          WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
          
-         // Add Accept or Cancel statement.
-         IF lAutoSubAction = 1 OR lAutoSubAction = 2
+         // If the user has selected the auto next/prev.
+         IF ( lAutoNextPrev = 128 OR lAutoNextPrev = 256 ) AND lAutoSubAction = 0
             szWriteBuffer = "      if ( cursor.isNull() )"
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
             szWriteBuffer = "         nRC = 0;"
@@ -6990,41 +7014,95 @@ GenJSPJ_Action( VIEW vDialog     BASED ON LOD TZWDLGSO,
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
             szWriteBuffer = "      {"
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-         
-            szWriteBuffer = "         if ( cursor.isVersioned( ) )"
-            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-            szWriteBuffer = "         {"
-            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-               
-            IF lAutoSubAction = 1
-               // Accept
-               szWriteBuffer = "           cursor.acceptSubobject( );"
+            IF lAutoNextPrev = 128
+               szWriteBuffer = "         cursor.setNext( " + szScopingName + " );"
                WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-            ELSE
-               // Cancel
-               szWriteBuffer = "           cursor.cancelSubobject( );"
+            ELSE 
+               szWriteBuffer = "         cursor.setPrev( " + szScopingName + " );"
                WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
             END
-            
-            szWriteBuffer = "           nRC = 0;"
+            szWriteBuffer = "      }"
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-            szWriteBuffer = "         }"
+         END
+         
+         // Add Accept or Cancel statement or delete.
+         IF lAutoSubAction = 1 OR lAutoSubAction = 2 OR lAutoSubAction = 4
+            szWriteBuffer = "      if ( cursor.isNull() )"
+            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+            szWriteBuffer = "         nRC = 0;"
+            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+            szWriteBuffer = "      else"
+            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+            szWriteBuffer = "      {"
+            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+            
+            IF lAutoSubAction = 1 OR lAutoSubAction = 2 
+               szWriteBuffer = "         if ( cursor.isVersioned( ) )"
+               WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+               szWriteBuffer = "         {"
+               WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+                  
+               IF lAutoSubAction = 1
+                  // Accept
+                  szWriteBuffer = "            cursor.acceptSubobject( );"
+                  WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+               ELSE
+               IF lAutoSubAction = 2             
+                  // Cancel
+                  szWriteBuffer = "            cursor.cancelSubobject( );"
+                  WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+               END
+               END
+               szWriteBuffer = "         }"
+               WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+            ELSE
+            IF lAutoSubAction = 4 
+               // Delete
+               szWriteBuffer = "         cursor.deleteEntity( CursorPosition.NEXT );"
+               WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+            END
+            END
+            
+            szWriteBuffer = "         nRC = 0;"
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
             szWriteBuffer = "      }"
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
          ELSE
+            IF lAutoSubAction = 16
+               // Create Entity
+               szWriteBuffer = "      cursor.createEntity( );"
+               WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
+            ELSE 
             IF lAutoSubAction = 32
                // Create Temporal Entity
                szWriteBuffer = "      cursor.createTemporalEntity( );"
                WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
             ELSE
-               IF lAutoSubAction = 64
-                  // Create Subobject Version
-                  szWriteBuffer = "      cursor.createTemporalSubobjectVersion( );"
-                  WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
-               END
+            IF lAutoSubAction = 64
+               // Create Subobject Version
+               szWriteBuffer = "      cursor.createTemporalSubobjectVersion( );"
+               WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
+            END
+            END
             END
          END
+         szWriteBuffer = "      }"
+         WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+         szWriteBuffer = "      catch ( Exception e )"
+         WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+         szWriteBuffer = "      {"
+         WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+         szWriteBuffer = "         nRC = 2;"
+         WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+         szWriteBuffer = "         VmlOperation.CreateMessage( task, ^" + vDialog.Action.Tag + "^, e.getMessage( ), ^^ );"
+         WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+         szWriteBuffer = "         break;"
+         WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+         szWriteBuffer = "      }"
+         WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+         //szWriteBuffer = "   }  // end of auto action"
+         //WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
+
       END
 
       IF szWAB != ""

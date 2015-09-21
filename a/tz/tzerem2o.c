@@ -747,7 +747,6 @@ oTZEREMDO_IdentifierConstraints( zVIEW     vERD,
    zSHORT    RESULT; 
    zSHORT    lTempInteger_0; 
    zSHORT    lTempInteger_1; 
-   zLONG     lTempInteger_2; 
 
    //:IdentifierConstraints( VIEW vERD BASED ON LOD TZEREMDO,
    //:                    STRING ( 32 ) sEntityName,
@@ -810,23 +809,19 @@ oTZEREMDO_IdentifierConstraints( zVIEW     vERD,
                lTempInteger_1 = CheckExistenceOfEntity( vERD, "ER_AttributeIdentifier" );
                if ( lTempInteger_1 == 0 )
                { 
+                  //:// KJS 08/24/15 - Per request of DG, we are taking out this contraint. In the new world, we want to be
+                  //:// able to use db system generated keys, not just zeidon generated keys.
+                  //:/*
                   //:SET CURSOR FIRST vERD.ER_Attribute WHERE
                   //:   vERD.ER_Attribute.ZKey = vERD.ER_AttributeIdentifier.ZKey
-                  GetIntegerFromAttribute( &lTempInteger_2, vERD, "ER_AttributeIdentifier", "ZKey" );
-                  RESULT = SetCursorFirstEntityByInteger( vERD, "ER_Attribute", "ZKey", lTempInteger_2, "" );
                   //:IF vERD.Domain.DataType != "L"
-                  if ( CompareAttributeToString( vERD, "Domain", "DataType", "L" ) != 0 )
-                  { 
-                     //:// Error: System generated Key must be of type Integer.
-                     //:MessageSend( vERD, "ER00409", "Identifier Specification",
-                     //:          "An Attribute that is a System Maintained key must have Domain of Data Type Number.",
-                     //:          zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
-                     MessageSend( vERD, "ER00409", "Identifier Specification", "An Attribute that is a System Maintained key must have Domain of Data Type Number.", zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
-                     //:RETURN -1
-                     return( -1 );
-                  } 
-
+                  //:// Error: System generated Key must be of type Integer.
+                  //:MessageSend( vERD, "ER00409", "Identifier Specification",
+                  //:             "An Attribute that is a System Maintained key must have Domain of Data Type Number.",
+                  //:             zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
+                  //:RETURN -1
                   //:END
+                  //:*/
                   //:ELSE
                } 
                else

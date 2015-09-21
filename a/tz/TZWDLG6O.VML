@@ -2144,6 +2144,12 @@ DKS_TRACE_END */
    END
 
    // If there is a dynamic banner name specified in the vKZXMLPGO object for this Dialog, use it. Otherwise, try to use the one in the Dialog definition.
+   // KJS 07/27/15 - It has been suggested to have the top banner use the "include" file method like all other includes.
+   // If we do that then we can not have the dynamic banner because this is generate time, not runtime. 
+   // It doesn't seem like we are using this anyway since we can have a separate banner for each dialog if we want.
+   // Leave this code for when we want to change it back. :)
+   ///////////////////////////////////////////////////////////
+   /*
    szWriteBuffer = "   csrRC = vKZXMLPGO.cursor( ^DynamicBannerName^ ).setFirst( ^DialogName^, ^" + szDialogTag + "^, ^^ );"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    szWriteBuffer = "   if ( csrRC.isSet( ) )"
@@ -2163,15 +2169,9 @@ DKS_TRACE_END */
       szWriteBuffer = "      strBannerName = ^./include/banner.inc^;"
    END
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
-/*
-   szBannerName = vDialog.Dialog.WEB_TopBannerName
-   IF szBannerName = ""
-      szWriteBuffer = "   strBannerName = task.GetBannerName(^" + szDialogTag + "^ );"
-   ELSE
-      szWriteBuffer = "   strBannerName = ^" + szBannerName + "^;"
-   END
-   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
-*/
+   */
+   //////////////////////////////////////////////////////////////////////////
+
    IF szWebRedirection = "Y"
       szWriteBuffer = "   wWebXA = task.getViewByName( ^wWebXfer^ );"
       WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
@@ -3672,9 +3672,18 @@ DKS_TRACE_END */
       // strBannerName will always have a value, it might be a dynamic banner name set in vml code
       // or it might be an include file specified in the dialog or if neither of those, then
       // strBannerName has been set to "./include/banner.inc".
-      //szWriteBuffer = "<a href=^#^><img src=^images/<%=strBannerName%>^ width=^800^ height=^93^></a>"
-      szWriteBuffer = "<jsp:include page='<%=strBannerName %>' />"
+      //szWriteBuffer = "<jsp:include page='<%=strBannerName %>' />"
+      
+      // KJS 07/28/15 - Trying the banner include as all the other includes, not as the <jsp:include"
+      // If a banner include file has been entered by the user, then use this, otherwise
+      // hardcode "./include/banner.inc" as the banner name.
+      IF vDialog.Dialog.WEB_TopBannerName != ""
+         szWriteBuffer = "<%@ include file=^" + vDialog.Dialog.WEB_TopBannerName + "^ %>"
+      ELSE
+         szWriteBuffer = "<%@ include file=^./include/banner.inc^ %>"
+      END
       WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
+
    END
 
    szSideMenuExists = "N"
@@ -4773,5 +4782,20 @@ GenJSPJ_DownloadFile( VIEW vDialog,
    SysCloseFile( vDialog, lFileJSP, 0 )
 
    RETURN 0
+
+END
+
+
+/*************************************************************************************************
+**    
+**    OPERATION: GenerateJSPJavaInc
+**    Generate the .jsp code with java calls. But only the control section, not the entire jsp page.
+**    
+*************************************************************************************************/
+TRANSFORMATION OPERATION
+GenerateJSPJavaInc( VIEW ViewToInstance BASED ON LOD TZWDLGSO,
+                    VIEW vSubtask )
+
+
 
 END

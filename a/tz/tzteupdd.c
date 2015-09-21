@@ -3033,7 +3033,10 @@ zwTZTEUPDD_BuildXODsOnLPLR( zVIEW vSubtask )
          oTZZOXODO_SaveXOD( vSubtask, vLOD );
          SetNameForView( vLOD, "TZZOLODO", vSubtask, zLEVEL_TASK );
          GetViewByName( &vXOD, "TZZOXODO", vSubtask, zLEVEL_TASK );
-         DropMetaOI( vSubtask, vLOD );
+         // 09/08/15 - We think we do not want to keep the vLOD in cached memory so instead
+         // of doing a DropMetaOI, we are going to do a DropObjectInstance
+         //DropMetaOI( vSubtask, vLOD );
+         DropObjectInstance( vLOD );
 
          // Commit the XOD to LPLR file.
          GetStringFromAttribute( szFileName, vLPLR, "LPLR", "ExecDir" );
@@ -3042,6 +3045,8 @@ zwTZTEUPDD_BuildXODsOnLPLR( zVIEW vSubtask )
          zstrcat( szFileName, ".XOD" );
          TraceLineS( "*** Committing workstation file: ", szFileName );
          CommitOI_ToFile( vXOD, szFileName, zSINGLE );
+         // 09/08/15 - Adding drop of the xod view.
+         DropObjectInstance( vXOD );
       }
    }
 

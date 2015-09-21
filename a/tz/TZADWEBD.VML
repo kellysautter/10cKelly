@@ -15,16 +15,6 @@ SELECT_VOR_ForAutodesign( VIEW ViewToWindow )
    
    // For the selected view under the AutoDesign Group, initialie a UI Spec for and create the list of selectable entities.
    
-   // Make sure an Auto Design Base dialog has been created.
-   nRC = ActivateMetaOI_ByName( ViewToWindow, AD_Base, 0, zREFER_DIALOG_META, zSINGLE, "AD_Base", 0 )
-   IF nRC < 0
-      MessageSend( ViewToWindow, "", "Autodesign Window Group",
-                   "No AD_Base Dialog exists for Autodesign.", 
-                   zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
-      RETURN -2
-   END
-   NAME VIEW AD_Base "AD_Base"
-   
    GET VIEW TZWINDOWL NAMED "TZWINDOWL"
    nRC = ActivateMetaOI_ByZKey( ViewToWindow, SelectedLOD, 0, zREFER_LOD_META, zSINGLE, TZWINDOWL.AD_GroupViewObjRefLOD.ZKey, 0 )
    IF nRC < 0
@@ -73,6 +63,7 @@ SELECT_TopEntityForAutodesign( VIEW ViewToWindow )
    END
    CREATE ENTITY TZADCSDO.FlatListSelectedEntity 
    SetMatchingAttributesByName( TZADCSDO, "FlatListSelectedEntity", TZADCSDO, "FlatListPotentialTopEntity", zSET_ALL ) 
+   TZWINDOWL.AutoDesignGroup.TopLevelEntityName = TZADCSDO.FlatListSelectedEntity.Name 
    
    // Clear any existing selections.
    FOR EACH TZADCSDO.FlatListPotentialAttribute 
@@ -262,25 +253,6 @@ SELECT_PotentialAttributes( VIEW ViewToWindow )
    FOR EACH TZADCSDO.FlatListPotentialAttribute 
       nRC = GetSelectStateOfEntity( TZADCSDO, "FlatListPotentialAttribute" )
       IF nRC = 1 AND TZADCSDO.FlatListPotentialAttribute.AttributeName != ""   // We will skip Entity only entries, since that 
-                                                                               // simplifies the logic below.
-         // Make sure that there is a current "Entity only" entry.
-         szCreateEntityOnlyEntry = ""
-         IF TZADCSDO.FlatListSelectedAttribute DOES NOT EXIST
-            szCreateEntityOnlyEntry = "Y"
-         ELSE
-            IF TZADCSDO.FlatListSelectedAttribute.EntityName != TZADCSDO.FlatListPotentialAttribute.EntityName 
-               szCreateEntityOnlyEntry = "Y"
-            END
-         END
-         IF szCreateEntityOnlyEntry = "Y"
-            CREATE ENTITY TZADCSDO.FlatListSelectedAttribute
-            TZADCSDO.FlatListSelectedAttribute.EntityName       = TZADCSDO.FlatListPotentialAttribute.EntityName 
-            // Get Indented Name from the Entity only entry.
-            SET CURSOR FIRST TZADCSDO2.FlatListPotentialAttribute 
-                       WHERE TZADCSDO2.FlatListPotentialAttribute.EntityName = TZADCSDO.FlatListPotentialAttribute.EntityName 
-                         AND TZADCSDO2.FlatListPotentialAttribute.IndentEntityName != "" 
-            TZADCSDO.FlatListSelectedAttribute.IndentEntityName = TZADCSDO2.FlatListPotentialAttribute.IndentEntityName 
-         END
          CREATE ENTITY TZADCSDO.FlatListSelectedAttribute
          SetMatchingAttributesByName( TZADCSDO, "FlatListSelectedAttribute", TZADCSDO, "FlatListPotentialAttribute", zSET_ALL )
          
@@ -374,7 +346,7 @@ SAVE_AutoDesignForGroup( VIEW ViewToWindow )
          IF TZADCSDO.FlatListSelectedAttribute.EntityName != ""
             szEntityName = TZADCSDO.FlatListSelectedAttribute.EntityName 
          ELSE
-            CREATE ENTITY TZWINDOWL.AD_MappingAttribute 
+            CreateMetaEntity( TZWINDOWL, TZWINDOWL, "AD_MappingAttribute", zPOS_AFTER )
             TZWINDOWL.AD_MappingAttribute.EntityName    = szEntityName
             TZWINDOWL.AD_MappingAttribute.AttributeName = TZADCSDO.FlatListSelectedAttribute.AttributeName 
             TZWINDOWL.AD_MappingAttribute.AttributeName = TZADCSDO.FlatListSelectedAttribute.ControlType 
@@ -387,7 +359,7 @@ SAVE_AutoDesignForGroup( VIEW ViewToWindow )
             DELETE ENTITY TZWINDOWL.AD_MappingAttribute NONE 
          END
       ELSE
-         CREATE ENTITY TZWINDOWL.AD_ListBoxEntity 
+         CreateMetaEntity( TZWINDOWL, TZWINDOWL, "AD_ListBoxEntity", zPOS_AFTER )
          SET CURSOR FIRST TZADCSDO.FlatListSelectedAttribute  
          TZWINDOWL.AD_ListBoxEntity.EntityName = TZADCSDO.FlatListSelectedAttribute.EntityName 
       END
@@ -395,7 +367,7 @@ SAVE_AutoDesignForGroup( VIEW ViewToWindow )
          IF TZADCSDO.FlatListSelectedAttribute.EntityName != ""
             szEntityName = TZADCSDO.FlatListSelectedAttribute.EntityName 
          ELSE
-            CREATE ENTITY TZWINDOWL.AD_MappingAttribute 
+            CreateMetaEntity( TZWINDOWL, TZWINDOWL, "AD_MappingAttribute", zPOS_AFTER )
             TZWINDOWL.AD_MappingAttribute.EntityName    = szEntityName
             TZWINDOWL.AD_MappingAttribute.AttributeName = TZADCSDO.FlatListSelectedAttribute.AttributeName 
             TZWINDOWL.AD_MappingAttribute.AttributeName = TZADCSDO.FlatListSelectedAttribute.ControlType 
@@ -413,17 +385,14 @@ END
 DIALOG OPERATION
 AUTODESIGN_Group( VIEW ViewToWindow )
 
-   VIEW TZADCSDO    BASED ON LOD  TZADCSDO
-   VIEW TZWINDOWL   BASED ON LOD  TZWDLGSO
-   VIEW TZCONTROL   BASED ON LOD  TZWDLGSO
+   VIEW TZADCSDO    REGISTERED AS TZADCSDO
+   VIEW TZWINDOWL   REGISTERED AS TZWINDOWL
+   VIEW TZCONTROL   REGISTERED AS TZCONTROL
    VIEW SelectedLOD BASED ON LOD  TZZOLODO
-   VIEW AD_Base     BASED ON LOD TZWDLGSO
+   VIEW AD_Base     BASED ON LOD  TZWDLGSO
    STRING ( 32 ) szTag
    STRING ( 32 ) szEntityName
    SHORT nRC
-   
-   GET VIEW TZWINDOWL NAMED "TZWINDOWL"
-   GET VIEW TZADCSDO  NAMED "TZADCSDO"
    
    // Make sure that at least one attribute has been selected.
    IF RESULT < 0
@@ -443,7 +412,7 @@ AUTODESIGN_Group( VIEW ViewToWindow )
    END 
    
    // Make sure that a Base Window and Group has been selected.
-   IF TZWINDOWL.AutoDesignWindow.BaseWindowName = "" OR TZWINDOWL.AutoDesignGroup.BaseGroupName = ""
+   IF TZWINDOWL.AutoDesignGroup.BaseWindowName = "" OR TZWINDOWL.AutoDesignGroup.BaseGroupName = ""
       MessageSend( ViewToWindow, "", "Autodesign Window Group",
                    "Both a Base Window Name and a Base Group Name must be selected.", 
                    zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
@@ -453,7 +422,8 @@ AUTODESIGN_Group( VIEW ViewToWindow )
    
    // Position on the Base Window and  Control.
    GET VIEW AD_Base NAMED "AD_Base"
-   SET CURSOR FIRST AD_Base.Window WHERE AD_Base.Window.Tag = TZWINDOWL.AutoDesignWindow.BaseWindowName 
+   TraceLineS( "*** BaseWindowName: ", TZWINDOWL.AutoDesignGroup.BaseWindowName )
+   SET CURSOR FIRST AD_Base.Window WHERE AD_Base.Window.Tag = TZWINDOWL.AutoDesignGroup.BaseWindowName 
    IF RESULT < zCURSOR_SET
       MessageSend( ViewToWindow, "", "Autodesign Window Group",
                    "The Base window name specified doesn't exist in AD_Base.", 
@@ -461,6 +431,7 @@ AUTODESIGN_Group( VIEW ViewToWindow )
       SetWindowActionBehavior( ViewToWindow, zWAB_StayOnWindow, 0, 0 )
       RETURN -2
    END
+   TraceLineS( "*** BaseGroupName: ", TZWINDOWL.AutoDesignGroup.BaseGroupName )
    SET CURSOR FIRST AD_Base.Control WHERE AD_Base.Control.Tag = TZWINDOWL.AutoDesignGroup.BaseGroupName 
    IF RESULT < zCURSOR_SET
       MessageSend( ViewToWindow, "", "Autodesign Window Group",
@@ -470,20 +441,30 @@ AUTODESIGN_Group( VIEW ViewToWindow )
       RETURN -2
    END
    
+   // If the Group Control has current subcontrols, get rid of them.
+   IF TZCONTROL.CtrlCtrl EXISTS
+      SetViewToSubobject( TZCONTROL, "CtrlCtrl" )
+      FOR EACH TZCONTROL.Control 
+         DELETE ENTITY TZCONTROL.Control NONE 
+      END
+      ResetViewFromSubobject( TZCONTROL )
+   END
+   
    // Delete any existing mapping entities.
    IF TZWINDOWL.AD_ListBoxEntity EXISTS
       DELETE ENTITY TZWINDOWL.AD_ListBoxEntity
    END
-   CREATE ENTITY TZWINDOWL.AD_ListBoxEntity 
+   CreateMetaEntity( TZWINDOWL, TZWINDOWL, "AD_ListBoxEntity", zPOS_AFTER )
    SET CURSOR FIRST TZADCSDO.FlatListSelectedAttribute   // We'll always create a AD_ListBoxEntity entity.
    TZWINDOWL.AD_ListBoxEntity.EntityName = TZADCSDO.FlatListSelectedAttribute.EntityName
+   AcceptSubobject( TZWINDOWL, "AutoDesignGroup" )
    
    // Set the AutoDesign attributes in TZWINDOWL from the temporary ones in TZADCSDO.
    IF TZWINDOWL.AutoDesignGroup.GenerateGroupType = "F" 
       // AutoDesign Request is for regular controls on a Groupbox.
       FOR EACH TZADCSDO.FlatListSelectedAttribute 
          IF TZADCSDO.FlatListSelectedAttribute.AttributeName != ""
-            CREATE ENTITY TZWINDOWL.AD_MappingAttribute 
+            CreateMetaEntity( TZWINDOWL, TZWINDOWL, "AD_MappingAttribute", zPOS_AFTER )
             TZWINDOWL.AD_MappingAttribute.EntityName    = TZADCSDO.FlatListSelectedAttribute.EntityName 
             TZWINDOWL.AD_MappingAttribute.AttributeName = TZADCSDO.FlatListSelectedAttribute.AttributeName 
             TZWINDOWL.AD_MappingAttribute.ControlType   = TZADCSDO.FlatListSelectedAttribute.ControlType 
@@ -495,7 +476,7 @@ AUTODESIGN_Group( VIEW ViewToWindow )
       // AutoDesign Request is for a Grid control.
       FOR EACH TZADCSDO.FlatListSelectedAttribute 
          IF TZADCSDO.FlatListSelectedAttribute.AttributeName != ""
-            CREATE ENTITY TZWINDOWL.AD_MappingAttribute 
+            CreateMetaEntity( TZWINDOWL, TZWINDOWL, "AD_MappingAttribute", zPOS_AFTER )
             TZWINDOWL.AD_MappingAttribute.EntityName    = TZADCSDO.FlatListSelectedAttribute.EntityName 
             TZWINDOWL.AD_MappingAttribute.AttributeName = TZADCSDO.FlatListSelectedAttribute.AttributeName 
             TZWINDOWL.AD_MappingAttribute.ControlType   = TZADCSDO.FlatListSelectedAttribute.ControlType 
@@ -507,19 +488,15 @@ AUTODESIGN_Group( VIEW ViewToWindow )
    
    // Build the grid or group of Text, Editbox, Checkbox, Calendar or Combobox controls depending
    // on the value of GenerateGroupType.
-   GET VIEW TZWINDOWL NAMED "TZWINDOWL"
-   GET VIEW TZCONTROL NAMED "TZCONTROL"
    GET VIEW SelectedLOD NAMED "AutodesignSelectedLOD"
    AcceptSubobject( TZCONTROL, "Control" )
    IF TZWINDOWL.AutoDesignGroup.GenerateGroupType = "G"
       // Go to build a Grid control for update based on the specifications of FlatListSelectedAttribute.
-      IssueError( TZWINDOWL,0,0, "before Grid" )
       AutodesignGridCtrl( TZWINDOWL, TZCONTROL, AD_Base, SelectedLOD )
       szTag = TZWINDOWL.Window.Tag 
       fnPainterCall( 8, ViewToWindow, 0, szTag )
    ELSE
       // Go to build a group of regular controls based on the specifications of FlatListSelectedAttribute.
-      IssueError( TZWINDOWL,0,0, "before Reg Update" )
       AutodesignUpdateCtrls( TZWINDOWL, TZCONTROL, AD_Base, SelectedLOD )
       szTag = TZWINDOWL.Window.Tag 
       fnPainterCall( 8, ViewToWindow, 0, szTag )
@@ -548,19 +525,36 @@ AutodesignGridCtrl( VIEW TZWINDOWL   BASED ON LOD TZWDLGSO,
    INTEGER lCurrentPositionY
    INTEGER lTotalDataWidth
    INTEGER lAveragPixelWidth
+   INTEGER Count
+   INTEGER lAttributeCount
    STRING ( 100 ) szAttributeName
    STRING ( 100 ) szControlDefName
-   STRING ( 100 ) szSuffix
+   STRING ( 100 ) szControlBaseName
+   STRING ( 100 ) szActionSuffix
    STRING ( 100 ) szActionName
-   STRING ( 20 ) szControlType
+   STRING ( 100 ) szFirstControlTag
+   STRING ( 1 )   szControlNameSuffixGroup
+   STRING ( 1 )   szControlNameSuffixAttribute
+   STRING ( 10 )  szGroupName
+   STRING ( 8 )   szGroupName8
+   STRING ( 20 )  szControlType
 
    // Build a Grid control, with a subentity for each AD_MappingAttribute entry.
    
    GET VIEW TZPESRCO NAMED "TZPESRCO"
-   szSuffix = TZWINDOWL.AutoDesignGroup.ActionNameSuffix
+   szActionSuffix = TZWINDOWL.AutoDesignGroup.ActionNameSuffix
    CreateViewFromView( AD_BaseRoot, AD_Base )
    NAME VIEW AD_BaseRoot "AD_BaseRoot"
    TZCONTROL.Control.Text = ""            // We don't want any text in the highest level Group.
+   
+   // To generate unique Control Names when multiple Groups are autodesigned for the same Window, we
+   // will try to use the 9th character of the Group Name, as it should be unique with groups named like
+   // "GroupBox2".
+   szGroupName = TZCONTROL.Control.Tag 
+   szGroupName8 = szGroupName[1:8]
+   IF szGroupName8 = "GroupBox"
+      szControlNameSuffixGroup = szGroupName[9:1]
+   END
    
    // If there is a Title for the Group, add the control set.
    IF TZWINDOWL.AutoDesignGroup.Title != ""
@@ -581,9 +575,10 @@ AutodesignGridCtrl( VIEW TZWINDOWL   BASED ON LOD TZWDLGSO,
       CreateMetaEntity( TZWINDOWL, TZCONTROL, "CtrlCtrl", zPOS_AFTER )
       SetViewToSubobject( TZCONTROL, "CtrlCtrl" )
       INCLUDE TZCONTROL.ControlDef FROM TZPESRCO.ControlDef 
-      TZCONTROL.Control.Tag  = "TitleGroup" + TZWINDOWL.AD_ListBoxEntity.EntityName 
+      TZCONTROL.Control.Tag  = "TitleGroup" + TZWINDOWL.AD_ListBoxEntity.EntityName + szControlNameSuffixGroup
       TZCONTROL.Control.Text = ""
       SetMatchingAttributesByName( TZCONTROL, "Control", AD_Base, "Control", zSET_NULL )
+      TZCONTROL.Control.SZDLG_X = TZWINDOWL.AutoDesignGroup.ControlWidthInPixels - 10
       FOR EACH AD_Base.WebControlProperty 
          CreateMetaEntity( TZWINDOWL, TZCONTROL, "WebControlProperty", zPOS_AFTER )
          TZCONTROL.WebControlProperty.Name = AD_Base.WebControlProperty.Name 
@@ -596,11 +591,11 @@ AutodesignGridCtrl( VIEW TZWINDOWL   BASED ON LOD TZWDLGSO,
       FOR EACH AD_Base.Control 
       
          // Set basic Control values.
-         szControlDefName = AD_Base.ControlDef.Tag
-         SET CURSOR FIRST TZPESRCO.ControlDef WHERE TZPESRCO.ControlDef.Tag = szControlDefName
+         SET CURSOR FIRST TZPESRCO.ControlDef WHERE TZPESRCO.ControlDef.Tag = AD_Base.ControlDef.Tag
          CreateMetaEntity( TZWINDOWL, TZCONTROL, "Control", zPOS_AFTER )
          INCLUDE TZCONTROL.ControlDef FROM TZPESRCO.ControlDef 
-         TZCONTROL.Control.Tag = szControlDefName + szSuffix
+         szControlBaseName = AD_Base.Control.Tag 
+         TZCONTROL.Control.Tag = szControlBaseName + szActionSuffix + szControlNameSuffixGroup
          SetMatchingAttributesByName( TZCONTROL, "Control", AD_Base, "Control", zSET_NULL )
          
          // The Title Control gets the Title text.
@@ -609,13 +604,13 @@ AutodesignGridCtrl( VIEW TZWINDOWL   BASED ON LOD TZWDLGSO,
          END
          
          // If this Control has an Action, add it (unless it already exists) and include it under the Control.
-         IF TZCONTROL.EventAct EXISTS
+         IF AD_Base.EventAct EXISTS
             SET CURSOR FIRST AD_BaseRoot.Action WHERE AD_BaseRoot.Action.Tag = AD_Base.EventAct.Tag
-            szActionName = AD_BaseRoot.Action.Tag + szSuffix
+            szActionName = AD_BaseRoot.Action.Tag + szActionSuffix
             SET CURSOR FIRST TZWINDOWL.Action WHERE TZWINDOWL.Action.Tag = szActionName
             IF RESULT < zCURSOR_SET
                // Add the Action.
-               CreateMetaEntity( TZWINDOWL, TZCONTROL, "Action", zPOS_AFTER )
+               CreateMetaEntity( TZWINDOWL, TZWINDOWL, "Action", zPOS_AFTER )
                TZWINDOWL.Action.Tag = szActionName
                TZWINDOWL.Action.Type = AD_BaseRoot.Action.Type 
                // Add Operation, if necessary.
@@ -627,7 +622,7 @@ AutodesignGridCtrl( VIEW TZWINDOWL   BASED ON LOD TZWDLGSO,
                      TZWINDOWL.Operation.Name = szActionName
                      SetMatchingAttributesByName( TZWINDOWL, "Operation", AD_BaseRoot, "Operation", zSET_NULL )
                      FOR EACH AD_BaseRoot.Parameter 
-                        CREATE ENTITY TZWINDOWL.Parameter 
+                        CreateMetaEntity( TZWINDOWL, TZWINDOWL, "Parameter", zPOS_AFTER )
                         SetMatchingAttributesByName( TZWINDOWL, "Parameter", AD_BaseRoot, "Parameter", zSET_NULL )
                      END
                      INCLUDE TZWINDOWL.OperationList FROM TZWINDOWL.Operation 
@@ -635,7 +630,7 @@ AutodesignGridCtrl( VIEW TZWINDOWL   BASED ON LOD TZWDLGSO,
                   INCLUDE TZWINDOWL.ActOper FROM TZWINDOWL.OperationList
                END
             END 
-            CREATE ENTITY TZCONTROL.Event 
+            CreateMetaEntity( TZCONTROL, TZCONTROL, "Event", zPOS_AFTER )
             TZCONTROL.Event.Type = AD_Base.Event.Type
             INCLUDE TZCONTROL.EventAct FROM TZWINDOWL.Action
          END
@@ -664,7 +659,7 @@ AutodesignGridCtrl( VIEW TZWINDOWL   BASED ON LOD TZWDLGSO,
    CreateMetaEntity( TZWINDOWL, TZCONTROL, "CtrlCtrl", zPOS_AFTER )
    SetViewToSubobject( TZCONTROL, "CtrlCtrl" )
    INCLUDE TZCONTROL.ControlDef FROM TZPESRCO.ControlDef 
-   TZCONTROL.Control.Tag     = "Grid" + TZWINDOWL.AD_ListBoxEntity.EntityName 
+   TZCONTROL.Control.Tag     = "Grid" + TZWINDOWL.AD_ListBoxEntity.EntityName + szControlNameSuffixGroup
    TZCONTROL.Control.SyncKey = 9999
    
    // Position on Grid Base Control and step down into it.
@@ -686,18 +681,22 @@ AutodesignGridCtrl( VIEW TZWINDOWL   BASED ON LOD TZWDLGSO,
    
    // Build CtrlMap subobject for list entity, which is first entity in FlatListSelectedAttribute.
    CreateMetaEntity( TZWINDOWL, TZCONTROL, "CtrlMap", zPOS_AFTER )
-   SET CURSOR FIRST SelectedLOD.LOD_Entity WHERE SelectedLOD.LOD_Entity.Name = TZWINDOWL.AD_MappingAttribute.EntityName 
+   SET CURSOR FIRST SelectedLOD.LOD_Entity WHERE SelectedLOD.LOD_Entity.Name = TZWINDOWL.AutoDesignGroup.TopLevelEntityName 
    INCLUDE TZCONTROL.CtrlMapLOD_Entity FROM SelectedLOD.LOD_Entity 
-   INCLUDE TZCONTROL.CtrlMapView FROM TZWINDOWL.ViewObjRef 
+   INCLUDE TZCONTROL.CtrlMapView FROM TZWINDOWL.ViewObjRef
+   CreateMetaEntity( TZWINDOWL, TZCONTROL, "CtrlMap", zPOS_AFTER )   // Create necessary scoping CtrlMap, though empty. 
    
    // Position and Size of each control on the Grid will be determined from relative widths of attributes making up the Grid.
    // First account for any Action controls, for they will be specified as their width in AD_Base. The width available for
-   // variable controls will be the Grid width minus the total of Action control widths.
+   // variable controls will be the Grid width minus the total of Action control widths, except for the first, which represents
+   // the first mapping attribute.
    // Then total up variable character widths. Then determine average pixel size of each character width.
    lGridWidthAvailable = lGridWidth
    SetViewToSubobject( AD_Base, "CtrlCtrl" )
+   Count = 0
    FOR EACH AD_Base.Control 
-      IF AD_Base.EventAct EXISTS 
+      Count = Count + 1
+      IF AD_Base.EventAct EXISTS AND Count > 1
          lGridWidthAvailable = lGridWidthAvailable - AD_Base.Control.SZDLG_X 
       END
    END
@@ -717,13 +716,16 @@ TraceLineI( "*** lAveragPixelWidth: ", lAveragPixelWidth )
    
    // Build subcontrol for each FlatListSelectedAttribute entry.
    lControlPosition = 0
+   lAttributeCount = 0
    OrderEntityForView( AD_Base, "Control", "PSDLG_X A" )
    SET CURSOR FIRST AD_Base.Control  
    FOR EACH TZWINDOWL.AD_MappingAttribute 
       CreateMetaEntity( TZWINDOWL, TZCONTROL, "CtrlCtrl", zPOS_AFTER )
       SetViewToSubobject( TZCONTROL, "CtrlCtrl" )
       szAttributeName = TZWINDOWL.AD_MappingAttribute.AttributeName 
-      TZCONTROL.Control.Tag = "GridCtrl" + szAttributeName
+      lAttributeCount = lAttributeCount + 1
+      szControlNameSuffixAttribute = lAttributeCount
+      TZCONTROL.Control.Tag = "GridCtrl" + szAttributeName + szControlNameSuffixGroup + szControlNameSuffixAttribute
       TZCONTROL.Control.Text = TZWINDOWL.AD_MappingAttribute.PromptValue 
       SetMatchingAttributesByName( TZCONTROL, "Control", AD_Base, "Control", zSET_NULL )
       
@@ -736,6 +738,11 @@ TraceLineI( "*** lAveragPixelWidth: ", lAveragPixelWidth )
             SET CURSOR FIRST TZPESRCO.ControlDef WHERE TZPESRCO.ControlDef.Tag = "GridComboCtl" 
          ELSE
             SET CURSOR FIRST TZPESRCO.ControlDef WHERE TZPESRCO.ControlDef.Tag = "GridEditCtl" 
+            // If this is an Editbox, add Edit WebControlProperty entry.
+            IF szControlType = "EditBox"
+               CreateMetaEntity( TZCONTROL, TZCONTROL, "WebControlProperty", zPOS_AFTER )
+               TZCONTROL.WebControlProperty.Name = "Edit" 
+            END
          END
       END
       INCLUDE TZCONTROL.ControlDef FROM TZPESRCO.ControlDef 
@@ -762,22 +769,33 @@ TraceLineI( "*** lAveragPixelWidth: ", lAveragPixelWidth )
    
    // Add any Grid subcontrols that have Actions tied to them.
    SetViewToSubobject( TZCONTROL, "CtrlCtrl" )
+   SET CURSOR FIRST AD_Base.Control 
+   szFirstControlTag = AD_Base.Control.Tag 
    FOR EACH AD_Base.Control 
    
       IF AD_Base.EventAct EXISTS 
       
-         // Set basic Control values.
-         szControlDefName = AD_Base.ControlDef.Tag
-         SET CURSOR FIRST TZPESRCO.ControlDef WHERE TZPESRCO.ControlDef.Tag = szControlDefName
-         CreateMetaEntity( TZWINDOWL, TZCONTROL, "Control", zPOS_AFTER )
-         INCLUDE TZCONTROL.ControlDef FROM TZPESRCO.ControlDef 
-         TZCONTROL.Control.PSDLG_X     = lControlPosition
-         SetMatchingAttributesByName( TZCONTROL, "Control", AD_Base, "Control", zSET_NULL )
-         lControlPosition = lControlPosition + TZCONTROL.Control.SZDLG_X 
-         
+         // If this is an event on the first mapping Control for the base Grid, add it to the first Control in the generated
+         // Grid, rather than add a new Control.
+         IF AD_Base.Control.Tag = szFirstControlTag 
+            SET CURSOR FIRST TZCONTROL.Control  
+         ELSE
+      
+            // Create Control and set basic Control values.
+            szControlDefName = AD_Base.ControlDef.Tag
+            SET CURSOR FIRST TZPESRCO.ControlDef WHERE TZPESRCO.ControlDef.Tag = szControlDefName
+            CreateMetaEntity( TZWINDOWL, TZCONTROL, "Control", zPOS_AFTER )
+            INCLUDE TZCONTROL.ControlDef FROM TZPESRCO.ControlDef 
+            TZCONTROL.Control.PSDLG_X = lControlPosition
+            szControlBaseName         = AD_Base.Control.Tag 
+            TZCONTROL.Control.Tag     = szControlBaseName + szActionSuffix + szControlNameSuffixGroup
+            SetMatchingAttributesByName( TZCONTROL, "Control", AD_Base, "Control", zSET_NULL )
+            lControlPosition = lControlPosition + TZCONTROL.Control.SZDLG_X 
+         END
+            
          // Add the Action (unless it already exists) and include it under the Control.
          SET CURSOR FIRST AD_BaseRoot.Action WHERE AD_BaseRoot.Action.Tag = AD_Base.EventAct.Tag
-         szActionName = AD_BaseRoot.Action.Tag + szSuffix
+         szActionName = AD_BaseRoot.Action.Tag + szActionSuffix
          SET CURSOR FIRST TZWINDOWL.Action WHERE TZWINDOWL.Action.Tag = szActionName
          IF RESULT < zCURSOR_SET
             // Add the Action.
@@ -793,16 +811,24 @@ TraceLineI( "*** lAveragPixelWidth: ", lAveragPixelWidth )
                   TZWINDOWL.Operation.Name = szActionName
                   SetMatchingAttributesByName( TZWINDOWL, "Operation", AD_BaseRoot, "Operation", zSET_NULL )
                   FOR EACH AD_BaseRoot.Parameter 
-                     CREATE ENTITY TZWINDOWL.Parameter 
+                     CreateMetaEntity( TZWINDOWL, TZWINDOWL, "Parameter", zPOS_AFTER )
                      SetMatchingAttributesByName( TZWINDOWL, "Parameter", AD_BaseRoot, "Parameter", zSET_NULL )
                   END
                   INCLUDE TZWINDOWL.OperationList FROM TZWINDOWL.Operation 
                END
                INCLUDE TZWINDOWL.ActOper FROM TZWINDOWL.OperationList
             END
-            CREATE ENTITY TZCONTROL.Event 
-            TZCONTROL.Event.Type = AD_Base.Event.Type
-            INCLUDE TZCONTROL.EventAct FROM TZWINDOWL.Action
+         END
+         
+         // Tie the Action to an Event on the Control
+         CreateMetaEntity( TZCONTROL, TZCONTROL, "Event", zPOS_AFTER )
+         TZCONTROL.Event.Type = AD_Base.Event.Type
+         INCLUDE TZCONTROL.EventAct FROM TZWINDOWL.Action
+         
+         // If this is an event on the first mapping Control, we've just processed the action on that Control and need
+         // to reposition on the last Control
+         IF AD_Base.Control.Tag = szFirstControlTag 
+            SET CURSOR LAST TZCONTROL.Control  
          END
       END
    END
@@ -833,25 +859,40 @@ AutodesignUpdateCtrls( VIEW TZWINDOWL   BASED ON LOD TZWDLGSO,
    VIEW AD_BaseRoot BASED ON LOD TZWDLGSO
    INTEGER lGroupWidth
    INTEGER lMappingDataWidth
+   INTEGER lMaxMappingDataWidth
    INTEGER lPromptWidth
    INTEGER lControlPositionX
    INTEGER lControlPositionY
    INTEGER lCurrentPosition
    INTEGER lTotalDataWidth
    INTEGER lAveragPixelWidth
+   INTEGER lAttributeCount
    STRING ( 100 ) szAttributeName
    STRING ( 100 ) szControlDefName
-   STRING ( 100 ) szSuffix
+   STRING ( 100 ) szActionSuffix
    STRING ( 100 ) szActionName
+   STRING ( 1 )   szControlNameSuffixGroup
+   STRING ( 1 )   szControlNameSuffixAttribute
+   STRING ( 10 )  szGroupName
+   STRING ( 8 )   szGroupName8
    STRING ( 20 )  szControlType
 
    // Build a Grid control, with a subentity for each AD_MappingAttribute entry.
    
    GET VIEW TZPESRCO NAMED "TZPESRCO"
-   szSuffix = TZWINDOWL.AutoDesignGroup.ActionNameSuffix
+   szActionSuffix = TZWINDOWL.AutoDesignGroup.ActionNameSuffix
    CreateViewFromView( AD_BaseRoot, AD_Base )
    NAME VIEW AD_BaseRoot "AD_BaseRoot"
    TZCONTROL.Control.Text = ""            // We don't want any text in the highest level Group.
+   
+   // To generate unique Control Names when multiple Groups are autodesigned for the same Window, we
+   // will try to use the 9th character of the Group Name, as it should be unique with groups named like
+   // "GroupBox2".
+   szGroupName = TZCONTROL.Control.Tag 
+   szGroupName8 = szGroupName[1:8]
+   IF szGroupName8 = "GroupBox"
+      szControlNameSuffixGroup = szGroupName[9:1]
+   END
    
    // If there is a Title for the Group, add the control set.
    IF TZWINDOWL.AutoDesignGroup.Title != ""
@@ -872,9 +913,10 @@ AutodesignUpdateCtrls( VIEW TZWINDOWL   BASED ON LOD TZWDLGSO,
       CreateMetaEntity( TZWINDOWL, TZCONTROL, "CtrlCtrl", zPOS_AFTER )
       SetViewToSubobject( TZCONTROL, "CtrlCtrl" )
       INCLUDE TZCONTROL.ControlDef FROM TZPESRCO.ControlDef 
-      TZCONTROL.Control.Tag  = "TitleGroup" + TZWINDOWL.AD_ListBoxEntity.EntityName 
+      TZCONTROL.Control.Tag  = "TitleGroup" + TZWINDOWL.AD_ListBoxEntity.EntityName + szControlNameSuffixGroup
       TZCONTROL.Control.Text = ""
       SetMatchingAttributesByName( TZCONTROL, "Control", AD_Base, "Control", zSET_NULL )
+      TZCONTROL.Control.SZDLG_X = TZWINDOWL.AutoDesignGroup.ControlWidthInPixels - 10
       FOR EACH AD_Base.WebControlProperty 
          CreateMetaEntity( TZWINDOWL, TZCONTROL, "WebControlProperty", zPOS_AFTER )
          TZCONTROL.WebControlProperty.Name = AD_Base.WebControlProperty.Name 
@@ -891,7 +933,7 @@ AutodesignUpdateCtrls( VIEW TZWINDOWL   BASED ON LOD TZWDLGSO,
          SET CURSOR FIRST TZPESRCO.ControlDef WHERE TZPESRCO.ControlDef.Tag = szControlDefName
          CreateMetaEntity( TZWINDOWL, TZCONTROL, "Control", zPOS_AFTER )
          INCLUDE TZCONTROL.ControlDef FROM TZPESRCO.ControlDef 
-         TZCONTROL.Control.Tag = szControlDefName + szSuffix
+         TZCONTROL.Control.Tag = szControlDefName + szActionSuffix + szControlNameSuffixGroup
          SetMatchingAttributesByName( TZCONTROL, "Control", AD_Base, "Control", zSET_NULL )
          
          // The Title Control gets the Title text.
@@ -902,7 +944,7 @@ AutodesignUpdateCtrls( VIEW TZWINDOWL   BASED ON LOD TZWDLGSO,
          // If this Control has an Action, add it (unless it already exists) and include it under the Control.
          IF TZCONTROL.EventAct EXISTS
             SET CURSOR FIRST AD_BaseRoot.Action WHERE AD_BaseRoot.Action.Tag = AD_Base.EventAct.Tag
-            szActionName = AD_BaseRoot.Action.Tag + szSuffix
+            szActionName = AD_BaseRoot.Action.Tag + szActionSuffix
             SET CURSOR FIRST TZWINDOWL.Action WHERE TZWINDOWL.Action.Tag = szActionName
             IF RESULT < zCURSOR_SET
                // Add the Action.
@@ -918,7 +960,7 @@ AutodesignUpdateCtrls( VIEW TZWINDOWL   BASED ON LOD TZWDLGSO,
                      TZWINDOWL.Operation.Name = szActionName
                      SetMatchingAttributesByName( TZWINDOWL, "Operation", AD_BaseRoot, "Operation", zSET_NULL )
                      FOR EACH AD_BaseRoot.Parameter 
-                        CREATE ENTITY TZWINDOWL.Parameter 
+                        CreateMetaEntity( TZWINDOWL, TZWINDOWL, "Parameter", zPOS_AFTER )
                         SetMatchingAttributesByName( TZWINDOWL, "Parameter", AD_BaseRoot, "Parameter", zSET_NULL )
                      END
                      INCLUDE TZWINDOWL.OperationList FROM TZWINDOWL.Operation 
@@ -926,7 +968,7 @@ AutodesignUpdateCtrls( VIEW TZWINDOWL   BASED ON LOD TZWDLGSO,
                   INCLUDE TZWINDOWL.ActOper FROM TZWINDOWL.OperationList
                END
             END 
-            CREATE ENTITY TZCONTROL.Event 
+            CreateMetaEntity( TZCONTROL, TZCONTROL, "Event", zPOS_AFTER )
             TZCONTROL.Event.Type = AD_Base.Event.Type
             INCLUDE TZCONTROL.EventAct FROM TZWINDOWL.Action
          END
@@ -954,9 +996,9 @@ AutodesignUpdateCtrls( VIEW TZWINDOWL   BASED ON LOD TZWDLGSO,
    // We will take the UpdateFieldPromptLength value (which is max field prompt size) and multiply it by a character
    // size of 8 pixels to get the width for Prompt entries. The width of the Mapping entries will be the 
    // difference in the size of the Group.
-   lPromptWidth      = TZWINDOWL.AutoDesignGroup.UpdateFieldPromptLength * 5
-   lGroupWidth       = TZWINDOWL.AutoDesignGroup.ControlWidthInPixels - 10
-   lMappingDataWidth = lGroupWidth - lPromptWidth
+   lPromptWidth         = TZWINDOWL.AutoDesignGroup.UpdateFieldPromptLength * 5
+   lGroupWidth          = TZWINDOWL.AutoDesignGroup.ControlWidthInPixels - 10
+   lMaxMappingDataWidth = lGroupWidth - lPromptWidth
    
    // Create Table Group, which will hold individual field values.
    CreateMetaEntity( TZWINDOWL, TZCONTROL, "CtrlCtrl", zPOS_AFTER )
@@ -966,12 +1008,11 @@ AutodesignUpdateCtrls( VIEW TZWINDOWL   BASED ON LOD TZWDLGSO,
    TZCONTROL.Control.SZDLG_X = lGroupWidth    // Size is same as parent Group - 10.
    SET CURSOR FIRST TZPESRCO.ControlDef WHERE TZPESRCO.ControlDef.Tag = AD_Base.ControlDef.Tag 
    INCLUDE TZCONTROL.ControlDef FROM TZPESRCO.ControlDef 
-   TZCONTROL.Control.Tag = "Groupbox" + TZWINDOWL.AD_ListBoxEntity.EntityName 
+   TZCONTROL.Control.Tag = "Groupbox" + TZWINDOWL.AD_ListBoxEntity.EntityName + szControlNameSuffixGroup
    FOR EACH AD_Base.WebControlProperty 
       CreateMetaEntity( TZWINDOWL, TZCONTROL, "WebControlProperty", zPOS_AFTER )
       TZCONTROL.WebControlProperty.Name = AD_Base.WebControlProperty.Name 
    END
- IssueError( TZCONTROL,0,0, "after table" )
    
    // Build a Prompt and Mapping entry for each FlatListSelectedAttribute entry.
    // Starting Y position will be from first control in UpdateGroup.
@@ -980,11 +1021,15 @@ AutodesignUpdateCtrls( VIEW TZWINDOWL   BASED ON LOD TZWDLGSO,
    SET CURSOR FIRST AD_Base.Control  
    lControlPositionY = AD_Base.Control.PSDLG_Y 
    lControlPositionX = AD_Base.Control.PSDLG_X 
+   lAttributeCount = 0
    FOR EACH TZWINDOWL.AD_MappingAttribute 
+   
+      lAttributeCount = lAttributeCount + 1
+      szControlNameSuffixAttribute = lAttributeCount
    
       // Create Prompt entry, which is a Text field. We will use any CSS Class from the first entry in AD_Base.
       CreateMetaEntity( TZWINDOWL, TZCONTROL, "Control", zPOS_AFTER )
-      TZCONTROL.Control.Tag       = "P_" + TZWINDOWL.AD_MappingAttribute.AttributeName 
+      TZCONTROL.Control.Tag       = "P_" + TZWINDOWL.AD_MappingAttribute.AttributeName + szControlNameSuffixGroup + szControlNameSuffixAttribute
       TZCONTROL.Control.Text      = TZWINDOWL.AD_MappingAttribute.PromptValue 
       TZCONTROL.Control.CSS_Class = AD_Base.Control.CSS_Class 
       TZCONTROL.Control.PSDLG_X   = lControlPositionX
@@ -996,12 +1041,23 @@ AutodesignUpdateCtrls( VIEW TZWINDOWL   BASED ON LOD TZWDLGSO,
       
       // Create Mapping entry.
       CreateMetaEntity( TZWINDOWL, TZCONTROL, "Control", zPOS_AFTER )
-      TZCONTROL.Control.Tag       = "M_" + TZWINDOWL.AD_MappingAttribute.AttributeName 
+      TZCONTROL.Control.Tag       = "M_" + TZWINDOWL.AD_MappingAttribute.AttributeName + szControlNameSuffixGroup + szControlNameSuffixAttribute
       TZCONTROL.Control.CSS_Class = AD_Base.Control.CSS_Class 
       TZCONTROL.Control.PSDLG_X   = lControlPositionX + lPromptWidth
       TZCONTROL.Control.SZDLG_Y   = 10
-      TZCONTROL.Control.SZDLG_X   = lMappingDataWidth
       TZCONTROL.Control.PSDLG_Y   = lControlPositionY
+      
+      // The width of the  Control will normally be determined by the size of the associated attribute, but
+      // there will always be a max size (lMaxMappingDataWidth) determined above and a min size of 80..
+      lMappingDataWidth = TZWINDOWL.AD_MappingAttribute.DataWidth * 5
+      IF lMappingDataWidth > lMaxMappingDataWidth
+         lMappingDataWidth = lMaxMappingDataWidth
+      ELSE
+         IF lMappingDataWidth < 80
+            lMappingDataWidth = 80
+         END
+      END
+      TZCONTROL.Control.SZDLG_X   = lMappingDataWidth
       
       // Build the Editbox, Checkbox, Calendar, MLEdit or Combobox controls depending on ControlType.
       szControlType = TZWINDOWL.AD_MappingAttribute.ControlType 
@@ -1012,6 +1068,11 @@ AutodesignUpdateCtrls( VIEW TZWINDOWL   BASED ON LOD TZWDLGSO,
       END
       INCLUDE TZCONTROL.ControlDef FROM TZPESRCO.ControlDef 
       
+      // If this is a CheckBox, add Prompt as Text.
+      IF szControlType = "CheckBox"
+         TZCONTROL.Control.Text = TZWINDOWL.AD_MappingAttribute.PromptValue 
+      END
+      
       // Build CtrlMap subobject for list control entity from Entity.Attribute of FlatListSelectedAttribute
       CreateMetaEntity( TZWINDOWL, TZCONTROL, "CtrlMap", zPOS_AFTER )
       SET CURSOR FIRST SelectedLOD.LOD_Entity WHERE SelectedLOD.LOD_Entity.Name = TZWINDOWL.AD_MappingAttribute.EntityName 
@@ -1020,7 +1081,13 @@ AutodesignUpdateCtrls( VIEW TZWINDOWL   BASED ON LOD TZWDLGSO,
       INCLUDE TZCONTROL.CtrlMapLOD_Attribute FROM SelectedLOD.LOD_Attribute 
       INCLUDE TZCONTROL.CtrlMapView FROM TZWINDOWL.ViewObjRef 
       
-      lControlPositionY = lControlPositionY + 10
+      // If the Control is MLEdit, then we want to change the height of the Control from 10 to 36.
+      IF szControlType = "MLEdit"
+         TZCONTROL.Control.SZDLG_Y   = 36
+         lControlPositionY = lControlPositionY + 36
+      ELSE
+         lControlPositionY = lControlPositionY + 10
+      END
       
    END
    
@@ -1041,26 +1108,89 @@ END
 DIALOG OPERATION
 PostbuildAutodesignForGroup( VIEW ViewToWindow )
 
-   VIEW TZWINDOWL BASED ON LOD TZWDLGSO
-   VIEW TZCONTROL BASED ON LOD TZWDLGSO
+   VIEW TZWINDOWL   REGISTERED AS TZWINDOWL
+   VIEW TZCONTROL   REGISTERED AS TZCONTROL
+   VIEW TZADCSDO    BASED ON LOD  TZADCSDO
+   VIEW SelectedLOD BASED ON LOD  TZZOLODO
+   VIEW AD_Base     BASED ON LOD  TZWDLGSO
+   STRING ( 100 ) szTopEntityName
+   SHORT nRC
    
    // This function is triggered for autodesigning a specific Group control within a Window.
    // Try to position on an existing AutoDesignWindow and AutoDesignGroup entry and if they don't exist,
-   // create new ones.
+   // create new ones. In any case, make the AutoDesignGroup temporal.
    
-   GET VIEW TZWINDOWL NAMED "TZWINDOWL"
-   GET VIEW TZCONTROL NAMED "TZCONTROL"
+   // Make sure an Auto Design Base dialog has been loaded.
+   GET VIEW AD_Base NAMED "AD_Base"
+   IF RESULT < 0 
+      // The AD_Base object isn't in memory, so load it.
+      nRC = ActivateMetaOI_ByName( ViewToWindow, AD_Base, 0, zREFER_DIALOG_META, zSINGLE, "AD_Base", 0 )
+      IF nRC < 0
+         MessageSend( ViewToWindow, "", "Autodesign Window Group",
+                      "No AD_Base Dialog exists for Autodesign.", 
+                      zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
+         RETURN -2
+      END
+      NAME VIEW AD_Base "AD_Base"
+   END
+   
    SET CURSOR FIRST TZWINDOWL.AutoDesignWindow WHERE TZWINDOWL.AutoDesignWindow.WindowTag = TZWINDOWL.Window.Tag 
    IF RESULT < zCURSOR_SET
-      CREATE ENTITY TZWINDOWL.AutoDesignWindow 
+      CreateMetaEntity( TZWINDOWL, TZWINDOWL, "AutoDesignWindow", zPOS_AFTER )
       TZWINDOWL.AutoDesignWindow.WindowTag = TZWINDOWL.Window.Tag
    END 
-   SET CURSOR FIRST TZWINDOWL.AutoDesignGroup WHERE TZWINDOWL.AutoDesignGroup.GroupTag = TZWINDOWL.Control.Tag 
-   IF RESULT < zCURSOR_SET
-      CREATE ENTITY TZWINDOWL.AutoDesignGroup 
-      TZWINDOWL.AutoDesignGroup.GroupTag = TZWINDOWL.Control.Tag
+   SET CURSOR FIRST TZWINDOWL.AutoDesignGroup WHERE TZWINDOWL.AutoDesignGroup.GroupTag = TZCONTROL.Control.Tag 
+   IF RESULT >= zCURSOR_SET
+      // Make the existing subobject temporal.
+      CreateTemporalSubobjectVersion( TZWINDOWL, "AutoDesignGroup" )
+   ELSE
+      // Make the new subobject temporal.
+      CreateTemporalEntity( TZWINDOWL, "AutoDesignGroup", zPOS_AFTER )
+      TZWINDOWL.AutoDesignGroup.GroupTag = TZCONTROL.Control.Tag
    END 
    TZWINDOWL.AutoDesignGroup.ControlWidthInPixels = TZCONTROL.Control.SZDLG_X
+   
+   // Always delete any existing auto design selection object.
+   GET VIEW TZADCSDO NAMED "TZADCSDO"
+   IF RESULT >= 0
+      DropObjectInstance( TZADCSDO )
+   END
+   
+   // If the Group has previous mapping entries, build the TZADCSDO object, which will have the selection entries, 
+   // FlatListPotentialAttribute and FlatListSelectedAttribute. 
+   IF TZWINDOWL.AD_MappingAttribute EXISTS
+   
+      // Initialize new Auto Design object.
+      ActivateEmptyMetaOI( ViewToWindow, TZADCSDO, zSOURCE_UIS_META, zSINGLE )
+      NAME VIEW TZADCSDO "TZADCSDO"
+      CREATE ENTITY TZADCSDO.UI_Spec
+      
+      // Activate LOD for creation of potential attributes.
+      nRC = ActivateMetaOI_ByZKey( ViewToWindow, SelectedLOD, 0, zREFER_LOD_META, zSINGLE, TZWINDOWL.AD_GroupViewObjRefLOD.ZKey, 0 )
+      IF nRC < 0
+         MessageSend( ViewToWindow, "", "Autodesign Window Group",
+                      "The Lod Object could not be read.", 
+                      zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
+         RETURN -2
+      END
+      NAME VIEW SelectedLOD "AutodesignSelectedLOD"
+      
+      // Build list of potential attributes to be selected. This will contain all subobject entities/attributes for
+      // the selected Top Entity.
+      szTopEntityName = TZWINDOWL.AutoDesignGroup.TopLevelEntityName
+      SET CURSOR FIRST SelectedLOD.LOD_Entity WHERE SelectedLOD.LOD_Entity.Name = szTopEntityName
+      CREATE ENTITY TZADCSDO.FlatListPotentialTopEntity  
+      SetMatchingAttributesByName( TZADCSDO, "FlatListPotentialTopEntity", SelectedLOD, "LOD_Entity", zSET_ALL ) 
+      SET CURSOR FIRST SelectedLOD.LOD_EntityParent 
+      LocateTopEntityRecurs( TZADCSDO, SelectedLOD, szTopEntityName ) 
+      
+      // Build currently Selected Flat List of entities.
+      CREATE ENTITY TZADCSDO.FlatListSelectedEntity 
+      FOR EACH TZWINDOWL.AD_MappingAttribute
+         CREATE ENTITY TZADCSDO.FlatListSelectedAttribute 
+         SetMatchingAttributesByName( TZADCSDO, "FlatListSelectedAttribute", TZWINDOWL, "AD_MappingAttribute", zSET_ALL ) 
+      END
+   END
 
 END
 
@@ -1115,5 +1245,71 @@ RECALCULATE_UpdatePromptLength( VIEW ViewToWindow )
       END
    END
    TZWINDOWL.AutoDesignGroup.UpdateFieldPromptLength = lMaxPromptLength
+
+END
+
+/*************************************************************************************************
+**    
+**    OPERATION: CHECK_ReorderAttributes
+**    
+*************************************************************************************************/
+DIALOG OPERATION
+CHECK_ReorderAttributes( VIEW ViewToWindow )
+
+   VIEW TZADCSDO  REGISTERED AS TZADCSDO
+   VIEW TZADCSDO2 BASED ON LOD  TZADCSDO
+   
+   // Make sure that any Entity entries are properly positioned before their corresponding attributes.
+   CreateViewFromView( TZADCSDO2, TZADCSDO )
+   FOR EACH TZADCSDO.FlatListSelectedAttribute
+      IF TZADCSDO.FlatListSelectedAttribute.IndentEntityName != ""
+         SET CURSOR FIRST TZADCSDO2.FlatListSelectedAttribute
+                    WHERE TZADCSDO2.FlatListSelectedAttribute.EntityName = TZADCSDO.FlatListSelectedAttribute.EntityName 
+         IF TZADCSDO2.FlatListSelectedAttribute.IndentEntityName != TZADCSDO.FlatListSelectedAttribute.IndentEntityName
+            // An Entity entry has been moved, so put it back.
+            CREATE ENTITY TZADCSDO2.FlatListSelectedAttribute BEFORE 
+            SetMatchingAttributesByName( TZADCSDO2, "FlatListSelectedAttribute", TZADCSDO, "FlatListSelectedAttribute", zSET_ALL )
+            DELETE ENTITY TZADCSDO.FlatListSelectedAttribute
+         END
+      END
+   END
+   SET CURSOR FIRST TZADCSDO.FlatListSelectedAttribute  
+   RefreshWindow( ViewToWindow )
+   DropView( TZADCSDO2 )
+
+END
+
+/*************************************************************************************************
+**    
+**    OPERATION: CANCEL_AutoDesignGroup
+**    
+*************************************************************************************************/
+DIALOG OPERATION
+CANCEL_AutoDesignGroup( VIEW ViewToWindow )
+
+   VIEW TZWINDOWL REGISTERED AS TZWINDOWL
+   VIEW TZCONTROL REGISTERED AS TZCONTROL
+
+   // Cancel the subobjects for Control and AutoDesignGroup.
+   CancelSubobject( TZCONTROL, "Control" )
+   CancelSubobject( TZWINDOWL, "AutoDesignGroup" )
+
+END
+
+/*************************************************************************************************
+**    
+**    OPERATION: ACCEPT_AutoDesignGroup
+**    
+*************************************************************************************************/
+DIALOG OPERATION
+ACCEPT_AutoDesignGroup( VIEW ViewToWindow )
+
+   VIEW TZWINDOWL REGISTERED AS TZWINDOWL
+   VIEW TZCONTROL REGISTERED AS TZCONTROL
+
+   // Accept changes to the AutoDesignGroup subobject, but cancel the Control subobject, since we're
+   // not making any changes to it and it's a temporal subobject.
+   CancelSubobject( TZCONTROL, "Control" )
+   AcceptSubobject( TZWINDOWL, "AutoDesignGroup" )
 
 END

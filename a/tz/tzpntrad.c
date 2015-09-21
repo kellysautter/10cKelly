@@ -5281,6 +5281,22 @@ WND_UPD_Init( zVIEW vSubtask )
    zVIEW vDialog;
 
    GetViewByName( &vDialog, "TZWINDOW", vSubtask, zLEVEL_TASK );
+
+   // KJS 04/15/15 - Adding a new field (with domain table) for the jsp generation positioning. So if an old setting
+   // was set, then change this new field.
+   // Check that WEB_JSPGenerationPositioning doesn't have a value.
+   if ( CompareAttributeToString( vDialog, "Window", "WEB_JSPGenerationPositioning", "" ) == 0 )
+   {
+      if ( CompareAttributeToString( vDialog, "Window", "WEB_RelativePositionFlag", "Y" ) == 0 )
+      {
+         SetAttributeFromString( vDialog, "Window", "WEB_JSPGenerationPositioning", "R" );
+      }
+      else if ( CompareAttributeToString( vDialog, "Window", "WEB_AbsolutePositionFlag", "Y" ) == 0 )
+      {
+         SetAttributeFromString( vDialog, "Window", "WEB_JSPGenerationPositioning", "A" );
+      }
+   }   
+   
 // CreateTemporalSubobjectVersion( vDialog, "Window" );
    /* NO MORE WndPhysOverride
    if ( MiGetUpdateForView( vDialog ) &&
@@ -5349,6 +5365,7 @@ DLG_MAINT_Postbuild( zVIEW vSubtask )
 {
    zVIEW  vTZDIALOGS;
    zVIEW  vDialogList;
+   zVIEW  vDialog;
    zSHORT nRC;
 
    nRC = GetViewByName( &vDialogList, "TZDLG_List", vSubtask, zLEVEL_TASK );
@@ -5358,6 +5375,18 @@ DLG_MAINT_Postbuild( zVIEW vSubtask )
        CreateViewFromViewForTask( &vDialogList, vTZDIALOGS, 0 );
        SetNameForView( vDialogList, "TZDLG_List", vSubtask, zLEVEL_TASK );
    }
+
+   // KJS 04/15/15 - Adding a new field (with domain table) for the jsp generation positioning. So if an old setting
+   // was set, then change this new field.
+   // Check that WEB_JSPGenerationPositioning doesn't have a value.
+   nRC = GetViewByName( &vDialog, "TZWINDOWL", vSubtask, zLEVEL_TASK );
+   if ( CompareAttributeToString( vDialog, "Dialog", "WEB_JSPGenerationPositioning", "" ) == 0 )
+   {
+      if ( CompareAttributeToString( vDialog, "Dialog", "WEB_RelativePositionFlag", "Y" ) == 0 )
+      {
+         SetAttributeFromString( vDialog, "Dialog", "WEB_JSPGenerationPositioning", "R" );
+      }
+   }   
 
    return( 0 );
 }
@@ -16586,6 +16615,37 @@ BuildDialogFlow( zVIEW vSubtask )
 
    return( -1 );
 }
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+//    OPERATION: GenerateJavaJSP
+//
+/////////////////////////////////////////////////////////////////////////////
+zOPER_EXPORT zSHORT /*DIALOG */  OPERATION
+GenerateJSPJavaInc( zVIEW vSubtask )
+{
+   zVIEW  vTZWINDOWL;
+   zVIEW  vTZWINDOW;
+   zVIEW  vValidate;
+   zLONG  lZKey;
+
+   GetViewByName( &vTZWINDOWL, "TZWINDOWL", vSubtask, zLEVEL_TASK );
+
+   // So we can modify the Dialog and not worry about the consequences.
+   GetIntegerFromAttribute( &lZKey, vTZWINDOWL, "Window", "ZKey" );
+   ActivateOI_FromOI_ForTask( &vTZWINDOW, vTZWINDOWL, vSubtask, 0 );
+   SetCursorFirstEntityByInteger( vTZWINDOW, "Window", "ZKey", lZKey, "" );
+   CreateViewFromViewForTask( &vValidate, vTZWINDOW, 0 );
+   SetViewFromView( vValidate, vTZWINDOW );
+
+   ValidateCtrlAndActionTags( vSubtask, vValidate );
+   oTZWDLGSO_GenerateJSPJavaInc( vTZWINDOW, vSubtask );
+
+   DropObjectInstance( vTZWINDOW );
+   return( 0 );
+
+} // GenerateJSPJava
 
 
 #ifdef __cplusplus

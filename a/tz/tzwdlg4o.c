@@ -4176,53 +4176,32 @@ oTZWDLGSO_GenerateJSP( zVIEW     vDialog,
    //:CreateViewFromView( vDialogTemp, vDialog )
    CreateViewFromView( &vDialogTemp, vDialog );
 
+   //:// KJS 08/20/15 - We commented out the below code in 08/27/13 in the GenJspJava code. I guess I didn't do that here. :(
+   //:// KJS 08/27/13 - I am commenting this code out because we call the Postbuild javascript code below (comment KJS 09/21/2009), so
+   //:// this code means we call the javascript code twice. Maybe we should have this instead but for now I am taking it out (the below code
+   //:// only looks for Postbuild action (not prebuild) because this is after the page has been rendered.
+   //:/*
    //:// Check of prebuild and postbuild action jsp code.
    //:FOR EACH vDialogTemp.Action
-   RESULT = SetCursorFirstEntity( vDialogTemp, "Action", "" );
-   while ( RESULT > zCURSOR_UNCHANGED )
-   { 
-      //:FOR EACH vDialogTemp.ActWndEvent
-      RESULT = SetCursorFirstEntity( vDialogTemp, "ActWndEvent", "" );
-      while ( RESULT > zCURSOR_UNCHANGED )
-      { 
-         //:IF vDialogTemp.ActWndEvent.Type = 1 OR
-         //:   vDialogTemp.ActWndEvent.Type = 2
-         if ( CompareAttributeToInteger( vDialogTemp, "ActWndEvent", "Type", 1 ) == 0 || CompareAttributeToInteger( vDialogTemp, "ActWndEvent", "Type", 2 ) == 0 )
-         { 
+   //:   FOR EACH vDialogTemp.ActWndEvent
+   //:      IF vDialogTemp.ActWndEvent.Type = 1 OR
+   //:         vDialogTemp.ActWndEvent.Type = 2
 
-            //:// DKS 2008.09.10 - We want to insert any javascript code that the
-            //:// user has entered for this pre/post build action.
-            //:szJavaScript = vDialogTemp.Action.WebJavaScript
-            GetVariableFromAttribute( szJavaScript, 0, 'S', 10001, vDialogTemp, "Action", "WebJavaScript", "", 0 );
-            //:IF  szJavaScript != ""
-            if ( ZeidonStringCompare( szJavaScript, 1, 0, "", 1, 0, 10001 ) != 0 )
-            { 
-               //:szWriteBuffer = "   // Javascript code entered by user."
-               ZeidonStringCopy( szWriteBuffer, 1, 0, "   // Javascript code entered by user.", 1, 0, 10001 );
-               //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
-               WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
-               //:szWriteBuffer = szJavaScript
-               ZeidonStringCopy( szWriteBuffer, 1, 0, szJavaScript, 1, 0, 10001 );
-               //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
-               WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
-               //:szWriteBuffer = "   // END of Javascript code entered by user."
-               ZeidonStringCopy( szWriteBuffer, 1, 0, "   // END of Javascript code entered by user.", 1, 0, 10001 );
-               //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
-               WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 );
-            } 
-
-            //:END
-         } 
-
-         RESULT = SetCursorNextEntity( vDialogTemp, "ActWndEvent", "" );
-         //:END
-      } 
-
-      RESULT = SetCursorNextEntity( vDialogTemp, "Action", "" );
-      //:END
-   } 
-
+   //:         // DKS 2008.09.10 - We want to insert any javascript code that the
+   //:         // user has entered for this pre/post build action.
+   //:         szJavaScript = vDialogTemp.Action.WebJavaScript
+   //:         IF  szJavaScript != ""
+   //:            szWriteBuffer = "   // Javascript code entered by user."
+   //:            WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   //:            szWriteBuffer = szJavaScript
+   //:            WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   //:            szWriteBuffer = "   // END of Javascript code entered by user."
+   //:            WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
+   //:         END
+   //:      END
+   //:   END
    //:END
+   //:*/
 
    //:// If this Window/Page has a "Start Web Popup" Action with mapping, then we need the following code
    //:// to actually start up the Popup, since the script code for the Action had to do the submit to

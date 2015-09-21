@@ -1553,6 +1553,7 @@ SetDefaultViewForActiveTask( zVIEW vDefault, zLONG lFlag )
    {
       g_vDefaultTaskView = vDefault;
       g_lProcessID = SysGetProcessID( 0 );
+
    }
 
    if ( lFlag & 0x00000002 )
