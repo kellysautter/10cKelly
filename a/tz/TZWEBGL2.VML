@@ -6675,11 +6675,13 @@ GenJSPJ_Action( VIEW vDialog     BASED ON LOD TZWDLGSO,
 
       // In order to call a dialog operation we need to create an instance of the dialog class.  We only want to do this once.
       szDlgTag = vDialog.Dialog.Tag
+      // KJS 10/08/15 - Because this could be in a different source file... I will try referencing the source file name.
+      szDlgTag = vDialog.SourceFileForOper.Name 
    // szWndTag = vDialog.Window.Tag
       szOperName = vDialog.ActOper.Name
       IF szDialogClassCreated = "N"
 
-         IF szDlgTagRoot != szDlgTag
+         IF szDlgTagRoot != vDialog.Dialog.Tag
             szWriteBuffer = "      " +  szDlgTag + "_Dialog " + szDlgTag + " = new " +  szDlgTag + "_Dialog( vKZXMLPGO );"
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
          // szDialogClassCreated = "Y"

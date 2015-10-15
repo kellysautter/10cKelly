@@ -2892,12 +2892,14 @@ GetOperationNameFromZKey( zVIEW   vSubtask,
    zCHAR szParentEntityName[ zZEIDON_NAME_LTH + 1 ];
    zLONG lSourceZKey;
    zLONG lRC;                              // temp return code
+   zSHORT nDelIncl;
 
    pchReturnName[ 0 ] = 0;
    pchReturnHeaderName[ 0 ] = 0;
    pchReturnThrowsException[ 0 ] = 0;
    pchThrowsExceptionCatchCode[ 0 ] = 0;
    pchOperationGroup[ 0 ] = 0;
+   nDelIncl = 0;
 
    switch ( lOperationClass )
    {
@@ -2935,6 +2937,41 @@ GetOperationNameFromZKey( zVIEW   vSubtask,
             }
             else
             {
+               nDelIncl = 0;
+
+               // If we split a dialog (and maybe object) vml up into more than one source file
+               // and make a call in vml1 to an operation in vml2, the generated code isn't correct
+               // because the operation in vml2 does not exist in the current tsvspoo for vml1. I tried
+               // the below code to rectify the problem and in a way it works but for some reason
+               // the operation gets a wrong return code. I don't understand why this is happening so I am
+               // going to comment this out in hopes that we can come back...
+               /*
+               // If g_lpPIView Name doesn't equal the vLookupView sourcefile name, then
+               // this local operation is actually in a different source file. Need to
+               // get this so that we can create reference properly.
+               // KJS 10/13/15
+               // We are temporarily including the Operation into TZVSPOO (xpj), so that the
+               // can call the derived operation for C_GeneratedOperationName. But keeping this
+               // Operation in TZVSPOO creates errors so we delete it down further in code after we
+               // retrieve the operation name and the source file.
+               // If the operation is a fnLocalBuildQual... the name can be duplicated in the other files, so
+               // lets ignore them. 
+               // The zkey for fnLocal is the number at the end "_22" plus 10000. So I assume that the zkey for these
+               // can't be any more than 19999. Going to try this...
+               nDelIncl = 0;
+               if ( lZKey > 19999 &&
+                    CompareAttributeToAttribute( vLookupView, "SourceFile", "Name",
+                                                 g_lpPIView, "VML_XSource",  "Name" ) != 0 )
+               {
+                  IncludeSubobjectFromSubobject( g_lpPIView, "Operation", vLookupView, "Operation", zPOS_AFTER );
+                  // Getting the source file name so that we can use that when building the call for the operation.
+                  GetStringFromAttribute( pchOperationGroup, vLookupView,
+                                          "SourceFile", "Name" );
+                  // Indicate that we need to exclude this operation after retrieving the operation name.
+                  nDelIncl = 1;                  
+               }
+               */
+      
                // Source type is VML.
                if ( CheckEntityInView( vLookupView, "C_GeneratedOperationName" ) == 0 )
                {
@@ -2969,7 +3006,10 @@ GetOperationNameFromZKey( zVIEW   vSubtask,
                {
                   pchReturnName[ 0 ] = 'm';
                   pchReturnName[ 1 ] = '_';
-                  if ( GetStringFromAttribute( pchOperationGroup, vLookupView, "LOD", "Name" ) != 0 )
+                  //if ( GetStringFromAttribute( pchOperationGroup, vLookupView, "LOD", "Name" ) != 0 )
+                  // KJS 10/13/15 - I have changed this because if an object is split into different source
+                  // files, we need to be looking at the source file where the operation is found.
+                  if ( GetStringFromAttribute( pchOperationGroup, vLookupView, "SourceFile", "Name" ) != 0 )
                   {
                      SetNameForView( vLookupView, "vLookupView", vSubtask, zLEVEL_TASK );
                      MessageSend( vSubtask, "VM00405", "VML Parser",
@@ -3027,15 +3067,40 @@ GetOperationNameFromZKey( zVIEW   vSubtask,
    lRC = SetCursorFirstEntityByInteger( vLookupView, "Operation", "ZKey", lZKey, "" );
    if ( lRC > zCURSOR_UNCHANGED )    // found
    {
+         zSHORT nLth = 0;
+
       GetStringFromAttribute( pchReturnThrowsException, vLookupView, "Operation", "ThrowsException" );
       GetStringFromAttribute( pchThrowsExceptionCatchCode, vLookupView, "Operation", "ThrowsExceptionCatchCode" );
       if ( lOperationClass == qLOCALOPERATION )
       {
-         GetStringFromAttribute( pchReturnName, vLookupView, "Operation", "C_GeneratedOperationName" );
+         if ( nDelIncl == 1 && g_szGenLang[ 0 ] == 'J' )
+         {
+               // The source file for this operation is not the current source file, so we need to 
+               // reference this in our operation call.
+               pchReturnName[ 0 ] = 'm';
+               pchReturnName[ 1 ] = '_';
+               //GetStringFromAttribute( pchOperationGroup, vLookupView, "Operation", "Name" ) != 0 )
+
+               zstrcat( pchOperationGroup, "_" );
+               zstrcat( pchOperationGroup, szParentEntityName );
+               zstrcpy( pchReturnName + 2, pchOperationGroup );
+               nLth = zstrlen( pchReturnName );
+               pchReturnName[ nLth++ ] = '.';
+               pchReturnName[ nLth ] = 0;
+            GetStringFromAttribute( pchReturnName + nLth, vLookupView, "Operation", "C_GeneratedOperationName" );
+
+            ExcludeEntity( vLookupView, "Operation", zREPOS_NEXT ); 
+         }
+         else
+         {
+            GetStringFromAttribute( pchReturnName, vLookupView, "Operation", "C_GeneratedOperationName" );
+            if ( nDelIncl == 1 )
+               ExcludeEntity( vLookupView, "Operation", zREPOS_NEXT ); 
+         }
       }
       else
       {
-         zSHORT nLth = 0;
+         //zSHORT nLth = 0;
 
          if ( g_szGenLang[ 0 ] == 'J' )
          {

@@ -3696,7 +3696,7 @@ BuildDDL( zVIEW  vDTE,
          #if defined( SQLITE )
             zsprintf( szLine, "DROP TABLE IF EXISTS %s%s %s", szOwner, pch, LINE_TERMINATOR );
          #elif defined( MYSQL )
-            zsprintf( szLine, "DROP TABLE %s%s IF EXISTS %s", szOwner, pch, LINE_TERMINATOR );
+            zsprintf( szLine, "DROP TABLE IF EXISTS %s%s %s", szOwner, pch, LINE_TERMINATOR );
          #else
             zsprintf( szLine, "DROP TABLE %s%s %s", szOwner, pch, LINE_TERMINATOR );
 	 #endif

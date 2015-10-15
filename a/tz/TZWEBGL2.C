@@ -14723,6 +14723,9 @@ GenJSPJ_Action( zVIEW     vDialog,
       //:// In order to call a dialog operation we need to create an instance of the dialog class.  We only want to do this once.
       //:szDlgTag = vDialog.Dialog.Tag
       GetVariableFromAttribute( szDlgTag, 0, 'S', 101, vDialog, "Dialog", "Tag", "", 0 );
+      //:// KJS 10/08/15 - Because this could be in a different source file... I will try referencing the source file name.
+      //:szDlgTag = vDialog.SourceFileForOper.Name 
+      GetVariableFromAttribute( szDlgTag, 0, 'S', 101, vDialog, "SourceFileForOper", "Name", "", 0 );
       //:// szWndTag = vDialog.Window.Tag
       //:szOperName = vDialog.ActOper.Name
       GetVariableFromAttribute( szOperName, 0, 'S', 65, vDialog, "ActOper", "Name", "", 0 );
@@ -14730,8 +14733,8 @@ GenJSPJ_Action( zVIEW     vDialog,
       if ( ZeidonStringCompare( szDialogClassCreated, 1, 0, "N", 1, 0, 2 ) == 0 )
       { 
 
-         //:IF szDlgTagRoot != szDlgTag
-         if ( ZeidonStringCompare( szDlgTagRoot, 1, 0, szDlgTag, 1, 0, 33 ) != 0 )
+         //:IF szDlgTagRoot != vDialog.Dialog.Tag
+         if ( CompareAttributeToString( vDialog, "Dialog", "Tag", szDlgTagRoot ) != 0 )
          { 
             //:szWriteBuffer = "      " +  szDlgTag + "_Dialog " + szDlgTag + " = new " +  szDlgTag + "_Dialog( vKZXMLPGO );"
             ZeidonStringCopy( szWriteBuffer, 1, 0, "      ", 1, 0, 10001 );

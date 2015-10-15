@@ -244,6 +244,7 @@ GenerateJSP( VIEW vDialog BASED ON LOD TZWDLGSO,
    STRING ( 34 )    szAction
    STRING ( 1 )     InitializationCode
    STRING ( 1 )     InsertBlankFlag
+   STRING ( 1 )     szInsertPrebuildJavascriptInline
    STRING ( 1 )     WorkFlag
    STRING ( 100 )   szSizeF
    STRING ( 1024 )  szStyle
@@ -488,7 +489,7 @@ GenerateJSP( VIEW vDialog BASED ON LOD TZWDLGSO,
    DropView( vDialogTemp )
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
 
-   /* 
+   /*
    // KJS 08/30/12 - Putting this in for Aadit... Show in seconds the page load time.
    szWriteBuffer = "<%"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
@@ -808,6 +809,8 @@ GenerateJSP( VIEW vDialog BASED ON LOD TZWDLGSO,
    szWriteBuffer = "String strDateFormat = ^^;"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    IF szKeyRole = "Y"
+      szWriteBuffer = "String strLoginName = ^^;"
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
       szWriteBuffer = "String strKeyRole = ^^;"
       WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    END
@@ -1510,6 +1513,11 @@ DKS_TRACE_END */
    szWriteBuffer = "{"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
 
+   // DKS 2015.06.19 - Get the InsertPrebuildJavascriptInlineFlag.
+   SysReadZeidonIni( -1, szSystemIniApplName, "InsertPrebuildJavascriptInlineFlag", szInsertPrebuildJavascriptInline )
+
+   szJavaScript = ""
+
    // Actions Section Trailer, including prebuild and postbuild code.
    InsertBlankFlag = "N"
    FOR EACH vDialog.Action
@@ -1519,6 +1527,11 @@ DKS_TRACE_END */
             IF InsertBlankFlag = "Y"
                szWriteBuffer = ""
                WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+            END
+
+            // KJS 04/30/15 - Inserting javascript code for prebuild action.
+            IF vDialog.ActWndEvent.Type = 1 AND vDialog.Action.WebJavaScript != ""
+               szJavaScript = vDialog.Action.WebJavaScript
             END
 
             IF vDialog.ActOper EXISTS
@@ -1628,8 +1641,8 @@ DKS_TRACE_END */
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    szWriteBuffer = "   }"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
-*/   
-   
+*/
+
    szWriteBuffer = "}"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
 
@@ -1655,7 +1668,7 @@ DKS_TRACE_END */
       WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
    END
 
-   // KJS 04/30/15 - I can't think why we have the myheader.inc, why we would have that for pages absolute pages. 
+   // KJS 04/30/15 - I can't think why we have the myheader.inc, why we would have that for pages absolute pages.
    // We didn't have Window.WEB_PageHeadInclude in the painter, but now it is there.
    //IF szNoPositioning = "Y" OR szNoPositioning = "S"
       IF vDialog.Window.WEB_PageHeadInclude != ""
@@ -1765,6 +1778,24 @@ DKS_TRACE_END */
    IF nRC >= zCURSOR_SET
       szWriteBuffer = "<script language=^JavaScript^ type=^text/javascript^ src=^./js/tabpane.js^></script>"
       WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   END
+
+   // KJS 04/30/15 - If we have any javascript code on a window prebuild action, we should add it here.
+   IF szJavaScript != ""
+      // DKS 2015.06.15 - If InsertPrebuildJavascriptInline = "Y" (has to do with KeyRole), then we should not
+      // add the JavaScript here for prebuild action... will be added in _AfterPageLoaded function.
+      IF szInsertPrebuildJavascriptInline != "Y"
+        szWriteBuffer = "<script language=^JavaScript^ type=^text/javascript^ >"
+        WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+        szWriteBuffer = "      // Javascript code entered by user for Window action prebuild."
+        WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
+        szWriteBuffer = szJavaScript
+        WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
+        szWriteBuffer = "      // END of Javascript code entered by user."
+        WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
+        szWriteBuffer = "</script>"
+        WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+      END
    END
 
    //szWriteBuffer = "<script language=^JavaScript^ type=^text/javascript^ src=^tabpane.js^></script>"
@@ -2263,6 +2294,8 @@ DKS_TRACE_END */
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
 
    IF szKeyRole = "Y"
+      szWriteBuffer = "   var LoginName = document." + szFormName + ".zLoginName.value;"
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
       szWriteBuffer = "   var keyRole = document." + szFormName + ".zKeyRole.value;"
       WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    END
@@ -2273,13 +2306,12 @@ DKS_TRACE_END */
    // KJS 08/27/13 - I am commenting this code out because we call the Postbuild javascript code below (comment KJS 09/21/2009), so
    // this code means we call the javascript code twice. Maybe we should have this instead but for now I am taking it out (the below code
    // only looks for Postbuild action (not prebuild) because this is after the page has been rendered.
-   /*
+   /* // ePamms needs the following code DKS 2015.09.22
    // Check of prebuild and postbuild action jsp code.
    FOR EACH vDialogTemp.Action
       FOR EACH vDialogTemp.ActWndEvent
          IF vDialogTemp.ActWndEvent.Type = 1 OR
             vDialogTemp.ActWndEvent.Type = 2
-
             // DKS 2008.09.10 - We want to insert any javascript code that the
             // user has entered for this pre/post build action.
             szJavaScript = vDialogTemp.Action.WebJavaScript
@@ -2294,8 +2326,7 @@ DKS_TRACE_END */
          END
       END
    END
-   */
-
+   */ // ePamms needs the above code
    // If this Window/Page has a "Start Web Popup" Action with mapping, then we need the following code
    // to actually start up the Popup, since the script code for the Action had to do the submit to
    // do input mapping.
@@ -2312,7 +2343,6 @@ DKS_TRACE_END */
       WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
       szWriteBuffer = "   {"
       WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
-
       //KELLY22
       /*  We don't need this now, we look for these errors and window sizes elsewhere
       // The Popup size (both X and Y values) will be WebSize / 34,000 to convert Window Size to Web Page Size.
@@ -2458,8 +2488,22 @@ DKS_TRACE_END */
 
       FOR EACH vDialogTemp.ActWndEvent
 
-         // Only worry about PostBuild window actions.
-         IF vDialogTemp.ActWndEvent.Type = 2
+         // DKS 2015.05.15 - for prebuild, need javascript code inserted directly into _AfterPageLoaded function,IF lActionType = zWAB_StayOnWindow AND
+         // if szInsertPrebuildJavascriptInline = "Y", otherwise the prebuild javascript code is called in the
+         // <head> section. InsertPrebuildJavascriptInline has to do with KeyRole code.
+         // do not mess with szJavaScript here ... szJavaScript = vDialogTemp.Action.WebJavaScript
+         IF vDialogTemp.ActWndEvent.Type = 1 AND szInsertPrebuildJavascriptInline = "Y"
+            // Action is Prebuild.
+            IF vDialogTemp.Action.WebJavaScript != ""
+               szWriteBuffer = "   // Prebuild action has javascript code entered by user."
+               WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+               szWriteBuffer = vDialogTemp.Action.WebJavaScript
+               WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+               szWriteBuffer = "   // END of Javascript code entered by user."
+               WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
+            END
+         END
+         IF vDialogTemp.ActWndEvent.Type = 2  // Action is postbuild.
 
             IF vDialogTemp.Action.WebJavaScript != ""
 
@@ -2716,13 +2760,36 @@ DKS_TRACE_END */
             WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
 
             szJavaScript = vDialog.Action.WebJavaScript
-            IF  szJavaScript != ""
-               szWriteBuffer = "      // Javascript code entered by user."
-               WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
-               szWriteBuffer = szJavaScript
-               WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
-               szWriteBuffer = "      // END of Javascript code entered by user."
-               WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
+
+            // DKS 2015.06.20 - remove prebuild javascript if it is being inserted in _AfterPageLoaded
+            IF szInsertPrebuildJavascriptInline = "Y"
+               IF vDialog.ActWndEvent EXISTS AND vDialog.ActWndEvent.Type = 1
+                  // prebuild javascript being inserted inline in _AfterPageLoaded
+               ELSE
+                  // otherwise, we need the javascript code
+                  IF  szJavaScript != ""
+                     szWriteBuffer = "      // Javascript code entered by user."
+                     WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
+                     szWriteBuffer = szJavaScript
+                     WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
+                     szWriteBuffer = "      // END of Javascript code entered by user."
+                     WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
+                  END
+               END
+               // DKS 2015.07.07 - and we always want the submit
+               szWriteBuffer = "      document." + szFormName + ".zAction.value = ^" + szActionTag + "^;"
+               WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+               szWriteBuffer = "      document." + szFormName + ".submit( );"
+               WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+            ELSE
+               IF  szJavaScript != ""
+                  szWriteBuffer = "      // Javascript code entered by user."
+                  WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
+                  szWriteBuffer = szJavaScript
+                  WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
+                  szWriteBuffer = "      // END of Javascript code entered by user."
+                  WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
+               END
             END
             szWriteBuffer = "   }"
             WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
@@ -3380,14 +3447,14 @@ DKS_TRACE_END */
       szWriteBuffer = "   vKZXMLPGO.SetAttribute( strSessionId, ^Session^, ^DashboardFrameCount^, iFrameCount ); "
       WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
 
-   END   
+   END
 
    // Build call to FindErrorFields and process any errors.
    szWriteBuffer = "   // FindErrorFields Processing"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    szWriteBuffer = "   strError = vAppSubtask.FindErrorFields( strSessionId );"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
-   
+
    // If the download file is too large, we have an error for that (that can't easily be put in the MSGQ so I am
    // creating another option for that.
    IF szUploadFile = "Y"
@@ -3522,6 +3589,8 @@ DKS_TRACE_END */
    szWriteBuffer = "   <input name=^zDateFormat^ id=^zDateFormat^ type=^hidden^ value=^<%=strDateFormat%>^>"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    IF szKeyRole = "Y"
+      szWriteBuffer = "   <input name=^zLoginName^ id=^zLoginName^ type=^hidden^ value=^<%=strLoginName%>^>"
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
       szWriteBuffer = "   <input name=^zKeyRole^ id=^zKeyRole^ type=^hidden^ value=^<%=strKeyRole%>^>"
       WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    END
@@ -3646,7 +3715,7 @@ DKS_TRACE_END */
       WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
 
       CreateAbsolStyleString( vDialogTemp, szStyle, X_Size, Y_Size, "" )
-      
+
       szClass = ""
       IF vDialogTemp.Control.CSS_Class != ""
          szClass = " class=^" + vDialogTemp.Control.CSS_Class + "^"
@@ -3879,8 +3948,8 @@ DKS_TRACE_END */
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    szWriteBuffer = "   double tSeconds = tMilli / 1000;"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
-   //szWriteBuffer = "   //String strDiff =String.valueOf(tSeconds);"      
-   szWriteBuffer = "   String strSeconds =Double.toString(tSeconds); "     
+   //szWriteBuffer = "   //String strDiff =String.valueOf(tSeconds);"
+   szWriteBuffer = "   String strSeconds =Double.toString(tSeconds); "
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    szWriteBuffer = "   String strMilli = Double.toString(tMilli);     "
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
