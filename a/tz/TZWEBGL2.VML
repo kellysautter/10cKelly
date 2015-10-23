@@ -1330,82 +1330,10 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
          END
 
          IF szControlType = "PushBtn"  // PUSH BUTTON
-            szActionName = ""
-            IF vDialog.EventAct EXISTS
-               szActionName = vDialog.EventAct.Tag
-               nRC = zstrcmpi( szActionName, "alt-f4" )
-               IF nRC = 0
-                  szActionName = "AltF4"
-               END
-            END
-
-            CreateTabIndexString( vDialog, szTabIndex )
-            szAbsoluteStyle = szAbsoluteStyle + szTabIndex
-
-            szText = vDialog.Control.Text
-            // Set Class as either null or with Class value.
-            IF vDialog.Control.CSS_Class = ""
-               szClass = ""
-            ELSE
-               szClass = "class=^" + vDialog.Control.CSS_Class + "^ "
-            END
-
-            //If we put a title on the control, when the mouse is hovered over the control, this text will display.
-            szTitleHTML = ""
-            szTitle = vDialog.Control.DIL_Text
-            IF szTitle != ""
-               szTitleHTML = " title=^" + szTitle + "^ "
-            END
-
-            //KJS 10/19/07 - Added title.
-            /*
-            IF szWebCtrlType = "Button"
-               szWidget = "<button type=^button^ " + szClass + szTitleHTML + "name=^"
-               szTerm = szText + "</button>"
-               szText = ""
-            ELSE
-               szWidget = "<input type=^submit^ " + szClass + szTitleHTML + "name=^"
-               szTerm = ""
-            END
-            */
-               szWidget = "<button type=^button^ " + szClass + szTitleHTML + "name=^"
-               szTerm = szText + "</button>"
-               szText = ""
-               
-            // Action is different if this is a repeating group.
-            IF szRepeatGrpKey = ""
-               szAction = szActionName + "( )"
-            ELSE
-               szAction = szActionName + "( '" + szCtrlTag + szRepeatGrpKey + "' )"
-            END
-
-            szParentWebType = ""
-            // KJS 01/30/14 - I'm thinking "Relative Positioning" is old. I only use this in one pwd and when I take it
-            // out and use "Div/No Height", the results look exactly the same so I am going to take this off grid controls.
-            IF vGroupParent != 0
-               //*
-               SET CURSOR FIRST vGroupParent.WebControlProperty WHERE vGroupParent.WebControlProperty.Name = "Relative Positioning"
-               IF RESULT >= zCURSOR_SET
-                  szParentWebType = "RelativePos"
-               ELSE
-                  szParentWebType = vGroupParent.Control.WebCtrlType
-               END
-               //*/
-               //szParentWebType = vGroupParent.Control.WebCtrlType
-            END
-            IF szParentWebType = "Div" OR szParentWebType = "DivScroll" OR
-               szParentWebType = "Span"
-
-               szWriteBuffer = "<p></p>"
-               WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-               CreateSizeString( vDialog, szSize )
-               szWriteBuffer = szWidget + szCtrlTag + "^ id=^" + szCtrlTag + "^ value=^" + szText + "^ onclick=^" +
-                               szAction + "^ " + "style=^" + szSize + "^>" + szTerm
-            ELSE
-               szWriteBuffer = szWidget + szCtrlTag + "^ id=^" + szCtrlTag + "^ value=^" + szText + "^ onclick=^" +
-                               szAction + "^ " + szAbsoluteStyle + ">" + szTerm
-            END
-            WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
+         
+            GenJSPJ_CrtePushButton( vDialog, vGroupParent, lFile, szWriteBuffer, szIndent, szCtrlTag,
+                                    "", szJustify, szNoPositioning, lOffsetX, lOffsetY, szRepeatGrpKey )
+            
          END  //End of PushBtn
 
          IF szControlType = "ComboBox"  // COMBOBOX
@@ -2823,8 +2751,10 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
                WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
                szWriteBuffer = "         strEntityKey = Long.toString( lEntityKey );"
                WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-               szWriteBuffer = "         strButtonName = ^SelectButton^ + strEntityKey;"
-               WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )                                                     // strButtonName?
+               //KJS 10/22/15 - Taking these out. Not sure why we even do it because if there is more than one button, then they do not
+               // have unique names.
+               //szWriteBuffer = "         strButtonName = ^SelectButton^ + strEntityKey;"
+               //WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )                                                     // strButtonName?
 
                // Process the subcontrols for mapping.
                SetViewToSubobject( vDialog, "CtrlCtrl" )  // vDialog positioned on sub-controls
@@ -3199,6 +3129,7 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
 
                   CreateDisabledString( vDialog, szDisabled )
 
+                  szListCtrlTag = vDialog.Control.Tag
                   // The id attribute is a unique identification for an HTML element.
                   // The id attribute is often used with CSS or JavaScript (using the HTML DOM)
                   // to style or change the HTML element with the specified unique id.
@@ -3218,7 +3149,6 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
                   //properties there might be.  Create this as a hidden field. This does not have <td> tags.
                   SET CURSOR FIRST vDialog.WebControlProperty WHERE vDialog.WebControlProperty.Name = "Hidden"
                   IF RESULT >= zCURSOR_SET
-                     szListCtrlTag = vDialog.Control.Tag
                      szWriteBuffer = "<input type=^hidden^ value=^<%=str" + szListCtrlTag + "%>^ " +
                                             "name=^" + szListCtrlTag + "::<%=strEntityKey%>^ id=^" + szListCtrlTag + "::<%=strEntityKey%>^>"
 
@@ -3307,13 +3237,119 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
                         PIX_PER_DU( vDialog, dDLUnits )
                         zIntegerToString( szWidth, 10, vDialog.Control.SZDLG_X * dDLUnits )
                         szStyle = " style=^width:" + szWidth + "px;^ "
-
+                        
+                        /************************************** NEW CODE *********************************/
+                        // KJS 10/22/15 - Added code for button text mapping, if a button has mapping defined.
+                        SET CURSOR FIRST vDialog.CtrlMapLOD_Attribute WITHIN vDialog.Control
+                        IF RESULT >= zCURSOR_SET 
+                           szWriteBuffer = "<%"
+                           WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+                           szWriteBuffer = "      " + vDialog.CtrlMapView.Name + " = " + "task.getViewByName( ^" +
+                                           vDialog.CtrlMapView.Name + "^ );"
+                           WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+                           szWriteBuffer = "      if ( VmlOperation.isValid( " + vDialog.CtrlMapView.Name + " ) == false )"
+                           WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+                           szWriteBuffer = "         task.log( ).debug( ^Invalid View: ^ + ^" + szListCtrlTag + "^ );"
+                           WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+                           szWriteBuffer = "      else"
+                           WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+                           szWriteBuffer = "      {"
+                           WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+                           szWriteBuffer = "         nRC = " + vDialog.CtrlMapView.Name + ".cursor( ^" +
+                                           vDialog.CtrlMapRelatedEntity.Name + "^ ).checkExistenceOfEntity( ).toInt();"
+                           WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+                           szWriteBuffer = "         if ( nRC >= 0 )"
+                           WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+                           szWriteBuffer = "         {"
+                           WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+                           IF vDialog.CtrlMapContext EXISTS
+                              szContextName = vDialog.CtrlMapContext.Name
+                           ELSE
+                              szContextName = ""
+                           END
+                           
+                           // Add try/catch
+                           szWriteBuffer = "            try"
+                           WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+                           szWriteBuffer = "            {"
+                           WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+                     
+                           IF vDialog.CtrlMapER_Domain.MaxStringLth > 254
+                              lMaxStringLength = vDialog.CtrlMapER_Domain.MaxStringLth
+                              szMaxStringLength = lMaxStringLength
+                           ELSE
+                              szMaxStringLength = "254"
+                           END
+                           szWriteBuffer = "               strErrorMapValue = " +
+                                           vDialog.CtrlMapView.Name + ".cursor( ^" +
+                                           vDialog.CtrlMapRelatedEntity.Name + "^ ).getAttribute( ^" +
+                                           vDialog.CtrlMapER_Attribute.Name + "^ ).getString( ^" +
+                                           szContextName + "^ );"
+                           WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+                           IF vDialog.Control.WebCtrlType = "escapeHTML"
+                              szWriteBuffer = "               task.log().debug( ^" + szCtrlTag + " prior to unescape: ^ + strErrorMapValue );"
+                              WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+                              szWriteBuffer = "               strErrorMapValue = StringEscapeUtils.unescapeHtml4( strErrorMapValue );"
+                              WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+                              szWriteBuffer = "               task.log().debug( ^" + szCtrlTag + " after unescape: ^ + strErrorMapValue );"
+                              WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+                           END
+                     
+                           szWriteBuffer = "            }"
+                           WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+                           szWriteBuffer = "            catch (Exception e)"
+                           WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+                           szWriteBuffer = "            {"
+                           WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+                           szWriteBuffer = "               out.println(^There is an error on " + szListCtrlTag + ": ^ + e.getMessage());"
+                           WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+                           szWriteBuffer = "               task.log().error( ^*** Error on ctrl " + szListCtrlTag + "^, e );"
+                           WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+                           szWriteBuffer = "            }"
+                           WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+                     
+                           // KJS 02/15/11 - Thinking I need to add code to change values returned as null to "".
+                           szWriteBuffer = "            if ( strErrorMapValue == null )"
+                           WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+                           szWriteBuffer = "               strErrorMapValue = ^^;"
+                           WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
+                     
+                           szWriteBuffer = "            task.log( ).debug( ^" + vDialog.CtrlMapRelatedEntity.Name + "." +
+                                           vDialog.CtrlMapER_Attribute.Name + ": ^ + strErrorMapValue );"
+                           WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+                     
+                           szWriteBuffer = "         }"
+                           WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+                           szWriteBuffer = "         else"
+                           WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+                           szWriteBuffer = "            task.log( ).debug( ^Entity does not exist for " + szListCtrlTag + ": ^ + ^" +
+                                           vDialog.CtrlMapView.Name +
+                                           "." + vDialog.CtrlMapRelatedEntity.Name + "^ );"
+                           WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+                           szWriteBuffer = "      }"
+                     
+                              WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
+                     
+                              szWriteBuffer = "      if ( strErrorMapValue == ^^ )"
+                              WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+                              szWriteBuffer = "         strErrorMapValue = ^" + vDialog.Control.Text + "^;"
+                           WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+                     
+                           szWriteBuffer = "%>"
+                           WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
+                           szText = "<%=strErrorMapValue%>"
+                        ELSE
+                           szText = vDialog.Control.Text
+                        END
+                        /************************************** END OF NEW CODE *********************************/
+                     
+                                    
                      // szWriteBuffer = "   " + szItemTableHeader + "><input type=^submit^ " + szTitleHTML + szClass + "name=<%=strButtonName%> onclick=^" + szActionName +
                      //                 "( this.id )^ id=^" + szListCtrlTag + "::<%=strEntityKey%>^ value=^" + vDialog.Control.Text + "^" + szDisabled + "></td>"
-                        szWriteBuffer = "   " + szItemTableHeader + "><button type=^button^ " + szTitleHTML + szClass + "name=<%=strButtonName%> onclick=^" + szActionName +
+                        szWriteBuffer = "   " + szItemTableHeader + "><button type=^button^ " + szTitleHTML + szClass + "name=^" + szListCtrlTag + "::<%=strEntityKey%>^  onclick=^" + szActionName +
                                         // KJS 11/10/12 thought i might want this"( '<%=strEntityKey%>' )^ id=^" + szListCtrlTag + "::<%=strEntityKey%>^ " + szStyle + szDisabled + ">"+
                                         "( this.id )^ id=^" + szListCtrlTag + "::<%=strEntityKey%>^ " + szStyle + szDisabled + ">"+
-                                        vDialog.Control.Text + "</button></td>"
+                                        szText + "</button></td>"
                      ELSE
                         szListCtrlTag = vDialog.Control.Tag
 
@@ -4552,7 +4588,7 @@ GenJSPJ_InputMapRecurs( VIEW vDialog BASED ON LOD TZWDLGSO,
                            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
                            szWriteBuffer = "                  " + szViewName + ".cursor( ^" +
                               vDialog.CtrlMapRelatedEntity.Name + "^ ).getAttribute( ^" +
-                              vDialog.CtrlMapER_Attribute.Name + "^ .setValue( strMapValue, ^" + szContextName + "^ );"
+                              vDialog.CtrlMapER_Attribute.Name + "^ ).setValue( strMapValue, ^" + szContextName + "^ );"
                            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
                            szWriteBuffer = "            }"
                            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )

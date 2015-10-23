@@ -2310,11 +2310,16 @@ zwTZZOLODD_SaveLOD( zVIEW vSubtask )
       if ( SetCursorFirstEntityByAttr( vTE,"TE_DBMS_Source", "ZKey",
                                        vLOD, "POD", "TE_SourceZKey", 0 ) < zCURSOR_SET )
       {
-         // The DBMS_Source defined in the POD doesn't exist.
+         // The DBMS_Source defined in the POD doesn't exist, so use the first one.
+         // This was changed by DonC on 10/22/2015 after consulation with Kelly, as we decided the first DB Source would be considered the default.
+         // We both note that a better solution is to create a Default Source attribute instead.
          if ( CheckExistenceOfEntity( vLOD, "TE_DBMS_Source" ) >= zCURSOR_SET )
          {
             SetCursorFirstEntity( vLOD, "TE_DBMS_Source", 0 );
-            nRC = SetCursorNextEntity( vLOD, "TE_DBMS_Source", 0 );
+            // Force the ZKey from the TE_DBMS_Source since the old one doesn't exist in TE.
+            SetAttributeFromAttribute( vLOD, "POD", "TE_SourceZKey",
+                                       vTE,  "TE_DBMS_Source", "ZKey" );
+            /*nRC = SetCursorNextEntity( vLOD, "TE_DBMS_Source", 0 );
             if ( nRC < zCURSOR_SET )
             {
                // There is only one DBMS_Source entity, so use it.
@@ -2322,7 +2327,7 @@ zwTZZOLODD_SaveLOD( zVIEW vSubtask )
                                           vTE,  "TE_DBMS_Source", "ZKey" );
             }
             else
-               bError = TRUE;
+               bError = TRUE;*/
          }
          else
             bError = TRUE;
@@ -10494,9 +10499,9 @@ zwTZZOLODD_CLOSE_MergeSelected( zVIEW vSubtask )
 } // zwTZZOLODD_LOD_MergeSelected
 
 /*************************************************************************************************
-**    
+**
 **    OPERATION: zwTZZOLODD_AnalyzeDuplicateZKeys
-**    
+**
 *************************************************************************************************/
 zOPER_EXPORT zSHORT /*DIALOG */  OPERATION
 zwTZZOLODD_AnalyzeDuplicateZKeys( zVIEW vSubtask )
@@ -10509,7 +10514,7 @@ zwTZZOLODD_AnalyzeDuplicateZKeys( zVIEW vSubtask )
    if ( GetViewByName( &vTZZOLODO, "TZZOLODO", vSubtask, zLEVEL_TASK ) == zLEVEL_TASK )
    {
       GetViewByName( &vTaskLPLR, "TaskLPLR", vSubtask, zLEVEL_TASK );
-      
+
       // Identify Entities that should not be part of duplicate check, since they are the same instances
       // of other Entities in the object.
       if ( CheckExistenceOfEntity( vTaskLPLR, "DuplicateCheckEntity" ) < 0 )
@@ -10526,7 +10531,7 @@ zwTZZOLODD_AnalyzeDuplicateZKeys( zVIEW vSubtask )
          CreateEntity( vTaskLPLR, "DuplicateCheckEntity", zPOS_AFTER );
          SetAttributeFromString( vTaskLPLR, "DuplicateCheckEntity", "EntityName", "Parameter" );
       }
-      
+
       // Go to check for duplicates.
       oTZCMLPLO_CheckOI_ForDupZKey( vTaskLPLR, vTZZOLODO, "LOD" );
    }

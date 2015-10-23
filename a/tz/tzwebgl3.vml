@@ -1098,6 +1098,7 @@ GenJSP_CrteText( VIEW vDialog      BASED ON LOD TZWDLGSO,
    STRING ( 32 )  szFaceName
    STRING ( 256 ) szDecoration
    STRING ( 1 )   szIsLabel
+   STRING ( 256 ) szLabelFor
    SHORT          nRC
 
    szText = vDialog.Control.Text
@@ -1356,16 +1357,21 @@ GenJSP_CrteText( VIEW vDialog      BASED ON LOD TZWDLGSO,
       // Check to see if this GroupBox has a WebControlProperty of "Table".  If so, then we will create this
       // as a table and try and position what is in this group box as a table.
       szIsLabel = ""
+      szLabelFor = ""
       SET CURSOR FIRST vDialog.WebControlProperty WHERE vDialog.WebControlProperty.Name = "Label"
       IF RESULT >= zCURSOR_SET
          szIsLabel = "Y"
+         IF vDialog.Control.WebCtrlLabelLink != ""
+            // Tie the label to an input control.
+            szLabelFor = " for=^" + vDialog.Control.WebCtrlLabelLink + "^ " 
+         END
       END
    
       szWriteBuffer = ""
       WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
       // If there is a "Label" web control property than make this a label, otherwise, just use <span>.
       IF szIsLabel = "Y"
-         szWriteBuffer = "<label " + szClassHTML + szHTMLCtrlID + szTitleHTML + szStyle + ">" + szText + "</label>"
+            szWriteBuffer = "<label " + szClassHTML + szHTMLCtrlID + szLabelFor + szTitleHTML + szStyle + ">" + szText + "</label>"
       ELSE 
          szWriteBuffer = "<span " + szClassHTML + szHTMLCtrlID + szTitleHTML + szStyle + ">" + szText + "</span>"
       END
