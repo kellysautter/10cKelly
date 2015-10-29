@@ -213,6 +213,141 @@ oTZWDLGSO_CloneActMap( zVIEW     vSourceLPLR,
 } 
 
 
+//:TRANSFORMATION OPERATION
+//:ConvertListBoxToGrid( VIEW vControl BASED ON LOD TZWDLGSO )
+
+//:   VIEW vPE       BASED ON LOD TZPESRCO
+zOPER_EXPORT zSHORT OPERATION
+oTZWDLGSO_ConvertListBoxToGrid( zVIEW     vControl )
+{
+   zVIEW     vPE = 0; 
+   //:VIEW vControl2 BASED ON LOD TZWDLGSO
+   zVIEW     vControl2 = 0; 
+   //:STRING ( 50 ) szGridName
+   zCHAR     szGridName[ 51 ] = { 0 }; 
+   //:INTEGER       CurrentPOSX
+   zLONG     CurrentPOSX = 0; 
+   //:INTEGER       Count
+   zLONG     Count = 0; 
+   zSHORT    RESULT; 
+   zCHAR     szTempString_0[ 33 ]; 
+   zLONG     lTempInteger_0; 
+
+
+   //:// Convert the current control (if it is a ListBox) to a grid to ease conversion of Windows dialogs to web dialogs.
+
+   //:// Make sure this is a ListBox.
+   //:IF vControl.ControlDef.Tag != "ListBox"
+   if ( CompareAttributeToString( vControl, "ControlDef", "Tag", "ListBox" ) != 0 )
+   { 
+      //:MessageSend( vControl, "WD00204", "Dialog Clone",
+      //:             "The current control is not a List Box.", zMSGQ_OBJECT_CONSTRAINT_WARNING, 0 )
+      MessageSend( vControl, "WD00204", "Dialog Clone", "The current control is not a List Box.", zMSGQ_OBJECT_CONSTRAINT_WARNING, 0 );
+      //:RETURN -1
+      return( -1 );
+   } 
+
+   //:END
+
+   //:// Change the ControlDef for the main control.
+   //:GetViewByName( vPE, "TZPESRCO", vControl, zLEVEL_TASK )
+   GetViewByName( &vPE, "TZPESRCO", vControl, zLEVEL_TASK );
+   //:SET CURSOR FIRST vPE.ControlDef WHERE vPE.ControlDef.Tag = "Grid"
+   RESULT = SetCursorFirstEntityByString( vPE, "ControlDef", "Tag", "Grid", "" );
+   //:EXCLUDE vControl.ControlDef 
+   RESULT = ExcludeEntity( vControl, "ControlDef", zREPOS_AFTER );
+   //:INCLUDE vControl.ControlDef FROM vPE.ControlDef 
+   RESULT = IncludeSubobjectFromSubobject( vControl, "ControlDef", vPE, "ControlDef", zPOS_AFTER );
+   //:szGridName = vControl.Control.Tag + "Grid"
+   GetStringFromAttribute( szGridName, vControl, "Control", "Tag" );
+   ZeidonStringConcat( szGridName, 1, 0, "Grid", 1, 0, 51 );
+   //:vControl.Control.Tag = szGridName
+   SetAttributeFromString( vControl, "Control", "Tag", szGridName );
+
+   //:// Add a select subcontrol and modify the other subcontrols, if there is a subcontrol.
+   //:SET CURSOR FIRST vControl.CtrlCtrl
+   RESULT = SetCursorFirstEntity( vControl, "CtrlCtrl", "" );
+   //:IF RESULT >= zCURSOR_SET
+   if ( RESULT >= zCURSOR_SET )
+   { 
+      //:SetViewToSubobject( vControl, "CtrlCtrl" )    // Step down to CtrlCtrl
+      SetViewToSubobject( vControl, "CtrlCtrl" );
+
+      //:// Add a CheckBox control as first control in grid. Map it the same as the first field, so there isn't an error on update.
+      //:CreateViewFromView( vControl2, vControl )     // vControl2 is pointing to first regular Control.
+      CreateViewFromView( &vControl2, vControl );
+      //:CreateMetaEntity( vControl, vControl, "Control", zPOS_BEFORE )
+      CreateMetaEntity( vControl, vControl, "Control", zPOS_BEFORE );
+      //:vControl.Control.Tag = szGridName + "Select"
+      ZeidonStringCopy( szTempString_0, 1, 0, szGridName, 1, 0, 33 );
+      ZeidonStringConcat( szTempString_0, 1, 0, "Select", 1, 0, 33 );
+      SetAttributeFromString( vControl, "Control", "Tag", szTempString_0 );
+      //:vControl.Control.Text = "Sel"
+      SetAttributeFromString( vControl, "Control", "Text", "Sel" );
+      //:SET CURSOR FIRST vPE.ControlDef WHERE vPE.ControlDef.Tag = "CheckBox"
+      RESULT = SetCursorFirstEntityByString( vPE, "ControlDef", "Tag", "CheckBox", "" );
+      //:INCLUDE vControl.ControlDef FROM vPE.ControlDef 
+      RESULT = IncludeSubobjectFromSubobject( vControl, "ControlDef", vPE, "ControlDef", zPOS_AFTER );
+      //:vControl.Control.PSDLG_X = 0
+      SetAttributeFromInteger( vControl, "Control", "PSDLG_X", 0 );
+      //:vControl.Control.PSDLG_Y = 0
+      SetAttributeFromInteger( vControl, "Control", "PSDLG_Y", 0 );
+      //:vControl.Control.SZDLG_X = 15
+      SetAttributeFromInteger( vControl, "Control", "SZDLG_X", 15 );
+      //:vControl.Control.SZDLG_Y = 15
+      SetAttributeFromInteger( vControl, "Control", "SZDLG_Y", 15 );
+      //:CurrentPOSX = 15
+      CurrentPOSX = 15;
+      //:CreateMetaEntity( vControl, vControl, "CtrlMap", zPOS_BEFORE )
+      CreateMetaEntity( vControl, vControl, "CtrlMap", zPOS_BEFORE );
+      //:INCLUDE vControl.CtrlMapLOD_Attribute FROM vControl2.CtrlMapLOD_Attribute 
+      RESULT = IncludeSubobjectFromSubobject( vControl, "CtrlMapLOD_Attribute", vControl2, "CtrlMapLOD_Attribute", zPOS_AFTER );
+      //:INCLUDE vControl.CtrlMapView          FROM vControl2.CtrlMapView 
+      RESULT = IncludeSubobjectFromSubobject( vControl, "CtrlMapView", vControl2, "CtrlMapView", zPOS_AFTER );
+      //:DropView( vControl2 )
+      DropView( vControl2 );
+
+      //:// Change the ControlDef for each subcontrol.
+      //:SET CURSOR FIRST vPE.ControlDef WHERE vPE.ControlDef.Tag = "GridEditCtl"
+      RESULT = SetCursorFirstEntityByString( vPE, "ControlDef", "Tag", "GridEditCtl", "" );
+      //:Count = 0
+      Count = 0;
+      //:FOR EACH vControl.Control 
+      RESULT = SetCursorFirstEntity( vControl, "Control", "" );
+      while ( RESULT > zCURSOR_UNCHANGED )
+      { 
+         //:Count = Count + 1
+         Count = Count + 1;
+         //:IF Count > 1    // We skip the first record we just created.
+         if ( Count > 1 )
+         { 
+            //:EXCLUDE vControl.ControlDef 
+            RESULT = ExcludeEntity( vControl, "ControlDef", zREPOS_AFTER );
+            //:INCLUDE vControl.ControlDef FROM vPE.ControlDef 
+            RESULT = IncludeSubobjectFromSubobject( vControl, "ControlDef", vPE, "ControlDef", zPOS_AFTER );
+            //:vControl.Control.PSDLG_X = CurrentPOSX                  // Position is from determined from last iteration.
+            SetAttributeFromInteger( vControl, "Control", "PSDLG_X", CurrentPOSX );
+            //:CurrentPOSX = CurrentPOSX + vControl.Control.SZDLG_X    // Increment position past length of Control.
+            GetIntegerFromAttribute( &lTempInteger_0, vControl, "Control", "SZDLG_X" );
+            CurrentPOSX = CurrentPOSX + lTempInteger_0;
+         } 
+
+         RESULT = SetCursorNextEntity( vControl, "Control", "" );
+         //:END
+      } 
+
+      //:END
+      //: 
+      //:ResetViewFromSubobject( vControl )       // Step back up to Grid Control
+      ResetViewFromSubobject( vControl );
+   } 
+
+   //:END
+   return( 0 );
+// END
+} 
+
+
 //:LOCAL OPERATION
 //:CloneAction( VIEW vSourceLPLR BASED ON LOD TZCMLPLO,
 //:             VIEW vOrigW BASED ON LOD TZWDLGSO,

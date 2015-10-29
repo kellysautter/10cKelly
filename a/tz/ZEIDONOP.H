@@ -39,7 +39,10 @@ zgGetZeidonToolsDir( zVIEW  vSubtask,
 
 // DGC 10/17/95 -----------------------------------------------------------
 
-//start TZWDLGSO 2015.07.27 15:17:31
+//start TZWDLGSO 2015.10.23 15:12:26
+zOPER_EXPORT zSHORT OPERATION
+oTZWDLGSO_ConvertListBoxToGrid( zVIEW vViewToInstance0 );
+
 zOPER_EXPORT zSHORT OPERATION
 oTZWDLGSO_CloneCtrlMap( zVIEW vViewToInstance0,
                         zVIEW vNewWC1,
@@ -1697,13 +1700,27 @@ CreateTabIndexString( zVIEW vDialog0,
                       zPCHAR pchTabIndex1 );
 
 //end
-//start TZWEBGL4 2014.04.16 15:04:41
+//start TZWEBGL4 2015.10.20 16:45:24
 zOPER_EXPORT zSHORT OPERATION
 BuildSideNavSectionJ( zVIEW vvDialog0,
                       zVIEW vvDialogRoot1,
                       zLONG llFile2,
                       zPCHAR pchReusableMenu3,
                       zVIEW vvDialogMenu4 );
+
+zOPER_EXPORT zVOID OPERATION
+GenJSPJ_CrtePushButton( zVIEW vvDialog0,
+                        zVIEW vvGroupParent1,
+                        zLONG lFile2,
+                        zPCHAR pchWriteBuffer3,
+                        zPCHAR pchIndent4,
+                        zPCHAR pchCtrlTag5,
+                        zPCHAR pchTableRowFlag6,
+                        zPCHAR pchJustify7,
+                        zPCHAR pchNoPositioning8,
+                        zLONG lOffsetX9,
+                        zLONG lOffsetY10,
+                        zPCHAR pchstrRepeatGrpKey11 );
 
 zOPER_EXPORT zSHORT OPERATION
 GenJSPJ_CrteMLEdit( zVIEW vvDialog0,

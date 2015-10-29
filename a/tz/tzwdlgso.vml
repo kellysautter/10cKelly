@@ -1470,3 +1470,74 @@ DialogMigrate( VIEW          NewDialog  BASED ON LOD TZWDLGSO,
    RETURN 0
 
 END
+
+/*************************************************************************************************
+**    
+**    OPERATION: ConvertListBoxToGrid
+**    
+*************************************************************************************************/
+TRANSFORMATION OPERATION
+ConvertListBoxToGrid( VIEW vControl BASED ON LOD TZWDLGSO )
+
+   VIEW vPE       BASED ON LOD TZPESRCO
+   VIEW vControl2 BASED ON LOD TZWDLGSO
+   STRING ( 50 ) szGridName
+   INTEGER       CurrentPOSX
+   INTEGER       Count
+
+   // Convert the current control (if it is a ListBox) to a grid to ease conversion of Windows dialogs to web dialogs.
+   
+   // Make sure this is a ListBox.
+   IF vControl.ControlDef.Tag != "ListBox"
+      MessageSend( vControl, "WD00204", "Dialog Clone",
+                   "The current control is not a List Box.", zMSGQ_OBJECT_CONSTRAINT_WARNING, 0 )
+      RETURN -1
+   END
+   
+   // Change the ControlDef for the main control.
+   GetViewByName( vPE, "TZPESRCO", vControl, zLEVEL_TASK )
+   SET CURSOR FIRST vPE.ControlDef WHERE vPE.ControlDef.Tag = "Grid"
+   EXCLUDE vControl.ControlDef 
+   INCLUDE vControl.ControlDef FROM vPE.ControlDef 
+   szGridName = vControl.Control.Tag + "Grid"
+   vControl.Control.Tag = szGridName
+   
+   // Add a select subcontrol and modify the other subcontrols, if there is a subcontrol.
+   SET CURSOR FIRST vControl.CtrlCtrl
+   IF RESULT >= zCURSOR_SET
+      SetViewToSubobject( vControl, "CtrlCtrl" )    // Step down to CtrlCtrl
+   
+      // Add a CheckBox control as first control in grid. Map it the same as the first field, so there isn't an error on update.
+      CreateViewFromView( vControl2, vControl )     // vControl2 is pointing to first regular Control.
+      CreateMetaEntity( vControl, vControl, "Control", zPOS_BEFORE )
+      vControl.Control.Tag = szGridName + "Select"
+      vControl.Control.Text = "Sel"
+      SET CURSOR FIRST vPE.ControlDef WHERE vPE.ControlDef.Tag = "CheckBox"
+      INCLUDE vControl.ControlDef FROM vPE.ControlDef 
+      vControl.Control.PSDLG_X = 0
+      vControl.Control.PSDLG_Y = 0
+      vControl.Control.SZDLG_X = 15
+      vControl.Control.SZDLG_Y = 15
+      CurrentPOSX = 15
+      CreateMetaEntity( vControl, vControl, "CtrlMap", zPOS_BEFORE )
+      INCLUDE vControl.CtrlMapLOD_Attribute FROM vControl2.CtrlMapLOD_Attribute 
+      INCLUDE vControl.CtrlMapView          FROM vControl2.CtrlMapView 
+      DropView( vControl2 )
+      
+      // Change the ControlDef for each subcontrol.
+      SET CURSOR FIRST vPE.ControlDef WHERE vPE.ControlDef.Tag = "GridEditCtl"
+      Count = 0
+      FOR EACH vControl.Control 
+         Count = Count + 1
+         IF Count > 1    // We skip the first record we just created.
+            EXCLUDE vControl.ControlDef 
+            INCLUDE vControl.ControlDef FROM vPE.ControlDef 
+            vControl.Control.PSDLG_X = CurrentPOSX                  // Position is from determined from last iteration.
+            CurrentPOSX = CurrentPOSX + vControl.Control.SZDLG_X    // Increment position past length of Control.
+         END
+      END
+       
+      ResetViewFromSubobject( vControl )       // Step back up to Grid Control
+   END
+
+END

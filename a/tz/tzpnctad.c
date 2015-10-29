@@ -11097,6 +11097,33 @@ SEL_ATTR_GeneralSelectCancel( zVIEW vSubtask )
    return( 0 );
 } // SEL_ATTR_GeneralSelectCancel
 
+/*************************************************************************************************
+**    
+**    OPERATION: UPD_LISTBOX_ConvertToGrid
+**    
+*************************************************************************************************/
+zOPER_EXPORT zSHORT /*DIALOG */  OPERATION
+UPD_LISTBOX_ConvertToGrid( zVIEW vSubtask )
+{
+   zVIEW    vLOD;
+   zSHORT nRC;
+
+   GetViewByName( &vLOD, "TZCONTROL", vSubtask, zLEVEL_TASK );
+   nRC = oTZWDLGSO_ConvertListBoxToGrid( vLOD );
+   if ( nRC < 0 )
+   {
+      SetWindowActionBehavior( vSubtask, zWAB_StayOnWindow, "", "" );
+      return( -1 );
+   }
+   
+   // Accept the  temporal subobject and tell the Painter to refresh the control.
+   AcceptSubobject( vLOD, "Control" );
+   RepaintZeidonControl( vSubtask );
+
+   return( 0 );
+   
+} // UPD_LISTBOX_ConvertToGrid
+
 
 #ifdef __cplusplus
 }
