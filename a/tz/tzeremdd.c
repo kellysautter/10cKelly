@@ -11630,9 +11630,9 @@ zwTZEREMDD_UnselectCompEntries( zVIEW vSubtask )
 } // zwTZEREMDD_UnselectCompEntries
 
 /*************************************************************************************************
-**    
+**
 **    OPERATION: zwTZEREMDD_AnalyzeDuplicateZKeys
-**    
+**
 *************************************************************************************************/
 zOPER_EXPORT zSHORT /*DIALOG */  OPERATION
 zwTZEREMDD_AnalyzeDuplicateZKeys( zVIEW vSubtask )
@@ -11645,7 +11645,7 @@ zwTZEREMDD_AnalyzeDuplicateZKeys( zVIEW vSubtask )
    if ( GetViewByName( &vTZEREMDO, "TZEREMDO", vSubtask, zLEVEL_TASK ) == zLEVEL_TASK )
    {
       GetViewByName( &vTaskLPLR, "TaskLPLR", vSubtask, zLEVEL_TASK );
-      
+
       // Identify Entities that should not be part of duplicate check, since they are the same instances
       // of other Entities in the object.
       if ( CheckExistenceOfEntity( vTaskLPLR, "DuplicateCheckEntity" ) < 0 )
@@ -11662,7 +11662,7 @@ zwTZEREMDD_AnalyzeDuplicateZKeys( zVIEW vSubtask )
          CreateEntity( vTaskLPLR, "DuplicateCheckEntity", zPOS_AFTER );
          SetAttributeFromString( vTaskLPLR, "DuplicateCheckEntity", "EntityName", "ER_RelType" );
       }
-      
+
       // Go to check for duplicates.
       oTZCMLPLO_CheckOI_ForDupZKey( vTaskLPLR, vTZEREMDO, "EntpER_Model" );
    }
@@ -11914,9 +11914,9 @@ zwTZEREMDD_RebuildTablesRels( zVIEW vSubtask )
    zVIEW    vErrorList;
    zVIEW    vTE_Work;
    zSHORT   nRC;
-   zCHAR    szSystemApp[ 65 ] = { 0 }; 
-   zCHAR    szTranslateColumnUnderscore[ 2 ] = { 0 }; 
-   zCHAR    szLPLR_Name[ 33 ] = { 0 }; 
+   zCHAR    szSystemApp[ 65 ] = { 0 };
+   zCHAR    szTranslateColumnUnderscore[ 2 ] = { 0 };
+   zCHAR    szLPLR_Name[ 33 ] = { 0 };
    zCHAR    szER_UpdateFlag[ 2 ];
 
    // KJS 08/26/14 - I have copied this code from the TE. Unless I save the ER, this doesn't create the TE with the latest changes.
@@ -11930,7 +11930,7 @@ zwTZEREMDD_RebuildTablesRels( zVIEW vSubtask )
       if ( vDTE )
       {
          oTZTENVRO_SetFieldSequence( vDTE );
-         // KJS 08/25/14 - I'm not sure... do I need to do all of the following if I'm in the ER? 
+         // KJS 08/25/14 - I'm not sure... do I need to do all of the following if I'm in the ER?
          // not sure yet about the SetFieldSequence, not sure what that does.
          /*
          SetNameForView( vDTE, "TE_DB_Environ", vSubtask, zLEVEL_TASK );
@@ -11990,10 +11990,10 @@ zwTZEREMDD_RebuildTablesRels( zVIEW vSubtask )
       {
          return( -1 );
       }
-   
+
       // Sort Attributes in original sequence
       oTZTENVRO_SortFields( vDTE, vSubtask );
-   
+
       nRC = CommitMetaOI( vSubtask, vDTE, zSOURCE_DTE_META );
       if ( nRC < 0 )
       {
@@ -12005,10 +12005,10 @@ zwTZEREMDD_RebuildTablesRels( zVIEW vSubtask )
       else
       {
          // save XDM here in the future..................
-      } 
+      }
 
-      // KJS 08/26/14 - Do we want the following TZTEWRKO code???      
-   
+      // KJS 08/26/14 - Do we want the following TZTEWRKO code???
+
       // Save the ER if it was updated as a part of Identifier or Relationship
       // Syncronization.
       nRC = GetViewByName( &vTE_Work, "TZTEWRKO", vSubtask, zLEVEL_TASK );
@@ -12028,14 +12028,34 @@ zwTZEREMDD_RebuildTablesRels( zVIEW vSubtask )
 
       // KJS 08/26/14 - This is needed because of the oTZEREMDO_GetRefViewForER.
       DropMetaOI( vSubtask, vEMD );
-   
+
    }
 
    DropMetaOI( vSubtask, vDTE );
 
    return( 0 );
 }
-// ******************************************************
+
+/*************************************************************************************************
+**    
+**    OPERATION: GenerateZKeyDomains
+**    
+*************************************************************************************************/
+zOPER_EXPORT zSHORT /*DIALOG */  OPERATION
+GenerateZKeyDomains( zVIEW vSubtask )
+{
+   zVIEW  vTZEREMDO;
+   zSHORT nRC;
+
+   // Execute routine to convert ZKey Domains.
+   nRC = GetViewByName( &vTZEREMDO, "TZEREMDO", vSubtask, zLEVEL_TASK );
+   if ( nRC >= 0 )
+      oTZEREMDO_ConvertZKeyDomains( vTZEREMDO );
+      
+   return( 0 );
+
+} // GenerateZKeyDomains
+
 
 #ifdef __cplusplus
 }

@@ -1,4 +1,4 @@
-z1000-Zeidon    ZEIDON   TZZOXOGO 06/23/15   09:30:44 1.0a2    
+z1000-Zeidon    ZEIDON   TZZOXOGO 10/27/15   15:41:07 1.0a2    
 eTZZOXOGO  1
 aNAME      Zeidon
 
@@ -617,24 +617,20 @@ aNAME      TZCM_OPR
 aLANGUAGETYPE C
 
 eOPERATION 3
-aNAME      ActivateEmptyMetaOI
+aNAME      InitializeNextZKeyForObject
 aTYPE      G
 
 ePARAMETER 4
-aNAME      Subtask
+aNAME      ObjectView
 aDATATYPE  V
 
 ePARAMETER 4
-aNAME      ReturnView
-aDATATYPE  V
+aNAME      RootEntityName
+aDATATYPE  S
 
 ePARAMETER 4
-aNAME      MetaType
-aDATATYPE  N
-
-ePARAMETER 4
-aNAME      ControlFlag
-aDATATYPE  L
+aNAME      CurrentEntityName
+aDATATYPE  S
 
 eOPERATION 3
 aNAME      RebuildXDM

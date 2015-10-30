@@ -39,7 +39,7 @@ zgGetZeidonToolsDir( zVIEW  vSubtask,
 
 // DGC 10/17/95 -----------------------------------------------------------
 
-//start TZWDLGSO 2015.10.23 15:12:26
+//start TZWDLGSO 2015.10.27 10:23:10
 zOPER_EXPORT zSHORT OPERATION
 oTZWDLGSO_ConvertListBoxToGrid( zVIEW vViewToInstance0 );
 
@@ -184,7 +184,7 @@ oTZWDGRWO_ReInit( zVIEW vV10,
                   zVIEW vV21 );
 
 //end
-//start TZTENVRO 2015.07.04 10:58:33
+//start TZTENVRO 2015.10.27 10:26:42
 zOPER_EXPORT zSHORT OPERATION
 oTZTENVRO_SyncTablRecKey( zVIEW vvDTE0,
                           zVIEW vvERD1,
@@ -226,7 +226,7 @@ oTZTENVRO_Accept_FieldDataRelKey( zVIEW vViewtoInstance0,
                                   zSHORT nState3 );
 
 //end
-//start TZOGSRCO 2015.07.04 10:58:32
+//start TZOGSRCO 2015.10.27 15:16:45
 zOPER_EXPORT zSHORT OPERATION
 oTZOGSRCO_GlobalOperGrpMigrate( zVIEW vViewToInstance0,
                                 zPCHAR pchSourceGlobalOperGrou1,
@@ -243,7 +243,7 @@ zOPER_EXPORT zSHORT OPERATION
 oTZOGSRCO_GenerateXOG( zVIEW vViewToInstance0 );
 
 //end
-//start TZERSASO 2015.07.04 10:58:32
+//start TZERSASO 2015.10.27 15:19:35
 zOPER_EXPORT zSHORT OPERATION
 oTZERSASO_SA_Migrate( zPVIEW vViewToInstance0,
                       zPCHAR pchSourceSAMetaName1,
@@ -262,7 +262,7 @@ oTZERSASO_SA_RelinkDelete( zVIEW vViewToInstance0,
                            zVIEW vSubtask1 );
 
 //end
-//start TZDGSRCO 2015.07.04 10:58:31
+//start TZDGSRCO 2015.10.27 15:12:44
 zOPER_EXPORT zSHORT OPERATION
 oTZDGSRCO_DomainMigrate( zVIEW vViewToInstance0,
                          zPCHAR pchSourceDomainMetaName1,
@@ -305,7 +305,7 @@ oTZCMREPO_ObjectConstraints( zVIEW vViewtoInstance0,
                              zSHORT nState2 );
 
 //end
-//start TZADCSDO 2015.07.04 10:58:30
+//start TZADCSDO 2015.10.27 15:21:04
 zOPER_EXPORT zSHORT OPERATION
 oTZADCSDO_DS_RelinkDelete( zVIEW vViewToInstance0,
                            zVIEW vSubtask1 );
@@ -324,6 +324,12 @@ ActivateEmptyMetaOI( zVIEW vSubtask0,
                      zPVIEW vReturnView1,
                      zSHORT nMetaType2,
                      zLONG lControlFlag3 );
+//end
+//start TZCM_OPR 2015.10.27 15:41:07
+zOPER_EXPORT zSHORT OPERATION
+InitializeNextZKeyForObject( zVIEW vObjectView0,
+                             zPCHAR pchRootEntityName1,
+                             zPCHAR pchCurrentEntityName2 );
 
 zOPER_EXPORT zSHORT OPERATION
 RebuildXDM( zVIEW vvSubtask0 );
@@ -519,11 +525,14 @@ ActivateMetaOI( zVIEW vSubtask0,
                 zLONG lControlFlag4 );
 
 //end
-//start TZEREMDO 2015.07.04 10:58:32
+//start TZEREMDO 2015.10.27 10:27:16
 zOPER_EXPORT zSHORT OPERATION
 oTZEREMDO_ImportADW_Model( zVIEW vViewToInstance0,
                            zVIEW vADWWorkObject1,
                            zVIEW vSubtask2 );
+
+zOPER_EXPORT zSHORT OPERATION
+oTZEREMDO_ConvertZKeyDomains( zVIEW vViewToInstance0 );
 
 zOPER_EXPORT zSHORT OPERATION
 oTZEREMDO_AttributeConstraints( zVIEW vViewtoInstance0,
@@ -846,7 +855,7 @@ Exec_ResumeFromDebugger( zVIEW vView0,
 //end
 
 
-//start TZRPSRCO 2015.07.04 10:58:33
+//start TZRPSRCO 2015.10.27 15:10:40
 zOPER_EXPORT zSHORT OPERATION
 oTZRPSRCO_AutodesignReport( zVIEW vViewToInstance0,
                             zVIEW vvUserSpec1,
@@ -1070,7 +1079,7 @@ oTZ__PRFO_GetViewToProfile( zPVIEW vViewToInstance0,
                             zSHORT nCurrentOrReloadFlag3 );
 
 //end
-//start TZZOLODO 2015.07.04 10:58:34
+//start TZZOLODO 2015.10.27 10:24:11
 zOPER_EXPORT zSHORT OPERATION
 oTZZOLODO_ParseDerivedExpr( zVIEW vViewToInstance0,
                             zVIEW vWindowsubtask1 );
@@ -1333,7 +1342,7 @@ CreateSironWorkObjectList( zPCHAR pchDirecoryPathforSironwo0,
 
 //end
 
-//start TZPESRCO 2015.07.04 10:58:32
+//start TZPESRCO 2015.10.27 15:20:39
 zOPER_EXPORT zSHORT OPERATION
 oTZPESRCO_MigratePPE( zPVIEW vViewToInstance0,
                       zVIEW vSourceLPLR1,
@@ -1700,7 +1709,7 @@ CreateTabIndexString( zVIEW vDialog0,
                       zPCHAR pchTabIndex1 );
 
 //end
-//start TZWEBGL4 2015.10.20 16:45:24
+//start TZWEBGL4 2014.04.16 15:04:41
 zOPER_EXPORT zSHORT OPERATION
 BuildSideNavSectionJ( zVIEW vvDialog0,
                       zVIEW vvDialogRoot1,

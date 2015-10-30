@@ -2316,9 +2316,6 @@ zwTZZOLODD_SaveLOD( zVIEW vSubtask )
          if ( CheckExistenceOfEntity( vLOD, "TE_DBMS_Source" ) >= zCURSOR_SET )
          {
             SetCursorFirstEntity( vLOD, "TE_DBMS_Source", 0 );
-            // Force the ZKey from the TE_DBMS_Source since the old one doesn't exist in TE.
-            SetAttributeFromAttribute( vLOD, "POD", "TE_SourceZKey",
-                                       vTE,  "TE_DBMS_Source", "ZKey" );
             /*nRC = SetCursorNextEntity( vLOD, "TE_DBMS_Source", 0 );
             if ( nRC < zCURSOR_SET )
             {

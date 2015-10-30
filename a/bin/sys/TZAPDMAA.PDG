@@ -1,4 +1,4 @@
-z1000-Zeidon    TZAPDMAA TZDGSRCO 11/15/13   20:50:46 1.0a2    
+z1000-Zeidon    TZAPDMAA TZDGSRCO 10/23/15   15:16:43 1.0a2    
 eDomainGroup 1
 aZKey      90000023
 aName      TZAPDMAA
@@ -7,11 +7,11 @@ aLanguageType C
 aDomainAndGlobalOpGroupName TZAPDMAA
 
 eDomain    2
-aJavaClass com.quinsoft.zeidon.domains.StringDomain
 aZKey      90000028
 aName      AlphaNumeric
 aDesc      Characters 'a-z', 'A-Z', '0-9'
 aDomainType E
+aJavaClass com.quinsoft.zeidon.domains.StringDomain
 aDataType  S
 aMaxStringLth 254
 aContextRestriction N
@@ -29,11 +29,24 @@ aDesc      Characters 'a-z', 'A-Z', '0-9'
 aType      M
 
 eDomain    2
-aJavaClass com.quinsoft.zeidon.domains.StringDomain
+aZKey      110003499
+aName      ZKey
+aDomainType E
+aJavaClass com.quinsoft.zeidon.domains.StaticTableDomain
+aDataType  L
+aContextRestriction N
+
+eContext   3
+aZKey      110003500
+aName      ZKey
+aIsDefault Y
+
+eDomain    2
 aZKey      1158059
 aName      Note
 aDesc      10000 byte string
 aDomainType E
+aJavaClass com.quinsoft.zeidon.domains.StringDomain
 aDataType  S
 aMaxStringLth 10000
 aContextRestriction N
@@ -44,11 +57,11 @@ aName      Note
 aIsDefault Y
 
 eDomain    2
-aJavaClass com.quinsoft.zeidon.domains.StringDomain
 aZKey      1084699
 aName      PasswordUL
 aDesc      Password in Upper and Lower case
 aDomainType A
+aJavaClass com.quinsoft.zeidon.domains.StringDomain
 aDataType  S
 aMaxStringLth 32
 aContextRestriction N
@@ -64,11 +77,11 @@ aZKey      1084733
 aType      M
 
 eDomain    2
-aJavaClass com.quinsoft.zeidon.domains.StaticTableDomain
 aZKey      1005026
 aName      XRA_YNA
 aDesc      Yes/No/All
 aDomainType T
+aJavaClass com.quinsoft.zeidon.domains.StaticTableDomain
 aDataType  S
 aMaxStringLth 1
 aContextRestriction N
@@ -97,11 +110,11 @@ aExternalValue Y
 aInternalValue Y
 
 eDomain    2
-aJavaClass com.quinsoft.zeidon.domains.StringDomain
 aZKey      1178141
 aName      XRA_Text
 aDesc      Double ^ to ^^ and modify & to ^
 aDomainType A
+aJavaClass com.quinsoft.zeidon.domains.StringDomain
 aDataType  S
 aMaxStringLth 65534
 aContextRestriction N
@@ -112,11 +125,11 @@ aName      XRA_Text
 aIsDefault Y
 
 eDomain    2
-aJavaClass com.quinsoft.zeidon.domains.StringDomain
 aZKey      1178138
 aName      XRA_Tag
 aDesc      Double ^ to ^^and modify & to ^
 aDomainType A
+aJavaClass com.quinsoft.zeidon.domains.StringDomain
 aDataType  S
 aMaxStringLth 32
 aContextRestriction N
@@ -127,11 +140,11 @@ aName      XRA_Tag
 aIsDefault Y
 
 eDomain    2
-aJavaClass com.quinsoft.zeidon.domains.StringDomain
 aZKey      1165598
 aName      QSFullPathName
 aDesc      Construct full path expanding embedded environment variables to their value.
 aDomainType E
+aJavaClass com.quinsoft.zeidon.domains.StringDomain
 aDataType  S
 aMaxStringLth 260
 aContextRestriction N
@@ -153,11 +166,11 @@ aDesc      Construct full path name expanding embedded environment strings
 aType      M
 
 eDomain    2
-aJavaClass com.quinsoft.zeidon.domains.StringDomain
 aZKey      90145848
 aName      MetaName
 aDesc      Name of a meta object (ie., LOD, Dialog, Report)
 aDomainType E
+aJavaClass com.quinsoft.zeidon.domains.StringDomain
 aDataType  S
 aMaxStringLth 32
 aContextRestriction N
@@ -175,11 +188,11 @@ aType      M
 aReturnDataType N
 
 eDomain    2
-aJavaClass com.quinsoft.zeidon.domains.StringDomain
 aZKey      90000030
 aName      Description
 aDesc      Standard Zeidon Description
 aDomainType E
+aJavaClass com.quinsoft.zeidon.domains.StringDomain
 aDataType  S
 aMaxStringLth 32000
 aContextRestriction N
@@ -197,11 +210,11 @@ aType      M
 aReturnDataType N
 
 eDomain    2
-aJavaClass com.quinsoft.zeidon.domains.StringDomain
 aZKey      90000032
 aName      Text
 aDesc      Any Character String
 aDomainType E
+aJavaClass com.quinsoft.zeidon.domains.StringDomain
 aDataType  S
 aMaxStringLth 254
 aContextRestriction N
@@ -219,11 +232,11 @@ aType      M
 aReturnDataType N
 
 eDomain    2
-aJavaClass com.quinsoft.zeidon.domains.StringDomain
 aZKey      90000034
 aName      QSNameUpper
 aDesc      Characters 'a-z', 'A-Z', '0-9'
 aDomainType E
+aJavaClass com.quinsoft.zeidon.domains.StringDomain
 aDataType  S
 aMaxStringLth 32
 aContextRestriction N
@@ -242,11 +255,11 @@ aType      M
 aReturnDataType N
 
 eDomain    2
-aJavaClass com.quinsoft.zeidon.domains.StringDomain
 aZKey      90000036
 aName      QSNameLJNS
 aDesc      QuinSoft Name - left justified, no spaces
 aDomainType E
+aJavaClass com.quinsoft.zeidon.domains.StringDomain
 aDataType  S
 aMaxStringLth 32
 aContextRestriction N
@@ -259,11 +272,11 @@ aIsDefault Y
 eSelectedOperation 3
 
 eDomain    2
-aJavaClass com.quinsoft.zeidon.domains.StringDomain
 aZKey      90000038
 aName      QSName
 aDesc      QuinSoft Name
 aDomainType E
+aJavaClass com.quinsoft.zeidon.domains.StringDomain
 aDataType  S
 aMaxStringLth 32
 aContextRestriction N
@@ -276,11 +289,11 @@ aIsDefault Y
 eSelectedOperation 3
 
 eDomain    2
-aJavaClass com.quinsoft.zeidon.domains.StringDomain
 aZKey      90000040
 aName      QSFileName
 aDesc      QuinSoft File Name - 32 chars
 aDomainType E
+aJavaClass com.quinsoft.zeidon.domains.StringDomain
 aDataType  S
 aMaxStringLth 32
 aContextRestriction N
@@ -298,11 +311,11 @@ aType      M
 aReturnDataType N
 
 eDomain    2
-aJavaClass com.quinsoft.zeidon.domains.StringDomain
 aZKey      90000042
 aName      Password
 aDesc      Encrypted password
 aDomainType A
+aJavaClass com.quinsoft.zeidon.domains.StringDomain
 aDataType  S
 aMaxStringLth 9
 aContextRestriction N
@@ -320,11 +333,11 @@ aType      M
 aReturnDataType N
 
 eDomain    2
-aJavaClass com.quinsoft.zeidon.domains.IntegerDomain
 aZKey      90000044
 aName      Integer
 aDesc      Integer numbers from -lots to +lots.
 aDomainType E
+aJavaClass com.quinsoft.zeidon.domains.IntegerDomain
 aDataType  L
 aMaxStringLth 4
 aContextRestriction N
@@ -448,9 +461,9 @@ aName      TZAPDMAA
 aZKey      90000023
 aType      13
 
-i37        25
-i40        25
-i61        8
-i67        25
-i69        22
-i70        3
+i39        27
+i42        27
+i63        10
+i69        27
+i71        24
+i72        3

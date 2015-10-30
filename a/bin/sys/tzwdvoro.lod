@@ -1,4 +1,4 @@
-z1000-Zeidon    TZWDVORO TZZOLODO 02/15/12   10:40:34 1.0b0    
+z1000-Zeidon    TZWDVORO TZZOLODO 10/27/15   15:20:11 1.0b0    
 eLOD       1
 aZKey      1326496
 aName      TZWDVORO
@@ -107,12 +107,12 @@ aPromptPaintLit LOD Name
 aListPaintLit LOD Name
 
 eDomainRec 6
-aZKey      90145848
-aName      MetaName
+aZKey      90000038
+aName      QSName
 aDomainType E
 aDataType  S
-aMaxStringLth 8
-aDesc      Name of a meta object (ie., LOD, Dialog, Report)
+aMaxStringLth 32
+aDesc      QuinSoft Name
 aContextRestriction N
 
 eLOD_AttributeRec 4
@@ -326,6 +326,18 @@ aDesc      Key (auto via meta)
 eDomainRec 5
 
 eLOD_AttributeRec 3
+aZKey      110003542
+aWork      Y
+aUpdate    Y
+aSeqOrder  Y
+
+eER_AttributeRec 4
+aName      NextZKeyToAssign
+aZKey      110003543
+
+eDomainRec 5
+
+eLOD_AttributeRec 3
 aZKey      1326512
 aWork      Y
 aUpdate    Y
@@ -391,7 +403,7 @@ aER_DiagramPosX 628
 aER_DiagramPosY 140
 
 eLOD_Entity 2
-awkSelectedAttributeForDragSort 5
+awkSelectedAttributeForDragSort 1
 
 eLOD_Attribute 3
 awkSequence 1
@@ -423,6 +435,13 @@ eDomain    5
 
 eLOD_Attribute 3
 awkSequence 5
+
+eER_Attribute 4
+
+eDomain    5
+
+eLOD_Attribute 3
+awkSequence 6
 
 eER_Attribute 4
 
@@ -535,62 +554,66 @@ i30        8
 i33        8
 i36        14
 i42        5
-i45        8
-i48        21
-i51        14
-i54        5
-i56        1
-i57        40
-i58        41
-i59        5
-i60        43
-i61        44
-i62        8
-i63        46
-i64        47
-i65        21
-i66        49
-i67        50
-i68        14
-i69        52
-i70        53
-i71        5
-i72        55
-i73        2
-i74        3
-i75        4
-i76        5
-i77        6
-i78        7
-i79        8
-i80        9
-i81        10
-i82        11
-i83        12
-i84        13
-i85        14
-i86        15
-i87        16
-i88        17
-i89        18
-i90        19
-i91        20
-i92        21
-i93        22
-i94        23
-i95        5
-i96        25
-i97        26
-i98        27
-i99        28
-i100       29
-i101       8
-i102       31
-i103       32
-i104       8
-i105       34
-i106       35
-i107       14
-i108       37
-i109       38
-i110       39
+i45        5
+i48        8
+i51        21
+i54        14
+i57        5
+i59        1
+i60        40
+i61        41
+i62        5
+i63        43
+i64        44
+i65        5
+i66        46
+i67        47
+i68        8
+i69        49
+i70        50
+i71        21
+i72        52
+i73        53
+i74        14
+i75        55
+i76        56
+i77        5
+i78        58
+i79        2
+i80        3
+i81        4
+i82        5
+i83        6
+i84        7
+i85        8
+i86        9
+i87        10
+i88        11
+i89        12
+i90        13
+i91        14
+i92        15
+i93        16
+i94        17
+i95        18
+i96        19
+i97        20
+i98        21
+i99        22
+i100       23
+i101       5
+i102       25
+i103       26
+i104       27
+i105       28
+i106       29
+i107       8
+i108       31
+i109       32
+i110       8
+i111       34
+i112       35
+i113       14
+i114       37
+i115       38
+i116       39

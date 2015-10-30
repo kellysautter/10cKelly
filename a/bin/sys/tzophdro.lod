@@ -1,4 +1,4 @@
-z10000Zeidon    TZOPHDRO TZZOLODO 05/01/01   23:19:03 1.0b0    
+z1000-Zeidon    TZOPHDRO TZZOLODO 10/27/15   15:19:11 1.0b0    
 eLOD       1
 aZKey      1329019
 aName      TZOPHDRO
@@ -138,10 +138,10 @@ aER_DiagramPosY 294
 
 eER_RelLinkRec 4
 aName      has
+aAutoSeq   Y
 aZKey      1322182
 aCardMin   0
 aCardMax   m
-aAutoSeq   Y
 
 eER_RelTypeRec 5
 aZKey      1322180
@@ -287,10 +287,10 @@ aER_PortFactor 2
 
 eER_RelLinkRec 4
 aName      is a
+aAutoSeq   N
 aZKey      1322080
 aCardMin   0
 aCardMax   1
-aAutoSeq   N
 
 eER_RelTypeRec 5
 aZKey      1322078
@@ -309,7 +309,6 @@ aSeqNo_LOD_Entity 1
 eER_AttributeRec 4
 aName      Name
 aZKey      1320953
-aLth       8
 aNotNull   Y
 aDesc      File Name ( 8 chars )
 
@@ -318,7 +317,7 @@ aZKey      90000040
 aName      QSFileName
 aDomainType E
 aDataType  S
-aMaxStringLth 8
+aMaxStringLth 32
 aDesc      QuinSoft File Name - 32 chars
 aContextRestriction N
 
@@ -331,6 +330,18 @@ aName      ZKey
 aZKey      1320954
 aKey       Y
 aNotNull   Y
+
+eDomainRec 5
+
+eLOD_AttributeRec 3
+aZKey      110003538
+aWork      Y
+aUpdate    Y
+aSeqOrder  Y
+
+eER_AttributeRec 4
+aName      NextZKeyToAssign
+aZKey      110003539
 
 eDomainRec 5
 
@@ -401,38 +412,52 @@ aER_DiagramPosX 650
 aER_DiagramPosY 278
 
 eLOD_Entity 2
+awkSelectedAttributeForDragSort 2
 
 eLOD_Attribute 3
+awkSequence 1
 
 eER_Attribute 4
 
 eDomain    5
 
 eLOD_Attribute 3
+awkSequence 2
 
 eER_Attribute 4
 
 eDomain    5
 
 eLOD_Attribute 3
+awkSequence 3
 
 eER_Attribute 4
 
 eDomain    5
 
 eLOD_Attribute 3
+awkSequence 4
 
 eER_Attribute 4
 
 eDomain    5
 
 eLOD_Attribute 3
+awkSequence 5
 
 eER_Attribute 4
 
 eDomain    5
 
 eLOD_Attribute 3
+awkSequence 6
+
+eER_Attribute 4
+
+eDomain    5
+
+eLOD_Attribute 3
+awkSequence 7
 
 eER_Attribute 4
 
@@ -443,30 +468,35 @@ eER_Entity 3
 eLOD_Entity 2
 
 eLOD_Attribute 3
+awkSequence 1
 
 eER_Attribute 4
 
 eDomain    5
 
 eLOD_Attribute 3
+awkSequence 2
 
 eER_Attribute 4
 
 eDomain    5
 
 eLOD_Attribute 3
+awkSequence 3
 
 eER_Attribute 4
 
 eDomain    5
 
 eLOD_Attribute 3
+awkSequence 4
 
 eER_Attribute 4
 
 eDomain    5
 
 eLOD_Attribute 3
+awkSequence 5
 
 eER_Attribute 4
 
@@ -481,36 +511,42 @@ eER_RelType 4
 eLOD_Entity 2
 
 eLOD_Attribute 3
+awkSequence 1
 
 eER_Attribute 4
 
 eDomain    5
 
 eLOD_Attribute 3
+awkSequence 2
 
 eER_Attribute 4
 
 eDomain    5
 
 eLOD_Attribute 3
+awkSequence 3
 
 eER_Attribute 4
 
 eDomain    5
 
 eLOD_Attribute 3
+awkSequence 4
 
 eER_Attribute 4
 
 eDomain    5
 
 eLOD_Attribute 3
+awkSequence 5
 
 eER_Attribute 4
 
 eDomain    5
 
 eLOD_Attribute 3
+awkSequence 6
 
 eER_Attribute 4
 
@@ -542,67 +578,71 @@ i24        5
 i27        8
 i36        33
 i48        8
-i51        33
-i54        39
-i60        5
-i62        1
-i63        43
-i64        44
-i65        45
-i66        46
-i67        47
-i68        8
-i69        49
-i70        50
-i71        33
-i72        52
-i73        53
-i74        39
-i75        55
-i76        56
-i77        57
-i78        58
-i79        59
-i80        5
-i81        61
-i82        2
-i83        3
-i84        4
-i85        5
-i86        6
-i87        7
-i88        8
-i89        9
-i90        10
+i51        8
+i54        33
+i57        39
+i63        5
+i65        1
+i66        43
+i67        44
+i68        45
+i69        46
+i70        47
+i71        8
+i72        49
+i73        50
+i74        8
+i75        52
+i76        53
+i77        33
+i78        55
+i79        56
+i80        39
+i81        58
+i82        59
+i83        60
+i84        61
+i85        62
+i86        5
+i87        64
+i88        2
+i89        3
+i90        4
 i91        5
-i92        12
-i93        13
-i94        14
-i95        15
-i96        16
-i97        8
-i98        18
-i99        19
-i100       20
-i101       21
-i102       22
-i103       23
-i104       5
-i105       25
-i106       26
-i107       8
-i108       28
-i109       29
-i110       30
-i111       31
-i112       32
-i113       33
-i114       34
-i115       35
-i116       33
-i117       37
-i118       38
-i119       39
-i120       40
-i121       41
-i122       42
+i92        6
+i93        7
+i94        8
+i95        9
+i96        10
+i97        5
+i98        12
+i99        13
+i100       14
+i101       15
+i102       16
+i103       8
+i104       18
+i105       19
+i106       20
+i107       21
+i108       22
+i109       23
+i110       5
+i111       25
+i112       26
+i113       8
+i114       28
+i115       29
+i116       30
+i117       31
+i118       32
+i119       33
+i120       34
+i121       35
+i122       33
+i123       37
+i124       38
+i125       39
+i126       40
+i127       41
+i128       42

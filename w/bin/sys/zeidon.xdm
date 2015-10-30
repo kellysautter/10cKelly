@@ -1,4 +1,4 @@
-z1000-Zeidon    ZEIDON   TZDMXGPO 07/10/15   13:12:03 1.0a2    
+z1000-Zeidon    ZEIDON   TZDMXGPO 10/23/15   15:16:43 1.0a2    
 eDomainGroup 1
 aName      Zeidon9B
 
@@ -7367,4 +7367,17 @@ eTableEntry 4
 aZKey      1320620
 aExternalValue ShortcutKey Operation
 aInternalValue K
+
+eDomain    2
+aJavaClass com.quinsoft.zeidon.domains.StaticTableDomain
+aZKey      110003499
+aName      ZKey
+aDomainType E
+aDataType  L
+aContextRestriction N
+
+eContext   3
+aZKey      110003500
+aName      ZKey
+aIsDefault Y
 

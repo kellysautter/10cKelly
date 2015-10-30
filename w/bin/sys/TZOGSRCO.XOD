@@ -1,4 +1,4 @@
-z1000-Zeidon    TZOGSRCO TZZOXODO 07/04/15   10:58:32 1.0a2    
+z1000-Zeidon    TZOGSRCO TZZOXODO 10/27/15   15:16:45 1.0a2    
 eOBJECT    1
 aNAME      TZOGSRCO
 aZKey      1326765
@@ -7,7 +7,7 @@ aER_DATE   20150703165717558
 
 eENTITY    2
 aNAME      GlobalOperationGroup
-aMAX_LTH   32348
+aMAX_LTH   32359
 aERENT_TOK 1321276
 aFULLPERSIST Y
 aCREATE    Y
@@ -30,6 +30,17 @@ aUPDATE    Y
 aXVAATT_TOK 1
 
 eATTRIB    3
+aNAME      NextZKeyToAssign
+aERATT_TOK 110003537
+aAPDM_TOK  90000044
+aDOMAIN    Integer
+aTYPE      L
+aLTH       4
+aSEQ_AD    Y
+aUPDATE    Y
+aXVAATT_TOK 2
+
+eATTRIB    3
 aNAME      Name
 aERATT_TOK 1321278
 aPERSIST   Y
@@ -39,7 +50,7 @@ aTYPE      S
 aLTH       32
 aREQUIRED  Y
 aUPDATE    Y
-aXVAATT_TOK 2
+aXVAATT_TOK 3
 
 eATTRIB    3
 aNAME      Desc
@@ -50,7 +61,7 @@ aDOMAIN    Description
 aTYPE      S
 aLTH       32000
 aUPDATE    Y
-aXVAATT_TOK 3
+aXVAATT_TOK 4
 
 eATTRIB    3
 aNAME      Extension
@@ -61,7 +72,7 @@ aDOMAIN    AlphaNumeric
 aTYPE      S
 aLTH       254
 aUPDATE    Y
-aXVAATT_TOK 4
+aXVAATT_TOK 5
 
 eATTRIB    3
 aNAME      CM_Managed
@@ -72,7 +83,7 @@ aDOMAIN    Text
 aTYPE      S
 aLTH       1
 aUPDATE    Y
-aXVAATT_TOK 5
+aXVAATT_TOK 6
 
 eATTRIB    3
 aNAME      OwnerType
@@ -83,7 +94,7 @@ aDOMAIN    Text
 aTYPE      S
 aLTH       1
 aUPDATE    Y
-aXVAATT_TOK 6
+aXVAATT_TOK 7
 
 eATTRIB    3
 aNAME      LanguageType
@@ -94,7 +105,7 @@ aDOMAIN    LanguageType
 aTYPE      S
 aLTH       1
 aUPDATE    Y
-aXVAATT_TOK 7
+aXVAATT_TOK 8
 
 eATTRIB    3
 aNAME      Subdirectory
@@ -105,7 +116,7 @@ aDOMAIN    Text
 aTYPE      S
 aLTH       32
 aUPDATE    Y
-aXVAATT_TOK 8
+aXVAATT_TOK 9
 
 eATTRIB    3
 aNAME      DomainAndGlobalOpGroupName
@@ -116,7 +127,7 @@ aDOMAIN    QSFileName
 aTYPE      S
 aLTH       8
 aUPDATE    Y
-aXVAATT_TOK 9
+aXVAATT_TOK 10
 
 eCHILDENTITY 3
 aNAME      Operation
@@ -142,7 +153,7 @@ aTYPE      S
 aLTH       32
 aREQUIRED  Y
 aUPDATE    Y
-aXVAATT_TOK 10
+aXVAATT_TOK 11
 
 eATTRIB    4
 aNAME      ZKey
@@ -155,7 +166,7 @@ aLTH       4
 aKEY       Y
 aREQUIRED  Y
 aUPDATE    Y
-aXVAATT_TOK 11
+aXVAATT_TOK 12
 
 eATTRIB    4
 aNAME      Desc
@@ -166,7 +177,7 @@ aDOMAIN    Description
 aTYPE      S
 aLTH       32000
 aUPDATE    Y
-aXVAATT_TOK 12
+aXVAATT_TOK 13
 
 eATTRIB    4
 aNAME      Type
@@ -178,7 +189,7 @@ aTYPE      S
 aLTH       1
 aREQUIRED  Y
 aUPDATE    Y
-aXVAATT_TOK 13
+aXVAATT_TOK 14
 
 eATTRIB    4
 aNAME      ReturnDesc
@@ -189,7 +200,7 @@ aDOMAIN    Text
 aTYPE      S
 aLTH       64
 aUPDATE    Y
-aXVAATT_TOK 14
+aXVAATT_TOK 15
 
 eATTRIB    4
 aNAME      ReturnDataType
@@ -200,7 +211,7 @@ aDOMAIN    DataType3GL
 aTYPE      S
 aLTH       1
 aUPDATE    Y
-aXVAATT_TOK 15
+aXVAATT_TOK 16
 
 eATTRIB    4
 aNAME      OrdinalValue
@@ -211,7 +222,7 @@ aDOMAIN    Integer
 aTYPE      L
 aLTH       4
 aUPDATE    Y
-aXVAATT_TOK 16
+aXVAATT_TOK 17
 
 eATTRIB    4
 aNAME      Class
@@ -222,7 +233,7 @@ aDOMAIN    Integer
 aTYPE      L
 aLTH       4
 aUPDATE    Y
-aXVAATT_TOK 17
+aXVAATT_TOK 18
 
 eATTRIB    4
 aNAME      DoNotMergeFlag
@@ -233,7 +244,7 @@ aTYPE      S
 aLTH       1
 aSEQ_AD    Y
 aUPDATE    Y
-aXVAATT_TOK 18
+aXVAATT_TOK 19
 
 eATTRIB    4
 aNAME      ThrowsException
@@ -244,7 +255,7 @@ aDOMAIN    Y/N
 aTYPE      S
 aLTH       1
 aUPDATE    Y
-aXVAATT_TOK 19
+aXVAATT_TOK 20
 
 eATTRIB    4
 aNAME      ThrowsExceptionCatchCode
@@ -255,7 +266,7 @@ aDOMAIN    Text
 aTYPE      S
 aLTH       254
 aUPDATE    Y
-aXVAATT_TOK 20
+aXVAATT_TOK 21
 
 eATTRIB    4
 aNAME      GenerationType
@@ -266,7 +277,7 @@ aDOMAIN    OperationGenerationType
 aTYPE      S
 aLTH       1
 aHIDDEN    Y
-aXVAATT_TOK 21
+aXVAATT_TOK 22
 
 eATTRIB    4
 aNAME      DoNotMergeFlag
@@ -277,7 +288,7 @@ aDOMAIN    Y/N
 aTYPE      S
 aLTH       1
 aHIDDEN    Y
-aXVAATT_TOK 22
+aXVAATT_TOK 23
 
 eCHILDENTITY 4
 aNAME      Parameter
@@ -308,7 +319,7 @@ aTYPE      S
 aLTH       64
 aREQUIRED  Y
 aUPDATE    Y
-aXVAATT_TOK 23
+aXVAATT_TOK 24
 
 eATTRIB    5
 aNAME      DataType
@@ -320,7 +331,7 @@ aTYPE      S
 aLTH       1
 aREQUIRED  Y
 aUPDATE    Y
-aXVAATT_TOK 24
+aXVAATT_TOK 25
 
 eATTRIB    5
 aNAME      PFlag
@@ -331,7 +342,7 @@ aDOMAIN    Y/N
 aTYPE      S
 aLTH       1
 aUPDATE    Y
-aXVAATT_TOK 25
+aXVAATT_TOK 26
 
 eATTRIB    5
 aNAME      UFlag
@@ -342,7 +353,7 @@ aDOMAIN    Y/N
 aTYPE      S
 aLTH       1
 aUPDATE    Y
-aXVAATT_TOK 26
+aXVAATT_TOK 27
 
 eATTRIB    5
 aNAME      ZKey
@@ -355,7 +366,7 @@ aLTH       4
 aKEY       Y
 aREQUIRED  Y
 aUPDATE    Y
-aXVAATT_TOK 27
+aXVAATT_TOK 28
 
 eATTRIB    5
 aNAME      SeqNo
@@ -366,7 +377,7 @@ aDOMAIN    Integer
 aTYPE      L
 aLTH       4
 aUPDATE    Y
-aXVAATT_TOK 28
+aXVAATT_TOK 29
 
 eCHILDENTITY 3
 aNAME      Z_MetaDef
@@ -392,7 +403,7 @@ aTYPE      S
 aLTH       32
 aREQUIRED  Y
 aUPDATE    Y
-aXVAATT_TOK 29
+aXVAATT_TOK 30
 
 eATTRIB    4
 aNAME      ZKey
@@ -405,7 +416,7 @@ aLTH       4
 aKEY       Y
 aREQUIRED  Y
 aUPDATE    Y
-aXVAATT_TOK 30
+aXVAATT_TOK 31
 
 eATTRIB    4
 aNAME      Type
@@ -417,7 +428,7 @@ aTYPE      L
 aLTH       4
 aREQUIRED  Y
 aUPDATE    Y
-aXVAATT_TOK 31
+aXVAATT_TOK 32
 
 eATTRIB    4
 aNAME      LastUpdateDate
@@ -428,7 +439,7 @@ aDOMAIN    DateTime
 aTYPE      T
 aLTH       6
 aUPDATE    Y
-aXVAATT_TOK 32
+aXVAATT_TOK 33
 
 eATTRIB    4
 aNAME      LastCheckInDate
@@ -439,7 +450,7 @@ aDOMAIN    DateTime
 aTYPE      T
 aLTH       6
 aUPDATE    Y
-aXVAATT_TOK 33
+aXVAATT_TOK 34
 
 eATTRIB    4
 aNAME      Desc
@@ -450,5 +461,5 @@ aDOMAIN    Description
 aTYPE      S
 aLTH       32000
 aUPDATE    Y
-aXVAATT_TOK 34
+aXVAATT_TOK 35
 

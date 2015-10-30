@@ -1,4 +1,4 @@
-z1000-Zeidon    TZOPHDRO TZZOXODO 07/04/15   10:58:32 1.0a2    
+z1000-Zeidon    TZOPHDRO TZZOXODO 10/27/15   15:19:11 1.0a2    
 eOBJECT    1
 aNAME      TZOPHDRO
 aZKey      1329019
@@ -7,7 +7,7 @@ aER_DATE   20150703165717558
 
 eENTITY    2
 aNAME      HeaderFile
-aMAX_LTH   32196
+aMAX_LTH   32207
 aERENT_TOK 1320952
 aFULLPERSIST Y
 aCREATE    Y
@@ -42,6 +42,17 @@ aUPDATE    Y
 aXVAATT_TOK 2
 
 eATTRIB    3
+aNAME      NextZKeyToAssign
+aERATT_TOK 110003539
+aAPDM_TOK  90000044
+aDOMAIN    Integer
+aTYPE      L
+aLTH       4
+aSEQ_AD    Y
+aUPDATE    Y
+aXVAATT_TOK 3
+
+eATTRIB    3
 aNAME      LastSyncDate
 aERATT_TOK 1329038
 aAPDM_TOK  90000089
@@ -49,7 +60,7 @@ aDOMAIN    DateTime
 aTYPE      T
 aLTH       6
 aUPDATE    Y
-aXVAATT_TOK 3
+aXVAATT_TOK 4
 
 eATTRIB    3
 aNAME      Desc
@@ -60,7 +71,7 @@ aDOMAIN    Description
 aTYPE      S
 aLTH       32000
 aUPDATE    Y
-aXVAATT_TOK 4
+aXVAATT_TOK 5
 
 eATTRIB    3
 aNAME      Extension
@@ -71,7 +82,7 @@ aDOMAIN    AlphaNumeric
 aTYPE      S
 aLTH       3
 aUPDATE    Y
-aXVAATT_TOK 5
+aXVAATT_TOK 6
 
 eATTRIB    3
 aNAME      FileSpec
@@ -80,7 +91,7 @@ aAPDM_TOK  90000032
 aDOMAIN    Text
 aTYPE      S
 aLTH       128
-aXVAATT_TOK 6
+aXVAATT_TOK 7
 
 eCHILDENTITY 3
 aNAME      DefinedItem
@@ -105,7 +116,7 @@ aDOMAIN    Text
 aTYPE      S
 aLTH       64
 aUPDATE    Y
-aXVAATT_TOK 7
+aXVAATT_TOK 8
 
 eATTRIB    4
 aNAME      ZKey
@@ -118,7 +129,7 @@ aLTH       4
 aKEY       Y
 aREQUIRED  Y
 aUPDATE    Y
-aXVAATT_TOK 8
+aXVAATT_TOK 9
 
 eATTRIB    4
 aNAME      InternalValue
@@ -129,7 +140,7 @@ aDOMAIN    Text
 aTYPE      S
 aLTH       254
 aUPDATE    Y
-aXVAATT_TOK 9
+aXVAATT_TOK 10
 
 eATTRIB    4
 aNAME      DataType
@@ -140,7 +151,7 @@ aDOMAIN    DataType3GL
 aTYPE      S
 aLTH       1
 aUPDATE    Y
-aXVAATT_TOK 10
+aXVAATT_TOK 11
 
 eATTRIB    4
 aNAME      SeqNo
@@ -152,7 +163,7 @@ aTYPE      L
 aLTH       4
 aSEQUENCING 16
 aUPDATE    Y
-aXVAATT_TOK 11
+aXVAATT_TOK 12
 
 eCHILDENTITY 3
 aNAME      Z_MetaDef
@@ -178,7 +189,7 @@ aTYPE      S
 aLTH       32
 aREQUIRED  Y
 aUPDATE    Y
-aXVAATT_TOK 12
+aXVAATT_TOK 13
 
 eATTRIB    4
 aNAME      ZKey
@@ -191,7 +202,7 @@ aLTH       4
 aKEY       Y
 aREQUIRED  Y
 aUPDATE    Y
-aXVAATT_TOK 13
+aXVAATT_TOK 14
 
 eATTRIB    4
 aNAME      Type
@@ -203,7 +214,7 @@ aTYPE      L
 aLTH       4
 aREQUIRED  Y
 aUPDATE    Y
-aXVAATT_TOK 14
+aXVAATT_TOK 15
 
 eATTRIB    4
 aNAME      LastUpdateDate
@@ -214,7 +225,7 @@ aDOMAIN    DateTime
 aTYPE      T
 aLTH       6
 aUPDATE    Y
-aXVAATT_TOK 15
+aXVAATT_TOK 16
 
 eATTRIB    4
 aNAME      LastCheckInDate
@@ -225,7 +236,7 @@ aDOMAIN    DateTime
 aTYPE      T
 aLTH       6
 aUPDATE    Y
-aXVAATT_TOK 16
+aXVAATT_TOK 17
 
 eATTRIB    4
 aNAME      Desc
@@ -236,5 +247,5 @@ aDOMAIN    Description
 aTYPE      S
 aLTH       32000
 aUPDATE    Y
-aXVAATT_TOK 17
+aXVAATT_TOK 18
 
