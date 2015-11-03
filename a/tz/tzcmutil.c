@@ -360,8 +360,10 @@ fnGetAndSetZKey( zVIEW vSubtask, zVIEW vLPLR, zPCHAR szFileName )
    zVIEW  vTaskLPLR;
    zCHAR  szTaskLPLR_Name[ 33 ];
    zCHAR  szLPLR_Name[ 33 ];
+   zCHAR  szMetaName[ 33 ];
    zLONG  lType;
    zLONG  lFlags;
+   zLONG  lUniqueFlag;
    zULONG ulZKey;
    zCHAR  szERR_Msg[ 253 ];
    zSHORT nRC;
@@ -382,7 +384,8 @@ fnGetAndSetZKey( zVIEW vSubtask, zVIEW vLPLR, zPCHAR szFileName )
 
    if ( ActivateOI_FromFile( &vOI_View, SRC_CMOD[ lType - 2000 ].szOD,
                              vLPLR, szFileName, lFlags ) != 0 )
-   {
+   {  
+      SetNameForView( vOI_View, "MetaOI", vSubtask, zLEVEL_TASK );
       DeleteEntity( vLPLR, "W_MetaDef", zREPOS_PREV );
       zstrcpy( szERR_Msg, "Unable to activate file: " );
       zstrcat( szERR_Msg, szFileName );
@@ -400,6 +403,45 @@ fnGetAndSetZKey( zVIEW vSubtask, zVIEW vLPLR, zPCHAR szFileName )
       zstrcat( szERR_Msg, szFileName );
       TraceLineS( "Zeidon Configuration Management", szERR_Msg );
       return;
+   }
+
+   GetStringFromAttribute( szMetaName, vLPLR, "W_MetaDef", "Name" );
+
+   // The following code was added by DonC on 10/30/2015 to make sure that a meta object has a unique
+   // ZKey for the root entity. If it isn't unique, we will go through a loop, incrementing the key until
+   // it is unique. We will then save the meta file with the modified ZKey value and notify the operator
+   // that the object has been updated.
+   nRC = SetCursorFirstEntityByInteger( vLPLR, "W_MetaDef", "CPLR_ZKey", ulZKey, "" );
+   if ( nRC >= zCURSOR_SET )
+   {
+      // There is a duplicate ZKey, so loop incrementing root ZKey by 1 until it is unique. Then update the
+      // ZKey in the object and commit it.
+      lUniqueFlag = 0;
+      while (lUniqueFlag == 0 )
+      {
+         ulZKey++;
+         nRC = SetCursorFirstEntityByInteger( vLPLR, "W_MetaDef", "CPLR_ZKey", ulZKey, "" );
+         if ( nRC < zCURSOR_SET )
+         {
+            // The new ZKey is unique. Unless the object is a Domain Group or an Operation Group, reactivate the
+            // meta object, because the initial activate was root only.
+            if ( lType != zREFER_DOMAINGRP_META && lType != zREFER_GOPGRP_META )
+            {
+               DropObjectInstance( vOI_View );
+               lFlags = zSINGLE | zIGNORE_ERRORS;
+               ActivateOI_FromFile( &vOI_View, SRC_CMOD[ lType - 2000 ].szOD,
+                                    vLPLR, szFileName, lFlags );
+               SetNameForView( vOI_View, "MetaOI", vSubtask, zLEVEL_TASK );
+            }
+            SetAttributeFromInteger( vOI_View, SRC_CMOD[ lType -2000 ].szOD_ROOT, "ZKey", ulZKey );
+            CommitOI_ToFile( vOI_View, szFileName, zSINGLE );
+            zstrcpy( szERR_Msg, "Note that the following meta was updated because of a ZKey change: " );
+            zstrcat( szERR_Msg, szMetaName );
+            zstrcat( szERR_Msg, SRC_CMOD[ lType -2000 ].szOD_EXT );
+            MessageSend( vSubtask, "", "Configuration Management", szERR_Msg, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
+            lUniqueFlag = 1;
+         }
+      }
    }
 
    SetAttributeFromInteger( vLPLR, "W_MetaDef", "CPLR_ZKey", ulZKey );
@@ -432,8 +474,10 @@ fnGetAndSetZKey( zVIEW vSubtask, zVIEW vLPLR, zPCHAR szFileName )
       zSHORT nTargetType;
       zVIEW  vTarget;
       zLONG  lTemp;
+      zCHAR  szSubEntityName[ 33 ];
 
       CreateViewFromViewForTask( &vTarget, vLPLR, 0 );
+      SetNameForView( vTarget, "vTargetSub", vSubtask, zLEVEL_TASK );
 
       #ifdef DEBUG
          SetNameForView( vTarget, "TempTargetView", vSubtask, zLEVEL_TASK );
@@ -454,16 +498,47 @@ fnGetAndSetZKey( zVIEW vSubtask, zVIEW vLPLR, zPCHAR szFileName )
       // activated (eg "DomainGroup") copy the sub-meta to the W_MetaDef
       // entity in the LPLR.
       for ( nRC = SetCursorFirstEntity( vOI_View,
-                                   REFER_CMOD[ nTargetType - 2000 ].szOD_ROOT,
-                                   "" );
+                                        REFER_CMOD[ nTargetType - 2000 ].szOD_ROOT,
+                                        "" );
             nRC == zCURSOR_SET;
             nRC = SetCursorNextEntity( vOI_View,
-                                  REFER_CMOD[ nTargetType - 2000 ].szOD_ROOT,
-                                  "" ) )
+                                       REFER_CMOD[ nTargetType - 2000 ].szOD_ROOT,
+                                       "" ) )
       {
          GetIntegerFromAttribute( &lTemp, vOI_View,
                                   REFER_CMOD[ nTargetType - 2000 ].szOD_ROOT,
                                   "ZKey" );
+
+         // The following code was added by DonC on 10/30/2015 to make sure that a Domain or Operation meta object has a unique
+         // ZKey for each Domain or Operation entity. This is very similar to the ZKey logic above.
+         nRC = SetCursorFirstEntityByInteger( vTarget, "W_MetaDef", "CPLR_ZKey", lTemp, "" );
+         if ( nRC >= zCURSOR_SET )
+         {
+            // There is a duplicate ZKey, so loop incrementing ZKey by 1 until it is unique. Then update the
+            // ZKey in the object and commit it.
+            lUniqueFlag = 0;
+            while (lUniqueFlag == 0 )
+            {
+               lTemp++;
+               nRC = SetCursorFirstEntityByInteger( vTarget, "W_MetaDef", "CPLR_ZKey", lTemp, "" );
+               if ( nRC < zCURSOR_SET )
+               {
+                  // The new ZKey is unique, so set it in either Domain or Operation entity.
+                  if ( lType == zREFER_DOMAINGRP_META )
+                     zstrcpy( szSubEntityName, "Domain" );
+                  else
+                     zstrcpy( szSubEntityName, "Operation" );
+                  SetAttributeFromInteger( vOI_View, szSubEntityName, "ZKey", lTemp );
+                  CommitOI_ToFile( vOI_View, szFileName, zSINGLE );
+                  zstrcpy( szERR_Msg, "Note that the following meta was updated because of a ZKey change: " );
+                  zstrcat( szERR_Msg, szMetaName );
+                  zstrcat( szERR_Msg, SRC_CMOD[ lType -2000 ].szOD_EXT );
+
+                  MessageSend( vSubtask, "", "Configuration Management", szERR_Msg, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
+                  lUniqueFlag = 1;
+               }
+            }
+         }
 
          // Copy Name, ZKey, and GroupName from vOI_View to vTarget (the
          // LPLR view).
