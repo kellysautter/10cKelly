@@ -6019,7 +6019,10 @@ GenerateCompileJava( zVIEW vSubtask )
    
    // KJS 08/21/14 - Get JavaCompileBat from the zeidon.ini and run it (currently we are using maven for compile).
    SysReadZeidonIni( -1, szSystemApp, "JavaCompileBat", szJavaCompileBat );   
-   system( szJavaCompileBat );
+   if ( szJavaCompileBat[ 0 ] != 0 )
+   {
+      system( szJavaCompileBat );
+   }
 
    return nRC;
 
@@ -6047,7 +6050,10 @@ CompileJava( zVIEW vSubtask )
    
    // KJS 08/21/14 - Get JavaCompileBat from the zeidon.ini and run it (currently we are using maven for compile).
    SysReadZeidonIni( -1, szSystemApp, "JavaCompileBat", szJavaCompileBat );   
-   system( szJavaCompileBat );
+   if ( szJavaCompileBat[ 0 ] != 0 )
+   {
+      system( szJavaCompileBat );
+   }
 
    return 0;
 

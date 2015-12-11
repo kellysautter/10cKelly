@@ -973,7 +973,6 @@ fnActivateMetaOI( zVIEW   vSubtask,
    zVIEW  vTaskLPLR;
    zVIEW  CM_View;
    zVIEW  vWkListView;
-   zVIEW  vTZCMULWO;
    zVIEW  vTZCMWKSO;
    zBOOL  bCopyOI = FALSE;
    zSHORT nEntityType;
@@ -1023,64 +1022,6 @@ fnActivateMetaOI( zVIEW   vSubtask,
    // It is also needed to properly qualify the task for vWkListView.
    GetViewByName( &vTaskLPLR, "TaskLPLR", vSubtask, zLEVEL_TASK );
    GetStringFromAttribute( szLPLR_Name, vTaskLPLR, "LPLR", "Name" );  // e.g. Zeidon
-
-   // Validate that the User ZKey Prefixes in TZCMWULO are unique.
-   nRC = GetViewByName( &vTZCMULWO, "TZCMULWO", vSubtask, zLEVEL_TASK );
-   if ( nRC < 0 )
-   {
-      // Activate TZCMULWO as necessary.
-      zCHAR  szTempFile[ zMAX_FILESPEC_LTH + 1 ];
-      GetStringFromAttribute( szTempFile, vTaskLPLR, "LPLR", "MetaSrcDir" );
-      SysConvertEnvironmentString( szFileName, szTempFile );
-      zstrcat( szFileName, "\\TZCMULWO.POR" );
-      nRC = ActivateOI_FromFile( &vTZCMULWO, "TZCMULWO", vTaskLPLR, szFileName, zIGNORE_ERRORS | zLEVEL_TASK );
-      if ( nRC >= 0 )
-      {
-         OrderEntityForView( vTZCMULWO, "User", "GenerationStartZKeyPrefix A" );
-      // DisplayObjectInstance( vTZCMULWO, "", "" );
-      }
-      else
-      {
-         ActivateEmptyObjectInstance( &vTZCMULWO, "TZCMULWO", vTaskLPLR, zSINGLE | zLEVEL_TASK );
-         CreateEntity( vTZCMULWO, "Installation", zPOS_AFTER ); 
-      }
-      SetNameForView( vTZCMULWO, "TZCMULWO", vTaskLPLR, zLEVEL_TASK );
-
-      // Make sure that each User Prefix is unique.
-      lLastPrefix = 0;
-      lPrefix = -1;
-      while ( nRC >= zCURSOR_SET && lPrefix != lLastPrefix )
-      {
-         lLastPrefix = lPrefix;
-         GetIntegerFromAttribute( &lPrefix, vTZCMULWO, "User", "GenerationStartZKeyPrefix" );
-         nRC = SetCursorNextEntity( vTZCMULWO, "User", 0 );
-      }
-      if ( lPrefix == lLastPrefix )
-      {
-         MessageSend( vSubtask, "", "Configuration Management",
-                      "User ZKey prefixes are not unique. Processing is aborted.",
-                      zMSGQ_OBJECT_CONSTRAINT_ERROR, zBEEP );
-         return( -16 ); 
-      }
-
-      // Make sure that the User in the work station object is in the TZCMULO object.
-      GetViewByName( &vZeidonCM, "ZeidonCM", vSubtask,  zLEVEL_APPLICATION );
-      GetViewByName( &vTZCMWKSO, "TZCMWKSO", vZeidonCM, zLEVEL_SUBTASK );
-      GetStringFromAttribute( szUserName, vTZCMWKSO, "User", "Name" );
-      nRC = SetCursorFirstEntityByString( vTZCMULWO, "User", "Name", szUserName, "" );
-      if ( nRC < zCURSOR_SET )
-      {
-         zCHAR szMsg[ 512 ];
-         zstrcpy( szMsg, "The Work Station User Name (" );
-         zstrcat( szMsg, szUserName );
-         zstrcat( szMsg, ") is not in the TZCMULWO object. Processing is aborted.  File Name: " );
-         zstrcat( szMsg, szFileName );
-         MessageSend( vSubtask, "", "Configuration Management",
-                      szMsg,
-                      zMSGQ_OBJECT_CONSTRAINT_ERROR, zBEEP );
-         return( -16 ); 
-      }
-   }
 
    // The following code changes the Type for Domain and Global Operation
    // Activates into Domain Group and Global Operation Group Activates.
@@ -4313,10 +4254,14 @@ InitializeNextZKeyForObject( zVIEW  vMetaRootView,
          { 
 
             // Check ZKey in current entity against current Max ZKey.
-            GetIntegerFromAttribute( &lZKey, vHierMetaOI, szCurrentEntityName, "ZKey" );
-            if ( lZKey > lMaxZKey )
-            { 
-               lMaxZKey = lZKey;
+            // But first make sure attribute ZKey exists in the Entity.
+            if ( zLodContainsAttribute( vHierMetaOI, szCurrentEntityName, "ZKey" ) >= 0 )
+            {
+               GetIntegerFromAttribute( &lZKey, vHierMetaOI, szCurrentEntityName, "ZKey" );
+               if ( lZKey > lMaxZKey )
+               { 
+                  lMaxZKey = lZKey;
+               }
             } 
 
             // For recursive subentity, step down a level.
@@ -4378,7 +4323,6 @@ fnCreateMetaEntity( zVIEW  vSubtask,
    zVIEW  lpRootView;
    zVIEW   WKS_View;
    zVIEW   vZeidonCM;
-   zVIEW   TZCMULWO = 0;
    zULONG  ulMaxZKey;
    zLONG   lGenKeyStart = 0;
    zSHORT  nRC;
@@ -4388,7 +4332,6 @@ fnCreateMetaEntity( zVIEW  vSubtask,
 
    GetViewByName( &vZeidonCM, "ZeidonCM", vSubtask,  zLEVEL_APPLICATION );
    GetViewByName( &WKS_View, "TZCMWKSO", vZeidonCM, zLEVEL_SUBTASK );
-   GetViewByName( &TZCMULWO, "TZCMULWO", vSubtask, zLEVEL_TASK );
 
    if ( WKS_View == 0 )  // View isn't there
    {
@@ -4420,10 +4363,10 @@ fnCreateMetaEntity( zVIEW  vSubtask,
    if ( zstrcmpi( szObjectName, "TZDMXGPO" ) == 0 )
       zstrcpy( szRootEntityName, "DomainGroup" );
    if ( zstrcmpi( szObjectName, "TZOGSRCO" ) == 0 )
-      zstrcpy( szRootEntityName, "SourceFile" );
+      zstrcpy( szRootEntityName, "GlobalOperationGroup" );
    if ( zstrcmpi( szObjectName, "TZBRLOVO" ) == 0 )
       zstrcpy( szRootEntityName, "Root" );
-   if ( zstrcmpi( szObjectName, "TZTENVTO" ) == 0 )
+   if ( zstrcmpi( szObjectName, "TZTENVRO" ) == 0 )
       zstrcpy( szRootEntityName, "TE_DB_Environ" );
    if ( zstrcmpi( szObjectName, "TZOPHDRO" ) == 0 )
       zstrcpy( szRootEntityName, "HeaderFile" );
@@ -5899,7 +5842,6 @@ RebuildMetaLists( zVIEW   vSubtask )
    zVIEW  vTZCMWKSO;
    zVIEW  LPLR_View;
    zVIEW  vTZCMSLPL;
-   zVIEW  TZCMULWO = 0; 
    zCHAR  szLPLR_FileSpec[ zMAX_FILESPEC_LTH + 1 ];
    zCHAR  szDirectorySpec[ zMAX_FILESPEC_LTH + 1 ];
    zCHAR  szLPLR_Name[ 33 ];

@@ -561,7 +561,7 @@ GenJSP_CrteCalendar( VIEW vDialog BASED ON LOD TZWDLGSO,
                              "style=^width:80px^ type=^text^ value=^<%=strErrorMapValue%>^ " + szTabIndex + " />"
       END
       WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-      szWriteBuffer = "   <img src=^images/scw.gif^ title=^Select Date^ alt=^Select Date^"
+      szWriteBuffer = "   <img src=^images/scw.gif^  name=^" + szCtrlTag + "Img^ id=^" + szCtrlTag + "Img^ title=^Select Date^ alt=^Select Date^"
       WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
       szWriteBuffer = "        onclick=^scwShow( document.getElementById( '" + szCtrlTag + "' ), this );^ " + szTabIndex + " />"
       WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )

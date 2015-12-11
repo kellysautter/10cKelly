@@ -4521,6 +4521,12 @@ DKS_TRACE_END */
 
    szWriteBuffer = "</body>"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   
+   // KJS 12/08/15 - Currently we are always including animatedcollapse.js (for groupbox Show/Hide Toggle). We had been calling animatedcollapse.init(); 
+   // each time we created an animatedcollapse groupbox but this only needs to be called once and inits all groups. So I am going to try calling init() here
+   // at the end on all webpages. Doesn't seem to cause issues even if there is no animatedcollapse on the page (since we include the js). 
+   szWriteBuffer = "<script type=^text/javascript^>animatedcollapse.init();</script>"
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    szWriteBuffer = "</html>"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
 // szWriteBuffer = "<%@ include file=^menubottom.inc^ %>"

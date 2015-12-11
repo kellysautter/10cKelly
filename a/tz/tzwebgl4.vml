@@ -382,7 +382,7 @@ GenJSPJ_CrteCalendar( VIEW vDialog BASED ON LOD TZWDLGSO,
                              szActionCode + szStyleCalendar + " type=^text^ value=^<%=strErrorMapValue%>^ " + szTabIndex + " />"
       END
       WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-      szWriteBuffer = "   <img src=^images/scw.gif^ title=^Select Date^ alt=^Select Date^"
+      szWriteBuffer = "   <img src=^images/scw.gif^  name=^" + szCtrlTag + "Img" + szRepeatGrpKey + "^ id=^" + szCtrlTag + "Img" + szRepeatGrpKey + "^ title=^Select Date^ alt=^Select Date^"
       WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
       szWriteBuffer = "        onclick=^" + szCloseUpCode + "scwShow( document.getElementById( '" + szCtrlTag + szRepeatGrpKey + "' ), this );^ " + szTabIndex + " />"
       WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
@@ -462,7 +462,7 @@ GenJSPJ_CrteCheckBox( VIEW vDialog BASED ON LOD TZWDLGSO,
       szWriteBuffer = "         strRadioGroupValue = " +
                       vDialog.CtrlMapView.Name + ".cursor( ^" +
                       vDialog.CtrlMapRelatedEntity.Name + "^ ).getAttribute( ^" +
-                      vDialog.CtrlMapER_Attribute.Name + "^ ).getString( ^^ );"
+                      vDialog.CtrlMapER_Attribute.Name + "^ ).getString( );"
       WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
       szWriteBuffer = "   }"
       WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
@@ -1858,7 +1858,7 @@ GenJSPJ_CrteGroupTable( VIEW vDialog BASED ON LOD TZWDLGSO,
             szWriteBuffer = "         strRadioGroupValue = " +
                             vDialog.CtrlMapView.Name + ".cursor( ^" +
                             vDialog.CtrlMapRelatedEntity.Name + "^ ).getAttribute( ^" +
-                            vDialog.CtrlMapER_Attribute.Name + "^ ).getString( ^^ );"
+                            vDialog.CtrlMapER_Attribute.Name + "^ ).getString( );"
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
             szWriteBuffer = "   }"
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )

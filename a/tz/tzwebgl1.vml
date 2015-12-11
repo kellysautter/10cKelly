@@ -988,7 +988,9 @@ GenJSP_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
 
             // If this is a div we want to toggle
             IF szToggleFlag = "Y"
-               szWriteBuffer = "<div style=^float:left;^>  <!-- Div surrounding toggle --> "
+               //szWriteBuffer = "<div style=^float:left;^>  <!-- Div surrounding toggle --> "
+               // KJS 11/05/15 - Jeff asked for float to be changed to clear.
+               szWriteBuffer = "<div style=^clear:left;^>  <!-- Div surrounding toggle --> "
                WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
                szWriteBuffer = "<div style=^height:20px;^><a href=^#^ onclick=^animatedcollapse.toggle('" + szCtrlTag + "');^ style=^^>" + vDialog.Control.Text + "</a></div>"
                WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
@@ -3564,7 +3566,7 @@ GenJSP_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
                            szWriteBuffer = szWriteBuffer + "<input name=^" + szListCtrlTag + "::<%=strEntityKey%>^ id=^" + szListCtrlTag + "::<%=strEntityKey%>^ "
                            szWriteBuffer = szWriteBuffer + "style=^width:80px^ type=^text^" + szDisabled + " value=^<%=str" + szListCtrlTag + "%>^ />"
                            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-                           szWriteBuffer = "              <img src=^images/scw.gif^ title=^Select Date^ alt=^Select Date^ " + szDisabled + " "
+                           szWriteBuffer = "              <img src=^images/scw.gif^  name=^" + szListCtrlTag + "Img::<%=strEntityKey%>^ id=^" + szListCtrlTag + "Img::<%=strEntityKey%>^ title=^Select Date^ alt=^Select Date^ " + szDisabled + " "
                            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
                            szWriteBuffer = "              onclick=^scwShow( document.getElementById( '" + szListCtrlTag + "::<%=strEntityKey%>' ), this );^ /></td>"
                         ELSE

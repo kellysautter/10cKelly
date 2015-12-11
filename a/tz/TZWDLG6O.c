@@ -7631,6 +7631,14 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
    ZeidonStringCopy( szWriteBuffer, 1, 0, "</body>", 1, 0, 10001 );
    //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
+
+   //:// KJS 12/08/15 - Currently we are always including animatedcollapse.js (for groupbox Show/Hide Toggle). We had been calling animatedcollapse.init(); 
+   //:// each time we created an animatedcollapse groupbox but this only needs to be called once and inits all groups. So I am going to try calling init() here
+   //:// at the end on all webpages. Doesn't seem to cause issues even if there is no animatedcollapse on the page (since we include the js). 
+   //:szWriteBuffer = "<script type=^text/javascript^>animatedcollapse.init();</script>"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "<script type=^text/javascript^>animatedcollapse.init();</script>", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
    //:szWriteBuffer = "</html>"
    ZeidonStringCopy( szWriteBuffer, 1, 0, "</html>", 1, 0, 10001 );
    //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )

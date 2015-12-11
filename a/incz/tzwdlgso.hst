@@ -7,6 +7,7 @@ typedef struct tagzTZWDLGSO_Dialog_DEF
    zCHAR Tag[ 33 ];
    zCHAR DLL_Name[ 33 ];
    zLONG ZKey;
+   zLONG NextZKeyToAssign;
    zCHAR Desc[ 32001 ];
    zCHAR CSS_Class[ 51 ];
    zLONG WEB_Timeout;
@@ -16,8 +17,10 @@ typedef struct tagzTZWDLGSO_Dialog_DEF
    zCHAR WEB_FooterInclude[ 255 ];
    zCHAR WEB_LeftSideInclude[ 255 ];
    zCHAR WEB_RelativePositionFlag[ 2 ];
+   zCHAR WEB_JSPGenerationPositioning[ 2 ];
    zCHAR WEB_PageBackgroundInclude[ 255 ];
    zCHAR WEB_NoAutoLogOut[ 2 ];
+   zCHAR WEB_ImportInclude[ 255 ];
    zCHAR LastSyncDate[ 7 ];
    zCHAR wOriginalViewName[ 255 ];
    zCHAR wNewViewName[ 255 ];
@@ -99,6 +102,7 @@ typedef struct tagzTZWDLGSO_Window_DEF
    zCHAR WEB_NoBannerFlag[ 2 ];
    zCHAR WEB_NoTopMenuFlag[ 2 ];
    zCHAR WEB_AbsolutePositionFlag[ 2 ];
+   zCHAR WEB_JSPGenerationPositioning[ 2 ];
    zCHAR WEB_RegisterZeidonWindow[ 2 ];
    zCHAR WEB_UnregisterZeidonWindow[ 2 ];
    zLONG BarID;
@@ -157,6 +161,8 @@ typedef struct tagzTZWDLGSO_Control_DEF
    zCHAR JavaScript[ 255 ];
    zCHAR RadioOrCheckboxValue[ 51 ];
    zCHAR WebFileName[ 261 ];
+   zCHAR WebCtrlLabelLink[ 255 ];
+   zCHAR WebSelectSetName[ 255 ];
    zCHAR WebCtrlType[ 33 ];
    zCHAR WebColumnSpan[ 255 ];
    zCHAR WebWrap[ 2 ];
@@ -237,6 +243,8 @@ typedef struct tagzTZWDLGSO_CtrlCtrl_DEF
    zCHAR TextBold[ 2 ];
    zCHAR TextItalic[ 2 ];
    zCHAR TextUnderline[ 2 ];
+   zCHAR WebCtrlLabelLink[ 255 ];
+   zCHAR WebSelectSetName[ 255 ];
 
 #ifdef DEBUG_LODSTRUCT
 unsigned char CheckByte;
@@ -372,6 +380,7 @@ typedef struct tagzTZWDLGSO_CtrlMapER_Domain_DEF
    zLONG MaxStringLth;
    zCHAR ContextRestriction[ 2 ];
    zLONG DecimalFormat;
+   zCHAR ConstraintRule[ 10001 ];
 
 #ifdef DEBUG_LODSTRUCT
 unsigned char CheckByte;
@@ -1092,6 +1101,7 @@ typedef struct tagzTZWDLGSO_Menu_DEF
 {
    zCHAR Tag[ 33 ];
    zLONG ZKey;
+   zCHAR CSS_Class[ 255 ];
 
 #ifdef DEBUG_LODSTRUCT
 unsigned char CheckByte;
@@ -1115,6 +1125,7 @@ typedef struct tagzTZWDLGSO_Option_DEF
    zLONG SeqNo_Menu;
    zLONG SeqNo_Option;
    zCHAR NLS_Text[ 255 ];
+   zCHAR CSS_Class[ 255 ];
 
 #ifdef DEBUG_LODSTRUCT
 unsigned char CheckByte;
@@ -1138,6 +1149,7 @@ typedef struct tagzTZWDLGSO_OptOpt_DEF
    zLONG SeqNo_Menu;
    zLONG SeqNo_Option;
    zCHAR NLS_Text[ 255 ];
+   zCHAR CSS_Class[ 255 ];
 
 #ifdef DEBUG_LODSTRUCT
 unsigned char CheckByte;
@@ -1296,6 +1308,7 @@ typedef struct tagzTZWDLGSO_OptMapER_Domain_DEF
    zCHAR ContextRestriction[ 2 ];
    zLONG DecimalFormat;
    zCHAR Desc[ 32001 ];
+   zCHAR ConstraintRule[ 10001 ];
 
 #ifdef DEBUG_LODSTRUCT
 unsigned char CheckByte;
@@ -1362,6 +1375,7 @@ typedef struct tagzTZWDLGSO_DfltMenu_DEF
 {
    zCHAR Tag[ 33 ];
    zLONG ZKey;
+   zCHAR CSS_Class[ 255 ];
 
 #ifdef DEBUG_LODSTRUCT
 unsigned char CheckByte;
@@ -1494,6 +1508,7 @@ typedef struct tagzTZWDLGSO_WndCaptionMapER_Domain_DEF
    zLONG MaxStringLth;
    zCHAR ContextRestriction[ 2 ];
    zLONG DecimalFormat;
+   zCHAR ConstraintRule[ 10001 ];
 
 #ifdef DEBUG_LODSTRUCT
 unsigned char CheckByte;
@@ -1747,8 +1762,8 @@ typedef struct tagzTZWDLGSO_ViewObjRef_DEF
    zCHAR Name[ 33 ];
    zCHAR Desc[ 32001 ];
    zLONG Level;
-   zCHAR wWindowUseFlag[ 2 ];
    zCHAR IsDrivingViewForReportFlag[ 2 ];
+   zCHAR wWindowUseFlag[ 2 ];
 
 #ifdef DEBUG_LODSTRUCT
 unsigned char CheckByte;
@@ -2328,5 +2343,150 @@ unsigned char CheckByte;
 #endif
 
 } zTZWDLGSO_DisplayCompareResult_DEF;
+
+typedef struct tagzTZWDLGSO_AutoDesignWindow_DEF
+{
+   zLONG ZKey;
+   zCHAR WindowTag[ 255 ];
+   zCHAR Style[ 51 ];
+   zCHAR BaseWindowName[ 255 ];
+
+#ifdef DEBUG_LODSTRUCT
+unsigned char CheckByte;
+#endif
+
+} zTZWDLGSO_AutoDesignWindow_DEF;
+
+typedef struct tagzTZWDLGSO_AutoDesignGroup_DEF
+{
+   zLONG ZKey;
+   zLONG UpdateFieldPromptLength;
+   zCHAR GroupTag[ 255 ];
+   zLONG ControlWidthInPixels;
+   zCHAR TempControlType[ 255 ];
+   zCHAR GenerateGroupType[ 255 ];
+   zCHAR PreviousFunction[ 255 ];
+   zCHAR Title[ 255 ];
+   zCHAR BaseWindowName[ 255 ];
+   zCHAR BaseGroupName[ 255 ];
+   zCHAR TopLevelEntityName[ 255 ];
+   zCHAR ActionNameSuffix[ 255 ];
+
+#ifdef DEBUG_LODSTRUCT
+unsigned char CheckByte;
+#endif
+
+} zTZWDLGSO_AutoDesignGroup_DEF;
+
+typedef struct tagzTZWDLGSO_AD_ListBoxEntity_DEF
+{
+   zCHAR EntityName[ 255 ];
+   zCHAR ActionUpdateFlag[ 2 ];
+   zCHAR ActionDeleteFlag[ 2 ];
+   zCHAR ActionSelectFlag[ 2 ];
+   zCHAR ActionNewFlag[ 2 ];
+   zLONG ZKey;
+
+#ifdef DEBUG_LODSTRUCT
+unsigned char CheckByte;
+#endif
+
+} zTZWDLGSO_AD_ListBoxEntity_DEF;
+
+typedef struct tagzTZWDLGSO_AD_MappingAttribute_DEF
+{
+   zCHAR EntityName[ 255 ];
+   zCHAR AttributeName[ 255 ];
+   zCHAR ContextName[ 255 ];
+   zCHAR ControlType[ 255 ];
+   zLONG ControlWidth;
+   zLONG DataWidth;
+   zCHAR PromptValue[ 255 ];
+   zLONG ZKey;
+
+#ifdef DEBUG_LODSTRUCT
+unsigned char CheckByte;
+#endif
+
+} zTZWDLGSO_AD_MappingAttribute_DEF;
+
+typedef struct tagzTZWDLGSO_AD_GroupViewObjRef_DEF
+{
+   zLONG ZKey;
+   zCHAR Name[ 33 ];
+   zCHAR Desc[ 32001 ];
+   zLONG Level;
+   zCHAR IsDrivingViewForReportFlag[ 2 ];
+
+#ifdef DEBUG_LODSTRUCT
+unsigned char CheckByte;
+#endif
+
+} zTZWDLGSO_AD_GroupViewObjRef_DEF;
+
+typedef struct tagzTZWDLGSO_AD_GroupViewObjRefLOD_DEF
+{
+   zLONG ZKey;
+   zCHAR Name[ 33 ];
+   zCHAR DLL_Name[ 33 ];
+   zCHAR Desc[ 32001 ];
+   zCHAR ActivateConstraint[ 2 ];
+   zCHAR ActivateServerConstraint[ 2 ];
+   zCHAR ActivateEmptyConstraint[ 2 ];
+   zCHAR CommitConstraint[ 2 ];
+   zCHAR CommitServerConstraint[ 2 ];
+   zCHAR DropOIConstraint[ 2 ];
+   zLONG CacheNumberPerEntity;
+   zLONG DataLocking;
+   zCHAR DoNotMergeFlag[ 2 ];
+
+#ifdef DEBUG_LODSTRUCT
+unsigned char CheckByte;
+#endif
+
+} zTZWDLGSO_AD_GroupViewObjRefLOD_DEF;
+
+typedef struct tagzTZWDLGSO_AD_GroupLOD_Entity_DEF
+{
+   zLONG ZKey;
+   zCHAR Name[ 33 ];
+   zCHAR IndentName[ 101 ];
+   zLONG IndentLvl;
+   zCHAR Create[ 2 ];
+   zCHAR Delete[ 2 ];
+   zCHAR Include[ 2 ];
+   zCHAR InclSrc[ 2 ];
+   zCHAR Exclude[ 2 ];
+   zCHAR Hidden[ 2 ];
+   zCHAR Recursive[ 2 ];
+   zCHAR AutoCreate[ 2 ];
+   zCHAR Derived[ 2 ];
+   zCHAR Update[ 2 ];
+   zCHAR SeqType[ 2 ];
+   zCHAR Work[ 2 ];
+   zCHAR Abstract[ 255 ];
+   zCHAR ParentDeleteBehave[ 2 ];
+   zCHAR DupEntityInstance[ 2 ];
+   zCHAR DupRelationshipInstance[ 2 ];
+   zCHAR RelLinkIndicator[ 2 ];
+   zCHAR Desc[ 32001 ];
+   zCHAR CreateConstraint[ 2 ];
+   zCHAR DeleteConstraint[ 2 ];
+   zCHAR IncludeConstraint[ 2 ];
+   zCHAR ExcludeConstraint[ 2 ];
+   zCHAR AcceptConstraint[ 2 ];
+   zCHAR CancelConstraint[ 2 ];
+   zLONG SeqNo;
+   zLONG DataLocking;
+   zLONG MultipleChildLimit;
+   zCHAR XML_Name[ 33 ];
+   zCHAR LazyLoadFlag[ 2 ];
+   zCHAR ReportDisplayFlag[ 255 ];
+
+#ifdef DEBUG_LODSTRUCT
+unsigned char CheckByte;
+#endif
+
+} zTZWDLGSO_AD_GroupLOD_Entity_DEF;
 
 #endif   // #define __tzwdlgso_hst__

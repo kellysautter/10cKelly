@@ -2316,6 +2316,9 @@ zwTZZOLODD_SaveLOD( zVIEW vSubtask )
          if ( CheckExistenceOfEntity( vLOD, "TE_DBMS_Source" ) >= zCURSOR_SET )
          {
             SetCursorFirstEntity( vLOD, "TE_DBMS_Source", 0 );
+            // Force the ZKey from the TE_DBMS_Source since the old one doesn't exist in TE.
+            SetAttributeFromAttribute( vLOD, "POD", "TE_SourceZKey",
+                                       vTE,  "TE_DBMS_Source", "ZKey" );
             /*nRC = SetCursorNextEntity( vLOD, "TE_DBMS_Source", 0 );
             if ( nRC < zCURSOR_SET )
             {
@@ -10536,7 +10539,84 @@ zwTZZOLODD_AnalyzeDuplicateZKeys( zVIEW vSubtask )
    return( 0 );
 } // zwTZZOLODD_AnalyzeDuplicateZKeys
 
+/*************************************************************************************************
+**
+**    OPERATION: zwTZZOLODD_ConvertER_LOD_ToWork
+**
+*************************************************************************************************/
+zOPER_EXPORT zSHORT /*DIALOG */  OPERATION
+zwTZZOLODD_ConvertER_LOD_ToWork( zVIEW vSubtask )
+{
+   zVIEW  vTZZOLODO;
+   zSHORT nRC;
+
+   // Convert the LOD, if it is an ER LOD, to a work LOD.
+   // This will be done by looping through every entity and attribute and making sure that they are
+   // flagged as work.
+   
+   if ( GetViewByName( &vTZZOLODO, "TZZOLODO", vSubtask, zLEVEL_TASK ) == zLEVEL_TASK )
+   {
+      // Delete any current POD entries.
+      for ( nRC = SetCursorFirstEntity( vTZZOLODO, "POD", "" );
+            nRC >= zCURSOR_SET;
+            nRC = SetCursorNextEntity( vTZZOLODO, "POD", "" ) )
+      {
+         DeleteEntity( vTZZOLODO, "POD", zREPOS_NONE );
+      } 
+
+      // Set Entity and Attribute entries to work.
+      for ( nRC = SetCursorFirstEntity( vTZZOLODO, "LOD_Entity", "" );
+            nRC >= zCURSOR_SET;
+            nRC = SetCursorNextEntity( vTZZOLODO, "LOD_Entity", "" ) )
+      {
+         SetAttributeFromString( vTZZOLODO, "LOD_Entity", "Work", "Y" );
+         if ( CheckExistenceOfEntity( vTZZOLODO, "ER_Entity" ) >= zCURSOR_SET )
+            ExcludeEntity( vTZZOLODO, "ER_Entity", zREPOS_NONE );
+         for ( nRC = SetCursorFirstEntity( vTZZOLODO, "LOD_Attribute", "" );
+               nRC >= zCURSOR_SET;
+               nRC = SetCursorNextEntity( vTZZOLODO, "LOD_Attribute", "" ) )
+         {
+            SetAttributeFromString( vTZZOLODO, "LOD_Attribute", "Work", "Y" );
+         } 
+      }   
+   }
+   
+   return( 0 );
+} // zwTZZOLODD_ConvertER_LOD_ToWork
+
+/*************************************************************************************************
+**
+**    OPERATION: zwTZZOLODD_ConvertEntityToWork
+**
+*************************************************************************************************/
+zOPER_EXPORT zSHORT /*DIALOG */  OPERATION
+zwTZZOLODD_ConvertEntityToWork( zVIEW vSubtask )
+{
+   zVIEW  vTZZOLODO;
+   zSHORT nRC;
+
+   // Convert the LOD, if it is an ER LOD, to a work LOD.
+   // This will be done by looping through every entity and attribute and making sure that they are
+   // flagged as work.
+   
+   if ( GetViewByName( &vTZZOLODO, "TZZOLODO", vSubtask, zLEVEL_TASK ) == zLEVEL_TASK )
+   {
+      SetAttributeFromString( vTZZOLODO, "LOD_Entity", "Work", "Y" );
+      if ( CheckExistenceOfEntity( vTZZOLODO, "ER_Entity" ) >= zCURSOR_SET )
+         ExcludeEntity( vTZZOLODO, "ER_Entity", zREPOS_NONE );
+      for ( nRC = SetCursorFirstEntity( vTZZOLODO, "LOD_Attribute", "" );
+            nRC >= zCURSOR_SET;
+            nRC = SetCursorNextEntity( vTZZOLODO, "LOD_Attribute", "" ) )
+      {
+         SetAttributeFromString( vTZZOLODO, "LOD_Attribute", "Work", "Y" );
+      }
+   }
+   
+   return( 0 );
+} // zwTZZOLODD_ConvertEntityToWork
+
 
 #ifdef __cplusplus
 }
 #endif
+

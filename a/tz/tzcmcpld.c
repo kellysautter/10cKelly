@@ -1803,71 +1803,6 @@ zwTZCMCPLD_BuildUserWkList( zVIEW  vSubtask )
    zULONG   ulZKey;
    zSHORT   nRC;
 
-   nRC = ActivateEmptyObjectInstance ( &vTZCMRUWK, "TZCMULWO", vSubtask, zSINGLE );
-
-   if ( nRC >= 0 )
-   {
-      nRC = CreateEntity( vTZCMRUWK, "Installation", zPOS_AFTER );
-   }
-
-   if ( nRC < 0 )
-   {
-      MessageSend( vSubtask, "CM00116", "Configuration Management",
-                   "Error creating TZCMRUWK Installation",
-                   zMSGQ_OBJECT_CONSTRAINT_ERROR, zBEEP );
-      return( 0 );
-   }
-
-   // added all Repository Users
-   if ( GetViewByName( &vTZCMREPO, "TZCMREPO", vSubtask, zLEVEL_TASK ) > 0)
-   {
-      nRC = SetCursorFirstEntity( vTZCMREPO, "User", "" );
-      while ( nRC == zCURSOR_SET )
-      {
-         // No new Users
-         if ( GetIncrementalUpdateFlags( vTZCMREPO, "User", zSET_INCR_CREATED ) != 1 )
-         {
-            CreateEntity( vTZCMRUWK, "User", zPOS_AFTER );
-            SetAttributeFromAttribute( vTZCMRUWK, "User", "Name",
-                                       vTZCMREPO, "User", "Name" );
-            SetAttributeFromAttribute( vTZCMRUWK, "User", "Password",
-                                       vTZCMREPO, "User", "Password" );
-            SetAttributeFromAttribute( vTZCMRUWK, "User", "ZKey",
-                                       vTZCMREPO, "User", "ZKey" );
-            SetAttributeFromAttribute( vTZCMRUWK, "User", "Desc",
-                                       vTZCMREPO, "User", "Desc" );
-            SetAttributeFromString( vTZCMRUWK, "User", "CPLR_User", "N" );
-         }
-         nRC = SetCursorNextEntity( vTZCMREPO, "User", "" );
-      }
-   }
-
-   if ( GetViewByName( &vTZCMCPLR, "TZCMCPLR", vSubtask, zLEVEL_TASK ) > 0 )
-   {
-      nRC = SetCursorFirstEntity( vTZCMCPLR, "User", "CPLR" );
-      while ( nRC == zCURSOR_SET || nRC == zCURSOR_SET_NEWPARENT )
-      {
-         GetIntegerFromAttribute( (zPLONG) &ulZKey, vTZCMCPLR, "User", "ZKey" );
-         nRC = SetCursorFirstEntityByInteger( vTZCMRUWK, "User", "ZKey",
-                                              ulZKey, "" );
-         if ( nRC >= zCURSOR_SET )
-         {
-            SetAttributeFromAttribute( vTZCMRUWK, "User", "Authority",
-                                       vTZCMCPLR, "AccessAuthority", "Authority" );
-            SetAttributeFromString( vTZCMRUWK, "User", "CPLR_User", "Y" );
-         }
-
-         nRC = SetCursorNextEntity( vTZCMCPLR, "User", "CPLR" );
-      }
-   }
-
-   SetNameForView( vTZCMRUWK, "TZCMRUWK", vSubtask, zLEVEL_TASK );
-
-   if ( CheckExistenceOfEntity( vTZCMRUWK, "User" ) >= zCURSOR_SET )
-      OrderEntityForView( vTZCMRUWK, "User", "Name A " );
-
-   SetCursorFirstEntity( vTZCMRUWK, "User", "" );
-
    return( 0 );
 }
 
@@ -2549,36 +2484,6 @@ zwTZCMCPLD_BuildAdminList( zVIEW  vSubtask )
    zVIEW    vTZCMADMW;
    int nRC;
 
-   if ( ActivateEmptyObjectInstance ( &vTZCMADMW, "TZCMULWO", vSubtask,
-                                      zSINGLE ) >= 0 )
-   {
-      nRC = CreateEntity( vTZCMADMW, "Installation", zPOS_AFTER );
-   }
-
-   if ( nRC < 0 )
-   {
-      MessageSend( vSubtask, "CM00123", "Configuration Management",
-                   "Error creating TZCMADMW Installation",
-                   zMSGQ_OBJECT_CONSTRAINT_ERROR, zBEEP );
-      return( 0 );
-   }
-
-   GetViewByName( &vTZCMREPO, "TZCMREPO", vSubtask, zLEVEL_TASK );
-
-   nRC = SetCursorFirstEntity( vTZCMREPO, "User", "" );
-   while ( nRC == zCURSOR_SET )
-   {
-      CreateEntity( vTZCMADMW, "User", zPOS_AFTER );
-      SetAttributeFromAttribute( vTZCMADMW, "User", "Name",
-                                 vTZCMREPO, "User", "Name" );
-      SetAttributeFromAttribute( vTZCMADMW, "User", "Password",
-                                 vTZCMREPO, "User", "Password" );
-      SetAttributeFromAttribute( vTZCMADMW, "User", "ZKey",
-                                 vTZCMREPO, "User", "ZKey" );
-      nRC = SetCursorNextEntity( vTZCMREPO, "User", "" );
-   }
-
-   SetNameForView( vTZCMADMW, "TZCMADMW", vSubtask, zLEVEL_TASK );
    return( 0 );
 }
 

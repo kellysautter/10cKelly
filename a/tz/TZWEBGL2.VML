@@ -80,6 +80,7 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
    STRING ( 1 )   szSpanFlag
    STRING ( 1 )   szDivFlag
    STRING ( 1 )   szToggleFlag
+   STRING ( 1 )   szToggleFlag2
    STRING ( 1 )   sziFrameFlag
    STRING ( 1 )   szDashboardFlag
    STRING ( 1 )   szScrollableFlag
@@ -418,6 +419,12 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
          SET CURSOR FIRST vDialog.WebControlProperty WHERE vDialog.WebControlProperty.Name = "Show/Hide Toggle"
          IF RESULT >= zCURSOR_SET
             szToggleFlag = "Y"
+         END
+
+         szToggleFlag2 = ""
+         SET CURSOR FIRST vDialog.WebControlProperty WHERE vDialog.WebControlProperty.Name = "Show/Hide Toggle2"
+         IF RESULT >= zCURSOR_SET
+            szToggleFlag2 = "Y"
          END
 
          // Set Group flags either from old szWebCtrlType or new WebControlProperty.
@@ -1135,14 +1142,32 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
 
             // If this is a div we want to toggle
             IF szToggleFlag = "Y"
-               szWriteBuffer = "<div style=^float:left;^>  <!-- Div surrounding toggle --> "
+               //szWriteBuffer = "<div style=^float:left;^>  <!-- Div surrounding toggle --> "
+               // KJS 11/05/15 - Jeff asked for float to be changed to clear.
+               szWriteBuffer = "<div style=^clear:left;^>  <!-- Div surrounding toggle --> "
                WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
                // KJS 03/01/13 - Jeff was having problems because when there was only href="#", if this is lower down on the page, it
                // jumps to the top of the page. Adding the #CtrlTag, keeps it anchored.
-               szWriteBuffer = "<div style=^height:20px;^><a href=^#" + szCtrlTag + "^ onclick=^animatedcollapse.toggle('" + szCtrlTag + "');^ style=^^>" + vDialog.Control.Text + "</a></div>"
-               // KJS 03/08/13 - Jeff was having problem because using above code keeps the anchor tag in the url even when you go to a different
-               // page. It seems like this works. Keeping the place on the page, but yet not putting the anchor in the url.
-               szWriteBuffer = "<div style=^height:20px;^><a href=^#^ onclick=^animatedcollapse.toggle('" + szCtrlTag + "');return false^ style=^^>" + vDialog.Control.Text + "</a></div>"
+               szWriteBuffer = "<div style=^height:20px;^>"
+               WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+               szWriteBuffer = "<a href=^#" + szCtrlTag + "^ onclick=^animatedcollapse.toggle('" + szCtrlTag + "');^ style=^^>" + vDialog.Control.Text + "</a></div>"
+            END
+
+
+            // KJS 12/11/15 - We are creating a Toggle2 for Jeff's team (Kindra). Don't want to change what normal toggler's do because that will screw them up.
+            IF szToggleFlag2 = "Y"
+                        
+               //szWriteBuffer = "<div style=^float:left;^>  <!-- Div surrounding toggle --> "
+               // KJS 11/05/15 - Jeff asked for float to be changed to clear.
+               szWriteBuffer = "<div style=^clear:left;^>  <!-- Div surrounding toggle --> "
+               WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+               // KJS 03/01/13 - Jeff was having problems because when there was only href="#", if this is lower down on the page, it
+               // jumps to the top of the page. Adding the #CtrlTag, keeps it anchored.
+               szWriteBuffer = "<div style=^height:20px;^>"
+               WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+               
+               szWriteBuffer = "<a href=^#^ rel=^toggle['" + szCtrlTag + "']^ data-openimage=^toggle-open.png^ data-closedimage=^toggle-close.png^>"
+               szWriteBuffer = szWriteBuffer + "<div class=^showhidetoggle^><div style=^float:right^><img src=^toggle-close.png^ /></div>" + vDialog.Control.Text + "</div></a></div>"
                WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
             END
 
@@ -1204,8 +1229,9 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
                   END
                END
 
-               IF szToggleFlag = "Y"
-                  szWriteBuffer = "<script type=^text/javascript^>animatedcollapse.addDiv('" + szCtrlTag + "', 'fade=400,hide=1,persist=1');animatedcollapse.init();</script>"
+               IF szToggleFlag = "Y" OR szToggleFlag2 = "Y"
+                  //szWriteBuffer = "<script type=^text/javascript^>animatedcollapse.addDiv('" + szCtrlTag + "', 'fade=400,hide=1,persist=1');animatedcollapse.init();</script>"
+                  szWriteBuffer = "<script type=^text/javascript^>animatedcollapse.addDiv('" + szCtrlTag + "', 'fade=400,hide=1,persist=1');</script>"
                   WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
                END
 
@@ -1223,7 +1249,7 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
             END
             END
 
-            IF szToggleFlag = "Y"
+            IF szToggleFlag = "Y" OR szToggleFlag2 = "Y"
                szWriteBuffer = "</div> <!-- End Div for surrounding toggle --> "
                WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
             END
@@ -1282,7 +1308,7 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
                szWriteBuffer = "         strRadioGroupValue = " +
                                vDialog.CtrlMapView.Name + ".cursor( ^" +
                                vDialog.CtrlMapRelatedEntity.Name + "^ ).getAttribute( ^" +
-                               vDialog.CtrlMapER_Attribute.Name + "^ ).getString( ^^ );"
+                               vDialog.CtrlMapER_Attribute.Name + "^ ).getString( );"
                WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
                szWriteBuffer = "   }"
                WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
@@ -3845,7 +3871,7 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
                            szWriteBuffer = szWriteBuffer + "<input name=^" + szListCtrlTag + "::<%=strEntityKey%>^ id=^" + szListCtrlTag + "::<%=strEntityKey%>^ "
                            szWriteBuffer = szWriteBuffer + "style=^width:80px^ type=^text^" + szDisabled + " value=^<%=str" + szListCtrlTag + "%>^ />"
                            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-                           szWriteBuffer = "              <img src=^images/scw.gif^ title=^Select Date^ alt=^Select Date^ " + szDisabled + " "
+                           szWriteBuffer = "              <img src=^images/scw.gif^  name=^" + szListCtrlTag + "Img::<%=strEntityKey%>^ id=^" + szListCtrlTag + "Img::<%=strEntityKey%>^ title=^Select Date^ alt=^Select Date^ " + szDisabled + " "
                            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
                            szWriteBuffer = "              onclick=^scwShow( document.getElementById( '" + szListCtrlTag + "::<%=strEntityKey%>' ), this );^ /></td>"
                         ELSE

@@ -4992,6 +4992,8 @@ GenJSP_CrteText( zVIEW     vDialog,
    zCHAR     szDecoration[ 257 ] = { 0 }; 
    //:STRING ( 1 )   szIsLabel
    zCHAR     szIsLabel[ 2 ] = { 0 }; 
+   //:STRING ( 256 ) szLabelFor
+   zCHAR     szLabelFor[ 257 ] = { 0 }; 
    //:SHORT          nRC
    zSHORT    nRC = 0; 
    zCHAR     szTempString_0[ 255 ]; 
@@ -5024,6 +5026,7 @@ GenJSP_CrteText( zVIEW     vDialog,
    zLONG     lTempInteger_3; 
    zCHAR     szTempString_23[ 255 ]; 
    zCHAR     szTempString_24[ 33 ]; 
+   zCHAR     szTempString_25[ 255 ]; 
 
 
    //:szText = vDialog.Control.Text
@@ -5645,6 +5648,8 @@ GenJSP_CrteText( zVIEW     vDialog,
       //:// as a table and try and position what is in this group box as a table.
       //:szIsLabel = ""
       ZeidonStringCopy( szIsLabel, 1, 0, "", 1, 0, 2 );
+      //:szLabelFor = ""
+      ZeidonStringCopy( szLabelFor, 1, 0, "", 1, 0, 257 );
       //:SET CURSOR FIRST vDialog.WebControlProperty WHERE vDialog.WebControlProperty.Name = "Label"
       RESULT = SetCursorFirstEntityByString( vDialog, "WebControlProperty", "Name", "Label", "" );
       //:IF RESULT >= zCURSOR_SET
@@ -5652,6 +5657,18 @@ GenJSP_CrteText( zVIEW     vDialog,
       { 
          //:szIsLabel = "Y"
          ZeidonStringCopy( szIsLabel, 1, 0, "Y", 1, 0, 2 );
+         //:IF vDialog.Control.WebCtrlLabelLink != ""
+         if ( CompareAttributeToString( vDialog, "Control", "WebCtrlLabelLink", "" ) != 0 )
+         { 
+            //:// Tie the label to an input control.
+            //:szLabelFor = " for=^" + vDialog.Control.WebCtrlLabelLink + "^ " 
+            GetVariableFromAttribute( szTempString_25, 0, 'S', 255, vDialog, "Control", "WebCtrlLabelLink", "", 0 );
+            ZeidonStringCopy( szLabelFor, 1, 0, " for=^", 1, 0, 257 );
+            ZeidonStringConcat( szLabelFor, 1, 0, szTempString_25, 1, 0, 257 );
+            ZeidonStringConcat( szLabelFor, 1, 0, "^ ", 1, 0, 257 );
+         } 
+
+         //:END
       } 
 
       //:END
@@ -5664,10 +5681,11 @@ GenJSP_CrteText( zVIEW     vDialog,
       //:IF szIsLabel = "Y"
       if ( ZeidonStringCompare( szIsLabel, 1, 0, "Y", 1, 0, 2 ) == 0 )
       { 
-         //:szWriteBuffer = "<label " + szClassHTML + szHTMLCtrlID + szTitleHTML + szStyle + ">" + szText + "</label>"
+         //:   szWriteBuffer = "<label " + szClassHTML + szHTMLCtrlID + szLabelFor + szTitleHTML + szStyle + ">" + szText + "</label>"
          ZeidonStringCopy( szWriteBuffer, 1, 0, "<label ", 1, 0, 10001 );
          ZeidonStringConcat( szWriteBuffer, 1, 0, szClassHTML, 1, 0, 10001 );
          ZeidonStringConcat( szWriteBuffer, 1, 0, szHTMLCtrlID, 1, 0, 10001 );
+         ZeidonStringConcat( szWriteBuffer, 1, 0, szLabelFor, 1, 0, 10001 );
          ZeidonStringConcat( szWriteBuffer, 1, 0, szTitleHTML, 1, 0, 10001 );
          ZeidonStringConcat( szWriteBuffer, 1, 0, szStyle, 1, 0, 10001 );
          ZeidonStringConcat( szWriteBuffer, 1, 0, ">", 1, 0, 10001 );
@@ -7007,8 +7025,12 @@ GenJSP_CrteCalendar( zVIEW     vDialog,
       //:END
       //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
       WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 );
-      //:szWriteBuffer = "   <img src=^images/scw.gif^ title=^Select Date^ alt=^Select Date^"
-      ZeidonStringCopy( szWriteBuffer, 1, 0, "   <img src=^images/scw.gif^ title=^Select Date^ alt=^Select Date^", 1, 0, 10001 );
+      //:szWriteBuffer = "   <img src=^images/scw.gif^  name=^" + szCtrlTag + "Img^ id=^" + szCtrlTag + "Img^ title=^Select Date^ alt=^Select Date^"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "   <img src=^images/scw.gif^  name=^", 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, szCtrlTag, 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, "Img^ id=^", 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, szCtrlTag, 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, "Img^ title=^Select Date^ alt=^Select Date^", 1, 0, 10001 );
       //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
       WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 );
       //:szWriteBuffer = "        onclick=^scwShow( document.getElementById( '" + szCtrlTag + "' ), this );^ " + szTabIndex + " />"
@@ -7175,12 +7197,12 @@ GenJSP_MenuFunctions( zVIEW     vDialog,
             //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 );
 
-            //:szWriteBuffer = "      // This is for indicating whether the user hit the window close box."
-            ZeidonStringCopy( szWriteBuffer, 1, 0, "      // This is for indicating whether the user hit the window close box.", 1, 0, 10001 );
+            //:szWriteBuffer = "   // This is for indicating whether the user hit the window close box."
+            ZeidonStringCopy( szWriteBuffer, 1, 0, "   // This is for indicating whether the user hit the window close box.", 1, 0, 10001 );
             //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 );
-            //:szWriteBuffer = "      isWindowClosing = false;"
-            ZeidonStringCopy( szWriteBuffer, 1, 0, "      isWindowClosing = false;", 1, 0, 10001 );
+            //:szWriteBuffer = "   isWindowClosing = false;"
+            ZeidonStringCopy( szWriteBuffer, 1, 0, "   isWindowClosing = false;", 1, 0, 10001 );
             //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 );
 

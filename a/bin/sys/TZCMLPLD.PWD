@@ -1,8 +1,9 @@
-z1000-Zeidon    TZCMLPLD TZWDLGSO 10/27/15   10:14:57 1.0b0    
+z1000-Zeidon    TZCMLPLD TZWDLGSO 11/19/15   13:56:45 1.0b0    
 eDialog    1
 aTag       TZCMLPLD
 aDLL_Name  TZCMLPLD
 aZKey      1338932
+aNextZKeyToAssign 130069311
 aDesc      Local Project Library Maintenence
 
 eDfltWnd   2
@@ -4234,11 +4235,9 @@ aZKey      130068989
 
 eEventAct  5
 aTag       CreateNewLPLR
-aType      53
+aType      72
 aTypeData  1
 aZKey      130068975
-aDialogName TZCMLPLD
-aWindowName NewLPLR_Complete
 aSB_ActionDisabling 0
 
 eControlDef 4
@@ -4332,12 +4331,22 @@ eControlDef 4
 eControl   3
 aTag       txtExecSubDir
 aZKey      130069136
-aSubtype   0
+aSubtype   536870912
 aIdNbr     4
 aPSDLG_X   117
 aPSDLG_Y   54
 aSZDLG_X   193
 aSZDLG_Y   14
+aCtrlBOI   U346
+M``````````````#_``,```````````````````(`````````````````````
+M````````````````````````````````````````_P```/\```#_``````#_
+M````````````````````````````````````````````````````````````
+M````````````````````````````````````````````````````````````
+M````````````````````````````````````````````````````````````
+M````````````````````````````````````````````````````````````
+M````````````````````````````````````````````````````````````
+?````````````````````````````````````````````
+`
 aSyncKey   9999
 aDIL_Text  Directory for the executables (*.DLL, *.X*, *.HKY)
 aExtendedStyle 16777216
@@ -4346,38 +4355,23 @@ eCtrlMap   4
 aZKey      130069137
 
 eCtrlMapLOD_Attribute 5
-aZKey      110002090
+aZKey      110002133
 aWork      Y
 aUpdate    Y
 aSeqOrder  Y
 
 eCtrlMapRelatedEntity 6
-aName      Installation
-aIndentName Installation
-aIndentLvl 0
-aZKey      1329893
-aCreate    Y
-aDelete    Y
-aUpdate    Y
-aInclude   N
-aInclSrc   Y
-aExclude   N
-aRecursive N
-aDerived   N
-aWork      N
-aParentDeleteBehave D
 
 eCtrlMapER_Attribute 6
-aName      ExecutableSubDirectory
-aZKey      110002091
+aName      wExecutableSubDirectory
+aZKey      110002134
 aDesc      Contains a subdirectory, such as "BIN", that will contain executable files.
 
 eCtrlMapER_Domain 7
 
 eCtrlMapView 5
-aZKey      90130509
-aName      TZCMULWO
-aDesc      VOR automatically built from LOD Dialog
+aZKey      1337825
+aName      TZCMLPLO
 
 eControlDef 4
 
@@ -4700,17 +4694,10 @@ eCtrlMap   4
 aZKey      1339500
 
 eCtrlMapLOD_Attribute 5
-aZKey      110002133
-aWork      Y
-aUpdate    Y
-aSeqOrder  Y
 
 eCtrlMapRelatedEntity 6
 
 eCtrlMapER_Attribute 6
-aName      wExecutableSubDirectory
-aZKey      110002134
-aDesc      Contains a subdirectory, such as "BIN", that will contain executable files.
 
 eCtrlMapER_Domain 7
 
@@ -4786,11 +4773,9 @@ aZKey      1339513
 
 eEventAct  5
 aTag       CreateNewLPLR
-aType      53
+aType      72
 aTypeData  1
 aZKey      1339487
-aDialogName TZCMLPLD
-aWindowName NewLPLR_Complete
 aSB_ActionDisabling 0
 
 eControlDef 4
@@ -5127,620 +5112,6 @@ eWndStyle  3
 eHotkey    3
 
 eHotAct    4
-
-eWindow    2
-aTag       NewLPLR_Complete
-aCaption   Installation / Users / ZKeys
-aPSDLG_X   2
-aPSDLG_Y   2
-aSZDLG_X   14680296
-aSZDLG_Y   14549238
-aZKey      110002215
-aDIL_Active Y
-aGeneralFlag 0
-
-eControl   3
-aTag       GroupBox3
-aText      Application Common Information
-aZKey      110002225
-aSubtype   537395200
-aPSDLG_X   3
-aPSDLG_Y   4
-aSZDLG_X   157
-aSZDLG_Y   30
-aSyncKey   9999
-aExtendedStyle 16777216
-
-eCtrlCtrl  4
-aTag       EditBox1
-aZKey      110002226
-aSubtype   67108864
-aPSDLG_X   87
-aPSDLG_Y   11
-aSZDLG_X   63
-aSZDLG_Y   13
-aSyncKey   9999
-aExtendedStyle 16777216
-aVisibleBorder Y
-aDisabled  Y
-
-eCtrlMap   5
-aZKey      110002227
-
-eCtrlMapLOD_Attribute 6
-
-eCtrlMapRelatedEntity 7
-
-eCtrlMapER_Attribute 7
-
-eCtrlMapER_Domain 8
-
-eCtrlMapView 6
-aZKey      90130509
-aName      TZCMULWO
-aDesc      VOR automatically built from LOD Dialog
-
-eControlDef 5
-
-eCtrlCtrl  4
-aTag       Text5
-aText      Executable Subdirectory:
-aZKey      110002228
-aSubtype   537395200
-aPSDLG_X   5
-aPSDLG_Y   12
-aSZDLG_X   82
-aSZDLG_Y   12
-aCtrlBOI   U346
-M``````````````#_``,```````````````````(`````````````````````
-M````````````````````````````````````````_P```/\```#_``````#_
-M````````````````````````````````````````````````````````````
-M````````````````````````````````````````````````````````````
-M````````````````````````````````````````````````````````````
-M````````````````````````````````````````````````````````````
-M````````````````````````````````````````````````````````````
-?````````````````````````````````````````````
-`
-aSyncKey   9999
-aExtendedStyle 16777216
-
-eControlDef 5
-
-eCtrlMap   4
-aZKey      110002229
-
-eCtrlMap   4
-aZKey      110002230
-
-eCtrlMap   4
-aZKey      110002231
-
-eControlDef 4
-
-eControl   3
-aTag       Cancel1
-aText      &Save && Close
-aZKey      110002232
-aSubtype   537001984
-aIdNbr     9
-aPSDLG_X   167
-aPSDLG_Y   4
-aSZDLG_X   52
-aSZDLG_Y   14
-aSyncKey   9999
-
-eCtrlMap   4
-aZKey      110002233
-
-eEvent     4
-aType      1
-aZKey      110002282
-
-eEventAct  5
-aTag       SAVE_NewLPLR
-aType      72
-aZKey      110002283
-aSB_ActionDisabling 0
-
-eControlDef 4
-
-eControl   3
-aTag       PushBtn2
-aText      Cancel
-aZKey      110002277
-aSubtype   537001984
-aIdNbr     9
-aPSDLG_X   167
-aPSDLG_Y   21
-aSZDLG_X   52
-aSZDLG_Y   14
-aSyncKey   9999
-
-eCtrlMap   4
-aZKey      110002278
-
-eEvent     4
-aType      1
-aZKey      110002279
-
-eEventAct  5
-aTag       ESC
-aType      72
-aZKey      110002219
-aSB_ActionDisabling 0
-
-eControlDef 4
-
-eControl   3
-aTag       GroupBox2
-aText      Local User at this Work Station
-aZKey      110002235
-aSubtype   537395200
-aPSDLG_X   3
-aPSDLG_Y   39
-aSZDLG_X   215
-aSZDLG_Y   27
-aSyncKey   9999
-aExtendedStyle 16777216
-
-eCtrlCtrl  4
-aTag       Text1
-aText      Local User Name:
-aZKey      110002236
-aSubtype   537395200
-aPSDLG_X   5
-aPSDLG_Y   10
-aSZDLG_X   59
-aSZDLG_Y   12
-aCtrlBOI   U346
-M``````````````#_``,```````````````````(`````````````````````
-M````````````````````````````````````````_P```/\```#_``````#_
-M````````````````````````````````````````````````````````````
-M````````````````````````````````````````````````````````````
-M````````````````````````````````````````````````````````````
-M````````````````````````````````````````````````````````````
-M````````````````````````````````````````````````````````````
-?````````````````````````````````````````````
-`
-aSyncKey   9999
-aExtendedStyle 16777216
-
-eControlDef 5
-
-eCtrlCtrl  4
-aTag       Text2
-aZKey      110002237
-aSubtype   537395200
-aPSDLG_X   67
-aPSDLG_Y   10
-aSZDLG_X   104
-aSZDLG_Y   12
-aCtrlBOI   U346
-M``````````````#_``,```````````````````(`````````````````````
-M````````````````````````````````````````_P```/\```#_``````#_
-M````````````````````````````````````````````````````````````
-M````````````````````````````````````````````````````````````
-M````````````````````````````````````````````````````````````
-M````````````````````````````````````````````````````````````
-M````````````````````````````````````````````````````````````
-?````````````````````````````````````````````
-`
-aSyncKey   9999
-aExtendedStyle 16777216
-
-eCtrlMap   5
-aZKey      110002238
-
-eCtrlMapLOD_Attribute 6
-aZKey      1329773
-aSeqNo_LOD_Entity 1
-
-eCtrlMapRelatedEntity 7
-aName      User
-aIndentName    User
-aIndentLvl 3
-aZKey      1329772
-aSeqNo     2
-aCreate    Y
-aDelete    Y
-aUpdate    Y
-aInclude   Y
-aInclSrc   Y
-aExclude   Y
-aRecursive N
-aDerived   N
-aParentDeleteBehave E
-aRelLinkIndicator H
-
-eCtrlMapER_Attribute 7
-
-eCtrlMapER_Domain 8
-
-eCtrlMapView 6
-aZKey      1337854
-aName      TZCMWKSO
-
-eControlDef 5
-
-eCtrlMap   4
-aZKey      110002248
-
-eCtrlMap   4
-aZKey      110002249
-
-eCtrlMap   4
-aZKey      110002250
-
-eControlDef 4
-
-eControl   3
-aTag       GroupBox1
-aText      All Application Users with Starting ZKey Values
-aZKey      110002251
-aSubtype   537395200
-aPSDLG_X   3
-aPSDLG_Y   71
-aSZDLG_X   215
-aSZDLG_Y   136
-aSyncKey   9999
-aExtendedStyle 16777216
-
-eCtrlCtrl  4
-aTag       LPL_List1
-aText      LPL_List
-aZKey      110002252
-aSubtype   -2144198656
-aIdNbr     5
-aPSDLG_X   5
-aPSDLG_Y   10
-aSZDLG_X   204
-aSZDLG_Y   104
-aCtrlBOI   U34
-B]A`]`/D0/0!33@#_$#T`4UD`8!,]`$P`(```*P!-`%,Q````
-`
-aSyncKey   9999
-aExtendedStyle 17301504
-
-eCtrlCtrl  5
-aTag       Name1
-aText      User Name
-aZKey      110002253
-aSubtype   67108864
-aIdNbr     6
-aPSDLG_X   0
-aPSDLG_Y   0
-aSZDLG_X   72
-aSZDLG_Y   15
-aSyncKey   9999
-aDIL_Text  The Name of a User defined to be able to development functions for this Application
-aExtendedStyle 0
-aVisibleBorder Y
-aDisabled  Y
-
-eCtrlMap   6
-aZKey      110002254
-
-eCtrlMapLOD_Attribute 7
-aZKey      1329895
-aSeqNo_LOD_Entity 1
-aUpdate    Y
-aSeqPriority 1
-aSeqOrder  A
-
-eCtrlMapRelatedEntity 8
-aName      User
-aIndentName    User
-aIndentLvl 3
-aZKey      1329894
-aSeqNo     1
-aCreate    Y
-aDelete    Y
-aUpdate    Y
-aInclude   N
-aInclSrc   Y
-aExclude   N
-aRecursive N
-aDerived   N
-aParentDeleteBehave D
-aRelLinkIndicator L
-
-eCtrlMapER_Attribute 8
-
-eCtrlMapER_Domain 9
-
-eCtrlMapView 7
-
-eControlDef 6
-
-eCtrlCtrl  5
-aTag       Desc1
-aText      ZKey Prefix
-aZKey      110002255
-aSubtype   67108864
-aPSDLG_X   75
-aPSDLG_Y   0
-aSZDLG_X   54
-aSZDLG_Y   15
-aSyncKey   9999
-aDIL_Text  The starting ZKey number to be sequentially incremented for generation of meta zkeys
-aExtendedStyle 0
-aVisibleBorder Y
-aDisabled  Y
-
-eCtrlMap   6
-aZKey      110002256
-
-eCtrlMapLOD_Attribute 7
-aZKey      110001808
-aWork      Y
-aUpdate    Y
-aSeqOrder  Y
-
-eCtrlMapRelatedEntity 8
-
-eCtrlMapER_Attribute 8
-aName      GenerationStartZKeyPrefix
-aZKey      110001809
-
-eCtrlMapER_Domain 9
-
-eCtrlMapView 7
-
-eControlDef 6
-
-eCtrlCtrl  5
-aTag       ListBoxCtl1
-aText      ZKey Start 
-aZKey      110002257
-aSubtype   67108864
-aPSDLG_X   132
-aPSDLG_Y   0
-aSZDLG_X   54
-aSZDLG_Y   15
-aSyncKey   9999
-aDIL_Text  The starting ZKey number to be sequentially incremented for generation of meta zkeys
-aExtendedStyle 0
-aVisibleBorder Y
-aDisabled  Y
-
-eCtrlMap   6
-aZKey      110002258
-
-eCtrlMapLOD_Attribute 7
-aZKey      4353107
-aUpdate    Y
-
-eCtrlMapRelatedEntity 8
-
-eCtrlMapER_Attribute 8
-aName      GenerationStartZKey
-aZKey      4352914
-aLth       4
-aDesc      The beginning ZKey for this User, which will be used to increment ZKeys for the creation of meta entities by this User. It is kept within the source management system for the LPLR, so that ZKey generation can be kept unique across developers.
-
-eCtrlMapER_Domain 9
-
-eCtrlMapView 7
-
-eControlDef 6
-
-eCtrlMap   5
-aZKey      110002259
-
-eCtrlMapLOD_Entity 6
-
-eCtrlMapView 6
-
-eCtrlMap   5
-aZKey      110002260
-
-eCtrlMap   5
-aZKey      110002261
-
-eEvent     5
-aType      2
-aZKey      110002262
-
-eEventAct  6
-aTag       GOTO_UpdateUser
-aType      34
-aZKey      110002222
-aDialogName TZCMLPLD
-aWindowName UpdateUserStartZKey
-aSB_SubAction 64
-aSB_ActionDisabling 4
-
-eControlDef 5
-
-eCtrlCtrl  4
-aTag       New1
-aText      &New User
-aZKey      110002263
-aSubtype   537001984
-aIdNbr     10
-aPSDLG_X   7
-aPSDLG_Y   118
-aSZDLG_X   48
-aSZDLG_Y   14
-aSyncKey   9999
-
-eCtrlMap   5
-aZKey      110002264
-
-eEvent     5
-aType      1
-aZKey      110002265
-
-eEventAct  6
-aTag       GOTO_NewUser
-aType      34
-aZKey      110002220
-aDialogName TZCMLPLD
-aWindowName UpdateUserStartZKey
-aSB_SubAction 32
-aSB_ActionDisabling 0
-
-eControlDef 5
-
-eCtrlCtrl  4
-aTag       Delete1
-aText      &Update User
-aZKey      110002266
-aSubtype   537001984
-aIdNbr     11
-aPSDLG_X   57
-aPSDLG_Y   118
-aSZDLG_X   48
-aSZDLG_Y   14
-aSyncKey   9999
-
-eCtrlMap   5
-aZKey      110002267
-
-eEvent     5
-aType      1
-aZKey      110002268
-
-eEventAct  6
-
-eControlDef 5
-
-eCtrlCtrl  4
-aTag       PushBtn1
-aText      &Delete User
-aZKey      110002269
-aSubtype   537001984
-aIdNbr     11
-aPSDLG_X   108
-aPSDLG_Y   118
-aSZDLG_X   48
-aSZDLG_Y   14
-aSyncKey   9999
-
-eCtrlMap   5
-aZKey      110002270
-
-eEvent     5
-aType      1
-aZKey      110002271
-
-eEventAct  6
-aTag       DELETE_User
-aType      2
-aZKey      110002217
-aSB_ActionDisabling 4
-
-eControlDef 5
-
-eCtrlMap   4
-aZKey      110002272
-
-eCtrlMap   4
-aZKey      110002273
-
-eCtrlMap   4
-aZKey      110002274
-
-eControlDef 4
-
-eControl   3
-aTag       MsgBar2
-aZKey      110002275
-aSubtype   1
-aPSDLG_X   0
-aPSDLG_Y   217
-aSZDLG_X   106
-aSZDLG_Y   20
-aSyncKey   9999
-
-eCtrlMap   4
-aZKey      110002276
-
-eControlDef 4
-
-eAction    3
-
-eActMap    4
-aZKey      110002218
-
-eActMapLOD_Entity 5
-
-eActMapView 5
-
-eActEvent  4
-
-eActCtrl   5
-
-eActOper   4
-aName      DELETE_User
-aZKey      110000085
-aClass     0
-aType      D
-aReturnDataType N
-
-eSourceFileForOper 5
-
-eAction    3
-
-eActEvent  4
-
-eActCtrl   5
-
-eActOper   4
-
-eSourceFileForOper 5
-
-eAction    3
-
-eActMap    4
-aZKey      110002221
-
-eActMapLOD_Entity 5
-
-eActMapView 5
-
-eActEvent  4
-
-eActCtrl   5
-
-eAction    3
-
-eActMap    4
-aZKey      110002223
-
-eActMapLOD_Entity 5
-
-eActMapView 5
-
-eActEvent  4
-
-eActCtrl   5
-
-eActEvent  4
-
-eActCtrl   5
-
-eAction    3
-
-eActEvent  4
-
-eActCtrl   5
-
-eActOper   4
-aName      SAVE_NewLPLR
-aZKey      110002286
-aClass     0
-aType      D
-aReturnDataType N
-
-eSourceFileForOper 5
-
-eWndStyle  3
-aTag       Dialog Box
-aZKey      7008569
-aStyle     -2134376448
-aDesc      Dialog box with caption, non-sizable border
-aStyleEx   1
 
 eWindow    2
 aTag       RepositoryCompList
@@ -6106,8 +5477,25 @@ eCtrlMap   4
 aZKey      1339545
 
 eCtrlMapLOD_Attribute 5
+aZKey      1329773
+aSeqNo_LOD_Entity 1
 
 eCtrlMapRelatedEntity 6
+aName      User
+aIndentName    User
+aIndentLvl 3
+aZKey      1329772
+aSeqNo     2
+aCreate    Y
+aDelete    Y
+aUpdate    Y
+aInclude   Y
+aInclSrc   Y
+aExclude   Y
+aRecursive N
+aDerived   N
+aParentDeleteBehave E
+aRelLinkIndicator H
 
 eCtrlMapER_Attribute 6
 
@@ -7306,23 +6694,6 @@ aReturnDataType N
 eSourceFileForOper 5
 
 eAction    3
-aTag       XferToImportLPLR
-aType      34
-aZKey      130069277
-aDialogName TZCMLPLD
-aWindowName ImportLPLR
-aSB_ActionDisabling 0
-
-eActOpt    4
-aTag       Import
-aText      &Import Application...
-aZKey      130069283
-
-eActOper   4
-
-eSourceFileForOper 5
-
-eAction    3
 aTag       BuildDialogExecutables
 aType      1
 aZKey      90021005
@@ -7440,28 +6811,6 @@ aZKey      127045880
 eActOper   4
 aName      zwTZCMLPLD_GenerateZeidonOp_h
 aZKey      127045899
-aType      D
-aReturnDataType N
-
-eSourceFileForOper 5
-
-eAction    3
-aTag       GOTO_UpdateUserZKeys
-aType      34
-aZKey      110000160
-aDialogName TZCMLPLD
-aWindowName UserZKeys
-aSB_ActionDisabling 0
-
-eActOpt    4
-aTag       New4
-aText      &Installation / Users / ZKeys
-aZKey      110000159
-
-eActOper   4
-aName      GOTO_UpdateUserZKeys
-aZKey      110000165
-aClass     0
 aType      D
 aReturnDataType N
 
@@ -7906,6 +7255,23 @@ eActMapLOD_Entity 5
 eActMapView 5
 
 eAction    3
+aTag       XferToImportLPLR
+aType      34
+aZKey      130069277
+aDialogName TZCMLPLD
+aWindowName ImportLPLR
+aSB_ActionDisabling 0
+
+eActOpt    4
+aTag       Import
+aText      &Import Application...
+aZKey      130069283
+
+eActOper   4
+
+eSourceFileForOper 5
+
+eAction    3
 aTag       XferToListOptions
 aType      34
 aZKey      1339646
@@ -8068,10 +7434,6 @@ eOption    4
 aTag       Utilities
 aText      &Utilities
 aZKey      97096219
-
-eOptOpt    5
-
-eOptAct    6
 
 eOptOpt    5
 
@@ -9685,297 +9047,6 @@ eSourceFileForOper 5
 eWndStyle  3
 
 eWindow    2
-aTag       UpdateUserStartZKey
-aCaption   Update User Start ZKey
-aPSDLG_X   2
-aPSDLG_Y   2
-aSZDLG_X   17432850
-aSZDLG_Y   4456540
-aZKey      110000118
-aDIL_Active Y
-aGeneralFlag 0
-
-eControl   3
-aTag       EditBox1
-aZKey      110000175
-aSubtype   0
-aPSDLG_X   63
-aPSDLG_Y   7
-aSZDLG_X   75
-aSZDLG_Y   12
-aSyncKey   1
-aExtendedStyle 16777216
-
-eCtrlMap   4
-aZKey      110000176
-
-eCtrlMapLOD_Attribute 5
-
-eCtrlMapRelatedEntity 6
-
-eCtrlMapER_Attribute 6
-
-eCtrlMapER_Domain 7
-
-eCtrlMapView 5
-aZKey      90130509
-aName      TZCMULWO
-aDesc      VOR automatically built from LOD Dialog
-
-eControlDef 4
-
-eControl   3
-aTag       EditStartZKey
-aZKey      110000125
-aSubtype   0
-aPSDLG_X   63
-aPSDLG_Y   20
-aSZDLG_X   75
-aSZDLG_Y   12
-aSyncKey   2
-aExtendedStyle 16777216
-
-eCtrlMap   4
-aZKey      110000126
-
-eCtrlMapLOD_Attribute 5
-
-eCtrlMapRelatedEntity 6
-
-eCtrlMapER_Attribute 6
-
-eCtrlMapER_Domain 7
-
-eCtrlMapView 5
-
-eControlDef 4
-
-eControl   3
-aTag       OK1
-aText      OK
-aZKey      110000127
-aSubtype   537001984
-aIdNbr     5
-aPSDLG_X   211
-aPSDLG_Y   4
-aSZDLG_X   48
-aSZDLG_Y   14
-aSyncKey   3
-
-eEvent     4
-aType      1
-aZKey      110000128
-
-eEventAct  5
-aTag       Alt-F4
-aType      72
-aTypeData  1
-aZKey      110000121
-aSB_ActionDisabling 0
-
-eControlDef 4
-
-eControl   3
-aTag       Cancel1
-aText      Cancel
-aZKey      110000129
-aSubtype   537001984
-aIdNbr     6
-aPSDLG_X   211
-aPSDLG_Y   20
-aSZDLG_X   48
-aSZDLG_Y   14
-aSyncKey   5
-
-eEvent     4
-aType      1
-aZKey      110000130
-
-eEventAct  5
-aTag       ESC
-aNoMap     Y
-aType      71
-aTypeData  1
-aZKey      110000124
-aSB_SubAction 2
-aSB_ActionDisabling 0
-
-eControlDef 4
-
-eControl   3
-aTag       text2
-aText      Name:
-aZKey      110000133
-aSubtype   537395200
-aIdNbr     1
-aPSDLG_X   5
-aPSDLG_Y   7
-aSZDLG_X   57
-aSZDLG_Y   12
-aCtrlBOI   U346
-M``````````````#_``,```````````````````(`````````````````````
-M````````````````````````````````````````_P```/\```#_``````#_
-M````````````````````````````````````````````````````````````
-M````````````````````````````````````````````````````````````
-M````````````````````````````````````````````````````````````
-M````````````````````````````````````````````````````````````
-M````````````````````````````````````````````````````````````
-?````````````````````````````````````````````
-`
-aSyncKey   9999
-
-eControlDef 4
-
-eControl   3
-aTag       Text4
-aText      User ZKey Prefix:
-aZKey      110000135
-aSubtype   537395200
-aPSDLG_X   5
-aPSDLG_Y   20
-aSZDLG_X   57
-aSZDLG_Y   12
-aCtrlBOI   U346
-M``````````````#_``,```````````````````(`````````````````````
-M````````````````````````````````````````_P```/\```#_``````#_
-M````````````````````````````````````````````````````````````
-M````````````````````````````````````````````````````````````
-M````````````````````````````````````````````````````````````
-M````````````````````````````````````````````````````````````
-M````````````````````````````````````````````````````````````
-?````````````````````````````````````````````
-`
-aSyncKey   9999
-
-eControlDef 4
-
-eControl   3
-aTag       Text2
-aText      (unique two digits)
-aZKey      130000337
-aSubtype   537395200
-aPSDLG_X   141
-aPSDLG_Y   22
-aSZDLG_X   61
-aSZDLG_Y   12
-aCtrlBOI   U346
-M``````````````#_``,```````````````````(`````````````````````
-M````````````````````````````````````````_P```/\```#_``````#_
-M````````````````````````````````````````````````````````````
-M````````````````````````````````````````````````````````````
-M````````````````````````````````````````````````````````````
-M````````````````````````````````````````````````````````````
-M````````````````````````````````````````````````````````````
-?````````````````````````````````````````````
-`
-aSyncKey   9999
-aExtendedStyle 16777216
-
-eControlDef 4
-
-eControl   3
-aTag       Text1
-aText      User Gen ZKey:
-aZKey      110001829
-aSubtype   537395200
-aPSDLG_X   5
-aPSDLG_Y   34
-aSZDLG_X   57
-aSZDLG_Y   12
-aCtrlBOI   U346
-M``````````````#_``,```````````````````(`````````````````````
-M````````````````````````````````````````_P```/\```#_``````#_
-M````````````````````````````````````````````````````````````
-M````````````````````````````````````````````````````````````
-M````````````````````````````````````````````````````````````
-M````````````````````````````````````````````````````````````
-M````````````````````````````````````````````````````````````
-?````````````````````````````````````````````
-`
-aSyncKey   9999
-
-eControlDef 4
-
-eControl   3
-aTag       EditBox2
-aZKey      110001830
-aSubtype   67108864
-aPSDLG_X   63
-aPSDLG_Y   34
-aSZDLG_X   75
-aSZDLG_Y   12
-aSyncKey   9999
-aExtendedStyle 16777216
-aVisibleBorder Y
-aDisabled  Y
-
-eCtrlMap   4
-aZKey      110001831
-
-eCtrlMapLOD_Attribute 5
-
-eCtrlMapRelatedEntity 6
-
-eCtrlMapER_Attribute 6
-
-eCtrlMapER_Domain 7
-
-eCtrlMapView 5
-
-eControlDef 4
-
-eControl   3
-aTag       MsgBar2
-aZKey      110000137
-aSubtype   1
-aPSDLG_X   3
-aPSDLG_Y   60
-aSZDLG_X   25
-aSZDLG_Y   20
-aSyncKey   9999
-aExtendedStyle 16777216
-
-eCtrlMap   4
-aZKey      110000138
-
-eControlDef 4
-
-eAction    3
-
-eActEvent  4
-
-eActCtrl   5
-
-eActOper   4
-aName      ACCEPT_User
-aZKey      110000190
-aClass     0
-aType      D
-aReturnDataType N
-
-eSourceFileForOper 5
-
-eAction    3
-
-eActMap    4
-aZKey      110000150
-
-eActMapLOD_Entity 5
-
-eActMapView 5
-
-eActEvent  4
-
-eActCtrl   5
-
-eWndStyle  3
-aTag       Dialog Box
-aZKey      7008569
-aStyle     -2134376448
-aDesc      Dialog box with caption, non-sizable border
-aStyleEx   1
-
-eWindow    2
 aTag       UserAdmin
 aCaption   Workstation User Administration
 aPSDLG_X   11
@@ -10331,6 +9402,21 @@ aUpdate    Y
 aSeqOrder  Y
 
 eCtrlMapRelatedEntity 7
+aName      User
+aIndentName    User
+aIndentLvl 3
+aZKey      1329894
+aSeqNo     1
+aCreate    Y
+aDelete    Y
+aUpdate    Y
+aInclude   N
+aInclSrc   Y
+aExclude   N
+aRecursive N
+aDerived   N
+aParentDeleteBehave D
+aRelLinkIndicator L
 
 eCtrlMapER_Attribute 7
 aName      CPLR_User
@@ -10375,6 +9461,11 @@ eCtrlMap   5
 aZKey      127092486
 
 eCtrlMapLOD_Attribute 6
+aZKey      1329895
+aSeqNo_LOD_Entity 1
+aUpdate    Y
+aSeqPriority 1
+aSeqOrder  A
 
 eCtrlMapRelatedEntity 7
 
@@ -10620,684 +9711,6 @@ eWndStyle  3
 aTag       Sizeable Dialog Box
 aZKey      10024379
 aStyle     -2134114304
-
-eWindow    2
-aTag       UserZKeys
-aCaption   Installation / Users / ZKeys
-aPSDLG_X   2
-aPSDLG_Y   2
-aSZDLG_X   14680296
-aSZDLG_Y   17695012
-aZKey      110000001
-aDIL_Active Y
-aGeneralFlag 0
-
-eControl   3
-aTag       GroupBox3
-aText      Application Common Information
-aZKey      110002183
-aSubtype   537395200
-aPSDLG_X   3
-aPSDLG_Y   4
-aSZDLG_X   157
-aSZDLG_Y   30
-aSyncKey   9999
-aExtendedStyle 16777216
-
-eCtrlCtrl  4
-aTag       EditBox1
-aZKey      110002207
-aSubtype   0
-aPSDLG_X   87
-aPSDLG_Y   11
-aSZDLG_X   63
-aSZDLG_Y   13
-aSyncKey   9999
-aExtendedStyle 16777216
-
-eCtrlMap   5
-aZKey      110002208
-
-eCtrlMapLOD_Attribute 6
-
-eCtrlMapRelatedEntity 7
-
-eCtrlMapER_Attribute 7
-
-eCtrlMapER_Domain 8
-
-eCtrlMapView 6
-aZKey      90130509
-aName      TZCMULWO
-aDesc      VOR automatically built from LOD Dialog
-
-eControlDef 5
-
-eCtrlCtrl  4
-aTag       Text5
-aText      Executable Subdirectory:
-aZKey      110002205
-aSubtype   537395200
-aPSDLG_X   5
-aPSDLG_Y   12
-aSZDLG_X   82
-aSZDLG_Y   12
-aCtrlBOI   U346
-M``````````````#_``,```````````````````(`````````````````````
-M````````````````````````````````````````_P```/\```#_``````#_
-M````````````````````````````````````````````````````````````
-M````````````````````````````````````````````````````````````
-M````````````````````````````````````````````````````````````
-M````````````````````````````````````````````````````````````
-M````````````````````````````````````````````````````````````
-?````````````````````````````````````````````
-`
-aSyncKey   9999
-aExtendedStyle 16777216
-
-eControlDef 5
-
-eCtrlMap   4
-aZKey      110002184
-
-eCtrlMap   4
-aZKey      110002185
-
-eCtrlMap   4
-aZKey      110002186
-
-eControlDef 4
-
-eControl   3
-aTag       Cancel1
-aText      &Close
-aZKey      110000022
-aSubtype   537001984
-aIdNbr     9
-aPSDLG_X   167
-aPSDLG_Y   7
-aSZDLG_X   48
-aSZDLG_Y   14
-aSyncKey   9999
-
-eCtrlMap   4
-aZKey      110000023
-
-eEvent     4
-aType      1
-aZKey      110000024
-
-eEventAct  5
-aTag       ESC
-aType      72
-aZKey      110000006
-aSB_ActionDisabling 0
-
-eControlDef 4
-
-eControl   3
-aTag       GroupBox2
-aText      Local User at this Work Station
-aZKey      110000222
-aSubtype   537395200
-aPSDLG_X   3
-aPSDLG_Y   37
-aSZDLG_X   215
-aSZDLG_Y   75
-aSyncKey   9999
-aExtendedStyle 16777216
-
-eCtrlCtrl  4
-aTag       Text1
-aText      Local User Name:
-aZKey      110000244
-aSubtype   537395200
-aPSDLG_X   5
-aPSDLG_Y   10
-aSZDLG_X   59
-aSZDLG_Y   12
-aCtrlBOI   U346
-M``````````````#_``,```````````````````(`````````````````````
-M````````````````````````````````````````_P```/\```#_``````#_
-M````````````````````````````````````````````````````````````
-M````````````````````````````````````````````````````````````
-M````````````````````````````````````````````````````````````
-M````````````````````````````````````````````````````````````
-M````````````````````````````````````````````````````````````
-?````````````````````````````````````````````
-`
-aSyncKey   9999
-aExtendedStyle 16777216
-
-eControlDef 5
-
-eCtrlCtrl  4
-aTag       Text2
-aZKey      110000246
-aSubtype   537395200
-aPSDLG_X   67
-aPSDLG_Y   10
-aSZDLG_X   104
-aSZDLG_Y   12
-aCtrlBOI   U346
-M``````````````#_``,```````````````````(`````````````````````
-M````````````````````````````````````````_P```/\```#_``````#_
-M````````````````````````````````````````````````````````````
-M````````````````````````````````````````````````````````````
-M````````````````````````````````````````````````````````````
-M````````````````````````````````````````````````````````````
-M````````````````````````````````````````````````````````````
-?````````````````````````````````````````````
-`
-aSyncKey   9999
-aExtendedStyle 16777216
-
-eCtrlMap   5
-aZKey      110000250
-
-eCtrlMapLOD_Attribute 6
-
-eCtrlMapRelatedEntity 7
-
-eCtrlMapER_Attribute 7
-
-eCtrlMapER_Domain 8
-
-eCtrlMapView 6
-aZKey      1337854
-aName      TZCMWKSO
-
-eControlDef 5
-
-eCtrlCtrl  4
-aTag       Text3
-aText      Local User Starting ZKey Value:
-aZKey      110000256
-aSubtype   537395200
-aPSDLG_X   5
-aPSDLG_Y   23
-aSZDLG_X   105
-aSZDLG_Y   12
-aCtrlBOI   U346
-M``````````````#_``,```````````````````(`````````````````````
-M````````````````````````````````````````_P```/\```#_``````#_
-M````````````````````````````````````````````````````````````
-M````````````````````````````````````````````````````````````
-M````````````````````````````````````````````````````````````
-M````````````````````````````````````````````````````````````
-M````````````````````````````````````````````````````````````
-?````````````````````````````````````````````
-`
-aSyncKey   9999
-aExtendedStyle 16777216
-
-eControlDef 5
-
-eCtrlCtrl  4
-aTag       Text4
-aZKey      110000257
-aSubtype   537395200
-aPSDLG_X   113
-aPSDLG_Y   23
-aSZDLG_X   58
-aSZDLG_Y   12
-aCtrlBOI   U346
-M``````````````#_``,```````````````````(`````````````````````
-M````````````````````````````````````````_P```/\```#_``````#_
-M````````````````````````````````````````````````````````````
-M````````````````````````````````````````````````````````````
-M````````````````````````````````````````````````````````````
-M````````````````````````````````````````````````````````````
-M````````````````````````````````````````````````````````````
-?````````````````````````````````````````````
-`
-aSyncKey   9999
-aExtendedStyle 16777216
-
-eCtrlMap   5
-aZKey      110000258
-
-eCtrlMapLOD_Attribute 6
-aZKey      4352722
-aUpdate    Y
-
-eCtrlMapRelatedEntity 7
-
-eCtrlMapER_Attribute 7
-aName      MaxZKey
-aZKey      4352720
-aLth       4
-aDesc      215
-Used for generating ZKeys for meta entities with an LPLR.
-The ZKey is made unique within an application by a combination of a User Prefix from the mUsers object and a incremental integer suffix at the workstation.0
-
-eCtrlMapER_Domain 8
-
-eCtrlMapView 6
-aZKey      1337854
-aName      TZCMWKSO
-
-eControlDef 5
-
-eCtrlCtrl  4
-aTag       PushBtn2
-aText      Initialize Starting Generation ZKey Value
-aZKey      110000251
-aSubtype   537001984
-aIdNbr     11
-aPSDLG_X   7
-aPSDLG_Y   39
-aSZDLG_X   135
-aSZDLG_Y   14
-aSyncKey   9999
-
-eCtrlMap   5
-aZKey      110000252
-
-eEvent     5
-aType      1
-aZKey      110000268
-
-eEventAct  6
-aTag       INITIALIZE_UserStartingGenZKey
-aType      2
-aZKey      110000269
-aSB_ActionDisabling 0
-
-eControlDef 5
-
-eCtrlCtrl  4
-aTag       PushBtn3
-aText      Analyze Min/Max Zkey Values
-aZKey      110000275
-aSubtype   537001984
-aIdNbr     11
-aPSDLG_X   7
-aPSDLG_Y   55
-aSZDLG_X   135
-aSZDLG_Y   14
-aSyncKey   9999
-
-eCtrlMap   5
-aZKey      110000276
-
-eEvent     5
-aType      1
-aZKey      110000280
-
-eEventAct  6
-aTag       ANALYZE_MinMaxZKeyValues
-aType      1
-aZKey      110000281
-aSB_ActionDisabling 0
-
-eControlDef 5
-
-eCtrlMap   4
-aZKey      110000223
-
-eCtrlMap   4
-aZKey      110000224
-
-eCtrlMap   4
-aZKey      110000225
-
-eControlDef 4
-
-eControl   3
-aTag       GroupBox1
-aText      All Application Users with Starting ZKey Values
-aZKey      110000200
-aSubtype   537395200
-aPSDLG_X   3
-aPSDLG_Y   116
-aSZDLG_X   215
-aSZDLG_Y   136
-aSyncKey   9999
-aExtendedStyle 16777216
-
-eCtrlCtrl  4
-aTag       LPL_List1
-aText      LPL_List
-aZKey      110000010
-aSubtype   -2144198656
-aIdNbr     5
-aPSDLG_X   5
-aPSDLG_Y   10
-aSZDLG_X   204
-aSZDLG_Y   104
-aCtrlBOI   U34
-B]A`]`/D0/0!33@#_$#T`4UD`8!,]`$P`(```*P!-`%,Q````
-`
-aSyncKey   9999
-aExtendedStyle 17301504
-
-eCtrlCtrl  5
-aTag       Name1
-aText      User Name
-aZKey      110000011
-aSubtype   67108864
-aIdNbr     6
-aPSDLG_X   0
-aPSDLG_Y   0
-aSZDLG_X   72
-aSZDLG_Y   15
-aSyncKey   9999
-aDIL_Text  The Name of a User defined to be able to development functions for this Application
-aExtendedStyle 0
-aVisibleBorder Y
-aDisabled  Y
-
-eCtrlMap   6
-aZKey      110000012
-
-eCtrlMapLOD_Attribute 7
-
-eCtrlMapRelatedEntity 8
-
-eCtrlMapER_Attribute 8
-
-eCtrlMapER_Domain 9
-
-eCtrlMapView 7
-aZKey      90130509
-aName      TZCMULWO
-aDesc      VOR automatically built from LOD Dialog
-
-eControlDef 6
-
-eCtrlCtrl  5
-aTag       Desc1
-aText      ZKey Prefix
-aZKey      110000013
-aSubtype   67108864
-aPSDLG_X   75
-aPSDLG_Y   0
-aSZDLG_X   54
-aSZDLG_Y   15
-aSyncKey   9999
-aDIL_Text  The starting ZKey number to be sequentially incremented for generation of meta zkeys
-aExtendedStyle 0
-aVisibleBorder Y
-aDisabled  Y
-
-eCtrlMap   6
-aZKey      110000014
-
-eCtrlMapLOD_Attribute 7
-
-eCtrlMapRelatedEntity 8
-
-eCtrlMapER_Attribute 8
-
-eCtrlMapER_Domain 9
-
-eCtrlMapView 7
-
-eControlDef 6
-
-eCtrlCtrl  5
-aTag       ListBoxCtl1
-aText      ZKey Start 
-aZKey      130000327
-aSubtype   67108864
-aPSDLG_X   132
-aPSDLG_Y   0
-aSZDLG_X   54
-aSZDLG_Y   15
-aSyncKey   9999
-aDIL_Text  The starting ZKey number to be sequentially incremented for generation of meta zkeys
-aExtendedStyle 0
-aVisibleBorder Y
-aDisabled  Y
-
-eCtrlMap   6
-aZKey      130000328
-
-eCtrlMapLOD_Attribute 7
-
-eCtrlMapRelatedEntity 8
-
-eCtrlMapER_Attribute 8
-
-eCtrlMapER_Domain 9
-
-eCtrlMapView 7
-
-eControlDef 6
-
-eCtrlMap   5
-aZKey      110000015
-
-eCtrlMapLOD_Entity 6
-
-eCtrlMapView 6
-
-eCtrlMap   5
-aZKey      110000016
-
-eCtrlMap   5
-aZKey      110000017
-
-eEvent     5
-aType      2
-aZKey      110000199
-
-eEventAct  6
-aTag       GOTO_UpdateUser
-aType      34
-aZKey      110000074
-aDialogName TZCMLPLD
-aWindowName UpdateUserStartZKey
-aSB_SubAction 64
-aSB_ActionDisabling 4
-
-eControlDef 5
-
-eCtrlCtrl  4
-aTag       New1
-aText      &New User
-aZKey      110000025
-aSubtype   537001984
-aIdNbr     10
-aPSDLG_X   7
-aPSDLG_Y   118
-aSZDLG_X   48
-aSZDLG_Y   14
-aSyncKey   9999
-
-eCtrlMap   5
-aZKey      110000026
-
-eEvent     5
-aType      1
-aZKey      110000027
-
-eEventAct  6
-aTag       GOTO_NewUser
-aType      34
-aZKey      110000009
-aDialogName TZCMLPLD
-aWindowName UpdateUserStartZKey
-aSB_SubAction 32
-aSB_ActionDisabling 0
-
-eControlDef 5
-
-eCtrlCtrl  4
-aTag       Delete1
-aText      &Update User
-aZKey      110000028
-aSubtype   537001984
-aIdNbr     11
-aPSDLG_X   57
-aPSDLG_Y   118
-aSZDLG_X   48
-aSZDLG_Y   14
-aSyncKey   9999
-
-eCtrlMap   5
-aZKey      110000029
-
-eEvent     5
-aType      1
-aZKey      110000073
-
-eEventAct  6
-
-eControlDef 5
-
-eCtrlCtrl  4
-aTag       PushBtn1
-aText      &Delete User
-aZKey      110000066
-aSubtype   537001984
-aIdNbr     11
-aPSDLG_X   108
-aPSDLG_Y   118
-aSZDLG_X   48
-aSZDLG_Y   14
-aSyncKey   9999
-
-eCtrlMap   5
-aZKey      110000067
-
-eEvent     5
-aType      1
-aZKey      110000068
-
-eEventAct  6
-aTag       DELETE_User
-aType      2
-aZKey      110000003
-aSB_ActionDisabling 4
-
-eControlDef 5
-
-eCtrlMap   4
-aZKey      110000201
-
-eCtrlMap   4
-aZKey      110000202
-
-eCtrlMap   4
-aZKey      110000203
-
-eControlDef 4
-
-eControl   3
-aTag       MsgBar2
-aZKey      110000031
-aSubtype   1
-aPSDLG_X   0
-aPSDLG_Y   257
-aSZDLG_X   106
-aSZDLG_Y   20
-aSyncKey   9999
-
-eCtrlMap   4
-aZKey      110000032
-
-eControlDef 4
-
-eAction    3
-
-eActEvent  4
-
-eActCtrl   5
-
-eActOper   4
-aName      ANALYZE_MinMaxZKeyValues
-aZKey      110000284
-aClass     0
-aType      D
-aReturnDataType N
-
-eSourceFileForOper 5
-
-eAction    3
-
-eActMap    4
-aZKey      110000004
-
-eActMapLOD_Entity 5
-
-eActMapView 5
-
-eActEvent  4
-
-eActCtrl   5
-
-eActOper   4
-
-eSourceFileForOper 5
-
-eAction    3
-
-eActEvent  4
-
-eActCtrl   5
-
-eActOper   4
-aName      CLOSE_UsersForLPLR
-aZKey      110000114
-aClass     0
-aType      D
-aReturnDataType N
-
-eSourceFileForOper 5
-
-eAction    3
-
-eActMap    4
-aZKey      110000089
-
-eActMapLOD_Entity 5
-
-eActMapView 5
-
-eActEvent  4
-
-eActCtrl   5
-
-eAction    3
-
-eActMap    4
-aZKey      110000098
-
-eActMapLOD_Entity 5
-
-eActMapView 5
-
-eActEvent  4
-
-eActCtrl   5
-
-eActEvent  4
-
-eActCtrl   5
-
-eAction    3
-
-eActEvent  4
-
-eActCtrl   5
-
-eActOper   4
-aName      INITIALIZE_UserStartingGenZKey
-aZKey      110000272
-aClass     0
-aType      D
-aReturnDataType N
-
-eSourceFileForOper 5
-
-eWndStyle  3
-aTag       Dialog Box
-aZKey      7008569
-aStyle     -2134376448
-aDesc      Dialog box with caption, non-sizable border
-aStyleEx   1
 
 eViewObjRef 2
 aZKey      1339072
@@ -12278,13 +10691,6 @@ eOperation 3
 eParameter 4
 aShortDesc View To Window
 aDataType  V
-aZKey      110000086
-
-eOperation 3
-
-eParameter 4
-aShortDesc View To Window
-aDataType  V
 aZKey      110002130
 
 eOperation 3
@@ -12302,13 +10708,11 @@ aDataType  V
 aZKey      110002123
 
 eOperation 3
-
-eParameter 4
-aShortDesc View To Window
-aDataType  V
-aZKey      110000166
-
-eOperation 3
+aName      CLOSE_UsersForLPLR
+aZKey      110000114
+aType      D
+aReturnDataType N
+aClass     0
 
 eParameter 4
 aShortDesc View To Window
@@ -12316,25 +10720,16 @@ aDataType  V
 aZKey      110000115
 
 eOperation 3
-
-eParameter 4
-aShortDesc View To Window
-aDataType  V
-aZKey      110000191
-
-eOperation 3
+aName      INITIALIZE_UserStartingGenZKey
+aZKey      110000272
+aType      D
+aReturnDataType N
+aClass     0
 
 eParameter 4
 aShortDesc View To Window
 aDataType  V
 aZKey      110000273
-
-eOperation 3
-
-eParameter 4
-aShortDesc View To Window
-aDataType  V
-aZKey      110000285
 
 eOperation 3
 aName      SAVE_UsersForLPLR
@@ -12356,6 +10751,11 @@ aDataType  V
 aZKey      110002119
 
 eOperation 3
+aName      SAVE_NewLPLR
+aZKey      110002286
+aType      D
+aReturnDataType N
+aClass     0
 
 eParameter 4
 aShortDesc View To Window
@@ -12403,6 +10803,7 @@ aName      INITIALIZE_NextZKeyForObject
 aZKey      110003509
 aType      L
 aReturnDataType N
+aClass     0
 
 eParameter 4
 aShortDesc MetaOI
@@ -12802,29 +11203,13 @@ eOperationList 2
 
 eOperSourceFile 3
 
-eOperationList 2
-
-eOperSourceFile 3
-
-eOperationList 2
-
-eOperSourceFile 3
-
-eOperationList 2
-
-eOperSourceFile 3
-
-eOperationList 2
-
-eOperSourceFile 3
-
 eWebControlPropertyOption 2
 aName      Button (Not Submit)
-aZKey      110003507
+aZKey      130069308
 
 eWebControlPropertyOption 2
 aName      Hidden
-aZKey      110003508
+aZKey      130069309
 
 i11        5
 i12        6
@@ -13217,6 +11602,7 @@ i889       34
 i892       42
 i895       42
 i897       42
+i901       216
 i903       8
 i905       42
 i907       42
@@ -13258,7 +11644,9 @@ i969       873
 i970       8
 i971       955
 i972       29
+i975       900
 i976       216
+i977       902
 i978       8
 i980       29
 i983       910
@@ -13299,941 +11687,746 @@ i1047      932
 i1048      86
 i1049      1037
 i1050      995
-i1055      900
-i1056      901
-i1057      902
-i1058      8
-i1060      42
-i1062      42
-i1066      346
-i1071      34
-i1076      34
-i1079      42
-i1084      7
-i1085      8
-i1087      42
-i1091      346
-i1098      7
-i1099      8
-i1100      1059
-i1101      186
-i1105      1097
-i1107      286
-i1108      1059
-i1109      186
-i1113      1097
-i1115      286
-i1116      1059
-i1117      186
-i1119      1097
-i1120      1059
-i1125      219
-i1130      34
-i1134      1124
-i1135      34
-i1140      34
-i1144      346
-i1147      59
-i1148      1139
-i1150      1097
-i1151      1059
-i1152      1138
-i1153      1136
-i1155      932
-i1156      1075
-i1157      1074
-i1158      1072
-i1159      939
-i1160      932
-i1161      1129
-i1163      1097
-i1164      1059
-i1165      1128
-i1166      1126
-i1167      1124
-i1169      1097
-i1170      1059
-i1171      1123
-i1172      1093
-i1173      1133
-i1174      1131
-i1175      1070
-i1176      1069
-i1177      1067
-i1179      932
-i1185      379
-i1186      372
-i1187      381
-i1188      192
-i1189      193
-i1190      706
-i1191      186
-i1194      371
-i1195      372
-i1196      373
-i1197      8
-i1198      706
-i1199      186
-i1202      396
-i1203      397
-i1204      7
-i1205      8
-i1206      706
-i1207      186
-i1209      372
-i1210      706
-i1217      219
-i1221      223
-i1223      59
-i1228      1227
-i1231      1226
-i1232      547
-i1233      71
-i1236      372
-i1237      706
-i1239      451
-i1240      71
-i1244      547
-i1245      71
-i1246      1216
-i1248      372
-i1249      706
-i1250      1215
-i1251      1182
-i1252      1225
-i1255      1224
-i1257      71
-i1258      1214
-i1260      372
-i1261      706
-i1262      1213
-i1263      1182
-i1266      1264
-i1267      1214
-i1268      1238
-i1269      1234
-i1270      582
-i1275      25
-i1277      8
-i1278      28
-i1280      1082
-i1281      1083
-i1282      7
-i1283      8
-i1290      21
-i1293      24
-i1294      25
-i1295      26
-i1296      27
-i1297      28
-i1298      29
-i1302      34
-i1306      34
-i1309      42
-i1311      42
-i1314      59
-i1321      1301
-i1324      1300
-i1325      1299
-i1327      71
-i1328      1289
-i1331      1288
-i1332      1272
-i1334      71
-i1335      1305
-i1338      1304
-i1339      1303
-i1340      1316
-i1341      1315
-i1342      1318
-i1345      1317
-i1347      71
-i1348      1320
-i1351      1319
-i1353      71
-i1361      798
-i1362      799
-i1363      1284
-i1364      186
-i1368      1360
-i1369      865
-i1370      48
-i1371      1284
-i1372      186
-i1374      1360
-i1375      1284
-i1380      219
-i1385      34
-i1390      34
-i1395      34
-i1400      34
-i1405      34
-i1408      59
-i1419      1399
-i1421      1360
-i1424      1398
-i1425      1396
-i1427      71
-i1429      1389
-i1432      1388
-i1433      1386
-i1435      71
-i1436      1410
-i1437      1409
+i1055      379
+i1056      372
+i1057      381
+i1058      192
+i1059      193
+i1060      706
+i1061      186
+i1064      371
+i1065      372
+i1066      373
+i1067      8
+i1068      706
+i1069      186
+i1072      396
+i1073      397
+i1074      7
+i1075      8
+i1076      706
+i1077      186
+i1079      372
+i1080      706
+i1087      219
+i1091      223
+i1093      59
+i1098      1097
+i1101      1096
+i1102      547
+i1103      71
+i1106      372
+i1107      706
+i1109      451
+i1110      71
+i1114      547
+i1115      71
+i1116      1086
+i1118      372
+i1119      706
+i1120      1085
+i1121      1052
+i1122      1095
+i1125      1094
+i1127      71
+i1128      1084
+i1130      372
+i1131      706
+i1132      1083
+i1133      1052
+i1136      1134
+i1137      1084
+i1138      1108
+i1139      1104
+i1140      582
+i1145      25
+i1147      8
+i1148      28
+i1152      7
+i1153      8
+i1160      21
+i1163      24
+i1164      25
+i1165      26
+i1166      27
+i1167      28
+i1168      29
+i1172      34
+i1176      34
+i1179      42
+i1181      42
+i1184      59
+i1191      1171
+i1194      1170
+i1195      1169
+i1197      71
+i1198      1159
+i1201      1158
+i1202      1142
+i1204      71
+i1205      1175
+i1208      1174
+i1209      1173
+i1210      1186
+i1211      1185
+i1212      1188
+i1215      1187
+i1217      71
+i1218      1190
+i1221      1189
+i1223      71
+i1231      798
+i1232      799
+i1233      1154
+i1234      186
+i1238      1230
+i1239      865
+i1240      48
+i1241      1154
+i1242      186
+i1244      1230
+i1245      1154
+i1250      219
+i1255      34
+i1260      34
+i1265      34
+i1270      34
+i1275      34
+i1278      59
+i1289      1269
+i1291      1230
+i1294      1268
+i1295      1266
+i1297      71
+i1299      1259
+i1302      1258
+i1303      1256
+i1305      71
+i1306      1280
+i1307      1279
+i1310      71
+i1311      1264
+i1312      1263
+i1313      1261
+i1314      1274
+i1315      1273
+i1316      1271
+i1318      932
+i1320      1298
+i1321      1269
+i1322      1
+i1327      216
+i1329      48
+i1330      955
+i1331      29
+i1334      910
+i1335      216
+i1336      912
+i1337      8
+i1339      29
+i1342      29
+i1344      42
+i1347      855
+i1348      216
+i1349      798
+i1350      799
+i1351      955
+i1352      42
+i1354      42
+i1357      42
+i1361      216
+i1363      8
+i1364      955
+i1365      42
+i1368      42
+i1371      871
+i1372      216
+i1373      873
+i1374      8
+i1375      955
+i1376      42
+i1378      42
+i1382      216
+i1384      8
+i1385      955
+i1386      42
+i1388      42
+i1391      42
+i1393      346
+i1397      223
+i1400      223
+i1402      59
+i1414      71
+i1419      71
+i1424      71
+i1436      71
 i1440      71
-i1441      1394
-i1442      1393
-i1443      1391
-i1444      1404
-i1445      1403
-i1446      1401
-i1448      932
-i1450      1428
-i1451      1399
-i1452      1
-i1457      216
-i1459      48
-i1460      955
-i1461      29
-i1464      910
-i1465      216
-i1466      912
-i1467      8
-i1469      29
-i1472      29
-i1474      42
-i1477      855
-i1478      216
-i1479      798
-i1480      799
-i1481      955
-i1482      42
-i1484      42
-i1487      42
-i1491      216
-i1493      8
-i1494      955
-i1495      42
-i1498      42
-i1501      871
-i1502      216
-i1503      873
-i1504      8
-i1505      955
-i1506      42
-i1508      42
-i1512      216
-i1514      8
-i1515      955
-i1516      42
-i1518      42
-i1521      42
-i1523      346
-i1527      223
-i1530      223
-i1532      59
-i1544      71
-i1547      1447
-i1548      932
-i1553      71
-i1558      71
-i1570      71
-i1574      71
-i1578      932
-i1590      71
-i1596      71
-i1602      71
-i1608      71
-i1609      1538
-i1610      1537
-i1612      71
-i1613      1536
-i1614      1535
-i1616      71
-i1625      71
-i1629      1561
-i1630      1562
-i1632      71
-i1636      71
-i1639      1561
-i1640      1562
-i1642      71
-i1643      1534
-i1646      1533
-i1648      71
-i1654      71
-i1659      71
-i1662      1561
-i1666      71
-i1669      1561
-i1670      1562
-i1672      71
-i1685      1561
-i1686      1562
-i1693      71
-i1696      1692
-i1697      71
-i1707      1561
-i1710      71
-i1713      1561
-i1714      1562
-i1717      1546
-i1718      1545
-i1719      1691
-i1720      1690
-i1722      1695
-i1723      1694
-i1725      1652
-i1726      1649
-i1727      1542
-i1728      1539
-i1731      1620
-i1732      1617
-i1733      1584
-i1734      1581
-i1735      1580
-i1736      1579
-i1737      1572
-i1738      1571
-i1739      1576
-i1740      1575
-i1741      1704
-i1742      1701
-i1743      1682
-i1744      1679
-i1745      1634
-i1746      1633
-i1748      1600
-i1749      1597
-i1750      1606
-i1751      1603
-i1752      1594
-i1753      1591
-i1754      1588
-i1755      1585
-i1756      1715
-i1762      1456
-i1763      216
-i1764      1458
-i1765      48
-i1767      29
-i1770      910
-i1771      216
-i1772      912
-i1773      8
-i1774      1766
-i1775      29
-i1778      29
-i1780      42
-i1783      855
-i1784      216
-i1785      798
-i1786      799
-i1787      1766
-i1788      42
-i1790      42
-i1793      42
-i1796      1490
-i1797      216
-i1798      1492
-i1799      8
-i1800      1766
-i1801      42
-i1804      42
-i1807      871
-i1808      216
-i1809      873
-i1810      8
-i1811      1766
-i1812      42
-i1814      42
-i1817      1511
-i1818      216
-i1819      1513
-i1820      8
-i1821      1766
-i1822      42
-i1824      42
-i1827      42
-i1830      42
-i1834      1561
-i1836      8
-i1837      1766
-i1838      42
-i1840      346
-i1844      223
-i1847      223
-i1849      59
-i1860      1543
-i1861      71
-i1865      1552
-i1866      71
-i1870      1557
-i1871      71
-i1874      1561
-i1875      1766
-i1883      1569
-i1884      71
-i1887      1573
+i1452      71
+i1458      71
+i1464      71
+i1470      71
+i1471      1408
+i1472      1407
+i1474      71
+i1475      1406
+i1476      1405
+i1478      71
+i1487      71
+i1491      1427
+i1492      1428
+i1494      71
+i1498      71
+i1501      1427
+i1502      1428
+i1504      71
+i1505      1404
+i1508      1403
+i1510      71
+i1516      71
+i1521      71
+i1524      1427
+i1528      71
+i1531      1427
+i1532      1428
+i1534      71
+i1547      1427
+i1548      1428
+i1551      1317
+i1552      932
+i1559      71
+i1562      1558
+i1563      71
+i1573      1427
+i1576      71
+i1579      1427
+i1580      1428
+i1583      1550
+i1584      1549
+i1585      1557
+i1586      1556
+i1588      1561
+i1589      1560
+i1591      1514
+i1592      1511
+i1593      1412
+i1594      1409
+i1597      1482
+i1598      1479
+i1599      1446
+i1600      1443
+i1601      1442
+i1602      1441
+i1603      1438
+i1604      1437
+i1605      1570
+i1606      1567
+i1607      1544
+i1608      1541
+i1609      1496
+i1610      1495
+i1612      1462
+i1613      1459
+i1614      1468
+i1615      1465
+i1616      1456
+i1617      1453
+i1618      1450
+i1619      1447
+i1620      1581
+i1626      1326
+i1627      216
+i1628      1328
+i1629      48
+i1631      29
+i1634      910
+i1635      216
+i1636      912
+i1637      8
+i1638      1630
+i1639      29
+i1642      29
+i1644      42
+i1647      855
+i1648      216
+i1649      798
+i1650      799
+i1651      1630
+i1652      42
+i1654      42
+i1657      42
+i1660      1360
+i1661      216
+i1662      1362
+i1663      8
+i1664      1630
+i1665      42
+i1668      42
+i1671      871
+i1672      216
+i1673      873
+i1674      8
+i1675      1630
+i1676      42
+i1678      42
+i1681      1381
+i1682      216
+i1683      1383
+i1684      8
+i1685      1630
+i1686      42
+i1688      42
+i1691      42
+i1694      42
+i1698      1427
+i1700      8
+i1701      1630
+i1702      42
+i1704      346
+i1708      223
+i1711      223
+i1713      59
+i1724      1413
+i1725      71
+i1729      1418
+i1730      71
+i1734      1423
+i1735      71
+i1738      1427
+i1739      1630
+i1747      1435
+i1748      71
+i1751      1439
+i1752      71
+i1763      1451
+i1764      71
+i1769      1457
+i1770      71
+i1775      1463
+i1776      71
+i1781      1469
+i1782      71
+i1783      1715
+i1784      1714
+i1785      1473
+i1786      71
+i1787      1719
+i1788      1718
+i1789      1477
+i1790      71
+i1799      1486
+i1800      71
+i1805      1427
+i1806      1630
+i1808      1493
+i1809      71
+i1812      1427
+i1813      1630
+i1815      1503
+i1816      71
+i1817      1717
+i1820      1716
+i1821      1509
+i1822      71
+i1827      1515
+i1828      71
+i1832      1520
+i1833      71
+i1836      1427
+i1837      1630
+i1840      1527
+i1841      71
+i1844      1427
+i1845      1630
+i1847      1533
+i1848      71
+i1861      1427
+i1862      1630
+i1869      1558
+i1870      71
+i1873      1558
+i1874      71
+i1884      1427
+i1885      1630
+i1887      1575
 i1888      71
-i1899      1589
-i1900      71
-i1905      1595
-i1906      71
-i1911      1601
-i1912      71
-i1917      1607
-i1918      71
-i1919      1851
-i1920      1850
-i1921      1611
-i1922      71
-i1923      1855
-i1924      1854
-i1925      1615
-i1926      71
-i1935      1624
-i1936      71
-i1941      1561
-i1942      1766
-i1944      1631
-i1945      71
-i1948      1561
-i1949      1766
-i1951      1641
-i1952      71
-i1953      1853
-i1956      1852
-i1957      1647
-i1958      71
-i1963      1653
-i1964      71
-i1968      1658
-i1969      71
-i1972      1561
-i1973      1766
-i1976      1665
-i1977      71
-i1980      1561
-i1981      1766
-i1983      1671
-i1984      71
-i1997      1561
-i1998      1766
-i2005      1692
-i2006      71
-i2009      1692
-i2010      71
-i2020      1561
-i2021      1766
-i2023      1709
-i2024      71
-i2027      1561
-i2028      1766
-i2032      2004
-i2033      2003
-i2035      2008
-i2036      2007
-i2038      1962
-i2039      1959
-i2040      1859
-i2041      1856
-i2044      1975
-i2045      1970
-i2046      1999
-i2047      1995
-i2048      1876
-i2049      1872
-i2050      1982
-i2051      1978
-i2053      1934
-i2054      1931
-i2055      1938
-i2056      1937
-i2057      1943
-i2058      1939
-i2059      1950
-i2060      1946
-i2061      2022
-i2062      2018
-i2063      2029
-i2064      2025
-i2066      1930
-i2067      1927
-i2068      1894
-i2069      1891
-i2070      1890
-i2071      1889
-i2072      1886
-i2073      1885
-i2074      2017
-i2075      2014
-i2076      1994
-i2077      1991
-i2079      1910
-i2080      1907
-i2081      1916
-i2082      1913
-i2083      1904
-i2084      1901
-i2085      1898
-i2086      1895
-i2087      2030
-i2092      24
-i2093      25
-i2094      26
-i2095      27
-i2096      28
-i2097      29
-i2101      25
-i2103      8
-i2105      29
-i2109      34
-i2113      34
-i2116      1082
-i2117      1083
-i2118      7
-i2119      8
-i2120      1284
-i2121      42
-i2124      42
-i2128      1083
-i2130      48
-i2132      105
-i2135      42
-i2138      42
-i2141      42
-i2144      59
-i2145      2108
-i2148      2107
-i2149      2106
-i2151      71
-i2152      2112
-i2153      2111
-i2154      2110
-i2156      71
-i2157      86
-i2161      1096
-i2162      1097
-i2163      7
-i2164      8
-i2166      29
-i2169      1104
-i2170      1097
-i2171      1106
-i2172      286
-i2173      2165
-i2174      29
-i2178      34
-i2182      34
-i2184      42
-i2186      42
-i2188      42
-i2190      42
-i2193      1112
-i2194      1097
-i2195      1114
-i2196      286
-i2197      2165
-i2198      29
-i2201      59
-i2202      2177
-i2203      2176
-i2204      2175
-i2206      932
-i2207      2181
-i2209      1097
-i2210      2165
-i2211      2180
-i2212      2179
-i2219      1097
-i2226      1096
-i2227      1097
-i2228      7
-i2229      8
-i2230      2222
-i2235      1097
-i2236      2129
-i2237      48
-i2238      2222
-i2239      2231
-i2249      34
-i2253      34
-i2260      71
-i2261      2244
-i2263      1097
-i2265      2243
-i2266      2215
-i2268      71
-i2269      2252
-i2270      2251
-i2271      2250
-i2272      2259
-i2273      71
-i2274      2255
-i2275      2254
-i2277      71
-i2278      2257
-i2279      2256
-i2281      71
-i2282      2248
-i2283      2247
-i2284      2246
-i2286      71
-i2292      900
-i2293      901
-i2294      902
-i2295      8
-i2297      29
-i2299      42
-i2303      346
-i2308      34
-i2311      42
-i2314      1082
-i2315      1083
-i2316      7
-i2317      8
-i2319      42
-i2321      42
-i2325      1360
-i2327      286
-i2329      42
-i2334      34
-i2339      34
-i2343      346
-i2348      1096
-i2349      1097
-i2350      7
-i2351      8
-i2353      186
-i2356      1104
-i2357      1097
-i2358      1106
-i2359      286
-i2360      2352
-i2361      186
-i2364      1112
-i2365      1097
-i2366      1114
-i2367      286
-i2368      2352
-i2369      186
-i2371      1097
-i2372      2352
-i2377      219
-i2382      34
-i2386      2376
-i2387      34
-i2392      34
-i2396      346
-i2399      59
-i2400      2338
-i2401      2337
-i2402      2335
-i2404      932
-i2405      2391
-i2407      1097
-i2408      2165
-i2409      2390
-i2410      2388
-i2411      1154
-i2412      932
-i2413      2307
-i2414      2306
-i2415      2304
-i2417      932
-i2418      2381
-i2420      1097
-i2421      2165
-i2422      2380
-i2423      2378
-i2424      2376
-i2426      1097
-i2427      2165
-i2428      2385
-i2429      2383
-i2430      2375
-i2431      2345
-i2432      2333
-i2433      2332
-i2434      2330
-i2436      932
-i2447      2445
-i2451      2439
-i2453      2439
-i2457      2455
-i2461      2459
-i2467      2439
-i2468      71
-i2469      70
-i2471      2280
-i2473      2276
-i2475      2259
-i2477      258
-i2479      1624
-i2483      471
-i2487      237
-i2489      1552
-i2493      1434
-i2495      1692
-i2497      244
-i2499      251
-i2501      456
-i2503      464
-i2505      485
-i2507      1426
-i2509      446
-i2513      575
-i2515      1543
-i2517      1569
-i2519      1589
-i2521      1595
-i2523      1607
-i2529      1611
-i2535      1631
-i2539      561
-i2541      567
-i2543      843
-i2545      1635
-i2547      1653
-i2549      1326
-i2551      1352
-i2555      1601
-i2557      2150
-i2559      1671
-i2563      1709
-i2569      1647
-i2571      1256
-i2573      1658
-i2575      1557
-i2579      1346
-i2581      1333
-i2583      84
-i2589      1665
-i2591      451
-i2593      268
-i2595      1615
-i2613      1641
-i2634      1573
-i2636      477
-i2638      838
-i2640      547
-i2642      2155
-i2644      1439
-i2646      555
-i2648      2285
-i2650      2267
-i2652      274
-i2656      932
-i2657      1154
-i2659      1046
-i2661      943
-i2663      939
-i2665      1577
-i2667      2416
-i2669      2205
-i2671      2435
-i2673      2403
-i2677      931
-i2679      1178
-i2681      1447
-i2690      2205
-i2691      932
-i2692      2403
-i2693      932
-i2694      939
-i2695      932
-i2696      2416
-i2697      932
-i2698      931
-i2699      932
-i2700      1154
-i2701      932
-i2702      2683
-i2703      932
-i2704      1577
-i2705      932
-i2706      1447
-i2707      932
-i2708      2687
-i2709      932
-i2710      2435
-i2711      932
-i2712      943
-i2713      932
-i2714      1046
-i2715      932
-i2716      1178
-i2717      932
-i2718      2675
-i2719      932
-i2720      1256
-i2721      71
-i2722      70
-i2723      71
-i2724      1624
-i2725      71
-i2726      471
-i2727      71
-i2728      1552
-i2729      71
-i2730      2485
-i2731      71
-i2732      1557
-i2733      71
-i2734      2276
-i2735      71
-i2736      237
-i2737      71
-i2738      2491
-i2739      71
-i2740      1434
-i2741      71
-i2742      2259
-i2743      71
-i2744      2601
-i2745      71
-i2746      2597
-i2747      71
-i2748      2605
-i2749      71
-i2750      1692
-i2751      71
-i2752      244
-i2753      71
-i2754      251
-i2755      71
-i2756      274
-i2757      71
-i2758      464
-i2759      71
-i2760      456
-i2761      71
-i2762      485
-i2763      71
-i2764      2267
-i2765      71
-i2766      2481
-i2767      71
-i2768      547
-i2769      71
-i2770      2577
-i2771      71
-i2772      258
-i2773      71
-i2774      2533
-i2775      71
-i2776      2585
-i2777      71
-i2778      1426
-i2779      71
-i2780      2511
-i2781      71
-i2782      2155
-i2783      71
-i2784      446
-i2785      71
-i2786      575
-i2787      71
-i2788      1543
-i2789      71
-i2790      2565
-i2791      71
-i2792      2587
-i2793      71
-i2794      1569
-i2795      71
-i2796      1573
-i2797      71
-i2798      2631
-i2799      71
-i2800      2624
-i2801      71
-i2802      1589
-i2803      71
-i2804      1595
-i2805      71
-i2806      1607
-i2807      71
-i2808      268
-i2809      71
-i2810      2525
-i2811      71
-i2812      2527
-i2813      71
-i2814      1611
-i2815      71
-i2816      1615
-i2817      71
-i2818      1665
-i2819      71
-i2820      451
-i2821      71
-i2822      555
-i2823      71
-i2824      2531
-i2825      71
-i2826      2615
-i2827      71
-i2828      2285
-i2829      71
-i2830      1631
-i2831      71
-i2832      2619
-i2833      71
-i2834      2537
-i2835      71
-i2836      561
-i2837      71
-i2838      843
-i2839      71
-i2840      567
-i2841      71
-i2842      1635
-i2843      71
-i2844      2654
-i2845      71
-i2846      838
-i2847      71
-i2848      1641
-i2849      71
-i2850      1647
-i2851      71
-i2852      1653
-i2853      71
-i2854      2609
-i2855      71
-i2856      1333
-i2857      71
-i2858      84
-i2859      71
-i2860      1658
-i2861      71
-i2862      1439
-i2863      71
-i2864      2280
-i2865      71
-i2866      2567
-i2867      71
-i2868      477
-i2869      71
-i2870      1326
-i2871      71
-i2872      1346
-i2873      71
-i2874      1352
-i2875      71
-i2876      2553
-i2877      71
-i2878      1601
-i2879      71
-i2880      2150
-i2881      71
-i2882      2628
-i2883      71
-i2884      1671
-i2885      71
-i2886      2561
-i2887      71
-i2888      1709
-i2889      71
+i1891      1427
+i1892      1630
+i1896      1868
+i1897      1867
+i1899      1872
+i1900      1871
+i1902      1826
+i1903      1823
+i1904      1723
+i1905      1720
+i1908      1839
+i1909      1834
+i1910      1863
+i1911      1859
+i1912      1740
+i1913      1736
+i1914      1846
+i1915      1842
+i1917      1798
+i1918      1795
+i1919      1802
+i1920      1801
+i1921      1807
+i1922      1803
+i1923      1814
+i1924      1810
+i1925      1886
+i1926      1882
+i1927      1893
+i1928      1889
+i1930      1794
+i1931      1791
+i1932      1758
+i1933      1755
+i1934      1754
+i1935      1753
+i1936      1750
+i1937      1749
+i1938      1881
+i1939      1878
+i1940      1858
+i1941      1855
+i1943      1774
+i1944      1771
+i1945      1780
+i1946      1777
+i1947      1768
+i1948      1765
+i1949      1762
+i1950      1759
+i1951      1894
+i1956      24
+i1957      25
+i1958      26
+i1959      27
+i1960      28
+i1961      29
+i1965      25
+i1967      8
+i1969      29
+i1973      34
+i1977      34
+i1980      1150
+i1981      1151
+i1982      7
+i1983      8
+i1984      1154
+i1985      42
+i1988      42
+i1992      1151
+i1994      48
+i1996      105
+i1999      42
+i2002      42
+i2005      42
+i2008      59
+i2009      1972
+i2012      1971
+i2013      1970
+i2015      71
+i2016      1976
+i2017      1975
+i2018      1974
+i2020      71
+i2021      86
+i2035      2027
+i2036      7
+i2037      8
+i2038      2030
+i2043      2027
+i2044      1993
+i2045      48
+i2046      2030
+i2047      2039
+i2057      34
+i2061      34
+i2068      71
+i2069      2052
+i2071      2027
+i2073      2051
+i2074      2023
+i2076      71
+i2077      2060
+i2078      2059
+i2079      2058
+i2080      2067
+i2081      71
+i2082      2063
+i2083      2062
+i2085      71
+i2086      2065
+i2087      2064
+i2089      71
+i2090      2056
+i2091      2055
+i2092      2054
+i2094      71
+i2105      2103
+i2109      2097
+i2111      2097
+i2115      2113
+i2119      2117
+i2125      2097
+i2126      71
+i2127      70
+i2129      2088
+i2131      2084
+i2133      2067
+i2135      258
+i2137      1486
+i2141      471
+i2145      237
+i2147      1418
+i2151      1304
+i2153      1558
+i2155      244
+i2157      251
+i2159      456
+i2161      464
+i2163      485
+i2165      1296
+i2167      446
+i2171      575
+i2173      1413
+i2175      1435
+i2177      1451
+i2179      1457
+i2181      1469
+i2187      1473
+i2193      1493
+i2197      561
+i2199      567
+i2201      843
+i2203      1497
+i2205      1515
+i2207      1196
+i2209      1222
+i2213      1463
+i2215      2014
+i2217      1533
+i2221      1575
+i2227      1509
+i2229      1126
+i2231      1520
+i2233      1423
+i2237      1216
+i2239      1203
+i2241      84
+i2247      1527
+i2249      451
+i2251      268
+i2253      1477
+i2271      1503
+i2292      1439
+i2294      477
+i2296      838
+i2298      547
+i2300      2019
+i2302      1309
+i2304      555
+i2306      2093
+i2308      2075
+i2310      274
+i2314      932
+i2315      1046
+i2317      943
+i2319      939
+i2327      931
+i2331      1317
+i2340      939
+i2341      932
+i2342      2321
+i2343      932
+i2344      931
+i2345      932
+i2346      2333
+i2347      932
+i2348      1317
+i2349      932
+i2350      2337
+i2351      932
+i2352      2323
+i2353      932
+i2354      943
+i2355      932
+i2356      1046
+i2357      932
+i2358      2329
+i2359      932
+i2360      2325
+i2361      932
+i2362      1126
+i2363      71
+i2364      70
+i2365      71
+i2366      1486
+i2367      71
+i2368      471
+i2369      71
+i2370      1418
+i2371      71
+i2372      2143
+i2373      71
+i2374      1423
+i2375      71
+i2376      2084
+i2377      71
+i2378      237
+i2379      71
+i2380      2149
+i2381      71
+i2382      1304
+i2383      71
+i2384      2067
+i2385      71
+i2386      2259
+i2387      71
+i2388      2255
+i2389      71
+i2390      2263
+i2391      71
+i2392      1558
+i2393      71
+i2394      244
+i2395      71
+i2396      251
+i2397      71
+i2398      274
+i2399      71
+i2400      464
+i2401      71
+i2402      456
+i2403      71
+i2404      485
+i2405      71
+i2406      2075
+i2407      71
+i2408      2139
+i2409      71
+i2410      547
+i2411      71
+i2412      2235
+i2413      71
+i2414      258
+i2415      71
+i2416      2191
+i2417      71
+i2418      2243
+i2419      71
+i2420      1296
+i2421      71
+i2422      2169
+i2423      71
+i2424      2019
+i2425      71
+i2426      446
+i2427      71
+i2428      575
+i2429      71
+i2430      1413
+i2431      71
+i2432      2223
+i2433      71
+i2434      2245
+i2435      71
+i2436      1435
+i2437      71
+i2438      1439
+i2439      71
+i2440      2289
+i2441      71
+i2442      2282
+i2443      71
+i2444      1451
+i2445      71
+i2446      1457
+i2447      71
+i2448      1469
+i2449      71
+i2450      268
+i2451      71
+i2452      2183
+i2453      71
+i2454      2185
+i2455      71
+i2456      1473
+i2457      71
+i2458      1477
+i2459      71
+i2460      1527
+i2461      71
+i2462      451
+i2463      71
+i2464      555
+i2465      71
+i2466      2189
+i2467      71
+i2468      2273
+i2469      71
+i2470      2093
+i2471      71
+i2472      1493
+i2473      71
+i2474      2277
+i2475      71
+i2476      2195
+i2477      71
+i2478      561
+i2479      71
+i2480      843
+i2481      71
+i2482      567
+i2483      71
+i2484      1497
+i2485      71
+i2486      2312
+i2487      71
+i2488      838
+i2489      71
+i2490      1503
+i2491      71
+i2492      1509
+i2493      71
+i2494      1515
+i2495      71
+i2496      2267
+i2497      71
+i2498      1203
+i2499      71
+i2500      84
+i2501      71
+i2502      1520
+i2503      71
+i2504      1309
+i2505      71
+i2506      2088
+i2507      71
+i2508      2225
+i2509      71
+i2510      477
+i2511      71
+i2512      1196
+i2513      71
+i2514      1216
+i2515      71
+i2516      1222
+i2517      71
+i2518      2211
+i2519      71
+i2520      1463
+i2521      71
+i2522      2014
+i2523      71
+i2524      2286
+i2525      71
+i2526      1533
+i2527      71
+i2528      2219
+i2529      71
+i2530      1575
+i2531      71

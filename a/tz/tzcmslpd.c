@@ -100,7 +100,6 @@ zwTZCMSLPD_SwitchLPLR( zVIEW vSubtask )
    zVIEW  vTZCMSLPL;
    zVIEW  vTZCMWKSO;
    LPTASK lpTask;
-   zVIEW  TZCMULWO;
    zCHAR  szFileName[ 514 ] = { 0 }; 
    zCHAR  szDirectoryName[ 514 ] = { 0 }; 
    zSHORT nRC;
@@ -171,28 +170,6 @@ zwTZCMSLPD_SwitchLPLR( zVIEW vSubtask )
       oTZCMWKSO_CommitWorkstation( vTZCMWKSO );
       DropNameForView( vTZCMSLPL, "TZCMSLPL", vSubtask, zLEVEL_TASK );
    }
-
-   // KJS 04/30/15
-   nRC = GetViewByName( &TZCMULWO, "TZCMULWO", vSubtask, zLEVEL_TASK );
-   if ( nRC >= 0 )
-   { 
-      DropObjectInstance( TZCMULWO );
-   }
-
-   GetVariableFromAttribute( szDirectoryName, 0, 'S', 514, vTZCMSLPL, "LPLR", "MetaSrcDir", "", 0 );
-   ZeidonStringCopy( szFileName, 1, 0, szDirectoryName, 1, 0, 514 );
-   ZeidonStringConcat( szFileName, 1, 0, "\\", 1, 0, 514 );
-   ZeidonStringConcat( szFileName, 1, 0, "TZCMULWO.POR", 1, 0, 514 );
-   nRC = ActivateOI_FromFile( &TZCMULWO, "TZCMULWO", vSubtask, szFileName, zIGNORE_ERRORS | zLEVEL_TASK );
-   if ( nRC < 0 )
-   { 
-      nRC = ActivateEmptyObjectInstance( &TZCMULWO, "TZCMULWO", vSubtask, zSINGLE );
-      SetNameForView( TZCMULWO, "TZCMULWO", 0, zLEVEL_TASK );
-      nRC = CreateEntity( TZCMULWO, "Installation", zPOS_AFTER );
-      SetAttributeFromInteger( TZCMULWO, "Installation", "ZKey", 1 );
-      SetAttributeFromAttribute( TZCMULWO, "Installation", "Name", vTZCMSLPL, "LPLR", "Name" );
-      CommitOI_ToFile( TZCMULWO, szFileName, zASCII );
-   } 
 
    return( 1 );
 }

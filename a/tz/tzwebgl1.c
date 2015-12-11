@@ -8475,8 +8475,10 @@ GenJSP_CrteCtrlsRecurs( zVIEW     vDialog,
                         //:IF szToggleFlag = "Y"
                         if ( ZeidonStringCompare( szToggleFlag, 1, 0, "Y", 1, 0, 2 ) == 0 )
                         { 
-                           //:szWriteBuffer = "<div style=^float:left;^>  <!-- Div surrounding toggle --> "
-                           ZeidonStringCopy( szWriteBuffer, 1, 0, "<div style=^float:left;^>  <!-- Div surrounding toggle --> ", 1, 0, 10001 );
+                           //://szWriteBuffer = "<div style=^float:left;^>  <!-- Div surrounding toggle --> "
+                           //:// KJS 11/05/15 - Jeff asked for float to be changed to clear.
+                           //:szWriteBuffer = "<div style=^clear:left;^>  <!-- Div surrounding toggle --> "
+                           ZeidonStringCopy( szWriteBuffer, 1, 0, "<div style=^clear:left;^>  <!-- Div surrounding toggle --> ", 1, 0, 10001 );
                            //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
                            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 );
                            //:szWriteBuffer = "<div style=^height:20px;^><a href=^#^ onclick=^animatedcollapse.toggle('" + szCtrlTag + "');^ style=^^>" + vDialog.Control.Text + "</a></div>"
@@ -14250,8 +14252,12 @@ GenJSP_CrteCtrlsRecurs( zVIEW     vDialog,
                               ZeidonStringConcat( szWriteBuffer, 1, 0, "%>^ />", 1, 0, 10001 );
                               //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
                               WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 );
-                              //:szWriteBuffer = "              <img src=^images/scw.gif^ title=^Select Date^ alt=^Select Date^ " + szDisabled + " "
-                              ZeidonStringCopy( szWriteBuffer, 1, 0, "              <img src=^images/scw.gif^ title=^Select Date^ alt=^Select Date^ ", 1, 0, 10001 );
+                              //:szWriteBuffer = "              <img src=^images/scw.gif^  name=^" + szListCtrlTag + "Img::<%=strEntityKey%>^ id=^" + szListCtrlTag + "Img::<%=strEntityKey%>^ title=^Select Date^ alt=^Select Date^ " + szDisabled + " "
+                              ZeidonStringCopy( szWriteBuffer, 1, 0, "              <img src=^images/scw.gif^  name=^", 1, 0, 10001 );
+                              ZeidonStringConcat( szWriteBuffer, 1, 0, szListCtrlTag, 1, 0, 10001 );
+                              ZeidonStringConcat( szWriteBuffer, 1, 0, "Img::<%=strEntityKey%>^ id=^", 1, 0, 10001 );
+                              ZeidonStringConcat( szWriteBuffer, 1, 0, szListCtrlTag, 1, 0, 10001 );
+                              ZeidonStringConcat( szWriteBuffer, 1, 0, "Img::<%=strEntityKey%>^ title=^Select Date^ alt=^Select Date^ ", 1, 0, 10001 );
                               ZeidonStringConcat( szWriteBuffer, 1, 0, szDisabled, 1, 0, 10001 );
                               ZeidonStringConcat( szWriteBuffer, 1, 0, " ", 1, 0, 10001 );
                               //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )

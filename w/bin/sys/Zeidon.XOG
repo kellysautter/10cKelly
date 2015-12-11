@@ -1,4 +1,4 @@
-z1000-Zeidon    ZEIDON   TZZOXOGO 10/27/15   15:41:07 1.0a2    
+z1000-Zeidon    ZEIDON   TZZOXOGO 11/20/15   12:00:26 1.0a2    
 eTZZOXOGO  1
 aNAME      Zeidon
 
@@ -631,6 +631,26 @@ aDATATYPE  S
 ePARAMETER 4
 aNAME      CurrentEntityName
 aDATATYPE  S
+
+eOPERATION 3
+aNAME      ActivateEmptyMetaOI
+aTYPE      G
+
+ePARAMETER 4
+aNAME      Subtask
+aDATATYPE  V
+
+ePARAMETER 4
+aNAME      ReturnView
+aDATATYPE  V
+
+ePARAMETER 4
+aNAME      MetaType
+aDATATYPE  N
+
+ePARAMETER 4
+aNAME      ControlFlag
+aDATATYPE  L
 
 eOPERATION 3
 aNAME      RebuildXDM
@@ -2478,6 +2498,58 @@ aDATATYPE  S
 ePARAMETER 4
 aNAME      vDialogMenu
 aDATATYPE  V
+
+eOPERATION 3
+aNAME      GenJSPJ_CrtePushButton
+aTYPE      G
+
+ePARAMETER 4
+aNAME      vDialog
+aDATATYPE  V
+
+ePARAMETER 4
+aNAME      vGroupParent
+aDATATYPE  V
+
+ePARAMETER 4
+aNAME      File
+aDATATYPE  L
+
+ePARAMETER 4
+aNAME      WriteBuffer
+aDATATYPE  S
+
+ePARAMETER 4
+aNAME      Indent
+aDATATYPE  S
+
+ePARAMETER 4
+aNAME      CtrlTag
+aDATATYPE  S
+
+ePARAMETER 4
+aNAME      TableRowFlag
+aDATATYPE  S
+
+ePARAMETER 4
+aNAME      Justify
+aDATATYPE  S
+
+ePARAMETER 4
+aNAME      NoPositioning
+aDATATYPE  S
+
+ePARAMETER 4
+aNAME      OffsetX
+aDATATYPE  L
+
+ePARAMETER 4
+aNAME      OffsetY
+aDATATYPE  L
+
+ePARAMETER 4
+aNAME      strRepeatGrpKey
+aDATATYPE  S
 
 eOPERATION 3
 aNAME      GenJSPJ_CrteMLEdit

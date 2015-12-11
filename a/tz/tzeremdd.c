@@ -12038,6 +12038,26 @@ zwTZEREMDD_RebuildTablesRels( zVIEW vSubtask )
 
 /*************************************************************************************************
 **    
+**    OPERATION: GenerateID_Identifiers
+**    
+*************************************************************************************************/
+zOPER_EXPORT zSHORT /*DIALOG */  OPERATION
+GenerateID_Identifiers( zVIEW vSubtask )
+{
+   zVIEW  vTZEREMDO;
+   zSHORT nRC;
+
+   // Execute routine to convert ZKey Domains.
+   nRC = GetViewByName( &vTZEREMDO, "TZEREMDO", vSubtask, zLEVEL_TASK );
+   if ( nRC >= 0 )
+      oTZEREMDO_GenerateID_Identifiers( vTZEREMDO );
+      
+   return( 0 );
+
+} // GenerateZKeyDomains
+
+/*************************************************************************************************
+**    
 **    OPERATION: GenerateZKeyDomains
 **    
 *************************************************************************************************/
