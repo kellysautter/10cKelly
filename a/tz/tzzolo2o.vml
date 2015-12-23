@@ -1110,7 +1110,8 @@ LOD_AttributeCopy( VIEW        vSubtask,
 
             // If there is a SourceLPLR, get the Domain Name from there.
             // Otherwise, use the Domain Name from the LOD.
-            IF SourceLPLR = 0
+            // KJS 12/18/15 - should be > 0 not = 0
+            IF SourceLPLR > 0
                DomainName = OldRecursiveLOD.DomainRec.Name
                SET CURSOR FIRST CurrentLPLR.W_MetaDef
                           WHERE CurrentLPLR.W_MetaDef.Name = DomainName

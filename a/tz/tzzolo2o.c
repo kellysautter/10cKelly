@@ -1137,7 +1137,8 @@ oTZZOLODO_LOD_AttributeCopy( zVIEW     vSubtask,
             //:// If there is a SourceLPLR, get the Domain Name from there.
             //:// Otherwise, use the Domain Name from the LOD.
             //:IF SourceLPLR = 0
-            if ( SourceLPLR == 0 )
+			// KJS 12/18/15 - trying > 0
+            if ( SourceLPLR > 0 )
             { 
                //:DomainName = OldRecursiveLOD.DomainRec.Name
                GetVariableFromAttribute( DomainName, 0, 'S', 33, OldRecursiveLOD, "DomainRec", "Name", "", 0 );
