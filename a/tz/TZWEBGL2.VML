@@ -2315,7 +2315,9 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
             // KJS 05/06/09 - I am placing this div around the <table> being generated so that if there is a
             // WebGridNoDataMessage, I can create this message under the table lined up with the table.  Otherwise,
             // I need to save any spacing that happens before this grid.
-            IF vDialog.Control.WebNoGridDataMessage != ""
+            // KJS 12/23/15 - I am not going to do this if we are not generating with any style. Jeff's group has an outer div
+            // with a css and with this div, then css doesn't work correctly. I use this in older code so keeping in.
+            IF vDialog.Control.WebNoGridDataMessage != "" AND szNoPositioning != "S"
                szWriteBuffer = "<div style=^float:left^>  <!-- Div around the table, this is for the message if no data -->"
                WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
             END
@@ -4102,8 +4104,10 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
                // KJS 05/06/09 - I am putting a div with style float:left around the tables so that if there
                // is a message to display if the table has no data, then this message will line up with the
                // table.  Not sure if placing this div will affect how the tables are painted but I hope not.
-               szWriteBuffer = "</div>  <!-- End of div around table -->"
-               WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
+               IF  szNoPositioning != "S"
+                  szWriteBuffer = "</div>  <!-- End of div around table -->"
+                  WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
+               END
             END
 
          END  // IF szControlType = "Grid"
