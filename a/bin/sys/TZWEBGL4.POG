@@ -1,6 +1,7 @@
-z1000-Zeidon    TZWEBGL4 TZOGSRCO 04/16/14   15:04:41 1.0a2    
+z1000-Zeidon    TZWEBGL4 TZOGSRCO 02/23/16   21:33:29 1.0a2    
 eGlobalOperationGroup 1
 aZKey      4896724
+aNextZKeyToAssign 130070628
 aName      TZWEBGL4
 aDesc      JSP Generation operations for zeidon JAVA
 aExtension VML
@@ -47,6 +48,129 @@ aDataType  V
 aPFlag     N
 aUFlag     N
 aZKey      4896730
+
+eOperation 2
+aName      BuildMenuListJ
+aZKey      130070624
+aType      G
+aReturnDataType N
+
+eParameter 3
+aShortDesc vDialog
+aDataType  V
+aPFlag     N
+aUFlag     N
+aZKey      130070625
+
+eParameter 3
+aShortDesc vDialogRoot
+aDataType  V
+aPFlag     N
+aUFlag     N
+aZKey      130070626
+
+eParameter 3
+aShortDesc lFile
+aDataType  L
+aPFlag     N
+aUFlag     N
+aZKey      130070627
+
+eParameter 3
+aShortDesc szMenuName
+aDataType  S
+aPFlag     N
+aUFlag     N
+aZKey      130070628
+
+eOperation 2
+aName      GenJSPJ_CrtePushButton
+aZKey      130070315
+aType      G
+
+eParameter 3
+aShortDesc vDialog
+aDataType  V
+aPFlag     N
+aUFlag     N
+aZKey      130070316
+
+eParameter 3
+aShortDesc vGroupParent
+aDataType  V
+aPFlag     N
+aUFlag     N
+aZKey      130070622
+
+eParameter 3
+aShortDesc File
+aDataType  L
+aPFlag     N
+aUFlag     N
+aZKey      130070317
+
+eParameter 3
+aShortDesc WriteBuffer
+aDataType  S
+aPFlag     N
+aUFlag     N
+aZKey      130070318
+
+eParameter 3
+aShortDesc Indent
+aDataType  S
+aPFlag     N
+aUFlag     N
+aZKey      130070319
+
+eParameter 3
+aShortDesc CtrlTag
+aDataType  S
+aPFlag     N
+aUFlag     N
+aZKey      130070320
+
+eParameter 3
+aShortDesc TableRowFlag
+aDataType  S
+aPFlag     N
+aUFlag     N
+aZKey      130070321
+
+eParameter 3
+aShortDesc Justify
+aDataType  S
+aPFlag     N
+aUFlag     N
+aZKey      130070322
+
+eParameter 3
+aShortDesc NoPositioning
+aDataType  S
+aPFlag     N
+aUFlag     N
+aZKey      130070323
+
+eParameter 3
+aShortDesc OffsetX
+aDataType  L
+aPFlag     N
+aUFlag     N
+aZKey      130070324
+
+eParameter 3
+aShortDesc OffsetY
+aDataType  L
+aPFlag     N
+aUFlag     N
+aZKey      130070325
+
+eParameter 3
+aShortDesc strRepeatGrpKey
+aDataType  S
+aPFlag     N
+aUFlag     N
+aZKey      130070326
 
 eOperation 2
 aName      GenJSPJ_CrteMLEdit

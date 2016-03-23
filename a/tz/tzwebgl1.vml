@@ -4871,9 +4871,9 @@ GenJSP_InputMapRecurs( VIEW vDialog BASED ON LOD TZWDLGSO,
                                     // Auto Include only.
                                     szWriteBuffer = " "
                                     WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-                                    szWriteBuffer = "            // Auto Include Code "
+                                    szWriteBuffer = "            // Auto Include Code inside grid."
                                     WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-                                    szWriteBuffer = "            nRC = " + vDialog2.CtrlMapView.Name +
+                                    szWriteBuffer = "            nRC = vGridTmp" +
                                                     ".CheckExistenceOfEntity( strSID, ^" +
                                                     vDialog.CtrlMapRelatedEntity.Name + "^ );"
                                     WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
@@ -4885,7 +4885,7 @@ GenJSP_InputMapRecurs( VIEW vDialog BASED ON LOD TZWDLGSO,
                                     //Entity, so then we would not want to exclude and include.  Seems like this is only
                                     //going to matter if this combo box is in a grid.
                                     //KELLY3
-                                    szWriteBuffer = "               //Only do the automatic include if this is a different entity"
+                                    szWriteBuffer = "               // Only do the automatic include if this is a different entity"
                                     WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
                                     szWriteBuffer = "               strTemp = vGridTmp.GetString( strSID, ^" +
                                                     vDialog.CtrlMapRelatedEntity.Name + "^, ^" + vDialog.CtrlMapER_Attribute.Name + "^ );"

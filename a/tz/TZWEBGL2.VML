@@ -30,6 +30,8 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
    STRING ( 100 ) szMapAttributeName
    STRING ( 100 ) szActionName
    STRING ( 256 ) szAction
+   STRING ( 256 ) szHTML5Attr
+   STRING ( 256 ) szjMobileDataRole
    STRING ( 10 )  szSelectAction
    STRING ( 10 )  szSelectFunction
    STRING ( 50 )  szCtrlTag
@@ -76,6 +78,7 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
    STRING ( 1 )   szIncludeFileFlag
    STRING ( 1 )   szNoHeightFlag
    STRING ( 1 )   szNoWidthFlag
+   STRING ( 1 )   szMenuActionFlag
    STRING ( 1 )   szContainer
    STRING ( 1 )   szSpanFlag
    STRING ( 1 )   szDivFlag
@@ -99,6 +102,7 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
    STRING ( 1 )   szWCP_Hyperlink
    STRING ( 1 )   szWCP_AbsoluteWidth
    STRING ( 1 )   szWCP_FirstOccurrenceOnly
+   STRING ( 1 )   szWindowIsjMobile
    STRING ( 1 )   szFirstTimeThrough
    STRING ( 1 )   szGridInGroup
    STRING ( 10 )  szDisabled
@@ -142,6 +146,14 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
    // around them. Note that Groups must be handled differently from other Controls.
 
    // Make sure the Controls are ordered by row and column.
+   
+
+   IF vDialogRoot.WndStyle.Tag = "jMobile Window"
+      szWindowIsjMobile = "Y"
+   ELSE
+      szWindowIsjMobile = ""
+   END
+   
 
    szIndentHold = szIndent
 
@@ -303,6 +315,13 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
       END
 
       szHTMLCtrlID = " id=^" + szCtrlTag + "^ name=^" + szCtrlTag + "^ "
+      
+      // KJS 02/23/16 - We have added a field for HTML5 attributes (this could be for jQuery Mobile or whatever extra attributes we want).
+      // It is simply a string and we will add it to different controls like <div> or <input> etc.
+      szHTML5Attr = ""
+      IF vDialog.Control.WebHTML5Attribute != ""
+         szHTML5Attr = " " + vDialog.Control.WebHTML5Attribute + " "
+      END
 
       IF szControlType = "GroupBox"
 
@@ -475,6 +494,13 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
          IF RESULT >= zCURSOR_SET
             szGroupBoxAbsPosFlag = "Y"
          END
+         
+         // A groupbox might want the children to be absolutely positioned.  Allow for this.
+         szMenuActionFlag = ""
+         SET CURSOR FIRST vDialog.WebControlProperty WHERE vDialog.WebControlProperty.Name = "Menu Action List"
+         IF RESULT >= zCURSOR_SET
+            szMenuActionFlag = "Y"
+         END
 
       END
 
@@ -565,7 +591,7 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
          WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
 
          // Div on a Group Control requests that all the controls inside the group line up one under the other.
-         szWriteBuffer = "<div" + szHTMLCtrlID + szAbsoluteStyle + ">  <!-- " + vDialog.Control.Tag + " --> "
+         szWriteBuffer = "<div" + szHTMLCtrlID + szHTML5Attr + szAbsoluteStyle + ">  <!-- " + vDialog.Control.Tag + " --> "
          WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
 
          szViewName = ""
@@ -633,6 +659,14 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
          WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
 
       END
+      IF szControlType = "GroupBox" AND szMenuActionFlag = "Y"
+         //KJS 02/23/16 - Now I'm not sure this is what I want to do...
+            //BuildMenuListJ( VIEW vDialog BASED ON LOD TZWDLGSO,
+            //                VIEW vDialogRoot BASED ON LOD TZWDLGSO,
+            //                INTEGER lFile,
+            //                STRING (50) szMenuName )
+
+      END
 
       IF szControlType = "GroupBox" AND szRepeatingGroupFlag = "" AND szFileTransferFlag = "" AND szGroupIsTable = "" AND szGridGroupingFlag = ""
 
@@ -680,9 +714,9 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
             END
 
             IF szClass = ""
-               szWriteBuffer = "<fieldset" + szHTMLCtrlID + szAbsoluteStyle + ">"
+               szWriteBuffer = "<fieldset" + szHTMLCtrlID + szHTML5Attr + szAbsoluteStyle + ">"
             ELSE
-               szWriteBuffer = "<fieldset" + szHTMLCtrlID + "class=^" + szClass + "^ " + szAbsoluteStyle + ">"
+               szWriteBuffer = "<fieldset" + szHTMLCtrlID + szHTML5Attr + "class=^" + szClass + "^ " + szAbsoluteStyle + ">"
             END
 
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
@@ -714,9 +748,9 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
             // Div on a Group Control requests that all the controls inside the group line up one under the other.
             szClass = vDialog.Control.CSS_Class
             IF szClass = ""
-               szWriteBuffer = "<span" + szHTMLCtrlID + szAbsoluteStyle + ">"
+               szWriteBuffer = "<span" + szHTMLCtrlID + szHTML5Attr + szAbsoluteStyle + ">"
             ELSE
-               szWriteBuffer = "<span" + szHTMLCtrlID + "class=^" + szClass + "^ " + szAbsoluteStyle + ">"
+               szWriteBuffer = "<span" + szHTMLCtrlID + szHTML5Attr + "class=^" + szClass + "^ " + szAbsoluteStyle + ">"
             END
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
 
@@ -755,9 +789,9 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
 
             szClass = vDialog.Control.CSS_Class
             IF szClass = ""
-               szWriteBuffer = "<div "+ szHTMLCtrlID + szAbsoluteStyle + ">  <!-- " + vDialog.Control.Tag + " --> "
+               szWriteBuffer = "<div "+ szHTMLCtrlID + szHTML5Attr + szAbsoluteStyle + ">  <!-- " + vDialog.Control.Tag + " --> "
             ELSE
-               szWriteBuffer = "<div" + szHTMLCtrlID + "class=^" + szClass + "^ " + szAbsoluteStyle + ">  <!-- " + vDialog.Control.Tag + " --> "
+               szWriteBuffer = "<div" + szHTMLCtrlID + szHTML5Attr + "class=^" + szClass + "^ " + szAbsoluteStyle + ">  <!-- " + vDialog.Control.Tag + " --> "
             END
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
 
@@ -790,9 +824,9 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
 
             szClass = vDialog.Control.CSS_Class
             IF szClass = ""
-               szWriteBuffer = "<div" + szHTMLCtrlID + szAbsoluteStyle + ">  <!-- " + vDialog.Control.Tag + " --> "
+               szWriteBuffer = "<div" + szHTMLCtrlID + szHTML5Attr + szAbsoluteStyle + ">  <!-- " + vDialog.Control.Tag + " --> "
             ELSE
-               szWriteBuffer = "<div" + szHTMLCtrlID + "class=^" + szClass + "^ " + szAbsoluteStyle + ">  <!-- " + vDialog.Control.Tag + " --> "
+               szWriteBuffer = "<div" + szHTMLCtrlID + szHTML5Attr + "class=^" + szClass + "^ " + szAbsoluteStyle + ">  <!-- " + vDialog.Control.Tag + " --> "
             END
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
 
@@ -1142,15 +1176,25 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
 
             // If this is a div we want to toggle
             IF szToggleFlag = "Y"
-               //szWriteBuffer = "<div style=^float:left;^>  <!-- Div surrounding toggle --> "
-               // KJS 11/05/15 - Jeff asked for float to be changed to clear.
-               szWriteBuffer = "<div style=^clear:left;^>  <!-- Div surrounding toggle --> "
-               WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-               // KJS 03/01/13 - Jeff was having problems because when there was only href="#", if this is lower down on the page, it
-               // jumps to the top of the page. Adding the #CtrlTag, keeps it anchored.
-               szWriteBuffer = "<div style=^height:20px;^>"
-               WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-               szWriteBuffer = "<a href=^#" + szCtrlTag + "^ onclick=^animatedcollapse.toggle('" + szCtrlTag + "');^ style=^^>" + vDialog.Control.Text + "</a></div>"
+               IF szWindowIsjMobile = ""
+                  //szWriteBuffer = "<div style=^float:left;^>  <!-- Div surrounding toggle --> "
+                  // KJS 11/05/15 - Jeff asked for float to be changed to clear.
+                  szWriteBuffer = "<div style=^clear:left;^>  <!-- Div surrounding toggle --> "
+                  WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+                  // KJS 03/01/13 - Jeff was having problems because when there was only href="#", if this is lower down on the page, it
+                  // jumps to the top of the page. Adding the #CtrlTag, keeps it anchored.
+                  szWriteBuffer = "<div style=^height:20px;^>"
+                  WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+                  szWriteBuffer = "<a href=^#" + szCtrlTag + "^ onclick=^animatedcollapse.toggle('" + szCtrlTag + "');^ style=^^>" + vDialog.Control.Text + "</a></div>"
+                  WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+               ELSE
+                  // Not sure we want to assume the data-collapsed.
+                  szWriteBuffer = "<div data-role=^collapsible^ id=^" + szCtrlTag + "^ data-collapsed=^true^>"
+                  WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+                  szWriteBuffer = "<h1>" + vDialog.Control.Text + "</h1>"
+                  WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+                  
+               END
             END
 
 
@@ -1174,11 +1218,22 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
             // Div on a Group Control requests that all the controls inside the group line up one under the other.
             szClass = vDialog.Control.CSS_Class
             IF szClass = ""
-               szWriteBuffer = "<div" + szHTMLCtrlID + szAbsoluteStyle + ">  <!-- " + vDialog.Control.Tag + " --> "
+               szWriteBuffer = "<div" + szHTMLCtrlID + szHTML5Attr + szAbsoluteStyle + ">  <!-- " + vDialog.Control.Tag + " --> "
             ELSE
-               szWriteBuffer = "<div" + szHTMLCtrlID + "class=^" + szClass + "^ " + szAbsoluteStyle + ">  <!-- " + vDialog.Control.Tag + " --> "
+               szWriteBuffer = "<div" + szHTMLCtrlID + szHTML5Attr + "class=^" + szClass + "^ " + szAbsoluteStyle + ">  <!-- " + vDialog.Control.Tag + " --> "
             END
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
+            
+            IF szMenuActionFlag = "Y" AND vDialog.Control.MenuName != ""
+               szText = vDialog.Control.MenuName
+               BuildMenuListJ( vDialog, vDialogRoot, lFile, szText )
+               //KJS 02/23/16 - Now I'm not sure this is what I want to do...
+                  //BuildMenuListJ( VIEW vDialog BASED ON LOD TZWDLGSO,
+                  //                VIEW vDialogRoot BASED ON LOD TZWDLGSO,
+                  //                INTEGER lFile,
+                  //                STRING (50) szMenuName )
+      
+             END     
 
             // Should we put reCAPTCHA code here???  Or should I have done this up above?
             IF szreCAPTCHAFlag = "Y"
@@ -1229,7 +1284,7 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
                   END
                END
 
-               IF szToggleFlag = "Y" OR szToggleFlag2 = "Y"
+               IF szToggleFlag = "Y" OR szToggleFlag2 = "Y" AND szWindowIsjMobile = ""
                   //szWriteBuffer = "<script type=^text/javascript^>animatedcollapse.addDiv('" + szCtrlTag + "', 'fade=400,hide=1,persist=1');animatedcollapse.init();</script>"
                   szWriteBuffer = "<script type=^text/javascript^>animatedcollapse.addDiv('" + szCtrlTag + "', 'fade=400,hide=1,persist=1');</script>"
                   WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
@@ -2154,6 +2209,12 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
 //********************** START OF GRID ***********************************
 
          IF szControlType = "Grid"   // SPREADSHEET
+         
+            IF szWindowIsjMobile = "Y"
+               szjMobileDataRole = " data-role=^table^ "
+            ELSE 
+               szjMobileDataRole = ""
+            END
 
             // For each table, we will create an export option that allows the user to
             // copy the contents of a table into excel.  The problem is that this only reflects
@@ -2344,9 +2405,9 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
             ELSE
 
                IF szWebCtrlType = "RelativePos" OR szWebCtrlType = "Span"
-                  szWriteBuffer = "<table " + szSort + szColCount + " style=^position:relative^  name=^" + szCtrlTag + "^ id=^" + szCtrlTag + "^>"
+                  szWriteBuffer = "<table "+ szjMobileDataRole + szSort + szColCount + szHTML5Attr + " style=^position:relative^  name=^" + szCtrlTag + "^ id=^" + szCtrlTag + "^>"
                ELSE
-                  szWriteBuffer = "<table " + szSort + szColCount + " style=^" + szPosition + "^  name=^" + szCtrlTag + "^ id=^" + szCtrlTag + "^>"
+                  szWriteBuffer = "<table " + szjMobileDataRole + szSort + szColCount + szHTML5Attr  + " style=^" + szPosition + "^  name=^" + szCtrlTag + "^ id=^" + szCtrlTag + "^>"
                END
             END
 
@@ -3630,11 +3691,12 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
                               // szWriteBuffer = szWriteBuffer + "<select name=^" + szListCtrlTag + "::<%=strEntityKey%>^ id=^" + szListCtrlTag + "::<%=strEntityKey%>^ size=^1^" + szTitleHTML + " style=^width:152px;height:20px;^ " +
                                  szWriteBuffer = szWriteBuffer + "<select name=^" + szListCtrlTag + "::<%=strEntityKey%>^ id=^" + szListCtrlTag + "::<%=strEntityKey%>^ size=^1^" + szTitleHTML + " style=^width:" + szWidth + "px;^ " +
                                                  szDisabled + szSelectAction + "=^" +
-                                                 szListCtrlTag + szSelectFunction + "( h" + szListCtrlTag + "::<%=strEntityKey%>," + szListCtrlTag + "::<%=strEntityKey%>, <%=strEntityKey%> )^>"
+                                                 szListCtrlTag + szSelectFunction + "( 'h" + szListCtrlTag + "::<%=strEntityKey%>', this, <%=strEntityKey%> )^>"
+                                                 //szListCtrlTag + szSelectFunction + "( h" + szListCtrlTag + "::<%=strEntityKey%>," + szListCtrlTag + "::<%=strEntityKey%>, <%=strEntityKey%> )^>"
                               ELSE
                                  szWriteBuffer = szWriteBuffer + "<select class=^" + szClass + "^ name=^" + szListCtrlTag + "::<%=strEntityKey%>^ id=^" + szListCtrlTag + "::<%=strEntityKey%>^ size=^1^" + szTitleHTML +
-                                                " style=^width:" + szWidth + "px;^ " + szDisabled + szSelectAction + "=^" + szListCtrlTag + szSelectFunction + "( h" + szListCtrlTag + "::<%=strEntityKey%>," + szListCtrlTag + "::<%=strEntityKey%> )^>"
-                                             // " style=^width:152px;height:20px;^ " + szDisabled + szSelectAction + "=^" + szListCtrlTag + szSelectFunction + "( h" + szListCtrlTag + "::<%=strEntityKey%>," + szListCtrlTag + "::<%=strEntityKey%> )^>"
+                                                " style=^width:" + szWidth + "px;^ " + szDisabled + szSelectAction + "=^" + szListCtrlTag + szSelectFunction + "( 'h" + szListCtrlTag + "::<%=strEntityKey%>', this, <%=strEntityKey%> )^>"
+                                                //" style=^width:" + szWidth + "px;^ " + szDisabled + szSelectAction + "=^" + szListCtrlTag + szSelectFunction + "( h" + szListCtrlTag + "::<%=strEntityKey%>," + szListCtrlTag + "::<%=strEntityKey%> )^>"
                               END
                               WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
 
@@ -4690,7 +4752,7 @@ GenJSPJ_InputMapRecurs( VIEW vDialog BASED ON LOD TZWDLGSO,
                            szWriteBuffer = "                     " + szViewName + ".cursor( ^" +
                                            vDialog.CtrlMapRelatedEntity.Name + "^ ).includeSubobject( " +
                                            vDialog2.CtrlMapView.Name + ".cursor( ^" +
-                                           vDialog2.CtrlMapRelatedEntity.Name +
+                                           szListMappingEntityName +
                                            "^ ), CursorPosition.NEXT );"
                            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
                            szWriteBuffer = "                  }"
@@ -4703,7 +4765,7 @@ GenJSPJ_InputMapRecurs( VIEW vDialog BASED ON LOD TZWDLGSO,
                            szWriteBuffer = "                     " + szViewName + ".cursor( ^" +
                                            vDialog.CtrlMapRelatedEntity.Name + "^ ).includeSubobject( " +
                                            vDialog2.CtrlMapView.Name + ".cursor( ^" +
-                                           vDialog2.CtrlMapRelatedEntity.Name +
+                                           szListMappingEntityName +
                                            "^ ), CursorPosition.NEXT );"
                            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
 
@@ -4806,7 +4868,11 @@ GenJSPJ_InputMapRecurs( VIEW vDialog BASED ON LOD TZWDLGSO,
                   WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
                   szWriteBuffer = "         strMapValue = request.getParameter( ^" + szCtrlTag + "^" + szRepeatGrpKey + " );"
                   WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-                  szWriteBuffer = "         strDateFormat = request.getParameter( ^zDateFormat^ );"
+                  IF vDialog.CtrlMapContext EXISTS
+                     szWriteBuffer = "         strDateFormat = ^" + vDialog.CtrlMapContext.Name + "^;"
+                  ELSE
+                     szWriteBuffer = "         strDateFormat = request.getParameter( ^zDateFormat^ );"
+                  END      
                   WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
 
                   // try
@@ -5217,7 +5283,7 @@ GenJSPJ_InputMapRecurs( VIEW vDialog BASED ON LOD TZWDLGSO,
                                  szWriteBuffer = "         {"
                                  WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
 
-                                 szWriteBuffer = "            strTag = ^" + szhFlag + szCtrlTag + "^ + strEntityKey;"
+                                 szWriteBuffer = "            strTag = ^" + szhFlag + szCtrlTag + "::^ + strEntityKey;"
                                  WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
                                  szWriteBuffer = "            strMapValue = request.getParameter( strTag );"
                                  WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
@@ -5240,7 +5306,7 @@ GenJSPJ_InputMapRecurs( VIEW vDialog BASED ON LOD TZWDLGSO,
                                  WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
                                  szWriteBuffer = "         }  // checkExistenceOfEntity"
                                  WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-                        IssueError( vDialog,0,0, "At second" )
+                        //IssueError( vDialog,0,0, "At second" )
 
                                  IF vDialog.Control.Subtype >= 36864 AND vDialog.Control.Subtype <= 45056   // IF Set Foreign Key
                                     //Set Foreign Key
@@ -5322,9 +5388,9 @@ GenJSPJ_InputMapRecurs( VIEW vDialog BASED ON LOD TZWDLGSO,
                                     // Auto Include only.
                                     szWriteBuffer = " "
                                     WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-                                    szWriteBuffer = "            // Auto Include Code "
+                                    szWriteBuffer = "            // Auto Include Code within grid."
                                     WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-                                    szWriteBuffer = "            nRC = " + vDialog2.CtrlMapView.Name + ".cursor( ^" +
+                                    szWriteBuffer = "            nRC = vGridTmp.cursor( ^" +
                                                     vDialog.CtrlMapRelatedEntity.Name + "^ ).checkExistenceOfEntity( ).toInt();"
                                     WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
                                     szWriteBuffer = "            if ( nRC >= 0 )"
@@ -5356,9 +5422,22 @@ GenJSPJ_InputMapRecurs( VIEW vDialog BASED ON LOD TZWDLGSO,
                                                     vDialog.CtrlMapRelatedEntity.Name + "^ ).includeSubobject( " +
                                                     vDialog2.CtrlMapView.Name + ".cursor( ^" +
                                                     vDialog2.CtrlMapRelatedEntity.Name +
-                                                    "^), CursorPostion.NEXT );"
+                                                    "^), CursorPosition.NEXT );"
                                     WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
                                     szWriteBuffer = "               }"
+                                    WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+                                    szWriteBuffer = "            }"
+                                    WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+                                    // If CheckExistenceOfEntity is < 0, then we would need to include.
+                                    szWriteBuffer = "            else"
+                                    WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+                                    szWriteBuffer = "            {"
+                                    WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+                                    szWriteBuffer = "                  vGridTmp.cursor( ^" +
+                                                    vDialog.CtrlMapRelatedEntity.Name + "^ ).includeSubobject( " +
+                                                    vDialog2.CtrlMapView.Name + ".cursor( ^" +
+                                                    vDialog2.CtrlMapRelatedEntity.Name +
+                                                    "^), CursorPosition.NEXT );"
                                     WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
                                     szWriteBuffer = "            }"
                                     WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )

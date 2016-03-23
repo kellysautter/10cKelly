@@ -1,7 +1,7 @@
-z1000-Zeidon    WD       TZDGSRCO 12/08/15   12:31:54 1.0a2    
+z1000-Zeidon    WD       TZDGSRCO 02/23/16   12:46:10 1.0a2    
 eDomainGroup 1
 aZKey      1320467
-aNextZKeyToAssign 130069816
+aNextZKeyToAssign 130069818
 aName      WD
 aDesc      Web jsp generation control types 
 aExtension C
@@ -513,6 +513,11 @@ eTableEntry 4
 aZKey      130069816
 aExternalValue Show/Hide Toggle2
 aInternalValue Show/Hide Toggle2
+
+eTableEntry 4
+aZKey      130069818
+aExternalValue Menu Action List
+aInternalValue Menu Action List
 
 eTableEntry 4
 aZKey      68304372
@@ -1963,6 +1968,6 @@ aType      13
 aLastUpdateDate 19950908094926000
 aLastCheckInDate 19951102203051110
 
-i202       199
-i205       199
-i360       199
+i203       200
+i206       200
+i361       200

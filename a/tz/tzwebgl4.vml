@@ -211,6 +211,133 @@ BuildSideNavSectionJ( VIEW vDialog,
    */
 
 END
+/////////////////////////////////////////////////////////////////////////////
+//
+//  OPERATION: BuildSideNavSection
+//
+/////////////////////////////////////////////////////////////////////////////
+GLOBAL OPERATION
+BuildMenuListJ( VIEW vDialog BASED ON LOD TZWDLGSO,
+                VIEW vDialogRoot BASED ON LOD TZWDLGSO,
+                INTEGER lFile,
+                STRING (50) szMenuName )
+
+   STRING ( 10000 ) szWriteBuffer
+   STRING ( 50 )    szNavigationTitle
+   STRING ( 50 )    szHTML_Name
+   STRING ( 50 )    szDialogName
+   STRING ( 50 )    szOptionTag
+   //STRING ( 50 )    szMenuName
+   STRING ( 34 )    szActionName
+   STRING ( 256 )   szClass
+   STRING ( 256 )   szClass2
+   STRING ( 256 )   szHTML5Attr
+   INTEGER          ActionType
+   SHORT            nRC
+
+   IF vDialogRoot.Menu EXISTS 
+      szMenuName = vDialogRoot.Menu.Tag 
+      IF vDialogRoot.Menu.CSS_Class != ""
+         szClass = " class=^" + vDialogRoot.Menu.CSS_Class + "^ " 
+      END
+   END
+   szHTML5Attr = ""
+   IF vDialogRoot.Menu.WebHTML5Attribute != ""
+      szHTML5Attr = " " + vDialogRoot.Menu.WebHTML5Attribute + " "
+   END
+
+   IF vDialogRoot.WndStyle.Tag = "jMobile Window"
+      szWriteBuffer = "<div data-role=^listview^ id=^div" + szMenuName + "^" + szClass + ">"
+   ELSE
+      szWriteBuffer = "<div id=^div" + szMenuName + "^" + szClass + ">"
+   END      
+   WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
+   
+   //szWriteBuffer = "   <ul id=^" + szMenuName + "^ name=^" + szMenuName + "^" + szClass + ">"
+   szWriteBuffer = "   <ul id=^" + szMenuName + "^ name=^" + szMenuName + "^" + szHTML5Attr + ">"
+   WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
+
+   FOR EACH vDialogRoot.OptAct WITHIN vDialogRoot.Menu
+      szNavigationTitle = vDialogRoot.Option.Text
+      szDialogName = vDialogRoot.OptAct.DialogName
+      IF szDialogName = ""
+         szDialogName = "NoDialogName"
+      END
+
+      //IF szReusableMenu = "Y"
+      //   szMenuName = "sm" + vDialogRoot.Option.Tag
+      //ELSE
+         szMenuName = vDialogRoot.Option.Tag
+      //END
+
+   // szHTML_Name = szDialogName + vDialogRoot.OptAct.WindowName + ".jsp"
+      IF vDialogRoot.OptAct EXISTS
+
+         szActionName = vDialogRoot.OptAct.Tag
+         ActionType = vDialogRoot.OptAct.Type
+      ELSE
+         szActionName = ""
+         ActionType = 0
+      END
+
+      // If the window we are currently generating is the same window that this
+      // side menu points to, then we want to set a class on this option.  The
+      // reason is so that we can tell which side menu option the user has selected.
+      //IF vDialogRoot.OptAct.WindowName = vDialog.Window.Tag
+      //   szClass2 = " class=^sideselected^ "
+      //ELSE
+         szClass2 = ""
+      //END
+      
+      IF vDialogRoot.Option.CSS_Class != "" 
+         szClass = " class=^" + vDialogRoot.Option.CSS_Class + "^"
+      ELSE
+         szClass = ""
+      END
+      
+      szHTML5Attr = ""
+      IF vDialogRoot.Option.WebHTML5Attribute != ""
+         szHTML5Attr = " " + vDialogRoot.Option.WebHTML5Attribute + " "
+      END
+
+      szWriteBuffer = "<%"
+      szOptionTag = vDialogRoot.Option.Tag
+      WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
+      szWriteBuffer = "   csrRC = vKZXMLPGO.cursor( ^DisableMenuOption^ ).setFirst( ^MenuOptionName^, ^" + szOptionTag + "^ );"
+      WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
+      szWriteBuffer = "   if ( !csrRC.isSet() ) //if ( nRC < 0 )"
+      WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
+      szWriteBuffer = "   {"
+      WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
+      szWriteBuffer = "%>"
+      WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
+
+      //szWriteBuffer = "       <li><a href=^#^ " + szClass + " onclick=^" + szActionName + "( )^>" + szNavigationTitle + "</a></li>"
+      // In the case of jmobile, I am putting the HTML5 and class on the <a href
+      IF vDialogRoot.WndStyle.Tag = "jMobile Window"
+         szWriteBuffer = "       <li id=^" + szMenuName + "^ name=^" + szMenuName + "^><a href=^#^ " + szHTML5Attr + szClass + szClass2 + " onclick=^" + szActionName + "()^>" + szNavigationTitle + "</a></li>"
+      ELSE
+         szWriteBuffer = "       <li id=^" + szMenuName + "^ name=^" + szMenuName + "^" + szHTML5Attr + szClass + "><a href=^#^ " + szClass2 + " onclick=^" + szActionName + "()^>" + szNavigationTitle + "</a></li>"
+      END
+      WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
+
+      szWriteBuffer = "<%"
+      WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
+      szWriteBuffer = "   }"
+      WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
+      szWriteBuffer = "%>"
+      WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 1 )
+   END
+
+   // Division ending for Navigation Bar.
+   szWriteBuffer = "   </ul>"
+   WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
+   szWriteBuffer = "</div> <!-- menu list end -->"
+   WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 1 )
+   szWriteBuffer = ""
+   WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
+
+END
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -235,6 +362,7 @@ GenJSPJ_CrteCalendar( VIEW vDialog BASED ON LOD TZWDLGSO,
    STRING ( 256 ) szStyle
    STRING ( 256 ) szStyleCalendar
    STRING ( 256 ) szClass
+   STRING ( 256 ) szContextName
    STRING ( 10 )  szDisabled
    STRING ( 10 )  szWidth
    STRING ( 10 )  szHeight
@@ -288,10 +416,15 @@ GenJSPJ_CrteCalendar( VIEW vDialog BASED ON LOD TZWDLGSO,
       WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
       szWriteBuffer = "         {"
       WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+      IF vDialog.CtrlMapContext EXISTS
+         szContextName = "^" + vDialog.CtrlMapContext.Name + "^"
+      ELSE
+         szContextName = "strDateFormat"
+      END      
       szWriteBuffer = "            strErrorMapValue = " +
                       vDialog.CtrlMapView.Name + ".cursor( ^" +
                       vDialog.CtrlMapRelatedEntity.Name + "^ ).getAttribute( ^" +
-                      vDialog.CtrlMapER_Attribute.Name + "^ ).getString( strDateFormat );"
+                      vDialog.CtrlMapER_Attribute.Name + "^ ).getString( " + szContextName + " );"
       WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
 
       // KJS 02/15/11 - Thinking I need to add code to change values returned as null to "".
@@ -384,7 +517,13 @@ GenJSPJ_CrteCalendar( VIEW vDialog BASED ON LOD TZWDLGSO,
       WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
       szWriteBuffer = "   <img src=^images/scw.gif^  name=^" + szCtrlTag + "Img" + szRepeatGrpKey + "^ id=^" + szCtrlTag + "Img" + szRepeatGrpKey + "^ title=^Select Date^ alt=^Select Date^"
       WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-      szWriteBuffer = "        onclick=^" + szCloseUpCode + "scwShow( document.getElementById( '" + szCtrlTag + szRepeatGrpKey + "' ), this );^ " + szTabIndex + " />"
+      // KJS 03/16/16 - Added scwShowWFormat to scw.js file so that if we have a format on the calendar, then we use that. If no context, I am just calling scwShow, even
+      // though I could call scwShowWFormat with zDateFormat... which would do that same thing. This is compatible for any jsp pages that are older and don't use a context.
+      IF vDialog.CtrlMapContext EXISTS
+         szWriteBuffer = "        onclick=^" + szCloseUpCode + "scwShowWFormat( document.getElementById( '" + szCtrlTag + szRepeatGrpKey + "' ), this, '" + vDialog.CtrlMapContext.Name + "' );^ " + szTabIndex + " />"
+      ELSE
+         szWriteBuffer = "        onclick=^" + szCloseUpCode + "scwShow( document.getElementById( '" + szCtrlTag + szRepeatGrpKey + "' ), this );^ " + szTabIndex + " />"
+      END
       WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
       szWriteBuffer = "</span>"
       WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
@@ -1325,6 +1464,7 @@ GenJSPJ_CrteGroupTable( VIEW vDialog BASED ON LOD TZWDLGSO,
    STRING ( 85 )  szHTMLCtrlID
    STRING ( 256 ) szTitle
    STRING ( 256 ) szTitleHTML
+   STRING ( 256 ) szHTML5Attr
    STRING ( 100 ) szStyle
    STRING ( 256 ) szClass
    STRING ( 32 )  szActionName
@@ -1362,6 +1502,13 @@ GenJSPJ_CrteGroupTable( VIEW vDialog BASED ON LOD TZWDLGSO,
       szClass = " class=^" + vGroupParent.Control.CSS_Class + "^"
    ELSE
       szClass = ""
+   END
+      
+   // KJS 02/23/16 - We have added a field for HTML5 attributes (this could be for jQuery Mobile or whatever extra attributes we want).
+   // It is simply a string and we will add it to different controls like <div> or <input> etc.
+   szHTML5Attr = ""
+   IF vGroupParent.Control.WebHTML5Attribute != ""
+      szHTML5Attr = " " + vGroupParent.Control.WebHTML5Attribute + " "
    END
 
    IF vDialog.Control EXISTS
@@ -1412,9 +1559,14 @@ GenJSPJ_CrteGroupTable( VIEW vDialog BASED ON LOD TZWDLGSO,
       szWriteBuffer = "<div id=^" + szParentCtrlTag + "^ name=^" + szParentCtrlTag + "^ style=^float:left;"
       IF szNoWidthFlag = ""
          szWriteBuffer = szWriteBuffer + "width:" + szWidth + "px;^"
+      ELSE
+         szWriteBuffer = szWriteBuffer + "^"
       END
    END
-   szWriteBuffer = szWriteBuffer + " " + szClass + ">"
+   // KJS 02/23/16 - We have added a field for HTML5 attributes, but I am not sure whether this should be
+   // here on the <div> (which surrounds the table) or whether this should be on the <table>. For now since the
+   // class is here I will also put the HTLM5 attribute here.
+   szWriteBuffer = szWriteBuffer + szHTML5Attr + " " + szClass + ">"
    WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
 
    // Now create the table with the proper number of columns.
@@ -1468,6 +1620,15 @@ GenJSPJ_CrteGroupTable( VIEW vDialog BASED ON LOD TZWDLGSO,
       szHTMLCtrlID = " id=^" + szCtrlTag + "^ name=^" + szCtrlTag + "^ "
       szControlType = vDialog.ControlDef.Tag
       CreateNoPosStyleString( vDialog, szStyle, "" )
+      
+      
+      // KJS 02/23/16 - We have added a field for HTML5 attributes (this could be for jQuery Mobile or whatever extra attributes we want).
+      // It is simply a string and we will add it to different controls like <div> or <input> etc.
+      szHTML5Attr = ""
+      IF vDialog.Control.WebHTML5Attribute != ""
+         szHTML5Attr = " " + vDialog.Control.WebHTML5Attribute + " "
+      END
+      
 
       X_Pos = vDialog.Control.PSDLG_X
       //TraceLineI("*** Control Start position *** ", vDialog.Control.PSDLG_X )
@@ -2174,6 +2335,7 @@ GenJSPJ_CrteEditBox( VIEW vDialog BASED ON LOD TZWDLGSO,
    STRING ( 256 ) szClass
    STRING ( 256 ) szTitle
    STRING ( 256 ) szTitleHTML
+   STRING ( 256 ) szHTML5Attr
    STRING ( 300 ) szType
    STRING ( 64 )  szWidget
    STRING ( 16 )  szTabIndex
@@ -2503,6 +2665,11 @@ GenJSPJ_CrteEditBox( VIEW vDialog BASED ON LOD TZWDLGSO,
    IF szTitle != ""
       szTitleHTML = " title=^" + szTitle + "^ "
    END
+   
+   szHTML5Attr = ""
+   IF vDialog.Control.WebHTML5Attribute != ""
+      szHTML5Attr = " " + vDialog.Control.WebHTML5Attribute + " "
+   END
 
    CreateDisabledString( vDialog, szDisabled )
    szClass = vDialog.Control.CSS_Class
@@ -2543,6 +2710,7 @@ GenJSPJ_CrteText( VIEW vDialog      BASED ON LOD TZWDLGSO,
    STRING ( 256 ) szClassHTML
    STRING ( 256 ) szTitle
    STRING ( 256 ) szTitleHTML
+   STRING ( 265 ) szHTML5Attr
    STRING ( 1000 ) szText
    STRING ( 16 )  szTabIndex
    STRING ( 10 )  szMaxStringLength
@@ -2579,6 +2747,11 @@ GenJSPJ_CrteText( VIEW vDialog      BASED ON LOD TZWDLGSO,
    CreateTabIndexString( vDialog, szTabIndex )
 
    szHTMLCtrlID = " id=^" + szCtrlTag + szRepeatGrpKey + "^ name=^" + szCtrlTag + szRepeatGrpKey + "^ "
+   
+   szHTML5Attr = ""
+   IF vDialog.Control.WebHTML5Attribute != ""
+      szHTML5Attr = " " + vDialog.Control.WebHTML5Attribute + " "
+   END
 
    IF  szNoPositioning = "Y"
       CreateNoPosStyleString( vDialog, szStyle, "" )
@@ -2900,9 +3073,9 @@ GenJSPJ_CrteText( VIEW vDialog      BASED ON LOD TZWDLGSO,
    
          // If there is a "Label" web control property than make this a label, otherwise, just use <span>.
          IF szIsLabel = "Y"
-            szWriteBuffer = "<label " + szClassHTML + szHTMLCtrlID + szLabelFor + szTitleHTML + szStyle + ">" + szText + "</label>"
+            szWriteBuffer = "<label " + szClassHTML + szHTMLCtrlID + szHTML5Attr + szLabelFor + szTitleHTML + szStyle + ">" + szText + "</label>"
          ELSE 
-            szWriteBuffer = "<span " + szClassHTML + szHTMLCtrlID + szTitleHTML + szStyle + ">" + szText + "</span>"
+            szWriteBuffer = "<span " + szClassHTML + szHTMLCtrlID + szTitleHTML + szHTML5Attr + szStyle + ">" + szText + "</span>"
          END
 
       END
@@ -3604,6 +3777,7 @@ GenJSPJ_CrtePushButton( VIEW vDialog BASED ON LOD TZWDLGSO,
    STRING ( 256 ) szClass
    STRING ( 256 ) szTitle
    STRING ( 256 ) szTitleHTML
+   STRING ( 256 ) szHTML5Attr
    STRING ( 300 ) szType
    STRING ( 256 ) szText
    STRING ( 50 )  szParentWebType
@@ -3778,8 +3952,13 @@ GenJSPJ_CrtePushButton( VIEW vDialog BASED ON LOD TZWDLGSO,
             IF szTitle != ""
                szTitleHTML = " title=^" + szTitle + "^ "
             END
+   
+            szHTML5Attr = ""
+            IF vDialog.Control.WebHTML5Attribute != ""
+               szHTML5Attr = " " + vDialog.Control.WebHTML5Attribute + " "
+            END
 
-            szWidget = "<button type=^button^ " + szClass + szTitleHTML + "name=^"
+            szWidget = "<button type=^button^ " + szClass + szTitleHTML + szHTML5Attr + "name=^"
             szTerm = szText + "</button>"
             szText = ""
                

@@ -183,9 +183,19 @@ FlagUsedViewsGetFocusJ( VIEW vDialog     BASED ON LOD TZWDLGSO,
                szWysiwygEditor = vDialog.Control.Tag
             END
          END
-
+/*
       ELSE
          // Continue processing subobjects.
+         IF vDialog.CtrlCtrl EXISTS
+            SetViewToSubobject( vDialog, "CtrlCtrl" )
+            lTempIndex = FlagUsedViewsGetFocusJ( vDialog, vDialogRoot, szFocusCtrlTag, lTabIndex, szWysiwygEditor )
+            IF lTempIndex != 0
+               lSort = 1
+            END
+            ResetViewFromSubobject( vDialog )
+         END */
+      END
+            // Continue processing subobjects.
          IF vDialog.CtrlCtrl EXISTS
             SetViewToSubobject( vDialog, "CtrlCtrl" )
             lTempIndex = FlagUsedViewsGetFocusJ( vDialog, vDialogRoot, szFocusCtrlTag, lTabIndex, szWysiwygEditor )
@@ -196,8 +206,7 @@ FlagUsedViewsGetFocusJ( VIEW vDialog     BASED ON LOD TZWDLGSO,
             ResetViewFromSubobject( vDialog )
 
          END
-      END
-   END
+END
 
    RETURN lSort
 END
@@ -674,7 +683,8 @@ GenerateJSPJava( VIEW vDialog BASED ON LOD TZWDLGSO,
    STRING ( 1024 )  szJS_FileName
    STRING ( 1024 )  szJAVA_FileName
    STRING ( 1024 )  szDirectoryName
-   STRING ( 32 )    szDateFormat
+   STRING ( 4 )     szDateFormat
+   STRING ( 32 )    szDateSequence
    STRING ( 10 )    szWebRedirection
    STRING ( 10000 ) szWriteBuffer
    STRING ( 10000 ) szJavaScript
@@ -729,6 +739,7 @@ GenerateJSPJava( VIEW vDialog BASED ON LOD TZWDLGSO,
    STRING ( 1 )     szNoPositioning
    STRING ( 1 )     szWindowIsPopup
    STRING ( 1 )     szWindowIsForDashboard
+   STRING ( 1 )     szWindowIsjMobile
    STRING ( 1 )     szNoAutoLogout
    STRING ( 1 )     szKeyRole
    STRING ( 1 )     szZeidonTaskTimeout
@@ -877,6 +888,12 @@ GenerateJSPJava( VIEW vDialog BASED ON LOD TZWDLGSO,
    ELSE
       szWindowIsPopup = ""
    END
+   END
+
+   IF vDialogRoot.WndStyle.Tag = "jMobile Window"
+      szWindowIsjMobile = "Y"
+   ELSE
+      szWindowIsjMobile = ""
    END
 
    // Check to see if Window has any tab stops set and indicate so in the Window entity.
@@ -2273,8 +2290,10 @@ DKS_TRACE_END */
    // KJS 04/27/11 - I am not sure that we want to always include this js file but if not, then I need
    // to loop through all controls (and subcontrols) looking for a div that has a web control property of
    // "Show/Hide Toggle". For now I am always including it.
-   szWriteBuffer = "<script language=^JavaScript^ type=^text/javascript^ src=^./js/animatedcollapse.js^></script>"
-   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   IF szWindowIsjMobile = ""
+      szWriteBuffer = "<script language=^JavaScript^ type=^text/javascript^ src=^./js/animatedcollapse.js^></script>"
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   END
    // KJS 06/09/11 - I am not sure that we want to always include this js file because at the moment, I am putting
    // this in because we want to do a md5 hash conversion.
    // KJS 04/30/15 - Now I am taking this out because I don't think we use this and if we do, we should add it to head.inc not here.
@@ -3634,8 +3653,11 @@ DKS_TRACE_END */
       szWriteBuffer = "<%@ include file=^" + vDialog.Dialog.WEB_PageBackgroundInclude + "^ %>"
       WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
    ELSE
+   IF szWindowIsjMobile = ""
+      // KJS 02/24/16 - Do We need this?
       szWriteBuffer = "<%@ include file=^./include/pagebackground.inc^ %>  <!-- just temporary until we get the painter dialog updates from Kelly ... 2011.10.08 dks -->"
       WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
+   END
    END
 
    // KJS 10/30/08 - If a window has been created to be displayed on the user's dashboard, then this window needs to be specified
@@ -3655,7 +3677,7 @@ DKS_TRACE_END */
       szShowTopMenu = ""
       szShowSideMenu = ""
    ELSE
-      IF vDialogRoot.Window.WEB_NoBannerFlag = "Y"
+      IF vDialogRoot.Window.WEB_NoBannerFlag = "Y" OR szWindowIsjMobile = "Y"
          szShowBanner = ""
       END
       IF vDialog.Window.WEB_NoTopMenuFlag = "Y"
@@ -3667,9 +3689,14 @@ DKS_TRACE_END */
    // css.  Do not add this wrapper if the window is going to be a popup window or a window that will be part
    // of a dashboard.
    //<!--This text is a comment-->
-   IF szWindowIsPopup = "" AND szWindowIsForDashboard = ""
+   IF szWindowIsPopup = "" AND szWindowIsForDashboard = "" AND szWindowIsjMobile = ""
       szWriteBuffer = "<div id=^wrapper^>"
       WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
+   ELSE
+   IF szWindowIsjMobile = "Y"
+      szWriteBuffer = "<div data-role=^page^ data-title=^" + vDialog.Window.Caption + "^ >"
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 ) 
+   END
    END
 
    // Build the Banner before getting into Menu Options.
@@ -3690,6 +3717,15 @@ DKS_TRACE_END */
       END
       WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
 
+   END
+   
+   // KJS 02/24/16
+   IF szWindowIsjMobile = "Y"
+      szWriteBuffer = "<div data-role=^header^>"
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )   
+      // Also add page caption. Not totally sure about this.    
+      szWriteBuffer = "<h1>" + vDialog.Window.Caption + "</h1>"
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
    END
 
    szSideMenuExists = "N"
@@ -3726,13 +3762,24 @@ DKS_TRACE_END */
          DropObjectInstance( vDialogTemp )
       END
    END
+   
+   IF szWindowIsjMobile = "Y"
+      szWriteBuffer = "</div> <!-- /header -->"
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )    
+   END
+
 
    // KJS 07/31/08 - Before we build the main content items (side navigation if it exists and the page contents) we
    // are going to create another div.  Not sure this is necessary but I'm thinking it might be helpful (then the
    // footer can be after this).
-   IF szWindowIsPopup = "" AND szWindowIsForDashboard = ""
+   IF szWindowIsPopup = "" AND szWindowIsForDashboard = "" AND szWindowIsjMobile = ""
       szWriteBuffer = "<div id=^maincontent^>"
       WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   ELSE
+   IF szWindowIsjMobile = "Y"
+      szWriteBuffer = "<div data-role=^content^>"
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )    
+   END
    END
 
    // Left navigation bar from Menu.
@@ -3810,11 +3857,13 @@ DKS_TRACE_END */
          WL_QC( vDialogRoot, lFileJSP, szWriteBuffer, "^", 1 )
          szDivContentClass = "content"
       ELSE
+      IF szWindowIsjMobile = ""
          // If no class was given, and there is no side menu,
          // create a default div with the id of contentnosidemenu.
          szWriteBuffer = "<div id=^contentnosidemenu^>"
          WL_QC( vDialogRoot, lFileJSP, szWriteBuffer, "^", 1 )
          szDivContentClass = "contentnosidemenu"
+      END
       END
       END
       END
@@ -4120,6 +4169,10 @@ DKS_TRACE_END */
    IF szDateFormat = ""
       szDateFormat = "MM/DD/YYYY"
    END
+   SysReadZeidonIni( -1, szSystemIniApplName, "WebDateSequence", szDateSequence )
+   IF szDateSequence = ""
+      szDateSequence = "MDY"
+   END
 
    szWriteBuffer = "   strDateFormat = ^" + szDateFormat + "^;"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
@@ -4178,8 +4231,15 @@ DKS_TRACE_END */
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    szWriteBuffer = "   <input name=^zOpenFile^ id=^zOpenFile^ type=^hidden^ value=^<%=strOpenFile%>^>"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
-   szWriteBuffer = "   <input name=^zDateFormat^ id=^zDateFormat^ type=^hidden^ value=^<%=strDateFormat%>^>"
+   // Above we set strDateFormat, which is used for getting/setting a date on this page (do we later want to try to get this
+   // from the date default?).
+   // zDateFormat and zDateSequence is used for the calendar control (which uses scw.js and calls these values).
+   // KJS 03/16/16 - Added the use of zDateSequence. This is only used in scw.js.
+   szWriteBuffer = "   <input name=^zDateFormat^ id=^zDateFormat^ type=^hidden^ value=^<%=strDateFormat%>^>"   
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   szWriteBuffer = "   <input name=^zDateSequence^ id=^zDateSequence^ type=^hidden^ value=^" + szDateSequence + "^>"   
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+      
    IF szKeyRole = "Y"
       szWriteBuffer = "   <input name=^zLoginName^ id=^zLoginName^ type=^hidden^ value=^<%=strLoginName%>^>"
       WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
@@ -4480,8 +4540,11 @@ DKS_TRACE_END */
    END
    DropView( vDialogTemp )
 
-   szWriteBuffer = "</div>   <!-- This is the end tag for the div '" + szDivContentClass + "' -->"
-   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
+   IF szWindowIsjMobile = ""
+      // This is contentnosidemenu.
+      szWriteBuffer = "</div>   <!-- This is the end tag for the div '" + szDivContentClass + "' -->"
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
+   END
 
    IF  szWindowIsPopup = "" AND szWindowIsForDashboard = ""
       szWriteBuffer = "</div>   <!-- This is the end tag for the div 'maincontent' -->"
@@ -4525,8 +4588,10 @@ DKS_TRACE_END */
    // KJS 12/08/15 - Currently we are always including animatedcollapse.js (for groupbox Show/Hide Toggle). We had been calling animatedcollapse.init(); 
    // each time we created an animatedcollapse groupbox but this only needs to be called once and inits all groups. So I am going to try calling init() here
    // at the end on all webpages. Doesn't seem to cause issues even if there is no animatedcollapse on the page (since we include the js). 
-   szWriteBuffer = "<script type=^text/javascript^>animatedcollapse.init();</script>"
-   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   IF szWindowIsjMobile = ""
+      szWriteBuffer = "<script type=^text/javascript^>animatedcollapse.init();</script>"
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   END
    szWriteBuffer = "</html>"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
 // szWriteBuffer = "<%@ include file=^menubottom.inc^ %>"
