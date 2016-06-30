@@ -3635,9 +3635,9 @@ GenJSP_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
                               // KJS 11/16/10 - A normal checkbox copied into a grid can have an EventAct.
                               //KJS 10/19/07 - added title
                               IF vDialog.EventAct.Type = 45    // Type 45 is Hyperlink Action.
-                                 // For a Hyperlink in a Grid, we assume there is ALWAYS both "Displayed Text" mapping and
+                                 // For a Hyperlink in a Grid, we assume there is ALWAYS both "Displayed Text" mapping and 
                                  // "Hyperlink URL" mapping, which have been set above.
-                                 szWriteBuffer = "   " + szItemTableHeader + "><a href=^<%=str" + szListCtrlTag + "_URL%>^ " + szTitleHTML + "><%=str" + szListCtrlTag + "%></a></td>"
+                                 szWriteBuffer = "   " + szItemTableHeader + "><a href=^<%=str" + szListCtrlTag + "_URL%>^ " + szTitleHTML + " target=^_blank^><%=str" + szListCtrlTag + "%></a></td>"
                               ELSE
                                  // This is HotText mapping to an Action.
                                  szWriteBuffer = "   " + szItemTableHeader + "><a href=^#^ onclick=^" + vDialog.EventAct.Tag + "( this.id )^ id=^" + szListCtrlTag + "::<%=strEntityKey%>^" + szTitleHTML + "><%=str" + szListCtrlTag + "%></a></td>"

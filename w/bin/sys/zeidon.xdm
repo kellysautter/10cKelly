@@ -1,4 +1,4 @@
-z1000-Zeidon    ZEIDON   TZDMXGPO 02/23/16   12:46:15 1.0a2    
+z1000-Zeidon    ZEIDON   TZDMXGPO 06/27/16   11:26:40 1.0a2    
 eDomainGroup 1
 aName      Zeidon9B
 
@@ -6615,12 +6615,9 @@ aName      WD_WebEditControlProperties
 aIsDefault Y
 
 eTableEntry 4
-aZKey      130000004
-
-eTableEntry 4
-aZKey      68304448
-aExternalValue No Current Values
-aInternalValue No Current Values
+aZKey      130069820
+aExternalValue Autocomplete Off
+aInternalValue Autocomplete Off
 
 eTableEntry 4
 aZKey      92656445
@@ -6686,6 +6683,11 @@ eTableEntry 4
 aZKey      89581085
 aExternalValue Filter Rows (wHideTableRow='Y')
 aInternalValue Filter Rows
+
+eTableEntry 4
+aZKey      130069819
+aExternalValue Generate as <ul> List
+aInternalValue Gen As List
 
 eDomain    2
 aJavaClass com.quinsoft.zeidon.domains.StaticTableDomain

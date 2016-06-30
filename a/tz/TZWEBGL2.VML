@@ -105,6 +105,7 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
    STRING ( 1 )   szWindowIsjMobile
    STRING ( 1 )   szFirstTimeThrough
    STRING ( 1 )   szGridInGroup
+   STRING ( 1 )   szGenAsList
    STRING ( 10 )  szDisabled
    STRING ( 1 )   szTableExport
    STRING ( 100 ) szStyle
@@ -682,7 +683,8 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
             SetViewToSubobject( vDialog, "CtrlCtrl" )
             szIndentGroup = szIndent
             GenJSPJ_CrteCtrlsRecurs( vDialog, vGroupParent, vDialogRoot, lFile, szWriteBuffer, szIndentGroup,
-                                     lTableRowCnt, szNoPositioning, X_Size, Y_Size, "" )
+                                     lTableRowCnt, szNoPositioning, X_Size, Y_Size, szRepeatGrpKey )
+            // 05/02/16                         lTableRowCnt, szNoPositioning, X_Size, Y_Size, "" )
             ResetViewFromSubobject( vDialog )
             DropView( vGroupParent )
             vGroupParent = 0
@@ -732,7 +734,7 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
             SetViewToSubobject( vDialog, "CtrlCtrl" )
             szIndentGroup = szIndent
             GenJSPJ_CrteCtrlsRecurs( vDialog, vGroupParent, vDialogRoot, lFile, szWriteBuffer, szIndentGroup,
-                                     lTableRowCnt, szNoPositioning, lOffsetX, lOffsetY, "" )
+                                     lTableRowCnt, szNoPositioning, lOffsetX, lOffsetY, szRepeatGrpKey ) // 05/02/16 szRepeatGrpKey
             ResetViewFromSubobject( vDialog )
             DropView( vGroupParent )
             vGroupParent = 0
@@ -1297,7 +1299,7 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
                SetViewToSubobject( vDialog, "CtrlCtrl" )
                szIndentGroup = szIndent
                GenJSPJ_CrteCtrlsRecurs( vDialog, vGroupParent, vDialogRoot, lFile, szWriteBuffer, szIndentGroup,
-                                        lTableRowCnt, szNoPositioning, lOffsetX, lOffsetY, "" )
+                                        lTableRowCnt, szNoPositioning, lOffsetX, lOffsetY, szRepeatGrpKey ) // 05/02/16 - szRepeatGrpKey
                ResetViewFromSubobject( vDialog )
                DropView( vGroupParent )
                vGroupParent = 0
@@ -1428,8 +1430,14 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
          END
 
          IF szControlType = "ListBox"  // LISTBOX
-            GenJSPJ_CrteListBox( vDialog, lFile, szWriteBuffer, szIndentGroup,
-                                 szCtrlTag, szNoPositioning, lOffsetX, lOffsetY )
+            IF szWindowIsjMobile = "Y" 
+               //If we are generating this page as jMobile, build as <ul>.               
+               GenJSPJ_CrteListBoxAsList( vDialog, lFile, szWriteBuffer, szIndentGroup,
+                                          szCtrlTag, szNoPositioning, lOffsetX, lOffsetY )
+            ELSE
+               GenJSPJ_CrteListBox( vDialog, lFile, szWriteBuffer, szIndentGroup,
+                                    szCtrlTag, szNoPositioning, lOffsetX, lOffsetY )
+            END
          END  // IF szControlType = "ListBox"
 
          IF szControlType = "GroupBox" AND szRepeatingGroupFlag = "Y"  // REPEATING GROUP
@@ -2208,7 +2216,22 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
 
 //********************** START OF GRID ***********************************
 
+         szGenAsList = ""
          IF szControlType = "Grid"   // SPREADSHEET
+
+            // If this is a grid but we specify that we want it to be Generated as a <ul> list, then right now we are going to 
+            // assume that there is only one sub control field and we are going to call 
+            SET CURSOR FIRST vDialog.WebControlProperty WHERE vDialog.WebControlProperty.Name = "Generate as <ul> List"
+            IF RESULT >= zCURSOR_SET //AND ( szNoPositioning = "Y" OR szNoPositioning = "S" )
+               szGenAsList = "Y"
+            END
+            IF szGenAsList = "Y"
+               GenJSPJ_CrteListBoxAsList( vDialog, lFile, szWriteBuffer, szIndentGroup,
+                                          szCtrlTag, szNoPositioning, lOffsetX, lOffsetY )
+            END
+         END
+
+         IF szControlType = "Grid" AND szGenAsList = ""  // SPREADSHEET
          
             IF szWindowIsjMobile = "Y"
                szjMobileDataRole = " data-role=^table^ "
@@ -2511,7 +2534,10 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
                         WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
                         szWriteBuffer = "       strErrorMapValue = ^^;"
                         WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-                        szWriteBuffer = "   if ( StringUtils.equals( strErrorFlag, ^Y^ ) && !StringUtils.isBlank( strErrorMapValue ) )"
+                        // KJS 03/18/16 - I don't know why we are checking the strErrorFlag here... and it was incorrect because it should have
+                        // been !StringUtil... I am taking that piece out but will keep the code here in case we find a reason we had that there.
+                        //szWriteBuffer = "   if ( !StringUtils.equals( strErrorFlag, ^Y^ ) && !StringUtils.isBlank( strErrorMapValue ) )"
+                        szWriteBuffer = "   if ( !StringUtils.isBlank( strErrorMapValue ) )"
                         WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
                         szWriteBuffer = "   {"
                         WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
@@ -4005,7 +4031,7 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
                               IF vDialog.EventAct.Type = 45    // Type 45 is Hyperlink Action.
                                  // For a Hyperlink in a Grid, we assume there is ALWAYS both "Displayed Text" mapping and
                                  // "Hyperlink URL" mapping, which have been set above.
-                                 szWriteBuffer = "   " + szItemTableHeader + "><a href=^<%=str" + szListCtrlTag + "_URL%>^ " + szTitleHTML + "><%=str" + szListCtrlTag + "%></a></td>"
+                                 szWriteBuffer = "   " + szItemTableHeader + "><a href=^<%=str" + szListCtrlTag + "_URL%>^ " + szTitleHTML + " target=^_blank^><%=str" + szListCtrlTag + "%></a></td>"
                               ELSE
                                  // This is HotText mapping to an Action.
                                  szWriteBuffer = "   " + szItemTableHeader + "><a href=^#^ onclick=^" + vDialog.EventAct.Tag + "( this.id )^ id=^" + szListCtrlTag + "::<%=strEntityKey%>^" + szTitleHTML + "><%=str" + szListCtrlTag + "%></a></td>"
@@ -5219,8 +5245,8 @@ GenJSPJ_InputMapRecurs( VIEW vDialog BASED ON LOD TZWDLGSO,
                            szWriteBuffer = "         }"
                            WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
                            // WL_QC( vDialog, lFile, "", "^", 0 )
-                        ELSE
-
+                        ELSE 
+                           // Not Domain Combobox.
                            // Combobox with Auto Include or Set Position Only
                            // Note that this code is not executed if the view being
                            // passed is for the list mapping, instead of the edit
@@ -5267,12 +5293,6 @@ GenJSPJ_InputMapRecurs( VIEW vDialog BASED ON LOD TZWDLGSO,
                                  szWriteBuffer = "         {"
                                  WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
 
-                              // szWriteBuffer = "      // " + vDialog2.CtrlMapView.Name +
-                              //                 ".SetAllSelectStatesForEntity( ^" +
-                              //                 vDialog2.CtrlMapRelatedEntity.Name +
-                              //                 "^, (short) 0, ^" + szScopingEntityName + "^ );"
-                              // WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-
                                  // KJS 06/04/10 - We did not previously have this checkExistenceOfEntity but now with
                                  // java, the setPosition will call an exception if there are no entities (the combo box is empty).
                                  szWriteBuffer = "         nRC = " + vDialog2.CtrlMapView.Name + ".cursor( ^" +
@@ -5298,15 +5318,15 @@ GenJSPJ_InputMapRecurs( VIEW vDialog BASED ON LOD TZWDLGSO,
                                     szWriteBuffer = "               nRelPos--;    // For Auto Include combos, we need to decrement for the blank entry."
                                     WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
                                  END
-                                 szWriteBuffer = "            " + vDialog2.CtrlMapView.Name+ ".cursor( ^" + szListMappingEntityName + "^ )" +
+                                 szWriteBuffer = "               " + vDialog2.CtrlMapView.Name+ ".cursor( ^" + szListMappingEntityName + "^ )" +
                                                  ".setPosition( " +
                                                  "nRelPos, ^" + szScopingEntityName + "^ );"
                                  WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
                                  szWriteBuffer = "            }"
                                  WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-                                 szWriteBuffer = "         }  // checkExistenceOfEntity"
-                                 WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-                        //IssueError( vDialog,0,0, "At second" )
+                                 // MOVE THIS DOWN FURTHER...
+                                 //szWriteBuffer = "         }  // checkExistenceOfEntity"
+                                 //WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
 
                                  IF vDialog.Control.Subtype >= 36864 AND vDialog.Control.Subtype <= 45056   // IF Set Foreign Key
                                     //Set Foreign Key
@@ -5390,35 +5410,57 @@ GenJSPJ_InputMapRecurs( VIEW vDialog BASED ON LOD TZWDLGSO,
                                     WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
                                     szWriteBuffer = "            // Auto Include Code within grid."
                                     WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-                                    szWriteBuffer = "            nRC = vGridTmp.cursor( ^" +
-                                                    vDialog.CtrlMapRelatedEntity.Name + "^ ).checkExistenceOfEntity( ).toInt();"
-                                    WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-                                    szWriteBuffer = "            if ( nRC >= 0 )"
+                                    szWriteBuffer = "            if (!StringUtils.equals( strMapValue, ^0^ ) )"
                                     WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
                                     szWriteBuffer = "            {"
+                                    WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+                                                                        
+                                    
+                                    
+                                    szWriteBuffer = "               nRC = vGridTmp.cursor( ^" +
+                                                    vDialog.CtrlMapRelatedEntity.Name + "^ ).checkExistenceOfEntity( ).toInt();"
+                                    WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+                                    szWriteBuffer = "               if ( nRC >= 0 )"
+                                    WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+                                    szWriteBuffer = "               {"
                                     WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
                                     //KJS 12/11/07 - Adding code to check if we are already positioned on the correct
                                     //Entity, so then we would not want to exclude and include.  Seems like this is only
                                     //going to matter if this combo box is in a grid.
-                                    szWriteBuffer = "               //Only do the automatic include if this is a different entity"
+                                    szWriteBuffer = "                  //Only do the automatic include if this is a different entity"
                                     WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-                                    szWriteBuffer = "               strTemp = vGridTmp.cursor( ^" +
+                                    szWriteBuffer = "                  strTemp = vGridTmp.cursor( ^" +
                                                     vDialog.CtrlMapRelatedEntity.Name + "^ ).getAttribute( ^" + vDialog.CtrlMapER_Attribute.Name + "^ ).getString( ^^ );"
 
                                     WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
 
-                                    szWriteBuffer = "               if ( !StringUtils.equals( strTemp, " + vDialog2.CtrlMapView.Name +
+                                    szWriteBuffer = "                  if ( !StringUtils.equals( strTemp, " + vDialog2.CtrlMapView.Name +
                                                     ".cursor( ^" + vDialog2.CtrlMapRelatedEntity.Name +
                                                     "^ ).getAttribute( ^" + vDialog2.CtrlMapER_Attribute.Name + "^ ).getString( ^^ ) ) )"
 
                                     WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-                                    szWriteBuffer = "               {"
+                                    szWriteBuffer = "                  {"
                                     WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-                                    szWriteBuffer = "                  vGridTmp.cursor( ^" +
+                                    szWriteBuffer = "                     vGridTmp.cursor( ^" +
                                                     vDialog.CtrlMapRelatedEntity.Name +
                                                     "^ ).excludeEntity( CursorPosition.NONE );"
                                     WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-                                    szWriteBuffer = "                  vGridTmp.cursor( ^" +
+                                    szWriteBuffer = "                     vGridTmp.cursor( ^" +
+                                                    vDialog.CtrlMapRelatedEntity.Name + "^ ).includeSubobject( " +
+                                                    vDialog2.CtrlMapView.Name + ".cursor( ^" +
+                                                    vDialog2.CtrlMapRelatedEntity.Name +
+                                                    "^), CursorPosition.NEXT );"
+                                    WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+                                    szWriteBuffer = "                  }"
+                                    WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+                                    szWriteBuffer = "               }"
+                                    WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+                                    // If CheckExistenceOfEntity is < 0, then we would need to include.
+                                    szWriteBuffer = "               else"
+                                    WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+                                    szWriteBuffer = "               {"
+                                    WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+                                    szWriteBuffer = "                     vGridTmp.cursor( ^" +
                                                     vDialog.CtrlMapRelatedEntity.Name + "^ ).includeSubobject( " +
                                                     vDialog2.CtrlMapView.Name + ".cursor( ^" +
                                                     vDialog2.CtrlMapRelatedEntity.Name +
@@ -5428,20 +5470,31 @@ GenJSPJ_InputMapRecurs( VIEW vDialog BASED ON LOD TZWDLGSO,
                                     WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
                                     szWriteBuffer = "            }"
                                     WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-                                    // If CheckExistenceOfEntity is < 0, then we would need to include.
                                     szWriteBuffer = "            else"
                                     WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
                                     szWriteBuffer = "            {"
                                     WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-                                    szWriteBuffer = "                  vGridTmp.cursor( ^" +
-                                                    vDialog.CtrlMapRelatedEntity.Name + "^ ).includeSubobject( " +
-                                                    vDialog2.CtrlMapView.Name + ".cursor( ^" +
-                                                    vDialog2.CtrlMapRelatedEntity.Name +
-                                                    "^), CursorPosition.NEXT );"
+                                    szWriteBuffer = "               nRC = vGridTmp.cursor( ^" +
+                                                    vDialog.CtrlMapRelatedEntity.Name + "^ ).checkExistenceOfEntity( ).toInt();"
                                     WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+                                    szWriteBuffer = "               if ( nRC >= 0 )"
+                                    WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+                                    szWriteBuffer = "               {"
+                                    WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+                                    szWriteBuffer = "                  vGridTmp.cursor( ^" +
+                                                    vDialog.CtrlMapRelatedEntity.Name +
+                                                    "^ ).excludeEntity( CursorPosition.NONE );"
+                                    WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+                                    szWriteBuffer = "               }"
+                                    WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+
                                     szWriteBuffer = "            }"
                                     WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+                                    
                                  END
+                                 // Moved from above.
+                                 szWriteBuffer = "         }  // checkExistenceOfEntity"
+                                 WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
 
                                  szWriteBuffer = "         }"
                                  WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
@@ -5880,7 +5933,11 @@ GenJSPJ_OutputMapRecurs( VIEW vDialog BASED ON LOD TZWDLGSO,
                WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
             ELSE
                // Select Combobox IN Grid.
-               szWriteBuffer = "function " + szCtrlTag + szSelectFunction + "( hControl, Control )"
+               // KJS 05/19/16 - This had two parameters hControl,Control but I am thinking that it should have
+               // three parameters like the above 'IN Grid' combo, so I am changing. I know that the grid <select
+               // has three parameters.
+               //szWriteBuffer = "function " + szCtrlTag + szSelectFunction + "( hControl, Control )"
+               szWriteBuffer = "function " + szCtrlTag + szSelectFunction + "( hControl, Control, strEntityKey )"
                WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
             END
          END
@@ -6641,7 +6698,8 @@ GenJSPJ_Action( VIEW vDialog     BASED ON LOD TZWDLGSO,
                      END
                   END
                   // The parent of the this control is a Grid, so indicate for later.
-                  IF vDialogTemp.ControlDef.Tag = "Grid"
+                  // KJS 03/18/16 - I am thinking we want to do this for a listbox (if we are changing to <ul> from <select)
+                  IF vDialogTemp.ControlDef.Tag = "Grid" OR vDialogTemp.ControlDef.Tag = "ListBox"
                      nGridParent = 1
                      // KJS 01/13/15 - Check if the grid is using Scope OI
                      lSubtypeX = vDialogTemp.Control.ExtendedStyle

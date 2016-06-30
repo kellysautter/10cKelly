@@ -469,7 +469,7 @@ GenJSPJ_ProcessFileIn( VIEW             vDialog BASED ON LOD TZWDLGSO,
    szWriteBuffer = "               x = sTargetFile.lastIndexOf(^\\^);"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
 
-
+   // KJS 06/27/16 - added checking if upload file is not unique name.
    szWriteBuffer = "               //If the target files is just a directory (no file name is specified)"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    szWriteBuffer = "               //then use the name of the input file."
@@ -522,6 +522,45 @@ GenJSPJ_ProcessFileIn( VIEW             vDialog BASED ON LOD TZWDLGSO,
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    szWriteBuffer = "                  boolean ok = f.mkdirs();"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   
+   
+   
+   
+   
+   szWriteBuffer = "                  // Check if a file already exists with this name, if so, change the name."
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   szWriteBuffer = "                  File fs = new File(sTargetFile);"
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   szWriteBuffer = "                  int z=0;"
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   szWriteBuffer = "                  while (fs.exists())"
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   szWriteBuffer = "                  {"
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   szWriteBuffer = "                     z=z+1;"
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   szWriteBuffer = "                     String ext = new Integer(z).toString();"
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   szWriteBuffer = "                     l = sSourceFileNameOnly.lastIndexOf(^.^);"
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   szWriteBuffer = "                     sExtension = sSourceFileNameOnly.substring(l+1);"
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   szWriteBuffer = "                     sTargetFile = sTargetDirectory + sSourceFileNameOnly.substring(0,l) + ext + ^.^ + sExtension;"
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   szWriteBuffer = "                     // strInputFileName is used to populate the mapped field for the upload file. "
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   szWriteBuffer = "                     strInputFileName = sSourceFileNameOnly.substring(0,l) + ext + ^.^ + sExtension;"
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
+   //szWriteBuffer = "                     task.log().info("*** New File Name *** " + sTargetFile);"
+
+   szWriteBuffer = "                     fs = new File(sTargetFile);"
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   szWriteBuffer = "                  }"
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   
+   
+   
+   
    szWriteBuffer = "                  file = new FileOutputStream(sTargetFile);"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    szWriteBuffer = "               }"
@@ -705,6 +744,7 @@ GenerateJSPJava( VIEW vDialog BASED ON LOD TZWDLGSO,
    STRING ( 64 )    szOperName
    STRING ( 32 )    szAttributeName
    STRING ( 256 )   szClass
+   STRING ( 256 )   szLogout
    STRING ( 64 )    szFormName
    STRING ( 34 )    szAction
    STRING ( 1 )     InitializationCode
@@ -894,6 +934,16 @@ GenerateJSPJava( VIEW vDialog BASED ON LOD TZWDLGSO,
       szWindowIsjMobile = "Y"
    ELSE
       szWindowIsjMobile = ""
+   END
+   
+   szLogout = "logout.jsp"
+   // KJS 03/30/16 - Check if this dialog/window should have a different logout page.
+   IF vDialog.Window.WEB_Logout != ""
+      szLogout = vDialog.Window.WEB_Logout
+   ELSE
+   IF vDialogRoot.Dialog.WEB_Logout != "" 
+      szLogout = vDialogRoot.Dialog.WEB_Logout
+   END
    END
 
    // Check to see if Window has any tab stops set and indicate so in the Window entity.
@@ -1306,7 +1356,7 @@ GenerateJSPJava( VIEW vDialog BASED ON LOD TZWDLGSO,
       WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
       szWriteBuffer = "{"
       WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
-      szWriteBuffer = "   strURL = response.encodeRedirectURL( ^logout.jsp^ );"
+      szWriteBuffer = "   strURL = response.encodeRedirectURL( ^" + szLogout + "^ );"
       WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
       szWriteBuffer = "   response.sendRedirect( strURL );"
       WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
@@ -1372,7 +1422,7 @@ GenerateJSPJava( VIEW vDialog BASED ON LOD TZWDLGSO,
 
    ELSE
       //szWriteBuffer = "   strURL = response.encodeRedirectURL( ^NoZeidonTaskIdlogout.jsp^ );"
-      szWriteBuffer = "   strURL = response.encodeRedirectURL( ^logout.jsp^ );"
+      szWriteBuffer = "   strURL = response.encodeRedirectURL( ^" + szLogout + "^ );"
       WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
       szWriteBuffer = "   response.sendRedirect( strURL );"
       WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
@@ -1427,7 +1477,7 @@ GenerateJSPJava( VIEW vDialog BASED ON LOD TZWDLGSO,
    //szWriteBuffer = "    strURL = response.encodeRedirectURL( ^Notasklogout.jsp^ );"
    szWriteBuffer = "   session.setAttribute( ^ZeidonTaskId^, null );"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
-   szWriteBuffer = "   strURL = response.encodeRedirectURL( ^logout.jsp^ );"
+   szWriteBuffer = "   strURL = response.encodeRedirectURL( ^" + szLogout + "^ );"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    szWriteBuffer = "   response.sendRedirect( strURL );"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
@@ -1890,7 +1940,7 @@ DKS_TRACE_END */
 
    szWriteBuffer = "      // Next Window is HTML termination"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
-   szWriteBuffer = "      strURL = response.encodeRedirectURL( ^logout.jsp^ );"
+   szWriteBuffer = "      strURL = response.encodeRedirectURL( ^" + szLogout + "^ );"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    szWriteBuffer = "      response.sendRedirect( strURL );"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
@@ -2095,6 +2145,9 @@ DKS_TRACE_END */
             IF vDialog.ActOper EXISTS
 
                szDlgTag = vDialog.Dialog.Tag
+               // KJS 03/05/16 - Because this could be in a different source file... I will try referencing the source file name.
+               szDlgTag = vDialog.SourceFileForOper.Name 
+               
                szWndTag = vDialog.Window.Tag
                szOperName = vDialog.ActOper.Name
             // szWriteBuffer = "      " +  szDlgTag + "_Dialog " + szDlgTag + " = new " +    dks 2011.03.03
@@ -3180,7 +3233,7 @@ DKS_TRACE_END */
 
          szWriteBuffer = "}"
          WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 )
-      ELSE
+      ELSE // kkk
          IF szListButtonFlag = "Y"
             //szWriteBuffer = "function " + szActionTag + "( strEntityKey )"
             szWriteBuffer = "function " + szActionTag + "( strTagEntityKey )"      // dks 2011.02.24 Button on grid problem?
@@ -3694,7 +3747,7 @@ DKS_TRACE_END */
       WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
    ELSE
    IF szWindowIsjMobile = "Y"
-      szWriteBuffer = "<div data-role=^page^ data-title=^" + vDialog.Window.Caption + "^ >"
+      szWriteBuffer = "<div data-role=^page^ data-theme=^p^ data-title=^" + vDialog.Window.Caption + "^ >"
       WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 ) 
    END
    END
