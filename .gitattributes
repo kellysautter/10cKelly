@@ -8,3 +8,4 @@
 *.hlp binary
 *.wri binary
 *.nrc binary
+w/bin/* binary
