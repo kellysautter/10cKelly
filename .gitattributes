@@ -4,3 +4,7 @@
 *.h text
 *.dll binary
 *.DLL binary
+*.bmp binary
+*.hlp binary
+*.wri binary
+*.nrc binary
