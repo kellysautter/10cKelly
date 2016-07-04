@@ -9,4 +9,4 @@
 *.wri binary
 *.nrc binary
 *.NRC binary
-w/bin/* binary
+w/bin/**/* binary
