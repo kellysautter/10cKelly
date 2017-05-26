@@ -42,7 +42,8 @@ CHANGE LOG
 #if defined( __WIN32__ )
 
    #define zALIGN_MEM_SIZE 4
-   #define zSHARED_ALLOC   262000L
+   //#define zSHARED_ALLOC   262000L
+   #define zSHARED_ALLOC   4000000L    // KJS 05/23/17 - Had out of memory pages issues when AllocSize in zeidon.ini is not set so upping this.
    #define zMAX_ALLOC      4194304L    // No particular reason for this #.
    
    // define zCRITICAL_SECTION same as windows definition in mapiwin.h
@@ -123,7 +124,8 @@ CHANGE LOG
 #elif defined( __OS2__ )
 
    #define zALIGN_MEM_SIZE 4
-   #define zSHARED_ALLOC   262000L
+   //#define zSHARED_ALLOC   262000L
+   #define zSHARED_ALLOC   4000000L    // KJS 05/23/17 - Had out of memory pages issues when AllocSize in zeidon.ini is not set so upping this.
    #define zMAX_ALLOC      4194304L    // No particular reason for this #.
 
    #define zGETPTR( a )  (a)
@@ -132,8 +134,10 @@ CHANGE LOG
 #else
 
    #define zALIGN_MEM_SIZE 4
-   #define zSHARED_ALLOC   65000L
-   #define zMAX_ALLOC      65000L
+   //#define zSHARED_ALLOC   65000L
+   //#define zMAX_ALLOC      65000L
+   #define zSHARED_ALLOC   4000000L    // KJS 05/23/17 - Had out of memory pages issues when AllocSize in zeidon.ini is not set so upping this.
+   #define zMAX_ALLOC      4194304L    // No particular reason for this #.
 
    #define zGETPTR( a )  (a)
    #define zGETHNDL( a ) (a)

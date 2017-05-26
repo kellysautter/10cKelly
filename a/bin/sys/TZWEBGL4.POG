@@ -1,7 +1,7 @@
-z1000-Zeidon    TZWEBGL4 TZOGSRCO 02/23/16   21:33:29 1.0a2    
+z1000-Zeidon    TZWEBGL4 TZOGSRCO 11/07/16   21:26:02 1.0a2    
 eGlobalOperationGroup 1
 aZKey      4896724
-aNextZKeyToAssign 130070628
+aNextZKeyToAssign 130070646
 aName      TZWEBGL4
 aDesc      JSP Generation operations for zeidon JAVA
 aExtension VML
@@ -48,6 +48,130 @@ aDataType  V
 aPFlag     N
 aUFlag     N
 aZKey      4896730
+
+eOperation 2
+aName      GenJSPJ_CrteFileTransferForm
+aZKey      130070638
+aType      G
+aReturnDataType N
+
+eParameter 3
+aShortDesc vDialog
+aDataType  V
+aPFlag     N
+aUFlag     N
+aZKey      130070639
+
+eParameter 3
+aShortDesc vDialogRoot
+aDataType  V
+aPFlag     N
+aUFlag     N
+aZKey      130070640
+
+eParameter 3
+aShortDesc File
+aDataType  L
+aPFlag     N
+aUFlag     N
+aZKey      130070641
+
+eParameter 3
+aShortDesc WriteBuffer
+aDataType  S
+aPFlag     N
+aUFlag     N
+aZKey      130070642
+
+eParameter 3
+aShortDesc Indent
+aDataType  S
+aPFlag     N
+aUFlag     N
+aZKey      130070643
+
+eParameter 3
+aShortDesc NoPositioning
+aDataType  S
+aPFlag     N
+aUFlag     N
+aZKey      130070644
+
+eParameter 3
+aShortDesc OffsetX
+aDataType  L
+aPFlag     N
+aUFlag     N
+aZKey      130070645
+
+eParameter 3
+aShortDesc OffsetY
+aDataType  L
+aPFlag     N
+aUFlag     N
+aZKey      130070646
+
+eOperation 2
+aName      GenJSPJ_CrteListBoxAsList
+aZKey      130070629
+aType      G
+aReturnDataType N
+
+eParameter 3
+aShortDesc vDialog
+aDataType  V
+aPFlag     N
+aUFlag     N
+aZKey      130070630
+
+eParameter 3
+aShortDesc lFile
+aDataType  L
+aPFlag     N
+aUFlag     N
+aZKey      130070631
+
+eParameter 3
+aShortDesc szWriteBuffer
+aDataType  S
+aPFlag     N
+aUFlag     N
+aZKey      130070632
+
+eParameter 3
+aShortDesc szIndent
+aDataType  S
+aPFlag     N
+aUFlag     N
+aZKey      130070633
+
+eParameter 3
+aShortDesc szCtrlTag
+aDataType  S
+aPFlag     N
+aUFlag     N
+aZKey      130070634
+
+eParameter 3
+aShortDesc szNoPositioning
+aDataType  S
+aPFlag     N
+aUFlag     N
+aZKey      130070635
+
+eParameter 3
+aShortDesc lOffsetX
+aDataType  L
+aPFlag     N
+aUFlag     N
+aZKey      130070636
+
+eParameter 3
+aShortDesc lOffsetY
+aDataType  L
+aPFlag     N
+aUFlag     N
+aZKey      130070637
 
 eOperation 2
 aName      BuildMenuListJ

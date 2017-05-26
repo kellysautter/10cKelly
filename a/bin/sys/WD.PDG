@@ -1,13 +1,13 @@
-z1000-Zeidon    WD       TZDGSRCO 02/23/16   12:46:10 1.0a2    
+z1000-Zeidon    WD       TZDGSRCO 03/30/17   15:55:16 1.0a2    
 eDomainGroup 1
 aZKey      1320467
-aNextZKeyToAssign 130069818
+aNextZKeyToAssign 130069834
 aName      WD
 aDesc      Web jsp generation control types 
 aExtension C
 aLanguageType C
 aDomainAndGlobalOpGroupName TZAPDMAA
-aWorkNumeric 48
+aWorkNumeric 49
 
 eDomain    2
 aZKey      1320468
@@ -143,6 +143,21 @@ eTableEntry 4
 aZKey      92709482
 aExternalValue Label
 aInternalValue Label
+
+eTableEntry 4
+aZKey      130069829
+aExternalValue No Height
+aInternalValue No Height
+
+eTableEntry 4
+aZKey      130069830
+aExternalValue No Width
+aInternalValue No Width
+
+eTableEntry 4
+aZKey      130069832
+aExternalValue Text Only
+aInternalValue Text Only
 
 eDomain    2
 aZKey      4899546
@@ -342,6 +357,16 @@ aName      WD_WebPushControlProperties
 aIsDefault Y
 
 eTableEntry 4
+aZKey      130069827
+aExternalValue No Height
+aInternalValue No Height
+
+eTableEntry 4
+aZKey      130069828
+aExternalValue No Width
+aInternalValue No Width
+
+eTableEntry 4
 aZKey      68544964
 aExternalValue Button (Not Submit)
 aInternalValue Button (Not Submit)
@@ -391,6 +416,11 @@ aZKey      89581085
 aExternalValue Filter Rows (wHideTableRow='Y')
 aInternalValue Filter Rows
 
+eTableEntry 4
+aZKey      130069819
+aExternalValue Generate as <ul> List
+aInternalValue Gen As List
+
 eDomain    2
 aZKey      68304446
 aName      WD_WebEditControlProperties
@@ -407,27 +437,19 @@ aName      WD_WebEditControlProperties
 aIsDefault Y
 
 eTableEntry 4
-aZKey      130000004
+aZKey      130069820
+aExternalValue Autocomplete Off
+aInternalValue Autocomplete Off
 
 eTableEntry 4
-aZKey      68304448
-aExternalValue No Current Values
-aInternalValue No Current Values
+aZKey      130069831
+aExternalValue No Height
+aInternalValue No Height
 
 eTableEntry 4
-aZKey      92656445
-aExternalValue Create Session Variable
-aInternalValue Create Session Variable
-
-eTableEntry 4
-aZKey      92656446
-aExternalValue XSS Encode
-aInternalValue XSS
-
-eTableEntry 4
-aZKey      92656447
-aExternalValue No Output Mapping
-aInternalValue No Output Mapping
+aZKey      130069826
+aExternalValue No Width
+aInternalValue No Width
 
 eTableEntry 4
 aZKey      92741377
@@ -438,6 +460,26 @@ eTableEntry 4
 aZKey      130000003
 aExternalValue Browse File
 aInternalValue Browse File
+
+eTableEntry 4
+aZKey      130069822
+aExternalValue Number
+aInternalValue Number
+
+eTableEntry 4
+aZKey      92656447
+aExternalValue No Output Mapping
+aInternalValue No Output Mapping
+
+eTableEntry 4
+aZKey      92656445
+aExternalValue Create Session Variable
+aInternalValue Create Session Variable
+
+eTableEntry 4
+aZKey      92656446
+aExternalValue XSS Encode
+aInternalValue XSS
 
 eDomain    2
 aZKey      68304365
@@ -460,24 +502,9 @@ aExternalValue Div
 aInternalValue Div
 
 eTableEntry 4
-aZKey      68304368
-aExternalValue Span
-aInternalValue Span
-
-eTableEntry 4
 aZKey      89582614
 aExternalValue Table
 aInternalValue Table
-
-eTableEntry 4
-aZKey      4634994
-aExternalValue Fieldset
-aInternalValue Container
-
-eTableEntry 4
-aZKey      4634995
-aExternalValue Fieldset Absolute Pos
-aInternalValue Container Absolute Size
 
 eTableEntry 4
 aZKey      89853394
@@ -495,16 +522,6 @@ aExternalValue Include File
 aInternalValue Include File
 
 eTableEntry 4
-aZKey      130000001
-aExternalValue Absolute Pos
-aInternalValue Absolute Pos
-
-eTableEntry 4
-aZKey      90754211
-aExternalValue Grid Grouping
-aInternalValue Grid Grouping
-
-eTableEntry 4
 aZKey      92656449
 aExternalValue Show/Hide Toggle
 aInternalValue Show/Hide Toggle
@@ -515,9 +532,9 @@ aExternalValue Show/Hide Toggle2
 aInternalValue Show/Hide Toggle2
 
 eTableEntry 4
-aZKey      130069818
-aExternalValue Menu Action List
-aInternalValue Menu Action List
+aZKey      68544987
+aExternalValue File Transfer to Server
+aInternalValue File Transfer to Server
 
 eTableEntry 4
 aZKey      68304372
@@ -525,14 +542,44 @@ aExternalValue Repeating Group
 aInternalValue Repeating Group
 
 eTableEntry 4
+aZKey      130069833
+aExternalValue Chart
+aInternalValue Chart
+
+eTableEntry 4
+aZKey      68304368
+aExternalValue Span
+aInternalValue Span
+
+eTableEntry 4
+aZKey      4634994
+aExternalValue Fieldset
+aInternalValue Container
+
+eTableEntry 4
+aZKey      4634995
+aExternalValue Fieldset Absolute Pos
+aInternalValue Container Absolute Size
+
+eTableEntry 4
+aZKey      130000001
+aExternalValue Absolute Pos
+aInternalValue Absolute Pos
+
+eTableEntry 4
+aZKey      90754211
+aExternalValue Grid Grouping
+aInternalValue Grid Grouping
+
+eTableEntry 4
+aZKey      130069818
+aExternalValue Menu Action List
+aInternalValue Menu Action List
+
+eTableEntry 4
 aZKey      130069814
 aExternalValue Select Set (Repeat Grp)
 aInternalValue Select Set (Repeat Grp)
-
-eTableEntry 4
-aZKey      68544987
-aExternalValue File Transfer to Server
-aInternalValue File Transfer to Server
 
 eTableEntry 4
 aZKey      92741379
@@ -585,6 +632,21 @@ aExternalValue Edit
 aInternalValue Edit
 
 eTableEntry 4
+aZKey      130069825
+aExternalValue Number (Used with Edit)
+aInternalValue Number
+
+eTableEntry 4
+aZKey      130069834
+aExternalValue Language Conv
+aInternalValue Language Conv
+
+eTableEntry 4
+aZKey      90249868
+aExternalValue Wrap
+aInternalValue WRAP
+
+eTableEntry 4
 aZKey      68304443
 aExternalValue Multiline
 aInternalValue Multiline
@@ -598,11 +660,6 @@ eTableEntry 4
 aZKey      68442680
 aExternalValue Absolute Width
 aInternalValue Absolute Width
-
-eTableEntry 4
-aZKey      90249868
-aExternalValue Wrap
-aInternalValue WRAP
 
 eTableEntry 4
 aZKey      90768599
@@ -1835,6 +1892,11 @@ aExternalValue Start Jasper PDF Report
 aInternalValue 48
 
 eTableEntry 4
+aZKey      130069821
+aExternalValue Start Jasper XLS File
+aInternalValue 49
+
+eTableEntry 4
 aZKey      4847905
 aExternalValue Replace Dialog with Dialog
 aInternalValue 51
@@ -1968,6 +2030,6 @@ aType      13
 aLastUpdateDate 19950908094926000
 aLastCheckInDate 19951102203051110
 
-i203       200
-i206       200
-i361       200
+i214       211
+i217       211
+i373       211

@@ -1,4 +1,4 @@
-z1000-Zeidon    ZEIDON   KZHKEYSO 12/12/06   07:54:05 1.0b0    
+z1000-Zeidon    ZEIDON   KZHKEYSO 02/24/17   17:43:44 1.0b0    
 eApplication 1
 aZKey      1100000
 
@@ -17,22 +17,6 @@ aName      HotkeyToPainter
 aZKey      1319673
 aType      G
 aReturnDesc nReturnCode
-aReturnDataType N
-
-eHotkey    2
-aZKey      1111232
-aTag       SaveActiveCtrlToCSV
-aKeyCombo  U4
-$`0!3````
-`
-aTitle     SaveToCSV
-aVKey      83
-aDLL_Name  zdrapp
-
-eOperation 3
-aName      SaveActiveCtrlToCSV
-aZKey      1157959
-aType      G
 aReturnDataType N
 
 eHotkey    2

@@ -21,6 +21,7 @@ typedef struct tagzTZWDLGSO_Dialog_DEF
    zCHAR WEB_PageBackgroundInclude[ 255 ];
    zCHAR WEB_NoAutoLogOut[ 2 ];
    zCHAR WEB_ImportInclude[ 255 ];
+   zCHAR WEB_Logout[ 255 ];
    zCHAR LastSyncDate[ 7 ];
    zCHAR wOriginalViewName[ 255 ];
    zCHAR wNewViewName[ 255 ];
@@ -31,6 +32,7 @@ typedef struct tagzTZWDLGSO_Dialog_DEF
    zCHAR wWebEditControlProperties[ 33 ];
    zCHAR wWebPushControlProperties[ 33 ];
    zCHAR wWebTextControlProperties[ 33 ];
+   zCHAR wWebUsesLanguageConversion[ 2 ];
    zCHAR wMapTypeGridColumnControl[ 33 ];
    zCHAR wMapTypeTextControl[ 33 ];
    zCHAR wOriginalClassName[ 255 ];
@@ -105,6 +107,7 @@ typedef struct tagzTZWDLGSO_Window_DEF
    zCHAR WEB_JSPGenerationPositioning[ 2 ];
    zCHAR WEB_RegisterZeidonWindow[ 2 ];
    zCHAR WEB_UnregisterZeidonWindow[ 2 ];
+   zCHAR WEB_Logout[ 255 ];
    zLONG BarID;
    zCHAR CaptionNLS_Text[ 255 ];
    zLONG ControlTagCounter;
@@ -136,6 +139,7 @@ typedef struct tagzTZWDLGSO_Control_DEF
    zLONG Underline;
    zLONG SyncKey;
    zCHAR DIL_Text[ 255 ];
+   zCHAR Placeholder[ 255 ];
    zCHAR ReportGroupType[ 3 ];
    zCHAR ForceHeaderPerEntity[ 2 ];
    zLONG ExtendedStyle;
@@ -170,9 +174,13 @@ typedef struct tagzTZWDLGSO_Control_DEF
    zCHAR WebNoGridDataMsgClass[ 255 ];
    zCHAR WebreCAPTCHAPublicKey[ 255 ];
    zCHAR WebreCAPTCHAPrivateKey[ 255 ];
+   zCHAR WebHTML5Attribute[ 255 ];
+   zCHAR WebPlaceholder[ 255 ];
+   zCHAR MenuName[ 255 ];
    zCHAR DIL_Inherited[ 255 ];
    zCHAR NLS_Text[ 255 ];
    zCHAR NLS_DIL_Text[ 255 ];
+   zCHAR LangID[ 255 ];
    zLONG FontSize;
    zCHAR TextBold[ 2 ];
    zCHAR TextItalic[ 2 ];
@@ -204,6 +212,7 @@ typedef struct tagzTZWDLGSO_CtrlCtrl_DEF
    zLONG Underline;
    zLONG SyncKey;
    zCHAR DIL_Text[ 255 ];
+   zCHAR Placeholder[ 255 ];
    zCHAR ReportGroupType[ 3 ];
    zCHAR ForceHeaderPerEntity[ 2 ];
    zLONG ExtendedStyle;
@@ -232,6 +241,7 @@ typedef struct tagzTZWDLGSO_CtrlCtrl_DEF
    zCHAR DIL_Inherited[ 255 ];
    zCHAR NLS_Text[ 255 ];
    zCHAR NLS_DIL_Text[ 255 ];
+   zCHAR LangID[ 255 ];
    zLONG BorderWidth;
    zLONG BorderStyle;
    zLONG BorderTop;
@@ -245,6 +255,9 @@ typedef struct tagzTZWDLGSO_CtrlCtrl_DEF
    zCHAR TextUnderline[ 2 ];
    zCHAR WebCtrlLabelLink[ 255 ];
    zCHAR WebSelectSetName[ 255 ];
+   zCHAR WebHTML5Attribute[ 255 ];
+   zCHAR WebPlaceholder[ 255 ];
+   zCHAR MenuName[ 255 ];
 
 #ifdef DEBUG_LODSTRUCT
 unsigned char CheckByte;
@@ -977,6 +990,7 @@ typedef struct tagzTZWDLGSO_ActCtrl_DEF
    zLONG Properties;
    zCHAR WebreCAPTCHAPublicKey[ 255 ];
    zCHAR WebreCAPTCHAPrivateKey[ 255 ];
+   zCHAR Placeholder[ 255 ];
    zLONG LKey;
    zCHAR VisibleBorder[ 2 ];
    zCHAR CenterJustify[ 2 ];
@@ -1003,6 +1017,7 @@ typedef struct tagzTZWDLGSO_ActCtrl_DEF
    zCHAR TextBold[ 2 ];
    zCHAR TextItalic[ 2 ];
    zCHAR TextUnderline[ 2 ];
+   zCHAR LangID[ 255 ];
 
 #ifdef DEBUG_LODSTRUCT
 unsigned char CheckByte;
@@ -1020,6 +1035,7 @@ typedef struct tagzTZWDLGSO_ActOpt_DEF
    zCHAR Separator[ 2 ];
    zLONG ZKey;
    zLONG Underline;
+   zCHAR LangID[ 255 ];
    zCHAR DIL_Text[ 255 ];
    zLONG SeqNo_Menu;
    zLONG SeqNo_Option;
@@ -1102,6 +1118,7 @@ typedef struct tagzTZWDLGSO_Menu_DEF
    zCHAR Tag[ 33 ];
    zLONG ZKey;
    zCHAR CSS_Class[ 255 ];
+   zCHAR WebHTML5Attribute[ 255 ];
 
 #ifdef DEBUG_LODSTRUCT
 unsigned char CheckByte;
@@ -1126,6 +1143,8 @@ typedef struct tagzTZWDLGSO_Option_DEF
    zLONG SeqNo_Option;
    zCHAR NLS_Text[ 255 ];
    zCHAR CSS_Class[ 255 ];
+   zCHAR WebHTML5Attribute[ 255 ];
+   zCHAR LangID[ 255 ];
 
 #ifdef DEBUG_LODSTRUCT
 unsigned char CheckByte;
@@ -1150,6 +1169,8 @@ typedef struct tagzTZWDLGSO_OptOpt_DEF
    zLONG SeqNo_Option;
    zCHAR NLS_Text[ 255 ];
    zCHAR CSS_Class[ 255 ];
+   zCHAR WebHTML5Attribute[ 255 ];
+   zCHAR LangID[ 255 ];
 
 #ifdef DEBUG_LODSTRUCT
 unsigned char CheckByte;
@@ -2073,6 +2094,7 @@ typedef struct tagzTZWDLGSO_NLS_Control_DEF
    zCHAR DD_TargetKey[ 33 ];
    zCHAR DD_SourceKey[ 33 ];
    zCHAR DD_Type[ 2 ];
+   zCHAR Placeholder[ 255 ];
    zCHAR ReportGroupType[ 3 ];
    zCHAR ForceHeaderPerEntity[ 2 ];
    zLONG ExtendedStyle;
@@ -2104,6 +2126,7 @@ typedef struct tagzTZWDLGSO_NLS_Control_DEF
    zCHAR TextBold[ 2 ];
    zCHAR TextItalic[ 2 ];
    zCHAR TextUnderline[ 2 ];
+   zCHAR LangID[ 255 ];
 
 #ifdef DEBUG_LODSTRUCT
 unsigned char CheckByte;
@@ -2136,6 +2159,7 @@ typedef struct tagzTZWDLGSO_NLS_Option_DEF
    zCHAR DIL_Text[ 255 ];
    zLONG SeqNo_Menu;
    zLONG SeqNo_Option;
+   zCHAR LangID[ 255 ];
 
 #ifdef DEBUG_LODSTRUCT
 unsigned char CheckByte;
@@ -2175,6 +2199,7 @@ typedef struct tagzTZWDLGSO_NLS_DIL_Control_DEF
    zLONG Underline;
    zLONG SyncKey;
    zCHAR DIL_Text[ 255 ];
+   zCHAR Placeholder[ 255 ];
    zCHAR ReportGroupType[ 3 ];
    zCHAR ForceHeaderPerEntity[ 2 ];
    zLONG ExtendedStyle;
@@ -2206,6 +2231,7 @@ typedef struct tagzTZWDLGSO_NLS_DIL_Control_DEF
    zCHAR TextBold[ 2 ];
    zCHAR TextItalic[ 2 ];
    zCHAR TextUnderline[ 2 ];
+   zCHAR LangID[ 255 ];
 
 #ifdef DEBUG_LODSTRUCT
 unsigned char CheckByte;
@@ -2238,6 +2264,7 @@ typedef struct tagzTZWDLGSO_NLS_DIL_Option_DEF
    zCHAR DIL_Text[ 255 ];
    zLONG SeqNo_Menu;
    zLONG SeqNo_Option;
+   zCHAR LangID[ 255 ];
 
 #ifdef DEBUG_LODSTRUCT
 unsigned char CheckByte;
