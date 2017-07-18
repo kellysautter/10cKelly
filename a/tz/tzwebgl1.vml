@@ -6357,10 +6357,11 @@ GenJSP_Action( VIEW vDialog     BASED ON LOD TZWDLGSO,
    // Next Window Option
    IF lActionType = zWAB_StartModelessSubwindow          OR
       lActionType = zWAB_StartModalSubwindow             OR
+      lActionType = zWAB_StartModalSubwindowNP           OR
       lActionType = zWAB_ReplaceWindowWithModelessWindow OR
       lActionType = zWAB_ReplaceWindowWithModalWindow    OR
-      lActionType = 35                                   OR  //reCAPTCHA StartModalSubwindow
-      lActionType = 55  //reCAPTCHA ReplaceModalWindow
+      lActionType = zWAB_StartNewApp                     OR  //reCAPTCHA StartModalSubwindow
+      lActionType = zWAB_ReCAPTCHA  //reCAPTCHA ReplaceModalWindow
       IF InsertBlankFlag = "Y"
          szWriteBuffer = ""
          WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
@@ -6388,7 +6389,8 @@ GenJSP_Action( VIEW vDialog     BASED ON LOD TZWDLGSO,
 
       IF lActionType = zWAB_StartModelessSubwindow OR
          lActionType = zWAB_StartModalSubwindow    OR
-         lActionType = 35 //reCAPTCHA StartModalSubwindow
+         lActionType = zWAB_StartModalSubwindowNP  OR
+         lActionType = zWAB_StartNewApp //reCAPTCHA StartModalSubwindow
          // Next Window is subwindow. Set up current window for return.
          szWriteBuffer = "      vKZXMLPGO.CreateEntity( strSessionId, ^PagePath^, vKZXMLPGO.zPOS_AFTER );"
          WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )

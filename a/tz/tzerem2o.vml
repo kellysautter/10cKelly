@@ -1839,6 +1839,9 @@ IdentifierConstraints( VIEW vERD BASED ON LOD TZEREMDO,
                RETURN -1
          ELSE
             IF vERD.ER_AttributeIdentifier EXISTS
+               // KJS 08/24/15 - Per request of DG, we are taking out this contraint. In the new world, we want to be
+               // able to use db system generated keys, not just zeidon generated keys.
+               /*
                SET CURSOR FIRST vERD.ER_Attribute WHERE
                      vERD.ER_Attribute.ZKey = vERD.ER_AttributeIdentifier.ZKey
                IF vERD.Domain.DataType != "L"
@@ -1848,6 +1851,7 @@ IdentifierConstraints( VIEW vERD BASED ON LOD TZEREMDO,
                                zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
                   RETURN -1
                END
+               */
             ELSE
                // System Error: Invalid FactType
                MessageSend( vERD, "ER00410", "Identifier Specification",
@@ -2706,36 +2710,6 @@ ERD_Merge( VIEW TargetERD BASED ON LOD TZEREMDO,
             END
 
          END
-      END
-   END
-
-END
-
-/*************************************************************************************************
-**    
-**    OPERATION: ConvertZKeyDomains
-**    
-*************************************************************************************************/
-TRANSFORMATION OPERATION
-ConvertZKeyDomains( VIEW vERD BASED ON LOD TZEREMDO )
-
-   VIEW vDomain BASED ON LOD TZDGSRCO
-   SHORT  nRC
-
-   // Convert all ZKey Attributes to use the ZKey Domain.
-   nRC = ActivateMetaOI_ByName( vERD, vDomain, 0, zREFER_DOMAIN_META, zSINGLE, "ZKey", 0 )
-   IF nRC < 0
-      MessageSend( vERD, "", "ZKey Domains", "No ZKey Domain has been defined.", zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
-      RETURN -1
-   END
-   NAME VIEW vDomain "ZKey_Domain"
-   IssueError( vERD,0,0, "after activate" )
-   
-   FOR EACH vERD.ER_Entity 
-      SET CURSOR FIRST vERD.ER_Attribute WHERE vERD.ER_Attribute.Name = "ZKey" 
-      IF RESULT >= zCURSOR_SET
-         EXCLUDE vERD.Domain 
-         INCLUDE vERD.Domain FROM vDomain.Domain
       END
    END
 

@@ -1,13 +1,13 @@
-z1000-Zeidon    WD       TZDGSRCO 03/30/17   15:55:16 1.0a2    
+z1000-Zeidon    WD       TZDGSRCO 06/07/17   21:42:15 1.0a2    
 eDomainGroup 1
 aZKey      1320467
-aNextZKeyToAssign 130069834
+aNextZKeyToAssign 130069836
 aName      WD
 aDesc      Web jsp generation control types 
 aExtension C
 aLanguageType C
 aDomainAndGlobalOpGroupName TZAPDMAA
-aWorkNumeric 49
+aWorkNumeric 57
 
 eDomain    2
 aZKey      1320468
@@ -1792,6 +1792,11 @@ aExternalValue Same Window / Refresh
 aInternalValue 2
 
 eTableEntry 4
+aZKey      130069835
+aExternalValue Same Window / No Position
+aInternalValue 4
+
+eTableEntry 4
 aZKey      4274542
 aExternalValue Same Window / Web Refresh
 aInternalValue 3
@@ -1820,6 +1825,11 @@ eTableEntry 4
 aZKey      1320477
 aExternalValue Subwindow / Modal
 aInternalValue 34
+
+eTableEntry 4
+aZKey      130069836
+aExternalValue Subwindow / No Position
+aInternalValue 57
 
 eTableEntry 4
 aZKey      90790802
@@ -2032,4 +2042,4 @@ aLastCheckInDate 19951102203051110
 
 i214       211
 i217       211
-i373       211
+i375       211

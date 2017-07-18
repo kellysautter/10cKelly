@@ -39,7 +39,7 @@ zgGetZeidonToolsDir( zVIEW  vSubtask,
 
 // DGC 10/17/95 -----------------------------------------------------------
 
-//start TZWDLGSO 2017.02.17 15:08:36
+//start TZWDLGSO 2017.06.28 10:57:19
 zOPER_EXPORT zSHORT OPERATION
 oTZWDLGSO_ConvertListBoxToGrid( zVIEW vViewToInstance0 );
 
@@ -136,6 +136,10 @@ oTZWDLGSO_GenerateJSPJava( zVIEW vViewToInstance0,
 zOPER_EXPORT zSHORT OPERATION
 oTZWDLGSO_GenerateJSPJavaInc( zVIEW vViewToInstance0,
                               zVIEW vvSubtask1 );
+
+zOPER_EXPORT zSHORT OPERATION
+oTZWDLGSO_FixCtrlCtrlAttributes( zVIEW vvDialog0,
+                                 zVIEW vvSubtask1 );
 
 zOPER_EXPORT zSHORT OPERATION
 oTZWDLGSO_GenJSPJ_ProcessFileIn( zVIEW vViewToInstance0,

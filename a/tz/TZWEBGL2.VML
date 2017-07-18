@@ -6293,8 +6293,11 @@ GenJSPJ_OutputMapRecurs( VIEW vDialog BASED ON LOD TZWDLGSO,
             // the normal way with the action .submit.
             IF szCodeCreated = "N"
                // Only generate the DisableFormElements statement if there is an Action tied to the combobox. (this is in 10d)
-               szWriteBuffer = "      _DisableFormElements( true );"
-               WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
+               // KJS 07/14/17 - Because we commented out the above code (where szCodeCreate="Y"), we are adding the
+               // _DisableFormElements even when all we have is javascript code (with no submit action). This causes the page to
+               // spin so take this out. We do it below with the submit.
+               //szWriteBuffer = "      _DisableFormElements( true );"
+               //WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
 
                //KJS 11/16/2007 - We want to insert any javascript code that the
                //user has entered for this action.  This will be put before the action
@@ -6629,11 +6632,13 @@ GenJSPJ_Action( VIEW vDialog     BASED ON LOD TZWDLGSO,
    lActionType = vDialog.Action.Type
    IF lActionType = zWAB_StayOnWindow OR
       lActionType = zWAB_StayOnWindowWithRefresh OR
-      lActionType = zWAB_StayOnWindowWebRefresh
+      lActionType = zWAB_StayOnWindowWebRefresh OR
+      lActionType = zWAB_StayOnWindowRefreshNP
       szWAB = "zWAB_StayOnWindowWithRefresh"
    ELSE
       IF lActionType = zWAB_StartModelessSubwindow OR
-         lActionType = zWAB_StartModalSubwindow
+         lActionType = zWAB_StartModalSubwindow OR
+         lActionType = zWAB_StartModalSubwindowNP
          szWAB = "zWAB_StartModalSubwindow"
       ELSE
          IF lActionType = zWAB_ReplaceWindowWithModelessWindow OR
@@ -7688,13 +7693,14 @@ GenJSPJ_Action( VIEW vDialog     BASED ON LOD TZWDLGSO,
    // Next Window Option
       IF lActionType = zWAB_StartModelessSubwindow          OR
          lActionType = zWAB_StartModalSubwindow             OR
+         lActionType = zWAB_StartModalSubwindowNP           OR
          lActionType = zWAB_ReplaceWindowWithModelessWindow OR
          lActionType = zWAB_ReplaceWindowWithModalWindow    OR
          lActionType = zWAB_StartTopWindow                  OR
          lActionType = zWAB_ResetTopWindow                  OR
          lActionType = zWAB_StartBrowserHTML_Page           OR
-         lActionType = 35                                   OR  //reCAPTCHA StartModalSubwindow
-         lActionType = 55  //reCAPTCHA ReplaceModalWindow
+         lActionType = zWAB_StartNewApp                     OR  //reCAPTCHA StartModalSubwindow
+         lActionType = zWAB_ReCAPTCHA  //reCAPTCHA ReplaceModalWindow
       IF InsertBlankFlag = "Y"
          szWriteBuffer = ""
          WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
@@ -7724,7 +7730,8 @@ GenJSPJ_Action( VIEW vDialog     BASED ON LOD TZWDLGSO,
 
          IF lActionType = zWAB_StartModelessSubwindow OR
             lActionType = zWAB_StartModalSubwindow    OR
-            lActionType = 35 //reCAPTCHA StartModalSubwindow
+            lActionType = zWAB_StartModalSubwindowNP  OR
+            lActionType = zWAB_StartNewApp //reCAPTCHA StartModalSubwindow
          // Next Window is subwindow. Set up current window for return.
          szWriteBuffer = "      vKZXMLPGO.cursor( ^PagePath^ ).createEntity( CursorPosition.NEXT );"
          WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
@@ -7761,7 +7768,7 @@ GenJSPJ_Action( VIEW vDialog     BASED ON LOD TZWDLGSO,
    END
 
    // Same Window Refresh option
-   IF lActionType = zWAB_StayOnWindowWithRefresh
+   IF lActionType = zWAB_StayOnWindowWithRefresh OR lActionType = zWAB_StayOnWindowRefreshNP
       szWriteBuffer = "      // Stay on Window with Refresh"
       WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
       szWriteBuffer = "      strURL = response.encodeRedirectURL( ^" + vDialogRoot.Dialog.Tag + vDialogRoot.Window.Tag + ".jsp^ );"

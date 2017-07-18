@@ -1,0 +1,14 @@
+tzcmlpld.c:      GetIntegerFromAttribute( &TaskCount, vTaskLPLR, "LPLR", "TaskUseCount" );
+tzcmoprs.c:      SetAttributeFromInteger( vLPLR, "LPLR", "TaskUseCount", 0 );
+tzcmoprs.c:   GetIntegerFromAttribute( &lTaskUseCnt, vLPLR, "LPLR", "TaskUseCount" );
+tzcmoprs.c:   SetAttributeFromInteger( vLPLR, "LPLR", "TaskUseCount", lTaskUseCnt );
+tzcmoprs.c:   GetIntegerFromAttribute( &lTaskUseCnt, vLPLR, "LPLR", "TaskUseCount" );
+tzcmoprs.c:                               "TaskUseCount", lTaskUseCnt );
+tzcmoprs.c:                                     "TaskUseCount", lTaskUseCnt );
+tzcmslpd.c:         GetIntegerFromAttribute( &lTaskUseCnt, LPLR_View, "LPLR", "TaskUseCount" );
+tzvsxcad.c:   TaskUseCount in View TaskLPLR
+tzvsxcad.c:      //BL, 2000.01.07 Reset TaskUseCount
+tzvsxcad.c:      GetIntegerFromAttribute( &lTaskUseCnt, LPLR, "LPLR", "TaskUseCount" );
+tzvsxcad.c:         SetAttributeFromInteger( LPLR, "LPLR", "TaskUseCount", lTaskUseCnt );
+tzvsxcad.c:      GetIntegerFromAttribute( &lTaskUseCnt, LPLR, "LPLR", "TaskUseCount" );
+tzvsxcad.c:         SetAttributeFromInteger( LPLR, "LPLR", "TaskUseCount", lTaskUseCnt );

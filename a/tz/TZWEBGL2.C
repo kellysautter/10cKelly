@@ -445,10 +445,11 @@ GenJSPJ_OutputMapRecurs( zVIEW     vDialog,
             if ( ZeidonStringCompare( szCodeCreated, 1, 0, "N", 1, 0, 2 ) == 0 )
             { 
                //:// Only generate the DisableFormElements statement if there is an Action tied to the combobox. (this is in 10d)
-               //:szWriteBuffer = "      _DisableFormElements( true );"
-               ZeidonStringCopy( szWriteBuffer, 1, 0, "      _DisableFormElements( true );", 1, 0, 10001 );
-               //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
-               WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 );
+               //:// KJS 07/14/17 - Because we commented out the above code (where szCodeCreate="Y"), we are adding the
+               //:// _DisableFormElements even when all we have is javascript code (with no submit action). This causes the page to
+               //:// spin so take this out. We do it below with the submit.
+               //://szWriteBuffer = "      _DisableFormElements( true );"
+               //://WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
 
                //://KJS 11/16/2007 - We want to insert any javascript code that the
                //://user has entered for this action.  This will be put before the action
@@ -14280,13 +14281,14 @@ GenJSPJ_Action( zVIEW     vDialog,
    zSHORT    lTempInteger_11; 
    zSHORT    lTempInteger_12; 
    zSHORT    lTempInteger_13; 
+   zSHORT    lTempInteger_14; 
    zCHAR     szTempString_25[ 33 ]; 
    zCHAR     szTempString_26[ 33 ]; 
    zCHAR     szTempString_27[ 33 ]; 
    zCHAR     szTempString_28[ 33 ]; 
    zCHAR     szTempString_29[ 33 ]; 
    zCHAR     szTempString_30[ 33 ]; 
-   zSHORT    lTempInteger_14; 
+   zSHORT    lTempInteger_15; 
    zCHAR     szTempString_31[ 33 ]; 
    zCHAR     szTempString_32[ 33 ]; 
    zCHAR     szTempString_33[ 33 ]; 
@@ -14614,8 +14616,9 @@ GenJSPJ_Action( zVIEW     vDialog,
    GetIntegerFromAttribute( &lActionType, vDialog, "Action", "Type" );
    //:IF lActionType = zWAB_StayOnWindow OR
    //:   lActionType = zWAB_StayOnWindowWithRefresh OR
-   //:   lActionType = zWAB_StayOnWindowWebRefresh
-   if ( lActionType == zWAB_StayOnWindow || lActionType == zWAB_StayOnWindowWithRefresh || lActionType == zWAB_StayOnWindowWebRefresh )
+   //:   lActionType = zWAB_StayOnWindowWebRefresh OR
+   //:   lActionType = zWAB_StayOnWindowRefreshNP
+   if ( lActionType == zWAB_StayOnWindow || lActionType == zWAB_StayOnWindowWithRefresh || lActionType == zWAB_StayOnWindowWebRefresh || lActionType == zWAB_StayOnWindowRefreshNP )
    { 
       //:szWAB = "zWAB_StayOnWindowWithRefresh"
       ZeidonStringCopy( szWAB, 1, 0, "zWAB_StayOnWindowWithRefresh", 1, 0, 65 );
@@ -14624,8 +14627,9 @@ GenJSPJ_Action( zVIEW     vDialog,
    else
    { 
       //:IF lActionType = zWAB_StartModelessSubwindow OR
-      //:   lActionType = zWAB_StartModalSubwindow
-      if ( lActionType == zWAB_StartModelessSubwindow || lActionType == zWAB_StartModalSubwindow )
+      //:   lActionType = zWAB_StartModalSubwindow OR
+      //:   lActionType = zWAB_StartModalSubwindowNP
+      if ( lActionType == zWAB_StartModelessSubwindow || lActionType == zWAB_StartModalSubwindow || lActionType == zWAB_StartModalSubwindowNP )
       { 
          //:szWAB = "zWAB_StartModalSubwindow"
          ZeidonStringCopy( szWAB, 1, 0, "zWAB_StartModalSubwindow", 1, 0, 65 );
@@ -16386,10 +16390,17 @@ GenJSPJ_Action( zVIEW     vDialog,
 
       //:// Add Object Functions Accept, Cancel, Create Temporal Entity and Create Temporal Subobject Version.
       //:// Also looking at the auto setNext/Prev
-      //:lAutoNextPrev = vDialog.Action.SB_NextPrev
-      GetIntegerFromAttribute( &lAutoNextPrev, vDialog, "Action", "SB_NextPrev" );
-      //:lAutoSubAction = vDialog.Action.SB_SubAction 
-      GetIntegerFromAttribute( &lAutoSubAction, vDialog, "Action", "SB_SubAction" );
+      //:IF vDialog.ActMap EXISTS
+      lTempInteger_11 = CheckExistenceOfEntity( vDialog, "ActMap" );
+      if ( lTempInteger_11 == 0 )
+      { 
+         //:lAutoNextPrev = vDialog.Action.SB_NextPrev
+         GetIntegerFromAttribute( &lAutoNextPrev, vDialog, "Action", "SB_NextPrev" );
+         //:lAutoSubAction = vDialog.Action.SB_SubAction 
+         GetIntegerFromAttribute( &lAutoSubAction, vDialog, "Action", "SB_SubAction" );
+      } 
+
+      //:END
       //:IF lAutoSubAction = 1 OR    // Accept
       //:   lAutoSubAction = 2 OR    // Cancel
       //:   lAutoSubAction = 4 OR    // Delete
@@ -16422,8 +16433,8 @@ GenJSPJ_Action( zVIEW     vDialog,
 
          //:// Get View and Entity names from the Action.
          //:IF vDialog.ActMapView EXISTS
-         lTempInteger_11 = CheckExistenceOfEntity( vDialog, "ActMapView" );
-         if ( lTempInteger_11 == 0 )
+         lTempInteger_12 = CheckExistenceOfEntity( vDialog, "ActMapView" );
+         if ( lTempInteger_12 == 0 )
          { 
             //:szViewName = vDialog.ActMapView.Name 
             GetVariableFromAttribute( szViewName, 0, 'S', 101, vDialog, "ActMapView", "Name", "", 0 );
@@ -16431,8 +16442,8 @@ GenJSPJ_Action( zVIEW     vDialog,
 
          //:END
          //:IF vDialog.ActMapLOD_Entity EXISTS
-         lTempInteger_12 = CheckExistenceOfEntity( vDialog, "ActMapLOD_Entity" );
-         if ( lTempInteger_12 == 0 )
+         lTempInteger_13 = CheckExistenceOfEntity( vDialog, "ActMapLOD_Entity" );
+         if ( lTempInteger_13 == 0 )
          { 
             //:szEntityName = vDialog.ActMapLOD_Entity.Name 
             GetVariableFromAttribute( szEntityName, 0, 'S', 101, vDialog, "ActMapLOD_Entity", "Name", "", 0 );
@@ -16446,8 +16457,8 @@ GenJSPJ_Action( zVIEW     vDialog,
          //:SET CURSOR NEXT vDialogTemp.ActMap
          RESULT = SetCursorNextEntity( vDialogTemp, "ActMap", "" );
          //:IF RESULT >= zCURSOR_SET AND vDialogTemp.ActMapLOD_Entity EXISTS
-         lTempInteger_13 = CheckExistenceOfEntity( vDialogTemp, "ActMapLOD_Entity" );
-         if ( RESULT >= zCURSOR_SET && lTempInteger_13 == 0 )
+         lTempInteger_14 = CheckExistenceOfEntity( vDialogTemp, "ActMapLOD_Entity" );
+         if ( RESULT >= zCURSOR_SET && lTempInteger_14 == 0 )
          { 
             //:szScopingName = "^" + vDialogTemp.ActMapLOD_Entity.Name + "^"
             GetVariableFromAttribute( szTempString_25, 0, 'S', 33, vDialogTemp, "ActMapLOD_Entity", "Name", "", 0 );
@@ -16894,14 +16905,15 @@ GenJSPJ_Action( zVIEW     vDialog,
       //:// Next Window Option
       //:IF lActionType = zWAB_StartModelessSubwindow          OR
       //:   lActionType = zWAB_StartModalSubwindow             OR
+      //:   lActionType = zWAB_StartModalSubwindowNP           OR
       //:   lActionType = zWAB_ReplaceWindowWithModelessWindow OR
       //:   lActionType = zWAB_ReplaceWindowWithModalWindow    OR
       //:   lActionType = zWAB_StartTopWindow                  OR
       //:   lActionType = zWAB_ResetTopWindow                  OR
       //:   lActionType = zWAB_StartBrowserHTML_Page           OR
-      //:   lActionType = 35                                   OR  //reCAPTCHA StartModalSubwindow
-      //:   lActionType = 55  //reCAPTCHA ReplaceModalWindow
-      if ( lActionType == zWAB_StartModelessSubwindow || lActionType == zWAB_StartModalSubwindow || lActionType == zWAB_ReplaceWindowWithModelessWindow || lActionType == zWAB_ReplaceWindowWithModalWindow || lActionType == zWAB_StartTopWindow || lActionType == zWAB_ResetTopWindow || lActionType == zWAB_StartBrowserHTML_Page || lActionType == 35 || lActionType == 55 )
+      //:   lActionType = zWAB_StartNewApp                     OR  //reCAPTCHA StartModalSubwindow
+      //:   lActionType = zWAB_ReCAPTCHA  //reCAPTCHA ReplaceModalWindow
+      if ( lActionType == zWAB_StartModelessSubwindow || lActionType == zWAB_StartModalSubwindow || lActionType == zWAB_StartModalSubwindowNP || lActionType == zWAB_ReplaceWindowWithModelessWindow || lActionType == zWAB_ReplaceWindowWithModalWindow || lActionType == zWAB_StartTopWindow || lActionType == zWAB_ResetTopWindow || lActionType == zWAB_StartBrowserHTML_Page || lActionType == zWAB_StartNewApp || lActionType == zWAB_ReCAPTCHA )
       { 
          //:IF InsertBlankFlag = "Y"
          if ( ZeidonStringCompare( InsertBlankFlag, 1, 0, "Y", 1, 0, 2 ) == 0 )
@@ -16963,8 +16975,9 @@ GenJSPJ_Action( zVIEW     vDialog,
 
          //:IF lActionType = zWAB_StartModelessSubwindow OR
          //:   lActionType = zWAB_StartModalSubwindow    OR
-         //:   lActionType = 35 //reCAPTCHA StartModalSubwindow
-         if ( lActionType == zWAB_StartModelessSubwindow || lActionType == zWAB_StartModalSubwindow || lActionType == 35 )
+         //:   lActionType = zWAB_StartModalSubwindowNP  OR
+         //:   lActionType = zWAB_StartNewApp //reCAPTCHA StartModalSubwindow
+         if ( lActionType == zWAB_StartModelessSubwindow || lActionType == zWAB_StartModalSubwindow || lActionType == zWAB_StartModalSubwindowNP || lActionType == zWAB_StartNewApp )
          { 
             //:// Next Window is subwindow. Set up current window for return.
             //:szWriteBuffer = "      vKZXMLPGO.cursor( ^PagePath^ ).createEntity( CursorPosition.NEXT );"
@@ -17034,8 +17047,8 @@ GenJSPJ_Action( zVIEW     vDialog,
       //:END
 
       //:// Same Window Refresh option
-      //:IF lActionType = zWAB_StayOnWindowWithRefresh
-      if ( lActionType == zWAB_StayOnWindowWithRefresh )
+      //:IF lActionType = zWAB_StayOnWindowWithRefresh OR lActionType = zWAB_StayOnWindowRefreshNP
+      if ( lActionType == zWAB_StayOnWindowWithRefresh || lActionType == zWAB_StayOnWindowRefreshNP )
       { 
          //:szWriteBuffer = "      // Stay on Window with Refresh"
          ZeidonStringCopy( szWriteBuffer, 1, 0, "      // Stay on Window with Refresh", 1, 0, 10001 );
@@ -17158,8 +17171,8 @@ GenJSPJ_Action( zVIEW     vDialog,
       if ( vDialogCtrl > 0 )
       { 
          //:IF vDialogCtrl.CtrlMapER_Attribute EXISTS
-         lTempInteger_14 = CheckExistenceOfEntity( vDialogCtrl, "CtrlMapER_Attribute" );
-         if ( lTempInteger_14 == 0 )
+         lTempInteger_15 = CheckExistenceOfEntity( vDialogCtrl, "CtrlMapER_Attribute" );
+         if ( lTempInteger_15 == 0 )
          { 
 
             //:szWriteBuffer = "  "

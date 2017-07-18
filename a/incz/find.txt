@@ -1,0 +1,114 @@
+kzoemiaa.h:   LPVIEWENTITYCSR      hFirstOD_EntityCsr;
+kzoemiaa.h:   LPVIEWENTITYCSR      hRootViewEntityCsr;
+kzoemiaa.h:   LPVIEWENTITYCSR      hNextHier;
+kzoemiaa.h:   LPVIEWENTITYCSR      hPrevHier;
+kzoemiaa.h:   LPVIEWENTITYCSR      hParent;
+kzoemiaa.h:   LPVIEWENTITY         hViewEntity;
+kzoemiaa.h:   LPVIEWENTITY         hViewEntity;
+kzoemiaa.h:   LPVIEWENTITYCSR      hViewRootParentCsr;  // Parent Csr to new root
+kzoemiaa.h:   LPVIEWENTITYCSR      hRootCsr;        // subobject root cursor
+kzoemiaa.h:   LPVIEWENTITYCSR      hLastDescCsr;    // last descendent cursor
+kzoemiaa.h:   LPVIEWENTITY         hRecursViewEntity; // Subobject recurs view ent
+kzoemiaa.h:   LPVIEWENTITYCSR      hRecursViewEntityCsr; // Subobject recurs ent csr
+kzoemiaa.h:   LPVIEWENTITY         hViewEntity;
+kzoemiaa.h:   LPVIEWENTITY         hViewEntity;               // chain off view entity
+kzoep0aa.h:                          LPVIEWENTITYCSR  lpViewEntityCsr,
+kzoep0aa.h:                           LPVIEWENTITYCSR  lpViewEntityCsr,
+kzoep0aa.h:                             LPVIEWENTITYCSR  lpViewEntityCsr,
+kzoep0aa.h:                           LPVIEWENTITYCSR  lpViewEntityCsr,
+kzoep0aa.h:                             LPVIEWENTITYCSR  lpViewEntityCsr,
+kzoep0aa.h:                              LPVIEWENTITYCSR  lpViewEntityCsr,
+kzoep0aa.h:                               LPVIEWENTITY    zFAR *plpReturnViewEntity,
+kzoep0aa.h:                               LPVIEWENTITYCSR zFAR *plpReturnViewEntityCsr,
+kzoep0aa.h:                              LPVIEWENTITY     lpViewEntity,
+kzoep0aa.h:                          LPVIEWENTITYCSR lpViewEntityCsr,
+kzoep0aa.h:                           LPVIEWENTITYCSR lpViewEntityCsr,
+kzoep0aa.h:                           LPVIEWENTITYCSR lpViewEntityCsr,
+kzoep0aa.h:                        LPVIEWENTITYCSR lpViewEntityCsr,
+kzoep0aa.h:                        LPVIEWENTITYCSR  lpViewEntityCsr,
+kzoep0aa.h:                       LPVIEWENTITYCSR  lpViewEntityCsr,
+kzoep0aa.h:                             LPVIEWENTITYCSR lpViewEntityCsr,
+kzoep0aa.h:                            LPVIEWENTITYCSR lpViewEntityCsr,
+kzoep0aa.h:                         LPVIEWENTITY     lpViewEntity,
+kzoep0aa.h:                       LPVIEWENTITY lpSrcViewEntity,
+kzoep0aa.h:fnDeleteAttributeRecord( LPVIEWENTITY     lpViewEntity,
+kzoep0aa.h:                            LPVIEWENTITYCSR  lpViewEntityCsr,
+kzoep0aa.h:                            LPVIEWENTITYCSR  lpViewEntityCsr,
+kzoep0aa.h:                              LPVIEWENTITYCSR   lpViewEntityCsr,
+kzoep0aa.h:                          LPVIEWENTITY lpViewEntity,
+kzoep0aa.h:                  LPVIEWENTITY     lpViewEntity,
+kzoep0aa.h:                  LPVIEWENTITYCSR  lpViewEntityCsr,
+kzoep0aa.h:                  LPVIEWENTITYCSR  lpSrcViewEntityCsr,
+kzoep0aa.h:                  LPVIEWENTITYCSR  lpScopingViewEntityCsr,
+kzoep0aa.h:                    LPVIEWENTITY     lpViewEntity,
+kzoep0aa.h:                    LPVIEWENTITYCSR  lpViewEntityCsr,
+kzoep0aa.h:                    LPVIEWENTITYCSR  lpSrcViewEntityCsr,
+kzoep0aa.h:                    LPVIEWENTITYCSR  lpScopingViewEntityCsr,
+kzoep0aa.h:                   LPVIEWENTITY     lpViewEntity,
+kzoep0aa.h:                   LPVIEWENTITYCSR  lpViewEntityCsr,
+kzoep0aa.h:                   LPVIEWENTITYCSR  lpSrcViewEntityCsr,
+kzoep0aa.h:                   LPVIEWENTITYCSR  lpScopingViewEntityCsr,
+kzoep0aa.h:                            LPVIEWENTITY     lpViewEntity,
+kzoep0aa.h:                            LPVIEWENTITYCSR  lpViewEntityCsr,
+kzoep0aa.h:                            LPVIEWENTITYCSR  lpSrcViewEntityCsr,
+kzoep0aa.h:                            LPVIEWENTITYCSR  lpScopingViewEntityCsr,
+kzoep0aa.h:                     LPVIEWENTITYCSR   lpViewEntityCsr,
+kzoep0aa.h:                     LPVIEWENTITYCSR   lpSrcViewEntityCsr,
+kzoep0aa.h:                           LPVIEWENTITY     lpViewEntity,
+kzoep0aa.h:                            LPVIEWENTITY    zFAR *lpReturnViewEntity,
+kzoep0aa.h:                            LPVIEWENTITY    zFAR *lpReturnScopingViewEntity,
+kzoep0aa.h:                            LPVIEWENTITYCSR zFAR *lpReturnViewEntityCsr,
+kzoep0aa.h:                            LPVIEWENTITYCSR zFAR *lpReturnScopingViewEntityCsr,
+kzoep0aa.h:fnNullCursorForViewChildren( LPVIEWENTITYCSR lpViewEntityCsr );
+kzoep0aa.h:fnResetCursorForViewChildren( LPVIEWENTITYCSR lpViewEntityCsr );
+kzoep0aa.h:fnEstablishCursorForView( LPVIEWENTITYCSR lpViewEntityCsr );
+kzoep0aa.h:fnGetTableEntryForDomain( zVIEW lpView, LPVIEWENTITY lpViewEntity,
+kzoep0aa.h:               LPVIEWENTITY lpViewEntity,
+kzoep0aa.h:                  LPVIEWENTITY lpViewEntity,
+kzoep0aa.h:                   LPVIEWENTITY lpViewEntity,
+kzoep0aa.h:                   LPVIEWENTITY lpSrcViewEntity,
+kzoep0aa.h:                LPVIEWENTITY     lpViewEntity,
+kzoep0aa.h:                LPVIEWENTITYCSR  lpViewEntityCsr,
+kzoep0aa.h:                LPVIEWENTITY     lpViewEntity,
+kzoep0aa.h:                LPVIEWENTITYCSR  lpViewEntityCsr,
+kzoep0aa.h:                 LPVIEWENTITY lpViewEntity,
+kzoep0aa.h:                 LPVIEWENTITYCSR lpViewEntityCsr,
+kzoep0aa.h:LPVIEWENTITYCSR
+kzoep0aa.h:                            LPVIEWENTITYCSR   lpViewEntityCsr,
+kzoep0aa.h:                          LPVIEWENTITYCSR lpViewEntityCsr,
+kzoep0aa.h:                                LPVIEWENTITY lpTgtViewEntity,
+kzoep0aa.h:                                LPVIEWENTITY lpSrcViewEntity,
+kzoep0aa.h:                              LPVIEWENTITY     *lpReturnViewEntity,
+kzoep0aa.h:                              LPVIEWENTITYCSR  *lpReturnViewEntityCsr,
+kzoep0aa.h:                                 LPVIEWENTITY  lpTgtViewEntity,
+kzoep0aa.h:                                 LPVIEWENTITY  lpSrcViewEntity,
+kzoep0aa.h:                         LPVIEWENTITY     lpTgtViewEntity,
+kzoep0aa.h:                         LPVIEWENTITYCSR  lpTgtViewEntityCsr,
+kzoep0aa.h:                                 LPVIEWENTITY     lpInvertedSrcEntity );
+kzoep0aa.h:                       LPVIEWENTITYCSR   lpViewEntityCsr,
+kzoep0aa.h:fnGetEntityCnstrntOper( zVIEW    lpView, LPVIEWENTITY lpViewEntity,
+kzoep0aa.h:                      LPVIEWENTITY lpViewEntity,
+kzoep0aa.h:fnEntityInRecursivePath( LPVIEWENTITY lpViewEntity );
+kzoep0aa.h:                             LPVIEWENTITY lpViewEntity );
+kzoep0aa.h:fnEntityContainsEntity( LPVIEWENTITY lpVE1, LPVIEWENTITY lpVE2 );
+kzoep0aa.h:                         LPVIEWENTITYCSR  lpViewEntityCsr,
+kzoep0aa.h:                         LPVIEWENTITYCSR  lpViewEntityCsrPosition );
+kzoep0aa.h:fnCompareEntityToEntity( LPVIEWENTITY     lpTgtViewEntity,
+kzoep0aa.h:                         LPVIEWENTITY     lpSrcViewEntity,
+kzoep0aa.h:LPVIEWENTITY OPERATION
+kzoep0aa.h:fnValidViewEntity( LPVIEWENTITYCSR zFAR *lpReturnViewEntityCsr,
+kzoep0aa.h:                   LPVIEWENTITY lpViewEntity,
+kzoep0aa.h:                      LPVIEWENTITY lpViewEntity,
+kzoep0aa.h:                      LPVIEWENTITYCSR lpViewEntityCsr );
+kzoetdaa.h:typedef ViewEntityCsrRecord zFAR *LPVIEWENTITYCSR;
+tzlodopr.h:                     LPVIEWENTITY lpViewEntity,
+tzlodopr.h:                       LPVIEWENTITY lpViewEntity,
+tzlodopr.h:                             LPVIEWENTITY lpViewEntity,
+tzlodopr.h:                         LPVIEWENTITY lpViewEntity,
+tzlodopr.h:                             LPVIEWENTITY lpViewEntity,
+tzlodopr.h:                         LPVIEWENTITY lpViewEntity,
+tzlodopr.h:                              LPVIEWENTITY lpViewEntity,
+tzlodopr.h:                              LPVIEWENTITY lpViewEntity,
+tzlodopr.h:                          LPVIEWENTITY lpViewEntity,
+tzlodopr.h:                        LPVIEWENTITY lpViewEntity,
+tzlodopr.h:                   LPVIEWENTITY lpViewEntity,

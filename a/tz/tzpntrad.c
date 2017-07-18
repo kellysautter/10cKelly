@@ -690,6 +690,23 @@ OpenDialogFile( zVIEW vSubtask )
    if ( nRC < 0 )
       return( nRC );
 
+   // Should I call the conversion code here??? kkkkk
+   // Should I check the lplr and not convert OpenCUAS and ZENCAS?
+   // What about cheetah? ZMM??
+   // KJS 07/11/17 - I'm going to comment this out here for now and try
+   // having it as a menu option under "Utilities"
+   /*
+   if ( CompareAttributeToString( vNewDialog, "Dialog", "Converted", "Y" ) != 0 )
+   {
+      CreateViewFromViewForTask( &vNewDialogL, vNewDialog, 0 );
+      // I just happen to be using GenerateJSPJavaInc because it was a function that
+      // I created for something else but haven't been using.
+      oTZWDLGSO_GenerateJSPJavaInc( vNewDialogL, vSubtask );
+	  DropView( vNewDialogL );
+      // Then Should I save? Don't think so now, because otherwise, things might be screwed up
+      // and how would I undo that?
+   }
+   */
    if ( GetViewByName( &vIdleView, "__SysIdlePainter", vSubtask, zLEVEL_SYSTEM ) > 0 &&
         vIdleView == vSubtask )
    {
@@ -9015,6 +9032,9 @@ CtrlListDeleteCtrl( zVIEW vSubtask )
          while ( ResetViewFromSubobject( vControl ) == 0 )
          {
          }
+		 // Why does is seem like the outliner control isn't refeshing???? Tried the following line
+		 // but get all sorts of errors.
+		 //ShowCtrlList( vSubtask );
       }
    }
 
