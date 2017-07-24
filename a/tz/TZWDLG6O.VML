@@ -2432,7 +2432,7 @@ DKS_TRACE_END */
    // KJS 09/04/14 - Can't find validations.js anywhere so I am assuming we don't need it.
    //szWriteBuffer = "<script language=^JavaScript^ type=^text/javascript^ src=^./js/validations.js^></script>"
    //WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
-   szWriteBuffer = "<script language=^JavaScript^ type=^text/javascript^ src=^./js/scw.js^?v=" + szDateTime + "></script>"
+   szWriteBuffer = "<script language=^JavaScript^ type=^text/javascript^ src=^./js/scw.js?v=" + szDateTime + "></script>"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    // KJS 04/27/11 - I am not sure that we want to always include this js file but if not, then I need
    // to loop through all controls (and subcontrols) looking for a div that has a web control property of
@@ -2474,7 +2474,7 @@ DKS_TRACE_END */
       ELSE
          szWriteBuffer = "<script language=^JavaScript^ type=^text/javascript^ src=^"
          szWriteBuffer = szWriteBuffer + szWysiwygEditor
-         szWriteBuffer = szWriteBuffer + "^?v=" + szDateTime + "></script>"
+         szWriteBuffer = szWriteBuffer + "?v=" + szDateTime + "^></script>"
       END
       WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
 
@@ -3196,7 +3196,7 @@ DKS_TRACE_END */
 
    szWriteBuffer = "   var storageName = ^" + szLPLR_Name + "." + szFormName + ".position^;"
    WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
-   szWriteBuffer = "   var scrollPosition = localStorage.getItem( storageName );"
+   szWriteBuffer = "   var scrollPosition = sessionStorage.getItem( storageName );"
    WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
    szWriteBuffer = "   if ( scrollPosition.indexOf('#') > 0 )"
    WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
@@ -3208,11 +3208,11 @@ DKS_TRACE_END */
    WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
    szWriteBuffer = "      document.body.scrollLeft = parseInt( parts[parts.length - 1] );"
    WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
-   //szWriteBuffer = "      localStorage.removeItem(storageName);" //ZENCAS.wClassDClassListByTerm.position
+   //szWriteBuffer = "      sessionStorage.removeItem(storageName);" //ZENCAS.wClassDClassListByTerm.position
    //WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
    szWriteBuffer = "   }"
    WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
-   szWriteBuffer = "   localStorage.removeItem(storageName);" //ZENCAS.wClassDClassListByTerm.position
+   szWriteBuffer = "   sessionStorage.removeItem(storageName);" //ZENCAS.wClassDClassListByTerm.position
    WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
 
 
@@ -3229,7 +3229,7 @@ DKS_TRACE_END */
    //checkbox on it.  If there is no "text" for this checkbox (so the header would be blank)
    //we are going to create a checkbox in the grid header that calls this function.
    //This will select all or unselect all the checkboxes in the grid.
-   szWriteBuffer = "function CheckAllInGrid(id, CheckBoxName)"
+   szWriteBuffer = "function CheckAllInGrid(id, CheckBoxName) // triggered by no text checkbox"
    WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
    szWriteBuffer = "{"
    WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
@@ -3495,13 +3495,13 @@ DKS_TRACE_END */
                WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
                szWriteBuffer = "      {"
                WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
-               szWriteBuffer = "         // Code for localStorage/sessionStorage."
+               szWriteBuffer = "         // Code for sessionStorage."
                WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
                szWriteBuffer = "         var storageName = ^" + szLPLR_Name + "." + szFormName + ".position^" //ZENCAS.wClassDClassListByTerm.position
                WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
                szWriteBuffer = "         var scrollPosition = document.body.scrollTop + '#' + document.body.scrollLeft;"
                WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
-               szWriteBuffer = "         localStorage.setItem( storageName, scrollPosition );"
+               szWriteBuffer = "         sessionStorage.setItem( storageName, scrollPosition );"
                WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
                szWriteBuffer = "      }"
                WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
@@ -3569,13 +3569,13 @@ DKS_TRACE_END */
                   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
                   szWriteBuffer = "      {"
                   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
-                  szWriteBuffer = "         // Code for localStorage/sessionStorage."
+                  szWriteBuffer = "         // Code for sessionStorage."
                   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
                   szWriteBuffer = "         var storageName = ^" + szLPLR_Name + "." + szFormName + ".position^" //ZENCAS.wClassDClassListByTerm.position
                   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
                   szWriteBuffer = "         var scrollPosition = document.body.scrollTop + '#' + document.body.scrollLeft;"
                   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
-                  szWriteBuffer = "         localStorage.setItem( storageName, scrollPosition );"
+                  szWriteBuffer = "         sessionStorage.setItem( storageName, scrollPosition );"
                   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
                   szWriteBuffer = "      }"
                   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )                

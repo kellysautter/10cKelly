@@ -2761,7 +2761,7 @@ GenJSPJ_CrteEditBox( VIEW vDialog BASED ON LOD TZWDLGSO,
 
    CreateDisabledString( vDialog, szDisabled )
    szWriteBuffer = "<input" + szClass + " name=^" + szCtrlTag + szRepeatGrpKey + "^ id=^" + szCtrlTag + szRepeatGrpKey + "^ " + szDisabled +
-                   szAutoCompleteOff + szTitleHTML + szPlaceholder + szStyle + szType + szValue + szEditActionCode + " >"
+                   szAutoCompleteOff + szTitleHTML + szHTML5Attr + szPlaceholder + szStyle + szType + szValue + szEditActionCode + " >"
    WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
 
 END
