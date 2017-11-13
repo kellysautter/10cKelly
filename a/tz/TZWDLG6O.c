@@ -705,6 +705,10 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
 
    //:END
 
+   //:DropView( vDialogTemp )
+   DropView( vDialogTemp );
+   //:CreateViewFromView( vDialogTemp, vDialog )
+   CreateViewFromView( &vDialogTemp, vDialog );
    //:FOR EACH vDialogTemp.Action
    RESULT = SetCursorFirstEntity( vDialogTemp, "Action", "" );
    while ( RESULT > zCURSOR_UNCHANGED )
@@ -3417,10 +3421,10 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
    //:// KJS 09/04/14 - Can't find validations.js anywhere so I am assuming we don't need it.
    //://szWriteBuffer = "<script language=^JavaScript^ type=^text/javascript^ src=^./js/validations.js^></script>"
    //://WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
-   //:szWriteBuffer = "<script language=^JavaScript^ type=^text/javascript^ src=^./js/scw.js?v=" + szDateTime + "></script>"
+   //:szWriteBuffer = "<script language=^JavaScript^ type=^text/javascript^ src=^./js/scw.js?v=" + szDateTime + "^></script>"
    ZeidonStringCopy( szWriteBuffer, 1, 0, "<script language=^JavaScript^ type=^text/javascript^ src=^./js/scw.js?v=", 1, 0, 10001 );
    ZeidonStringConcat( szWriteBuffer, 1, 0, szDateTime, 1, 0, 10001 );
-   ZeidonStringConcat( szWriteBuffer, 1, 0, "></script>", 1, 0, 10001 );
+   ZeidonStringConcat( szWriteBuffer, 1, 0, "^></script>", 1, 0, 10001 );
    //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
    //:// KJS 04/27/11 - I am not sure that we want to always include this js file but if not, then I need
@@ -4888,12 +4892,16 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
    ZeidonStringCopy( szWriteBuffer, 1, 0, "      var parts = scrollPosition.split( '#' );", 1, 0, 10001 );
    //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
    WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:// KJS 11/09/17 - For some reason body.scroll... is not working, so I am changing to window.scrollBy which says
+   //:// it's valid across platforms.
+   //:/*
    //:szWriteBuffer = "      document.body.scrollTop = parseInt( parts[parts.length - 2] );"
-   ZeidonStringCopy( szWriteBuffer, 1, 0, "      document.body.scrollTop = parseInt( parts[parts.length - 2] );", 1, 0, 10001 );
    //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
-   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
    //:szWriteBuffer = "      document.body.scrollLeft = parseInt( parts[parts.length - 1] );"
-   ZeidonStringCopy( szWriteBuffer, 1, 0, "      document.body.scrollLeft = parseInt( parts[parts.length - 1] );", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   //:*/
+   //:szWriteBuffer = "      window.scrollTo(parseInt( parts[parts.length - 1] ), parseInt( parts[parts.length - 2] ) );"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "      window.scrollTo(parseInt( parts[parts.length - 1] ), parseInt( parts[parts.length - 2] ) );", 1, 0, 10001 );
    //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
    WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
    //://szWriteBuffer = "      sessionStorage.removeItem(storageName);" //ZENCAS.wClassDClassListByTerm.position
@@ -5373,10 +5381,25 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
                ZeidonStringConcat( szWriteBuffer, 1, 0, ".position^", 1, 0, 10001 );
                //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
                WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+               //:// KJS 11/09/17 - For some reason body.scroll... seems to not be working. Changing to something that should
+               //:// be compatible crossplatform.
+               //:/*
                //:szWriteBuffer = "         var scrollPosition = document.body.scrollTop + '#' + document.body.scrollLeft;"
-               ZeidonStringCopy( szWriteBuffer, 1, 0, "         var scrollPosition = document.body.scrollTop + '#' + document.body.scrollLeft;", 1, 0, 10001 );
+               //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+               //:*/
+               //:szWriteBuffer = "         var sy= window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;"
+               ZeidonStringCopy( szWriteBuffer, 1, 0, "         var sy= window.pageYOffset | document.documentElement.scrollTop | document.body.scrollTop | 0;", 1, 0, 10001 );
                //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
                WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+               //:szWriteBuffer = "         var sx= window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft || 0;"
+               ZeidonStringCopy( szWriteBuffer, 1, 0, "         var sx= window.pageXOffset | document.documentElement.scrollLeft | document.body.scrollLeft | 0;", 1, 0, 10001 );
+               //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+               WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+               //:szWriteBuffer = "         var scrollPosition = sy + '#' + sx;"
+               ZeidonStringCopy( szWriteBuffer, 1, 0, "         var scrollPosition = sy + '#' + sx;", 1, 0, 10001 );
+               //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+               WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+
                //:szWriteBuffer = "         sessionStorage.setItem( storageName, scrollPosition );"
                ZeidonStringCopy( szWriteBuffer, 1, 0, "         sessionStorage.setItem( storageName, scrollPosition );", 1, 0, 10001 );
                //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
@@ -5513,8 +5536,22 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
                   ZeidonStringConcat( szWriteBuffer, 1, 0, ".position^", 1, 0, 10001 );
                   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
                   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+                  //:// KJS 11/09/17 - For some reason body.scroll... seems to not be working. Changing to something that should
+                  //:// be compatible crossplatform.
+                  //:/*
                   //:szWriteBuffer = "         var scrollPosition = document.body.scrollTop + '#' + document.body.scrollLeft;"
-                  ZeidonStringCopy( szWriteBuffer, 1, 0, "         var scrollPosition = document.body.scrollTop + '#' + document.body.scrollLeft;", 1, 0, 10001 );
+                  //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+                  //:*/
+                  //:szWriteBuffer = "         var sy= window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;"
+                  ZeidonStringCopy( szWriteBuffer, 1, 0, "         var sy= window.pageYOffset | document.documentElement.scrollTop | document.body.scrollTop | 0;", 1, 0, 10001 );
+                  //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+                  WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+                  //:szWriteBuffer = "         var sx= window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft || 0;"
+                  ZeidonStringCopy( szWriteBuffer, 1, 0, "         var sx= window.pageXOffset | document.documentElement.scrollLeft | document.body.scrollLeft | 0;", 1, 0, 10001 );
+                  //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+                  WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+                  //:szWriteBuffer = "         var scrollPosition = sy + '#' + sx;"
+                  ZeidonStringCopy( szWriteBuffer, 1, 0, "         var scrollPosition = sy + '#' + sx;", 1, 0, 10001 );
                   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
                   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
                   //:szWriteBuffer = "         sessionStorage.setItem( storageName, scrollPosition );"
@@ -8259,6 +8296,24 @@ oTZWDLGSO_FlagUsedViewsGetFocusJ( zVIEW     vDialog,
       } 
 
       //:END
+      //:IF szControlType = "GroupBox"
+      if ( ZeidonStringCompare( szControlType, 1, 0, "GroupBox", 1, 0, 51 ) == 0 )
+      { 
+         //:SET CURSOR FIRST vDialog.WebControlProperty WHERE vDialog.WebControlProperty.Name = "Survey Group"
+         RESULT = SetCursorFirstEntityByString( vDialog, "WebControlProperty", "Name", "Survey Group", "" );
+         //:IF RESULT >= zCURSOR_SET
+         if ( RESULT >= zCURSOR_SET )
+         { 
+            //:// If we have a group box that has a web property of "Survey Group" then this is a survey and
+            //:// we will need mapping for each survey question.
+            //:szProcessControlFlag = "Y"
+            ZeidonStringCopy( szProcessControlFlag, 1, 0, "Y", 1, 0, 2 );
+         } 
+
+         //:END
+      } 
+
+      //:END
       //:IF szControlType = "EditBox" OR
       //:   szControlType = "ComboBox" OR
       //:   szControlType = "Text" OR
@@ -8912,6 +8967,14 @@ oTZWDLGSO_GenJSPJ_ProcessFileIn( zVIEW     vDialog,
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
    //:szWriteBuffer = "               sSourceFile = sSourceFile.replaceAll(^\^^,^^);"
    ZeidonStringCopy( szWriteBuffer, 1, 0, "               sSourceFile = sSourceFile.replaceAll(^\\^^,^^);", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "               sSourceFile = sSourceFile.replaceAll(^#^,^^);"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "               sSourceFile = sSourceFile.replaceAll(^#^,^^);", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "               sSourceFile = sSourceFile.replaceAll(^ ^,^^);"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "               sSourceFile = sSourceFile.replaceAll(^ ^,^^);", 1, 0, 10001 );
    //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
    //:szWriteBuffer = "               l = sSourceFile.lastIndexOf(^.^);"

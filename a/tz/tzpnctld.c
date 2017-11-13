@@ -16,93 +16,65 @@
 //
 
 /* Change log most recent first order:
-
 2002.06.11   BL for FH
    Avoid error "ViewIsReadOnly" if a dialog is noch checked out.
-
 2002.06.03   FH
    Avoid error "ViewIsReadOnly" if a dialog is noch checked out.
-
 2001.03.12   BL
    Modified TabPostBuild for Tab Control wtih GroupBox Parent
-
 2001.02.28   BL   ActiveX
    Do not drop the dialog object instance
-
 2001.02.28   BL   ActiveX
    Do not drop the dialog object instance
-
 2001.2.26   TMV   2000   ActiveX
    Remove fnPainterCall from UPD_OK call this call is obsolete for
    ActiveX controls
-
 2001.02.04  BL   Z2000
    Modified TabPostBuild and SubTabPostBuild: if Dialog not checked out,
    disable Controls for update
-
 2001.01.16  DKS  Z2000
    Handle Tab control color settings.
-
 2000.12.06  BL   Z2000
    Modified TabPostBuild: if Dialog not checked out, disable Controls
    for update
-
 2000.10.30  RG   Z2000
    GetViewByName: for parameter zLEVEL_TASK changed View --> 0
-
 2000.09.17  BL    Z2000
    Replace SetCursorFirstEntityByEntityCsr with SetCursorFirstEntityByAttr
-
 2000.09.09  BL    Z2000  Fix for FH
    Modified UPD_BmpCtlOK for REPAINTZEIDONWINDOW
-
 2000.09.04  BL    Z2000  TB53528
    Load Control Context Mapping
-
 2000.08.21  BL    Z2000  Repository and Tools
    Completely maintained Dialog Tool.
    If Dialog not checked out, disable all functions for update
-
 2000.07.07  RG    Z2000
    Removed compiler warnings
-
 2000.07.27  DKS   Z2000
    TMV requested context update on ActiveX detail.
-
 1999.07.27  DKS   Z2000   QS999
    Tab event-action sub-dialog shows corresponding event/actions properly.
-
 1999.05.11  DKS
    Permit Double-Click to go to appropriate sub-window for action maintenance.
-
 1999.02.09  DKS
    Reimplemented lost code for Icon PosBuild event.
-
 1998.12.29  DKS
    Added checks for report.
-
 1998.11.02  TMV
    Changing functioncalls of TransferToEditor because of a new argument
-
 14.11.1996  GT
    Don't show generated IDs for BMPs/ICONs
-
 16.05.1997  DKS
    Modified OperatorPromptForFile signature for SaveAs option
-
 16.12.1997  GT
    New operations for timer control
-
 23.01.1998  DonC
    Created new operation GoToUpdateSubTab.
-
 25.04.1998  DonC
    Modified UPD_BmpCtlBrowseFileName to change OperatorPrompt to allow
    read-only bitmaps. (QS 180)
-
 03.06.1998  DonC
    Modified GoToUpdateSubTab to correct setting up tab events in 9J.
-
 */
 
 #define _NOANCHOR
@@ -255,6 +227,7 @@ TabPostBuild( zVIEW vSubtask )
 {
    zVIEW   vControl;
    zVIEW   vTZWINDOWL;
+   zVIEW   vDialogW;
    zLONG   lType;
    zLONG   lTabStyle;
    zULONG  ulTabColor = 0xFF000000;
@@ -320,6 +293,11 @@ TabPostBuild( zVIEW vSubtask )
       SetCtrlState( vSubtask, "Vertical", zCONTROL_STATUS_CHECKED, TRUE );
 
    DisableTabControls( vSubtask, vTZWINDOWL );
+
+   // KJS 10/12/17 - Added web control properties for tab.
+   // Go to build list of Web Potential Control Properties.
+   GetViewByName( &vDialogW, "TZWINDOW", vSubtask, zLEVEL_TASK );
+   oTZWDLGSO_BuildWebCtrlPropOpts( vDialogW, vDialogW, "Dialog", "wWebTabControlProperties" );
 
    return( 0 );
 }
@@ -627,6 +605,7 @@ UPD_BmpCtlPostBuild( zVIEW vSubtask )
 {
    zVIEW        vControl;
    zVIEW        vTZWINDOWL;
+   zVIEW        vDialogW;
    zLONG        lSubtype;
    zPCHAR       pCtrlBOI;
    zULONG       ulLth;
@@ -635,6 +614,7 @@ UPD_BmpCtlPostBuild( zVIEW vSubtask )
 
    GetViewByName( &vTZWINDOWL, "TZWINDOWL", vSubtask, zLEVEL_TASK );
    GetViewByName( &vControl, "TZCONTROL", vSubtask, zLEVEL_TASK );
+
 
    GetAttributeLength( &ulLth, vControl, "Control", "CtrlBOI" );
    if ( ulLth )
@@ -678,6 +658,10 @@ UPD_BmpCtlPostBuild( zVIEW vSubtask )
       SetCtrlState( vSubtask, "UseDDB", zCONTROL_STATUS_ENABLED, FALSE );
       SetCtrlState( vSubtask, "Hide", zCONTROL_STATUS_ENABLED, FALSE );
    }
+
+   // Go to build list of Web Potential Control Properties.
+   GetViewByName( &vDialogW, "TZWINDOW", vSubtask, zLEVEL_TASK );
+   oTZWDLGSO_BuildWebCtrlPropOpts( vDialogW, vDialogW, "Dialog", "wWebBitmapControlProperties" );
 
    return( 0 );
 }
@@ -2251,6 +2235,63 @@ zwTZPNCTLD_CtrlContextMapping( zVIEW vSubtask )
    return( 0 );
 
 } // zwTZPNCTLD_CtrlContextMapping
+
+
+
+/*************************************************************************************************
+**
+**    OPERATION: SET_CurrentWebControlProperties
+**
+*************************************************************************************************/
+zOPER_EXPORT zSHORT /*DIALOG */  OPERATION
+SET_CurrentWebControlProperties( zVIEW vSubtask )
+{
+   zVIEW vDialog;
+   zVIEW vDialogC;
+   zSHORT nRC;
+   zCHAR  szPropertyName[ 33 ];
+
+   // Include each selected WebControlPropertyOption entity into WebControlProperty.
+   GetViewByName( &vDialogC, "TZCONTROL", vSubtask, zLEVEL_TASK );
+   GetViewByName( &vDialog, "TZWINDOW", vSubtask, zLEVEL_TASK );
+   for ( nRC = SetCursorFirstSelectedEntity( vDialog, "WebControlPropertyOption", "" );
+         nRC >= zCURSOR_SET;
+         nRC = SetCursorNextSelectedEntity( vDialog, "WebControlPropertyOption", "" ) )
+   {
+      GetStringFromAttribute( szPropertyName, vDialog, "WebControlPropertyOption", "Name" );
+      nRC = SetCursorFirstEntityByString( vDialogC, "WebControlProperty", "Name", szPropertyName, 0 );
+      if ( nRC < zCURSOR_SET )
+      {
+         CreateMetaEntity( vSubtask, vDialogC, "WebControlProperty", zPOS_AFTER );
+         SetMatchingAttributesByName( vDialogC, "WebControlProperty", vDialog, "WebControlPropertyOption", zSET_NULL );
+      }
+   }
+
+   return( 0 );
+} // SET_CurrentWebControlProperties
+
+/*************************************************************************************************
+**
+**    OPERATION: REMOVE_CurrentWebCtrlProperties
+**
+*************************************************************************************************/
+zOPER_EXPORT zSHORT /*DIALOG */  OPERATION
+REMOVE_CurrentWebCtrlProperties( zVIEW vSubtask )
+{
+   zVIEW vDialog;
+   zSHORT nRC;
+
+   // Remove each selected WebControlProperty entity.
+   GetViewByName( &vDialog, "TZCONTROL", vSubtask, zLEVEL_TASK );
+   for ( nRC = SetCursorFirstSelectedEntity( vDialog, "WebControlProperty", "" );
+         nRC >= zCURSOR_SET;
+         nRC = SetCursorNextSelectedEntity( vDialog, "WebControlProperty", "" ) )
+   {
+      DeleteEntity( vDialog, "WebControlProperty", zREPOS_NONE );
+   }
+
+   return( 0 );
+} // REMOVE_CurrentWebCtrlProperties
 
 
 #ifdef __cplusplus

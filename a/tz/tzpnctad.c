@@ -4180,6 +4180,61 @@ UPD_BITMAPBTN_Init( zVIEW vSubtask )
 
 /////////////////////////////////////////////////////////////////////////////
 //
+//    OPERATION: UPD_BITMAPBTN_Postbuild
+//
+/////////////////////////////////////////////////////////////////////////////
+zOPER_EXPORT zSHORT /*DIALOG */  OPERATION
+UPD_BITMAPBTN_Postbuild( zVIEW vSubtask )
+{
+   zVIEW  vTZWINDOWL;
+   zVIEW  vDialogC;
+   zVIEW  vDialogW;
+   zLONG  lSubtype;
+
+   GetViewByName( &vTZWINDOWL, "TZWINDOWL", vSubtask, zLEVEL_TASK );
+   GetViewByName( &vDialogC, "TZCONTROL", vSubtask, zLEVEL_TASK );
+
+   GetIntegerFromAttribute( &lSubtype, vDialogC, "Control", "Subtype" );
+   SetCtrlState( vSubtask, "MLT", zCONTROL_STATUS_CHECKED,
+                 (lSubtype & zBUTTON_MULTILINE) ? TRUE : FALSE );
+   SetCtrlState( vSubtask, "Hover", zCONTROL_STATUS_CHECKED,
+                 (lSubtype & zBUTTON_HOVER) ? TRUE : FALSE );
+
+   if ( !ComponentIsCheckedOut( vSubtask, vTZWINDOWL, zSOURCE_DIALOG_META ) )
+   {
+      SetViewReadOnly( vTZWINDOWL );
+      SetCtrlState( vSubtask, "MLT", zCONTROL_STATUS_ENABLED, TRUE );
+      SetCtrlState( vSubtask, "Hover", zCONTROL_STATUS_ENABLED, TRUE );
+   }
+
+   zwTZPNCTAD_DisableButtons( vSubtask, "ActionButton",
+                              "ControlOperationEdit", "SelectUpdate" );
+
+   if ( !ComponentIsCheckedOut( vSubtask, vTZWINDOWL, zSOURCE_DIALOG_META ) )
+   {
+      SetCtrlState( vSubtask, "edDLL", zCONTROL_STATUS_ENABLED, FALSE );
+      SetCtrlState( vSubtask, "edUp", zCONTROL_STATUS_ENABLED, FALSE );
+      SetCtrlState( vSubtask, "edDown", zCONTROL_STATUS_ENABLED, FALSE );
+      SetCtrlState( vSubtask, "edFocus", zCONTROL_STATUS_ENABLED, FALSE );
+      SetCtrlState( vSubtask, "edDisabled", zCONTROL_STATUS_ENABLED, FALSE );
+      SetCtrlState( vSubtask, "pbBrowseUp", zCONTROL_STATUS_ENABLED, FALSE );
+      SetCtrlState( vSubtask, "pbBrowseDown", zCONTROL_STATUS_ENABLED, FALSE );
+      SetCtrlState( vSubtask, "pbBrowseFocus", zCONTROL_STATUS_ENABLED, FALSE );
+      SetCtrlState( vSubtask, "pbBrowseDisabled", zCONTROL_STATUS_ENABLED, FALSE );
+      SetCtrlState( vSubtask, "MLT", zCONTROL_STATUS_ENABLED, FALSE );
+      SetCtrlState( vSubtask, "Hover", zCONTROL_STATUS_ENABLED, FALSE );
+   }
+
+   // Go to build list of Web Potential Control Properties.
+   GetViewByName( &vDialogW, "TZWINDOW", vSubtask, zLEVEL_TASK );
+   oTZWDLGSO_BuildWebCtrlPropOpts( vDialogW, vDialogW, "Dialog", "wWebBitmapControlProperties" );
+
+   return( 0 );
+
+} // UPD_BITMAPBTN_Postbuild
+
+/////////////////////////////////////////////////////////////////////////////
+//
 // ENTRY:    UPD_BITMAPBTN_OK
 //
 // PURPOSE:  This function tells the Painter to refresh the control.
