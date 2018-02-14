@@ -2814,6 +2814,25 @@ fnBuildColumn( zVIEW  vDTE, zLONG  f, zPCHAR pchLine )
          zsprintf( pchEnd, " varchar( 30 )" );
          break;
 
+      case 'A':
+         GetAddrForAttribute( &pchKeyType, vDTE, "TE_FieldDataRel", "DataOrRelfieldOrSet" );
+         if ( pchKeyType[ 0 ] == 'D' )
+	 {
+            // The key type is 'D' for data which means it's the main key.
+	    zsprintf( pchEnd, " SERIAL PRIMARY KEY " );
+	 }
+	 else
+	 {
+            // This must be a FK so don't declare it as SERIAL/KEY.
+            zsprintf( pchEnd, " INTEGER" );
+	 }
+
+         break;
+	 
+      case 'G':
+         zsprintf( pchEnd, " BIGINT" );
+         break;
+	 
       default:
       {
          zCHAR szTableName[ MAX_TABLENAME_LTH + 1 ];
@@ -4600,6 +4619,16 @@ LoadDataTypes( zVIEW vType )
    CreateEntity( vType, "DB_DataTypes", zPOS_LAST );
    SetAttributeFromString( vType, "DB_DataTypes", "InternalName", "V" );
    SetAttributeFromString( vType, "DB_DataTypes", "ExternalName", "Text" );
+
+   // Create a data type that will be autoincrement in Postgresql
+   CreateEntity( vType, "DB_DataTypes", zPOS_LAST );
+   SetAttributeFromString( vType, "DB_DataTypes", "InternalName", "A" );
+   SetAttributeFromString( vType, "DB_DataTypes", "ExternalName",
+                           "SERIAL (autoincrement)" );
+   
+   CreateEntity( vType, "DB_DataTypes", zPOS_LAST );
+   SetAttributeFromString( vType, "DB_DataTypes", "InternalName", "G" );
+   SetAttributeFromString( vType, "DB_DataTypes", "ExternalName", "Bigint" );
 
 #endif
 
