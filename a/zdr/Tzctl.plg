@@ -1,0 +1,55 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: TzCtl - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSPCFEA.tmp" with contents
+[
+/nologo /MDd /W3 /WX /Gm /GX /ZI /Od /I "C:\10C\w\incz" /I "C:\10C\w\incr" /I "C:\10C\a\incz" /I "C:\10C\a\incr" /D "_DEBUG" /D "_AFXEXT" /D "WIN32" /D "_WINDOWS" /D "_MBCS" /D "__WIN32__" /D "QUINSOFT" /D "_NOANCHOR" /FR".\Debug/" /Fp".\Debug/TzCtl.pch" /Yu"TzCtl.h" /Fo".\Debug/" /Fd".\Debug/" /FD /c 
+"C:\10c\a\zdr\TzCtlPTR.cpp"
+"C:\10c\a\zdr\TzCtlPTU.cpp"
+]
+Creating command line "cl.exe @C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSPCFEA.tmp" 
+Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSPCFEB.tmp" with contents
+[
+ZdCtl.lib ZDrApp.lib kzoengaa.lib /nologo /subsystem:windows /dll /incremental:yes /pdb:".\Debug/TzCtl.pdb" /debug /machine:I386 /def:".\TzCtl.def" /out:"..\..\w\bin\TzCtl.dll" /implib:"..\..\w\libr\TzCtl.lib" /libpath:"C:\10C\w\libz" /libpath:"C:\10C\w\libr" 
+.\Debug\TzCtl.obj
+.\Debug\TzCtlATX.obj
+.\Debug\TzCtlCVT.obj
+.\Debug\TzCtlERD.obj
+.\Debug\TzCtlERE.obj
+.\Debug\TzCtlERL.obj
+.\Debug\TzCtlERV.obj
+.\Debug\TzCtlOPR.obj
+.\Debug\TzCtlPTB.obj
+.\Debug\TzCtlPTC.obj
+.\Debug\TzCtlPTE.obj
+.\Debug\TzCtlPTM.obj
+.\Debug\TzCtlPTR.obj
+.\Debug\TzCtlPTS.obj
+.\Debug\TzCtlPTU.obj
+.\Debug\TzCtlPTX.obj
+.\Debug\TzCtlTAB.obj
+.\Debug\TzCtlTBE.obj
+.\Debug\TzCtl.res
+\10c\w\libr\ZdCtl.lib
+\10c\w\libr\ZDrApp.lib
+]
+Creating command line "link.exe @C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSPCFEB.tmp"
+<h3>Output Window</h3>
+Compiling...
+TzCtlPTR.cpp
+TzCtlPTU.cpp
+Generating Code...
+Linking...
+
+
+
+<h3>Results</h3>
+TzCtl.dll - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

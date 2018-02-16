@@ -4382,6 +4382,8 @@ fnCreateMetaEntity( zVIEW  vSubtask,
       zstrcpy( szRootEntityName, "RepositoryClient" );
    if ( zstrcmpi( szObjectName, "TZXSLTSO" ) == 0 )
       zstrcpy( szRootEntityName, "XSLT" );
+   if ( zstrcmpi( szObjectName, "TZOPGRPO" ) == 0 )
+      zstrcpy( szRootEntityName, "OPERSIG" );
    if ( zstrcmpi( szRootEntityName, "NULL" ) == 0 )
    {
       zstrcpy( szMsg, "There is no ZKey Handler for object, " );

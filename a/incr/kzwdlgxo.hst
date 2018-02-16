@@ -102,6 +102,7 @@ typedef struct tagzKZWDLGXO_Ctrl_DEF
    zLONG ColorFg;
    zLONG ColorBk;
    zLONG DIL;
+   zCHAR Placeholder[ 255 ];
    zLONG EventAct;
    zLONG DD_BOI;
    zCHAR D_Text[ 255 ];
@@ -112,6 +113,7 @@ typedef struct tagzKZWDLGXO_Ctrl_DEF
    zLONG LKey;
    zCHAR Script[ 33 ];
    zCHAR ScriptDLL[ 33 ];
+   zCHAR LangID[ 255 ];
 
 #ifdef DEBUG_LODSTRUCT
 unsigned char CheckByte;
@@ -138,6 +140,7 @@ typedef struct tagzKZWDLGXO_CtrlCtrl_DEF
    zLONG ColorFg;
    zLONG ColorBk;
    zLONG DIL;
+   zCHAR Placeholder[ 255 ];
    zLONG EventAct;
    zLONG DD_BOI;
    zCHAR D_Text[ 255 ];
@@ -148,6 +151,7 @@ typedef struct tagzKZWDLGXO_CtrlCtrl_DEF
    zLONG LKey;
    zCHAR Script[ 33 ];
    zCHAR ScriptDLL[ 33 ];
+   zCHAR LangID[ 255 ];
 
 #ifdef DEBUG_LODSTRUCT
 unsigned char CheckByte;
@@ -276,6 +280,7 @@ typedef struct tagzKZWDLGXO_ActOpt_DEF
    zCHAR ChkOff[ 65 ];
    zCHAR Separator[ 2 ];
    zLONG DIL;
+   zCHAR LangID[ 255 ];
    zLONG NLS;
 
 #ifdef DEBUG_LODSTRUCT
@@ -322,7 +327,9 @@ typedef struct tagzKZWDLGXO_ActCtrl_DEF
    zLONG OptionFlags;
    zLONG RELCNT_X;
    zLONG RELCNT_Y;
+   zCHAR Placeholder[ 255 ];
    zLONG LKey;
+   zCHAR LangID[ 255 ];
 
 #ifdef DEBUG_LODSTRUCT
 unsigned char CheckByte;
@@ -363,6 +370,7 @@ typedef struct tagzKZWDLGXO_Opt_DEF
    zLONG DIL;
    zCHAR D_Text[ 33 ];
    zLONG NLS;
+   zCHAR LangID[ 255 ];
 
 #ifdef DEBUG_LODSTRUCT
 unsigned char CheckByte;
@@ -380,6 +388,7 @@ typedef struct tagzKZWDLGXO_OptOpt_DEF
    zCHAR Separator[ 2 ];
    zLONG DIL;
    zLONG NLS;
+   zCHAR LangID[ 255 ];
    zCHAR D_Text[ 33 ];
 
 #ifdef DEBUG_LODSTRUCT

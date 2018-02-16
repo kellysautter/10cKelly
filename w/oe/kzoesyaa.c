@@ -2052,7 +2052,7 @@ InitializeAnchorBlock( zLONG  OE_AnchorBlock,
 
       // Make sure size is at leask 64K
       if ( lTaskAllocSize < 64000 )
-         lTaskAllocSize = zSHARED_ALLOC; // 262000L
+         lTaskAllocSize = zSHARED_ALLOC; // 4000000L or old one 262000L
    }
 
    // Edit the zeidon environment and make sure it ends with a
@@ -7144,8 +7144,8 @@ SysGetProc( LPLIBRARY hLibrary, zCPCHAR cpcProcName )
             k /= k;
          }
 #endif
-         TraceLine( "(sy) SysGetProc failed with error code: %d   DLL: %s   Function: %s",
-                    (zLONG) GetLastError( ), lpLibrary->szName, cpcProcName );
+         TraceLine( "(sy) SysGetProc failed with error code: %d   DLL: %s   Function: %s xx:%s",
+                    (zLONG) GetLastError( ), lpLibrary->szName, cpcProcName,lpLibrary->hLibrary  );
       }
    }
 
