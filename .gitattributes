@@ -9,6 +9,7 @@
 *.wri binary
 *.nrc binary
 *.NRC binary
+a/bin/sys/* binary
 w/bin/**/* binary
 w/libr/**/* binary
 w/libz/**/* binary
