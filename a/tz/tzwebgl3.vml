@@ -38,8 +38,11 @@ BuildMainNavSection( VIEW vDialog,
                      VIEW vDialogRoot BASED ON LOD TZWDLGSO,
                      INTEGER lFile )
 
+   VIEW vCurrentDlgRoot BASED ON LOD TZWDLGSO
    STRING ( 10000 ) szWriteBuffer
-   STRING ( 50 )    szNavigationTitle
+   STRING ( 500 )   szNavigationTitle
+   STRING ( 500 )   szText
+   STRING ( 5 )     szSrch
    STRING ( 256 )   szHTML_Address
    STRING ( 256 )   szHTML5Attr
    STRING ( 256 )   szClass
@@ -49,6 +52,17 @@ BuildMainNavSection( VIEW vDialog,
    STRING ( 1 )     szWindowIsjMobile
    INTEGER          ActionType
    SHORT            nRC
+   
+   // KJS 12/16/16 - I switched "WL_QC( vDialogRoot" to "WL_QC( vDialog".
+   // The reason is because sometimes we call this operation when looking at resusable actions from a different dialog.
+   // If so, vDialogRoot (gotten from ActivateMetaOI_ByZKey) is not always associated with the open file that we are generating to. 
+   // Because of this, the actions don't get created. So changing to vDialog which was build off of the original vDialog.   
+   
+   // We need the root of the dialog being generated but sometimes the passed vDialogRoot is
+   // the root of a different dialog (if we are reusing menu from a different dialog). 
+   // Get the root of the dialog being generated.
+   GET VIEW vCurrentDlgRoot NAMED "DialogRoot"
+   
 
    IF vDialog.WndStyle.Tag = "jMobile Window"
       szWindowIsjMobile = "Y"
@@ -59,7 +73,7 @@ BuildMainNavSection( VIEW vDialog,
    // MAIN NAVIGATION BAR
 
    szWriteBuffer = "<!-- Main Navigation *********************** -->"
-   WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
    IF vDialogRoot.Menu EXISTS 
       szMenuName = vDialogRoot.Menu.Tag 
       IF vDialogRoot.Menu.CSS_Class != ""
@@ -79,13 +93,25 @@ BuildMainNavSection( VIEW vDialog,
    ELSE 
       szWriteBuffer = "<div id=^mainnavigation^" + szHTML5Attr + szClass + ">"
    END
-   WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
    //szWriteBuffer = "   <ul id=^" + szMenuName + "^ name=^" + szMenuName + "^" + szClass + ">"
    szWriteBuffer = "   <ul id=^" + szMenuName + "^ name=^" + szMenuName + "^" + szHTML5Attr + " >"
-   WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
 
    FOR EACH vDialogRoot.OptAct WITHIN vDialogRoot.Menu
-      szNavigationTitle = vDialogRoot.Option.Text
+      //szNavigationTitle = vDialogRoot.Option.Text
+      // KJS 09/30/16 - Language Conversion.
+      // I'm not sure that I want to use language conversion on mapped fields, but then again, I'm thinking maybe we should.
+      // So for now, I am always using, if the flag is set.
+      IF vCurrentDlgRoot.Dialog.wWebUsesLanguageConversion = "Y"
+         szText = vDialogRoot.Option.Text
+         zSearchAndReplace( szText, 500, "\", "\\" )
+         szSrch = "\" + QUOTES 
+         zSearchAndReplace( szText, 500, QUOTES, szSrch )
+         szNavigationTitle = "<%=LangConv.getLanguageText(^" + szText + "^)%>" 
+      ELSE
+         szNavigationTitle = vDialogRoot.Option.Text
+      END
       szDialogName = vDialogRoot.OptAct.DialogName
       IF szDialogName = ""
          szDialogName = "NoDialogName"
@@ -131,32 +157,32 @@ BuildMainNavSection( VIEW vDialog,
             szWriteBuffer = "       <li id=^l" + szActionName + "^ name=^l" + szActionName + "^ " + szHTML5Attr + szClass + "><a href=^#^ onclick=^" + szActionName + "()^>" + szNavigationTitle + "</a></li>"
          END
       END
-      WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
    END
 
    // Division ending for Navigation Bar
    szWriteBuffer = "   </ul>"
-   WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
    szWriteBuffer = "</div>  <!-- end Navigation Bar -->"
-   WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
    szWriteBuffer = ""
-   WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
 
    // Include the banner at the bottom of the menu options.
    //szWriteBuffer = "<div class=^noprint^>"
-   //WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
+   //WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
    IF szWindowIsjMobile = ""
       szWriteBuffer = "<%@include file=^./include/topmenuend.inc^ %>"
-      WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
    END
    // KJS 07/31/08 - I am taking out the following inc file.  I am
    // currently thinking that anything in this inc file could simply
    // be put in topmenuend.inc and that might seem a little simpler.
    // Not sure...
    //szWriteBuffer = "<%@include file=^Left_Nav_Background.inc^ %>"
-   //WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
+   //WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
    //szWriteBuffer = "</div>"
-   //WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
+   //WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
 
 END
 
@@ -187,13 +213,18 @@ BuildSideNavSection( VIEW vDialog,
 
    // SIDE NAVIGATION BAR
    TraceLineS( "*** BuildSideNavSection Window! *** ", vDialog.Window.Tag )
+   
+   // KJS 12/16/16 - I switched "WL_QC( vDialogRoot" to "WL_QC( vDialog".
+   // The reason is because sometimes we call this operation when looking at resusable actions from a different dialog.
+   // If so, vDialogRoot (gotten from ActivateMetaOI_ByZKey) is not always associated with the open file that we are generating to. 
+   // Because of this, the actions don't get created. So changing to vDialog which was build off of the original vDialog.   
 
    szWriteBuffer = ""
-   WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
    szWriteBuffer = "<div id=^leftcontent^>"
-   WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 1 )
+   WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
    szWriteBuffer = "<!-- Side Navigation *********************** -->"
-   WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
    IF vDialogRoot.Menu EXISTS 
       szMenuName = vDialogRoot.Menu.Tag 
       IF vDialogRoot.Menu.CSS_Class != ""
@@ -202,10 +233,10 @@ BuildSideNavSection( VIEW vDialog,
    END
    szWriteBuffer = "<div id=^sidenavigation^" + szClass + ">"
    //szWriteBuffer = "<div id=^sidenavigation^>"
-   WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
    //szWriteBuffer = "   <ul id=^" + szMenuName + "^ name=^" + szMenuName + "^" + szClass + ">"
    szWriteBuffer = "   <ul id=^" + szMenuName + "^ name=^" + szMenuName + "^>"
-   WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
 
    FOR EACH vDialogRoot.OptAct WITHIN vDialogRoot.Menu
       szNavigationTitle = vDialogRoot.Option.Text
@@ -260,25 +291,25 @@ BuildSideNavSection( VIEW vDialog,
 
       szWriteBuffer = "<%"
       szOptionTag = vDialogRoot.Option.Tag
-      WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
       szWriteBuffer = "   nRC = vKZXMLPGO.SetCursorFirst( strSessionId, ^DisableMenuOption^, ^MenuOptionName^, ^" + szOptionTag + "^, ^^ );"
-      WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
       szWriteBuffer = "   if ( nRC < 0 )"
-      WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
       szWriteBuffer = "   {"
-      WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
       szWriteBuffer = "%>"
-      WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
 
       szWriteBuffer = "       <li id=^" + szMenuName + "^ name=^" + szMenuName + "^" + szClass + "><a href=^#^ " + szClass2 + " onclick=^" + szActionName + "()^>" + szNavigationTitle + "</a></li>"
-      WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
 
       szWriteBuffer = "<%"
-      WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
       szWriteBuffer = "   }"
-      WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
       szWriteBuffer = "%>"
-      WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 1 )
+      WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
    END  // FOR EACH
 
    // This is for building a default menu?
@@ -320,27 +351,27 @@ BuildSideNavSection( VIEW vDialog,
          END
 
          szWriteBuffer = "<%"
-         WL_QC( vDialogMenu, lFile, szWriteBuffer, "^", 0 )
+         WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
          szOptionTag = vDialogMenu.Option.Tag
          szOptionTag = vDialogMenu.Option.Tag
          szWriteBuffer = "   nRC = vKZXMLPGO.SetCursorFirst( strSessionId, ^DisableMenuOption^, ^MenuOptionName^, ^" + szOptionTag + "^, ^^ );"
-         WL_QC( vDialogMenu, lFile, szWriteBuffer, "^", 0 )
+         WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
          szWriteBuffer = "   if ( nRC < 0 )"
-         WL_QC( vDialogMenu, lFile, szWriteBuffer, "^", 0 )
+         WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
          szWriteBuffer = "   {"
-         WL_QC( vDialogMenu, lFile, szWriteBuffer, "^", 0 )
+         WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
          szWriteBuffer = "%>"
-         WL_QC( vDialogMenu, lFile, szWriteBuffer, "^", 0 )
+         WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
 
          szWriteBuffer = "       <li id=^" + szMenuName + "^ name=^" + szMenuName + "^" + szClass + "><a href=^#^ " + szClass2 + " onclick=^" + szActionName + "()^>" + szNavigationTitle + "</a></li>"
-         WL_QC( vDialogMenu, lFile, szWriteBuffer, "^", 0 )
+         WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
 
          szWriteBuffer = "<%"
-         WL_QC( vDialogMenu, lFile, szWriteBuffer, "^", 0 )
+         WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
          szWriteBuffer = "   }"
-         WL_QC( vDialogMenu, lFile, szWriteBuffer, "^", 0 )
+         WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
          szWriteBuffer = "%>"
-         WL_QC( vDialogMenu, lFile, szWriteBuffer, "^", 1 )
+         WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
       END  // FOR EACH
 
       DropView( vDialogMenu )
@@ -348,27 +379,27 @@ BuildSideNavSection( VIEW vDialog,
 
    // Division ending for Navigation Bar.
    szWriteBuffer = "   </ul>"
-   WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
    szWriteBuffer = "</div> <!-- sidenavigation -->"
-   WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 1 )
+   WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
    IF vDialogRoot.Dialog.WEB_LeftSideInclude != ""
       //szWriteBuffer = "<%@ include file=^./include/leftcontent.inc^ %>"
       szWriteBuffer = "<!-- left content include file -->"
-      WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
       szWriteBuffer = "<%@ include file=^" + vDialogRoot.Dialog.WEB_LeftSideInclude + "^ %>"
-      WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 1 )
+      WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
    END
    szWriteBuffer = "</div>  <!-- leftcontent -->"
-   WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
    szWriteBuffer = ""
-   WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
 
    /*
    szCSS_Class = vDialog.Window.CSS_Class
    IF szCSS_Class = ""
       // Begin the division for the main body content.
       szWriteBuffer = "<div id=^content^>"
-      WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 1 )
+      WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
    END
    */
 
@@ -394,6 +425,11 @@ GenJSP_MenuFunctions( VIEW vDialog BASED ON LOD TZWDLGSO,
    INTEGER          lControl
    SHORT            bListButton
    SHORT            nRC
+
+   // KJS 12/16/16 - I switched "WL_QC( vDialog" to "WL_QC( vDialogRoot".
+   // The reason is because sometimes we call this operation when looking at resusable actions from a different dialog.
+   // If so, vDialog (gotten from ActivateMetaOI_ByZKey) is not always associated with the open file that we are generating to. Because of this, the actions don't
+   // get created. So changing to vDialogRoot which was build off of the original vDialog.   
 
    FOR EACH vDialog.Option
       IF vDialog.OptAct EXISTS
@@ -438,19 +474,19 @@ GenJSP_MenuFunctions( VIEW vDialog BASED ON LOD TZWDLGSO,
                szWriteBuffer = "function " + szActionName + "( )"
             END
 
-            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+            WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
             szWriteBuffer = "{"
-            WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
+            WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 1 )
 
             szWriteBuffer = "   // This is for indicating whether the user hit the window close box."
-            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+            WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
             szWriteBuffer = "   isWindowClosing = false;"
-            WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
+            WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 1 )
 
             szWriteBuffer = "   if ( _IsDocDisabled( ) == false )"
-            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+            WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
             szWriteBuffer = "   {"
-            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+            WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
 
             //KJS 11/16/2007 - We want to insert any javascript code that the
             //user has entered for this action.  This will be put before the action
@@ -458,26 +494,26 @@ GenJSP_MenuFunctions( VIEW vDialog BASED ON LOD TZWDLGSO,
             szJavaScript = vDialog.Action.WebJavaScript
             IF szJavaScript != ""
                szWriteBuffer = ""
-               WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+               WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
                szWriteBuffer = "      // Javascript code entered by user."
-               WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
+               WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 1 )
                szWriteBuffer = szJavaScript
-               WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
+               WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 1 )
                szWriteBuffer = "      // END of Javascript code entered by user."
-               WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
+               WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 1 )
             END
 
                // KJS 10/28/10 - Testing this to see how using an hourglass would work while
                // the user is waiting for something to happen.
                //szWriteBuffer = "      document.body.style.cursor = ^wait^;"
-               //WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
+               //WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 1 )
 
             szWriteBuffer = "      _DisableFormElements( true );"
-            WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
+            WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 1 )
 
             IF bListButton = 1
                szWriteBuffer = "      document." + szFormName + ".zTableRowSelect.value = strEntityKey;"
-               WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+               WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
             END
 
             IF vDialog.Action.Type = zWAB_ExitDialogTask
@@ -486,13 +522,13 @@ GenJSP_MenuFunctions( VIEW vDialog BASED ON LOD TZWDLGSO,
             ELSE
                szWriteBuffer = "      document." + szFormName + ".zAction.value = ^" + szActionName + "^;"
             END
-            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+            WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
             szWriteBuffer = "      document." + szFormName + ".submit( );"
-            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+            WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
             szWriteBuffer = "   }"
-            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+            WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
             szWriteBuffer = "}"
-            WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
+            WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 1 )
          END
       END
    END

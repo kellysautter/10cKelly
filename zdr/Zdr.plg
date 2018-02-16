@@ -6,7 +6,7 @@
 --------------------Configuration: JpegLib - Win32 Debug--------------------
 </h3>
 <h3>Command Lines</h3>
-Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP90A.tmp" with contents
+Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSPD18B.tmp" with contents
 [
 /nologo /MDd /W3 /GX /Z7 /Od /I "C:\10C\w\incz" /I "C:\10C\w\incr" /I "C:\10C\a\incz" /I "C:\10C\a\incr" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "__WIN32__" /Fp"..\Debug/JPegLib.pch" /YX /Fo"..\Debug/" /Fd"..\Debug/" /FD /c 
 "C:\10c\a\zdr\JPegLib\Jcapimin.c"
@@ -57,8 +57,8 @@ Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP90A.tmp" with
 "C:\10c\a\zdr\JPegLib\Jquant2.c"
 "C:\10c\a\zdr\JPegLib\Jutils.c"
 ]
-Creating command line "cl.exe @C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP90A.tmp" 
-Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP90B.tmp" with contents
+Creating command line "cl.exe @C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSPD18B.tmp" 
+Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSPD18C.tmp" with contents
 [
 /nologo /out:"..\..\..\w\libr\JpegLib.lib" 
 \10c\a\zdr\Debug\Jcapimin.obj
@@ -109,7 +109,7 @@ Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP90B.tmp" with
 \10c\a\zdr\Debug\Jquant2.obj
 \10c\a\zdr\Debug\Jutils.obj
 ]
-Creating command line "link.exe -lib @C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP90B.tmp"
+Creating command line "link.exe -lib @C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSPD18C.tmp"
 <h3>Output Window</h3>
 Compiling...
 Jcapimin.c
@@ -165,7 +165,7 @@ Creating library...
 </h3>
 <h3>Command Lines</h3>
 Creating command line "rc.exe /l 0x409 /fo".\Debug/ZDrApp.res" /d "_DEBUG" /d "_AFXDLL" "C:\10c\a\zdr\ZDrApp.rc"" 
-Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP90C.tmp" with contents
+Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSPD18D.tmp" with contents
 [
 /nologo /MDd /W3 /WX /Gm /GX /ZI /Od /I "C:\10C\w\incz" /I "C:\10C\w\incr" /I "C:\10C\a\incz" /I "C:\10C\a\incr" /D "_DEBUG" /D "_AFXEXT" /D "WIN32" /D "_WINDOWS" /D "_MBCS" /D "__WIN32__" /D "QUINSOFT" /D "_NOANCHOR" /FR".\Debug/" /Fp".\Debug/ZDrApp.pch" /Yu"ZDr.h" /Fo".\Debug/" /Fd".\Debug/" /FD /c 
 "C:\10c\a\zdr\ZDrAct.cpp"
@@ -207,14 +207,14 @@ Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP90C.tmp" with
 "C:\10c\a\zdr\ZDrView.cpp"
 "C:\10c\a\zdr\ZDrVStr.cpp"
 ]
-Creating command line "cl.exe @C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP90C.tmp" 
-Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP90D.tmp" with contents
+Creating command line "cl.exe @C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSPD18D.tmp" 
+Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSPD18E.tmp" with contents
 [
 /nologo /MDd /W3 /WX /Gm /GX /ZI /Od /I "C:\10C\w\incz" /I "C:\10C\w\incr" /I "C:\10C\a\incz" /I "C:\10C\a\incr" /D "_DEBUG" /D "_AFXEXT" /D "WIN32" /D "_WINDOWS" /D "_MBCS" /D "__WIN32__" /D "QUINSOFT" /D "_NOANCHOR" /FR".\Debug/" /Fp".\Debug/ZDrApp.pch" /Yc"ZDr.h" /Fo".\Debug/" /Fd".\Debug/" /FD /c 
 "C:\10c\a\zdr\ZDrApp.cpp"
 ]
-Creating command line "cl.exe @C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP90D.tmp" 
-Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP90E.tmp" with contents
+Creating command line "cl.exe @C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSPD18E.tmp" 
+Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSPD18F.tmp" with contents
 [
 vfw32.lib kzoengaa.lib jpeglib.lib tapi32.lib Activeds.lib Adsiid.lib /nologo /subsystem:windows /dll /incremental:yes /pdb:".\Debug/ZDrApp.pdb" /debug /machine:I386 /def:".\ZDrApp.def" /out:"..\..\w\bin\ZDrApp.dll" /implib:"..\..\w\libr\ZDrApp.lib" /libpath:"C:\10C\w\libz" /libpath:"C:\10C\w\libr" 
 .\Debug\ZDrAct.obj
@@ -259,7 +259,7 @@ vfw32.lib kzoengaa.lib jpeglib.lib tapi32.lib Activeds.lib Adsiid.lib /nologo /s
 .\Debug\ZDrApp.res
 \10c\w\libr\JpegLib.lib
 ]
-Creating command line "link.exe @C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP90E.tmp"
+Creating command line "link.exe @C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSPD18F.tmp"
 <h3>Output Window</h3>
 Compiling resources...
 Compiling...
@@ -315,7 +315,7 @@ Linking...
 </h3>
 <h3>Command Lines</h3>
 Creating command line "rc.exe /l 0x409 /fo".\Debug/ZdCtl.res" /d "_DEBUG" /d "_AFXDLL" "C:\10c\a\zdr\ZdCtl.rc"" 
-Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP912.tmp" with contents
+Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSPD193.tmp" with contents
 [
 /nologo /MDd /W3 /WX /Gm /GX /ZI /Od /I "C:\10C\w\incz" /I "C:\10C\w\incr" /I "C:\10C\a\incz" /I "C:\10C\a\incr" /D "_DEBUG" /D "_AFXEXT" /D "WIN32" /D "_WINDOWS" /D "_MBCS" /D "__WIN32__" /D "QUINSOFT" /D "_NOANCHOR" /FR".\Debug/" /Fp".\Debug/ZdCtl.pch" /Yu"ZdCtl.h" /Fo".\Debug/" /Fd".\Debug/" /FD /c 
 "C:\10c\a\zdr\ZdCtlATX.cpp"
@@ -350,14 +350,14 @@ Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP912.tmp" with
 "C:\10c\a\zdr\ZdCtlTXT.cpp"
 "C:\10c\a\zdr\ZdCtlVWG.CPP"
 ]
-Creating command line "cl.exe @C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP912.tmp" 
-Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP913.tmp" with contents
+Creating command line "cl.exe @C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSPD193.tmp" 
+Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSPD194.tmp" with contents
 [
 /nologo /MDd /W3 /WX /Gm /GX /ZI /Od /I "C:\10C\w\incz" /I "C:\10C\w\incr" /I "C:\10C\a\incz" /I "C:\10C\a\incr" /D "_DEBUG" /D "_AFXEXT" /D "WIN32" /D "_WINDOWS" /D "_MBCS" /D "__WIN32__" /D "QUINSOFT" /D "_NOANCHOR" /FR".\Debug/" /Fp".\Debug/ZdCtl.pch" /Yc"ZdCtl.h" /Fo".\Debug/" /Fd".\Debug/" /FD /c 
 "C:\10c\a\zdr\ZdCtl.cpp"
 ]
-Creating command line "cl.exe @C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP913.tmp" 
-Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP914.tmp" with contents
+Creating command line "cl.exe @C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSPD194.tmp" 
+Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSPD195.tmp" with contents
 [
 ZDrApp.lib kzoengaa.lib jpeglib.lib msimg32.lib /nologo /subsystem:windows /dll /incremental:yes /pdb:".\Debug/ZdCtl.pdb" /debug /machine:I386 /def:".\ZdCtl.def" /out:"..\..\w\bin\ZdCtl.dll" /implib:"..\..\w\libr\ZdCtl.lib" /libpath:"C:\10C\w\libz" /libpath:"C:\10C\w\libr" 
 .\Debug\ZdCtl.obj
@@ -396,7 +396,7 @@ ZDrApp.lib kzoengaa.lib jpeglib.lib msimg32.lib /nologo /subsystem:windows /dll 
 \10c\w\libr\ZDrApp.lib
 \10c\w\libr\JpegLib.lib
 ]
-Creating command line "link.exe @C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP914.tmp"
+Creating command line "link.exe @C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSPD195.tmp"
 <h3>Output Window</h3>
 Compiling resources...
 Compiling...
@@ -444,7 +444,7 @@ Linking...
 </h3>
 <h3>Command Lines</h3>
 Creating command line "rc.exe /l 0x409 /fo".\Debug/TzCtl.res" /d "_DEBUG" /d "_AFXDLL" "C:\10c\a\zdr\TzCtl.rc"" 
-Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP918.tmp" with contents
+Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSPD199.tmp" with contents
 [
 /nologo /MDd /W3 /WX /Gm /GX /ZI /Od /I "C:\10C\w\incz" /I "C:\10C\w\incr" /I "C:\10C\a\incz" /I "C:\10C\a\incr" /D "_DEBUG" /D "_AFXEXT" /D "WIN32" /D "_WINDOWS" /D "_MBCS" /D "__WIN32__" /D "QUINSOFT" /D "_NOANCHOR" /FR".\Debug/" /Fp".\Debug/TzCtl.pch" /Yu"TzCtl.h" /Fo".\Debug/" /Fd".\Debug/" /FD /c 
 "C:\10c\a\zdr\TzCtlATX.cpp"
@@ -465,14 +465,14 @@ Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP918.tmp" with
 "C:\10c\a\zdr\TzCtlTAB.cpp"
 "C:\10c\a\zdr\TzCtlTBE.cpp"
 ]
-Creating command line "cl.exe @C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP918.tmp" 
-Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP919.tmp" with contents
+Creating command line "cl.exe @C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSPD199.tmp" 
+Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSPD19A.tmp" with contents
 [
 /nologo /MDd /W3 /WX /Gm /GX /ZI /Od /I "C:\10C\w\incz" /I "C:\10C\w\incr" /I "C:\10C\a\incz" /I "C:\10C\a\incr" /D "_DEBUG" /D "_AFXEXT" /D "WIN32" /D "_WINDOWS" /D "_MBCS" /D "__WIN32__" /D "QUINSOFT" /D "_NOANCHOR" /FR".\Debug/" /Fp".\Debug/TzCtl.pch" /Yc"TzCtl.h" /Fo".\Debug/" /Fd".\Debug/" /FD /c 
 "C:\10c\a\zdr\TzCtl.cpp"
 ]
-Creating command line "cl.exe @C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP919.tmp" 
-Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP91A.tmp" with contents
+Creating command line "cl.exe @C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSPD19A.tmp" 
+Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSPD19B.tmp" with contents
 [
 ZdCtl.lib ZDrApp.lib kzoengaa.lib /nologo /subsystem:windows /dll /incremental:yes /pdb:".\Debug/TzCtl.pdb" /debug /machine:I386 /def:".\TzCtl.def" /out:"..\..\w\bin\TzCtl.dll" /implib:"..\..\w\libr\TzCtl.lib" /libpath:"C:\10C\w\libz" /libpath:"C:\10C\w\libr" 
 .\Debug\TzCtl.obj
@@ -497,7 +497,7 @@ ZdCtl.lib ZDrApp.lib kzoengaa.lib /nologo /subsystem:windows /dll /incremental:y
 \10c\w\libr\ZdCtl.lib
 \10c\w\libr\ZDrApp.lib
 ]
-Creating command line "link.exe @C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP91A.tmp"
+Creating command line "link.exe @C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSPD19B.tmp"
 <h3>Output Window</h3>
 Compiling resources...
 Compiling...
@@ -527,20 +527,20 @@ Linking...
 --------------------Configuration: TzAxCtl - Win32 Debug--------------------
 </h3>
 <h3>Command Lines</h3>
-Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP91E.tmp" with contents
+Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSPD19F.tmp" with contents
 [
 /nologo /MDd /W3 /GX /ZI /Od /I "C:\10C\w\incz" /I "C:\10C\w\incr" /I "C:\10C\a\incz" /I "C:\10C\a\incr" /I "C:\10C\a\zdr" /I ".\." /D "_DEBUG" /D "_AFXEXT" /D "WIN32" /D "_WINDOWS" /D "_MBCS" /D "__WIN32__" /D "QUINSOFT" /D "_NOANCHOR" /FR".\Debug/" /Fp".\Debug/TzAxCtl.pch" /Yu"zstdafx.h" /Fo".\Debug/" /Fd".\Debug/" /FD /c 
 "C:\10c\a\TZ\ax\tzaxctl\TzAxCtl.cpp"
 "C:\10c\a\TZ\ax\tzaxctl\TzAxDate.cpp"
 ]
-Creating command line "cl.exe @C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP91E.tmp" 
-Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP91F.tmp" with contents
+Creating command line "cl.exe @C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSPD19F.tmp" 
+Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSPD1A0.tmp" with contents
 [
 /nologo /MDd /W3 /GX /ZI /Od /I "C:\10C\w\incz" /I "C:\10C\w\incr" /I "C:\10C\a\incz" /I "C:\10C\a\incr" /I "C:\10C\a\zdr" /I ".\." /D "_DEBUG" /D "_AFXEXT" /D "WIN32" /D "_WINDOWS" /D "_MBCS" /D "__WIN32__" /D "QUINSOFT" /D "_NOANCHOR" /FR".\Debug/" /Fp".\Debug/TzAxCtl.pch" /Yc"zstdafx.h" /Fo".\Debug/" /Fd".\Debug/" /FD /c 
 "C:\10c\a\TZ\ax\tzaxctl\TzAxCal.cpp"
 ]
-Creating command line "cl.exe @C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP91F.tmp" 
-Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP920.tmp" with contents
+Creating command line "cl.exe @C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSPD1A0.tmp" 
+Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSPD1A1.tmp" with contents
 [
 ZdCtl.lib ZdrApp.lib kzoengaa.lib /nologo /subsystem:windows /dll /incremental:yes /pdb:".\Debug/TzAxCtl.pdb" /debug /machine:I386 /def:".\TzAxCtl.def" /out:"..\..\..\..\w\bin\TzAxCtl.dll" /implib:"..\..\..\..\w\libr\TzAxCtl.lib" /libpath:"C:\10C\w\libz" /libpath:"C:\10C\w\libr" 
 .\Debug\TzAxCal.obj
@@ -550,7 +550,7 @@ ZdCtl.lib ZdrApp.lib kzoengaa.lib /nologo /subsystem:windows /dll /incremental:y
 \10c\w\libr\ZdCtl.lib
 \10c\w\libr\ZDrApp.lib
 ]
-Creating command line "link.exe @C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP920.tmp"
+Creating command line "link.exe @C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSPD1A1.tmp"
 <h3>Output Window</h3>
 Compiling...
 TzAxCal.cpp
@@ -566,7 +566,7 @@ Linking...
 <h3>Command Lines</h3>
 Creating command line "midl.exe /nologo /D "_DEBUG" /tlb ".\Debug/tbedit.tlb" /mktyplib203 /o "NUL" /win32 "C:\10c\a\TZ\ax\_edit\tbedit.odl""
 Creating command line "rc.exe /l 0x407 /fo".\Debug/hzoectle.res" /i ".\Debug" /d "_DEBUG" /d "_AFXDLL" "C:\10c\a\TZ\ax\_edit\hzoectle.rc"" 
-Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP924.tmp" with contents
+Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSPD1A5.tmp" with contents
 [
 /nologo /MDd /W3 /Gm /GX /ZI /Od /I "C:\10C\a\tz\ax\_edit" /I "C:\10C\_common\_class" /D "_DEBUG" /D "WIN32" /D "_WINDOWS" /D "_WINDLL" /D "_AFXDLL" /D "_USRDLL" /D "_NOANCHOR" /Fp".\Debug/tbedit.pch" /Yu"stdafx.h" /Fo".\Debug/" /Fd".\Debug/" /FD /c 
 "C:\10c\_common\_class\colpick.cpp"
@@ -581,20 +581,20 @@ Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP924.tmp" with
 "C:\10c\a\TZ\ax\_edit\hzoezsyn.cpp"
 "C:\10c\_common\_class\hzoregex.cpp"
 ]
-Creating command line "cl.exe @C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP924.tmp" 
-Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP925.tmp" with contents
+Creating command line "cl.exe @C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSPD1A5.tmp" 
+Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSPD1A6.tmp" with contents
 [
 /nologo /MDd /W3 /Gm /GX /ZI /Od /I "C:\10C\a\tz\ax\_edit" /I "C:\10C\_common\_class" /D "_DEBUG" /D "WIN32" /D "_WINDOWS" /D "_WINDLL" /D "_AFXDLL" /D "_USRDLL" /D "_NOANCHOR" /Fo".\Debug/" /Fd".\Debug/" /FD /c 
 "C:\10c\_common\_class\regex.cpp"
 ]
-Creating command line "cl.exe @C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP925.tmp" 
-Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP926.tmp" with contents
+Creating command line "cl.exe @C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSPD1A6.tmp" 
+Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSPD1A7.tmp" with contents
 [
 /nologo /MDd /W3 /Gm /GX /ZI /Od /I "C:\10C\a\tz\ax\_edit" /I "C:\10C\_common\_class" /D "_DEBUG" /D "WIN32" /D "_WINDOWS" /D "_WINDLL" /D "_AFXDLL" /D "_USRDLL" /D "_NOANCHOR" /Fp".\Debug/tbedit.pch" /Yc"stdafx.h" /Fo".\Debug/" /Fd".\Debug/" /FD /c 
 "C:\10c\a\TZ\ax\_edit\tbedit.cpp"
 ]
-Creating command line "cl.exe @C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP926.tmp" 
-Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP927.tmp" with contents
+Creating command line "cl.exe @C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSPD1A7.tmp" 
+Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSPD1A8.tmp" with contents
 [
 /nologo /subsystem:windows /dll /incremental:yes /pdb:".\Debug/tbedit.pdb" /debug /machine:I386 /def:".\hzoectl.def" /out:"..\..\..\..\w\bin\tbedit.ocx" /implib:".\Debug/tbedit.lib" /pdbtype:sept 
 .\Debug\colpick.obj
@@ -615,14 +615,14 @@ Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP927.tmp" with
 \10c\w\libr\ZdCtl.lib
 \10c\w\libr\ZDrApp.lib
 ]
-Creating command line "link.exe @C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP927.tmp"
-Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP928.bat" with contents
+Creating command line "link.exe @C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSPD1A8.tmp"
+Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSPD1A9.bat" with contents
 [
 @echo off
 regsvr32 /s /c "\10c\w\bin\tbedit.ocx"
 echo regsvr32 exec. time > ".\Debug\regsvr32.trg"
 ]
-Creating command line "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP928.bat"
+Creating command line "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSPD1A9.bat"
 Creating Type Library...
 tbedit.odl
 oaidl.idl
@@ -656,20 +656,20 @@ Registering ActiveX Control...
 </h3>
 <h3>Command Lines</h3>
 Creating command line "rc.exe /l 0x409 /fo".\Debug/Z2MP.res" /d "_DEBUG" /d "_AFXDLL" "C:\10c\a\zdr\Z2MP.rc"" 
-Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP931.tmp" with contents
+Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSPD1B2.tmp" with contents
 [
 /nologo /MDd /W3 /WX /Gm /GX /ZI /Od /I "C:\10C\w\incz" /I "C:\10C\w\incr" /I "C:\10C\a\incz" /I "C:\10C\a\incr" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_WINDLL" /D "_AFXDLL" /D "_MBCS" /D "_USRDLL" /D "__WIN32__" /D "QUINSOFT" /D "_NOANCHOR" /FR".\Debug/" /Fp".\Debug/Z2MP.pch" /Yu"mpna81.h" /Fo".\Debug/" /Fd".\Debug/" /FD /GZ /c 
 "C:\10c\a\zdr\Z2MP.cpp"
 "C:\10c\a\zdr\Z2MPAPI.CPP"
 ]
-Creating command line "cl.exe @C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP931.tmp" 
-Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP932.tmp" with contents
+Creating command line "cl.exe @C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSPD1B2.tmp" 
+Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSPD1B3.tmp" with contents
 [
 /nologo /MDd /W3 /WX /Gm /GX /ZI /Od /I "C:\10C\w\incz" /I "C:\10C\w\incr" /I "C:\10C\a\incz" /I "C:\10C\a\incr" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_WINDLL" /D "_AFXDLL" /D "_MBCS" /D "_USRDLL" /D "__WIN32__" /D "QUINSOFT" /D "_NOANCHOR" /FR".\Debug/" /Fp".\Debug/Z2MP.pch" /Yc"mpna81.h" /Fo".\Debug/" /Fd".\Debug/" /FD /GZ /c 
 "C:\10c\a\zdr\mpna81.cpp"
 ]
-Creating command line "cl.exe @C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP932.tmp" 
-Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP933.tmp" with contents
+Creating command line "cl.exe @C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSPD1B3.tmp" 
+Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSPD1B4.tmp" with contents
 [
 kzoengaa.lib zdrapp.lib /nologo /subsystem:windows /dll /incremental:yes /pdb:".\Debug/Z2MP.pdb" /debug /machine:I386 /def:".\Z2MP.def" /out:"..\..\w\bin\Z2MP.dll" /implib:"..\..\w\libr\Z2MP.lib" /pdbtype:sept /libpath:"C:\10C\w\libz" /libpath:"C:\10C\w\libr" 
 .\Debug\mpna81.obj
@@ -677,7 +677,7 @@ kzoengaa.lib zdrapp.lib /nologo /subsystem:windows /dll /incremental:yes /pdb:".
 .\Debug\Z2MPAPI.OBJ
 .\Debug\Z2MP.res
 ]
-Creating command line "link.exe @C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP933.tmp"
+Creating command line "link.exe @C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSPD1B4.tmp"
 <h3>Output Window</h3>
 Compiling resources...
 Compiling...
@@ -692,7 +692,7 @@ Linking...
 --------------------Configuration: tzvmledt - Win32 Debug--------------------
 </h3>
 <h3>Command Lines</h3>
-Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP937.tmp" with contents
+Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSPD1B8.tmp" with contents
 [
 /nologo /MDd /W3 /GR /GX /ZI /Od /I "C:\10C\a\tz" /I "C:\10C\a\incr" /I "C:\10C\a\incz" /I "C:\10C\w\incr" /I "C:\10C\a\zdr" /D "_DEBUG" /D "_AFXEXT" /D "WIN32" /D "_WINDOWS" /D "_MBCS" /D "__WIN32__" /D "zGRID_COMPILE" /D "_NOANCHOR" /FR".\Debug/" /Fp".\Debug/tzvmledt.pch" /YX"zstdafx.h" /Fo".\Debug/" /Fd".\Debug/" /FD /c 
 "C:\10c\a\TZ\ax\tzvmledt\tzcswrpr.cpp"
@@ -701,8 +701,8 @@ Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP937.tmp" with
 "C:\10c\a\TZ\ax\tzvmledt\zstring.cpp"
 "C:\10c\a\TZ\ax\tzvmledt\zviewdef.cpp"
 ]
-Creating command line "cl.exe @C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP937.tmp" 
-Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP938.tmp" with contents
+Creating command line "cl.exe @C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSPD1B8.tmp" 
+Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSPD1B9.tmp" with contents
 [
 tzlodopr.lib ZdCtl.lib ZdrApp.lib kzoengaa.lib tzvmpopr.lib tzvmlopr.lib /nologo /dll /incremental:yes /pdb:".\Debug/tzvmledt.pdb" /debug /machine:I386 /def:".\tzvmledit.def" /out:"..\..\..\..\w\bin\tzvmledt.dll" /implib:"..\..\..\..\w\libz/tzvmledt.lib" /pdbtype:sept /libpath:"C:\10C\w\libz" /libpath:"C:\10C\w\libr" /libpath:".\debug" 
 .\Debug\tzcswrpr.obj
@@ -711,7 +711,7 @@ tzlodopr.lib ZdCtl.lib ZdrApp.lib kzoengaa.lib tzvmpopr.lib tzvmlopr.lib /nologo
 .\Debug\zstring.obj
 .\Debug\zviewdef.obj
 ]
-Creating command line "link.exe @C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP938.tmp"
+Creating command line "link.exe @C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSPD1B9.tmp"
 <h3>Output Window</h3>
 Compiling...
 tzcswrpr.cpp
@@ -721,12 +721,12 @@ zstring.cpp
 zviewdef.cpp
 Linking...
    Creating library ..\..\..\..\w\libz/tzvmledt.lib and object ..\..\..\..\w\libz/tzvmledt.exp
-Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP93C.bat" with contents
+Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSPD1BD.bat" with contents
 [
 @echo off
 copy ".\*.ini" "\10c\w\bin\*.*"
 ]
-Creating command line "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP93C.bat"
+Creating command line "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSPD1BD.bat"
 copy ini settings
 .\vmllang.ini
         1 file(s) copied.
@@ -734,19 +734,19 @@ copy ini settings
 --------------------Configuration: tzedvmld - Win32 Debug--------------------
 </h3>
 <h3>Command Lines</h3>
-Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP93D.tmp" with contents
+Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSPD1BE.tmp" with contents
 [
 /nologo /MDd /W3 /GX /ZI /Od /I "C:\10C\w\incz" /I "C:\10C\w\incr" /I "C:\10C\a\incz" /I "C:\10C\a\incr" /I "C:\10C\a\zdr" /I "..\tzaxctl" /D "_DEBUG" /D "_AFXEXT" /D "WIN32" /D "_WINDOWS" /D "_WINDLL" /D "_MBCS" /D "__WIN32__" /D "_USE_DATASET_" /D "_NOANCHOR" /FR"Debug/" /Fo"Debug/" /Fd"Debug/" /FD /TP /c 
 "C:\10c\a\tz\tzedvmld.C"
 ]
-Creating command line "cl.exe @C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP93D.tmp" 
-Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP93E.tmp" with contents
+Creating command line "cl.exe @C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSPD1BE.tmp" 
+Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSPD1BF.tmp" with contents
 [
 tzvmledt.lib ZdCtl.lib ZdrApp.lib kzoengaa.lib tzctl.lib tzlodopr.lib tzvmpopr.lib tzvmlopr.lib /nologo /dll /incremental:yes /pdb:"Debug/tzedvmld.pdb" /debug /machine:I386 /def:"..\..\w\tz\tzedvmld.def" /out:"..\..\w\bin\tzedvmld.dll" /implib:"Debug/tzedvmld.lib" /libpath:"C:\10C\w\libz" /libpath:"C:\10C\w\libr" /libpath:".\release" 
 .\Debug\tzedvmld.obj
 \10c\w\libz\tzvmledt.lib
 ]
-Creating command line "link.exe @C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP93E.tmp"
+Creating command line "link.exe @C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSPD1BF.tmp"
 <h3>Output Window</h3>
 Compiling...
 tzedvmld.C
@@ -756,7 +756,7 @@ Linking...
 --------------------Configuration: truegrid - Win32 Debug--------------------
 </h3>
 <h3>Command Lines</h3>
-Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP942.tmp" with contents
+Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSPD1C3.tmp" with contents
 [
 /nologo /MDd /W3 /GR /GX /ZI /Od /I "C:\10C\w\incz" /I "C:\10C\w\incr" /I "C:\10C\a\incz" /I "C:\10C\a\incr" /I "C:\10C\a\zdr" /I "..\tzaxctl" /D "_DEBUG" /D "_AFXEXT" /D "WIN32" /D "_WINDOWS" /D "_MBCS" /D "__WIN32__" /D "zGRID_COMPILE" /D "TB_DROPDOWN_IMPLEMENT" /D "_NOANCHOR" /FR".\Debug/" /Fp".\Debug/truegrid.pch" /Yu"tdbg6.h" /Fo".\Debug/" /Fd".\Debug/" /FD /c 
 "C:\10c\a\TZ\ax\TrueGrid\tgcolser.cpp"
@@ -767,14 +767,14 @@ Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP942.tmp" with
 "C:\10c\a\TZ\ax\TrueGrid\truegrid.cpp"
 "C:\10c\a\TZ\ax\TrueGrid\xarraydb.cpp"
 ]
-Creating command line "cl.exe @C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP942.tmp" 
-Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP943.tmp" with contents
+Creating command line "cl.exe @C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSPD1C3.tmp" 
+Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSPD1C4.tmp" with contents
 [
 /nologo /MDd /W3 /GR /GX /ZI /Od /I "C:\10C\w\incz" /I "C:\10C\w\incr" /I "C:\10C\a\incz" /I "C:\10C\a\incr" /I "C:\10C\a\zdr" /I "..\tzaxctl" /D "_DEBUG" /D "_AFXEXT" /D "WIN32" /D "_WINDOWS" /D "_MBCS" /D "__WIN32__" /D "zGRID_COMPILE" /D "TB_DROPDOWN_IMPLEMENT" /D "_NOANCHOR" /FR".\Debug/" /Fp".\Debug/truegrid.pch" /Yc"tdbg6.h" /Fo".\Debug/" /Fd".\Debug/" /FD /c 
 "C:\10c\a\TZ\ax\TrueGrid\tdbg6.cpp"
 ]
-Creating command line "cl.exe @C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP943.tmp" 
-Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP944.tmp" with contents
+Creating command line "cl.exe @C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSPD1C4.tmp" 
+Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSPD1C5.tmp" with contents
 [
 ZdCtl.lib ZdrApp.lib kzoengaa.lib /nologo /dll /incremental:yes /pdb:".\Debug/truegrid.pdb" /debug /machine:I386 /def:".\truegrid.def" /out:"..\..\..\..\w\bin\truegrid.dll" /implib:"..\..\..\..\w\libz/truegrid.lib" /pdbtype:sept /libpath:"C:\10C\w\libz" /libpath:"C:\10C\w\libr" /libpath:".\debug" 
 .\Debug\tdbg6.obj
@@ -789,7 +789,7 @@ ZdCtl.lib ZdrApp.lib kzoengaa.lib /nologo /dll /incremental:yes /pdb:".\Debug/tr
 \10c\w\libr\ZDrApp.lib
 \10c\w\libr\TzCtl.lib
 ]
-Creating command line "link.exe @C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP944.tmp"
+Creating command line "link.exe @C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSPD1C5.tmp"
 <h3>Output Window</h3>
 Compiling...
 tdbg6.cpp
@@ -809,19 +809,19 @@ Linking...
 </h3>
 <h3>Command Lines</h3>
 Creating command line "rc.exe /l 0x409 /fo".\Debug/ZSEMail.res" /d "_DEBUG" /d "_AFXDLL" "C:\10c\a\zdr\ZSEMail.rc"" 
-Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP948.tmp" with contents
+Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSPD1C9.tmp" with contents
 [
 /nologo /MDd /W3 /WX /Gm /GX /ZI /Od /I "C:\10C\w\incz" /I "C:\10C\w\incr" /I "C:\10C\a\incz" /I "C:\10C\a\incr" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_WINDLL" /D "_AFXDLL" /D "_MBCS" /D "_USRDLL" /D "__WIN32__" /D "QUINSOFT" /D "_NOANCHOR" /FR".\Debug/" /Fo".\Debug/" /Fd".\Debug/" /FD /GZ /c 
 "C:\10c\a\zdr\ZSEMail.cpp"
 ]
-Creating command line "cl.exe @C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP948.tmp" 
-Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP949.tmp" with contents
+Creating command line "cl.exe @C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSPD1C9.tmp" 
+Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSPD1CA.tmp" with contents
 [
 kzoengaa.lib zdrapp.lib Ws2_32.lib see32.lib /nologo /subsystem:windows /dll /incremental:yes /pdb:".\Debug/ZSEMail.pdb" /debug /machine:I386 /def:".\ZSEMail.def" /out:"..\..\w\bin\ZSEMail.dll" /implib:"..\..\w\libr\ZSEMail.lib" /pdbtype:sept /libpath:"C:\10C\w\libz" /libpath:"C:\10C\w\libr" 
 .\Debug\ZSEMail.obj
 .\Debug\ZSEMail.res
 ]
-Creating command line "link.exe @C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP949.tmp"
+Creating command line "link.exe @C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSPD1CA.tmp"
 <h3>Output Window</h3>
 Compiling resources...
 Compiling...
@@ -833,13 +833,13 @@ Linking...
 </h3>
 <h3>Command Lines</h3>
 Creating command line "rc.exe /l 0x409 /fo".\Debug/ZDr.res" /d "_DEBUG" /d "_AFXDLL" "C:\10c\a\zdr\ZDr.rc"" 
-Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP94D.tmp" with contents
+Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSPD1CE.tmp" with contents
 [
 /nologo /MDd /W3 /WX /Gm /GX /ZI /Od /I "." /I "C:\10C\w\incz" /I "C:\10C\w\incr" /I "C:\10C\a\incz" /I "C:\10C\a\incr" /D "_DEBUG" /D "_AFXDLL" /D "WIN32" /D "_WINDOWS" /D "_MBCS" /D "__WIN32__" /D "QUINSOFT" /D "_NOANCHOR" /FR".\Debug/" /Fo".\Debug/" /Fd".\Debug/" /FD /c 
 "C:\10c\a\zdr\ZDr.cpp"
 ]
-Creating command line "cl.exe @C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP94D.tmp" 
-Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP94E.tmp" with contents
+Creating command line "cl.exe @C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSPD1CE.tmp" 
+Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSPD1CF.tmp" with contents
 [
 ZDrApp.lib kzoengaa.lib kzrpsrco.lib /nologo /subsystem:windows /incremental:yes /pdb:".\Debug/ZDr.pdb" /debug /machine:I386 /out:"..\..\w\bin\ZDr.exe" /libpath:"C:\10C\w\libz" /libpath:"C:\10C\w\libr" 
 .\Debug\ZDr.obj
@@ -855,7 +855,7 @@ ZDrApp.lib kzoengaa.lib kzrpsrco.lib /nologo /subsystem:windows /incremental:yes
 \10c\w\libr\ZSEMail.lib
 \10c\w\libr\JpegLib.lib
 ]
-Creating command line "link.exe @C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP94E.tmp"
+Creating command line "link.exe @C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSPD1CF.tmp"
 <h3>Output Window</h3>
 Compiling resources...
 Compiling...

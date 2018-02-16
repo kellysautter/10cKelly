@@ -276,7 +276,6 @@ ZSubtask::fnRecurseSubOptions( zVIEW   vSubOption,
 
       // get the structure of attributes for this option
       zPCHAR pch;   // for derived Text attribute
-
       GetStructFromEntityAttrs( (zPCHAR) OptDef.Tag, vSubOption, szlOpt );
 #ifdef DEBUG_LODSTRUCT
       if ( OptDef.CheckByte != 0xFE )

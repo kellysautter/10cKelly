@@ -1723,7 +1723,7 @@ the brackets for the DDL-command
    #define COMMENT_START         "--"
    #define COMMENT_END           ""
    #define NOT_NULL_FIELD        " NOT NULL"
-   #define NULL_FIELD            "         "
+   #define NULL_FIELD            " DEFAULT NULL"
    #define ADD_COLUMN_STMT       "ADD COLUMN"
    #define DROP_COLUMN_STMT      "DROP COLUMN"
    #define COMMIT_STR            "COMMIT;"
@@ -2772,7 +2772,7 @@ fnBuildColumn( zVIEW  vDTE, zLONG  f, zPCHAR pchLine )
       case zTYPE_FIXEDCHAR:
          GetIntegerFromAttribute( &nLth, vDTE, "TE_FieldDataRel",
                                   "Length" );
-         zsprintf( pchEnd, " varchar( %ld )", nLth );
+         zsprintf( pchEnd, " VARCHAR( %ld )", nLth );
 
          break;
 
@@ -2782,23 +2782,23 @@ fnBuildColumn( zVIEW  vDTE, zLONG  f, zPCHAR pchLine )
          break;
 
       case zTYPE_DATETIME:
-         zsprintf( pchEnd, " timestamp" );
+         zsprintf( pchEnd, " TIMESTAMP" );
          break;
 
       case zTYPE_INTEGER:
-         zsprintf( pchEnd, " int" );
+         zsprintf( pchEnd, " INTEGER" );
          break;
 
       case zTYPE_DECIMAL:
-         zsprintf( pchEnd, " float4" );
+         zsprintf( pchEnd, " FLOAT4" );
          break;
 
       case zTYPE_DATE:
-         zsprintf( pchEnd, " timestamp" );
+         zsprintf( pchEnd, " TIMESTAMP" );
          break;
 
       case zTYPE_TIME:
-         zsprintf( pchEnd, " timestamp" );
+         zsprintf( pchEnd, " TIMESTAMP" );
          break;
 
       // ===
@@ -2806,12 +2806,12 @@ fnBuildColumn( zVIEW  vDTE, zLONG  f, zPCHAR pchLine )
       // ===
 
       case 'V':
-         zsprintf( pchEnd, " text" );
+         zsprintf( pchEnd, " TEXT" );
          break;
 
       // TimeStampEx
       case 'X':
-         zsprintf( pchEnd, " varchar( 30 )" );
+         zsprintf( pchEnd, " VARCHAR( 30 )" );
          break;
 
       case 'A':
@@ -2926,7 +2926,30 @@ fnBuildColumn( zVIEW  vDTE, zLONG  f, zPCHAR pchLine )
    if ( CompareAttributeToString( vDTE, "TE_FieldDataRel",
                                   "SQL_NULLS", "Y" ) == 0  )
    {
+      // KJS 02/16/17 - Do I want to check if this is POSTGRES and the system generated key and if so set to 'PRIMARY KEY'??????
+	  #if defined( POSTGRESQL )
+      if ( SetCursorFirstEntityByAttr( vDTE, "TE_FieldDataRelKey", "ZKey",
+                                       vDTE, "TE_FieldDataRel", "ZKey", "TE_TablRec" ) >= 0 )
+	  {
+   if ( CheckExistenceOfEntity( vDTE, "ER_Entity" ) >= zCURSOR_SET )
+
+	  if ( CheckExistenceOfEntity( vDTE, "ER_EntIdentifier" ) >= zCURSOR_SET &&
+	       CompareAttributeToString( vDTE, "ER_EntIdentifier",
+										  "SystemMaintained", "Y" ) == 0  )
+			{
+			      zstrcat( pchEnd, "PRIMARY KEY" );
+
+			}
+			else
+			      zstrcat( pchEnd, NOT_NULL_FIELD );
+	  }
+	  else
+	        zstrcat( pchEnd, NOT_NULL_FIELD );
+
+	  
+	  #else
       zstrcat( pchEnd, NOT_NULL_FIELD );
+	  #endif
    }
    else
       zstrcat( pchEnd, NULL_FIELD );
@@ -3537,6 +3560,12 @@ BuildDDL( zVIEW  vDTE,
          goto EndOfFunction;
    #endif
 
+#elif defined( POSTGRESQL ) 
+
+       zsprintf( szLine, "SET SCHEMA '%s' %s", pchDatabaseName, LINE_TERMINATOR );
+       if ( fnWriteLine( vDTE, f, szLine ) < 0 )
+         goto EndOfFunction;
+
 #endif
 
    GetAddrForAttribute( &pchDefaultOwner, vDTE, "TE_DBMS_Source",
@@ -3716,6 +3745,8 @@ BuildDDL( zVIEW  vDTE,
             zsprintf( szLine, "DROP TABLE IF EXISTS %s%s %s", szOwner, pch, LINE_TERMINATOR );
          #elif defined( MYSQL )
             zsprintf( szLine, "DROP TABLE IF EXISTS %s%s %s", szOwner, pch, LINE_TERMINATOR );
+         #elif defined( POSTGRESQL )
+            zsprintf( szLine, "DROP TABLE IF EXISTS %s%s CASCADE%s", szOwner, pch, LINE_TERMINATOR );
          #else
             zsprintf( szLine, "DROP TABLE %s%s %s", szOwner, pch, LINE_TERMINATOR );
 	 #endif

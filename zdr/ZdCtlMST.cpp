@@ -787,6 +787,11 @@ ZMSTree::MapFromOI( WPARAM wFlag )
       m_szLastAccEntity[ 0 ] = 0;
       m_vApp = vApp;
    }
+   else
+   {
+	   // KJS 11/28/16 - Trying not to rebuild every time.
+	   return ( 0 );
+   }
 
 // TraceLineS( "ZMSTree::MapFromOI ", *m_pzsTag );
    zULONG ulTopEntityKey = 0;
