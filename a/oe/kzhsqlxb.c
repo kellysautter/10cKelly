@@ -4762,7 +4762,7 @@ SetDataType( zVIEW vDTE, zBOOL bSetDefault )
       else
       if ( zstrcmpi( pchDomainName, "TimeStampEx" ) == 0 )
          SetAttributeFromString( vDTE, "TE_FieldDataRel", "DataType", "X" );
-#if defined( MYSQL )
+#if defined( MYSQL ) || defined( POSTGRESQL )
       else
       // If domain is GeneratedKey then use "SERIAL" for default datatype.
       if ( zstrcmpi( pchDomainName, "GeneratedKey" ) == 0 )
