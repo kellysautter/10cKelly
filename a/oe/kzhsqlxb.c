@@ -711,7 +711,6 @@ the brackets for the DDL-command
    #define COMMIT_STR            ""
    #define COLUMN_INDENT         10
    #define CREATE_DB             0
-   #define GRANT_ALL             0
    #define MAX_LTH_FOR_STRING    254
 
    // List of words that are reserved in SQL Server.
