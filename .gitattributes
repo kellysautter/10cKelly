@@ -10,5 +10,6 @@
 *.nrc binary
 *.NRC binary
 w/bin/**/* binary
+a/bin/sys/* binary
 w/libr/**/* binary
 w/libz/**/* binary
