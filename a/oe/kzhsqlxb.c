@@ -2644,6 +2644,15 @@ fnBuildColumn( zVIEW  vDTE, zLONG  f, zPCHAR pchLine )
 
          break;
 
+      // UUID
+      case 'U':
+         #if defined( SQLITE )
+             zsprintf( pchEnd, " varchar( 36 )" );
+         #else
+             zsprintf( pchEnd, " binary( 16 )" );
+          #endif
+         break;
+
       // TimeStampEx
       case 'X':
          zsprintf( pchEnd, " varchar( 30 )" );
@@ -2832,6 +2841,11 @@ fnBuildColumn( zVIEW  vDTE, zLONG  f, zPCHAR pchLine )
          zsprintf( pchEnd, " BIGINT" );
          break;
 	 
+      // UUID
+      case 'U':
+         zsprintf( pchEnd, " UUID" );
+         break;
+
       default:
       {
          zCHAR szTableName[ MAX_TABLENAME_LTH + 1 ];
@@ -4635,6 +4649,11 @@ LoadDataTypes( zVIEW vType )
    SetAttributeFromString( vType, "DB_DataTypes", "ExternalName",
                            "SERIAL (autoincrement)" );
 
+   // UUID
+   CreateEntity( vType, "DB_DataTypes", zPOS_LAST );
+   SetAttributeFromString( vType, "DB_DataTypes", "InternalName", "U" );
+   SetAttributeFromString( vType, "DB_DataTypes", "ExternalName", "UUID" );
+
 #elif defined( POSTGRESQL ) || defined( SQLSERVER )
 
    CreateEntity( vType, "DB_DataTypes", zPOS_LAST );
@@ -4659,6 +4678,11 @@ LoadDataTypes( zVIEW vType )
    CreateEntity( vType, "DB_DataTypes", zPOS_LAST );
    SetAttributeFromString( vType, "DB_DataTypes", "InternalName", "G" );
    SetAttributeFromString( vType, "DB_DataTypes", "ExternalName", "Bigint" );
+
+   // UUID
+   CreateEntity( vType, "DB_DataTypes", zPOS_LAST );
+   SetAttributeFromString( vType, "DB_DataTypes", "InternalName", "U" );
+   SetAttributeFromString( vType, "DB_DataTypes", "ExternalName", "UUID" );
 
 #endif
 
@@ -4769,6 +4793,11 @@ SetDataType( zVIEW vDTE, zBOOL bSetDefault )
       {
          SetAttributeFromString( vDTE, "TE_FieldDataRel", "DataType", "A" );
       }    
+      else
+      if ( zstrcmpi( pchDomainName, "UUID" ) == 0 )
+      {
+         SetAttributeFromString( vDTE, "TE_FieldDataRel", "DataType", "U" );
+      }    
 #endif
       else
          // Domain is not Date or Time, so just set the default data type the
@@ -4838,6 +4867,10 @@ SetDataType( zVIEW vDTE, zBOOL bSetDefault )
 
       case 'A':                // For SERIAL/AUTOINCREMENT
          SetAttributeFromInteger( vDTE, "TE_FieldDataRel", "Length", 64 );
+         break;
+
+      case 'U':                // For UUID
+         SetAttributeFromInteger( vDTE, "TE_FieldDataRel", "Length", 16 );
          break;
 
       case zTYPE_DECIMAL:
