@@ -1,4 +1,4 @@
-z1000-Zeidon    ZEIDON   TZZOXOGO 06/20/16   14:24:51 1.0a2    
+z1000-Zeidon    ZEIDON   TZZOXOGO 11/07/16   21:26:02 1.0a2    
 eTZZOXOGO  1
 aNAME      Zeidon
 
@@ -2498,6 +2498,42 @@ aDATATYPE  S
 ePARAMETER 4
 aNAME      vDialogMenu
 aDATATYPE  V
+
+eOPERATION 3
+aNAME      GenJSPJ_CrteFileTransferForm
+aTYPE      G
+
+ePARAMETER 4
+aNAME      vDialog
+aDATATYPE  V
+
+ePARAMETER 4
+aNAME      vDialogRoot
+aDATATYPE  V
+
+ePARAMETER 4
+aNAME      File
+aDATATYPE  L
+
+ePARAMETER 4
+aNAME      WriteBuffer
+aDATATYPE  S
+
+ePARAMETER 4
+aNAME      Indent
+aDATATYPE  S
+
+ePARAMETER 4
+aNAME      NoPositioning
+aDATATYPE  S
+
+ePARAMETER 4
+aNAME      OffsetX
+aDATATYPE  L
+
+ePARAMETER 4
+aNAME      OffsetY
+aDATATYPE  L
 
 eOPERATION 3
 aNAME      GenJSPJ_CrteListBoxAsList

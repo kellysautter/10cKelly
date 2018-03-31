@@ -1,0 +1,141 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: ZdCtl - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating command line "rc.exe /l 0x409 /fo".\Debug/ZdCtl.res" /d "_DEBUG" /d "_AFXDLL" "C:\10c\a\zdr\ZdCtl.rc"" 
+Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP2F60.tmp" with contents
+[
+/nologo /MDd /W3 /WX /Gm /GX /ZI /Od /I "C:\10C\w\incz" /I "C:\10C\w\incr" /I "C:\10C\a\incz" /I "C:\10C\a\incr" /D "_DEBUG" /D "_AFXEXT" /D "WIN32" /D "_WINDOWS" /D "_MBCS" /D "__WIN32__" /D "QUINSOFT" /D "_NOANCHOR" /FR".\Debug/" /Fp".\Debug/ZdCtl.pch" /Yu"ZdCtl.h" /Fo".\Debug/" /Fd".\Debug/" /FD /c 
+"C:\10c\a\zdr\ZdCtlATX.cpp"
+"C:\10c\a\zdr\ZdCtlBar.CPP"
+"C:\10c\a\zdr\ZdCtlBMB.cpp"
+"C:\10c\a\zdr\ZdCtlBMP.cpp"
+"C:\10c\a\zdr\ZdCtlBTN.cpp"
+"C:\10c\a\zdr\ZdCtlCal.cpp"
+"C:\10c\a\zdr\ZdCtlCHK.cpp"
+"C:\10c\a\zdr\ZdCtlCMB.cpp"
+"C:\10c\a\zdr\ZdCtlDIL.cpp"
+"C:\10c\a\zdr\ZdCtlDT.CPP"
+"C:\10c\a\zdr\ZdCtlEDT.cpp"
+"C:\10c\a\zdr\ZdCtlGBX.cpp"
+"C:\10c\a\zdr\ZdCtlHD.cpp"
+"C:\10c\a\zdr\ZdCtlHDN.cpp"
+"C:\10c\a\zdr\ZdCtlHot.cpp"
+"C:\10c\a\zdr\ZdCtlICO.cpp"
+"C:\10c\a\zdr\ZdCtlLBH.cpp"
+"C:\10c\a\zdr\ZdCtlLBX.cpp"
+"C:\10c\a\zdr\ZdCtlMLE.cpp"
+"C:\10c\a\zdr\ZdCtlMST.cpp"
+"C:\10c\a\zdr\ZdCtlO.cpp"
+"C:\10c\a\zdr\ZdCtlOLB.cpp"
+"C:\10c\a\zdr\ZdCtlRB.cpp"
+"C:\10c\a\zdr\ZdCtlRTE.cpp"
+"C:\10c\a\zdr\ZdCtlRTO.cpp"
+"C:\10c\a\zdr\ZdCtlSS.cpp"
+"C:\10c\a\zdr\ZdCtlSSU.cpp"
+"C:\10c\a\zdr\ZdCtlTAB.cpp"
+"C:\10c\a\zdr\ZdCtlTim.cpp"
+"C:\10c\a\zdr\ZdCtlTXT.cpp"
+"C:\10c\a\zdr\ZdCtlVWG.CPP"
+]
+Creating command line "cl.exe @C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP2F60.tmp" 
+Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP2F61.tmp" with contents
+[
+/nologo /MDd /W3 /WX /Gm /GX /ZI /Od /I "C:\10C\w\incz" /I "C:\10C\w\incr" /I "C:\10C\a\incz" /I "C:\10C\a\incr" /D "_DEBUG" /D "_AFXEXT" /D "WIN32" /D "_WINDOWS" /D "_MBCS" /D "__WIN32__" /D "QUINSOFT" /D "_NOANCHOR" /FR".\Debug/" /Fp".\Debug/ZdCtl.pch" /Yc"ZdCtl.h" /Fo".\Debug/" /Fd".\Debug/" /FD /c 
+"C:\10c\a\zdr\ZdCtl.cpp"
+]
+Creating command line "cl.exe @C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP2F61.tmp" 
+Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP2F62.tmp" with contents
+[
+ZDrApp.lib kzoengaa.lib jpeglib.lib msimg32.lib /nologo /subsystem:windows /dll /incremental:yes /pdb:".\Debug/ZdCtl.pdb" /debug /machine:I386 /def:".\ZdCtl.def" /out:"..\..\w\bin\ZdCtl.dll" /implib:"..\..\w\libr\ZdCtl.lib" /libpath:"C:\10C\w\libz" /libpath:"C:\10C\w\libr" 
+.\Debug\ZdCtl.obj
+.\Debug\ZdCtlATX.obj
+.\Debug\ZdCtlBar.obj
+.\Debug\ZdCtlBMB.obj
+.\Debug\ZdCtlBMP.obj
+.\Debug\ZdCtlBTN.obj
+.\Debug\ZdCtlCal.obj
+.\Debug\ZdCtlCHK.obj
+.\Debug\ZdCtlCMB.obj
+.\Debug\ZdCtlDIL.obj
+.\Debug\ZdCtlDT.obj
+.\Debug\ZdCtlEDT.obj
+.\Debug\ZdCtlGBX.obj
+.\Debug\ZdCtlHD.obj
+.\Debug\ZdCtlHDN.obj
+.\Debug\ZdCtlHot.obj
+.\Debug\ZdCtlICO.obj
+.\Debug\ZdCtlLBH.obj
+.\Debug\ZdCtlLBX.obj
+.\Debug\ZdCtlMLE.obj
+.\Debug\ZdCtlMST.obj
+.\Debug\ZdCtlO.obj
+.\Debug\ZdCtlOLB.obj
+.\Debug\ZdCtlRB.obj
+.\Debug\ZdCtlRTE.obj
+.\Debug\ZdCtlRTO.obj
+.\Debug\ZdCtlSS.obj
+.\Debug\ZdCtlSSU.obj
+.\Debug\ZdCtlTAB.obj
+.\Debug\ZdCtlTim.obj
+.\Debug\ZdCtlTXT.obj
+.\Debug\ZdCtlVWG.obj
+.\Debug\ZdCtl.res
+\10c\w\libr\ZDrApp.lib
+\10c\w\libr\JpegLib.lib
+]
+Creating command line "link.exe @C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP2F62.tmp"
+<h3>Output Window</h3>
+Compiling resources...
+Compiling...
+ZdCtl.cpp
+Compiling...
+ZdCtlATX.cpp
+ZdCtlBar.CPP
+ZdCtlBMB.cpp
+ZdCtlBMP.cpp
+ZdCtlBTN.cpp
+ZdCtlCal.cpp
+ZdCtlCHK.cpp
+ZdCtlCMB.cpp
+ZdCtlDIL.cpp
+ZdCtlDT.CPP
+ZdCtlEDT.cpp
+ZdCtlGBX.cpp
+ZdCtlHD.cpp
+ZdCtlHDN.cpp
+ZdCtlHot.cpp
+ZdCtlICO.cpp
+ZdCtlLBH.cpp
+ZdCtlLBX.cpp
+ZdCtlMLE.cpp
+ZdCtlMST.cpp
+Generating Code...
+Compiling...
+ZdCtlO.cpp
+ZdCtlOLB.cpp
+ZdCtlRB.cpp
+ZdCtlRTE.cpp
+ZdCtlRTO.cpp
+ZdCtlSS.cpp
+ZdCtlSSU.cpp
+ -- ZGrid: Clipboard support enabled for Grid
+ZdCtlTAB.cpp
+ZdCtlTim.cpp
+ZdCtlTXT.cpp
+ZdCtlVWG.CPP
+Generating Code...
+Linking...
+   Creating library ..\..\w\libr\ZdCtl.lib and object ..\..\w\libr\ZdCtl.exp
+
+
+
+<h3>Results</h3>
+ZdCtl.dll - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

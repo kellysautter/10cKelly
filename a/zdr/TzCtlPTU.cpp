@@ -81,6 +81,17 @@
 static char THIS_FILE[] = __FILE__;
 #endif
 
+
+typedef zSHORT (POPERATION zFARPROC_PNTR)( zVIEW );
+
+
+typedef zSHORT (POPERATION zFARPROC_MERGECTRLS)( zVIEW, zVIEW, zVIEW, zVIEW,
+                                                 zVIEW, zVIEW, zBOOL );
+
+typedef zSHORT (POPERATION zFARPROC_MERGEMENU)( zVIEW, zVIEW, zVIEW,
+                                                zVIEW, zVIEW );
+
+
 // #define DEBUG_ALL
 // #define zDEBUG_CTRL
 // #define zTEST_UPDATED_FLAG
@@ -1688,6 +1699,68 @@ PainterCall( zSHORT nMessage,
          return( 0 );
       }
 
+	  case zMSG_SAVEDIALOG:
+	  {
+		   zFARPROC_PNTR lpfnDynRoutine;
+		   LPLIBRARY lpLibrary = 0;
+
+		   lpfnDynRoutine = (zFARPROC_PNTR)
+			GetOperationDynamicCallAddress( pPainterBar->m_vSubtask,
+											&lpLibrary,
+											"tzpntrad", "SaveDialogFile",
+											"(Save Dialog)" );
+		   if ( lpfnDynRoutine )
+		   {
+			  zSHORT nRC;
+
+			  nRC = (*lpfnDynRoutine)( pPainterBar->m_vSubtask );
+			  return( nRC );
+		   }
+		   return( 0 );
+	  }
+
+	  case zMSG_GENERATEJAVAJSP:
+	  {
+		   zFARPROC_PNTR lpfnDynRoutine;
+		   LPLIBRARY lpLibrary = 0;
+
+		   lpfnDynRoutine = (zFARPROC_PNTR)
+		   GetOperationDynamicCallAddress( pPainterBar->m_vSubtask,
+		    								&lpLibrary,
+											"tzpntrad", "GenerateJSPJava",
+											"(JSP Generation)" );
+		   if ( lpfnDynRoutine )
+		   {
+			  zSHORT nRC;
+
+			  nRC = (*lpfnDynRoutine)( pPainterBar->m_vSubtask );
+			  return( nRC );
+		   }
+		   return( 0 );
+
+	  }
+
+	  case zMSG_GENERATEALLJAVAJSP:
+	  {
+		   zFARPROC_PNTR lpfnDynRoutine;
+		   LPLIBRARY lpLibrary = 0;
+
+		   lpfnDynRoutine = (zFARPROC_PNTR)
+		   GetOperationDynamicCallAddress( pPainterBar->m_vSubtask,
+		    								&lpLibrary,
+											"tzpntrad", "GenerateAllJSPJava",
+											"(JSP Generation)" );
+		   if ( lpfnDynRoutine )
+		   {
+			  zSHORT nRC;
+
+			  nRC = (*lpfnDynRoutine)( pPainterBar->m_vSubtask );
+			  return( nRC );
+		   }
+		   return( 0 );
+
+	  }
+
       case zMSG_UPDATE_COMMON_DETAIL:
       {
          if ( pPainterBar && pPainterBar->m_pActivePainterWindow )
@@ -1813,12 +1886,6 @@ PainterControlBar( ZSubtask *pZSubtask,
 }
 
 }
-
-typedef zSHORT (POPERATION zFARPROC_MERGECTRLS)( zVIEW, zVIEW, zVIEW, zVIEW,
-                                                 zVIEW, zVIEW, zBOOL );
-
-typedef zSHORT (POPERATION zFARPROC_MERGEMENU)( zVIEW, zVIEW, zVIEW,
-                                                zVIEW, zVIEW );
 
 // Doc for MergeCtrl in tzpntrad.c ...
 // One of vTgt and vTgtCtrl must be non-null (both may be non-null).

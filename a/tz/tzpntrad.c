@@ -690,6 +690,23 @@ OpenDialogFile( zVIEW vSubtask )
    if ( nRC < 0 )
       return( nRC );
 
+   // Should I call the conversion code here??? kkkkk
+   // Should I check the lplr and not convert OpenCUAS and ZENCAS?
+   // What about cheetah? ZMM??
+   // KJS 07/11/17 - I'm going to comment this out here for now and try
+   // having it as a menu option under "Utilities"
+   /*
+   if ( CompareAttributeToString( vNewDialog, "Dialog", "Converted", "Y" ) != 0 )
+   {
+      CreateViewFromViewForTask( &vNewDialogL, vNewDialog, 0 );
+      // I just happen to be using GenerateJSPJavaInc because it was a function that
+      // I created for something else but haven't been using.
+      oTZWDLGSO_GenerateJSPJavaInc( vNewDialogL, vSubtask );
+	  DropView( vNewDialogL );
+      // Then Should I save? Don't think so now, because otherwise, things might be screwed up
+      // and how would I undo that?
+   }
+   */
    if ( GetViewByName( &vIdleView, "__SysIdlePainter", vSubtask, zLEVEL_SYSTEM ) > 0 &&
         vIdleView == vSubtask )
    {
@@ -9015,6 +9032,9 @@ CtrlListDeleteCtrl( zVIEW vSubtask )
          while ( ResetViewFromSubobject( vControl ) == 0 )
          {
          }
+		 // Why does is seem like the outliner control isn't refeshing???? Tried the following line
+		 // but get all sorts of errors.
+		 //ShowCtrlList( vSubtask );
       }
    }
 
@@ -16026,8 +16046,17 @@ GenerateJSP( zVIEW vSubtask )
    zVIEW  vValidate;
    zLONG  lZKey;
    zLONG  lListHandle;
+   zCHAR  szMsg[ 256 ];
 
    GetViewByName( &vTZWINDOWL, "TZWINDOWL", vSubtask, zLEVEL_TASK );
+
+   zsprintf( szMsg, "Ae you sure you want to generate for 'C'?!!" );
+   if ( OperatorPrompt( vSubtask, "Generate JSP",
+                        szMsg, 1, zBUTTONS_YESNO,
+                        zRESPONSE_YES, zICON_QUESTION ) == zRESPONSE_NO )
+   {
+       return( -1 );
+   }
 
    // So we can modify the Dialog and not worry about the consequences.
    GetIntegerFromAttribute( &lZKey, vTZWINDOWL, "Window", "ZKey" );
@@ -16039,7 +16068,6 @@ GenerateJSP( zVIEW vSubtask )
    lListHandle = 0;
    ValidateCtrlAndActionTags( vSubtask, vValidate );
    oTZWDLGSO_GenerateJSP( vTZWINDOW, vSubtask );
-// oTZWDLGSO_GenerateXSL( vTZWINDOW );
 
    DropMetaOI_FromList( lListHandle );
    DropObjectInstance( vTZWINDOW );
@@ -16104,7 +16132,7 @@ GenerateAllJSP( zVIEW vSubtask )
 
    // Prompt operator to ensure ALL windows are to be generated.
    GetAddrForAttribute( &pchDlg, vTZWINDOWL, "Dialog", "Tag" );
-   zsprintf( szMsg, "Generate JSP for ALL Windows in Dialog: %s?", pchDlg );
+   zsprintf( szMsg, "Generate JSP for 'C' for ALL Windows in Dialog: %s?", pchDlg );
    if ( g_bSkipPrompt == FALSE )
    {
       if ( OperatorPrompt( vSubtask, "Generate JSP",
@@ -16190,6 +16218,157 @@ GenerateAllJSPJava( zVIEW vSubtask )
    return( 0 );
 
 } // GenerateAllJSPJava
+
+/////////////////////////////////////////////////////////////////////////////
+//
+//    OPERATION: GenerateAllJavaJSP
+//
+/////////////////////////////////////////////////////////////////////////////
+zOPER_EXPORT zSHORT /*DIALOG */  OPERATION
+GenerateAllJSPJavaAllDialogs( zVIEW vSubtask )
+{
+   zVIEW  vValidate;
+   zVIEW  vTZWINDOW;
+   zVIEW  vTaskLPLR;
+   zPCHAR pchDlg;
+   zPCHAR pchWnd;
+   zCHAR  szMsg[ 256 ];
+   zCHAR  SourceFileName[ 514 ] = { 0 };
+   zCHAR  DialogName[ 256 ];
+   zSHORT nRC;
+
+   GetViewByName( &vTaskLPLR, "TaskLPLR", vSubtask, zLEVEL_TASK );
+
+   // Prompt operator to ensure ALL windows are to be generated.
+   GetAddrForAttribute( &pchDlg, vTaskLPLR, "LPLR", "Name" );
+   zsprintf( szMsg, "Generate JSP FOR ALL DIALOGS in LPLR %s?!", pchDlg );
+   if ( g_bSkipPrompt == FALSE )
+   {
+      if ( OperatorPrompt( vSubtask, "Generate Java JSP",
+                           szMsg, 1, zBUTTONS_YESNO,
+                           zRESPONSE_YES, zICON_QUESTION ) == zRESPONSE_NO )
+      {
+         return( -1 );
+      }
+   }
+ 
+   if ( SetCursorFirstEntityByInteger( vTaskLPLR, "W_MetaType", "Type",
+                                       11, 0 ) >= zCURSOR_SET )
+   {
+	   nRC = SetCursorFirstEntity( vTaskLPLR, "W_MetaDef", 0 );
+	   while ( nRC == zCURSOR_SET )
+	   {
+		//:SourceFileName = SourceLPLR.LPLR.MetaSrcDir + "\" + DialogName + ".PWD"
+		GetStringFromAttribute( SourceFileName, vTaskLPLR, "LPLR", "MetaSrcDir" );
+		GetStringFromAttribute( DialogName, vTaskLPLR, "W_MetaDef", "Name" );
+                if ( zstrcmp( DialogName, "AD_Base" ) != 0 && zstrcmp( DialogName, "AD_BASE" ) != 0 )
+                {
+		   ZeidonStringConcat( SourceFileName, 1, 0, "\\", 1, 0, 514 );
+		   ZeidonStringConcat( SourceFileName, 1, 0, DialogName, 1, 0, 514 );
+		   ZeidonStringConcat( SourceFileName, 1, 0, ".PWD", 1, 0, 514 );
+
+		   ActivateOI_FromFile( &vTZWINDOW, "TZWDLGSO", vTaskLPLR, SourceFileName, 8192 );
+		   CreateViewFromViewForTask( &vValidate, vTZWINDOW, 0 );
+
+
+		   nRC = SetCursorFirstEntity( vTZWINDOW, "Window", 0 );
+		   while ( nRC == zCURSOR_SET )
+		   {
+			  GetAddrForAttribute( &pchWnd, vTZWINDOW, "Window", "Tag" );
+			  zsprintf( szMsg, "Generating JSP Java: %s.%s", pchDlg, pchWnd );
+			  MB_SetMessage( vSubtask, 1, szMsg );
+			  SetViewFromView( vValidate, vTZWINDOW );
+			  ValidateCtrlAndActionTags( vSubtask, vValidate );
+			  oTZWDLGSO_GenerateJSPJava( vTZWINDOW, vSubtask );
+			  nRC = SetCursorNextEntity( vTZWINDOW, "Window", 0 );
+		   }
+		   DropObjectInstance( vTZWINDOW );
+                 }
+  		 nRC = SetCursorNextEntity( vTaskLPLR, "W_MetaDef", 0 );
+	   }
+   }
+   return( 0 );
+
+} // GenerateAllJSPJava
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+//    OPERATION: GenerateAllJavaJSP
+//
+/////////////////////////////////////////////////////////////////////////////
+zOPER_EXPORT zSHORT /*DIALOG */  OPERATION
+FixPWDAllDialogs( zVIEW vSubtask )
+{
+   zVIEW  vValidate;
+   zVIEW  vTZWINDOW;
+   zVIEW  vTaskLPLR;
+   zPCHAR pchDlg;
+   zPCHAR pchWnd;
+   zCHAR  szMsg[ 256 ];
+   zCHAR  SourceFileName[ 514 ] = { 0 };
+   zCHAR  DialogName[ 256 ];
+   zSHORT nRC;
+
+// The CtrlCtrl control was out of sync with Control (didn't contain all of the attributes). Because of this
+// there are some attributes that get written to the pwd under the wrong attribute name. I have fixed TZWDLGSO.LOD but
+// need to look through the controls and fix the attributes.
+
+   GetViewByName( &vTaskLPLR, "TaskLPLR", vSubtask, zLEVEL_TASK );
+
+   // Prompt operator to ensure ALL windows are to be generated.
+   GetAddrForAttribute( &pchDlg, vTaskLPLR, "LPLR", "Name" );
+   zsprintf( szMsg, "Generate JSP FOR ALL DIALOGS in LPLR %s?!", pchDlg );
+   if ( g_bSkipPrompt == FALSE )
+   {
+      if ( OperatorPrompt( vSubtask, "Generate Java JSP",
+                           szMsg, 1, zBUTTONS_YESNO,
+                           zRESPONSE_YES, zICON_QUESTION ) == zRESPONSE_NO )
+      {
+         return( -1 );
+      }
+   }
+ 
+   if ( SetCursorFirstEntityByInteger( vTaskLPLR, "W_MetaType", "Type",
+                                       11, 0 ) >= zCURSOR_SET )
+   {
+	   nRC = SetCursorFirstEntity( vTaskLPLR, "W_MetaDef", 0 );
+	   while ( nRC == zCURSOR_SET )
+	   {
+		//:SourceFileName = SourceLPLR.LPLR.MetaSrcDir + "\" + DialogName + ".PWD"
+		GetStringFromAttribute( SourceFileName, vTaskLPLR, "LPLR", "MetaSrcDir" );
+		GetStringFromAttribute( DialogName, vTaskLPLR, "W_MetaDef", "Name" );
+                if ( zstrcmp( DialogName, "AD_Base" ) != 0 && zstrcmp( DialogName, "AD_BASE" ) != 0 )
+                {
+		   ZeidonStringConcat( SourceFileName, 1, 0, "\\", 1, 0, 514 );
+		   ZeidonStringConcat( SourceFileName, 1, 0, DialogName, 1, 0, 514 );
+		   ZeidonStringConcat( SourceFileName, 1, 0, ".PWD", 1, 0, 514 );
+
+		   ActivateOI_FromFile( &vTZWINDOW, "TZWDLGSO", vTaskLPLR, SourceFileName, 8192 );
+		   CreateViewFromViewForTask( &vValidate, vTZWINDOW, 0 );
+
+
+		   nRC = SetCursorFirstEntity( vTZWINDOW, "Window", 0 );
+		   while ( nRC == zCURSOR_SET )
+		   {
+			  GetAddrForAttribute( &pchWnd, vTZWINDOW, "Window", "Tag" );
+			  zsprintf( szMsg, "Generating JSP Java: %s.%s", pchDlg, pchWnd );
+			  MB_SetMessage( vSubtask, 1, szMsg );
+			  SetViewFromView( vValidate, vTZWINDOW );
+			  ValidateCtrlAndActionTags( vSubtask, vValidate );
+			  oTZWDLGSO_GenerateJSPJava( vTZWINDOW, vSubtask );
+			  nRC = SetCursorNextEntity( vTZWINDOW, "Window", 0 );
+		   }
+		   DropObjectInstance( vTZWINDOW );
+                 }
+  		 nRC = SetCursorNextEntity( vTaskLPLR, "W_MetaDef", 0 );
+	   }
+   }
+   return( 0 );
+
+} // FixPWDAllDialogs
+
 
 /////////////////////////////////////////////////////////////////////////////
 //

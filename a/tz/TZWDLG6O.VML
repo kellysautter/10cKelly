@@ -97,6 +97,14 @@ FlagUsedViewsGetFocusJ( VIEW vDialog     BASED ON LOD TZWDLGSO,
             szProcessControlFlag = "Y"
          END
       END
+      IF szControlType = "GroupBox"
+         SET CURSOR FIRST vDialog.WebControlProperty WHERE vDialog.WebControlProperty.Name = "Survey Group"
+         IF RESULT >= zCURSOR_SET
+            // If we have a group box that has a web property of "Survey Group" then this is a survey and
+            // we will need mapping for each survey question.
+            szProcessControlFlag = "Y"
+         END
+      END
       IF szControlType = "EditBox" OR
          szControlType = "ComboBox" OR
          szControlType = "Text" OR
@@ -440,10 +448,20 @@ GenJSPJ_ProcessFileIn( VIEW             vDialog BASED ON LOD TZWDLGSO,
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    szWriteBuffer = "               sSourceFile = sSourceFile.replaceAll(^\^^,^^);"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   szWriteBuffer = "               sSourceFile = sSourceFile.replaceAll(^#^,^^);"
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   szWriteBuffer = "               sSourceFile = sSourceFile.replaceAll(^ ^,^^);"
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    szWriteBuffer = "               l = sSourceFile.lastIndexOf(^.^);"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
 
    szWriteBuffer = "               x = sSourceFile.lastIndexOf(^\\^);"
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   szWriteBuffer = "               // If no backslash, try forward slash"
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   szWriteBuffer = "               if ( x == -1 )"
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   szWriteBuffer = "                  x = sSourceFile.lastIndexOf(^/^);"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
 
    szWriteBuffer = "               //If x > l then the filename has no extension and"
@@ -467,6 +485,12 @@ GenJSPJ_ProcessFileIn( VIEW             vDialog BASED ON LOD TZWDLGSO,
    szWriteBuffer = "               l = sTargetFile.lastIndexOf(^.^);"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    szWriteBuffer = "               x = sTargetFile.lastIndexOf(^\\^);"
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   szWriteBuffer = "               // If no backslash, try forward slash"
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   szWriteBuffer = "               if ( x == -1 )"
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   szWriteBuffer = "                  x = sTargetFile.lastIndexOf(^/^);"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
 
    // KJS 06/27/16 - added checking if upload file is not unique name.
@@ -523,6 +547,25 @@ GenJSPJ_ProcessFileIn( VIEW             vDialog BASED ON LOD TZWDLGSO,
    szWriteBuffer = "                  boolean ok = f.mkdirs();"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    
+   
+   
+   szWriteBuffer = "                  // Append a datetime stamp to the filename to ensure that this is a unique name. Keeping the other unique code for now."
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   szWriteBuffer = "                  DateFormat dateFormat = new SimpleDateFormat(^yyyymmddhhmmsss^);"
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   szWriteBuffer = "                  String strDateTime = dateFormat.format(new java.util.Date());"
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   
+   szWriteBuffer = "                  l = sSourceFileNameOnly.lastIndexOf(^.^);"
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   szWriteBuffer = "                  sExtension = sSourceFileNameOnly.substring(l+1);"
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   szWriteBuffer = "                  sTargetFile = sTargetDirectory + sSourceFileNameOnly.substring(0,l) + strDateTime + ^.^ + sExtension;"
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   szWriteBuffer = "                  // strInputFileName is used to populate the mapped field for the upload file. "
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   szWriteBuffer = "                  strInputFileName = sSourceFileNameOnly.substring(0,l) + strDateTime + ^.^ + sExtension;"
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
    
    
    
@@ -583,6 +626,12 @@ GenJSPJ_ProcessFileIn( VIEW             vDialog BASED ON LOD TZWDLGSO,
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    szWriteBuffer = "                  l = sName.lastIndexOf(^\\^);"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   szWriteBuffer = "               // If no backslash, try forward slash"
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   szWriteBuffer = "                  if ( l == -1 )"
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   szWriteBuffer = "                     l = sName.lastIndexOf(^/^);"
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
    szWriteBuffer = "                  if (l>=0) sName = sName.substring(l+1);"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    szWriteBuffer = "                  if (sName.length()>0) "
@@ -722,8 +771,8 @@ GenerateJSPJava( VIEW vDialog BASED ON LOD TZWDLGSO,
    STRING ( 1024 )  szJS_FileName
    STRING ( 1024 )  szJAVA_FileName
    STRING ( 1024 )  szDirectoryName
-   STRING ( 4 )     szDateFormat
-   STRING ( 32 )    szDateSequence
+   STRING ( 32 )    szDateFormat
+   STRING ( 4 )     szDateSequence
    STRING ( 10 )    szWebRedirection
    STRING ( 10000 ) szWriteBuffer
    STRING ( 10000 ) szJavaScript
@@ -764,12 +813,14 @@ GenerateJSPJava( VIEW vDialog BASED ON LOD TZWDLGSO,
    STRING ( 64 )    szSystemIniApplName
    STRING ( 1 )     szTransferFileFlag
    STRING ( 1 )     szListButtonFlag
+   STRING ( 1 )     szLangConvFlag
    STRING ( 1 )     szTrace
    STRING ( 50 )    szreCAPTCHAImport
    STRING ( 100 )   szJavaPackage
    STRING ( 100 )   szAppImport
    STRING ( 15 )    szIOImport
    STRING ( 1 )     szJasperImport
+   STRING ( 1 )     szJasperXLS
    STRING ( 50 )    szTempStr
    STRING ( 1 )     szUploadFile
    STRING ( 1 )     szSideMenuExists
@@ -785,8 +836,10 @@ GenerateJSPJava( VIEW vDialog BASED ON LOD TZWDLGSO,
    STRING ( 1 )     szZeidonTaskTimeout
    STRING ( 1 )     szRegisterZeidon
    STRING ( 1 )     szNoMonitorTaskLogout
+   STRING ( 1 )     szUseZeidonCtrlActions
    STRING ( 10 )    szTimeout
    STRING ( 10 )    szDOCTYPE
+   STRING ( 18 )    szDateTime
    INTEGER          lActionType
 // INTEGER          lHeight
 // INTEGER          lWidth
@@ -847,6 +900,13 @@ GenerateJSPJava( VIEW vDialog BASED ON LOD TZWDLGSO,
    SysReadZeidonIni( -1, szSystemIniApplName, "DOCTYPE", szDOCTYPE )
    SysReadZeidonIni( -1, szSystemIniApplName, "UseZeidonTaskTimeout", szZeidonTaskTimeout )
    SysReadZeidonIni( -1, szSystemIniApplName, "NoMonitorTaskLogout", szNoMonitorTaskLogout )
+   SysReadZeidonIni( -1, szSystemIniApplName, "UsesLanguageConversion", szLangConvFlag )
+   SysReadZeidonIni( -1, szSystemIniApplName, "UseZeidonControlActions", szUseZeidonCtrlActions )
+   vDialog.Dialog.wWebUsesLanguageConversion = szLangConvFlag
+   szWriteBuffer = "mMsgQ = new KZMSGQOO_Object( vKZXMLPGO );"
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   szWriteBuffer = "mMsgQ.setView( VmlOperation.getMessageObject( task ) );"
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    TraceLineS("** TraceLevel ** ", szTrace)
    IF  szTrace = "1"
       lTrace = 1
@@ -983,6 +1043,7 @@ GenerateJSPJava( VIEW vDialog BASED ON LOD TZWDLGSO,
 
    szIOImport = ""
    szreCAPTCHAImport = ""
+   szJasperXLS = ""
 
    CreateViewFromView( vDialogTemp, vDialog )
    lControl = zQUAL_STRING + zPOS_FIRST + zRECURS
@@ -994,6 +1055,8 @@ GenerateJSPJava( VIEW vDialog BASED ON LOD TZWDLGSO,
       szIOImport = ",java.io.*"
    END
 
+   DropView( vDialogTemp )
+   CreateViewFromView( vDialogTemp, vDialog )
    FOR EACH vDialogTemp.Action
       // If there is an action to download a file, we need to include "java.oi.*" in the import statement.
       lActionType = vDialogTemp.Action.Type
@@ -1002,6 +1065,12 @@ GenerateJSPJava( VIEW vDialog BASED ON LOD TZWDLGSO,
       END
       IF lActionType = zWAB_StartJasperPDF_Page
          szJasperImport = "Y"
+      END
+      IF lActionType = zWAB_StartJasperPDF_Page
+         szJasperImport = "Y"
+      END
+      IF lActionType = 49 //zWAB_StartJasperXLS_Page
+         szJasperXLS = "Y"
       END
       // If there is an action for the reCAPTCHA control, then we need
       // net.tanesha.recaptcha.* in the import statement
@@ -1048,6 +1117,14 @@ GenerateJSPJava( VIEW vDialog BASED ON LOD TZWDLGSO,
       szWriteBuffer = "<%@ page import=^java.io.*^ %>"
       WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    END
+   
+   IF szIOImport != "" OR szJasperImport != "" OR szJasperXLS != "" 
+      // DateFomat and SimpleDateFormat are because we append datetime to the end of the upload file.
+      szWriteBuffer = "<%@ page import=^java.text.DateFormat^ %>"
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+      szWriteBuffer = "<%@ page import=^java.text.SimpleDateFormat^ %>"
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   END
 
    IF szreCAPTCHAImport != ""
       szWriteBuffer = "<%@ page import=^net.tanesha.recaptcha.*^ %>"
@@ -1056,6 +1133,26 @@ GenerateJSPJava( VIEW vDialog BASED ON LOD TZWDLGSO,
 
    IF szJasperImport != ""
       szWriteBuffer = "<%@ page import=^net.sf.jasperreports.engine.JasperExportManager^ %>"
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
+   END
+   IF szJasperXLS != ""
+      IF szIOImport = "" // we haven't included java.io.*
+         szWriteBuffer = "<%@ page import=^java.io.File^ %>"
+         WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+         szWriteBuffer = "<%@ page import=^java.io.FileWriter^ %>"
+         WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+         szWriteBuffer = "<%@ page import=^java.io.FileOutputStream^ %>"
+         WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+         szWriteBuffer = "<%@ page import=^java.io.FileInputStream^ %>"
+         WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+         szWriteBuffer = "<%@ page import=^java.io.OutputStream^ %>"
+         WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+         szWriteBuffer = "<%@ page import=^java.io.IOException^ %>"
+         WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+      END
+      szWriteBuffer = "<%@ page import=^net.sf.jasperreports.engine.export.ooxml.JRXlsxExporter^ %>"
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+      szWriteBuffer = "<%@ page import=^net.sf.jasperreports.engine.export.JRXlsExporterParameter^ %>"
       WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
    END
 
@@ -1558,6 +1655,16 @@ GenerateJSPJava( VIEW vDialog BASED ON LOD TZWDLGSO,
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    szWriteBuffer = "mMsgQ.setView( VmlOperation.getMessageObject( task ) );"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   
+   // If we are using language conversion in this application, then we need to load the lang object.
+   IF szLangConvFlag = "Y" 
+      szWriteBuffer = "jspLangConv LangConv = new jspLangConv( vKZXMLPGO );  // Language conversion object"
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+      szWriteBuffer = "LangConv.getLanguageObject( vKZXMLPGO );"
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   END
+   
+   
    // KJS 10/08/15 - What if this dialog has more than one source file? We need to have both defined, so let's loop and see.
    FOR EACH vDialogRoot.SourceFile 
       // Since I assume we can't call c code, then don't worry if the type is "c"
@@ -2318,33 +2425,44 @@ DKS_TRACE_END */
    // KJS 08/06/08 - Instead of using the class="noprint" to not display
    // a div or control when print/previewing a page, I think we will use the
    // class print.css.  Cleaner and easier to change items that we want hidden/not hidden.
-   szWriteBuffer = "<link rel=^stylesheet^ type=^text/css^ href=^./css/print.css^ media=^print^ />"
-   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   // KJS 04/28/17 - Going to take this out now. If we want print.css we can put it in the head.inc file
+   // or whatever head file we use.
+   //szWriteBuffer = "<link rel=^stylesheet^ type=^text/css^ href=^./css/print.css^ media=^print^ />"
+   //WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   SysGetDateTime( szDateTime )
 
    /*****************************  JavaScript Functions Section *****************************************************/
 
    // common.js is used by both the Grid and Calendar controls. Since it's small, we'll always send it.
-   szWriteBuffer = "<script language=^JavaScript^ type=^text/javascript^ src=^./js/common.js^></script>"
+   szWriteBuffer = "<script language=^JavaScript^ type=^text/javascript^ src=^./js/common.js?v=" + szDateTime + "^></script>"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    IF lSort != 0
       // css.js and sts.js are used only by the Grid control when sorting is requested. Thus, we'll only send
       // it down to the browser when sorting is requested.
-      szWriteBuffer = "<script language=^JavaScript^ type=^text/javascript^ src=^./js/css.js^></script>"
+      szWriteBuffer = "<script language=^JavaScript^ type=^text/javascript^ src=^./js/css.js?v=" + szDateTime + "^></script>"
       WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
-      szWriteBuffer = "<script language=^JavaScript^ type=^text/javascript^ src=^./js/sts.js^></script>"
+      szWriteBuffer = "<script language=^JavaScript^ type=^text/javascript^ src=^./js/sts.js?v=" + szDateTime + "^></script>"
       WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    END
 
    // KJS 09/04/14 - Can't find validations.js anywhere so I am assuming we don't need it.
    //szWriteBuffer = "<script language=^JavaScript^ type=^text/javascript^ src=^./js/validations.js^></script>"
    //WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
-   szWriteBuffer = "<script language=^JavaScript^ type=^text/javascript^ src=^./js/scw.js^></script>"
+   szWriteBuffer = "<script language=^JavaScript^ type=^text/javascript^ src=^./js/scw.js?v=" + szDateTime + "^></script>"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    // KJS 04/27/11 - I am not sure that we want to always include this js file but if not, then I need
    // to loop through all controls (and subcontrols) looking for a div that has a web control property of
    // "Show/Hide Toggle". For now I am always including it.
    IF szWindowIsjMobile = ""
-      szWriteBuffer = "<script language=^JavaScript^ type=^text/javascript^ src=^./js/animatedcollapse.js^></script>"
+      szWriteBuffer = "<script language=^JavaScript^ type=^text/javascript^ src=^./js/animatedcollapse.js?v=" + szDateTime + "^></script>"
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   END
+   // KJS 12/08/17 - In zeidon windows, we have used the vml operations SetCtrlState and SubtSectionShowHideDisableTabs to disable/hide controls and tabs
+   // on a window. We are trying to replicate this for the web and html. It requires including the following js, and having the above two functions in
+   // ZGLOBAL_Operation.java. Also requires having static function GetHiddenDisabledControls in ZGLOBAL1. I think these will eventually be moved to 
+   // VmlOperation.java. We also require the entity ControlAction to be created in wXferO.LOD which at some point should be moved to KZXMLPGO.LOD.
+   IF szUseZeidonCtrlActions = "Y"
+      szWriteBuffer = "<script language=^JavaScript^ type=^text/javascript^ src=^./js/zeidonctrlactions.js?v=" + szDateTime + "^></script>"
       WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    END
    // KJS 06/09/11 - I am not sure that we want to always include this js file because at the moment, I am putting
@@ -2353,7 +2471,7 @@ DKS_TRACE_END */
    //szWriteBuffer = "<script language=^JavaScript^ type=^text/javascript^ src=^./js/md5.js^></script>"
    //WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    // DKS 03/02/15 - To disable UI while processing
-   szWriteBuffer = "<script language=^JavaScript^ type=^text/javascript^ src=^./js/jquery.blockUI.js^></script>"
+   szWriteBuffer = "<script language=^JavaScript^ type=^text/javascript^ src=^./js/jquery.blockUI.js?v=" + szDateTime + "^></script>"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
 
    IF szWysiwygEditor != ""
@@ -2371,16 +2489,16 @@ DKS_TRACE_END */
 
       // Use TinyMCE rather than widgEditor.
       szWriteBuffer = "<script language=^JavaScript^ type=^text/javascript^ src=^" + szJS_FileName
-      szWriteBuffer = szWriteBuffer + "^></script>"
+      szWriteBuffer = szWriteBuffer + "?v=" + szDateTime + "^></script>"
       WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
 
       nRC = zSearchSubString( szWysiwygEditor, ".js", "f", 0 )
       IF nRC < 0
-         szWriteBuffer = "<script language=^JavaScript^ type=^text/javascript^ src=^./js/TinyMCE.js^></script>"
+         szWriteBuffer = "<script language=^JavaScript^ type=^text/javascript^ src=^./js/TinyMCE.js?v=" + szDateTime + "^></script>"
       ELSE
          szWriteBuffer = "<script language=^JavaScript^ type=^text/javascript^ src=^"
          szWriteBuffer = szWriteBuffer + szWysiwygEditor
-         szWriteBuffer = szWriteBuffer + "^></script>"
+         szWriteBuffer = szWriteBuffer + "?v=" + szDateTime + "^></script>"
       END
       WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
 
@@ -2418,7 +2536,7 @@ DKS_TRACE_END */
    nRC = SetEntityCursor( vDialogTemp, "ControlDef", "Tag", lControl,
                           szEntityName, "", "", 0, "Window", "" )
    IF nRC >= zCURSOR_SET
-      szWriteBuffer = "<script language=^JavaScript^ type=^text/javascript^ src=^./js/tabpane.js^></script>"
+      szWriteBuffer = "<script language=^JavaScript^ type=^text/javascript^ src=^./js/tabpane.js?v=" + szDateTime + "^></script>"
       WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    END
 
@@ -2448,7 +2566,7 @@ DKS_TRACE_END */
    //szWriteBuffer = "<script language=^JavaScript^ type=^text/javascript^>"
    //WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
 
-   szWriteBuffer = "<script language=^JavaScript^ type=^text/javascript^ src=^./genjs/" + szFormName + ".js^></script>"
+   szWriteBuffer = "<script language=^JavaScript^ type=^text/javascript^ src=^./genjs/" + szFormName + ".js?v=" + szDateTime + "^></script>"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
 
    lFileJAVA = SysOpenFile( vDialog, szJAVA_FileName, COREFILE_WRITE )
@@ -3100,6 +3218,34 @@ DKS_TRACE_END */
       WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
    END
 
+   szWriteBuffer = "   var storageName = ^" + szLPLR_Name + "." + szFormName + ".position^;"
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   szWriteBuffer = "   var scrollPosition = sessionStorage.getItem( storageName );"
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   szWriteBuffer = "   if ( scrollPosition.indexOf('#') > 0 )"
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   szWriteBuffer = "   {"
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   szWriteBuffer = "      var parts = scrollPosition.split( '#' );"
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   // KJS 11/09/17 - For some reason body.scroll... is not working, so I am changing to window.scrollBy which says
+   // it's valid across platforms.
+   /*
+   szWriteBuffer = "      document.body.scrollTop = parseInt( parts[parts.length - 2] );"
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   szWriteBuffer = "      document.body.scrollLeft = parseInt( parts[parts.length - 1] );"
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   */
+   szWriteBuffer = "      window.scrollTo(parseInt( parts[parts.length - 1] ), parseInt( parts[parts.length - 2] ) );"
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   //szWriteBuffer = "      sessionStorage.removeItem(storageName);" //ZENCAS.wClassDClassListByTerm.position
+   //WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   szWriteBuffer = "   }"
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   szWriteBuffer = "   sessionStorage.removeItem(storageName);" //ZENCAS.wClassDClassListByTerm.position
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+
+
    // Because there is some postbuild code that could be called where isWindowClosing could be set to false, re-initialize it
    // again after the page has been loaded.
    szWriteBuffer = "   isWindowClosing = true;"
@@ -3113,7 +3259,7 @@ DKS_TRACE_END */
    //checkbox on it.  If there is no "text" for this checkbox (so the header would be blank)
    //we are going to create a checkbox in the grid header that calls this function.
    //This will select all or unselect all the checkboxes in the grid.
-   szWriteBuffer = "function CheckAllInGrid(id, CheckBoxName)"
+   szWriteBuffer = "function CheckAllInGrid(id, CheckBoxName) // triggered by no text checkbox"
    WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
    szWriteBuffer = "{"
    WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
@@ -3233,7 +3379,7 @@ DKS_TRACE_END */
 
          szWriteBuffer = "}"
          WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 )
-      ELSE // kkk
+      ELSE // lActionType = zWAB_StartEmailClient
          IF szListButtonFlag = "Y"
             //szWriteBuffer = "function " + szActionTag + "( strEntityKey )"
             szWriteBuffer = "function " + szActionTag + "( strTagEntityKey )"      // dks 2011.02.24 Button on grid problem?
@@ -3328,7 +3474,7 @@ DKS_TRACE_END */
          IF lActionType = 60
             szWriteBuffer = "   window.print();"
             WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
-         ELSE
+         END
          IF lActionType = zWAB_StayOnWindow AND vDialog.Action.WebJavaScript != ""
 
             // KJS 08/14/2009 - If the window type is zWAB_StayOnWindow (no refresh) and we have Javascript code on this action
@@ -3372,8 +3518,38 @@ DKS_TRACE_END */
                END
             END
 
-            szWriteBuffer = "   }"
-            WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+            // We don't want to set the position if this action is for Prebuild or Postbuild.
+            // Not sure we would get to this code since I think ActWndEvt exists but I will keep for now.
+            IF vDialog.ActWndEvent DOES NOT EXIST
+               szWriteBuffer = "      if ( typeof(Storage) !== ^undefined^ )"
+               WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+               szWriteBuffer = "      {"
+               WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+               szWriteBuffer = "         // Code for sessionStorage."
+               WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+               szWriteBuffer = "         var storageName = ^" + szLPLR_Name + "." + szFormName + ".position^" //ZENCAS.wClassDClassListByTerm.position
+               WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+               // KJS 11/09/17 - For some reason body.scroll... seems to not be working. Changing to something that should
+               // be compatible crossplatform.
+               /*
+               szWriteBuffer = "         var scrollPosition = document.body.scrollTop + '#' + document.body.scrollLeft;"
+               WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+               */
+               szWriteBuffer = "         var sy= window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;"
+               WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+               szWriteBuffer = "         var sx= window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft || 0;"
+               WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+               szWriteBuffer = "         var scrollPosition = sy + '#' + sx;"
+               WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+
+               szWriteBuffer = "         sessionStorage.setItem( storageName, scrollPosition );"
+               WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+               szWriteBuffer = "      }"
+               WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+            END
+               
+            //szWriteBuffer = "   }"
+            //WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
 
          ELSE
 
@@ -3416,9 +3592,45 @@ DKS_TRACE_END */
             // If this function is for Download File or open Jasper pdf report, we want to eliminate the _DisableFormElements statement.
             // For both of these we use response.getOutputStream and when we do this, our original jsp page does not get the focus
             // back and so _DisableFormElements( false ) in _AfterPageLoaded does not get called. The page would be hung.
-            IF lActionType != zWAB_ProcessDownloadFile AND lActionType != zWAB_StartJasperPDF_Page
+            IF lActionType != zWAB_ProcessDownloadFile AND lActionType != zWAB_StartJasperPDF_Page AND lActionType != 49 // zWAB_StartJasperXLS_Page
                szWriteBuffer = "      _DisableFormElements( true );"
                WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 )
+            END
+
+            // We don't want to set the position if this action is for Prebuild or Postbuild.
+            IF vDialog.ActWndEvent DOES NOT EXIST
+
+               IF lActionType = zWAB_StayOnWindow OR
+                  lActionType = zWAB_StayOnWindowWithRefresh OR
+                  lActionType = zWAB_StayOnWindowWebRefresh OR
+                  lActionType = zWAB_StartModelessSubwindow OR
+                  lActionType = zWAB_StartModalSubwindow
+   
+                  szWriteBuffer = "      if ( typeof(Storage) !== ^undefined^ )"
+                  WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+                  szWriteBuffer = "      {"
+                  WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+                  szWriteBuffer = "         // Code for sessionStorage."
+                  WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+                  szWriteBuffer = "         var storageName = ^" + szLPLR_Name + "." + szFormName + ".position^" //ZENCAS.wClassDClassListByTerm.position
+                  WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+                  // KJS 11/09/17 - For some reason body.scroll... seems to not be working. Changing to something that should
+                  // be compatible crossplatform.
+                  /*
+                  szWriteBuffer = "         var scrollPosition = document.body.scrollTop + '#' + document.body.scrollLeft;"
+                  WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+                  */
+                  szWriteBuffer = "         var sy= window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;"
+                  WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+                  szWriteBuffer = "         var sx= window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft || 0;"
+                  WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+                  szWriteBuffer = "         var scrollPosition = sy + '#' + sx;"
+                  WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+                  szWriteBuffer = "         sessionStorage.setItem( storageName, scrollPosition );"
+                  WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+                  szWriteBuffer = "      }"
+                  WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )                
+               END
             END
 
             // We need to determine if this Action is on a Group for File Transfer to Server, because we need to
@@ -3530,9 +3742,18 @@ DKS_TRACE_END */
 
             END
             DropView( vDialogTemp )
+            //szWriteBuffer = "   }"
+            //WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+         END  // Normal Action.
+         //END  // END of Print window
+         
+         IF lActionType != 60 // all other actions but the print window.
+         
+            // KJS 06/02/17
+            // KJS 06/02/17
+            // close for IsDocDisabled.
             szWriteBuffer = "   }"
             WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
-         END
          END
 
          szWriteBuffer = "}"
@@ -3776,9 +3997,10 @@ DKS_TRACE_END */
    IF szWindowIsjMobile = "Y"
       szWriteBuffer = "<div data-role=^header^>"
       WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )   
-      // Also add page caption. Not totally sure about this.    
-      szWriteBuffer = "<h1>" + vDialog.Window.Caption + "</h1>"
-      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
+      // Also add page caption. Not totally sure about this.  
+      // Taking out per Aadit.  
+      //szWriteBuffer = "<h1>" + vDialog.Window.Caption + "</h1>"
+      //WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
    END
 
    szSideMenuExists = "N"
@@ -4086,6 +4308,8 @@ DKS_TRACE_END */
    // Build call to FindErrorFields and process any errors.
    szWriteBuffer = "   // FindErrorFields Processing"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   // KJS 09/30/16 - I don't think we need this because it is a duplicate of code above. I am commenting out.
+   // KJS 10/14/16 - But now I see that the error message does not come up without this because mMsgQ is null inside FindErrorFields if we don't.
    szWriteBuffer = "   mMsgQ = new KZMSGQOO_Object( vKZXMLPGO );"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    szWriteBuffer = "   mMsgQ.setView( VmlOperation.getMessageObject( task ) );"
@@ -4210,6 +4434,14 @@ DKS_TRACE_END */
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    szWriteBuffer = "   strOpenFile = VmlOperation.FindOpenFile( task );"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   // KJS 12/08/17 - In zeidon windows, we have used the vml operations SetCtrlState and SubtSectionShowHideDisableTabs to disable/hide controls and tabs
+   // on a window. We are trying to replicate this for the web and html. It requires including the following js, and having the above two functions in
+   // ZGLOBAL_Operation.java. Also requires having static function GetControlActions in ZGLOBAL1. I think these will eventually be moved to 
+   // VmlOperation.java. We also require the entity ControlAction to be created in wXferO.LOD which at some point should be moved to KZXMLPGO.LOD.
+   IF szUseZeidonCtrlActions = "Y"
+      szWriteBuffer = "   strCtrlActions = ZGLOBAL1_Operation.GetControlActions( task, ^" + szFormName + "^ );"
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   END
 
    //KJS Trace
    IF (lTrace = 1)
@@ -4292,6 +4524,16 @@ DKS_TRACE_END */
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    szWriteBuffer = "   <input name=^zDateSequence^ id=^zDateSequence^ type=^hidden^ value=^" + szDateSequence + "^>"   
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   
+   // KJS 03/17/17 - Adding zLanguage, this is used for the calendar, so that we can show months/days in
+   // a specified language. Used in scw.js. Only going to add if we are doing language conversion.
+   IF szLangConvFlag = "Y"
+      szWriteBuffer = "   <input name=^zLanguage^ id=^zLanguage^ type=^hidden^ value=^<%=LangConv.getLanguage()%>^>"   
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   ELSE
+      szWriteBuffer = "   <input name=^zLanguage^ id=^zLanguage^ type=^hidden^ value=^^>"   
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   END   
       
    IF szKeyRole = "Y"
       szWriteBuffer = "   <input name=^zLoginName^ id=^zLoginName^ type=^hidden^ value=^<%=strLoginName%>^>"
@@ -4443,6 +4685,7 @@ DKS_TRACE_END */
    szWriteBuffer = "</form>"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
 
+   // KJS 11/07/16 - Going to try putting this in an operation that gets called from the recursive code...
    // FORM GENERATION FOR FILE TRANSFER GROUPS
    // Create Form statements for each Group of type "File Transfer to Server".
    // Note that each Group requires a subcontrol of type EditBox and another of type PushBtn.
@@ -4452,29 +4695,27 @@ DKS_TRACE_END */
    szCtrlTag = "File Transfer to Server"
    nRC = SetEntityCursor( vDialogTemp, "WebControlProperty", "Name", lControl,
                           szCtrlTag, "", "", 0, "Window", "" )
-   LOOP WHILE nRC >= zCURSOR_SET
+   IF nRC >= zCURSOR_SET
       // Generate Form Statement for Group, with hidden field zAction.
       szWriteBuffer = ""
       WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
       szFormName = vDialogTemp.Control.Tag
+   END
+   /*
       szWriteBuffer = "<form name=^" + szFormName + "^  id=^" + szFormName + "^ method=^post^ enctype=^multipart/form-data^>"
       WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
       szWriteBuffer = "   <input name=^zAction^ id=^zAction^ type=^hidden^ value=^HELP^>"
       WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
-
       CreateAbsolStyleString( vDialogTemp, szStyle, lSizeX, lSizeY, "" )
-
       szClass = ""
       IF vDialogTemp.Control.CSS_Class != ""
          szClass = " class=^" + vDialogTemp.Control.CSS_Class + "^"
       END
       szWriteBuffer = "<div" + szStyle + szClass + ">  <!-- " + vDialogTemp.Control.Tag + " --> "
       WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
-
       // Get Group positions for adding to subcontrols.
       //lSizeX = vDialogTemp.Control.PSDLG_X * dDLUnits
       //lSizeY = vDialogTemp.Control.PSDLG_Y * dDLUnits
-
       // Generate hidden field zTargetFileName, with JSP to retrieve name.
       // We are currently positioned on the GroupBox and need to reposition on the subcontrol Button
       // to generate the FileName mapping..
@@ -4482,22 +4723,18 @@ DKS_TRACE_END */
       WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
       szWriteBuffer = "   strErrorMapValue = ^^;"
       WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
-
       SetViewToSubobject( vDialogTemp, "CtrlCtrl" )
       FOR EACH vDialogTemp.Control
          IF vDialogTemp.ControlDef.Tag = "PushBtn"
             IF vDialogTemp.CtrlMapER_Attribute EXISTS
                // The mapping for the Push Button specifies the attribute that contains the Target File Name (without suffix).
-
             // szWriteBuffer = "   strSessionId = session.getId( );"
             // WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
-
                szWriteBuffer = "   " + vDialogTemp.CtrlMapView.Name + " = " +
                                "task.getViewByName( ^" + vDialogTemp.CtrlMapView.Name + "^ );"
                WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
                szWriteBuffer = "   if ( VmlOperation.isValid( " + vDialogTemp.CtrlMapView.Name + " ) )"
                WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
-
                szWriteBuffer = "   {"
                WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
                szWriteBuffer = "      nRC = " + vDialogTemp.CtrlMapView.Name + ".cursor( ^" +
@@ -4512,14 +4749,12 @@ DKS_TRACE_END */
                WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
                szWriteBuffer = "   }"
                WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
-
                IF (lTrace = 1)
                   szWriteBuffer = "   else"
                   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
                   szWriteBuffer = "      task.log().info( ^Invalid View: ^ + ^" + vDialogTemp.Control.Tag + "^ );"
                   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
                END
-
             END
          END
       END
@@ -4527,23 +4762,19 @@ DKS_TRACE_END */
       WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
       szWriteBuffer = "   <input name=^zTargetFileName^ id=^zTargetFileName^ type=^hidden^ value=^<%=strErrorMapValue%>^ >"
       WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
-
       // Process EditBox and PushBtn as subcontrols.
       FOR EACH vDialogTemp.Control
          IF vDialogTemp.ControlDef.Tag = "EditBox"
             szCtrlTag     = vDialogTemp.Control.Tag
             szControlType = vDialogTemp.ControlDef.Tag
-            szWriteBuffer = "   <% /* " + szCtrlTag + ":" + szControlType + " */ %>"
+            szWriteBuffer = "   <% /* " + szCtrlTag + ":" + szControlType + " ** %>"
             WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
-
             CreateAbsolStyleString( vDialogTemp, szStyle, lSizeX, lSizeY, "" )
-
             // For some reason with the <input type="file" control, the width property doesn't
             // seem to size the width correctly.  Use the "size" attribute instead.  The weird thing
             // is that if I don't include the width in style, then the "Browse" button that gets
             // created is not inline with the field that displays the upload file. ???!!!
             zIntegerToString( szWidth, 10, vDialogTemp.Control.SZDLG_X / 3.5 )
-
             szClass = vDialogTemp.Control.CSS_Class
             IF szClass = ""
                szWriteBuffer = "   <input name=^" + szCtrlTag + "^ id=^" + szCtrlTag + "^ size=^" + szWidth + "^ " + szStyle + " type=^file^  >"
@@ -4555,9 +4786,8 @@ DKS_TRACE_END */
          IF vDialogTemp.ControlDef.Tag = "PushBtn"
             szCtrlTag     = vDialogTemp.Control.Tag
             szControlType = vDialogTemp.ControlDef.Tag
-            szWriteBuffer = "   <% /* " + szCtrlTag + ":" + szControlType + " */ %>"
+            szWriteBuffer = "   <% /* " + szCtrlTag + ":" + szControlType + " ** %>"
             WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
-
             CreateAbsolStyleString( vDialogTemp, szStyle, lSizeX, lSizeY, "" )
             szActionTag = ""
             IF vDialogTemp.EventAct EXISTS
@@ -4579,18 +4809,16 @@ DKS_TRACE_END */
          END
       END
       ResetViewFromSubobject( vDialogTemp )
-
       szWriteBuffer = "</div>  <!-- " + vDialogTemp.Control.Tag + " --> "
       WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
-
       szWriteBuffer = "</form>"
       WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
-
       lControl = zQUAL_STRING + zPOS_NEXT + zRECURS
       szCtrlTag = "File Transfer to Server"
       nRC = SetEntityCursor( vDialogTemp, "WebControlProperty", "Name", lControl,
                              szCtrlTag, "", "", 0, "Window", "" )
    END
+   */
    DropView( vDialogTemp )
 
    IF szWindowIsjMobile = ""
@@ -4643,6 +4871,14 @@ DKS_TRACE_END */
    // at the end on all webpages. Doesn't seem to cause issues even if there is no animatedcollapse on the page (since we include the js). 
    IF szWindowIsjMobile = ""
       szWriteBuffer = "<script type=^text/javascript^>animatedcollapse.init();</script>"
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   END
+   // KJS 12/08/17 - In zeidon windows, we have used the vml operations SetCtrlState and SubtSectionShowHideDisableTabs to disable/hide controls and tabs
+   // on a window. We are trying to replicate this for the web and html. It requires including the following js, and having the above two functions in
+   // ZGLOBAL_Operation.java. Also requires having static function GetControlActions in ZGLOBAL1. I think these will eventually be moved to 
+   // VmlOperation.java. We also require the entity ControlAction to be created in wXferO.LOD which at some point should be moved to KZXMLPGO.LOD.
+   IF szUseZeidonCtrlActions = "Y"
+      szWriteBuffer = "<script type=^text/javascript^>processControlActions( ^<%=strCtrlActions%>^ );</script>"
       WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    END
    szWriteBuffer = "</html>"
@@ -4931,9 +5167,78 @@ END
 **    
 *************************************************************************************************/
 TRANSFORMATION OPERATION
-GenerateJSPJavaInc( VIEW ViewToInstance BASED ON LOD TZWDLGSO,
+GenerateJSPJavaInc( VIEW vDialog BASED ON LOD TZWDLGSO,
                     VIEW vSubtask )
+                    
+   // This operation already existed for something else... so because I wanted something for converting
+   // the fields that exist in Control but not CtrlCtrl, I am using this.                    
+                    
+   //TraceLineS("*** GenerateJSPJavaInc ***", "")                    
+                    
+   // MAYBE I SHOULD SET A FLAG ON THE DIALOG TO INDICATE WE"VE ALREADY CONVERTED THIS DIALOG.
+   // AND MAYBE THIS SHOULD HAPPEN WHEN A DIALOG IS OPENED?? So the user never knows?
+   FOR EACH vDialog.Window 
 
-
+      // Process each Control
+      FOR EACH vDialog.Control
+      
+         IF vDialog.CtrlCtrl EXISTS 
+            // Create view for Group as a parent. This will be used in processing subcontrols to check for WebControlProperty.
+            SetViewToSubobject( vDialog, "CtrlCtrl" )
+            FixCtrlCtrlAttributes( vDialog, vSubtask )
+            ResetViewFromSubobject( vDialog )
+         END
+   
+      END
+   END
+   vDialog.Dialog.Converted = "Y"
 
 END
+
+
+     
+TRANSFORMATION OPERATION
+FixCtrlCtrlAttributes( VIEW vDialog BASED ON LOD TZWDLGSO,
+                       VIEW vSubtask )
+                       
+   // Process each Control
+   // Converting the fields to the correct field. 
+   // I realize this is only for applications that have been built since I made
+   // changes to tzwdlgso adding WebHTML5 attriutes etc. Like ZENCAS files that
+   // are older would not have this issue!
+   FOR EACH vDialog.Control
+   
+      IF vDialog.Control.WebCtrlLabelLink != "" 
+         vDialog.Control.WebPlaceholder = vDialog.Control.WebCtrlLabelLink 
+         vDialog.Control.WebCtrlLabelLink = "" 
+      END                     
+      IF vDialog.Control.WebNoGridDataMessage != "" 
+         vDialog.Control.WebCtrlLabelLink = vDialog.Control.WebNoGridDataMessage
+         vDialog.Control.WebNoGridDataMessage = "" 
+      END
+      IF vDialog.Control.WebNoGridDataMsgClass != "" 
+         vDialog.Control.WebSelectSetName = vDialog.Control.WebNoGridDataMsgClass 
+         vDialog.Control.WebNoGridDataMsgClass = "" 
+      END
+      IF vDialog.Control.WebreCAPTCHAPublicKey != "" 
+         vDialog.Control.WebNoGridDataMessage = vDialog.Control.WebreCAPTCHAPublicKey 
+         vDialog.Control.WebreCAPTCHAPublicKey = "" 
+      END
+      IF vDialog.Control.WebreCAPTCHAPrivateKey  != "" 
+         vDialog.Control.WebNoGridDataMsgClass = vDialog.Control.WebreCAPTCHAPrivateKey 
+         vDialog.Control.WebreCAPTCHAPrivateKey = "" 
+      END
+      IF vDialog.Control.NLS_DIL_Text != "" 
+         vDialog.Control.WebHTML5Attribute = vDialog.Control.NLS_DIL_Text 
+         vDialog.Control.NLS_DIL_Text = "" 
+      END
+
+      IF vDialog.CtrlCtrl EXISTS 
+         // Create view for Group as a parent. This will be used in processing subcontrols to check for WebControlProperty.
+         SetViewToSubobject( vDialog, "CtrlCtrl" )
+         FixCtrlCtrlAttributes( vDialog, vSubtask )
+         ResetViewFromSubobject( vDialog )
+      END
+   END
+END
+
