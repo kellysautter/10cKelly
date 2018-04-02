@@ -925,7 +925,7 @@ GenerateJSP( VIEW vDialog BASED ON LOD TZWDLGSO,
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    szWriteBuffer = "{"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
-
+   
    //KJS Trace
    IF (lTrace = 1)
       szWriteBuffer = "   vAppSubtask.TraceLine( ^Initialize ========>>> Session ID: ^ + strSessionId, vAppSubtask );"
@@ -999,6 +999,10 @@ GenerateJSP( VIEW vDialog BASED ON LOD TZWDLGSO,
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    szWriteBuffer = "   }"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
+
+   // Always keep track of the current page we are on.
+   szWriteBuffer = "   vKZXMLPGO.SetAttribute( strSessionId, ^Session^, ^CurrentPageName^, szFormName ); "
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
 
    szWriteBuffer = "   nRC = vMsgQ.GetView( strSessionId, ^__MSGQ^, vAppSubtask );"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )

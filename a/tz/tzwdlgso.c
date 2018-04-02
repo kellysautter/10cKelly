@@ -1755,7 +1755,8 @@ oTZWDLGSO_MergeWindowComponents( zVIEW     vNewW,
 //:               VIEW vOrigW BASED ON LOD TZWDLGSO,
 //:               VIEW vSubtask )
 
-//:   VIEW TZDLG_List REGISTERED AS TZCMLPLO
+//:   //VIEW TZDLG_List REGISTERED AS TZCMLPLO
+//:   VIEW TZDLG_List REGISTERED AS TZDIALOGS
 zOPER_EXPORT zSHORT OPERATION
 oTZWDLGSO_MergeWebMenus( zVIEW     vNewW,
                          zVIEW     vOrigW,
@@ -1775,7 +1776,7 @@ oTZWDLGSO_MergeWebMenus( zVIEW     vNewW,
    zSHORT    lTempInteger_4; 
    zSHORT    lTempInteger_5; 
 
-   RESULT = GetViewByName( &TZDLG_List, "TZCMLPLO", vNewW, zLEVEL_TASK );
+   RESULT = GetViewByName( &TZDLG_List, "TZDIALOGS", vNewW, zLEVEL_TASK );
 
    //:// Merge the following Web Menus only if they don't already exist.
    //://  ReusableSideMenu

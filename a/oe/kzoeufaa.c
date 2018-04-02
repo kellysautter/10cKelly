@@ -2293,7 +2293,7 @@ UfEncryptString( zPCHAR pchOut, zPCHAR pchIn, zUSHORT uLth )
    zSHORT  nInLth;
    zCHAR   cChar;
    zBOOL   bNullFound;
-// zCHAR   szMsg[ 256 ];
+ zCHAR   szMsg[ 256 ];
 
 // zsprintf( szMsg, "UfEncryptString Length: %d   In: \"%s\"", uLth, pchIn );
 // TraceLineS( szMsg, "" );

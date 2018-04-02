@@ -48,6 +48,7 @@ BuildMainNavSection( VIEW vDialog,
    STRING ( 256 )   szClass
    STRING ( 50 )    szDialogName
    STRING ( 50 )    szMenuName
+   STRING ( 50 )    szOptionTag
    STRING ( 34 )    szActionName
    STRING ( 1 )     szWindowIsjMobile
    INTEGER          ActionType
@@ -141,6 +142,21 @@ BuildMainNavSection( VIEW vDialog,
          ActionType = 0
       END
 
+      // KJS 01/23/18 - Adding the hiding of menu options to the main menu. Issue... this is java code, if we are building this
+      // for c code, it won't work. At the moment, there is no one generating jsp for c.
+      szWriteBuffer = "<%"
+      WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+      szOptionTag = vDialogRoot.Option.Tag
+      szWriteBuffer = "   csrRC = vKZXMLPGO.cursor( ^DisableMenuOption^ ).setFirst( ^MenuOptionName^, ^" + szOptionTag + "^ );"
+      WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+      szWriteBuffer = "   if ( !csrRC.isSet() ) //if ( nRC < 0 )"
+      WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+      szWriteBuffer = "   {"
+      WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+      szWriteBuffer = "%>"
+      WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+
+
       IF ActionType = zWAB_LinkToHTML_Address
          szHTML_Address = ""
          IF vDialogRoot.OptAct EXISTS
@@ -158,6 +174,13 @@ BuildMainNavSection( VIEW vDialog,
          END
       END
       WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+
+      szWriteBuffer = "<%"
+      WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+      szWriteBuffer = "   }"
+      WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+      szWriteBuffer = "%>"
+      WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
    END
 
    // Division ending for Navigation Bar

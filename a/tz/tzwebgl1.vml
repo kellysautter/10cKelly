@@ -26,6 +26,10 @@ GenJSP_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
    STRING ( 32 )  szMapEntityName
    STRING ( 32 )  szMapAttributeName
    STRING ( 32 )  szActionName
+   STRING ( 256 ) szAction
+   STRING ( 256 ) szHTML5Attr
+   STRING ( 256 ) szPlaceholder
+   STRING ( 256 ) szjMobileDataRole
    STRING ( 10 )  szSelectAction
    STRING ( 10 )  szSelectFunction
    STRING ( 50 )  szCtrlTag
@@ -53,6 +57,9 @@ GenJSP_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
    STRING ( 32 )  szRadioGroupName
    STRING ( 256 ) szWidget
    STRING ( 256 ) szText
+   STRING ( 500 ) szText2
+   STRING ( 256 ) szTextID
+   STRING ( 5 )   szSrch
    STRING ( 64 )  szTerm
    STRING ( 20 )  szJustify
    STRING ( 50 )  szWebCtrlType
@@ -60,6 +67,7 @@ GenJSP_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
    STRING ( 85 )  szHTMLCtrlID
    STRING ( 50 )  szGridView
    STRING ( 50 )  szGridOrigViewName
+   STRING ( 50 )  szGroupBoxType
    STRING ( 2 )   szSuffix
    STRING ( 10 )  szMaxStringLength
    STRING ( 200 ) szItemTableHeader
@@ -70,9 +78,11 @@ GenJSP_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
    STRING ( 1 )   szIncludeFileFlag
    STRING ( 1 )   szNoHeightFlag
    STRING ( 1 )   szNoWidthFlag
+   STRING ( 1 )   szMenuActionFlag
    STRING ( 1 )   szSpanFlag
    STRING ( 1 )   szDivFlag
    STRING ( 1 )   szToggleFlag
+   STRING ( 1 )   szToggleFlag2
    STRING ( 1 )   sziFrameFlag
    STRING ( 1 )   szDashboardFlag
    STRING ( 1 )   szScrollableFlag
@@ -89,6 +99,7 @@ GenJSP_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
    STRING ( 1 )   szWCP_Hyperlink
    STRING ( 1 )   szWCP_AbsoluteWidth
    STRING ( 1 )   szWCP_FirstOccurrenceOnly
+   STRING ( 1 )   szWindowIsjMobile
    STRING ( 1 )   szFirstTimeThrough
    STRING ( 1 )   szGridInGroup
    STRING ( 1 )   szTableExport
@@ -409,6 +420,8 @@ GenJSP_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
                szSpanFlag = "Y"
             END
          END
+
+         szGroupBoxType = "div"
          IF szWebCtrlType = "Div"
             szDivFlag = "Y"
          ELSE
@@ -417,6 +430,14 @@ GenJSP_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
             IF RESULT >= zCURSOR_SET
                szDivFlag = "Y"
             END
+         END
+         SET CURSOR FIRST vDialog.WebControlProperty WHERE vDialog.WebControlProperty.Name = "Section"
+         IF RESULT >= zCURSOR_SET
+            szGroupBoxType = "section"
+         END
+         SET CURSOR FIRST vDialog.WebControlProperty WHERE vDialog.WebControlProperty.Name = "Main"
+         IF RESULT >= zCURSOR_SET
+            szGroupBoxType = "main"
          END
 
       END
@@ -986,25 +1007,120 @@ GenJSP_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
             szWriteBuffer = ""
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
 
+
+
+            IF vDialog.Control.CSS_Class != ""           
+               szClass = "class=^" + vDialog.Control.CSS_Class 
+               IF szToggleFlag = "Y" OR szToggleFlag2 = "Y"
+                  // Add a class togglediv onto the toggle div.
+                  szClass = szClass + " togglediv"
+               END
+               szClass = szClass + "^ "
+            ELSE
+               IF szToggleFlag = "Y" OR szToggleFlag2 = "Y"
+                  // Add a class togglediv onto the toggle div.
+                  szClass = "class=^togglediv^ " 
+               ELSE
+                  szClass = ""
+               END
+            END
+
             // If this is a div we want to toggle
             IF szToggleFlag = "Y"
+               IF szWindowIsjMobile = ""
+                  //szWriteBuffer = "<div style=^float:left;^>  <!-- Div surrounding toggle --> "
+                  // KJS 11/05/15 - Jeff asked for float to be changed to clear.
+                  szWriteBuffer = "<div " + "id=^" + szCtrlTag + "zToggle^ style=^clear:left;^ class=^togglewrapper^>  <!-- Div surrounding toggle --> "
+                  WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+                  // KJS 03/01/13 - Jeff was having problems because when there was only href="#", if this is lower down on the page, it
+                  // jumps to the top of the page. Adding the #CtrlTag, keeps it anchored.
+                  szWriteBuffer = "<div style=^height:20px;^>"
+                  WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+                  
+                  
+                  IF vDialogRoot.Dialog.wWebUsesLanguageConversion = "Y"
+                     // Seems like we need to check the text, and if the text has " then we shouldn't use the getLanguageText. Because one example we have
+                     // is where the text is <img src="./images/admi..." border="0".
+                     szText2 = vDialog.Control.Text
+                     szTextID = vDialog.Control.LangID
+                     zSearchAndReplace( szText2, 1000, "\", "\\" )
+                     szSrch = "\" + QUOTES 
+                     zSearchAndReplace( szText2, 1000, QUOTES, szSrch )
+                     szSrch = ""
+                     IF szTextID = ""
+                        szText = "<%=LangConv.getLanguageText(^" + szText2 + "^)%>" 
+                     ELSE 
+                        szText = "<%=LangConv.getLanguageText(^" + szText2 + "^, ^" + szTextID + "^)%>" 
+                     END
+                  ELSE
+                     szText = vDialog.Control.Text
+                  END
+                  
+                  szWriteBuffer = "<a href=^#" + szCtrlTag + "^ onclick=^animatedcollapse.toggle('" + szCtrlTag + "');^ style=^^>" + szText + "</a></div>"
+                  WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+               END
+            END
+
+
+            // KJS 12/11/15 - We are creating a Toggle2 for Jeff's team (Kindra). Don't want to change what normal toggler's do because that will screw them up.
+            IF szToggleFlag2 = "Y"
+                        
                //szWriteBuffer = "<div style=^float:left;^>  <!-- Div surrounding toggle --> "
                // KJS 11/05/15 - Jeff asked for float to be changed to clear.
-               szWriteBuffer = "<div style=^clear:left;^>  <!-- Div surrounding toggle --> "
+               szWriteBuffer = "<div " + "id=^" + szCtrlTag + "zToggle^ style=^clear:left;^ class=^togglewrapper^>  <!-- Div surrounding toggle --> "
                WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-               szWriteBuffer = "<div style=^height:20px;^><a href=^#^ onclick=^animatedcollapse.toggle('" + szCtrlTag + "');^ style=^^>" + vDialog.Control.Text + "</a></div>"
+               // KJS 03/01/13 - Jeff was having problems because when there was only href="#", if this is lower down on the page, it
+               // jumps to the top of the page. Adding the #CtrlTag, keeps it anchored.
+               szWriteBuffer = "<div style=^height:20px;^>"
+               WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+
+            
+               IF vDialogRoot.Dialog.wWebUsesLanguageConversion = "Y"
+                  // Seems like we need to check the text, and if the text has " then we shouldn't use the getLanguageText. Because one example we have
+                  // is where the text is <img src="./images/admi..." border="0".
+                  szText2 = vDialog.Control.Text
+                  szTextID = vDialog.Control.LangID
+                  zSearchAndReplace( szText2, 1000, "\", "\\" )
+                  szSrch = "\" + QUOTES 
+                  zSearchAndReplace( szText2, 1000, QUOTES, szSrch )
+                  szSrch = ""
+                  IF szTextID = ""
+                     szText = "<%=LangConv.getLanguageText(^" + szText2 + "^)%>" 
+                  ELSE 
+                     szText = "<%=LangConv.getLanguageText(^" + szText2 + "^, ^" + szTextID + "^)%>" 
+                  END
+               ELSE
+                  szText = vDialog.Control.Text
+               END
+
+               
+               szWriteBuffer = "<a href=^#^ rel=^toggle['" + szCtrlTag + "']^ data-openimage=^toggle-open.png^ data-closedimage=^toggle-close.png^>"
+               szWriteBuffer = szWriteBuffer + "<div class=^showhidetoggle^><div style=^float:right^><img src=^toggle-close.png^ /></div>" + szText + "</div></a></div>"
                WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
             END
-
-
-            // Div on a Group Control requests that all the controls inside the group line up one under the other.
-            szClass = vDialog.Control.CSS_Class
-            IF szClass = ""
-               szWriteBuffer = "<div" + szHTMLCtrlID + szAbsoluteStyle + ">  <!-- " + vDialog.Control.Tag + " --> "
-            ELSE
-               szWriteBuffer = "<div" + szHTMLCtrlID + "class=^" + szClass + "^ " + szAbsoluteStyle + ">  <!-- " + vDialog.Control.Tag + " --> "
+            
+            // If groupbox is toggle and also we are doing jMobile then there is only one <div> as opposed to two divs for animatedcollapse generation.
+            IF ( szToggleFlag = "Y" OR szToggleFlag2 = "Y" ) AND szWindowIsjMobile = "Y"
+               szWriteBuffer = "<div data-role=^collapsible^ " + szHTMLCtrlID + szHTML5Attr + szClass + szAbsoluteStyle + ">  <!-- " + szCtrlTag + " --> "
+               WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+               szWriteBuffer = "<h1>" + vDialog.Control.Text + "</h1>"
+            ELSE 
+               //szWriteBuffer = "<div" + szHTMLCtrlID + szHTML5Attr + szClass + szAbsoluteStyle + ">  <!-- " + vDialog.Control.Tag + " --> "
+               szWriteBuffer = "<" + szGroupBoxType +  szHTMLCtrlID + szHTML5Attr + szClass + szAbsoluteStyle + ">  <!-- " + szCtrlTag + " --> "
             END
+
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
+            
+            IF szMenuActionFlag = "Y" AND vDialog.Control.MenuName != ""
+               szText = vDialog.Control.MenuName
+               BuildMenuListJ( vDialog, vDialogRoot, lFile, szText )
+               //KJS 02/23/16 - Now I'm not sure this is what I want to do...
+                  //BuildMenuListJ( VIEW vDialog BASED ON LOD TZWDLGSO,
+                  //                VIEW vDialogRoot BASED ON LOD TZWDLGSO,
+                  //                INTEGER lFile,
+                  //                STRING (50) szMenuName )
+      
+            END     
 
             // Should we put reCAPTCHA code here???  Or should I have done this up above?
             IF szreCAPTCHAFlag = "Y"
@@ -2007,9 +2123,9 @@ GenJSP_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
                szWriteBuffer = "<div id=^" + szCtrlCtrlTag + "^ class=^" + szClass + "^ " + szStyle + "> <!-- Tab item " + szCtrlCtrlTag + " -->"
                WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
                IF  szActionName = ""
-                  szWriteBuffer = "<h2 class=^tab^><span>" + vDialog.Control.Text +"</span></h2>"
+                  szWriteBuffer = "<h2  id=^" + szCtrlCtrlTag + "h2tab^ class=^tab^><span>" + vDialog.Control.Text +"</span></h2>"
                ELSE
-                  szWriteBuffer = "<h2 class=^tab^><span onclick=^" + szActionName + "();^>" + vDialog.Control.Text +"</span></h2>"
+                  szWriteBuffer = "<h2  id=^" + szCtrlCtrlTag + "h2tab^ class=^tab^><span onclick=^" + szActionName + "();^>" + vDialog.Control.Text +"</span></h2>"
                END
                WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
                szWriteBuffer = "<script type=^text/javascript^>" + szCtrlTag + ".addTabPage( document.getElementById( ^" + szCtrlCtrlTag + "^ ) );</script>"
