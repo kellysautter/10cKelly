@@ -1044,7 +1044,11 @@ PainterCall( zSHORT nMessage,
             TZPainterCtrl *pCtrl;
             zVIEW vTaskLPLR;
             zCHAR  szViewName[ 64 ];
+            //zCHAR  szCtlTag[ 33 ];
             TZPainterCtrl *pParentRequired = 0;
+            zLONG     lControl = 0; 
+            //zVIEW     vDialogTemp = 0; 
+            //zSHORT nRC2 = 0;
 
             if ( pchParm )    // asking if copy is valid
                return( 0 );
@@ -1208,6 +1212,7 @@ PainterCall( zSHORT nMessage,
                nRC = SetCursorFirstEntity( vDialog, "Action", "Dialog" );
                while ( nRC >= zCURSOR_SET )
                {
+
                   if ( CheckExistenceOfEntity( vDialog, "ActWndEvent" ) == 0 ||
                        CheckExistenceOfEntity( vDialog, "ActEvent" ) == 0 ||
                        CheckExistenceOfEntity( vDialog, "ActOpt" ) == 0 )
@@ -1218,6 +1223,43 @@ PainterCall( zSHORT nMessage,
                   else
                      nRC = DeleteEntity( vDialog, "Action", zREPOS_NEXT );
                }
+			   // KJS 01/30/18 - Delete actions where the controls no longer exist. 
+			   // We take care of any actions where the control no longer exists on loading the pwd but
+			   // for some reason, when we get here (and we delete controls not for copy), we sometimes have
+			   // actions that are not part of the copy.
+			   // KJS 01/31/18 - Think this is now solved and not needed.
+			   /*
+               nRC = SetCursorFirstEntity( vDialog, "Action", "Dialog" );
+               while ( nRC >= zCURSOR_SET )
+               {
+                  nRC2 = SetCursorFirstEntity( vDialog, "ActEvent", "Dialog" );
+                  while ( nRC2 >= zCURSOR_SET )
+				  {
+				     if ( CheckExistenceOfEntity( vDialog, "ActCtrl" ) == 0 )
+					 {
+						 CreateViewFromView( &vDialogTemp, vDialog );
+						 lControl = zQUAL_STRING + zPOS_FIRST + zRECURS;
+						 GetStringFromAttribute( szCtlTag, vDialog, "ActCtrl", "Tag" );
+						 // being used ... don't delete
+						 nRC = SetEntityCursor( vDialogTemp, "Control", "Tag", lControl, szCtlTag, "", "", 0, "Window", "" );
+						 if ( nRC < zCURSOR_SET )
+						 { 
+                            ExcludeEntity( vDialog, "ActEvent", zREPOS_NONE );
+						 }
+						 DropView( vDialogTemp );
+					 }
+					 else
+                         ExcludeEntity( vDialog, "ActEvent", zREPOS_NONE );
+
+					 
+                     nRC2 = SetCursorNextEntity( vDialog, "ActEvent", "Dialog" );
+				  }
+				  // My question is... would we ever want to check ActOpt and ActWndEvent here??? Do those get copied and pasted?????
+                  if ( CheckExistenceOfEntity( vDialog, "ActEvent" ) != 0 )
+				     nRC = DropEntity( vDialog, "Action", zREPOS_NONE );
+                  nRC = SetCursorNextEntity( vDialog, "Action", "Dialog" );
+               }
+			   */
             }
 
             return( 0 );

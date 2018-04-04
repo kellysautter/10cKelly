@@ -40,6 +40,8 @@ BuildMainNavSection( zVIEW     vDialog,
    zCHAR     szDialogName[ 51 ] = { 0 }; 
    //:STRING ( 50 )    szMenuName
    zCHAR     szMenuName[ 51 ] = { 0 }; 
+   //:STRING ( 50 )    szOptionTag
+   zCHAR     szOptionTag[ 51 ] = { 0 }; 
    //:STRING ( 34 )    szActionName
    zCHAR     szActionName[ 35 ] = { 0 }; 
    //:STRING ( 1 )     szWindowIsjMobile
@@ -268,6 +270,34 @@ BuildMainNavSection( zVIEW     vDialog,
 
       //:END
 
+      //:// KJS 01/23/18 - Adding the hiding of menu options to the main menu. Issue... this is java code, if we are building this
+      //:// for c code, it won't work. At the moment, there is no one generating jsp for c.
+      //:szWriteBuffer = "<%"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "<%", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 );
+      //:szOptionTag = vDialogRoot.Option.Tag
+      GetVariableFromAttribute( szOptionTag, 0, 'S', 51, vDialogRoot, "Option", "Tag", "", 0 );
+      //:szWriteBuffer = "   csrRC = vKZXMLPGO.cursor( ^DisableMenuOption^ ).setFirst( ^MenuOptionName^, ^" + szOptionTag + "^ );"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "   csrRC = vKZXMLPGO.cursor( ^DisableMenuOption^ ).setFirst( ^MenuOptionName^, ^", 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, szOptionTag, 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, "^ );", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "   if ( !csrRC.isSet() ) //if ( nRC < 0 )"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "   if ( !csrRC.isSet() ) //if ( nRC < 0 )", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "   {"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "   {", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "%>"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "%>", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 );
+
+
       //:IF ActionType = zWAB_LinkToHTML_Address
       if ( ActionType == zWAB_LinkToHTML_Address )
       { 
@@ -345,6 +375,19 @@ BuildMainNavSection( zVIEW     vDialog,
       //:END
       //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
       WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 );
+
+      //:szWriteBuffer = "<%"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "<%", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "   }"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "   }", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "%>"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "%>", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
+      WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 );
       RESULT = SetCursorNextEntity( vDialogRoot, "OptAct", "Menu" );
    } 
 

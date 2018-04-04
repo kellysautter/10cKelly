@@ -837,6 +837,7 @@ GenerateJSPJava( VIEW vDialog BASED ON LOD TZWDLGSO,
    STRING ( 1 )     szRegisterZeidon
    STRING ( 1 )     szNoMonitorTaskLogout
    STRING ( 1 )     szUseZeidonCtrlActions
+   STRING ( 1 )     szUseZeidonCtrlActView
    STRING ( 10 )    szTimeout
    STRING ( 10 )    szDOCTYPE
    STRING ( 18 )    szDateTime
@@ -902,12 +903,15 @@ GenerateJSPJava( VIEW vDialog BASED ON LOD TZWDLGSO,
    SysReadZeidonIni( -1, szSystemIniApplName, "NoMonitorTaskLogout", szNoMonitorTaskLogout )
    SysReadZeidonIni( -1, szSystemIniApplName, "UsesLanguageConversion", szLangConvFlag )
    SysReadZeidonIni( -1, szSystemIniApplName, "UseZeidonControlActions", szUseZeidonCtrlActions )
+   SysReadZeidonIni( -1, szSystemIniApplName, "UseZeidonControlActionsView", szUseZeidonCtrlActView )
    vDialog.Dialog.wWebUsesLanguageConversion = szLangConvFlag
+   vDialog.Dialog.wWebUsesControlActions = szUseZeidonCtrlActions
+   vDialog.Dialog.wWebUsesControlActionsView = szUseZeidonCtrlActView
    szWriteBuffer = "mMsgQ = new KZMSGQOO_Object( vKZXMLPGO );"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    szWriteBuffer = "mMsgQ.setView( VmlOperation.getMessageObject( task ) );"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
-   TraceLineS("** TraceLevel ** ", szTrace)
+   //TraceLineS("** TraceLevel ** ", szTrace)
    IF  szTrace = "1"
       lTrace = 1
    ELSE
@@ -1196,7 +1200,7 @@ GenerateJSPJava( VIEW vDialog BASED ON LOD TZWDLGSO,
    szFocusCtrlTag = ""
    lTabIndex = 9999
    lSort = FlagUsedViewsGetFocusJ( vDialog, vDialogRoot, szFocusCtrlTag, lTabIndex, szWysiwygEditor )
-   TraceLineS( "Focus on Control: ", szFocusCtrlTag )
+   //TraceLineS( "Focus on Control: ", szFocusCtrlTag )
 
    /******************************  ReplaceXSSValues  ******************************/
    // To prevent cross-scripting attacks.
@@ -1252,6 +1256,8 @@ GenerateJSPJava( VIEW vDialog BASED ON LOD TZWDLGSO,
    szWriteBuffer = "   String strDateFormat = ^^;"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    szWriteBuffer = "   String strMapValue = ^^;"
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   szWriteBuffer = "   String strMapValuehidden = ^^;"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    szWriteBuffer = "   int    iView = 0;"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
@@ -1389,6 +1395,10 @@ GenerateJSPJava( VIEW vDialog BASED ON LOD TZWDLGSO,
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    szWriteBuffer = "String strBannerName = ^^;"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   // We would like to have a dynamic logout name... but now I'm not exactly sure what to do as 
+   // we twice use the logout.jsp page name before we instantiate zKZXMLPGO
+   //szWriteBuffer = "String strLogoutName = ^^;"
+   //WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    szWriteBuffer = "String strVMLError = ^^;"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    szWriteBuffer = "String strOpenFile = ^^;"
@@ -1651,6 +1661,9 @@ GenerateJSPJava( VIEW vDialog BASED ON LOD TZWDLGSO,
    //szWriteBuffer = "   }"
    //WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
 
+   // Always keep track of the current page we are on.
+   szWriteBuffer = "vKZXMLPGO.cursor( ^Session^ ).getAttribute( ^CurrentPageName^ ).setValue( ^" + szFormName + "^ );"
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    szWriteBuffer = "mMsgQ = new KZMSGQOO_Object( vKZXMLPGO );"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    szWriteBuffer = "mMsgQ.setView( VmlOperation.getMessageObject( task ) );"
@@ -1664,6 +1677,11 @@ GenerateJSPJava( VIEW vDialog BASED ON LOD TZWDLGSO,
       WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    END
    
+   // If we are using zeidon control actions in this application, then we need to load the appropriate object.
+   IF szUseZeidonCtrlActions = "Y" 
+      szWriteBuffer = "jspCtrlActions ctrlActs = new jspCtrlActions( vKZXMLPGO );  // Control hide/disable object."
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   END
    
    // KJS 10/08/15 - What if this dialog has more than one source file? We need to have both defined, so let's loop and see.
    FOR EACH vDialogRoot.SourceFile 
@@ -3122,6 +3140,9 @@ DKS_TRACE_END */
    WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 )
 
    // Generate a document entry for each ComboBox on the Page.
+   // KJS 02/01/18 - If the combo box is on a grid then this code is wrong (we would need szEntityKey). Not sure
+   // if this is even necessary now so I am going to try and take it out...
+   /*
    IF vDialogRoot.ComboBoxEntry EXISTS
       FOR EACH vDialogRoot.ComboBoxEntry
          szWriteBuffer = "   document." + szFormName + ".h" + vDialogRoot.ComboBoxEntry.Name + ".value = " +
@@ -3131,7 +3152,8 @@ DKS_TRACE_END */
       szWriteBuffer = ""
       WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
    END
-
+   */
+   
    //KJS 12/17/07 - It was decided to change the time-out feature to 60 minutes instead of 15 because many
    //faculty complained about it being too short.  We would really like to control this
    //using userid so that different users can have different timeout times.
@@ -4226,6 +4248,8 @@ DKS_TRACE_END */
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    szWriteBuffer = "   String strSolicitSave = ^^;"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   szWriteBuffer = "   String strDisabled = ^^;"
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    szWriteBuffer = "   String strTblOutput = ^^;"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    szWriteBuffer = "   int    ComboCount = 0;"
@@ -4439,7 +4463,11 @@ DKS_TRACE_END */
    // ZGLOBAL_Operation.java. Also requires having static function GetControlActions in ZGLOBAL1. I think these will eventually be moved to 
    // VmlOperation.java. We also require the entity ControlAction to be created in wXferO.LOD which at some point should be moved to KZXMLPGO.LOD.
    IF szUseZeidonCtrlActions = "Y"
-      szWriteBuffer = "   strCtrlActions = ZGLOBAL1_Operation.GetControlActions( task, ^" + szFormName + "^ );"
+      szWriteBuffer = "   String strCtrlActions = ctrlActs.GetControlActions( task, ^" + szFormName + "^ );"
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   END
+   IF szUseZeidonCtrlActView = "Y"
+      szWriteBuffer = "   String strCtrlActionsView = ^^;"
       WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    END
 
@@ -4549,6 +4577,11 @@ DKS_TRACE_END */
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    szWriteBuffer = "   <input name=^zErrorFlag^ id=^zErrorFlag^ type=^hidden^ value=^<%=strErrorFlag%>^>"  // Kelly?
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )  // Kelly?
+   
+   IF szUseZeidonCtrlActions = "Y"
+      szWriteBuffer = "   <input name=^zControlPageActions^ id=^zControlPageActions^ type=^hidden^ value=^<%=strCtrlActions%>^>"
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   END
 
    // KJS 09/09/2009 - We are using Timeout.inc (which says this is for Jeff) but if there is a value in
    // WEB_Timeout for the dialog or window, we want to use that.
@@ -4568,7 +4601,6 @@ DKS_TRACE_END */
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    szWriteBuffer = "   <input name=^zSolicitSave^ id=^zSolicitSave^ type=^hidden^ value=^<%=strSolicitSave%>^>"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
-
 
    szWriteBuffer = "   <div name=^ShowVMLError^ id=^ShowVMLError^ class=^ShowVMLError^>"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
@@ -4878,7 +4910,7 @@ DKS_TRACE_END */
    // ZGLOBAL_Operation.java. Also requires having static function GetControlActions in ZGLOBAL1. I think these will eventually be moved to 
    // VmlOperation.java. We also require the entity ControlAction to be created in wXferO.LOD which at some point should be moved to KZXMLPGO.LOD.
    IF szUseZeidonCtrlActions = "Y"
-      szWriteBuffer = "<script type=^text/javascript^>processControlActions( ^<%=strCtrlActions%>^ );</script>"
+      szWriteBuffer = "<script type=^text/javascript^>processControlActions( ^<%=strCtrlActions%>^ );</script> <!-- This is in zeidonctrlactions.js -->"
       WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    END
    szWriteBuffer = "</html>"
@@ -5057,6 +5089,10 @@ GenJSPJ_DownloadFile( VIEW vDialog,
    szWriteBuffer = "   l = sDownloadFile.lastIndexOf(^.^);"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    szWriteBuffer = "   x = sDownloadFile.lastIndexOf(^\\^);"
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   szWriteBuffer = "   if ( x == -1 )"
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   szWriteBuffer = "      x = sDownloadFile.lastIndexOf(^/^);"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    szWriteBuffer = "   task.log().info( ^*** sDownloadFile: ^ + sDownloadFile );"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )

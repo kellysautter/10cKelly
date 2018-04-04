@@ -1614,6 +1614,12 @@ oTZWDLGSO_GenerateJSP( zVIEW     vDialog,
    //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 );
 
+   //:// Always keep track of the current page we are on.
+   //:szWriteBuffer = "   vKZXMLPGO.SetAttribute( strSessionId, ^Session^, ^CurrentPageName^, szFormName ); "
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "   vKZXMLPGO.SetAttribute( strSessionId, ^Session^, ^CurrentPageName^, szFormName ); ", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
+
    //:szWriteBuffer = "   nRC = vMsgQ.GetView( strSessionId, ^__MSGQ^, vAppSubtask );"
    ZeidonStringCopy( szWriteBuffer, 1, 0, "   nRC = vMsgQ.GetView( strSessionId, ^__MSGQ^, vAppSubtask );", 1, 0, 10001 );
    //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
