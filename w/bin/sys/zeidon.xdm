@@ -1,4 +1,4 @@
-z1000-Zeidon    ZEIDON   TZDMXGPO 11/08/17   10:19:42 1.0a2    
+z1000-Zeidon    ZEIDON   TZDMXGPO 01/11/18   10:14:08 1.0a2    
 eDomainGroup 1
 aName      Zeidon9B
 
@@ -6895,6 +6895,21 @@ aExternalValue Fieldset Absolute Pos
 aInternalValue Container Absolute Size
 
 eTableEntry 4
+aZKey      90127802
+aExternalValue iFrame
+aInternalValue iFrame
+
+eTableEntry 4
+aZKey      130069847
+aExternalValue Section
+aInternalValue Section
+
+eTableEntry 4
+aZKey      130069848
+aExternalValue Main
+aInternalValue Main
+
+eTableEntry 4
 aZKey      130000001
 aExternalValue Absolute Pos
 aInternalValue Absolute Pos
@@ -6918,11 +6933,6 @@ eTableEntry 4
 aZKey      92741379
 aExternalValue Survey Group
 aInternalValue Survey Group
-
-eTableEntry 4
-aZKey      90127802
-aExternalValue iFrame
-aInternalValue iFrame
 
 eTableEntry 4
 aZKey      90790799

@@ -711,6 +711,7 @@ the brackets for the DDL-command
    #define COMMIT_STR            ""
    #define COLUMN_INDENT         10
    #define CREATE_DB             0
+   #define GRANT_ALL             0
    #define MAX_LTH_FOR_STRING    254
 
    // List of words that are reserved in SQL Server.
@@ -4786,7 +4787,7 @@ SetDataType( zVIEW vDTE, zBOOL bSetDefault )
       else
       if ( zstrcmpi( pchDomainName, "TimeStampEx" ) == 0 )
          SetAttributeFromString( vDTE, "TE_FieldDataRel", "DataType", "X" );
-#if defined( MYSQL ) || defined( POSTGRESQL )
+#if defined( MYSQL )
       else
       // If domain is GeneratedKey then use "SERIAL" for default datatype.
       if ( zstrcmpi( pchDomainName, "GeneratedKey" ) == 0 )

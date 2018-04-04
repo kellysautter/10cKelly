@@ -12039,6 +12039,7 @@ MergeCtrls( zVIEW  vSubtask,
 
    GetIntegerFromAttribute( &lTypeTgt, vTgtC, "ControlDef", "Key" );
    GetIntegerFromAttribute( &lTypeSrc, vSrcC, "ControlDef", "Key" );
+   SetNameForView( vSrcC, "CloneViewSrcC", vSubtask, zLEVEL_TASK );
    if ( bReport == FALSE )
    {
       nRC = SetCursorFirstEntity( vSrc, "Action", 0 );

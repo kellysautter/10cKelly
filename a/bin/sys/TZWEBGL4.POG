@@ -1,7 +1,7 @@
-z1000-Zeidon    TZWEBGL4 TZOGSRCO 11/07/16   21:26:02 1.0a2    
+z1000-Zeidon    TZWEBGL4 TZOGSRCO 02/26/18   16:09:07 1.0a2    
 eGlobalOperationGroup 1
 aZKey      4896724
-aNextZKeyToAssign 130070646
+aNextZKeyToAssign 130070656
 aName      TZWEBGL4
 aDesc      JSP Generation operations for zeidon JAVA
 aExtension VML
@@ -48,6 +48,74 @@ aDataType  V
 aPFlag     N
 aUFlag     N
 aZKey      4896730
+
+eOperation 2
+aName      GenJSPJ_CrteGridRadio
+aZKey      130070647
+aType      G
+
+eParameter 3
+aShortDesc vDialog
+aDataType  V
+aPFlag     N
+aUFlag     N
+aZKey      130070648
+
+eParameter 3
+aShortDesc lFile
+aDataType  L
+aPFlag     N
+aUFlag     N
+aZKey      130070649
+
+eParameter 3
+aShortDesc WriteBuffer
+aDataType  S
+aPFlag     N
+aUFlag     N
+aZKey      130070650
+
+eParameter 3
+aShortDesc Indent
+aDataType  S
+aPFlag     N
+aUFlag     N
+aZKey      130070651
+
+eParameter 3
+aShortDesc RadioGroupName
+aDataType  S
+aPFlag     N
+aUFlag     N
+aZKey      130070652
+
+eParameter 3
+aShortDesc NoPositioning
+aDataType  S
+aPFlag     N
+aUFlag     N
+aZKey      130070653
+
+eParameter 3
+aShortDesc OffsetX
+aDataType  L
+aPFlag     N
+aUFlag     N
+aZKey      130070654
+
+eParameter 3
+aShortDesc OffsetY
+aDataType  L
+aPFlag     N
+aUFlag     N
+aZKey      130070655
+
+eParameter 3
+aShortDesc strRepeatingGrpKey
+aDataType  S
+aPFlag     N
+aUFlag     N
+aZKey      130070656
 
 eOperation 2
 aName      GenJSPJ_CrteFileTransferForm
