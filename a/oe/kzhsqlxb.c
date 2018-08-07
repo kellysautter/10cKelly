@@ -2847,6 +2847,10 @@ fnBuildColumn( zVIEW  vDTE, zLONG  f, zPCHAR pchLine )
          zsprintf( pchEnd, " UUID" );
          break;
 
+      case 'O':
+         zsprintf( pchEnd, " BOOLEAN" );
+         break;
+
       default:
       {
          zCHAR szTableName[ MAX_TABLENAME_LTH + 1 ];
@@ -4655,6 +4659,11 @@ LoadDataTypes( zVIEW vType )
    SetAttributeFromString( vType, "DB_DataTypes", "InternalName", "U" );
    SetAttributeFromString( vType, "DB_DataTypes", "ExternalName", "UUID" );
 
+   // BOOLEAN
+   CreateEntity( vType, "DB_DataTypes", zPOS_LAST );
+   SetAttributeFromString( vType, "DB_DataTypes", "InternalName", "O" );
+   SetAttributeFromString( vType, "DB_DataTypes", "ExternalName", "Boolean" );
+
 #elif defined( POSTGRESQL ) || defined( SQLSERVER )
 
    CreateEntity( vType, "DB_DataTypes", zPOS_LAST );
@@ -4684,6 +4693,11 @@ LoadDataTypes( zVIEW vType )
    CreateEntity( vType, "DB_DataTypes", zPOS_LAST );
    SetAttributeFromString( vType, "DB_DataTypes", "InternalName", "U" );
    SetAttributeFromString( vType, "DB_DataTypes", "ExternalName", "UUID" );
+
+   // BOOLEAN
+   CreateEntity( vType, "DB_DataTypes", zPOS_LAST );
+   SetAttributeFromString( vType, "DB_DataTypes", "InternalName", "O" );
+   SetAttributeFromString( vType, "DB_DataTypes", "ExternalName", "Boolean" );
 
 #endif
 
@@ -4787,7 +4801,7 @@ SetDataType( zVIEW vDTE, zBOOL bSetDefault )
       else
       if ( zstrcmpi( pchDomainName, "TimeStampEx" ) == 0 )
          SetAttributeFromString( vDTE, "TE_FieldDataRel", "DataType", "X" );
-#if defined( MYSQL )
+#if defined( MYSQL ) || defined( POSTGRESQL )
       else
       // If domain is GeneratedKey then use "SERIAL" for default datatype.
       if ( zstrcmpi( pchDomainName, "GeneratedKey" ) == 0 )
@@ -4798,6 +4812,11 @@ SetDataType( zVIEW vDTE, zBOOL bSetDefault )
       if ( zstrcmpi( pchDomainName, "UUID" ) == 0 )
       {
          SetAttributeFromString( vDTE, "TE_FieldDataRel", "DataType", "U" );
+      }    
+      else
+      if ( zstrcmpi( pchDomainName, "Boolean" ) == 0 )
+      {
+         SetAttributeFromString( vDTE, "TE_FieldDataRel", "DataType", "O" );
       }    
 #endif
       else
@@ -4862,12 +4881,13 @@ SetDataType( zVIEW vDTE, zBOOL bSetDefault )
 
          break;
 
+      case 'O':                // For Boolean
+         SetAttributeFromInteger( vDTE, "TE_FieldDataRel", "Length", 1 );
+         break;
+	
+      case 'A':                // For SERIAL/AUTOINCREMENT
       case zTYPE_INTEGER:
          SetAttributeFromInteger( vDTE, "TE_FieldDataRel", "Length", 4 );
-         break;
-
-      case 'A':                // For SERIAL/AUTOINCREMENT
-         SetAttributeFromInteger( vDTE, "TE_FieldDataRel", "Length", 64 );
          break;
 
       case 'U':                // For UUID
