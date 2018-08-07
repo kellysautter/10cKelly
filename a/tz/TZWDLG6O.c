@@ -144,6 +144,8 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
    zCHAR     szListButtonFlag[ 2 ] = { 0 }; 
    //:STRING ( 1 )     szLangConvFlag
    zCHAR     szLangConvFlag[ 2 ] = { 0 }; 
+   //:STRING ( 1 )     szDateFormatDBFlag
+   zCHAR     szDateFormatDBFlag[ 2 ] = { 0 }; 
    //:STRING ( 1 )     szTrace
    zCHAR     szTrace[ 2 ] = { 0 }; 
    //:STRING ( 50 )    szreCAPTCHAImport
@@ -182,6 +184,8 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
    zCHAR     szNoAutoLogout[ 2 ] = { 0 }; 
    //:STRING ( 1 )     szKeyRole
    zCHAR     szKeyRole[ 2 ] = { 0 }; 
+   //:STRING ( 1 )     szDynamicBanner
+   zCHAR     szDynamicBanner[ 2 ] = { 0 }; 
    //:STRING ( 1 )     szZeidonTaskTimeout
    zCHAR     szZeidonTaskTimeout[ 2 ] = { 0 }; 
    //:STRING ( 1 )     szRegisterZeidon
@@ -198,6 +202,8 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
    zCHAR     szDOCTYPE[ 11 ] = { 0 }; 
    //:STRING ( 18 )    szDateTime
    zCHAR     szDateTime[ 19 ] = { 0 }; 
+   //:STRING ( 20 )    szTimestamp
+   zCHAR     szTimestamp[ 21 ] = { 0 }; 
    //:INTEGER          lActionType
    zLONG     lActionType = 0; 
    //:// INTEGER          lHeight
@@ -226,6 +232,8 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
    zLONG     lSort = 0; 
    //:INTEGER          lTrace
    zLONG     lTrace = 0; 
+   //:INTEGER          lAutoSubAction
+   zLONG     lAutoSubAction = 0; 
    //:// INTEGER          lFloat
    //:STRING ( 32 )    szWysiwygEditor
    zCHAR     szWysiwygEditor[ 33 ] = { 0 }; 
@@ -237,6 +245,8 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
    ZDecimal  dDLUnits = 0.0; 
    //:INTEGER          lLth
    zLONG     lLth = 0; 
+   //:SHORT            nSystemSort
+   zSHORT    nSystemSort = 0; 
    //:SHORT            nRC
    zSHORT    nRC = 0; 
    zSHORT    RESULT; 
@@ -279,9 +289,8 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
    zCHAR     szTempString_13[ 255 ]; 
    zCHAR     szTempString_14[ 255 ]; 
    zCHAR     szTempString_15[ 33 ]; 
-   zCHAR     szTempString_16[ 33 ]; 
    zSHORT    lTempInteger_23; 
-   zCHAR     szTempString_17[ 33 ]; 
+   zCHAR     szTempString_16[ 33 ]; 
    zSHORT    lTempInteger_24; 
    zSHORT    lTempInteger_25; 
    zSHORT    lTempInteger_26; 
@@ -289,37 +298,38 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
    zSHORT    lTempInteger_28; 
    zSHORT    lTempInteger_29; 
    zSHORT    lTempInteger_30; 
-   zCHAR     szTempString_18[ 33 ]; 
-   zLONG     lTempInteger_31; 
+   zSHORT    lTempInteger_31; 
+   zCHAR     szTempString_17[ 33 ]; 
    zLONG     lTempInteger_32; 
    zLONG     lTempInteger_33; 
    zLONG     lTempInteger_34; 
-   zSHORT    lTempInteger_35; 
-   zLONG     lTempInteger_36; 
-   zCHAR     szTempString_19[ 33 ]; 
+   zLONG     lTempInteger_35; 
+   zSHORT    lTempInteger_36; 
    zLONG     lTempInteger_37; 
-   zSHORT    lTempInteger_38; 
+   zCHAR     szTempString_18[ 33 ]; 
+   zLONG     lTempInteger_38; 
    zSHORT    lTempInteger_39; 
    zSHORT    lTempInteger_40; 
    zSHORT    lTempInteger_41; 
+   zSHORT    lTempInteger_42; 
+   zCHAR     szTempString_19[ 255 ]; 
    zCHAR     szTempString_20[ 255 ]; 
    zCHAR     szTempString_21[ 255 ]; 
-   zCHAR     szTempString_22[ 255 ]; 
-   zSHORT    lTempInteger_42; 
    zSHORT    lTempInteger_43; 
    zSHORT    lTempInteger_44; 
    zSHORT    lTempInteger_45; 
-   zLONG     lTempInteger_46; 
-   zCHAR     szTempString_23[ 33 ]; 
+   zSHORT    lTempInteger_46; 
    zLONG     lTempInteger_47; 
-   zSHORT    lTempInteger_48; 
+   zCHAR     szTempString_22[ 33 ]; 
+   zLONG     lTempInteger_48; 
    zSHORT    lTempInteger_49; 
-   zLONG     lTempInteger_50; 
+   zSHORT    lTempInteger_50; 
    zLONG     lTempInteger_51; 
-   zCHAR     szTempString_24[ 33 ]; 
+   zLONG     lTempInteger_52; 
+   zCHAR     szTempString_23[ 33 ]; 
+   zCHAR     szTempString_24[ 11 ]; 
    zCHAR     szTempString_25[ 11 ]; 
-   zCHAR     szTempString_26[ 11 ]; 
-   zCHAR     szTempString_27[ 255 ]; 
+   zCHAR     szTempString_26[ 255 ]; 
 
 
    //:// Generate a JSP file for formatting the Window that has current position.
@@ -388,6 +398,8 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
    SysReadZeidonIni( -1, szSystemIniApplName, "WebDebugView", szWebDebugView );
    //:SysReadZeidonIni( -1, szSystemIniApplName, "WebKeyRole", szKeyRole )
    SysReadZeidonIni( -1, szSystemIniApplName, "WebKeyRole", szKeyRole );
+   //:SysReadZeidonIni( -1, szSystemIniApplName, "WebDynamicBanner", szDynamicBanner )
+   SysReadZeidonIni( -1, szSystemIniApplName, "WebDynamicBanner", szDynamicBanner );
    //:SysReadZeidonIni( -1, szSystemIniApplName, "JSPTraceLevel", szTrace )
    SysReadZeidonIni( -1, szSystemIniApplName, "JSPTraceLevel", szTrace );
    //:SysReadZeidonIni( -1, szSystemIniApplName, "DOCTYPE", szDOCTYPE )
@@ -398,6 +410,8 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
    SysReadZeidonIni( -1, szSystemIniApplName, "NoMonitorTaskLogout", szNoMonitorTaskLogout );
    //:SysReadZeidonIni( -1, szSystemIniApplName, "UsesLanguageConversion", szLangConvFlag )
    SysReadZeidonIni( -1, szSystemIniApplName, "UsesLanguageConversion", szLangConvFlag );
+   //:SysReadZeidonIni( -1, szSystemIniApplName, "UsesDateFormatFromDB", szDateFormatDBFlag )
+   SysReadZeidonIni( -1, szSystemIniApplName, "UsesDateFormatFromDB", szDateFormatDBFlag );
    //:SysReadZeidonIni( -1, szSystemIniApplName, "UseZeidonControlActions", szUseZeidonCtrlActions )
    SysReadZeidonIni( -1, szSystemIniApplName, "UseZeidonControlActions", szUseZeidonCtrlActions );
    //:SysReadZeidonIni( -1, szSystemIniApplName, "UseZeidonControlActionsView", szUseZeidonCtrlActView )
@@ -680,10 +694,14 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
    //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 );
 
+   //:SysGetDateTime( szTimestamp )
+   SysGetDateTime( szTimestamp );
    //:szWriteBuffer = "<%-- " + szFormName + " --%>"
    ZeidonStringCopy( szWriteBuffer, 1, 0, "<%-- ", 1, 0, 10001 );
    ZeidonStringConcat( szWriteBuffer, 1, 0, szFormName, 1, 0, 10001 );
    ZeidonStringConcat( szWriteBuffer, 1, 0, " --%>", 1, 0, 10001 );
+   //://szWriteBuffer = "<%-- " + szFormName + "   Generate Timestamp: " + szTimestamp
+   //://szWriteBuffer = szWriteBuffer + " --%>"
    //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 );
 
@@ -1415,6 +1433,10 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
    ZeidonStringCopy( szWriteBuffer, 1, 0, "String strDateFormat = ^^;", 1, 0, 10001 );
    //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "String strDateSequence = ^^;"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "String strDateSequence = ^^;", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
    //:IF szKeyRole = "Y"
    if ( ZeidonStringCompare( szKeyRole, 1, 0, "Y", 1, 0, 2 ) == 0 )
    { 
@@ -1841,13 +1863,19 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
 
    //:// If we are using language conversion in this application, then we need to load the lang object.
-   //:IF szLangConvFlag = "Y" 
-   if ( ZeidonStringCompare( szLangConvFlag, 1, 0, "Y", 1, 0, 2 ) == 0 )
+   //:IF szLangConvFlag = "Y" OR szDateFormatDBFlag = "Y"
+   if ( ZeidonStringCompare( szLangConvFlag, 1, 0, "Y", 1, 0, 2 ) == 0 || ZeidonStringCompare( szDateFormatDBFlag, 1, 0, "Y", 1, 0, 2 ) == 0 )
    { 
       //:szWriteBuffer = "jspLangConv LangConv = new jspLangConv( vKZXMLPGO );  // Language conversion object"
       ZeidonStringCopy( szWriteBuffer, 1, 0, "jspLangConv LangConv = new jspLangConv( vKZXMLPGO );  // Language conversion object", 1, 0, 10001 );
       //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
       WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
+   } 
+
+   //:END
+   //:IF szLangConvFlag = "Y" 
+   if ( ZeidonStringCompare( szLangConvFlag, 1, 0, "Y", 1, 0, 2 ) == 0 )
+   { 
       //:szWriteBuffer = "LangConv.getLanguageObject( vKZXMLPGO );"
       ZeidonStringCopy( szWriteBuffer, 1, 0, "LangConv.getLanguageObject( vKZXMLPGO );", 1, 0, 10001 );
       //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
@@ -2086,8 +2114,16 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
          if ( CompareAttributeToInteger( vDialog, "Action", "Type", zWAB_ExitDialogTask ) != 0 )
          { 
             //:// We don't format the Action on exit dialog, as the function in the java script calls OnUnload.
-            //:GenJSPJ_Action( vDialog, vDialogRoot, lFileJSP, szWriteBuffer, szFormName, szActionTag, lTrace )
-            GenJSPJ_Action( vDialog, vDialogRoot, lFileJSP, szWriteBuffer, szFormName, szActionTag, lTrace );
+            //:nRC = GenJSPJ_Action( vDialog, vDialogRoot, lFileJSP, szWriteBuffer, szFormName, szActionTag, lTrace )
+            nRC = GenJSPJ_Action( vDialog, vDialogRoot, lFileJSP, szWriteBuffer, szFormName, szActionTag, lTrace );
+            //:IF nRC != 0
+            if ( nRC != 0 )
+            { 
+               //:nSystemSort = nRC
+               nSystemSort = nRC;
+            } 
+
+            //:END
          } 
 
          //:END
@@ -2213,8 +2249,16 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
                         //://                zMSGQ_OBJECT_CONSTRAINT_WARNING, 0 )
                         //://END
 
-                        //:GenJSPJ_Action( vDialogTemp, vDialogRoot, lFileJSP, szWriteBuffer, szFormName, szAction, lTrace )
-                        GenJSPJ_Action( vDialogTemp, vDialogRoot, lFileJSP, szWriteBuffer, szFormName, szAction, lTrace );
+                        //:nRC = GenJSPJ_Action( vDialogTemp, vDialogRoot, lFileJSP, szWriteBuffer, szFormName, szAction, lTrace )
+                        nRC = GenJSPJ_Action( vDialogTemp, vDialogRoot, lFileJSP, szWriteBuffer, szFormName, szAction, lTrace );
+                        //:IF nRC != 0
+                        if ( nRC != 0 )
+                        { 
+                           //:nSystemSort = nRC
+                           nSystemSort = nRC;
+                        } 
+
+                        //:END
                      } 
 
                      //:END
@@ -2280,8 +2324,16 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
                         //://                zMSGQ_OBJECT_CONSTRAINT_WARNING, 0 )
                         //://END
 
-                        //:GenJSPJ_Action( vDialogTemp, vDialogRoot, lFileJSP, szWriteBuffer, szFormName, szAction, lTrace )
-                        GenJSPJ_Action( vDialogTemp, vDialogRoot, lFileJSP, szWriteBuffer, szFormName, szAction, lTrace );
+                        //:nRC = GenJSPJ_Action( vDialogTemp, vDialogRoot, lFileJSP, szWriteBuffer, szFormName, szAction, lTrace )
+                        nRC = GenJSPJ_Action( vDialogTemp, vDialogRoot, lFileJSP, szWriteBuffer, szFormName, szAction, lTrace );
+                        //:IF nRC != 0
+                        if ( nRC != 0 )
+                        { 
+                           //:nSystemSort = nRC
+                           nSystemSort = nRC;
+                        } 
+
+                        //:END
                      } 
 
                      //:END
@@ -2386,8 +2438,16 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
 
                         //:END
 
-                        //:GenJSPJ_Action( vDialogTemp, vDialogRoot, lFileJSP, szWriteBuffer, szFormName, szAction, lTrace )
-                        GenJSPJ_Action( vDialogTemp, vDialogRoot, lFileJSP, szWriteBuffer, szFormName, szAction, lTrace );
+                        //:nRC = GenJSPJ_Action( vDialogTemp, vDialogRoot, lFileJSP, szWriteBuffer, szFormName, szAction, lTrace )
+                        nRC = GenJSPJ_Action( vDialogTemp, vDialogRoot, lFileJSP, szWriteBuffer, szFormName, szAction, lTrace );
+                        //:IF nRC != 0
+                        if ( nRC != 0 )
+                        { 
+                           //:nSystemSort = nRC
+                           nSystemSort = nRC;
+                        } 
+
+                        //:END
                      } 
 
                      //:END
@@ -2456,8 +2516,16 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
 
                         //:END
 
-                        //:GenJSPJ_Action( vDialogTemp, vDialogRoot, lFileJSP, szWriteBuffer, szFormName, szAction, lTrace )
-                        GenJSPJ_Action( vDialogTemp, vDialogRoot, lFileJSP, szWriteBuffer, szFormName, szAction, lTrace );
+                        //:nRC = GenJSPJ_Action( vDialogTemp, vDialogRoot, lFileJSP, szWriteBuffer, szFormName, szAction, lTrace )
+                        nRC = GenJSPJ_Action( vDialogTemp, vDialogRoot, lFileJSP, szWriteBuffer, szFormName, szAction, lTrace );
+                        //:IF nRC != 0
+                        if ( nRC != 0 )
+                        { 
+                           //:nSystemSort = nRC
+                           nSystemSort = nRC;
+                        } 
+
+                        //:END
                      } 
 
                      //:END
@@ -2562,8 +2630,16 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
 
                         //:END
 
-                        //:GenJSPJ_Action( vDialogTemp, vDialogRoot, lFileJSP, szWriteBuffer, szFormName, szAction, lTrace )
-                        GenJSPJ_Action( vDialogTemp, vDialogRoot, lFileJSP, szWriteBuffer, szFormName, szAction, lTrace );
+                        //:nRC = GenJSPJ_Action( vDialogTemp, vDialogRoot, lFileJSP, szWriteBuffer, szFormName, szAction, lTrace )
+                        nRC = GenJSPJ_Action( vDialogTemp, vDialogRoot, lFileJSP, szWriteBuffer, szFormName, szAction, lTrace );
+                        //:IF nRC != 0
+                        if ( nRC != 0 )
+                        { 
+                           //:nSystemSort = nRC
+                           nSystemSort = nRC;
+                        } 
+
+                        //:END
                      } 
 
                      //:END
@@ -2630,8 +2706,16 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
 
                         //:END
 
-                        //:GenJSPJ_Action( vDialogTemp, vDialogRoot, lFileJSP, szWriteBuffer, szFormName, szAction, lTrace )
-                        GenJSPJ_Action( vDialogTemp, vDialogRoot, lFileJSP, szWriteBuffer, szFormName, szAction, lTrace );
+                        //:nRC = GenJSPJ_Action( vDialogTemp, vDialogRoot, lFileJSP, szWriteBuffer, szFormName, szAction, lTrace )
+                        nRC = GenJSPJ_Action( vDialogTemp, vDialogRoot, lFileJSP, szWriteBuffer, szFormName, szAction, lTrace );
+                        //:IF nRC != 0
+                        if ( nRC != 0 )
+                        { 
+                           //:nSystemSort = nRC
+                           nSystemSort = nRC;
+                        } 
+
+                        //:END
                      } 
 
                      //:END
@@ -3258,25 +3342,53 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
    //:// It doesn't seem like we are using this anyway since we can have a separate banner for each dialog if we want.
    //:// Leave this code for when we want to change it back. :)
    //:///////////////////////////////////////////////////////////
-   //:/*
-   //:szWriteBuffer = "   csrRC = vKZXMLPGO.cursor( ^DynamicBannerName^ ).setFirst( ^DialogName^, ^" + szDialogTag + "^, ^^ );"
-   //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
-   //:szWriteBuffer = "   if ( csrRC.isSet( ) )"
-   //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
-   //:szWriteBuffer = "      strBannerName = vKZXMLPGO.cursor( ^DynamicBannerName^ ).getAttribute( ^BannerName^ ).getString( ^^ );"
-   //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
-   //:szWriteBuffer = "   if ( StringUtils.isBlank( strBannerName ) )"
-   //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
-   //:szBannerName = vDialog.Dialog.WEB_TopBannerName
-   //:// If a banner include file has been entered by the user, then use this, otherwise
-   //:// hardcode "./include/banner.inc" as the banner name.
-   //:IF szBannerName != ""
-   //:   szWriteBuffer = "      strBannerName = ^" + szBannerName + "^;"
-   //:ELSE
-   //:   szWriteBuffer = "      strBannerName = ^./include/banner.inc^;"
+   //:// KJS 08/19/16 - Adding back for Doug 10d. He must use dynamic banner.
+   //:IF szDynamicBanner = "Y"
+   if ( ZeidonStringCompare( szDynamicBanner, 1, 0, "Y", 1, 0, 2 ) == 0 )
+   { 
+      //:szWriteBuffer = "   csrRC = vKZXMLPGO.cursor( ^DynamicBannerName^ ).setFirst( ^DialogName^, ^" + szDialogTag + "^, ^^ );"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "   csrRC = vKZXMLPGO.cursor( ^DynamicBannerName^ ).setFirst( ^DialogName^, ^", 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, szDialogTag, 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, "^, ^^ );", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "   if ( csrRC.isSet( ) )"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "   if ( csrRC.isSet( ) )", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "      strBannerName = vKZXMLPGO.cursor( ^DynamicBannerName^ ).getAttribute( ^BannerName^ ).getString( ^^ );"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "      strBannerName = vKZXMLPGO.cursor( ^DynamicBannerName^ ).getAttribute( ^BannerName^ ).getString( ^^ );", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 );
+      //:szWriteBuffer = "   if ( StringUtils.isBlank( strBannerName ) )"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "   if ( StringUtils.isBlank( strBannerName ) )", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
+      //:szBannerName = vDialog.Dialog.WEB_TopBannerName
+      GetVariableFromAttribute( szBannerName, 0, 'S', 257, vDialog, "Dialog", "WEB_TopBannerName", "", 0 );
+      //:// If a banner include file has been entered by the user, then use this, otherwise
+      //:// hardcode "./include/banner.inc" as the banner name.
+      //:IF szBannerName != ""
+      if ( ZeidonStringCompare( szBannerName, 1, 0, "", 1, 0, 257 ) != 0 )
+      { 
+         //:szWriteBuffer = "      strBannerName = ^" + szBannerName + "^;"
+         ZeidonStringCopy( szWriteBuffer, 1, 0, "      strBannerName = ^", 1, 0, 10001 );
+         ZeidonStringConcat( szWriteBuffer, 1, 0, szBannerName, 1, 0, 10001 );
+         ZeidonStringConcat( szWriteBuffer, 1, 0, "^;", 1, 0, 10001 );
+         //:ELSE
+      } 
+      else
+      { 
+         //:szWriteBuffer = "      strBannerName = ^./include/banner.inc^;"
+         ZeidonStringCopy( szWriteBuffer, 1, 0, "      strBannerName = ^./include/banner.inc^;", 1, 0, 10001 );
+      } 
+
+      //:END
+      //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 );
+   } 
+
    //:END
-   //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
-   //:*/
    //://////////////////////////////////////////////////////////////////////////
 
    //:IF szWebRedirection = "Y"
@@ -3450,6 +3562,15 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
    } 
 
    //:END
+   //:// Added by Doug in 10d, not sure why but need to get these js files from him.
+   //:/*
+   //:IF nSystemSort != 0
+   //:   szWriteBuffer = "<script language=^JavaScript^ type=^text/javascript^ src=^./js/jsoeUtils.js?v=" + szDateTime + "^></script>"
+   //:   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   //:   szWriteBuffer = "<script language=^JavaScript^ type=^text/javascript^ src=^./js/jsoe.js?v=" + szDateTime + "^></script>"
+   //:   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   //:END
+   //:*/
 
    //:// KJS 09/04/14 - Can't find validations.js anywhere so I am assuming we don't need it.
    //://szWriteBuffer = "<script language=^JavaScript^ type=^text/javascript^ src=^./js/validations.js^></script>"
@@ -3622,6 +3743,9 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
 
    //:END
 
+   //:DropView( vDialogTemp )
+   DropView( vDialogTemp );
+
    //:// KJS 04/30/15 - If we have any javascript code on a window prebuild action, we should add it here.
    //:IF szJavaScript != ""
    if ( ZeidonStringCompare( szJavaScript, 1, 0, "", 1, 0, 10001 ) != 0 )
@@ -3690,6 +3814,13 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
 
    //:END
 
+   //:// Doug's code in 10d - I don't think we need this because we are putting a stamp on the included files so that
+   //:// the browser always clears cache on new jsp files.
+   //:/*
+   //:szWriteBuffer = "// " + szFormName + "   Generate Timestamp: " + szTimestamp
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 )
+   //:*/
+
    //:szWriteBuffer = "var isWindowClosing = true;"
    ZeidonStringCopy( szWriteBuffer, 1, 0, "var isWindowClosing = true;", 1, 0, 10001 );
    //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
@@ -3708,32 +3839,23 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
    WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
 
    //:// Look for additional Tab controls.
+   //:// KJS 0412/18 - I am not exactly sure why we have this following code. It puts variables in the
+   //:// js file that I don't see we need at the moment. If a tab control is on a group box, we run
+   //:// into an error on the SetEntityCursor (because Window is no longer in view). I am taking this
+   //:// out for now.
+   //:/*
+   //:CreateViewFromView( vDialogTemp, vDialogRoot )
    //:LOOP WHILE nRC >= zCURSOR_SET
-   while ( nRC >= zCURSOR_SET )
-   { 
-
-      //:szWriteBuffer = "var " + vDialogTemp.Control.Tag + ";"
-      GetVariableFromAttribute( szTempString_15, 0, 'S', 33, vDialogTemp, "Control", "Tag", "", 0 );
-      ZeidonStringCopy( szWriteBuffer, 1, 0, "var ", 1, 0, 10001 );
-      ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_15, 1, 0, 10001 );
-      ZeidonStringConcat( szWriteBuffer, 1, 0, ";", 1, 0, 10001 );
-      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
-      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
-
-      //:lControl = zQUAL_STRING + zPOS_NEXT + zRECURS
-      lControl = zQUAL_STRING + zPOS_NEXT + zRECURS;
-
-      //:// Look for a control with controldef of "Tab"
-      //:// vDialog.ControlDef.Tag
-      //:nRC = SetEntityCursor( vDialogTemp, "ControlDef", "Tag", lControl,
-      //:                       szEntityName, "", "", 0, "Window", "" )
-      nRC = SetEntityCursor( vDialogTemp, "ControlDef", "Tag", lControl, szEntityName, "", "", 0, "Window", "" );
-   } 
-
+   //:   szWriteBuffer = "var " + vDialogTemp.Control.Tag + ";"
+   //:   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   //:   lControl = zQUAL_STRING + zPOS_NEXT + zRECURS
+   //:   // Look for a control with controldef of "Tab"
+   //:   // vDialog.ControlDef.Tag
+   //:   nRC = SetEntityCursor( vDialogTemp, "ControlDef", "Tag", lControl,
+   //:                          szEntityName, "", "", 0, "Window", "" )
    //:END
-
    //:DropView( vDialogTemp )
-   DropView( vDialogTemp );
+   //:*/
 
    //:// Place a blank line here for reading purposes.
    //:szWriteBuffer = ""
@@ -4262,8 +4384,8 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
       lControl = zQUAL_STRING + zPOS_FIRST + zRECURS;
       //:nRC = SetEntityCursor( vDialogTemp, "Control", "Tag", lControl,
       //:                       vDialog.Window.DfltButton, "", "", 0, "Window", "" )
-      GetStringFromAttribute( szTempString_16, vDialog, "Window", "DfltButton" );
-      nRC = SetEntityCursor( vDialogTemp, "Control", "Tag", lControl, szTempString_16, "", "", 0, "Window", "" );
+      GetStringFromAttribute( szTempString_15, vDialog, "Window", "DfltButton" );
+      nRC = SetEntityCursor( vDialogTemp, "Control", "Tag", lControl, szTempString_15, "", "", 0, "Window", "" );
       //:IF nRC >= zCURSOR_SET
       if ( nRC >= zCURSOR_SET )
       { 
@@ -4329,9 +4451,9 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
             //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
             WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
             //:szWriteBuffer = "      " + vDialogTemp.EventAct.Tag + "( );"
-            GetVariableFromAttribute( szTempString_17, 0, 'S', 33, vDialogTemp, "EventAct", "Tag", "", 0 );
+            GetVariableFromAttribute( szTempString_16, 0, 'S', 33, vDialogTemp, "EventAct", "Tag", "", 0 );
             ZeidonStringCopy( szWriteBuffer, 1, 0, "      ", 1, 0, 10001 );
-            ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_17, 1, 0, 10001 );
+            ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_16, 1, 0, 10001 );
             ZeidonStringConcat( szWriteBuffer, 1, 0, "( );", 1, 0, 10001 );
             //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
             WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
@@ -5094,6 +5216,18 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
       //:// Event is start email.
       //:lActionType = vDialog.Action.Type
       GetIntegerFromAttribute( &lActionType, vDialog, "Action", "Type" );
+      //:// KJS 05/16/18 - adding code for auto confirmation
+      //:lAutoSubAction = 0
+      lAutoSubAction = 0;
+      //:IF vDialog.ActMap EXISTS
+      lTempInteger_26 = CheckExistenceOfEntity( vDialog, "ActMap" );
+      if ( lTempInteger_26 == 0 )
+      { 
+         //:lAutoSubAction = vDialog.Action.SB_SubAction 
+         GetIntegerFromAttribute( &lAutoSubAction, vDialog, "Action", "SB_SubAction" );
+      } 
+
+      //:END
       //:IF lActionType = zWAB_StartEmailClient OR
       //:   lActionType = zWAB_StartEmailClientBCC OR
       //:   lActionType = zWAB_StartEmailClientCC
@@ -5121,9 +5255,9 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
          WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 );
 
          //:IF vDialog.ActWndEvent DOES NOT EXIST OR  // don't include pre/post build java code here
-         lTempInteger_26 = CheckExistenceOfEntity( vDialog, "ActWndEvent" );
+         lTempInteger_27 = CheckExistenceOfEntity( vDialog, "ActWndEvent" );
          //:   (vDialog.ActWndEvent.Type != 1 AND vDialog.ActWndEvent.Type != 2)
-         if ( lTempInteger_26 != 0 || ( CompareAttributeToInteger( vDialog, "ActWndEvent", "Type", 1 ) != 0 && CompareAttributeToInteger( vDialog, "ActWndEvent", "Type", 2 ) != 0 ) )
+         if ( lTempInteger_27 != 0 || ( CompareAttributeToInteger( vDialog, "ActWndEvent", "Type", 1 ) != 0 && CompareAttributeToInteger( vDialog, "ActWndEvent", "Type", 2 ) != 0 ) )
          { 
 
             //://KJS 11/16/2007 - We want to insert any javascript code that the
@@ -5276,6 +5410,69 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
          //:   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
          //:ELSE
          //:**************/   // what's this???
+
+         //:// KJS 05/16/18
+         //:IF lAutoSubAction = 268435460         
+         if ( lAutoSubAction == 268435460 )
+         { 
+            //:szWriteBuffer = "   // Auto delete confirmation "
+            ZeidonStringCopy( szWriteBuffer, 1, 0, "   // Auto delete confirmation ", 1, 0, 10001 );
+            //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+            WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+            //:IF szLangConvFlag = "Y" 
+            if ( ZeidonStringCompare( szLangConvFlag, 1, 0, "Y", 1, 0, 2 ) == 0 )
+            { 
+               //:szWriteBuffer = "   if (!confirm(getJSMsgConv('AutoActionD', 'Are you sure you want to delete this item?'))) "
+               ZeidonStringCopy( szWriteBuffer, 1, 0, "   if (!confirm(getJSMsgConv('AutoActionD', 'Are you sure you want to delete this item?'))) ", 1, 0, 10001 );
+               //:ELSE
+            } 
+            else
+            { 
+               //:szWriteBuffer = "   if (!confirm('Are you sure you want to delete this item?')) "
+               ZeidonStringCopy( szWriteBuffer, 1, 0, "   if (!confirm('Are you sure you want to delete this item?')) ", 1, 0, 10001 );
+            } 
+
+            //:END
+            //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+            WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+            //:szWriteBuffer = "      return;"
+            ZeidonStringCopy( szWriteBuffer, 1, 0, "      return;", 1, 0, 10001 );
+            //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 )
+            WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 );
+         } 
+
+         //:END
+         //:IF lAutoSubAction = 268435464         
+         if ( lAutoSubAction == 268435464 )
+         { 
+            //:szWriteBuffer = "   // Auto exclude confirmation "
+            ZeidonStringCopy( szWriteBuffer, 1, 0, "   // Auto exclude confirmation ", 1, 0, 10001 );
+            //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+            WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+            //:IF szLangConvFlag = "Y" 
+            if ( ZeidonStringCompare( szLangConvFlag, 1, 0, "Y", 1, 0, 2 ) == 0 )
+            { 
+               //:szWriteBuffer = "   if (!confirm(getJSMsgConv('AutoActionEx', 'Are you sure you want to remove this item?'))) "
+               ZeidonStringCopy( szWriteBuffer, 1, 0, "   if (!confirm(getJSMsgConv('AutoActionEx', 'Are you sure you want to remove this item?'))) ", 1, 0, 10001 );
+               //:ELSE
+            } 
+            else
+            { 
+               //:szWriteBuffer = "   if (!confirm('Are you sure you want to remove this item?')) "
+               ZeidonStringCopy( szWriteBuffer, 1, 0, "   if (!confirm('Are you sure you want to remove this item?')) ", 1, 0, 10001 );
+            } 
+
+            //:END
+            //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+            WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+            //:szWriteBuffer = "      return;"
+            ZeidonStringCopy( szWriteBuffer, 1, 0, "      return;", 1, 0, 10001 );
+            //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 )
+            WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 );
+         } 
+
+         //:END
+
          //:// Print Window
          //:IF lActionType = 60
          if ( lActionType == 60 )
@@ -5284,42 +5481,83 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
             ZeidonStringCopy( szWriteBuffer, 1, 0, "   window.print();", 1, 0, 10001 );
             //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
             WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+            //:ELSE
          } 
-
-         //:END
-         //:IF lActionType = zWAB_StayOnWindow AND vDialog.Action.WebJavaScript != ""
-         if ( lActionType == zWAB_StayOnWindow && CompareAttributeToString( vDialog, "Action", "WebJavaScript", "" ) != 0 )
+         else
          { 
-
-            //:// KJS 08/14/2009 - If the window type is zWAB_StayOnWindow (no refresh) and we have Javascript code on this action
-            //:// then we don't want to do the .submit (which we really don't want to do if the action is zWAB_StayOnWindow but I'm
-            //:// afraid there might be places where we kept the action zWAB_StayOnWindow because we knew it would always put
-            //:// the submit in).
-            //:szWriteBuffer = "   if ( _IsDocDisabled( ) == false )"
-            ZeidonStringCopy( szWriteBuffer, 1, 0, "   if ( _IsDocDisabled( ) == false )", 1, 0, 10001 );
-            //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
-            WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
-            //:szWriteBuffer = "   {"
-            ZeidonStringCopy( szWriteBuffer, 1, 0, "   {", 1, 0, 10001 );
-            //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
-            WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
-            //:szJavaScript = vDialog.Action.WebJavaScript
-            GetVariableFromAttribute( szJavaScript, 0, 'S', 10001, vDialog, "Action", "WebJavaScript", "", 0 );
-
-            //:// DKS 2015.06.20 - remove prebuild javascript if it is being inserted in _AfterPageLoaded
-            //:IF szInsertPrebuildJavascriptInline = "Y"
-            if ( ZeidonStringCompare( szInsertPrebuildJavascriptInline, 1, 0, "Y", 1, 0, 2 ) == 0 )
+            //:IF lActionType = zWAB_StayOnWindow AND vDialog.Action.WebJavaScript != ""
+            if ( lActionType == zWAB_StayOnWindow && CompareAttributeToString( vDialog, "Action", "WebJavaScript", "" ) != 0 )
             { 
-               //:IF vDialog.ActWndEvent EXISTS AND vDialog.ActWndEvent.Type = 1
-               lTempInteger_27 = CheckExistenceOfEntity( vDialog, "ActWndEvent" );
-               if ( lTempInteger_27 == 0 && CompareAttributeToInteger( vDialog, "ActWndEvent", "Type", 1 ) == 0 )
+
+               //:// KJS 08/14/2009 - If the window type is zWAB_StayOnWindow (no refresh) and we have Javascript code on this action
+               //:// then we don't want to do the .submit (which we really don't want to do if the action is zWAB_StayOnWindow but I'm
+               //:// afraid there might be places where we kept the action zWAB_StayOnWindow because we knew it would always put
+               //:// the submit in).
+               //:szWriteBuffer = "   if ( _IsDocDisabled( ) == false )"
+               ZeidonStringCopy( szWriteBuffer, 1, 0, "   if ( _IsDocDisabled( ) == false )", 1, 0, 10001 );
+               //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+               WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+               //:szWriteBuffer = "   {"
+               ZeidonStringCopy( szWriteBuffer, 1, 0, "   {", 1, 0, 10001 );
+               //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+               WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+               //:szJavaScript = vDialog.Action.WebJavaScript
+               GetVariableFromAttribute( szJavaScript, 0, 'S', 10001, vDialog, "Action", "WebJavaScript", "", 0 );
+
+               //:// DKS 2015.06.20 - remove prebuild javascript if it is being inserted in _AfterPageLoaded
+               //:IF szInsertPrebuildJavascriptInline = "Y"
+               if ( ZeidonStringCompare( szInsertPrebuildJavascriptInline, 1, 0, "Y", 1, 0, 2 ) == 0 )
                { 
-                  //:// prebuild javascript being inserted inline in _AfterPageLoaded
+                  //:IF vDialog.ActWndEvent EXISTS AND vDialog.ActWndEvent.Type = 1
+                  lTempInteger_28 = CheckExistenceOfEntity( vDialog, "ActWndEvent" );
+                  if ( lTempInteger_28 == 0 && CompareAttributeToInteger( vDialog, "ActWndEvent", "Type", 1 ) == 0 )
+                  { 
+                     //:// prebuild javascript being inserted inline in _AfterPageLoaded
+                     //:ELSE
+                  } 
+                  else
+                  { 
+                     //:// otherwise, we need the javascript code
+                     //:IF  szJavaScript != ""
+                     if ( ZeidonStringCompare( szJavaScript, 1, 0, "", 1, 0, 10001 ) != 0 )
+                     { 
+                        //:szWriteBuffer = "      // Javascript code entered by user."
+                        ZeidonStringCopy( szWriteBuffer, 1, 0, "      // Javascript code entered by user.", 1, 0, 10001 );
+                        //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 )
+                        WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 );
+                        //:szWriteBuffer = szJavaScript
+                        ZeidonStringCopy( szWriteBuffer, 1, 0, szJavaScript, 1, 0, 10001 );
+                        //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 )
+                        WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 );
+                        //:szWriteBuffer = "      // END of Javascript code entered by user."
+                        ZeidonStringCopy( szWriteBuffer, 1, 0, "      // END of Javascript code entered by user.", 1, 0, 10001 );
+                        //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 )
+                        WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 );
+                     } 
+
+                     //:END
+                  } 
+
+                  //:END
+                  //:// DKS 2015.07.07 - and we always want the submit
+                  //:szWriteBuffer = "      document." + szFormName + ".zAction.value = ^" + szActionTag + "^;"
+                  ZeidonStringCopy( szWriteBuffer, 1, 0, "      document.", 1, 0, 10001 );
+                  ZeidonStringConcat( szWriteBuffer, 1, 0, szFormName, 1, 0, 10001 );
+                  ZeidonStringConcat( szWriteBuffer, 1, 0, ".zAction.value = ^", 1, 0, 10001 );
+                  ZeidonStringConcat( szWriteBuffer, 1, 0, szActionTag, 1, 0, 10001 );
+                  ZeidonStringConcat( szWriteBuffer, 1, 0, "^;", 1, 0, 10001 );
+                  //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+                  WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+                  //:szWriteBuffer = "      document." + szFormName + ".submit( );"
+                  ZeidonStringCopy( szWriteBuffer, 1, 0, "      document.", 1, 0, 10001 );
+                  ZeidonStringConcat( szWriteBuffer, 1, 0, szFormName, 1, 0, 10001 );
+                  ZeidonStringConcat( szWriteBuffer, 1, 0, ".submit( );", 1, 0, 10001 );
+                  //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+                  WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
                   //:ELSE
                } 
                else
                { 
-                  //:// otherwise, we need the javascript code
                   //:IF  szJavaScript != ""
                   if ( ZeidonStringCompare( szJavaScript, 1, 0, "", 1, 0, 10001 ) != 0 )
                   { 
@@ -5341,208 +5579,13 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
                } 
 
                //:END
-               //:// DKS 2015.07.07 - and we always want the submit
-               //:szWriteBuffer = "      document." + szFormName + ".zAction.value = ^" + szActionTag + "^;"
-               ZeidonStringCopy( szWriteBuffer, 1, 0, "      document.", 1, 0, 10001 );
-               ZeidonStringConcat( szWriteBuffer, 1, 0, szFormName, 1, 0, 10001 );
-               ZeidonStringConcat( szWriteBuffer, 1, 0, ".zAction.value = ^", 1, 0, 10001 );
-               ZeidonStringConcat( szWriteBuffer, 1, 0, szActionTag, 1, 0, 10001 );
-               ZeidonStringConcat( szWriteBuffer, 1, 0, "^;", 1, 0, 10001 );
-               //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
-               WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
-               //:szWriteBuffer = "      document." + szFormName + ".submit( );"
-               ZeidonStringCopy( szWriteBuffer, 1, 0, "      document.", 1, 0, 10001 );
-               ZeidonStringConcat( szWriteBuffer, 1, 0, szFormName, 1, 0, 10001 );
-               ZeidonStringConcat( szWriteBuffer, 1, 0, ".submit( );", 1, 0, 10001 );
-               //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
-               WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
-               //:ELSE
-            } 
-            else
-            { 
-               //:IF  szJavaScript != ""
-               if ( ZeidonStringCompare( szJavaScript, 1, 0, "", 1, 0, 10001 ) != 0 )
+
+               //:// We don't want to set the position if this action is for Prebuild or Postbuild.
+               //:// Not sure we would get to this code since I think ActWndEvt exists but I will keep for now.
+               //:IF vDialog.ActWndEvent DOES NOT EXIST
+               lTempInteger_29 = CheckExistenceOfEntity( vDialog, "ActWndEvent" );
+               if ( lTempInteger_29 != 0 )
                { 
-                  //:szWriteBuffer = "      // Javascript code entered by user."
-                  ZeidonStringCopy( szWriteBuffer, 1, 0, "      // Javascript code entered by user.", 1, 0, 10001 );
-                  //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 )
-                  WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 );
-                  //:szWriteBuffer = szJavaScript
-                  ZeidonStringCopy( szWriteBuffer, 1, 0, szJavaScript, 1, 0, 10001 );
-                  //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 )
-                  WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 );
-                  //:szWriteBuffer = "      // END of Javascript code entered by user."
-                  ZeidonStringCopy( szWriteBuffer, 1, 0, "      // END of Javascript code entered by user.", 1, 0, 10001 );
-                  //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 )
-                  WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 );
-               } 
-
-               //:END
-            } 
-
-            //:END
-
-            //:// We don't want to set the position if this action is for Prebuild or Postbuild.
-            //:// Not sure we would get to this code since I think ActWndEvt exists but I will keep for now.
-            //:IF vDialog.ActWndEvent DOES NOT EXIST
-            lTempInteger_28 = CheckExistenceOfEntity( vDialog, "ActWndEvent" );
-            if ( lTempInteger_28 != 0 )
-            { 
-               //:szWriteBuffer = "      if ( typeof(Storage) !== ^undefined^ )"
-               ZeidonStringCopy( szWriteBuffer, 1, 0, "      if ( typeof(Storage) !== ^undefined^ )", 1, 0, 10001 );
-               //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
-               WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
-               //:szWriteBuffer = "      {"
-               ZeidonStringCopy( szWriteBuffer, 1, 0, "      {", 1, 0, 10001 );
-               //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
-               WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
-               //:szWriteBuffer = "         // Code for sessionStorage."
-               ZeidonStringCopy( szWriteBuffer, 1, 0, "         // Code for sessionStorage.", 1, 0, 10001 );
-               //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
-               WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
-               //:szWriteBuffer = "         var storageName = ^" + szLPLR_Name + "." + szFormName + ".position^" //ZENCAS.wClassDClassListByTerm.position
-               ZeidonStringCopy( szWriteBuffer, 1, 0, "         var storageName = ^", 1, 0, 10001 );
-               ZeidonStringConcat( szWriteBuffer, 1, 0, szLPLR_Name, 1, 0, 10001 );
-               ZeidonStringConcat( szWriteBuffer, 1, 0, ".", 1, 0, 10001 );
-               ZeidonStringConcat( szWriteBuffer, 1, 0, szFormName, 1, 0, 10001 );
-               ZeidonStringConcat( szWriteBuffer, 1, 0, ".position^", 1, 0, 10001 );
-               //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
-               WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
-               //:// KJS 11/09/17 - For some reason body.scroll... seems to not be working. Changing to something that should
-               //:// be compatible crossplatform.
-               //:/*
-               //:szWriteBuffer = "         var scrollPosition = document.body.scrollTop + '#' + document.body.scrollLeft;"
-               //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
-               //:*/
-               //:szWriteBuffer = "         var sy= window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;"
-               ZeidonStringCopy( szWriteBuffer, 1, 0, "         var sy= window.pageYOffset | document.documentElement.scrollTop | document.body.scrollTop | 0;", 1, 0, 10001 );
-               //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
-               WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
-               //:szWriteBuffer = "         var sx= window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft || 0;"
-               ZeidonStringCopy( szWriteBuffer, 1, 0, "         var sx= window.pageXOffset | document.documentElement.scrollLeft | document.body.scrollLeft | 0;", 1, 0, 10001 );
-               //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
-               WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
-               //:szWriteBuffer = "         var scrollPosition = sy + '#' + sx;"
-               ZeidonStringCopy( szWriteBuffer, 1, 0, "         var scrollPosition = sy + '#' + sx;", 1, 0, 10001 );
-               //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
-               WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
-
-               //:szWriteBuffer = "         sessionStorage.setItem( storageName, scrollPosition );"
-               ZeidonStringCopy( szWriteBuffer, 1, 0, "         sessionStorage.setItem( storageName, scrollPosition );", 1, 0, 10001 );
-               //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
-               WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
-               //:szWriteBuffer = "      }"
-               ZeidonStringCopy( szWriteBuffer, 1, 0, "      }", 1, 0, 10001 );
-               //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
-               WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
-            } 
-
-            //:END
-            //:   
-            //://szWriteBuffer = "   }"
-            //://WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
-
-            //:ELSE
-         } 
-         else
-         { 
-
-            //:// Normal Action.
-
-            //:szWriteBuffer = "   if ( _IsDocDisabled( ) == false )"
-            ZeidonStringCopy( szWriteBuffer, 1, 0, "   if ( _IsDocDisabled( ) == false )", 1, 0, 10001 );
-            //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
-            WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
-            //:szWriteBuffer = "   {"
-            ZeidonStringCopy( szWriteBuffer, 1, 0, "   {", 1, 0, 10001 );
-            //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
-            WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
-
-            //:IF szListButtonFlag = "Y"  // dks 2011.02.24   added for button on grid problem?
-            if ( ZeidonStringCompare( szListButtonFlag, 1, 0, "Y", 1, 0, 2 ) == 0 )
-            { 
-               //:szWriteBuffer = "      var nIdx = strTagEntityKey.lastIndexOf( '::' );"
-               ZeidonStringCopy( szWriteBuffer, 1, 0, "      var nIdx = strTagEntityKey.lastIndexOf( '::' );", 1, 0, 10001 );
-               //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
-               WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
-               //:szWriteBuffer = "      var strEntityKey = strTagEntityKey.substring( nIdx + 2 );"
-               ZeidonStringCopy( szWriteBuffer, 1, 0, "      var strEntityKey = strTagEntityKey.substring( nIdx + 2 );", 1, 0, 10001 );
-               //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 )
-               WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 );
-               //:// We definitely need this though
-               //:// The Action was on a Button on a Grid, so identify the entry selected.
-               //:szWriteBuffer = "      document." + szFormName + ".zTableRowSelect.value = strEntityKey;"
-               ZeidonStringCopy( szWriteBuffer, 1, 0, "      document.", 1, 0, 10001 );
-               ZeidonStringConcat( szWriteBuffer, 1, 0, szFormName, 1, 0, 10001 );
-               ZeidonStringConcat( szWriteBuffer, 1, 0, ".zTableRowSelect.value = strEntityKey;", 1, 0, 10001 );
-               //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
-               WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
-            } 
-
-            //:END
-
-            //:IF lActionType != zWAB_StayOnWindowWebRefresh AND
-            //:   (vDialog.ActWndEvent DOES NOT EXIST OR  // don't include pre/post build java code here
-            lTempInteger_29 = CheckExistenceOfEntity( vDialog, "ActWndEvent" );
-            //:    (vDialog.ActWndEvent.Type != 1 AND vDialog.ActWndEvent.Type != 2))
-            if ( lActionType != zWAB_StayOnWindowWebRefresh && ( lTempInteger_29 != 0 || ( CompareAttributeToInteger( vDialog, "ActWndEvent", "Type", 1 ) != 0 && CompareAttributeToInteger( vDialog, "ActWndEvent", "Type", 2 ) != 0 ) ) )
-            { 
-
-               //://KJS 11/16/2007 - We want to insert any javascript code that the
-               //://user has entered for this action.  This will be put before the action
-               //://generated code for submitting.
-               //:szJavaScript = vDialog.Action.WebJavaScript
-               GetVariableFromAttribute( szJavaScript, 0, 'S', 10001, vDialog, "Action", "WebJavaScript", "", 0 );
-               //:IF szJavaScript != "" AND vDialog.Action.WebJavaScriptLocation = ""
-               if ( ZeidonStringCompare( szJavaScript, 1, 0, "", 1, 0, 10001 ) != 0 && CompareAttributeToString( vDialog, "Action", "WebJavaScriptLocation", "" ) == 0 )
-               { 
-                  //:szWriteBuffer = "      // Javascript code entered by user."
-                  ZeidonStringCopy( szWriteBuffer, 1, 0, "      // Javascript code entered by user.", 1, 0, 10001 );
-                  //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 )
-                  WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 );
-                  //:szWriteBuffer = szJavaScript
-                  ZeidonStringCopy( szWriteBuffer, 1, 0, szJavaScript, 1, 0, 10001 );
-                  //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 )
-                  WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 );
-                  //:szWriteBuffer = "      // END of Javascript code entered by user."
-                  ZeidonStringCopy( szWriteBuffer, 1, 0, "      // END of Javascript code entered by user.", 1, 0, 10001 );
-                  //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 )
-                  WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 );
-               } 
-
-               //:END
-            } 
-
-            //:END
-
-            //:// If this function is for Download File or open Jasper pdf report, we want to eliminate the _DisableFormElements statement.
-            //:// For both of these we use response.getOutputStream and when we do this, our original jsp page does not get the focus
-            //:// back and so _DisableFormElements( false ) in _AfterPageLoaded does not get called. The page would be hung.
-            //:IF lActionType != zWAB_ProcessDownloadFile AND lActionType != zWAB_StartJasperPDF_Page AND lActionType != 49 // zWAB_StartJasperXLS_Page
-            if ( lActionType != zWAB_ProcessDownloadFile && lActionType != zWAB_StartJasperPDF_Page && lActionType != 49 )
-            { 
-               //:szWriteBuffer = "      _DisableFormElements( true );"
-               ZeidonStringCopy( szWriteBuffer, 1, 0, "      _DisableFormElements( true );", 1, 0, 10001 );
-               //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 )
-               WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 );
-            } 
-
-            //:END
-
-            //:// We don't want to set the position if this action is for Prebuild or Postbuild.
-            //:IF vDialog.ActWndEvent DOES NOT EXIST
-            lTempInteger_30 = CheckExistenceOfEntity( vDialog, "ActWndEvent" );
-            if ( lTempInteger_30 != 0 )
-            { 
-
-               //:IF lActionType = zWAB_StayOnWindow OR
-               //:   lActionType = zWAB_StayOnWindowWithRefresh OR
-               //:   lActionType = zWAB_StayOnWindowWebRefresh OR
-               //:   lActionType = zWAB_StartModelessSubwindow OR
-               //:   lActionType = zWAB_StartModalSubwindow
-               if ( lActionType == zWAB_StayOnWindow || lActionType == zWAB_StayOnWindowWithRefresh || lActionType == zWAB_StayOnWindowWebRefresh || lActionType == zWAB_StartModelessSubwindow || lActionType == zWAB_StartModalSubwindow )
-               { 
-
                   //:szWriteBuffer = "      if ( typeof(Storage) !== ^undefined^ )"
                   ZeidonStringCopy( szWriteBuffer, 1, 0, "      if ( typeof(Storage) !== ^undefined^ )", 1, 0, 10001 );
                   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
@@ -5581,285 +5624,433 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
                   ZeidonStringCopy( szWriteBuffer, 1, 0, "         var scrollPosition = sy + '#' + sx;", 1, 0, 10001 );
                   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
                   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+
                   //:szWriteBuffer = "         sessionStorage.setItem( storageName, scrollPosition );"
                   ZeidonStringCopy( szWriteBuffer, 1, 0, "         sessionStorage.setItem( storageName, scrollPosition );", 1, 0, 10001 );
                   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
                   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
                   //:szWriteBuffer = "      }"
                   ZeidonStringCopy( szWriteBuffer, 1, 0, "      }", 1, 0, 10001 );
-                  //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )                
+                  //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
                   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
                } 
 
                //:END
-            } 
 
-            //:END
+               //://szWriteBuffer = "   }"
+               //://WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
 
-            //:// We need to determine if this Action is on a Group for File Transfer to Server, because we need to
-            //:// use the Form Name from the Group in that case. We will locate the corresponding Action entry under
-            //:// the Control subobject and move up one level to find the Group.
-            //:szTransferFileFlag = ""
-            ZeidonStringCopy( szTransferFileFlag, 1, 0, "", 1, 0, 2 );
-            //:CreateViewFromView( vDialogTemp, vDialog )
-            CreateViewFromView( &vDialogTemp, vDialog );
-            //:lControl = zQUAL_STRING + zPOS_FIRST + zRECURS
-            lControl = zQUAL_STRING + zPOS_FIRST + zRECURS;
-            //:szActionTag = vDialog.Action.Tag
-            GetVariableFromAttribute( szActionTag, 0, 'S', 35, vDialog, "Action", "Tag", "", 0 );
-            //:nRC = SetEntityCursor( vDialogTemp, "EventAct", "Tag", lControl,
-            //:                       szActionTag, "", "", 0, "Window", "" )
-            nRC = SetEntityCursor( vDialogTemp, "EventAct", "Tag", lControl, szActionTag, "", "", 0, "Window", "" );
-            //:IF nRC >= zCURSOR_SET
-            if ( nRC >= zCURSOR_SET )
-            { 
-               //:ResetViewFromSubobject( vDialogTemp )
-               ResetViewFromSubobject( vDialogTemp );
-               //:SET CURSOR FIRST vDialogTemp.WebControlProperty WHERE vDialogTemp.WebControlProperty.Name = "File Transfer to Server"
-               RESULT = SetCursorFirstEntityByString( vDialogTemp, "WebControlProperty", "Name", "File Transfer to Server", "" );
-               //:IF RESULT >= zCURSOR_SET
-               if ( RESULT >= zCURSOR_SET )
-               { 
-                  //:szTransferFileFlag = "Y"
-                  ZeidonStringCopy( szTransferFileFlag, 1, 0, "Y", 1, 0, 2 );
-               } 
-
-               //:END
-            } 
-
-            //:END
-            //:IF szTransferFileFlag = "Y"
-            if ( ZeidonStringCompare( szTransferFileFlag, 1, 0, "Y", 1, 0, 2 ) == 0 )
-            { 
-               //:szCtrlTag = vDialogTemp.Control.Tag
-               GetVariableFromAttribute( szCtrlTag, 0, 'S', 33, vDialogTemp, "Control", "Tag", "", 0 );
-               //:szWriteBuffer = "      document." + szCtrlTag + ".zAction.value = ^" + szActionTag + "^;"
-               ZeidonStringCopy( szWriteBuffer, 1, 0, "      document.", 1, 0, 10001 );
-               ZeidonStringConcat( szWriteBuffer, 1, 0, szCtrlTag, 1, 0, 10001 );
-               ZeidonStringConcat( szWriteBuffer, 1, 0, ".zAction.value = ^", 1, 0, 10001 );
-               ZeidonStringConcat( szWriteBuffer, 1, 0, szActionTag, 1, 0, 10001 );
-               ZeidonStringConcat( szWriteBuffer, 1, 0, "^;", 1, 0, 10001 );
-               //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
-               WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
-               //:szWriteBuffer = "      document." + szCtrlTag + ".submit( );"
-               ZeidonStringCopy( szWriteBuffer, 1, 0, "      document.", 1, 0, 10001 );
-               ZeidonStringConcat( szWriteBuffer, 1, 0, szCtrlTag, 1, 0, 10001 );
-               ZeidonStringConcat( szWriteBuffer, 1, 0, ".submit( );", 1, 0, 10001 );
-               //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
-               WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
                //:ELSE
             } 
             else
             { 
-               //:// KJS 11/10/12 - Do we need this here? Can I have it above so that it is for every action that might be
-               //:// on a grid or repeating group?
-               //:/*
-               //:IF szListButtonFlag = "Y"
-               //:   // The Action was on a Button on a Grid, so identify the entry selected.
-               //:   szWriteBuffer = "      document." + szFormName + ".zTableRowSelect.value = strEntityKey;"
-               //:   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
-               //:END
-               //:*/
 
-               //://KELLY
-               //:IF ( lActionType = zWAB_StartModalWebPopup OR lActionType = zWAB_StartModelessWebPopup ) // KJS 07/11/12 AND vDialog.Action.NoMap = ""
-               if ( lActionType == zWAB_StartModalWebPopup || lActionType == zWAB_StartModelessWebPopup )
+               //:// Normal Action.
+
+               //:szWriteBuffer = "   if ( _IsDocDisabled( ) == false )"
+               ZeidonStringCopy( szWriteBuffer, 1, 0, "   if ( _IsDocDisabled( ) == false )", 1, 0, 10001 );
+               //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+               WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+               //:szWriteBuffer = "   {"
+               ZeidonStringCopy( szWriteBuffer, 1, 0, "   {", 1, 0, 10001 );
+               //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+               WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+
+               //:IF szListButtonFlag = "Y"  // dks 2011.02.24   added for button on grid problem?
+               if ( ZeidonStringCompare( szListButtonFlag, 1, 0, "Y", 1, 0, 2 ) == 0 )
                { 
-                  //:// This Action is Startup Web Popup WITH mapping, so set zOpenPopupWindow to the next page jsp.
-                  //:szDlgTag = vDialog.Action.DialogName
-                  GetVariableFromAttribute( szDlgTag, 0, 'S', 33, vDialog, "Action", "DialogName", "", 0 );
-                  //:szWndTag = vDialog.Action.WindowName
-                  GetVariableFromAttribute( szWndTag, 0, 'S', 33, vDialog, "Action", "WindowName", "", 0 );
-
-                  //:szWriteBuffer = "      document." + szFormName + ".zOpenPopupWindow.value = ^" + szDlgTag + szWndTag + ".jsp^;"
-                  ZeidonStringCopy( szWriteBuffer, 1, 0, "      document.", 1, 0, 10001 );
-                  ZeidonStringConcat( szWriteBuffer, 1, 0, szFormName, 1, 0, 10001 );
-                  ZeidonStringConcat( szWriteBuffer, 1, 0, ".zOpenPopupWindow.value = ^", 1, 0, 10001 );
-                  ZeidonStringConcat( szWriteBuffer, 1, 0, szDlgTag, 1, 0, 10001 );
-                  ZeidonStringConcat( szWriteBuffer, 1, 0, szWndTag, 1, 0, 10001 );
-                  ZeidonStringConcat( szWriteBuffer, 1, 0, ".jsp^;", 1, 0, 10001 );
+                  //:szWriteBuffer = "      var nIdx = strTagEntityKey.lastIndexOf( '::' );"
+                  ZeidonStringCopy( szWriteBuffer, 1, 0, "      var nIdx = strTagEntityKey.lastIndexOf( '::' );", 1, 0, 10001 );
                   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
                   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+                  //:szWriteBuffer = "      var strEntityKey = strTagEntityKey.substring( nIdx + 2 );"
+                  ZeidonStringCopy( szWriteBuffer, 1, 0, "      var strEntityKey = strTagEntityKey.substring( nIdx + 2 );", 1, 0, 10001 );
+                  //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 )
+                  WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 );
+                  //:// We definitely need this though
+                  //:// The Action was on a Button on a Grid, so identify the entry selected.
+                  //:szWriteBuffer = "      document." + szFormName + ".zTableRowSelect.value = strEntityKey;"
+                  ZeidonStringCopy( szWriteBuffer, 1, 0, "      document.", 1, 0, 10001 );
+                  ZeidonStringConcat( szWriteBuffer, 1, 0, szFormName, 1, 0, 10001 );
+                  ZeidonStringConcat( szWriteBuffer, 1, 0, ".zTableRowSelect.value = strEntityKey;", 1, 0, 10001 );
+                  //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+                  WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+               } 
 
-                  //:// We are opening a popup window within this dialog
-                  //:IF szDlgTag = vDialogRoot.Dialog.Tag
-                  if ( CompareAttributeToString( vDialogRoot, "Dialog", "Tag", szDlgTag ) == 0 )
+               //:END
+
+               //:IF lActionType != zWAB_StayOnWindowWebRefresh AND
+               //:(vDialog.ActWndEvent DOES NOT EXIST OR  // don't include pre/post build java code here
+               lTempInteger_30 = CheckExistenceOfEntity( vDialog, "ActWndEvent" );
+               //: (vDialog.ActWndEvent.Type != 1 AND vDialog.ActWndEvent.Type != 2))
+               if ( lActionType != zWAB_StayOnWindowWebRefresh && ( lTempInteger_30 != 0 || ( CompareAttributeToInteger( vDialog, "ActWndEvent", "Type", 1 ) != 0 && CompareAttributeToInteger( vDialog, "ActWndEvent", "Type", 2 ) != 0 ) ) )
+               { 
+
+                  //://KJS 11/16/2007 - We want to insert any javascript code that the
+                  //://user has entered for this action.  This will be put before the action
+                  //://generated code for submitting.
+                  //:szJavaScript = vDialog.Action.WebJavaScript
+                  GetVariableFromAttribute( szJavaScript, 0, 'S', 10001, vDialog, "Action", "WebJavaScript", "", 0 );
+                  //:IF szJavaScript != "" AND vDialog.Action.WebJavaScriptLocation = ""
+                  if ( ZeidonStringCompare( szJavaScript, 1, 0, "", 1, 0, 10001 ) != 0 && CompareAttributeToString( vDialog, "Action", "WebJavaScriptLocation", "" ) == 0 )
                   { 
-                     //:// KJS 01/25/08 - The popup window was getting the size of the calling window (above code).  Instead, we want the
-                     //:// popup window to be the size of the painted popup window.  Added some hidden variables to hold this value.
-                     //:CreateViewFromView( vDialogTemp2, vDialogRoot )
-                     CreateViewFromView( &vDialogTemp2, vDialogRoot );
-                     //:SET CURSOR FIRST vDialogTemp2.Window WHERE vDialogTemp2.Window.Tag = vDialog.Action.WindowName
-                     GetStringFromAttribute( szTempString_18, vDialog, "Action", "WindowName" );
-                     RESULT = SetCursorFirstEntityByString( vDialogTemp2, "Window", "Tag", szTempString_18, "" );
-
-                     //:IF RESULT >= zCURSOR_SET
-                     if ( RESULT >= zCURSOR_SET )
-                     { 
-                        //:zIntegerToString( szWidth, 10, vDialogTemp2.Window.SZDLG_X / 34000 )
-                        GetIntegerFromAttribute( &lTempInteger_31, vDialogTemp2, "Window", "SZDLG_X" );
-                        zIntegerToString( szWidth, 10, lTempInteger_31 / 34000 );
-                        //:zIntegerToString( szHeight, 10, vDialogTemp2.Window.SZDLG_Y / 34000 )
-                        GetIntegerFromAttribute( &lTempInteger_32, vDialogTemp2, "Window", "SZDLG_Y" );
-                        zIntegerToString( szHeight, 10, lTempInteger_32 / 34000 );
-                        //:ELSE
-                     } 
-                     else
-                     { 
-                        //:szMsg = "Error in Window, " + szWindowTag + ": A 'Set Subwindow' for a Popup exists to a window that doesn't exist: " + szWndTag
-                        ZeidonStringCopy( szMsg, 1, 0, "Error in Window, ", 1, 0, 257 );
-                        ZeidonStringConcat( szMsg, 1, 0, szWindowTag, 1, 0, 257 );
-                        ZeidonStringConcat( szMsg, 1, 0, ": A 'Set Subwindow' for a Popup exists to a window that doesn't exist: ", 1, 0, 257 );
-                        ZeidonStringConcat( szMsg, 1, 0, szWndTag, 1, 0, 257 );
-                        //:MessageSend( vSubtask, "", "JSP Generation", szMsg, zMSGQ_OBJECT_CONSTRAINT_WARNING, 0 )
-                        MessageSend( vSubtask, "", "JSP Generation", szMsg, zMSGQ_OBJECT_CONSTRAINT_WARNING, 0 );
-                     } 
-
-                     //:END
-                     //:DropView( vDialogTemp2 )
-                     DropView( vDialogTemp2 );
-                     //:ELSE
+                     //:szWriteBuffer = "      // Javascript code entered by user."
+                     ZeidonStringCopy( szWriteBuffer, 1, 0, "      // Javascript code entered by user.", 1, 0, 10001 );
+                     //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 )
+                     WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 );
+                     //:szWriteBuffer = szJavaScript
+                     ZeidonStringCopy( szWriteBuffer, 1, 0, szJavaScript, 1, 0, 10001 );
+                     //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 )
+                     WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 );
+                     //:szWriteBuffer = "      // END of Javascript code entered by user."
+                     ZeidonStringCopy( szWriteBuffer, 1, 0, "      // END of Javascript code entered by user.", 1, 0, 10001 );
+                     //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 )
+                     WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 );
                   } 
-                  else
+
+                  //:END
+               } 
+
+               //:END
+
+               //:// If this function is for Download File or open Jasper pdf report, we want to eliminate the _DisableFormElements statement.
+               //:// For both of these we use response.getOutputStream and when we do this, our original jsp page does not get the focus
+               //:// back and so _DisableFormElements( false ) in _AfterPageLoaded does not get called. The page would be hung.
+               //:IF lActionType != zWAB_ProcessDownloadFile AND lActionType != zWAB_StartJasperPDF_Page AND lActionType != 49 // zWAB_StartJasperXLS_Page
+               if ( lActionType != zWAB_ProcessDownloadFile && lActionType != zWAB_StartJasperPDF_Page && lActionType != 49 )
+               { 
+                  //:szWriteBuffer = "      _DisableFormElements( true );"
+                  ZeidonStringCopy( szWriteBuffer, 1, 0, "      _DisableFormElements( true );", 1, 0, 10001 );
+                  //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 )
+                  WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 );
+               } 
+
+               //:END
+
+               //:// We don't want to set the position if this action is for Prebuild or Postbuild.
+               //:IF vDialog.ActWndEvent DOES NOT EXIST
+               lTempInteger_31 = CheckExistenceOfEntity( vDialog, "ActWndEvent" );
+               if ( lTempInteger_31 != 0 )
+               { 
+
+                  //:IF lActionType = zWAB_StayOnWindow OR
+                  //:lActionType = zWAB_StayOnWindowWithRefresh OR
+                  //:lActionType = zWAB_StayOnWindowWebRefresh OR
+                  //:lActionType = zWAB_StartModelessSubwindow OR
+                  //:lActionType = zWAB_StartModalSubwindow
+                  if ( lActionType == zWAB_StayOnWindow || lActionType == zWAB_StayOnWindowWithRefresh || lActionType == zWAB_StayOnWindowWebRefresh || lActionType == zWAB_StartModelessSubwindow || lActionType == zWAB_StartModalSubwindow )
                   { 
-                     //:// We are opening a popup window in a different dialog.  We want the size of the
-                     //:// popup window.  Need to open the other dialog.
-                     //:ActivateMetaOI_ByName( vSubtask, vDialogTemp2, 0, zREFER_DIALOG_META, zSINGLE, szDlgTag, 0 )
-                     ActivateMetaOI_ByName( vSubtask, &vDialogTemp2, 0, zREFER_DIALOG_META, zSINGLE, szDlgTag, 0 );
-                     //:SET CURSOR FIRST vDialogTemp2.Window WHERE vDialogTemp2.Window.Tag = szWndTag
-                     RESULT = SetCursorFirstEntityByString( vDialogTemp2, "Window", "Tag", szWndTag, "" );
-                     //:IF RESULT >= zCURSOR_SET
-                     if ( RESULT >= zCURSOR_SET )
+
+                     //:szWriteBuffer = "      if ( typeof(Storage) !== ^undefined^ )"
+                     ZeidonStringCopy( szWriteBuffer, 1, 0, "      if ( typeof(Storage) !== ^undefined^ )", 1, 0, 10001 );
+                     //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+                     WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+                     //:szWriteBuffer = "      {"
+                     ZeidonStringCopy( szWriteBuffer, 1, 0, "      {", 1, 0, 10001 );
+                     //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+                     WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+                     //:szWriteBuffer = "         // Code for sessionStorage."
+                     ZeidonStringCopy( szWriteBuffer, 1, 0, "         // Code for sessionStorage.", 1, 0, 10001 );
+                     //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+                     WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+                     //:szWriteBuffer = "         var storageName = ^" + szLPLR_Name + "." + szFormName + ".position^" //ZENCAS.wClassDClassListByTerm.position
+                     ZeidonStringCopy( szWriteBuffer, 1, 0, "         var storageName = ^", 1, 0, 10001 );
+                     ZeidonStringConcat( szWriteBuffer, 1, 0, szLPLR_Name, 1, 0, 10001 );
+                     ZeidonStringConcat( szWriteBuffer, 1, 0, ".", 1, 0, 10001 );
+                     ZeidonStringConcat( szWriteBuffer, 1, 0, szFormName, 1, 0, 10001 );
+                     ZeidonStringConcat( szWriteBuffer, 1, 0, ".position^", 1, 0, 10001 );
+                     //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+                     WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+                     //:// KJS 11/09/17 - For some reason body.scroll... seems to not be working. Changing to something that should
+                     //:// be compatible crossplatform.
+                     //:/*
+                     //:szWriteBuffer = "         var scrollPosition = document.body.scrollTop + '#' + document.body.scrollLeft;"
+                     //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+                     //:*/
+                     //:szWriteBuffer = "         var sy= window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;"
+                     ZeidonStringCopy( szWriteBuffer, 1, 0, "         var sy= window.pageYOffset | document.documentElement.scrollTop | document.body.scrollTop | 0;", 1, 0, 10001 );
+                     //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+                     WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+                     //:szWriteBuffer = "         var sx= window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft || 0;"
+                     ZeidonStringCopy( szWriteBuffer, 1, 0, "         var sx= window.pageXOffset | document.documentElement.scrollLeft | document.body.scrollLeft | 0;", 1, 0, 10001 );
+                     //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+                     WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+                     //:szWriteBuffer = "         var scrollPosition = sy + '#' + sx;"
+                     ZeidonStringCopy( szWriteBuffer, 1, 0, "         var scrollPosition = sy + '#' + sx;", 1, 0, 10001 );
+                     //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+                     WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+                     //:szWriteBuffer = "         sessionStorage.setItem( storageName, scrollPosition );"
+                     ZeidonStringCopy( szWriteBuffer, 1, 0, "         sessionStorage.setItem( storageName, scrollPosition );", 1, 0, 10001 );
+                     //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+                     WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+                     //:szWriteBuffer = "      }"
+                     ZeidonStringCopy( szWriteBuffer, 1, 0, "      }", 1, 0, 10001 );
+                     //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )                
+                     WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+                  } 
+
+                  //:END
+               } 
+
+               //:END
+
+               //:// We need to determine if this Action is on a Group for File Transfer to Server, because we need to
+               //:// use the Form Name from the Group in that case. We will locate the corresponding Action entry under
+               //:// the Control subobject and move up one level to find the Group.
+               //:szTransferFileFlag = ""
+               ZeidonStringCopy( szTransferFileFlag, 1, 0, "", 1, 0, 2 );
+               //:CreateViewFromView( vDialogTemp, vDialog )
+               CreateViewFromView( &vDialogTemp, vDialog );
+               //:lControl = zQUAL_STRING + zPOS_FIRST + zRECURS
+               lControl = zQUAL_STRING + zPOS_FIRST + zRECURS;
+               //:szActionTag = vDialog.Action.Tag
+               GetVariableFromAttribute( szActionTag, 0, 'S', 35, vDialog, "Action", "Tag", "", 0 );
+               //:nRC = SetEntityCursor( vDialogTemp, "EventAct", "Tag", lControl,
+               //:                    szActionTag, "", "", 0, "Window", "" )
+               nRC = SetEntityCursor( vDialogTemp, "EventAct", "Tag", lControl, szActionTag, "", "", 0, "Window", "" );
+               //:IF nRC >= zCURSOR_SET
+               if ( nRC >= zCURSOR_SET )
+               { 
+                  //:ResetViewFromSubobject( vDialogTemp )
+                  ResetViewFromSubobject( vDialogTemp );
+                  //:SET CURSOR FIRST vDialogTemp.WebControlProperty WHERE vDialogTemp.WebControlProperty.Name = "File Transfer to Server"
+                  RESULT = SetCursorFirstEntityByString( vDialogTemp, "WebControlProperty", "Name", "File Transfer to Server", "" );
+                  //:IF RESULT >= zCURSOR_SET
+                  if ( RESULT >= zCURSOR_SET )
+                  { 
+                     //:szTransferFileFlag = "Y"
+                     ZeidonStringCopy( szTransferFileFlag, 1, 0, "Y", 1, 0, 2 );
+                  } 
+
+                  //:END
+               } 
+
+               //:END
+               //:IF szTransferFileFlag = "Y"
+               if ( ZeidonStringCompare( szTransferFileFlag, 1, 0, "Y", 1, 0, 2 ) == 0 )
+               { 
+                  //:szCtrlTag = vDialogTemp.Control.Tag
+                  GetVariableFromAttribute( szCtrlTag, 0, 'S', 33, vDialogTemp, "Control", "Tag", "", 0 );
+                  //:szWriteBuffer = "      document." + szCtrlTag + ".zAction.value = ^" + szActionTag + "^;"
+                  ZeidonStringCopy( szWriteBuffer, 1, 0, "      document.", 1, 0, 10001 );
+                  ZeidonStringConcat( szWriteBuffer, 1, 0, szCtrlTag, 1, 0, 10001 );
+                  ZeidonStringConcat( szWriteBuffer, 1, 0, ".zAction.value = ^", 1, 0, 10001 );
+                  ZeidonStringConcat( szWriteBuffer, 1, 0, szActionTag, 1, 0, 10001 );
+                  ZeidonStringConcat( szWriteBuffer, 1, 0, "^;", 1, 0, 10001 );
+                  //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+                  WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+                  //:szWriteBuffer = "      document." + szCtrlTag + ".submit( );"
+                  ZeidonStringCopy( szWriteBuffer, 1, 0, "      document.", 1, 0, 10001 );
+                  ZeidonStringConcat( szWriteBuffer, 1, 0, szCtrlTag, 1, 0, 10001 );
+                  ZeidonStringConcat( szWriteBuffer, 1, 0, ".submit( );", 1, 0, 10001 );
+                  //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+                  WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+                  //:ELSE
+               } 
+               else
+               { 
+                  //:// KJS 11/10/12 - Do we need this here? Can I have it above so that it is for every action that might be
+                  //:// on a grid or repeating group?
+                  //:/*
+                  //:IF szListButtonFlag = "Y"
+                  //:// The Action was on a Button on a Grid, so identify the entry selected.
+                  //:szWriteBuffer = "      document." + szFormName + ".zTableRowSelect.value = strEntityKey;"
+                  //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+                  //:END
+                  //:*/
+
+                  //://KELLY
+                  //:IF ( lActionType = zWAB_StartModalWebPopup OR lActionType = zWAB_StartModelessWebPopup ) // KJS 07/11/12 AND vDialog.Action.NoMap = ""
+                  if ( lActionType == zWAB_StartModalWebPopup || lActionType == zWAB_StartModelessWebPopup )
+                  { 
+                     //:// This Action is Startup Web Popup WITH mapping, so set zOpenPopupWindow to the next page jsp.
+                     //:szDlgTag = vDialog.Action.DialogName
+                     GetVariableFromAttribute( szDlgTag, 0, 'S', 33, vDialog, "Action", "DialogName", "", 0 );
+                     //:szWndTag = vDialog.Action.WindowName
+                     GetVariableFromAttribute( szWndTag, 0, 'S', 33, vDialog, "Action", "WindowName", "", 0 );
+
+                     //:szWriteBuffer = "      document." + szFormName + ".zOpenPopupWindow.value = ^" + szDlgTag + szWndTag + ".jsp^;"
+                     ZeidonStringCopy( szWriteBuffer, 1, 0, "      document.", 1, 0, 10001 );
+                     ZeidonStringConcat( szWriteBuffer, 1, 0, szFormName, 1, 0, 10001 );
+                     ZeidonStringConcat( szWriteBuffer, 1, 0, ".zOpenPopupWindow.value = ^", 1, 0, 10001 );
+                     ZeidonStringConcat( szWriteBuffer, 1, 0, szDlgTag, 1, 0, 10001 );
+                     ZeidonStringConcat( szWriteBuffer, 1, 0, szWndTag, 1, 0, 10001 );
+                     ZeidonStringConcat( szWriteBuffer, 1, 0, ".jsp^;", 1, 0, 10001 );
+                     //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+                     WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+
+                     //:// We are opening a popup window within this dialog
+                     //:IF szDlgTag = vDialogRoot.Dialog.Tag
+                     if ( CompareAttributeToString( vDialogRoot, "Dialog", "Tag", szDlgTag ) == 0 )
                      { 
-                        //:zIntegerToString( szWidth, 10, vDialogTemp2.Window.SZDLG_X / 34000 )
-                        GetIntegerFromAttribute( &lTempInteger_33, vDialogTemp2, "Window", "SZDLG_X" );
-                        zIntegerToString( szWidth, 10, lTempInteger_33 / 34000 );
-                        //:zIntegerToString( szHeight, 10, vDialogTemp2.Window.SZDLG_Y / 34000 )
-                        GetIntegerFromAttribute( &lTempInteger_34, vDialogTemp2, "Window", "SZDLG_Y" );
-                        zIntegerToString( szHeight, 10, lTempInteger_34 / 34000 );
+                        //:// KJS 01/25/08 - The popup window was getting the size of the calling window (above code).  Instead, we want the
+                        //:// popup window to be the size of the painted popup window.  Added some hidden variables to hold this value.
+                        //:CreateViewFromView( vDialogTemp2, vDialogRoot )
+                        CreateViewFromView( &vDialogTemp2, vDialogRoot );
+                        //:SET CURSOR FIRST vDialogTemp2.Window WHERE vDialogTemp2.Window.Tag = vDialog.Action.WindowName
+                        GetStringFromAttribute( szTempString_17, vDialog, "Action", "WindowName" );
+                        RESULT = SetCursorFirstEntityByString( vDialogTemp2, "Window", "Tag", szTempString_17, "" );
+
+                        //:IF RESULT >= zCURSOR_SET
+                        if ( RESULT >= zCURSOR_SET )
+                        { 
+                           //:zIntegerToString( szWidth, 10, vDialogTemp2.Window.SZDLG_X / 34000 )
+                           GetIntegerFromAttribute( &lTempInteger_32, vDialogTemp2, "Window", "SZDLG_X" );
+                           zIntegerToString( szWidth, 10, lTempInteger_32 / 34000 );
+                           //:zIntegerToString( szHeight, 10, vDialogTemp2.Window.SZDLG_Y / 34000 )
+                           GetIntegerFromAttribute( &lTempInteger_33, vDialogTemp2, "Window", "SZDLG_Y" );
+                           zIntegerToString( szHeight, 10, lTempInteger_33 / 34000 );
+                           //:ELSE
+                        } 
+                        else
+                        { 
+                           //:szMsg = "Error in Window, " + szWindowTag + ": A 'Set Subwindow' for a Popup exists to a window that doesn't exist: " + szWndTag
+                           ZeidonStringCopy( szMsg, 1, 0, "Error in Window, ", 1, 0, 257 );
+                           ZeidonStringConcat( szMsg, 1, 0, szWindowTag, 1, 0, 257 );
+                           ZeidonStringConcat( szMsg, 1, 0, ": A 'Set Subwindow' for a Popup exists to a window that doesn't exist: ", 1, 0, 257 );
+                           ZeidonStringConcat( szMsg, 1, 0, szWndTag, 1, 0, 257 );
+                           //:MessageSend( vSubtask, "", "JSP Generation", szMsg, zMSGQ_OBJECT_CONSTRAINT_WARNING, 0 )
+                           MessageSend( vSubtask, "", "JSP Generation", szMsg, zMSGQ_OBJECT_CONSTRAINT_WARNING, 0 );
+                        } 
+
+                        //:END
+                        //:DropView( vDialogTemp2 )
+                        DropView( vDialogTemp2 );
                         //:ELSE
                      } 
                      else
                      { 
+                        //:// We are opening a popup window in a different dialog.  We want the size of the
+                        //:// popup window.  Need to open the other dialog.
+                        //:ActivateMetaOI_ByName( vSubtask, vDialogTemp2, 0, zREFER_DIALOG_META, zSINGLE, szDlgTag, 0 )
+                        ActivateMetaOI_ByName( vSubtask, &vDialogTemp2, 0, zREFER_DIALOG_META, zSINGLE, szDlgTag, 0 );
+                        //:SET CURSOR FIRST vDialogTemp2.Window WHERE vDialogTemp2.Window.Tag = szWndTag
+                        RESULT = SetCursorFirstEntityByString( vDialogTemp2, "Window", "Tag", szWndTag, "" );
+                        //:IF RESULT >= zCURSOR_SET
+                        if ( RESULT >= zCURSOR_SET )
+                        { 
+                           //:zIntegerToString( szWidth, 10, vDialogTemp2.Window.SZDLG_X / 34000 )
+                           GetIntegerFromAttribute( &lTempInteger_34, vDialogTemp2, "Window", "SZDLG_X" );
+                           zIntegerToString( szWidth, 10, lTempInteger_34 / 34000 );
+                           //:zIntegerToString( szHeight, 10, vDialogTemp2.Window.SZDLG_Y / 34000 )
+                           GetIntegerFromAttribute( &lTempInteger_35, vDialogTemp2, "Window", "SZDLG_Y" );
+                           zIntegerToString( szHeight, 10, lTempInteger_35 / 34000 );
+                           //:ELSE
+                        } 
+                        else
+                        { 
 
-                        //:szMsg = "Error in Window, " + vDialogRoot.Window.Tag + ": A 'Set Subwindow' for a Popup exists to a window that doesn't exist." +
-                        //:        szDlgTag + "." + szWndTag
-                        GetVariableFromAttribute( szTempString_18, 0, 'S', 33, vDialogRoot, "Window", "Tag", "", 0 );
-                        ZeidonStringCopy( szMsg, 1, 0, "Error in Window, ", 1, 0, 257 );
-                        ZeidonStringConcat( szMsg, 1, 0, szTempString_18, 1, 0, 257 );
-                        ZeidonStringConcat( szMsg, 1, 0, ": A 'Set Subwindow' for a Popup exists to a window that doesn't exist.", 1, 0, 257 );
-                        ZeidonStringConcat( szMsg, 1, 0, szDlgTag, 1, 0, 257 );
-                        ZeidonStringConcat( szMsg, 1, 0, ".", 1, 0, 257 );
-                        ZeidonStringConcat( szMsg, 1, 0, szWndTag, 1, 0, 257 );
-                        //:MessageSend( vSubtask, "", "JSP Generation", szMsg, zMSGQ_OBJECT_CONSTRAINT_WARNING, 0 )
-                        MessageSend( vSubtask, "", "JSP Generation", szMsg, zMSGQ_OBJECT_CONSTRAINT_WARNING, 0 );
+                           //:szMsg = "Error in Window, " + vDialogRoot.Window.Tag + ": A 'Set Subwindow' for a Popup exists to a window that doesn't exist." +
+                           //:     szDlgTag + "." + szWndTag
+                           GetVariableFromAttribute( szTempString_17, 0, 'S', 33, vDialogRoot, "Window", "Tag", "", 0 );
+                           ZeidonStringCopy( szMsg, 1, 0, "Error in Window, ", 1, 0, 257 );
+                           ZeidonStringConcat( szMsg, 1, 0, szTempString_17, 1, 0, 257 );
+                           ZeidonStringConcat( szMsg, 1, 0, ": A 'Set Subwindow' for a Popup exists to a window that doesn't exist.", 1, 0, 257 );
+                           ZeidonStringConcat( szMsg, 1, 0, szDlgTag, 1, 0, 257 );
+                           ZeidonStringConcat( szMsg, 1, 0, ".", 1, 0, 257 );
+                           ZeidonStringConcat( szMsg, 1, 0, szWndTag, 1, 0, 257 );
+                           //:MessageSend( vSubtask, "", "JSP Generation", szMsg, zMSGQ_OBJECT_CONSTRAINT_WARNING, 0 )
+                           MessageSend( vSubtask, "", "JSP Generation", szMsg, zMSGQ_OBJECT_CONSTRAINT_WARNING, 0 );
+                        } 
+
+
+                        //:END
+                        //:DropObjectInstance( vDialogTemp2 )
+                        DropObjectInstance( vDialogTemp2 );
                      } 
 
 
                      //:END
-                     //:DropObjectInstance( vDialogTemp2 )
-                     DropObjectInstance( vDialogTemp2 );
+
+                     //:szWriteBuffer = "      document." + szFormName + ".zPopupWindowSZX.value = ^" + szWidth + "^;"
+                     ZeidonStringCopy( szWriteBuffer, 1, 0, "      document.", 1, 0, 10001 );
+                     ZeidonStringConcat( szWriteBuffer, 1, 0, szFormName, 1, 0, 10001 );
+                     ZeidonStringConcat( szWriteBuffer, 1, 0, ".zPopupWindowSZX.value = ^", 1, 0, 10001 );
+                     ZeidonStringConcat( szWriteBuffer, 1, 0, szWidth, 1, 0, 10001 );
+                     ZeidonStringConcat( szWriteBuffer, 1, 0, "^;", 1, 0, 10001 );
+                     //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+                     WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+                     //:szWriteBuffer = "      document." + szFormName + ".zPopupWindowSZY.value = ^" + szHeight + "^;"
+                     ZeidonStringCopy( szWriteBuffer, 1, 0, "      document.", 1, 0, 10001 );
+                     ZeidonStringConcat( szWriteBuffer, 1, 0, szFormName, 1, 0, 10001 );
+                     ZeidonStringConcat( szWriteBuffer, 1, 0, ".zPopupWindowSZY.value = ^", 1, 0, 10001 );
+                     ZeidonStringConcat( szWriteBuffer, 1, 0, szHeight, 1, 0, 10001 );
+                     ZeidonStringConcat( szWriteBuffer, 1, 0, "^;", 1, 0, 10001 );
+                     //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+                     WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
                   } 
 
 
                   //:END
 
-                  //:szWriteBuffer = "      document." + szFormName + ".zPopupWindowSZX.value = ^" + szWidth + "^;"
-                  ZeidonStringCopy( szWriteBuffer, 1, 0, "      document.", 1, 0, 10001 );
-                  ZeidonStringConcat( szWriteBuffer, 1, 0, szFormName, 1, 0, 10001 );
-                  ZeidonStringConcat( szWriteBuffer, 1, 0, ".zPopupWindowSZX.value = ^", 1, 0, 10001 );
-                  ZeidonStringConcat( szWriteBuffer, 1, 0, szWidth, 1, 0, 10001 );
-                  ZeidonStringConcat( szWriteBuffer, 1, 0, "^;", 1, 0, 10001 );
+                  //:IF lActionType = zWAB_ExitDialogTask
+                  if ( lActionType == zWAB_ExitDialogTask )
+                  { 
+                     //:// For exiting the Dialog (ie., Session), the Action is OnUnload.
+                     //:szWriteBuffer = "      document." + szFormName + ".zAction.value = ^_OnUnload^;"
+                     ZeidonStringCopy( szWriteBuffer, 1, 0, "      document.", 1, 0, 10001 );
+                     ZeidonStringConcat( szWriteBuffer, 1, 0, szFormName, 1, 0, 10001 );
+                     ZeidonStringConcat( szWriteBuffer, 1, 0, ".zAction.value = ^_OnUnload^;", 1, 0, 10001 );
+                     //:ELSE
+                  } 
+                  else
+                  { 
+                     //:szWriteBuffer = "      document." + szFormName + ".zAction.value = ^" + szActionTag + "^;"
+                     ZeidonStringCopy( szWriteBuffer, 1, 0, "      document.", 1, 0, 10001 );
+                     ZeidonStringConcat( szWriteBuffer, 1, 0, szFormName, 1, 0, 10001 );
+                     ZeidonStringConcat( szWriteBuffer, 1, 0, ".zAction.value = ^", 1, 0, 10001 );
+                     ZeidonStringConcat( szWriteBuffer, 1, 0, szActionTag, 1, 0, 10001 );
+                     ZeidonStringConcat( szWriteBuffer, 1, 0, "^;", 1, 0, 10001 );
+                  } 
+
+                  //:END
                   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
                   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
-                  //:szWriteBuffer = "      document." + szFormName + ".zPopupWindowSZY.value = ^" + szHeight + "^;"
+                  //:szWriteBuffer = "      document." + szFormName + ".submit( );"
                   ZeidonStringCopy( szWriteBuffer, 1, 0, "      document.", 1, 0, 10001 );
                   ZeidonStringConcat( szWriteBuffer, 1, 0, szFormName, 1, 0, 10001 );
-                  ZeidonStringConcat( szWriteBuffer, 1, 0, ".zPopupWindowSZY.value = ^", 1, 0, 10001 );
-                  ZeidonStringConcat( szWriteBuffer, 1, 0, szHeight, 1, 0, 10001 );
-                  ZeidonStringConcat( szWriteBuffer, 1, 0, "^;", 1, 0, 10001 );
+                  ZeidonStringConcat( szWriteBuffer, 1, 0, ".submit( );", 1, 0, 10001 );
                   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
                   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+
+                  //://Type 84 is "Return from Web Popup/No Refresh
+                  //://Type 85 is "Return from Web Popup/Refresh
+                  //://We need to put in lines to close the popup window.
+                  //:IF ( lActionType = zWAB_ReturnFromWebPopupWithRefresh )
+                  if ( lActionType == zWAB_ReturnFromWebPopupWithRefresh )
+                  { 
+                     //:szWriteBuffer = "      window.opener.location.href=window.opener.location.href;"
+                     ZeidonStringCopy( szWriteBuffer, 1, 0, "      window.opener.location.href=window.opener.location.href;", 1, 0, 10001 );
+                     //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+                     WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+                     //:szWriteBuffer = "      window.opener.focus();"
+                     ZeidonStringCopy( szWriteBuffer, 1, 0, "      window.opener.focus();", 1, 0, 10001 );
+                     //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+                     WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+                  } 
+
+                  //:END
+                  //:IF ( lActionType = zWAB_ReturnFromWebPopupNoRefresh OR lActionType = zWAB_ReturnFromWebPopupWithRefresh )
+                  if ( lActionType == zWAB_ReturnFromWebPopupNoRefresh || lActionType == zWAB_ReturnFromWebPopupWithRefresh )
+                  { 
+                     //:szWriteBuffer = "      window.close();"
+                     ZeidonStringCopy( szWriteBuffer, 1, 0, "      window.close();", 1, 0, 10001 );
+                     //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+                     WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+                  } 
+
+                  //:END
                } 
 
 
                //:END
-
-               //:IF lActionType = zWAB_ExitDialogTask
-               if ( lActionType == zWAB_ExitDialogTask )
-               { 
-                  //:// For exiting the Dialog (ie., Session), the Action is OnUnload.
-                  //:szWriteBuffer = "      document." + szFormName + ".zAction.value = ^_OnUnload^;"
-                  ZeidonStringCopy( szWriteBuffer, 1, 0, "      document.", 1, 0, 10001 );
-                  ZeidonStringConcat( szWriteBuffer, 1, 0, szFormName, 1, 0, 10001 );
-                  ZeidonStringConcat( szWriteBuffer, 1, 0, ".zAction.value = ^_OnUnload^;", 1, 0, 10001 );
-                  //:ELSE
-               } 
-               else
-               { 
-                  //:szWriteBuffer = "      document." + szFormName + ".zAction.value = ^" + szActionTag + "^;"
-                  ZeidonStringCopy( szWriteBuffer, 1, 0, "      document.", 1, 0, 10001 );
-                  ZeidonStringConcat( szWriteBuffer, 1, 0, szFormName, 1, 0, 10001 );
-                  ZeidonStringConcat( szWriteBuffer, 1, 0, ".zAction.value = ^", 1, 0, 10001 );
-                  ZeidonStringConcat( szWriteBuffer, 1, 0, szActionTag, 1, 0, 10001 );
-                  ZeidonStringConcat( szWriteBuffer, 1, 0, "^;", 1, 0, 10001 );
-               } 
-
-               //:END
-               //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
-               WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
-               //:szWriteBuffer = "      document." + szFormName + ".submit( );"
-               ZeidonStringCopy( szWriteBuffer, 1, 0, "      document.", 1, 0, 10001 );
-               ZeidonStringConcat( szWriteBuffer, 1, 0, szFormName, 1, 0, 10001 );
-               ZeidonStringConcat( szWriteBuffer, 1, 0, ".submit( );", 1, 0, 10001 );
-               //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
-               WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
-
-               //://Type 84 is "Return from Web Popup/No Refresh
-               //://Type 85 is "Return from Web Popup/Refresh
-               //://We need to put in lines to close the popup window.
-               //:IF ( lActionType = zWAB_ReturnFromWebPopupWithRefresh )
-               if ( lActionType == zWAB_ReturnFromWebPopupWithRefresh )
-               { 
-                  //:szWriteBuffer = "      window.opener.location.href=window.opener.location.href;"
-                  ZeidonStringCopy( szWriteBuffer, 1, 0, "      window.opener.location.href=window.opener.location.href;", 1, 0, 10001 );
-                  //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
-                  WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
-                  //:szWriteBuffer = "      window.opener.focus();"
-                  ZeidonStringCopy( szWriteBuffer, 1, 0, "      window.opener.focus();", 1, 0, 10001 );
-                  //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
-                  WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
-               } 
-
-               //:END
-               //:IF ( lActionType = zWAB_ReturnFromWebPopupNoRefresh OR lActionType = zWAB_ReturnFromWebPopupWithRefresh )
-               if ( lActionType == zWAB_ReturnFromWebPopupNoRefresh || lActionType == zWAB_ReturnFromWebPopupWithRefresh )
-               { 
-                  //:szWriteBuffer = "      window.close();"
-                  ZeidonStringCopy( szWriteBuffer, 1, 0, "      window.close();", 1, 0, 10001 );
-                  //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
-                  WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
-               } 
-
-               //:END
+               //:DropView( vDialogTemp )
+               DropView( vDialogTemp );
             } 
 
-
-            //:END
-            //:DropView( vDialogTemp )
-            DropView( vDialogTemp );
-         } 
-
-         //:   //szWriteBuffer = "   }"
-         //:   //WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
-         //:END  // Normal Action.
-         //://END  // END of Print window
-
-         //:IF lActionType != 60 // all other actions but the print window.
-         if ( lActionType != 60 )
-         { 
-
-            //:// KJS 06/02/17
+            //://szWriteBuffer = "   }"
+            //://WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+            //:END  // Normal Action.
             //:// KJS 06/02/17
             //:// close for IsDocDisabled.
             //:szWriteBuffer = "   }"
@@ -5868,7 +6059,17 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
             WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
          } 
 
+         //:END  // END of Print window
+
+         //:/*
+         //:IF lActionType != 60 // all other actions but the print window.
+
+         //:   // KJS 06/02/17
+         //:   // close for IsDocDisabled.
+         //:   szWriteBuffer = "   }"
+         //:   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
          //:END
+         //:*/
 
          //:szWriteBuffer = "}"
          ZeidonStringCopy( szWriteBuffer, 1, 0, "}", 1, 0, 10001 );
@@ -5884,8 +6085,8 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
 
    //:// If the Window has a reusable side menu, add functions for each action from that menu.
    //:IF vDialog.ReusableSideWindow EXISTS
-   lTempInteger_35 = CheckExistenceOfEntity( vDialog, "ReusableSideWindow" );
-   if ( lTempInteger_35 == 0 )
+   lTempInteger_36 = CheckExistenceOfEntity( vDialog, "ReusableSideWindow" );
+   if ( lTempInteger_36 == 0 )
    { 
       //:IF vDialog.ReusableSideDialog.ZKey = vDialog.Dialog.ZKey
       if ( CompareAttributeToAttribute( vDialog, "ReusableSideDialog", "ZKey", vDialog, "Dialog", "ZKey" ) == 0 )
@@ -5893,8 +6094,8 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
          //:CreateViewFromView( vDialogTemp, vDialog )
          CreateViewFromView( &vDialogTemp, vDialog );
          //:SET CURSOR FIRST vDialogTemp.Window WHERE vDialogTemp.Window.ZKey = vDialog.ReusableSideWindow.ZKey
-         GetIntegerFromAttribute( &lTempInteger_36, vDialog, "ReusableSideWindow", "ZKey" );
-         RESULT = SetCursorFirstEntityByInteger( vDialogTemp, "Window", "ZKey", lTempInteger_36, "" );
+         GetIntegerFromAttribute( &lTempInteger_37, vDialog, "ReusableSideWindow", "ZKey" );
+         RESULT = SetCursorFirstEntityByInteger( vDialogTemp, "Window", "ZKey", lTempInteger_37, "" );
          //:IF RESULT >= zCURSOR_SET
          if ( RESULT >= zCURSOR_SET )
          { 
@@ -5913,13 +6114,13 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
       else
       { 
          //:ActivateMetaOI_ByName( vSubtask, vDialogTemp, 0, zREFER_DIALOG_META, zSINGLE, vDialog.ReusableSideDialog.Tag, 0 )
-         GetStringFromAttribute( szTempString_19, vDialog, "ReusableSideDialog", "Tag" );
-         ActivateMetaOI_ByName( vSubtask, &vDialogTemp, 0, zREFER_DIALOG_META, zSINGLE, szTempString_19, 0 );
+         GetStringFromAttribute( szTempString_18, vDialog, "ReusableSideDialog", "Tag" );
+         ActivateMetaOI_ByName( vSubtask, &vDialogTemp, 0, zREFER_DIALOG_META, zSINGLE, szTempString_18, 0 );
          //:// plListHandle = ActivateMetaOI_KeepList( vSubtask, vDialogTemp, 0, zREFER_DIALOG_META, zSINGLE, vDialog.ReusableSideDialog.Tag, 0, 0,
          //://                                         0, plListHandle )
          //:SET CURSOR FIRST vDialogTemp.Window WHERE vDialogTemp.Window.ZKey = vDialog.ReusableSideWindow.ZKey
-         GetIntegerFromAttribute( &lTempInteger_37, vDialog, "ReusableSideWindow", "ZKey" );
-         RESULT = SetCursorFirstEntityByInteger( vDialogTemp, "Window", "ZKey", lTempInteger_37, "" );
+         GetIntegerFromAttribute( &lTempInteger_38, vDialog, "ReusableSideWindow", "ZKey" );
+         RESULT = SetCursorFirstEntityByInteger( vDialogTemp, "Window", "ZKey", lTempInteger_38, "" );
          //:IF RESULT >= zCURSOR_SET
          if ( RESULT >= zCURSOR_SET )
          { 
@@ -5944,8 +6145,8 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
    //:lReusableDialogZKey = 0
    lReusableDialogZKey = 0;
    //:IF vDialog.ReusableMainWindow EXISTS
-   lTempInteger_38 = CheckExistenceOfEntity( vDialog, "ReusableMainWindow" );
-   if ( lTempInteger_38 == 0 )
+   lTempInteger_39 = CheckExistenceOfEntity( vDialog, "ReusableMainWindow" );
+   if ( lTempInteger_39 == 0 )
    { 
       //:lReusableDialogZKey = vDialog.ReusableMainDialog.ZKey
       GetIntegerFromAttribute( &lReusableDialogZKey, vDialog, "ReusableMainDialog", "ZKey" );
@@ -5956,8 +6157,8 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
    else
    { 
       //:IF vDialog.DefaultReusableMainWindow EXISTS
-      lTempInteger_39 = CheckExistenceOfEntity( vDialog, "DefaultReusableMainWindow" );
-      if ( lTempInteger_39 == 0 )
+      lTempInteger_40 = CheckExistenceOfEntity( vDialog, "DefaultReusableMainWindow" );
+      if ( lTempInteger_40 == 0 )
       { 
          //:lReusableDialogZKey = vDialog.DefaultReusableMainDialog.ZKey
          GetIntegerFromAttribute( &lReusableDialogZKey, vDialog, "DefaultReusableMainDialog", "ZKey" );
@@ -6026,8 +6227,8 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
    //:lReusableDialogZKey = 0
    lReusableDialogZKey = 0;
    //:IF vDialog.ReusableActionWindow EXISTS
-   lTempInteger_40 = CheckExistenceOfEntity( vDialog, "ReusableActionWindow" );
-   if ( lTempInteger_40 == 0 )
+   lTempInteger_41 = CheckExistenceOfEntity( vDialog, "ReusableActionWindow" );
+   if ( lTempInteger_41 == 0 )
    { 
       //:lReusableDialogZKey = vDialog.ReusableActionDialog.ZKey
       GetIntegerFromAttribute( &lReusableDialogZKey, vDialog, "ReusableActionDialog", "ZKey" );
@@ -6038,8 +6239,8 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
    else
    { 
       //:IF vDialog.DefaultReusableActionWindow EXISTS
-      lTempInteger_41 = CheckExistenceOfEntity( vDialog, "DefaultReusableActionWindow" );
-      if ( lTempInteger_41 == 0 )
+      lTempInteger_42 = CheckExistenceOfEntity( vDialog, "DefaultReusableActionWindow" );
+      if ( lTempInteger_42 == 0 )
       { 
          //:lReusableDialogZKey = vDialog.DefaultReusableActionDialog.ZKey
          GetIntegerFromAttribute( &lReusableDialogZKey, vDialog, "DefaultReusableActionDialog", "ZKey" );
@@ -6195,9 +6396,9 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
    if ( CompareAttributeToString( vDialog, "Dialog", "WEB_PageBackgroundInclude", "" ) != 0 && ZeidonStringCompare( szWindowIsPopup, 1, 0, "", 1, 0, 2 ) == 0 && CompareAttributeToString( vDialogRoot, "Window", "WEB_NoBannerFlag", "" ) == 0 )
    { 
       //:szWriteBuffer = "<%@ include file=^" + vDialog.Dialog.WEB_PageBackgroundInclude + "^ %>"
-      GetVariableFromAttribute( szTempString_20, 0, 'S', 255, vDialog, "Dialog", "WEB_PageBackgroundInclude", "", 0 );
+      GetVariableFromAttribute( szTempString_19, 0, 'S', 255, vDialog, "Dialog", "WEB_PageBackgroundInclude", "", 0 );
       ZeidonStringCopy( szWriteBuffer, 1, 0, "<%@ include file=^", 1, 0, 10001 );
-      ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_20, 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_19, 1, 0, 10001 );
       ZeidonStringConcat( szWriteBuffer, 1, 0, "^ %>", 1, 0, 10001 );
       //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
       WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 );
@@ -6296,9 +6497,9 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
       if ( ZeidonStringCompare( szWindowIsjMobile, 1, 0, "Y", 1, 0, 2 ) == 0 )
       { 
          //:szWriteBuffer = "<div data-role=^page^ data-theme=^p^ data-title=^" + vDialog.Window.Caption + "^ >"
-         GetVariableFromAttribute( szTempString_21, 0, 'S', 255, vDialog, "Window", "Caption", "", 0 );
+         GetVariableFromAttribute( szTempString_20, 0, 'S', 255, vDialog, "Window", "Caption", "", 0 );
          ZeidonStringCopy( szWriteBuffer, 1, 0, "<div data-role=^page^ data-theme=^p^ data-title=^", 1, 0, 10001 );
-         ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_21, 1, 0, 10001 );
+         ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_20, 1, 0, 10001 );
          ZeidonStringConcat( szWriteBuffer, 1, 0, "^ >", 1, 0, 10001 );
          //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 ) 
          WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 );
@@ -6311,38 +6512,52 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
 
    //:// Build the Banner before getting into Menu Options.
    //:// IF vDialogRoot.Window.WEB_NoBannerFlag = ""
-   //:IF szShowBanner = "Y"
-   if ( ZeidonStringCompare( szShowBanner, 1, 0, "Y", 1, 0, 2 ) == 0 )
+   //:IF szDynamicBanner = "Y"
+   if ( ZeidonStringCompare( szDynamicBanner, 1, 0, "Y", 1, 0, 2 ) == 0 )
    { 
-      //:// strBannerName will always have a value, it might be a dynamic banner name set in vml code
-      //:// or it might be an include file specified in the dialog or if neither of those, then
-      //:// strBannerName has been set to "./include/banner.inc".
-      //://szWriteBuffer = "<jsp:include page='<%=strBannerName %>' />"
-
-      //:// KJS 07/28/15 - Trying the banner include as all the other includes, not as the <jsp:include"
-      //:// If a banner include file has been entered by the user, then use this, otherwise
-      //:// hardcode "./include/banner.inc" as the banner name.
-      //:IF vDialog.Dialog.WEB_TopBannerName != ""
-      if ( CompareAttributeToString( vDialog, "Dialog", "WEB_TopBannerName", "" ) != 0 )
-      { 
-         //:szWriteBuffer = "<%@ include file=^" + vDialog.Dialog.WEB_TopBannerName + "^ %>"
-         GetVariableFromAttribute( szTempString_22, 0, 'S', 255, vDialog, "Dialog", "WEB_TopBannerName", "", 0 );
-         ZeidonStringCopy( szWriteBuffer, 1, 0, "<%@ include file=^", 1, 0, 10001 );
-         ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_22, 1, 0, 10001 );
-         ZeidonStringConcat( szWriteBuffer, 1, 0, "^ %>", 1, 0, 10001 );
-         //:ELSE
-      } 
-      else
-      { 
-         //:szWriteBuffer = "<%@ include file=^./include/banner.inc^ %>"
-         ZeidonStringCopy( szWriteBuffer, 1, 0, "<%@ include file=^./include/banner.inc^ %>", 1, 0, 10001 );
-      } 
-
-      //:END
+      //:szWriteBuffer = "<jsp:include page='<%=strBannerName %>' />"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "<jsp:include page='<%=strBannerName %>' />", 1, 0, 10001 );
       //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
       WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 );
+      //:ELSE
    } 
+   else
+   { 
+      //:IF szShowBanner = "Y"
+      if ( ZeidonStringCompare( szShowBanner, 1, 0, "Y", 1, 0, 2 ) == 0 )
+      { 
+         //:// strBannerName will always have a value, it might be a dynamic banner name set in vml code
+         //:// or it might be an include file specified in the dialog or if neither of those, then
+         //:// strBannerName has been set to "./include/banner.inc".
+         //://szWriteBuffer = "<jsp:include page='<%=strBannerName %>' />"
 
+         //:// KJS 07/28/15 - Trying the banner include as all the other includes, not as the <jsp:include"
+         //:// If a banner include file has been entered by the user, then use this, otherwise
+         //:// hardcode "./include/banner.inc" as the banner name.
+         //:IF vDialog.Dialog.WEB_TopBannerName != ""
+         if ( CompareAttributeToString( vDialog, "Dialog", "WEB_TopBannerName", "" ) != 0 )
+         { 
+            //:szWriteBuffer = "<%@ include file=^" + vDialog.Dialog.WEB_TopBannerName + "^ %>"
+            GetVariableFromAttribute( szTempString_21, 0, 'S', 255, vDialog, "Dialog", "WEB_TopBannerName", "", 0 );
+            ZeidonStringCopy( szWriteBuffer, 1, 0, "<%@ include file=^", 1, 0, 10001 );
+            ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_21, 1, 0, 10001 );
+            ZeidonStringConcat( szWriteBuffer, 1, 0, "^ %>", 1, 0, 10001 );
+            //:ELSE
+         } 
+         else
+         { 
+            //:szWriteBuffer = "<%@ include file=^./include/banner.inc^ %>"
+            ZeidonStringCopy( szWriteBuffer, 1, 0, "<%@ include file=^./include/banner.inc^ %>", 1, 0, 10001 );
+         } 
+
+         //:END
+         //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
+         WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 );
+      } 
+
+
+      //:END
+   } 
 
    //:END
 
@@ -6369,8 +6584,8 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
    //:lReusableDialogZKey = 0
    lReusableDialogZKey = 0;
    //:IF vDialog.ReusableMainWindow EXISTS
-   lTempInteger_42 = CheckExistenceOfEntity( vDialog, "ReusableMainWindow" );
-   if ( lTempInteger_42 == 0 )
+   lTempInteger_43 = CheckExistenceOfEntity( vDialog, "ReusableMainWindow" );
+   if ( lTempInteger_43 == 0 )
    { 
       //:lReusableDialogZKey = vDialog.ReusableMainDialog.ZKey
       GetIntegerFromAttribute( &lReusableDialogZKey, vDialog, "ReusableMainDialog", "ZKey" );
@@ -6381,8 +6596,8 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
    else
    { 
       //:IF vDialog.DefaultReusableMainWindow EXISTS
-      lTempInteger_43 = CheckExistenceOfEntity( vDialog, "DefaultReusableMainWindow" );
-      if ( lTempInteger_43 == 0 )
+      lTempInteger_44 = CheckExistenceOfEntity( vDialog, "DefaultReusableMainWindow" );
+      if ( lTempInteger_44 == 0 )
       { 
          //:lReusableDialogZKey = vDialog.DefaultReusableMainDialog.ZKey
          GetIntegerFromAttribute( &lReusableDialogZKey, vDialog, "DefaultReusableMainDialog", "ZKey" );
@@ -6488,13 +6703,13 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
    //:// If neither exists, there will be no left navigation bar.
    //:// IF vDialog.ReusableSideWindow EXISTS
    //:IF vDialog.ReusableSideWindow EXISTS AND szShowSideMenu = "Y"
-   lTempInteger_44 = CheckExistenceOfEntity( vDialog, "ReusableSideWindow" );
-   if ( lTempInteger_44 == 0 && ZeidonStringCompare( szShowSideMenu, 1, 0, "Y", 1, 0, 2 ) == 0 )
+   lTempInteger_45 = CheckExistenceOfEntity( vDialog, "ReusableSideWindow" );
+   if ( lTempInteger_45 == 0 && ZeidonStringCompare( szShowSideMenu, 1, 0, "Y", 1, 0, 2 ) == 0 )
    { 
 
       //:IF vDialog.DfltMenu EXISTS AND vDialog.ReusableSideWindow.ZKey != vDialog.Window.ZKey
-      lTempInteger_45 = CheckExistenceOfEntity( vDialog, "DfltMenu" );
-      if ( lTempInteger_45 == 0 && CompareAttributeToAttribute( vDialog, "ReusableSideWindow", "ZKey", vDialog, "Window", "ZKey" ) != 0 )
+      lTempInteger_46 = CheckExistenceOfEntity( vDialog, "DfltMenu" );
+      if ( lTempInteger_46 == 0 && CompareAttributeToAttribute( vDialog, "ReusableSideWindow", "ZKey", vDialog, "Window", "ZKey" ) != 0 )
       { 
          //:vDfltMenu = vDialog
          vDfltMenu = vDialog;
@@ -6514,8 +6729,8 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
          //:CreateViewFromView( vDialogTemp, vDialog )
          CreateViewFromView( &vDialogTemp, vDialog );
          //:SET CURSOR FIRST vDialogTemp.Window WHERE vDialogTemp.Window.ZKey = vDialog.ReusableSideWindow.ZKey
-         GetIntegerFromAttribute( &lTempInteger_46, vDialog, "ReusableSideWindow", "ZKey" );
-         RESULT = SetCursorFirstEntityByInteger( vDialogTemp, "Window", "ZKey", lTempInteger_46, "" );
+         GetIntegerFromAttribute( &lTempInteger_47, vDialog, "ReusableSideWindow", "ZKey" );
+         RESULT = SetCursorFirstEntityByInteger( vDialogTemp, "Window", "ZKey", lTempInteger_47, "" );
          //:IF RESULT >= zCURSOR_SET
          if ( RESULT >= zCURSOR_SET )
          { 
@@ -6533,13 +6748,13 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
       else
       { 
          //:ActivateMetaOI_ByName( vSubtask, vDialogTemp, 0, zREFER_DIALOG_META,  zSINGLE, vDialog.ReusableSideDialog.Tag, 0 )
-         GetStringFromAttribute( szTempString_23, vDialog, "ReusableSideDialog", "Tag" );
-         ActivateMetaOI_ByName( vSubtask, &vDialogTemp, 0, zREFER_DIALOG_META, zSINGLE, szTempString_23, 0 );
+         GetStringFromAttribute( szTempString_22, vDialog, "ReusableSideDialog", "Tag" );
+         ActivateMetaOI_ByName( vSubtask, &vDialogTemp, 0, zREFER_DIALOG_META, zSINGLE, szTempString_22, 0 );
          //:// plListHandle = ActivateMetaOI_KeepList( vSubtask, vDialogTemp, 0, zREFER_DIALOG_META, zSINGLE, vDialog.ReusableSideDialog.Tag, 0, 0,
          //://                                         0, plListHandle )
          //:SET CURSOR FIRST vDialogTemp.Window WHERE vDialogTemp.Window.ZKey = vDialog.ReusableSideWindow.ZKey
-         GetIntegerFromAttribute( &lTempInteger_47, vDialog, "ReusableSideWindow", "ZKey" );
-         RESULT = SetCursorFirstEntityByInteger( vDialogTemp, "Window", "ZKey", lTempInteger_47, "" );
+         GetIntegerFromAttribute( &lTempInteger_48, vDialog, "ReusableSideWindow", "ZKey" );
+         RESULT = SetCursorFirstEntityByInteger( vDialogTemp, "Window", "ZKey", lTempInteger_48, "" );
          //:IF RESULT >= zCURSOR_SET
          if ( RESULT >= zCURSOR_SET )
          { 
@@ -6562,12 +6777,12 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
    { 
       //:// IF vDialogRoot.DfltMenu EXISTS AND
       //:IF vDialogRoot.DfltMenu EXISTS AND szShowSideMenu = "Y" AND
-      lTempInteger_48 = CheckExistenceOfEntity( vDialogRoot, "DfltMenu" );
+      lTempInteger_49 = CheckExistenceOfEntity( vDialogRoot, "DfltMenu" );
       //:   (vDialog.ReusableMainDialog DOES NOT EXIST OR  // don't put out side menu if side == top
-      lTempInteger_49 = CheckExistenceOfEntity( vDialog, "ReusableMainDialog" );
+      lTempInteger_50 = CheckExistenceOfEntity( vDialog, "ReusableMainDialog" );
       //:    lReusableDialogZKey != vDialog.ReusableMainDialog.ZKey OR
       //:    lReusableWindowZKey != vDialog.ReusableMainWindow.ZKey)
-      if ( lTempInteger_48 == 0 && ZeidonStringCompare( szShowSideMenu, 1, 0, "Y", 1, 0, 2 ) == 0 && ( lTempInteger_49 != 0 || CompareAttributeToInteger( vDialog, "ReusableMainDialog", "ZKey", lReusableDialogZKey ) != 0 ||
+      if ( lTempInteger_49 == 0 && ZeidonStringCompare( szShowSideMenu, 1, 0, "Y", 1, 0, 2 ) == 0 && ( lTempInteger_50 != 0 || CompareAttributeToInteger( vDialog, "ReusableMainDialog", "ZKey", lReusableDialogZKey ) != 0 ||
            CompareAttributeToInteger( vDialog, "ReusableMainWindow", "ZKey", lReusableWindowZKey ) != 0 ) )
       { 
 
@@ -6732,8 +6947,8 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
    if ( RESULT >= zCURSOR_SET )
    { 
       //:lSize = zLOUSHORT( vDialog.Window.SZDLG_X )
-      GetIntegerFromAttribute( &lTempInteger_50, vDialog, "Window", "SZDLG_X" );
-      lSize = zLOUSHORT( lTempInteger_50 );
+      GetIntegerFromAttribute( &lTempInteger_51, vDialog, "Window", "SZDLG_X" );
+      lSize = zLOUSHORT( lTempInteger_51 );
       //:lSize = lSize * dDLUnits
       lSize = lSize * dDLUnits;
       //:szWidth = lSize
@@ -6748,8 +6963,8 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
 
    //:END
    //:lSize = zLOUSHORT( vDialog.Window.SZDLG_Y )
-   GetIntegerFromAttribute( &lTempInteger_51, vDialog, "Window", "SZDLG_Y" );
-   lSize = zLOUSHORT( lTempInteger_51 );
+   GetIntegerFromAttribute( &lTempInteger_52, vDialog, "Window", "SZDLG_Y" );
+   lSize = zLOUSHORT( lTempInteger_52 );
    //:lSize = lSize * dDLUnits
    lSize = lSize * dDLUnits;
    //:szHeight = lSize
@@ -6796,9 +7011,9 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
    while ( RESULT > zCURSOR_UNCHANGED )
    { 
       //:szWriteBuffer = "   View " + vDialog.ViewObjRef.Name + " = null;"
-      GetVariableFromAttribute( szTempString_24, 0, 'S', 33, vDialog, "ViewObjRef", "Name", "", 0 );
+      GetVariableFromAttribute( szTempString_23, 0, 'S', 33, vDialog, "ViewObjRef", "Name", "", 0 );
       ZeidonStringCopy( szWriteBuffer, 1, 0, "   View ", 1, 0, 10001 );
-      ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_24, 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_23, 1, 0, 10001 );
       ZeidonStringConcat( szWriteBuffer, 1, 0, " = null;", 1, 0, 10001 );
       //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
       WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
@@ -7331,12 +7546,47 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
 
    //:END
 
-   //:szWriteBuffer = "   strDateFormat = ^" + szDateFormat + "^;"
-   ZeidonStringCopy( szWriteBuffer, 1, 0, "   strDateFormat = ^", 1, 0, 10001 );
+   //:IF szDateFormatDBFlag = "Y" 
+   if ( ZeidonStringCompare( szDateFormatDBFlag, 1, 0, "Y", 1, 0, 2 ) == 0 )
+   { 
+      //:szWriteBuffer = "   strDateFormat = LangConv.getDateFormat( vKZXMLPGO );"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "   strDateFormat = LangConv.getDateFormat( vKZXMLPGO );", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "   strDateSequence = LangConv.getDateSequence( vKZXMLPGO );"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "   strDateSequence = LangConv.getDateSequence( vKZXMLPGO );", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 );
+   } 
+
+   //:END
+
+   //:szWriteBuffer = "   if ( StringUtils.isBlank( strDateFormat ) )"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "   if ( StringUtils.isBlank( strDateFormat ) )", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "   {"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "   {", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "      strDateFormat = ^" + szDateFormat + "^;"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "      strDateFormat = ^", 1, 0, 10001 );
    ZeidonStringConcat( szWriteBuffer, 1, 0, szDateFormat, 1, 0, 10001 );
    ZeidonStringConcat( szWriteBuffer, 1, 0, "^;", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "      strDateSequence = ^" + szDateSequence + "^;"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "      strDateSequence = ^", 1, 0, 10001 );
+   ZeidonStringConcat( szWriteBuffer, 1, 0, szDateSequence, 1, 0, 10001 );
+   ZeidonStringConcat( szWriteBuffer, 1, 0, "^;", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "   }"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "   }", 1, 0, 10001 );
    //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 );
+   //://szWriteBuffer = "   strDateFormat = ^" + szDateFormat + "^;"
+   //://WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
 
    //:// KJS 07/12/13 - Would like to try and catch java errors that occur while building the page. Then display this to the
    //:// user. We might want to do this for each field displayed on the page, but for now we are going to try an overall generic one.
@@ -7438,10 +7688,8 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
    ZeidonStringCopy( szWriteBuffer, 1, 0, "   <input name=^zDateFormat^ id=^zDateFormat^ type=^hidden^ value=^<%=strDateFormat%>^>", 1, 0, 10001 );
    //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
-   //:szWriteBuffer = "   <input name=^zDateSequence^ id=^zDateSequence^ type=^hidden^ value=^" + szDateSequence + "^>"   
-   ZeidonStringCopy( szWriteBuffer, 1, 0, "   <input name=^zDateSequence^ id=^zDateSequence^ type=^hidden^ value=^", 1, 0, 10001 );
-   ZeidonStringConcat( szWriteBuffer, 1, 0, szDateSequence, 1, 0, 10001 );
-   ZeidonStringConcat( szWriteBuffer, 1, 0, "^>", 1, 0, 10001 );
+   //:szWriteBuffer = "   <input name=^zDateSequence^ id=^zDateSequence^ type=^hidden^ value=^<%=strDateSequence%>^>"   
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "   <input name=^zDateSequence^ id=^zDateSequence^ type=^hidden^ value=^<%=strDateSequence%>^>", 1, 0, 10001 );
    //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
 
@@ -7516,8 +7764,8 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
       //:szWriteBuffer = "   <input name=^zTimeout^ id=^zTimeout^ type=^hidden^ value=^"
       ZeidonStringCopy( szWriteBuffer, 1, 0, "   <input name=^zTimeout^ id=^zTimeout^ type=^hidden^ value=^", 1, 0, 10001 );
       //:szWriteBuffer = szWriteBuffer + vDialog.Window.WEB_Timeout
-      GetVariableFromAttribute( &szTempString_25, 0, 'S', 11, vDialog, "Window", "WEB_Timeout", "", 0 );
-      ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_25, 1, 0, 10001 );
+      GetVariableFromAttribute( &szTempString_24, 0, 'S', 11, vDialog, "Window", "WEB_Timeout", "", 0 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_24, 1, 0, 10001 );
       //:szWriteBuffer = szWriteBuffer + "^>"
       ZeidonStringConcat( szWriteBuffer, 1, 0, "^>", 1, 0, 10001 );
       //:ELSE
@@ -7530,8 +7778,8 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
          //:szWriteBuffer = "   <input name=^zTimeout^ id=^zTimeout^ type=^hidden^ value=^"
          ZeidonStringCopy( szWriteBuffer, 1, 0, "   <input name=^zTimeout^ id=^zTimeout^ type=^hidden^ value=^", 1, 0, 10001 );
          //:szWriteBuffer = szWriteBuffer + vDialog.Dialog.WEB_Timeout
-         GetVariableFromAttribute( &szTempString_26, 0, 'S', 11, vDialog, "Dialog", "WEB_Timeout", "", 0 );
-         ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_26, 1, 0, 10001 );
+         GetVariableFromAttribute( &szTempString_25, 0, 'S', 11, vDialog, "Dialog", "WEB_Timeout", "", 0 );
+         ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_25, 1, 0, 10001 );
          //:szWriteBuffer = szWriteBuffer + "^>"
          ZeidonStringConcat( szWriteBuffer, 1, 0, "^>", 1, 0, 10001 );
          //:ELSE
@@ -7929,9 +8177,9 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
       else
       { 
          //:szWriteBuffer = "<%@ include file=^" + vDialogRoot.Dialog.WEB_FooterInclude + "^ %>"
-         GetVariableFromAttribute( szTempString_27, 0, 'S', 255, vDialogRoot, "Dialog", "WEB_FooterInclude", "", 0 );
+         GetVariableFromAttribute( szTempString_26, 0, 'S', 255, vDialogRoot, "Dialog", "WEB_FooterInclude", "", 0 );
          ZeidonStringCopy( szWriteBuffer, 1, 0, "<%@ include file=^", 1, 0, 10001 );
-         ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_27, 1, 0, 10001 );
+         ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_26, 1, 0, 10001 );
          ZeidonStringConcat( szWriteBuffer, 1, 0, "^ %>", 1, 0, 10001 );
          //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
          WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 );

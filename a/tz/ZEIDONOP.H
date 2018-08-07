@@ -39,7 +39,7 @@ zgGetZeidonToolsDir( zVIEW  vSubtask,
 
 // DGC 10/17/95 -----------------------------------------------------------
 
-//start TZWDLGSO 2018.01.30 13:36:11
+//start TZWDLGSO 2018.03.14 12:33:20
 zOPER_EXPORT zSHORT OPERATION
 oTZWDLGSO_ConvertListBoxToGrid( zVIEW vViewToInstance0 );
 
@@ -1611,7 +1611,7 @@ AddDaysToDate( zVIEW vViewToInstance0,
                zSHORT nNumberOfDays3 );
 
 //end
-//start KZXMLPGO 2018.01.05 15:44:28
+//start KZXMLPGO 2018.07.10 17:23:48
 zOPER_EXPORT zSHORT OPERATION
 oKZXMLPGO_InitWebSessionObject( zPVIEW vViewToInstance0,
                                 zVIEW vAnyView1,
@@ -1737,7 +1737,7 @@ GenJSP_CrteCtrlsRecurs( zVIEW vDialog0,
                         zLONG lOffsetY9 );
 
 //end
-//start TZWEBGL2 2012.10.30 18:44:00
+//start TZWEBGL2 2018.04.03 11:32:17
 zOPER_EXPORT zVOID OPERATION
 GenJSPJ_OutputMapRecurs( zVIEW vDialog0,
                          zLONG lFile1,
@@ -1766,7 +1766,7 @@ GenJSPJ_InputMapRecurs( zVIEW vDialog0,
                         zLONG lTableRowCnt4,
                         zPCHAR pchszRepeatingGrpKey5 );
 
-zOPER_EXPORT zVOID OPERATION
+zOPER_EXPORT zSHORT OPERATION
 GenJSPJ_Action( zVIEW vDialog0,
                 zVIEW vDialogRoot1,
                 zLONG lFile2,
@@ -1915,13 +1915,24 @@ CreateTabIndexString( zVIEW vDialog0,
                       zPCHAR pchTabIndex1 );
 
 //end
-//start TZWEBGL4 2016.11.07 21:26:02
+//start TZWEBGL4 2018.02.26 16:09:07
 zOPER_EXPORT zSHORT OPERATION
 BuildSideNavSectionJ( zVIEW vvDialog0,
                       zVIEW vvDialogRoot1,
                       zLONG llFile2,
                       zPCHAR pchReusableMenu3,
                       zVIEW vvDialogMenu4 );
+
+zOPER_EXPORT zVOID OPERATION
+GenJSPJ_CrteGridRadio( zVIEW vvDialog0,
+                       zLONG llFile1,
+                       zPCHAR pchWriteBuffer2,
+                       zPCHAR pchIndent3,
+                       zPCHAR pchRadioGroupName4,
+                       zPCHAR pchNoPositioning5,
+                       zLONG lOffsetX6,
+                       zLONG lOffsetY7,
+                       zPCHAR pchstrRepeatingGrpKey8 );
 
 zOPER_EXPORT zSHORT OPERATION
 GenJSPJ_CrteFileTransferForm( zVIEW vvDialog0,

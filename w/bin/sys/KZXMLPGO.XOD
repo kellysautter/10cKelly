@@ -1,4 +1,4 @@
-z1000-Zeidon    KZXMLPGO TZZOXODO 01/05/18   15:44:29 1.0a2    
+z1000-Zeidon    KZXMLPGO TZZOXODO 07/10/18   17:23:48 1.0a2    
 eOBJECT    1
 aNAME      KZXMLPGO
 aZKey      91301926
@@ -396,7 +396,7 @@ aPDELETE   D
 aUPDATE    Y
 aDERIVED   Y
 aINCLSRC   Y
-aMAX_LTH   765
+aMAX_LTH   787
 
 eATTRIB    4
 aNAME      DialogName
@@ -431,6 +431,28 @@ aSEQ_AD    Y
 aUPDATE    Y
 aXVAATT_TOK 24
 
+eATTRIB    4
+aNAME      PopupSizeX
+aERATT_TOK 93078031
+aAPDM_TOK  90000044
+aDOMAIN    Integer
+aTYPE      L
+aLTH       4
+aSEQ_AD    Y
+aUPDATE    Y
+aXVAATT_TOK 25
+
+eATTRIB    4
+aNAME      PopupSizeY
+aERATT_TOK 93078033
+aAPDM_TOK  90000044
+aDOMAIN    Integer
+aTYPE      L
+aLTH       4
+aSEQ_AD    Y
+aUPDATE    Y
+aXVAATT_TOK 26
+
 eCHILDENTITY 3
 aNAME      DynamicBannerName
 aERENT_TOK 1156564
@@ -455,7 +477,7 @@ aTYPE      S
 aLTH       254
 aSEQ_AD    Y
 aUPDATE    Y
-aXVAATT_TOK 25
+aXVAATT_TOK 27
 
 eATTRIB    4
 aNAME      BannerName
@@ -466,7 +488,7 @@ aTYPE      S
 aLTH       254
 aSEQ_AD    Y
 aUPDATE    Y
-aXVAATT_TOK 26
+aXVAATT_TOK 28
 
 eCHILDENTITY 3
 aNAME      Dialog
@@ -492,7 +514,7 @@ aTYPE      S
 aLTH       32
 aSEQ_AD    Y
 aUPDATE    Y
-aXVAATT_TOK 27
+aXVAATT_TOK 29
 
 eCHILDENTITY 4
 aNAME      Window
@@ -518,7 +540,7 @@ aTYPE      S
 aLTH       32
 aSEQ_AD    Y
 aUPDATE    Y
-aXVAATT_TOK 28
+aXVAATT_TOK 30
 
 eATTRIB    5
 aNAME      FocusCtrl
@@ -529,7 +551,7 @@ aTYPE      S
 aLTH       254
 aSEQ_AD    Y
 aUPDATE    Y
-aXVAATT_TOK 29
+aXVAATT_TOK 31
 
 eCHILDENTITY 3
 aNAME      DisableMenuOption
@@ -555,7 +577,7 @@ aTYPE      S
 aLTH       254
 aSEQ_AD    Y
 aUPDATE    Y
-aXVAATT_TOK 30
+aXVAATT_TOK 32
 
 eATTRIB    4
 aNAME      MenuOptionName
@@ -566,7 +588,7 @@ aTYPE      S
 aLTH       254
 aSEQ_AD    Y
 aUPDATE    Y
-aXVAATT_TOK 31
+aXVAATT_TOK 33
 
 eCHILDENTITY 3
 aNAME      DialogWindowList
@@ -592,7 +614,7 @@ aTYPE      S
 aLTH       254
 aSEQ_AD    Y
 aUPDATE    Y
-aXVAATT_TOK 32
+aXVAATT_TOK 34
 
 eATTRIB    4
 aNAME      DialogName
@@ -603,7 +625,7 @@ aTYPE      S
 aLTH       254
 aSEQ_AD    Y
 aUPDATE    Y
-aXVAATT_TOK 33
+aXVAATT_TOK 35
 
 eATTRIB    4
 aNAME      WindowName
@@ -614,7 +636,7 @@ aTYPE      S
 aLTH       254
 aSEQ_AD    Y
 aUPDATE    Y
-aXVAATT_TOK 34
+aXVAATT_TOK 36
 
 eCHILDENTITY 3
 aNAME      TopDialogWindow
@@ -640,7 +662,7 @@ aTYPE      S
 aLTH       254
 aSEQ_AD    Y
 aUPDATE    Y
-aXVAATT_TOK 35
+aXVAATT_TOK 37
 
 eATTRIB    4
 aNAME      DialogName
@@ -651,7 +673,7 @@ aTYPE      S
 aLTH       254
 aSEQ_AD    Y
 aUPDATE    Y
-aXVAATT_TOK 36
+aXVAATT_TOK 38
 
 eATTRIB    4
 aNAME      WindowName
@@ -662,5 +684,5 @@ aTYPE      S
 aLTH       254
 aSEQ_AD    Y
 aUPDATE    Y
-aXVAATT_TOK 37
+aXVAATT_TOK 39
 

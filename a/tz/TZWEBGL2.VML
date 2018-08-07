@@ -75,7 +75,7 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
    STRING ( 50 )  szGroupBoxType
    STRING ( 50 )  szButtonView
    STRING ( 2 )   szSuffix
-   STRING ( 10 )  szMaxStringLength
+   STRING ( 10 )  szMaxStringLth
    STRING ( 200 ) szItemTableHeader
    STRING ( 50 )  szParentWebType
    STRING ( 1 )   szRepeatingGroupFlag
@@ -146,7 +146,7 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
    INTEGER        lEditBox
    INTEGER        lStyleX
    INTEGER        lTemp
-   INTEGER        lMaxStringLength
+   INTEGER        lMaxStringLth
    SHORT          bResetToPlaceHolder
    SHORT          nRC
 
@@ -1482,11 +1482,11 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
             IF ( szToggleFlag = "Y" OR szToggleFlag2 = "Y" ) AND szWindowIsjMobile = ""
                szWriteBuffer = "</div> <!-- End Div for surrounding toggle --> "
                WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+            END
+            IF ( szToggleFlag = "Y" OR szToggleFlag2 = "Y" ) AND vDialogRoot.Dialog.wWebUsesControlActions = "Y"
                // KJS 03/12/18
-               IF ( szToggleFlag = "Y" OR szToggleFlag2 = "Y" ) AND vDialogRoot.Dialog.wWebUsesControlActions = "Y"
-                  szWriteBuffer = "<% } %>"
-                  WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-               END
+               szWriteBuffer = "<% } %>"
+               WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
             END
          END
          END
@@ -2271,9 +2271,12 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
 
          // Generation of the Tab control
          IF szControlType = "Tab"
+         
+            // KJS 04/17/18 - We're going to save the class to use for the individual tabs as well.
+            szText = vDialog.Control.CSS_Class
 
-            IF  vDialog.Control.CSS_Class != ""
-               szClass = "tab-pane " + vDialog.Control.CSS_Class
+            IF vDialog.Control.CSS_Class != ""
+               szClass = "tab-pane " + szText
             ELSE
                szClass = "tab-pane"
             END
@@ -2316,11 +2319,16 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
 
                szCtrlCtrlTag = vDialog.Control.Tag
 
+               // KJS 04/17/18 - At the moment, the individual tabs don't have a place for the class. Only the outer tab control.
+               // I am going to try using the tab control class also for the individual tabs.
+               szClass = "tab-page " + szText
+               /*
                IF  vDialog.Control.CSS_Class != ""
                   szClass = "tab-page " + vDialog.Control.CSS_Class
                ELSE
                   szClass = "tab-page "
                END
+               */
 
                // Currently there are three actions associated with the tab (premapoi, postmapoi and preleae) currently I can only see
                // onclick working so I am not going to worry about pre-leae yet.  Also, we are not differenciating between the
@@ -2697,11 +2705,11 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
                         WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
                         szWriteBuffer = "      if ( nRC >= 0 )"
                         WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-                        IF vDialog.CtrlMapER_Domain.MaxStringLth > 254
-                           lMaxStringLength = vDialog.CtrlMapER_Domain.MaxStringLth
-                           szMaxStringLength = lMaxStringLength
+                        lMaxStringLth = vDialog.CtrlMapER_Domain.MaxStringLth
+                        IF lMaxStringLth <= 0
+                           szMaxStringLth = "254"
                         ELSE
-                           szMaxStringLength = "254"
+                           szMaxStringLth = lMaxStringLth
                         END
                         szWriteBuffer = "         strErrorMapValue =  " + vDialog.CtrlMapView.Name +
                                      ".cursor( ^" + vDialog.CtrlMapRelatedEntity.Name +
@@ -3218,11 +3226,11 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
                         WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
                         szWriteBuffer = "            {"
                         WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-                        IF vDialog.CtrlMapER_Domain.MaxStringLth > 254
-                           lMaxStringLength = vDialog.CtrlMapER_Domain.MaxStringLth
-                           szMaxStringLength = lMaxStringLength
+                        lMaxStringLth = vDialog.CtrlMapER_Domain.MaxStringLth
+                        IF lMaxStringLth <= 0
+                           szMaxStringLth = "254"
                         ELSE
-                           szMaxStringLength = "254"
+                           szMaxStringLth = lMaxStringLth
                         END
 
                         szWriteBuffer = "               " + szControlTag + " = " + szGridView +
@@ -3239,11 +3247,11 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
                         WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
 
                      ELSE
-                        IF vDialog.CtrlMapER_Domain.MaxStringLth > 254
-                           lMaxStringLength = vDialog.CtrlMapER_Domain.MaxStringLth
-                           szMaxStringLength = lMaxStringLength
+                        lMaxStringLth = vDialog.CtrlMapER_Domain.MaxStringLth
+                        IF lMaxStringLth <= 0
+                           szMaxStringLth = "254"
                         ELSE
-                           szMaxStringLength = "254"
+                           szMaxStringLth = lMaxStringLth
                         END
 
                         IF szCtrlCtrlType = "Calendar"
@@ -3341,11 +3349,11 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
                         WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
                         szWriteBuffer = "         if ( nRC >= 0 )"
                         WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-                        IF vDialog.CtrlMapER_Domain.MaxStringLth > 254
-                           lMaxStringLength = vDialog.CtrlMapER_Domain.MaxStringLth
-                           szMaxStringLength = lMaxStringLength
+                        lMaxStringLth = vDialog.CtrlMapER_Domain.MaxStringLth
+                        IF lMaxStringLth <= 0
+                           szMaxStringLth = "254"
                         ELSE
-                           szMaxStringLength = "254"
+                           szMaxStringLth = lMaxStringLth
                         END
                         IF vDialog.CtrlMapContext EXISTS
                            szContextName = vDialog.CtrlMapContext.Name
@@ -3574,11 +3582,11 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
                            szWriteBuffer = "            {"
                            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
                      
-                           IF vDialog.CtrlMapER_Domain.MaxStringLth > 254
-                              lMaxStringLength = vDialog.CtrlMapER_Domain.MaxStringLth
-                              szMaxStringLength = lMaxStringLength
+                           lMaxStringLth = vDialog.CtrlMapER_Domain.MaxStringLth
+                           IF lMaxStringLth <= 0
+                              szMaxStringLth = "254"
                            ELSE
-                              szMaxStringLength = "254"
+                              szMaxStringLth = lMaxStringLth
                            END
                            szWriteBuffer = "               strErrorMapValue = " +
                                            szButtonView + ".cursor( ^" +
@@ -3758,11 +3766,11 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
                                               vDialog.CtrlMapRelatedEntity.Name + "^, ^" + vDialog.CtrlMapER_Attribute.Name + "^, ^" + szContextName + "^ );"
                               WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
 
-                              IF vDialog.CtrlMapER_Domain.MaxStringLth > 254
-                                 lMaxStringLength = vDialog.CtrlMapER_Domain.MaxStringLth
-                                 szMaxStringLength = lMaxStringLength
+                              lMaxStringLth = vDialog.CtrlMapER_Domain.MaxStringLth
+                              IF lMaxStringLth <= 0
+                                 szMaxStringLth = "254"
                               ELSE
-                                 szMaxStringLength = "254"
+                                 szMaxStringLth = lMaxStringLth
                               END
 
                               szWriteBuffer = "         nRC = " + szViewName + ".cursor( ^" + szMapEntityName + "^ ).checkExistenceOfEntity().toInt();"
@@ -3983,12 +3991,12 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
                                     ELSE
                                        szContextName = ""
                                     END
-
-                                    IF vDialog.CtrlMapER_Domain.MaxStringLth > 254
-                                       lMaxStringLength = vDialog.CtrlMapER_Domain.MaxStringLth
-                                       szMaxStringLength = lMaxStringLength
+   
+                                    lMaxStringLth = vDialog.CtrlMapER_Domain.MaxStringLth
+                                    IF lMaxStringLth <= 0
+                                       szMaxStringLth = "254"
                                     ELSE
-                                       szMaxStringLength = "254"
+                                       szMaxStringLth = lMaxStringLth
                                     END
 
                                     szWriteBuffer = "            strComboCurrentValue = " + szViewName + ".cursor( ^" +
@@ -4086,11 +4094,11 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
                                     END
 
 
-                                    IF vList.CtrlMapER_Domain.MaxStringLth > 254
-                                       lMaxStringLength = vList.CtrlMapER_Domain.MaxStringLth
-                                       szMaxStringLength = lMaxStringLength
+                                    lMaxStringLth = vDialog.CtrlMapER_Domain.MaxStringLth
+                                    IF lMaxStringLth <= 0
+                                       szMaxStringLth = "254"
                                     ELSE
-                                       szMaxStringLength = "254"
+                                       szMaxStringLth = lMaxStringLth
                                     END
 
                                     szWriteBuffer = "         strErrorMapValue = v" + szListCtrlTag + ".cursor( ^" +
@@ -4554,7 +4562,7 @@ GenJSPJ_InputMapRecurs( VIEW vDialog BASED ON LOD TZWDLGSO,
    STRING ( 50 )  szCheckBoxValue
    STRING ( 1 )   szFlag
    STRING ( 2 )   szSuffix
-   STRING ( 10 )  szMaxStringLength
+   STRING ( 10 )  szMaxStringLth
    STRING ( 1 )   szWCP_Edit
    STRING ( 1 )   szhFlag
    STRING ( 1 )   szXSSEncode
@@ -4570,7 +4578,7 @@ GenJSPJ_InputMapRecurs( VIEW vDialog BASED ON LOD TZWDLGSO,
    INTEGER       lSubtypeX
    INTEGER       lTemp
    INTEGER       lLen
-   INTEGER       lMaxStringLength
+   INTEGER       lMaxStringLth
    SHORT         nViewNameLth
    SHORT         bResetToPlaceHolder
    SHORT         nRC
@@ -5170,11 +5178,11 @@ GenJSPJ_InputMapRecurs( VIEW vDialog BASED ON LOD TZWDLGSO,
                               szContextName = ""
                            END
 
-                           IF vDialog2.CtrlMapER_Domain.MaxStringLth > 254
-                              lMaxStringLength = vDialog2.CtrlMapER_Domain.MaxStringLth
-                              szMaxStringLength = lMaxStringLength
+                           lMaxStringLth = vDialog.CtrlMapER_Domain.MaxStringLth
+                           IF lMaxStringLth <= 0
+                              szMaxStringLth = "254"
                            ELSE
-                              szMaxStringLength = "254"
+                              szMaxStringLth = lMaxStringLth
                            END
 
                            szWriteBuffer = "               strMapValue = " + vDialog2.CtrlMapView.Name + ".cursor( ^" +
@@ -5570,11 +5578,11 @@ GenJSPJ_InputMapRecurs( VIEW vDialog BASED ON LOD TZWDLGSO,
                      szWriteBuffer = "         { "
                      WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
 
-                     IF vDialog.CtrlMapER_Domain.MaxStringLth > 254
-                        lMaxStringLength = vDialog.CtrlMapER_Domain.MaxStringLth
-                        szMaxStringLength = lMaxStringLength
+                     lMaxStringLth = vDialog.CtrlMapER_Domain.MaxStringLth
+                     IF lMaxStringLth <= 0
+                        szMaxStringLth = "254"
                      ELSE
-                        szMaxStringLength = "254"
+                        szMaxStringLth = lMaxStringLth
                      END
 
                      // try
@@ -5634,11 +5642,11 @@ GenJSPJ_InputMapRecurs( VIEW vDialog BASED ON LOD TZWDLGSO,
                      szWriteBuffer = "         { "
                      WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
 
-                     IF vDialog.CtrlMapER_Domain.MaxStringLth > 254
-                        lMaxStringLength = vDialog.CtrlMapER_Domain.MaxStringLth
-                        szMaxStringLength = lMaxStringLength
+                     lMaxStringLth = vDialog.CtrlMapER_Domain.MaxStringLth
+                     IF lMaxStringLth <= 0
+                        szMaxStringLth = "254"
                      ELSE
-                        szMaxStringLength = "254"
+                        szMaxStringLth = lMaxStringLth
                      END
 
                      // try
@@ -5926,11 +5934,11 @@ GenJSPJ_InputMapRecurs( VIEW vDialog BASED ON LOD TZWDLGSO,
                                        szContextName = ""
                                     END
 
-                                    IF vDialog2.CtrlMapER_Domain.MaxStringLth > 254
-                                       lMaxStringLength = vDialog2.CtrlMapER_Domain.MaxStringLth
-                                       szMaxStringLength = lMaxStringLength
+                                    lMaxStringLth = vDialog.CtrlMapER_Domain.MaxStringLth
+                                    IF lMaxStringLth <= 0
+                                       szMaxStringLth = "254"
                                     ELSE
-                                       szMaxStringLength = "254"
+                                       szMaxStringLth = lMaxStringLth
                                     END
 
                                     szWriteBuffer = "               strMapValue = " + vDialog2.CtrlMapView.Name + ".cursor( ^" +
@@ -6665,7 +6673,7 @@ GenJSPJ_Action( VIEW vDialog     BASED ON LOD TZWDLGSO,
    STRING ( 100 )   szDownloadViewName
    STRING ( 100 )   szUploadViewName
    STRING ( 64 )    szWAB
-   STRING ( 10 )    szMaxStringLength
+   STRING ( 10 )    szMaxStringLth
    STRING ( 50 )    szPrivateKey
    STRING ( 50 )    szPublicKey
    STRING ( 3 )     szBuffer
@@ -6679,7 +6687,7 @@ GenJSPJ_Action( VIEW vDialog     BASED ON LOD TZWDLGSO,
    STRING ( 1 )     szProductionMode
    STRING ( 1 )     szGridScopeOI
    INTEGER          lControl
-   INTEGER          lMaxStringLength
+   INTEGER          lMaxStringLth
    INTEGER          lActionType
    INTEGER          lAutoSubAction
    INTEGER          lAutoNextPrev
@@ -7658,6 +7666,9 @@ GenJSPJ_Action( VIEW vDialog     BASED ON LOD TZWDLGSO,
       IF lAutoSubAction = 1 OR    // Accept
          lAutoSubAction = 2 OR    // Cancel
          lAutoSubAction = 4 OR    // Delete
+         lAutoSubAction = 268435460 OR    // Delete with Confirmation (although we aren't doing any confirmation)
+         lAutoSubAction = 8 OR    // Exclude
+         lAutoSubAction = 268435464 OR    // Exclude with Confirmation (although we aren't doing any confirmation)
          lAutoSubAction = 16 OR   // Create
          lAutoSubAction = 32 OR   // Create Temporal Entity
          lAutoSubAction = 64 OR   // Create Subobject Version
@@ -7726,8 +7737,9 @@ GenJSPJ_Action( VIEW vDialog     BASED ON LOD TZWDLGSO,
             WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
          END
          
-         // Add Accept or Cancel statement or delete.
-         IF lAutoSubAction = 1 OR lAutoSubAction = 2 OR lAutoSubAction = 4
+         // Add Accept or Cancel statement or delete or exclude.        
+         IF lAutoSubAction = 1 OR lAutoSubAction = 2 OR lAutoSubAction = 4 OR lAutoSubAction = 8 OR 
+            lAutoSubAction = 268435460 OR lAutoSubAction = 268435464 
             szWriteBuffer = "      if ( cursor.isNull() )"
             WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
             szWriteBuffer = "         nRC = 0;"
@@ -7757,10 +7769,16 @@ GenJSPJ_Action( VIEW vDialog     BASED ON LOD TZWDLGSO,
                szWriteBuffer = "         }"
                WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
             ELSE
-            IF lAutoSubAction = 4 
+            IF lAutoSubAction = 4 OR lAutoSubAction = 268435460
                // Delete
                szWriteBuffer = "         cursor.deleteEntity( CursorPosition.NEXT );"
                WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
+            ELSE
+            IF lAutoSubAction = 8 OR lAutoSubAction = 268435464
+               // Exclude
+               szWriteBuffer = "         cursor.excludeEntity( CursorPosition.NEXT );"
+               WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
+            END
             END
             END
             
@@ -8059,11 +8077,11 @@ GenJSPJ_Action( VIEW vDialog     BASED ON LOD TZWDLGSO,
             szWriteBuffer = "         {"
             WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
 
-            IF vDialogCtrl.CtrlMapER_Domain.MaxStringLth > 254
-               lMaxStringLength = vDialogCtrl.CtrlMapER_Domain.MaxStringLth
-               szMaxStringLength = lMaxStringLength
+            lMaxStringLth = vDialog.CtrlMapER_Domain.MaxStringLth
+            IF lMaxStringLth <= 0
+               szMaxStringLth = "254"
             ELSE
-               szMaxStringLength = "254"
+               szMaxStringLth = lMaxStringLth
             END
 
             szWriteBuffer = "            sDownloadFile = " + vDialogCtrl.CtrlMapView.Name + ".cursor( ^" + vDialogCtrl.CtrlMapRelatedEntity.Name +
@@ -8419,5 +8437,5 @@ GenJSPJ_Action( VIEW vDialog     BASED ON LOD TZWDLGSO,
       DropView( vDialogCtrl )
    END
    
-   //RETURN nSystemSort
+   RETURN nSystemSort
 END
