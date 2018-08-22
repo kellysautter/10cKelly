@@ -2828,7 +2828,7 @@ fnBuildColumn( zVIEW  vDTE, zLONG  f, zPCHAR pchLine )
          if ( pchKeyType[ 0 ] == 'D' )
 	 {
             // The key type is 'D' for data which means it's the main key.
-	    zsprintf( pchEnd, " SERIAL PRIMARY KEY " );
+	    zsprintf( pchEnd, " SERIAL " );
 	 }
 	 else
 	 {
