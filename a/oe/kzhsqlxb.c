@@ -3578,12 +3578,6 @@ BuildDDL( zVIEW  vDTE,
          goto EndOfFunction;
    #endif
 
-#elif defined( POSTGRESQL ) 
-
-       zsprintf( szLine, "SET SCHEMA '%s' %s", pchDatabaseName, LINE_TERMINATOR );
-       if ( fnWriteLine( vDTE, f, szLine ) < 0 )
-         goto EndOfFunction;
-
 #endif
 
    GetAddrForAttribute( &pchDefaultOwner, vDTE, "TE_DBMS_Source",
