@@ -103,8 +103,8 @@ GenJSP_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
    STRING ( 1 )   szFirstTimeThrough
    STRING ( 1 )   szGridInGroup
    STRING ( 1 )   szTableExport
-   STRING ( 10 )  szDisabled
-   STRING ( 100 ) szStyle
+   STRING ( 100 )  szDisabled
+   STRING ( 1024 ) szStyle
    DECIMAL        dDLUnits
    INTEGER        LastY_Pos
    INTEGER        LastY_Height
@@ -5683,7 +5683,7 @@ END
 
 GLOBAL OPERATION
 CreateDisabledString( VIEW vDialog BASED ON LOD TZWDLGSO,
-                      STRING ( 1024 ) szDisabled )
+                      STRING ( 100 ) szDisabled )
 
    INTEGER        lSubtype
    INTEGER        lTemp

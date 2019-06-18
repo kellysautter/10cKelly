@@ -240,7 +240,7 @@ CreateNoPosStyleString( zVIEW     vDialog,
 
 //:GLOBAL OPERATION
 //:CreateDisabledString( VIEW vDialog BASED ON LOD TZWDLGSO,
-//:                      STRING ( 1024 ) szDisabled )
+//:                      STRING ( 100 ) szDisabled )
 
 //:   INTEGER        lSubtype
 zOPER_EXPORT zVOID OPERATION
@@ -260,13 +260,13 @@ CreateDisabledString( zVIEW     vDialog,
    if ( lTemp != 0 )
    { 
       //:szDisabled = " disabled "
-      ZeidonStringCopy( szDisabled, 1, 0, " disabled ", 1, 0, 1025 );
+      ZeidonStringCopy( szDisabled, 1, 0, " disabled ", 1, 0, 101 );
       //:ELSE
    } 
    else
    { 
       //:szDisabled = ""
-      ZeidonStringCopy( szDisabled, 1, 0, "", 1, 0, 1025 );
+      ZeidonStringCopy( szDisabled, 1, 0, "", 1, 0, 101 );
    } 
 
    //:END

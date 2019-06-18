@@ -1,11 +1,11 @@
-z1000-Zeidon    ZEIDON   TZCMLPLO 01/09/19   11:58:19 1.0a2    
+z1000-Zeidon    ZEIDON   TZCMLPLO 03/01/18   16:01:42 1.0a2    
 eLPLR      1
 aName      Zeidon
 aZKey      4106137
 aPgmSrcDir c:\10c\a\tz
 aExecDir   c:\10c\w\bin\sys
 aMetaSrcDir c:\10c\a\bin\sys
-aTaskUseCount 0
+aTaskUseCount 2
 aLastBuildDate 20170915132641515
 aJavaPackageName com\quinsoft\zeidon\zeidontools
 awFullyQualifiedFileName \10C_Prejava\a\bin\sys
@@ -436,18 +436,18 @@ aName      FixStyleString
 aLastUpdateDate 20130306155650000
 
 eW_MetaDef 3
-aCPLR_ZKey 1419668
-aStatus    1
-aUpdateInd 2
-aName      fnPainterCall
-aLastUpdateDate 20130306155654000
-
-eW_MetaDef 3
 aCPLR_ZKey 1319668
 aStatus    1
 aUpdateInd 2
 aName      fnPainterCall
 aLastUpdateDate 20130306155658000
+
+eW_MetaDef 3
+aCPLR_ZKey 1419668
+aStatus    1
+aUpdateInd 2
+aName      fnPainterCall
+aLastUpdateDate 20130306155654000
 
 eW_MetaDef 3
 aCPLR_ZKey 91020983
@@ -940,18 +940,18 @@ aName      PIX_PER_DU
 aLastUpdateDate 20130306155650000
 
 eW_MetaDef 3
-aCPLR_ZKey 1319686
-aStatus    1
-aUpdateInd 2
-aName      PrintActiveWindow
-aLastUpdateDate 20130306155658000
-
-eW_MetaDef 3
 aCPLR_ZKey 1419686
 aStatus    1
 aUpdateInd 2
 aName      PrintActiveWindow
 aLastUpdateDate 20130306155654000
+
+eW_MetaDef 3
+aCPLR_ZKey 1319686
+aStatus    1
+aUpdateInd 2
+aName      PrintActiveWindow
+aLastUpdateDate 20130306155658000
 
 eW_MetaDef 3
 aCPLR_ZKey 130069308
@@ -3671,8 +3671,8 @@ aStatus    1
 aUpdateInd 2
 aName      KZXMLPGO
 aDesc      XML for window controls
-aLastSyncDate 20180710172348404
-aLastUpdateDate 20180710172348404
+aLastSyncDate 20180105154428906
+aLastUpdateDate 20180105154428906
 
 eW_MetaDef 3
 aCPLR_ZKey 90417949
@@ -4775,8 +4775,8 @@ aStatus    1
 aUpdateInd 2
 aName      TZWDLGSO
 aDesc      Source Dialog Definition
-aLastSyncDate 20180314123320421
-aLastUpdateDate 20180314123320421
+aLastSyncDate 20180130133610843
+aLastUpdateDate 20180130133610843
 
 eW_MetaDef 3
 aCPLR_ZKey 1326496
@@ -7856,8 +7856,8 @@ aStatus    1
 aUpdateInd 2
 aName      TZPNTRAD
 aDesc      Application Painter 
-aLastSyncDate 20180927133951474
-aLastUpdateDate 20180927133951474
+aLastSyncDate 20170711212938640
+aLastUpdateDate 20170711212938640
 
 eW_MetaDef 3
 aCPLR_ZKey 1342486
@@ -8643,10 +8643,10 @@ eW_MetaDef 3
 aGroupName TZWEBGL1
 
 eW_MetaDef 3
-aGroupName KZDRVRAA
+aGroupName ZDRAPP
 
 eW_MetaDef 3
-aGroupName ZDRAPP
+aGroupName KZDRVRAA
 
 eW_MetaDef 3
 aGroupName TZSIOPRS
@@ -11565,8 +11565,8 @@ i1235      139
 i1236      140
 i1237      141
 i1238      142
-i1239      143
-i1240      144
+i1239      144
+i1240      143
 i1241      145
 i1242      146
 i1243      147

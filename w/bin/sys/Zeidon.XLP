@@ -1,11 +1,11 @@
-z1000-Zeidon    ZEIDON   TZCMLPLO 01/09/19   11:58:19 1.0a2    
+z1000-Zeidon    ZEIDON   TZCMLPLO 03/14/18   13:55:58 1.0a2    
 eLPLR      1
 aName      Zeidon
 aZKey      4106137
 aPgmSrcDir c:\10c\a\tz
 aExecDir   c:\10c\w\bin\sys
 aMetaSrcDir c:\10c\a\bin\sys
-aTaskUseCount 0
+aTaskUseCount 1
 aLastBuildDate 20170915132641515
 aJavaPackageName com\quinsoft\zeidon\zeidontools
 awFullyQualifiedFileName \10C_Prejava\a\bin\sys
@@ -3671,8 +3671,8 @@ aStatus    1
 aUpdateInd 2
 aName      KZXMLPGO
 aDesc      XML for window controls
-aLastSyncDate 20180710172348404
-aLastUpdateDate 20180710172348404
+aLastSyncDate 20180105154428906
+aLastUpdateDate 20180105154428906
 
 eW_MetaDef 3
 aCPLR_ZKey 90417949
@@ -7856,8 +7856,8 @@ aStatus    1
 aUpdateInd 2
 aName      TZPNTRAD
 aDesc      Application Painter 
-aLastSyncDate 20180927133951474
-aLastUpdateDate 20180927133951474
+aLastSyncDate 20170711212938640
+aLastUpdateDate 20170711212938640
 
 eW_MetaDef 3
 aCPLR_ZKey 1342486
