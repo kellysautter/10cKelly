@@ -4226,8 +4226,13 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
                               szText = " alt=^" + vDialog.Control.Text + "^ "
                            END
                            IF vDialog.EventAct EXISTS
-                              szWriteBuffer = "   " + szItemTableHeader + "><a href=^#^ style=^display:block;width:100%;height:100%;text-decoration:none;^ name=^" + szListCtrlTag + "^ id=^" + szListCtrlTag + "::<%=strEntityKey%>^ ^onclick=^" +
-                                              vDialog.EventAct.Tag + "( this.id )^><img src=^" + vDialog.Control.WebFileName + "^ " + szTitleHTML + szText + "></a></td>"
+                              IF szNoPositioning = "S"
+                                 szWriteBuffer = "   " + szItemTableHeader + "><a href=^#^ name=^" + szListCtrlTag + "^ id=^" + szListCtrlTag + "::<%=strEntityKey%>^ ^onclick=^" +
+                                                 vDialog.EventAct.Tag + "( this.id )^><img src=^" + vDialog.Control.WebFileName + "^ " + szTitleHTML + szText + "></a></td>"
+                              ELSE 
+                                 szWriteBuffer = "   " + szItemTableHeader + "><a href=^#^ style=^display:block;width:100%;height:100%;text-decoration:none;^ name=^" + szListCtrlTag + "^ id=^" + szListCtrlTag + "::<%=strEntityKey%>^ ^onclick=^" +
+                                                 vDialog.EventAct.Tag + "( this.id )^><img src=^" + vDialog.Control.WebFileName + "^ " + szTitleHTML + szText + "></a></td>"
+                              END
                            ELSE
                               szWriteBuffer = "   " + szItemTableHeader + "><a href=^#^ name=^" + szListCtrlTag + "^ id=^" + szListCtrlTag + "::<%=strEntityKey%>^ ><img src=^" +
                                               vDialog.Control.WebFileName + "^ " + szTitleHTML + szText + "></a></td>"
@@ -4243,9 +4248,15 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
                            END
 
                            IF vDialog.EventAct EXISTS  // the line below was commented 3013.03.28 ... I need the line passing this.id.  dks
-                              szWriteBuffer = "   " + szItemTableHeader + "><a href=^#^ style=^display:block;width:100%;height:100%;text-decoration:none;^ name=^" + szListCtrlTag + "^ onclick=^" + vDialog.EventAct.Tag +
-                                           // "( '<%=strEntityKey%>' )^ id=^" + szListCtrlTag + "::<%=strEntityKey%>^><img src=^" + vDialog.Control.WebFileName + "^ " + szTitleHTML + szText + "></a></td>"
-                                              "( this.id )^ id=^" + szListCtrlTag + "::<%=strEntityKey%>^><img src=^" + vDialog.Control.WebFileName + "^ " + szTitleHTML + szText + "></a></td>"
+                              IF szNoPositioning = "S"
+                                 szWriteBuffer = "   " + szItemTableHeader + "><a href=^#^ name=^" + szListCtrlTag + "^ onclick=^" + vDialog.EventAct.Tag +
+                                              // "( '<%=strEntityKey%>' )^ id=^" + szListCtrlTag + "::<%=strEntityKey%>^><img src=^" + vDialog.Control.WebFileName + "^ " + szTitleHTML + szText + "></a></td>"
+                                                 "( this.id )^ id=^" + szListCtrlTag + "::<%=strEntityKey%>^><img src=^" + vDialog.Control.WebFileName + "^ " + szTitleHTML + szText + "></a></td>"
+                              ELSE 
+                                 szWriteBuffer = "   " + szItemTableHeader + "><a href=^#^ style=^display:block;width:100%;height:100%;text-decoration:none;^ name=^" + szListCtrlTag + "^ onclick=^" + vDialog.EventAct.Tag +
+                                              // "( '<%=strEntityKey%>' )^ id=^" + szListCtrlTag + "::<%=strEntityKey%>^><img src=^" + vDialog.Control.WebFileName + "^ " + szTitleHTML + szText + "></a></td>"
+                                                 "( this.id )^ id=^" + szListCtrlTag + "::<%=strEntityKey%>^><img src=^" + vDialog.Control.WebFileName + "^ " + szTitleHTML + szText + "></a></td>"
+                              END
                            ELSE
                               szWriteBuffer = "   " + szItemTableHeader + "><a href=^#^  name=^" + szListCtrlTag +
                                               "^ id=^" + szListCtrlTag + "::<%=strEntityKey%>^ ><img src=^" + vDialog.Control.WebFileName + "^ " + szTitleHTML + szText + "></a></td>"
@@ -6732,6 +6743,7 @@ GenJSPJ_Action( VIEW vDialog     BASED ON LOD TZWDLGSO,
    END
 
 //**********************************
+   szProductionMode = "" // this was something I tried but not using here...
 
    // KJS 11/05/09
    // If we unregister zeidon at the end of building this window, then when the user clicks an action,
@@ -6984,6 +6996,7 @@ GenJSPJ_Action( VIEW vDialog     BASED ON LOD TZWDLGSO,
                // KJS 08/06/14 - I had put a try/catch around the operation call because it seemed better than getting the exception
                // crash. But that might be true in production but when developing, we'd really like to see the stack trace. Want to make
                // this an ini setting but for now I think I am just going to make the operation call and skip the try/catch.
+               szProductionMode = ""
                IF szProductionMode = "Y"
                   // try
                   szWriteBuffer = "            try"

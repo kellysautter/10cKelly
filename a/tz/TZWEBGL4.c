@@ -111,13 +111,30 @@ BuildSideNavSectionJ( zVIEW     vDialog,
    ZeidonStringConcat( szWriteBuffer, 1, 0, ">", 1, 0, 10001 );
    //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
    WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 );
-   //://szWriteBuffer = "   <ul id=^" + szMenuName + "^ name=^" + szMenuName + "^" + szClass + ">"
-   //:szWriteBuffer = "   <ul id=^" + szMenuName + "^ name=^" + szMenuName + "^>"
-   ZeidonStringCopy( szWriteBuffer, 1, 0, "   <ul id=^", 1, 0, 10001 );
-   ZeidonStringConcat( szWriteBuffer, 1, 0, szMenuName, 1, 0, 10001 );
-   ZeidonStringConcat( szWriteBuffer, 1, 0, "^ name=^", 1, 0, 10001 );
-   ZeidonStringConcat( szWriteBuffer, 1, 0, szMenuName, 1, 0, 10001 );
-   ZeidonStringConcat( szWriteBuffer, 1, 0, "^>", 1, 0, 10001 );
+   //:IF vDialogRoot.WndStyle.Tag = "jMobile Window"
+   if ( CompareAttributeToString( vDialogRoot, "WndStyle", "Tag", "jMobile Window" ) == 0 )
+   { 
+      //:szWriteBuffer = "   <ul id=^" + szMenuName + "^ name=^" + szMenuName + "^" + szClass + ">"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "   <ul id=^", 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, szMenuName, 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, "^ name=^", 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, szMenuName, 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, "^", 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, szClass, 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, ">", 1, 0, 10001 );
+      //:ELSE
+   } 
+   else
+   { 
+      //:szWriteBuffer = "   <ol id=^" + szMenuName + "^ name=^" + szMenuName + "^>"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "   <ol id=^", 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, szMenuName, 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, "^ name=^", 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, szMenuName, 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, "^>", 1, 0, 10001 );
+   } 
+
+   //:END
    //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
    WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 );
 
@@ -553,8 +570,20 @@ BuildSideNavSectionJ( zVIEW     vDialog,
    //:END
 
    //:// Division ending for Navigation Bar.
-   //:szWriteBuffer = "   </ul>"
-   ZeidonStringCopy( szWriteBuffer, 1, 0, "   </ul>", 1, 0, 10001 );
+   //:IF vDialogRoot.WndStyle.Tag = "jMobile Window"
+   if ( CompareAttributeToString( vDialogRoot, "WndStyle", "Tag", "jMobile Window" ) == 0 )
+   { 
+      //:szWriteBuffer = "   </ul>"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "   </ul>", 1, 0, 10001 );
+      //:ELSE
+   } 
+   else
+   { 
+      //:szWriteBuffer = "   </ol>"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "   </ol>", 1, 0, 10001 );
+   } 
+
+   //:END
    //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
    WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 );
    //:szWriteBuffer = "</div> <!-- sidenavigation -->"
@@ -2431,22 +2460,39 @@ GenJSPJ_CrteListBoxAsList( zVIEW     vDialog,
    { 
       //:szjMobile = " data-role=^listview^ "
       ZeidonStringCopy( szjMobile, 1, 0, " data-role=^listview^ ", 1, 0, 33 );
+      //:szWriteBuffer = "   <ul id=^" + szCtrlTag + "^ name=^" + szCtrlTag + "^" + szClass + szjMobile + szHTML5Attr + szStyle + szDisabled + ">"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "   <ul id=^", 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, szCtrlTag, 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, "^ name=^", 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, szCtrlTag, 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, "^", 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, szClass, 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, szjMobile, 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, szHTML5Attr, 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, szStyle, 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, szDisabled, 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, ">", 1, 0, 10001 );
+      //:ELSE
+   } 
+   else
+   { 
+      //:szWriteBuffer = "   <ol id=^" + szCtrlTag + "^ name=^" + szCtrlTag + "^" + szClass + szjMobile + szHTML5Attr + szStyle + szDisabled + ">"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "   <ol id=^", 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, szCtrlTag, 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, "^ name=^", 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, szCtrlTag, 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, "^", 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, szClass, 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, szjMobile, 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, szHTML5Attr, 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, szStyle, 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, szDisabled, 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, ">", 1, 0, 10001 );
    } 
 
    //:END      
 
-   //:szWriteBuffer = "   <ul id=^" + szCtrlTag + "^ name=^" + szCtrlTag + "^" + szClass + szjMobile + szHTML5Attr + szStyle + szDisabled + ">"
-   ZeidonStringCopy( szWriteBuffer, 1, 0, "   <ul id=^", 1, 0, 10001 );
-   ZeidonStringConcat( szWriteBuffer, 1, 0, szCtrlTag, 1, 0, 10001 );
-   ZeidonStringConcat( szWriteBuffer, 1, 0, "^ name=^", 1, 0, 10001 );
-   ZeidonStringConcat( szWriteBuffer, 1, 0, szCtrlTag, 1, 0, 10001 );
-   ZeidonStringConcat( szWriteBuffer, 1, 0, "^", 1, 0, 10001 );
-   ZeidonStringConcat( szWriteBuffer, 1, 0, szClass, 1, 0, 10001 );
-   ZeidonStringConcat( szWriteBuffer, 1, 0, szjMobile, 1, 0, 10001 );
-   ZeidonStringConcat( szWriteBuffer, 1, 0, szHTML5Attr, 1, 0, 10001 );
-   ZeidonStringConcat( szWriteBuffer, 1, 0, szStyle, 1, 0, 10001 );
-   ZeidonStringConcat( szWriteBuffer, 1, 0, szDisabled, 1, 0, 10001 );
-   ZeidonStringConcat( szWriteBuffer, 1, 0, ">", 1, 0, 10001 );
+   //://szWriteBuffer = "   <ol id=^" + szCtrlTag + "^ name=^" + szCtrlTag + "^" + szClass + szjMobile + szHTML5Attr + szStyle + szDisabled + ">"
    //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
    WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 );
 
@@ -3028,8 +3074,20 @@ GenJSPJ_CrteListBoxAsList( zVIEW     vDialog,
    //:   WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
    WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 );
 
-   //:szWriteBuffer = "</ul>"
-   ZeidonStringCopy( szWriteBuffer, 1, 0, "</ul>", 1, 0, 10001 );
+   //:IF vDialogRoot.WndStyle.Tag = "jMobile Window"
+   if ( CompareAttributeToString( vDialogRoot, "WndStyle", "Tag", "jMobile Window" ) == 0 )
+   { 
+      //:szWriteBuffer = "</ul>"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "</ul>", 1, 0, 10001 );
+      //:ELSE
+   } 
+   else
+   { 
+      //:szWriteBuffer = "</ol>"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "</ol>", 1, 0, 10001 );
+   } 
+
+   //:END
    //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
    WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 );
    return( 0 );
@@ -3121,6 +3179,8 @@ BuildMenuListJ( zVIEW     vDialog,
 
    //:END
 
+   //:// KJS 11/05/18 - To be ADA compliant, we are supposed to use <ol not <ul. But when using jMobile and "data-role", we need to
+   //:// use <ul>. Does not render correctly using <ol>.
    //:IF vDialogRoot.WndStyle.Tag = "jMobile Window"
    if ( CompareAttributeToString( vDialogRoot, "WndStyle", "Tag", "jMobile Window" ) == 0 )
    { 
@@ -3129,6 +3189,16 @@ BuildMenuListJ( zVIEW     vDialog,
       ZeidonStringConcat( szWriteBuffer, 1, 0, szMenuName, 1, 0, 10001 );
       ZeidonStringConcat( szWriteBuffer, 1, 0, "^", 1, 0, 10001 );
       ZeidonStringConcat( szWriteBuffer, 1, 0, szClass, 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, ">", 1, 0, 10001 );
+      //:WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
+      WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "   <ul id=^" + szMenuName + "^ name=^" + szMenuName + "^" + szHTML5Attr + ">"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "   <ul id=^", 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, szMenuName, 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, "^ name=^", 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, szMenuName, 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, "^", 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, szHTML5Attr, 1, 0, 10001 );
       ZeidonStringConcat( szWriteBuffer, 1, 0, ">", 1, 0, 10001 );
       //:ELSE
    } 
@@ -3140,6 +3210,16 @@ BuildMenuListJ( zVIEW     vDialog,
       ZeidonStringConcat( szWriteBuffer, 1, 0, "^", 1, 0, 10001 );
       ZeidonStringConcat( szWriteBuffer, 1, 0, szClass, 1, 0, 10001 );
       ZeidonStringConcat( szWriteBuffer, 1, 0, ">", 1, 0, 10001 );
+      //:WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
+      WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "   <ol id=^" + szMenuName + "^ name=^" + szMenuName + "^" + szHTML5Attr + ">"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "   <ol id=^", 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, szMenuName, 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, "^ name=^", 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, szMenuName, 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, "^", 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, szHTML5Attr, 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, ">", 1, 0, 10001 );
    } 
 
    //:END      
@@ -3147,16 +3227,7 @@ BuildMenuListJ( zVIEW     vDialog,
    WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 );
 
    //://szWriteBuffer = "   <ul id=^" + szMenuName + "^ name=^" + szMenuName + "^" + szClass + ">"
-   //:szWriteBuffer = "   <ul id=^" + szMenuName + "^ name=^" + szMenuName + "^" + szHTML5Attr + ">"
-   ZeidonStringCopy( szWriteBuffer, 1, 0, "   <ul id=^", 1, 0, 10001 );
-   ZeidonStringConcat( szWriteBuffer, 1, 0, szMenuName, 1, 0, 10001 );
-   ZeidonStringConcat( szWriteBuffer, 1, 0, "^ name=^", 1, 0, 10001 );
-   ZeidonStringConcat( szWriteBuffer, 1, 0, szMenuName, 1, 0, 10001 );
-   ZeidonStringConcat( szWriteBuffer, 1, 0, "^", 1, 0, 10001 );
-   ZeidonStringConcat( szWriteBuffer, 1, 0, szHTML5Attr, 1, 0, 10001 );
-   ZeidonStringConcat( szWriteBuffer, 1, 0, ">", 1, 0, 10001 );
-   //:WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
-   WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 );
+   //://WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
 
    //:FOR EACH vDialogRoot.OptAct WITHIN vDialogRoot.Menu
    RESULT = SetCursorFirstEntity( vDialogRoot, "OptAct", "Menu" );
@@ -3379,8 +3450,20 @@ BuildMenuListJ( zVIEW     vDialog,
    //:END
 
    //:// Division ending for Navigation Bar.
-   //:szWriteBuffer = "   </ul>"
-   ZeidonStringCopy( szWriteBuffer, 1, 0, "   </ul>", 1, 0, 10001 );
+   //:IF vDialogRoot.WndStyle.Tag = "jMobile Window"
+   if ( CompareAttributeToString( vDialogRoot, "WndStyle", "Tag", "jMobile Window" ) == 0 )
+   { 
+      //:szWriteBuffer = "   </ul>"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "   </ul>", 1, 0, 10001 );
+      //:ELSE
+   } 
+   else
+   { 
+      //:szWriteBuffer = "   </ol>"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "   </ol>", 1, 0, 10001 );
+   } 
+
+   //:END
    //:WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
    WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 );
    //:szWriteBuffer = "</div> <!-- menu list end -->"
@@ -5587,8 +5670,20 @@ GenJSPJ_CrteJPG( zVIEW     vDialog,
    lTempInteger_0 = CheckExistenceOfEntity( vDialog, "EventAct" );
    if ( lTempInteger_0 == 0 )
    { 
-      //:szActionName = szActionName + "<a href=^#^ style=^display:block;width:100%;height:100%;text-decoration:none;^ " 
-      ZeidonStringConcat( szActionName, 1, 0, "<a href=^#^ style=^display:block;width:100%;height:100%;text-decoration:none;^ ", 1, 0, 257 );
+      //:IF szNoPositioning = "S"
+      if ( ZeidonStringCompare( szNoPositioning, 1, 0, "S", 1, 0, 2 ) == 0 )
+      { 
+         //:szActionName = szActionName + "<a href=^#^ " 
+         ZeidonStringConcat( szActionName, 1, 0, "<a href=^#^ ", 1, 0, 257 );
+         //:ELSE 
+      } 
+      else
+      { 
+         //:szActionName = szActionName + "<a href=^#^ style=^display:block;width:100%;height:100%;text-decoration:none;^ " 
+         ZeidonStringConcat( szActionName, 1, 0, "<a href=^#^ style=^display:block;width:100%;height:100%;text-decoration:none;^ ", 1, 0, 257 );
+      } 
+
+      //:END
       //:szActionName = szActionName + " onclick=^"
       ZeidonStringConcat( szActionName, 1, 0, " onclick=^", 1, 0, 257 );
       //:szActionName = szActionName + vDialog.EventAct.Tag
@@ -9538,6 +9633,18 @@ GenJSPJ_CrteGroupTable( zVIEW     vDialog,
       } 
 
       //:END   //IF szControlType = "MLEdit"
+
+      //:// KJS 07/13/18 - Right now, if I put a "Grid" inside a groupbox marked as "Table", the grid doesn't
+      //:// get created (if I put the grid inside a groupbox, then it works). I need to perform something like the following
+      //:// but I would need to put all of the grid code from within CrteCtrlsRecurs into it's own function and call that
+      //:// function from here. I should do that but not right now...
+      //:/*
+      //:IF szControlType = "Grid"  // Grid
+
+      //:   GenJSPJ_CrteCtrlsRecurs( vDialog, vGroupParent, vDialogRoot, lFile, szWriteBuffer, szIndentGroup,
+      //:                            lTableRowCnt, szNoPositioning, X_Size, Y_Size, szRepeatGrpKey )
+      //:END
+      //:*/
 
       //://****************************************************************************
 

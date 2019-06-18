@@ -22,6 +22,7 @@ typedef struct tagzTZWDLGSO_Dialog_DEF
    zCHAR WEB_NoAutoLogOut[ 2 ];
    zCHAR WEB_ImportInclude[ 255 ];
    zCHAR WEB_Logout[ 255 ];
+   zCHAR BuildJSPAsProd[ 2 ];
    zCHAR Converted[ 2 ];
    zCHAR LastSyncDate[ 7 ];
    zCHAR wOriginalViewName[ 255 ];
@@ -105,6 +106,7 @@ typedef struct tagzTZWDLGSO_Window_DEF
    zLONG WEB_Timeout;
    zCHAR WEB_PageHeadInclude[ 255 ];
    zCHAR WEB_TopMenuInclude[ 255 ];
+   zCHAR WEB_FooterInclude[ 255 ];
    zCHAR WEB_ReusableMenuWindow[ 255 ];
    zCHAR WEB_NoBannerFlag[ 2 ];
    zCHAR WEB_NoTopMenuFlag[ 2 ];
@@ -112,6 +114,7 @@ typedef struct tagzTZWDLGSO_Window_DEF
    zCHAR WEB_JSPGenerationPositioning[ 2 ];
    zCHAR WEB_RegisterZeidonWindow[ 2 ];
    zCHAR WEB_UnregisterZeidonWindow[ 2 ];
+   zCHAR WEB_ImportInclude[ 255 ];
    zCHAR WEB_Logout[ 255 ];
    zLONG BarID;
    zCHAR CaptionNLS_Text[ 255 ];

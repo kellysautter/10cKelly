@@ -141,6 +141,16 @@ BuildMainNavSection( zVIEW     vDialog,
       ZeidonStringConcat( szWriteBuffer, 1, 0, "^ ", 1, 0, 10001 );
       ZeidonStringConcat( szWriteBuffer, 1, 0, szClass, 1, 0, 10001 );
       ZeidonStringConcat( szWriteBuffer, 1, 0, ">", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "   <ul id=^" + szMenuName + "^ name=^" + szMenuName + "^" + szHTML5Attr + " >"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "   <ul id=^", 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, szMenuName, 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, "^ name=^", 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, szMenuName, 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, "^", 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, szHTML5Attr, 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, " >", 1, 0, 10001 );
       //:ELSE 
    } 
    else
@@ -150,22 +160,24 @@ BuildMainNavSection( zVIEW     vDialog,
       ZeidonStringConcat( szWriteBuffer, 1, 0, szHTML5Attr, 1, 0, 10001 );
       ZeidonStringConcat( szWriteBuffer, 1, 0, szClass, 1, 0, 10001 );
       ZeidonStringConcat( szWriteBuffer, 1, 0, ">", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "   <ol id=^" + szMenuName + "^ name=^" + szMenuName + "^" + szHTML5Attr + " >"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "   <ol id=^", 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, szMenuName, 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, "^ name=^", 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, szMenuName, 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, "^", 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, szHTML5Attr, 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, " >", 1, 0, 10001 );
    } 
 
    //:END
    //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
    WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 );
    //://szWriteBuffer = "   <ul id=^" + szMenuName + "^ name=^" + szMenuName + "^" + szClass + ">"
-   //:szWriteBuffer = "   <ul id=^" + szMenuName + "^ name=^" + szMenuName + "^" + szHTML5Attr + " >"
-   ZeidonStringCopy( szWriteBuffer, 1, 0, "   <ul id=^", 1, 0, 10001 );
-   ZeidonStringConcat( szWriteBuffer, 1, 0, szMenuName, 1, 0, 10001 );
-   ZeidonStringConcat( szWriteBuffer, 1, 0, "^ name=^", 1, 0, 10001 );
-   ZeidonStringConcat( szWriteBuffer, 1, 0, szMenuName, 1, 0, 10001 );
-   ZeidonStringConcat( szWriteBuffer, 1, 0, "^", 1, 0, 10001 );
-   ZeidonStringConcat( szWriteBuffer, 1, 0, szHTML5Attr, 1, 0, 10001 );
-   ZeidonStringConcat( szWriteBuffer, 1, 0, " >", 1, 0, 10001 );
-   //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-   WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 );
+   //://szWriteBuffer = "   <ol id=^" + szMenuName + "^ name=^" + szMenuName + "^" + szHTML5Attr + " >"
+   //://WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
 
    //:FOR EACH vDialogRoot.OptAct WITHIN vDialogRoot.Menu
    RESULT = SetCursorFirstEntity( vDialogRoot, "OptAct", "Menu" );
@@ -394,8 +406,20 @@ BuildMainNavSection( zVIEW     vDialog,
    //:END
 
    //:// Division ending for Navigation Bar
-   //:szWriteBuffer = "   </ul>"
-   ZeidonStringCopy( szWriteBuffer, 1, 0, "   </ul>", 1, 0, 10001 );
+   //:IF szWindowIsjMobile = "Y"
+   if ( ZeidonStringCompare( szWindowIsjMobile, 1, 0, "Y", 1, 0, 2 ) == 0 )
+   { 
+      //:szWriteBuffer = "   </ul>"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "   </ul>", 1, 0, 10001 );
+      //:ELSE
+   } 
+   else
+   { 
+      //:szWriteBuffer = "   </ol>"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "   </ol>", 1, 0, 10001 );
+   } 
+
+   //:END
    //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
    WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 );
    //:szWriteBuffer = "</div>  <!-- end Navigation Bar -->"
@@ -7617,8 +7641,8 @@ BuildSideNavSection( zVIEW     vDialog,
    //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
    WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 );
    //://szWriteBuffer = "   <ul id=^" + szMenuName + "^ name=^" + szMenuName + "^" + szClass + ">"
-   //:szWriteBuffer = "   <ul id=^" + szMenuName + "^ name=^" + szMenuName + "^>"
-   ZeidonStringCopy( szWriteBuffer, 1, 0, "   <ul id=^", 1, 0, 10001 );
+   //:szWriteBuffer = "   <ol id=^" + szMenuName + "^ name=^" + szMenuName + "^>"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "   <ol id=^", 1, 0, 10001 );
    ZeidonStringConcat( szWriteBuffer, 1, 0, szMenuName, 1, 0, 10001 );
    ZeidonStringConcat( szWriteBuffer, 1, 0, "^ name=^", 1, 0, 10001 );
    ZeidonStringConcat( szWriteBuffer, 1, 0, szMenuName, 1, 0, 10001 );
@@ -7961,8 +7985,8 @@ BuildSideNavSection( zVIEW     vDialog,
    //:END  // vDialogMenu != 0
 
    //:// Division ending for Navigation Bar.
-   //:szWriteBuffer = "   </ul>"
-   ZeidonStringCopy( szWriteBuffer, 1, 0, "   </ul>", 1, 0, 10001 );
+   //:szWriteBuffer = "   </ol>"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "   </ol>", 1, 0, 10001 );
    //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
    WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 );
    //:szWriteBuffer = "</div> <!-- sidenavigation -->"

@@ -50,8 +50,11 @@ BuildSideNavSectionJ( VIEW vDialog,
    END
    szWriteBuffer = "<div id=^sidenavigation^" + szClass + ">"
    WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-   //szWriteBuffer = "   <ul id=^" + szMenuName + "^ name=^" + szMenuName + "^" + szClass + ">"
-   szWriteBuffer = "   <ul id=^" + szMenuName + "^ name=^" + szMenuName + "^>"
+   IF vDialogRoot.WndStyle.Tag = "jMobile Window"
+      szWriteBuffer = "   <ul id=^" + szMenuName + "^ name=^" + szMenuName + "^" + szClass + ">"
+   ELSE
+      szWriteBuffer = "   <ol id=^" + szMenuName + "^ name=^" + szMenuName + "^>"
+   END
    WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
 
    FOR EACH vDialogRoot.OptAct WITHIN vDialogRoot.Menu
@@ -234,7 +237,11 @@ BuildSideNavSectionJ( VIEW vDialog,
    END
 
    // Division ending for Navigation Bar.
-   szWriteBuffer = "   </ul>"
+   IF vDialogRoot.WndStyle.Tag = "jMobile Window"
+      szWriteBuffer = "   </ul>"
+   ELSE
+      szWriteBuffer = "   </ol>"
+   END
    WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
    szWriteBuffer = "</div> <!-- sidenavigation -->"
    WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
@@ -298,16 +305,21 @@ BuildMenuListJ( VIEW vDialog BASED ON LOD TZWDLGSO,
       szHTML5Attr = " " + vDialogRoot.Menu.WebHTML5Attribute + " "
    END
 
+   // KJS 11/05/18 - To be ADA compliant, we are supposed to use <ol not <ul. But when using jMobile and "data-role", we need to
+   // use <ul>. Does not render correctly using <ol>.
    IF vDialogRoot.WndStyle.Tag = "jMobile Window"
       szWriteBuffer = "<div data-role=^listview^ id=^div" + szMenuName + "^" + szClass + ">"
+      WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
+      szWriteBuffer = "   <ul id=^" + szMenuName + "^ name=^" + szMenuName + "^" + szHTML5Attr + ">"
    ELSE
       szWriteBuffer = "<div id=^div" + szMenuName + "^" + szClass + ">"
+      WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
+      szWriteBuffer = "   <ol id=^" + szMenuName + "^ name=^" + szMenuName + "^" + szHTML5Attr + ">"
    END      
    WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
    
    //szWriteBuffer = "   <ul id=^" + szMenuName + "^ name=^" + szMenuName + "^" + szClass + ">"
-   szWriteBuffer = "   <ul id=^" + szMenuName + "^ name=^" + szMenuName + "^" + szHTML5Attr + ">"
-   WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
+   //WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
 
    FOR EACH vDialogRoot.OptAct WITHIN vDialogRoot.Menu
       //szNavigationTitle = vDialogRoot.Option.Text
@@ -400,7 +412,11 @@ BuildMenuListJ( VIEW vDialog BASED ON LOD TZWDLGSO,
    END
 
    // Division ending for Navigation Bar.
-   szWriteBuffer = "   </ul>"
+   IF vDialogRoot.WndStyle.Tag = "jMobile Window"
+      szWriteBuffer = "   </ul>"
+   ELSE
+      szWriteBuffer = "   </ol>"
+   END
    WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
    szWriteBuffer = "</div> <!-- menu list end -->"
    WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 1 )
@@ -2815,6 +2831,18 @@ GenJSPJ_CrteGroupTable( VIEW vDialog BASED ON LOD TZWDLGSO,
                              "", "", szNoPositioning, 0, 0, szRepeatGrpKey )
       END   //IF szControlType = "MLEdit"
 
+      // KJS 07/13/18 - Right now, if I put a "Grid" inside a groupbox marked as "Table", the grid doesn't
+      // get created (if I put the grid inside a groupbox, then it works). I need to perform something like the following
+      // but I would need to put all of the grid code from within CrteCtrlsRecurs into it's own function and call that
+      // function from here. I should do that but not right now...
+      /*
+      IF szControlType = "Grid"  // Grid
+      
+         GenJSPJ_CrteCtrlsRecurs( vDialog, vGroupParent, vDialogRoot, lFile, szWriteBuffer, szIndentGroup,
+                                  lTableRowCnt, szNoPositioning, X_Size, Y_Size, szRepeatGrpKey )
+      END
+      */
+
       //****************************************************************************
 
 
@@ -3761,7 +3789,11 @@ GenJSPJ_CrteJPG( VIEW vDialog BASED ON LOD TZWDLGSO,
 
    szActionName = ""
    IF vDialog.EventAct EXISTS
-      szActionName = szActionName + "<a href=^#^ style=^display:block;width:100%;height:100%;text-decoration:none;^ " 
+      IF szNoPositioning = "S"
+         szActionName = szActionName + "<a href=^#^ " 
+      ELSE 
+         szActionName = szActionName + "<a href=^#^ style=^display:block;width:100%;height:100%;text-decoration:none;^ " 
+      END
       szActionName = szActionName + " onclick=^"
       szActionName = szActionName + vDialog.EventAct.Tag
       szActionName = szActionName + "( )^ "
@@ -4255,9 +4287,12 @@ GenJSPJ_CrteListBoxAsList( VIEW vDialog,
    GetViewByName( vDialogRoot, "DialogRoot", vDialog, zLEVEL_TASK )   
    IF vDialogRoot.WndStyle.Tag = "jMobile Window"
       szjMobile = " data-role=^listview^ "
+      szWriteBuffer = "   <ul id=^" + szCtrlTag + "^ name=^" + szCtrlTag + "^" + szClass + szjMobile + szHTML5Attr + szStyle + szDisabled + ">"
+   ELSE
+      szWriteBuffer = "   <ol id=^" + szCtrlTag + "^ name=^" + szCtrlTag + "^" + szClass + szjMobile + szHTML5Attr + szStyle + szDisabled + ">"
    END      
 
-   szWriteBuffer = "   <ul id=^" + szCtrlTag + "^ name=^" + szCtrlTag + "^" + szClass + szjMobile + szHTML5Attr + szStyle + szDisabled + ">"
+   //szWriteBuffer = "   <ol id=^" + szCtrlTag + "^ name=^" + szCtrlTag + "^" + szClass + szjMobile + szHTML5Attr + szStyle + szDisabled + ">"
    WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
 
       szWriteBuffer = "<%"
@@ -4498,7 +4533,11 @@ GenJSPJ_CrteListBoxAsList( VIEW vDialog,
       szWriteBuffer = "%>"
       WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
 
-   szWriteBuffer = "</ul>"
+   IF vDialogRoot.WndStyle.Tag = "jMobile Window"
+      szWriteBuffer = "</ul>"
+   ELSE
+      szWriteBuffer = "</ol>"
+   END
    WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
 END
 

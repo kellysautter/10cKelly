@@ -1306,22 +1306,26 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
    zSHORT    lTempInteger_48; 
    zCHAR     szTempString_149[ 33 ]; 
    zCHAR     szTempString_150[ 261 ]; 
-   zCHAR     szTempString_151[ 261 ]; 
-   zCHAR     szTempString_152[ 255 ]; 
+   zCHAR     szTempString_151[ 33 ]; 
+   zCHAR     szTempString_152[ 261 ]; 
+   zCHAR     szTempString_153[ 261 ]; 
+   zCHAR     szTempString_154[ 255 ]; 
    zSHORT    lTempInteger_49; 
-   zCHAR     szTempString_153[ 33 ]; 
-   zCHAR     szTempString_154[ 261 ]; 
-   zCHAR     szTempString_155[ 261 ]; 
-   zCHAR     szTempString_156[ 51 ]; 
+   zCHAR     szTempString_155[ 33 ]; 
+   zCHAR     szTempString_156[ 261 ]; 
+   zCHAR     szTempString_157[ 33 ]; 
+   zCHAR     szTempString_158[ 261 ]; 
+   zCHAR     szTempString_159[ 261 ]; 
+   zCHAR     szTempString_160[ 51 ]; 
    zSHORT    lTempInteger_50; 
-   zCHAR     szTempString_157[ 51 ]; 
-   zCHAR     szTempString_158[ 33 ]; 
-   zCHAR     szTempString_159[ 51 ]; 
-   zSHORT    lTempInteger_51; 
-   zCHAR     szTempString_160[ 33 ]; 
-   zCHAR     szTempString_161[ 33 ]; 
+   zCHAR     szTempString_161[ 51 ]; 
    zCHAR     szTempString_162[ 33 ]; 
-   zCHAR     szTempString_163[ 255 ]; 
+   zCHAR     szTempString_163[ 51 ]; 
+   zSHORT    lTempInteger_51; 
+   zCHAR     szTempString_164[ 33 ]; 
+   zCHAR     szTempString_165[ 33 ]; 
+   zCHAR     szTempString_166[ 33 ]; 
+   zCHAR     szTempString_167[ 255 ]; 
 
 
    //:PIX_PER_DU( vDialog, dDLUnits )
@@ -10482,24 +10486,52 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
                                           lTempInteger_48 = CheckExistenceOfEntity( vDialog, "EventAct" );
                                           if ( lTempInteger_48 == 0 )
                                           { 
-                                             //:szWriteBuffer = "   " + szItemTableHeader + "><a href=^#^ style=^display:block;width:100%;height:100%;text-decoration:none;^ name=^" + szListCtrlTag + "^ id=^" + szListCtrlTag + "::<%=strEntityKey%>^ ^onclick=^" +
-                                             //: vDialog.EventAct.Tag + "( this.id )^><img src=^" + vDialog.Control.WebFileName + "^ " + szTitleHTML + szText + "></a></td>"
-                                             ZeidonStringCopy( szWriteBuffer, 1, 0, "   ", 1, 0, 10001 );
-                                             ZeidonStringConcat( szWriteBuffer, 1, 0, szItemTableHeader, 1, 0, 10001 );
-                                             ZeidonStringConcat( szWriteBuffer, 1, 0, "><a href=^#^ style=^display:block;width:100%;height:100%;text-decoration:none;^ name=^", 1, 0, 10001 );
-                                             ZeidonStringConcat( szWriteBuffer, 1, 0, szListCtrlTag, 1, 0, 10001 );
-                                             ZeidonStringConcat( szWriteBuffer, 1, 0, "^ id=^", 1, 0, 10001 );
-                                             ZeidonStringConcat( szWriteBuffer, 1, 0, szListCtrlTag, 1, 0, 10001 );
-                                             ZeidonStringConcat( szWriteBuffer, 1, 0, "::<%=strEntityKey%>^ ^onclick=^", 1, 0, 10001 );
-                                             GetVariableFromAttribute( szTempString_149, 0, 'S', 33, vDialog, "EventAct", "Tag", "", 0 );
-                                             ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_149, 1, 0, 10001 );
-                                             ZeidonStringConcat( szWriteBuffer, 1, 0, "( this.id )^><img src=^", 1, 0, 10001 );
-                                             GetVariableFromAttribute( szTempString_150, 0, 'S', 261, vDialog, "Control", "WebFileName", "", 0 );
-                                             ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_150, 1, 0, 10001 );
-                                             ZeidonStringConcat( szWriteBuffer, 1, 0, "^ ", 1, 0, 10001 );
-                                             ZeidonStringConcat( szWriteBuffer, 1, 0, szTitleHTML, 1, 0, 10001 );
-                                             ZeidonStringConcat( szWriteBuffer, 1, 0, szText, 1, 0, 10001 );
-                                             ZeidonStringConcat( szWriteBuffer, 1, 0, "></a></td>", 1, 0, 10001 );
+                                             //:IF szNoPositioning = "S"
+                                             if ( ZeidonStringCompare( szNoPositioning, 1, 0, "S", 1, 0, 2 ) == 0 )
+                                             { 
+                                                //:szWriteBuffer = "   " + szItemTableHeader + "><a href=^#^ name=^" + szListCtrlTag + "^ id=^" + szListCtrlTag + "::<%=strEntityKey%>^ ^onclick=^" +
+                                                //: vDialog.EventAct.Tag + "( this.id )^><img src=^" + vDialog.Control.WebFileName + "^ " + szTitleHTML + szText + "></a></td>"
+                                                ZeidonStringCopy( szWriteBuffer, 1, 0, "   ", 1, 0, 10001 );
+                                                ZeidonStringConcat( szWriteBuffer, 1, 0, szItemTableHeader, 1, 0, 10001 );
+                                                ZeidonStringConcat( szWriteBuffer, 1, 0, "><a href=^#^ name=^", 1, 0, 10001 );
+                                                ZeidonStringConcat( szWriteBuffer, 1, 0, szListCtrlTag, 1, 0, 10001 );
+                                                ZeidonStringConcat( szWriteBuffer, 1, 0, "^ id=^", 1, 0, 10001 );
+                                                ZeidonStringConcat( szWriteBuffer, 1, 0, szListCtrlTag, 1, 0, 10001 );
+                                                ZeidonStringConcat( szWriteBuffer, 1, 0, "::<%=strEntityKey%>^ ^onclick=^", 1, 0, 10001 );
+                                                GetVariableFromAttribute( szTempString_149, 0, 'S', 33, vDialog, "EventAct", "Tag", "", 0 );
+                                                ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_149, 1, 0, 10001 );
+                                                ZeidonStringConcat( szWriteBuffer, 1, 0, "( this.id )^><img src=^", 1, 0, 10001 );
+                                                GetVariableFromAttribute( szTempString_150, 0, 'S', 261, vDialog, "Control", "WebFileName", "", 0 );
+                                                ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_150, 1, 0, 10001 );
+                                                ZeidonStringConcat( szWriteBuffer, 1, 0, "^ ", 1, 0, 10001 );
+                                                ZeidonStringConcat( szWriteBuffer, 1, 0, szTitleHTML, 1, 0, 10001 );
+                                                ZeidonStringConcat( szWriteBuffer, 1, 0, szText, 1, 0, 10001 );
+                                                ZeidonStringConcat( szWriteBuffer, 1, 0, "></a></td>", 1, 0, 10001 );
+                                                //:ELSE 
+                                             } 
+                                             else
+                                             { 
+                                                //:szWriteBuffer = "   " + szItemTableHeader + "><a href=^#^ style=^display:block;width:100%;height:100%;text-decoration:none;^ name=^" + szListCtrlTag + "^ id=^" + szListCtrlTag + "::<%=strEntityKey%>^ ^onclick=^" +
+                                                //: vDialog.EventAct.Tag + "( this.id )^><img src=^" + vDialog.Control.WebFileName + "^ " + szTitleHTML + szText + "></a></td>"
+                                                ZeidonStringCopy( szWriteBuffer, 1, 0, "   ", 1, 0, 10001 );
+                                                ZeidonStringConcat( szWriteBuffer, 1, 0, szItemTableHeader, 1, 0, 10001 );
+                                                ZeidonStringConcat( szWriteBuffer, 1, 0, "><a href=^#^ style=^display:block;width:100%;height:100%;text-decoration:none;^ name=^", 1, 0, 10001 );
+                                                ZeidonStringConcat( szWriteBuffer, 1, 0, szListCtrlTag, 1, 0, 10001 );
+                                                ZeidonStringConcat( szWriteBuffer, 1, 0, "^ id=^", 1, 0, 10001 );
+                                                ZeidonStringConcat( szWriteBuffer, 1, 0, szListCtrlTag, 1, 0, 10001 );
+                                                ZeidonStringConcat( szWriteBuffer, 1, 0, "::<%=strEntityKey%>^ ^onclick=^", 1, 0, 10001 );
+                                                GetVariableFromAttribute( szTempString_151, 0, 'S', 33, vDialog, "EventAct", "Tag", "", 0 );
+                                                ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_151, 1, 0, 10001 );
+                                                ZeidonStringConcat( szWriteBuffer, 1, 0, "( this.id )^><img src=^", 1, 0, 10001 );
+                                                GetVariableFromAttribute( szTempString_152, 0, 'S', 261, vDialog, "Control", "WebFileName", "", 0 );
+                                                ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_152, 1, 0, 10001 );
+                                                ZeidonStringConcat( szWriteBuffer, 1, 0, "^ ", 1, 0, 10001 );
+                                                ZeidonStringConcat( szWriteBuffer, 1, 0, szTitleHTML, 1, 0, 10001 );
+                                                ZeidonStringConcat( szWriteBuffer, 1, 0, szText, 1, 0, 10001 );
+                                                ZeidonStringConcat( szWriteBuffer, 1, 0, "></a></td>", 1, 0, 10001 );
+                                             } 
+
+                                             //:END
                                              //:ELSE
                                           } 
                                           else
@@ -10513,8 +10545,8 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
                                              ZeidonStringConcat( szWriteBuffer, 1, 0, "^ id=^", 1, 0, 10001 );
                                              ZeidonStringConcat( szWriteBuffer, 1, 0, szListCtrlTag, 1, 0, 10001 );
                                              ZeidonStringConcat( szWriteBuffer, 1, 0, "::<%=strEntityKey%>^ ><img src=^", 1, 0, 10001 );
-                                             GetVariableFromAttribute( szTempString_151, 0, 'S', 261, vDialog, "Control", "WebFileName", "", 0 );
-                                             ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_151, 1, 0, 10001 );
+                                             GetVariableFromAttribute( szTempString_153, 0, 'S', 261, vDialog, "Control", "WebFileName", "", 0 );
+                                             ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_153, 1, 0, 10001 );
                                              ZeidonStringConcat( szWriteBuffer, 1, 0, "^ ", 1, 0, 10001 );
                                              ZeidonStringConcat( szWriteBuffer, 1, 0, szTitleHTML, 1, 0, 10001 );
                                              ZeidonStringConcat( szWriteBuffer, 1, 0, szText, 1, 0, 10001 );
@@ -10535,9 +10567,9 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
                                              if ( CompareAttributeToString( vDialog, "Control", "Text", "" ) != 0 )
                                              { 
                                                 //:szText = "alt=^" + vDialog.Control.Text + "^"
-                                                GetVariableFromAttribute( szTempString_152, 0, 'S', 255, vDialog, "Control", "Text", "", 0 );
+                                                GetVariableFromAttribute( szTempString_154, 0, 'S', 255, vDialog, "Control", "Text", "", 0 );
                                                 ZeidonStringCopy( szText, 1, 0, "alt=^", 1, 0, 501 );
-                                                ZeidonStringConcat( szText, 1, 0, szTempString_152, 1, 0, 501 );
+                                                ZeidonStringConcat( szText, 1, 0, szTempString_154, 1, 0, 501 );
                                                 ZeidonStringConcat( szText, 1, 0, "^", 1, 0, 501 );
                                                 //:ELSE
                                              } 
@@ -10553,25 +10585,54 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
                                              lTempInteger_49 = CheckExistenceOfEntity( vDialog, "EventAct" );
                                              if ( lTempInteger_49 == 0 )
                                              { 
-                                                //:szWriteBuffer = "   " + szItemTableHeader + "><a href=^#^ style=^display:block;width:100%;height:100%;text-decoration:none;^ name=^" + szListCtrlTag + "^ onclick=^" + vDialog.EventAct.Tag +
-                                                //:// "( '<%=strEntityKey%>' )^ id=^" + szListCtrlTag + "::<%=strEntityKey%>^><img src=^" + vDialog.Control.WebFileName + "^ " + szTitleHTML + szText + "></a></td>"
-                                                //:"( this.id )^ id=^" + szListCtrlTag + "::<%=strEntityKey%>^><img src=^" + vDialog.Control.WebFileName + "^ " + szTitleHTML + szText + "></a></td>"
-                                                ZeidonStringCopy( szWriteBuffer, 1, 0, "   ", 1, 0, 10001 );
-                                                ZeidonStringConcat( szWriteBuffer, 1, 0, szItemTableHeader, 1, 0, 10001 );
-                                                ZeidonStringConcat( szWriteBuffer, 1, 0, "><a href=^#^ style=^display:block;width:100%;height:100%;text-decoration:none;^ name=^", 1, 0, 10001 );
-                                                ZeidonStringConcat( szWriteBuffer, 1, 0, szListCtrlTag, 1, 0, 10001 );
-                                                ZeidonStringConcat( szWriteBuffer, 1, 0, "^ onclick=^", 1, 0, 10001 );
-                                                GetVariableFromAttribute( szTempString_153, 0, 'S', 33, vDialog, "EventAct", "Tag", "", 0 );
-                                                ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_153, 1, 0, 10001 );
-                                                ZeidonStringConcat( szWriteBuffer, 1, 0, "( this.id )^ id=^", 1, 0, 10001 );
-                                                ZeidonStringConcat( szWriteBuffer, 1, 0, szListCtrlTag, 1, 0, 10001 );
-                                                ZeidonStringConcat( szWriteBuffer, 1, 0, "::<%=strEntityKey%>^><img src=^", 1, 0, 10001 );
-                                                GetVariableFromAttribute( szTempString_154, 0, 'S', 261, vDialog, "Control", "WebFileName", "", 0 );
-                                                ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_154, 1, 0, 10001 );
-                                                ZeidonStringConcat( szWriteBuffer, 1, 0, "^ ", 1, 0, 10001 );
-                                                ZeidonStringConcat( szWriteBuffer, 1, 0, szTitleHTML, 1, 0, 10001 );
-                                                ZeidonStringConcat( szWriteBuffer, 1, 0, szText, 1, 0, 10001 );
-                                                ZeidonStringConcat( szWriteBuffer, 1, 0, "></a></td>", 1, 0, 10001 );
+                                                //:IF szNoPositioning = "S"
+                                                if ( ZeidonStringCompare( szNoPositioning, 1, 0, "S", 1, 0, 2 ) == 0 )
+                                                { 
+                                                   //:szWriteBuffer = "   " + szItemTableHeader + "><a href=^#^ name=^" + szListCtrlTag + "^ onclick=^" + vDialog.EventAct.Tag +
+                                                   //:// "( '<%=strEntityKey%>' )^ id=^" + szListCtrlTag + "::<%=strEntityKey%>^><img src=^" + vDialog.Control.WebFileName + "^ " + szTitleHTML + szText + "></a></td>"
+                                                   //:"( this.id )^ id=^" + szListCtrlTag + "::<%=strEntityKey%>^><img src=^" + vDialog.Control.WebFileName + "^ " + szTitleHTML + szText + "></a></td>"
+                                                   ZeidonStringCopy( szWriteBuffer, 1, 0, "   ", 1, 0, 10001 );
+                                                   ZeidonStringConcat( szWriteBuffer, 1, 0, szItemTableHeader, 1, 0, 10001 );
+                                                   ZeidonStringConcat( szWriteBuffer, 1, 0, "><a href=^#^ name=^", 1, 0, 10001 );
+                                                   ZeidonStringConcat( szWriteBuffer, 1, 0, szListCtrlTag, 1, 0, 10001 );
+                                                   ZeidonStringConcat( szWriteBuffer, 1, 0, "^ onclick=^", 1, 0, 10001 );
+                                                   GetVariableFromAttribute( szTempString_155, 0, 'S', 33, vDialog, "EventAct", "Tag", "", 0 );
+                                                   ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_155, 1, 0, 10001 );
+                                                   ZeidonStringConcat( szWriteBuffer, 1, 0, "( this.id )^ id=^", 1, 0, 10001 );
+                                                   ZeidonStringConcat( szWriteBuffer, 1, 0, szListCtrlTag, 1, 0, 10001 );
+                                                   ZeidonStringConcat( szWriteBuffer, 1, 0, "::<%=strEntityKey%>^><img src=^", 1, 0, 10001 );
+                                                   GetVariableFromAttribute( szTempString_156, 0, 'S', 261, vDialog, "Control", "WebFileName", "", 0 );
+                                                   ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_156, 1, 0, 10001 );
+                                                   ZeidonStringConcat( szWriteBuffer, 1, 0, "^ ", 1, 0, 10001 );
+                                                   ZeidonStringConcat( szWriteBuffer, 1, 0, szTitleHTML, 1, 0, 10001 );
+                                                   ZeidonStringConcat( szWriteBuffer, 1, 0, szText, 1, 0, 10001 );
+                                                   ZeidonStringConcat( szWriteBuffer, 1, 0, "></a></td>", 1, 0, 10001 );
+                                                   //:ELSE 
+                                                } 
+                                                else
+                                                { 
+                                                   //:szWriteBuffer = "   " + szItemTableHeader + "><a href=^#^ style=^display:block;width:100%;height:100%;text-decoration:none;^ name=^" + szListCtrlTag + "^ onclick=^" + vDialog.EventAct.Tag +
+                                                   //:// "( '<%=strEntityKey%>' )^ id=^" + szListCtrlTag + "::<%=strEntityKey%>^><img src=^" + vDialog.Control.WebFileName + "^ " + szTitleHTML + szText + "></a></td>"
+                                                   //:"( this.id )^ id=^" + szListCtrlTag + "::<%=strEntityKey%>^><img src=^" + vDialog.Control.WebFileName + "^ " + szTitleHTML + szText + "></a></td>"
+                                                   ZeidonStringCopy( szWriteBuffer, 1, 0, "   ", 1, 0, 10001 );
+                                                   ZeidonStringConcat( szWriteBuffer, 1, 0, szItemTableHeader, 1, 0, 10001 );
+                                                   ZeidonStringConcat( szWriteBuffer, 1, 0, "><a href=^#^ style=^display:block;width:100%;height:100%;text-decoration:none;^ name=^", 1, 0, 10001 );
+                                                   ZeidonStringConcat( szWriteBuffer, 1, 0, szListCtrlTag, 1, 0, 10001 );
+                                                   ZeidonStringConcat( szWriteBuffer, 1, 0, "^ onclick=^", 1, 0, 10001 );
+                                                   GetVariableFromAttribute( szTempString_157, 0, 'S', 33, vDialog, "EventAct", "Tag", "", 0 );
+                                                   ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_157, 1, 0, 10001 );
+                                                   ZeidonStringConcat( szWriteBuffer, 1, 0, "( this.id )^ id=^", 1, 0, 10001 );
+                                                   ZeidonStringConcat( szWriteBuffer, 1, 0, szListCtrlTag, 1, 0, 10001 );
+                                                   ZeidonStringConcat( szWriteBuffer, 1, 0, "::<%=strEntityKey%>^><img src=^", 1, 0, 10001 );
+                                                   GetVariableFromAttribute( szTempString_158, 0, 'S', 261, vDialog, "Control", "WebFileName", "", 0 );
+                                                   ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_158, 1, 0, 10001 );
+                                                   ZeidonStringConcat( szWriteBuffer, 1, 0, "^ ", 1, 0, 10001 );
+                                                   ZeidonStringConcat( szWriteBuffer, 1, 0, szTitleHTML, 1, 0, 10001 );
+                                                   ZeidonStringConcat( szWriteBuffer, 1, 0, szText, 1, 0, 10001 );
+                                                   ZeidonStringConcat( szWriteBuffer, 1, 0, "></a></td>", 1, 0, 10001 );
+                                                } 
+
+                                                //:END
                                                 //:ELSE
                                              } 
                                              else
@@ -10585,8 +10646,8 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
                                                 ZeidonStringConcat( szWriteBuffer, 1, 0, "^ id=^", 1, 0, 10001 );
                                                 ZeidonStringConcat( szWriteBuffer, 1, 0, szListCtrlTag, 1, 0, 10001 );
                                                 ZeidonStringConcat( szWriteBuffer, 1, 0, "::<%=strEntityKey%>^ ><img src=^", 1, 0, 10001 );
-                                                GetVariableFromAttribute( szTempString_155, 0, 'S', 261, vDialog, "Control", "WebFileName", "", 0 );
-                                                ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_155, 1, 0, 10001 );
+                                                GetVariableFromAttribute( szTempString_159, 0, 'S', 261, vDialog, "Control", "WebFileName", "", 0 );
+                                                ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_159, 1, 0, 10001 );
                                                 ZeidonStringConcat( szWriteBuffer, 1, 0, "^ ", 1, 0, 10001 );
                                                 ZeidonStringConcat( szWriteBuffer, 1, 0, szTitleHTML, 1, 0, 10001 );
                                                 ZeidonStringConcat( szWriteBuffer, 1, 0, szText, 1, 0, 10001 );
@@ -10619,8 +10680,8 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
                                                 ZeidonStringCopy( szWriteBuffer, 1, 0, "   if ( StringUtils.equals( str", 1, 0, 10001 );
                                                 ZeidonStringConcat( szWriteBuffer, 1, 0, szListCtrlTag, 1, 0, 10001 );
                                                 ZeidonStringConcat( szWriteBuffer, 1, 0, ", ^", 1, 0, 10001 );
-                                                GetVariableFromAttribute( szTempString_156, 0, 'S', 51, vDialog, "Control", "RadioOrCheckboxValue", "", 0 );
-                                                ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_156, 1, 0, 10001 );
+                                                GetVariableFromAttribute( szTempString_160, 0, 'S', 51, vDialog, "Control", "RadioOrCheckboxValue", "", 0 );
+                                                ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_160, 1, 0, 10001 );
                                                 ZeidonStringConcat( szWriteBuffer, 1, 0, "^ ) )", 1, 0, 10001 );
                                                 //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
                                                 WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 );
@@ -10649,14 +10710,14 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
                                                    ZeidonStringConcat( szWriteBuffer, 1, 0, "::<%=strEntityKey%>^ <%=strDisabled%> ", 1, 0, 10001 );
                                                    ZeidonStringConcat( szWriteBuffer, 1, 0, szDisabled, 1, 0, 10001 );
                                                    ZeidonStringConcat( szWriteBuffer, 1, 0, " value=^", 1, 0, 10001 );
-                                                   GetVariableFromAttribute( szTempString_157, 0, 'S', 51, vDialog, "Control", "RadioOrCheckboxValue", "", 0 );
-                                                   ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_157, 1, 0, 10001 );
+                                                   GetVariableFromAttribute( szTempString_161, 0, 'S', 51, vDialog, "Control", "RadioOrCheckboxValue", "", 0 );
+                                                   ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_161, 1, 0, 10001 );
                                                    ZeidonStringConcat( szWriteBuffer, 1, 0, "^ <%=strErrorMapValue%> ", 1, 0, 10001 );
                                                    ZeidonStringConcat( szWriteBuffer, 1, 0, szTitleHTML, 1, 0, 10001 );
                                                    ZeidonStringConcat( szWriteBuffer, 1, 0, szStyle, 1, 0, 10001 );
                                                    ZeidonStringConcat( szWriteBuffer, 1, 0, " onclick=^", 1, 0, 10001 );
-                                                   GetVariableFromAttribute( szTempString_158, 0, 'S', 33, vDialog, "EventAct", "Tag", "", 0 );
-                                                   ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_158, 1, 0, 10001 );
+                                                   GetVariableFromAttribute( szTempString_162, 0, 'S', 33, vDialog, "EventAct", "Tag", "", 0 );
+                                                   ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_162, 1, 0, 10001 );
                                                    ZeidonStringConcat( szWriteBuffer, 1, 0, "( this.id )^>", 1, 0, 10001 );
                                                    //:ELSE
                                                 } 
@@ -10674,8 +10735,8 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
                                                    ZeidonStringConcat( szWriteBuffer, 1, 0, "::<%=strEntityKey%>^ <%=strDisabled%> ", 1, 0, 10001 );
                                                    ZeidonStringConcat( szWriteBuffer, 1, 0, szDisabled, 1, 0, 10001 );
                                                    ZeidonStringConcat( szWriteBuffer, 1, 0, " value=^", 1, 0, 10001 );
-                                                   GetVariableFromAttribute( szTempString_159, 0, 'S', 51, vDialog, "Control", "RadioOrCheckboxValue", "", 0 );
-                                                   ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_159, 1, 0, 10001 );
+                                                   GetVariableFromAttribute( szTempString_163, 0, 'S', 51, vDialog, "Control", "RadioOrCheckboxValue", "", 0 );
+                                                   ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_163, 1, 0, 10001 );
                                                    ZeidonStringConcat( szWriteBuffer, 1, 0, "^ <%=strErrorMapValue%> ", 1, 0, 10001 );
                                                    ZeidonStringConcat( szWriteBuffer, 1, 0, szTitleHTML, 1, 0, 10001 );
                                                    ZeidonStringConcat( szWriteBuffer, 1, 0, szStyle, 1, 0, 10001 );
@@ -10776,8 +10837,8 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
                                                             ZeidonStringCopy( szWriteBuffer, 1, 0, "   ", 1, 0, 10001 );
                                                             ZeidonStringConcat( szWriteBuffer, 1, 0, szItemTableHeader, 1, 0, 10001 );
                                                             ZeidonStringConcat( szWriteBuffer, 1, 0, "><a href=^#^ onclick=^", 1, 0, 10001 );
-                                                            GetVariableFromAttribute( szTempString_160, 0, 'S', 33, vDialog, "EventAct", "Tag", "", 0 );
-                                                            ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_160, 1, 0, 10001 );
+                                                            GetVariableFromAttribute( szTempString_164, 0, 'S', 33, vDialog, "EventAct", "Tag", "", 0 );
+                                                            ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_164, 1, 0, 10001 );
                                                             ZeidonStringConcat( szWriteBuffer, 1, 0, "( this.id )^ id=^", 1, 0, 10001 );
                                                             ZeidonStringConcat( szWriteBuffer, 1, 0, szListCtrlTag, 1, 0, 10001 );
                                                             ZeidonStringConcat( szWriteBuffer, 1, 0, "::<%=strEntityKey%>^", 1, 0, 10001 );
@@ -10793,8 +10854,8 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
                                                             ZeidonStringCopy( szWriteBuffer, 1, 0, "   ", 1, 0, 10001 );
                                                             ZeidonStringConcat( szWriteBuffer, 1, 0, szItemTableHeader, 1, 0, 10001 );
                                                             ZeidonStringConcat( szWriteBuffer, 1, 0, "><a href=^#^ onclick=^", 1, 0, 10001 );
-                                                            GetVariableFromAttribute( szTempString_161, 0, 'S', 33, vDialog, "EventAct", "Tag", "", 0 );
-                                                            ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_161, 1, 0, 10001 );
+                                                            GetVariableFromAttribute( szTempString_165, 0, 'S', 33, vDialog, "EventAct", "Tag", "", 0 );
+                                                            ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_165, 1, 0, 10001 );
                                                             ZeidonStringConcat( szWriteBuffer, 1, 0, "( this.id )^ id=^", 1, 0, 10001 );
                                                             ZeidonStringConcat( szWriteBuffer, 1, 0, szListCtrlTag, 1, 0, 10001 );
                                                             ZeidonStringConcat( szWriteBuffer, 1, 0, "::<%=strEntityKey%>^", 1, 0, 10001 );
@@ -10996,8 +11057,8 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
                ZeidonStringCopy( szWriteBuffer, 1, 0, "         csrRC2 = ", 1, 0, 10001 );
                ZeidonStringConcat( szWriteBuffer, 1, 0, szGridView, 1, 0, 10001 );
                ZeidonStringConcat( szWriteBuffer, 1, 0, ".cursor( ^", 1, 0, 10001 );
-               GetVariableFromAttribute( szTempString_162, 0, 'S', 33, vDialog, "CtrlMapLOD_Entity", "Name", "", 0 );
-               ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_162, 1, 0, 10001 );
+               GetVariableFromAttribute( szTempString_166, 0, 'S', 33, vDialog, "CtrlMapLOD_Entity", "Name", "", 0 );
+               ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_166, 1, 0, 10001 );
                ZeidonStringConcat( szWriteBuffer, 1, 0, "^ ).setNextContinue( );", 1, 0, 10001 );
                //:                // "^ ).setNext( " + szScopingEntityName + " );"
                //:// ELSE
@@ -11188,9 +11249,9 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
                { 
                   //:szWriteBuffer = "<span class=^" + vDialog.Control.WebNoGridDataMsgClass + "^ style=^^>" +
                   //:                 szText + "</span>"
-                  GetVariableFromAttribute( szTempString_163, 0, 'S', 255, vDialog, "Control", "WebNoGridDataMsgClass", "", 0 );
+                  GetVariableFromAttribute( szTempString_167, 0, 'S', 255, vDialog, "Control", "WebNoGridDataMsgClass", "", 0 );
                   ZeidonStringCopy( szWriteBuffer, 1, 0, "<span class=^", 1, 0, 10001 );
-                  ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_163, 1, 0, 10001 );
+                  ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_167, 1, 0, 10001 );
                   ZeidonStringConcat( szWriteBuffer, 1, 0, "^ style=^^>", 1, 0, 10001 );
                   ZeidonStringConcat( szWriteBuffer, 1, 0, szText, 1, 0, 10001 );
                   ZeidonStringConcat( szWriteBuffer, 1, 0, "</span>", 1, 0, 10001 );
@@ -15325,6 +15386,8 @@ GenJSPJ_Action( zVIEW     vDialog,
    //:END
 
    //://**********************************
+   //:szProductionMode = "" // this was something I tried but not using here...
+   ZeidonStringCopy( szProductionMode, 1, 0, "", 1, 0, 2 );
 
    //:// KJS 11/05/09
    //:// If we unregister zeidon at the end of building this window, then when the user clicks an action,
@@ -15877,6 +15940,8 @@ GenJSPJ_Action( zVIEW     vDialog,
                //:// KJS 08/06/14 - I had put a try/catch around the operation call because it seemed better than getting the exception
                //:// crash. But that might be true in production but when developing, we'd really like to see the stack trace. Want to make
                //:// this an ini setting but for now I think I am just going to make the operation call and skip the try/catch.
+               //:szProductionMode = ""
+               ZeidonStringCopy( szProductionMode, 1, 0, "", 1, 0, 2 );
                //:IF szProductionMode = "Y"
                if ( ZeidonStringCompare( szProductionMode, 1, 0, "Y", 1, 0, 2 ) == 0 )
                { 

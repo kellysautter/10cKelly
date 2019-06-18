@@ -91,13 +91,17 @@ BuildMainNavSection( VIEW vDialog,
      
    IF szWindowIsjMobile = "Y"
       szWriteBuffer = "<div data-role=^navbar^ id=^div" + szMenuName + "^ " + szClass + ">"
+      WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+      szWriteBuffer = "   <ul id=^" + szMenuName + "^ name=^" + szMenuName + "^" + szHTML5Attr + " >"
    ELSE 
       szWriteBuffer = "<div id=^mainnavigation^" + szHTML5Attr + szClass + ">"
+      WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+      szWriteBuffer = "   <ol id=^" + szMenuName + "^ name=^" + szMenuName + "^" + szHTML5Attr + " >"
    END
    WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
    //szWriteBuffer = "   <ul id=^" + szMenuName + "^ name=^" + szMenuName + "^" + szClass + ">"
-   szWriteBuffer = "   <ul id=^" + szMenuName + "^ name=^" + szMenuName + "^" + szHTML5Attr + " >"
-   WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+   //szWriteBuffer = "   <ol id=^" + szMenuName + "^ name=^" + szMenuName + "^" + szHTML5Attr + " >"
+   //WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
 
    FOR EACH vDialogRoot.OptAct WITHIN vDialogRoot.Menu
       //szNavigationTitle = vDialogRoot.Option.Text
@@ -184,7 +188,11 @@ BuildMainNavSection( VIEW vDialog,
    END
 
    // Division ending for Navigation Bar
-   szWriteBuffer = "   </ul>"
+   IF szWindowIsjMobile = "Y"
+      szWriteBuffer = "   </ul>"
+   ELSE
+      szWriteBuffer = "   </ol>"
+   END
    WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
    szWriteBuffer = "</div>  <!-- end Navigation Bar -->"
    WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
@@ -258,7 +266,7 @@ BuildSideNavSection( VIEW vDialog,
    //szWriteBuffer = "<div id=^sidenavigation^>"
    WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
    //szWriteBuffer = "   <ul id=^" + szMenuName + "^ name=^" + szMenuName + "^" + szClass + ">"
-   szWriteBuffer = "   <ul id=^" + szMenuName + "^ name=^" + szMenuName + "^>"
+   szWriteBuffer = "   <ol id=^" + szMenuName + "^ name=^" + szMenuName + "^>"
    WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
 
    FOR EACH vDialogRoot.OptAct WITHIN vDialogRoot.Menu
@@ -401,7 +409,7 @@ BuildSideNavSection( VIEW vDialog,
    END  // vDialogMenu != 0
 
    // Division ending for Navigation Bar.
-   szWriteBuffer = "   </ul>"
+   szWriteBuffer = "   </ol>"
    WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
    szWriteBuffer = "</div> <!-- sidenavigation -->"
    WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )

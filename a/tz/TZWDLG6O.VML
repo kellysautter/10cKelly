@@ -1174,9 +1174,14 @@ GenerateJSPJava( VIEW vDialog BASED ON LOD TZWDLGSO,
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
 
    // KJS 07/10/15 - Include for an import file for any extra imports.
+   IF vDialog.Window.WEB_ImportInclude != ""
+      szWriteBuffer = "<%@ include file=^" + vDialog.Window.WEB_ImportInclude  + "^ %>"
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   ELSE
    IF vDialog.Dialog.WEB_ImportInclude != ""
       szWriteBuffer = "<%@ include file=^" + vDialog.Dialog.WEB_ImportInclude  + "^ %>"
       WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   END
    END
 
    DropView( vDialogTemp )
@@ -1793,6 +1798,12 @@ DKS_TRACE_END */
   szWriteBuffer = "   }"
   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
 
+  
+  // KJS 09/20/18 - Want to display an error if it happens but don't want to crash.
+  // Place a try/catch
+  szWriteBuffer = "   try{"
+  WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
+
    // Create Action code for each Action, except for Window Actions.
    FOR EACH vDialog.Action
       szActionTag = vDialog.Action.Tag  // moved here just to assist debugging
@@ -2178,6 +2189,61 @@ DKS_TRACE_END */
    szWriteBuffer = "   }"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
 
+   // KJS 09/20/18
+   szWriteBuffer = "   }  //end of try"
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   szWriteBuffer = "   catch( Exception ex ){"
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+  
+  
+  
+   szWriteBuffer = "      String strErrorLevel = task.readZeidonConfig( ^errorlevel^, ^ErrorTraceLevel^ );"
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   szWriteBuffer = "      if ( strErrorLevel == null )"
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   szWriteBuffer = "         strErrorLevel = ^high^;"
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   szWriteBuffer = "      if ( !strErrorLevel.equals( ^none^ ) )"
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   szWriteBuffer = "      {"
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+  
+   IF szLangConvFlag = "Y" 
+      szWriteBuffer = "         strVMLError = LangConv.getLanguageText(^*** Error on action^) + ^ - ^ + strActionToProcess + ^ ***^ + ^<br>^;"
+   ELSE
+      szWriteBuffer = "         strVMLError = ^*** Error on action - ^ + strActionToProcess + ^ ***^ + ^<br>^;"
+   END
+  
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   //szWriteBuffer = "         strVMLError += strErrorLevel + ^<br>^;"
+   //WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
+   szWriteBuffer = "         if ( !strErrorLevel.equals( ^low^ ) )"
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   szWriteBuffer = "            strVMLError += ex.getMessage() + ^<br>^;"
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
+   szWriteBuffer = "         if ( strErrorLevel.equals( ^high^ ) )"
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   szWriteBuffer = "         {"
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   szWriteBuffer = "            StackTraceElement[] e = ex.getStackTrace();"
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   szWriteBuffer = "            for(StackTraceElement lineErr : e)"
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   szWriteBuffer = "            {"
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   szWriteBuffer = "               strVMLError += lineErr.toString() + ^<br>^;"
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   szWriteBuffer = "            }"
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   szWriteBuffer = "         }"
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   szWriteBuffer = "      }"
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+     
+   szWriteBuffer = "   } //end of catch"
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
+   // KJS - 09/20/18 - End of try/catch   
+     
    szWriteBuffer = "   if ( nRC != 0 )"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    szWriteBuffer = "   {"
@@ -2437,7 +2503,8 @@ DKS_TRACE_END */
 
    // JSP HEADER
 
-   szWriteBuffer = "<html>"
+   // KJS 10/31/18 - A lang="en" for A A compliance
+   szWriteBuffer = "<html lang=^en^>"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    szWriteBuffer = "<head>"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
@@ -4993,13 +5060,19 @@ DKS_TRACE_END */
    // Include a footer at the bottom before the end wrapper div.
    // Only put in a footer if we are generating with relative position.
    IF ( szNoPositioning = "Y" OR szNoPositioning = "S" ) AND szWindowIsPopup = "" AND szWindowIsForDashboard = ""
-      IF vDialogRoot.Dialog.WEB_FooterInclude = ""
+      IF vDialogRoot.Window.WEB_FooterInclude != ""
          // If the user did not specify a footer, hardcode footer.inc
-         szWriteBuffer = "<%@ include file=^./include/footer.inc^ %>"
+         szWriteBuffer = "<%@ include file=^" + vDialogRoot.Window.WEB_FooterInclude + "^ %>"
          WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
       ELSE
+      IF vDialogRoot.Dialog.WEB_FooterInclude != ""
+         // If the user did not specify a footer, hardcode footer.inc
          szWriteBuffer = "<%@ include file=^" + vDialogRoot.Dialog.WEB_FooterInclude + "^ %>"
          WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
+      ELSE
+         szWriteBuffer = "<%@ include file=^./include/footer.inc^ %>"
+         WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
+      END
       END
    END
 
@@ -5301,7 +5374,8 @@ GenJSPJ_DownloadFile( VIEW vDialog,
    szWriteBuffer = "%>"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
 
-   szWriteBuffer = "<html><body></body></html>"
+   // KJS 10/31/18 - A lang="en" for A A compliance
+   szWriteBuffer = "<html lang=^en^><body></body></html>"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
 
 
