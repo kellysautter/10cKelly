@@ -1172,6 +1172,8 @@ GenerateJSPJava( VIEW vDialog BASED ON LOD TZWDLGSO,
 
    szWriteBuffer = "<%@ page import=^" + szAppImport + "^ %>"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
+   szWriteBuffer = "<%@ include file=^./include/jsppage.inc^ %>"
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
 
    // KJS 07/10/15 - Include for an import file for any extra imports.
    IF vDialog.Window.WEB_ImportInclude != ""
