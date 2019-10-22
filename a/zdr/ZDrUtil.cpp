@@ -2066,6 +2066,7 @@ ActiveDirectoryLoginAuthentication( zCPCHAR cpcPathName,
      //goto error;
    }
 
+     TraceLineS( "ActiveDirectoryLoginAuthentication. ", "" );
    hr = ADsOpenObject( strPathName, strUserName, strPassword,
                        ADS_SECURE_AUTHENTICATION,IID_IADs, (zPPVOID) &pObject );
 

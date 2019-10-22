@@ -316,22 +316,23 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
    zCHAR     szTempString_20[ 255 ]; 
    zCHAR     szTempString_21[ 255 ]; 
    zCHAR     szTempString_22[ 255 ]; 
+   zCHAR     szTempString_23[ 255 ]; 
    zSHORT    lTempInteger_43; 
    zSHORT    lTempInteger_44; 
    zSHORT    lTempInteger_45; 
    zSHORT    lTempInteger_46; 
    zLONG     lTempInteger_47; 
-   zCHAR     szTempString_23[ 33 ]; 
+   zCHAR     szTempString_24[ 33 ]; 
    zLONG     lTempInteger_48; 
    zSHORT    lTempInteger_49; 
    zSHORT    lTempInteger_50; 
    zLONG     lTempInteger_51; 
    zLONG     lTempInteger_52; 
-   zCHAR     szTempString_24[ 33 ]; 
-   zCHAR     szTempString_25[ 11 ]; 
+   zCHAR     szTempString_25[ 33 ]; 
    zCHAR     szTempString_26[ 11 ]; 
-   zCHAR     szTempString_27[ 255 ]; 
+   zCHAR     szTempString_27[ 11 ]; 
    zCHAR     szTempString_28[ 255 ]; 
+   zCHAR     szTempString_29[ 255 ]; 
 
 
    //:// Generate a JSP file for formatting the Window that has current position.
@@ -723,6 +724,28 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
    //:nRC = SetEntityCursor( vDialogTemp, "WebControlProperty", "Name", lControl,
    //:                       szCtrlTag, "", "", 0, "Window", "" )
    nRC = SetEntityCursor( vDialogTemp, "WebControlProperty", "Name", lControl, szCtrlTag, "", "", 0, "Window", "" );
+   //:IF nRC < zCURSOR_SET
+   if ( nRC < zCURSOR_SET )
+   { 
+      //:szCtrlTag = "File Upload with DateTime"
+      ZeidonStringCopy( szCtrlTag, 1, 0, "File Upload with DateTime", 1, 0, 33 );
+      //:nRC = SetEntityCursor( vDialogTemp, "WebControlProperty", "Name", lControl,
+      //:                       szCtrlTag, "", "", 0, "Window", "" )
+      nRC = SetEntityCursor( vDialogTemp, "WebControlProperty", "Name", lControl, szCtrlTag, "", "", 0, "Window", "" );
+   } 
+
+   //:END
+   //:IF nRC < zCURSOR_SET
+   if ( nRC < zCURSOR_SET )
+   { 
+      //:szCtrlTag = "File Upload w/o DateTime"
+      ZeidonStringCopy( szCtrlTag, 1, 0, "File Upload w/o DateTime", 1, 0, 33 );
+      //:nRC = SetEntityCursor( vDialogTemp, "WebControlProperty", "Name", lControl,
+      //:                       szCtrlTag, "", "", 0, "Window", "" )
+      nRC = SetEntityCursor( vDialogTemp, "WebControlProperty", "Name", lControl, szCtrlTag, "", "", 0, "Window", "" );
+   } 
+
+   //:END
    //:// If we are uploading a file, we need to include "java.oi.*" in the import statement.
    //:IF nRC >= zCURSOR_SET
    if ( nRC >= zCURSOR_SET )
@@ -950,6 +973,10 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
    ZeidonStringConcat( szWriteBuffer, 1, 0, "^ %>", 1, 0, 10001 );
    //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 );
+   //:szWriteBuffer = "<%@ include file=^./include/jsppage.inc^ %>"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "<%@ include file=^./include/jsppage.inc^ %>", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
 
    //:// KJS 07/10/15 - Include for an import file for any extra imports.
    //:IF vDialog.Window.WEB_ImportInclude != ""
@@ -1836,11 +1863,39 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
    //:nRC = SetEntityCursor( vDialogTemp, "WebControlProperty", "Name", lControl,
    //:                       szCtrlTag, "", "", 0, "Window", "" )
    nRC = SetEntityCursor( vDialogTemp, "WebControlProperty", "Name", lControl, szCtrlTag, "", "", 0, "Window", "" );
+   //:WorkFlag = "Y" // Add datetime to upload file.                          
+   ZeidonStringCopy( WorkFlag, 1, 0, "Y", 1, 0, 2 );
+   //:IF nRC < zCURSOR_SET
+   if ( nRC < zCURSOR_SET )
+   { 
+      //:szCtrlTag = "File Upload with DateTime"
+      ZeidonStringCopy( szCtrlTag, 1, 0, "File Upload with DateTime", 1, 0, 33 );
+      //:nRC = SetEntityCursor( vDialogTemp, "WebControlProperty", "Name", lControl,
+      //:                       szCtrlTag, "", "", 0, "Window", "" )
+      nRC = SetEntityCursor( vDialogTemp, "WebControlProperty", "Name", lControl, szCtrlTag, "", "", 0, "Window", "" );
+      //:WorkFlag = "Y"                             
+      ZeidonStringCopy( WorkFlag, 1, 0, "Y", 1, 0, 2 );
+   } 
+
+   //:END
+   //:IF nRC < zCURSOR_SET
+   if ( nRC < zCURSOR_SET )
+   { 
+      //:szCtrlTag = "File Upload w/o DateTime"
+      ZeidonStringCopy( szCtrlTag, 1, 0, "File Upload w/o DateTime", 1, 0, 33 );
+      //:nRC = SetEntityCursor( vDialogTemp, "WebControlProperty", "Name", lControl,
+      //:                       szCtrlTag, "", "", 0, "Window", "" )
+      nRC = SetEntityCursor( vDialogTemp, "WebControlProperty", "Name", lControl, szCtrlTag, "", "", 0, "Window", "" );
+      //:WorkFlag = "N"                             
+      ZeidonStringCopy( WorkFlag, 1, 0, "N", 1, 0, 2 );
+   } 
+
+   //:END
    //:IF nRC >= zCURSOR_SET
    if ( nRC >= zCURSOR_SET )
    { 
-      //:GenJSPJ_ProcessFileIn( vDialog, lFileJSP, szWriteBuffer )
-      oTZWDLGSO_GenJSPJ_ProcessFileIn( vDialog, lFileJSP, szWriteBuffer );
+      //:GenJSPJ_ProcessFileIn( vDialog, WorkFlag, lFileJSP, szWriteBuffer )
+      oTZWDLGSO_GenJSPJ_ProcessFileIn( vDialog, WorkFlag, lFileJSP, szWriteBuffer );
    } 
 
    //:END
@@ -5946,6 +6001,22 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
                   ResetViewFromSubobject( vDialogTemp );
                   //:SET CURSOR FIRST vDialogTemp.WebControlProperty WHERE vDialogTemp.WebControlProperty.Name = "File Transfer to Server"
                   RESULT = SetCursorFirstEntityByString( vDialogTemp, "WebControlProperty", "Name", "File Transfer to Server", "" );
+                  //:IF RESULT < zCURSOR_SET
+                  if ( RESULT < zCURSOR_SET )
+                  { 
+                     //:SET CURSOR FIRST vDialogTemp.WebControlProperty WHERE vDialogTemp.WebControlProperty.Name = "File Upload with DateTime"
+                     RESULT = SetCursorFirstEntityByString( vDialogTemp, "WebControlProperty", "Name", "File Upload with DateTime", "" );
+                  } 
+
+                  //:END
+                  //:IF RESULT < zCURSOR_SET
+                  if ( RESULT < zCURSOR_SET )
+                  { 
+                     //:SET CURSOR FIRST vDialogTemp.WebControlProperty WHERE vDialogTemp.WebControlProperty.Name = "File Upload w/o DateTime"
+                     RESULT = SetCursorFirstEntityByString( vDialogTemp, "WebControlProperty", "Name", "File Upload w/o DateTime", "" );
+                  } 
+
+                  //:END
                   //:IF RESULT >= zCURSOR_SET
                   if ( RESULT >= zCURSOR_SET )
                   { 
@@ -6665,11 +6736,15 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
          //:// KJS 07/28/15 - Trying the banner include as all the other includes, not as the <jsp:include"
          //:// If a banner include file has been entered by the user, then use this, otherwise
          //:// hardcode "./include/banner.inc" as the banner name.
-         //:IF vDialog.Dialog.WEB_TopBannerName != ""
-         if ( CompareAttributeToString( vDialog, "Dialog", "WEB_TopBannerName", "" ) != 0 )
+         //:// KJS 10/08/19 - Now a request has been made for the banner at the window level. Not sure why
+         //:// we haven't done that before... as of right now, it looks like WEB_TopMenuInclude is not being
+         //:// used anywhere so I am going to use this because I don't want to have to change TZWDLGSO.LOD.
+         //:// I changed WEB_TopMenuInclude to WEB_TopBannerName.
+         //:IF vDialog.Window.WEB_TopBannerName != ""
+         if ( CompareAttributeToString( vDialog, "Window", "WEB_TopBannerName", "" ) != 0 )
          { 
-            //:szWriteBuffer = "<%@ include file=^" + vDialog.Dialog.WEB_TopBannerName + "^ %>"
-            GetVariableFromAttribute( szTempString_22, 0, 'S', 255, vDialog, "Dialog", "WEB_TopBannerName", "", 0 );
+            //:szWriteBuffer = "<%@ include file=^" + vDialog.Window.WEB_TopBannerName + "^ %>"
+            GetVariableFromAttribute( szTempString_22, 0, 'S', 255, vDialog, "Window", "WEB_TopBannerName", "", 0 );
             ZeidonStringCopy( szWriteBuffer, 1, 0, "<%@ include file=^", 1, 0, 10001 );
             ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_22, 1, 0, 10001 );
             ZeidonStringConcat( szWriteBuffer, 1, 0, "^ %>", 1, 0, 10001 );
@@ -6677,8 +6752,23 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
          } 
          else
          { 
-            //:szWriteBuffer = "<%@ include file=^./include/banner.inc^ %>"
-            ZeidonStringCopy( szWriteBuffer, 1, 0, "<%@ include file=^./include/banner.inc^ %>", 1, 0, 10001 );
+            //:IF vDialog.Dialog.WEB_TopBannerName != ""
+            if ( CompareAttributeToString( vDialog, "Dialog", "WEB_TopBannerName", "" ) != 0 )
+            { 
+               //:szWriteBuffer = "<%@ include file=^" + vDialog.Dialog.WEB_TopBannerName + "^ %>"
+               GetVariableFromAttribute( szTempString_23, 0, 'S', 255, vDialog, "Dialog", "WEB_TopBannerName", "", 0 );
+               ZeidonStringCopy( szWriteBuffer, 1, 0, "<%@ include file=^", 1, 0, 10001 );
+               ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_23, 1, 0, 10001 );
+               ZeidonStringConcat( szWriteBuffer, 1, 0, "^ %>", 1, 0, 10001 );
+               //:ELSE
+            } 
+            else
+            { 
+               //:szWriteBuffer = "<%@ include file=^./include/banner.inc^ %>"
+               ZeidonStringCopy( szWriteBuffer, 1, 0, "<%@ include file=^./include/banner.inc^ %>", 1, 0, 10001 );
+            } 
+
+            //:END
          } 
 
          //:END
@@ -6879,8 +6969,8 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
       else
       { 
          //:ActivateMetaOI_ByName( vSubtask, vDialogTemp, 0, zREFER_DIALOG_META,  zSINGLE, vDialog.ReusableSideDialog.Tag, 0 )
-         GetStringFromAttribute( szTempString_23, vDialog, "ReusableSideDialog", "Tag" );
-         ActivateMetaOI_ByName( vSubtask, &vDialogTemp, 0, zREFER_DIALOG_META, zSINGLE, szTempString_23, 0 );
+         GetStringFromAttribute( szTempString_24, vDialog, "ReusableSideDialog", "Tag" );
+         ActivateMetaOI_ByName( vSubtask, &vDialogTemp, 0, zREFER_DIALOG_META, zSINGLE, szTempString_24, 0 );
          //:// plListHandle = ActivateMetaOI_KeepList( vSubtask, vDialogTemp, 0, zREFER_DIALOG_META, zSINGLE, vDialog.ReusableSideDialog.Tag, 0, 0,
          //://                                         0, plListHandle )
          //:SET CURSOR FIRST vDialogTemp.Window WHERE vDialogTemp.Window.ZKey = vDialog.ReusableSideWindow.ZKey
@@ -7142,9 +7232,9 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
    while ( RESULT > zCURSOR_UNCHANGED )
    { 
       //:szWriteBuffer = "   View " + vDialog.ViewObjRef.Name + " = null;"
-      GetVariableFromAttribute( szTempString_24, 0, 'S', 33, vDialog, "ViewObjRef", "Name", "", 0 );
+      GetVariableFromAttribute( szTempString_25, 0, 'S', 33, vDialog, "ViewObjRef", "Name", "", 0 );
       ZeidonStringCopy( szWriteBuffer, 1, 0, "   View ", 1, 0, 10001 );
-      ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_24, 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_25, 1, 0, 10001 );
       ZeidonStringConcat( szWriteBuffer, 1, 0, " = null;", 1, 0, 10001 );
       //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
       WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
@@ -7895,8 +7985,8 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
       //:szWriteBuffer = "   <input name=^zTimeout^ id=^zTimeout^ type=^hidden^ value=^"
       ZeidonStringCopy( szWriteBuffer, 1, 0, "   <input name=^zTimeout^ id=^zTimeout^ type=^hidden^ value=^", 1, 0, 10001 );
       //:szWriteBuffer = szWriteBuffer + vDialog.Window.WEB_Timeout
-      GetVariableFromAttribute( &szTempString_25, 0, 'S', 11, vDialog, "Window", "WEB_Timeout", "", 0 );
-      ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_25, 1, 0, 10001 );
+      GetVariableFromAttribute( &szTempString_26, 0, 'S', 11, vDialog, "Window", "WEB_Timeout", "", 0 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_26, 1, 0, 10001 );
       //:szWriteBuffer = szWriteBuffer + "^>"
       ZeidonStringConcat( szWriteBuffer, 1, 0, "^>", 1, 0, 10001 );
       //:ELSE
@@ -7909,8 +7999,8 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
          //:szWriteBuffer = "   <input name=^zTimeout^ id=^zTimeout^ type=^hidden^ value=^"
          ZeidonStringCopy( szWriteBuffer, 1, 0, "   <input name=^zTimeout^ id=^zTimeout^ type=^hidden^ value=^", 1, 0, 10001 );
          //:szWriteBuffer = szWriteBuffer + vDialog.Dialog.WEB_Timeout
-         GetVariableFromAttribute( &szTempString_26, 0, 'S', 11, vDialog, "Dialog", "WEB_Timeout", "", 0 );
-         ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_26, 1, 0, 10001 );
+         GetVariableFromAttribute( &szTempString_27, 0, 'S', 11, vDialog, "Dialog", "WEB_Timeout", "", 0 );
+         ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_27, 1, 0, 10001 );
          //:szWriteBuffer = szWriteBuffer + "^>"
          ZeidonStringConcat( szWriteBuffer, 1, 0, "^>", 1, 0, 10001 );
          //:ELSE
@@ -8120,6 +8210,28 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
    //:nRC = SetEntityCursor( vDialogTemp, "WebControlProperty", "Name", lControl,
    //:                       szCtrlTag, "", "", 0, "Window", "" )
    nRC = SetEntityCursor( vDialogTemp, "WebControlProperty", "Name", lControl, szCtrlTag, "", "", 0, "Window", "" );
+   //:IF nRC < zCURSOR_SET
+   if ( nRC < zCURSOR_SET )
+   { 
+      //:szCtrlTag = "File Upload with DateTime"
+      ZeidonStringCopy( szCtrlTag, 1, 0, "File Upload with DateTime", 1, 0, 33 );
+      //:nRC = SetEntityCursor( vDialogTemp, "WebControlProperty", "Name", lControl,
+      //:                       szCtrlTag, "", "", 0, "Window", "" )
+      nRC = SetEntityCursor( vDialogTemp, "WebControlProperty", "Name", lControl, szCtrlTag, "", "", 0, "Window", "" );
+   } 
+
+   //:END
+   //:IF nRC < zCURSOR_SET
+   if ( nRC < zCURSOR_SET )
+   { 
+      //:szCtrlTag = "File Upload w/o DateTime"
+      ZeidonStringCopy( szCtrlTag, 1, 0, "File Upload w/o DateTime", 1, 0, 33 );
+      //:nRC = SetEntityCursor( vDialogTemp, "WebControlProperty", "Name", lControl,
+      //:                       szCtrlTag, "", "", 0, "Window", "" )
+      nRC = SetEntityCursor( vDialogTemp, "WebControlProperty", "Name", lControl, szCtrlTag, "", "", 0, "Window", "" );
+   } 
+
+   //:END
    //:IF nRC >= zCURSOR_SET
    if ( nRC >= zCURSOR_SET )
    { 
@@ -8300,9 +8412,9 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
       { 
          //:// If the user did not specify a footer, hardcode footer.inc
          //:szWriteBuffer = "<%@ include file=^" + vDialogRoot.Window.WEB_FooterInclude + "^ %>"
-         GetVariableFromAttribute( szTempString_27, 0, 'S', 255, vDialogRoot, "Window", "WEB_FooterInclude", "", 0 );
+         GetVariableFromAttribute( szTempString_28, 0, 'S', 255, vDialogRoot, "Window", "WEB_FooterInclude", "", 0 );
          ZeidonStringCopy( szWriteBuffer, 1, 0, "<%@ include file=^", 1, 0, 10001 );
-         ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_27, 1, 0, 10001 );
+         ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_28, 1, 0, 10001 );
          ZeidonStringConcat( szWriteBuffer, 1, 0, "^ %>", 1, 0, 10001 );
          //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
          WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 );
@@ -8315,9 +8427,9 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
          { 
             //:// If the user did not specify a footer, hardcode footer.inc
             //:szWriteBuffer = "<%@ include file=^" + vDialogRoot.Dialog.WEB_FooterInclude + "^ %>"
-            GetVariableFromAttribute( szTempString_28, 0, 'S', 255, vDialogRoot, "Dialog", "WEB_FooterInclude", "", 0 );
+            GetVariableFromAttribute( szTempString_29, 0, 'S', 255, vDialogRoot, "Dialog", "WEB_FooterInclude", "", 0 );
             ZeidonStringCopy( szWriteBuffer, 1, 0, "<%@ include file=^", 1, 0, 10001 );
-            ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_28, 1, 0, 10001 );
+            ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_29, 1, 0, 10001 );
             ZeidonStringConcat( szWriteBuffer, 1, 0, "^ %>", 1, 0, 10001 );
             //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
             WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 );
@@ -9014,13 +9126,15 @@ oTZWDLGSO_FlagUsedViewsGetFocusJ( zVIEW     vDialog,
 //:TRANSFORMATION OPERATION
 zOPER_EXPORT zSHORT OPERATION
 oTZWDLGSO_GenJSPJ_ProcessFileIn( zVIEW     vDialog,
+                                 zPCHAR    szAppendDateTime,
                                  zLONG     lFileJSP,
                                  zPCHAR    szWriteBuffer )
 {
 
    //:GenJSPJ_ProcessFileIn( VIEW             vDialog BASED ON LOD TZWDLGSO,
-   //:                   INTEGER          lFileJSP,
-   //:                   STRING ( 10000 ) szWriteBuffer )
+   //:                    STRING ( 1 )     szAppendDateTime,
+   //:                    INTEGER          lFileJSP,
+   //:                    STRING ( 10000 ) szWriteBuffer )
 
    //:// Build the JSP function code to process a file being transferred from the Client to the Server.
 
@@ -9650,8 +9764,21 @@ oTZWDLGSO_GenJSPJ_ProcessFileIn( zVIEW     vDialog,
    ZeidonStringCopy( szWriteBuffer, 1, 0, "                  DateFormat dateFormat = new SimpleDateFormat(^yyyymmddhhmmsss^);", 1, 0, 10001 );
    //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
-   //:szWriteBuffer = "                  String strDateTime = dateFormat.format(new java.util.Date());"
-   ZeidonStringCopy( szWriteBuffer, 1, 0, "                  String strDateTime = dateFormat.format(new java.util.Date());", 1, 0, 10001 );
+   //:// KJS 06/18/19 - If we do not want to append the datetime, then blank out strDateTime
+   //:IF szAppendDateTime = "N"
+   if ( ZeidonStringCompare( szAppendDateTime, 1, 0, "N", 1, 0, 2 ) == 0 )
+   { 
+      //:szWriteBuffer = "                  String strDateTime = ^^;"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "                  String strDateTime = ^^;", 1, 0, 10001 );
+      //:ELSE
+   } 
+   else
+   { 
+      //:szWriteBuffer = "                  String strDateTime = dateFormat.format(new java.util.Date());"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "                  String strDateTime = dateFormat.format(new java.util.Date());", 1, 0, 10001 );
+   } 
+
+   //:END
    //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
 
@@ -9675,10 +9802,6 @@ oTZWDLGSO_GenJSPJ_ProcessFileIn( zVIEW     vDialog,
    ZeidonStringCopy( szWriteBuffer, 1, 0, "                  strInputFileName = sSourceFileNameOnly.substring(0,l) + strDateTime + ^.^ + sExtension;", 1, 0, 10001 );
    //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 );
-
-
-
-
    //:szWriteBuffer = "                  // Check if a file already exists with this name, if so, change the name."
    ZeidonStringCopy( szWriteBuffer, 1, 0, "                  // Check if a file already exists with this name, if so, change the name.", 1, 0, 10001 );
    //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
@@ -9687,60 +9810,63 @@ oTZWDLGSO_GenJSPJ_ProcessFileIn( zVIEW     vDialog,
    ZeidonStringCopy( szWriteBuffer, 1, 0, "                  File fs = new File(sTargetFile);", 1, 0, 10001 );
    //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
-   //:szWriteBuffer = "                  int z=0;"
-   ZeidonStringCopy( szWriteBuffer, 1, 0, "                  int z=0;", 1, 0, 10001 );
-   //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
-   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
-   //:szWriteBuffer = "                  while (fs.exists())"
-   ZeidonStringCopy( szWriteBuffer, 1, 0, "                  while (fs.exists())", 1, 0, 10001 );
-   //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
-   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
-   //:szWriteBuffer = "                  {"
-   ZeidonStringCopy( szWriteBuffer, 1, 0, "                  {", 1, 0, 10001 );
-   //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
-   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
-   //:szWriteBuffer = "                     z=z+1;"
-   ZeidonStringCopy( szWriteBuffer, 1, 0, "                     z=z+1;", 1, 0, 10001 );
-   //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
-   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
-   //:szWriteBuffer = "                     String ext = new Integer(z).toString();"
-   ZeidonStringCopy( szWriteBuffer, 1, 0, "                     String ext = new Integer(z).toString();", 1, 0, 10001 );
-   //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
-   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
-   //:szWriteBuffer = "                     l = sSourceFileNameOnly.lastIndexOf(^.^);"
-   ZeidonStringCopy( szWriteBuffer, 1, 0, "                     l = sSourceFileNameOnly.lastIndexOf(^.^);", 1, 0, 10001 );
-   //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
-   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
-   //:szWriteBuffer = "                     sExtension = sSourceFileNameOnly.substring(l+1);"
-   ZeidonStringCopy( szWriteBuffer, 1, 0, "                     sExtension = sSourceFileNameOnly.substring(l+1);", 1, 0, 10001 );
-   //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
-   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
-   //:szWriteBuffer = "                     sTargetFile = sTargetDirectory + sSourceFileNameOnly.substring(0,l) + ext + ^.^ + sExtension;"
-   ZeidonStringCopy( szWriteBuffer, 1, 0, "                     sTargetFile = sTargetDirectory + sSourceFileNameOnly.substring(0,l) + ext + ^.^ + sExtension;", 1, 0, 10001 );
-   //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
-   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
-   //:szWriteBuffer = "                     // strInputFileName is used to populate the mapped field for the upload file. "
-   ZeidonStringCopy( szWriteBuffer, 1, 0, "                     // strInputFileName is used to populate the mapped field for the upload file. ", 1, 0, 10001 );
-   //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
-   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
-   //:szWriteBuffer = "                     strInputFileName = sSourceFileNameOnly.substring(0,l) + ext + ^.^ + sExtension;"
-   ZeidonStringCopy( szWriteBuffer, 1, 0, "                     strInputFileName = sSourceFileNameOnly.substring(0,l) + ext + ^.^ + sExtension;", 1, 0, 10001 );
-   //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
-   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 );
-   //://szWriteBuffer = "                     task.log().info("*** New File Name *** " + sTargetFile);"
+   //:// KJS - I don't think we need to add this. We either append the datetime to the uploaded file (making it unique) or we don't append the datetime indicating
+   //:// we will overwrite the file if one already exists.
+   //:IF szAppendDateTime = "X" // X won't exist, I won't delete code in case we change our minds. 
+   if ( ZeidonStringCompare( szAppendDateTime, 1, 0, "X", 1, 0, 2 ) == 0 )
+   { 
+      //: szWriteBuffer = "                  int z=0;"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "                  int z=0;", 1, 0, 10001 );
+      //: WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
+      //: szWriteBuffer = "                  while (fs.exists())"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "                  while (fs.exists())", 1, 0, 10001 );
+      //: WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
+      //: szWriteBuffer = "                  {"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "                  {", 1, 0, 10001 );
+      //: WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
+      //: szWriteBuffer = "                     z=z+1;"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "                     z=z+1;", 1, 0, 10001 );
+      //: WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
+      //: szWriteBuffer = "                     String ext = new Integer(z).toString();"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "                     String ext = new Integer(z).toString();", 1, 0, 10001 );
+      //: WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
+      //: szWriteBuffer = "                     l = sSourceFileNameOnly.lastIndexOf(^.^);"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "                     l = sSourceFileNameOnly.lastIndexOf(^.^);", 1, 0, 10001 );
+      //: WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
+      //: szWriteBuffer = "                     sExtension = sSourceFileNameOnly.substring(l+1);"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "                     sExtension = sSourceFileNameOnly.substring(l+1);", 1, 0, 10001 );
+      //: WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
+      //: szWriteBuffer = "                     sTargetFile = sTargetDirectory + sSourceFileNameOnly.substring(0,l) + ext + ^.^ + sExtension;"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "                     sTargetFile = sTargetDirectory + sSourceFileNameOnly.substring(0,l) + ext + ^.^ + sExtension;", 1, 0, 10001 );
+      //: WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
+      //: szWriteBuffer = "                     // strInputFileName is used to populate the mapped field for the upload file. "
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "                     // strInputFileName is used to populate the mapped field for the upload file. ", 1, 0, 10001 );
+      //: WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
+      //: szWriteBuffer = "                     strInputFileName = sSourceFileNameOnly.substring(0,l) + ext + ^.^ + sExtension;"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "                     strInputFileName = sSourceFileNameOnly.substring(0,l) + ext + ^.^ + sExtension;", 1, 0, 10001 );
+      //: WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 );
+      //: //szWriteBuffer = "                     task.log().info("*** New File Name *** " + sTargetFile);"    
+      //: szWriteBuffer = "                     fs = new File(sTargetFile);"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "                     fs = new File(sTargetFile);", 1, 0, 10001 );
+      //: WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
+      //: szWriteBuffer = "                  }"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "                  }", 1, 0, 10001 );
+      //: WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
+   } 
 
-   //:szWriteBuffer = "                     fs = new File(sTargetFile);"
-   ZeidonStringCopy( szWriteBuffer, 1, 0, "                     fs = new File(sTargetFile);", 1, 0, 10001 );
-   //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
-   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
-   //:szWriteBuffer = "                  }"
-   ZeidonStringCopy( szWriteBuffer, 1, 0, "                  }", 1, 0, 10001 );
-   //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
-   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
-
-
-
-
+   //:END
    //:szWriteBuffer = "                  file = new FileOutputStream(sTargetFile);"
    ZeidonStringCopy( szWriteBuffer, 1, 0, "                  file = new FileOutputStream(sTargetFile);", 1, 0, 10001 );
    //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )

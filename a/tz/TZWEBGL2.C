@@ -5240,8 +5240,8 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
                //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
                WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 );
                //:// Check if this is single answer or multiple choice
-               //:szWriteBuffer = "   if ( szType.equals(^Text^) ) // Text Answer"
-               ZeidonStringCopy( szWriteBuffer, 1, 0, "   if ( szType.equals(^Text^) ) // Text Answer", 1, 0, 10001 );
+               //:szWriteBuffer = "   if ( szType.equals(^T^) ) // Text Answer"
+               ZeidonStringCopy( szWriteBuffer, 1, 0, "   if ( szType.equals(^T^) ) // Text Answer", 1, 0, 10001 );
                //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
                WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 );
                //:szWriteBuffer = "   {"
@@ -5302,8 +5302,8 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
                ZeidonStringCopy( szWriteBuffer, 1, 0, "   }", 1, 0, 10001 );
                //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
                WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 );
-               //:szWriteBuffer = "   else if ( szType.equals(^Yes/No^) ) // Yes/No Answer"
-               ZeidonStringCopy( szWriteBuffer, 1, 0, "   else if ( szType.equals(^Yes/No^) ) // Yes/No Answer", 1, 0, 10001 );
+               //:szWriteBuffer = "   else if ( szType.equals(^YN^) ) // Yes/No Answer"
+               ZeidonStringCopy( szWriteBuffer, 1, 0, "   else if ( szType.equals(^YN^) ) // Yes/No Answer", 1, 0, 10001 );
                //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
                WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 );
                //:szWriteBuffer = "   {"

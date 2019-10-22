@@ -6,13 +6,57 @@
 --------------------Configuration: ZDrApp - Win32 Debug--------------------
 </h3>
 <h3>Command Lines</h3>
-Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP93.tmp" with contents
+Creating command line "rc.exe /l 0x409 /fo".\Debug/ZDrApp.res" /d "_DEBUG" /d "_AFXDLL" "C:\10c\a\zdr\ZDrApp.rc"" 
+Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP12.tmp" with contents
 [
 /nologo /MDd /W3 /WX /Gm /GX /ZI /Od /I "C:\10C\w\incz" /I "C:\10C\w\incr" /I "C:\10C\a\incz" /I "C:\10C\a\incr" /D "_DEBUG" /D "_AFXEXT" /D "WIN32" /D "_WINDOWS" /D "_MBCS" /D "__WIN32__" /D "QUINSOFT" /D "_NOANCHOR" /FR".\Debug/" /Fp".\Debug/ZDrApp.pch" /Yu"ZDr.h" /Fo".\Debug/" /Fd".\Debug/" /FD /c 
+"C:\10c\a\zdr\ZDrAct.cpp"
+"C:\10c\a\zdr\ZDrAxLst.cpp"
+"C:\10c\a\zdr\ZDRCCDLG.CPP"
+"C:\10c\a\zdr\ZDrCmdLN.cpp"
+"C:\10c\a\zdr\ZDRCMPRS.CPP"
+"C:\10c\a\zdr\ZDrComm.cpp"
+"C:\10c\a\zdr\ZDrCoolB.cpp"
+"C:\10c\a\zdr\ZDrCtl.cpp"
+"C:\10c\a\zdr\ZDrDebug.cpp"
+"C:\10c\a\zdr\ZDrDIB.cpp"
+"C:\10c\a\zdr\ZDrDlgA.cpp"
+"C:\10c\a\zdr\ZDrDlgC.cpp"
+"C:\10c\a\zdr\ZDrDlgM.cpp"
+"C:\10c\a\zdr\ZDrDlgO.cpp"
+"C:\10c\a\zdr\ZDrDlgP.cpp"
+"C:\10c\a\zdr\ZDrDlgW.cpp"
+"C:\10c\a\zdr\ZDrDoc.cpp"
+"C:\10c\a\zdr\ZDrFlatB.cpp"
+"C:\10c\a\zdr\ZDrFont.cpp"
+"C:\10c\a\zdr\ZDrFrame.cpp"
+"C:\10c\a\zdr\ZDrMapAc.cpp"
 "C:\10c\a\zdr\ZDrMenu.cpp"
+"C:\10c\a\zdr\ZDrMisc.cpp"
+"C:\10c\a\zdr\ZDrMsgHK.cpp"
+"C:\10c\a\zdr\ZDrMsgQ.cpp"
+"C:\10c\a\zdr\ZDrOle.cpp"
+"C:\10c\a\zdr\ZDrOpt.cpp"
+"C:\10c\a\zdr\ZDrPalHK.cpp"
+"C:\10c\a\zdr\ZDrParse.cpp"
+"C:\10c\a\zdr\ZDrPrint.cpp"
+"C:\10c\a\zdr\ZDrPrtC.cpp"
+"C:\10c\a\zdr\ZDrSTask.cpp"
+"C:\10c\a\zdr\ZDrTask.cpp"
+"C:\10c\a\zdr\ZdrTwain.cpp"
+"C:\10c\a\zdr\ZDrUtil.cpp"
+"C:\10c\a\zdr\ZDrVCtrl.cpp"
+"C:\10c\a\zdr\ZDrView.cpp"
+"C:\10c\a\zdr\ZDrVStr.cpp"
 ]
-Creating command line "cl.exe @C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP93.tmp" 
-Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP94.tmp" with contents
+Creating command line "cl.exe @C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP12.tmp" 
+Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP13.tmp" with contents
+[
+/nologo /MDd /W3 /WX /Gm /GX /ZI /Od /I "C:\10C\w\incz" /I "C:\10C\w\incr" /I "C:\10C\a\incz" /I "C:\10C\a\incr" /D "_DEBUG" /D "_AFXEXT" /D "WIN32" /D "_WINDOWS" /D "_MBCS" /D "__WIN32__" /D "QUINSOFT" /D "_NOANCHOR" /FR".\Debug/" /Fp".\Debug/ZDrApp.pch" /Yc"ZDr.h" /Fo".\Debug/" /Fd".\Debug/" /FD /c 
+"C:\10c\a\zdr\ZDrApp.cpp"
+]
+Creating command line "cl.exe @C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP13.tmp" 
+Creating temporary file "C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP14.tmp" with contents
 [
 vfw32.lib kzoengaa.lib jpeglib.lib tapi32.lib Activeds.lib Adsiid.lib /nologo /subsystem:windows /dll /incremental:yes /pdb:".\Debug/ZDrApp.pdb" /debug /machine:I386 /def:".\ZDrApp.def" /out:"..\..\w\bin\ZDrApp.dll" /implib:"..\..\w\libr\ZDrApp.lib" /libpath:"C:\10C\w\libz" /libpath:"C:\10C\w\libr" 
 .\Debug\ZDrAct.obj
@@ -57,11 +101,57 @@ vfw32.lib kzoengaa.lib jpeglib.lib tapi32.lib Activeds.lib Adsiid.lib /nologo /s
 .\Debug\ZDrApp.res
 \10c\w\libr\JpegLib.lib
 ]
-Creating command line "link.exe @C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP94.tmp"
+Creating command line "link.exe @C:\DOCUME~1\SAUTTE~1.ENC\LOCALS~1\Temp\RSP14.tmp"
 <h3>Output Window</h3>
+Compiling resources...
 Compiling...
+ZDrApp.cpp
+Compiling...
+ZDrAct.cpp
+ZDrAxLst.cpp
+ZDRCCDLG.CPP
+ZDrCmdLN.cpp
+ZDRCMPRS.CPP
+C:\10c\a\zdr\ZDrCmdLN.cpp(562) -> Override OnUpdateFrameTitle for setting caption
+ZDrComm.cpp
+ZDrCoolB.cpp
+ZDrCtl.cpp
+ZDrDebug.cpp
+ZDrDIB.cpp
+ZDrDlgA.cpp
+ZDrDlgC.cpp
+ZDrDlgM.cpp
+ZDrDlgO.cpp
+ZDrDlgP.cpp
+ZDrDlgW.cpp
+ZDrDoc.cpp
+ZDrFlatB.cpp
+ZDrFont.cpp
+ZDrFrame.cpp
+Generating Code...
+Compiling...
+ZDrMapAc.cpp
 ZDrMenu.cpp
+ZDrMisc.cpp
+ZDrMsgHK.cpp
+ZDrMsgQ.cpp
+ZDrOle.cpp
+ZDrOpt.cpp
+ZDrPalHK.cpp
+ZDrParse.cpp
+ZDrPrint.cpp
+ZDrPrtC.cpp
+ZDrSTask.cpp
+ZDrTask.cpp
+C:\10c\a\zdr\ZDrSTask.cpp(1018) -> Override OnUpdateFrameTitle for setting caption
+ZdrTwain.cpp
+ZDrUtil.cpp
+ZDrVCtrl.cpp
+ZDrView.cpp
+ZDrVStr.cpp
+Generating Code...
 Linking...
+   Creating library ..\..\w\libr\ZDrApp.lib and object ..\..\w\libr\ZDrApp.exp
 
 
 

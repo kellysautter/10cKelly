@@ -1066,12 +1066,12 @@ GenerateJSPJava( VIEW vDialog BASED ON LOD TZWDLGSO,
    nRC = SetEntityCursor( vDialogTemp, "WebControlProperty", "Name", lControl,
                           szCtrlTag, "", "", 0, "Window", "" )
    IF nRC < zCURSOR_SET
-      szCtrlTag = "File Upload with DateTime"
+      szCtrlTag = "File Upload with DT"
       nRC = SetEntityCursor( vDialogTemp, "WebControlProperty", "Name", lControl,
                              szCtrlTag, "", "", 0, "Window", "" )
    END
    IF nRC < zCURSOR_SET
-      szCtrlTag = "File Upload w/o DateTime"
+      szCtrlTag = "File Upload w/o DT"
       nRC = SetEntityCursor( vDialogTemp, "WebControlProperty", "Name", lControl,
                              szCtrlTag, "", "", 0, "Window", "" )
    END
@@ -1672,13 +1672,13 @@ GenerateJSPJava( VIEW vDialog BASED ON LOD TZWDLGSO,
                           szCtrlTag, "", "", 0, "Window", "" )
    WorkFlag = "Y" // Add datetime to upload file.                          
    IF nRC < zCURSOR_SET
-      szCtrlTag = "File Upload with DateTime"
+      szCtrlTag = "File Upload with DT"
       nRC = SetEntityCursor( vDialogTemp, "WebControlProperty", "Name", lControl,
                              szCtrlTag, "", "", 0, "Window", "" )
       WorkFlag = "Y"                             
    END
    IF nRC < zCURSOR_SET
-      szCtrlTag = "File Upload w/o DateTime"
+      szCtrlTag = "File Upload w/o DT"
       nRC = SetEntityCursor( vDialogTemp, "WebControlProperty", "Name", lControl,
                              szCtrlTag, "", "", 0, "Window", "" )
       WorkFlag = "N"                             
@@ -3850,10 +3850,10 @@ DKS_TRACE_END */
                ResetViewFromSubobject( vDialogTemp )
                SET CURSOR FIRST vDialogTemp.WebControlProperty WHERE vDialogTemp.WebControlProperty.Name = "File Transfer to Server"
                IF RESULT < zCURSOR_SET
-                  SET CURSOR FIRST vDialogTemp.WebControlProperty WHERE vDialogTemp.WebControlProperty.Name = "File Upload with DateTime"
+                  SET CURSOR FIRST vDialogTemp.WebControlProperty WHERE vDialogTemp.WebControlProperty.Name = "File Upload with DT"
                END
                IF RESULT < zCURSOR_SET
-                  SET CURSOR FIRST vDialogTemp.WebControlProperty WHERE vDialogTemp.WebControlProperty.Name = "File Upload w/o DateTime"
+                  SET CURSOR FIRST vDialogTemp.WebControlProperty WHERE vDialogTemp.WebControlProperty.Name = "File Upload w/o DT"
                END
                IF RESULT >= zCURSOR_SET
                   szTransferFileFlag = "Y"
@@ -4203,18 +4203,10 @@ DKS_TRACE_END */
       // KJS 07/28/15 - Trying the banner include as all the other includes, not as the <jsp:include"
       // If a banner include file has been entered by the user, then use this, otherwise
       // hardcode "./include/banner.inc" as the banner name.
-      // KJS 10/08/19 - Now a request has been made for the banner at the window level. Not sure why
-      // we haven't done that before... as of right now, it looks like WEB_TopMenuInclude is not being
-      // used anywhere so I am going to use this because I don't want to have to change TZWDLGSO.LOD.
-      // I changed WEB_TopMenuInclude to WEB_TopBannerName.
-      IF vDialog.Window.WEB_TopBannerName != ""
-         szWriteBuffer = "<%@ include file=^" + vDialog.Window.WEB_TopBannerName + "^ %>"
-      ELSE
       IF vDialog.Dialog.WEB_TopBannerName != ""
          szWriteBuffer = "<%@ include file=^" + vDialog.Dialog.WEB_TopBannerName + "^ %>"
       ELSE
          szWriteBuffer = "<%@ include file=^./include/banner.inc^ %>"
-      END
       END
       WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
 
@@ -4951,12 +4943,12 @@ DKS_TRACE_END */
    nRC = SetEntityCursor( vDialogTemp, "WebControlProperty", "Name", lControl,
                           szCtrlTag, "", "", 0, "Window", "" )
    IF nRC < zCURSOR_SET
-      szCtrlTag = "File Upload with DateTime"
+      szCtrlTag = "File Upload with DT"
       nRC = SetEntityCursor( vDialogTemp, "WebControlProperty", "Name", lControl,
                              szCtrlTag, "", "", 0, "Window", "" )
    END
    IF nRC < zCURSOR_SET
-      szCtrlTag = "File Upload w/o DateTime"
+      szCtrlTag = "File Upload w/o DT"
       nRC = SetEntityCursor( vDialogTemp, "WebControlProperty", "Name", lControl,
                              szCtrlTag, "", "", 0, "Window", "" )
    END

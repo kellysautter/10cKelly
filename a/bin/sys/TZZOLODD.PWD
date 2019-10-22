@@ -1,9 +1,9 @@
-z1000-Zeidon    TZZOLODD TZWDLGSO 02/24/17   18:30:42 1.0b0    
+z1000-Zeidon    TZZOLODD TZWDLGSO 10/22/19   11:37:08 1.0b0    
 eDialog    1
 aTag       TZZOLODD
 aDLL_Name  TZZOLODD
 aZKey      1333240
-aNextZKeyToAssign 127116852
+aNextZKeyToAssign 127116861
 aDesc      LOD (Logical Object Defn) Maint.
 
 eDfltWnd   2
@@ -141,6 +141,26 @@ aZKey      1324823
 aSeqNo_LOD_Entity 3
 
 eCtrlMapRelatedEntity 7
+aName      ER_Attribute
+aIndentName          ER_Attribute
+aIndentLvl 9
+aZKey      1324808
+aSeqNo     1
+aCreate    Y
+aDelete    Y
+aUpdate    Y
+aInclude   Y
+aInclSrc   Y
+aExclude   Y
+aHidden    N
+aRecursive N
+aAutoCreate N
+aDerived   N
+aWork      N
+aParentDeleteBehave E
+aDupEntityInstance N
+aDupRelationshipInstance N
+aRelLinkIndicator H
 
 eCtrlMapER_Attribute 7
 aName      Lth
@@ -1339,6 +1359,8 @@ eCtrlMap   5
 aZKey      90201531
 
 eCtrlMapLOD_Attribute 6
+aZKey      1324821
+aSeqNo_LOD_Entity 1
 
 eCtrlMapRelatedEntity 7
 
@@ -2806,7 +2828,7 @@ aZKey      97148417
 eEventAct  5
 aTag       SetSaveAsNameByClick
 aNoMap     Y
-aType      1
+aType      2
 aZKey      97135534
 aSB_ActionDisabling 8
 
@@ -2967,11 +2989,6 @@ aReturnDataType N
 eSourceFileForOper 5
 
 eAction    3
-aTag       SetSaveAsNameByClick
-aNoMap     Y
-aType      2
-aZKey      97135534
-aSB_ActionDisabling 8
 
 eActMap    4
 aZKey      97135535
@@ -2983,8 +3000,6 @@ aZKey      1334549
 aName      TZZOLFLO
 
 eActEvent  4
-aType      2
-aZKey      97148417
 
 eActCtrl   5
 aTag       LODFileList
@@ -17368,10 +17383,9 @@ eNLS_Control 2
 
 eNLS_Control 2
 
-i15        7
 i18        10
 i19        11
-i23        7
+i23        15
 i33        9
 i34        10
 i42        40
@@ -17379,26 +17393,26 @@ i44        40
 i52        31
 i54        17
 i56        11
-i60        7
+i60        15
 i62        39
 i63        10
-i68        7
+i68        15
 i70        39
 i71        10
 i72        64
-i76        7
+i76        15
 i78        39
 i79        10
 i80        11
-i84        7
+i84        15
 i86        17
 i87        10
 i88        11
-i92        7
+i92        15
 i94        39
 i95        10
 i96        11
-i100       7
+i100       15
 i102       17
 i103       10
 i104       11
@@ -17411,12 +17425,12 @@ i119       10
 i120       11
 i126       123
 i128       123
-i132       7
+i132       15
 i134       39
 i136       11
 i138       123
 i140       123
-i144       7
+i144       15
 i146       39
 i147       135
 i148       11
@@ -17442,11 +17456,10 @@ i204       108
 i208       48
 i213       8
 i214       9
-i217       6
-i218       7
+i218       15
 i219       8
 i220       9
-i223       7
+i223       15
 i227       48
 i230       123
 i233       123
@@ -17476,7 +17489,7 @@ i310       10
 i311       11
 i315       199
 i323       285
-i325       7
+i325       15
 i327       284
 i328       283
 i332       269
@@ -17496,7 +17509,7 @@ i349       280
 i350       279
 i352       330
 i354       289
-i356       7
+i356       15
 i357       10
 i358       288
 i359       287
@@ -17576,7 +17589,9 @@ i540       330
 i542       522
 i545       521
 i547       330
+i548       510
 i550       37
+i552       509
 i556       421
 i557       420
 i558       418
@@ -17592,8 +17607,8 @@ i574       108
 i576       17
 i577       10
 i578       495
-i581       6
-i582       7
+i581       217
+i582       15
 i583       8
 i584       9
 i585       10
@@ -17865,8 +17880,8 @@ i1165      495
 i1167      225
 i1168      10
 i1177      511
-i1181      6
-i1182      7
+i1181      217
+i1182      15
 i1183      8
 i1184      9
 i1185      10

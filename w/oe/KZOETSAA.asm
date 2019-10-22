@@ -18,7 +18,7 @@ $$TYPES	SEGMENT BYTE USE32 'DEBTYP'
 $$TYPES	ENDS
 _TLS	SEGMENT DWORD USE32 PUBLIC 'TLS'
 _TLS	ENDS
-;	COMDAT ??_C@_0BF@NEKP@Jan?5?55?52018?517?308?302?$AA@
+;	COMDAT ??_C@_0BF@CDIA@Jun?517?52019?510?332?339?$AA@
 _DATA	SEGMENT DWORD USE32 PUBLIC 'DATA'
 _DATA	ENDS
 ;	COMDAT ??_C@_0BN@FBPI@Compile?5Date?1Time?5for?5OE?5is?5?$AA@
@@ -28,13 +28,13 @@ FLAT	GROUP _DATA, CONST, _BSS
 	ASSUME	CS: FLAT, DS: FLAT, SS: FLAT
 endif
 PUBLIC	_fnTraceCompileTime@0
-PUBLIC	??_C@_0BF@NEKP@Jan?5?55?52018?517?308?302?$AA@	; `string'
+PUBLIC	??_C@_0BF@CDIA@Jun?517?52019?510?332?339?$AA@	; `string'
 PUBLIC	??_C@_0BN@FBPI@Compile?5Date?1Time?5for?5OE?5is?5?$AA@ ; `string'
 EXTRN	_TraceLineS@8:NEAR
-;	COMDAT ??_C@_0BF@NEKP@Jan?5?55?52018?517?308?302?$AA@
+;	COMDAT ??_C@_0BF@CDIA@Jun?517?52019?510?332?339?$AA@
 ; File C:\10C\A\oe\KZOETSAA.c
 _DATA	SEGMENT
-??_C@_0BF@NEKP@Jan?5?55?52018?517?308?302?$AA@ DB 'Jan  5 2018 17:08:02', 00H ; `string'
+??_C@_0BF@CDIA@Jun?517?52019?510?332?339?$AA@ DB 'Jun 17 2019 10:32:39', 00H ; `string'
 _DATA	ENDS
 ;	COMDAT ??_C@_0BN@FBPI@Compile?5Date?1Time?5for?5OE?5is?5?$AA@
 _DATA	SEGMENT
@@ -51,7 +51,7 @@ _fnTraceCompileTime@0 PROC NEAR
 
 ; 33   :    TraceLineS( "Compile Date/Time for OE is ", __DATE__ " " __TIME__ );
 
-	push	OFFSET FLAT:??_C@_0BF@NEKP@Jan?5?55?52018?517?308?302?$AA@ ; `string'
+	push	OFFSET FLAT:??_C@_0BF@CDIA@Jun?517?52019?510?332?339?$AA@ ; `string'
 	push	OFFSET FLAT:??_C@_0BN@FBPI@Compile?5Date?1Time?5for?5OE?5is?5?$AA@ ; `string'
 	call	_TraceLineS@8
 

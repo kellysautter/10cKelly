@@ -421,6 +421,12 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
          // Set flag for FileTransfer, as all GroupBox and subcontrol processing is skipped for that case.
          szFileTransferFlag = ""
          SET CURSOR FIRST vDialog.WebControlProperty WHERE vDialog.WebControlProperty.Name = "File Transfer to Server"
+         IF RESULT < zCURSOR_SET
+            SET CURSOR FIRST vDialog.WebControlProperty WHERE vDialog.WebControlProperty.Name = "File Upload with DateTime"
+         END
+         IF RESULT < zCURSOR_SET
+            SET CURSOR FIRST vDialog.WebControlProperty WHERE vDialog.WebControlProperty.Name = "File Upload w/o DateTime"
+         END
          IF RESULT >= zCURSOR_SET
             szFileTransferFlag = "Y"
          END
@@ -1911,7 +1917,7 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
             szWriteBuffer = "<%"
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
             // Check if this is single answer or multiple choice
-            szWriteBuffer = "   if ( szType.equals(^Text^) ) // Text Answer"
+            szWriteBuffer = "   if ( szType.equals(^T^) ) // Text Answer"
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
             szWriteBuffer = "   {"
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
@@ -1942,7 +1948,7 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
             szWriteBuffer = "   }"
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-            szWriteBuffer = "   else if ( szType.equals(^Yes/No^) ) // Yes/No Answer"
+            szWriteBuffer = "   else if ( szType.equals(^YN^) ) // Yes/No Answer"
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
             szWriteBuffer = "   {"
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )

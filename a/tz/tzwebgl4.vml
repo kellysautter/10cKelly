@@ -5877,6 +5877,12 @@ GenJSPJ_Action( VIEW vDialog     BASED ON LOD TZWDLGSO,
       CreateViewFromView( vDialogTemp, vDialogCtrl )
       ResetViewFromSubobject( vDialogTemp )
       SET CURSOR FIRST vDialogTemp.WebControlProperty WHERE vDialogTemp.WebControlProperty.Name = "File Transfer to Server"
+      IF RESULT < zCURSOR_SET
+         SET CURSOR FIRST vDialogTemp.WebControlProperty WHERE vDialogTemp.WebControlProperty.Name = "File Upload with DateTime"
+      END
+      IF RESULT < zCURSOR_SET
+         SET CURSOR FIRST vDialogTemp.WebControlProperty WHERE vDialogTemp.WebControlProperty.Name = "File Upload w/o DateTime"
+      END
       IF RESULT >= zCURSOR_SET
          szUploadTransferFileFlag = "Y"
       END

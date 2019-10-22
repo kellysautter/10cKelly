@@ -411,7 +411,8 @@ cfTZEREMDO_PostActivate( zVIEW    vSubtask,
 
    bRelinkError = FALSE;
    CreateViewFromViewForTask( &vDomainLPLR, vTZCMLPLO, 0 );
-   SetCursorFirstEntityByInteger( vDomainLPLR, "W_MetaType", "Type",
+   SetCursorFirstEntityByInteger( vDomainLPLR, "W_MetaType", 
+	   "Type",
                                   zREFER_DOMAIN_META, 0 );
    CreateViewFromViewForTask( &vTZEREMDO, vTZEREMDO, 0 );
    for ( nRC = SetCursorFirstEntity( vTZEREMDO, "Domain", "EntpER_Model" );
