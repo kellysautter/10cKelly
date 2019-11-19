@@ -1,3 +1,6 @@
+//
+//  generating COE JSP
+//
 /////////////////////////////////////////////////////////////////////////////
 //
 //  OPERATION: CreateTabIndexString
@@ -9,12 +12,14 @@ CreateTabIndexString( VIEW vDialog BASED ON LOD TZWDLGSO,
 
    VIEW vDialogRoot BASED ON LOD TZWDLGSO
    STRING ( 8 ) szWork
-   SHORT        nTabIndex
+   INTEGER      lTabIndex
+   
+   TraceLineS("In CreateTabIndexString ---- ", "")
 
    GET VIEW vDialogRoot NAMED "vDialogRoot"
-   nTabIndex = vDialog.Control.SyncKey
-   IF nTabIndex > 0 AND nTabIndex < 9999
-      zIntegerToString( szWork, 8, nTabIndex )
+   lTabIndex = vDialog.Control.SyncKey
+   IF lTabIndex > 0 AND lTabIndex < 9999
+      zIntegerToString( szWork, 8, lTabIndex )
       szTabIndex = " tabindex=" + szWork + " "
    ELSE
       GET VIEW vDialogRoot NAMED "DialogRoot"
@@ -25,7 +30,7 @@ CreateTabIndexString( VIEW vDialog BASED ON LOD TZWDLGSO,
       END
    END
 
-   RETURN( nTabIndex )
+   RETURN( lTabIndex )
 END
 
 /////////////////////////////////////////////////////////////////////////////
@@ -587,7 +592,7 @@ GenJSP_CrteCalendar( VIEW vDialog BASED ON LOD TZWDLGSO,
 
    STRING ( 256 ) szStyle
    STRING ( 256 ) szClass
-   STRING ( 10 )  szDisabled
+   STRING ( 100 ) szDisabled
    STRING ( 10 )  szWidth
    STRING ( 10 )  szHeight
    STRING ( 10 )  szX_Pos
@@ -920,17 +925,17 @@ GenJSP_CrteListBox( VIEW vDialog,
    STRING ( 256 ) szTitleHTML
    STRING ( 256 ) ListBoxDoubleClickAction
    STRING ( 16 )  szTabIndex
-   STRING ( 10 )  szMaxStringLength
+   STRING ( 10 )  szMaxStringLth
    STRING ( 10 )  szWidth
    STRING ( 10 )  szSelectAction
    STRING ( 10 )  szSelectFunction
    STRING ( 10 )  szHeight
    STRING ( 10 )  szX_Pos
    STRING ( 10 )  szY_Pos
-   STRING ( 10 )  szDisabled
+   STRING ( 100 ) szDisabled
    DECIMAL        dDLUnits
    INTEGER        lSubtype
-   INTEGER        lMaxStringLength
+   INTEGER        lMaxStringLth
 
    szStyle = "width:" + szWidth + "px; height:" + szHeight + "px;"
    szClass = vDialog.Control.CSS_Class
@@ -1030,18 +1035,17 @@ GenJSP_CrteListBox( VIEW vDialog,
                szContextName = vDialog.CtrlMapContext.Name
             END
 
-            IF vDialog.CtrlMapER_Domain.MaxStringLth > 254
-               lMaxStringLength = vDialog.CtrlMapER_Domain.MaxStringLth
-               szMaxStringLength = lMaxStringLength
+            lMaxStringLth = vDialog.CtrlMapER_Domain.MaxStringLth
+            IF lMaxStringLth <= 0
+               szMaxStringLth = "254"
             ELSE
-               szMaxStringLength = "254"
+               szMaxStringLth = lMaxStringLth
             END
-
 
             szWriteBuffer = "         strComboCurrentValue = " + vDialog.CtrlMapView.Name +
                      ".GetStringFromAttributeByContext( strSessionId, ^" +
                      szEntityName + "^, ^" +
-                     szAttributeName + "^, ^" + szContextName + "^, " + szMaxStringLength + " );"
+                     szAttributeName + "^, ^" + szContextName + "^, " + szMaxStringLth + " );"
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
          ELSE
             szWriteBuffer = "      strComboCurrentValue = ^^;"
@@ -1086,7 +1090,7 @@ GenJSP_CrteListBox( VIEW vDialog,
                             ".GetStringFromAttributeByContext( strSessionId, ^" +
                             szEntityName + "^, ^" +
                             szAttributeName + "^, ^" +
-                            szContextName + "^, " + szMaxStringLength + " );"
+                            szContextName + "^, " + szMaxStringLth + " );"
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
          END
 
@@ -1169,16 +1173,16 @@ GenJSP_CrteText( VIEW vDialog      BASED ON LOD TZWDLGSO,
    // Format a TEXT control.
 
    STRING ( 32 )  szContextName
-   STRING ( 256 ) szStyle
+   STRING ( 300 ) szStyle
    STRING ( 256 ) szClassHTML
    STRING ( 256 ) szTitle
    STRING ( 256 ) szTitleHTML
    STRING ( 1000 ) szText
    STRING ( 16 )  szTabIndex
-   STRING ( 10 )  szMaxStringLength
+   STRING ( 10 )  szMaxStringLth
    STRING ( 20 )  szGroupParentType
    STRING ( 85 )  szHTMLCtrlID
-   INTEGER        lMaxStringLength
+   INTEGER        lMaxStringLth
    INTEGER        lSubtypeX
    INTEGER        lSubtype
    INTEGER        lTemp
@@ -1332,11 +1336,12 @@ GenJSP_CrteText( VIEW vDialog      BASED ON LOD TZWDLGSO,
                          vDialog.CtrlMapER_Attribute.Name + "^, ^" +
                          szContextName + "^, 20 );"
       ELSE
-         IF vDialog.CtrlMapER_Domain.MaxStringLth > 254
-            lMaxStringLength = vDialog.CtrlMapER_Domain.MaxStringLth
-            szMaxStringLength = lMaxStringLength
+
+         lMaxStringLth = vDialog.CtrlMapER_Domain.MaxStringLth
+         IF lMaxStringLth <= 0
+            szMaxStringLth = "254"
          ELSE
-            szMaxStringLength = "254"
+            szMaxStringLth = lMaxStringLth
          END
 
          szWriteBuffer = "         strTextDisplayValue = " +
@@ -1344,7 +1349,7 @@ GenJSP_CrteText( VIEW vDialog      BASED ON LOD TZWDLGSO,
                          ".GetStringFromAttributeByContext( strSessionId, ^" +
                          vDialog.CtrlMapRelatedEntity.Name + "^, ^" +
                          vDialog.CtrlMapER_Attribute.Name + "^, ^" +
-                         szContextName + "^, " + szMaxStringLength + " );"
+                         szContextName + "^, " + szMaxStringLth + " );"
       END
 
       WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
@@ -1396,11 +1401,12 @@ GenJSP_CrteText( VIEW vDialog      BASED ON LOD TZWDLGSO,
                                vDialog.CtrlMapER_Attribute.Name + "^, ^" +
                                szContextName + "^, 20 );"
             ELSE
-               IF vDialog.CtrlMapER_Domain.MaxStringLth > 254
-                  lMaxStringLength = vDialog.CtrlMapER_Domain.MaxStringLth
-                  szMaxStringLength = lMaxStringLength
+
+               lMaxStringLth = vDialog.CtrlMapER_Domain.MaxStringLth
+               IF lMaxStringLth <= 0
+                  szMaxStringLth = "254"
                ELSE
-                  szMaxStringLength = "254"
+                  szMaxStringLth = lMaxStringLth
                END
 
                szWriteBuffer = "         strTextURL_Value = " +
@@ -1408,7 +1414,7 @@ GenJSP_CrteText( VIEW vDialog      BASED ON LOD TZWDLGSO,
                                ".GetStringFromAttributeByContext( strSessionId, ^" +
                                vDialog.CtrlMapRelatedEntity.Name + "^, ^" +
                                vDialog.CtrlMapER_Attribute.Name + "^, ^" +
-                               szContextName + "^, " + szMaxStringLength + " );"
+                               szContextName + "^, " + szMaxStringLth + " );"
             END
 
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
@@ -1453,7 +1459,7 @@ GenJSP_CrteText( VIEW vDialog      BASED ON LOD TZWDLGSO,
    ELSE
       // Regular Text Control (No HotText)
 
-   
+
       // Check to see if this GroupBox has a WebControlProperty of "Table".  If so, then we will create this
       // as a table and try and position what is in this group box as a table.
       szIsLabel = ""
@@ -1463,16 +1469,16 @@ GenJSP_CrteText( VIEW vDialog      BASED ON LOD TZWDLGSO,
          szIsLabel = "Y"
          IF vDialog.Control.WebCtrlLabelLink != ""
             // Tie the label to an input control.
-            szLabelFor = " for=^" + vDialog.Control.WebCtrlLabelLink + "^ " 
-         END
+            szLabelFor = " for=^" + vDialog.Control.WebCtrlLabelLink + "^ "
       END
-   
+      END
+
       szWriteBuffer = ""
       WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
       // If there is a "Label" web control property than make this a label, otherwise, just use <span>.
       IF szIsLabel = "Y"
             szWriteBuffer = "<label " + szClassHTML + szHTMLCtrlID + szLabelFor + szTitleHTML + szStyle + ">" + szText + "</label>"
-      ELSE 
+      ELSE
          szWriteBuffer = "<span " + szClassHTML + szHTMLCtrlID + szTitleHTML + szStyle + ">" + szText + "</span>"
       END
    END
@@ -1496,13 +1502,13 @@ GenJSP_CrteCtrlsRadio( VIEW vDialog BASED ON LOD TZWDLGSO,
                        INTEGER          lOffsetX,
                        INTEGER          lOffsetY )
 
-   STRING ( 256 ) szStyle
+   STRING ( 300 ) szStyle
    STRING ( 256 ) szClass
    STRING ( 256 ) szTitle
    STRING ( 256 ) szCtrlTag
    STRING ( 256 ) szTitleHTML
-   STRING ( 10 )  szDisabled
-   STRING ( 16 )  szPosition
+   STRING ( 100 ) szDisabled
+   STRING ( 100 ) szPosition
    STRING ( 16 )  szTabIndex
    STRING ( 32 )  szActionName
    STRING ( 1 )   szFirstTimeThru
@@ -1646,11 +1652,11 @@ GenJSP_CrteCheckBox( VIEW vDialog BASED ON LOD TZWDLGSO,
                      INTEGER          lOffsetY )
 
    // Format an CHECKBOX control.
-   STRING ( 256 ) szStyle
+   STRING ( 300 ) szStyle
    STRING ( 256 ) szClass
    STRING ( 256 ) szTitle
    STRING ( 256 ) szTitleHTML
-   STRING ( 10 )  szDisabled
+   STRING ( 100 ) szDisabled
    STRING ( 100 ) szPosition
    STRING ( 16 )  szTabIndex
    STRING ( 20 )  szSpaces
@@ -1774,7 +1780,7 @@ GenJSP_CrteEditBox( VIEW vDialog BASED ON LOD TZWDLGSO,
    VIEW vDialogRoot BASED ON LOD TZWDLGSO
    STRING ( 32 )  szContextName
    STRING ( 300 ) szValue
-   STRING ( 256 ) szStyle
+   STRING ( 300 ) szStyle
    STRING ( 256 ) szClass
    STRING ( 256 ) szTitle
    STRING ( 256 ) szTitleHTML
@@ -1783,12 +1789,12 @@ GenJSP_CrteEditBox( VIEW vDialog BASED ON LOD TZWDLGSO,
    STRING ( 16 )  szTabIndex
    STRING ( 50 )  szEditActionCode
    STRING ( 32 )  szActionName
-   STRING ( 10 )  szMaxStringLength
-   STRING ( 10 )  szDisabled
+   STRING ( 10 )  szMaxStringLth
+   STRING ( 100 ) szDisabled
    STRING ( 1 )   szWCP_Hidden
    STRING ( 1 )   szCreateSessionVariable
    STRING ( 1 )   szNoOutputMapping
-   INTEGER        lMaxStringLength
+   INTEGER        lMaxStringLth
    INTEGER        lStyleX
    INTEGER        lTemp
    SHORT          bMapping
@@ -1885,17 +1891,18 @@ GenJSP_CrteEditBox( VIEW vDialog BASED ON LOD TZWDLGSO,
          szContextName = ""
       END
 
-      IF vDialog.CtrlMapER_Domain.MaxStringLth > 254
-         lMaxStringLength = vDialog.CtrlMapER_Domain.MaxStringLth
-         szMaxStringLength = lMaxStringLength
+      lMaxStringLth = vDialog.CtrlMapER_Domain.MaxStringLth
+      IF lMaxStringLth <= 0
+         szMaxStringLth = "254"
       ELSE
-         szMaxStringLength = "254"
+         szMaxStringLth = lMaxStringLth
       END
+
       szWriteBuffer = "            strErrorMapValue = " +
                       vDialog.CtrlMapView.Name + ".GetStringFromAttributeByContext( strSessionId, ^" +
                       vDialog.CtrlMapRelatedEntity.Name + "^, ^" +
                       vDialog.CtrlMapER_Attribute.Name + "^, ^" +
-                      szContextName + "^, " + szMaxStringLength + " );"
+                      szContextName + "^, " + szMaxStringLth + " );"
       WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
       szWriteBuffer = "            " + vDialog.CtrlMapView.Name +
                       ".TraceLine( ^" + vDialog.CtrlMapRelatedEntity.Name + "." +
@@ -2003,7 +2010,7 @@ GenJSP_CrteEditBox( VIEW vDialog BASED ON LOD TZWDLGSO,
    END
 
    IF szNoOutputMapping = "Y"
-         szValue = "value=^^"
+      szValue = "value=^^"
    ELSE
       lStyleX = vDialog.Control.ExtendedStyle
       lTemp = IsFlagSequenceSet( lStyleX, zCONTROLX_PREFILL )
@@ -2019,9 +2026,21 @@ GenJSP_CrteEditBox( VIEW vDialog BASED ON LOD TZWDLGSO,
    szTitleHTML = ""
    szTitle = vDialog.Control.DIL_Text
    IF szTitle != ""
-      szTitleHTML = " title=^" + szTitle + "^ "
+      szTitleHTML = " title=^" + szTitle + "^"
    END
-
+  // dks 2016.04.08 - trying placeholder
+   szTitle = vDialog.Control.Placeholder
+   IF szTitle != ""
+      szTitleHTML = szTitleHTML + " placeholder=^" + szTitle + "^"
+   END
+   // Doug and I both added a placeholder attribute. Not sure what to do since I know that Aadit uses WebPlaceholder.
+   IF szTitle = ""
+      szTitle = vDialog.Control.WebPlaceholder
+      IF szTitle != ""
+         szTitleHTML = szTitleHTML + " placeholder=^" + szTitle + "^"
+      END
+   END
+   
    CreateDisabledString( vDialog, szDisabled )
    szClass = vDialog.Control.CSS_Class
    IF szClass = ""
@@ -2054,7 +2073,7 @@ GenJSP_CrteJPG( VIEW vDialog BASED ON LOD TZWDLGSO,
 
    STRING ( 32 )  szContextName
    STRING ( 256 ) szClass
-   STRING ( 256 ) szStyle
+   STRING ( 300 ) szStyle
    STRING ( 16 )  szTabIndex
    STRING ( 256 ) szTitle
    STRING ( 256 ) szTitleHTML
@@ -2211,7 +2230,7 @@ GenJSP_CrteComboBox( VIEW vDialog BASED ON LOD TZWDLGSO,
    STRING ( 10 )  szHeight
    STRING ( 10 )  szX_Pos
    STRING ( 10 )  szY_Pos
-   STRING ( 10 )  szDisabled
+   STRING ( 100 ) szDisabled
    DECIMAL        dDLUnits
    INTEGER        lSubtype
    SHORT          nRC
@@ -2724,7 +2743,7 @@ GenJSP_CrteGroupTable(  VIEW vDialog BASED ON LOD TZWDLGSO,
    INTEGER        iColCnt
    INTEGER        nRC
    INTEGER        iColWidth
-   INTEGER        lMaxStringLength
+   INTEGER        lMaxStringLth
    INTEGER        lTemp
    INTEGER        lStyleX
    INTEGER        Size
@@ -2739,16 +2758,16 @@ GenJSP_CrteGroupTable(  VIEW vDialog BASED ON LOD TZWDLGSO,
    STRING ( 85 )  szHTMLCtrlID
    STRING ( 256 ) szTitle
    STRING ( 256 ) szTitleHTML
-   STRING ( 100 ) szStyle
+   STRING ( 300 ) szStyle
    STRING ( 256 ) szClass
    STRING ( 32 )  szActionName
    STRING ( 50 )  szControlType
    STRING ( 16 )  szTabIndex
    STRING ( 256 ) szText
    STRING ( 32 )  szContextName
-   STRING ( 10 )  szMaxStringLength
+   STRING ( 10 )  szMaxStringLth
    STRING ( 32 )  szSize
-   STRING ( 256 ) szAbsoluteStyle
+   STRING ( 300 ) szAbsoluteStyle
 
    STRING ( 1 )   szNoHeightFlag
    STRING ( 1 )   szNoWidthFlag
@@ -3366,11 +3385,11 @@ GenJSP_CrteGroupTable(  VIEW vDialog BASED ON LOD TZWDLGSO,
                szContextName = vDialog.CtrlMapContext.Name
             END
 
-            IF vDialog.CtrlMapER_Domain.MaxStringLth > 254
-               lMaxStringLength = vDialog.CtrlMapER_Domain.MaxStringLth
-               szMaxStringLength = lMaxStringLength
+            lMaxStringLth = vDialog.CtrlMapER_Domain.MaxStringLth
+            IF lMaxStringLth <= 0
+               szMaxStringLth = "254"
             ELSE
-               szMaxStringLength = "254"
+               szMaxStringLth = lMaxStringLth
             END
 
             szWriteBuffer = "         strErrorMapValue = " +
@@ -3378,7 +3397,7 @@ GenJSP_CrteGroupTable(  VIEW vDialog BASED ON LOD TZWDLGSO,
                             ".GetStringFromAttributeByContext( strSessionId, ^" +
                             vDialog.CtrlMapRelatedEntity.Name + "^, ^" +
                             vDialog.CtrlMapER_Attribute.Name + "^, ^" +
-                            szContextName + "^, " + szMaxStringLength + " );"
+                            szContextName + "^, " + szMaxStringLth + " );"
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
             szWriteBuffer = "   }"
 
@@ -3409,13 +3428,29 @@ GenJSP_CrteGroupTable(  VIEW vDialog BASED ON LOD TZWDLGSO,
             END
             zAppendQuotedString( szStyle, szAbsoluteStyle, "style=", "^" )
 
-
             szTinyMCEFlag = ""
             SET CURSOR FIRST vDialog.WebControlProperty WHERE vDialog.WebControlProperty.Name = "wysiwyg TinyMCE"
             IF RESULT >= zCURSOR_SET
                szTinyMCEFlag = "Y"
             END
 
+            // dks 2016.04.08 - trying placeholder
+            // If we put a title on the control, when the mouse is hovered over the control, this text will display.
+            szTitleHTML = ""
+            szTitle = vDialog.Control.DIL_Text
+            IF szTitle != ""
+               szTitleHTML = " title=^" + szTitle + "^"
+            END
+            szTitle = vDialog.Control.Placeholder
+            IF szTitle != ""
+               szTitleHTML = szTitleHTML + " placeholder=^" + szTitle + "^"
+            END
+
+            IF lMaxStringLth <= 0
+               szMaxStringLth = "20"
+            ELSE
+               szMaxStringLth = lMaxStringLth
+            END
             IF vDialog.Control.WebCtrlType = "wysiwygEditor" OR szTinyMCEFlag = "Y"
 
                szClass = vDialog.Control.CSS_Class
@@ -3423,19 +3458,20 @@ GenJSP_CrteGroupTable(  VIEW vDialog BASED ON LOD TZWDLGSO,
                   szClass = "mceSimple" // "mceSimple" is TinyMCE default
                END
 
-               szWriteBuffer = "<textarea" + szHTMLCtrlID +
-                               "class=^" + szClass + "^ " + szTitleHTML +
-                               szStyle + ">" +
-                               "<%=strErrorMapValue%></textarea>"
-
+               nRC = zSearchSubString( szClass, "mceSimpleZeidon", "f", 0 )
+               IF nRC >= 0
+                  szWriteBuffer = "<div style=^background-color:#eed;border:1px solid #031;width:" + szSize + "px;height:" + szHeight + "px;position:absolute;left:0px;top:0px;^>"
+                  WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+                  szWriteBuffer = "<div class=^" + szClass + "^ " + szTitleHTML + " style=^width:" + szSize + "px;height:" + szHeight + "px;position:absolute;left:0px;top:0px;^><%=strErrorMapValue%></div></div>"
+               ELSE
+                  szWriteBuffer = "<textarea" + szHTMLCtrlID + "class=^" + szClass + "^ maxlength=^" + szMaxStringLth + "^ " + szTitleHTML + szStyle + ">" + "<%=strErrorMapValue%></textarea>"
+               END
             ELSE
                szClass = ""
                szClass = vDialog.Control.CSS_Class
                CreateTabIndexString( vDialog, szTabIndex )
-               szWriteBuffer = "<textarea" + szHTMLCtrlID + szTitleHTML +
-                               "class=^" + szClass + "^ " + 
-                               szStyle + szTabIndex + " wrap=^wrap^>" +
-                               "<%=strErrorMapValue%></textarea>"
+               szWriteBuffer = "<textarea" + szHTMLCtrlID + szTitleHTML + "class=^" + szClass + "^ maxlength=^" + szMaxStringLth + "^ " +
+                               szStyle + szTabIndex + " wrap=^wrap^>" + "<%=strErrorMapValue%></textarea>"
 
             END
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
@@ -3450,8 +3486,7 @@ GenJSP_CrteGroupTable(  VIEW vDialog BASED ON LOD TZWDLGSO,
       iColCnt = iColCnt + 1
    END
 
-   // If the previous row didn't have as many controls as there are
-   // table columns, then we need to create a blank column
+   // If the previous row didn't have as many controls as there are table columns, then we need to create a blank column
    LOOP  WHILE iColCnt < iHighestColCnt
       szWriteBuffer = "<td>&nbsp</td>"
       WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )

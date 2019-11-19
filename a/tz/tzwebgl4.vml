@@ -690,12 +690,12 @@ GenJSPJ_CrteCheckBox( VIEW vDialog BASED ON LOD TZWDLGSO,
 
    // Format an CHECKBOX control.
    VIEW vDialogRoot BASED ON LOD TZWDLGSO
-   STRING ( 1024 ) szStyle
+   STRING ( 300 ) szStyle
    STRING ( 256 ) szClass
    STRING ( 256 ) szTitle
    STRING ( 256 ) szTitleHTML
    STRING ( 100 ) szDisabled
-   STRING ( 1024 ) szPosition
+   STRING ( 300 ) szPosition
    STRING ( 16 )  szTabIndex
    STRING ( 20 )  szSpaces
    STRING ( 256 ) szBlob
@@ -897,7 +897,7 @@ GenJSPJ_CrteComboBox( VIEW vDialog BASED ON LOD TZWDLGSO,
    STRING ( 32 )  szContextName
    STRING ( 32 )  szScopingEntityName
    STRING ( 32 )  szListEntityName
-   STRING ( 1024 ) szStyle
+   STRING ( 300 ) szStyle
    STRING ( 256 ) szClass
    STRING ( 256 ) szTitle
    STRING ( 256 ) szTitleHTML
@@ -1548,7 +1548,7 @@ GenJSPJ_CrteCtrlsRadio( VIEW vDialog BASED ON LOD TZWDLGSO,
                        STRING ( 100 )   szRepeatGrpKey )
 
    VIEW vDialogRoot BASED ON LOD TZWDLGSO
-   STRING ( 1024 ) szStyle
+   STRING ( 300 ) szStyle
    STRING ( 256 ) szClass
    STRING ( 256 ) szTitle
    STRING ( 256 ) szCtrlTag
@@ -1556,10 +1556,10 @@ GenJSPJ_CrteCtrlsRadio( VIEW vDialog BASED ON LOD TZWDLGSO,
    STRING ( 500 ) szText
    STRING ( 500 ) szText2
    STRING ( 256 ) szTextID
-   STRING ( 256 ) szAbsoluteStyle
+   STRING ( 300 ) szAbsoluteStyle
    STRING ( 5 )   szSrch
    STRING ( 100 ) szDisabled
-   STRING ( 1024 )  szPosition
+   STRING ( 100 ) szPosition
    STRING ( 16 )  szTabIndex
    STRING ( 32 )  szActionName
    STRING ( 1 )   szFirstTimeThru
@@ -1844,7 +1844,7 @@ GenJSPJ_CrteGridRadio( VIEW vDialog BASED ON LOD TZWDLGSO,
                        STRING ( 100 )   szRepeatGrpKey )
 
    VIEW vDialogRoot BASED ON LOD TZWDLGSO
-   STRING ( 256 ) szStyle
+   STRING ( 300 ) szStyle
    STRING ( 256 ) szClass
    STRING ( 256 ) szTitle
    STRING ( 256 ) szCtrlTag
@@ -1852,10 +1852,10 @@ GenJSPJ_CrteGridRadio( VIEW vDialog BASED ON LOD TZWDLGSO,
    STRING ( 500 ) szText
    STRING ( 500 ) szText2
    STRING ( 256 ) szTextID
-   STRING ( 256 ) szAbsoluteStyle
+   STRING ( 300 ) szAbsoluteStyle
    STRING ( 5 )   szSrch
    STRING ( 100 ) szDisabled
-   STRING ( 16 )  szPosition
+   STRING ( 100 ) szPosition
    STRING ( 16 )  szTabIndex
    STRING ( 32 )  szActionName
    STRING ( 1 )   szFirstTimeThru
@@ -2130,7 +2130,7 @@ GenJSPJ_CrteGroupTable( VIEW vDialog BASED ON LOD TZWDLGSO,
    STRING ( 256 ) szTitle
    STRING ( 256 ) szTitleHTML
    STRING ( 256 ) szHTML5Attr
-   STRING ( 1024 ) szStyle
+   STRING ( 300 ) szStyle
    STRING ( 256 ) szClass
    STRING ( 32 )  szActionName
    STRING ( 50 )  szControlType
@@ -2142,7 +2142,7 @@ GenJSPJ_CrteGroupTable( VIEW vDialog BASED ON LOD TZWDLGSO,
    STRING ( 32 )  szContextName
    STRING ( 10 )  szMaxStringLth
    STRING ( 32 )  szSize
-   STRING ( 1024 ) szAbsoluteStyle
+   STRING ( 300 ) szAbsoluteStyle
 
    STRING ( 1 )   szNoHeightFlag
    STRING ( 1 )   szNoWidthFlag
@@ -2894,7 +2894,7 @@ GenJSPJ_CrteEditBox( VIEW vDialog BASED ON LOD TZWDLGSO,
    STRING ( 32 )  szContextName
    STRING ( 300 ) szValue
    STRING ( 600 ) szBlob
-   STRING ( 1024 ) szStyle
+   STRING ( 300 ) szStyle
    STRING ( 256 ) szClass
    STRING ( 256 ) szTitle
    STRING ( 256 ) szTitleHTML
@@ -2924,7 +2924,7 @@ GenJSPJ_CrteEditBox( VIEW vDialog BASED ON LOD TZWDLGSO,
    STRING ( 10 )  szWidth
    DECIMAL        dDLUnits
    STRING ( 100 )  szSize
-   STRING ( 1024 )  szPosition
+   STRING ( 100 )  szPosition
 
    //TraceLineS("*** GenJSPJ_CrteEditBox *** ", "")
    
@@ -3319,7 +3319,7 @@ GenJSPJ_CrteText( VIEW vDialog      BASED ON LOD TZWDLGSO,
    // Format a TEXT control.
 
    STRING ( 32 )  szContextName
-   STRING ( 1024 ) szStyle
+   STRING ( 300 ) szStyle
    STRING ( 256 ) szClassHTML
    STRING ( 256 ) szTitle
    STRING ( 256 ) szTitleHTML
@@ -3760,7 +3760,7 @@ GenJSPJ_CrteJPG( VIEW vDialog BASED ON LOD TZWDLGSO,
 
    STRING ( 32 )  szContextName
    STRING ( 256 ) szClass
-   STRING ( 1024 ) szStyle
+   STRING ( 300 ) szStyle
    STRING ( 16 )  szTabIndex
    STRING ( 256 ) szTitle
    STRING ( 256 ) szTitleHTML
@@ -3930,7 +3930,7 @@ GenJSPJ_CrteListBox( VIEW vDialog,
    STRING ( 32 )  szListEntityName
    STRING ( 32 )  szAttributeName
    STRING ( 32 )  szEntityName
-   STRING ( 1024 ) szStyle
+   STRING ( 300 ) szStyle
    STRING ( 256 ) szClass
    STRING ( 256 ) szTitle
    STRING ( 256 ) szTitleHTML
@@ -4210,7 +4210,7 @@ GenJSPJ_CrteListBoxAsList( VIEW vDialog,
    STRING ( 32 )  szAttributeName
    STRING ( 32 )  szEntityName
    STRING ( 32 )  szjMobile
-   STRING ( 1024 ) szStyle
+   STRING ( 300 ) szStyle
    STRING ( 256 ) szClass
    STRING ( 256 ) szHTML5Attr
    STRING ( 256 ) szTitle
@@ -4570,7 +4570,7 @@ GenJSPJ_CrteMLEdit( VIEW vDialog BASED ON LOD TZWDLGSO,
    STRING ( 50 )  szSize
    STRING ( 50 )  szWidth
    STRING ( 50 )  szHeight
-   STRING ( 1024 ) szAbsoluteStyle
+   STRING ( 300 ) szAbsoluteStyle
    STRING ( 256 ) szTitleHTML
    STRING ( 256 ) szTitle
    STRING ( 50 )  szTabIndex
@@ -4847,7 +4847,7 @@ GenJSPJ_CrtePushButton( VIEW vDialog BASED ON LOD TZWDLGSO,
    STRING ( 32 )  szContextName
    STRING ( 300 ) szValue
    STRING ( 600 ) szBlob
-   STRING ( 1024 ) szStyle
+   STRING ( 300 ) szStyle
    STRING ( 256 ) szClass
    STRING ( 256 ) szTitle
    STRING ( 256 ) szTitleHTML
@@ -5164,7 +5164,7 @@ GenJSPJ_CrteFileTransferForm( VIEW vDialog,
    STRING ( 50 )    szCSS_Class
    STRING ( 256 )   szClass
    STRING ( 32 )    szCtrlTag
-   STRING ( 1024 )  szStyle
+   STRING ( 300 )   szStyle
    STRING ( 34 )    szActionTag
    STRING ( 50 )    szControlType
    STRING ( 500 )   szText
@@ -5203,7 +5203,7 @@ GenJSPJ_CrteFileTransferForm( VIEW vDialog,
 
    DECIMAL        dDLUnits
    STRING ( 100 )  szSize
-   STRING ( 1024 )  szPosition
+   STRING ( 100 )  szPosition
 
    
    // KJS 11/07/16 - For file transfer, since it doesn't place the controls correctly (if there are more controls than the

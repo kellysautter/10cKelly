@@ -105,7 +105,7 @@ typedef struct tagzTZWDLGSO_Window_DEF
    zCHAR CSS_Class[ 51 ];
    zLONG WEB_Timeout;
    zCHAR WEB_PageHeadInclude[ 255 ];
-   zCHAR WEB_TopMenuInclude[ 255 ];
+   zCHAR WEB_TopBannerName[ 255 ];
    zCHAR WEB_FooterInclude[ 255 ];
    zCHAR WEB_ReusableMenuWindow[ 255 ];
    zCHAR WEB_NoBannerFlag[ 2 ];
