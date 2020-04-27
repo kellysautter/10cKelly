@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Template|Win32">
+      <Configuration>Template</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectName>ZDrApp</ProjectName>
+    <SccProjectName />
+    <SccLocalPath />
+    <Keyword>MFCProj</Keyword>
+    <ProjectGuid>{9BC113D0-D2E5-4233-9ED1-4FA26968429A}</ProjectGuid>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Template|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v141</PlatformToolset>
+    <UseOfMfc>Dynamic</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v141</PlatformToolset>
+    <UseOfMfc>Dynamic</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Template|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.Cpp.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.Cpp.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>c:\10c\w\bin\</OutDir>
+    <IntDir>.\$(Configuration)\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+    <LibraryPath>C:\lplr\Microsoft Visual Studio\VC98\mfc\lib;C:\lplr\Microsoft Visual Studio\VC98\lib;C:\10C\w\libz;C:\10C\w\libr</LibraryPath>
+    <IncludePath>C:\lplr\Microsoft Visual Studio\VC98\atl\include;C:\lplr\Microsoft Visual Studio\VC98\mfc\include;C:\lplr\Microsoft Visual Studio\VC98\mfc\src;C:\lplr\Microsoft Visual Studio\VC98\include;C:\10C\w\incz;C:\10C\w\incr;C:\10C\a\incz;C:\10C\a\incr</IncludePath>
+    <ExecutablePath>C:\lplr\Microsoft Visual Studio\VC98\Bin;c:\10c\w\bin;$(ExecutablePath)</ExecutablePath>
+    <SourcePath>C:\lplr\Microsoft Visual Studio\VC98\MFC\SRC;C:\lplr\Microsoft Visual Studio\VC98\ATL\SRC</SourcePath>
+    <ExcludePath />
+    <ReferencePath>C:\lplr\Microsoft Visual Studio\VC98\MFC\Lib;C:\lplr\Microsoft Visual Studio\VC98\Lib;$(ReferencePath)</ReferencePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>.\Release\</OutDir>
+    <IntDir>.\Release\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <FunctionLevelLinking>false</FunctionLevelLinking>
+      <Optimization>Disabled</Optimization>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <WarningLevel>Level3</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <MinimalRebuild>true</MinimalRebuild>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_DEBUG;_AFXEXT;WIN32;_WINDOWS;__WIN32__;QUINSOFT;_NOANCHOR;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AssemblerListingLocation>.\Debug\</AssemblerListingLocation>
+      <BrowseInformation>true</BrowseInformation>
+      <PrecompiledHeaderOutputFile>.\Debug\ZdrApp.pch</PrecompiledHeaderOutputFile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>ZDr.h</PrecompiledHeaderFile>
+      <ObjectFileName>.\Debug\</ObjectFileName>
+      <ProgramDataBaseFileName>.\Debug\</ProgramDataBaseFileName>
+    </ClCompile>
+    <Midl>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <TypeLibraryName>.\Debug\ZdrApp.tlb</TypeLibraryName>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <TargetEnvironment>Win32</TargetEnvironment>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0409</Culture>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\Debug/ZDr.bsc</OutputFile>
+    </Bscmake>
+    <Link>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <LinkDLL>true</LinkDLL>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <OutputFile>c:\10c\w\bin\$(TargetName)$(TargetExt)</OutputFile>
+      <ImportLibrary>c:\10c\w\libr\$(TargetName).lib</ImportLibrary>
+      <AdditionalLibraryDirectories>c:\10c\w\libz;c:\10c\w\libr;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>vfw32.lib;kzoengaa.lib;jpeglib.lib;tapi32.lib;Activeds.lib;Adsiid.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ModuleDefinitionFile>.\ZDrApp.def</ModuleDefinitionFile>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <StringPooling>true</StringPooling>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <Optimization>MaxSpeed</Optimization>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <WarningLevel>Level3</WarningLevel>
+      <TreatWarningAsError>false</TreatWarningAsError>
+      <AdditionalIncludeDirectories>$(KZD):\$(KZV)\w\incz;$(KZD):\$(KZV)\w\incr;$(KZD):\$(KZV)\a\incz;$(KZD):\$(KZV)\a\incr;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>NDEBUG;_AFXEXT;WIN32;_WINDOWS;__WIN32__;QUINSOFT;_NOANCHOR;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AssemblerListingLocation>.\Release\</AssemblerListingLocation>
+      <PrecompiledHeaderOutputFile>.\Release\ZdrApp.pch</PrecompiledHeaderOutputFile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>ZDr.h</PrecompiledHeaderFile>
+      <ObjectFileName>.\Release\</ObjectFileName>
+      <ProgramDataBaseFileName>.\Release\</ProgramDataBaseFileName>
+    </ClCompile>
+    <Midl>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <TypeLibraryName>.\Release\ZdrApp.tlb</TypeLibraryName>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <TargetEnvironment>Win32</TargetEnvironment>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0409</Culture>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\Release\ZdrApp.bsc</OutputFile>
+    </Bscmake>
+    <Link>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <LinkDLL>true</LinkDLL>
+      <SubSystem>Windows</SubSystem>
+      <OutputFile>..\..\w\bin\ZDrApp.dll</OutputFile>
+      <ImportLibrary>..\..\w\libr\ZDrApp.lib</ImportLibrary>
+      <AdditionalLibraryDirectories>$(KZD):\$(KZV)\w\libz;$(KZD):\$(KZV)\w\libr;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>vfw32.lib;kzoengaa.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ModuleDefinitionFile>.\ZDrApp.def</ModuleDefinitionFile>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="ZDrAct.cpp">
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\lplr\Microsoft Visual Studio\VC98\atl\include;C:\lplr\Microsoft Visual Studio\VC98\mfc\include;C:\lplr\Microsoft Visual Studio\VC98\mfc\src;C:\lplr\Microsoft Visual Studio\VC98\include;C:\10C\w\incz;C:\10C\w\incr;C:\10C\a\incz;C:\10C\a\incr;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ClCompile Include="ZDrApp.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">ZDr.h</PrecompiledHeaderFile>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">ZDr.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="ZDrAxLst.cpp" />
+    <ClCompile Include="ZDRCCDLG.CPP" />
+    <ClCompile Include="ZDrCmdLN.cpp" />
+    <ClCompile Include="ZDRCMPRS.CPP" />
+    <ClCompile Include="ZDrComm.cpp" />
+    <ClCompile Include="ZDrCoolB.cpp" />
+    <ClCompile Include="ZDrCtl.cpp" />
+    <ClCompile Include="ZDrDebug.cpp" />
+    <ClCompile Include="ZDrDIB.cpp" />
+    <ClCompile Include="ZDrDlgA.cpp" />
+    <ClCompile Include="ZDrDlgC.cpp" />
+    <ClCompile Include="ZDrDlgM.cpp" />
+    <ClCompile Include="ZDrDlgO.cpp" />
+    <ClCompile Include="ZDrDlgP.cpp" />
+    <ClCompile Include="ZDrDlgW.cpp" />
+    <ClCompile Include="ZDrDoc.cpp" />
+    <ClCompile Include="ZDrFlatB.cpp" />
+    <ClCompile Include="ZDrFont.cpp" />
+    <ClCompile Include="ZDrFrame.cpp" />
+    <ClCompile Include="ZDrMapAc.cpp" />
+    <ClCompile Include="ZDrMenu.cpp" />
+    <ClCompile Include="ZDrMisc.cpp" />
+    <ClCompile Include="ZDrMsgHK.cpp" />
+    <ClCompile Include="ZDrMsgQ.cpp" />
+    <ClCompile Include="ZDrOle.cpp" />
+    <ClCompile Include="ZDrOpt.cpp" />
+    <ClCompile Include="ZDrPalHK.cpp" />
+    <ClCompile Include="ZDrParse.cpp" />
+    <ClCompile Include="ZDrPrint.cpp" />
+    <ClCompile Include="ZDrPrtC.cpp" />
+    <ClCompile Include="ZDrSTask.cpp" />
+    <ClCompile Include="ZDrTask.cpp" />
+    <ClCompile Include="ZdrTwain.cpp" />
+    <ClCompile Include="ZDrUtil.cpp" />
+    <ClCompile Include="ZDrVCtrl.cpp" />
+    <ClCompile Include="ZDrView.cpp" />
+    <ClCompile Include="ZDrVStr.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="BCOPY1.cur" />
+    <CustomBuild Include="BCOPYM.cur" />
+    <CustomBuild Include="BDROPNOT.cur" />
+    <CustomBuild Include="BMOVE.cur" />
+    <CustomBuild Include="BMOVE1.cur" />
+    <CustomBuild Include="BMOVEM.cur" />
+    <CustomBuild Include="BPROMOTE.cur" />
+    <CustomBuild Include="DROPNOT.cur" />
+    <CustomBuild Include="DROPOKC1.cur" />
+    <CustomBuild Include="DROPOKCM.cur" />
+    <CustomBuild Include="DROPOKM1.cur" />
+    <CustomBuild Include="DROPOKMM.cur" />
+    <CustomBuild Include="HAND1.cur" />
+    <CustomBuild Include="HSPLIT.cur" />
+    <CustomBuild Include="VSPLIT.cur" />
+    <CustomBuild Include="XSPLIT.cur" />
+    <CustomBuild Include="ZDrApp.def" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="ZDrApp.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\hello.ico" />
+    <Image Include="res\texttype.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="jpeglib\JPegLib.vcxproj">
+      <Project>{ddd7696e-accc-420e-808e-cd84aedac1cd}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
