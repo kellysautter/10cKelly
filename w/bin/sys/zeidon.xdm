@@ -1,4 +1,4 @@
-z1000-Zeidon    ZEIDON   TZDMXGPO 06/24/19   12:33:35 1.0a2    
+z1000-Zeidon    ZEIDON   TZDMXGPO 06/10/20   18:13:41 1.0a2    
 eDomainGroup 1
 aName      Zeidon9B
 
@@ -5813,6 +5813,11 @@ aExternalValue Start Jasper XLS File
 aInternalValue 49
 
 eTableEntry 4
+aZKey      130069853
+aExternalValue Process ReportStreamInfo
+aInternalValue 50
+
+eTableEntry 4
 aZKey      4847905
 aExternalValue Replace Dialog with Dialog
 aInternalValue 51
@@ -6987,6 +6992,16 @@ eTableEntry 4
 aZKey      130001478
 aExternalValue No Positioning
 aInternalValue N
+
+eTableEntry 4
+aZKey      130069851
+aExternalValue Bootstrap
+aInternalValue B
+
+eTableEntry 4
+aZKey      130069852
+aExternalValue jMobile
+aInternalValue J
 
 eDomain    2
 aJavaClass com.quinsoft.zeidon.domains.StaticTableDomain

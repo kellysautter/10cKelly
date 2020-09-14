@@ -7542,6 +7542,9 @@ CtrlListRefreshCtrls( zVIEW  vSubtask )
    RefreshCtrl( vSubtask, "CSS_Position" );
    RefreshCtrl( vSubtask, "CSS_Size" );
    RefreshCtrl( vSubtask, "TabOrder" );
+   RefreshCtrl(vSubtask, "WebCtrlType");
+   RefreshCtrl(vSubtask, "WebCtrlLink");
+   RefreshCtrl(vSubtask, "WebHTML5");
 
    return( 0 );
 } // CtrlListRefreshCtrls
@@ -7579,6 +7582,8 @@ CtrlListEnableCtrls( zVIEW  vSubtask,
    SetCtrlState( vSubtask, "CSS_Position", zCONTROL_STATUS_ENABLED, nEnable );
    SetCtrlState( vSubtask, "CSS_Size", zCONTROL_STATUS_ENABLED, nEnable );
    SetCtrlState( vSubtask, "TabOrder", zCONTROL_STATUS_ENABLED, nEnable );
+   SetCtrlState( vSubtask, "WebCtrlLink", zCONTROL_STATUS_ENABLED, nEnable);
+   SetCtrlState( vSubtask, "WebHTML5", zCONTROL_STATUS_ENABLED, nEnable);
 
    CtrlListRefreshCtrls( vSubtask );
 
@@ -7977,7 +7982,10 @@ SaveCtrlList( zVIEW vSubtask )
            MapCtrl( vSubtask, "CSS_Font" ) == 0 &&
            MapCtrl( vSubtask, "CSS_Position" ) == 0 &&
            MapCtrl( vSubtask, "CSS_Size" ) == 0 &&
-           MapCtrl( vSubtask, "TabOrder" ) == 0 )
+           MapCtrl( vSubtask, "TabOrder" ) == 0 &&
+	   MapCtrl( vSubtask, "WebCtrlLink") == 0 &&
+	   MapCtrl( vSubtask, "WebHTML5") == 0 &&
+           MapCtrl( vSubtask, "WebCtrlType" ) == 0 )
       {
          zCHAR szTag[ 33 ];
 
@@ -9517,23 +9525,25 @@ fnCloneCtrlMap( zVIEW     vTgt,
 
 // Return TRUE if a duplicate tag is found.
 zBOOL
-fnEnsureUniqueCtrlTag( zVIEW vSubtask, zCPCHAR cpcCtrlTag )
+fnEnsureUniqueCtrlTag( zVIEW vSubtask, zCPCHAR cpcCtrlTag, zLONG lTgtZKey )
 {
    zPCHAR pchTag;
    zBOOL  bDuplicate = FALSE;
+   zLONG    lZKey = 0;
    zSHORT nRC = SetCursorFirstEntity( vSubtask, "Control", 0 );
 
    while ( bDuplicate == FALSE && nRC >= zCURSOR_SET )
    {
       GetAddrForAttribute( &pchTag, vSubtask, "Control", "Tag" );
-      if ( zstrcmp( cpcCtrlTag, pchTag ) == 0 )
+      GetIntegerFromAttribute(&lZKey, vSubtask, "Control", "ZKey");
+      if ( zstrcmp( cpcCtrlTag, pchTag ) == 0  && lZKey != lTgtZKey )
       {
          bDuplicate = TRUE;
       }
       else
       if ( SetViewToSubobject( vSubtask, "CtrlCtrl" ) >= 0 )
       {
-         bDuplicate = fnEnsureUniqueCtrlTag( vSubtask, cpcCtrlTag );
+         bDuplicate = fnEnsureUniqueCtrlTag( vSubtask, cpcCtrlTag, lTgtZKey );
          ResetViewFromSubobject( vSubtask );
       }
 
@@ -9604,12 +9614,16 @@ fnCloneControl( zVIEW     vSrcLPLR,
    SetAttributeFromString( vSrcC, "Control", "Tag",
                            "__&&&__^^^__Clone__@@@__%%%__" );
 
+   // KJS 01/27/20 - When copy/pasting controls, in fnEnsureUniqueCtrlTag, we were looking at the control Tag, but
+   // we didn't consider the zkey, so fnEnsureUniqueCtrlTag was always finding a duplicate, even when the tag was unique on the page. 
+   // Added the target controls zkey so we can also compare that.
+   GetIntegerFromAttribute(&lKey, vTgtC, "Control", "ZKey");
    CreateViewFromViewForTask( &vDialog, vTgtC, 0 );
    while ( ResetViewFromSubobject( vDialog ) == 0 )
    {
    }
 
-   if ( fnEnsureUniqueCtrlTag( vDialog, szTag ) )
+   if ( fnEnsureUniqueCtrlTag( vDialog, szTag, lKey ) )
    {
       // Force unique CtrlTag here.
       nLth = zstrlen( szTag );
@@ -9623,7 +9637,7 @@ fnCloneControl( zVIEW     vSrcLPLR,
          nLth = 3;
       }
 
-      while ( fnEnsureUniqueCtrlTag( vDialog, szTag ) )
+      while ( fnEnsureUniqueCtrlTag( vDialog, szTag, lKey ) )
       {
          lUniqueId++;
          zltoa( lUniqueId, szTag + nLth );

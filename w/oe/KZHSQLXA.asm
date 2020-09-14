@@ -33,7 +33,7 @@ _DATA	ENDS
 ;	COMDAT ??_C@_04FCOP@Type?$AA@
 _DATA	SEGMENT DWORD USE32 PUBLIC 'DATA'
 _DATA	ENDS
-;	COMDAT ??_C@_0BF@EJAL@Jun?517?52019?510?335?307?$AA@
+;	COMDAT ??_C@_0BF@GGPK@Nov?521?52019?511?328?331?$AA@
 _DATA	SEGMENT DWORD USE32 PUBLIC 'DATA'
 _DATA	ENDS
 ;	COMDAT ??_C@_0CD@BONL@Compile?5date?1time?5for?5KZHSQLXX?5i@
@@ -509,7 +509,7 @@ PUBLIC	??_C@_0CB@LKIL@Can?8t?5find?5DB?9Handler?5work?5view?4@ ; `string'
 PUBLIC	??_C@_0L@PDLM@Zeidon?5DBH?$AA@			; `string'
 PUBLIC	??_C@_00A@?$AA@					; `string'
 PUBLIC	??_C@_04FCOP@Type?$AA@				; `string'
-PUBLIC	??_C@_0BF@EJAL@Jun?517?52019?510?335?307?$AA@	; `string'
+PUBLIC	??_C@_0BF@GGPK@Nov?521?52019?511?328?331?$AA@	; `string'
 PUBLIC	??_C@_0CD@BONL@Compile?5date?1time?5for?5KZHSQLXX?5i@ ; `string'
 EXTRN	_GetViewByName@16:NEAR
 EXTRN	_CreateEntity@12:NEAR
@@ -541,9 +541,9 @@ _DATA	ENDS
 _DATA	SEGMENT
 ??_C@_04FCOP@Type?$AA@ DB 'Type', 00H			; `string'
 _DATA	ENDS
-;	COMDAT ??_C@_0BF@EJAL@Jun?517?52019?510?335?307?$AA@
+;	COMDAT ??_C@_0BF@GGPK@Nov?521?52019?511?328?331?$AA@
 _DATA	SEGMENT
-??_C@_0BF@EJAL@Jun?517?52019?510?335?307?$AA@ DB 'Jun 17 2019 10:35:07', 00H ; `string'
+??_C@_0BF@GGPK@Nov?521?52019?511?328?331?$AA@ DB 'Nov 21 2019 11:28:31', 00H ; `string'
 _DATA	ENDS
 ;	COMDAT ??_C@_0CD@BONL@Compile?5date?1time?5for?5KZHSQLXX?5i@
 _DATA	SEGMENT
@@ -725,7 +725,7 @@ $L57448:
 ; 863  :       TraceLineS( "Compile date/time for " DBHANDLER_NAME " is ",
 ; 864  :                   __DATE__ " " __TIME__ );
 
-	push	OFFSET FLAT:??_C@_0BF@EJAL@Jun?517?52019?510?335?307?$AA@ ; `string'
+	push	OFFSET FLAT:??_C@_0BF@GGPK@Nov?521?52019?511?328?331?$AA@ ; `string'
 	push	OFFSET FLAT:??_C@_0CD@BONL@Compile?5date?1time?5for?5KZHSQLXX?5i@ ; `string'
 	call	_TraceLineS@8
 

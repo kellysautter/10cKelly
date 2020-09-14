@@ -88,7 +88,7 @@ CLEAN :
     if not exist "$(OUTDIR)/$(NULL)" mkdir "$(OUTDIR)"
 
 CPP=cl.exe
-CPP_PROJ=/nologo /MD /W3 /GX /O2 /I "$(KZD):\$(KZV)\w\incz" /I "$(KZD):\$(KZV)\w\incr" /I "$(KZD):\$(KZV)\a\incz" /I "$(KZD):\$(KZV)\a\incr" /D "NDEBUG" /D "_AFXEXT" /D "WIN32" /D "_WINDOWS" /D "_MBCS" /D "__WIN32__" /D "QUINSOFT" /D "_NOANCHOR" /Fp"$(INTDIR)\ZdCtl.pch" /Yu"ZdCtl.h" /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /c 
+CPP_PROJ=/nologo /MD /W3 /GX /O2 /I "c:\10c\w\incz" /I "c:\10c\w\incr" /I "c:\10c\a\incz" /I "c:\10c\a\incr" /D "NDEBUG" /D "_AFXEXT" /D "WIN32" /D "_WINDOWS" /D "_MBCS" /D "__WIN32__" /D "QUINSOFT" /D "_NOANCHOR" /Fp"$(INTDIR)\ZdCtl.pch" /Yu"ZdCtl.h" /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /c 
 
 .c{$(INTDIR)}.obj::
    $(CPP) @<<
@@ -129,7 +129,7 @@ BSC32_FLAGS=/nologo /o"$(OUTDIR)\ZdCtl.bsc"
 BSC32_SBRS= \
 	
 LINK32=link.exe
-LINK32_FLAGS=ZDrApp.lib kzoengaa.lib /nologo /subsystem:windows /dll /incremental:no /pdb:"$(OUTDIR)\ZdCtl.pdb" /machine:I386 /def:".\ZdCtl.def" /out:"..\..\w\bin\ZdCtl.dll" /implib:"..\..\w\libr\ZdCtl.lib" /libpath:"$(KZD):\$(KZV)\w\libz" /libpath:"$(KZD):\$(KZV)\w\libr" 
+LINK32_FLAGS=ZDrApp.lib kzoengaa.lib /nologo /subsystem:windows /dll /incremental:no /pdb:"$(OUTDIR)\ZdCtl.pdb" /machine:I386 /def:".\ZdCtl.def" /out:"..\..\w\bin\ZdCtl.dll" /implib:"..\..\w\libr\ZdCtl.lib" /libpath:"c:\10c\w\libz" /libpath:"c:\10c\w\libr" 
 DEF_FILE= \
 	".\ZdCtl.def"
 LINK32_OBJS= \
@@ -276,7 +276,7 @@ CLEAN :
     if not exist "$(OUTDIR)/$(NULL)" mkdir "$(OUTDIR)"
 
 CPP=cl.exe
-CPP_PROJ=/nologo /MDd /W3 /WX /Gm /GX /ZI /Od /I "$(KZD):\$(KZV)\w\incz" /I "$(KZD):\$(KZV)\w\incr" /I "$(KZD):\$(KZV)\a\incz" /I "$(KZD):\$(KZV)\a\incr" /D "_DEBUG" /D "_AFXEXT" /D "WIN32" /D "_WINDOWS" /D "_MBCS" /D "__WIN32__" /D "QUINSOFT" /D "_NOANCHOR" /FR"$(INTDIR)\\" /Fp"$(INTDIR)\ZdCtl.pch" /Yu"ZdCtl.h" /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /c 
+CPP_PROJ=/nologo /MDd /W3 /WX /Gm /GX /ZI /Od /I "c:\10c\w\incz" /I "c:\10c\w\incr" /I "c:\10c\a\incz" /I "c:\10c\a\incr" /D "_DEBUG" /D "_AFXEXT" /D "WIN32" /D "_WINDOWS" /D "_MBCS" /D "__WIN32__" /D "QUINSOFT" /D "_NOANCHOR" /FR"$(INTDIR)\\" /Fp"$(INTDIR)\ZdCtl.pch" /Yu"ZdCtl.h" /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /c 
 
 .c{$(INTDIR)}.obj::
    $(CPP) @<<
@@ -354,7 +354,7 @@ BSC32_SBRS= \
 <<
 
 LINK32=link.exe
-LINK32_FLAGS=ZDrApp.lib kzoengaa.lib jpeglib.lib msimg32.lib /nologo /subsystem:windows /dll /incremental:yes /pdb:"$(OUTDIR)\ZdCtl.pdb" /debug /machine:I386 /def:".\ZdCtl.def" /out:"..\..\w\bin\ZdCtl.dll" /implib:"..\..\w\libr\ZdCtl.lib" /libpath:"$(KZD):\$(KZV)\w\libz" /libpath:"$(KZD):\$(KZV)\w\libr" 
+LINK32_FLAGS=ZDrApp.lib kzoengaa.lib jpeglib.lib msimg32.lib /nologo /subsystem:windows /dll /incremental:yes /pdb:"$(OUTDIR)\ZdCtl.pdb" /debug /machine:I386 /def:".\ZdCtl.def" /out:"..\..\w\bin\ZdCtl.dll" /implib:"..\..\w\libr\ZdCtl.lib" /libpath:"c:\10c\w\libz" /libpath:"c:\10c\w\libr" 
 DEF_FILE= \
 	".\ZdCtl.def"
 LINK32_OBJS= \
@@ -416,7 +416,7 @@ SOURCE=.\ZdCtl.cpp
 
 !IF  "$(CFG)" == "ZdCtl - Win32 Release"
 
-CPP_SWITCHES=/nologo /MD /W3 /GX /O2 /I "$(KZD):\$(KZV)\w\incz" /I "$(KZD):\$(KZV)\w\incr" /I "$(KZD):\$(KZV)\a\incz" /I "$(KZD):\$(KZV)\a\incr" /D "NDEBUG" /D "_AFXEXT" /D "WIN32" /D "_WINDOWS" /D "_MBCS" /D "__WIN32__" /D "QUINSOFT" /D "_NOANCHOR" /Fp"$(INTDIR)\ZdCtl.pch" /Yc"ZdCtl.h" /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /c 
+CPP_SWITCHES=/nologo /MD /W3 /GX /O2 /I "c:\10c\w\incz" /I "c:\10c\w\incr" /I "c:\10c\a\incz" /I "c:\10c\a\incr" /D "NDEBUG" /D "_AFXEXT" /D "WIN32" /D "_WINDOWS" /D "_MBCS" /D "__WIN32__" /D "QUINSOFT" /D "_NOANCHOR" /Fp"$(INTDIR)\ZdCtl.pch" /Yc"ZdCtl.h" /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /c 
 
 "$(INTDIR)\ZdCtl.obj"	"$(INTDIR)\ZdCtl.pch" : $(SOURCE) "$(INTDIR)"
 	$(CPP) @<<
@@ -426,7 +426,7 @@ CPP_SWITCHES=/nologo /MD /W3 /GX /O2 /I "$(KZD):\$(KZV)\w\incz" /I "$(KZD):\$(KZ
 
 !ELSEIF  "$(CFG)" == "ZdCtl - Win32 Debug"
 
-CPP_SWITCHES=/nologo /MDd /W3 /WX /Gm /GX /ZI /Od /I "$(KZD):\$(KZV)\w\incz" /I "$(KZD):\$(KZV)\w\incr" /I "$(KZD):\$(KZV)\a\incz" /I "$(KZD):\$(KZV)\a\incr" /D "_DEBUG" /D "_AFXEXT" /D "WIN32" /D "_WINDOWS" /D "_MBCS" /D "__WIN32__" /D "QUINSOFT" /D "_NOANCHOR" /FR"$(INTDIR)\\" /Fp"$(INTDIR)\ZdCtl.pch" /Yc"ZdCtl.h" /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /c 
+CPP_SWITCHES=/nologo /MDd /W3 /WX /Gm /GX /ZI /Od /I "c:\10c\w\incz" /I "c:\10c\w\incr" /I "c:\10c\a\incz" /I "c:\10c\a\incr" /D "_DEBUG" /D "_AFXEXT" /D "WIN32" /D "_WINDOWS" /D "_MBCS" /D "__WIN32__" /D "QUINSOFT" /D "_NOANCHOR" /FR"$(INTDIR)\\" /Fp"$(INTDIR)\ZdCtl.pch" /Yc"ZdCtl.h" /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /c 
 
 "$(INTDIR)\ZdCtl.obj"	"$(INTDIR)\ZdCtl.sbr"	"$(INTDIR)\ZdCtl.pch" : $(SOURCE) "$(INTDIR)"
 	$(CPP) @<<

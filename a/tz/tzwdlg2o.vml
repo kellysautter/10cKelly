@@ -57,20 +57,14 @@ DialogRelinkDelete( VIEW vDialog BASED ON LOD TZWDLGSO, VIEW vSubtask )
    VIEW         vVOR         BASED ON LOD TZWDVORO
    VIEW         vLOD_LPLR    BASED ON LOD TZCMLPLO
    VIEW         vRecursive   BASED ON LOD TZWDLGSO
-   VIEW         vDialogTemp  BASED ON LOD TZWDLGSO
    INTEGER      LastViewZKey
-   INTEGER      ActionCtrlZKey
-   INTEGER      lControl
-   STRING (32)  szCtrlTag
-   STRING (1)   szDeleteAction
-   STRING (1000) szMsg
+   STRING (255) szMsg
    STRING ( 1 ) szContinueParseGen
    SHORT  nRC
 
    RetrieveViewForMetaList( vSubtask, vLOD_LPLR, zREFER_LOD_META )
    LastViewZKey = 0
    NAME VIEW vDialog "vDialog"
-   //TraceLineS("*** DialogRelinkDelete *** ", vDialog.Dialog.Tag )   
 
    FOR EACH vDialog.ViewObjRef
       IF LastViewZKey != 0
@@ -243,124 +237,7 @@ DialogRelinkDelete( VIEW vDialog BASED ON LOD TZWDLGSO, VIEW vSubtask )
                END
             END
          END
-         
-         // KJS 01/29/18
-         // There are actions that exist where the WndEvent/Control/Option/Hotkey no longer exists. 
-         // Well, we know there are actions where the Control no longer exists but we should check all of the options under Action (except if source code exists).
-         // We will exclude these and then delete the action if no other events/controls/hotkeys etc exist for the action...
-         IF vDialog.ActWndEvent EXISTS OR vDialog.ActCtrl EXISTS OR vDialog.ActOpt EXISTS OR vDialog.ActHot EXISTS
-                  
-            szMsg = ""
-            szDeleteAction = "Y"
-            FOR EACH vDialog.ActWndEvent 
-               SET CURSOR FIRST vDialog.WndEvent WHERE vDialog.WndEvent.ZKey = vDialog.ActWndEvent.ZKey 
-               IF RESULT >= zCURSOR_SET
-                  szDeleteAction = ""
-                  RelinkInstanceToInstance( vDialog, "ActWndEvent", vDialog, "WndEvent" )
-               ELSE 
-                  szMsg = ""
-                  szMsg = szMsg + " Dialog: " + vDialog.Dialog.Tag
-                  szMsg = szMsg + " Window: " + vDialog.Window.Tag
-                  szMsg = szMsg + " Action: " + vDialog.Action.Tag
-                  szMsg = szMsg + " EventName: " + vDialog.ActWndEvent.EventName 
-                  EXCLUDE vDialog.ActWndEvent NONE
-                  TraceLineS("    EXCLUDING ActWndEvent because it doesn't exist!! ", szMsg )
-               END 
-            END
-            FOR EACH vDialog.ActHot  
-               SET CURSOR FIRST vDialog.Hotkey WHERE vDialog.Hotkey.Tag = vDialog.ActHot.Tag 
-               IF RESULT >= zCURSOR_SET
-                  szDeleteAction = ""
-                  RelinkInstanceToInstance( vDialog, "ActHot", vDialog, "Hotkey" )
-               ELSE 
-                  szMsg = ""
-                  szMsg = szMsg + " Dialog: " + vDialog.Dialog.Tag
-                  szMsg = szMsg + " Window: " + vDialog.Window.Tag
-                  szMsg = szMsg + " Action: " + vDialog.Action.Tag
-                  szMsg = szMsg + " Hotkey: " + vDialog.ActHot.Tag 
-                  EXCLUDE vDialog.ActHot NONE
-                  TraceLineS("    EXCLUDING ActHot because it doesn't exist!! ", szMsg )
-               END 
-            END
-            // KJS 01/29/18 - We want to check if the control assigned to this action exists.
-            FOR EACH vDialog.ActEvent
-            
-               IF vDialog.ActCtrl EXISTS
-            
-                  CreateViewFromView( vDialogTemp, vDialog )
-                  NAME VIEW vDialogTemp "vDialogTemp"
-                  lControl = zQUAL_STRING + zPOS_FIRST + zRECURS
-                  szCtrlTag = vDialog.ActCtrl.ZKey
-                  nRC = SetEntityCursor( vDialogTemp, "Control", "ZKey", lControl,
-                                         szCtrlTag, "", "", 0, "Window", "" )
-                  IF nRC >= zCURSOR_SET
-                     // Now we need to set on the correct event.
-                     //SET CURSOR FIRST vDialogTemp.Event WHERE vDialogTemp.Event.ZKey = vDialog.ActEvent.ZKey  
-                     nRC = SetCursorFirstEntityByInteger( vDialogTemp, "Event", "ZKey", vDialog.ActEvent.ZKey, "" ) 
-                  END                                         
-                  // 
-                  IF nRC < zCURSOR_SET
-                     szMsg = ""
-                     szMsg = szMsg + " Dialog: " + vDialog.Dialog.Tag
-                     szMsg = szMsg + " Window: " + vDialog.Window.Tag
-                     szMsg = szMsg + " Action: " + vDialog.Action.Tag
-                     szMsg = szMsg + " ActCtl: " + vDialog.ActCtrl.Tag
-                     EXCLUDE vDialog.ActEvent NONE
-                     TraceLineS("    EXCLUDING ActEvent because control doesn't exist!! ", szMsg )
-                  ELSE
-                     RelinkInstanceToInstance( vDialog, "ActEvent", vDialogTemp, "Event" )
-                     //RelinkInstanceToInstance( vDialog, "ActCtrl", vDialogTemp, "Control" )
-                     szDeleteAction = ""
-                  END
-                  DropView( vDialogTemp )       
-      
-               ELSE
-                  szMsg = ""
-                  szMsg = szMsg + " Dialog: " + vDialog.Dialog.Tag
-                  szMsg = szMsg + " Window: " + vDialog.Window.Tag
-                  szMsg = szMsg + " Action: " + vDialog.Action.Tag
-                  // If there is no control for this event, then exclude.                
-                  TraceLineS("    EXCLUDING ActEvent because there is no ActCtrl. ", szMsg )
-                  EXCLUDE vDialog.ActEvent NONE
-               END
-            END
-            // KJS 01/29/18 - We want to check if the control assigned to this action exists.
-            FOR EACH vDialog.ActOpt 
-            
-               CreateViewFromView( vDialogTemp, vDialog )
-               NAME VIEW vDialogTemp "vDialogTemp"
-               lControl = zQUAL_STRING + zPOS_FIRST + zRECURS
-               szCtrlTag = vDialog.ActOpt.ZKey
-               nRC = SetEntityCursor( vDialogTemp, "Option", "ZKey", lControl,
-                                      szCtrlTag, "", "", 0, "Window", "" )
-               // 
-               IF nRC < zCURSOR_SET
-                  szMsg = ""
-                  szMsg = szMsg + " Dialog: " + vDialog.Dialog.Tag
-                  szMsg = szMsg + " Window: " + vDialog.Window.Tag
-                  szMsg = szMsg + " Action: " + vDialog.Action.Tag
-                  szMsg = szMsg + " ActOpt: " + vDialog.ActOpt.Tag
-                  EXCLUDE vDialog.ActOpt NONE
-                  TraceLineS("    EXCLUDING ActOpt because it doesn't exist!! ", szMsg )
-               ELSE
-                  RelinkInstanceToInstance( vDialog, "ActOpt", vDialogTemp, "Option" )
-                  szDeleteAction = ""
-               END
-               DropView( vDialogTemp )       
-            END
-            // We have looped through the events and checked if the events and controls exist for this action.
-            // Only delete this action if there are no other events/controls that call them.
-            IF szDeleteAction = "Y" AND vDialog.ActWndEvent DOES NOT EXIST AND vDialog.ActCtrl DOES NOT EXIST AND 
-               vDialog.ActOpt DOES NOT EXIST AND vDialog.ActHot DOES NOT EXIST
-                  TraceLineS("ACTION IS BEING DELETED BECAUSE IT NOW HAS NO EVENTS! ", vDialog.Action.Tag )
-                  nRC = DeleteEntity( vDialog, "Action", zREPOS_NONE )
-            END
-            
-         ELSE
-            szDeleteAction = "" // This is just a test so I can set a breakpoint.
-         END  // IF ActCtrl OR ActWndEven OR ActOpt exists.             
-         
-      END  // FOR EACH vDialog.Action
+      END
 
       FOR EACH vRecursive.Menu
          FOR EACH vDialog.Option
@@ -448,30 +325,6 @@ ControlRelinkDelete( VIEW    vDialog     BASED ON LOD TZWDLGSO,
       MessageSend( vSubtask, "WD00204", "ControlRelinkDelete",
                    szMsg, zMSGQ_OBJECT_CONSTRAINT_WARNING, 0 )
    END
-   
-   // KJS 01/30/18 - Refresh the action
-   
-   FOR EACH vControl.Event
-      SET CURSOR FIRST vDialog.Action WHERE vDialog.Action.ZKey = vControl.EventAct.ZKey 
-      IF RESULT >= zCURSOR_SET
-         RelinkInstanceToInstance( vControl, "EventAct", vDialog, "Action" )
-         //EXCLUDE vControl.EventAct NONE
-         //INCLUDE vControl.EventAct FROM vDialog.Action
-      ELSE
-         // Should something be done, if the action doesn't exist????? Like exclude Event??
-         szMsg = "Window: " + vDialog.Window.Tag
-         szMsg = szMsg + " Control: " + vControl.Control.Tag
-         IF vControl.EventAct EXISTS
-            szMsg = szMsg + " EventAct: " + vControl.EventAct.Tag
-         ELSE
-            szMsg = szMsg + " EventAct: NONE "
-         END
-         TraceLineS("*** ControlRelinkDelete Action doesn't exist for control event ", szMsg )
-         DELETE ENTITY vControl.Event NONE
-      END
-       
-   END
-   
 
    /*  For each CtrlMap, check each attribute or entity against the corresponding
        LOD to make sure that attribute or entity exists in the LOD.  If it doesn't,
@@ -536,9 +389,9 @@ ControlRelinkDelete( VIEW    vDialog     BASED ON LOD TZWDLGSO,
             END
          END
 
- //         IF vControl.CtrlMapView EXISTS
- //            RelinkInstanceToInstance( vControl, "CtrlMapView",
- //                                      vDialog, "ViewObjRef" )
+ //      IF vControl.CtrlMapView EXISTS
+ //         RelinkInstanceToInstance( vControl, "CtrlMapView",
+ //                                   vDialog, "ViewObjRef" )
 
          IF vControl.CtrlMapLOD_Attribute EXISTS
             SET CURSOR FIRST vLastLOD.LOD_Attribute WITHIN vLastLOD.LOD WHERE
@@ -566,7 +419,15 @@ ControlRelinkDelete( VIEW    vDialog     BASED ON LOD TZWDLGSO,
                ELSE
                   szMsg = "Deleting Control Mapping for:|   " + szWindowReportName +
                           "|   Control: " + vControl.Control.Tag +
-                          "| because of missing Attribute: " + vControl.CtrlMapER_Attribute.Name
+                          "|   because of missing Attribute: " + vControl.CtrlMapER_Attribute.Name +
+                          "|   in LOD: " + vControl.CtrlMapView.Name
+                  IF vControl.CtrlMapLOD_Entity EXISTS
+                     szMsg = szMsg + "|   in Entity: " + vControl.CtrlMapLOD_Entity.Name
+                  ELSE
+                  IF vControl.CtrlMapRelatedEntity EXISTS
+                     szMsg = szMsg + "|   in Entity: " + vControl.CtrlMapRelatedEntity.Name
+                  END
+                  END
                   SysReadZeidonIni( -1, "[Workstation]", "ContinueParseGen", szContinueParseGen )
                   IF szContinueParseGen = "N"
                      TraceLineS( szMsg, "" )
@@ -589,14 +450,10 @@ ControlRelinkDelete( VIEW    vDialog     BASED ON LOD TZWDLGSO,
                END
             ELSE
                // Relink or Re-Include CtrlMapLOD_Attribute, & subordinates & Context
-               //RelinkInstanceToInstance( vControl, "CtrlMapLOD_Attribute",
-               //                          vLastLOD, "LOD_Attribute" )
-               //RelinkInstanceToInstance( vControl, "CtrlMapRelatedEntity",
-               //                          vLastLOD, "LOD_Entity" )
-               //RelinkInstanceToInstance( vControl, "CtrlMapER_Attribute",
-               //                          vLastLOD, "ER_Attribute" )
-               //RelinkInstanceToInstance( vControl, "CtrlMapER_Domain",
-               //                          vLastLOD, "Domain" )
+               //RelinkInstanceToInstance( vControl, "CtrlMapLOD_Attribute", vLastLOD, "LOD_Attribute" )
+               //RelinkInstanceToInstance( vControl, "CtrlMapRelatedEntity", vLastLOD, "LOD_Entity" )
+               //RelinkInstanceToInstance( vControl, "CtrlMapER_Attribute", vLastLOD, "ER_Attribute" )
+               //RelinkInstanceToInstance( vControl, "CtrlMapER_Domain", vLastLOD, "Domain" )
 
                // If ER_Attribute or ER_Domain don't match on ZKey,
                // reinclude the LOD_Attribute entity.
@@ -678,7 +535,8 @@ ControlRelinkDelete( VIEW    vDialog     BASED ON LOD TZWDLGSO,
                ELSE
                   szMsg = "Deleting Control Mapping for:|   " + szWindowReportName +
                           "|   Control: " + vControl.Control.Tag +
-                          "| because of missing Entity: " + vControl.CtrlMapLOD_Entity.Name
+                          "| because of missing Entity: " + vControl.CtrlMapLOD_Entity.Name +
+                          "|   in LOD: " + vControl.CtrlMapView.Name
                   SysReadZeidonIni( -1, "[Workstation]", "ContinueParseGen", szContinueParseGen )
                   IF szContinueParseGen = "N"
                      TraceLineS( szMsg, "" )
@@ -948,12 +806,16 @@ NLS_ControlText( VIEW        vDialog BASED ON LOD TZWDLGSO,
 
    /*SHORT        nLanguageCode
    STRING (254) szControl
+
    SysGetLanguageCode ( nLanguageCode )
+
    CASE GetOrSetFlag
    OF   zDERIVED_GET:
+
       // Determine Control text to use by checking the NLS Language Code for a match on
       // a ControlNLS_Text entity.  If there is a match, use it.  Otherwise, use the Control.Text
       // attribute.
+
       SET CURSOR FIRST vDialog.ControlNLS_Text WHERE
                        vDialog.ControlNLS_Text.LanguageIndex = nLanguageCode
       IF RESULT >= zCURSOR_SET
@@ -961,14 +823,19 @@ NLS_ControlText( VIEW        vDialog BASED ON LOD TZWDLGSO,
       ELSE
          szControl = vDialog.Control.Text
       END
+
       StoreStringInRecord ( vDialog, lpEntity, lpAttribute, szControl )
+
         // end zDERIVED_GET
    OF   zDERIVED_SET:
+
       // As for zDERIVED_GET above, use the Language Code to store the data entered into
       // the derived attribute into the correct attribute.
       // If there is ControlNLS_Text entity that matches the Language Code, then set the data there.
       // If not, set it into the Window.Control attribute.
+
       GetStringFromRecord ( vDialog, lpEntity, lpAttribute, szControl, 254 )
+
       SET CURSOR FIRST vDialog.ControlNLS_Text WHERE
                        vDialog.ControlNLS_Text.LanguageIndex = nLanguageCode
       IF RESULT >= zCURSOR_SET
@@ -976,6 +843,7 @@ NLS_ControlText( VIEW        vDialog BASED ON LOD TZWDLGSO,
       ELSE
          vDialog.Control.Text = szControl
       END
+
         // end zDERIVED_SET
    END  // case */
 
@@ -1080,5 +948,65 @@ NLS_ControlDIL_Text( VIEW        vDialog BASED ON LOD TZWDLGSO,
 
         /* end zDERIVED_SET */
    END  /* case */
+
+END
+
+/////////////////////////////////////////////////////////////////////////////
+//
+//  OPERATION: CtrlListDisplayValue
+//
+/////////////////////////////////////////////////////////////////////////////
+DERIVED ATTRIBUTE OPERATION
+CtrlListDisplayValue( VIEW vDialog BASED ON LOD TZWDLGSO,
+                      STRING ( 32 ) lpEntity,
+                      STRING ( 32 ) lpAttribute,
+                      SHORT GetOrSetFlag )
+   STRING (254) szValue
+
+   CASE GetOrSetFlag
+   OF   zDERIVED_GET:
+   
+      IF vDialog.Control.WebCtrlLabelLink != ""
+         szValue = vDialog.Control.Tag + "/" + vDialog.Control.WebCtrlLabelLink  
+      ELSE
+         szValue = vDialog.Control.Tag   
+      END
+      StoreStringInRecord ( vDialog, lpEntity, lpAttribute, szValue )
+
+        // end zDERIVED_GET
+   OF   zDERIVED_SET:
+
+        // end zDERIVED_SET
+   END  // case
+
+END
+
+/////////////////////////////////////////////////////////////////////////////
+//
+//  OPERATION: CtrlListDisplayValueC
+//
+/////////////////////////////////////////////////////////////////////////////
+DERIVED ATTRIBUTE OPERATION
+CtrlListDisplayValueC( VIEW vDialog BASED ON LOD TZWDLGSO,
+                       STRING ( 32 ) lpEntity,
+                       STRING ( 32 ) lpAttribute,
+                       SHORT GetOrSetFlag )
+   STRING (254) szValue
+
+   CASE GetOrSetFlag
+   OF   zDERIVED_GET:
+   
+      IF vDialog.CtrlCtrl.WebCtrlLabelLink != ""
+         szValue = vDialog.CtrlCtrl.Tag + "/" + vDialog.CtrlCtrl.WebCtrlLabelLink  
+      ELSE
+         szValue = vDialog.CtrlCtrl.Tag   
+      END
+      StoreStringInRecord ( vDialog, lpEntity, lpAttribute, szValue )
+
+        // end zDERIVED_GET
+   OF   zDERIVED_SET:
+
+        // end zDERIVED_SET
+   END  // case
 
 END

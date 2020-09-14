@@ -254,9 +254,9 @@ fnParseGenTarget( zVIEW vSubtask, zVIEW vTaskLPLR, zCPCHAR cpcGenLang )
    zCHAR  szXPG[ zMAX_FILESPEC_LTH + 1 ];
    zCHAR  szSourceFile[ zMAX_FILESPEC_LTH + 1 ];
    zCHAR  szTargetFile[ zMAX_FILESPEC_LTH + 1 ];
-   zBOOL  bParseOnly;
-   zBOOL  bAlwaysParse;
-   zBOOL  bAlwaysGen;
+   zBOOL  bParseOnly = FALSE;
+   zBOOL  bAlwaysParse = FALSE;
+   zBOOL  bAlwaysGen = FALSE;
    zLONG  lMakeOption;
    zCHAR  szMetaName[ 33 ];
    zCHAR  szMetaName2[ 33 ];
@@ -432,7 +432,7 @@ fnParseGenTarget( zVIEW vSubtask, zVIEW vTaskLPLR, zCPCHAR cpcGenLang )
          zCHAR szSourceDateTime[ 20 ];
          zCHAR szSourceBase[ 20 ];
          zCHAR szMsg[ 200 ];
-         zBOOL bParsed;
+         zBOOL bParsed = FALSE;
 
          // If the language type is .C, then we don't need to parse/generate
          // so skip it.

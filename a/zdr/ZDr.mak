@@ -54,7 +54,7 @@ CLEAN :
     if not exist "$(OUTDIR)/$(NULL)" mkdir "$(OUTDIR)"
 
 CPP=cl.exe
-CPP_PROJ=/nologo /MD /W3 /GX /O2 /I "$(KZD):\$(KZV)\w\incz" /I "$(KZD):\$(KZV)\w\incr" /I "$(KZD):\$(KZV)\a\incz" /I "$(KZD):\$(KZV)\a\incr" /D "NDEBUG" /D "_AFXDLL" /D "WIN32" /D "_WINDOWS" /D "_MBCS" /D "__WIN32__" /D "QUINSOFT" /D "_NOANCHOR" /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /c 
+CPP_PROJ=/nologo /MD /W3 /GX /O2 /I "c:\10c\w\incz" /I "c:\10c\w\incr" /I "c:\10c\a\incz" /I "c:\10c\a\incr" /D "NDEBUG" /D "_AFXDLL" /D "WIN32" /D "_WINDOWS" /D "_MBCS" /D "__WIN32__" /D "QUINSOFT" /D "_NOANCHOR" /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /c 
 
 .c{$(INTDIR)}.obj::
    $(CPP) @<<
@@ -95,7 +95,7 @@ BSC32_FLAGS=/nologo /o"$(OUTDIR)\Zdr.bsc"
 BSC32_SBRS= \
 	
 LINK32=link.exe
-LINK32_FLAGS=ZDrApp.lib kzoengaa.lib /nologo /subsystem:windows /incremental:no /pdb:"$(OUTDIR)\ZDr.pdb" /machine:I386 /out:"..\..\w\bin\ZDr.exe" /libpath:"$(KZD):\$(KZV)\w\libz" /libpath:"$(KZD):\$(KZV)\w\libr" 
+LINK32_FLAGS=ZDrApp.lib kzoengaa.lib /nologo /subsystem:windows /incremental:no /pdb:"$(OUTDIR)\ZDr.pdb" /machine:I386 /out:"..\..\w\bin\ZDr.exe" /libpath:"c:\10c\w\libz" /libpath:"c:\10c\w\libr" 
 LINK32_OBJS= \
 	"$(INTDIR)\ZDr.obj" \
 	"$(INTDIR)\ZDr.res" \
@@ -152,7 +152,7 @@ CLEAN :
     if not exist "$(OUTDIR)/$(NULL)" mkdir "$(OUTDIR)"
 
 CPP=cl.exe
-CPP_PROJ=/nologo /MDd /W3 /WX /Gm /GX /ZI /Od /I "." /I "$(KZD):\$(KZV)\w\incz" /I "$(KZD):\$(KZV)\w\incr" /I "$(KZD):\$(KZV)\a\incz" /I "$(KZD):\$(KZV)\a\incr" /D "_DEBUG" /D "_AFXDLL" /D "WIN32" /D "_WINDOWS" /D "_MBCS" /D "__WIN32__" /D "QUINSOFT" /D "_NOANCHOR" /FR"$(INTDIR)\\" /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /c 
+CPP_PROJ=/nologo /MDd /W3 /WX /Gm /GX /ZI /Od /I "." /I "c:\10c\w\incz" /I "c:\10c\w\incr" /I "c:\10c\a\incz" /I "c:\10c\a\incr" /D "_DEBUG" /D "_AFXDLL" /D "WIN32" /D "_WINDOWS" /D "_MBCS" /D "__WIN32__" /D "QUINSOFT" /D "_NOANCHOR" /FR"$(INTDIR)\\" /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /c 
 
 .c{$(INTDIR)}.obj::
    $(CPP) @<<
@@ -199,7 +199,7 @@ BSC32_SBRS= \
 <<
 
 LINK32=link.exe
-LINK32_FLAGS=ZDrApp.lib kzoengaa.lib kzrpsrco.lib /nologo /subsystem:windows /incremental:yes /pdb:"$(OUTDIR)\ZDr.pdb" /debug /machine:I386 /out:"..\..\w\bin\ZDr.exe" /libpath:"$(KZD):\$(KZV)\w\libz" /libpath:"$(KZD):\$(KZV)\w\libr" 
+LINK32_FLAGS=ZDrApp.lib kzoengaa.lib kzrpsrco.lib /nologo /subsystem:windows /incremental:yes /pdb:"$(OUTDIR)\ZDr.pdb" /debug /machine:I386 /out:"..\..\w\bin\ZDr.exe" /libpath:"c:\10c\w\libz" /libpath:"c:\10c\w\libr" 
 LINK32_OBJS= \
 	"$(INTDIR)\ZDr.obj" \
 	"$(INTDIR)\ZDr.res" \
@@ -236,7 +236,7 @@ SOURCE=.\ZDr.cpp
 
 !IF  "$(CFG)" == "ZDr - Win32 Release"
 
-CPP_SWITCHES=/nologo /MD /W3 /GX /O2 /I "$(KZD):\$(KZV)\w\incz" /I "$(KZD):\$(KZV)\w\incr" /I "$(KZD):\$(KZV)\a\incz" /I "$(KZD):\$(KZV)\a\incr" /D "NDEBUG" /D "_AFXDLL" /D "WIN32" /D "_WINDOWS" /D "_MBCS" /D "__WIN32__" /D "QUINSOFT" /D "_NOANCHOR" /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /c 
+CPP_SWITCHES=/nologo /MD /W3 /GX /O2 /I "c:\10c\w\incz" /I "c:\10c\w\incr" /I "c:\10c\a\incz" /I "c:\10c\a\incr" /D "NDEBUG" /D "_AFXDLL" /D "WIN32" /D "_WINDOWS" /D "_MBCS" /D "__WIN32__" /D "QUINSOFT" /D "_NOANCHOR" /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /c 
 
 "$(INTDIR)\ZDr.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) @<<
@@ -246,7 +246,7 @@ CPP_SWITCHES=/nologo /MD /W3 /GX /O2 /I "$(KZD):\$(KZV)\w\incz" /I "$(KZD):\$(KZ
 
 !ELSEIF  "$(CFG)" == "ZDr - Win32 Debug"
 
-CPP_SWITCHES=/nologo /MDd /W3 /WX /Gm /GX /ZI /Od /I "." /I "$(KZD):\$(KZV)\w\incz" /I "$(KZD):\$(KZV)\w\incr" /I "$(KZD):\$(KZV)\a\incz" /I "$(KZD):\$(KZV)\a\incr" /D "_DEBUG" /D "_AFXDLL" /D "WIN32" /D "_WINDOWS" /D "_MBCS" /D "__WIN32__" /D "QUINSOFT" /D "_NOANCHOR" /FR"$(INTDIR)\\" /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /c 
+CPP_SWITCHES=/nologo /MDd /W3 /WX /Gm /GX /ZI /Od /I "." /I "c:\10c\w\incz" /I "c:\10c\w\incr" /I "c:\10c\a\incz" /I "c:\10c\a\incr" /D "_DEBUG" /D "_AFXDLL" /D "WIN32" /D "_WINDOWS" /D "_MBCS" /D "__WIN32__" /D "QUINSOFT" /D "_NOANCHOR" /FR"$(INTDIR)\\" /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /c 
 
 "$(INTDIR)\ZDr.obj"	"$(INTDIR)\ZDr.sbr" : $(SOURCE) "$(INTDIR)"
 	$(CPP) @<<

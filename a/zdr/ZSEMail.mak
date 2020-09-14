@@ -129,7 +129,7 @@ CLEAN :
     if not exist "$(OUTDIR)/$(NULL)" mkdir "$(OUTDIR)"
 
 CPP=cl.exe
-CPP_PROJ=/nologo /MDd /W3 /WX /Gm /GX /ZI /Od /I "$(KZD):\$(KZV)\w\incz" /I "$(KZD):\$(KZV)\w\incr" /I "$(KZD):\$(KZV)\a\incz" /I "$(KZD):\$(KZV)\a\incr" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_WINDLL" /D "_AFXDLL" /D "_MBCS" /D "_USRDLL" /D "__WIN32__" /D "QUINSOFT" /D "_NOANCHOR" /FR"$(INTDIR)\\" /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /GZ /c 
+CPP_PROJ=/nologo /MDd /W3 /WX /Gm /GX /ZI /Od /I "c:\10c\w\incz" /I "c:\10c\w\incr" /I "c:\10c\a\incz" /I "c:\10c\a\incr" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_WINDLL" /D "_AFXDLL" /D "_MBCS" /D "_USRDLL" /D "__WIN32__" /D "QUINSOFT" /D "_NOANCHOR" /FR"$(INTDIR)\\" /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /GZ /c 
 
 .c{$(INTDIR)}.obj::
    $(CPP) @<<
@@ -176,7 +176,7 @@ BSC32_SBRS= \
 <<
 
 LINK32=link.exe
-LINK32_FLAGS=kzoengaa.lib zdrapp.lib Ws2_32.lib see32.lib /nologo /subsystem:windows /dll /incremental:yes /pdb:"$(OUTDIR)\ZSEMail.pdb" /debug /machine:I386 /def:".\ZSEMail.def" /out:"..\..\w\bin\ZSEMail.dll" /implib:"..\..\w\libr\ZSEMail.lib" /pdbtype:sept /libpath:"$(KZD):\$(KZV)\w\libz" /libpath:"$(KZD):\$(KZV)\w\libr" 
+LINK32_FLAGS=kzoengaa.lib zdrapp.lib Ws2_32.lib see32.lib /nologo /subsystem:windows /dll /incremental:yes /pdb:"$(OUTDIR)\ZSEMail.pdb" /debug /machine:I386 /def:".\ZSEMail.def" /out:"..\..\w\bin\ZSEMail.dll" /implib:"..\..\w\libr\ZSEMail.lib" /pdbtype:sept /libpath:"c:\10c\w\libz" /libpath:"c:\10c\w\libr" 
 DEF_FILE= \
 	".\ZSEMail.def"
 LINK32_OBJS= \

@@ -12,6 +12,20 @@ extern "C"
 #include "ZEIDONOP.H"
 
 zOPER_EXPORT zSHORT OPERATION
+oTZWDLGSO_CtrlListDisplayValueC( zVIEW     vDialog,
+                                 LPVIEWENTITY lpEntity,
+                                 LPVIEWATTRIB lpAttribute,
+                                 zSHORT    GetOrSetFlag );
+
+
+zOPER_EXPORT zSHORT OPERATION
+oTZWDLGSO_CtrlListDisplayValue( zVIEW     vDialog,
+                                LPVIEWENTITY lpEntity,
+                                LPVIEWATTRIB lpAttribute,
+                                zSHORT    GetOrSetFlag );
+
+
+zOPER_EXPORT zSHORT OPERATION
 oTZWDLGSO_NLS_ControlText( zVIEW     vDialog,
                            LPVIEWENTITY lpEntity,
                            LPVIEWATTRIB lpAttribute,
@@ -89,21 +103,21 @@ oTZWDLGSO_ControlRelinkDelete( zVIEW     vDialog,
    zLONG     lTempInteger_1; 
    zCHAR     szTempString_2[ 33 ]; 
    zLONG     lTempInteger_2; 
-   zLONG     lTempInteger_3; 
+   zSHORT    lTempInteger_3; 
+   zLONG     lTempInteger_4; 
    zCHAR     szTempString_3[ 33 ]; 
    zCHAR     szTempString_4[ 33 ]; 
-   zSHORT    lTempInteger_4; 
+   zLONG     lTempInteger_5; 
    zCHAR     szTempString_5[ 33 ]; 
-   zSHORT    lTempInteger_5; 
-   zLONG     lTempInteger_6; 
    zCHAR     szTempString_6[ 33 ]; 
-   zCHAR     szTempString_7[ 33 ]; 
+   zSHORT    lTempInteger_6; 
    zLONG     lTempInteger_7; 
+   zCHAR     szTempString_7[ 33 ]; 
    zCHAR     szTempString_8[ 33 ]; 
    zCHAR     szTempString_9[ 33 ]; 
    zSHORT    lTempInteger_8; 
-   zLONG     lTempInteger_9; 
    zCHAR     szTempString_10[ 33 ]; 
+   zSHORT    lTempInteger_9; 
    zCHAR     szTempString_11[ 33 ]; 
    zSHORT    lTempInteger_10; 
    zSHORT    lTempInteger_11; 
@@ -119,6 +133,7 @@ oTZWDLGSO_ControlRelinkDelete( zVIEW     vDialog,
    zLONG     lTempInteger_18; 
    zCHAR     szTempString_15[ 33 ]; 
    zCHAR     szTempString_16[ 33 ]; 
+   zCHAR     szTempString_17[ 33 ]; 
 
 
    //://  Get View to Presentation Environment.
@@ -236,66 +251,6 @@ oTZWDLGSO_ControlRelinkDelete( zVIEW     vDialog,
 
    //:END
 
-   //:// KJS 01/30/18 - Refresh the action
-
-   //:FOR EACH vControl.Event
-   RESULT = SetCursorFirstEntity( vControl, "Event", "" );
-   while ( RESULT > zCURSOR_UNCHANGED )
-   { 
-      //:SET CURSOR FIRST vDialog.Action WHERE vDialog.Action.ZKey = vControl.EventAct.ZKey 
-      GetIntegerFromAttribute( &lTempInteger_3, vControl, "EventAct", "ZKey" );
-      RESULT = SetCursorFirstEntityByInteger( vDialog, "Action", "ZKey", lTempInteger_3, "" );
-      //:IF RESULT >= zCURSOR_SET
-      if ( RESULT >= zCURSOR_SET )
-      { 
-         //:RelinkInstanceToInstance( vControl, "EventAct", vDialog, "Action" )
-         RelinkInstanceToInstance( vControl, "EventAct", vDialog, "Action" );
-         //://EXCLUDE vControl.EventAct NONE
-         //://INCLUDE vControl.EventAct FROM vDialog.Action
-         //:ELSE
-      } 
-      else
-      { 
-         //:// Should something be done, if the action doesn't exist????? Like exclude Event??
-         //:szMsg = "Window: " + vDialog.Window.Tag
-         GetVariableFromAttribute( szTempString_3, 0, 'S', 33, vDialog, "Window", "Tag", "", 0 );
-         ZeidonStringCopy( szMsg, 1, 0, "Window: ", 1, 0, 256 );
-         ZeidonStringConcat( szMsg, 1, 0, szTempString_3, 1, 0, 256 );
-         //:szMsg = szMsg + " Control: " + vControl.Control.Tag
-         ZeidonStringConcat( szMsg, 1, 0, " Control: ", 1, 0, 256 );
-         GetVariableFromAttribute( szTempString_4, 0, 'S', 33, vControl, "Control", "Tag", "", 0 );
-         ZeidonStringConcat( szMsg, 1, 0, szTempString_4, 1, 0, 256 );
-         //:IF vControl.EventAct EXISTS
-         lTempInteger_4 = CheckExistenceOfEntity( vControl, "EventAct" );
-         if ( lTempInteger_4 == 0 )
-         { 
-            //:szMsg = szMsg + " EventAct: " + vControl.EventAct.Tag
-            ZeidonStringConcat( szMsg, 1, 0, " EventAct: ", 1, 0, 256 );
-            GetVariableFromAttribute( szTempString_5, 0, 'S', 33, vControl, "EventAct", "Tag", "", 0 );
-            ZeidonStringConcat( szMsg, 1, 0, szTempString_5, 1, 0, 256 );
-            //:ELSE
-         } 
-         else
-         { 
-            //:szMsg = szMsg + " EventAct: NONE "
-            ZeidonStringConcat( szMsg, 1, 0, " EventAct: NONE ", 1, 0, 256 );
-         } 
-
-         //:END
-         //:TraceLineS("*** ControlRelinkDelete Action doesn't exist for control event ", szMsg )
-         TraceLineS( "*** ControlRelinkDelete Action doesn't exist for control event ", szMsg );
-         //:DELETE ENTITY vControl.Event NONE
-         RESULT = DeleteEntity( vControl, "Event", zREPOS_NONE );
-      } 
-
-      RESULT = SetCursorNextEntity( vControl, "Event", "" );
-      //:END
-   } 
-
-   //:    
-   //:END
-
-
    //:/*  For each CtrlMap, check each attribute or entity against the corresponding
    //:    LOD to make sure that attribute or entity exists in the LOD.  If it doesn't,
    //:    delete the CtrlMap.  */
@@ -304,16 +259,16 @@ oTZWDLGSO_ControlRelinkDelete( zVIEW     vDialog,
    while ( RESULT > zCURSOR_UNCHANGED )
    { 
       //:IF vControl.CtrlMapView EXISTS
-      lTempInteger_5 = CheckExistenceOfEntity( vControl, "CtrlMapView" );
-      if ( lTempInteger_5 == 0 )
+      lTempInteger_3 = CheckExistenceOfEntity( vControl, "CtrlMapView" );
+      if ( lTempInteger_3 == 0 )
       { 
          //:IF LastViewZKey != vControl.CtrlMapView.ZKey
          if ( CompareAttributeToInteger( vControl, "CtrlMapView", "ZKey", *LastViewZKey ) != 0 )
          { 
             //:SET CURSOR FIRST vDialog.ViewObjRef WHERE
             //:    vDialog.ViewObjRef.ZKey = vControl.CtrlMapView.ZKey
-            GetIntegerFromAttribute( &lTempInteger_6, vControl, "CtrlMapView", "ZKey" );
-            RESULT = SetCursorFirstEntityByInteger( vDialog, "ViewObjRef", "ZKey", lTempInteger_6, "" );
+            GetIntegerFromAttribute( &lTempInteger_4, vControl, "CtrlMapView", "ZKey" );
+            RESULT = SetCursorFirstEntityByInteger( vDialog, "ViewObjRef", "ZKey", lTempInteger_4, "" );
             //:IF RESULT >= zCURSOR_SET
             if ( RESULT >= zCURSOR_SET )
             { 
@@ -325,8 +280,8 @@ oTZWDLGSO_ControlRelinkDelete( zVIEW     vDialog,
             { 
                //:SET CURSOR FIRST vDialog.ViewObjRef WHERE
                //:    vDialog.ViewObjRef.Name = vControl.CtrlMapView.Name
-               GetStringFromAttribute( szTempString_6, vControl, "CtrlMapView", "Name" );
-               RESULT = SetCursorFirstEntityByString( vDialog, "ViewObjRef", "Name", szTempString_6, "" );
+               GetStringFromAttribute( szTempString_3, vControl, "CtrlMapView", "Name" );
+               RESULT = SetCursorFirstEntityByString( vDialog, "ViewObjRef", "Name", szTempString_3, "" );
                //:IF RESULT >= zCURSOR_SET
                if ( RESULT >= zCURSOR_SET )
                { 
@@ -350,11 +305,11 @@ oTZWDLGSO_ControlRelinkDelete( zVIEW     vDialog,
                   ZeidonStringCopy( szMsg, 1, 0, "Deleting Control Mapping for:\n  ", 1, 0, 256 );
                   ZeidonStringConcat( szMsg, 1, 0, szWindowReportName, 1, 0, 256 );
                   ZeidonStringConcat( szMsg, 1, 0, "\n  Control: ", 1, 0, 256 );
-                  GetVariableFromAttribute( szTempString_6, 0, 'S', 33, vControl, "Control", "Tag", "", 0 );
-                  ZeidonStringConcat( szMsg, 1, 0, szTempString_6, 1, 0, 256 );
+                  GetVariableFromAttribute( szTempString_3, 0, 'S', 33, vControl, "Control", "Tag", "", 0 );
+                  ZeidonStringConcat( szMsg, 1, 0, szTempString_3, 1, 0, 256 );
                   ZeidonStringConcat( szMsg, 1, 0, "\nbecause of missing View: ", 1, 0, 256 );
-                  GetVariableFromAttribute( szTempString_7, 0, 'S', 33, vControl, "CtrlMapView", "Name", "", 0 );
-                  ZeidonStringConcat( szMsg, 1, 0, szTempString_7, 1, 0, 256 );
+                  GetVariableFromAttribute( szTempString_4, 0, 'S', 33, vControl, "CtrlMapView", "Name", "", 0 );
+                  ZeidonStringConcat( szMsg, 1, 0, szTempString_4, 1, 0, 256 );
                   //:SysReadZeidonIni( -1, "[Workstation]", "ContinueParseGen", szContinueParseGen )
                   SysReadZeidonIni( -1, "[Workstation]", "ContinueParseGen", szContinueParseGen );
                   //:IF szContinueParseGen = "N"
@@ -398,15 +353,15 @@ oTZWDLGSO_ControlRelinkDelete( zVIEW     vDialog,
 
                //:nRC = ActivateMetaOI_ByZKey( vSubtask, vLastLOD, 0, zREFER_LOD_META,
                //:                             zSINGLE, vDialog.LOD.ZKey, 0 )
-               GetIntegerFromAttribute( &lTempInteger_7, vDialog, "LOD", "ZKey" );
-               nRC = ActivateMetaOI_ByZKey( vSubtask, vLastLOD, 0, zREFER_LOD_META, zSINGLE, lTempInteger_7, 0 );
+               GetIntegerFromAttribute( &lTempInteger_5, vDialog, "LOD", "ZKey" );
+               nRC = ActivateMetaOI_ByZKey( vSubtask, vLastLOD, 0, zREFER_LOD_META, zSINGLE, lTempInteger_5, 0 );
                //:IF nRC < 0
                if ( nRC < 0 )
                { 
                   //:nRC = ActivateMetaOI_ByName( vSubtask, vLastLOD, 0, zREFER_LOD_META,
                   //:                             zSINGLE, vDialog.LOD.Name, 0 )
-                  GetStringFromAttribute( szTempString_8, vDialog, "LOD", "Name" );
-                  nRC = ActivateMetaOI_ByName( vSubtask, vLastLOD, 0, zREFER_LOD_META, zSINGLE, szTempString_8, 0 );
+                  GetStringFromAttribute( szTempString_5, vDialog, "LOD", "Name" );
+                  nRC = ActivateMetaOI_ByName( vSubtask, vLastLOD, 0, zREFER_LOD_META, zSINGLE, szTempString_5, 0 );
                } 
 
                //:END
@@ -417,9 +372,9 @@ oTZWDLGSO_ControlRelinkDelete( zVIEW     vDialog,
                   //:// If we get here, we have a Zeidon error.
                   //:szMsg = "Deleting CtrlMap due to LOD load error.| Registered View Name: " +
                   //:        vDialog.ViewObjRef.Name
-                  GetVariableFromAttribute( szTempString_9, 0, 'S', 33, vDialog, "ViewObjRef", "Name", "", 0 );
+                  GetVariableFromAttribute( szTempString_6, 0, 'S', 33, vDialog, "ViewObjRef", "Name", "", 0 );
                   ZeidonStringCopy( szMsg, 1, 0, "Deleting CtrlMap due to LOD load error.\nRegistered View Name: ", 1, 0, 256 );
-                  ZeidonStringConcat( szMsg, 1, 0, szTempString_9, 1, 0, 256 );
+                  ZeidonStringConcat( szMsg, 1, 0, szTempString_6, 1, 0, 256 );
                   //:MessageSend( vSubtask, "WD00507", "Control Relink",
                   //:             szMsg, zMSGQ_OBJECT_CONSTRAINT_WARNING, 0 )
                   MessageSend( vSubtask, "WD00507", "Control Relink", szMsg, zMSGQ_OBJECT_CONSTRAINT_WARNING, 0 );
@@ -443,18 +398,18 @@ oTZWDLGSO_ControlRelinkDelete( zVIEW     vDialog,
 
          //:END
 
-         //://         IF vControl.CtrlMapView EXISTS
-         //://            RelinkInstanceToInstance( vControl, "CtrlMapView",
-         //://                                      vDialog, "ViewObjRef" )
+         //://      IF vControl.CtrlMapView EXISTS
+         //://         RelinkInstanceToInstance( vControl, "CtrlMapView",
+         //://                                   vDialog, "ViewObjRef" )
 
          //:IF vControl.CtrlMapLOD_Attribute EXISTS
-         lTempInteger_8 = CheckExistenceOfEntity( vControl, "CtrlMapLOD_Attribute" );
-         if ( lTempInteger_8 == 0 )
+         lTempInteger_6 = CheckExistenceOfEntity( vControl, "CtrlMapLOD_Attribute" );
+         if ( lTempInteger_6 == 0 )
          { 
             //:SET CURSOR FIRST vLastLOD.LOD_Attribute WITHIN vLastLOD.LOD WHERE
             //:    vLastLOD.LOD_Attribute.ZKey = vControl.CtrlMapLOD_Attribute.ZKey
-            GetIntegerFromAttribute( &lTempInteger_9, vControl, "CtrlMapLOD_Attribute", "ZKey" );
-            RESULT = SetCursorFirstEntityByInteger( *vLastLOD, "LOD_Attribute", "ZKey", lTempInteger_9, "LOD" );
+            GetIntegerFromAttribute( &lTempInteger_7, vControl, "CtrlMapLOD_Attribute", "ZKey" );
+            RESULT = SetCursorFirstEntityByInteger( *vLastLOD, "LOD_Attribute", "ZKey", lTempInteger_7, "LOD" );
             //:IF RESULT < 0
             if ( RESULT < 0 )
             { 
@@ -463,15 +418,15 @@ oTZWDLGSO_ControlRelinkDelete( zVIEW     vDialog,
                //:// and recreated.  In this case, re-include the Attribute.
                //:SET CURSOR FIRST vLastLOD.LOD_Entity WHERE
                //:                 vLastLOD.LOD_Entity.Name = vControl.CtrlMapRelatedEntity.Name
-               GetStringFromAttribute( szTempString_10, vControl, "CtrlMapRelatedEntity", "Name" );
-               RESULT = SetCursorFirstEntityByString( *vLastLOD, "LOD_Entity", "Name", szTempString_10, "" );
+               GetStringFromAttribute( szTempString_7, vControl, "CtrlMapRelatedEntity", "Name" );
+               RESULT = SetCursorFirstEntityByString( *vLastLOD, "LOD_Entity", "Name", szTempString_7, "" );
                //:IF RESULT >= zCURSOR_SET
                if ( RESULT >= zCURSOR_SET )
                { 
                   //:SET CURSOR FIRST vLastLOD.ER_Attribute WITHIN vLastLOD.LOD_Entity WHERE
                   //:                 vLastLOD.ER_Attribute.Name = vControl.CtrlMapER_Attribute.Name
-                  GetStringFromAttribute( szTempString_10, vControl, "CtrlMapER_Attribute", "Name" );
-                  RESULT = SetCursorFirstEntityByString( *vLastLOD, "ER_Attribute", "Name", szTempString_10, "LOD_Entity" );
+                  GetStringFromAttribute( szTempString_7, vControl, "CtrlMapER_Attribute", "Name" );
+                  RESULT = SetCursorFirstEntityByString( *vLastLOD, "ER_Attribute", "Name", szTempString_7, "LOD_Entity" );
                   //:IF RESULT >= zCURSOR_SET     //
                   if ( RESULT >= zCURSOR_SET )
                   { 
@@ -508,15 +463,45 @@ oTZWDLGSO_ControlRelinkDelete( zVIEW     vDialog,
                { 
                   //:szMsg = "Deleting Control Mapping for:|   " + szWindowReportName +
                   //:        "|   Control: " + vControl.Control.Tag +
-                  //:        "| because of missing Attribute: " + vControl.CtrlMapER_Attribute.Name
+                  //:        "|   because of missing Attribute: " + vControl.CtrlMapER_Attribute.Name +
+                  //:        "|   in LOD: " + vControl.CtrlMapView.Name
                   ZeidonStringCopy( szMsg, 1, 0, "Deleting Control Mapping for:\n  ", 1, 0, 256 );
                   ZeidonStringConcat( szMsg, 1, 0, szWindowReportName, 1, 0, 256 );
                   ZeidonStringConcat( szMsg, 1, 0, "\n  Control: ", 1, 0, 256 );
-                  GetVariableFromAttribute( szTempString_10, 0, 'S', 33, vControl, "Control", "Tag", "", 0 );
-                  ZeidonStringConcat( szMsg, 1, 0, szTempString_10, 1, 0, 256 );
-                  ZeidonStringConcat( szMsg, 1, 0, "\nbecause of missing Attribute: ", 1, 0, 256 );
-                  GetVariableFromAttribute( szTempString_11, 0, 'S', 33, vControl, "CtrlMapER_Attribute", "Name", "", 0 );
-                  ZeidonStringConcat( szMsg, 1, 0, szTempString_11, 1, 0, 256 );
+                  GetVariableFromAttribute( szTempString_7, 0, 'S', 33, vControl, "Control", "Tag", "", 0 );
+                  ZeidonStringConcat( szMsg, 1, 0, szTempString_7, 1, 0, 256 );
+                  ZeidonStringConcat( szMsg, 1, 0, "\n  because of missing Attribute: ", 1, 0, 256 );
+                  GetVariableFromAttribute( szTempString_8, 0, 'S', 33, vControl, "CtrlMapER_Attribute", "Name", "", 0 );
+                  ZeidonStringConcat( szMsg, 1, 0, szTempString_8, 1, 0, 256 );
+                  ZeidonStringConcat( szMsg, 1, 0, "\n  in LOD: ", 1, 0, 256 );
+                  GetVariableFromAttribute( szTempString_9, 0, 'S', 33, vControl, "CtrlMapView", "Name", "", 0 );
+                  ZeidonStringConcat( szMsg, 1, 0, szTempString_9, 1, 0, 256 );
+                  //:IF vControl.CtrlMapLOD_Entity EXISTS
+                  lTempInteger_8 = CheckExistenceOfEntity( vControl, "CtrlMapLOD_Entity" );
+                  if ( lTempInteger_8 == 0 )
+                  { 
+                     //:szMsg = szMsg + "|   in Entity: " + vControl.CtrlMapLOD_Entity.Name
+                     ZeidonStringConcat( szMsg, 1, 0, "\n  in Entity: ", 1, 0, 256 );
+                     GetVariableFromAttribute( szTempString_10, 0, 'S', 33, vControl, "CtrlMapLOD_Entity", "Name", "", 0 );
+                     ZeidonStringConcat( szMsg, 1, 0, szTempString_10, 1, 0, 256 );
+                     //:ELSE
+                  } 
+                  else
+                  { 
+                     //:IF vControl.CtrlMapRelatedEntity EXISTS
+                     lTempInteger_9 = CheckExistenceOfEntity( vControl, "CtrlMapRelatedEntity" );
+                     if ( lTempInteger_9 == 0 )
+                     { 
+                        //:szMsg = szMsg + "|   in Entity: " + vControl.CtrlMapRelatedEntity.Name
+                        ZeidonStringConcat( szMsg, 1, 0, "\n  in Entity: ", 1, 0, 256 );
+                        GetVariableFromAttribute( szTempString_11, 0, 'S', 33, vControl, "CtrlMapRelatedEntity", "Name", "", 0 );
+                        ZeidonStringConcat( szMsg, 1, 0, szTempString_11, 1, 0, 256 );
+                     } 
+
+                     //:END
+                  } 
+
+                  //:END
                   //:SysReadZeidonIni( -1, "[Workstation]", "ContinueParseGen", szContinueParseGen )
                   SysReadZeidonIni( -1, "[Workstation]", "ContinueParseGen", szContinueParseGen );
                   //:IF szContinueParseGen = "N"
@@ -578,14 +563,10 @@ oTZWDLGSO_ControlRelinkDelete( zVIEW     vDialog,
             else
             { 
                //:// Relink or Re-Include CtrlMapLOD_Attribute, & subordinates & Context
-               //://RelinkInstanceToInstance( vControl, "CtrlMapLOD_Attribute",
-               //://                          vLastLOD, "LOD_Attribute" )
-               //://RelinkInstanceToInstance( vControl, "CtrlMapRelatedEntity",
-               //://                          vLastLOD, "LOD_Entity" )
-               //://RelinkInstanceToInstance( vControl, "CtrlMapER_Attribute",
-               //://                          vLastLOD, "ER_Attribute" )
-               //://RelinkInstanceToInstance( vControl, "CtrlMapER_Domain",
-               //://                          vLastLOD, "Domain" )
+               //://RelinkInstanceToInstance( vControl, "CtrlMapLOD_Attribute", vLastLOD, "LOD_Attribute" )
+               //://RelinkInstanceToInstance( vControl, "CtrlMapRelatedEntity", vLastLOD, "LOD_Entity" )
+               //://RelinkInstanceToInstance( vControl, "CtrlMapER_Attribute", vLastLOD, "ER_Attribute" )
+               //://RelinkInstanceToInstance( vControl, "CtrlMapER_Domain", vLastLOD, "Domain" )
 
                //:// If ER_Attribute or ER_Domain don't match on ZKey,
                //:// reinclude the LOD_Attribute entity.
@@ -776,7 +757,8 @@ oTZWDLGSO_ControlRelinkDelete( zVIEW     vDialog,
                { 
                   //:szMsg = "Deleting Control Mapping for:|   " + szWindowReportName +
                   //:        "|   Control: " + vControl.Control.Tag +
-                  //:        "| because of missing Entity: " + vControl.CtrlMapLOD_Entity.Name
+                  //:        "| because of missing Entity: " + vControl.CtrlMapLOD_Entity.Name +
+                  //:        "|   in LOD: " + vControl.CtrlMapView.Name
                   ZeidonStringCopy( szMsg, 1, 0, "Deleting Control Mapping for:\n  ", 1, 0, 256 );
                   ZeidonStringConcat( szMsg, 1, 0, szWindowReportName, 1, 0, 256 );
                   ZeidonStringConcat( szMsg, 1, 0, "\n  Control: ", 1, 0, 256 );
@@ -785,6 +767,9 @@ oTZWDLGSO_ControlRelinkDelete( zVIEW     vDialog,
                   ZeidonStringConcat( szMsg, 1, 0, "\nbecause of missing Entity: ", 1, 0, 256 );
                   GetVariableFromAttribute( szTempString_16, 0, 'S', 33, vControl, "CtrlMapLOD_Entity", "Name", "", 0 );
                   ZeidonStringConcat( szMsg, 1, 0, szTempString_16, 1, 0, 256 );
+                  ZeidonStringConcat( szMsg, 1, 0, "\n  in LOD: ", 1, 0, 256 );
+                  GetVariableFromAttribute( szTempString_17, 0, 'S', 33, vControl, "CtrlMapView", "Name", "", 0 );
+                  ZeidonStringConcat( szMsg, 1, 0, szTempString_17, 1, 0, 256 );
                   //:SysReadZeidonIni( -1, "[Workstation]", "ContinueParseGen", szContinueParseGen )
                   SysReadZeidonIni( -1, "[Workstation]", "ContinueParseGen", szContinueParseGen );
                   //:IF szContinueParseGen = "N"
@@ -829,6 +814,120 @@ oTZWDLGSO_ControlRelinkDelete( zVIEW     vDialog,
    } 
 
    //:END
+   return( 0 );
+// END
+} 
+
+
+//:DERIVED ATTRIBUTE OPERATION
+//:CtrlListDisplayValueC( VIEW vDialog BASED ON LOD TZWDLGSO,
+//:                       STRING ( 32 ) lpEntity,
+//:                       STRING ( 32 ) lpAttribute,
+//:                       SHORT GetOrSetFlag )
+//:   STRING (254) szValue
+zOPER_EXPORT zSHORT OPERATION
+oTZWDLGSO_CtrlListDisplayValueC( zVIEW     vDialog,
+                                 LPVIEWENTITY lpEntity,
+                                 LPVIEWATTRIB lpAttribute,
+                                 zSHORT    GetOrSetFlag )
+{
+   zCHAR     szValue[ 255 ] = { 0 }; 
+   zCHAR     szTempString_0[ 255 ]; 
+
+
+   //:CASE GetOrSetFlag
+   switch( GetOrSetFlag )
+   { 
+      //:OF   zDERIVED_GET:
+      case zDERIVED_GET :
+
+         //:IF vDialog.CtrlCtrl.WebCtrlLabelLink != ""
+         if ( CompareAttributeToString( vDialog, "CtrlCtrl", "WebCtrlLabelLink", "" ) != 0 )
+         { 
+            //:szValue = vDialog.CtrlCtrl.Tag + "/" + vDialog.CtrlCtrl.WebCtrlLabelLink  
+            GetStringFromAttribute( szValue, vDialog, "CtrlCtrl", "Tag" );
+            ZeidonStringConcat( szValue, 1, 0, "/", 1, 0, 255 );
+            GetVariableFromAttribute( szTempString_0, 0, 'S', 255, vDialog, "CtrlCtrl", "WebCtrlLabelLink", "", 0 );
+            ZeidonStringConcat( szValue, 1, 0, szTempString_0, 1, 0, 255 );
+            //:ELSE
+         } 
+         else
+         { 
+            //:szValue = vDialog.CtrlCtrl.Tag   
+            GetVariableFromAttribute( szValue, 0, 'S', 255, vDialog, "CtrlCtrl", "Tag", "", 0 );
+         } 
+
+         //:END
+         //:StoreStringInRecord ( vDialog, lpEntity, lpAttribute, szValue )
+         StoreStringInRecord( vDialog, lpEntity, lpAttribute, szValue );
+         break ;
+
+      //:  // end zDERIVED_GET
+      //:OF   zDERIVED_SET:
+      case zDERIVED_SET :
+         break ;
+   } 
+
+
+   //:     // end zDERIVED_SET
+   //:END  // case
+   return( 0 );
+// END
+} 
+
+
+//:DERIVED ATTRIBUTE OPERATION
+//:CtrlListDisplayValue( VIEW vDialog BASED ON LOD TZWDLGSO,
+//:                      STRING ( 32 ) lpEntity,
+//:                      STRING ( 32 ) lpAttribute,
+//:                      SHORT GetOrSetFlag )
+//:   STRING (254) szValue
+zOPER_EXPORT zSHORT OPERATION
+oTZWDLGSO_CtrlListDisplayValue( zVIEW     vDialog,
+                                LPVIEWENTITY lpEntity,
+                                LPVIEWATTRIB lpAttribute,
+                                zSHORT    GetOrSetFlag )
+{
+   zCHAR     szValue[ 255 ] = { 0 }; 
+   zCHAR     szTempString_0[ 255 ]; 
+
+
+   //:CASE GetOrSetFlag
+   switch( GetOrSetFlag )
+   { 
+      //:OF   zDERIVED_GET:
+      case zDERIVED_GET :
+
+         //:IF vDialog.Control.WebCtrlLabelLink != ""
+         if ( CompareAttributeToString( vDialog, "Control", "WebCtrlLabelLink", "" ) != 0 )
+         { 
+            //:szValue = vDialog.Control.Tag + "/" + vDialog.Control.WebCtrlLabelLink  
+            GetStringFromAttribute( szValue, vDialog, "Control", "Tag" );
+            ZeidonStringConcat( szValue, 1, 0, "/", 1, 0, 255 );
+            GetVariableFromAttribute( szTempString_0, 0, 'S', 255, vDialog, "Control", "WebCtrlLabelLink", "", 0 );
+            ZeidonStringConcat( szValue, 1, 0, szTempString_0, 1, 0, 255 );
+            //:ELSE
+         } 
+         else
+         { 
+            //:szValue = vDialog.Control.Tag   
+            GetVariableFromAttribute( szValue, 0, 'S', 255, vDialog, "Control", "Tag", "", 0 );
+         } 
+
+         //:END
+         //:StoreStringInRecord ( vDialog, lpEntity, lpAttribute, szValue )
+         StoreStringInRecord( vDialog, lpEntity, lpAttribute, szValue );
+         break ;
+
+      //:  // end zDERIVED_GET
+      //:OF   zDERIVED_SET:
+      case zDERIVED_SET :
+         break ;
+   } 
+
+
+   //:     // end zDERIVED_SET
+   //:END  // case
    return( 0 );
 // END
 } 
@@ -1085,20 +1184,10 @@ oTZWDLGSO_DialogRelinkDelete( zVIEW     vDialog,
    zVIEW     vLOD_LPLR = 0; 
    //:VIEW         vRecursive   BASED ON LOD TZWDLGSO
    zVIEW     vRecursive = 0; 
-   //:VIEW         vDialogTemp  BASED ON LOD TZWDLGSO
-   zVIEW     vDialogTemp = 0; 
    //:INTEGER      LastViewZKey
    zLONG     LastViewZKey = 0; 
-   //:INTEGER      ActionCtrlZKey
-   zLONG     ActionCtrlZKey = 0; 
-   //:INTEGER      lControl
-   zLONG     lControl = 0; 
-   //:STRING (32)  szCtrlTag
-   zCHAR     szCtrlTag[ 33 ] = { 0 }; 
-   //:STRING (1)   szDeleteAction
-   zCHAR     szDeleteAction[ 2 ] = { 0 }; 
-   //:STRING (1000) szMsg
-   zCHAR     szMsg[ 1001 ] = { 0 }; 
+   //:STRING (255) szMsg
+   zCHAR     szMsg[ 256 ] = { 0 }; 
    //:STRING ( 1 ) szContinueParseGen
    zCHAR     szContinueParseGen[ 2 ] = { 0 }; 
    //:SHORT  nRC
@@ -1123,37 +1212,6 @@ oTZWDLGSO_DialogRelinkDelete( zVIEW     vDialog,
    zLONG     lTempInteger_6; 
    zCHAR     szTempString_10[ 33 ]; 
    zCHAR     szTempString_11[ 33 ]; 
-   zSHORT    lTempInteger_7; 
-   zSHORT    lTempInteger_8; 
-   zSHORT    lTempInteger_9; 
-   zSHORT    lTempInteger_10; 
-   zLONG     lTempInteger_11; 
-   zCHAR     szTempString_12[ 33 ]; 
-   zCHAR     szTempString_13[ 33 ]; 
-   zCHAR     szTempString_14[ 33 ]; 
-   zCHAR     szTempString_15[ 255 ]; 
-   zCHAR     szTempString_16[ 33 ]; 
-   zCHAR     szTempString_17[ 33 ]; 
-   zCHAR     szTempString_18[ 33 ]; 
-   zCHAR     szTempString_19[ 33 ]; 
-   zSHORT    lTempInteger_12; 
-   zLONG     lTempInteger_13; 
-   zCHAR     szTempString_20[ 33 ]; 
-   zCHAR     szTempString_21[ 33 ]; 
-   zCHAR     szTempString_22[ 33 ]; 
-   zCHAR     szTempString_23[ 33 ]; 
-   zCHAR     szTempString_24[ 33 ]; 
-   zCHAR     szTempString_25[ 33 ]; 
-   zCHAR     szTempString_26[ 33 ]; 
-   zCHAR     szTempString_27[ 33 ]; 
-   zCHAR     szTempString_28[ 33 ]; 
-   zCHAR     szTempString_29[ 33 ]; 
-   zCHAR     szTempString_30[ 33 ]; 
-   zSHORT    lTempInteger_14; 
-   zSHORT    lTempInteger_15; 
-   zSHORT    lTempInteger_16; 
-   zSHORT    lTempInteger_17; 
-   zCHAR     szTempString_31[ 33 ]; 
 
 
    //:RetrieveViewForMetaList( vSubtask, vLOD_LPLR, zREFER_LOD_META )
@@ -1162,7 +1220,6 @@ oTZWDLGSO_DialogRelinkDelete( zVIEW     vDialog,
    LastViewZKey = 0;
    //:NAME VIEW vDialog "vDialog"
    SetNameForView( vDialog, "vDialog", 0, zLEVEL_TASK );
-   //://TraceLineS("*** DialogRelinkDelete *** ", vDialog.Dialog.Tag )   
 
    //:FOR EACH vDialog.ViewObjRef
    RESULT = SetCursorFirstEntity( vDialog, "ViewObjRef", "" );
@@ -1220,11 +1277,11 @@ oTZWDLGSO_DialogRelinkDelete( zVIEW     vDialog,
             //:szMsg = "Deleting Dialog View: " + vDialog.ViewObjRef.Name +
             //:        "| Missing LOD: " + vDialog.LOD.Name
             GetVariableFromAttribute( szTempString_1, 0, 'S', 33, vDialog, "ViewObjRef", "Name", "", 0 );
-            ZeidonStringCopy( szMsg, 1, 0, "Deleting Dialog View: ", 1, 0, 1001 );
-            ZeidonStringConcat( szMsg, 1, 0, szTempString_1, 1, 0, 1001 );
-            ZeidonStringConcat( szMsg, 1, 0, "\nMissing LOD: ", 1, 0, 1001 );
+            ZeidonStringCopy( szMsg, 1, 0, "Deleting Dialog View: ", 1, 0, 256 );
+            ZeidonStringConcat( szMsg, 1, 0, szTempString_1, 1, 0, 256 );
+            ZeidonStringConcat( szMsg, 1, 0, "\nMissing LOD: ", 1, 0, 256 );
             GetVariableFromAttribute( szTempString_2, 0, 'S', 33, vDialog, "LOD", "Name", "", 0 );
-            ZeidonStringConcat( szMsg, 1, 0, szTempString_2, 1, 0, 1001 );
+            ZeidonStringConcat( szMsg, 1, 0, szTempString_2, 1, 0, 256 );
             //:SysReadZeidonIni( -1, "[Workstation]", "ContinueParseGen", szContinueParseGen )
             SysReadZeidonIni( -1, "[Workstation]", "ContinueParseGen", szContinueParseGen );
             //:IF szContinueParseGen = "N"
@@ -1273,9 +1330,9 @@ oTZWDLGSO_DialogRelinkDelete( zVIEW     vDialog,
             //:szMsg = "Deleting Dialog View: " + vDialog.ViewObjRef.Name +
             //:        "| Missing Registered View."
             GetVariableFromAttribute( szTempString_4, 0, 'S', 33, vDialog, "ViewObjRef", "Name", "", 0 );
-            ZeidonStringCopy( szMsg, 1, 0, "Deleting Dialog View: ", 1, 0, 1001 );
-            ZeidonStringConcat( szMsg, 1, 0, szTempString_4, 1, 0, 1001 );
-            ZeidonStringConcat( szMsg, 1, 0, "\nMissing Registered View.", 1, 0, 1001 );
+            ZeidonStringCopy( szMsg, 1, 0, "Deleting Dialog View: ", 1, 0, 256 );
+            ZeidonStringConcat( szMsg, 1, 0, szTempString_4, 1, 0, 256 );
+            ZeidonStringConcat( szMsg, 1, 0, "\nMissing Registered View.", 1, 0, 256 );
             //:SysReadZeidonIni( -1, "[Workstation]", "ContinueParseGen", szContinueParseGen )
             SysReadZeidonIni( -1, "[Workstation]", "ContinueParseGen", szContinueParseGen );
             //:IF szContinueParseGen = "N"
@@ -1397,8 +1454,8 @@ oTZWDLGSO_DialogRelinkDelete( zVIEW     vDialog,
                            //:szMsg = "Deleting ActMap due to LOD load error.| Registered View Name: " +
                            //:        vDialog.ViewObjRef.Name
                            GetVariableFromAttribute( szTempString_6, 0, 'S', 33, vDialog, "ViewObjRef", "Name", "", 0 );
-                           ZeidonStringCopy( szMsg, 1, 0, "Deleting ActMap due to LOD load error.\nRegistered View Name: ", 1, 0, 1001 );
-                           ZeidonStringConcat( szMsg, 1, 0, szTempString_6, 1, 0, 1001 );
+                           ZeidonStringCopy( szMsg, 1, 0, "Deleting ActMap due to LOD load error.\nRegistered View Name: ", 1, 0, 256 );
+                           ZeidonStringConcat( szMsg, 1, 0, szTempString_6, 1, 0, 256 );
                            //:MessageSend( vSubtask, "WD00504", "Dialog Relink",
                            //:             szMsg, zMSGQ_OBJECT_CONSTRAINT_WARNING, 0 )
                            MessageSend( vSubtask, "WD00504", "Dialog Relink", szMsg, zMSGQ_OBJECT_CONSTRAINT_WARNING, 0 );
@@ -1424,8 +1481,8 @@ oTZWDLGSO_DialogRelinkDelete( zVIEW     vDialog,
                         //:szMsg = "Deleting Action Mapping due to missing View. | Registered View Name: " +
                         //:        vDialog.ActMapView.Name
                         GetVariableFromAttribute( szTempString_7, 0, 'S', 33, vDialog, "ActMapView", "Name", "", 0 );
-                        ZeidonStringCopy( szMsg, 1, 0, "Deleting Action Mapping due to missing View. \nRegistered View Name: ", 1, 0, 1001 );
-                        ZeidonStringConcat( szMsg, 1, 0, szTempString_7, 1, 0, 1001 );
+                        ZeidonStringCopy( szMsg, 1, 0, "Deleting Action Mapping due to missing View. \nRegistered View Name: ", 1, 0, 256 );
+                        ZeidonStringConcat( szMsg, 1, 0, szTempString_7, 1, 0, 256 );
                         //:MessageSend( vSubtask, "WD00503", "Dialog Relink",
                         //:             szMsg, zMSGQ_OBJECT_CONSTRAINT_WARNING, 0 )
                         MessageSend( vSubtask, "WD00503", "Dialog Relink", szMsg, zMSGQ_OBJECT_CONSTRAINT_WARNING, 0 );
@@ -1473,8 +1530,8 @@ oTZWDLGSO_DialogRelinkDelete( zVIEW     vDialog,
                         //:szMsg = "Deleting ActMap due to LOD load error.| Registered View Name: " +
                         //:        vDialog.ViewObjRef.Name
                         GetVariableFromAttribute( szTempString_9, 0, 'S', 33, vDialog, "ViewObjRef", "Name", "", 0 );
-                        ZeidonStringCopy( szMsg, 1, 0, "Deleting ActMap due to LOD load error.\nRegistered View Name: ", 1, 0, 1001 );
-                        ZeidonStringConcat( szMsg, 1, 0, szTempString_9, 1, 0, 1001 );
+                        ZeidonStringCopy( szMsg, 1, 0, "Deleting ActMap due to LOD load error.\nRegistered View Name: ", 1, 0, 256 );
+                        ZeidonStringConcat( szMsg, 1, 0, szTempString_9, 1, 0, 256 );
                         //:MessageSend( vSubtask, "WD00504", "Dialog Relink",
                         //:             szMsg, zMSGQ_OBJECT_CONSTRAINT_WARNING, 0 )
                         MessageSend( vSubtask, "WD00504", "Dialog Relink", szMsg, zMSGQ_OBJECT_CONSTRAINT_WARNING, 0 );
@@ -1531,11 +1588,11 @@ oTZWDLGSO_DialogRelinkDelete( zVIEW     vDialog,
                         //:        vDialog.ViewObjRef.Name + "|   LOD Entity Name: " +
                         //:        vDialog.ActMapLOD_Entity.Name
                         GetVariableFromAttribute( szTempString_10, 0, 'S', 33, vDialog, "ViewObjRef", "Name", "", 0 );
-                        ZeidonStringCopy( szMsg, 1, 0, "Deleting Action Mapping due to missing LOD Entity.\n  Registered View Name: ", 1, 0, 1001 );
-                        ZeidonStringConcat( szMsg, 1, 0, szTempString_10, 1, 0, 1001 );
-                        ZeidonStringConcat( szMsg, 1, 0, "\n  LOD Entity Name: ", 1, 0, 1001 );
+                        ZeidonStringCopy( szMsg, 1, 0, "Deleting Action Mapping due to missing LOD Entity.\n  Registered View Name: ", 1, 0, 256 );
+                        ZeidonStringConcat( szMsg, 1, 0, szTempString_10, 1, 0, 256 );
+                        ZeidonStringConcat( szMsg, 1, 0, "\n  LOD Entity Name: ", 1, 0, 256 );
                         GetVariableFromAttribute( szTempString_11, 0, 'S', 33, vDialog, "ActMapLOD_Entity", "Name", "", 0 );
-                        ZeidonStringConcat( szMsg, 1, 0, szTempString_11, 1, 0, 1001 );
+                        ZeidonStringConcat( szMsg, 1, 0, szTempString_11, 1, 0, 256 );
                         //:MessageSend( vSubtask, "WD00505", "Dialog Relink",
                         //:             szMsg, zMSGQ_OBJECT_CONSTRAINT_WARNING, 0 )
                         MessageSend( vSubtask, "WD00505", "Dialog Relink", szMsg, zMSGQ_OBJECT_CONSTRAINT_WARNING, 0 );
@@ -1556,315 +1613,11 @@ oTZWDLGSO_DialogRelinkDelete( zVIEW     vDialog,
             //:END
          } 
 
-         //:END
-
-         //:// KJS 01/29/18
-         //:// There are actions that exist where the WndEvent/Control/Option/Hotkey no longer exists. 
-         //:// Well, we know there are actions where the Control no longer exists but we should check all of the options under Action (except if source code exists).
-         //:// We will exclude these and then delete the action if no other events/controls/hotkeys etc exist for the action...
-         //:IF vDialog.ActWndEvent EXISTS OR vDialog.ActCtrl EXISTS OR vDialog.ActOpt EXISTS OR vDialog.ActHot EXISTS
-         lTempInteger_7 = CheckExistenceOfEntity( vDialog, "ActWndEvent" );
-         lTempInteger_8 = CheckExistenceOfEntity( vDialog, "ActCtrl" );
-         lTempInteger_9 = CheckExistenceOfEntity( vDialog, "ActOpt" );
-         lTempInteger_10 = CheckExistenceOfEntity( vDialog, "ActHot" );
-         if ( lTempInteger_7 == 0 || lTempInteger_8 == 0 || lTempInteger_9 == 0 || lTempInteger_10 == 0 )
-         { 
-            //:      
-            //:szMsg = ""
-            ZeidonStringCopy( szMsg, 1, 0, "", 1, 0, 1001 );
-            //:szDeleteAction = "Y"
-            ZeidonStringCopy( szDeleteAction, 1, 0, "Y", 1, 0, 2 );
-            //:FOR EACH vDialog.ActWndEvent 
-            RESULT = SetCursorFirstEntity( vDialog, "ActWndEvent", "" );
-            while ( RESULT > zCURSOR_UNCHANGED )
-            { 
-               //:SET CURSOR FIRST vDialog.WndEvent WHERE vDialog.WndEvent.ZKey = vDialog.ActWndEvent.ZKey 
-               GetIntegerFromAttribute( &lTempInteger_11, vDialog, "ActWndEvent", "ZKey" );
-               RESULT = SetCursorFirstEntityByInteger( vDialog, "WndEvent", "ZKey", lTempInteger_11, "" );
-               //:IF RESULT >= zCURSOR_SET
-               if ( RESULT >= zCURSOR_SET )
-               { 
-                  //:szDeleteAction = ""
-                  ZeidonStringCopy( szDeleteAction, 1, 0, "", 1, 0, 2 );
-                  //:RelinkInstanceToInstance( vDialog, "ActWndEvent", vDialog, "WndEvent" )
-                  RelinkInstanceToInstance( vDialog, "ActWndEvent", vDialog, "WndEvent" );
-                  //:ELSE 
-               } 
-               else
-               { 
-                  //:szMsg = ""
-                  ZeidonStringCopy( szMsg, 1, 0, "", 1, 0, 1001 );
-                  //:szMsg = szMsg + " Dialog: " + vDialog.Dialog.Tag
-                  ZeidonStringConcat( szMsg, 1, 0, " Dialog: ", 1, 0, 1001 );
-                  GetVariableFromAttribute( szTempString_12, 0, 'S', 33, vDialog, "Dialog", "Tag", "", 0 );
-                  ZeidonStringConcat( szMsg, 1, 0, szTempString_12, 1, 0, 1001 );
-                  //:szMsg = szMsg + " Window: " + vDialog.Window.Tag
-                  ZeidonStringConcat( szMsg, 1, 0, " Window: ", 1, 0, 1001 );
-                  GetVariableFromAttribute( szTempString_13, 0, 'S', 33, vDialog, "Window", "Tag", "", 0 );
-                  ZeidonStringConcat( szMsg, 1, 0, szTempString_13, 1, 0, 1001 );
-                  //:szMsg = szMsg + " Action: " + vDialog.Action.Tag
-                  ZeidonStringConcat( szMsg, 1, 0, " Action: ", 1, 0, 1001 );
-                  GetVariableFromAttribute( szTempString_14, 0, 'S', 33, vDialog, "Action", "Tag", "", 0 );
-                  ZeidonStringConcat( szMsg, 1, 0, szTempString_14, 1, 0, 1001 );
-                  //:szMsg = szMsg + " EventName: " + vDialog.ActWndEvent.EventName 
-                  ZeidonStringConcat( szMsg, 1, 0, " EventName: ", 1, 0, 1001 );
-                  GetVariableFromAttribute( szTempString_15, 0, 'S', 255, vDialog, "ActWndEvent", "EventName", "", 0 );
-                  ZeidonStringConcat( szMsg, 1, 0, szTempString_15, 1, 0, 1001 );
-                  //:EXCLUDE vDialog.ActWndEvent NONE
-                  RESULT = ExcludeEntity( vDialog, "ActWndEvent", zREPOS_NONE );
-                  //:TraceLineS("    EXCLUDING ActWndEvent because it doesn't exist!! ", szMsg )
-                  TraceLineS( "    EXCLUDING ActWndEvent because it doesn't exist!! ", szMsg );
-               } 
-
-               RESULT = SetCursorNextEntity( vDialog, "ActWndEvent", "" );
-               //:END 
-            } 
-
-            //:END
-            //:FOR EACH vDialog.ActHot  
-            RESULT = SetCursorFirstEntity( vDialog, "ActHot", "" );
-            while ( RESULT > zCURSOR_UNCHANGED )
-            { 
-               //:SET CURSOR FIRST vDialog.Hotkey WHERE vDialog.Hotkey.Tag = vDialog.ActHot.Tag 
-               GetStringFromAttribute( szTempString_16, vDialog, "ActHot", "Tag" );
-               RESULT = SetCursorFirstEntityByString( vDialog, "Hotkey", "Tag", szTempString_16, "" );
-               //:IF RESULT >= zCURSOR_SET
-               if ( RESULT >= zCURSOR_SET )
-               { 
-                  //:szDeleteAction = ""
-                  ZeidonStringCopy( szDeleteAction, 1, 0, "", 1, 0, 2 );
-                  //:RelinkInstanceToInstance( vDialog, "ActHot", vDialog, "Hotkey" )
-                  RelinkInstanceToInstance( vDialog, "ActHot", vDialog, "Hotkey" );
-                  //:ELSE 
-               } 
-               else
-               { 
-                  //:szMsg = ""
-                  ZeidonStringCopy( szMsg, 1, 0, "", 1, 0, 1001 );
-                  //:szMsg = szMsg + " Dialog: " + vDialog.Dialog.Tag
-                  ZeidonStringConcat( szMsg, 1, 0, " Dialog: ", 1, 0, 1001 );
-                  GetVariableFromAttribute( szTempString_16, 0, 'S', 33, vDialog, "Dialog", "Tag", "", 0 );
-                  ZeidonStringConcat( szMsg, 1, 0, szTempString_16, 1, 0, 1001 );
-                  //:szMsg = szMsg + " Window: " + vDialog.Window.Tag
-                  ZeidonStringConcat( szMsg, 1, 0, " Window: ", 1, 0, 1001 );
-                  GetVariableFromAttribute( szTempString_17, 0, 'S', 33, vDialog, "Window", "Tag", "", 0 );
-                  ZeidonStringConcat( szMsg, 1, 0, szTempString_17, 1, 0, 1001 );
-                  //:szMsg = szMsg + " Action: " + vDialog.Action.Tag
-                  ZeidonStringConcat( szMsg, 1, 0, " Action: ", 1, 0, 1001 );
-                  GetVariableFromAttribute( szTempString_18, 0, 'S', 33, vDialog, "Action", "Tag", "", 0 );
-                  ZeidonStringConcat( szMsg, 1, 0, szTempString_18, 1, 0, 1001 );
-                  //:szMsg = szMsg + " Hotkey: " + vDialog.ActHot.Tag 
-                  ZeidonStringConcat( szMsg, 1, 0, " Hotkey: ", 1, 0, 1001 );
-                  GetVariableFromAttribute( szTempString_19, 0, 'S', 33, vDialog, "ActHot", "Tag", "", 0 );
-                  ZeidonStringConcat( szMsg, 1, 0, szTempString_19, 1, 0, 1001 );
-                  //:EXCLUDE vDialog.ActHot NONE
-                  RESULT = ExcludeEntity( vDialog, "ActHot", zREPOS_NONE );
-                  //:TraceLineS("    EXCLUDING ActHot because it doesn't exist!! ", szMsg )
-                  TraceLineS( "    EXCLUDING ActHot because it doesn't exist!! ", szMsg );
-               } 
-
-               RESULT = SetCursorNextEntity( vDialog, "ActHot", "" );
-               //:END 
-            } 
-
-            //:END
-            //:// KJS 01/29/18 - We want to check if the control assigned to this action exists.
-            //:FOR EACH vDialog.ActEvent
-            RESULT = SetCursorFirstEntity( vDialog, "ActEvent", "" );
-            while ( RESULT > zCURSOR_UNCHANGED )
-            { 
-
-               //:IF vDialog.ActCtrl EXISTS
-               lTempInteger_12 = CheckExistenceOfEntity( vDialog, "ActCtrl" );
-               if ( lTempInteger_12 == 0 )
-               { 
-
-                  //:CreateViewFromView( vDialogTemp, vDialog )
-                  CreateViewFromView( &vDialogTemp, vDialog );
-                  //:NAME VIEW vDialogTemp "vDialogTemp"
-                  SetNameForView( vDialogTemp, "vDialogTemp", 0, zLEVEL_TASK );
-                  //:lControl = zQUAL_STRING + zPOS_FIRST + zRECURS
-                  lControl = zQUAL_STRING + zPOS_FIRST + zRECURS;
-                  //:szCtrlTag = vDialog.ActCtrl.ZKey
-                  GetVariableFromAttribute( szCtrlTag, 0, 'S', 33, vDialog, "ActCtrl", "ZKey", "", 0 );
-                  //:nRC = SetEntityCursor( vDialogTemp, "Control", "ZKey", lControl,
-                  //:                       szCtrlTag, "", "", 0, "Window", "" )
-                  nRC = SetEntityCursor( vDialogTemp, "Control", "ZKey", lControl, szCtrlTag, "", "", 0, "Window", "" );
-                  //:IF nRC >= zCURSOR_SET
-                  if ( nRC >= zCURSOR_SET )
-                  { 
-                     //:// Now we need to set on the correct event.
-                     //://SET CURSOR FIRST vDialogTemp.Event WHERE vDialogTemp.Event.ZKey = vDialog.ActEvent.ZKey  
-                     //:nRC = SetCursorFirstEntityByInteger( vDialogTemp, "Event", "ZKey", vDialog.ActEvent.ZKey, "" ) 
-                     GetIntegerFromAttribute( &lTempInteger_13, vDialog, "ActEvent", "ZKey" );
-                     nRC = SetCursorFirstEntityByInteger( vDialogTemp, "Event", "ZKey", lTempInteger_13, "" );
-                  } 
-
-                  //:END                                         
-                  //:// 
-                  //:IF nRC < zCURSOR_SET
-                  if ( nRC < zCURSOR_SET )
-                  { 
-                     //:szMsg = ""
-                     ZeidonStringCopy( szMsg, 1, 0, "", 1, 0, 1001 );
-                     //:szMsg = szMsg + " Dialog: " + vDialog.Dialog.Tag
-                     ZeidonStringConcat( szMsg, 1, 0, " Dialog: ", 1, 0, 1001 );
-                     GetVariableFromAttribute( szTempString_20, 0, 'S', 33, vDialog, "Dialog", "Tag", "", 0 );
-                     ZeidonStringConcat( szMsg, 1, 0, szTempString_20, 1, 0, 1001 );
-                     //:szMsg = szMsg + " Window: " + vDialog.Window.Tag
-                     ZeidonStringConcat( szMsg, 1, 0, " Window: ", 1, 0, 1001 );
-                     GetVariableFromAttribute( szTempString_21, 0, 'S', 33, vDialog, "Window", "Tag", "", 0 );
-                     ZeidonStringConcat( szMsg, 1, 0, szTempString_21, 1, 0, 1001 );
-                     //:szMsg = szMsg + " Action: " + vDialog.Action.Tag
-                     ZeidonStringConcat( szMsg, 1, 0, " Action: ", 1, 0, 1001 );
-                     GetVariableFromAttribute( szTempString_22, 0, 'S', 33, vDialog, "Action", "Tag", "", 0 );
-                     ZeidonStringConcat( szMsg, 1, 0, szTempString_22, 1, 0, 1001 );
-                     //:szMsg = szMsg + " ActCtl: " + vDialog.ActCtrl.Tag
-                     ZeidonStringConcat( szMsg, 1, 0, " ActCtl: ", 1, 0, 1001 );
-                     GetVariableFromAttribute( szTempString_23, 0, 'S', 33, vDialog, "ActCtrl", "Tag", "", 0 );
-                     ZeidonStringConcat( szMsg, 1, 0, szTempString_23, 1, 0, 1001 );
-                     //:EXCLUDE vDialog.ActEvent NONE
-                     RESULT = ExcludeEntity( vDialog, "ActEvent", zREPOS_NONE );
-                     //:TraceLineS("    EXCLUDING ActEvent because control doesn't exist!! ", szMsg )
-                     TraceLineS( "    EXCLUDING ActEvent because control doesn't exist!! ", szMsg );
-                     //:ELSE
-                  } 
-                  else
-                  { 
-                     //:RelinkInstanceToInstance( vDialog, "ActEvent", vDialogTemp, "Event" )
-                     RelinkInstanceToInstance( vDialog, "ActEvent", vDialogTemp, "Event" );
-                     //://RelinkInstanceToInstance( vDialog, "ActCtrl", vDialogTemp, "Control" )
-                     //:szDeleteAction = ""
-                     ZeidonStringCopy( szDeleteAction, 1, 0, "", 1, 0, 2 );
-                  } 
-
-                  //:END
-                  //:DropView( vDialogTemp )       
-                  DropView( vDialogTemp );
-
-                  //:ELSE
-               } 
-               else
-               { 
-                  //:szMsg = ""
-                  ZeidonStringCopy( szMsg, 1, 0, "", 1, 0, 1001 );
-                  //:szMsg = szMsg + " Dialog: " + vDialog.Dialog.Tag
-                  ZeidonStringConcat( szMsg, 1, 0, " Dialog: ", 1, 0, 1001 );
-                  GetVariableFromAttribute( szTempString_24, 0, 'S', 33, vDialog, "Dialog", "Tag", "", 0 );
-                  ZeidonStringConcat( szMsg, 1, 0, szTempString_24, 1, 0, 1001 );
-                  //:szMsg = szMsg + " Window: " + vDialog.Window.Tag
-                  ZeidonStringConcat( szMsg, 1, 0, " Window: ", 1, 0, 1001 );
-                  GetVariableFromAttribute( szTempString_25, 0, 'S', 33, vDialog, "Window", "Tag", "", 0 );
-                  ZeidonStringConcat( szMsg, 1, 0, szTempString_25, 1, 0, 1001 );
-                  //:szMsg = szMsg + " Action: " + vDialog.Action.Tag
-                  ZeidonStringConcat( szMsg, 1, 0, " Action: ", 1, 0, 1001 );
-                  GetVariableFromAttribute( szTempString_26, 0, 'S', 33, vDialog, "Action", "Tag", "", 0 );
-                  ZeidonStringConcat( szMsg, 1, 0, szTempString_26, 1, 0, 1001 );
-                  //:// If there is no control for this event, then exclude.                
-                  //:TraceLineS("    EXCLUDING ActEvent because there is no ActCtrl. ", szMsg )
-                  TraceLineS( "    EXCLUDING ActEvent because there is no ActCtrl. ", szMsg );
-                  //:EXCLUDE vDialog.ActEvent NONE
-                  RESULT = ExcludeEntity( vDialog, "ActEvent", zREPOS_NONE );
-               } 
-
-               RESULT = SetCursorNextEntity( vDialog, "ActEvent", "" );
-               //:END
-            } 
-
-            //:END
-            //:// KJS 01/29/18 - We want to check if the control assigned to this action exists.
-            //:FOR EACH vDialog.ActOpt 
-            RESULT = SetCursorFirstEntity( vDialog, "ActOpt", "" );
-            while ( RESULT > zCURSOR_UNCHANGED )
-            { 
-
-               //:CreateViewFromView( vDialogTemp, vDialog )
-               CreateViewFromView( &vDialogTemp, vDialog );
-               //:NAME VIEW vDialogTemp "vDialogTemp"
-               SetNameForView( vDialogTemp, "vDialogTemp", 0, zLEVEL_TASK );
-               //:lControl = zQUAL_STRING + zPOS_FIRST + zRECURS
-               lControl = zQUAL_STRING + zPOS_FIRST + zRECURS;
-               //:szCtrlTag = vDialog.ActOpt.ZKey
-               GetVariableFromAttribute( szCtrlTag, 0, 'S', 33, vDialog, "ActOpt", "ZKey", "", 0 );
-               //:nRC = SetEntityCursor( vDialogTemp, "Option", "ZKey", lControl,
-               //:                       szCtrlTag, "", "", 0, "Window", "" )
-               nRC = SetEntityCursor( vDialogTemp, "Option", "ZKey", lControl, szCtrlTag, "", "", 0, "Window", "" );
-               //:// 
-               //:IF nRC < zCURSOR_SET
-               if ( nRC < zCURSOR_SET )
-               { 
-                  //:szMsg = ""
-                  ZeidonStringCopy( szMsg, 1, 0, "", 1, 0, 1001 );
-                  //:szMsg = szMsg + " Dialog: " + vDialog.Dialog.Tag
-                  ZeidonStringConcat( szMsg, 1, 0, " Dialog: ", 1, 0, 1001 );
-                  GetVariableFromAttribute( szTempString_27, 0, 'S', 33, vDialog, "Dialog", "Tag", "", 0 );
-                  ZeidonStringConcat( szMsg, 1, 0, szTempString_27, 1, 0, 1001 );
-                  //:szMsg = szMsg + " Window: " + vDialog.Window.Tag
-                  ZeidonStringConcat( szMsg, 1, 0, " Window: ", 1, 0, 1001 );
-                  GetVariableFromAttribute( szTempString_28, 0, 'S', 33, vDialog, "Window", "Tag", "", 0 );
-                  ZeidonStringConcat( szMsg, 1, 0, szTempString_28, 1, 0, 1001 );
-                  //:szMsg = szMsg + " Action: " + vDialog.Action.Tag
-                  ZeidonStringConcat( szMsg, 1, 0, " Action: ", 1, 0, 1001 );
-                  GetVariableFromAttribute( szTempString_29, 0, 'S', 33, vDialog, "Action", "Tag", "", 0 );
-                  ZeidonStringConcat( szMsg, 1, 0, szTempString_29, 1, 0, 1001 );
-                  //:szMsg = szMsg + " ActOpt: " + vDialog.ActOpt.Tag
-                  ZeidonStringConcat( szMsg, 1, 0, " ActOpt: ", 1, 0, 1001 );
-                  GetVariableFromAttribute( szTempString_30, 0, 'S', 33, vDialog, "ActOpt", "Tag", "", 0 );
-                  ZeidonStringConcat( szMsg, 1, 0, szTempString_30, 1, 0, 1001 );
-                  //:EXCLUDE vDialog.ActOpt NONE
-                  RESULT = ExcludeEntity( vDialog, "ActOpt", zREPOS_NONE );
-                  //:TraceLineS("    EXCLUDING ActOpt because it doesn't exist!! ", szMsg )
-                  TraceLineS( "    EXCLUDING ActOpt because it doesn't exist!! ", szMsg );
-                  //:ELSE
-               } 
-               else
-               { 
-                  //:RelinkInstanceToInstance( vDialog, "ActOpt", vDialogTemp, "Option" )
-                  RelinkInstanceToInstance( vDialog, "ActOpt", vDialogTemp, "Option" );
-                  //:szDeleteAction = ""
-                  ZeidonStringCopy( szDeleteAction, 1, 0, "", 1, 0, 2 );
-               } 
-
-               //:END
-               //:DropView( vDialogTemp )       
-               DropView( vDialogTemp );
-               RESULT = SetCursorNextEntity( vDialog, "ActOpt", "" );
-            } 
-
-            //:END
-            //:// We have looped through the events and checked if the events and controls exist for this action.
-            //:// Only delete this action if there are no other events/controls that call them.
-            //:IF szDeleteAction = "Y" AND vDialog.ActWndEvent DOES NOT EXIST AND vDialog.ActCtrl DOES NOT EXIST AND 
-            lTempInteger_14 = CheckExistenceOfEntity( vDialog, "ActWndEvent" );
-            lTempInteger_15 = CheckExistenceOfEntity( vDialog, "ActCtrl" );
-            //:   vDialog.ActOpt DOES NOT EXIST AND vDialog.ActHot DOES NOT EXIST
-            lTempInteger_16 = CheckExistenceOfEntity( vDialog, "ActOpt" );
-            lTempInteger_17 = CheckExistenceOfEntity( vDialog, "ActHot" );
-            if ( ZeidonStringCompare( szDeleteAction, 1, 0, "Y", 1, 0, 2 ) == 0 && lTempInteger_14 != 0 && lTempInteger_15 != 0 && lTempInteger_16 != 0 && lTempInteger_17 != 0 )
-            { 
-               //:   TraceLineS("ACTION IS BEING DELETED BECAUSE IT NOW HAS NO EVENTS! ", vDialog.Action.Tag )
-               GetStringFromAttribute( szTempString_31, vDialog, "Action", "Tag" );
-               TraceLineS( "ACTION IS BEING DELETED BECAUSE IT NOW HAS NO EVENTS! ", szTempString_31 );
-               //:   nRC = DeleteEntity( vDialog, "Action", zREPOS_NONE )
-               nRC = DeleteEntity( vDialog, "Action", zREPOS_NONE );
-            } 
-
-            //:END
-
-            //:ELSE
-         } 
-         else
-         { 
-            //:szDeleteAction = "" // This is just a test so I can set a breakpoint.
-            ZeidonStringCopy( szDeleteAction, 1, 0, "", 1, 0, 2 );
-         } 
-
          RESULT = SetCursorNextEntity( vDialog, "Action", "" );
-         //:END  // IF ActCtrl OR ActWndEven OR ActOpt exists.             
+         //:END
       } 
 
-      //:   
-      //:END  // FOR EACH vDialog.Action
+      //:END
 
       //:FOR EACH vRecursive.Menu
       RESULT = SetCursorFirstEntity( vRecursive, "Menu", "" );

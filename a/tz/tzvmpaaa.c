@@ -1500,6 +1500,10 @@ RemoveTabs( zPCHAR pchWork )
         for ( n = 0; n < 3; n++ )
            *(pchTarget++) = ' ';
 
+        // KJS 11/20/2019 - I am adding the following because in the strcpy_s below, we were copying lMaxLth but this was then corrupting pchWork because pchWork contains
+        // blanks for the tab and then we add on lMaxLth which is too long. We must subract how many spaces are added for tabs.
+        i = i + 3;
+
         pchSource = ++pch;
       }
 

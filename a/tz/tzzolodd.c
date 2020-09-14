@@ -1751,6 +1751,7 @@ zwTZZOLODD_DisplaySaveStatus( zVIEW vSubtask )
    zCHAR  szTE_Name[ 33 ];
    zSHORT nRC;
    zCHAR  szMsg[ zSHORT_MESSAGE_LTH +1 ];
+   zLONG  lSourceZKey = 0;
 
    // Get Access to LOD Object
    nRC = GetViewByName( &vTZZOLODO, "TZZOLODO", vSubtask, zLEVEL_TASK );
@@ -1763,9 +1764,12 @@ zwTZZOLODD_DisplaySaveStatus( zVIEW vSubtask )
       nRC = SetCursorFirstEntityByAttr( vTZZOLODO, "TE_DBMS_Source", "ZKey",
                                         vTZZOLODO, "POD", "TE_SourceZKey",
                                         "TE_DB_Environ" );
+      // KJS 01/13/20 - SetCursorFirstEntityByAttr doesn't seem to work. Adding below SetCursor
+      GetIntegerFromAttribute( &lSourceZKey, vTZZOLODO, "POD", "TE_SourceZKey" );
+      nRC = SetCursorFirstEntityByInteger( vTZZOLODO, "TE_DBMS_Source", "ZKey", lSourceZKey, "POD" );
       if ( nRC >= zCURSOR_SET )
       {
-         GetStringFromAttribute( szTE_Name, vTZZOLODO, "TE_DBMS_Source", "Name");
+         GetStringFromAttribute( szTE_Name, vTZZOLODO, "TE_DBMS_Source", "Name" );
          strcat( szMsg, szTE_Name );
       }
       else
@@ -1893,7 +1897,7 @@ zwTZZOLODD_OpenLOD( zVIEW vSubtask )
    // set DIL-Message, set attribute sequence
    // if LOD not checked out, set View read only
    zwfnTZZOLODD_OpenLOD( vSubtask );
-
+   
    // Make sure that LOD Compare/Merge flags are reset.
    GetViewByName( &vTaskLPLR, "TaskLPLR", vSubtask, zLEVEL_TASK );
    SetAttributeFromString( vTaskLPLR, "LPLR", "wMergeComponentError", "" );
@@ -2228,10 +2232,11 @@ zwTZZOLODD_SaveLOD( zVIEW vSubtask )
    zLONG   lZKey;
    zLONG   lFlatTgt;
    zLONG   lFlatSrc;
+   zLONG   lSourceZKey = 0;
    zBOOL   bEntity;
    zBOOL   bError = FALSE;
    zUSHORT uLevel, uFirstLevel;
-   zSHORT  nRC;
+   zSHORT  nRC = 0;
 
    // Check if problems during merge processing have occurred and exit if they have.
    nRC = zwTZZOLODD_CheckMergeErrors( vSubtask );
@@ -2307,8 +2312,13 @@ zwTZZOLODD_SaveLOD( zVIEW vSubtask )
       // for the XOD build.
       // Otherwise, make the operator go to Utilities/TE.
 
-      if ( SetCursorFirstEntityByAttr( vTE,"TE_DBMS_Source", "ZKey",
-                                       vLOD, "POD", "TE_SourceZKey", 0 ) < zCURSOR_SET )
+      nRC = SetCursorFirstEntityByAttr(vTE, "TE_DBMS_Source", "ZKey",
+                                       vLOD, "POD", "TE_SourceZKey", 0);
+      // KJS 01/13/20 - SetCursorFirstEntityByAttr doesn't seem to work. Adding below SetCursor
+      GetIntegerFromAttribute( &lSourceZKey, vLOD, "POD", "TE_SourceZKey" );
+      nRC = SetCursorFirstEntityByInteger( vTE, "TE_DBMS_Source", "ZKey", lSourceZKey, 0 );
+
+      if ( nRC < zCURSOR_SET )
       {
          // The DBMS_Source defined in the POD doesn't exist, so use the first one.
          // This was changed by DonC on 10/22/2015 after consulation with Kelly, as we decided the first DB Source would be considered the default.
@@ -2352,6 +2362,9 @@ zwTZZOLODD_SaveLOD( zVIEW vSubtask )
       SetCursorFirstEntityByAttr( vLOD, "TE_DBMS_Source", "ZKey",
                                   vLOD, "POD", "TE_SourceZKey",
                                   "TE_DB_Environ" );
+      // KJS 01/13/20 - SetCursorFirstEntityByAttr doesn't seem to work. Adding below SetCursor
+      GetIntegerFromAttribute(&lSourceZKey, vLOD, "POD", "TE_SourceZKey");
+      nRC = SetCursorFirstEntityByInteger(vLOD, "TE_DBMS_Source", "ZKey", lSourceZKey, "POD");
       GetStringFromAttribute( szTE_Name, vLOD, "TE_DBMS_Source", "Name");
       strcat( szMsg, szTE_Name );
       MB_SetMessage( vSubtask, 1, szMsg );
