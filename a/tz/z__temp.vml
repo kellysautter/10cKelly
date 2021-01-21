@@ -5583,7 +5583,7 @@ GenJSPJ_CrteFileTransferForm( VIEW vDialog,
          WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
          szWriteBuffer = "         if ( nRC >= 0 )"
          WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
-         szWriteBuffer = "            strErrorMapValue = sHostT.cursor(^Host^).getAttribute( ^UploadFileSizeMax^ ).getString( ^^ );"
+         szWriteBuffer = "            strErrorMapValue = sHostT.cursor(^Host^).getAttribute( ^UploadFileSizeMax^ ).getString( );"
          WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
          szWriteBuffer = "            if ( StringUtils.isBlank( strErrorMapValue ) )"
          WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )

@@ -1,3 +1,4 @@
+
 #define KZSYSSVC_INCL
 #include "KZOENGAA.H" 
 #include "TZVMLIP.H" 
@@ -5749,8 +5750,8 @@ GenJSPJ_CrteFileTransferForm( zVIEW     vDialog,
       ZeidonStringCopy( szWriteBuffer, 1, 0, "         if ( nRC >= 0 )", 1, 0, 10001 );
       //:   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
       WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
-      //:   szWriteBuffer = "            strErrorMapValue = sHostT.cursor(^Host^).getAttribute( ^UploadFileSizeMax^ ).getString( ^^ );"
-      ZeidonStringCopy( szWriteBuffer, 1, 0, "            strErrorMapValue = sHostT.cursor(^Host^).getAttribute( ^UploadFileSizeMax^ ).getString( ^^ );", 1, 0, 10001 );
+      //:   szWriteBuffer = "            strErrorMapValue = sHostT.cursor(^Host^).getAttribute( ^UploadFileSizeMax^ ).getString( );"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "            strErrorMapValue = sHostT.cursor(^Host^).getAttribute( ^UploadFileSizeMax^ ).getString( );", 1, 0, 10001 );
       //:   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
       WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
       //:   szWriteBuffer = "            if ( StringUtils.isBlank( strErrorMapValue ) )"
@@ -15311,8 +15312,13 @@ GenJSPJ_CrteComboBox( zVIEW     vDialog,
          ZeidonStringCopy( szWriteBuffer, 1, 0, "   boolean ", 1, 0, 10001 );
          ZeidonStringConcat( szWriteBuffer, 1, 0, szInListCtrlTag, 1, 0, 10001 );
          ZeidonStringConcat( szWriteBuffer, 1, 0, " = false;", 1, 0, 10001 );
+         //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+         WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 );
+         //:szWriteBuffer = "   strComboCurrentInternalValue = ^^;"
+         ZeidonStringCopy( szWriteBuffer, 1, 0, "   strComboCurrentInternalValue = ^^;", 1, 0, 10001 );
          //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
          WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 );
+         //://strComboCurrentInternalValue  = ""; 
 
          //:szWriteBuffer = "   " + vDialog.CtrlMapView.Name + " = " +
          //:             "task.getViewByName( ^" + vDialog.CtrlMapView.Name + "^ );"
@@ -15598,6 +15604,10 @@ GenJSPJ_CrteComboBox( zVIEW     vDialog,
             ZeidonStringConcat( szWriteBuffer, 1, 0, " = true;", 1, 0, 10001 );
             //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 );
+            //:szWriteBuffer = "               strComboCurrentInternalValue = internalValue;"
+            ZeidonStringCopy( szWriteBuffer, 1, 0, "               strComboCurrentInternalValue = internalValue;", 1, 0, 10001 );
+            //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 );
 
             //:szWriteBuffer = "%>"
             ZeidonStringCopy( szWriteBuffer, 1, 0, "%>", 1, 0, 10001 );
@@ -15706,14 +15716,14 @@ GenJSPJ_CrteComboBox( zVIEW     vDialog,
       ZeidonStringCopy( szWriteBuffer, 1, 0, "</select>", 1, 0, 10001 );
       //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
       WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 );
-      //:szWriteBuffer = "<input name=^h" + szCtrlTag + szRepeatGrpKey + "^ id=^h" + szCtrlTag + szRepeatGrpKey + "^ type=^hidden^ value=^<%=strComboCurrentValue%>^ >"
+      //:szWriteBuffer = "<input name=^h" + szCtrlTag + szRepeatGrpKey + "^ id=^h" + szCtrlTag + szRepeatGrpKey + "^ type=^hidden^ value=^<%=strComboCurrentInternalValue%>^ >"
       ZeidonStringCopy( szWriteBuffer, 1, 0, "<input name=^h", 1, 0, 10001 );
       ZeidonStringConcat( szWriteBuffer, 1, 0, szCtrlTag, 1, 0, 10001 );
       ZeidonStringConcat( szWriteBuffer, 1, 0, szRepeatGrpKey, 1, 0, 10001 );
       ZeidonStringConcat( szWriteBuffer, 1, 0, "^ id=^h", 1, 0, 10001 );
       ZeidonStringConcat( szWriteBuffer, 1, 0, szCtrlTag, 1, 0, 10001 );
       ZeidonStringConcat( szWriteBuffer, 1, 0, szRepeatGrpKey, 1, 0, 10001 );
-      ZeidonStringConcat( szWriteBuffer, 1, 0, "^ type=^hidden^ value=^<%=strComboCurrentValue%>^ >", 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, "^ type=^hidden^ value=^<%=strComboCurrentInternalValue%>^ >", 1, 0, 10001 );
       //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
       WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 );
 

@@ -2301,7 +2301,8 @@ zwTZZOLODD_SaveLOD( zVIEW vSubtask )
          SetNameForView(vTE, "TZTENVRO", vSubtask, zLEVEL_TASK );
       }
 
-      ExcludeEntity( vLOD, "TE_DB_Environ", zREPOS_NONE );
+      //nRC = ExcludeEntity(vLOD, "TE_DB_Environ", zREPOS_NONE);
+      nRC = ExcludeEntity(vLOD, "TE_DB_Environ", zREPOS_NEXT);
       IncludeSubobjectFromSubobject( vLOD, "TE_DB_Environ",
                                      vTE,  "TE_DB_Environ", zPOS_AFTER );
 

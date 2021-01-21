@@ -1184,7 +1184,10 @@ GenJSPJ_CrteComboBox( VIEW vDialog BASED ON LOD TZWDLGSO,
          szInListCtrlTag = "inList" + szCtrlTag
 
          szWriteBuffer = "   boolean " + szInListCtrlTag + " = false;"
+         WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+         szWriteBuffer = "   strComboCurrentInternalValue = ^^;"
          WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
+        //strComboCurrentInternalValue  = ""; 
 
          szWriteBuffer = "   " + vDialog.CtrlMapView.Name + " = " +
                       "task.getViewByName( ^" + vDialog.CtrlMapView.Name + "^ );"
@@ -1323,6 +1326,8 @@ GenJSPJ_CrteComboBox( VIEW vDialog BASED ON LOD TZWDLGSO,
 
             szWriteBuffer = "               " + szInListCtrlTag + " = true;"
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+            szWriteBuffer = "               strComboCurrentInternalValue = internalValue;"
+            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
 
             szWriteBuffer = "%>"
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
@@ -1381,7 +1386,7 @@ GenJSPJ_CrteComboBox( VIEW vDialog BASED ON LOD TZWDLGSO,
       WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
       szWriteBuffer = "</select>"
       WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
-      szWriteBuffer = "<input name=^h" + szCtrlTag + szRepeatGrpKey + "^ id=^h" + szCtrlTag + szRepeatGrpKey + "^ type=^hidden^ value=^<%=strComboCurrentValue%>^ >"
+      szWriteBuffer = "<input name=^h" + szCtrlTag + szRepeatGrpKey + "^ id=^h" + szCtrlTag + szRepeatGrpKey + "^ type=^hidden^ value=^<%=strComboCurrentInternalValue%>^ >"
       WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
 
    ELSE  
@@ -5583,7 +5588,7 @@ GenJSPJ_CrteFileTransferForm( VIEW vDialog,
          WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
          szWriteBuffer = "         if ( nRC >= 0 )"
          WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
-         szWriteBuffer = "            strErrorMapValue = sHostT.cursor(^Host^).getAttribute( ^UploadFileSizeMax^ ).getString( ^^ );"
+         szWriteBuffer = "            strErrorMapValue = sHostT.cursor(^Host^).getAttribute( ^UploadFileSizeMax^ ).getString( );"
          WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
          szWriteBuffer = "            if ( StringUtils.isBlank( strErrorMapValue ) )"
          WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )

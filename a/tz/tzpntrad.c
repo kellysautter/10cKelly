@@ -7542,9 +7542,9 @@ CtrlListRefreshCtrls( zVIEW  vSubtask )
    RefreshCtrl( vSubtask, "CSS_Position" );
    RefreshCtrl( vSubtask, "CSS_Size" );
    RefreshCtrl( vSubtask, "TabOrder" );
-   RefreshCtrl(vSubtask, "WebCtrlType");
-   RefreshCtrl(vSubtask, "WebCtrlLink");
-   RefreshCtrl(vSubtask, "WebHTML5");
+   RefreshCtrl( vSubtask, "WebCtrlType" );
+   RefreshCtrl( vSubtask, "WebCtrlLink" );
+   RefreshCtrl( vSubtask, "WebHTML5" );
 
    return( 0 );
 } // CtrlListRefreshCtrls
@@ -7582,8 +7582,8 @@ CtrlListEnableCtrls( zVIEW  vSubtask,
    SetCtrlState( vSubtask, "CSS_Position", zCONTROL_STATUS_ENABLED, nEnable );
    SetCtrlState( vSubtask, "CSS_Size", zCONTROL_STATUS_ENABLED, nEnable );
    SetCtrlState( vSubtask, "TabOrder", zCONTROL_STATUS_ENABLED, nEnable );
-   SetCtrlState( vSubtask, "WebCtrlLink", zCONTROL_STATUS_ENABLED, nEnable);
-   SetCtrlState( vSubtask, "WebHTML5", zCONTROL_STATUS_ENABLED, nEnable);
+   SetCtrlState( vSubtask, "WebCtrlLink", zCONTROL_STATUS_ENABLED, nEnable );
+   SetCtrlState( vSubtask, "WebHTML5", zCONTROL_STATUS_ENABLED, nEnable );
 
    CtrlListRefreshCtrls( vSubtask );
 
@@ -7985,7 +7985,7 @@ SaveCtrlList( zVIEW vSubtask )
            MapCtrl( vSubtask, "TabOrder" ) == 0 &&
 	   MapCtrl( vSubtask, "WebCtrlLink") == 0 &&
 	   MapCtrl( vSubtask, "WebHTML5") == 0 &&
-           MapCtrl( vSubtask, "WebCtrlType" ) == 0 )
+	   MapCtrl( vSubtask, "WebCtrlType" ) == 0 )
       {
          zCHAR szTag[ 33 ];
 
@@ -9529,14 +9529,14 @@ fnEnsureUniqueCtrlTag( zVIEW vSubtask, zCPCHAR cpcCtrlTag, zLONG lTgtZKey )
 {
    zPCHAR pchTag;
    zBOOL  bDuplicate = FALSE;
-   zLONG    lZKey = 0;
+   zLONG  lZKey = 0;
    zSHORT nRC = SetCursorFirstEntity( vSubtask, "Control", 0 );
 
    while ( bDuplicate == FALSE && nRC >= zCURSOR_SET )
    {
       GetAddrForAttribute( &pchTag, vSubtask, "Control", "Tag" );
       GetIntegerFromAttribute(&lZKey, vSubtask, "Control", "ZKey");
-      if ( zstrcmp( cpcCtrlTag, pchTag ) == 0  && lZKey != lTgtZKey )
+      if ( zstrcmp( cpcCtrlTag, pchTag ) == 0 && lZKey != lTgtZKey )
       {
          bDuplicate = TRUE;
       }
@@ -9637,7 +9637,7 @@ fnCloneControl( zVIEW     vSrcLPLR,
          nLth = 3;
       }
 
-      while ( fnEnsureUniqueCtrlTag( vDialog, szTag, lKey ) )
+      while ( fnEnsureUniqueCtrlTag( vDialog, szTag, lKey) )
       {
          lUniqueId++;
          zltoa( lUniqueId, szTag + nLth );

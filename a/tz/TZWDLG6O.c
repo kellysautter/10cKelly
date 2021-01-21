@@ -1,3 +1,4 @@
+
 #define KZSYSSVC_INCL
 #include "KZOENGAA.H" 
 #include "ZDRVROPR.H" 
@@ -7419,6 +7420,10 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
    //:szWriteBuffer = "   String strComboCurrentValue = ^^;"
    ZeidonStringCopy( szWriteBuffer, 1, 0, "   String strComboCurrentValue = ^^;", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "   String strComboCurrentInternalValue = ^^;"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "   String strComboCurrentInternalValue = ^^;", 1, 0, 10001 );
    //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
    //:szWriteBuffer = "   String strAutoComboBoxExternalValue = ^^;"
