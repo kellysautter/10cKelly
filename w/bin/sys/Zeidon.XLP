@@ -1,4 +1,4 @@
-z1000-Zeidon    ZEIDON   TZCMLPLO 12/18/20   11:44:35 1.0a2    
+z1000-Zeidon    ZEIDON   TZCMLPLO 03/19/21   17:50:37 1.0a2    
 eLPLR      1
 aName      Zeidon
 aZKey      4106137
@@ -9,6 +9,7 @@ aTaskUseCount 0
 aLastBuildDate 20200612113329913
 aJavaPackageName com\quinsoft\zeidon\zeidontools
 awFullyQualifiedFileName C:\10c191119\a\bin\sys
+awFullyQualifiedDirectoryName C:\10c200212\a\bin\sys
 
 eW_MetaType 2
 

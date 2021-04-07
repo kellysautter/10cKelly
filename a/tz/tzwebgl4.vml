@@ -1003,6 +1003,7 @@ GenJSPJ_CrteComboBox( VIEW vDialog BASED ON LOD TZWDLGSO,
    VIEW vEntity BASED ON LOD TZWDLGSO  // identifies entity mapping for list entries
    VIEW vScope  BASED ON LOD TZWDLGSO  // identifies scoping entity for list entries
    VIEW vDialogRoot BASED ON LOD TZWDLGSO
+   VIEW vLPLR       BASED ON LOD TZCMLPLO
    STRING ( 32 )  szContextName
    STRING ( 32 )  szScopingEntityName
    STRING ( 32 )  szListEntityName
@@ -1023,6 +1024,7 @@ GenJSPJ_CrteComboBox( VIEW vDialog BASED ON LOD TZWDLGSO,
    STRING ( 100 ) szDisabled
    STRING ( 1 )   szStyleIsBootstrap
    STRING ( 20 )  szCSSBootstrap
+   STRING ( 100 ) szJavaPackage
    DECIMAL        dDLUnits
    INTEGER        lSubtype
    SHORT          nRC
@@ -1219,8 +1221,16 @@ GenJSPJ_CrteComboBox( VIEW vDialog BASED ON LOD TZWDLGSO,
                szContextName = ""
             END
 
-            szWriteBuffer = "      List<TableEntry> list = JspWebUtils.getTableDomainValues( " + vDialog.CtrlMapView.Name + " , ^" +
-                            vDialog.CtrlMapRelatedEntity.Name + "^, ^" + vDialog.CtrlMapER_Attribute.Name + "^, ^" + szContextName + "^ );"
+            IF vDialogRoot.Dialog.wWebUsesLanguageConversion = "Y" 
+               GetViewByName( vLPLR, "TaskLPLR", vDialog, zLEVEL_TASK )
+               szJavaPackage = vLPLR.LPLR.JavaPackageName
+               zSearchAndReplace( szJavaPackage, 100, "\", "." )
+               szWriteBuffer = "      List<TableEntry> list = " + szJavaPackage + ".jspWebUtilsLang.getTableDomainValuesLanguage( " + vDialog.CtrlMapView.Name + " , ^" +
+                                vDialog.CtrlMapRelatedEntity.Name + "^, ^" + vDialog.CtrlMapER_Attribute.Name + "^, ^" + szContextName + "^ );"
+            ELSE
+               szWriteBuffer = "      List<TableEntry> list = JspWebUtils.getTableDomainValues( " + vDialog.CtrlMapView.Name + " , ^" +
+                               vDialog.CtrlMapRelatedEntity.Name + "^, ^" + vDialog.CtrlMapER_Attribute.Name + "^, ^" + szContextName + "^ );"
+            END
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
 
             szWriteBuffer = "      nRC = " + vDialog.CtrlMapView.Name + ".cursor( ^" +
@@ -1234,17 +1244,25 @@ GenJSPJ_CrteComboBox( VIEW vDialog BASED ON LOD TZWDLGSO,
             // Get the current value of the combo box.
             szWriteBuffer = "         strComboCurrentValue = " + vDialog.CtrlMapView.Name + ".cursor( ^" +
                      vDialog.CtrlMapRelatedEntity.Name + "^ ).getAttribute( ^" +
-                     vDialog.CtrlMapER_Attribute.Name + "^ ).getString( ^^ );"
+                     vDialog.CtrlMapER_Attribute.Name + "^ ).getString( ^" + szContextName + "^ );"
                      // KJS 10/22/14 - Right now we are not adding the context name, we only want the default, which
                      // I am currently assuming has ALL the values (old and new) of this domain. When we get DGs domain fix
                      // I think we need to put this back!!!!!!!
                      //vDialog.CtrlMapER_Attribute.Name + "^, ^" + szContextName + "^ );"
+            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+            szWriteBuffer = "         strComboCurrentInternalValue = " + vDialog.CtrlMapView.Name + ".cursor( ^" +
+                     vDialog.CtrlMapRelatedEntity.Name + "^ ).getAttribute( ^" +
+                     vDialog.CtrlMapER_Attribute.Name + "^ ).getString( );"
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
 
             // KJS 02/15/11 - Thinking I need to add code to change values returned as null to "".
             szWriteBuffer = "         if ( strComboCurrentValue == null )"
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
             szWriteBuffer = "            strComboCurrentValue = ^^;"
+            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+            szWriteBuffer = "         if ( strComboCurrentInternalValue == null )"
+            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+            szWriteBuffer = "            strComboCurrentInternalValue = ^^;"
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
             szWriteBuffer = "      }"
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
@@ -1253,6 +1271,8 @@ GenJSPJ_CrteComboBox( VIEW vDialog BASED ON LOD TZWDLGSO,
             szWriteBuffer = "      {"
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
             szWriteBuffer = "         strComboCurrentValue = ^^;"
+            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+            szWriteBuffer = "         strComboCurrentInternalValue = ^^;"
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
             szWriteBuffer = "      }"
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
@@ -1315,19 +1335,19 @@ GenJSPJ_CrteComboBox( VIEW vDialog BASED ON LOD TZWDLGSO,
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
 
             // The following if statement eliminates a null value, which would be the second null in the combo box.
-            szWriteBuffer = "         if ( !StringUtils.isBlank( externalValue ) )"
+            szWriteBuffer = "         if ( !StringUtils.isBlank( internalValue ) )"
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
             szWriteBuffer = "         {"
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-            szWriteBuffer = "            if ( StringUtils.equals( strComboCurrentValue, externalValue ) )"
+            szWriteBuffer = "            if ( StringUtils.equals( strComboCurrentInternalValue, internalValue ) )"
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
             szWriteBuffer = "            {"
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
 
             szWriteBuffer = "               " + szInListCtrlTag + " = true;"
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-            szWriteBuffer = "               strComboCurrentInternalValue = internalValue;"
-            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+            //szWriteBuffer = "               strComboCurrentInternalValue = internalValue;"
+            //WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
 
             szWriteBuffer = "%>"
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
@@ -1368,7 +1388,7 @@ GenJSPJ_CrteComboBox( VIEW vDialog BASED ON LOD TZWDLGSO,
             szWriteBuffer = "%>"
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
 
-            szWriteBuffer = "         <option disabled selected=^selected^ value=^<%=strComboCurrentValue%>^><%=strComboCurrentValue%></option>"
+            szWriteBuffer = "         <option disabled selected=^selected^ value=^<%=strComboCurrentInternalValue%>^><%=strComboCurrentValue%></option>"
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
             szWriteBuffer = "<%"
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
@@ -1457,9 +1477,11 @@ GenJSPJ_CrteComboBox( VIEW vDialog BASED ON LOD TZWDLGSO,
             ELSE
                szContextName = ""
             END
+            // Get the internal value of the 
             szWriteBuffer = "            strComboCurrentValue = " + vDialog.CtrlMapView.Name + ".cursor( ^" +
                      vDialog.CtrlMapRelatedEntity.Name + "^ ).getAttribute( ^" +
-                     vDialog.CtrlMapER_Attribute.Name + "^ ).getString( ^" + szContextName + "^ );"
+                     vDialog.CtrlMapER_Attribute.Name + "^ ).getString( );"
+                     //vDialog.CtrlMapER_Attribute.Name + "^ ).getString( ^" + szContextName + "^ );"
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
 
             // KJS 02/15/11 - Thinking I need to add code to change values returned as null to "".
@@ -1588,7 +1610,11 @@ GenJSPJ_CrteComboBox( VIEW vDialog BASED ON LOD TZWDLGSO,
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
          END
           */
-         szWriteBuffer = "         if ( StringUtils.equals( strComboCurrentValue, strErrorMapValue ) )"
+         szWriteBuffer = "         // if ( StringUtils.equals( strComboCurrentValue, strErrorMapValue ) )"
+         WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+         szWriteBuffer = "         if ( StringUtils.equals( strComboCurrentValue, v" + szCtrlTag + ".cursor( ^" +
+                            vList.CtrlMapRelatedEntity.Name + "^ ).getAttribute( ^" +
+                            vList.CtrlMapER_Attribute.Name + "^ ).getString( ) ) )"
          WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
          szWriteBuffer = "         {"
          WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
@@ -5908,6 +5934,7 @@ GenJSPJ_Action( VIEW vDialog     BASED ON LOD TZWDLGSO,
    STRING ( 10000 ) szJavaScript
    STRING ( 32 )    szJavaScriptLocation
    STRING ( 64 )    szSystemIniApplName
+   STRING ( 200 )   szMsg
    STRING ( 100 )   szViewName
    STRING ( 100 )   szEntityName
    STRING ( 100 )   szEntityNameR
@@ -6144,13 +6171,14 @@ GenJSPJ_Action( VIEW vDialog     BASED ON LOD TZWDLGSO,
 
          // Download File mapping view: Mapping must be specified for download processing.
          IF vDialogCtrl = 0
-            MessageSend( vDialog, "", "Download File Generation",
-                                     "The Control with 'Download File' action could not be located.",
+            //szActionName  kkkkkkkkk
+            szMsg = "A Control for the 'Download File' action " + szActionName + " could not be located. The action is not being used."
+            MessageSend( vDialog, "", "Download File Generation", szMsg,
                                      zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
          ELSE
             IF vDialogCtrl.CtrlMapER_Attribute DOES NOT EXIST
-               MessageSend( vDialog, "", "Download File Generation",
-                                        "The Control with 'Download File' action must specify mapping for the source file name.",
+               szMsg = "The Control " + vDialogCtrl.Control.Tag + " with 'Download File' action " + szActionName + " must specify mapping for the source file name."
+               MessageSend( vDialog, "", "Download File Generation", szMsg,
                                         zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
             ELSE
                szDownloadViewName = vDialogCtrl.CtrlMapView.Name

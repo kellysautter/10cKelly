@@ -9840,8 +9840,7 @@ CreateTabIndexString( zVIEW     vDialog,
    zSHORT    RESULT; 
 
 
-   //:TraceLineS("In CreateTabIndexString ---- ", "")
-   TraceLineS( "In CreateTabIndexString ---- ", "" );
+   //://TraceLineS("In CreateTabIndexString ---- ", "")
 
    //:GET VIEW vDialogRoot NAMED "vDialogRoot"
    RESULT = GetViewByName( &vDialogRoot, "vDialogRoot", vDialog, zLEVEL_TASK );
