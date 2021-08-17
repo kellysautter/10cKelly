@@ -8422,12 +8422,14 @@ GenJSPJ_CrtePushButton( zVIEW     vDialog,
       } 
 
       //:END
-      //:szWriteBuffer = szWidget + szCtrlTag + "^ id=^" + szCtrlTag + "^" + szStyle + " ><a href=^<%=strErrorMapValue%>^ target=^_blank^>" + 
+      //:szWriteBuffer = szWidget + szCtrlTag + szRepeatGrpKey + "^ id=^" + szCtrlTag + szRepeatGrpKey + "^" + szStyle + " ><a href=^<%=strErrorMapValue%>^ target=^_blank^>" + 
       //:                szText + "</a></button>"    
       ZeidonStringCopy( szWriteBuffer, 1, 0, szWidget, 1, 0, 10001 );
       ZeidonStringConcat( szWriteBuffer, 1, 0, szCtrlTag, 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, szRepeatGrpKey, 1, 0, 10001 );
       ZeidonStringConcat( szWriteBuffer, 1, 0, "^ id=^", 1, 0, 10001 );
       ZeidonStringConcat( szWriteBuffer, 1, 0, szCtrlTag, 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, szRepeatGrpKey, 1, 0, 10001 );
       ZeidonStringConcat( szWriteBuffer, 1, 0, "^", 1, 0, 10001 );
       ZeidonStringConcat( szWriteBuffer, 1, 0, szStyle, 1, 0, 10001 );
       ZeidonStringConcat( szWriteBuffer, 1, 0, " ><a href=^<%=strErrorMapValue%>^ target=^_blank^>", 1, 0, 10001 );
@@ -8448,12 +8450,14 @@ GenJSPJ_CrtePushButton( zVIEW     vDialog,
          WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 );
          //:CreateSizeString( vDialog, szSize )
          CreateSizeString( vDialog, szSize );
-         //:szWriteBuffer = szWidget + szCtrlTag + "^ id=^" + szCtrlTag + "^ value=^" + szText + "^ onclick=^" +
+         //:szWriteBuffer = szWidget + szCtrlTag + szRepeatGrpKey + "^ id=^" + szCtrlTag + szRepeatGrpKey + "^ value=^" + szText + "^ onclick=^" +
          //:             szAction + "^ " + "style=^" + szSize + "^>" + szTerm
          ZeidonStringCopy( szWriteBuffer, 1, 0, szWidget, 1, 0, 10001 );
          ZeidonStringConcat( szWriteBuffer, 1, 0, szCtrlTag, 1, 0, 10001 );
+         ZeidonStringConcat( szWriteBuffer, 1, 0, szRepeatGrpKey, 1, 0, 10001 );
          ZeidonStringConcat( szWriteBuffer, 1, 0, "^ id=^", 1, 0, 10001 );
          ZeidonStringConcat( szWriteBuffer, 1, 0, szCtrlTag, 1, 0, 10001 );
+         ZeidonStringConcat( szWriteBuffer, 1, 0, szRepeatGrpKey, 1, 0, 10001 );
          ZeidonStringConcat( szWriteBuffer, 1, 0, "^ value=^", 1, 0, 10001 );
          ZeidonStringConcat( szWriteBuffer, 1, 0, szText, 1, 0, 10001 );
          ZeidonStringConcat( szWriteBuffer, 1, 0, "^ onclick=^", 1, 0, 10001 );
@@ -8467,12 +8471,14 @@ GenJSPJ_CrtePushButton( zVIEW     vDialog,
       } 
       else
       { 
-         //:szWriteBuffer = szWidget + szCtrlTag + "^ id=^" + szCtrlTag + "^ value=^" + szText + "^ onclick=^" +
+         //:szWriteBuffer = szWidget + szCtrlTag + szRepeatGrpKey + "^ id=^" + szCtrlTag + szRepeatGrpKey + "^ value=^" + szText + "^ onclick=^" +
          //:             szAction + "^ " + szStyle + ">" + szTerm
          ZeidonStringCopy( szWriteBuffer, 1, 0, szWidget, 1, 0, 10001 );
          ZeidonStringConcat( szWriteBuffer, 1, 0, szCtrlTag, 1, 0, 10001 );
+         ZeidonStringConcat( szWriteBuffer, 1, 0, szRepeatGrpKey, 1, 0, 10001 );
          ZeidonStringConcat( szWriteBuffer, 1, 0, "^ id=^", 1, 0, 10001 );
          ZeidonStringConcat( szWriteBuffer, 1, 0, szCtrlTag, 1, 0, 10001 );
+         ZeidonStringConcat( szWriteBuffer, 1, 0, szRepeatGrpKey, 1, 0, 10001 );
          ZeidonStringConcat( szWriteBuffer, 1, 0, "^ value=^", 1, 0, 10001 );
          ZeidonStringConcat( szWriteBuffer, 1, 0, szText, 1, 0, 10001 );
          ZeidonStringConcat( szWriteBuffer, 1, 0, "^ onclick=^", 1, 0, 10001 );
@@ -11593,14 +11599,17 @@ GenJSPJ_CrteEditBox( zVIEW     vDialog,
    zCHAR     szTempString_10[ 33 ]; 
    zCHAR     szTempString_11[ 33 ]; 
    zCHAR     szTempString_12[ 33 ]; 
-   zCHAR     szTempString_13[ 255 ]; 
+   zCHAR     szTempString_13[ 33 ]; 
+   zCHAR     szTempString_14[ 33 ]; 
+   zCHAR     szTempString_15[ 33 ]; 
+   zCHAR     szTempString_16[ 255 ]; 
    zSHORT    lTempInteger_2; 
    zSHORT    lTempInteger_3; 
-   zCHAR     szTempString_14[ 255 ]; 
-   zCHAR     szTempString_15[ 255 ]; 
-   zCHAR     szTempString_16[ 255 ]; 
    zCHAR     szTempString_17[ 255 ]; 
    zCHAR     szTempString_18[ 255 ]; 
+   zCHAR     szTempString_19[ 255 ]; 
+   zCHAR     szTempString_20[ 255 ]; 
+   zCHAR     szTempString_21[ 255 ]; 
 
 
    //://TraceLineS("*** GenJSPJ_CrteEditBox *** ", "")
@@ -11896,23 +11905,50 @@ GenJSPJ_CrteEditBox( zVIEW     vDialog,
 
       //:END
 
-      //:szWriteBuffer = "               strErrorMapValue = " +
-      //:                vDialog.CtrlMapView.Name + ".cursor( ^" +
-      //:                vDialog.CtrlMapRelatedEntity.Name + "^ ).getAttribute( ^" +
-      //:                vDialog.CtrlMapER_Attribute.Name + "^ ).getString( ^" +
-      //:                szContextName + "^ );"
-      GetVariableFromAttribute( szTempString_5, 0, 'S', 33, vDialog, "CtrlMapView", "Name", "", 0 );
-      ZeidonStringCopy( szWriteBuffer, 1, 0, "               strErrorMapValue = ", 1, 0, 10001 );
-      ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_5, 1, 0, 10001 );
-      ZeidonStringConcat( szWriteBuffer, 1, 0, ".cursor( ^", 1, 0, 10001 );
-      GetVariableFromAttribute( szTempString_6, 0, 'S', 33, vDialog, "CtrlMapRelatedEntity", "Name", "", 0 );
-      ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_6, 1, 0, 10001 );
-      ZeidonStringConcat( szWriteBuffer, 1, 0, "^ ).getAttribute( ^", 1, 0, 10001 );
-      GetVariableFromAttribute( szTempString_7, 0, 'S', 33, vDialog, "CtrlMapER_Attribute", "Name", "", 0 );
-      ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_7, 1, 0, 10001 );
-      ZeidonStringConcat( szWriteBuffer, 1, 0, "^ ).getString( ^", 1, 0, 10001 );
-      ZeidonStringConcat( szWriteBuffer, 1, 0, szContextName, 1, 0, 10001 );
-      ZeidonStringConcat( szWriteBuffer, 1, 0, "^ );", 1, 0, 10001 );
+      //:// KJS 05/14/21 - Making a change for language translation... if there is no context... I think we should assume then that on an edit field,
+      //:// that we will get the internal value .getString() not what we were doing .getString(""). Because if we are editting, shouldn't we be looking
+      //:// at "internal value"? 
+      //:IF szContextName = ""
+      if ( ZeidonStringCompare( szContextName, 1, 0, "", 1, 0, 33 ) == 0 )
+      { 
+         //:szWriteBuffer = "               strErrorMapValue = " +
+         //:                vDialog.CtrlMapView.Name + ".cursor( ^" +
+         //:                vDialog.CtrlMapRelatedEntity.Name + "^ ).getAttribute( ^" +
+         //:                vDialog.CtrlMapER_Attribute.Name + "^ ).getString( );"
+         GetVariableFromAttribute( szTempString_5, 0, 'S', 33, vDialog, "CtrlMapView", "Name", "", 0 );
+         ZeidonStringCopy( szWriteBuffer, 1, 0, "               strErrorMapValue = ", 1, 0, 10001 );
+         ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_5, 1, 0, 10001 );
+         ZeidonStringConcat( szWriteBuffer, 1, 0, ".cursor( ^", 1, 0, 10001 );
+         GetVariableFromAttribute( szTempString_6, 0, 'S', 33, vDialog, "CtrlMapRelatedEntity", "Name", "", 0 );
+         ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_6, 1, 0, 10001 );
+         ZeidonStringConcat( szWriteBuffer, 1, 0, "^ ).getAttribute( ^", 1, 0, 10001 );
+         GetVariableFromAttribute( szTempString_7, 0, 'S', 33, vDialog, "CtrlMapER_Attribute", "Name", "", 0 );
+         ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_7, 1, 0, 10001 );
+         ZeidonStringConcat( szWriteBuffer, 1, 0, "^ ).getString( );", 1, 0, 10001 );
+         //:ELSE
+      } 
+      else
+      { 
+         //:szWriteBuffer = "               strErrorMapValue = " +
+         //:                vDialog.CtrlMapView.Name + ".cursor( ^" +
+         //:                vDialog.CtrlMapRelatedEntity.Name + "^ ).getAttribute( ^" +
+         //:                vDialog.CtrlMapER_Attribute.Name + "^ ).getString( ^" +
+         //:                szContextName + "^ );"
+         GetVariableFromAttribute( szTempString_8, 0, 'S', 33, vDialog, "CtrlMapView", "Name", "", 0 );
+         ZeidonStringCopy( szWriteBuffer, 1, 0, "               strErrorMapValue = ", 1, 0, 10001 );
+         ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_8, 1, 0, 10001 );
+         ZeidonStringConcat( szWriteBuffer, 1, 0, ".cursor( ^", 1, 0, 10001 );
+         GetVariableFromAttribute( szTempString_9, 0, 'S', 33, vDialog, "CtrlMapRelatedEntity", "Name", "", 0 );
+         ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_9, 1, 0, 10001 );
+         ZeidonStringConcat( szWriteBuffer, 1, 0, "^ ).getAttribute( ^", 1, 0, 10001 );
+         GetVariableFromAttribute( szTempString_10, 0, 'S', 33, vDialog, "CtrlMapER_Attribute", "Name", "", 0 );
+         ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_10, 1, 0, 10001 );
+         ZeidonStringConcat( szWriteBuffer, 1, 0, "^ ).getString( ^", 1, 0, 10001 );
+         ZeidonStringConcat( szWriteBuffer, 1, 0, szContextName, 1, 0, 10001 );
+         ZeidonStringConcat( szWriteBuffer, 1, 0, "^ );", 1, 0, 10001 );
+      } 
+
+      //:END
       //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
       WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 );
 
@@ -11924,9 +11960,9 @@ GenJSPJ_CrteEditBox( zVIEW     vDialog,
          //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
          WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 );
          //:szWriteBuffer = "               if ( " + vDialog.CtrlMapView.Name + ".isReadOnly( ) )"
-         GetVariableFromAttribute( szTempString_8, 0, 'S', 33, vDialog, "CtrlMapView", "Name", "", 0 );
+         GetVariableFromAttribute( szTempString_11, 0, 'S', 33, vDialog, "CtrlMapView", "Name", "", 0 );
          ZeidonStringCopy( szWriteBuffer, 1, 0, "               if ( ", 1, 0, 10001 );
-         ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_8, 1, 0, 10001 );
+         ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_11, 1, 0, 10001 );
          ZeidonStringConcat( szWriteBuffer, 1, 0, ".isReadOnly( ) )", 1, 0, 10001 );
          //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
          WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 );
@@ -12005,12 +12041,12 @@ GenJSPJ_CrteEditBox( zVIEW     vDialog,
 
       //:szWriteBuffer = "            task.log( ).debug( ^" + vDialog.CtrlMapRelatedEntity.Name + "." +
       //:                vDialog.CtrlMapER_Attribute.Name + ": ^ + strErrorMapValue );"
-      GetVariableFromAttribute( szTempString_9, 0, 'S', 33, vDialog, "CtrlMapRelatedEntity", "Name", "", 0 );
+      GetVariableFromAttribute( szTempString_12, 0, 'S', 33, vDialog, "CtrlMapRelatedEntity", "Name", "", 0 );
       ZeidonStringCopy( szWriteBuffer, 1, 0, "            task.log( ).debug( ^", 1, 0, 10001 );
-      ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_9, 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_12, 1, 0, 10001 );
       ZeidonStringConcat( szWriteBuffer, 1, 0, ".", 1, 0, 10001 );
-      GetVariableFromAttribute( szTempString_10, 0, 'S', 33, vDialog, "CtrlMapER_Attribute", "Name", "", 0 );
-      ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_10, 1, 0, 10001 );
+      GetVariableFromAttribute( szTempString_13, 0, 'S', 33, vDialog, "CtrlMapER_Attribute", "Name", "", 0 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_13, 1, 0, 10001 );
       ZeidonStringConcat( szWriteBuffer, 1, 0, ": ^ + strErrorMapValue );", 1, 0, 10001 );
       //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
       WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 );
@@ -12044,11 +12080,11 @@ GenJSPJ_CrteEditBox( zVIEW     vDialog,
       ZeidonStringCopy( szWriteBuffer, 1, 0, "            task.log( ).debug( ^Entity does not exist for ", 1, 0, 10001 );
       ZeidonStringConcat( szWriteBuffer, 1, 0, szCtrlTag, 1, 0, 10001 );
       ZeidonStringConcat( szWriteBuffer, 1, 0, ": ^ + ^", 1, 0, 10001 );
-      GetVariableFromAttribute( szTempString_11, 0, 'S', 33, vDialog, "CtrlMapView", "Name", "", 0 );
-      ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_11, 1, 0, 10001 );
+      GetVariableFromAttribute( szTempString_14, 0, 'S', 33, vDialog, "CtrlMapView", "Name", "", 0 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_14, 1, 0, 10001 );
       ZeidonStringConcat( szWriteBuffer, 1, 0, ".", 1, 0, 10001 );
-      GetVariableFromAttribute( szTempString_12, 0, 'S', 33, vDialog, "CtrlMapRelatedEntity", "Name", "", 0 );
-      ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_12, 1, 0, 10001 );
+      GetVariableFromAttribute( szTempString_15, 0, 'S', 33, vDialog, "CtrlMapRelatedEntity", "Name", "", 0 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_15, 1, 0, 10001 );
       ZeidonStringConcat( szWriteBuffer, 1, 0, "^ );", 1, 0, 10001 );
       //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
       WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 );
@@ -12074,9 +12110,9 @@ GenJSPJ_CrteEditBox( zVIEW     vDialog,
          //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
          WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 );
          //:szWriteBuffer = "         strErrorMapValue = ^" + vDialog.Control.Text + "^;"
-         GetVariableFromAttribute( szTempString_13, 0, 'S', 255, vDialog, "Control", "Text", "", 0 );
+         GetVariableFromAttribute( szTempString_16, 0, 'S', 255, vDialog, "Control", "Text", "", 0 );
          ZeidonStringCopy( szWriteBuffer, 1, 0, "         strErrorMapValue = ^", 1, 0, 10001 );
-         ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_13, 1, 0, 10001 );
+         ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_16, 1, 0, 10001 );
          ZeidonStringConcat( szWriteBuffer, 1, 0, "^;", 1, 0, 10001 );
       } 
 
@@ -12351,9 +12387,9 @@ GenJSPJ_CrteEditBox( zVIEW     vDialog,
       if ( lTemp != 0 && bMapping == 0 )
       { 
          //:szValue = " value=^" + vDialog.Control.Text + "^"
-         GetVariableFromAttribute( szTempString_14, 0, 'S', 255, vDialog, "Control", "Text", "", 0 );
+         GetVariableFromAttribute( szTempString_17, 0, 'S', 255, vDialog, "Control", "Text", "", 0 );
          ZeidonStringCopy( szValue, 1, 0, " value=^", 1, 0, 301 );
-         ZeidonStringConcat( szValue, 1, 0, szTempString_14, 1, 0, 301 );
+         ZeidonStringConcat( szValue, 1, 0, szTempString_17, 1, 0, 301 );
          ZeidonStringConcat( szValue, 1, 0, "^", 1, 0, 301 );
          //:ELSE
       } 
@@ -12385,9 +12421,9 @@ GenJSPJ_CrteEditBox( zVIEW     vDialog,
       if ( lTemp != 0 && bMapping == 0 )
       { 
          //:szValue = " value=^" + vDialog.Control.Text + "^"
-         GetVariableFromAttribute( szTempString_15, 0, 'S', 255, vDialog, "Control", "Text", "", 0 );
+         GetVariableFromAttribute( szTempString_18, 0, 'S', 255, vDialog, "Control", "Text", "", 0 );
          ZeidonStringCopy( szValue, 1, 0, " value=^", 1, 0, 301 );
-         ZeidonStringConcat( szValue, 1, 0, szTempString_15, 1, 0, 301 );
+         ZeidonStringConcat( szValue, 1, 0, szTempString_18, 1, 0, 301 );
          ZeidonStringConcat( szValue, 1, 0, "^", 1, 0, 301 );
          //:ELSE
       } 
@@ -12433,9 +12469,9 @@ GenJSPJ_CrteEditBox( zVIEW     vDialog,
    if ( CompareAttributeToString( vDialog, "Control", "WebPlaceholder", "" ) != 0 )
    { 
       //:szPlaceholder = " placeholder=^" + vDialog.Control.WebPlaceholder + "^ "
-      GetVariableFromAttribute( szTempString_16, 0, 'S', 255, vDialog, "Control", "WebPlaceholder", "", 0 );
+      GetVariableFromAttribute( szTempString_19, 0, 'S', 255, vDialog, "Control", "WebPlaceholder", "", 0 );
       ZeidonStringCopy( szPlaceholder, 1, 0, " placeholder=^", 1, 0, 257 );
-      ZeidonStringConcat( szPlaceholder, 1, 0, szTempString_16, 1, 0, 257 );
+      ZeidonStringConcat( szPlaceholder, 1, 0, szTempString_19, 1, 0, 257 );
       ZeidonStringConcat( szPlaceholder, 1, 0, "^ ", 1, 0, 257 );
    } 
 
@@ -12447,9 +12483,9 @@ GenJSPJ_CrteEditBox( zVIEW     vDialog,
    if ( CompareAttributeToString( vDialog, "Control", "WebHTML5Attribute", "" ) != 0 )
    { 
       //:szHTML5Attr = " " + vDialog.Control.WebHTML5Attribute + " "
-      GetVariableFromAttribute( szTempString_17, 0, 'S', 255, vDialog, "Control", "WebHTML5Attribute", "", 0 );
+      GetVariableFromAttribute( szTempString_20, 0, 'S', 255, vDialog, "Control", "WebHTML5Attribute", "", 0 );
       ZeidonStringCopy( szHTML5Attr, 1, 0, " ", 1, 0, 257 );
-      ZeidonStringConcat( szHTML5Attr, 1, 0, szTempString_17, 1, 0, 257 );
+      ZeidonStringConcat( szHTML5Attr, 1, 0, szTempString_20, 1, 0, 257 );
       ZeidonStringConcat( szHTML5Attr, 1, 0, " ", 1, 0, 257 );
    } 
 
@@ -12477,8 +12513,8 @@ GenJSPJ_CrteEditBox( zVIEW     vDialog,
       //:szClass = " class=^" + szCSSBootstrap + vDialog.Control.CSS_Class + "^ "
       ZeidonStringCopy( szClass, 1, 0, " class=^", 1, 0, 257 );
       ZeidonStringConcat( szClass, 1, 0, szCSSBootstrap, 1, 0, 257 );
-      GetVariableFromAttribute( szTempString_18, 0, 'S', 255, vDialog, "Control", "CSS_Class", "", 0 );
-      ZeidonStringConcat( szClass, 1, 0, szTempString_18, 1, 0, 257 );
+      GetVariableFromAttribute( szTempString_21, 0, 'S', 255, vDialog, "Control", "CSS_Class", "", 0 );
+      ZeidonStringConcat( szClass, 1, 0, szTempString_21, 1, 0, 257 );
       ZeidonStringConcat( szClass, 1, 0, "^ ", 1, 0, 257 );
    } 
 

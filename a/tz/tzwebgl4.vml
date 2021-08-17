@@ -3218,12 +3218,22 @@ GenJSPJ_CrteEditBox( VIEW vDialog BASED ON LOD TZWDLGSO,
       ELSE
          szMaxStringLth = lMaxStringLth
       END
-
-      szWriteBuffer = "               strErrorMapValue = " +
-                      vDialog.CtrlMapView.Name + ".cursor( ^" +
-                      vDialog.CtrlMapRelatedEntity.Name + "^ ).getAttribute( ^" +
-                      vDialog.CtrlMapER_Attribute.Name + "^ ).getString( ^" +
-                      szContextName + "^ );"
+      
+      // KJS 05/14/21 - Making a change for language translation... if there is no context... I think we should assume then that on an edit field,
+      // that we will get the internal value .getString() not what we were doing .getString(""). Because if we are editting, shouldn't we be looking
+      // at "internal value"? 
+      IF szContextName = ""
+         szWriteBuffer = "               strErrorMapValue = " +
+                         vDialog.CtrlMapView.Name + ".cursor( ^" +
+                         vDialog.CtrlMapRelatedEntity.Name + "^ ).getAttribute( ^" +
+                         vDialog.CtrlMapER_Attribute.Name + "^ ).getString( );"
+      ELSE
+         szWriteBuffer = "               strErrorMapValue = " +
+                         vDialog.CtrlMapView.Name + ".cursor( ^" +
+                         vDialog.CtrlMapRelatedEntity.Name + "^ ).getAttribute( ^" +
+                         vDialog.CtrlMapER_Attribute.Name + "^ ).getString( ^" +
+                         szContextName + "^ );"
+      END
       WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
       
       IF vDialogRoot.Dialog.wWebUsesControlActionsView = "Y"
@@ -5350,7 +5360,7 @@ GenJSPJ_CrtePushButton( VIEW vDialog BASED ON LOD TZWDLGSO,
       ELSE
          szText = vDialog.Control.Text
       END
-      szWriteBuffer = szWidget + szCtrlTag + "^ id=^" + szCtrlTag + "^" + szStyle + " ><a href=^<%=strErrorMapValue%>^ target=^_blank^>" + 
+      szWriteBuffer = szWidget + szCtrlTag + szRepeatGrpKey + "^ id=^" + szCtrlTag + szRepeatGrpKey + "^" + szStyle + " ><a href=^<%=strErrorMapValue%>^ target=^_blank^>" + 
                       szText + "</a></button>"    
    ELSE
    IF szParentWebType = "Div" OR szParentWebType = "DivScroll" OR
@@ -5359,10 +5369,10 @@ GenJSPJ_CrtePushButton( VIEW vDialog BASED ON LOD TZWDLGSO,
       szWriteBuffer = "<p></p>"
       WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
       CreateSizeString( vDialog, szSize )
-      szWriteBuffer = szWidget + szCtrlTag + "^ id=^" + szCtrlTag + "^ value=^" + szText + "^ onclick=^" +
+      szWriteBuffer = szWidget + szCtrlTag + szRepeatGrpKey + "^ id=^" + szCtrlTag + szRepeatGrpKey + "^ value=^" + szText + "^ onclick=^" +
                       szAction + "^ " + "style=^" + szSize + "^>" + szTerm
    ELSE
-      szWriteBuffer = szWidget + szCtrlTag + "^ id=^" + szCtrlTag + "^ value=^" + szText + "^ onclick=^" +
+      szWriteBuffer = szWidget + szCtrlTag + szRepeatGrpKey + "^ id=^" + szCtrlTag + szRepeatGrpKey + "^ value=^" + szText + "^ onclick=^" +
                       szAction + "^ " + szStyle + ">" + szTerm
    END
    END

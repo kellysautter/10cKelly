@@ -72,7 +72,7 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
    STRING ( 20 )  szJustify
    STRING ( 50 )  szWebCtrlType
    STRING ( 35 )  szControlTag
-   STRING ( 85 )  szHTMLCtrlID
+   STRING ( 256 ) szHTMLCtrlID
    STRING ( 50 )  szGridView
    STRING ( 50 )  szGridOrigViewName
    STRING ( 50 )  szGroupBoxType
@@ -376,7 +376,7 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
          CreateAbsolStyleString( vDialog, szAbsoluteStyle, lOffsetX, lOffsetY, "" )
       END
 
-      szHTMLCtrlID = " id=^" + szCtrlTag + "^ name=^" + szCtrlTag + "^ "
+      szHTMLCtrlID = " id=^" + szCtrlTag + szRepeatGrpKey + "^ name=^" + szCtrlTag + szRepeatGrpKey + "^ "
       
       // KJS 02/23/16 - We have added a field for HTML5 attributes (this could be for jQuery Mobile or whatever extra attributes we want).
       // It is simply a string and we will add it to different controls like <div> or <input> etc.
@@ -1547,7 +1547,9 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
 
                IF ( szToggleFlag = "Y" OR szToggleFlag2 = "Y" ) AND szWindowIsjMobile = ""
                   //szWriteBuffer = "<script type=^text/javascript^>animatedcollapse.addDiv('" + szCtrlTag + "', 'fade=400,hide=1,persist=1');animatedcollapse.init();</script>"
-                  szWriteBuffer = "<script type=^text/javascript^>animatedcollapse.addDiv('" + szCtrlTag + "', 'fade=400,hide=1,persist=1');</script>"
+                  //szWriteBuffer = "<script type=^text/javascript^>animatedcollapse.addDiv('" + szCtrlTag + "', 'fade=400,hide=1,persist=1');</script>"
+                  // KJS 04/14/21 - Taking out hide=1 because it seems to keep Safari from working correctly (toggle boxes are always closed on Safari).
+                  szWriteBuffer = "<script type=^text/javascript^>animatedcollapse.addDiv('" + szCtrlTag + "', 'fade=400,persist=1');</script>"
                   WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
                END
 
@@ -1764,10 +1766,11 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
                END
                END
                szClass = vDialog.Control.CSS_Class
+               szRepeatingGroupKey = "::<%=strEntityKeyRG" + szCtrlTag + "%>"
                IF szClass = ""
-                  szWriteBuffer = "<div " + szAbsoluteStyle + "> <!-- div for repeating group --> "
+                  szWriteBuffer = "<div id=^" +  szCtrlTag + szRepeatingGroupKey + "^ name=^" +  szCtrlTag + szRepeatingGroupKey + "^" + szAbsoluteStyle + "> <!-- div for repeating group --> "
                ELSE
-                  szWriteBuffer = "<div class=^" + szClass + "^ " + szAbsoluteStyle + ">  <!-- div for repeating group -->"
+                  szWriteBuffer = "<div id=^" +  szCtrlTag + szRepeatingGroupKey + "^ name=^" +  szCtrlTag + szRepeatingGroupKey + "^ class=^" + szClass + "^ " + szAbsoluteStyle + ">  <!-- div for repeating group -->"
                END
             ELSE
                CreateRelStyleString( vDialog, szRelStyle, 0, 0, "" )

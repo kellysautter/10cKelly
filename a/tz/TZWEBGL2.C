@@ -952,8 +952,8 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
    zCHAR     szWebCtrlType[ 51 ] = { 0 }; 
    //:STRING ( 35 )  szControlTag
    zCHAR     szControlTag[ 36 ] = { 0 }; 
-   //:STRING ( 85 )  szHTMLCtrlID
-   zCHAR     szHTMLCtrlID[ 86 ] = { 0 }; 
+   //:STRING ( 256 ) szHTMLCtrlID
+   zCHAR     szHTMLCtrlID[ 257 ] = { 0 }; 
    //:STRING ( 50 )  szGridView
    zCHAR     szGridView[ 51 ] = { 0 }; 
    //:STRING ( 50 )  szGridOrigViewName
@@ -1744,12 +1744,14 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
 
       //:END
 
-      //:szHTMLCtrlID = " id=^" + szCtrlTag + "^ name=^" + szCtrlTag + "^ "
-      ZeidonStringCopy( szHTMLCtrlID, 1, 0, " id=^", 1, 0, 86 );
-      ZeidonStringConcat( szHTMLCtrlID, 1, 0, szCtrlTag, 1, 0, 86 );
-      ZeidonStringConcat( szHTMLCtrlID, 1, 0, "^ name=^", 1, 0, 86 );
-      ZeidonStringConcat( szHTMLCtrlID, 1, 0, szCtrlTag, 1, 0, 86 );
-      ZeidonStringConcat( szHTMLCtrlID, 1, 0, "^ ", 1, 0, 86 );
+      //:szHTMLCtrlID = " id=^" + szCtrlTag + szRepeatGrpKey + "^ name=^" + szCtrlTag + szRepeatGrpKey + "^ "
+      ZeidonStringCopy( szHTMLCtrlID, 1, 0, " id=^", 1, 0, 257 );
+      ZeidonStringConcat( szHTMLCtrlID, 1, 0, szCtrlTag, 1, 0, 257 );
+      ZeidonStringConcat( szHTMLCtrlID, 1, 0, szRepeatGrpKey, 1, 0, 257 );
+      ZeidonStringConcat( szHTMLCtrlID, 1, 0, "^ name=^", 1, 0, 257 );
+      ZeidonStringConcat( szHTMLCtrlID, 1, 0, szCtrlTag, 1, 0, 257 );
+      ZeidonStringConcat( szHTMLCtrlID, 1, 0, szRepeatGrpKey, 1, 0, 257 );
+      ZeidonStringConcat( szHTMLCtrlID, 1, 0, "^ ", 1, 0, 257 );
 
       //:// KJS 02/23/16 - We have added a field for HTML5 attributes (this could be for jQuery Mobile or whatever extra attributes we want).
       //:// It is simply a string and we will add it to different controls like <div> or <input> etc.
@@ -4357,10 +4359,12 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
                                     if ( ( ZeidonStringCompare( szToggleFlag, 1, 0, "Y", 1, 0, 2 ) == 0 || ZeidonStringCompare( szToggleFlag2, 1, 0, "Y", 1, 0, 2 ) == 0 ) && ZeidonStringCompare( szWindowIsjMobile, 1, 0, "", 1, 0, 2 ) == 0 )
                                     { 
                                        //://szWriteBuffer = "<script type=^text/javascript^>animatedcollapse.addDiv('" + szCtrlTag + "', 'fade=400,hide=1,persist=1');animatedcollapse.init();</script>"
-                                       //:szWriteBuffer = "<script type=^text/javascript^>animatedcollapse.addDiv('" + szCtrlTag + "', 'fade=400,hide=1,persist=1');</script>"
+                                       //://szWriteBuffer = "<script type=^text/javascript^>animatedcollapse.addDiv('" + szCtrlTag + "', 'fade=400,hide=1,persist=1');</script>"
+                                       //:// KJS 04/14/21 - Taking out hide=1 because it seems to keep Safari from working correctly (toggle boxes are always closed on Safari).
+                                       //:szWriteBuffer = "<script type=^text/javascript^>animatedcollapse.addDiv('" + szCtrlTag + "', 'fade=400,persist=1');</script>"
                                        ZeidonStringCopy( szWriteBuffer, 1, 0, "<script type=^text/javascript^>animatedcollapse.addDiv('", 1, 0, 10001 );
                                        ZeidonStringConcat( szWriteBuffer, 1, 0, szCtrlTag, 1, 0, 10001 );
-                                       ZeidonStringConcat( szWriteBuffer, 1, 0, "', 'fade=400,hide=1,persist=1');</script>", 1, 0, 10001 );
+                                       ZeidonStringConcat( szWriteBuffer, 1, 0, "', 'fade=400,persist=1');</script>", 1, 0, 10001 );
                                        //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
                                        WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 );
                                     } 
@@ -4870,19 +4874,35 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
                //:END
                //:szClass = vDialog.Control.CSS_Class
                GetVariableFromAttribute( szClass, 0, 'S', 257, vDialog, "Control", "CSS_Class", "", 0 );
+               //:szRepeatingGroupKey = "::<%=strEntityKeyRG" + szCtrlTag + "%>"
+               ZeidonStringCopy( szRepeatingGroupKey, 1, 0, "::<%=strEntityKeyRG", 1, 0, 101 );
+               ZeidonStringConcat( szRepeatingGroupKey, 1, 0, szCtrlTag, 1, 0, 101 );
+               ZeidonStringConcat( szRepeatingGroupKey, 1, 0, "%>", 1, 0, 101 );
                //:IF szClass = ""
                if ( ZeidonStringCompare( szClass, 1, 0, "", 1, 0, 257 ) == 0 )
                { 
-                  //:szWriteBuffer = "<div " + szAbsoluteStyle + "> <!-- div for repeating group --> "
-                  ZeidonStringCopy( szWriteBuffer, 1, 0, "<div ", 1, 0, 10001 );
+                  //:szWriteBuffer = "<div id=^" +  szCtrlTag + szRepeatingGroupKey + "^ name=^" +  szCtrlTag + szRepeatingGroupKey + "^" + szAbsoluteStyle + "> <!-- div for repeating group --> "
+                  ZeidonStringCopy( szWriteBuffer, 1, 0, "<div id=^", 1, 0, 10001 );
+                  ZeidonStringConcat( szWriteBuffer, 1, 0, szCtrlTag, 1, 0, 10001 );
+                  ZeidonStringConcat( szWriteBuffer, 1, 0, szRepeatingGroupKey, 1, 0, 10001 );
+                  ZeidonStringConcat( szWriteBuffer, 1, 0, "^ name=^", 1, 0, 10001 );
+                  ZeidonStringConcat( szWriteBuffer, 1, 0, szCtrlTag, 1, 0, 10001 );
+                  ZeidonStringConcat( szWriteBuffer, 1, 0, szRepeatingGroupKey, 1, 0, 10001 );
+                  ZeidonStringConcat( szWriteBuffer, 1, 0, "^", 1, 0, 10001 );
                   ZeidonStringConcat( szWriteBuffer, 1, 0, szAbsoluteStyle, 1, 0, 10001 );
                   ZeidonStringConcat( szWriteBuffer, 1, 0, "> <!-- div for repeating group --> ", 1, 0, 10001 );
                   //:ELSE
                } 
                else
                { 
-                  //:szWriteBuffer = "<div class=^" + szClass + "^ " + szAbsoluteStyle + ">  <!-- div for repeating group -->"
-                  ZeidonStringCopy( szWriteBuffer, 1, 0, "<div class=^", 1, 0, 10001 );
+                  //:szWriteBuffer = "<div id=^" +  szCtrlTag + szRepeatingGroupKey + "^ name=^" +  szCtrlTag + szRepeatingGroupKey + "^ class=^" + szClass + "^ " + szAbsoluteStyle + ">  <!-- div for repeating group -->"
+                  ZeidonStringCopy( szWriteBuffer, 1, 0, "<div id=^", 1, 0, 10001 );
+                  ZeidonStringConcat( szWriteBuffer, 1, 0, szCtrlTag, 1, 0, 10001 );
+                  ZeidonStringConcat( szWriteBuffer, 1, 0, szRepeatingGroupKey, 1, 0, 10001 );
+                  ZeidonStringConcat( szWriteBuffer, 1, 0, "^ name=^", 1, 0, 10001 );
+                  ZeidonStringConcat( szWriteBuffer, 1, 0, szCtrlTag, 1, 0, 10001 );
+                  ZeidonStringConcat( szWriteBuffer, 1, 0, szRepeatingGroupKey, 1, 0, 10001 );
+                  ZeidonStringConcat( szWriteBuffer, 1, 0, "^ class=^", 1, 0, 10001 );
                   ZeidonStringConcat( szWriteBuffer, 1, 0, szClass, 1, 0, 10001 );
                   ZeidonStringConcat( szWriteBuffer, 1, 0, "^ ", 1, 0, 10001 );
                   ZeidonStringConcat( szWriteBuffer, 1, 0, szAbsoluteStyle, 1, 0, 10001 );
