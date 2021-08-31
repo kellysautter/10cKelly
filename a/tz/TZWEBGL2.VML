@@ -126,6 +126,7 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
    STRING ( 1 )   szSpan
    STRING ( 300 ) szStyle
    STRING ( 100 ) szRepeatingGroupKey
+   STRING ( 100 ) szInListCtrlTag
    DECIMAL        dDLUnits
    INTEGER        LastY_Pos
    INTEGER        LastY_Height
@@ -3365,10 +3366,21 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
                         ELSE
                            szMaxStringLth = lMaxStringLth
                         END
+                        
+                        // KJS 05/14/21 - Making a change for language translation... if there is no context... I think we should assume then that on an edit field,
+                        // that we will get the internal value .getString() not what we were doing .getString(""). Because if we are editting, shouldn't we be looking
+                        // at "internal value"? If this is edit I don't think we should ever hav ea context but I won't change that for now.
+                        IF szContextName = ""
+                           szWriteBuffer = "               " + szControlTag + " = " + szGridView +
+                                        ".cursor( ^" + vDialog.CtrlMapRelatedEntity.Name +
+                                        "^ ).getAttribute( ^" + vDialog.CtrlMapER_Attribute.Name + "^ ).getString( );"                        
+                        ELSE
+                           szWriteBuffer = "               " + szControlTag + " = " + szGridView +
+                                        ".cursor( ^" + vDialog.CtrlMapRelatedEntity.Name +
+                                        "^ ).getAttribute( ^" + vDialog.CtrlMapER_Attribute.Name + "^ ).getString( ^" + szContextName + "^ );"                        
+                       END
 
-                        szWriteBuffer = "               " + szControlTag + " = " + szGridView +
-                                     ".cursor( ^" + vDialog.CtrlMapRelatedEntity.Name +
-                                     "^ ).getAttribute( ^" + vDialog.CtrlMapER_Attribute.Name + "^ ).getString( ^" + szContextName + "^ );"
+
                         WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
 
                         // KJS 02/15/11 - Thinking I need to add code to change values returned as null to "".
@@ -3907,6 +3919,12 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
                               WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
                               szWriteBuffer = "<%"
                               WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+         // KJS 05/27/21 - If the value from the database is not part of the domain anymore, we will put that option in but
+         // we will set it as disabled. We already had this code in GenJSPJ_CrteComboBox
+         szInListCtrlTag = "inList" + szListCtrlTag
+
+         szWriteBuffer = "   boolean " + szInListCtrlTag + " = false;"
+         WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
                               szWriteBuffer = "   strComboCurrentInternalValue = ^^;"
                               WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
                              // szWriteBuffer = "      nRC = " + szViewName + ".GetView( strSessionId, ^" + szViewName + "^, vAppSubtask );"
@@ -3947,7 +3965,10 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
                               // KJS 10/31/12 - I think that we should get "internal value" instead of external. But then I think we
                               // need to change DoInputMapping and GenJSPJ_CtreComboBox. Get rid of last ""
                               szWriteBuffer = "            strComboCurrentValue = " + szViewName + ".cursor( ^" + szMapEntityName + "^ ).getAttribute( ^" +
-                                              szMapAttributeName + "^ ).getString( ^" + szContextName + "^ );"
+                                              szMapAttributeName + "^ ).getString( ^^ );"
+                              // KJS 05/27/21 - I tried to add the context name back in. But this causes an error when the currentvalue does NOT exist
+                              // in the context (like it's an old value). Seem to work using the default context, even with language... so I am going back.
+                              //                szMapAttributeName + "^ ).getString( ^" + szContextName + "^ );"
                               WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
 
                               szWriteBuffer = "            strComboCurrentInternalValue = " + szViewName + ".cursor( ^" + szMapEntityName + "^ ).getAttribute( ^" +
@@ -3985,6 +4006,10 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
                                  WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
                                  szWriteBuffer = "            {"
                                  WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+
+               szWriteBuffer = "         " + szInListCtrlTag + " = true;"
+               WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+               
                                  szWriteBuffer = "%>"
                                  WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
                                  szWriteBuffer = "               <option selected=^selected^ value=^^></option>"
@@ -4040,6 +4065,10 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
                               WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
                               szWriteBuffer = "            {"
                               WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+
+            szWriteBuffer = "               " + szInListCtrlTag + " = true;"
+            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+
                               szWriteBuffer = "%>"
                               WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
                               // KJS 03/08/18 - The old way was setting value to externalValue but we are now setting to internalValue.
@@ -4070,6 +4099,23 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
                               WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
                               // KJS 10/31/12 - END OF New Code for java
 
+            // KJS 05/27/21 - Add this value as disabled. We already had this in GenJSPJ_CrteComboBox
+            szWriteBuffer = "      // The value from the database isn't in the domain, add it to the list as disabled."
+            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+            szWriteBuffer = "      if ( !" + szInListCtrlTag + " )"
+            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+            szWriteBuffer = "      { "
+            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+            szWriteBuffer = "%>"
+            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+
+            szWriteBuffer = "         <option disabled selected=^selected^ value=^<%=strComboCurrentInternalValue%>^><%=strComboCurrentValue%></option>"
+            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+            szWriteBuffer = "<%"
+            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+
+            szWriteBuffer = "      }  "
+            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
 
                               szWriteBuffer = "%>"
                               WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
@@ -6048,8 +6094,8 @@ GenJSPJ_InputMapRecurs( VIEW vDialog BASED ON LOD TZWDLGSO,
                            szWriteBuffer = "                     vGridTmp.cursor( ^" +
                                      vDialog.CtrlMapRelatedEntity.Name +
                                      "^ ).getAttribute( ^" + vDialog.CtrlMapER_Attribute.Name +
-                                     "^ ).setValue( strMapValue, " +
-                                     "^" + szContextName + "^ );"
+                                     "^ ).setValue( strMapValue ); " 
+                                     //"^" + szContextName + "^ );"  // commented out 05/27/21                           
                            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
                            szWriteBuffer = "            }"
                            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
@@ -6257,13 +6303,13 @@ GenJSPJ_InputMapRecurs( VIEW vDialog BASED ON LOD TZWDLGSO,
                                     szWriteBuffer = "                  // Only do the automatic include if this is a different entity"
                                     WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
                                     szWriteBuffer = "                  strTemp = vGridTmp.cursor( ^" +
-                                                    vDialog.CtrlMapRelatedEntity.Name + "^ ).getAttribute( ^" + vDialog.CtrlMapER_Attribute.Name + "^ ).getString( ^^ );"
+                                                    vDialog.CtrlMapRelatedEntity.Name + "^ ).getAttribute( ^" + vDialog.CtrlMapER_Attribute.Name + "^ ).getString( ) ;"
 
                                     WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
 
                                     szWriteBuffer = "                  if ( !StringUtils.equals( strTemp, " + vDialog2.CtrlMapView.Name +
                                                     ".cursor( ^" + vDialog2.CtrlMapRelatedEntity.Name +
-                                                    "^ ).getAttribute( ^" + vDialog2.CtrlMapER_Attribute.Name + "^ ).getString( ^^ ) ) )"
+                                                    "^ ).getAttribute( ^" + vDialog2.CtrlMapER_Attribute.Name + "^ ).getString( ) ) )"
 
                                     WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
                                     szWriteBuffer = "                  {"

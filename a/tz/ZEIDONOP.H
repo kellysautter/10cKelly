@@ -323,11 +323,14 @@ oTZADCSDO_DialogSpecMigrate( zPVIEW vViewToInstance0,
 
 //end
 
-//start TZCM_OPR 2015.11.20 15:45:00
+//start TZCM_OPR 2021.08.11 15:18:48
 zOPER_EXPORT zSHORT OPERATION
 InitializeNextZKeyForObject( zVIEW vObjectView0,
                              zPCHAR pchRootEntityName1,
                              zPCHAR pchCurrentEntityName2 );
+
+zOPER_EXPORT zSHORT OPERATION
+SetLODSQL_DBH_X_ToOne( zVIEW vvLOD0 );
 
 zOPER_EXPORT zSHORT OPERATION
 ActivateEmptyMetaOI( zVIEW vSubtask0,

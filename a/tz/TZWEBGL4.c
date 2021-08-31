@@ -15511,7 +15511,7 @@ GenJSPJ_CrteComboBox( zVIEW     vDialog,
             //:// Get the current value of the combo box.
             //:szWriteBuffer = "         strComboCurrentValue = " + vDialog.CtrlMapView.Name + ".cursor( ^" +
             //:         vDialog.CtrlMapRelatedEntity.Name + "^ ).getAttribute( ^" +
-            //:         vDialog.CtrlMapER_Attribute.Name + "^ ).getString( ^" + szContextName + "^ );"
+            //:         vDialog.CtrlMapER_Attribute.Name + "^ ).getString( ^^ );"
             GetVariableFromAttribute( szTempString_16, 0, 'S', 33, vDialog, "CtrlMapView", "Name", "", 0 );
             ZeidonStringCopy( szWriteBuffer, 1, 0, "         strComboCurrentValue = ", 1, 0, 10001 );
             ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_16, 1, 0, 10001 );
@@ -15521,9 +15521,10 @@ GenJSPJ_CrteComboBox( zVIEW     vDialog,
             ZeidonStringConcat( szWriteBuffer, 1, 0, "^ ).getAttribute( ^", 1, 0, 10001 );
             GetVariableFromAttribute( szTempString_18, 0, 'S', 33, vDialog, "CtrlMapER_Attribute", "Name", "", 0 );
             ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_18, 1, 0, 10001 );
-            ZeidonStringConcat( szWriteBuffer, 1, 0, "^ ).getString( ^", 1, 0, 10001 );
-            ZeidonStringConcat( szWriteBuffer, 1, 0, szContextName, 1, 0, 10001 );
-            ZeidonStringConcat( szWriteBuffer, 1, 0, "^ );", 1, 0, 10001 );
+            ZeidonStringConcat( szWriteBuffer, 1, 0, "^ ).getString( ^^ );", 1, 0, 10001 );
+            //:         // KJS 05/27/21 - I tried to add the context name back in. But this causes an error when the currentvalue does NOT exist
+            //:         // in the context (like it's an old value). Seem to work using the default context, even with language... so I am going back.
+            //:         //vDialog.CtrlMapER_Attribute.Name + "^ ).getString( ^" + szContextName + "^ );"
             //:         // KJS 10/22/14 - Right now we are not adding the context name, we only want the default, which
             //:         // I am currently assuming has ALL the values (old and new) of this domain. When we get DGs domain fix
             //:         // I think we need to put this back!!!!!!!
