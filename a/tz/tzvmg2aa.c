@@ -2889,10 +2889,14 @@ GetOperationNameFromZKey( zVIEW   vSubtask,
    zVIEW vLookupView;
    zCHAR szType[ 2 ];
    zCHAR szObjectName[ zZEIDON_NAME_LTH + 1 ];
+   zCHAR szSourceName[zZEIDON_NAME_LTH + 1] = { 0 };
    zCHAR szParentEntityName[ zZEIDON_NAME_LTH + 1 ];
    zLONG lSourceZKey;
    zLONG lRC;                              // temp return code
    zSHORT nDelIncl;
+   zSHORT nLth = 0;
+   zSHORT x = 0;
+   zSHORT k = 0;
 
    pchReturnName[ 0 ] = 0;
    pchReturnHeaderName[ 0 ] = 0;
@@ -2945,34 +2949,81 @@ GetOperationNameFromZKey( zVIEW   vSubtask,
                // the below code to rectify the problem and in a way it works but for some reason
                // the operation gets a wrong return code. I don't understand why this is happening so I am
                // going to comment this out in hopes that we can come back...
-               /*
+               
+               // If we split a dialog (and maybe object) vml up into more than one source file
+               // and make a call in vml1 to an operation in vml2, the generated code isn't correct
+               // because the operation in vml2 does not exist in the current tsvspoo for vml1. I tried
+               // the below code to rectify the problem and in a way it works but for some reason
+               // the operation gets a wrong return code. I don't understand why this is happening so I am
+               // going to comment this out in hopes that we can come back...
+               /**/
                // If g_lpPIView Name doesn't equal the vLookupView sourcefile name, then
                // this local operation is actually in a different source file. Need to
                // get this so that we can create reference properly.
                // KJS 10/13/15
-               // We are temporarily including the Operation into TZVSPOO (xpj), so that the
-               // can call the derived operation for C_GeneratedOperationName. But keeping this
-               // Operation in TZVSPOO creates errors so we delete it down further in code after we
-               // retrieve the operation name and the source file.
-               // If the operation is a fnLocalBuildQual... the name can be duplicated in the other files, so
-               // lets ignore them. 
                // The zkey for fnLocal is the number at the end "_22" plus 10000. So I assume that the zkey for these
                // can't be any more than 19999. Going to try this...
-               nDelIncl = 0;
+                nDelIncl = 0;
                if ( lZKey > 19999 &&
                     CompareAttributeToAttribute( vLookupView, "SourceFile", "Name",
                                                  g_lpPIView, "VML_XSource",  "Name" ) != 0 )
                {
-                  IncludeSubobjectFromSubobject( g_lpPIView, "Operation", vLookupView, "Operation", zPOS_AFTER );
+                  // KJS IncludeSubobjectFromSubobject( g_lpPIView, "Operation", vLookupView, "Operation", zPOS_AFTER );
                   // Getting the source file name so that we can use that when building the call for the operation.
-                  GetStringFromAttribute( pchOperationGroup, vLookupView,
-                                          "SourceFile", "Name" );
-                  // Indicate that we need to exclude this operation after retrieving the operation name.
-                  nDelIncl = 1;                  
+ 
+		  GetStringFromAttribute( szSourceName,  vLookupView, "SourceFile", "Name");
+		  GetStringFromAttribute( pchOperationGroup, vLookupView, "SourceFile", "Name");
+				  // Indicate that we need to exclude this operation after retrieving the operation name.
+                  //nDelIncl = 1;
+				  /***********************************/
+				  // KJS 11/04/21 - Dialog operations do not have a throw exception option at the moment...
+				  //GetStringFromAttribute(pchReturnThrowsException, lThrowsLth, vLookupView, "Operation", "ThrowsException");
+				  //GetStringFromAttribute(pchThrowsExceptionCatchCode, lCatchLth, vLookupView, "Operation", "ThrowsExceptionCatchCode");
+				  if (g_szGenLang[0] == 'J')
+				  {
+					  // The source file for this operation is not the current source file, so we need to reference this in our operation call.
+					  pchReturnName[0] = 'm';
+					  pchReturnName[1] = '_';
+
+					  zstrcat(pchOperationGroup, "_");
+					  if ( zstrstr(szParentEntityName, "LOD") > 0 )
+						  zstrcat(pchOperationGroup, "Object" );
+					  else
+						  zstrcat(pchOperationGroup, szParentEntityName);
+					  zstrcpy(pchReturnName + 2, pchOperationGroup);
+					  nLth = (zSHORT)zstrlen(pchReturnName);
+					  pchReturnName[nLth++] = '.';
+					  // If this is a local operation... should I be adding the "o_"?? //omTest_TestLocal
+					  if ( CompareAttributeToString( vLookupView, "Operation", "Type", "L" ) == 0 )
+					  {
+						  if (zstrstr(szParentEntityName, "LOD") > 0)
+						  {
+							  pchReturnName[nLth++] = 'o';
+							  x = zstrlen(szSourceName);
+							  k = 0;
+							  for (k = 0; k < x; k++)
+							  {
+								  pchReturnName[nLth++] = szSourceName[k];
+							  }
+							  pchReturnName[nLth++] = '_';
+						  }
+						  else
+						  {
+							  pchReturnName[nLth++] = 'o';
+							  pchReturnName[nLth++] = '_';
+						  }
+					  }
+					  pchReturnName[nLth] = 0;
+					  //GetStringFromAttribute( pchReturnName + nLth, lNameLth - nLth, vLookupView, "Operation", "C_GeneratedOperationName");
+					  GetStringFromAttribute( pchReturnName + nLth, vLookupView, "Operation", "Name");
+
+					  DropView(vLookupView);
+					  return(lZKey);
+				  }
+				  /*************************************/
                }
-               */
       
-               // Source type is VML.
+               // Source type is VML. KJS 11/02/21 - Not sure the purpose of this... no entity is named C_GeneratedOperationName
                if ( CheckEntityInView( vLookupView, "C_GeneratedOperationName" ) == 0 )
                {
                   GetStringFromAttribute( pchReturnName, vLookupView,
@@ -3089,13 +3140,13 @@ GetOperationNameFromZKey( zVIEW   vSubtask,
                pchReturnName[ nLth ] = 0;
             GetStringFromAttribute( pchReturnName + nLth, vLookupView, "Operation", "C_GeneratedOperationName" );
 
-            ExcludeEntity( vLookupView, "Operation", zREPOS_NEXT ); 
+            //ExcludeEntity( vLookupView, "Operation", zREPOS_NEXT ); 
          }
          else
          {
             GetStringFromAttribute( pchReturnName, vLookupView, "Operation", "C_GeneratedOperationName" );
-            if ( nDelIncl == 1 )
-               ExcludeEntity( vLookupView, "Operation", zREPOS_NEXT ); 
+            //if ( nDelIncl == 1 )
+            //   ExcludeEntity( vLookupView, "Operation", zREPOS_NEXT ); 
          }
       }
       else

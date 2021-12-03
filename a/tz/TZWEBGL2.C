@@ -1062,6 +1062,8 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
    zCHAR     szRepeatingGroupKey[ 101 ] = { 0 }; 
    //:STRING ( 100 ) szInListCtrlTag
    zCHAR     szInListCtrlTag[ 101 ] = { 0 }; 
+   //:STRING ( 200 ) szMsg
+   zCHAR     szMsg[ 201 ] = { 0 }; 
    //:DECIMAL        dDLUnits
    ZDecimal  dDLUnits = 0.0; 
    //:INTEGER        LastY_Pos
@@ -1130,12 +1132,13 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
    zLONG     lTempInteger_5; 
    zLONG     lTempInteger_6; 
    zCHAR     szTempString_0[ 255 ]; 
-   zLONG     lTempInteger_7; 
+   zSHORT    lTempInteger_7; 
    zLONG     lTempInteger_8; 
+   zLONG     lTempInteger_9; 
    zCHAR     szTempString_1[ 33 ]; 
    zCHAR     szTempString_2[ 33 ]; 
-   zLONG     lTempInteger_9; 
    zLONG     lTempInteger_10; 
+   zLONG     lTempInteger_11; 
    zCHAR     szTempString_3[ 255 ]; 
    zCHAR     szTempString_4[ 33 ]; 
    zCHAR     szTempString_5[ 33 ]; 
@@ -1168,17 +1171,17 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
    zCHAR     szTempString_32[ 255 ]; 
    zCHAR     szTempString_33[ 261 ]; 
    zCHAR     szTempString_34[ 255 ]; 
-   zSHORT    lTempInteger_11; 
+   zSHORT    lTempInteger_12; 
    zCHAR     szTempString_35[ 255 ]; 
    zCHAR     szTempString_36[ 255 ]; 
-   zSHORT    lTempInteger_12; 
+   zSHORT    lTempInteger_13; 
    zCHAR     szTempString_37[ 33 ]; 
    zCHAR     szTempString_38[ 33 ]; 
    zCHAR     szTempString_39[ 33 ]; 
    zCHAR     szTempString_40[ 33 ]; 
    zCHAR     szTempString_41[ 255 ]; 
    zCHAR     szTempString_42[ 33 ]; 
-   zSHORT    lTempInteger_13; 
+   zSHORT    lTempInteger_14; 
    zCHAR     szTempString_43[ 33 ]; 
    zCHAR     szTempString_44[ 33 ]; 
    zCHAR     szTempString_45[ 33 ]; 
@@ -1187,22 +1190,22 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
    zCHAR     szTempString_48[ 33 ]; 
    zCHAR     szTempString_49[ 33 ]; 
    zCHAR     szTempString_50[ 255 ]; 
-   zSHORT    lTempInteger_14; 
+   zSHORT    lTempInteger_15; 
    zCHAR     szTempString_51[ 33 ]; 
    zCHAR     szTempString_52[ 33 ]; 
-   zSHORT    lTempInteger_15; 
    zSHORT    lTempInteger_16; 
+   zSHORT    lTempInteger_17; 
    zCHAR     szTempString_53[ 33 ]; 
    zCHAR     szTempString_54[ 33 ]; 
    zCHAR     szTempString_55[ 33 ]; 
-   zSHORT    lTempInteger_17; 
+   zSHORT    lTempInteger_18; 
    zCHAR     szTempString_56[ 33 ]; 
    zCHAR     szTempString_57[ 33 ]; 
    zCHAR     szTempString_58[ 33 ]; 
    zCHAR     szTempString_59[ 33 ]; 
    zCHAR     szTempString_60[ 33 ]; 
    zCHAR     szTempString_61[ 33 ]; 
-   zSHORT    lTempInteger_18; 
+   zSHORT    lTempInteger_19; 
    zCHAR     szTempString_62[ 33 ]; 
    zCHAR     szTempString_63[ 33 ]; 
    zCHAR     szTempString_64[ 33 ]; 
@@ -1221,16 +1224,16 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
    zCHAR     szTempString_77[ 33 ]; 
    zCHAR     szTempString_78[ 33 ]; 
    zCHAR     szTempString_79[ 33 ]; 
-   zLONG     lTempInteger_19; 
    zLONG     lTempInteger_20; 
+   zLONG     lTempInteger_21; 
    zCHAR     szTempString_80[ 255 ]; 
    zCHAR     szTempString_81[ 255 ]; 
-   zLONG     lTempInteger_21; 
    zLONG     lTempInteger_22; 
-   zSHORT    lTempInteger_23; 
-   zLONG     lTempInteger_24; 
-   zSHORT    lTempInteger_25; 
-   zLONG     lTempInteger_26; 
+   zLONG     lTempInteger_23; 
+   zSHORT    lTempInteger_24; 
+   zLONG     lTempInteger_25; 
+   zSHORT    lTempInteger_26; 
+   zLONG     lTempInteger_27; 
    zCHAR     szTempString_82[ 33 ]; 
    zCHAR     szTempString_83[ 33 ]; 
    zCHAR     szTempString_84[ 33 ]; 
@@ -1239,19 +1242,19 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
    zCHAR     szTempString_87[ 33 ]; 
    zCHAR     szTempString_88[ 33 ]; 
    zCHAR     szTempString_89[ 33 ]; 
-   zSHORT    lTempInteger_27; 
    zSHORT    lTempInteger_28; 
+   zSHORT    lTempInteger_29; 
    zCHAR     szTempString_90[ 33 ]; 
    zCHAR     szTempString_91[ 255 ]; 
-   zLONG     lTempInteger_29; 
-   zSHORT    lTempInteger_30; 
+   zLONG     lTempInteger_30; 
+   zSHORT    lTempInteger_31; 
    zCHAR     szTempString_92[ 33 ]; 
    zCHAR     szTempString_93[ 33 ]; 
    zCHAR     szTempString_94[ 33 ]; 
    zCHAR     szTempString_95[ 33 ]; 
    zCHAR     szTempString_96[ 255 ]; 
    zCHAR     szTempString_97[ 33 ]; 
-   zSHORT    lTempInteger_31; 
+   zSHORT    lTempInteger_32; 
    zCHAR     szTempString_98[ 33 ]; 
    zCHAR     szTempString_99[ 33 ]; 
    zCHAR     szTempString_100[ 33 ]; 
@@ -1259,15 +1262,15 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
    zCHAR     szTempString_102[ 33 ]; 
    zCHAR     szTempString_103[ 33 ]; 
    zCHAR     szTempString_104[ 33 ]; 
-   zSHORT    lTempInteger_32; 
+   zSHORT    lTempInteger_33; 
    zCHAR     szTempString_105[ 33 ]; 
    zCHAR     szTempString_106[ 33 ]; 
    zCHAR     szTempString_107[ 33 ]; 
    zCHAR     szTempString_108[ 33 ]; 
    zCHAR     szTempString_109[ 33 ]; 
    zCHAR     szTempString_110[ 33 ]; 
-   zSHORT    lTempInteger_33; 
    zSHORT    lTempInteger_34; 
+   zSHORT    lTempInteger_35; 
    zCHAR     szTempString_111[ 33 ]; 
    zCHAR     szTempString_112[ 33 ]; 
    zCHAR     szTempString_113[ 33 ]; 
@@ -1281,80 +1284,80 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
    zCHAR     szTempString_121[ 33 ]; 
    zCHAR     szTempString_122[ 33 ]; 
    zCHAR     szTempString_123[ 33 ]; 
-   zSHORT    lTempInteger_35; 
+   zSHORT    lTempInteger_36; 
    zCHAR     szTempString_124[ 33 ]; 
    zCHAR     szTempString_125[ 33 ]; 
-   zSHORT    lTempInteger_36; 
    zSHORT    lTempInteger_37; 
-   zLONG     lTempInteger_38; 
-   zSHORT    lTempInteger_39; 
+   zSHORT    lTempInteger_38; 
+   zLONG     lTempInteger_39; 
+   zSHORT    lTempInteger_40; 
    zCHAR     szTempString_126[ 255 ]; 
-   zLONG     lTempInteger_40; 
+   zLONG     lTempInteger_41; 
    zCHAR     szTempString_127[ 33 ]; 
    zCHAR     szTempString_128[ 33 ]; 
    zCHAR     szTempString_129[ 33 ]; 
    zCHAR     szTempString_130[ 33 ]; 
-   zSHORT    lTempInteger_41; 
+   zSHORT    lTempInteger_42; 
    zCHAR     szTempString_131[ 33 ]; 
    zCHAR     szTempString_132[ 33 ]; 
    zCHAR     szTempString_133[ 33 ]; 
    zCHAR     szTempString_134[ 33 ]; 
    zCHAR     szTempString_135[ 33 ]; 
    zCHAR     szTempString_136[ 255 ]; 
-   zLONG     lTempInteger_42; 
-   zSHORT    lTempInteger_43; 
+   zLONG     lTempInteger_43; 
    zSHORT    lTempInteger_44; 
+   zSHORT    lTempInteger_45; 
    zCHAR     szTempString_137[ 33 ]; 
    zCHAR     szTempString_138[ 33 ]; 
    zCHAR     szTempString_139[ 33 ]; 
    zCHAR     szTempString_140[ 33 ]; 
    zCHAR     szTempString_141[ 33 ]; 
    zCHAR     szTempString_142[ 33 ]; 
-   zSHORT    lTempInteger_45; 
    zSHORT    lTempInteger_46; 
+   zSHORT    lTempInteger_47; 
    zCHAR     szTempString_143[ 33 ]; 
    zCHAR     szTempString_144[ 33 ]; 
    zCHAR     szTempString_145[ 33 ]; 
-   zSHORT    lTempInteger_47; 
+   zSHORT    lTempInteger_48; 
    zCHAR     szTempString_146[ 33 ]; 
    zCHAR     szTempString_147[ 33 ]; 
    zCHAR     szTempString_148[ 33 ]; 
    zCHAR     szTempString_149[ 33 ]; 
-   zSHORT    lTempInteger_48; 
+   zSHORT    lTempInteger_49; 
    zCHAR     szTempString_150[ 33 ]; 
    zCHAR     szTempString_151[ 33 ]; 
-   zSHORT    lTempInteger_49; 
    zSHORT    lTempInteger_50; 
+   zSHORT    lTempInteger_51; 
    zCHAR     szTempString_152[ 33 ]; 
    zCHAR     szTempString_153[ 33 ]; 
-   zSHORT    lTempInteger_51; 
    zSHORT    lTempInteger_52; 
+   zSHORT    lTempInteger_53; 
    zCHAR     szTempString_154[ 33 ]; 
    zCHAR     szTempString_155[ 33 ]; 
    zCHAR     szTempString_156[ 33 ]; 
    zCHAR     szTempString_157[ 33 ]; 
-   zSHORT    lTempInteger_53; 
+   zSHORT    lTempInteger_54; 
    zCHAR     szTempString_158[ 255 ]; 
    zCHAR     szTempString_159[ 255 ]; 
-   zSHORT    lTempInteger_54; 
+   zSHORT    lTempInteger_55; 
    zCHAR     szTempString_160[ 33 ]; 
    zCHAR     szTempString_161[ 261 ]; 
    zCHAR     szTempString_162[ 33 ]; 
    zCHAR     szTempString_163[ 261 ]; 
    zCHAR     szTempString_164[ 261 ]; 
    zCHAR     szTempString_165[ 255 ]; 
-   zSHORT    lTempInteger_55; 
+   zSHORT    lTempInteger_56; 
    zCHAR     szTempString_166[ 33 ]; 
    zCHAR     szTempString_167[ 261 ]; 
    zCHAR     szTempString_168[ 33 ]; 
    zCHAR     szTempString_169[ 261 ]; 
    zCHAR     szTempString_170[ 261 ]; 
    zCHAR     szTempString_171[ 51 ]; 
-   zSHORT    lTempInteger_56; 
+   zSHORT    lTempInteger_57; 
    zCHAR     szTempString_172[ 51 ]; 
    zCHAR     szTempString_173[ 33 ]; 
    zCHAR     szTempString_174[ 51 ]; 
-   zSHORT    lTempInteger_57; 
+   zSHORT    lTempInteger_58; 
    zCHAR     szTempString_175[ 33 ]; 
    zCHAR     szTempString_176[ 33 ]; 
    zCHAR     szTempString_177[ 33 ]; 
@@ -2185,10 +2188,13 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
 
          //:END
 
-         //:// If we are on the most outer group box, put kkkkk
-         //:IF lIndexStrLth = 0 AND szStyleIsBootstrap = "Y" AND szToggleFlag = "" AND szToggleFlag2 = "" AND szBootstrapOuterCard = "Y" AND vDialog.Control.WebCtrlType != "Hidden"
-         if ( lIndexStrLth == 0 && ZeidonStringCompare( szStyleIsBootstrap, 1, 0, "Y", 1, 0, 2 ) == 0 && ZeidonStringCompare( szToggleFlag, 1, 0, "", 1, 0, 2 ) == 0 && ZeidonStringCompare( szToggleFlag2, 1, 0, "", 1, 0, 2 ) == 0 &&
-              ZeidonStringCompare( szBootstrapOuterCard, 1, 0, "Y", 1, 0, 2 ) == 0 && CompareAttributeToString( vDialog, "Control", "WebCtrlType", "Hidden" ) != 0 )
+         //:// If we are generating to bootstrap with a zeidon.ini setting of BootstrapOuterCard=Y, and we are on the most outer group box,
+         //:// we are going to surround that <div> with a <div class='card card-body mb-2'. This is so that the developer does not have
+         //:// to create so many divs within divs on the page.
+         //:IF lIndexStrLth = 0 AND szStyleIsBootstrap = "Y" AND szBootstrapOuterCard = "Y" AND szToggleFlag = "" AND szToggleFlag2 = "" AND 
+         //:   szFileTransferFlag = "" AND vDialog.Control.WebCtrlType != "Hidden"
+         if ( lIndexStrLth == 0 && ZeidonStringCompare( szStyleIsBootstrap, 1, 0, "Y", 1, 0, 2 ) == 0 && ZeidonStringCompare( szBootstrapOuterCard, 1, 0, "Y", 1, 0, 2 ) == 0 && ZeidonStringCompare( szToggleFlag, 1, 0, "", 1, 0, 2 ) == 0 &&
+              ZeidonStringCompare( szToggleFlag2, 1, 0, "", 1, 0, 2 ) == 0 && ZeidonStringCompare( szFileTransferFlag, 1, 0, "", 1, 0, 2 ) == 0 && CompareAttributeToString( vDialog, "Control", "WebCtrlType", "Hidden" ) != 0 )
          { 
             //:// Trying out using mb-2 all the time...
             //:szWriteBuffer = "<div id=^" + szCtrlTag + "zcard^ class=^card card-body mb-2^>  <!-- Create card/card-body for bootstrap -->"
@@ -2199,7 +2205,30 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 );
          } 
 
-         //:END         
+         //:END    
+         //:// KJS 11/12/21 - Should I add a check here so I can let user know if they are in bootstrap but their outer group doesn't have card card-body class?
+         //:szClass = vDialog.Control.CSS_Class     
+         GetVariableFromAttribute( szClass, 0, 'S', 257, vDialog, "Control", "CSS_Class", "", 0 );
+         //:IF lIndexStrLth = 0 AND szStyleIsBootstrap = "Y" AND szBootstrapOuterCard = "" AND szToggleFlag = "" AND szToggleFlag2 = "" AND 
+         //:   vDialog.Control.WebCtrlType != "Hidden" AND ( ZeidonStringFind( szClass, 1, "card-body" ) <= 0 ) AND vWork.Root.GaveErrorMessage = ""
+         lTempInteger_7 = ZeidonStringFind( szClass, 1, "card-body" );
+         if ( lIndexStrLth == 0 && ZeidonStringCompare( szStyleIsBootstrap, 1, 0, "Y", 1, 0, 2 ) == 0 && ZeidonStringCompare( szBootstrapOuterCard, 1, 0, "", 1, 0, 2 ) == 0 && ZeidonStringCompare( szToggleFlag, 1, 0, "", 1, 0, 2 ) == 0 &&
+              ZeidonStringCompare( szToggleFlag2, 1, 0, "", 1, 0, 2 ) == 0 && CompareAttributeToString( vDialog, "Control", "WebCtrlType", "Hidden" ) != 0 && ( lTempInteger_7 <= 0 ) &&
+              CompareAttributeToString( vWork, "Root", "GaveErrorMessage", "" ) == 0 )
+         { 
+            //:   vWork.Root.GaveErrorMessage = "Y"               
+            SetAttributeFromString( vWork, "Root", "GaveErrorMessage", "Y" );
+            //:   szMsg = "When generating for bootstrap, the outer div should probably have a class 'card card-body', or divs do not show correctly. Also File upload div"
+            ZeidonStringCopy( szMsg, 1, 0, "When generating for bootstrap, the outer div should probably have a class 'card card-body', or divs do not show correctly. Also File upload div", 1, 0, 201 );
+            //:   szMsg = szMsg + " does not display. Use zeidon ini setting of BootstrapOuterCard=Y and the card-body div will automatically be added."
+            ZeidonStringConcat( szMsg, 1, 0, " does not display. Use zeidon ini setting of BootstrapOuterCard=Y and the card-body div will automatically be added.", 1, 0, 201 );
+            //:   MessageSend( vDialog, "", "XSL Generation",
+            //:                szMsg,
+            //:                zMSGQ_OBJECT_CONSTRAINT_WARNING, 0 )
+            MessageSend( vDialog, "", "XSL Generation", szMsg, zMSGQ_OBJECT_CONSTRAINT_WARNING, 0 );
+         } 
+
+         //:END
       } 
 
 
@@ -2211,11 +2240,11 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
       { 
 
          //:lWidth = vDialog.Control.SZDLG_X * dDLUnits
-         GetIntegerFromAttribute( &lTempInteger_7, vDialog, "Control", "SZDLG_X" );
-         lWidth = lTempInteger_7 * dDLUnits;
+         GetIntegerFromAttribute( &lTempInteger_8, vDialog, "Control", "SZDLG_X" );
+         lWidth = lTempInteger_8 * dDLUnits;
          //:lHeight = vDialog.Control.SZDLG_Y * dDLUnits
-         GetIntegerFromAttribute( &lTempInteger_8, vDialog, "Control", "SZDLG_Y" );
-         lHeight = lTempInteger_8 * dDLUnits;
+         GetIntegerFromAttribute( &lTempInteger_9, vDialog, "Control", "SZDLG_Y" );
+         lHeight = lTempInteger_9 * dDLUnits;
          //:zIntegerToString( szWidth, 10, lWidth )
          zIntegerToString( szWidth, 10, lWidth );
          //:zIntegerToString( szHeight, 10, lHeight )
@@ -2554,8 +2583,19 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
       //:IF szControlType = "GroupBox" AND szFileTransferFlag = "Y"
       if ( ZeidonStringCompare( szControlType, 1, 0, "GroupBox", 1, 0, 51 ) == 0 && ZeidonStringCompare( szFileTransferFlag, 1, 0, "Y", 1, 0, 2 ) == 0 )
       { 
-         //:GenJSPJ_CrteFileTransferForm( vDialog, vDialogRoot, lFile, szWriteBuffer, szIndentGroup, szNoPositioning, lOffsetX, lOffsetY )
-         GenJSPJ_CrteFileTransferForm( vDialog, vDialogRoot, lFile, szWriteBuffer, szIndentGroup, szNoPositioning, lOffsetX, lOffsetY );
+
+         //:GenJSPJ_CrteFileTransferForm( vDialog, vDialogRoot, lFile, szWriteBuffer, szIndent, szNoPositioning, szStyleIsBootstrap, szBootstrapOuterCard, lOffsetX, lOffsetY )
+         GenJSPJ_CrteFileTransferForm( vDialog, vDialogRoot, lFile, szWriteBuffer, szIndent, szNoPositioning, szStyleIsBootstrap, szBootstrapOuterCard, lOffsetX, lOffsetY );
+         //:IF lIndexStrLth = 0 AND szStyleIsBootstrap = "Y" AND szBootstrapOuterCard = "Y" 
+         if ( lIndexStrLth == 0 && ZeidonStringCompare( szStyleIsBootstrap, 1, 0, "Y", 1, 0, 2 ) == 0 && ZeidonStringCompare( szBootstrapOuterCard, 1, 0, "Y", 1, 0, 2 ) == 0 )
+         { 
+            //:szWriteBuffer = "</div>  <!-- Create card/card-body for bootstrap -->"
+            ZeidonStringCopy( szWriteBuffer, 1, 0, "</div>  <!-- Create card/card-body for bootstrap -->", 1, 0, 10001 );
+            //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 );
+         } 
+
+         //:END         
       } 
 
       //:END
@@ -2574,11 +2614,11 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
             //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 );
             //:X_Size = vDialog.Control.PSDLG_X * dDLUnits + lOffsetX  // borrow these for a second
-            GetIntegerFromAttribute( &lTempInteger_9, vDialog, "Control", "PSDLG_X" );
-            X_Size = lTempInteger_9 * dDLUnits + lOffsetX;
+            GetIntegerFromAttribute( &lTempInteger_10, vDialog, "Control", "PSDLG_X" );
+            X_Size = lTempInteger_10 * dDLUnits + lOffsetX;
             //:Y_Size = vDialog.Control.PSDLG_Y * dDLUnits + lOffsetY
-            GetIntegerFromAttribute( &lTempInteger_10, vDialog, "Control", "PSDLG_Y" );
-            Y_Size = lTempInteger_10 * dDLUnits + lOffsetY;
+            GetIntegerFromAttribute( &lTempInteger_11, vDialog, "Control", "PSDLG_Y" );
+            Y_Size = lTempInteger_11 * dDLUnits + lOffsetY;
             //:OrderEntityForView( vDialog, "CtrlCtrl", "PSDLG_Y A PSDLG_X A" )
             OrderEntityForView( vDialog, "CtrlCtrl", "PSDLG_Y A PSDLG_X A" );
             //:// Create view for Group as a parent. This will be used in processing subcontrols to check for WebControlProperty.
@@ -4504,8 +4544,8 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
                GetVariableFromAttribute( szLabelLink, 0, 'S', 257, vDialog, "Control", "WebCtrlLabelLink", "", 0 );
                //:IF ZeidonStringFind( vDialog.Control.CSS_Class, 1, "input-group-text" ) <= 0
                GetStringFromAttribute( szTempString_35, vDialog, "Control", "CSS_Class" );
-               lTempInteger_11 = ZeidonStringFind( szTempString_35, 1, "input-group-text" );
-               if ( lTempInteger_11 <= 0 )
+               lTempInteger_12 = ZeidonStringFind( szTempString_35, 1, "input-group-text" );
+               if ( lTempInteger_12 <= 0 )
                { 
                   //:vWork.Root.szLabelLink = szLabelLink
                   SetAttributeFromString( vWork, "Root", "szLabelLink", szLabelLink );
@@ -4644,8 +4684,8 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
 
             //:// Begin with JSP first cursor loop.
             //:IF vDialog.CtrlMapView EXISTS
-            lTempInteger_12 = CheckExistenceOfEntity( vDialog, "CtrlMapView" );
-            if ( lTempInteger_12 == 0 )
+            lTempInteger_13 = CheckExistenceOfEntity( vDialog, "CtrlMapView" );
+            if ( lTempInteger_13 == 0 )
             { 
                //:szWriteBuffer = "   " + vDialog.CtrlMapView.Name + " = " + "task.getViewByName( ^" +
                //:                vDialog.CtrlMapView.Name + "^ );"
@@ -4725,8 +4765,8 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
                //:SET CURSOR NEXT vDialog2.CtrlMap
                RESULT = SetCursorNextEntity( vDialog2, "CtrlMap", "" );
                //:IF vDialog2.CtrlMapLOD_Entity EXISTS
-               lTempInteger_13 = CheckExistenceOfEntity( vDialog2, "CtrlMapLOD_Entity" );
-               if ( lTempInteger_13 == 0 )
+               lTempInteger_14 = CheckExistenceOfEntity( vDialog2, "CtrlMapLOD_Entity" );
+               if ( lTempInteger_14 == 0 )
                { 
                   //:szScopingEntityName = "^" + vDialog2.CtrlMapLOD_Entity.Name + "^"
                   GetVariableFromAttribute( szTempString_43, 0, 'S', 33, vDialog2, "CtrlMapLOD_Entity", "Name", "", 0 );
@@ -5044,8 +5084,8 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
 
             //:// Conclude with JSP next cursor loop.
             //:IF vDialog.CtrlMapView EXISTS
-            lTempInteger_14 = CheckExistenceOfEntity( vDialog, "CtrlMapView" );
-            if ( lTempInteger_14 == 0 )
+            lTempInteger_15 = CheckExistenceOfEntity( vDialog, "CtrlMapView" );
+            if ( lTempInteger_15 == 0 )
             { 
                //:szWriteBuffer = "         csrRC = " + vDialog.CtrlMapView.Name +
                //:                ".cursor( ^" + vDialog.CtrlMapLOD_Entity.Name +
@@ -5094,8 +5134,8 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
 
          //:// SURVEY GROUP
          //:IF szControlType = "GroupBox" AND szSurveyGroupFlag = "Y" AND vDialog.CtrlMapView EXISTS
-         lTempInteger_15 = CheckExistenceOfEntity( vDialog, "CtrlMapView" );
-         if ( ZeidonStringCompare( szControlType, 1, 0, "GroupBox", 1, 0, 51 ) == 0 && ZeidonStringCompare( szSurveyGroupFlag, 1, 0, "Y", 1, 0, 2 ) == 0 && lTempInteger_15 == 0 )
+         lTempInteger_16 = CheckExistenceOfEntity( vDialog, "CtrlMapView" );
+         if ( ZeidonStringCompare( szControlType, 1, 0, "GroupBox", 1, 0, 51 ) == 0 && ZeidonStringCompare( szSurveyGroupFlag, 1, 0, "Y", 1, 0, 2 ) == 0 && lTempInteger_16 == 0 )
          { 
             //:szWriteBuffer = ""
             ZeidonStringCopy( szWriteBuffer, 1, 0, "", 1, 0, 10001 );
@@ -5127,8 +5167,8 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 );
             //:// Don't build survey stuff if there is no view specified.
             //:IF vDialog.CtrlMapView EXISTS
-            lTempInteger_16 = CheckExistenceOfEntity( vDialog, "CtrlMapView" );
-            if ( lTempInteger_16 == 0 )
+            lTempInteger_17 = CheckExistenceOfEntity( vDialog, "CtrlMapView" );
+            if ( lTempInteger_17 == 0 )
             { 
 
                //:szWriteBuffer = "<%"
@@ -5199,8 +5239,8 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
                //:SET CURSOR NEXT vDialog2.CtrlMap
                RESULT = SetCursorNextEntity( vDialog2, "CtrlMap", "" );
                //:IF vDialog2.CtrlMapLOD_Entity EXISTS
-               lTempInteger_17 = CheckExistenceOfEntity( vDialog2, "CtrlMapLOD_Entity" );
-               if ( lTempInteger_17 == 0 )
+               lTempInteger_18 = CheckExistenceOfEntity( vDialog2, "CtrlMapLOD_Entity" );
+               if ( lTempInteger_18 == 0 )
                { 
                   //:szScopingEntityName = "^" + vDialog2.CtrlMapLOD_Entity.Name + "^"
                   GetVariableFromAttribute( szTempString_56, 0, 'S', 33, vDialog2, "CtrlMapLOD_Entity", "Name", "", 0 );
@@ -5317,8 +5357,8 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
                //:SET CURSOR NEXT vDialog2.CtrlMap
                RESULT = SetCursorNextEntity( vDialog2, "CtrlMap", "" );
                //:IF vDialog2.CtrlMapLOD_Entity EXISTS
-               lTempInteger_18 = CheckExistenceOfEntity( vDialog2, "CtrlMapLOD_Entity" );
-               if ( lTempInteger_18 == 0 )
+               lTempInteger_19 = CheckExistenceOfEntity( vDialog2, "CtrlMapLOD_Entity" );
+               if ( lTempInteger_19 == 0 )
                { 
                   //:szScopingEntityName = "^" + vDialog2.CtrlMapLOD_Entity.Name + "^"
                   GetVariableFromAttribute( szTempString_62, 0, 'S', 33, vDialog2, "CtrlMapLOD_Entity", "Name", "", 0 );
@@ -6270,8 +6310,8 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
             { 
                //:// We might not want the groupbox to have a height (so it grows)
                //:zIntegerToString( szWidth, 10, vDialog.Control.SZDLG_X * dDLUnits )
-               GetIntegerFromAttribute( &lTempInteger_19, vDialog, "Control", "SZDLG_X" );
-               zIntegerToString( szWidth, 10, lTempInteger_19 * dDLUnits );
+               GetIntegerFromAttribute( &lTempInteger_20, vDialog, "Control", "SZDLG_X" );
+               zIntegerToString( szWidth, 10, lTempInteger_20 * dDLUnits );
                //:szAbsoluteStyle = "style=^width:" + szWidth + "px;^"
                ZeidonStringCopy( szAbsoluteStyle, 1, 0, "style=^width:", 1, 0, 301 );
                ZeidonStringConcat( szAbsoluteStyle, 1, 0, szWidth, 1, 0, 301 );
@@ -6320,8 +6360,8 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 );
 
             //:zIntegerToString( szHeight, 10, vDialog.Control.SZDLG_Y * dDLUnits )
-            GetIntegerFromAttribute( &lTempInteger_20, vDialog, "Control", "SZDLG_Y" );
-            zIntegerToString( szHeight, 10, lTempInteger_20 * dDLUnits );
+            GetIntegerFromAttribute( &lTempInteger_21, vDialog, "Control", "SZDLG_Y" );
+            zIntegerToString( szHeight, 10, lTempInteger_21 * dDLUnits );
 
             //:// If we are using relative positioning, don't give each tab page a height.
             //:IF szNoPositioning = "Y" OR szNoPositioning = "S"
@@ -6773,8 +6813,8 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
                //:PIX_PER_DU( vDialog, dDLUnits )
                PIX_PER_DU( vDialog, &dDLUnits );
                //:zIntegerToString( szWidth, 10, vDialog.Control.SZDLG_X * dDLUnits )
-               GetIntegerFromAttribute( &lTempInteger_21, vDialog, "Control", "SZDLG_X" );
-               zIntegerToString( szWidth, 10, lTempInteger_21 * dDLUnits );
+               GetIntegerFromAttribute( &lTempInteger_22, vDialog, "Control", "SZDLG_X" );
+               zIntegerToString( szWidth, 10, lTempInteger_22 * dDLUnits );
                //:szWriteBuffer = "<div name=^gb" + szCtrlTag + "^ id=^gb" + szCtrlTag + "^ style=^width:" +
                //:                 szWidth + "px;height:70px;display:none;^>"
                ZeidonStringCopy( szWriteBuffer, 1, 0, "<div name=^gb", 1, 0, 10001 );
@@ -6822,8 +6862,8 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
                //:PIX_PER_DU( vDialog, dDLUnits )
                PIX_PER_DU( vDialog, &dDLUnits );
                //:zIntegerToString( szWidth, 10, vDialog.Control.SZDLG_X * dDLUnits )
-               GetIntegerFromAttribute( &lTempInteger_22, vDialog, "Control", "SZDLG_X" );
-               zIntegerToString( szWidth, 10, lTempInteger_22 * dDLUnits );
+               GetIntegerFromAttribute( &lTempInteger_23, vDialog, "Control", "SZDLG_X" );
+               zIntegerToString( szWidth, 10, lTempInteger_23 * dDLUnits );
                //:szPosition = szPosition + "width:" + szWidth + "px;"
                ZeidonStringConcat( szPosition, 1, 0, "width:", 1, 0, 101 );
                ZeidonStringConcat( szPosition, 1, 0, szWidth, 1, 0, 101 );
@@ -6913,8 +6953,8 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
 
             //:END
             //:IF szStyleIsBootstrap = "Y" AND ( szBootstrapDataTables = "Y" OR ZeidonStringFind( szClass, 1, "default" ) > 0 )
-            lTempInteger_23 = ZeidonStringFind( szClass, 1, "default" );
-            if ( ZeidonStringCompare( szStyleIsBootstrap, 1, 0, "Y", 1, 0, 2 ) == 0 && ( ZeidonStringCompare( szBootstrapDataTables, 1, 0, "Y", 1, 0, 2 ) == 0 || lTempInteger_23 > 0 ) )
+            lTempInteger_24 = ZeidonStringFind( szClass, 1, "default" );
+            if ( ZeidonStringCompare( szStyleIsBootstrap, 1, 0, "Y", 1, 0, 2 ) == 0 && ( ZeidonStringCompare( szBootstrapDataTables, 1, 0, "Y", 1, 0, 2 ) == 0 || lTempInteger_24 > 0 ) )
             { 
                //:szBootstrapDataTables = "Y"
                ZeidonStringCopy( szBootstrapDataTables, 1, 0, "Y", 1, 0, 2 );
@@ -6941,8 +6981,8 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
                //:PIX_PER_DU( vDialog, dDLUnits )
                PIX_PER_DU( vDialog, &dDLUnits );
                //:zIntegerToString( szHeight, 10, vDialog.Control.SZDLG_Y * dDLUnits )
-               GetIntegerFromAttribute( &lTempInteger_24, vDialog, "Control", "SZDLG_Y" );
-               zIntegerToString( szHeight, 10, lTempInteger_24 * dDLUnits );
+               GetIntegerFromAttribute( &lTempInteger_25, vDialog, "Control", "SZDLG_Y" );
+               zIntegerToString( szHeight, 10, lTempInteger_25 * dDLUnits );
                //:// For the scrollable table we need to give the table a height.
                //:szPosition = szPosition + "height:" + szHeight + "px;"
                ZeidonStringConcat( szPosition, 1, 0, "height:", 1, 0, 101 );
@@ -7124,8 +7164,8 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
                   //:szCtrlCtrlType = vDialog.ControlDef.Tag
                   GetVariableFromAttribute( szCtrlCtrlType, 0, 'S', 51, vDialog, "ControlDef", "Tag", "", 0 );
                   //:IF szCtrlCtrlType = "GridSubCtl" AND vDialog.CtrlCtrl EXISTS
-                  lTempInteger_25 = CheckExistenceOfEntity( vDialog, "CtrlCtrl" );
-                  if ( ZeidonStringCompare( szCtrlCtrlType, 1, 0, "GridSubCtl", 1, 0, 51 ) == 0 && lTempInteger_25 == 0 )
+                  lTempInteger_26 = CheckExistenceOfEntity( vDialog, "CtrlCtrl" );
+                  if ( ZeidonStringCompare( szCtrlCtrlType, 1, 0, "GridSubCtl", 1, 0, 51 ) == 0 && lTempInteger_26 == 0 )
                   { 
                      //:SetViewToSubobject( vDialog, "CtrlCtrl" )  // vDialog positioned on sub-sub-controls
                      SetViewToSubobject( vDialog, "CtrlCtrl" );
@@ -7195,8 +7235,8 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
                         //:PIX_PER_DU( vDialog, dDLUnits )
                         PIX_PER_DU( vDialog, &dDLUnits );
                         //:zIntegerToString( szWidth, 10, vDialog.Control.SZDLG_X * dDLUnits )
-                        GetIntegerFromAttribute( &lTempInteger_26, vDialog, "Control", "SZDLG_X" );
-                        zIntegerToString( szWidth, 10, lTempInteger_26 * dDLUnits );
+                        GetIntegerFromAttribute( &lTempInteger_27, vDialog, "Control", "SZDLG_X" );
+                        zIntegerToString( szWidth, 10, lTempInteger_27 * dDLUnits );
                         //:szAbsoluteWidth = "width:" + szWidth + "px;"
                         ZeidonStringCopy( szAbsoluteWidth, 1, 0, "width:", 1, 0, 21 );
                         ZeidonStringConcat( szAbsoluteWidth, 1, 0, szWidth, 1, 0, 21 );
@@ -7451,10 +7491,10 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
 
 
                         //:IF szStyleIsBootstrap = "" OR vDialog.CtrlMapER_Attribute DOES NOT EXIST OR
-                        lTempInteger_27 = CheckExistenceOfEntity( vDialog, "CtrlMapER_Attribute" );
-                        //:   ( szStyleIsBootstrap = "Y" AND vDialog.CtrlMapER_Attribute EXISTS AND vDialog.CtrlMapER_Attribute.Name != "wHide")
                         lTempInteger_28 = CheckExistenceOfEntity( vDialog, "CtrlMapER_Attribute" );
-                        if ( ZeidonStringCompare( szStyleIsBootstrap, 1, 0, "", 1, 0, 2 ) == 0 || lTempInteger_27 != 0 || ( ZeidonStringCompare( szStyleIsBootstrap, 1, 0, "Y", 1, 0, 2 ) == 0 && lTempInteger_28 == 0 &&
+                        //:   ( szStyleIsBootstrap = "Y" AND vDialog.CtrlMapER_Attribute EXISTS AND vDialog.CtrlMapER_Attribute.Name != "wHide")
+                        lTempInteger_29 = CheckExistenceOfEntity( vDialog, "CtrlMapER_Attribute" );
+                        if ( ZeidonStringCompare( szStyleIsBootstrap, 1, 0, "", 1, 0, 2 ) == 0 || lTempInteger_28 != 0 || ( ZeidonStringCompare( szStyleIsBootstrap, 1, 0, "Y", 1, 0, 2 ) == 0 && lTempInteger_29 == 0 &&
                         CompareAttributeToString( vDialog, "CtrlMapER_Attribute", "Name", "wHide" ) != 0 ) )
                         { 
                            //:// If this is sortable and this is a pushbutton on the grid...
@@ -7678,8 +7718,8 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
                //:// Make tbody's height 50px (this might not always be right) less than the div height.  Otherwise you get a
                //:// scrollbar within the scrollbar.
                //:zIntegerToString( szHeight, 10, vDialog.Control.SZDLG_Y * dDLUnits - 50 )
-               GetIntegerFromAttribute( &lTempInteger_29, vDialog, "Control", "SZDLG_Y" );
-               zIntegerToString( szHeight, 10, lTempInteger_29 * dDLUnits - 50 );
+               GetIntegerFromAttribute( &lTempInteger_30, vDialog, "Control", "SZDLG_Y" );
+               zIntegerToString( szHeight, 10, lTempInteger_30 * dDLUnits - 50 );
                //:szWriteBuffer = "<tbody height=^" + szHeight + "px;^>"
                ZeidonStringCopy( szWriteBuffer, 1, 0, "<tbody height=^", 1, 0, 10001 );
                ZeidonStringConcat( szWriteBuffer, 1, 0, szHeight, 1, 0, 10001 );
@@ -7712,8 +7752,8 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 );
 
             //:IF vDialog.CtrlMapView EXISTS
-            lTempInteger_30 = CheckExistenceOfEntity( vDialog, "CtrlMapView" );
-            if ( lTempInteger_30 == 0 )
+            lTempInteger_31 = CheckExistenceOfEntity( vDialog, "CtrlMapView" );
+            if ( lTempInteger_31 == 0 )
             { 
 
                //:szWriteBuffer = "   iTableRowCnt = 0;"
@@ -7827,8 +7867,8 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
                   //:szCtrlCtrlType = vDialog.ControlDef.Tag
                   GetVariableFromAttribute( szCtrlCtrlType, 0, 'S', 51, vDialog, "ControlDef", "Tag", "", 0 );
                   //:IF szCtrlCtrlType = "GridSubCtl" AND vDialog.CtrlCtrl EXISTS
-                  lTempInteger_31 = CheckExistenceOfEntity( vDialog, "CtrlCtrl" );
-                  if ( ZeidonStringCompare( szCtrlCtrlType, 1, 0, "GridSubCtl", 1, 0, 51 ) == 0 && lTempInteger_31 == 0 )
+                  lTempInteger_32 = CheckExistenceOfEntity( vDialog, "CtrlCtrl" );
+                  if ( ZeidonStringCompare( szCtrlCtrlType, 1, 0, "GridSubCtl", 1, 0, 51 ) == 0 && lTempInteger_32 == 0 )
                   { 
                      //:SetViewToSubobject( vDialog, "CtrlCtrl" )  // vDialog positioned on sub-sub-controls
                      SetViewToSubobject( vDialog, "CtrlCtrl" );
@@ -8033,8 +8073,8 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
                   //:   SET CURSOR NEXT vDialog2.CtrlMap
                   RESULT = SetCursorNextEntity( vDialog2, "CtrlMap", "" );
                   //:   IF vDialog2.CtrlMapLOD_Entity EXISTS
-                  lTempInteger_32 = CheckExistenceOfEntity( vDialog2, "CtrlMapLOD_Entity" );
-                  if ( lTempInteger_32 == 0 )
+                  lTempInteger_33 = CheckExistenceOfEntity( vDialog2, "CtrlMapLOD_Entity" );
+                  if ( lTempInteger_33 == 0 )
                   { 
                      //:   szScopingEntityName = "^" + vDialog2.CtrlMapLOD_Entity.Name + "^"
                      GetVariableFromAttribute( szTempString_105, 0, 'S', 33, vDialog2, "CtrlMapLOD_Entity", "Name", "", 0 );
@@ -8192,8 +8232,8 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
                   //:szCtrlCtrlType = vDialog.ControlDef.Tag
                   GetVariableFromAttribute( szCtrlCtrlType, 0, 'S', 51, vDialog, "ControlDef", "Tag", "", 0 );
                   //:IF szCtrlCtrlType = "GridSubCtl" AND vDialog.CtrlCtrl EXISTS
-                  lTempInteger_33 = CheckExistenceOfEntity( vDialog, "CtrlCtrl" );
-                  if ( ZeidonStringCompare( szCtrlCtrlType, 1, 0, "GridSubCtl", 1, 0, 51 ) == 0 && lTempInteger_33 == 0 )
+                  lTempInteger_34 = CheckExistenceOfEntity( vDialog, "CtrlCtrl" );
+                  if ( ZeidonStringCompare( szCtrlCtrlType, 1, 0, "GridSubCtl", 1, 0, 51 ) == 0 && lTempInteger_34 == 0 )
                   { 
                      //:SetViewToSubobject( vDialog, "CtrlCtrl" )  // vDialog positioned on sub-sub-controls
                      SetViewToSubobject( vDialog, "CtrlCtrl" );
@@ -8327,8 +8367,8 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
                      //:END
 
                      //:IF vDialog.CtrlMapContext EXISTS
-                     lTempInteger_34 = CheckExistenceOfEntity( vDialog, "CtrlMapContext" );
-                     if ( lTempInteger_34 == 0 )
+                     lTempInteger_35 = CheckExistenceOfEntity( vDialog, "CtrlMapContext" );
+                     if ( lTempInteger_35 == 0 )
                      { 
                         //:szContextName = vDialog.CtrlMapContext.Name
                         GetVariableFromAttribute( szContextName, 0, 'S', 101, vDialog, "CtrlMapContext", "Name", "", 0 );
@@ -8841,8 +8881,8 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
 
                         //:END
                         //:IF vDialog.CtrlMapContext EXISTS
-                        lTempInteger_35 = CheckExistenceOfEntity( vDialog, "CtrlMapContext" );
-                        if ( lTempInteger_35 == 0 )
+                        lTempInteger_36 = CheckExistenceOfEntity( vDialog, "CtrlMapContext" );
+                        if ( lTempInteger_36 == 0 )
                         { 
                            //:szContextName = vDialog.CtrlMapContext.Name
                            GetVariableFromAttribute( szContextName, 0, 'S', 101, vDialog, "CtrlMapContext", "Name", "", 0 );
@@ -8917,8 +8957,8 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
                RESULT = SetCursorFirstEntity( vDialog, "Control", "" );
                //:// KJS 01/15/20 - For bootstrap we want to add a blank field at the beginning of grid.
                //:IF szStyleIsBootstrap = "Y" AND vDialog.CtrlMapER_Attribute EXISTS AND vDialog.CtrlMapER_Attribute.Name != "wHide" AND szBootstrapDataTables = "Y"
-               lTempInteger_36 = CheckExistenceOfEntity( vDialog, "CtrlMapER_Attribute" );
-               if ( ZeidonStringCompare( szStyleIsBootstrap, 1, 0, "Y", 1, 0, 2 ) == 0 && lTempInteger_36 == 0 && CompareAttributeToString( vDialog, "CtrlMapER_Attribute", "Name", "wHide" ) != 0 &&
+               lTempInteger_37 = CheckExistenceOfEntity( vDialog, "CtrlMapER_Attribute" );
+               if ( ZeidonStringCompare( szStyleIsBootstrap, 1, 0, "Y", 1, 0, 2 ) == 0 && lTempInteger_37 == 0 && CompareAttributeToString( vDialog, "CtrlMapER_Attribute", "Name", "wHide" ) != 0 &&
                     ZeidonStringCompare( szBootstrapDataTables, 1, 0, "Y", 1, 0, 2 ) == 0 )
                { 
                   //:szWriteBuffer = "   <td></td> <!-- Created for bootstrap -->"
@@ -8945,8 +8985,8 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
                   //:szCtrlCtrlType = vDialog.ControlDef.Tag
                   GetVariableFromAttribute( szCtrlCtrlType, 0, 'S', 51, vDialog, "ControlDef", "Tag", "", 0 );
                   //:IF szCtrlCtrlType = "GridSubCtl" AND vDialog.CtrlCtrl EXISTS
-                  lTempInteger_37 = CheckExistenceOfEntity( vDialog, "CtrlCtrl" );
-                  if ( ZeidonStringCompare( szCtrlCtrlType, 1, 0, "GridSubCtl", 1, 0, 51 ) == 0 && lTempInteger_37 == 0 )
+                  lTempInteger_38 = CheckExistenceOfEntity( vDialog, "CtrlCtrl" );
+                  if ( ZeidonStringCompare( szCtrlCtrlType, 1, 0, "GridSubCtl", 1, 0, 51 ) == 0 && lTempInteger_38 == 0 )
                   { 
                      //:SetViewToSubobject( vDialog, "CtrlCtrl" )  // vDialog positioned on sub-sub-controls
                      SetViewToSubobject( vDialog, "CtrlCtrl" );
@@ -9128,8 +9168,8 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
                         //:PIX_PER_DU( vDialog, dDLUnits )
                         PIX_PER_DU( vDialog, &dDLUnits );
                         //:zIntegerToString( szWidth, 10, vDialog.Control.SZDLG_X * dDLUnits )
-                        GetIntegerFromAttribute( &lTempInteger_38, vDialog, "Control", "SZDLG_X" );
-                        zIntegerToString( szWidth, 10, lTempInteger_38 * dDLUnits );
+                        GetIntegerFromAttribute( &lTempInteger_39, vDialog, "Control", "SZDLG_X" );
+                        zIntegerToString( szWidth, 10, lTempInteger_39 * dDLUnits );
                         //:szItemTableHeader = szItemTableHeader + " style=^width:" + szWidth + "px;^"
                         ZeidonStringConcat( szItemTableHeader, 1, 0, " style=^width:", 1, 0, 201 );
                         ZeidonStringConcat( szItemTableHeader, 1, 0, szWidth, 1, 0, 201 );
@@ -9196,8 +9236,8 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
                         //:szActionName = ""
                         ZeidonStringCopy( szActionName, 1, 0, "", 1, 0, 101 );
                         //:IF vDialog.EventAct EXISTS
-                        lTempInteger_39 = CheckExistenceOfEntity( vDialog, "EventAct" );
-                        if ( lTempInteger_39 == 0 )
+                        lTempInteger_40 = CheckExistenceOfEntity( vDialog, "EventAct" );
+                        if ( lTempInteger_40 == 0 )
                         { 
                            //:szActionName = vDialog.EventAct.Tag
                            GetVariableFromAttribute( szActionName, 0, 'S', 101, vDialog, "EventAct", "Tag", "", 0 );
@@ -9233,8 +9273,8 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
                         //:PIX_PER_DU( vDialog, dDLUnits )
                         PIX_PER_DU( vDialog, &dDLUnits );
                         //:zIntegerToString( szWidth, 10, vDialog.Control.SZDLG_X * dDLUnits )
-                        GetIntegerFromAttribute( &lTempInteger_40, vDialog, "Control", "SZDLG_X" );
-                        zIntegerToString( szWidth, 10, lTempInteger_40 * dDLUnits );
+                        GetIntegerFromAttribute( &lTempInteger_41, vDialog, "Control", "SZDLG_X" );
+                        zIntegerToString( szWidth, 10, lTempInteger_41 * dDLUnits );
                         //:szStyle = " style=^width:" + szWidth + "px;^ "
                         ZeidonStringCopy( szStyle, 1, 0, " style=^width:", 1, 0, 301 );
                         ZeidonStringConcat( szStyle, 1, 0, szWidth, 1, 0, 301 );
@@ -9325,8 +9365,8 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
                            //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
                            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 );
                            //:IF vDialog.CtrlMapContext EXISTS
-                           lTempInteger_41 = CheckExistenceOfEntity( vDialog, "CtrlMapContext" );
-                           if ( lTempInteger_41 == 0 )
+                           lTempInteger_42 = CheckExistenceOfEntity( vDialog, "CtrlMapContext" );
+                           if ( lTempInteger_42 == 0 )
                            { 
                               //:szContextName = vDialog.CtrlMapContext.Name
                               GetVariableFromAttribute( szContextName, 0, 'S', 101, vDialog, "CtrlMapContext", "Name", "", 0 );
@@ -9630,8 +9670,8 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
                               //:PIX_PER_DU( vDialog, dDLUnits )
                               PIX_PER_DU( vDialog, &dDLUnits );
                               //:zIntegerToString( szWidth, 10, vDialog.Control.SZDLG_X * dDLUnits )
-                              GetIntegerFromAttribute( &lTempInteger_42, vDialog, "Control", "SZDLG_X" );
-                              zIntegerToString( szWidth, 10, lTempInteger_42 * dDLUnits );
+                              GetIntegerFromAttribute( &lTempInteger_43, vDialog, "Control", "SZDLG_X" );
+                              zIntegerToString( szWidth, 10, lTempInteger_43 * dDLUnits );
                               //:szStyle = " style=^width:" + szWidth + "px;^"
                               ZeidonStringCopy( szStyle, 1, 0, " style=^width:", 1, 0, 301 );
                               ZeidonStringConcat( szStyle, 1, 0, szWidth, 1, 0, 301 );
@@ -9649,8 +9689,8 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
                            GetVariableFromAttribute( szMapAttributeName, 0, 'S', 101, vDialog, "CtrlMapER_Attribute", "Name", "", 0 );
 
                            //:IF vDialog.CtrlMapContext EXISTS
-                           lTempInteger_43 = CheckExistenceOfEntity( vDialog, "CtrlMapContext" );
-                           if ( lTempInteger_43 == 0 )
+                           lTempInteger_44 = CheckExistenceOfEntity( vDialog, "CtrlMapContext" );
+                           if ( lTempInteger_44 == 0 )
                            { 
                               //:szContextName = vDialog.CtrlMapContext.Name
                               GetVariableFromAttribute( szContextName, 0, 'S', 101, vDialog, "CtrlMapContext", "Name", "", 0 );
@@ -9670,8 +9710,8 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
                            ZeidonStringConcat( szWriteBuffer, 1, 0, ">", 1, 0, 10001 );
 
                            //:IF vDialog.Event EXISTS
-                           lTempInteger_44 = CheckExistenceOfEntity( vDialog, "Event" );
-                           if ( lTempInteger_44 == 0 )
+                           lTempInteger_45 = CheckExistenceOfEntity( vDialog, "Event" );
+                           if ( lTempInteger_45 == 0 )
                            { 
                               //:IF vDialog.Event.Type = 1
                               if ( CompareAttributeToInteger( vDialog, "Event", "Type", 1 ) == 0 )
@@ -10229,8 +10269,8 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
                               //:// 2. If Action is SelectChange, use onchange.
                               //:// 3. If Action is SelectEnd, use onfocusout.
                               //:IF vDialog.Event EXISTS
-                              lTempInteger_45 = CheckExistenceOfEntity( vDialog, "Event" );
-                              if ( lTempInteger_45 == 0 )
+                              lTempInteger_46 = CheckExistenceOfEntity( vDialog, "Event" );
+                              if ( lTempInteger_46 == 0 )
                               { 
                                  //:IF vDialog.Event.Type = 1
                                  if ( CompareAttributeToInteger( vDialog, "Event", "Type", 1 ) == 0 )
@@ -10326,8 +10366,8 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
                               //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
                               WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 );
                               //:IF vDialog.CtrlMapView EXISTS
-                              lTempInteger_46 = CheckExistenceOfEntity( vDialog, "CtrlMapView" );
-                              if ( lTempInteger_46 == 0 )
+                              lTempInteger_47 = CheckExistenceOfEntity( vDialog, "CtrlMapView" );
+                              if ( lTempInteger_47 == 0 )
                               { 
                                  //:szWriteBuffer = "   " + vList.CtrlMapView.Name + " = " +
                                  //:                "task.getViewByName( ^" + vList.CtrlMapView.Name + "^ );"
@@ -10366,8 +10406,8 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
                                  //:// If mapping is specified, set up the value to be used in selecting
                                  //:// the correct entry.
                                  //:IF vDialog.CtrlMapLOD_Attribute EXISTS
-                                 lTempInteger_47 = CheckExistenceOfEntity( vDialog, "CtrlMapLOD_Attribute" );
-                                 if ( lTempInteger_47 == 0 )
+                                 lTempInteger_48 = CheckExistenceOfEntity( vDialog, "CtrlMapLOD_Attribute" );
+                                 if ( lTempInteger_48 == 0 )
                                  { 
                                     //:IF vDialog.CtrlMapView.Name = szGridOrigViewName
                                     if ( CompareAttributeToString( vDialog, "CtrlMapView", "Name", szGridOrigViewName ) == 0 )
@@ -10424,8 +10464,8 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
                                     //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
                                     WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 );
                                     //:IF vDialog.CtrlMapContext EXISTS
-                                    lTempInteger_48 = CheckExistenceOfEntity( vDialog, "CtrlMapContext" );
-                                    if ( lTempInteger_48 == 0 )
+                                    lTempInteger_49 = CheckExistenceOfEntity( vDialog, "CtrlMapContext" );
+                                    if ( lTempInteger_49 == 0 )
                                     { 
                                        //:szContextName = vDialog.CtrlMapContext.Name
                                        GetVariableFromAttribute( szContextName, 0, 'S', 101, vDialog, "CtrlMapContext", "Name", "", 0 );
@@ -10497,8 +10537,8 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
 
                                  //:// See if a list entity has been specified, and if so, use it.
                                  //:IF vEntity.CtrlMapLOD_Entity EXISTS
-                                 lTempInteger_49 = CheckExistenceOfEntity( vEntity, "CtrlMapLOD_Entity" );
-                                 if ( lTempInteger_49 == 0 )
+                                 lTempInteger_50 = CheckExistenceOfEntity( vEntity, "CtrlMapLOD_Entity" );
+                                 if ( lTempInteger_50 == 0 )
                                  { 
                                     //:szListEntityName = vEntity.CtrlMapLOD_Entity.Name
                                     GetVariableFromAttribute( szListEntityName, 0, 'S', 101, vEntity, "CtrlMapLOD_Entity", "Name", "", 0 );
@@ -10521,8 +10561,8 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
                                  if ( lSubtype == 0 )
                                  { 
                                     //:IF vScope.CtrlMapLOD_Entity EXISTS
-                                    lTempInteger_50 = CheckExistenceOfEntity( vScope, "CtrlMapLOD_Entity" );
-                                    if ( lTempInteger_50 == 0 )
+                                    lTempInteger_51 = CheckExistenceOfEntity( vScope, "CtrlMapLOD_Entity" );
+                                    if ( lTempInteger_51 == 0 )
                                     { 
                                        //:szScopingEntityName = "^" + vScope.CtrlMapLOD_Entity.Name + "^"
                                        GetVariableFromAttribute( szTempString_152, 0, 'S', 33, vScope, "CtrlMapLOD_Entity", "Name", "", 0 );
@@ -10665,12 +10705,12 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
                                  //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
                                  WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 );
                                  //:IF vList.CtrlMapLOD_Attribute EXISTS
-                                 lTempInteger_51 = CheckExistenceOfEntity( vList, "CtrlMapLOD_Attribute" );
-                                 if ( lTempInteger_51 == 0 )
+                                 lTempInteger_52 = CheckExistenceOfEntity( vList, "CtrlMapLOD_Attribute" );
+                                 if ( lTempInteger_52 == 0 )
                                  { 
                                     //:IF vList.CtrlMapContext EXISTS
-                                    lTempInteger_52 = CheckExistenceOfEntity( vList, "CtrlMapContext" );
-                                    if ( lTempInteger_52 == 0 )
+                                    lTempInteger_53 = CheckExistenceOfEntity( vList, "CtrlMapContext" );
+                                    if ( lTempInteger_53 == 0 )
                                     { 
                                        //:szContextName = vList.CtrlMapContext.Name
                                        GetVariableFromAttribute( szContextName, 0, 'S', 101, vList, "CtrlMapContext", "Name", "", 0 );
@@ -10885,8 +10925,8 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
                               { 
                                  //:// If there is no class for this calendar called "datefield", then add it.
                                  //:IF ZeidonStringFind( szClass, 1, "datefield" ) <= 0
-                                 lTempInteger_53 = ZeidonStringFind( szClass, 1, "datefield" );
-                                 if ( lTempInteger_53 <= 0 )
+                                 lTempInteger_54 = ZeidonStringFind( szClass, 1, "datefield" );
+                                 if ( lTempInteger_54 <= 0 )
                                  { 
                                     //:szClass = "class=^datefield^"
                                     ZeidonStringCopy( szClass, 1, 0, "class=^datefield^", 1, 0, 257 );
@@ -11065,8 +11105,8 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
 
                                           //:END
                                           //:IF vDialog.EventAct EXISTS
-                                          lTempInteger_54 = CheckExistenceOfEntity( vDialog, "EventAct" );
-                                          if ( lTempInteger_54 == 0 )
+                                          lTempInteger_55 = CheckExistenceOfEntity( vDialog, "EventAct" );
+                                          if ( lTempInteger_55 == 0 )
                                           { 
                                              //:IF szNoPositioning = "S"
                                              if ( ZeidonStringCompare( szNoPositioning, 1, 0, "S", 1, 0, 2 ) == 0 )
@@ -11164,8 +11204,8 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
                                              //:END
 
                                              //:IF vDialog.EventAct EXISTS  // the line below was commented 3013.03.28 ... I need the line passing this.id.  dks
-                                             lTempInteger_55 = CheckExistenceOfEntity( vDialog, "EventAct" );
-                                             if ( lTempInteger_55 == 0 )
+                                             lTempInteger_56 = CheckExistenceOfEntity( vDialog, "EventAct" );
+                                             if ( lTempInteger_56 == 0 )
                                              { 
                                                 //:IF szNoPositioning = "S"
                                                 if ( ZeidonStringCompare( szNoPositioning, 1, 0, "S", 1, 0, 2 ) == 0 )
@@ -11277,8 +11317,8 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
                                                 WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 );
                                                 //:   
                                                 //:IF vDialog.EventAct EXISTS
-                                                lTempInteger_56 = CheckExistenceOfEntity( vDialog, "EventAct" );
-                                                if ( lTempInteger_56 == 0 )
+                                                lTempInteger_57 = CheckExistenceOfEntity( vDialog, "EventAct" );
+                                                if ( lTempInteger_57 == 0 )
                                                 { 
                                                    //:szWriteBuffer = "   " + szItemTableHeader + "><input type=^checkbox^ name=^" + szListCtrlTag + "::<%=strEntityKey%>^ id=^" + szListCtrlTag + "::<%=strEntityKey%>^ <%=strDisabled%> " + szDisabled +
                                                    //:" value=^" + vDialog.Control.RadioOrCheckboxValue +
@@ -11363,8 +11403,8 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
                                                    //:END
 
                                                    //:IF vDialog.EventAct EXISTS
-                                                   lTempInteger_57 = CheckExistenceOfEntity( vDialog, "EventAct" );
-                                                   if ( lTempInteger_57 == 0 )
+                                                   lTempInteger_58 = CheckExistenceOfEntity( vDialog, "EventAct" );
+                                                   if ( lTempInteger_58 == 0 )
                                                    { 
                                                       //:// Right now the only EventAct on a regular grid subcontrol is HotText (now there is Bitmap and BitmapBtn)
                                                       //:// Process HotText Action the same as for the Text Control.

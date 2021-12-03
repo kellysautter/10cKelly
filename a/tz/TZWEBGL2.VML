@@ -127,6 +127,7 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
    STRING ( 300 ) szStyle
    STRING ( 100 ) szRepeatingGroupKey
    STRING ( 100 ) szInListCtrlTag
+   STRING ( 200 ) szMsg
    DECIMAL        dDLUnits
    INTEGER        LastY_Pos
    INTEGER        LastY_Height
@@ -586,12 +587,26 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
             szMenuActionFlag = "Y"
          END
          
-         // If we are on the most outer group box, put kkkkk
-         IF lIndexStrLth = 0 AND szStyleIsBootstrap = "Y" AND szToggleFlag = "" AND szToggleFlag2 = "" AND szBootstrapOuterCard = "Y" AND vDialog.Control.WebCtrlType != "Hidden"
+         // If we are generating to bootstrap with a zeidon.ini setting of BootstrapOuterCard=Y, and we are on the most outer group box,
+         // we are going to surround that <div> with a <div class='card card-body mb-2'. This is so that the developer does not have
+         // to create so many divs within divs on the page.
+         IF lIndexStrLth = 0 AND szStyleIsBootstrap = "Y" AND szBootstrapOuterCard = "Y" AND szToggleFlag = "" AND szToggleFlag2 = "" AND 
+            szFileTransferFlag = "" AND vDialog.Control.WebCtrlType != "Hidden"
             // Trying out using mb-2 all the time...
             szWriteBuffer = "<div id=^" + szCtrlTag + "zcard^ class=^card card-body mb-2^>  <!-- Create card/card-body for bootstrap -->"
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-         END         
+         END    
+         // KJS 11/12/21 - Should I add a check here so I can let user know if they are in bootstrap but their outer group doesn't have card card-body class?
+         szClass = vDialog.Control.CSS_Class     
+         IF lIndexStrLth = 0 AND szStyleIsBootstrap = "Y" AND szBootstrapOuterCard = "" AND szToggleFlag = "" AND szToggleFlag2 = "" AND 
+            vDialog.Control.WebCtrlType != "Hidden" AND ( ZeidonStringFind( szClass, 1, "card-body" ) <= 0 ) AND vWork.Root.GaveErrorMessage = ""
+               vWork.Root.GaveErrorMessage = "Y"               
+               szMsg = "When generating for bootstrap, the outer div should probably have a class 'card card-body', or divs do not show correctly. Also File upload div"
+               szMsg = szMsg + " does not display. Use zeidon ini setting of BootstrapOuterCard=Y and the card-body div will automatically be added."
+               MessageSend( vDialog, "", "XSL Generation",
+                            szMsg,
+                            zMSGQ_OBJECT_CONSTRAINT_WARNING, 0 )
+         END
 
       END  // End of "GroupBox"
 
@@ -766,7 +781,12 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
       END
       
       IF szControlType = "GroupBox" AND szFileTransferFlag = "Y"
-         GenJSPJ_CrteFileTransferForm( vDialog, vDialogRoot, lFile, szWriteBuffer, szIndentGroup, szNoPositioning, lOffsetX, lOffsetY )
+         
+         GenJSPJ_CrteFileTransferForm( vDialog, vDialogRoot, lFile, szWriteBuffer, szIndent, szNoPositioning, szStyleIsBootstrap, szBootstrapOuterCard, lOffsetX, lOffsetY )
+         IF lIndexStrLth = 0 AND szStyleIsBootstrap = "Y" AND szBootstrapOuterCard = "Y" 
+            szWriteBuffer = "</div>  <!-- Create card/card-body for bootstrap -->"
+            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+         END         
       END
 
       IF szControlType = "GroupBox" AND szRepeatingGroupFlag = "" AND szFileTransferFlag = "" AND szGroupIsTable = "" AND szGridGroupingFlag = "" AND szSurveyGroupFlag = ""
@@ -3655,6 +3675,29 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
                         szItemTableHeader = szItemTableHeader + " style=^width:" + szWidth + "px;^"
                      END
 
+/*
+                     // KJS 11/17/21 - Language Conversion.
+                     //If we put a title on the control, when the mouse is hovered over the control, this text will display.
+                     //Since titles are different from other messages, should I have a separate call like .getLanguageTitle?
+                     // and have a different view for these?
+                     IF vDialogRoot.Dialog.wWebUsesLanguageConversion = "Y"
+                        szTitle = vDialog.Control.DIL_Text
+                        szTextID = vDialog.Control.LangID
+                        zSearchAndReplace( szTitle, 1000, "\", "\\" )
+                        szSrch = "\" + QUOTES 
+                        zSearchAndReplace( szTitle, 1000, QUOTES, szSrch )
+                        szSrch = ""
+                        IF szTextID = ""
+                           szTitleHTML = " title=^" + "<%=LangConv.getLanguageText(^" + szText2 + "^)%>^" 
+                        ELSE 
+                           szTitleHTML = " title=^" + "<%=LangConv.getLanguageText(^" + szText2 + "^, ^" + szTextID + "^)%>^" 
+                        END
+                        //szText = "<%=LangConv.getLanguageText(^" + szText2 + "^)%>" 
+                     ELSE
+                        szText = vDialog.Control.Text
+                     END   
+
+*/
                      //If we put a title on the control, when the mouse is hovered over the control, this text will display.
                      szTitleHTML = ""
                      szTitle = vDialog.Control.DIL_Text

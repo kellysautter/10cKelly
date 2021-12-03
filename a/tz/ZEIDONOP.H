@@ -1780,11 +1780,42 @@ GenJSPJ_Action( zVIEW vDialog0,
                 zLONG llTraceLevel6 );
 
 //end
-//start TZWEBGL3 2012.07.17 16:38:20
+//start TZWEBGL3 2021.11.16 10:28:44
 zOPER_EXPORT zSHORT OPERATION
 BuildMainNavSection( zVIEW vDialog0,
                      zVIEW vDialogRoot1,
                      zLONG lFile2 );
+
+zOPER_EXPORT zSHORT OPERATION
+GenJSPJ_ActionRecurs( zVIEW vvDialog0,
+                      zVIEW vvDialogMenuRoot1,
+                      zVIEW vvDialogRoot2,
+                      zLONG llFile3,
+                      zPCHAR pchszWriteBuffer4,
+                      zPCHAR pchszFormName5,
+                      zLONG llTraceLevel6,
+                      zPCHAR pchszActionPrefix7 );
+
+zOPER_EXPORT zVOID OPERATION
+GenJSP_MenuFunctionsRecurs( zVIEW vDialog0,
+                            zVIEW vvDialogMenuRoot1,
+                            zVIEW vDialogRoot2,
+                            zLONG llFile3,
+                            zPCHAR pchWriteBuffer4,
+                            zPCHAR pchFormName5,
+                            zPCHAR pchActionPrefix6 );
+
+zOPER_EXPORT zSHORT OPERATION
+BuildMainNavSectionBootstrap( zVIEW vvDialog0,
+                              zVIEW vvDialogRoot1,
+                              zLONG llFile2,
+                              zPCHAR pchSideMenuExistsFlag3 );
+
+zOPER_EXPORT zSHORT OPERATION
+GenJSPJ_CrteSideMenuRecurs( zVIEW vvDialog0,
+                            zVIEW vvDialogRoot1,
+                            zLONG llFile2,
+                            zPCHAR pchReusableMenu3 );
 
 zOPER_EXPORT zVOID OPERATION
 GenJSP_CrteJPG( zVIEW vDialog0,
@@ -1919,13 +1950,22 @@ CreateTabIndexString( zVIEW vDialog0,
                       zPCHAR pchTabIndex1 );
 
 //end
-//start TZWEBGL4 2018.02.26 16:09:07
+//start TZWEBGL4 2021.11.16 10:02:04
 zOPER_EXPORT zSHORT OPERATION
 BuildSideNavSectionJ( zVIEW vvDialog0,
                       zVIEW vvDialogRoot1,
                       zLONG llFile2,
                       zPCHAR pchReusableMenu3,
                       zVIEW vvDialogMenu4 );
+
+zOPER_EXPORT zSHORT OPERATION
+GenJSPJ_Action( zVIEW vDialog0,
+                zVIEW vDialogRoot1,
+                zLONG lFile2,
+                zPCHAR pchWriteBuffer3,
+                zPCHAR pchFormName4,
+                zPCHAR pchActionName5,
+                zLONG llTraceLevel6 );
 
 zOPER_EXPORT zVOID OPERATION
 GenJSPJ_CrteGridRadio( zVIEW vvDialog0,
@@ -1945,8 +1985,10 @@ GenJSPJ_CrteFileTransferForm( zVIEW vvDialog0,
                               zPCHAR pchWriteBuffer3,
                               zPCHAR pchIndent4,
                               zPCHAR pchNoPositioning5,
-                              zLONG lOffsetX6,
-                              zLONG lOffsetY7 );
+                              zPCHAR pchszStyleIsBootstrap6,
+                              zPCHAR pchszBootstrapOuterCard7,
+                              zLONG lOffsetX8,
+                              zLONG lOffsetY9 );
 
 zOPER_EXPORT zSHORT OPERATION
 GenJSPJ_CrteListBoxAsList( zVIEW vvDialog0,

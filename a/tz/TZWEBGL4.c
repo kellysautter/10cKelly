@@ -5255,6 +5255,8 @@ GenJSPJ_CrteGridRadio( zVIEW     vDialog,
 //:                              STRING ( 10000 ) szWriteBuffer,
 //:                              STRING ( 32 ) szIndent,
 //:                              STRING ( 1 ) szNoPositioning,
+//:                              STRING ( 1 ) szStyleIsBootstrap,
+//:                              STRING ( 1 ) szBootstrapOuterCard,
 //:                              INTEGER          lOffsetX,
 //:                              INTEGER          lOffsetY )
 
@@ -5266,6 +5268,8 @@ GenJSPJ_CrteFileTransferForm( zVIEW     vDialog,
                               zPCHAR    szWriteBuffer,
                               zPCHAR    szIndent,
                               zPCHAR    szNoPositioning,
+                              zPCHAR    szStyleIsBootstrap,
+                              zPCHAR    szBootstrapOuterCard,
                               zLONG     lOffsetX,
                               zLONG     lOffsetY )
 {
@@ -5354,7 +5358,7 @@ GenJSPJ_CrteFileTransferForm( zVIEW     vDialog,
    zLONG     X_Pos = 0; 
    //:INTEGER        Y_Pos
    zLONG     Y_Pos = 0; 
-   //:SHORT            nRC
+   //:SHORT          nRC
    zSHORT    nRC = 0; 
 
    //:DECIMAL        dDLUnits
@@ -5541,6 +5545,21 @@ GenJSPJ_CrteFileTransferForm( zVIEW     vDialog,
    //:NAME VIEW vDialogTemp "vDialogTemp"
    SetNameForView( vDialogTemp, "vDialogTemp", 0, zLEVEL_TASK );
 
+   //:// KJS 11/12/21 - If we are on the outer groupbox and bootstrap.
+   //:IF szIndent = "   " AND szStyleIsBootstrap = "Y" AND szBootstrapOuterCard = "Y" 
+   if ( ZeidonStringCompare( szIndent, 1, 0, "   ", 1, 0, 33 ) == 0 && ZeidonStringCompare( szStyleIsBootstrap, 1, 0, "Y", 1, 0, 2 ) == 0 && ZeidonStringCompare( szBootstrapOuterCard, 1, 0, "Y", 1, 0, 2 ) == 0 )
+   { 
+      //:// Trying out using mb-2 all the time...
+      //:szWriteBuffer = "<div id=^" + szCtrlTag + "zcard^ class=^card card-body mb-2^>  <!-- Create card/card-body for bootstrap -->"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "<div id=^", 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, szCtrlTag, 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, "zcard^ class=^card card-body mb-2^>  <!-- Create card/card-body for bootstrap -->", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
+   } 
+
+   //:END         
+
    //:// Generate Form Statement for Group, with hidden field zAction.
    //:szWriteBuffer = ""
    ZeidonStringCopy( szWriteBuffer, 1, 0, "", 1, 0, 10001 );
@@ -5680,7 +5699,7 @@ GenJSPJ_CrteFileTransferForm( zVIEW     vDialog,
    } 
 
    //:   END
-
+   //:   
    //:   szClass = ""
    ZeidonStringCopy( szClass, 1, 0, "", 1, 0, 257 );
    //:   IF vDialogTemp.Control.CSS_Class != ""
@@ -14907,8 +14926,8 @@ GenJSPJ_CrteComboBox( zVIEW     vDialog,
    zCHAR     szContextName[ 33 ] = { 0 }; 
    //:STRING ( 32 )  szScopingEntityName
    zCHAR     szScopingEntityName[ 33 ] = { 0 }; 
-   //:STRING ( 32 )  szListEntityName
-   zCHAR     szListEntityName[ 33 ] = { 0 }; 
+   //:STRING ( 64 )  szListEntityName
+   zCHAR     szListEntityName[ 65 ] = { 0 }; 
    //:STRING ( 300 ) szStyle
    zCHAR     szStyle[ 301 ] = { 0 }; 
    //:STRING ( 256 ) szClass
@@ -15380,6 +15399,12 @@ GenJSPJ_CrteComboBox( zVIEW     vDialog,
          WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 );
          //://strComboCurrentInternalValue  = ""; 
 
+         //:// KJS 10/29/21 - add try/catch for domain select.  
+         //:// 11/15/21 - taking out because then some of our pages are too long and get the 'exceeds 6555...' error.     
+         //://szWriteBuffer = "   try{"
+         //://WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+
+
          //:szWriteBuffer = "   " + vDialog.CtrlMapView.Name + " = " +
          //:             "task.getViewByName( ^" + vDialog.CtrlMapView.Name + "^ );"
          GetVariableFromAttribute( szTempString_5, 0, 'S', 33, vDialog, "CtrlMapView", "Name", "", 0 );
@@ -15820,14 +15845,40 @@ GenJSPJ_CrteComboBox( zVIEW     vDialog,
          //:   
          //:   
          //:END
+
+         //:szWriteBuffer = "   }  // if view != null"
+         ZeidonStringCopy( szWriteBuffer, 1, 0, "   }  // if view != null", 1, 0, 10001 );
+         //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+         WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 );
       } 
 
-      //:END
+      //:   
+      //:   // KJS 10/29/21 - add try/catch for domain select.       
+      //:   // 11/15/21 - taking out because then some of our pages are too long and get the 'exceeds 6555...' error.    
+      //:   /* 
+      //:   szWriteBuffer = "   } // end of try"
+      //:   WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+      //:   szWriteBuffer = "   catch( Exception e )"
+      //:   WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+      //:   szWriteBuffer = "   {"
+      //:   WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+      //:   szWriteBuffer = "         out.println(^There is an error on " + szCtrlTag + ": ^ + e.getMessage());"
+      //:   WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+      //:   szWriteBuffer = "         task.log().info( ^*** Error on ctrl " + szCtrlTag + "^ + e.getMessage() );"
+      //:   WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
 
-      //:szWriteBuffer = "   }  // if view != null"
-      ZeidonStringCopy( szWriteBuffer, 1, 0, "   }  // if view != null", 1, 0, 10001 );
-      //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-      WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 );
+      //:   szWriteBuffer = "         %>"
+      //:   WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+      //:   szWriteBuffer = "         <option disabled selected=^selected^ ><%=e.getMessage()%></option>"
+      //:   WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+      //:   szWriteBuffer = "         <%"
+      //:   WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+
+      //:   szWriteBuffer = "   }"
+      //:   WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+      //:   */
+      //:END  // end of IF vDialog.CtrlMapView EXISTS
+
       //:szWriteBuffer = "%>"
       ZeidonStringCopy( szWriteBuffer, 1, 0, "%>", 1, 0, 10001 );
       //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
@@ -16083,13 +16134,13 @@ GenJSPJ_CrteComboBox( zVIEW     vDialog,
          if ( lTempInteger_12 == 0 )
          { 
             //:szListEntityName = vEntity.CtrlMapLOD_Entity.Name
-            GetVariableFromAttribute( szListEntityName, 0, 'S', 33, vEntity, "CtrlMapLOD_Entity", "Name", "", 0 );
+            GetVariableFromAttribute( szListEntityName, 0, 'S', 65, vEntity, "CtrlMapLOD_Entity", "Name", "", 0 );
             //:ELSE
          } 
          else
          { 
             //:szListEntityName = vList.CtrlMapRelatedEntity.Name
-            GetVariableFromAttribute( szListEntityName, 0, 'S', 33, vList, "CtrlMapRelatedEntity", "Name", "", 0 );
+            GetVariableFromAttribute( szListEntityName, 0, 'S', 65, vList, "CtrlMapRelatedEntity", "Name", "", 0 );
          } 
 
          //:END
@@ -16614,6 +16665,11 @@ GenJSPJ_CrteCheckBox( zVIEW     vDialog,
          ZeidonStringCopy( szWriteBuffer, 1, 0, "      strDisabled = ^^;", 1, 0, 10001 );
          //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
          WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 );
+
+         //:// KJS 11/15/21 - taking out because then some of our pages are too long and get the 'exceeds 6555...' error.     
+         //://szWriteBuffer = "      try {"
+         //://WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+
          //:szWriteBuffer = "      if ( " + vDialog.CtrlMapView.Name + ".isReadOnly( ) )"
          GetVariableFromAttribute( szTempString_3, 0, 'S', 33, vDialog, "CtrlMapView", "Name", "", 0 );
          ZeidonStringCopy( szWriteBuffer, 1, 0, "      if ( ", 1, 0, 10001 );
@@ -16662,6 +16718,22 @@ GenJSPJ_CrteCheckBox( zVIEW     vDialog,
       ZeidonStringConcat( szWriteBuffer, 1, 0, "^ ).getString( );", 1, 0, 10001 );
       //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
       WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 );
+
+      //:// KJS 11/15/21 - taking out because then some of our pages are too long and get the 'exceeds 6555...' error.     
+      //:/*
+      //:szWriteBuffer = "     }"
+      //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+      //:szWriteBuffer = "     catch (Exception e){"
+      //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+      //:szWriteBuffer = "        out.println(^There is an error on checkbox " + szCtrlTag + ": ^ + e.getMessage());"
+      //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+      //:szWriteBuffer = "        task.log().error( ^*** Error on ctrl " + szCtrlTag + "^, e );"
+      //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+      //:szWriteBuffer = "     }"
+      //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+      //:*/
+
+
       //:szWriteBuffer = "   }"
       ZeidonStringCopy( szWriteBuffer, 1, 0, "   }", 1, 0, 10001 );
       //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )

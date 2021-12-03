@@ -1209,7 +1209,12 @@ GenerateJavaPrototype( zVIEW   vSubtask,
    // Determine first line of prototype.
    if ( cOperationType == 'L' )
    {
-      zstrcpy( pchOutputString, "private " );  // local operation
+	   // KJS 11/05/21 - When we have more than one source file for an object/dialog, we have been unable to
+	   // call operations between these files. Fixing that... but we can not call an operation with "private" so
+	   // I am changing this to public. Since our Dialog operations are all public, I am not seeing why this would
+	   // be an issue.
+      zstrcpy( pchOutputString, "public " );  // local operation
+      //zstrcpy( pchOutputString, "private " );  // local operation
       nRC = SetCursorLastEntity( g_lpPIView, "Variable", "" );
    }
    else

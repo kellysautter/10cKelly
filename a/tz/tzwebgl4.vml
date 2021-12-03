@@ -852,6 +852,11 @@ GenJSPJ_CrteCheckBox( VIEW vDialog BASED ON LOD TZWDLGSO,
       IF vDialogRoot.Dialog.wWebUsesControlActionsView = "Y"
          szWriteBuffer = "      strDisabled = ^^;"
          WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+
+         // KJS 11/15/21 - taking out because then some of our pages are too long and get the 'exceeds 6555...' error.     
+         //szWriteBuffer = "      try {"
+         //WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+
          szWriteBuffer = "      if ( " + vDialog.CtrlMapView.Name + ".isReadOnly( ) )"
          WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
          //szWriteBuffer = "                  strCtrlActionsView = strCtrlActionsView + ^" + szCtrlTag + ",Disabled,^;"
@@ -870,6 +875,22 @@ GenJSPJ_CrteCheckBox( VIEW vDialog BASED ON LOD TZWDLGSO,
                       vDialog.CtrlMapRelatedEntity.Name + "^ ).getAttribute( ^" +
                       vDialog.CtrlMapER_Attribute.Name + "^ ).getString( );"
       WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+
+      // KJS 11/15/21 - taking out because then some of our pages are too long and get the 'exceeds 6555...' error.     
+      /*
+      szWriteBuffer = "     }"
+      WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+      szWriteBuffer = "     catch (Exception e){"
+      WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+      szWriteBuffer = "        out.println(^There is an error on checkbox " + szCtrlTag + ": ^ + e.getMessage());"
+      WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+      szWriteBuffer = "        task.log().error( ^*** Error on ctrl " + szCtrlTag + "^, e );"
+      WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+      szWriteBuffer = "     }"
+      WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+      */
+
+
       szWriteBuffer = "   }"
       WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
    END
@@ -1189,8 +1210,14 @@ GenJSPJ_CrteComboBox( VIEW vDialog BASED ON LOD TZWDLGSO,
          WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
          szWriteBuffer = "   strComboCurrentInternalValue = ^^;"
          WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
-        //strComboCurrentInternalValue  = ""; 
-
+         //strComboCurrentInternalValue  = ""; 
+         
+         // KJS 10/29/21 - add try/catch for domain select.  
+         // 11/15/21 - taking out because then some of our pages are too long and get the 'exceeds 6555...' error.     
+         //szWriteBuffer = "   try{"
+         //WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+         
+         
          szWriteBuffer = "   " + vDialog.CtrlMapView.Name + " = " +
                       "task.getViewByName( ^" + vDialog.CtrlMapView.Name + "^ );"
          WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
@@ -1401,10 +1428,36 @@ GenJSPJ_CrteComboBox( VIEW vDialog BASED ON LOD TZWDLGSO,
             
             
          END
-      END
 
-      szWriteBuffer = "   }  // if view != null"
-      WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+         szWriteBuffer = "   }  // if view != null"
+         WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+         
+         // KJS 10/29/21 - add try/catch for domain select.       
+         // 11/15/21 - taking out because then some of our pages are too long and get the 'exceeds 6555...' error.    
+         /* 
+         szWriteBuffer = "   } // end of try"
+         WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+         szWriteBuffer = "   catch( Exception e )"
+         WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+         szWriteBuffer = "   {"
+         WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+         szWriteBuffer = "         out.println(^There is an error on " + szCtrlTag + ": ^ + e.getMessage());"
+         WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+         szWriteBuffer = "         task.log().info( ^*** Error on ctrl " + szCtrlTag + "^ + e.getMessage() );"
+         WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+ 
+         szWriteBuffer = "         %>"
+         WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+         szWriteBuffer = "         <option disabled selected=^selected^ ><%=e.getMessage()%></option>"
+         WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+         szWriteBuffer = "         <%"
+         WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+
+         szWriteBuffer = "   }"
+         WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+         */
+      END  // end of IF vDialog.CtrlMapView EXISTS
+
       szWriteBuffer = "%>"
       WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
       szWriteBuffer = "</select>"
@@ -5395,6 +5448,8 @@ GenJSPJ_CrteFileTransferForm( VIEW vDialog,
                               STRING ( 10000 ) szWriteBuffer,
                               STRING ( 32 ) szIndent,
                               STRING ( 1 ) szNoPositioning,
+                              STRING ( 1 ) szStyleIsBootstrap,
+                              STRING ( 1 ) szBootstrapOuterCard,
                               INTEGER          lOffsetX,
                               INTEGER          lOffsetY )
 
@@ -5441,7 +5496,7 @@ GenJSPJ_CrteFileTransferForm( VIEW vDialog,
    INTEGER        Y_Size
    INTEGER        X_Pos
    INTEGER        Y_Pos
-   SHORT            nRC
+   SHORT          nRC
 
    DECIMAL        dDLUnits
    STRING ( 100 )  szSize
@@ -5532,6 +5587,13 @@ GenJSPJ_CrteFileTransferForm( VIEW vDialog,
    CreateViewFromView( vDialogTemp, vDialog )
    NAME VIEW vDialogTemp "vDialogTemp"
 
+   // KJS 11/12/21 - If we are on the outer groupbox and bootstrap.
+   IF szIndent = "   " AND szStyleIsBootstrap = "Y" AND szBootstrapOuterCard = "Y" 
+      // Trying out using mb-2 all the time...
+      szWriteBuffer = "<div id=^" + szCtrlTag + "zcard^ class=^card card-body mb-2^>  <!-- Create card/card-body for bootstrap -->"
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   END         
+
    // Generate Form Statement for Group, with hidden field zAction.
    szWriteBuffer = ""
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
@@ -5587,7 +5649,7 @@ GenJSPJ_CrteFileTransferForm( VIEW vDialog,
          CreateAbsolStyleString( vDialog, szStyle, lOffsetX, lOffsetY, "" )
       END
       END
-
+      
       szClass = ""
       IF vDialogTemp.Control.CSS_Class != ""
          szClass = " class=^" + vDialogTemp.Control.CSS_Class + "^"
