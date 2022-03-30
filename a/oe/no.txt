@@ -1,0 +1,9 @@
+kzoeeraa.c:                           // lpTask->nOper[ 0 ], 31 );
+kzoeeraa.c:                              lpTask->nOper[ lpTask->nOperIdx ], 31 );
+kzoeeraa.c:      // zltoa( lpTask->nOper[ 0 ], &szOperationName[ 1 ] );
+kzoeeraa.c:         zltoa( lpTask->nOper[ lpTask->nOperIdx ], &szOperationName[ 1 ] );
+kzoeeraa.c:            SysGetOperationMessage( szOperationName, lpTask->nOper[ k ], 31 );
+kzoeeraa.c:               zltoa( lpTask->nOper[ k ], &szOperationName[ 1 ] );
+kzoevlaa.c:         lpTask->nOper[ lpTask->nOperIdx ] = nOperationID;
+kzoevlaa.c:              (nOperationID == 0 || lpTask->nOper[ k ] == nOperationID) )
+kzoevlaa.c:            while ( k >= 0 && lpTask->nOper[ k ] != nOperationID )

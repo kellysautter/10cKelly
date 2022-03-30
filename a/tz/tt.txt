@@ -1,0 +1,117 @@
+tzwdlg4o.vml:   STRING ( 1 )     szTransferFileFlag
+tzwdlg4o.vml:   szCtrlTag = "File Transfer to Server"
+tzwdlg4o.vml:      // Page Header when File Transfer exists on Window.
+tzwdlg4o.vml:      // Page Header when File Transfer does not exist on Window.
+tzwdlg4o.vml:   // Generate Transfer File to Server logic if there is a GroupBox of type "File Transfer to Server".
+tzwdlg4o.vml:   szCtrlTag = "File Transfer to Server"
+tzwdlg4o.vml:            // We need to determine if this Action is on a Group for File Transfer to Server, because we need to
+tzwdlg4o.vml:            szTransferFileFlag = ""
+tzwdlg4o.vml:               SET CURSOR FIRST vDialogTemp.WebControlProperty WHERE vDialogTemp.WebControlProperty.Name = "File Transfer to Server"
+tzwdlg4o.vml:                  szTransferFileFlag = "Y"
+tzwdlg4o.vml:            IF szTransferFileFlag = "Y"
+tzwdlg4o.vml:   // Create Form statements for each Group of type "File Transfer to Server".
+tzwdlg4o.vml:   szCtrlTag = "File Transfer to Server"
+tzwdlg4o.vml:      szCtrlTag = "File Transfer to Server"
+TZWDLG6O.VML:   STRING ( 1 )     szTransferFileFlag
+TZWDLG6O.VML:   szCtrlTag = "File Transfer to Server"
+TZWDLG6O.VML:   // Generate Transfer File to Server logic if there is a GroupBox of type "File Transfer to Server".
+TZWDLG6O.VML:   szCtrlTag = "File Transfer to Server"
+TZWDLG6O.VML:            // We need to determine if this Action is on a Group for File Transfer to Server, because we need to
+TZWDLG6O.VML:            szTransferFileFlag = ""
+TZWDLG6O.VML:               SET CURSOR FIRST vDialogTemp.WebControlProperty WHERE vDialogTemp.WebControlProperty.Name = "File Transfer to Server"
+TZWDLG6O.VML:                  szTransferFileFlag = "Y"
+TZWDLG6O.VML:            IF szTransferFileFlag = "Y"
+TZWDLG6O.VML:   // Create Form statements for each Group of type "File Transfer to Server".
+TZWDLG6O.VML:      szCtrlTag = "File Transfer to Server"
+tzwebgl1.vml:   STRING ( 1 )   szFileTransferFlag
+tzwebgl1.vml:         // Set flag for FileTransfer, as all GroupBox and subcontrol processing is skipped for that case.
+tzwebgl1.vml:         szFileTransferFlag = ""
+tzwebgl1.vml:         SET CURSOR FIRST vDialog.WebControlProperty WHERE vDialog.WebControlProperty.Name = "File Transfer to Server"
+tzwebgl1.vml:            szFileTransferFlag = "Y"
+tzwebgl1.vml:      IF szControlType = "GroupBox" AND szRepeatingGroupFlag = "" AND szFileTransferFlag = "" AND szGroupIsTable = "" AND
+tzwebgl1.vml:   STRING ( 1 )     szUploadTransferFileFlag
+tzwebgl1.vml:   // We need to determine if this Action is on a Group for File Transfer to Server, because we will not
+tzwebgl1.vml:   szUploadTransferFileFlag = ""
+tzwebgl1.vml:      SET CURSOR FIRST vDialogTemp.WebControlProperty WHERE vDialogTemp.WebControlProperty.Name = "File Transfer to Server"
+tzwebgl1.vml:         szUploadTransferFileFlag = "Y"
+tzwebgl1.vml:   // If this Action is for an Upload to Server File Transfer, we won't do normal input mapping, but we will map in the full target file name so
+tzwebgl1.vml:   IF szUploadTransferFileFlag = "Y"
+tzwebgl1hassomenew.vml:   STRING ( 1 )   szFileTransferFlag
+tzwebgl1hassomenew.vml:         // Set flag for FileTransfer, as all GroupBox and subcontrol processing is skipped for that case.
+tzwebgl1hassomenew.vml:         szFileTransferFlag = ""
+tzwebgl1hassomenew.vml:         SET CURSOR FIRST vDialog.WebControlProperty WHERE vDialog.WebControlProperty.Name = "File Transfer to Server"
+tzwebgl1hassomenew.vml:            szFileTransferFlag = "Y"
+tzwebgl1hassomenew.vml:      IF szControlType = "GroupBox" AND szRepeatingGroupFlag = "" AND szFileTransferFlag = "" AND szGroupIsTable = "" AND
+tzwebgl1hassomenew.vml:   STRING ( 1 )     szUploadTransferFileFlag
+tzwebgl1hassomenew.vml:   // We need to determine if this Action is on a Group for File Transfer to Server, because we will not
+tzwebgl1hassomenew.vml:   szUploadTransferFileFlag = ""
+tzwebgl1hassomenew.vml:      SET CURSOR FIRST vDialogTemp.WebControlProperty WHERE vDialogTemp.WebControlProperty.Name = "File Transfer to Server"
+tzwebgl1hassomenew.vml:         szUploadTransferFileFlag = "Y"
+tzwebgl1hassomenew.vml:   // If this Action is for an Upload to Server File Transfer, we won't do normal input mapping, but we will map in the full target file name so
+tzwebgl1hassomenew.vml:   IF szUploadTransferFileFlag = "Y"
+TZWEBGL2.VML:   STRING ( 1 )   szFileTransferFlag
+TZWEBGL2.VML:         // Set flag for FileTransfer, as all GroupBox and subcontrol processing is skipped for that case.
+TZWEBGL2.VML:         szFileTransferFlag = ""
+TZWEBGL2.VML:         SET CURSOR FIRST vDialog.WebControlProperty WHERE vDialog.WebControlProperty.Name = "File Transfer to Server"
+TZWEBGL2.VML:            szFileTransferFlag = "Y"
+TZWEBGL2.VML:      IF szControlType = "GroupBox" AND szGroupIsTable = "Y" AND szFileTransferFlag = ""
+TZWEBGL2.VML:      IF szControlType = "GroupBox" AND szFileTransferFlag = "Y"
+TZWEBGL2.VML:         GenJSPJ_CrteFileTransferForm( vDialog, vDialogRoot, lFile, szWriteBuffer, szIndentGroup, szNoPositioning, lOffsetX, lOffsetY )
+TZWEBGL2.VML:      IF szControlType = "GroupBox" AND szRepeatingGroupFlag = "" AND szFileTransferFlag = "" AND szGroupIsTable = "" AND szGridGroupingFlag = "" AND szSurveyGroupFlag = ""
+TZWEBGL2.VML:         END  // IF szControlType = "GroupBox" AND szRepeatingGroupFlag = "" AND szFileTransferFlag = "" AND szGroupIsTable = "" AND szGridGroupingFlag = ""
+TZWEBGL2_NoHeightForAadit.VML:   STRING ( 1 )   szFileTransferFlag
+TZWEBGL2_NoHeightForAadit.VML:         // Set flag for FileTransfer, as all GroupBox and subcontrol processing is skipped for that case.
+TZWEBGL2_NoHeightForAadit.VML:         szFileTransferFlag = ""
+TZWEBGL2_NoHeightForAadit.VML:         SET CURSOR FIRST vDialog.WebControlProperty WHERE vDialog.WebControlProperty.Name = "File Transfer to Server"
+TZWEBGL2_NoHeightForAadit.VML:            szFileTransferFlag = "Y"
+TZWEBGL2_NoHeightForAadit.VML:      IF szControlType = "GroupBox" AND szGroupIsTable = "Y" AND szFileTransferFlag = ""
+TZWEBGL2_NoHeightForAadit.VML:      IF szControlType = "GroupBox" AND szFileTransferFlag = "Y"
+TZWEBGL2_NoHeightForAadit.VML:         GenJSPJ_CrteFileTransferForm( vDialog, vDialogRoot, lFile, szWriteBuffer, szIndentGroup, szNoPositioning, lOffsetX, lOffsetY )
+TZWEBGL2_NoHeightForAadit.VML:      IF szControlType = "GroupBox" AND szRepeatingGroupFlag = "" AND szFileTransferFlag = "" AND szGroupIsTable = "" AND szGridGroupingFlag = ""
+TZWEBGL2_NoHeightForAadit.VML:         END  // IF szControlType = "GroupBox" AND szRepeatingGroupFlag = "" AND szFileTransferFlag = "" AND szGroupIsTable = "" AND szGridGroupingFlag = ""
+TZWEBGL2_NoHeightForAadit.VML:   STRING ( 1 )     szUploadTransferFileFlag
+TZWEBGL2_NoHeightForAadit.VML:   // We need to determine if this Action is on a Group for File Transfer to Server, because we will not
+TZWEBGL2_NoHeightForAadit.VML:   szUploadTransferFileFlag = ""
+TZWEBGL2_NoHeightForAadit.VML:      SET CURSOR FIRST vDialogTemp.WebControlProperty WHERE vDialogTemp.WebControlProperty.Name = "File Transfer to Server"
+TZWEBGL2_NoHeightForAadit.VML:         szUploadTransferFileFlag = "Y"
+TZWEBGL2_NoHeightForAadit.VML:   // If this Action is for an Upload to Server File Transfer, we won't do normal input mapping, but we will map in the full target file name so
+TZWEBGL2_NoHeightForAadit.VML:   IF szUploadTransferFileFlag = "Y"
+tzwebgl2_tmp.vml:   STRING ( 1 )   szFileTransferFlag
+tzwebgl2_tmp.vml:         // Set flag for FileTransfer, as all GroupBox and subcontrol processing is skipped for that case.
+tzwebgl2_tmp.vml:         szFileTransferFlag = ""
+tzwebgl2_tmp.vml:         SET CURSOR FIRST vDialog.WebControlProperty WHERE vDialog.WebControlProperty.Name = "File Transfer to Server"
+tzwebgl2_tmp.vml:            szFileTransferFlag = "Y"
+tzwebgl2_tmp.vml:      IF szControlType = "GroupBox" AND szRepeatingGroupFlag = "" AND szFileTransferFlag = "" AND szGroupIsTable = "" AND szGridGroupingFlag = ""
+tzwebgl2_tmp.vml:         END  // IF szControlType = "GroupBox" AND szRepeatingGroupFlag = "" AND szFileTransferFlag = "" AND szGroupIsTable = "" AND szGridGroupingFlag = ""
+tzwebgl2_tmp.vml:   STRING ( 1 )     szUploadTransferFileFlag
+tzwebgl2_tmp.vml:   // We need to determine if this Action is on a Group for File Transfer to Server, because we will not
+tzwebgl2_tmp.vml:   szUploadTransferFileFlag = ""
+tzwebgl2_tmp.vml:      SET CURSOR FIRST vDialogTemp.WebControlProperty WHERE vDialogTemp.WebControlProperty.Name = "File Transfer to Server"
+tzwebgl2_tmp.vml:         szUploadTransferFileFlag = "Y"
+tzwebgl2_tmp.vml:   // If this Action is for an Upload to Server File Transfer, we won't do normal input mapping, but we will map in the full target file name so
+tzwebgl2_tmp.vml:   IF szUploadTransferFileFlag = "Y"
+tzwebgl3.vml:            szHTML_Address = vDialogRoot.Action.WebHTML_TransferAddress
+tzwebgl3.vml:            IF vDialogRoot.Action.WebHTML_TransferAddress = ""
+tzwebgl3.vml:            szWriteBuffer = "<a href=^" + vDialogRoot.Action.WebHTML_TransferAddress + "^  " + szClassHTML + szTitleHTML + szStyle + " target=^_blank^>" + szText + "</a>"
+tzwebgl3.vml:            szHTML_Address = vDialogMenu.Action.WebHTML_TransferAddress
+tzwebgl4.vml:            IF vDialogRoot.Action.WebHTML_TransferAddress = ""
+tzwebgl4.vml:            szWriteBuffer = "<a href=^" + vDialogRoot.Action.WebHTML_TransferAddress + "^  " + szHTMLCtrlID + szClassHTML + szTitleHTML + szStyle + " target=^_blank^>" + szText + "</a>"
+tzwebgl4.vml:**    OPERATION: GenJSPJ_CrteFileTransferForm
+tzwebgl4.vml:GenJSPJ_CrteFileTransferForm( VIEW vDialog,
+tzwebgl4.vml:   // Create Form statements for each Group of type "File Transfer to Server".
+tzwebgl4.vml:      //szCtrlTag = "File Transfer to Server"
+tzwebgl4.vml:   STRING ( 1 )     szUploadTransferFileFlag
+tzwebgl4.vml:   // We need to determine if this Action is on a Group for File Transfer to Server, because we will not
+tzwebgl4.vml:   szUploadTransferFileFlag = ""
+tzwebgl4.vml:      SET CURSOR FIRST vDialogTemp.WebControlProperty WHERE vDialogTemp.WebControlProperty.Name = "File Transfer to Server"
+tzwebgl4.vml:         szUploadTransferFileFlag = "Y"
+tzwebgl4.vml:   // If this Action is for an Upload to Server File Transfer, we won't do normal input mapping, but we will map in the full target file name so
+tzwebgl4.vml:   IF szUploadTransferFileFlag = "Y"
+tzwebgl4copy.vml:            IF vDialogRoot.Action.WebHTML_TransferAddress = ""
+tzwebgl4copy.vml:            szWriteBuffer = "<a href=^" + vDialogRoot.Action.WebHTML_TransferAddress + "^  " + szHTMLCtrlID + szClassHTML + szTitleHTML + szStyle + " target=^_blank^>" + szText + "</a>"
+tzwebgl4_NoHeightForAadit.vml:            IF vDialogRoot.Action.WebHTML_TransferAddress = ""
+tzwebgl4_NoHeightForAadit.vml:            szWriteBuffer = "<a href=^" + vDialogRoot.Action.WebHTML_TransferAddress + "^  " + szHTMLCtrlID + szClassHTML + szTitleHTML + szStyle + " target=^_blank^>" + szText + "</a>"
+tzwebgl4_NoHeightForAadit.vml:**    OPERATION: GenJSPJ_CrteFileTransferForm
+tzwebgl4_NoHeightForAadit.vml:GenJSPJ_CrteFileTransferForm( VIEW vDialog,
+tzwebgl4_NoHeightForAadit.vml:   // Create Form statements for each Group of type "File Transfer to Server".
+tzwebgl4_NoHeightForAadit.vml:      //szCtrlTag = "File Transfer to Server"

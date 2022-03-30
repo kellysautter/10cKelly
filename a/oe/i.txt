@@ -1,0 +1,233 @@
+fmdbcsmp.cpp:   ASSERT_MSGBOX( "Invalid record limit specified for CSIMP constructor", 0,
+fmdbcsmp.cpp:   ASSERT_MSGBOX_RC( "Invalid index specified for AddIndex", 0,
+fmdbcsmp.cpp:   ASSERT_MSGBOX_RC( "Invalid index for GetDataDescriptor", 0,
+fmdbcsmp.cpp:   ASSERT_MSGBOX( "Invalid index specified for GetDataFromRecord", 0,
+fmdbcsmp.cpp:   ASSERT_MSGBOX( "Invalid data descriptor specified for GetDataFromRecord",
+fmdbcsmp.cpp:   ASSERT_MSGBOX_RC( "Invalid index specified for GetRecord", 0,
+fmdbcsmp.cpp:   ASSERT_MSGBOX_RC( "Invalid index specified for GetRecord", 0,
+fmdbcsmp.cpp:   ASSERT_MSGBOX_RC( "Invalid search index in GetSortIndex", 0,
+fmdbcsmp.cpp:   ASSERT_MSGBOX_RC( "Invalid index specified for RemoveRecord", 0,
+fmdbcsmp.cpp:   ASSERT_MSGBOX_RC( "Invalid index specified for RemoveSortIndex", 0,
+fmdbcsmp.cpp:   ASSERT_MSGBOX_RC( "Invalid index specified for SetDataInRecord", 0,
+fmdbcsmp.cpp:   ASSERT_MSGBOX_RC( "Invalid data descriptor specified for SetDataInRecord",
+fmdbcsmp.cpp:   ASSERT_MSGBOX_RC( "Invalid data length specified for SetDataInRecord", 0,
+fmdbcsmp.cpp:   ASSERT_MSGBOX_RC( "Invalid search index for ResortSortIndex", 0,
+fmdbcsmp.cpp:   ASSERT_MSGBOX( "Invalid field id for sort index", 0, pDD );
+fmdbcsmp.cpp:   ASSERT_MSGBOX( "Invalid compare function for sort index", 0, cmprfn );
+kzhdbvaa.c:         DBH_Error( lpView, "Invalid sub-message for Entity message.", 0, 0 );
+kzhdbvaa.c:         DBH_Error( lpView, "Invalid sub-message for Object message.", 0, 0 );
+kzhdbvaa.c:         DBH_Error( lpView, "Invalid User ID.", 0, 0 );
+kzhdbvab.c:         TraceLineS( "(TE) Invalid Physical Data type = ", pchDataType );
+kzhdbvab.c:         SysMessageBox( "Zeidon TE", "Invalid Physical Data type.", 1 );
+kzhsqlga.c:               TraceLineS( "Invalid Sequencing defined for Entity ",
+kzhsqlxb.c:         zsprintf( szMsg, "Invalid DataType '%s' for attribute %s.%s",
+kzhsqlxb.c:         zsprintf( szMsg, "Invalid DataType '%s' for attribute %s.%s",
+kzhsqlxb.c:         zsprintf( szMsg, "Invalid DataType '%s' for attribute %s.%s",
+kzhsqlxb.c:         zsprintf( szMsg, "Invalid DataType '%s' for attribute %s.%s",
+kzhsqlxb.c:         zsprintf( szMsg, "Invalid DataType '%s' for attribute %s.%s",
+kzhsqlxb.c:         zsprintf( szMsg, "Invalid DataType '%s' for attribute %s.%s",
+kzhsqlxb.c:         TraceLineS( "(TE) Invalid Physical Data type = ", pchDataType );
+kzhsqlxb.c:         SysMessageBox( vDTE, "Zeidon TE", "Invalid Physical Data type.", 1 );
+kzhsqlxb.c:      // KJS - 08/22/12 - This is being put in because we were getting an 'Invalid View' error on the DropView( vOI ) if
+kzoeapaa.c:      // "KZOEE107 - Invalid Subtask View"
+kzoeapaa.c://             -1 - Invalid string format
+kzoeapaa.c:               // Invalid Entity Name in Domain object
+kzoeataa.c:            // "KZOEE239 - Invalid Operation for attribute type"
+kzoeataa.c:            // "KZOEE239 - Invalid Operation for attribute type"
+kzoeataa.c:            // "KZOEE239 - Invalid Operation for attribute type"
+kzoeataa.c:            // "KZOEE239 - Invalid Operation for attribute type"
+kzoeataa.c:            // "KZOEE239 - Invalid Operation for attribute type"
+kzoeataa.c:            // "KZOEE239 - Invalid Operation for attribute type"
+kzoeataa.c:      // "KZOEE239 - Invalid Operation for attribute type"
+kzoeataa.c:            // "KZOEE246 - Invalid Attribute type "
+kzoeataa.c:            // "KZOEE239 - Invalid Operation for attribute type"
+kzoeataa.c:         // "KZOEE239 - Invalid Operation for attribute type"
+kzoeataa.c:         // "KZOEE239 - Invalid Operation for attribute type"
+kzoeataa.c:      // "KZOEE239 - Invalid Operation for attribute type"
+kzoeataa.c:      // "KZOEE239 - Invalid Operation for attribute type"
+kzoeataa.c:      // "KZOEE239 - Invalid Operation for attribute type"
+kzoeataa.c:      // "KZOEE239 - Invalid Operation for attribute type"
+kzoeataa.c:      // "KZOEE119 - Invalid View, View is Read Only"
+kzoeataa.c:                  // "KZOEE361 - Invalid data Format
+kzoeataa.c:                  zstrcpy( sz1, "Invalid data format.  Your data should be in the format: " );
+kzoeataa.c:               // "KZOEE241 - Invalid Variable Type"
+kzoeataa.c:            // "KZOEE241 - Invalid Variable Type"
+kzoeataa.c:            // "KZOEE239 - Invalid Operation for attribute type"
+kzoeataa.c:            // "KZOEE239 - Invalid Operation for attribute type"
+kzoeataa.c:            // "KZOEE239 - Invalid Operation for attribute type"
+kzoeataa.c:            // "KZOEE239 - Invalid Operation for attribute type"
+kzoeataa.c:            // "KZOEE239 - Invalid Operation for attribute type"
+kzoeataa.c:            // "KZOEE239 - Invalid Operation for attribute type"
+kzoeataa.c:         // "KZOEE239 - Invalid Operation for attribute type"
+kzoeataa.c:         // "KZOEE239 - Invalid Operation for attribute type"
+kzoeataa.c:            // "KZOEE239 - Invalid Operation for attribute type"
+kzoeataa.c:            // "KZOEE239 - Invalid Operation for attribute type"
+kzoeataa.c:               // "KZOEE241 - Invalid Variable Type"
+kzoeataa.c:               // "KZOEE241 - Invalid Variable Type"
+kzoeataa.c:      // "KZOEE253 - Invalid Operation call "
+kzoeataa.c:      // "KZOEE020 - Invalid Operation call "
+kzoeataa.c:         // "KZOEE246 - Invalid Attribute type "
+kzoecmaa.c:      // "KZOEE269 - Invalid Select Set ID, ID="
+kzoecmaa.c:            TraceLineS( "(cm) Invalid qualification type with context:",
+kzoecmaa.c:            //  "KZOEE105 - Invalid scoping Entity name for View"
+kzoecmaa.c:            //  "KZOEE105 - Invalid scoping Entity name for View"
+kzoecmaa.c:         // "KZOEE264 - Invalid Operation for Hierarchical processing"
+kzoecmaa.c:         // "KZOEE265 - Invalid Operation for non-Hierarchical processing"
+kzoedmaa.c:                        // "TZDME025 - Invalid table value "
+kzoedmaa.c:                        TraceLineS( "TZDME025 - Invalid table value: ",
+kzoedmaa.c:                        // "TZDME025 - Invalid table value "
+kzoedmaa.c:                        TraceLineS( "TZDME025 - Invalid table value: ",
+kzoedmaa.c:                        // "TZDME025 - Invalid table value "
+kzoedmaa.c:                        // "TZDME025 - Invalid table value "
+kzoedmaa.c:                  // "TZDME025 - Invalid table value "
+kzoedmaa.c:                  // "TZDME025 - Invalid table value "
+kzoedmaa.c:               // "TZDME001 - Invalid input data type "
+kzoedmaa.c:                  // "TZDME001 - Invalid input data type "
+kzoedmaa.c:                           // "TZDME025 - Invalid table value "
+kzoedmaa.c:                              // "TZDME025 - Invalid table value "
+kzoedmaa.c:                     // "TZDME001 - Invalid input data type "
+kzoedmaa.c:               // "TZDME001 - Invalid input data type "
+kzoedmaa.c:               // "TZDME025 - Invalid table value "
+kzoedmaa.c:               // "TZDME001 - Invalid input data type "
+kzoedmaa.c:         // "TZDME001 - Invalid input data type "
+kzoeeiaa.c:   //  "KZOEE103 - Invalid Entity name for View"
+kzoeeiaa.c:   TraceLine( "Invalid Entity name: %s   for View (0x%08x)   OD: %s",
+kzoeeiaa.c:      // "KZOEE119 - Invalid View, View is Read Only"
+kzoeeiaa.c:      // "KZOEE119 - Invalid View, View is Read Only"
+kzoeeiaa.c://              zCALL_ERROR - Invalid view passed
+kzoeeiaa.c://              zCALL_ERROR - Invalid view passed
+kzoeeiaa.c:         //  "KZOEE120 - Invalid position parameter"
+kzoeeiaa.c:         //  "KZOEE120 - Invalid position parameter"
+kzoeeiaa.c:            // "KZOEE119 - Invalid View, View is Read Only"
+kzoeeiaa.c:            TraceLineS( "KZOEE119 - Invalid View, View is Read Only for Entity: ",
+kzoeeiaa.c:      SysMessageBox( lpView, "DGC", "Invalid Table ID for entity instance", 1 );
+kzoeeiaa.c:         // "KZOEE264 - Invalid Operation for Hierarchical processing"
+kzoeeiaa.c:         TraceLineS( "KZOEE264 - Invalid Operation for Hierarchical processing for Entity: ",
+kzoeeraa.c:         zstrcpy( szMsg, "Invalid Input Data Type." );
+kzoeeraa.c:         zstrcpy( szMsg, "Invalid Domain Entry Type." );
+kzoeeraa.c:         zstrcpy( szMsg, "Invalid decimal string." );
+kzoeeraa.c:         zstrcpy( szMsg, "Invalid integer string." );
+kzoeeraa.c:         zstrcpy( szMsg, "Invalid table value." );
+kzoemmaa.c:      TraceLineI( "(mm) Invalid fnAllocDataspace request ", ulReqSize );
+kzoemqaa.c:                  // We are in the Web without a valid view (problem "Invalid View" error), so simply return with error code.
+kzoeneta.c:            // "KZOEE074 - Invalid Entity name on line "
+kzoeneta.c:            zsprintf( szMsg, "Invalid Entity name = %s", pchExtraData );
+kzoeneta.c:            // "KZOEE075 - Invalid Entity level on line "
+kzoeneta.c:            zsprintf( szMsg, "Invalid Entity level = %s", pchExtraData );
+kzoeneta.c:            // "KZOEE104 - Invalid Attribute name for Entity"
+kzoeneta.c:            zsprintf( szMsg, "Invalid Attr name for Entity = %s",
+kzoeneta.c:      TraceLineS( "(kzoeneta) ** Invalid packet type--expecting SENDLTH!", "" );
+kzoeneta.c:      TraceLineS( "(kzoeneta) ** Invalid App name = ", ActPacket.szAppName );
+kzoeneta.c:      TraceLineS( "(kzoeneta) ** Invalid OD name = ", ActPacket.szObjectDef );
+kzoeneta.c:      TraceLineS( "(kzoeneta) ** Invalid App name = ", ActPacket.szAppName );
+kzoeneta.c:      TraceLineS( "(kzoeneta) ** Invalid OD name = ", ActPacket.szObjectDef );
+kzoeneta.c:      TraceLineS( "(kzoeneta) ** Invalid App name = ", CommitPacket.szAppName );
+kzoeneta.c:         TraceLineS( "(kzoeneta) ** Invalid OD name = ", pch );
+kzoeneta.c:      TraceLineS( "(kzoeneta) ** Invalid App name = ", CommitPacket.szAppName );
+kzoeneta.c:      TraceLineS( "(kzoeneta) ** Invalid OD name = ", CommitPacket.szObjectDef );
+kzoeneta.c:      TraceLineS( "(kzoeneta) ** Invalid App name = ", sf.szAppName );
+kzoeodaa.c:               //  "KZOEE055 - Invalid file, LTH or TYPE before DOMAIN on line"
+kzoeodaa.c:                     // "KZOEE246 - Invalid Attribute type "
+kzoeodaa.c:               //  "KZOEE057 - Invalid file, LTH before type
+kzoeodaa.c:               //  "KZOEE058 - Invalid file, PERSIST after
+kzoeodaa.c:               // "KZOEE059 - Invalid file, Invalid Attribute
+kzoeodaa.c:               // "KZOEE059 - Invalid file, Invalid Attribute
+kzoeodaa.c:   // Invalid file, fall out.
+kzoeodaa.c:         //  "KZOEE051 - Invalid View Object file header in "
+kzoeodaa.c:      //  "KZOEE051 - Invalid View Object file header in "
+kzoeodaa.c:               //  "KZOEE052 - Invalid Object file, Attrib w/o lth on line "
+kzoeodaa.c:                     //  "KZOEE053 - Invalid Entity level found on line "
+kzoeodaa.c:            //  "KZOEE054 - Invalid record found on line "
+kzoeodaa.c:         //  "KZOEE054 - Invalid record found on line "
+kzoeodaa.c:         //  "KZOEE052 - Invalid Object file, Attrib w/o lth on line "
+kzoeoiaa.c:   by ',' we got an errormessage 'Invalid Attribute Name for LOD...'
+kzoeoiaa.c:      // "KZOEE023 - Invalid parameter, "
+kzoeoiaa.c:         // "KZOEE100 - Invalid View, view is a Subtask View"
+kzoeoiaa.c:      // "KZOEE023 - Invalid parameter, "
+kzoeoiaa.c:         // "KZOEE100 - Invalid View, view is a Subtask View"
+kzoeoiaa.c:            // "KZOEE074 - Invalid Entity name on line "
+kzoeoiaa.c:            // "KZOEE075 - Invalid Entity level on line "
+kzoeoiaa.c:            // "KZOEE104 - Invalid Attribute name for Entity"
+kzoeoiaa.c:      // "KZOEE023 - Invalid parameter, "
+kzoeoiaa.c:         // "KZOEE100 - Invalid View, view is a Subtask View"
+kzoeoiaa.c:      // "KZOEE023 - Invalid parameter, "
+kzoeoiaa.c:            // "KZOEE074 - Invalid Entity name on line "
+kzoeoiaa.c:            // "KZOEE075 - Invalid Entity level on line "
+kzoeoiaa.c:            // "KZOEE104 - Invalid Attribute name for Entity"
+kzoeoiaa.c:               //  "KZOEE074 - Invalid Entity name on line "
+kzoeoiaa.c:            //  "KZOEE075 - Invalid Entity level on line "
+kzoeoiaa.c:               //  "KZOEE104 - Invalid Attribute name for Entity"
+kzoeoiaa.c:         //  "KZOEE073 - Invalid instance file header in "
+kzoeoiaa.c:         //  "KZOEE073 - Invalid instance file header in "
+kzoesoaa.c:         // "KZOEE119 - Invalid View, View is Read Only"
+kzoesoaa.c:         // "KZOEE119 - Invalid View, View is Read Only"
+kzoesoaa.c:         // "KZOEE119 - Invalid View, View is Read Only"
+kzoetmaa.c://  RETURNS:    0 - Invalid address
+kzoetmaa.c:      // "KZOEE016 - Invalid Task"
+kzoetmaa.c:         // "KZOEE019 - Invalid GetTaskInfo request: "
+kzoetraa.c:      zstrcpy( szMessage, "(oetr) Invalid \"null\" TraceLine title" );
+kzoeufaa.c:         // "KZOEE023 - Invalid parameter, "
+kzoeufaa.c:         fnSysMessageBox( 0, "Zeidon Error", "Invalid parameter", 0 );
+kzoeufaa.c:         // "KZOEE023 - Invalid parameter, "
+kzoeufaa.c:         fnSysMessageBox( 0, "Zeidon Error", "Invalid parameter", 0 );
+kzoeufaa.c://              -5  - Invalid parameters (null string pointers or 0 indexes)
+kzoeufaa.c:                     "ZeidonStringCopy: Invalid parameter.", 1 );
+kzoeufaa.c:                     "ZeidonStringCopy: Invalid parameter (source index).", 1 );
+kzoeufaa.c://              -5  - Invalid parameters (null string pointers or 0 indexes)
+kzoeufaa.c:                     "ZeidonStringConcat: Invalid parameter.", 1 );
+kzoeufaa.c://              -5  - Invalid parameters (null string pointers or 0 indexes)
+kzoeufaa.c:                     "ZeidonStringCompare: Invalid parameter.", 1 );
+kzoeufaa.c://              -5  - Invalid parameters (null string pointers or 0 indexes)
+kzoeufaa.c:                     "ZeidonStringConvertFromNumber: Invalid parameter.", 1 );
+kzoeufaa.c://              -5  - Invalid parameters (null string pointers or 0 indexes)
+kzoeufaa.c:                     "ZeidonStringCopy: Invalid parameter.", 1 );
+kzoeufaa.c:               TraceLineI( "UfZProbeOn: Invalid probe descriptor for probe: ", nProbeNbr );
+kzoeufaa.c:               TraceLineS( "UfZProbeOn: Invalid probe descriptor   (input): ", pchDesc );
+kzoeufaa.c:               TraceLineS( "UfZProbeOn: Invalid probe descriptor (current): ",
+kzoeufaa.c:         TraceLineI( "UfZProbeOff: Invalid probe number: ", nProbeNbr );
+kzoevlaa.c:      TraceLine( "KZOEE101 - Invalid view 0x%08x for Task: 0x%08x",
+kzoevlaa.c:         //  "KZOEE101 - Invalid View"
+kzoevlaa.c:      TraceLine( "CheckValidView found Invalid view: 0x%08x", lpView );
+kzoevlaa.c:   //  "KZOEE101 - Invalid View"
+kzoevlaa.c:         //  "KZOEE107 - Invalid Subtask View"
+kzoevlaa.c:         //  "KZOEE102 - Invalid View, view is hidden"
+kzoevlaa.c:         //  "KZOEE109 - Invalid View, view contains no instance"
+kzoevlaa.c:      TraceLine( "fnValidViewEntity - Invalid View (0x%08x) for Entity: %s",
+kzoevlaa.c:   //  "KZOEE103 - Invalid Entity name for View"
+kzoevlaa.c:   TraceLine( "fnValidViewEntity - Invalid Entity name: %s   for View (0x%08x)   OD: %s",
+kzoevlaa.c:      //  "KZOEE104 - Invalid Attribute name for LOD Entity"
+kzoevlaa.c:                              "Invalid linked EI", 1 );
+kzoevmaa.c:         TraceLineS( "DropNameForView Invalid scope for View name: ", cpcName );
+kzoevmaa.c:         //  "KZOEE110 - Invalid scope for View name"
+kzoevmaa.c:         TraceLineS( "DropNameForView Invalid Subtask view for Name: ", cpcName );
+kzoevmaa.c:      // "KZOEE110 - Invalid scope for View name"
+kzoevmaa.c:         //  "KZOEE100 - Invalid View, view is already a Subtask View"
+kzoevmaa.c:      TraceLineS( "(vm) Invalid subtask -- name = ", cpcName );
+kzoevmaa.c:         TraceLineS( "(vm) Invalid view -- name = ", cpcName );
+kzoevmaa.c:      //  "KZOEE110 - Invalid scope for View name"
+kzoevmaa.c:      TraceLineS( "(vm) Invalid scoping level -- name = ", cpcName );
+kzoevmaa.c:         //  "KZOEE110 - Invalid scope for View name"
+kzoevmaa.c:         TraceLineS( "GetViewByName Invalid scope for View name: ", cpcName );
+kzoevmaa.c:         //  "KZOEE110 - Invalid scope for View name"
+kzoevmaa.c:         TraceLineS( "GetViewByName Invalid Subtask view for Name: ", cpcName );
+kzoevmaa.c:         TraceLineS( "GetViewByName Invalid view for Name: ", cpcName );
+kzoevmaa.c:               TraceLineS( "GetViewByName Invalid Subtask (null) for Name: ", cpcName );
+kzoevmaa.c:            TraceLineS( "GetViewByName Invalid Subtask view for Name: ", cpcName );
+kzoevmaa.c:      //  "KZOEE110 - Invalid scope for View name"
+kzoevmaa.c:      //  "KZOEE110 - Invalid scope for View name"
+kzoevmaa.c:      // "KZOEE266 - Invalid Operation for Hierarchical cursor position"
+kzoevmaa.c://          -2 - Invalid Operation for Hierarchical processing
+kzoevmaa.c:      //  "KZOEE264 - Invalid Operation for Hierarchical processing"
+kzoevmaa.c:      //  "KZOEE264 - Invalid Operation for Hierarchical processing"
+kzoevmaa.c://           zCALL_ERROR - Invalid view
+kzoevmaa.c:      // Invalid scope parm passed.
+kzoevmaa.c:      // "KZOEE110 - Invalid level for View name"
+kzoevmaa.c:      // "KZOEE100 - Invalid View, view is a Subtask View"
+kzoevmaa.c:      // "KZOEE113 - Invalid View, view contains an instance"
+kzoevmaa.c:      if ( lpView->bInvalidMainOI == FALSE )
+kzoevmaa.c:         SysMessageBox( lpView, "fnDropView Error", "MainOI Invalid", 0 );
+kzoevmaa.c:      if ( lpView->bInvalidMainOI == FALSE )
+kzoevmaa.c:         SysMessageBox( lpView, "fnDropView Error", "Unexpected Invalid MainOI", 0 );
+kzoexmla.c:      // "KZOEE023 - Invalid parameter, "
+kzoexmla.c:         // "KZOEE100 - Invalid View, view is a Subtask View"
+kzoexmla.c:      TraceLineS( "Invalid view for CommitOI_ToXML_File: ", pchFileName );

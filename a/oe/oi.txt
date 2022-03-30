@@ -1,0 +1,45 @@
+kzoecmaa.c:                            zSHORT           nOperationID,
+kzoecmaa.c:   if ( nOperationID == 0 )
+kzoecmaa.c:      if ( (lpCurrentTask = fnOperationCall( nOperationID, lpView,
+kzoecmaa.c:         fnOperationReturn( nOperationID, lpCurrentTask );
+kzoecmaa.c:               fnOperationReturn( nOperationID, lpCurrentTask );
+kzoecmaa.c:               fnOperationReturn( nOperationID, lpCurrentTask );
+kzoecmaa.c:               fnOperationReturn( nOperationID, lpCurrentTask );
+kzoecmaa.c:      if ( nOperationID < iDefineHierarchicalCursor &&
+kzoecmaa.c:           nOperationID != iGetAbsolutePositionForEntity )
+kzoecmaa.c:            fnOperationReturn( nOperationID, lpCurrentTask );
+kzoecmaa.c:            fnOperationReturn( nOperationID, lpCurrentTask );
+kzoecmaa.c:      if ( nOperationID > iDefineHierarchicalCursor )
+kzoecmaa.c:            fnOperationReturn( nOperationID, lpCurrentTask );
+kzoecmaa.c:               fnOperationReturn( nOperationID, lpCurrentTask );
+kzoecmaa.c:           nOperationID != iSetCursorFirstEntity           &&
+kzoecmaa.c:           nOperationID != iSetCursorFirstEntityByAttr     &&
+kzoecmaa.c:           nOperationID != iSetCursorFirstEntityByString   &&
+kzoecmaa.c:           nOperationID != iSetCursorFirstEntityByInteger  &&
+kzoecmaa.c:           nOperationID != iSetCursorFirstEntityByDecimal  &&
+kzoecmaa.c:           nOperationID != iSetCursorFirstEntityByEntityCs &&
+kzoecmaa.c:           nOperationID != iSetCursorFirstSelectedEntity   &&
+kzoecmaa.c:           nOperationID != iSetAllSelectStatesForEntity    &&
+kzoecmaa.c:           nOperationID != iSetEntityCursor                &&
+kzoecmaa.c:           nOperationID != iSetCursorLastEntity            &&
+kzoecmaa.c:           nOperationID != iGetRelativeEntityNumber        &&
+kzoecmaa.c:           nOperationID != iGetSelectStateOfEntity )
+kzoecmaa.c:            fnOperationReturn( nOperationID, lpCurrentTask );
+kzoecmaa.c:         fnOperationReturn( nOperationID, lpCurrentTask );
+kzoevlaa.c:fnOperationCall( zSHORT    nOperationID,
+kzoevlaa.c:   if ( lpTask->bDisable && nOperationID != iEnableTask )
+kzoevlaa.c:   if ( nOperationID == iDropViewCluster )
+kzoevlaa.c:                    nOperationID, g_Operations[ nOperationID ],
+kzoevlaa.c:         lpTask->nOper[ lpTask->nOperIdx ] = nOperationID;
+kzoevlaa.c:         plCount += (2 * nOperationID);
+kzoevlaa.c:// if ( nOperationID == iDropViewCluster )
+kzoevlaa.c:                 nOperationID, g_Operations[ nOperationID ],
+kzoevlaa.c:fnOperationReturn( zSHORT    nOperationID,
+kzoevlaa.c:// if ( nOperationID == iDropViewCluster )
+kzoevlaa.c:                    nOperationID, g_Operations[ nOperationID ],
+kzoevlaa.c:              (nOperationID == 0 || lpTask->nOper[ k ] == nOperationID) )
+kzoevlaa.c:                       nOperationID,
+kzoevlaa.c:                       g_Operations[ nOperationID ], k, zGETHNDL( lpTask ) );
+kzoevlaa.c:            while ( k >= 0 && lpTask->nOper[ k ] != nOperationID )
+kzoevlaa.c:   if ( nOperationID == iDropViewCluster )
+kzoevlaa.c:                    nOperationID, g_Operations[ nOperationID ],
