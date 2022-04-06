@@ -5173,13 +5173,32 @@ oTZEREMDO_ERD_Merge( zVIEW     TargetERD,
    //:MaxYPos = MaxYPos + 15
    MaxYPos = MaxYPos + 15;
 
+   //:   
+   //:// KJS 04/06/22 - If we are merging the "whole" lplr, lets loop through the display and mark all as "selected".
+   //:IF szWholeLPLRFlag = "Y"
+   if ( ZeidonStringCompare( szWholeLPLRFlag, 1, 0, "Y", 1, 0, 2 ) == 0 )
+   { 
+      //:FOR EACH TargetERD.DisplayCompareResult
+      RESULT = SetCursorFirstEntity( TargetERD, "DisplayCompareResult", "" );
+      while ( RESULT > zCURSOR_UNCHANGED )
+      { 
+         //:TargetERD.DisplayCompareResult.SelectedFlag = "Y"
+         SetAttributeFromString( TargetERD, "DisplayCompareResult", "SelectedFlag", "Y" );
+         RESULT = SetCursorNextEntity( TargetERD, "DisplayCompareResult", "" );
+      } 
+
+      //:END
+   } 
+
+   //:END
+
    //:// Loop through the selected Display entries and copy over those selected Entities, Attributes and Relationships.
    //:FOR EACH TargetERD.DisplayCompareResult
    RESULT = SetCursorFirstEntity( TargetERD, "DisplayCompareResult", "" );
    while ( RESULT > zCURSOR_UNCHANGED )
    { 
-      //:IF TargetERD.DisplayCompareResult.SelectedFlag = "Y" OR szWholeLPLRFlag = "Y"
-      if ( CompareAttributeToString( TargetERD, "DisplayCompareResult", "SelectedFlag", "Y" ) == 0 || ZeidonStringCompare( szWholeLPLRFlag, 1, 0, "Y", 1, 0, 2 ) == 0 )
+      //:IF TargetERD.DisplayCompareResult.SelectedFlag = "Y" //OR szWholeLPLRFlag = "Y"
+      if ( CompareAttributeToString( TargetERD, "DisplayCompareResult", "SelectedFlag", "Y" ) == 0 )
       { 
          //:// ER_Entity Type.
          //:IF TargetERD.DisplayCompareResult.CompareResultType = "New Entity" OR
@@ -5488,8 +5507,8 @@ oTZEREMDO_ERD_Merge( zVIEW     TargetERD,
    RESULT = SetCursorFirstEntity( TargetERD, "DisplayCompareResult", "" );
    while ( RESULT > zCURSOR_UNCHANGED )
    { 
-      //:IF TargetERD.DisplayCompareResult.SelectedFlag = "Y" OR szWholeLPLRFlag = "Y"
-      if ( CompareAttributeToString( TargetERD, "DisplayCompareResult", "SelectedFlag", "Y" ) == 0 || ZeidonStringCompare( szWholeLPLRFlag, 1, 0, "Y", 1, 0, 2 ) == 0 )
+      //:IF TargetERD.DisplayCompareResult.SelectedFlag = "Y"
+      if ( CompareAttributeToString( TargetERD, "DisplayCompareResult", "SelectedFlag", "Y" ) == 0 )
       { 
          //:// Relationship Type.
          //:IF TargetERD.DisplayCompareResult.CompareResultType = "Rel"

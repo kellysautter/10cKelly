@@ -2524,10 +2524,18 @@ ERD_Merge( VIEW TargetERD BASED ON LOD TZEREMDO,
       END 
    END
    MaxYPos = MaxYPos + 15
+   
+      
+   // KJS 04/06/22 - If we are merging the "whole" lplr, lets loop through the display and mark all as "selected".
+   IF szWholeLPLRFlag = "Y"
+      FOR EACH TargetERD.DisplayCompareResult
+         TargetERD.DisplayCompareResult.SelectedFlag = "Y"
+      END
+   END
 
    // Loop through the selected Display entries and copy over those selected Entities, Attributes and Relationships.
    FOR EACH TargetERD.DisplayCompareResult
-      IF TargetERD.DisplayCompareResult.SelectedFlag = "Y" OR szWholeLPLRFlag = "Y"
+      IF TargetERD.DisplayCompareResult.SelectedFlag = "Y" //OR szWholeLPLRFlag = "Y"
          // ER_Entity Type.
          IF TargetERD.DisplayCompareResult.CompareResultType = "New Entity" OR
             TargetERD.DisplayCompareResult.CompareResultType = "Old Entity"
@@ -2666,7 +2674,7 @@ ERD_Merge( VIEW TargetERD BASED ON LOD TZEREMDO,
 
    // We will handle Relationships in a separate pass, because we may need to add the ER_Entities above.
    FOR EACH TargetERD.DisplayCompareResult
-      IF TargetERD.DisplayCompareResult.SelectedFlag = "Y" OR szWholeLPLRFlag = "Y"
+      IF TargetERD.DisplayCompareResult.SelectedFlag = "Y"
          // Relationship Type.
          IF TargetERD.DisplayCompareResult.CompareResultType = "Rel"
 

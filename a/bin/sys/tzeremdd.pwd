@@ -1,9 +1,9 @@
-z1000-Zeidon    TZEREMDD TZWDLGSO 04/06/22   11:38:18 1.0a2    
+z1000-Zeidon    TZEREMDD TZWDLGSO 04/06/22   14:44:12 1.0a2    
 eDialog    1
 aTag       TZEREMDD
 aDLL_Name  TZEREMDD
 aZKey      1348701
-aNextZKeyToAssign 130000545
+aNextZKeyToAssign 130000565
 aDesc      Data Model ER Diagram & Maint.
 
 eDfltWnd   2
@@ -12218,7 +12218,7 @@ eControlDef 4
 
 eControl   3
 aTag       CompareLODs2
-aText      Merge Differences
+aText      Merge All LPLR Differences
 aZKey      130000465
 aSubtype   545652736
 aIdNbr     6
@@ -21951,19 +21951,19 @@ eOperSourceFile 3
 
 eWebControlPropertyOption 2
 aName      No Height
-aZKey      130000540
+aZKey      130000562
 
 eWebControlPropertyOption 2
 aName      No Width
-aZKey      130000541
+aZKey      130000563
 
 eWebControlPropertyOption 2
 aName      Button (Not Submit)
-aZKey      130000542
+aZKey      130000564
 
 eWebControlPropertyOption 2
 aName      Hidden
-aZKey      130000543
+aZKey      130000565
 
 eComboBoxEntry 2
 aName      Displayed Text
