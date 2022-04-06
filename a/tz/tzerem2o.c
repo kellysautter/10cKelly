@@ -5488,8 +5488,8 @@ oTZEREMDO_ERD_Merge( zVIEW     TargetERD,
    RESULT = SetCursorFirstEntity( TargetERD, "DisplayCompareResult", "" );
    while ( RESULT > zCURSOR_UNCHANGED )
    { 
-      //:IF TargetERD.DisplayCompareResult.SelectedFlag = "Y"
-      if ( CompareAttributeToString( TargetERD, "DisplayCompareResult", "SelectedFlag", "Y" ) == 0 )
+      //:IF TargetERD.DisplayCompareResult.SelectedFlag = "Y" OR szWholeLPLRFlag = "Y"
+      if ( CompareAttributeToString( TargetERD, "DisplayCompareResult", "SelectedFlag", "Y" ) == 0 || ZeidonStringCompare( szWholeLPLRFlag, 1, 0, "Y", 1, 0, 2 ) == 0 )
       { 
          //:// Relationship Type.
          //:IF TargetERD.DisplayCompareResult.CompareResultType = "Rel"
