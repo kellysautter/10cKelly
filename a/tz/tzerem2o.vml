@@ -2271,7 +2271,8 @@ END
 *************************************************************************************************/
 TRANSFORMATION OPERATION
 ERD_Compare( VIEW TargetERD BASED ON LOD TZEREMDO,
-             VIEW SourceERD BASED ON LOD TZEREMDO )
+             VIEW SourceERD BASED ON LOD TZEREMDO,
+             STRING ( 1 ) szMergeType )
 
    VIEW TargetERD2 BASED ON LOD TZEREMDO
    INTEGER SourceLength
@@ -2300,12 +2301,14 @@ ERD_Compare( VIEW TargetERD BASED ON LOD TZEREMDO,
          TargetERD.CompareEntityResult.EntityID   = SourceERD.ER_Entity.ZKey
          TargetERD.CompareEntityResult.CompareResultType = "New Entity"
 
-         // Add Attributes.
-         FOR EACH SourceERD.ER_Attribute
-            CREATE ENTITY TargetERD.CompareAttributeResult
-            TargetERD.CompareAttributeResult.AttributeID               = SourceERD.ER_Attribute.ZKey
-            TargetERD.CompareAttributeResult.AttributeName             = SourceERD.ER_Attribute.Name
-            TargetERD.CompareAttributeResult.SourceDifferentDomainName = SourceERD.Domain.Name
+         // Add Attributes unless Merge Type is Entity Only.
+         IF szMergeType != "E"
+            FOR EACH SourceERD.ER_Attribute
+               CREATE ENTITY TargetERD.CompareAttributeResult
+               TargetERD.CompareAttributeResult.AttributeID               = SourceERD.ER_Attribute.ZKey
+               TargetERD.CompareAttributeResult.AttributeName             = SourceERD.ER_Attribute.Name
+               TargetERD.CompareAttributeResult.SourceDifferentDomainName = SourceERD.Domain.Name
+            END
          END
 
          // Add Relationships.
@@ -2325,43 +2328,47 @@ ERD_Compare( VIEW TargetERD BASED ON LOD TZEREMDO,
          TargetERD.CompareEntityResult.EntityName = SourceERD.ER_Entity.Name
          TargetERD.CompareEntityResult.EntityID   = SourceERD.ER_Entity.ZKey
          TargetERD.CompareEntityResult.CompareResultType = "Old Entity"
-         FOR EACH SourceERD.ER_Attribute
-            SET CURSOR FIRST TargetERD.ER_Attribute WHERE TargetERD.ER_Attribute.Name = SourceERD.ER_Attribute.Name
-            IF RESULT < zCURSOR_SET
-               // There is no match on Attribute, create new Attribute entry.
-               CREATE ENTITY TargetERD.CompareAttributeResult
-               TargetERD.CompareAttributeResult.AttributeID               = SourceERD.ER_Attribute.ZKey
-               TargetERD.CompareAttributeResult.AttributeName             = SourceERD.ER_Attribute.Name
-               TargetERD.CompareAttributeResult.SourceDifferentDomainName = SourceERD.Domain.Name
-            ELSE
-               // There is a match on Attribute. Compare Domain and String Length.
-               IF TargetERD.Domain.Name != SourceERD.Domain.Name
-                  // There is no match on Domain.
+         
+         // Process attributes only if Merge Type is not Entity Only
+         IF szMergeType != "E"
+            FOR EACH SourceERD.ER_Attribute
+               SET CURSOR FIRST TargetERD.ER_Attribute WHERE TargetERD.ER_Attribute.Name = SourceERD.ER_Attribute.Name
+               IF RESULT < zCURSOR_SET
+                  // There is no match on Attribute, create new Attribute entry.
                   CREATE ENTITY TargetERD.CompareAttributeResult
                   TargetERD.CompareAttributeResult.AttributeID               = SourceERD.ER_Attribute.ZKey
                   TargetERD.CompareAttributeResult.AttributeName             = SourceERD.ER_Attribute.Name
                   TargetERD.CompareAttributeResult.SourceDifferentDomainName = SourceERD.Domain.Name
-                  TargetERD.CompareAttributeResult.TargetDifferentDomainName = TargetERD.Domain.Name
                ELSE
-                  // There is a match on Domain. For string domains, check for difference on length.
-                  IF TargetERD.Domain.DataType = "S"
-                     IF SourceERD.ER_Attribute.Lth = ""
-                        SourceLength = SourceERD.Domain.MaxStringLth
-                     ELSE
-                        SourceLength = SourceERD.ER_Attribute.Lth
-                     END
-                     IF TargetERD.ER_Attribute.Lth = ""
-                        TargetLength = TargetERD.Domain.MaxStringLth
-                     ELSE
-                        TargetLength = TargetERD.ER_Attribute.Lth
-                     END
-                     IF TargetLength != SourceLength
-                        CREATE ENTITY TargetERD.CompareAttributeResult
-                        TargetERD.CompareAttributeResult.AttributeID                 = SourceERD.ER_Attribute.ZKey
-                        TargetERD.CompareAttributeResult.AttributeName               = SourceERD.ER_Attribute.Name
-                        TargetERD.CompareAttributeResult.SourceDifferentDomainName   = TargetERD.Domain.Name
-                        TargetERD.CompareAttributeResult.SourceDifferentStringLength = SourceLength
-                        TargetERD.CompareAttributeResult.TargetDifferentStringLength = TargetLength
+                  // There is a match on Attribute. Compare Domain and String Length.
+                  IF TargetERD.Domain.Name != SourceERD.Domain.Name
+                     // There is no match on Domain.
+                     CREATE ENTITY TargetERD.CompareAttributeResult
+                     TargetERD.CompareAttributeResult.AttributeID               = SourceERD.ER_Attribute.ZKey
+                     TargetERD.CompareAttributeResult.AttributeName             = SourceERD.ER_Attribute.Name
+                     TargetERD.CompareAttributeResult.SourceDifferentDomainName = SourceERD.Domain.Name
+                     TargetERD.CompareAttributeResult.TargetDifferentDomainName = TargetERD.Domain.Name
+                  ELSE
+                     // There is a match on Domain. For string domains, check for difference on length.
+                     IF TargetERD.Domain.DataType = "S"
+                        IF SourceERD.ER_Attribute.Lth = ""
+                           SourceLength = SourceERD.Domain.MaxStringLth
+                        ELSE
+                           SourceLength = SourceERD.ER_Attribute.Lth
+                        END
+                        IF TargetERD.ER_Attribute.Lth = ""
+                           TargetLength = TargetERD.Domain.MaxStringLth
+                        ELSE
+                           TargetLength = TargetERD.ER_Attribute.Lth
+                        END
+                        IF TargetLength != SourceLength
+                           CREATE ENTITY TargetERD.CompareAttributeResult
+                           TargetERD.CompareAttributeResult.AttributeID                 = SourceERD.ER_Attribute.ZKey
+                           TargetERD.CompareAttributeResult.AttributeName               = SourceERD.ER_Attribute.Name
+                           TargetERD.CompareAttributeResult.SourceDifferentDomainName   = TargetERD.Domain.Name
+                           TargetERD.CompareAttributeResult.SourceDifferentStringLength = SourceLength
+                           TargetERD.CompareAttributeResult.TargetDifferentStringLength = TargetLength
+                        END
                      END
                   END
                END
@@ -2385,10 +2392,12 @@ ERD_Compare( VIEW TargetERD BASED ON LOD TZEREMDO,
          END
 
          // Eliminate any Entity entry that does not have any Attribute or Relationship differences.
-         IF TargetERD.CompareRelationshipResult DOES NOT EXIST AND
-            TargetERD.CompareAttributeResult DOES NOT EXIST
-
-            DELETE ENTITY TargetERD.CompareEntityResult NONE
+         IF szMergeType != "E"
+            IF TargetERD.CompareRelationshipResult DOES NOT EXIST AND
+               TargetERD.CompareAttributeResult DOES NOT EXIST
+   
+               DELETE ENTITY TargetERD.CompareEntityResult NONE
+            END
          END
       END
    END
@@ -2466,7 +2475,8 @@ END
 TRANSFORMATION OPERATION
 ERD_Merge( VIEW TargetERD BASED ON LOD TZEREMDO,
            VIEW SourceERD BASED ON LOD TZEREMDO,
-           VIEW vSubtask )
+           VIEW vSubtask,
+           STRING ( 1 ) szWholeLPLRFlag )
 
    VIEW TargetERD2     BASED ON LOD TZEREMDO
    VIEW SourceERD2     BASED ON LOD TZEREMDO
@@ -2479,6 +2489,7 @@ ERD_Merge( VIEW TargetERD BASED ON LOD TZEREMDO,
    SHORT          nRC
    INTEGER        MetaID
    INTEGER        Count
+   INTEGER        MaxYPos
 
    // Merge the SourceERD into the TargetERD based on the selection specified in the
    // CompareEntityResult and CompareOperationResult subobjects in TargetERD.
@@ -2502,10 +2513,21 @@ ERD_Merge( VIEW TargetERD BASED ON LOD TZEREMDO,
    ELSE
       SourceLPLR = 0
    END
+   
+   // It is the object of this algorithm to create the new Entity icons in the ER diagram as a group underneath the
+   // current Entity icons. Thus, we will search the target ER to get the Entity with the largest vertical position and
+   // add 15 to it as the beginning Y position for the new Entities.
+   MaxYPos = 0
+   FOR TargetERD.ER_Entity 
+      IF TargetERD.ER_Entity.ER_DiagramPosY > MaxYPos
+         MaxYPos = TargetERD.ER_Entity.ER_DiagramPosY 
+      END 
+   END
+   MaxYPos = MaxYPos + 15
 
    // Loop through the selected Display entries and copy over those selected Entities, Attributes and Relationships.
    FOR EACH TargetERD.DisplayCompareResult
-      IF TargetERD.DisplayCompareResult.SelectedFlag = "Y"
+      IF TargetERD.DisplayCompareResult.SelectedFlag = "Y" OR szWholeLPLRFlag = "Y"
          // ER_Entity Type.
          IF TargetERD.DisplayCompareResult.CompareResultType = "New Entity" OR
             TargetERD.DisplayCompareResult.CompareResultType = "Old Entity"
@@ -2522,6 +2544,38 @@ ERD_Merge( VIEW TargetERD BASED ON LOD TZEREMDO,
                SET CURSOR LAST TargetERD.ER_Entity
                CreateMetaEntity( vSubtask, TargetERD, "ER_Entity", zPOS_AFTER )
                SetMatchingAttributesByName( TargetERD, "ER_Entity", SourceERD, "ER_Entity", zSET_NULL )
+               TargetERD.ER_Entity.ER_DiagramPosY = TargetERD.ER_Entity.ER_DiagramPosY + MaxYPos   // Increment to below current ER
+            END
+            
+            // Need to copy attributes
+            IF szWholeLPLRFlag = "Y" 
+               FOR EACH SourceERD.ER_Attribute
+                  SET CURSOR LAST TargetERD.ER_Attribute
+                  CreateMetaEntity( vSubtask, TargetERD, "ER_Attribute", zPOS_AFTER )
+                  SetMatchingAttributesByName( TargetERD, "ER_Attribute", SourceERD, "ER_Attribute", zSET_NULL )
+
+                  // Get Domain or create new Domain.
+                  DomainName = SourceERD.Domain.Name
+                  nRC = ActivateMetaOI_ByName( vSubtask, NewDomain, 0, zREFER_DOMAIN_META, zSINGLE, DomainName, 0 )
+                  IF nRC >= 0
+                     // The Domain exists in Current LPLR, so include it here.
+                     INCLUDE TargetERD.Domain FROM NewDomain.Domain
+                     DropMetaOI( vSubtask, NewDomain )
+                  ELSE
+                     // The Domain doesn't exist in Current LPLR, so add it, if there is a Source LPLR.
+                     IF SourceLPLR != 0
+                        DomainAddForMerge( NewDomain, SourceLPLR, CurrentLPLR,
+                                           CurrentLPLR.LPLR.wFullyQualifiedFileName,    // Source LPLR Directory Structure
+                                           DomainName, vSubtask )
+                     ELSE
+                        szMsg = "Domain, " + DomainName + ", from the Source ERD does not exist in the current LPLR and " +
+                                "no Source LPLR was specified. The Merge function is aborted."
+                        MessageSend( TargetERD, "", "ERD Merge", szMsg, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
+                        RETURN -1
+                     END
+                  END
+
+               END // FOR EACH SourceERD.ER_Attribute
             END
 
             // Turn off selected flag so if we execute again, we won't repeat this entry.

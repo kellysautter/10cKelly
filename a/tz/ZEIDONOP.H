@@ -732,7 +732,7 @@ ActivateMetaOI( zVIEW vSubtask0,
                 zLONG lControlFlag4 );
 
 //end
-//start TZEREMDO 2021.05.04 10:53:42
+//start TZEREMDO 2022.04.06 10:55:02
 zOPER_EXPORT zSHORT OPERATION
 oTZEREMDO_ImportADW_Model( zVIEW vViewToInstance0,
                            zVIEW vADWWorkObject1,
@@ -872,13 +872,15 @@ oTZEREMDO_ERD_RelationshipCopy( zVIEW vViewToInstance0,
                                 zVIEW vvSubtask2 );
 
 zOPER_EXPORT zSHORT OPERATION
-oTZEREMDO_ERD_Compare( zVIEW vTargetERD0,
-                       zVIEW vSourceERD1 );
+oTZEREMDO_ERD_Compare( zVIEW vViewToInstance0,
+                       zVIEW vSourceERD1,
+                       zPCHAR pchszMergeType2 );
 
 zOPER_EXPORT zSHORT OPERATION
 oTZEREMDO_ERD_Merge( zVIEW vViewToInstance0,
                      zVIEW vSourceERD1,
-                     zVIEW vvSubtask2 );
+                     zVIEW vvSubtask2,
+                     zPCHAR pchWholeLPLRFlag3 );
 
 zOPER_EXPORT zSHORT OPERATION
 oTZEREMDO_GenerateID_Identifiers( zVIEW vViewToInstance0 );
