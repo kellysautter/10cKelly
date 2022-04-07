@@ -2514,7 +2514,7 @@ ERD_Merge( VIEW TargetERD BASED ON LOD TZEREMDO,
       SourceLPLR = 0
    END
    
-   // It is the object of this algorithm to create the new Entity icons in the ER diagram as a group underneath the
+   // DonC 04/06/22 - It is the object of this algorithm to create the new Entity icons in the ER diagram as a group underneath the
    // current Entity icons. Thus, we will search the target ER to get the Entity with the largest vertical position and
    // add 15 to it as the beginning Y position for the new Entities.
    MaxYPos = 0
@@ -2552,7 +2552,9 @@ ERD_Merge( VIEW TargetERD BASED ON LOD TZEREMDO,
                SET CURSOR LAST TargetERD.ER_Entity
                CreateMetaEntity( vSubtask, TargetERD, "ER_Entity", zPOS_AFTER )
                SetMatchingAttributesByName( TargetERD, "ER_Entity", SourceERD, "ER_Entity", zSET_NULL )
-               TargetERD.ER_Entity.ER_DiagramPosY = TargetERD.ER_Entity.ER_DiagramPosY + MaxYPos   // Increment to below current ER
+               IF szWholeLPLRFlag = "Y" // DonC - 04/06/22
+                  TargetERD.ER_Entity.ER_DiagramPosY = TargetERD.ER_Entity.ER_DiagramPosY + MaxYPos   // Increment to below current ER
+               END
             END
             
             // Need to copy attributes
@@ -2708,6 +2710,15 @@ ERD_Merge( VIEW TargetERD BASED ON LOD TZEREMDO,
             // Create Relationship in Target.
             CreateMetaEntity( vSubtask, TargetERD, "ER_RelType", zPOS_AFTER )
             SetMatchingAttributesByName( TargetERD, "ER_RelType", SourceERD, "ER_RelType", zSET_NULL )
+            
+            // DonC 04/07/22 - If we're merging whole LPLR, increment Y values of relationship node and bend positions.
+            IF szWholeLPLRFlag = "Y" 
+               TargetERD.ER_RelType.ER_DiagramE1PosY   = TargetERD.ER_RelType.ER_DiagramE1PosY + MaxYPos
+               TargetERD.ER_RelType.ER_DiagramE2PosY   = TargetERD.ER_RelType.ER_DiagramE2PosY + MaxYPos
+               IF TargetERD.ER_RelType.ER_DiagramBendPosY != 0    // If 0, there is no bend.
+                  TargetERD.ER_RelType.ER_DiagramBendPosY = TargetERD.ER_RelType.ER_DiagramBendPosY + MaxYPos
+               END
+            END
 
             // TargetERD Relationship Side.
             CreateMetaEntity( vSubtask, TargetERD, "ER_RelLink_2", zPOS_AFTER )

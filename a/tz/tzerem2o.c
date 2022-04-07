@@ -5097,8 +5097,14 @@ oTZEREMDO_ERD_Merge( zVIEW     TargetERD,
    zLONG     lTempInteger_3; 
    zLONG     lTempInteger_4; 
    zLONG     lTempInteger_5; 
+   zLONG     lTempInteger_6; 
+   zLONG     lTempInteger_7; 
+   zLONG     lTempInteger_8; 
+   zLONG     lTempInteger_9; 
+   zLONG     lTempInteger_10; 
+   zLONG     lTempInteger_11; 
    zCHAR     szTempString_7[ 255 ]; 
-   zSHORT    lTempInteger_6; 
+   zSHORT    lTempInteger_12; 
 
 
    //:// Merge the SourceERD into the TargetERD based on the selection specified in the
@@ -5149,7 +5155,7 @@ oTZEREMDO_ERD_Merge( zVIEW     TargetERD,
 
    //:END
 
-   //:// It is the object of this algorithm to create the new Entity icons in the ER diagram as a group underneath the
+   //:// DonC 04/06/22 - It is the object of this algorithm to create the new Entity icons in the ER diagram as a group underneath the
    //:// current Entity icons. Thus, we will search the target ER to get the Entity with the largest vertical position and
    //:// add 15 to it as the beginning Y position for the new Entities.
    //:MaxYPos = 0
@@ -5232,10 +5238,16 @@ oTZEREMDO_ERD_Merge( zVIEW     TargetERD,
                CreateMetaEntity( vSubtask, TargetERD, "ER_Entity", zPOS_AFTER );
                //:SetMatchingAttributesByName( TargetERD, "ER_Entity", SourceERD, "ER_Entity", zSET_NULL )
                SetMatchingAttributesByName( TargetERD, "ER_Entity", SourceERD, "ER_Entity", zSET_NULL );
-               //:TargetERD.ER_Entity.ER_DiagramPosY = TargetERD.ER_Entity.ER_DiagramPosY + MaxYPos   // Increment to below current ER
-               GetIntegerFromAttribute( &lTempInteger_0, TargetERD, "ER_Entity", "ER_DiagramPosY" );
-               lTempInteger_1 = lTempInteger_0 + MaxYPos;
-               SetAttributeFromInteger( TargetERD, "ER_Entity", "ER_DiagramPosY", lTempInteger_1 );
+               //:IF szWholeLPLRFlag = "Y" // DonC - 04/06/22
+               if ( ZeidonStringCompare( szWholeLPLRFlag, 1, 0, "Y", 1, 0, 2 ) == 0 )
+               { 
+                  //:TargetERD.ER_Entity.ER_DiagramPosY = TargetERD.ER_Entity.ER_DiagramPosY + MaxYPos   // Increment to below current ER
+                  GetIntegerFromAttribute( &lTempInteger_0, TargetERD, "ER_Entity", "ER_DiagramPosY" );
+                  lTempInteger_1 = lTempInteger_0 + MaxYPos;
+                  SetAttributeFromInteger( TargetERD, "ER_Entity", "ER_DiagramPosY", lTempInteger_1 );
+               } 
+
+               //:END
             } 
 
             //:END
@@ -5579,6 +5591,32 @@ oTZEREMDO_ERD_Merge( zVIEW     TargetERD,
             //:SetMatchingAttributesByName( TargetERD, "ER_RelType", SourceERD, "ER_RelType", zSET_NULL )
             SetMatchingAttributesByName( TargetERD, "ER_RelType", SourceERD, "ER_RelType", zSET_NULL );
 
+            //:// DonC 04/07/22 - If we're merging whole LPLR, increment Y values of relationship node and bend positions.
+            //:IF szWholeLPLRFlag = "Y" 
+            if ( ZeidonStringCompare( szWholeLPLRFlag, 1, 0, "Y", 1, 0, 2 ) == 0 )
+            { 
+               //:TargetERD.ER_RelType.ER_DiagramE1PosY   = TargetERD.ER_RelType.ER_DiagramE1PosY + MaxYPos
+               GetIntegerFromAttribute( &lTempInteger_3, TargetERD, "ER_RelType", "ER_DiagramE1PosY" );
+               lTempInteger_4 = lTempInteger_3 + MaxYPos;
+               SetAttributeFromInteger( TargetERD, "ER_RelType", "ER_DiagramE1PosY", lTempInteger_4 );
+               //:TargetERD.ER_RelType.ER_DiagramE2PosY   = TargetERD.ER_RelType.ER_DiagramE2PosY + MaxYPos
+               GetIntegerFromAttribute( &lTempInteger_5, TargetERD, "ER_RelType", "ER_DiagramE2PosY" );
+               lTempInteger_6 = lTempInteger_5 + MaxYPos;
+               SetAttributeFromInteger( TargetERD, "ER_RelType", "ER_DiagramE2PosY", lTempInteger_6 );
+               //:IF TargetERD.ER_RelType.ER_DiagramBendPosY != 0    // If 0, there is no bend.
+               if ( CompareAttributeToInteger( TargetERD, "ER_RelType", "ER_DiagramBendPosY", 0 ) != 0 )
+               { 
+                  //:TargetERD.ER_RelType.ER_DiagramBendPosY = TargetERD.ER_RelType.ER_DiagramBendPosY + MaxYPos
+                  GetIntegerFromAttribute( &lTempInteger_7, TargetERD, "ER_RelType", "ER_DiagramBendPosY" );
+                  lTempInteger_8 = lTempInteger_7 + MaxYPos;
+                  SetAttributeFromInteger( TargetERD, "ER_RelType", "ER_DiagramBendPosY", lTempInteger_8 );
+               } 
+
+               //:END
+            } 
+
+            //:END
+
             //:// TargetERD Relationship Side.
             //:CreateMetaEntity( vSubtask, TargetERD, "ER_RelLink_2", zPOS_AFTER )
             CreateMetaEntity( vSubtask, TargetERD, "ER_RelLink_2", zPOS_AFTER );
@@ -5588,8 +5626,8 @@ oTZEREMDO_ERD_Merge( zVIEW     TargetERD,
             RESULT = IncludeSubobjectFromSubobject( TargetERD, "ER_Entity_2", TargetERD, "ER_Entity", zPOS_AFTER );
 
             //:SET CURSOR FIRST TargetERD.ER_RelLink WHERE TargetERD.ER_RelLink.ZKey = TargetERD.ER_RelLink_2.ZKey
-            GetIntegerFromAttribute( &lTempInteger_3, TargetERD, "ER_RelLink_2", "ZKey" );
-            RESULT = SetCursorFirstEntityByInteger( TargetERD, "ER_RelLink", "ZKey", lTempInteger_3, "" );
+            GetIntegerFromAttribute( &lTempInteger_9, TargetERD, "ER_RelLink_2", "ZKey" );
+            RESULT = SetCursorFirstEntityByInteger( TargetERD, "ER_RelLink", "ZKey", lTempInteger_9, "" );
 
             //:// TargetERD Relationship Side.
             //:CreateMetaEntity( vSubtask, TargetERD, "ER_RelLink_2", zPOS_AFTER )
@@ -5605,11 +5643,11 @@ oTZEREMDO_ERD_Merge( zVIEW     TargetERD,
             //:// We will also have to position TargetERD2 on the correct ER_RelLink for the corresponding ER_RelLink_2
             //:// for the 2nd side of the relationship (the TargetERD.ER_RelLink_2 entity).
             //:SET CURSOR FIRST TargetERD2.ER_RelType WHERE TargetERD2.ER_RelType.ZKey = TargetERD.ER_RelType.ZKey
-            GetIntegerFromAttribute( &lTempInteger_4, TargetERD, "ER_RelType", "ZKey" );
-            RESULT = SetCursorFirstEntityByInteger( TargetERD2, "ER_RelType", "ZKey", lTempInteger_4, "" );
+            GetIntegerFromAttribute( &lTempInteger_10, TargetERD, "ER_RelType", "ZKey" );
+            RESULT = SetCursorFirstEntityByInteger( TargetERD2, "ER_RelType", "ZKey", lTempInteger_10, "" );
             //:SET CURSOR FIRST TargetERD2.ER_RelLink WHERE TargetERD2.ER_RelLink.ZKey = TargetERD.ER_RelLink_2.ZKey
-            GetIntegerFromAttribute( &lTempInteger_5, TargetERD, "ER_RelLink_2", "ZKey" );
-            RESULT = SetCursorFirstEntityByInteger( TargetERD2, "ER_RelLink", "ZKey", lTempInteger_5, "" );
+            GetIntegerFromAttribute( &lTempInteger_11, TargetERD, "ER_RelLink_2", "ZKey" );
+            RESULT = SetCursorFirstEntityByInteger( TargetERD2, "ER_RelLink", "ZKey", lTempInteger_11, "" );
             //:INCLUDE TargetERD.ER_RelLink_Other  FROM TargetERD2.ER_RelLink
             RESULT = IncludeSubobjectFromSubobject( TargetERD, "ER_RelLink_Other", TargetERD2, "ER_RelLink", zPOS_AFTER );
             //:INCLUDE TargetERD2.ER_RelLink_Other FROM TargetERD.ER_RelLink
@@ -5667,8 +5705,8 @@ oTZEREMDO_ERD_Merge( zVIEW     TargetERD,
                { 
                   //:// We'll only handle Attribute FactTypes at this time.
                   //:IF SourceERD.ER_RelLinkIdentifier EXISTS
-                  lTempInteger_6 = CheckExistenceOfEntity( SourceERD, "ER_RelLinkIdentifier" );
-                  if ( lTempInteger_6 == 0 )
+                  lTempInteger_12 = CheckExistenceOfEntity( SourceERD, "ER_RelLinkIdentifier" );
+                  if ( lTempInteger_12 == 0 )
                   { 
                      //:IssueError( vSubtask,0,0, "RelLink Identifiers are not being handled at this time." )
                      IssueError( vSubtask, 0, 0, "RelLink Identifiers are not being handled at this time." );
