@@ -1,3 +1,17 @@
+Change made 04/29/22
+
+* DonC made some changes in the ER "Compare/Merge ERD" functionality for the purposes of demo.
+  A button was added "Compare Entities" - which shows the more high level, entity merge.
+  This would be for the "component merge" functionality, where a whole other lplr is merged into
+  the existing project. This is not fully funtional. The original compare is the button "Compare Attributes"
+* In another LPLR migration, there are errors that need to be looked into that cause duplicate domain names to be created.
+  Because of this a button was added to domain list "Delete Duplicate" that loops through the domain list. When a duplicate domain
+  is located, we check if it is in the ER, if not, we delete it. Also, we previously could not delete duplicate domains because the CommitOI would not
+  allow a save if a duplicate name was in existence. This is taken off to allow domain clean up but we check against the ER and do not allow a domain
+  to be deleted if it is used on an attribute in the ER.
+* There was an error in jsp generation code having to do with bootstrap and banners, where old code was lost. That has been fixed.
+* Also with jsp generation, for variable headers if the variable value was null, a <th> wasn't being created but a <td> was. Now, both are created.
+
 Changes made to 10c (update on 12/3/2021):
 
 * Allow operation calls between vml in same pwd/lod if there are more than one source file.

@@ -666,7 +666,7 @@ fnCheckForDuplicateName( zVIEW MOI_View, zVIEW vLPLR,
                                          szMetaOI_Name, "" ) == zCURSOR_SET )
       {  // Duplicate Named Meta exists
          GetVariableFromAttribute( &szNewName, 0, zTYPE_STRING,
-                                   125, vLPLR, "W_MetaType", "Type",
+                                   33, vLPLR, "W_MetaType", "Type",
                                    "CM_Type", 0 );
          nDupFound = 1;
       }
@@ -684,7 +684,7 @@ fnCheckForDuplicateName( zVIEW MOI_View, zVIEW vLPLR,
             {
                // Duplicately Named Meta exists
                GetVariableFromAttribute( &szNewName, 0,
-                                         zTYPE_STRING, 125, vLPLR,
+                                         zTYPE_STRING, 33, vLPLR,
                                          "W_MetaType", "Type", "CM_Type",
                                          0 );
                nDupFound = 1;
@@ -724,7 +724,7 @@ fnCheckForDuplicateName( zVIEW MOI_View, zVIEW vLPLR,
                                                lMetaOI_ZKey ) != 0 )
                {   // Duplicately Named Meta exists
                   GetVariableFromAttribute( &szNewName, 0,
-                                            zTYPE_STRING, 125, vTempLPLR,
+                                            zTYPE_STRING, 33, vTempLPLR,
                                             "W_MetaType", "Type", "CM_Type",
                                             0 );
                   nDupFound = 1;

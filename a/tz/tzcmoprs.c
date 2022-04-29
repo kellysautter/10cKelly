@@ -2113,8 +2113,11 @@ fnCommitMetaOI( zVIEW  vSubtask,
                                  vMOI, szSubEntityName, "Name" );
          GetIntegerFromAttribute( &lSubOI_ZKey,
                                   vMOI, szSubEntityName, "ZKey" );
-         nRC = fnCheckForDuplicateName( vMOI, vTempLPLR, szSubOI_Name,
-                                        lSubOI_ZKey, 0 );
+	 // KJS 04/25/22 - I am going to try taking this out because we do a duplicate name check on save of domain name.
+	 // We have duplicate names because of error in migration. Need to delete them and this prevents the commit.
+         //nRC = fnCheckForDuplicateName( vMOI, vTempLPLR, szSubOI_Name,
+         //                               lSubOI_ZKey, 0 );
+	 nRC = 0;
          if ( nRC == -1 )
             return( -1 );
 
