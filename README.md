@@ -1,3 +1,7 @@
+Change made 05/17/22
+* There was a derived attribute dCardinality in 10d tzerem2o.vml and in the ER. Added to 10c so we 
+  would be in sync.
+
 Change made 04/29/22
 
 * DonC made some changes in the ER "Compare/Merge ERD" functionality for the purposes of demo.

@@ -856,6 +856,38 @@ END
 
 /*************************************************************************************************
 **
+**    OPERATION: dCardinality
+**
+**    concatenated string of min and max cardinality
+**
+*************************************************************************************************/
+DERIVED ATTRIBUTE OPERATION
+dCardinality( VIEW vTZEREMDO BASED ON LOD TZEREMDO,
+              STRING ( 32 ) InternalEntityStructure,
+              STRING ( 32 ) InternalAttribStructure,
+              SHORT GetOrSetFlag )
+
+   STRING ( 16 ) CardMin
+   STRING ( 16 ) CardMax
+   STRING ( 64 ) szCardinality
+
+   CASE GetOrSetFlag
+   OF   zDERIVED_GET:
+      CardMin = vTZEREMDO.ER_RelLink.CardMin
+      CardMax = vTZEREMDO.ER_RelLink.CardMax
+      szCardinality = CardMin + " - " + CardMax
+      StoreStringInRecord( vTZEREMDO, InternalEntityStructure, InternalAttribStructure, szCardinality )
+
+        /* end zDERIVED_GET */
+   OF   zDERIVED_SET:
+
+        /* end zDERIVED_SET */
+   END  /* case */
+
+END
+
+/*************************************************************************************************
+**
 **    OPERATION: DimHierRemoveFlatSide
 **
 *************************************************************************************************/
@@ -1839,6 +1871,9 @@ IdentifierConstraints( VIEW vERD BASED ON LOD TZEREMDO,
                RETURN -1
          ELSE
             IF vERD.ER_AttributeIdentifier EXISTS
+               // KJS 08/24/15 - Per request of DG, we are taking out this contraint. In the new world, we want to be
+               // able to use db system generated keys, not just zeidon generated keys. 04/29/22 - this had not been in 10c but I just added from 10d.
+               /*
                SET CURSOR FIRST vERD.ER_Attribute WHERE
                      vERD.ER_Attribute.ZKey = vERD.ER_AttributeIdentifier.ZKey
                IF vERD.Domain.DataType != "L"
@@ -1848,6 +1883,7 @@ IdentifierConstraints( VIEW vERD BASED ON LOD TZEREMDO,
                                zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
                   RETURN -1
                END
+               */
             ELSE
                // System Error: Invalid FactType
                MessageSend( vERD, "ER00410", "Identifier Specification",
