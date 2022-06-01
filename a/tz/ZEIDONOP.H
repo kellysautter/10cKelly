@@ -732,7 +732,7 @@ ActivateMetaOI( zVIEW vSubtask0,
                 zLONG lControlFlag4 );
 
 //end
-//start TZEREMDO 2022.04.29 13:23:47
+//start TZEREMDO 2022.04.06 10:55:02
 zOPER_EXPORT zSHORT OPERATION
 oTZEREMDO_ImportADW_Model( zVIEW vViewToInstance0,
                            zVIEW vADWWorkObject1,
@@ -1291,7 +1291,7 @@ oTZ__PRFO_GetViewToProfile( zPVIEW vViewToInstance0,
                             zSHORT nCurrentOrReloadFlag3 );
 
 //end
-//start TZZOLODO 2020.03.18 13:48:22
+//start TZZOLODO 2022.05.25 10:46:14
 zOPER_EXPORT zSHORT OPERATION
 oTZZOLODO_ParseDerivedExpr( zVIEW vViewToInstance0,
                             zVIEW vWindowsubtask1 );
@@ -1397,6 +1397,13 @@ zOPER_EXPORT zSHORT OPERATION
 oTZZOLODO_LOD_Merge( zVIEW vViewToInstance0,
                      zVIEW vSourceLOD1,
                      zVIEW vvSubtask2 );
+
+zOPER_EXPORT zSHORT OPERATION
+oTZZOLODO_LOD_CreateER_AttrFrmER( zVIEW vViewToInstance0,
+                                  zVIEW vSourceLPLR1,
+                                  zVIEW vCurrentLPLR2,
+                                  zVIEW vNewERD3,
+                                  zVIEW vvSubtask4 );
 
 //end
 //start TZTEMPMO 2020.03.18 13:48:19

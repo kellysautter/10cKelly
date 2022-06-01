@@ -1,3 +1,10 @@
+Change made 05/25/22
+
+* DonC changes for LOD attribute derived attribute rule code. This is not complete, but mainly for viewing
+  at the moment.
+* KJS changes for Workstation Migration. More duplication elimination. Also allows user to start with moving a LOD like
+  sHost.LOD and it will create the ER/PDG/LOD etc.
+
 Change made 05/17/22
 * There was a derived attribute dCardinality in 10d tzerem2o.vml and in the ER. Added to 10c so we 
   would be in sync.

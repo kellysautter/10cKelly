@@ -387,14 +387,14 @@ InitializeLPLR( zVIEW  vSubtask,
    zVIEW  vTaskMetas;
    zULONG ulZKey;
    HFILE  hFile;
-   zCHAR  szLPLR_Name[ 33 ];
+   zCHAR  szLPLR_Name[ 80 ];
    zCHAR  szLPLR_FileName[ 33 ];
    zCHAR  szLPLR_Spec[ zMAX_FILESPEC_LTH + 1 ];
    zCHAR  szErrMsg[ zLONG_MESSAGE_LTH + 1 ]; // includes szLPLR_Spec
    LPTASK lpTask;
    zSHORT nRC;
 
-   TraceLineS("*** InitializeLPLR *** ", "");
+   //TraceLineS("*** InitializeLPLR *** ", "");
 
    // Check to make sure that the Workstation Administration tool is not up.
    lpTask = 0;
@@ -717,7 +717,7 @@ TerminateLPLR( zVIEW vSubtask )
    zVIEW  vTaskOI;
    zVIEW  vTaskMetas;
    zVIEW  vActiveMetas;
-   zCHAR  szViewName[ 33 ];
+   zCHAR  szViewName[ 80 ];
    zLONG  lTaskID;
    zLONG  lTaskUseCnt;
    zSHORT nRC;
@@ -992,7 +992,7 @@ fnActivateMetaOI( zVIEW   vSubtask,
    zCHAR  szCM_ViewName[ 80 ];
    zCHAR  szLPLR_Name[ 80 ];
    zCHAR  szUserName[ 80 ];
-   zCHAR  szSyncDate[ 18 ];
+   zCHAR  szSyncDate[ 20 ];
    zCHAR  szGroupName[ 80 ];
    zSHORT nRC = 0;
 
@@ -4230,6 +4230,7 @@ InitializeNextZKeyForObject( zVIEW  vMetaRootView,
    zCHAR     szCurrentEntityName[ 33 ];
    zLONG     lZKey = 0; 
    zLONG     lMaxZKey = 0; 
+   zLONG     lTempKey = 0;
    zSHORT    nHierRC = 0; 
    zSHORT    nReturnLevel = 0; 
 
@@ -4286,9 +4287,31 @@ InitializeNextZKeyForObject( zVIEW  vMetaRootView,
       // for generating the ZKey of the root entity and set the NextZKeyToAssign to 1000.
       // DateTimeStamp is of form YYYYMMDDHHMMSSTTT. 
       // We will use 9 middle digits, DDHHMMSST, forming DDH,HMM,SST, which would generate a key up to 312,459,599.
+
+      // KJS 05/05/22 - Need to look at this because during migrate it creates duplicates at the root.
+      int i;
+      for (i = 1; i < 1000000000; i++); // Adding an extra zero causes it to seemingly never return.
+      for (i = 1; i < 1000000000; i++); // Adding an extra zero causes it to seemingly never return.
+      for (i = 1; i < 1000000000; i++); // Adding an extra zero causes it to seemingly never return.
+      
       SysGetDateTime( szDateTimeStamp );
-      ZeidonStringCopy( szGeneratedKey, 1, 0, szDateTimeStamp, 6, 9, 21 );
+      //ZeidonStringCopy(szGeneratedKey, 1, 0, szDateTimeStamp, 6, 9, 21);
+      ZeidonStringCopy(szGeneratedKey, 1, 0, szDateTimeStamp, 8, 9, 21);
       lMaxZKey = zStringToInteger( szGeneratedKey );
+	  /* tried the following but it didn't seem to work. But keeping in to look further some day.
+	  srand(lMaxZKey);
+	  lTempKey = rand();
+
+	  int l, max = 1, min = 0;
+	  l = 9;
+
+	  while (l > 0) {
+		  max *= 10;
+		  l--;
+	  }
+	  min = max / 10;
+	  lMaxZKey =  min + rand() % (max - min);
+	  */
    } 
 
    // Set the NextZKeyToAssign attribute

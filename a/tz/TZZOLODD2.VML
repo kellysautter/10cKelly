@@ -1,0 +1,174 @@
+
+/*************************************************************************************************
+**    
+**    OPERATION: SELECT_CalculationSetEntity
+**    
+*************************************************************************************************/
+DIALOG OPERATION
+SELECT_CalculationSetEntity( VIEW ViewToWindow )
+
+   VIEW TZZOLODO  REGISTERED AS TZZOLODO
+   VIEW TZZOLOD1  REGISTERED AS TZZOLOD1
+   VIEW TZZOLODOT BASED ON LOD  TZZOLODO
+
+   
+   // Build the selectable Attribute list for the selected LOD_Entity for which we'll use view TZZOLODOT.
+   FOR EACH TZZOLODO.SelectableAttribute 
+      DELETE ENTITY TZZOLODO.SelectableAttribute NONE  
+   END
+   CreateViewFromView( TZZOLODOT, TZZOLODO )
+   SET CURSOR FIRST TZZOLODOT.LOD_Entity WHERE TZZOLODOT.LOD_Entity.ZKey = TZZOLOD1.LOD_EntityParent.ZKey  
+   FOR EACH TZZOLODOT.LOD_Attribute 
+      CREATE ENTITY TZZOLODO.SelectableAttribute 
+      TZZOLODO.SelectableAttribute.Name = TZZOLODOT.ER_Attribute.Name  
+   END
+   DropView( TZZOLODOT )
+
+END
+
+/*************************************************************************************************
+**    
+**    OPERATION: ADD_CalculationSetAttrParm
+**    
+*************************************************************************************************/
+DIALOG OPERATION
+ADD_CalculationSetAttrParm( VIEW ViewToWindow )
+
+   VIEW TZZOLOD1  REGISTERED AS TZZOLOD1
+   VIEW TZZOLODO  REGISTERED AS TZZOLODO
+   VIEW TZZOLODOT BASED ON LOD  TZZOLODO
+   
+   // Create a DerivedRuleParameter entry from the selected SelectableAttribute entity.
+   
+   // Position on the correct LOD_Entity and LOD_Attribute for the selected Attribute.
+   // The LOD_Entity position comes from TZZOLOD1.LOD_EntityParent.
+   // The LOD_Attribute position comes from TZZOLODO.SelectableAttribute
+   CreateViewFromView( TZZOLODOT, TZZOLODO )
+   SET CURSOR FIRST TZZOLODOT.LOD_Entity WHERE TZZOLODOT.LOD_Entity.Name = TZZOLOD1.LOD_EntityParent.Name 
+   SET CURSOR FIRST TZZOLODOT.ER_Attribute WITHIN TZZOLODOT.LOD_Entity WHERE TZZOLODOT.ER_Attribute.Name = TZZOLODO.SelectableAttribute.Name 
+   CreateTemporalEntity( TZZOLODO,"DerivedRuleParameter", zPOS_AFTER )
+   TZZOLODO.DerivedRuleParameter.EntityAttributeName = TZZOLODOT.LOD_Entity.Name + "." + TZZOLODOT.ER_Attribute.Name 
+   TZZOLODO.DerivedRuleParameter.EntityName          = TZZOLODOT.LOD_Entity.Name 
+   TZZOLODO.DerivedRuleParameter.AttributeName       = TZZOLODOT.ER_Attribute.Name 
+   TZZOLODO.DerivedRuleParameter.DataType            = TZZOLODOT.Domain.DataType 
+   DropView( TZZOLODOT )
+   
+   // Rebuild the Parameter Names.
+   BUILD_RuleSetParmName( TZZOLODO )
+   
+   // Go to the appropriate subwindow (String, Date or Table( based on DataType.
+   // For now we'll just go to the string subwindow.
+   SetWindowActionBehavior( ViewToWindow, zWAB_StartModalSubwindow, "TZZOLODD", "CalculationSetParmUpdate" )
+   
+END
+
+/*************************************************************************************************
+**    
+**    OPERATION: GOTO_UpdateCalculationSetParm
+**    
+*************************************************************************************************/
+DIALOG OPERATION
+GOTO_UpdateCalculationSetParm( VIEW ViewToWindow )
+
+   VIEW TZZOLODO  REGISTERED AS TZZOLODO
+   
+   CreateTemporalSubobjectVersion( TZZOLODO,"DerivedRuleParameter" )
+   
+   // Set the appropriate work value attribute from the ExternalValue??? and go to the appropriate subwindow, both based on DataType.
+   // For now we'll just go to the string subwindow.
+   SetWindowActionBehavior( ViewToWindow, zWAB_StartModalSubwindow, "TZZOLODD", "CalculationSetParmUpdate" )
+
+END
+
+/*************************************************************************************************
+**    
+**    OPERATION: ACCEPT_DerivedRuleCalcParm
+**    
+*************************************************************************************************/
+DIALOG OPERATION
+ACCEPT_DerivedRuleCalcParm( VIEW ViewToWindow )
+
+   VIEW TZZOLODO  REGISTERED AS TZZOLODO
+   
+   AcceptSubobject( TZZOLODO,"DerivedRuleParameter" )
+
+END
+
+/*************************************************************************************************
+**    
+**    OPERATION: CANCEL_DerivedRuleCalcParm
+**    
+*************************************************************************************************/
+DIALOG OPERATION
+CANCEL_DerivedRuleCalcParm( VIEW ViewToWindow )
+
+   VIEW TZZOLODO  REGISTERED AS TZZOLODO
+   
+   CancelSubobject( TZZOLODO,"DerivedRuleParameter" )
+
+END
+
+/*************************************************************************************************
+**    
+**    OPERATION: ACCEPT_CalculationRuleSet
+**    
+*************************************************************************************************/
+DIALOG OPERATION
+ACCEPT_CalculationRuleSet( VIEW ViewToWindow )
+
+   VIEW TZZOLODO  REGISTERED AS TZZOLODO
+   
+   // Make sure that a Description and Calculation Rule are specified.
+   IF TZZOLODO.DerivedRuleCalculationSet.Description = ""
+      MessageSend( ViewToWindow, "", "Save Calculation Set",
+                                 "A Description must be specified",
+                                 zMSGQ_OBJECT_CONSTRAINT_WARNING, 0 )
+      SetWindowActionBehavior( ViewToWindow, zWAB_StayOnWindow, 0,0 )
+      RETURN -1
+   END
+   IF TZZOLODO.DerivedRuleCalculationSet.DerivedRuleCalculation = ""
+      MessageSend( ViewToWindow, "", "Save Calculation Set",
+                                 "A Calculation Rule must be specified",
+                                 zMSGQ_OBJECT_CONSTRAINT_WARNING, 0 )
+      SetWindowActionBehavior( ViewToWindow, zWAB_StayOnWindow, 0,0 )
+      RETURN -1
+   END
+   
+   AcceptSubobject( TZZOLODO,"DerivedRuleCalculationSet" )
+
+END
+
+/*************************************************************************************************
+**    
+**    OPERATION: CANCEL_CalculationRuleSet
+**    
+*************************************************************************************************/
+DIALOG OPERATION
+CANCEL_CalculationRuleSet( VIEW ViewToWindow )
+
+   VIEW TZZOLODO  REGISTERED AS TZZOLODO
+   
+   CancelSubobject( TZZOLODO,"DerivedRuleCalculationSet" )
+
+END
+
+/*************************************************************************************************
+**    
+**    OPERATION: BUILD_RuleSetParmName
+**    
+*************************************************************************************************/
+LOCAL OPERATION
+BUILD_RuleSetParmName( VIEW TZZOLODO BASED ON LOD  TZZOLODO )
+
+   INTEGER      ParmCount
+   STRING ( 5 ) szParmCount
+   
+   // Build the Parameter Name values in sequential order such as C1, C2, C3, etc.
+   ParmCount = 1
+   FOR EACH TZZOLODO.DerivedRuleParameter 
+      szParmCount = ParmCount
+      TZZOLODO.DerivedRuleParameter.BooleanConditionName = "C" + szParmCount 
+      ParmCount = ParmCount + 1
+   END
+
+END

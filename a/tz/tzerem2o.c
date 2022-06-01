@@ -810,7 +810,6 @@ oTZEREMDO_IdentifierConstraints( zVIEW     vERD,
    zSHORT    RESULT; 
    zSHORT    lTempInteger_0; 
    zSHORT    lTempInteger_1; 
-   zLONG     lTempInteger_2; 
 
    //:IdentifierConstraints( VIEW vERD BASED ON LOD TZEREMDO,
    //:                    STRING ( 32 ) sEntityName,
@@ -873,23 +872,19 @@ oTZEREMDO_IdentifierConstraints( zVIEW     vERD,
                lTempInteger_1 = CheckExistenceOfEntity( vERD, "ER_AttributeIdentifier" );
                if ( lTempInteger_1 == 0 )
                { 
+                  //:// KJS 08/24/15 - Per request of DG, we are taking out this contraint. In the new world, we want to be
+                  //:// able to use db system generated keys, not just zeidon generated keys. 04/29/22 - this had not been in 10c but I just added from 10d.
+                  //:/*
                   //:SET CURSOR FIRST vERD.ER_Attribute WHERE
                   //:   vERD.ER_Attribute.ZKey = vERD.ER_AttributeIdentifier.ZKey
-                  GetIntegerFromAttribute( &lTempInteger_2, vERD, "ER_AttributeIdentifier", "ZKey" );
-                  RESULT = SetCursorFirstEntityByInteger( vERD, "ER_Attribute", "ZKey", lTempInteger_2, "" );
                   //:IF vERD.Domain.DataType != "L"
-                  if ( CompareAttributeToString( vERD, "Domain", "DataType", "L" ) != 0 )
-                  { 
-                     //:// Error: System generated Key must be of type Integer.
-                     //:MessageSend( vERD, "ER00409", "Identifier Specification",
-                     //:          "An Attribute that is a System Maintained key must have Domain of Data Type Number.",
-                     //:          zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
-                     MessageSend( vERD, "ER00409", "Identifier Specification", "An Attribute that is a System Maintained key must have Domain of Data Type Number.", zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
-                     //:RETURN -1
-                     return( -1 );
-                  } 
-
+                  //:// Error: System generated Key must be of type Integer.
+                  //:MessageSend( vERD, "ER00409", "Identifier Specification",
+                  //:             "An Attribute that is a System Maintained key must have Domain of Data Type Number.",
+                  //:             zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
+                  //:RETURN -1
                   //:END
+                  //:*/
                   //:ELSE
                } 
                else
@@ -4277,6 +4272,57 @@ oTZEREMDO_dParentNames( zVIEW     vTZEREMDO,
 } 
 
 
+//:DERIVED ATTRIBUTE OPERATION
+//:dCardinality( VIEW vTZEREMDO BASED ON LOD TZEREMDO,
+//:              STRING ( 32 ) InternalEntityStructure,
+//:              STRING ( 32 ) InternalAttribStructure,
+//:              SHORT GetOrSetFlag )
+
+//:   STRING ( 16 ) CardMin
+zOPER_EXPORT zSHORT OPERATION
+oTZEREMDO_dCardinality( zVIEW     vTZEREMDO,
+                        LPVIEWENTITY InternalEntityStructure,
+                        LPVIEWATTRIB InternalAttribStructure,
+                        zSHORT    GetOrSetFlag )
+{
+   zCHAR     CardMin[ 17 ] = { 0 }; 
+   //:STRING ( 16 ) CardMax
+   zCHAR     CardMax[ 17 ] = { 0 }; 
+   //:STRING ( 64 ) szCardinality
+   zCHAR     szCardinality[ 65 ] = { 0 }; 
+
+
+   //:CASE GetOrSetFlag
+   switch( GetOrSetFlag )
+   { 
+      //:OF   zDERIVED_GET:
+      case zDERIVED_GET :
+         //:CardMin = vTZEREMDO.ER_RelLink.CardMin
+         GetVariableFromAttribute( CardMin, 0, 'S', 17, vTZEREMDO, "ER_RelLink", "CardMin", "", 0 );
+         //:CardMax = vTZEREMDO.ER_RelLink.CardMax
+         GetVariableFromAttribute( CardMax, 0, 'S', 17, vTZEREMDO, "ER_RelLink", "CardMax", "", 0 );
+         //:szCardinality = CardMin + " - " + CardMax
+         ZeidonStringCopy( szCardinality, 1, 0, CardMin, 1, 0, 65 );
+         ZeidonStringConcat( szCardinality, 1, 0, " - ", 1, 0, 65 );
+         ZeidonStringConcat( szCardinality, 1, 0, CardMax, 1, 0, 65 );
+         //:StoreStringInRecord( vTZEREMDO, InternalEntityStructure, InternalAttribStructure, szCardinality )
+         StoreStringInRecord( vTZEREMDO, InternalEntityStructure, InternalAttribStructure, szCardinality );
+         break ;
+
+      //:  /* end zDERIVED_GET */
+      //:OF   zDERIVED_SET:
+      case zDERIVED_SET :
+         break ;
+   } 
+
+
+   //:     /* end zDERIVED_SET */
+   //:END  /* case */
+   return( 0 );
+// END
+} 
+
+
 //:TRANSFORMATION OPERATION
 //:DimHierRemoveFlatSide( VIEW ViewToInstance BASED ON LOD TZEREMDO,
 //:                       VIEW vSubtask )
@@ -4359,11 +4405,13 @@ oTZEREMDO_ERD_RelationshipCopy( zVIEW     NewERD,
    zLONG     lTempInteger_1; 
    zLONG     lTempInteger_2; 
    zSHORT    lTempInteger_3; 
-   zLONG     lTempInteger_4; 
+   zSHORT    lTempInteger_4; 
    zLONG     lTempInteger_5; 
    zLONG     lTempInteger_6; 
-   zSHORT    lTempInteger_7; 
-   zLONG     lTempInteger_8; 
+   zLONG     lTempInteger_7; 
+   zSHORT    lTempInteger_8; 
+   zSHORT    lTempInteger_9; 
+   zLONG     lTempInteger_10; 
 
 
    //:// Copy the Relationship from the source ERD to the target ERD.
@@ -4444,10 +4492,21 @@ oTZEREMDO_ERD_RelationshipCopy( zVIEW     NewERD,
          if ( lTempInteger_3 == 0 && CompareAttributeToAttribute( OldERD2, "ER_RelLinkIdentifier", "ZKey", OldERD3, "ER_RelLinkIdentifier", "ZKey" ) == 0 )
          { 
 
+            //:// KJS 05/05/22 - We get here and the identifier does not exist yet. Do we create it?
+            //:// I think this will get created later in process, so I think we should not include unless
+            //:// this already exists (which might never be the case... I'm not sure.
+            //:IF NewERD3.ER_FactType EXISTS
+            lTempInteger_4 = CheckExistenceOfEntity( NewERD3, "ER_FactType" );
+            if ( lTempInteger_4 == 0 )
+            { 
+               //:INCLUDE NewERD3.ER_RelLinkIdentifier FROM NewERD3.ER_RelLink_2
+               RESULT = IncludeSubobjectFromSubobject( NewERD3, "ER_RelLinkIdentifier", NewERD3, "ER_RelLink_2", zPOS_AFTER );
+            } 
+
+            //:END
+
             //:FoundInd = 1
             FoundInd = 1;
-            //:INCLUDE NewERD3.ER_RelLinkIdentifier FROM NewERD3.ER_RelLink_2
-            RESULT = IncludeSubobjectFromSubobject( NewERD3, "ER_RelLinkIdentifier", NewERD3, "ER_RelLink_2", zPOS_AFTER );
             //:ELSE
          } 
          else
@@ -4466,8 +4525,8 @@ oTZEREMDO_ERD_RelationshipCopy( zVIEW     NewERD,
       DropView( OldERD2 );
       //:SET CURSOR NEXT OldERD3.ER_RelLinkIdentifier WITHIN OldERD3.EntpER_Model
       //:          WHERE OldERD3.ER_RelLinkIdentifier.ZKey = OldERD.ER_RelLink_2.ZKey
-      GetIntegerFromAttribute( &lTempInteger_4, OldERD, "ER_RelLink_2", "ZKey" );
-      RESULT = SetCursorNextEntityByInteger( OldERD3, "ER_RelLinkIdentifier", "ZKey", lTempInteger_4, "EntpER_Model" );
+      GetIntegerFromAttribute( &lTempInteger_5, OldERD, "ER_RelLink_2", "ZKey" );
+      RESULT = SetCursorNextEntityByInteger( OldERD3, "ER_RelLinkIdentifier", "ZKey", lTempInteger_5, "EntpER_Model" );
    } 
 
    //:END
@@ -4495,8 +4554,8 @@ oTZEREMDO_ERD_RelationshipCopy( zVIEW     NewERD,
    RESULT = IncludeSubobjectFromSubobject( NewERD2, "ER_Entity_2", NewERD2, "ER_Entity", zPOS_AFTER );
    //:// Position on other side of relationship just included.
    //:SET CURSOR FIRST NewERD2.ER_RelLink WHERE NewERD2.ER_RelLink.ZKey = NewERD2.ER_RelLink_2.ZKey
-   GetIntegerFromAttribute( &lTempInteger_5, NewERD2, "ER_RelLink_2", "ZKey" );
-   RESULT = SetCursorFirstEntityByInteger( NewERD2, "ER_RelLink", "ZKey", lTempInteger_5, "" );
+   GetIntegerFromAttribute( &lTempInteger_6, NewERD2, "ER_RelLink_2", "ZKey" );
+   RESULT = SetCursorFirstEntityByInteger( NewERD2, "ER_RelLink", "ZKey", lTempInteger_6, "" );
 
    //:// We must now do any includes of ER_RelLinkIdentifier under ER_FactType.
    //:// This is complex because the ER_RelLink entity has no unique logical key
@@ -4510,8 +4569,8 @@ oTZEREMDO_ERD_RelationshipCopy( zVIEW     NewERD,
    SetNameForView( NewERD3, "NewERD3", 0, zLEVEL_TASK );
    //:SET CURSOR FIRST OldERD3.ER_RelLinkIdentifier WITHIN OldERD3.EntpER_Model
    //:           WHERE OldERD3.ER_RelLinkIdentifier.ZKey = OldERD.ER_RelLink_2.ZKey
-   GetIntegerFromAttribute( &lTempInteger_6, OldERD, "ER_RelLink_2", "ZKey" );
-   RESULT = SetCursorFirstEntityByInteger( OldERD3, "ER_RelLinkIdentifier", "ZKey", lTempInteger_6, "EntpER_Model" );
+   GetIntegerFromAttribute( &lTempInteger_7, OldERD, "ER_RelLink_2", "ZKey" );
+   RESULT = SetCursorFirstEntityByInteger( OldERD3, "ER_RelLinkIdentifier", "ZKey", lTempInteger_7, "EntpER_Model" );
    //:LOOP WHILE RESULT >= zCURSOR_SET
    while ( RESULT >= zCURSOR_SET )
    { 
@@ -4528,15 +4587,26 @@ oTZEREMDO_ERD_RelationshipCopy( zVIEW     NewERD,
       while ( FoundInd == 0 )
       { 
          //:IF OldERD2.ER_RelLinkIdentifier EXISTS AND
-         lTempInteger_7 = CheckExistenceOfEntity( OldERD2, "ER_RelLinkIdentifier" );
+         lTempInteger_8 = CheckExistenceOfEntity( OldERD2, "ER_RelLinkIdentifier" );
          //:   OldERD2.ER_RelLinkIdentifier.ZKey = OldERD3.ER_RelLinkIdentifier.ZKey
-         if ( lTempInteger_7 == 0 && CompareAttributeToAttribute( OldERD2, "ER_RelLinkIdentifier", "ZKey", OldERD3, "ER_RelLinkIdentifier", "ZKey" ) == 0 )
+         if ( lTempInteger_8 == 0 && CompareAttributeToAttribute( OldERD2, "ER_RelLinkIdentifier", "ZKey", OldERD3, "ER_RelLinkIdentifier", "ZKey" ) == 0 )
          { 
 
             //:FoundInd = 1
             FoundInd = 1;
-            //:INCLUDE NewERD3.ER_RelLinkIdentifier FROM NewERD3.ER_RelLink_2
-            RESULT = IncludeSubobjectFromSubobject( NewERD3, "ER_RelLinkIdentifier", NewERD3, "ER_RelLink_2", zPOS_AFTER );
+
+            //:// KJS 05/05/22 - We get here and the identifier does not exist yet. Do we create it?
+            //:// I think this will get created later in process, so I think we should not include unless
+            //:// this already exists (which might never be the case... I'm not sure.
+            //:IF NewERD3.ER_FactType EXISTS
+            lTempInteger_9 = CheckExistenceOfEntity( NewERD3, "ER_FactType" );
+            if ( lTempInteger_9 == 0 )
+            { 
+               //:INCLUDE NewERD3.ER_RelLinkIdentifier FROM NewERD3.ER_RelLink_2
+               RESULT = IncludeSubobjectFromSubobject( NewERD3, "ER_RelLinkIdentifier", NewERD3, "ER_RelLink_2", zPOS_AFTER );
+            } 
+
+            //:END
             //:ELSE
          } 
          else
@@ -4555,8 +4625,8 @@ oTZEREMDO_ERD_RelationshipCopy( zVIEW     NewERD,
       DropView( OldERD2 );
       //:SET CURSOR NEXT OldERD3.ER_RelLinkIdentifier WITHIN OldERD3.EntpER_Model
       //:          WHERE OldERD3.ER_RelLinkIdentifier.ZKey = OldERD.ER_RelLink_2.ZKey
-      GetIntegerFromAttribute( &lTempInteger_8, OldERD, "ER_RelLink_2", "ZKey" );
-      RESULT = SetCursorNextEntityByInteger( OldERD3, "ER_RelLinkIdentifier", "ZKey", lTempInteger_8, "EntpER_Model" );
+      GetIntegerFromAttribute( &lTempInteger_10, OldERD, "ER_RelLink_2", "ZKey" );
+      RESULT = SetCursorNextEntityByInteger( OldERD3, "ER_RelLinkIdentifier", "ZKey", lTempInteger_10, "EntpER_Model" );
    } 
 
    //:END
@@ -6233,57 +6303,6 @@ oTZEREMDO_GenerateID_Identifiers( zVIEW     vERD )
    //:END
    //:SET CURSOR FIRST vERD.ER_Entity  
    RESULT = SetCursorFirstEntity( vERD, "ER_Entity", "" );
-   return( 0 );
-// END
-} 
-
-
-//:DERIVED ATTRIBUTE OPERATION
-//:dCardinality( VIEW vTZEREMDO BASED ON LOD TZEREMDO,
-//:              STRING ( 32 ) InternalEntityStructure,
-//:              STRING ( 32 ) InternalAttribStructure,
-//:              SHORT GetOrSetFlag )
-
-//:   STRING ( 16 ) CardMin
-zOPER_EXPORT zSHORT OPERATION
-oTZEREMDO_dCardinality( zVIEW     vTZEREMDO,
-                        LPVIEWENTITY InternalEntityStructure,
-                        LPVIEWATTRIB InternalAttribStructure,
-                        zSHORT    GetOrSetFlag )
-{
-   zCHAR     CardMin[ 17 ] = { 0 }; 
-   //:STRING ( 16 ) CardMax
-   zCHAR     CardMax[ 17 ] = { 0 }; 
-   //:STRING ( 64 ) szCardinality
-   zCHAR     szCardinality[ 65 ] = { 0 }; 
-
-
-   //:CASE GetOrSetFlag
-   switch( GetOrSetFlag )
-   { 
-      //:OF   zDERIVED_GET:
-      case zDERIVED_GET :
-         //:CardMin = vTZEREMDO.ER_RelLink.CardMin
-         GetVariableFromAttribute( CardMin, 0, 'S', 17, vTZEREMDO, "ER_RelLink", "CardMin", "", 0 );
-         //:CardMax = vTZEREMDO.ER_RelLink.CardMax
-         GetVariableFromAttribute( CardMax, 0, 'S', 17, vTZEREMDO, "ER_RelLink", "CardMax", "", 0 );
-         //:szCardinality = CardMin + " - " + CardMax
-         ZeidonStringCopy( szCardinality, 1, 0, CardMin, 1, 0, 65 );
-         ZeidonStringConcat( szCardinality, 1, 0, " - ", 1, 0, 65 );
-         ZeidonStringConcat( szCardinality, 1, 0, CardMax, 1, 0, 65 );
-         //:StoreStringInRecord( vTZEREMDO, InternalEntityStructure, InternalAttribStructure, szCardinality )
-         StoreStringInRecord( vTZEREMDO, InternalEntityStructure, InternalAttribStructure, szCardinality );
-         break ;
-
-      //:  /* end zDERIVED_GET */
-      //:OF   zDERIVED_SET:
-      case zDERIVED_SET :
-         break ;
-   } 
-
-
-   //:     /* end zDERIVED_SET */
-   //:END  /* case */
    return( 0 );
 // END
 } 
