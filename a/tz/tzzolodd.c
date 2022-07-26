@@ -1149,7 +1149,7 @@ zwTZZOLODD_DetermineDialogEntry( zVIEW vSubtask )
    }
 
    // Set window Title with check out state
-   SetTitleWithCheckOutState( vSubtask, "Logical Object Definition", "TZZOLODO",
+   SetTitleWithCheckOutState( vSubtask, "Information Centric Object", "TZZOLODO",
                                vTZZOLODO, "LOD", zSOURCE_LOD_META );
 
    // Set Name for View to current Window (for displaying the
@@ -1462,7 +1462,7 @@ zwTZZOLODD_MainRtnFromSubWnd( zVIEW vSubtask )
    }
 
    // Set window Title with check out state
-   SetTitleWithCheckOutState( vSubtask, "Logical Object Definition", "TZZOLODO",
+   SetTitleWithCheckOutState( vSubtask, "Information Centric Object", "TZZOLODO",
                               vTZZOLODO, "LOD", zSOURCE_LOD_META );
 
    if ( GetViewByName( &vTZZOHDGO, "TZZOHDGO", vSubtask, zLEVEL_TASK ) > 0 )
@@ -9338,7 +9338,7 @@ zwfnTZZOLODD_CheckActionAfterSaveAs( zVIEW  vSubtask )
 
    // Set window Title with check out state
    GetParentWindow( &vParentWindow, vSubtask );
-   SetTitleWithCheckOutState( vParentWindow, "Logical Object Definition",
+   SetTitleWithCheckOutState( vParentWindow, "Information Centric Object",
                                "TZZOLODO", vTZZOLODO, "LOD", zSOURCE_LOD_META );
 
    // if LOD not checked out and user change this LOD, then zeidon

@@ -254,9 +254,9 @@ oTZWDLGSO_ConvertListBoxToGrid( zVIEW     vControl )
    GetViewByName( &vPE, "TZPESRCO", vControl, zLEVEL_TASK );
    //:SET CURSOR FIRST vPE.ControlDef WHERE vPE.ControlDef.Tag = "Grid"
    RESULT = SetCursorFirstEntityByString( vPE, "ControlDef", "Tag", "Grid", "" );
-   //:EXCLUDE vControl.ControlDef 
+   //:EXCLUDE vControl.ControlDef
    RESULT = ExcludeEntity( vControl, "ControlDef", zREPOS_AFTER );
-   //:INCLUDE vControl.ControlDef FROM vPE.ControlDef 
+   //:INCLUDE vControl.ControlDef FROM vPE.ControlDef
    RESULT = IncludeSubobjectFromSubobject( vControl, "ControlDef", vPE, "ControlDef", zPOS_AFTER );
    //:szGridName = vControl.Control.Tag + "Grid"
    GetStringFromAttribute( szGridName, vControl, "Control", "Tag" );
@@ -286,7 +286,7 @@ oTZWDLGSO_ConvertListBoxToGrid( zVIEW     vControl )
       SetAttributeFromString( vControl, "Control", "Text", "Sel" );
       //:SET CURSOR FIRST vPE.ControlDef WHERE vPE.ControlDef.Tag = "CheckBox"
       RESULT = SetCursorFirstEntityByString( vPE, "ControlDef", "Tag", "CheckBox", "" );
-      //:INCLUDE vControl.ControlDef FROM vPE.ControlDef 
+      //:INCLUDE vControl.ControlDef FROM vPE.ControlDef
       RESULT = IncludeSubobjectFromSubobject( vControl, "ControlDef", vPE, "ControlDef", zPOS_AFTER );
       //:vControl.Control.PSDLG_X = 0
       SetAttributeFromInteger( vControl, "Control", "PSDLG_X", 0 );
@@ -300,9 +300,9 @@ oTZWDLGSO_ConvertListBoxToGrid( zVIEW     vControl )
       CurrentPOSX = 15;
       //:CreateMetaEntity( vControl, vControl, "CtrlMap", zPOS_BEFORE )
       CreateMetaEntity( vControl, vControl, "CtrlMap", zPOS_BEFORE );
-      //:INCLUDE vControl.CtrlMapLOD_Attribute FROM vControl2.CtrlMapLOD_Attribute 
+      //:INCLUDE vControl.CtrlMapLOD_Attribute FROM vControl2.CtrlMapLOD_Attribute
       RESULT = IncludeSubobjectFromSubobject( vControl, "CtrlMapLOD_Attribute", vControl2, "CtrlMapLOD_Attribute", zPOS_AFTER );
-      //:INCLUDE vControl.CtrlMapView          FROM vControl2.CtrlMapView 
+      //:INCLUDE vControl.CtrlMapView          FROM vControl2.CtrlMapView
       RESULT = IncludeSubobjectFromSubobject( vControl, "CtrlMapView", vControl2, "CtrlMapView", zPOS_AFTER );
       //:DropView( vControl2 )
       DropView( vControl2 );
@@ -312,7 +312,7 @@ oTZWDLGSO_ConvertListBoxToGrid( zVIEW     vControl )
       RESULT = SetCursorFirstEntityByString( vPE, "ControlDef", "Tag", "GridEditCtl", "" );
       //:Count = 0
       Count = 0;
-      //:FOR EACH vControl.Control 
+      //:FOR EACH vControl.Control
       RESULT = SetCursorFirstEntity( vControl, "Control", "" );
       while ( RESULT > zCURSOR_UNCHANGED )
       { 
@@ -321,9 +321,9 @@ oTZWDLGSO_ConvertListBoxToGrid( zVIEW     vControl )
          //:IF Count > 1    // We skip the first record we just created.
          if ( Count > 1 )
          { 
-            //:EXCLUDE vControl.ControlDef 
+            //:EXCLUDE vControl.ControlDef
             RESULT = ExcludeEntity( vControl, "ControlDef", zREPOS_AFTER );
-            //:INCLUDE vControl.ControlDef FROM vPE.ControlDef 
+            //:INCLUDE vControl.ControlDef FROM vPE.ControlDef
             RESULT = IncludeSubobjectFromSubobject( vControl, "ControlDef", vPE, "ControlDef", zPOS_AFTER );
             //:vControl.Control.PSDLG_X = CurrentPOSX                  // Position is from determined from last iteration.
             SetAttributeFromInteger( vControl, "Control", "PSDLG_X", CurrentPOSX );
@@ -337,7 +337,7 @@ oTZWDLGSO_ConvertListBoxToGrid( zVIEW     vControl )
       } 
 
       //:END
-      //: 
+
       //:ResetViewFromSubobject( vControl )       // Step back up to Grid Control
       ResetViewFromSubobject( vControl );
    } 
@@ -441,16 +441,29 @@ oTZWDLGSO_CloneAction( zVIEW     vSourceLPLR,
          RESULT = SetCursorFirstEntityByString( vOrigW, "Operation", "Name", szTempString_0, "Dialog" );
          //:szLanguageType = vOrigW.SourceFile.LanguageType
          GetVariableFromAttribute( szLanguageType, 0, 'S', 2, vOrigW, "SourceFile", "LanguageType", "", 0 );
+         //:szSourceName = vOrigW.SourceFile.Name
+         GetVariableFromAttribute( szSourceName, 0, 'S', 33, vOrigW, "SourceFile", "Name", "", 0 );
+         //:// KJS 06/23/22 - When migrating a dialog, we are not copying all of the SourceFile(s). I am not sure
+         //:// why this set cursor was only looking at LanguageType. I am adding SourceFile.Name.
          //:SET CURSOR FIRST vNewW.SourceFile WHERE
+         //:    vNewW.SourceFile.Name = szSourceName AND
          //:    vNewW.SourceFile.LanguageType = szLanguageType
-         RESULT = SetCursorFirstEntityByString( vNewW, "SourceFile", "LanguageType", szLanguageType, "" );
+         RESULT = SetCursorFirstEntity( vNewW, "SourceFile", "" );
+         if ( RESULT > zCURSOR_UNCHANGED )
+         { 
+            while ( RESULT > zCURSOR_UNCHANGED && ( CompareAttributeToString( vNewW, "SourceFile", "Name", szSourceName ) != 0 || CompareAttributeToString( vNewW, "SourceFile", "LanguageType", szLanguageType ) != 0 ) )
+            { 
+               RESULT = SetCursorNextEntity( vNewW, "SourceFile", "" );
+            } 
+
+         } 
+
          //:IF RESULT < zCURSOR_SET
          if ( RESULT < zCURSOR_SET )
          { 
             //: // There was no SourceFileEntry of correct language type.
             //: // Add one, but make sure name is unique.
-            //: szSourceName = vNewW.Dialog.Tag
-            GetVariableFromAttribute( szSourceName, 0, 'S', 33, vNewW, "Dialog", "Tag", "", 0 );
+            //: //szSourceName = vNewW.Dialog.Tag
             //: SET CURSOR FIRST vNewW.SourceFile WHERE
             //:    vNewW.SourceFile.Name = szSourceName
             RESULT = SetCursorFirstEntityByString( vNewW, "SourceFile", "Name", szSourceName, "" );
@@ -460,11 +473,13 @@ oTZWDLGSO_CloneAction( zVIEW     vSourceLPLR,
                //: // A SourceFile entity by dialog name already exists. Modify name.
                //: nLength = GetStringLength( szSourceName )
                nLength = GetStringLength( szSourceName );
-               //: IF nLength >= 8
-               if ( nLength >= 8 )
+               //: // KJS - we used to have a maximum of 8 characters for meta names. Now I believe it's 32 but I know
+               //: // we have issues if the SourceFileName + Operation Name is too long. I will try cutting off at 15.
+               //: IF nLength >= 15
+               if ( nLength >= 15 )
                { 
-                  //: szSourceName = szSourceName[1:7]
-                  ZeidonStringCopy( szSourceName, 1, 0, szSourceName, 1, 7, 33 );
+                  //: szSourceName = szSourceName[1:14]
+                  ZeidonStringCopy( szSourceName, 1, 0, szSourceName, 1, 14, 33 );
                } 
 
                //: END
@@ -475,24 +490,54 @@ oTZWDLGSO_CloneAction( zVIEW     vSourceLPLR,
             //: END
             //: CreateMetaEntity( vSubtask, vNewW, "SourceFile", zPOS_AFTER )
             CreateMetaEntity( vSubtask, vNewW, "SourceFile", zPOS_AFTER );
-            //:  vNewW.SourceFile.Name         = szSourceName
+            //: vNewW.SourceFile.Name         = szSourceName
             SetAttributeFromString( vNewW, "SourceFile", "Name", szSourceName );
-            //:  vNewW.SourceFile.LanguageType = szLanguageType
+            //: vNewW.SourceFile.LanguageType = szLanguageType
             SetAttributeFromString( vNewW, "SourceFile", "LanguageType", szLanguageType );
-            //:  IF szLanguageType = "V"
+            //: IF szLanguageType = "V"
             if ( ZeidonStringCompare( szLanguageType, 1, 0, "V", 1, 0, 2 ) == 0 )
             { 
-               //:  vNewW.SourceFile.Extension = "VML"
+               //: vNewW.SourceFile.Extension = "VML"
                SetAttributeFromString( vNewW, "SourceFile", "Extension", "VML" );
                //:ELSE
             } 
             else
             { 
-               //:  vNewW.SourceFile.Extension = "C"
-               SetAttributeFromString( vNewW, "SourceFile", "Extension", "C" );
+               //: IF szLanguageType = "C"
+               if ( ZeidonStringCompare( szLanguageType, 1, 0, "C", 1, 0, 2 ) == 0 )
+               { 
+                  //: vNewW.SourceFile.Extension = "C"
+                  SetAttributeFromString( vNewW, "SourceFile", "Extension", "C" );
+                  //:ELSE
+               } 
+               else
+               { 
+                  //: IF szLanguageType = "J"
+                  if ( ZeidonStringCompare( szLanguageType, 1, 0, "J", 1, 0, 2 ) == 0 )
+                  { 
+                     //: vNewW.SourceFile.Extension = "Java"
+                     SetAttributeFromString( vNewW, "SourceFile", "Extension", "Java" );
+                     //:ELSE
+                  } 
+                  else
+                  { 
+                     //: IF szLanguageType = "S"
+                     if ( ZeidonStringCompare( szLanguageType, 1, 0, "S", 1, 0, 2 ) == 0 )
+                     { 
+                        //: vNewW.SourceFile.Extension = "Scala"
+                        SetAttributeFromString( vNewW, "SourceFile", "Extension", "Scala" );
+                     } 
+
+                     //: END
+                  } 
+
+                  //: END
+               } 
+
+               //: END
             } 
 
-            //:  END
+            //: END
          } 
 
          //:END
@@ -1755,7 +1800,6 @@ oTZWDLGSO_MergeWindowComponents( zVIEW     vNewW,
 //:               VIEW vOrigW BASED ON LOD TZWDLGSO,
 //:               VIEW vSubtask )
 
-//:   //VIEW TZDLG_List REGISTERED AS TZCMLPLO
 //:   VIEW TZDLG_List REGISTERED AS TZDIALOGS
 zOPER_EXPORT zSHORT OPERATION
 oTZWDLGSO_MergeWebMenus( zVIEW     vNewW,
@@ -2789,49 +2833,138 @@ oTZWDLGSO_DialogMigrate( zVIEW     NewDialog,
 
    //:END
 
+   //://///////////////////////////////////////////////////////////
    //:// Copy Operations and Source File
    //:// If the Dialog was created here, we'll simply copy over the SourceFile/Operation prototypes and files.
    //:// If the Dialog is being merged, we'll copy over SourceFile/Operation prototypes and files not marked to be be saved.
-   //:/*IF NewDialogFlag = "Y"
-   //:   // This is a new Dialog, copy over everything.
-   //:   FOR EACH OldDialog.SourceFile
-   //:      ExtensionName = OldDialog.SourceFile.Extension
-   //:      MetaName = OldDialog.SourceFile.Name
-   //:      CreateMetaEntity( vSubtask, NewDialog, "SourceFile", zPOS_AFTER )
-   //:      SetMatchingAttributesByName( NewDialog, "SourceFile", OldDialog, "SourceFile", zSET_NULL )
-   //:      FOR EACH OldDialog.Operation
-   //:         CreateMetaEntity( vSubtask, NewDialog, "Operation", zPOS_AFTER )
-   //:         SetMatchingAttributesByName( NewDialog, "Operation", OldDialog, "Operation", zSET_NULL )
-   //:         FOR EACH OldDialog.Parameter
-   //:            IF OldDialog.Parameter.ShortDesc = ""
-   //:               OldDialog.Parameter.ShortDesc = "Subtask"
-   //:            END
-   //:            CreateMetaEntity( vSubtask, NewDialog, "Parameter", zPOS_AFTER )
-   //:            SetMatchingAttributesByName( NewDialog, "Parameter", OldDialog, "Parameter", zSET_NULL )
-   //:         END
-   //:      END
-   //:      // Copy the .C file or the .VML file, if it exists, from the source directory to the
-   //:      // target directory.
-   //:      // Note that if it isn't there (it wasn't created in the source LPLR), we're going to
-   //:      // just ignore it; we're not going to return an error message.
-   //:      RetrieveViewForMetaList( vSubtask, CurrentLPLR, zSOURCE_ERD_META ) // Get a view for directory info.
-   //:      ResetViewFromSubobject( CurrentLPLR ) // Get visibility to root.
-   //:      IF ExtensionName = "C"
-   //:         SourceName = MetaName + ".C"
-   //:      ELSE
-   //:         SourceName = MetaName + ".VML"
-   //:      END
-   //:      SourceFileName1 = SourceLPLR.LPLR.PgmSrcDir + "\" + SourceName
-   //:      SourceFileName2 = CurrentLPLR.LPLR.PgmSrcDir + "\" + SourceName
-   //:      SysCopyFile( vSubtask, SourceFileName1, SourceFileName2, TRUE )
-   //:      DropView( CurrentLPLR )
-   //:   END
-   //:ELSE
-   //:   // This is an existing Dialog, copy over Operations not flagged to be saved.
-   //:   FOR EACH OldDialog.SourceFile
-   //:      //SET CURSOR FIRST ???
-   //:   END
-   //:END*/
+   //:// KJS 06/23/22 - This code had been commented out. Not sure why but I am going to try adding it back in...
+   //:IF NewDialogFlag = "Y"
+   if ( ZeidonStringCompare( NewDialogFlag, 1, 0, "Y", 1, 0, 2 ) == 0 )
+   { 
+      //:// This is a new Dialog, copy over everything.
+      //:FOR EACH OldDialog.SourceFile
+      RESULT = SetCursorFirstEntity( OldDialog, "SourceFile", "" );
+      while ( RESULT > zCURSOR_UNCHANGED )
+      { 
+         //:ExtensionName = OldDialog.SourceFile.Extension
+         GetVariableFromAttribute( ExtensionName, 0, 'S', 10, OldDialog, "SourceFile", "Extension", "", 0 );
+         //:MetaName = OldDialog.SourceFile.Name
+         GetVariableFromAttribute( MetaName, 0, 'S', 33, OldDialog, "SourceFile", "Name", "", 0 );
+         //:/* The operations have already been created in clone action process. We just want to copy the actual files.
+         //:CreateMetaEntity( vSubtask, NewDialog, "SourceFile", zPOS_AFTER )
+         //:SetMatchingAttributesByName( NewDialog, "SourceFile", OldDialog, "SourceFile", zSET_NULL )
+         //:FOR EACH OldDialog.Operation
+         //:   CreateMetaEntity( vSubtask, NewDialog, "Operation", zPOS_AFTER )
+         //:   SetMatchingAttributesByName( NewDialog, "Operation", OldDialog, "Operation", zSET_NULL )
+         //:   FOR EACH OldDialog.Parameter
+         //:      IF OldDialog.Parameter.ShortDesc = ""
+         //:         OldDialog.Parameter.ShortDesc = "Subtask"
+         //:      END
+         //:      CreateMetaEntity( vSubtask, NewDialog, "Parameter", zPOS_AFTER )
+         //:      SetMatchingAttributesByName( NewDialog, "Parameter", OldDialog, "Parameter", zSET_NULL )
+         //:   END
+         //:END
+         //:*/
+         //:// Copy the .C file or the .VML file, if it exists, from the source directory to the
+         //:// target directory.
+         //:// Note that if it isn't there (it wasn't created in the source LPLR), we're going to
+         //:// just ignore it; we're not going to return an error message.
+         //:RetrieveViewForMetaList( vSubtask, CurrentLPLR, zSOURCE_ERD_META ) // Get a view for directory info.
+         RetrieveViewForMetaList( vSubtask, &CurrentLPLR, zSOURCE_ERD_META );
+         //:ResetViewFromSubobject( CurrentLPLR ) // Get visibility to root.
+         ResetViewFromSubobject( CurrentLPLR );
+         //:IF ExtensionName = "C"
+         if ( ZeidonStringCompare( ExtensionName, 1, 0, "C", 1, 0, 10 ) == 0 )
+         { 
+            //:SourceName = MetaName + ".C"
+            ZeidonStringCopy( SourceName, 1, 0, MetaName, 1, 0, 33 );
+            ZeidonStringConcat( SourceName, 1, 0, ".C", 1, 0, 33 );
+            //:ELSE
+         } 
+         else
+         { 
+            //:IF ExtensionName = "VML"
+            if ( ZeidonStringCompare( ExtensionName, 1, 0, "VML", 1, 0, 10 ) == 0 )
+            { 
+               //:SourceName = MetaName + ".VML"
+               ZeidonStringCopy( SourceName, 1, 0, MetaName, 1, 0, 33 );
+               ZeidonStringConcat( SourceName, 1, 0, ".VML", 1, 0, 33 );
+               //:ELSE
+            } 
+            else
+            { 
+               //:// If java or scala, this should go in a different directory. Not addressing at the moment. 
+               //:IF ExtensionName = "Java"
+               if ( ZeidonStringCompare( ExtensionName, 1, 0, "Java", 1, 0, 10 ) == 0 )
+               { 
+                  //:SourceName = MetaName + ".java"
+                  ZeidonStringCopy( SourceName, 1, 0, MetaName, 1, 0, 33 );
+                  ZeidonStringConcat( SourceName, 1, 0, ".java", 1, 0, 33 );
+                  //:ELSE
+               } 
+               else
+               { 
+                  //:IF ExtensionName = "Scala"
+                  if ( ZeidonStringCompare( ExtensionName, 1, 0, "Scala", 1, 0, 10 ) == 0 )
+                  { 
+                     //:SourceName = MetaName + ".scala"
+                     ZeidonStringCopy( SourceName, 1, 0, MetaName, 1, 0, 33 );
+                     ZeidonStringConcat( SourceName, 1, 0, ".scala", 1, 0, 33 );
+                     //:ELSE
+                  } 
+                  else
+                  { 
+                     //:// Should never get here...
+                     //:SourceName = MetaName + ".VML"
+                     ZeidonStringCopy( SourceName, 1, 0, MetaName, 1, 0, 33 );
+                     ZeidonStringConcat( SourceName, 1, 0, ".VML", 1, 0, 33 );
+                  } 
+
+                  //:END
+               } 
+
+               //:END
+            } 
+
+            //:END
+         } 
+
+
+         //:END
+         //:SourceFileName1 = SourceLPLR.LPLR.PgmSrcDir + "\" + SourceName
+         GetStringFromAttribute( SourceFileName1, SourceLPLR, "LPLR", "PgmSrcDir" );
+         ZeidonStringConcat( SourceFileName1, 1, 0, "\\", 1, 0, 514 );
+         ZeidonStringConcat( SourceFileName1, 1, 0, SourceName, 1, 0, 514 );
+         //:SourceFileName2 = CurrentLPLR.LPLR.PgmSrcDir + "\" + SourceName
+         GetStringFromAttribute( SourceFileName2, CurrentLPLR, "LPLR", "PgmSrcDir" );
+         ZeidonStringConcat( SourceFileName2, 1, 0, "\\", 1, 0, 514 );
+         ZeidonStringConcat( SourceFileName2, 1, 0, SourceName, 1, 0, 514 );
+         //:SysCopyFile( vSubtask, SourceFileName1, SourceFileName2, TRUE )
+         SysCopyFile( vSubtask, SourceFileName1, SourceFileName2, TRUE );
+         //:DropView( CurrentLPLR )
+         DropView( CurrentLPLR );
+         RESULT = SetCursorNextEntity( OldDialog, "SourceFile", "" );
+      } 
+
+      //:END
+      //:ELSE
+   } 
+   else
+   { 
+      //:// This is an existing Dialog, copy over Operations not flagged to be saved.
+      //:FOR EACH OldDialog.SourceFile
+      RESULT = SetCursorFirstEntity( OldDialog, "SourceFile", "" );
+      while ( RESULT > zCURSOR_UNCHANGED )
+      { 
+         RESULT = SetCursorNextEntity( OldDialog, "SourceFile", "" );
+      } 
+
+      //:   //SET CURSOR FIRST ???
+      //:END
+   } 
+
+   //:END
+   //://////////////////////////////////////////////////////////////////////////////////////////////////
 
    //:// Create the subtask name and set cursor at beginning of object, both for the
    //:// correct building of the XWD in CommitMetaOI.

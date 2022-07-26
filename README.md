@@ -1,3 +1,10 @@
+Changes 07/26/22
+* Migration fix - copy over all source files (was not looping through all the source files for a dialog/object.
+* Changed some tools naming to "Information Centric". Not sure this is permanent...
+* JSP Generation - 
+  took out Calendar size in grid
+  MLEdit in grid
+
 Change made 05/25/22
 
 * DonC changes for LOD attribute derived attribute rule code. This is not complete, but mainly for viewing

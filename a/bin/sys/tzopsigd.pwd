@@ -1,4 +1,4 @@
-z1000-Zeidon    TZOPSIGD TZWDLGSO 04/23/13   15:18:54 1.0b0    
+z1000-Zeidon    TZOPSIGD TZWDLGSO 06/20/22   13:14:47 1.0b0    
 eDialog    1
 aTag       TZOPSIGD
 aDLL_Name  TZOPSIGD
@@ -648,8 +648,8 @@ aTag       OperUpdate
 aCaption   Operation
 aPSDLG_X   21
 aPSDLG_Y   12
-aSZDLG_X   25100679
-aSZDLG_Y   16908569
+aSZDLG_X   24052103
+aSZDLG_Y   22151540
 aZKey      1345858
 aDIL_Active Y
 aBarID     59451
@@ -1102,7 +1102,7 @@ aIdNbr     19
 aPSDLG_X   9
 aPSDLG_Y   162
 aSZDLG_X   367
-aSZDLG_Y   87
+aSZDLG_Y   143
 aSyncKey   8
 
 eCtrlCtrl  4
@@ -1114,7 +1114,7 @@ aIdNbr     22
 aPSDLG_X   9
 aPSDLG_Y   14
 aSZDLG_X   304
-aSZDLG_Y   66
+aSZDLG_Y   125
 aCtrlBOI   U34
 B]A`]`/D0/0!33@#_$#T`4UD`8!,]`$P`````*P!-`%,Q````
 `
@@ -1760,7 +1760,7 @@ aTag       DIL1
 aZKey      1345937
 aSubtype   1
 aPSDLG_X   0
-aPSDLG_Y   253
+aPSDLG_Y   306
 aSZDLG_X   363
 aSZDLG_Y   20
 aSyncKey   9999
@@ -2788,7 +2788,6 @@ eCtrlMapRelatedEntity 6
 eCtrlMapER_Attribute 6
 aName      Extension
 aZKey      1321280
-aLth       3
 aDesc      Override of VML standard
 
 eCtrlMapER_Domain 7
@@ -4550,6 +4549,9 @@ aName      TZOPGRPO
 aDesc      Group of Opers for Execution
 
 eViewObjRef 2
+aZKey      1345824
+aName      TZOPSIGK
+aDesc      List of Zeidon operations
 
 eLOD       3
 
@@ -5174,7 +5176,6 @@ i1024      1001
 i1025      998
 i1026      984
 i1028      78
-i1032      298
 i1033      1031
 i1035      1031
 i1036      78

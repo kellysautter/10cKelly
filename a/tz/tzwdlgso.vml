@@ -293,7 +293,6 @@ MergeWebMenus( VIEW vNewW  BASED ON LOD TZWDLGSO,
                VIEW vOrigW BASED ON LOD TZWDLGSO,
                VIEW vSubtask )
 
-   //VIEW TZDLG_List REGISTERED AS TZCMLPLO
    VIEW TZDLG_List REGISTERED AS TZDIALOGS
    VIEW TZWND_List BASED ON LOD  TZWDLGSO
    INTEGER nRC
@@ -842,30 +841,46 @@ CloneAction( VIEW vSourceLPLR BASED ON LOD TZCMLPLO,
          SET CURSOR FIRST vOrigW.Operation WITHIN vOrigW.Dialog WHERE
              vOrigW.Operation.Name = vOrigW.ActOper.Name
          szLanguageType = vOrigW.SourceFile.LanguageType
+         szSourceName = vOrigW.SourceFile.Name
+         // KJS 06/23/22 - When migrating a dialog, we are not copying all of the SourceFile(s). I am not sure
+         // why this set cursor was only looking at LanguageType. I am adding SourceFile.Name.
          SET CURSOR FIRST vNewW.SourceFile WHERE
+             vNewW.SourceFile.Name = szSourceName AND
              vNewW.SourceFile.LanguageType = szLanguageType
          IF RESULT < zCURSOR_SET
              // There was no SourceFileEntry of correct language type.
              // Add one, but make sure name is unique.
-             szSourceName = vNewW.Dialog.Tag
+             //szSourceName = vNewW.Dialog.Tag
              SET CURSOR FIRST vNewW.SourceFile WHERE
                 vNewW.SourceFile.Name = szSourceName
              IF RESULT >= zCURSOR_SET
                 // A SourceFile entity by dialog name already exists. Modify name.
                 nLength = GetStringLength( szSourceName )
-                IF nLength >= 8
-                   szSourceName = szSourceName[1:7]
+                // KJS - we used to have a maximum of 8 characters for meta names. Now I believe it's 32 but I know
+                // we have issues if the SourceFileName + Operation Name is too long. I will try cutting off at 15.
+                IF nLength >= 15
+                   szSourceName = szSourceName[1:14]
                 END
                 szSourceName = szSourceName + szLanguageType
              END
              CreateMetaEntity( vSubtask, vNewW, "SourceFile", zPOS_AFTER )
-              vNewW.SourceFile.Name         = szSourceName
-              vNewW.SourceFile.LanguageType = szLanguageType
-              IF szLanguageType = "V"
-                 vNewW.SourceFile.Extension = "VML"
-              ELSE
-                 vNewW.SourceFile.Extension = "C"
-              END
+             vNewW.SourceFile.Name         = szSourceName
+             vNewW.SourceFile.LanguageType = szLanguageType
+             IF szLanguageType = "V"
+                vNewW.SourceFile.Extension = "VML"
+             ELSE
+                IF szLanguageType = "C"
+                   vNewW.SourceFile.Extension = "C"
+                ELSE
+                   IF szLanguageType = "J"
+                      vNewW.SourceFile.Extension = "Java"
+                   ELSE
+                      IF szLanguageType = "S"
+                         vNewW.SourceFile.Extension = "Scala"
+                      END
+                   END
+                END
+             END
          END
 
          CreateMetaEntity( vSubtask, vNewW, "Operation", zPOS_AFTER )
@@ -1418,14 +1433,17 @@ DialogMigrate( VIEW          NewDialog  BASED ON LOD TZWDLGSO,
       END
    END
 
+   /////////////////////////////////////////////////////////////
    // Copy Operations and Source File
    // If the Dialog was created here, we'll simply copy over the SourceFile/Operation prototypes and files.
    // If the Dialog is being merged, we'll copy over SourceFile/Operation prototypes and files not marked to be be saved.
-   /*IF NewDialogFlag = "Y"
+   // KJS 06/23/22 - This code had been commented out. Not sure why but I am going to try adding it back in...
+   IF NewDialogFlag = "Y"
       // This is a new Dialog, copy over everything.
       FOR EACH OldDialog.SourceFile
          ExtensionName = OldDialog.SourceFile.Extension
          MetaName = OldDialog.SourceFile.Name
+         /* The operations have already been created in clone action process. We just want to copy the actual files.
          CreateMetaEntity( vSubtask, NewDialog, "SourceFile", zPOS_AFTER )
          SetMatchingAttributesByName( NewDialog, "SourceFile", OldDialog, "SourceFile", zSET_NULL )
          FOR EACH OldDialog.Operation
@@ -1439,6 +1457,7 @@ DialogMigrate( VIEW          NewDialog  BASED ON LOD TZWDLGSO,
                SetMatchingAttributesByName( NewDialog, "Parameter", OldDialog, "Parameter", zSET_NULL )
             END
          END
+         */
          // Copy the .C file or the .VML file, if it exists, from the source directory to the
          // target directory.
          // Note that if it isn't there (it wasn't created in the source LPLR), we're going to
@@ -1448,7 +1467,22 @@ DialogMigrate( VIEW          NewDialog  BASED ON LOD TZWDLGSO,
          IF ExtensionName = "C"
             SourceName = MetaName + ".C"
          ELSE
-            SourceName = MetaName + ".VML"
+            IF ExtensionName = "VML"
+               SourceName = MetaName + ".VML"
+            ELSE
+               // If java or scala, this should go in a different directory. Not addressing at the moment. 
+               IF ExtensionName = "Java"
+                  SourceName = MetaName + ".java"
+               ELSE
+                  IF ExtensionName = "Scala"
+                     SourceName = MetaName + ".scala"
+                  ELSE
+                     // Should never get here...
+                     SourceName = MetaName + ".VML"
+                  END
+               END
+            END
+        
          END
          SourceFileName1 = SourceLPLR.LPLR.PgmSrcDir + "\" + SourceName
          SourceFileName2 = CurrentLPLR.LPLR.PgmSrcDir + "\" + SourceName
@@ -1460,7 +1494,8 @@ DialogMigrate( VIEW          NewDialog  BASED ON LOD TZWDLGSO,
       FOR EACH OldDialog.SourceFile
          //SET CURSOR FIRST ???
       END
-   END*/
+   END
+   //////////////////////////////////////////////////////////////////////////////////////////////////
 
    // Create the subtask name and set cursor at beginning of object, both for the
    // correct building of the XWD in CommitMetaOI.
@@ -1473,9 +1508,9 @@ DialogMigrate( VIEW          NewDialog  BASED ON LOD TZWDLGSO,
 END
 
 /*************************************************************************************************
-**    
+**
 **    OPERATION: ConvertListBoxToGrid
-**    
+**
 *************************************************************************************************/
 TRANSFORMATION OPERATION
 ConvertListBoxToGrid( VIEW vControl BASED ON LOD TZWDLGSO )
@@ -1487,57 +1522,57 @@ ConvertListBoxToGrid( VIEW vControl BASED ON LOD TZWDLGSO )
    INTEGER       Count
 
    // Convert the current control (if it is a ListBox) to a grid to ease conversion of Windows dialogs to web dialogs.
-   
+
    // Make sure this is a ListBox.
    IF vControl.ControlDef.Tag != "ListBox"
       MessageSend( vControl, "WD00204", "Dialog Clone",
                    "The current control is not a List Box.", zMSGQ_OBJECT_CONSTRAINT_WARNING, 0 )
       RETURN -1
    END
-   
+
    // Change the ControlDef for the main control.
    GetViewByName( vPE, "TZPESRCO", vControl, zLEVEL_TASK )
    SET CURSOR FIRST vPE.ControlDef WHERE vPE.ControlDef.Tag = "Grid"
-   EXCLUDE vControl.ControlDef 
-   INCLUDE vControl.ControlDef FROM vPE.ControlDef 
+   EXCLUDE vControl.ControlDef
+   INCLUDE vControl.ControlDef FROM vPE.ControlDef
    szGridName = vControl.Control.Tag + "Grid"
    vControl.Control.Tag = szGridName
-   
+
    // Add a select subcontrol and modify the other subcontrols, if there is a subcontrol.
    SET CURSOR FIRST vControl.CtrlCtrl
    IF RESULT >= zCURSOR_SET
       SetViewToSubobject( vControl, "CtrlCtrl" )    // Step down to CtrlCtrl
-   
+
       // Add a CheckBox control as first control in grid. Map it the same as the first field, so there isn't an error on update.
       CreateViewFromView( vControl2, vControl )     // vControl2 is pointing to first regular Control.
       CreateMetaEntity( vControl, vControl, "Control", zPOS_BEFORE )
       vControl.Control.Tag = szGridName + "Select"
       vControl.Control.Text = "Sel"
       SET CURSOR FIRST vPE.ControlDef WHERE vPE.ControlDef.Tag = "CheckBox"
-      INCLUDE vControl.ControlDef FROM vPE.ControlDef 
+      INCLUDE vControl.ControlDef FROM vPE.ControlDef
       vControl.Control.PSDLG_X = 0
       vControl.Control.PSDLG_Y = 0
       vControl.Control.SZDLG_X = 15
       vControl.Control.SZDLG_Y = 15
       CurrentPOSX = 15
       CreateMetaEntity( vControl, vControl, "CtrlMap", zPOS_BEFORE )
-      INCLUDE vControl.CtrlMapLOD_Attribute FROM vControl2.CtrlMapLOD_Attribute 
-      INCLUDE vControl.CtrlMapView          FROM vControl2.CtrlMapView 
+      INCLUDE vControl.CtrlMapLOD_Attribute FROM vControl2.CtrlMapLOD_Attribute
+      INCLUDE vControl.CtrlMapView          FROM vControl2.CtrlMapView
       DropView( vControl2 )
-      
+
       // Change the ControlDef for each subcontrol.
       SET CURSOR FIRST vPE.ControlDef WHERE vPE.ControlDef.Tag = "GridEditCtl"
       Count = 0
-      FOR EACH vControl.Control 
+      FOR EACH vControl.Control
          Count = Count + 1
          IF Count > 1    // We skip the first record we just created.
-            EXCLUDE vControl.ControlDef 
-            INCLUDE vControl.ControlDef FROM vPE.ControlDef 
+            EXCLUDE vControl.ControlDef
+            INCLUDE vControl.ControlDef FROM vPE.ControlDef
             vControl.Control.PSDLG_X = CurrentPOSX                  // Position is from determined from last iteration.
             CurrentPOSX = CurrentPOSX + vControl.Control.SZDLG_X    // Increment position past length of Control.
          END
       END
-       
+
       ResetViewFromSubobject( vControl )       // Step back up to Grid Control
    END
 

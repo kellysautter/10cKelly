@@ -2042,6 +2042,20 @@ GenJSPJ_CrteMLEdit( zVIEW vvDialog0,
                     zLONG lOffsetY9,
                     zPCHAR pchstrRepeatGrpKey10 );
 
+
+zOPER_EXPORT zSHORT OPERATION
+GenJSPJ_CrteMLEditGrd( zVIEW vvDialog0,
+                       zLONG lFile1,
+                       zPCHAR pchWriteBuffer2,
+                       zPCHAR pchIndent3,
+                       zPCHAR pchCtrlTag4,
+                       zPCHAR pchTableRowFlag5,
+                       zPCHAR pchJustify6,
+                       zPCHAR pchNoPositioning7,
+                       zLONG lOffsetX8,
+                       zLONG lOffsetY9,
+                       zPCHAR pchstrRepeatGrpKey10 );
+
 zOPER_EXPORT zVOID OPERATION
 GenJSPJ_CrteListBox( zVIEW vvDialog0,
                      zLONG lFile1,
