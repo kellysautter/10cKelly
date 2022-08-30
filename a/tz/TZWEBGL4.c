@@ -826,6 +826,8 @@ GenJSPJ_CrteMLEditGrd( zVIEW     vDialog,
    zCHAR     szMaxStringLth[ 11 ] = { 0 }; 
    //:STRING ( 1 )   szTinyMCEFlag
    zCHAR     szTinyMCEFlag[ 2 ] = { 0 }; 
+   //:STRING ( 100 ) szDisabled
+   zCHAR     szDisabled[ 101 ] = { 0 }; 
    //:DECIMAL        dDLUnits
    ZDecimal  dDLUnits = 0.0; 
    //:INTEGER        X_Size
@@ -957,6 +959,9 @@ GenJSPJ_CrteMLEditGrd( zVIEW     vDialog,
    //:zIntegerToString( szWidth, 10, vDialog.Control.SZDLG_X * dDLUnits )
    //:zIntegerToString( szHeight, 10, vDialog.Control.SZDLG_Y * dDLUnits )
    //:*/
+
+   //:CreateDisabledString( vDialog, szDisabled )   
+   CreateDisabledString( vDialog, szDisabled );
 
    //:IF vDialog.Control.VisibleBorder = "Y" AND  szNoPositioning != "S"
    if ( CompareAttributeToString( vDialog, "Control", "VisibleBorder", "Y" ) == 0 && ZeidonStringCompare( szNoPositioning, 1, 0, "S", 1, 0, 2 ) != 0 )
@@ -1092,7 +1097,7 @@ GenJSPJ_CrteMLEditGrd( zVIEW     vDialog,
       else
       { 
          //:szWriteBuffer = szWriteBuffer + "<textarea name=^" + szCtrlTag + szRepeatGrpKey + "^ id=^" + szCtrlTag + szRepeatGrpKey +
-         //:                "^ <%=strDisabled%> class=^" + szClass + "^ " + szTitleHTML + szAbsoluteStyle + szActionCode + ">" +
+         //:                "^ <%=strDisabled%> class=^" + szClass + "^ " + szDisabled + szTitleHTML + szAbsoluteStyle + szActionCode + ">" +
          //:             // "^ rows="15" cols="80" style="width: 80%">" +
          //:                "<%=str" + szCtrlTag + "%></textarea></td>"
          ZeidonStringConcat( szWriteBuffer, 1, 0, "<textarea name=^", 1, 0, 10001 );
@@ -1104,6 +1109,7 @@ GenJSPJ_CrteMLEditGrd( zVIEW     vDialog,
          ZeidonStringConcat( szWriteBuffer, 1, 0, "^ <%=strDisabled%> class=^", 1, 0, 10001 );
          ZeidonStringConcat( szWriteBuffer, 1, 0, szClass, 1, 0, 10001 );
          ZeidonStringConcat( szWriteBuffer, 1, 0, "^ ", 1, 0, 10001 );
+         ZeidonStringConcat( szWriteBuffer, 1, 0, szDisabled, 1, 0, 10001 );
          ZeidonStringConcat( szWriteBuffer, 1, 0, szTitleHTML, 1, 0, 10001 );
          ZeidonStringConcat( szWriteBuffer, 1, 0, szAbsoluteStyle, 1, 0, 10001 );
          ZeidonStringConcat( szWriteBuffer, 1, 0, szActionCode, 1, 0, 10001 );
@@ -1136,7 +1142,7 @@ GenJSPJ_CrteMLEditGrd( zVIEW     vDialog,
       //:END
       //:CreateTabIndexString( vDialog, szTabIndex )
       CreateTabIndexString( vDialog, szTabIndex );
-      //:szWriteBuffer = szWriteBuffer + "<textarea name=^" + szCtrlTag + szRepeatGrpKey + "^ id=^" + szCtrlTag + szRepeatGrpKey + "^ <%=strDisabled%> " + szTitleHTML +
+      //:szWriteBuffer = szWriteBuffer + "<textarea name=^" + szCtrlTag + szRepeatGrpKey + "^ id=^" + szCtrlTag + szRepeatGrpKey + "^ <%=strDisabled%> " + szDisabled + szTitleHTML +
       //:                szAbsoluteStyle + szTabIndex + szClass + szActionCode + " wrap=^wrap^>" +
       //:                "<%=str" + szCtrlTag + "%></textarea></td>"
       ZeidonStringConcat( szWriteBuffer, 1, 0, "<textarea name=^", 1, 0, 10001 );
@@ -1146,6 +1152,7 @@ GenJSPJ_CrteMLEditGrd( zVIEW     vDialog,
       ZeidonStringConcat( szWriteBuffer, 1, 0, szCtrlTag, 1, 0, 10001 );
       ZeidonStringConcat( szWriteBuffer, 1, 0, szRepeatGrpKey, 1, 0, 10001 );
       ZeidonStringConcat( szWriteBuffer, 1, 0, "^ <%=strDisabled%> ", 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, szDisabled, 1, 0, 10001 );
       ZeidonStringConcat( szWriteBuffer, 1, 0, szTitleHTML, 1, 0, 10001 );
       ZeidonStringConcat( szWriteBuffer, 1, 0, szAbsoluteStyle, 1, 0, 10001 );
       ZeidonStringConcat( szWriteBuffer, 1, 0, szTabIndex, 1, 0, 10001 );
@@ -9096,6 +9103,8 @@ GenJSPJ_CrteMLEdit( zVIEW     vDialog,
    zCHAR     szActionCode[ 501 ] = { 0 }; 
    //:STRING ( 256 ) szText
    zCHAR     szText[ 257 ] = { 0 }; 
+   //:STRING ( 100 ) szDisabled
+   zCHAR     szDisabled[ 101 ] = { 0 }; 
    //:STRING ( 10 )  szMaxStringLth
    zCHAR     szMaxStringLth[ 11 ] = { 0 }; 
    //:STRING ( 1 )   szTinyMCEFlag
@@ -9513,6 +9522,9 @@ GenJSPJ_CrteMLEdit( zVIEW     vDialog,
 
    //:END
 
+   //:CreateDisabledString( vDialog, szDisabled )   
+   CreateDisabledString( vDialog, szDisabled );
+
    //:/* 10d code Doug has
    //:PIX_PER_DU( vDialog, dDLUnits )
    //:zIntegerToString( szWidth, 10, vDialog.Control.SZDLG_X * dDLUnits )
@@ -9649,7 +9661,7 @@ GenJSPJ_CrteMLEdit( zVIEW     vDialog,
       else
       { 
          //:szWriteBuffer = "<textarea name=^" + szCtrlTag + szRepeatGrpKey + "^ id=^" + szCtrlTag + szRepeatGrpKey +
-         //:                "^ <%=strDisabled%> class=^" + szClass + "^ " + szTitleHTML + szAbsoluteStyle + szActionCode + ">" +
+         //:                "^ <%=strDisabled%> class=^" + szClass + "^ " + szDisabled + szTitleHTML + szAbsoluteStyle + szActionCode + ">" +
          //:             // "^ rows="15" cols="80" style="width: 80%">" +
          //:                "<%=strErrorMapValue%></textarea>"
          ZeidonStringCopy( szWriteBuffer, 1, 0, "<textarea name=^", 1, 0, 10001 );
@@ -9661,6 +9673,7 @@ GenJSPJ_CrteMLEdit( zVIEW     vDialog,
          ZeidonStringConcat( szWriteBuffer, 1, 0, "^ <%=strDisabled%> class=^", 1, 0, 10001 );
          ZeidonStringConcat( szWriteBuffer, 1, 0, szClass, 1, 0, 10001 );
          ZeidonStringConcat( szWriteBuffer, 1, 0, "^ ", 1, 0, 10001 );
+         ZeidonStringConcat( szWriteBuffer, 1, 0, szDisabled, 1, 0, 10001 );
          ZeidonStringConcat( szWriteBuffer, 1, 0, szTitleHTML, 1, 0, 10001 );
          ZeidonStringConcat( szWriteBuffer, 1, 0, szAbsoluteStyle, 1, 0, 10001 );
          ZeidonStringConcat( szWriteBuffer, 1, 0, szActionCode, 1, 0, 10001 );
@@ -9691,7 +9704,7 @@ GenJSPJ_CrteMLEdit( zVIEW     vDialog,
       //:END
       //:CreateTabIndexString( vDialog, szTabIndex )
       CreateTabIndexString( vDialog, szTabIndex );
-      //:szWriteBuffer = "<textarea name=^" + szCtrlTag + szRepeatGrpKey + "^ id=^" + szCtrlTag + szRepeatGrpKey + "^ <%=strDisabled%> " + szTitleHTML +
+      //:szWriteBuffer = "<textarea name=^" + szCtrlTag + szRepeatGrpKey + "^ id=^" + szCtrlTag + szRepeatGrpKey + "^ <%=strDisabled%> " + szDisabled + szTitleHTML +
       //:                szAbsoluteStyle + szTabIndex + szClass + szActionCode + " wrap=^wrap^>" +
       //:                "<%=strErrorMapValue%></textarea>"
       ZeidonStringCopy( szWriteBuffer, 1, 0, "<textarea name=^", 1, 0, 10001 );
@@ -9701,6 +9714,7 @@ GenJSPJ_CrteMLEdit( zVIEW     vDialog,
       ZeidonStringConcat( szWriteBuffer, 1, 0, szCtrlTag, 1, 0, 10001 );
       ZeidonStringConcat( szWriteBuffer, 1, 0, szRepeatGrpKey, 1, 0, 10001 );
       ZeidonStringConcat( szWriteBuffer, 1, 0, "^ <%=strDisabled%> ", 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, szDisabled, 1, 0, 10001 );
       ZeidonStringConcat( szWriteBuffer, 1, 0, szTitleHTML, 1, 0, 10001 );
       ZeidonStringConcat( szWriteBuffer, 1, 0, szAbsoluteStyle, 1, 0, 10001 );
       ZeidonStringConcat( szWriteBuffer, 1, 0, szTabIndex, 1, 0, 10001 );
@@ -15842,6 +15856,8 @@ GenJSPJ_CrteComboBox( zVIEW     vDialog,
    //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
    WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 );
 
+   //:CreateDisabledString( vDialog, szDisabled )
+   CreateDisabledString( vDialog, szDisabled );
 
    //:lSubtype = vDialog.Control.Subtype
    GetIntegerFromAttribute( &lSubtype, vDialog, "Control", "Subtype" );
@@ -15914,8 +15930,6 @@ GenJSPJ_CrteComboBox( zVIEW     vDialog,
 
       //:END            
 
-      //:CreateDisabledString( vDialog, szDisabled )
-      CreateDisabledString( vDialog, szDisabled );
       //:IF szRepeatGrpKey = ""
       if ( ZeidonStringCompare( szRepeatGrpKey, 1, 0, "", 1, 0, 101 ) == 0 )
       { 
@@ -16574,7 +16588,7 @@ GenJSPJ_CrteComboBox( zVIEW     vDialog,
 
       //:END
 
-      //:szWriteBuffer = "<select " + szClass + " name=^" + szCtrlTag + szRepeatGrpKey + "^ id=^" + szCtrlTag + szRepeatGrpKey + "^ <%=strDisabled%> size=^1^" +
+      //:szWriteBuffer = "<select " + szClass + " name=^" + szCtrlTag + szRepeatGrpKey + "^ id=^" + szCtrlTag + szRepeatGrpKey + "^ <%=strDisabled%> size=^1^ " +
       //:                szTitleHTML + szStyle + szDisabled + szSelectAction + "=^" + szCtrlTag + szSelectFunction + "( )^" + ">"
       ZeidonStringCopy( szWriteBuffer, 1, 0, "<select ", 1, 0, 10001 );
       ZeidonStringConcat( szWriteBuffer, 1, 0, szClass, 1, 0, 10001 );
@@ -16584,7 +16598,7 @@ GenJSPJ_CrteComboBox( zVIEW     vDialog,
       ZeidonStringConcat( szWriteBuffer, 1, 0, "^ id=^", 1, 0, 10001 );
       ZeidonStringConcat( szWriteBuffer, 1, 0, szCtrlTag, 1, 0, 10001 );
       ZeidonStringConcat( szWriteBuffer, 1, 0, szRepeatGrpKey, 1, 0, 10001 );
-      ZeidonStringConcat( szWriteBuffer, 1, 0, "^ <%=strDisabled%> size=^1^", 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, "^ <%=strDisabled%> size=^1^ ", 1, 0, 10001 );
       ZeidonStringConcat( szWriteBuffer, 1, 0, szTitleHTML, 1, 0, 10001 );
       ZeidonStringConcat( szWriteBuffer, 1, 0, szStyle, 1, 0, 10001 );
       ZeidonStringConcat( szWriteBuffer, 1, 0, szDisabled, 1, 0, 10001 );

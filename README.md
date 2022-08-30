@@ -1,9 +1,16 @@
+Changes 08/12/22
+
+* Disable in Common was not working for MLEdit and for "Select Entity" combo box. This has been fixed.
+
 Changes 07/26/22
 * Migration fix - copy over all source files (was not looping through all the source files for a dialog/object.
 * Changed some tools naming to "Information Centric". Not sure this is permanent...
 * JSP Generation - 
   took out Calendar size in grid
   MLEdit in grid
+
+Change 07/27/22
+* For grids, when a fields was "", we were putting in &nbsp. Now keeps as "".
 
 Change made 05/25/22
 
@@ -46,4 +53,9 @@ Changes made to 10c (update on 12/3/2021):
          // If we are generating to bootstrap with a zeidon.ini setting of BootstrapOuterCard=Y, and we are on the most outer group box,
          // we are going to surround that <div> with a <div class='card card-body mb-2'. This is so that the developer does not have
          // to create so many divs within divs on the page.
+
+Changes made 08/17/21 
+
+* Automatically set the xto1 flag for LODs (if they are saved with a database) both when saving a LOD and when
+  building XODs in the TE.
 

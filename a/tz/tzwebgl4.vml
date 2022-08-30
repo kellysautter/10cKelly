@@ -1191,6 +1191,7 @@ GenJSPJ_CrteComboBox( VIEW vDialog BASED ON LOD TZWDLGSO,
    szWriteBuffer = "%>"
    WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
 
+   CreateDisabledString( vDialog, szDisabled )
 
    lSubtype = vDialog.Control.Subtype
    nRC = AreBitsSetInFlag( lSubtype, 61440 ) // 0x0000F000
@@ -1231,7 +1232,6 @@ GenJSPJ_CrteComboBox( VIEW vDialog BASED ON LOD TZWDLGSO,
          szKeyPressCode = szKeyPressCode + " onkeypress=^return _OnEnter( event )^"
       END            
 
-      CreateDisabledString( vDialog, szDisabled )
       IF szRepeatGrpKey = ""
          szWriteBuffer = "<select " + szClass + " name=^" + szCtrlTag + szRepeatGrpKey + "^ id=^" + szCtrlTag + szRepeatGrpKey + "^ <%=strDisabled%> size=^1^ " +
                          szTitleHTML + szStyle + szDisabled + szSelectAction + "=^" + szCtrlTag + szSelectFunction + "( )^ " + szKeyPressCode + ">"
@@ -1548,7 +1548,7 @@ GenJSPJ_CrteComboBox( VIEW vDialog BASED ON LOD TZWDLGSO,
          szSelectFunction = "OnChange"
       END
       
-      szWriteBuffer = "<select " + szClass + " name=^" + szCtrlTag + szRepeatGrpKey + "^ id=^" + szCtrlTag + szRepeatGrpKey + "^ <%=strDisabled%> size=^1^" +
+      szWriteBuffer = "<select " + szClass + " name=^" + szCtrlTag + szRepeatGrpKey + "^ id=^" + szCtrlTag + szRepeatGrpKey + "^ <%=strDisabled%> size=^1^ " +
                       szTitleHTML + szStyle + szDisabled + szSelectAction + "=^" + szCtrlTag + szSelectFunction + "( )^" + ">"
       WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
 
@@ -4970,6 +4970,7 @@ GenJSPJ_CrteMLEdit( VIEW vDialog BASED ON LOD TZWDLGSO,
    STRING ( 50 )  szActionName
    STRING ( 500 ) szActionCode
    STRING ( 256 ) szText
+   STRING ( 100 ) szDisabled
    STRING ( 10 )  szMaxStringLth
    STRING ( 1 )   szTinyMCEFlag
    DECIMAL        dDLUnits
@@ -5133,6 +5134,8 @@ GenJSPJ_CrteMLEdit( VIEW vDialog BASED ON LOD TZWDLGSO,
    END
    END
 
+   CreateDisabledString( vDialog, szDisabled )   
+
    /* 10d code Doug has
    PIX_PER_DU( vDialog, dDLUnits )
    zIntegerToString( szWidth, 10, vDialog.Control.SZDLG_X * dDLUnits )
@@ -5192,7 +5195,7 @@ GenJSPJ_CrteMLEdit( VIEW vDialog BASED ON LOD TZWDLGSO,
          szWriteBuffer = "<div class=^" + szClass + "^ name=^" + szCtrlTag + "^ id=^" + szCtrlTag + "^ style=^width:" + szWidth + "px;height:" + szHeight + "px;position:absolute;left:0px;top:0px;^><%=strErrorMapValue%></div></div>"
       ELSE
          szWriteBuffer = "<textarea name=^" + szCtrlTag + szRepeatGrpKey + "^ id=^" + szCtrlTag + szRepeatGrpKey +
-                         "^ <%=strDisabled%> class=^" + szClass + "^ " + szTitleHTML + szAbsoluteStyle + szActionCode + ">" +
+                         "^ <%=strDisabled%> class=^" + szClass + "^ " + szDisabled + szTitleHTML + szAbsoluteStyle + szActionCode + ">" +
                       // "^ rows="15" cols="80" style="width: 80%">" +
                          "<%=strErrorMapValue%></textarea>"
       END
@@ -5204,7 +5207,7 @@ GenJSPJ_CrteMLEdit( VIEW vDialog BASED ON LOD TZWDLGSO,
          szClass = " class=^" + vDialog.Control.CSS_Class + "^"
       END
       CreateTabIndexString( vDialog, szTabIndex )
-      szWriteBuffer = "<textarea name=^" + szCtrlTag + szRepeatGrpKey + "^ id=^" + szCtrlTag + szRepeatGrpKey + "^ <%=strDisabled%> " + szTitleHTML +
+      szWriteBuffer = "<textarea name=^" + szCtrlTag + szRepeatGrpKey + "^ id=^" + szCtrlTag + szRepeatGrpKey + "^ <%=strDisabled%> " + szDisabled + szTitleHTML +
                       szAbsoluteStyle + szTabIndex + szClass + szActionCode + " wrap=^wrap^>" +
                       "<%=strErrorMapValue%></textarea>"
 
@@ -5251,6 +5254,7 @@ GenJSPJ_CrteMLEditGrd( VIEW vDialog BASED ON LOD TZWDLGSO,
    STRING ( 256 ) szText
    STRING ( 10 )  szMaxStringLth
    STRING ( 1 )   szTinyMCEFlag
+   STRING ( 100 ) szDisabled
    DECIMAL        dDLUnits
    INTEGER        X_Size
    INTEGER        Y_Size
@@ -5303,6 +5307,8 @@ GenJSPJ_CrteMLEditGrd( VIEW vDialog BASED ON LOD TZWDLGSO,
    zIntegerToString( szWidth, 10, vDialog.Control.SZDLG_X * dDLUnits )
    zIntegerToString( szHeight, 10, vDialog.Control.SZDLG_Y * dDLUnits )
    */
+
+   CreateDisabledString( vDialog, szDisabled )   
 
    IF vDialog.Control.VisibleBorder = "Y" AND  szNoPositioning != "S"
       zAppendQuotedString( szAbsoluteStyle, "border:solid;border-width:4px;border-style:groove;", "style=", "^" )
@@ -5359,7 +5365,7 @@ GenJSPJ_CrteMLEditGrd( VIEW vDialog BASED ON LOD TZWDLGSO,
          szWriteBuffer = "<div class=^" + szClass + "^ name=^" + szCtrlTag + "^ id=^" + szCtrlTag + "^ style=^width:" + szWidth + "px;height:" + szHeight + "px;position:absolute;left:0px;top:0px;^><%=strErrorMapValue%></div></div>"
       ELSE
          szWriteBuffer = szWriteBuffer + "<textarea name=^" + szCtrlTag + szRepeatGrpKey + "^ id=^" + szCtrlTag + szRepeatGrpKey +
-                         "^ <%=strDisabled%> class=^" + szClass + "^ " + szTitleHTML + szAbsoluteStyle + szActionCode + ">" +
+                         "^ <%=strDisabled%> class=^" + szClass + "^ " + szDisabled + szTitleHTML + szAbsoluteStyle + szActionCode + ">" +
                       // "^ rows="15" cols="80" style="width: 80%">" +
                          "<%=str" + szCtrlTag + "%></textarea></td>"
       END
@@ -5371,7 +5377,7 @@ GenJSPJ_CrteMLEditGrd( VIEW vDialog BASED ON LOD TZWDLGSO,
          szClass = " class=^" + vDialog.Control.CSS_Class + "^"
       END
       CreateTabIndexString( vDialog, szTabIndex )
-      szWriteBuffer = szWriteBuffer + "<textarea name=^" + szCtrlTag + szRepeatGrpKey + "^ id=^" + szCtrlTag + szRepeatGrpKey + "^ <%=strDisabled%> " + szTitleHTML +
+      szWriteBuffer = szWriteBuffer + "<textarea name=^" + szCtrlTag + szRepeatGrpKey + "^ id=^" + szCtrlTag + szRepeatGrpKey + "^ <%=strDisabled%> " + szDisabled + szTitleHTML +
                       szAbsoluteStyle + szTabIndex + szClass + szActionCode + " wrap=^wrap^>" +
                       "<%=str" + szCtrlTag + "%></textarea></td>"
    END

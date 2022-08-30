@@ -8883,10 +8883,12 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
                         } 
                         else
                         { 
-                           //:szWriteBuffer = "            " + szControlTag + " = ^&nbsp^;"
+                           //:// KJS 07/27/22 - Try taking out the &nbsp and see what happens. Sorting on grid doesn't work when this is set. 
+                           //://szWriteBuffer = "            " + szControlTag + " = ^&nbsp^;"
+                           //:szWriteBuffer = "            " + szControlTag + " = ^^;"
                            ZeidonStringCopy( szWriteBuffer, 1, 0, "            ", 1, 0, 10001 );
                            ZeidonStringConcat( szWriteBuffer, 1, 0, szControlTag, 1, 0, 10001 );
-                           ZeidonStringConcat( szWriteBuffer, 1, 0, " = ^&nbsp^;", 1, 0, 10001 );
+                           ZeidonStringConcat( szWriteBuffer, 1, 0, " = ^^;", 1, 0, 10001 );
                         } 
 
                         //:END

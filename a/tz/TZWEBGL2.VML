@@ -3535,7 +3535,9 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
                            szCtrlCtrlType = "ComboBox" OR szCtrlCtrlType = "GridComboCtl" OR szCtrlCtrlType = "RadioGrp"
                            szWriteBuffer = "            " + szControlTag + " = ^^;"
                         ELSE
-                           szWriteBuffer = "            " + szControlTag + " = ^&nbsp^;"
+                           // KJS 07/27/22 - Try taking out the &nbsp and see what happens. Sorting on grid doesn't work when this is set. 
+                           //szWriteBuffer = "            " + szControlTag + " = ^&nbsp^;"
+                           szWriteBuffer = "            " + szControlTag + " = ^^;"
                         END
                         WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
                      END
