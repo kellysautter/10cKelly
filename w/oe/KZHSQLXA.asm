@@ -1,4 +1,4 @@
-	TITLE	C:\10C\a\oe\KZHSQLXA.C
+	TITLE	c:\10c\a\oe\KZHSQLXA.C
 	.386P
 include listing.inc
 if @Version gt 510
@@ -33,7 +33,7 @@ _DATA	ENDS
 ;	COMDAT ??_C@_04FCOP@Type?$AA@
 _DATA	SEGMENT DWORD USE32 PUBLIC 'DATA'
 _DATA	ENDS
-;	COMDAT ??_C@_0BF@GGPK@Nov?521?52019?511?328?331?$AA@
+;	COMDAT ??_C@_0BF@NGFD@Oct?523?52023?508?358?319?$AA@
 _DATA	SEGMENT DWORD USE32 PUBLIC 'DATA'
 _DATA	ENDS
 ;	COMDAT ??_C@_0CD@BONL@Compile?5date?1time?5for?5KZHSQLXX?5i@
@@ -509,7 +509,7 @@ PUBLIC	??_C@_0CB@LKIL@Can?8t?5find?5DB?9Handler?5work?5view?4@ ; `string'
 PUBLIC	??_C@_0L@PDLM@Zeidon?5DBH?$AA@			; `string'
 PUBLIC	??_C@_00A@?$AA@					; `string'
 PUBLIC	??_C@_04FCOP@Type?$AA@				; `string'
-PUBLIC	??_C@_0BF@GGPK@Nov?521?52019?511?328?331?$AA@	; `string'
+PUBLIC	??_C@_0BF@NGFD@Oct?523?52023?508?358?319?$AA@	; `string'
 PUBLIC	??_C@_0CD@BONL@Compile?5date?1time?5for?5KZHSQLXX?5i@ ; `string'
 EXTRN	_GetViewByName@16:NEAR
 EXTRN	_CreateEntity@12:NEAR
@@ -519,7 +519,7 @@ EXTRN	_SysMutexLock@16:NEAR
 EXTRN	_SysMutexUnlock@12:NEAR
 EXTRN	_TraceLineS@8:NEAR
 ;	COMDAT ??_C@_00A@?$AA@
-; File C:\10C\a\oe\KZHSQLXA.C
+; File c:\10c\a\oe\KZHSQLXA.C
 _BSS	SEGMENT
 ??_C@_00A@?$AA@ DB 01H DUP (?)				; `string'
 _BSS	ENDS
@@ -541,9 +541,9 @@ _DATA	ENDS
 _DATA	SEGMENT
 ??_C@_04FCOP@Type?$AA@ DB 'Type', 00H			; `string'
 _DATA	ENDS
-;	COMDAT ??_C@_0BF@GGPK@Nov?521?52019?511?328?331?$AA@
+;	COMDAT ??_C@_0BF@NGFD@Oct?523?52023?508?358?319?$AA@
 _DATA	SEGMENT
-??_C@_0BF@GGPK@Nov?521?52019?511?328?331?$AA@ DB 'Nov 21 2019 11:28:31', 00H ; `string'
+??_C@_0BF@NGFD@Oct?523?52023?508?358?319?$AA@ DB 'Oct 23 2023 08:58:19', 00H ; `string'
 _DATA	ENDS
 ;	COMDAT ??_C@_0CD@BONL@Compile?5date?1time?5for?5KZHSQLXX?5i@
 _DATA	SEGMENT
@@ -725,7 +725,7 @@ $L57448:
 ; 863  :       TraceLineS( "Compile date/time for " DBHANDLER_NAME " is ",
 ; 864  :                   __DATE__ " " __TIME__ );
 
-	push	OFFSET FLAT:??_C@_0BF@GGPK@Nov?521?52019?511?328?331?$AA@ ; `string'
+	push	OFFSET FLAT:??_C@_0BF@NGFD@Oct?523?52023?508?358?319?$AA@ ; `string'
 	push	OFFSET FLAT:??_C@_0CD@BONL@Compile?5date?1time?5for?5KZHSQLXX?5i@ ; `string'
 	call	_TraceLineS@8
 
@@ -770,7 +770,7 @@ EXTRN	_strlen:NEAR
 EXTRN	__imp__strncmp:NEAR
 EXTRN	_GetAddrForAttribute@16:NEAR
 ;	COMDAT ??_C@_0EL@FIPI@Internal?5error?5?9?9?5cannot?5find?5DB@
-; File C:\10C\a\oe\KZHSQLXA.C
+; File c:\10c\a\oe\KZHSQLXA.C
 _DATA	SEGMENT
 ??_C@_0EL@FIPI@Internal?5error?5?9?9?5cannot?5find?5DB@ DB 'Internal erro'
 	DB	'r -- cannot find DB Base type (%s) in db-handler work object.'
@@ -1394,7 +1394,7 @@ PUBLIC	??_C@_0BA@GPBB@Storing?5Objects?$AA@		; `string'
 PUBLIC	??_C@_0BH@CHIC@Activating?5Object?5Def?5?$AA@	; `string'
 PUBLIC	??_C@_0BB@JILM@Database?5name?5?$DN?5?$AA@	; `string'
 ;	COMDAT ??_C@_0DF@OLNF@?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD@
-; File C:\10C\a\oe\KZHSQLXA.C
+; File c:\10c\a\oe\KZHSQLXA.C
 _DATA	SEGMENT
 ??_C@_0DF@OLNF@?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD@ DB '#'
 	DB	'###################################################', 00H ; `string'
@@ -1662,7 +1662,7 @@ PUBLIC	??_C@_0BL@NOKL@lpConnection?5is?5null?$CB?$CB?$CB?$CB?$CB?$CB?$AA@ ; `str
 PUBLIC	??_C@_0DF@FMK@?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?5?5COMMIT?5TRANSA@ ; `string'
 EXTRN	_OrderOI_ByDefaultAttribs@4:NEAR
 ;	COMDAT ??_C@_0BL@NOKL@lpConnection?5is?5null?$CB?$CB?$CB?$CB?$CB?$CB?$AA@
-; File C:\10C\a\oe\KZHSQLXA.C
+; File c:\10c\a\oe\KZHSQLXA.C
 _DATA	SEGMENT
 ??_C@_0BL@NOKL@lpConnection?5is?5null?$CB?$CB?$CB?$CB?$CB?$CB?$AA@ DB 'lp'
 	DB	'Connection is null!!!!!!', 00H		; `string'
@@ -1899,7 +1899,7 @@ _TEXT	ENDS
 PUBLIC	_RollbackTransaction
 PUBLIC	??_C@_0DF@FDPI@?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?5ROLLBACK?5TRANSA@ ; `string'
 ;	COMDAT ??_C@_0DF@FDPI@?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?5ROLLBACK?5TRANSA@
-; File C:\10C\a\oe\KZHSQLXA.C
+; File c:\10c\a\oe\KZHSQLXA.C
 _DATA	SEGMENT
 ??_C@_0DF@FDPI@?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?$CD?5ROLLBACK?5TRANSA@ DB '#'
 	DB	'############### ROLLBACK TRANSACTION ##############', 00H ; `string'
@@ -2798,7 +2798,7 @@ EXTRN	_CompareAttributeToString@16:NEAR
 EXTRN	_strcmp:NEAR
 EXTRN	_StoreValueInRecord@20:NEAR
 ;	COMDAT ??_C@_0BH@HOFD@Key?5type?5not?5supported?$AA@
-; File C:\10C\a\oe\KZHSQLXA.C
+; File c:\10c\a\oe\KZHSQLXA.C
 _DATA	SEGMENT
 ??_C@_0BH@HOFD@Key?5type?5not?5supported?$AA@ DB 'Key type not supported', 00H ; `string'
 _DATA	ENDS
@@ -3667,7 +3667,7 @@ EXTRN	_memset:NEAR
 EXTRN	_SqlDisplayCommand@8:NEAR
 EXTRN	_SqlDisplayQualEntity@8:NEAR
 ;	COMDAT ??_C@_0DG@PFML@?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?5Performing?5loa@
-; File C:\10C\a\oe\KZHSQLXA.C
+; File c:\10c\a\oe\KZHSQLXA.C
 _DATA	SEGMENT
 ??_C@_0DG@PFML@?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?5Performing?5loa@ DB '='
 	DB	'================ Performing load ===================', 00H ; `string'
@@ -6964,7 +6964,7 @@ PUBLIC	??_C@_0BC@ENOM@Inserting?5entity?5?$AA@		; `string'
 PUBLIC	??_C@_0BC@LMHG@Inserting?5record?5?$AA@		; `string'
 EXTRN	_SqlBuildInsert@20:NEAR
 ;	COMDAT ??_C@_0BN@CHFK@?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?5Insert?5?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$AA@
-; File C:\10C\a\oe\KZHSQLXA.C
+; File c:\10c\a\oe\KZHSQLXA.C
 _DATA	SEGMENT
 ??_C@_0BN@CHFK@?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?5Insert?5?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$AA@ DB '='
 	DB	'========= Insert ==========', 00H		; `string'
@@ -7300,7 +7300,7 @@ PUBLIC	??_C@_07IHIH@PARENT?3?$AA@			; `string'
 PUBLIC	??_C@_06NCJM@CHILD?3?$AA@			; `string'
 EXTRN	_SqlBuildInsertCorrTable@20:NEAR
 ;	COMDAT ??_C@_0CB@ODKK@?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?5Insert?5Rel?5?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN@
-; File C:\10C\a\oe\KZHSQLXA.C
+; File c:\10c\a\oe\KZHSQLXA.C
 _DATA	SEGMENT
 ??_C@_0CB@ODKK@?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?5Insert?5Rel?5?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN@ DB '='
 	DB	'========= Insert Rel ==========', 00H	; `string'
@@ -7606,7 +7606,7 @@ PUBLIC	??_C@_0BI@IHKI@SqlBuildDeleteAll?5SQL?3?5?$AA@	; `string'
 EXTRN	_SqlBuildDelete@20:NEAR
 EXTRN	_SqlBuildDeleteAll@20:NEAR
 ;	COMDAT ??_C@_0BN@OIOI@?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?5Delete?5?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$AA@
-; File C:\10C\a\oe\KZHSQLXA.C
+; File c:\10c\a\oe\KZHSQLXA.C
 _DATA	SEGMENT
 ??_C@_0BN@OIOI@?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?5Delete?5?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$AA@ DB '='
 	DB	'========= Delete ==========', 00H		; `string'
@@ -7918,7 +7918,7 @@ PUBLIC	_DeleteRel
 PUBLIC	??_C@_0CB@IFLO@?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?5Delete?5Rel?5?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN@ ; `string'
 EXTRN	_SqlBuildDeleteCorrTable@20:NEAR
 ;	COMDAT ??_C@_0CB@IFLO@?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?5Delete?5Rel?5?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN@
-; File C:\10C\a\oe\KZHSQLXA.C
+; File c:\10c\a\oe\KZHSQLXA.C
 _DATA	SEGMENT
 ??_C@_0CB@IFLO@?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?5Delete?5Rel?5?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN@ DB '='
 	DB	'========= Delete Rel ==========', 00H	; `string'
@@ -8163,7 +8163,7 @@ PUBLIC	??_C@_0BB@KLNM@Updating?5record?5?$AA@		; `string'
 EXTRN	_SqlBuildUpdate@24:NEAR
 EXTRN	_SqlBuildUpdateCorrTable@20:NEAR
 ;	COMDAT ??_C@_0BN@HAHA@?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?5Update?5?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$AA@
-; File C:\10C\a\oe\KZHSQLXA.C
+; File c:\10c\a\oe\KZHSQLXA.C
 _DATA	SEGMENT
 ??_C@_0BN@HAHA@?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?5Update?5?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$AA@ DB '='
 	DB	'========= Update ==========', 00H		; `string'
@@ -8562,7 +8562,7 @@ PUBLIC	??_C@_0BD@FDAG@KZHSQLXX?5DBH?5Error?$AA@	; `string'
 PUBLIC	??_C@_07DOHJ@KZH0101?$AA@			; `string'
 EXTRN	_MessageSend@24:NEAR
 ;	COMDAT ??_C@_0BM@GLLE@?$DN?$DN?$DN?$DN?$DN?5DBH_Entry?5Error?5?$DN?$DN?$DN?$DN?$DN?$AA@
-; File C:\10C\a\oe\KZHSQLXA.C
+; File c:\10c\a\oe\KZHSQLXA.C
 _DATA	SEGMENT
 ??_C@_0BM@GLLE@?$DN?$DN?$DN?$DN?$DN?5DBH_Entry?5Error?5?$DN?$DN?$DN?$DN?$DN?$AA@ DB '='
 	DB	'==== DBH_Entry Error =====', 00H		; `string'
@@ -8661,7 +8661,7 @@ _TEXT	ENDS
 PUBLIC	??_C@_0O@LCKO@Dummy?5Call?5?3?5?$AA@		; `string'
 PUBLIC	??_C@_0O@DDFB@Return?5Code?5?3?$AA@		; `string'
 ;	COMDAT ??_C@_0O@LCKO@Dummy?5Call?5?3?5?$AA@
-; File C:\10C\a\oe\KZHSQLXA.C
+; File c:\10c\a\oe\KZHSQLXA.C
 _DATA	SEGMENT
 ??_C@_0O@LCKO@Dummy?5Call?5?3?5?$AA@ DB 'Dummy Call : ', 00H ; `string'
 _DATA	ENDS
@@ -8787,7 +8787,7 @@ EXTRN	_SysGetDB_UserID@12:NEAR
 EXTRN	_strcpy:NEAR
 EXTRN	__imp___stricmp:NEAR
 ;	COMDAT ??_C@_0CH@EANP@Too?5many?5open?5databases?5for?51?5se@
-; File C:\10C\a\oe\KZHSQLXA.C
+; File c:\10c\a\oe\KZHSQLXA.C
 _DATA	SEGMENT
 ??_C@_0CH@EANP@Too?5many?5open?5databases?5for?51?5se@ DB 'Too many open '
 	DB	'databases for 1 session.', 00H		; `string'
@@ -9135,7 +9135,7 @@ EXTRN	_TraceLine:NEAR
 EXTRN	_SysReadZeidonIni@16:NEAR
 EXTRN	_CreateViewFromViewForTask@12:NEAR
 ;	COMDAT ??_C@_0DK@DCLD@GetWorkObjectView?5RESETTING?5task@
-; File C:\10C\a\oe\KZHSQLXA.C
+; File c:\10c\a\oe\KZHSQLXA.C
 _DATA	SEGMENT
 ??_C@_0DK@DCLD@GetWorkObjectView?5RESETTING?5task@ DB 'GetWorkObjectView '
 	DB	'RESETTING task from: 0x%08x  to: 0x%08x', 00H ; `string'
@@ -9772,7 +9772,7 @@ PUBLIC	??_C@_04HDAF@Task?$AA@				; `string'
 EXTRN	_SetCursorFirstEntityByInteger@20:NEAR
 EXTRN	_MiGetViewEntityForView@8:NEAR
 ;	COMDAT ??_C@_06OMJI@__MSGQ?$AA@
-; File C:\10C\a\oe\KZHSQLXA.C
+; File c:\10c\a\oe\KZHSQLXA.C
 _DATA	SEGMENT
 ??_C@_06OMJI@__MSGQ?$AA@ DB '__MSGQ', 00H		; `string'
 _DATA	ENDS
@@ -10033,7 +10033,7 @@ EXTRN	_CountEntitiesForView@8:NEAR
 EXTRN	_ActivateEmptyObjectInstance@16:NEAR
 EXTRN	_SetAttributeFromVariable@32:NEAR
 ;	COMDAT ??_C@_08JIIE@KZMSGQOO?$AA@
-; File C:\10C\a\oe\KZHSQLXA.C
+; File c:\10c\a\oe\KZHSQLXA.C
 _DATA	SEGMENT
 ??_C@_08JIIE@KZMSGQOO?$AA@ DB 'KZMSGQOO', 00H		; `string'
 _DATA	ENDS
@@ -10463,7 +10463,7 @@ PUBLIC	??_C@_0BE@ICCD@Qualification?5View?3?$AA@	; `string'
 PUBLIC	??_C@_0CC@LLKJ@?9?9?9?9?9?9?9?9?9?9?9?9?9?9?9?9?9?9?9?9?9?9?9?9?9?9?9?9?9?9?9?9@ ; `string'
 PUBLIC	??_C@_0BD@MMAH@Committing?5object?5?$AA@	; `string'
 ;	COMDAT ??_C@_0BP@LFHP@Error?5performing?5Load?5for?5OD?3?5?$AA@
-; File C:\10C\a\oe\KZHSQLXA.C
+; File c:\10c\a\oe\KZHSQLXA.C
 _DATA	SEGMENT
 ??_C@_0BP@LFHP@Error?5performing?5Load?5for?5OD?3?5?$AA@ DB 'Error perfor'
 	DB	'ming Load for OD: ', 00H			; `string'
@@ -11900,7 +11900,7 @@ PUBLIC	??_C@_04EFNI@Name?$AA@				; `string'
 EXTRN	_IncludeSubobjectFromSubobject@20:NEAR
 EXTRN	_GetStringFromAttribute@16:NEAR
 ;	COMDAT ??_C@_08CBKH@TZTENVRO?$AA@
-; File C:\10C\a\oe\KZHSQLXA.C
+; File c:\10c\a\oe\KZHSQLXA.C
 _DATA	SEGMENT
 ??_C@_08CBKH@TZTENVRO?$AA@ DB 'TZTENVRO', 00H		; `string'
 _DATA	ENDS

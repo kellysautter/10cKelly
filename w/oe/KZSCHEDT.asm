@@ -1,4 +1,4 @@
-	TITLE	C:\10C\w\oe\KZSCHEDT.C
+	TITLE	c:\10c\w\oe\KZSCHEDT.C
 	.386P
 include listing.inc
 if @Version gt 510
@@ -134,7 +134,7 @@ EXTRN	_UnregisterZeidonApplication@4:NEAR
 EXTRN	_sprintf:NEAR
 EXTRN	_SysGetDateTime@4:NEAR
 ;	COMDAT ??_C@_0BF@IHIM@Starting?5thread?5test?$AA@
-; File C:\10C\w\oe\KZSCHEDT.C
+; File c:\10c\w\oe\KZSCHEDT.C
 _DATA	SEGMENT
 ??_C@_0BF@IHIM@Starting?5thread?5test?$AA@ DB 'Starting thread test', 00H ; `string'
 _DATA	ENDS
@@ -557,7 +557,7 @@ PUBLIC	??_C@_0P@EBPK@ZEIDON_MONITOR?$AA@		; `string'
 EXTRN	__imp__LoadIconA@8:NEAR
 EXTRN	__imp__GetWindowTextA@12:NEAR
 ;	COMDAT ??_C@_0P@EBPK@ZEIDON_MONITOR?$AA@
-; File C:\10C\w\oe\KZSCHEDT.C
+; File c:\10c\w\oe\KZSCHEDT.C
 _DATA	SEGMENT
 ??_C@_0P@EBPK@ZEIDON_MONITOR?$AA@ DB 'ZEIDON_MONITOR', 00H ; `string'
 _DATA	ENDS
@@ -655,7 +655,7 @@ EXTRN	__imp__ShowWindow@8:NEAR
 EXTRN	__imp__LoadLibraryExA@12:NEAR
 EXTRN	__imp__GetWindowLongA@8:NEAR
 ;	COMDAT ??_C@_0N@FAGK@KZSchedT?4exe?$AA@
-; File C:\10C\w\oe\KZSCHEDT.C
+; File c:\10c\w\oe\KZSCHEDT.C
 _DATA	SEGMENT
 ??_C@_0N@FAGK@KZSchedT?4exe?$AA@ DB 'KZSchedT.exe', 00H	; `string'
 _DATA	ENDS
@@ -1021,7 +1021,7 @@ PUBLIC	??_C@_0BC@DDIH@Done?5with?5test?5?$CFu?$AA@	; `string'
 PUBLIC	??_C@_00A@?$AA@					; `string'
 EXTRN	_TraceLineS@8:NEAR
 ;	COMDAT ??_C@_00A@?$AA@
-; File C:\10C\w\oe\KZSCHEDT.C
+; File c:\10c\w\oe\KZSCHEDT.C
 _BSS	SEGMENT
 ??_C@_00A@?$AA@ DB 01H DUP (?)				; `string'
 _BSS	ENDS
@@ -1105,7 +1105,7 @@ EXTRN	_NetStatus@8:NEAR
 EXTRN	__imp__DefWindowProcA@16:NEAR
 EXTRN	__imp__PostQuitMessage@4:NEAR
 ;	COMDAT ??_C@_0BD@LOPD@Close?5running?5test?$AA@
-; File C:\10C\w\oe\KZSCHEDT.C
+; File c:\10c\w\oe\KZSCHEDT.C
 _DATA	SEGMENT
 ??_C@_0BD@LOPD@Close?5running?5test?$AA@ DB 'Close running test', 00H ; `string'
 _DATA	ENDS
@@ -1467,7 +1467,7 @@ EXTRN	__imp__LoadCursorA@8:NEAR
 EXTRN	__imp__GetStockObject@4:NEAR
 EXTRN	__imp__RegisterClassA@4:NEAR
 ;	COMDAT ??_C@_08CFNG@KZSCHEDT?$AA@
-; File C:\10C\w\oe\KZSCHEDT.C
+; File c:\10c\w\oe\KZSCHEDT.C
 _DATA	SEGMENT
 ??_C@_08CFNG@KZSCHEDT?$AA@ DB 'KZSCHEDT', 00H		; `string'
 _DATA	ENDS
@@ -1561,7 +1561,7 @@ EXTRN	__imp__RegisterWindowMessageA@4:NEAR
 EXTRN	__imp__SetTimer@16:NEAR
 EXTRN	__imp__GetSystemMetrics@4:NEAR
 ;	COMDAT ??_C@_0P@PCOP@Task?5Scheduler?$AA@
-; File C:\10C\w\oe\KZSCHEDT.C
+; File c:\10c\w\oe\KZSCHEDT.C
 _DATA	SEGMENT
 ??_C@_0P@PCOP@Task?5Scheduler?$AA@ DB 'Task Scheduler', 00H ; `string'
 _DATA	ENDS

@@ -1,4 +1,4 @@
-	TITLE	C:\10C\w\oe\KZOESYAA.c
+	TITLE	c:\10c\w\oe\KZOESYAA.c
 	.386P
 include listing.inc
 if @Version gt 510
@@ -6779,7 +6779,7 @@ PUBLIC	_fnSetProcessIdx
 PUBLIC	??_C@_0DC@JNDE@Exceeded?5Process?5Limit?5?4?4?4?5Conta@ ; `string'
 EXTRN	__imp__GetCurrentProcessId@0:NEAR
 ;	COMDAT ??_C@_0DC@JNDE@Exceeded?5Process?5Limit?5?4?4?4?5Conta@
-; File C:\10C\w\oe\KZOESYAA.c
+; File c:\10c\w\oe\KZOESYAA.c
 _DATA	SEGMENT
 ??_C@_0DC@JNDE@Exceeded?5Process?5Limit?5?4?4?4?5Conta@ DB 'Exceeded Proc'
 	DB	'ess Limit ... Contact Zeidon Support', 00H	; `string'
@@ -7124,7 +7124,7 @@ PUBLIC	_SysSetDefaultTaskForProcess@4
 PUBLIC	??_C@_0CH@FEHM@SysSetDefaultTaskForProcess?5Depr@ ; `string'
 PUBLIC	??_C@_0BH@MPNN@Zeidon?5Object?5Services?$AA@	; `string'
 ;	COMDAT ??_C@_0CH@FEHM@SysSetDefaultTaskForProcess?5Depr@
-; File C:\10C\w\oe\KZOESYAA.c
+; File c:\10c\w\oe\KZOESYAA.c
 _DATA	SEGMENT
 ??_C@_0CH@FEHM@SysSetDefaultTaskForProcess?5Depr@ DB 'SysSetDefaultTaskFo'
 	DB	'rProcess Deprecated', 00H			; `string'
@@ -7176,7 +7176,7 @@ EXTRN	_TraceLine:NEAR
 EXTRN	__imp__EnterCriticalSection@4:NEAR
 EXTRN	__imp__LeaveCriticalSection@4:NEAR
 ;	COMDAT ??_C@_03JBJA@ON?5?$AA@
-; File C:\10C\w\oe\KZOESYAA.c
+; File c:\10c\w\oe\KZOESYAA.c
 _DATA	SEGMENT
 ??_C@_03JBJA@ON?5?$AA@ DB 'ON ', 00H			; `string'
 _DATA	ENDS
@@ -7446,7 +7446,7 @@ EXTRN	_strcpy:NEAR
 EXTRN	_strcat:NEAR
 EXTRN	_strlen:NEAR
 ;	COMDAT ??_C@_05JBPC@?$FLApp?4?$AA@
-; File C:\10C\w\oe\KZOESYAA.c
+; File c:\10c\w\oe\KZOESYAA.c
 _DATA	SEGMENT
 ??_C@_05JBPC@?$FLApp?4?$AA@ DB '[App.', 00H		; `string'
 _DATA	ENDS
@@ -7698,7 +7698,7 @@ EXTRN	_GetEntityKey@8:NEAR
 EXTRN	_SetCursorFirstEntityByString@20:NEAR
 EXTRN	_SetAttributeFromString@16:NEAR
 ;	COMDAT ??_C@_08GACC@KZXMLPGO?$AA@
-; File C:\10C\w\oe\KZOESYAA.c
+; File c:\10c\w\oe\KZOESYAA.c
 _DATA	SEGMENT
 ??_C@_08GACC@KZXMLPGO?$AA@ DB 'KZXMLPGO', 00H		; `string'
 _DATA	ENDS
@@ -7939,7 +7939,7 @@ PUBLIC	??_C@_0BC@GCAG@DynamicBannerName?$AA@		; `string'
 PUBLIC	??_C@_0L@PIKM@BannerName?$AA@			; `string'
 PUBLIC	_SysSetWebBannerName@12
 ;	COMDAT ??_C@_0BC@GCAG@DynamicBannerName?$AA@
-; File C:\10C\w\oe\KZOESYAA.c
+; File c:\10c\w\oe\KZOESYAA.c
 _DATA	SEGMENT
 ??_C@_0BC@GCAG@DynamicBannerName?$AA@ DB 'DynamicBannerName', 00H ; `string'
 _DATA	ENDS
@@ -8155,7 +8155,7 @@ EXTRN	_fnParseAppString:NEAR
 EXTRN	_fnCreateApp:NEAR
 EXTRN	_DeleteTask@4:NEAR
 ;	COMDAT ??_C@_0BH@IIPE@KZOENGWA?5?9?5Termination?$AA@
-; File C:\10C\w\oe\KZOESYAA.c
+; File c:\10c\w\oe\KZOESYAA.c
 _DATA	SEGMENT
 ??_C@_0BH@IIPE@KZOENGWA?5?9?5Termination?$AA@ DB 'KZOENGWA - Termination', 00H ; `string'
 _DATA	ENDS
@@ -8854,7 +8854,7 @@ EXTRN	__imp__DeleteCriticalSection@4:NEAR
 EXTRN	__imp__PostMessageA@16:NEAR
 EXTRN	__imp__UnregisterClassA@8:NEAR
 ;	COMDAT ??_C@_0FJ@COG@?$CIUnr?$CJ?5Cleaning?5up?5Registered?5S?1T@
-; File C:\10C\w\oe\KZOESYAA.c
+; File c:\10c\w\oe\KZOESYAA.c
 _DATA	SEGMENT
 ??_C@_0FJ@COG@?$CIUnr?$CJ?5Cleaning?5up?5Registered?5S?1T@ DB '(Unr) Clea'
 	DB	'ning up Registered S/Task: 0x%08x / 0x%08x (%d)   Process: %d'
@@ -9219,7 +9219,7 @@ PUBLIC	??_C@_0N@EEMD@Zeidon?5Error?$AA@		; `string'
 EXTRN	_memcpy:NEAR
 EXTRN	__imp___strnicmp:NEAR
 ;	COMDAT ??_C@_03DCGD@DDD?$AA@
-; File C:\10C\w\oe\KZOESYAA.c
+; File c:\10c\w\oe\KZOESYAA.c
 _DATA	SEGMENT
 ??_C@_03DCGD@DDD?$AA@ DB 'DDD', 00H			; `string'
 _DATA	ENDS
@@ -10227,7 +10227,7 @@ EXTRN	__imp___stricmp:NEAR
 EXTRN	__imp__GetProfileIntA@12:NEAR
 EXTRN	__imp__GetProfileStringA@20:NEAR
 ;	COMDAT ??_C@_03PLJD@ENU?$AA@
-; File C:\10C\w\oe\KZOESYAA.c
+; File c:\10c\w\oe\KZOESYAA.c
 _DATA	SEGMENT
 ??_C@_03PLJD@ENU?$AA@ DB 'ENU', 00H			; `string'
 _DATA	ENDS
@@ -11358,7 +11358,7 @@ PUBLIC	_fnConvertEnvironmentString@8
 PUBLIC	_SysGetEnvVar@12
 PUBLIC	??_C@_0CB@BDDO@No?5terminating?5?8?$CF?8?5in?5ZEIDON?4APP@ ; `string'
 ;	COMDAT ??_C@_0CB@BDDO@No?5terminating?5?8?$CF?8?5in?5ZEIDON?4APP@
-; File C:\10C\w\oe\KZOESYAA.c
+; File c:\10c\w\oe\KZOESYAA.c
 _DATA	SEGMENT
 ??_C@_0CB@BDDO@No?5terminating?5?8?$CF?8?5in?5ZEIDON?4APP@ DB 'No termina'
 	DB	'ting ''%'' in ZEIDON.APP', 00H		; `string'
@@ -11588,7 +11588,7 @@ _TEXT	ENDS
 PUBLIC	_fnBuildZeidonIni
 PUBLIC	??_C@_0L@PEHO@zeidon?4ini?$AA@			; `string'
 ;	COMDAT ??_C@_0L@PEHO@zeidon?4ini?$AA@
-; File C:\10C\w\oe\KZOESYAA.c
+; File c:\10c\w\oe\KZOESYAA.c
 _DATA	SEGMENT
 ??_C@_0L@PEHO@zeidon?4ini?$AA@ DB 'zeidon.ini', 00H	; `string'
 _DATA	ENDS
@@ -11699,7 +11699,7 @@ EXTRN	_MiListOE_Memory@8:NEAR
 EXTRN	_memset:NEAR
 EXTRN	__imp__strncmp:NEAR
 ;	COMDAT ??_C@_09ODBK@AllocSize?$AA@
-; File C:\10C\w\oe\KZOESYAA.c
+; File c:\10c\w\oe\KZOESYAA.c
 _DATA	SEGMENT
 ??_C@_09ODBK@AllocSize?$AA@ DB 'AllocSize', 00H		; `string'
 _DATA	ENDS
@@ -13073,7 +13073,7 @@ PUBLIC	_fnFreeLocalAnchorBlock@4
 PUBLIC	_SysFree@4
 EXTRN	__imp__UnmapViewOfFile@4:NEAR
 ;	COMDAT ??_C@_0FE@PDLP@fnFreeLocalAnchorBlock?5Page?5Tabl@
-; File C:\10C\w\oe\KZOESYAA.c
+; File c:\10c\w\oe\KZOESYAA.c
 _DATA	SEGMENT
 ??_C@_0FE@PDLP@fnFreeLocalAnchorBlock?5Page?5Tabl@ DB 'fnFreeLocalAnchorB'
 	DB	'lock Page Table UNmapping at Index: %x   0x%08x   Process: 0x'
@@ -13361,7 +13361,7 @@ EXTRN	__imp__FreeLibrary@4:NEAR
 EXTRN	__imp__LocalFree@4:NEAR
 EXTRN	__imp__FormatMessageA@28:NEAR
 ;	COMDAT ??_C@_0CI@MHCA@Received?5a?5message?5while?5in?5Serv@
-; File C:\10C\w\oe\KZOESYAA.c
+; File c:\10c\w\oe\KZOESYAA.c
 _DATA	SEGMENT
 ??_C@_0CI@MHCA@Received?5a?5message?5while?5in?5Serv@ DB 'Received a mess'
 	DB	'age while in Server Mode', 00H		; `string'
@@ -14308,7 +14308,7 @@ PUBLIC	??_C@_0BJ@LNJI@Error?5Calling?5SendMsg?$CI?5?$CJ?$AA@ ; `string'
 PUBLIC	_fnAllocSharedMemory@16
 EXTRN	__imp__IsWindow@4:NEAR
 ;	COMDAT ??_C@_0M@EGB@AllocShared?$AA@
-; File C:\10C\w\oe\KZOESYAA.c
+; File c:\10c\w\oe\KZOESYAA.c
 _DATA	SEGMENT
 ??_C@_0M@EGB@AllocShared?$AA@ DB 'AllocShared', 00H	; `string'
 _DATA	ENDS
@@ -14623,7 +14623,7 @@ PUBLIC	??_C@_0DJ@NCNE@Check?5Pointer?5Error?5for?5TableInd@ ; `string'
 PUBLIC	??_C@_0CE@PGOJ@Check?5Pointer?5Error?5for?5TableInd@ ; `string'
 PUBLIC	??_C@_0M@MIHA@Zeidon?5Core?$AA@			; `string'
 ;	COMDAT ??_C@_07OCOK@No?5view?$AA@
-; File C:\10C\w\oe\KZOESYAA.c
+; File c:\10c\w\oe\KZOESYAA.c
 _DATA	SEGMENT
 ??_C@_07OCOK@No?5view?$AA@ DB 'No view', 00H		; `string'
 _DATA	ENDS
@@ -14740,7 +14740,7 @@ _CheckPointer ENDP
 _TEXT	ENDS
 PUBLIC	??_C@_0DI@JMDM@Invalid?5pointer?5handle?5for?5free?3@ ; `string'
 ;	COMDAT ??_C@_0DI@JMDM@Invalid?5pointer?5handle?5for?5free?3@
-; File C:\10C\w\oe\KZOESYAA.c
+; File c:\10c\w\oe\KZOESYAA.c
 _DATA	SEGMENT
 ??_C@_0DI@JMDM@Invalid?5pointer?5handle?5for?5free?3@ DB 'Invalid pointer'
 	DB	' handle for free: hi-bit not set: 0x%08x', 00H ; `string'
@@ -15253,7 +15253,7 @@ _TEXT	ENDS
 PUBLIC	??_C@_0CP@HMMO@KZOE0012?5?9?5Error?5allocating?5memo@ ; `string'
 PUBLIC	_SysAllocMemory@20
 ;	COMDAT ??_C@_0CP@HMMO@KZOE0012?5?9?5Error?5allocating?5memo@
-; File C:\10C\w\oe\KZOESYAA.c
+; File c:\10c\w\oe\KZOESYAA.c
 _DATA	SEGMENT
 ??_C@_0CP@HMMO@KZOE0012?5?9?5Error?5allocating?5memo@ DB 'KZOE0012 - Erro'
 	DB	'r allocating memory for length ', 00H	; `string'
@@ -15500,7 +15500,7 @@ PUBLIC	??_C@_09MIBB@GetAnchor?$AA@			; `string'
 EXTRN	__imp__OpenFileMappingA@12:NEAR
 EXTRN	__imp__MapViewOfFile@20:NEAR
 ;	COMDAT ??_C@_0EM@LLEE@fnGetAnchorBlock?5Page?5Table?5mapp@
-; File C:\10C\w\oe\KZOESYAA.c
+; File c:\10c\w\oe\KZOESYAA.c
 _DATA	SEGMENT
 ??_C@_0EM@LLEE@fnGetAnchorBlock?5Page?5Table?5mapp@ DB 'fnGetAnchorBlock '
 	DB	'Page Table mapping at Index: %x   0x%08x   Process: 0x%08x', 00H ; `string'
@@ -16054,7 +16054,7 @@ EXTRN	__imp__ReadFile@20:NEAR
 EXTRN	__imp__CreateProcessA@40:NEAR
 EXTRN	__imp__strstr:NEAR
 ;	COMDAT ??_C@_0CI@JNJD@Couldn?8t?5find?5ZEIDON_BIN?5specifi@
-; File C:\10C\w\oe\KZOESYAA.c
+; File c:\10c\w\oe\KZOESYAA.c
 _DATA	SEGMENT
 ??_C@_0CI@JNJD@Couldn?8t?5find?5ZEIDON_BIN?5specifi@ DB 'Couldn''t find Z'
 	DB	'EIDON_BIN specification.', 00H		; `string'
@@ -16796,7 +16796,7 @@ PUBLIC	_fnSysGetPointerFromHandleShared@4
 PUBLIC	??_C@_0DG@KGPA@Invalid?5pointer?5handle?5?$CIget?$CJ?5?3?5h@ ; `string'
 PUBLIC	??_C@_0DO@NGGI@Invalid?5pointer?5handle?5?$CInull?$CJ?5at@ ; `string'
 ;	COMDAT ??_C@_0DG@KGPA@Invalid?5pointer?5handle?5?$CIget?$CJ?5?3?5h@
-; File C:\10C\w\oe\KZOESYAA.c
+; File c:\10c\w\oe\KZOESYAA.c
 _DATA	SEGMENT
 ??_C@_0DG@KGPA@Invalid?5pointer?5handle?5?$CIget?$CJ?5?3?5h@ DB 'Invalid '
 	DB	'pointer handle (get) : hi-bit not set: 0x%08x', 00H ; `string'
@@ -17062,7 +17062,7 @@ _TEXT	ENDS
 PUBLIC	_fnSysGetHandleFromPointerShared@4
 PUBLIC	??_C@_0BO@IFBI@Invalid?5pointer?3?5hi?9bit?5set?$CB?$CB?$AA@ ; `string'
 ;	COMDAT ??_C@_0BO@IFBI@Invalid?5pointer?3?5hi?9bit?5set?$CB?$CB?$AA@
-; File C:\10C\w\oe\KZOESYAA.c
+; File c:\10c\w\oe\KZOESYAA.c
 _DATA	SEGMENT
 ??_C@_0BO@IFBI@Invalid?5pointer?3?5hi?9bit?5set?$CB?$CB?$AA@ DB 'Invalid '
 	DB	'pointer: hi-bit set!!', 00H			; `string'
@@ -17177,7 +17177,7 @@ _TEXT	ENDS
 PUBLIC	??_C@_0CC@EPII@Invalid?5pointer?3?5hi?9bit?5not?5set?$CB@ ; `string'
 PUBLIC	_fnSysCreateHandle@8
 ;	COMDAT ??_C@_0CC@EPII@Invalid?5pointer?3?5hi?9bit?5not?5set?$CB@
-; File C:\10C\w\oe\KZOESYAA.c
+; File c:\10c\w\oe\KZOESYAA.c
 _DATA	SEGMENT
 ??_C@_0CC@EPII@Invalid?5pointer?3?5hi?9bit?5not?5set?$CB@ DB 'Invalid poi'
 	DB	'nter: hi-bit not set!!', 00H		; `string'
@@ -17291,7 +17291,7 @@ PUBLIC	??_C@_0BF@NNIF@Out?5of?5memory?5pages?$CB?$AA@	; `string'
 PUBLIC	??_C@_0EC@HOEL@fnMapFile?5Page?5Table?5conflict?5at@ ; `string'
 EXTRN	__imp__CreateFileMappingA@24:NEAR
 ;	COMDAT ??_C@_0BF@NNIF@Out?5of?5memory?5pages?$CB?$AA@
-; File C:\10C\w\oe\KZOESYAA.c
+; File c:\10c\w\oe\KZOESYAA.c
 _DATA	SEGMENT
 ??_C@_0BF@NNIF@Out?5of?5memory?5pages?$CB?$AA@ DB 'Out of memory pages!', 00H ; `string'
 _DATA	ENDS
@@ -17685,7 +17685,7 @@ PUBLIC	??_C@_0L@OCNM@Diagnostic?$AA@			; `string'
 PUBLIC	??_C@_07FGLN@?$FLDebug?$FN?$AA@			; `string'
 PUBLIC	_SysDiagnosticMessage@16
 ;	COMDAT ??_C@_0L@OCNM@Diagnostic?$AA@
-; File C:\10C\w\oe\KZOESYAA.c
+; File c:\10c\w\oe\KZOESYAA.c
 _DATA	SEGMENT
 ??_C@_0L@OCNM@Diagnostic?$AA@ DB 'Diagnostic', 00H	; `string'
 _DATA	ENDS
@@ -17764,7 +17764,7 @@ PUBLIC	_fnSysWriteLine@16
 PUBLIC	??_C@_0M@NKGM@ServerDebug?$AA@			; `string'
 PUBLIC	??_C@_0DM@OLK@Message?5Handler?5Error?5opening?5lo@ ; `string'
 ;	COMDAT ??_C@_0M@NKGM@ServerDebug?$AA@
-; File C:\10C\w\oe\KZOESYAA.c
+; File c:\10c\w\oe\KZOESYAA.c
 _DATA	SEGMENT
 ??_C@_0M@NKGM@ServerDebug?$AA@ DB 'ServerDebug', 00H	; `string'
 _DATA	ENDS
@@ -18047,7 +18047,7 @@ _TEXT	ENDS
 PUBLIC	??_C@_0BF@BDGH@WebUserErrorMessages?$AA@	; `string'
 PUBLIC	??_C@_0CE@OFLB@SysMessageBox?5Title?3?5?$CFs?5?5?5Error?3@ ; `string'
 ;	COMDAT ??_C@_0BF@BDGH@WebUserErrorMessages?$AA@
-; File C:\10C\w\oe\KZOESYAA.c
+; File c:\10c\w\oe\KZOESYAA.c
 _DATA	SEGMENT
 ??_C@_0BF@BDGH@WebUserErrorMessages?$AA@ DB 'WebUserErrorMessages', 00H ; `string'
 _DATA	ENDS
@@ -18178,7 +18178,7 @@ EXTRN	__chkstk:NEAR
 EXTRN	_UfFormatDateTime@12:NEAR
 EXTRN	__imp__strncat:NEAR
 ;	COMDAT ??_C@_0N@FMCK@HH?3MI?3SS?4999?$AA@
-; File C:\10C\w\oe\KZOESYAA.c
+; File c:\10c\w\oe\KZOESYAA.c
 _DATA	SEGMENT
 ??_C@_0N@FMCK@HH?3MI?3SS?4999?$AA@ DB 'HH:MI:SS.999', 00H ; `string'
 _DATA	ENDS
@@ -18505,7 +18505,7 @@ _TEXT	ENDS
 PUBLIC	_SysSetUserID@12
 PUBLIC	??_C@_0BD@FBHK@?$CIsy?$CJ?5Logon?5Userid?$DN?$AA@ ; `string'
 ;	COMDAT ??_C@_0BD@FBHK@?$CIsy?$CJ?5Logon?5Userid?$DN?$AA@
-; File C:\10C\w\oe\KZOESYAA.c
+; File c:\10c\w\oe\KZOESYAA.c
 _DATA	SEGMENT
 ??_C@_0BD@FBHK@?$CIsy?$CJ?5Logon?5Userid?$DN?$AA@ DB '(sy) Logon Userid=', 00H ; `string'
 _DATA	ENDS
@@ -19155,7 +19155,7 @@ PUBLIC	??_C@_0BC@GEKD@?$CFsZTF_?$CFlx_?$CFlx?4TMP?$AA@	; `string'
 PUBLIC	_SysCreateTempFileName@4
 PUBLIC	_SysGetTickCount@0
 ;	COMDAT ??_C@_0BC@GEKD@?$CFsZTF_?$CFlx_?$CFlx?4TMP?$AA@
-; File C:\10C\w\oe\KZOESYAA.c
+; File c:\10c\w\oe\KZOESYAA.c
 _DATA	SEGMENT
 ??_C@_0BC@GEKD@?$CFsZTF_?$CFlx_?$CFlx?4TMP?$AA@ DB '%sZTF_%lx_%lx.TMP', 00H ; `string'
 _DATA	ENDS
@@ -19501,7 +19501,7 @@ PUBLIC	??_C@_0EP@BOCM@SysRenameFile?5MoveFile?5RC?3?5?$CFld?5?5@ ; `string'
 PUBLIC	??_C@_0BG@OCKP@Zeidon?5MoveFile?5Error?$AA@	; `string'
 EXTRN	__imp__MoveFileA@8:NEAR
 ;	COMDAT ??_C@_0EP@BOCM@SysRenameFile?5MoveFile?5RC?3?5?$CFld?5?5@
-; File C:\10C\w\oe\KZOESYAA.c
+; File c:\10c\w\oe\KZOESYAA.c
 _DATA	SEGMENT
 ??_C@_0EP@BOCM@SysRenameFile?5MoveFile?5RC?3?5?$CFld?5?5@ DB 'SysRenameFi'
 	DB	'le MoveFile RC: %ld   FileSpecFrom: %s   FileSpecTo: %s   Err'
@@ -19734,7 +19734,7 @@ EXTRN	__imp__DeleteFileA@4:NEAR
 EXTRN	__imp__SearchPathA@24:NEAR
 EXTRN	__imp__SetFilePointer@16:NEAR
 ;	COMDAT ??_C@_0EA@ECMJ@SysOpenFile?5for?5file?3?5?$CFs?5failed?5@
-; File C:\10C\w\oe\KZOESYAA.c
+; File c:\10c\w\oe\KZOESYAA.c
 _DATA	SEGMENT
 ??_C@_0EA@ECMJ@SysOpenFile?5for?5file?3?5?$CFs?5failed?5@ DB 'SysOpenFile'
 	DB	' for file: %s failed due to invalid view (null task)', 00H ; `string'
@@ -20685,7 +20685,7 @@ PUBLIC	??_C@_0CL@CHJM@SysReadLine?5?4?4?4?5buffer?5acquisiti@ ; `string'
 EXTRN	_DisplayOpenFiles@8:NEAR
 EXTRN	_IssueError@16:NEAR
 ;	COMDAT ??_C@_0BK@NLFO@SysReadLine?5null?5OpenFile?$AA@
-; File C:\10C\w\oe\KZOESYAA.c
+; File c:\10c\w\oe\KZOESYAA.c
 _DATA	SEGMENT
 ??_C@_0BK@NLFO@SysReadLine?5null?5OpenFile?$AA@ DB 'SysReadLine null Open'
 	DB	'File', 00H					; `string'
@@ -22095,7 +22095,7 @@ _SysWriteFile@16 ENDP
 _TEXT	ENDS
 PUBLIC	??_C@_02PIMC@?$AN?6?$AA@			; `string'
 ;	COMDAT ??_C@_02PIMC@?$AN?6?$AA@
-; File C:\10C\w\oe\KZOESYAA.c
+; File c:\10c\w\oe\KZOESYAA.c
 _DATA	SEGMENT
 ??_C@_02PIMC@?$AN?6?$AA@ DB 0dH, 0aH, 00H		; `string'
 _DATA	ENDS
@@ -22947,7 +22947,7 @@ _TEXT	ENDS
 PUBLIC	??_C@_0FG@EBEM@fnSysCloseFileWithControl?5?$CFs?5?5?5H@ ; `string'
 PUBLIC	_fnSysCloseFileWithControl@16
 ;	COMDAT ??_C@_0FG@EBEM@fnSysCloseFileWithControl?5?$CFs?5?5?5H@
-; File C:\10C\w\oe\KZOESYAA.c
+; File c:\10c\w\oe\KZOESYAA.c
 _DATA	SEGMENT
 ??_C@_0FG@EBEM@fnSysCloseFileWithControl?5?$CFs?5?5?5H@ DB 'fnSysCloseFil'
 	DB	'eWithControl %s   Handle: 0x%08x   Task: 0x%08x   Process: 0x'
@@ -23453,7 +23453,7 @@ EXTRN	__imp__SetFileTime@16:NEAR
 EXTRN	__imp__SystemTimeToFileTime@8:NEAR
 EXTRN	__imp__strncpy:NEAR
 ;	COMDAT ??_C@_0CE@FPAN@SysSetFileTime?3?5Couldn?8t?5open?5fi@
-; File C:\10C\w\oe\KZOESYAA.c
+; File c:\10c\w\oe\KZOESYAA.c
 _DATA	SEGMENT
 ??_C@_0CE@FPAN@SysSetFileTime?3?5Couldn?8t?5open?5fi@ DB 'SysSetFileTime:'
 	DB	' Couldn''t open file ', 00H			; `string'
@@ -24447,7 +24447,7 @@ PUBLIC	_SysGetFileDateTime@8
 EXTRN	__imp__GetFileTime@16:NEAR
 EXTRN	__imp__FileTimeToSystemTime@8:NEAR
 ;	COMDAT ??_C@_0BM@PPDE@?$CF4d?$CF02d?$CF02d?$CF02d?$CF02d?$CF02d?$CF03d?$AA@
-; File C:\10C\w\oe\KZOESYAA.c
+; File c:\10c\w\oe\KZOESYAA.c
 _DATA	SEGMENT
 ??_C@_0BM@PPDE@?$CF4d?$CF02d?$CF02d?$CF02d?$CF02d?$CF02d?$CF03d?$AA@ DB '%'
 	DB	'4d%02d%02d%02d%02d%02d%03d', 00H		; `string'
@@ -24613,7 +24613,7 @@ PUBLIC	__zCall_GetDateTime@8
 PUBLIC	??_C@_0M@BKKK@ReturnValue?$AA@			; `string'
 PUBLIC	??_C@_09GMMJ@Operation?$AA@			; `string'
 ;	COMDAT ??_C@_0M@BKKK@ReturnValue?$AA@
-; File C:\10C\w\oe\KZOESYAA.c
+; File c:\10c\w\oe\KZOESYAA.c
 _DATA	SEGMENT
 ??_C@_0M@BKKK@ReturnValue?$AA@ DB 'ReturnValue', 00H	; `string'
 _DATA	ENDS
@@ -24672,7 +24672,7 @@ EXTRN	_SfDropSubtask@8:NEAR
 EXTRN	_NetCallOperation:NEAR
 EXTRN	_NetStatus@8:NEAR
 ;	COMDAT ??_C@_0O@HBNK@Zeidon?5System?$AA@
-; File C:\10C\w\oe\KZOESYAA.c
+; File c:\10c\w\oe\KZOESYAA.c
 _DATA	SEGMENT
 ??_C@_0O@HBNK@Zeidon?5System?$AA@ DB 'Zeidon System', 00H ; `string'
 _DATA	ENDS
@@ -24806,7 +24806,7 @@ PUBLIC	_SysGetDateTimeDifference@16
 EXTRN	_UfStringToDateTime@8:NEAR
 EXTRN	_UfDateTimeDiff@16:NEAR
 ;	COMDAT ??_C@_0BM@GMLB@Invalid?5type?5for?5Early?5Date?$AA@
-; File C:\10C\w\oe\KZOESYAA.c
+; File c:\10c\w\oe\KZOESYAA.c
 _DATA	SEGMENT
 ??_C@_0BM@GMLB@Invalid?5type?5for?5Early?5Date?$AA@ DB 'Invalid type for '
 	DB	'Early Date', 00H				; `string'
@@ -24981,7 +24981,7 @@ EXTRN	__imp__LoadLibraryA@4:NEAR
 EXTRN	__imp__LoadLibraryExA@12:NEAR
 EXTRN	__imp__strrchr:NEAR
 ;	COMDAT ??_C@_0GB@KOIH@?$CIsy?$CJ?5SysLoadLibrary?5failed?5to?5lo@
-; File C:\10C\w\oe\KZOESYAA.c
+; File c:\10c\w\oe\KZOESYAA.c
 _DATA	SEGMENT
 ??_C@_0GB@KOIH@?$CIsy?$CJ?5SysLoadLibrary?5failed?5to?5lo@ DB '(sy) SysLo'
 	DB	'adLibrary failed to load file: "%s"  with error code = %d  us'
@@ -25612,7 +25612,7 @@ PUBLIC	??_C@_0EK@FCCD@?$CIsy?$CJ?5SysGetProc?5failed?5with?5erro@ ; `string'
 PUBLIC	_SysGetProc@8
 EXTRN	__imp__GetProcAddress@8:NEAR
 ;	COMDAT ??_C@_0EK@FCCD@?$CIsy?$CJ?5SysGetProc?5failed?5with?5erro@
-; File C:\10C\w\oe\KZOESYAA.c
+; File c:\10c\w\oe\KZOESYAA.c
 _DATA	SEGMENT
 ??_C@_0EK@FCCD@?$CIsy?$CJ?5SysGetProc?5failed?5with?5erro@ DB '(sy) SysGe'
 	DB	'tProc failed with error code: %d   DLL: %s   Function: %s xx:'
@@ -25765,7 +25765,7 @@ PUBLIC	??_C@_0EA@DNMP@FreeLibrary?5sent?5message?5?$CI0x?$CF08x@ ; `string'
 PUBLIC	??_C@_0DM@HPCG@FreeLibrary?5did?5not?5free?5?$CI0x?$CF08x@ ; `string'
 PUBLIC	_fnSysFreeLibrary@12
 ;	COMDAT ??_C@_0EA@DNMP@FreeLibrary?5sent?5message?5?$CI0x?$CF08x@
-; File C:\10C\w\oe\KZOESYAA.c
+; File c:\10c\w\oe\KZOESYAA.c
 _DATA	SEGMENT
 ??_C@_0EA@DNMP@FreeLibrary?5sent?5message?5?$CI0x?$CF08x@ DB 'FreeLibrary'
 	DB	' sent message (0x%08x) for Module: %s - Task: 0x%08x', 00H ; `string'
@@ -26330,7 +26330,7 @@ _fnReuseEntity@4 ENDP
 _TEXT	ENDS
 PUBLIC	??_C@_04GKDJ@?$FL?$CFs?$FN?$AA@			; `string'
 ;	COMDAT ??_C@_04GKDJ@?$FL?$CFs?$FN?$AA@
-; File C:\10C\w\oe\KZOESYAA.c
+; File c:\10c\w\oe\KZOESYAA.c
 _DATA	SEGMENT
 ??_C@_04GKDJ@?$FL?$CFs?$FN?$AA@ DB '[%s]', 00H		; `string'
 _DATA	ENDS
@@ -26905,7 +26905,7 @@ PUBLIC	??_C@_08KBJI@?$FLZeidon?$FN?$AA@		; `string'
 PUBLIC	??_C@_0P@HMIB@?$FLEncyclopedia?$FN?$AA@		; `string'
 PUBLIC	??_C@_0BC@GKOC@?$FLObject?5Services?$FN?$AA@	; `string'
 ;	COMDAT ??_C@_05DBPH@?$CFs?$DN?$CFs?$AA@
-; File C:\10C\w\oe\KZOESYAA.c
+; File c:\10c\w\oe\KZOESYAA.c
 _DATA	SEGMENT
 ??_C@_05DBPH@?$CFs?$DN?$CFs?$AA@ DB '%s=%s', 00H	; `string'
 _DATA	ENDS
@@ -27703,7 +27703,7 @@ EXTRN	__imp__CreateDirectoryA@8:NEAR
 EXTRN	__imp__GetFullPathNameA@16:NEAR
 EXTRN	__imp__GetFileAttributesA@4:NEAR
 ;	COMDAT ??_C@_0CB@OHMI@Error?5in?5directory?5specification@
-; File C:\10C\w\oe\KZOESYAA.c
+; File c:\10c\w\oe\KZOESYAA.c
 _DATA	SEGMENT
 ??_C@_0CB@OHMI@Error?5in?5directory?5specification@ DB 'Error in director'
 	DB	'y specification', 00H			; `string'
@@ -27927,7 +27927,7 @@ EXTRN	_HtmlHelpA@16:NEAR
 EXTRN	__imp__WinHelpA@16:NEAR
 EXTRN	__imp___strupr:NEAR
 ;	COMDAT ??_C@_0M@LGM@SYSTEM?5HELP?$AA@
-; File C:\10C\w\oe\KZOESYAA.c
+; File c:\10c\w\oe\KZOESYAA.c
 _DATA	SEGMENT
 ??_C@_0M@LGM@SYSTEM?5HELP?$AA@ DB 'SYSTEM HELP', 00H	; `string'
 _DATA	ENDS
@@ -28292,7 +28292,7 @@ PUBLIC	??_C@_0P@BGCK@?5?$DN?5?$CFlf?5seconds?$AA@	; `string'
 PUBLIC	_SysElapsedTimer@8
 EXTRN	__fltused:NEAR
 ;	COMDAT ??_C@_0P@BGCK@?5?$DN?5?$CFlf?5seconds?$AA@
-; File C:\10C\w\oe\KZOESYAA.c
+; File c:\10c\w\oe\KZOESYAA.c
 _DATA	SEGMENT
 ??_C@_0P@BGCK@?5?$DN?5?$CFlf?5seconds?$AA@ DB ' = %lf seconds', 00H ; `string'
 _DATA	ENDS
@@ -28587,7 +28587,7 @@ EXTRN	__imp__atof:NEAR
 EXTRN	__imp__floor:NEAR
 EXTRN	__ftol:NEAR
 ;	COMDAT ??_C@_0CO@IFCF@?$CIZDecimal?$CJ?5Using?5default?5zDecima@
-; File C:\10C\w\oe\KZOESYAA.c
+; File c:\10c\w\oe\KZOESYAA.c
 _DATA	SEGMENT
 ??_C@_0CO@IFCF@?$CIZDecimal?$CJ?5Using?5default?5zDecima@ DB '(ZDecimal) '
 	DB	'Using default zDecimalOperation( )', 00H	; `string'
@@ -29315,7 +29315,7 @@ PUBLIC	??_C@_0BL@OJCG@Mutex?5?8?$CFs?8?5already?5created?$AA@ ; `string'
 PUBLIC	??_C@_0BI@NCB@Error?5creating?5mutex?5?$CFs?$AA@ ; `string'
 EXTRN	__imp__CreateMutexA@12:NEAR
 ;	COMDAT ??_C@_0BL@OJCG@Mutex?5?8?$CFs?8?5already?5created?$AA@
-; File C:\10C\w\oe\KZOESYAA.c
+; File c:\10c\w\oe\KZOESYAA.c
 _DATA	SEGMENT
 ??_C@_0BL@OJCG@Mutex?5?8?$CFs?8?5already?5created?$AA@ DB 'Mutex ''%s'' a'
 	DB	'lready created', 00H			; `string'
@@ -29445,7 +29445,7 @@ PUBLIC	_fnSysDestroyCoreMutex@4
 PUBLIC	??_C@_0CA@JEKI@Trying?5to?5destroy?5NULL?5Mutex?5?$CFs?$AA@ ; `string'
 PUBLIC	??_C@_0BK@ODA@Error?5destroying?5mutex?5?$CFs?$AA@ ; `string'
 ;	COMDAT ??_C@_0CA@JEKI@Trying?5to?5destroy?5NULL?5Mutex?5?$CFs?$AA@
-; File C:\10C\w\oe\KZOESYAA.c
+; File c:\10c\w\oe\KZOESYAA.c
 _DATA	SEGMENT
 ??_C@_0CA@JEKI@Trying?5to?5destroy?5NULL?5Mutex?5?$CFs?$AA@ DB 'Trying to'
 	DB	' destroy NULL Mutex %s', 00H		; `string'
@@ -29575,7 +29575,7 @@ _fnSysDestroyCoreMutex@4 ENDP
 _TEXT	ENDS
 PUBLIC	??_C@_0BN@NAII@Trying?5to?5lock?5NULL?5Mutex?5?$CFs?$AA@ ; `string'
 ;	COMDAT ??_C@_0BN@NAII@Trying?5to?5lock?5NULL?5Mutex?5?$CFs?$AA@
-; File C:\10C\w\oe\KZOESYAA.c
+; File c:\10c\w\oe\KZOESYAA.c
 _DATA	SEGMENT
 ??_C@_0BN@NAII@Trying?5to?5lock?5NULL?5Mutex?5?$CFs?$AA@ DB 'Trying to lo'
 	DB	'ck NULL Mutex %s', 00H			; `string'
@@ -29697,7 +29697,7 @@ PUBLIC	??_C@_0BP@PNEP@Trying?5to?5unlock?5NULL?5Mutex?5?$CFs?$AA@ ; `string'
 PUBLIC	??_C@_0BJ@HDOA@Error?5releasing?5mutex?5?$CFs?$AA@ ; `string'
 EXTRN	__imp__ReleaseMutex@4:NEAR
 ;	COMDAT ??_C@_0BP@PNEP@Trying?5to?5unlock?5NULL?5Mutex?5?$CFs?$AA@
-; File C:\10C\w\oe\KZOESYAA.c
+; File c:\10c\w\oe\KZOESYAA.c
 _DATA	SEGMENT
 ??_C@_0BP@PNEP@Trying?5to?5unlock?5NULL?5Mutex?5?$CFs?$AA@ DB 'Trying to '
 	DB	'unlock NULL Mutex %s', 00H			; `string'
@@ -29941,7 +29941,7 @@ PUBLIC	??_C@_09KKLG@Null?5task?$AA@			; `string'
 PUBLIC	??_C@_09PEMB@MutexFind?$AA@			; `string'
 PUBLIC	_fnMutexFind@8
 ;	COMDAT ??_C@_09KKLG@Null?5task?$AA@
-; File C:\10C\w\oe\KZOESYAA.c
+; File c:\10c\w\oe\KZOESYAA.c
 _DATA	SEGMENT
 ??_C@_09KKLG@Null?5task?$AA@ DB 'Null task', 00H	; `string'
 _DATA	ENDS
@@ -30163,7 +30163,7 @@ PUBLIC	??_C@_0CD@KDEH@fnMutexCreate?5Invalid?5mutex?5name@ ; `string'
 PUBLIC	_fnMutexCreate@16
 PUBLIC	_fnMutexCreateOS@12
 ;	COMDAT ??_C@_0CD@KDEH@fnMutexCreate?5Invalid?5mutex?5name@
-; File C:\10C\w\oe\KZOESYAA.c
+; File c:\10c\w\oe\KZOESYAA.c
 _DATA	SEGMENT
 ??_C@_0CD@KDEH@fnMutexCreate?5Invalid?5mutex?5name@ DB 'fnMutexCreate Inv'
 	DB	'alid mutex name: ', 00H			; `string'
@@ -30774,7 +30774,7 @@ PUBLIC	??_C@_0BE@IMPM@Error?5locking?5mutex?$AA@	; `string'
 PUBLIC	??_C@_05CKBG@Error?$AA@				; `string'
 PUBLIC	_SysMutexLock@16
 ;	COMDAT ??_C@_0CB@MGPE@?$CItm?$CJ?5Error?5trying?5to?5lock?5mutex?5@
-; File C:\10C\w\oe\KZOESYAA.c
+; File c:\10c\w\oe\KZOESYAA.c
 _DATA	SEGMENT
 ??_C@_0CB@MGPE@?$CItm?$CJ?5Error?5trying?5to?5lock?5mutex?5@ DB '(tm) Err'
 	DB	'or trying to lock mutex ', 00H		; `string'
@@ -31533,7 +31533,7 @@ PUBLIC	??_C@_0CH@OFLB@Mutex?5?8?$CFs?8?5is?5unlocked?5?5?5Process@ ; `string'
 PUBLIC	??_C@_0EG@GHCJ@Task?50x?$CF08x?5?$CIprocess?5id?3?$CFd?$CJ?5is?5w@ ; `string'
 PUBLIC	_SysMutexQueryStatus@0
 ;	COMDAT ??_C@_0BH@FCNG@?5?9?9?9?9?5MUTEX?5LIST?5?9?9?9?9?5?$AA@
-; File C:\10C\w\oe\KZOESYAA.c
+; File c:\10c\w\oe\KZOESYAA.c
 _DATA	SEGMENT
 ??_C@_0BH@FCNG@?5?9?9?9?9?5MUTEX?5LIST?5?9?9?9?9?5?$AA@ DB ' ---- MUTEX L'
 	DB	'IST ---- ', 00H				; `string'
@@ -32006,7 +32006,7 @@ PUBLIC	??_C@_08EIPD@KZOESYAA?$AA@			; `string'
 PUBLIC	_SysGetClientMessage@0
 EXTRN	__imp__RegisterWindowMessageA@4:NEAR
 ;	COMDAT ??_C@_08EIPD@KZOESYAA?$AA@
-; File C:\10C\w\oe\KZOESYAA.c
+; File c:\10c\w\oe\KZOESYAA.c
 _DATA	SEGMENT
 ??_C@_08EIPD@KZOESYAA?$AA@ DB 'KZOESYAA', 00H		; `string'
 _DATA	ENDS
@@ -32046,7 +32046,7 @@ PUBLIC	??_C@_0CI@DLDL@SysMainWndProc?5for?5Tomcat?5sessio@ ; `string'
 EXTRN	__imp__DefWindowProcA@16:NEAR
 EXTRN	__imp__PostQuitMessage@4:NEAR
 ;	COMDAT ??_C@_0CI@DLDL@SysMainWndProc?5for?5Tomcat?5sessio@
-; File C:\10C\w\oe\KZOESYAA.c
+; File c:\10c\w\oe\KZOESYAA.c
 _DATA	SEGMENT
 ??_C@_0CI@DLDL@SysMainWndProc?5for?5Tomcat?5sessio@ DB 'SysMainWndProc fo'
 	DB	'r Tomcat session Wnd: ', 00H		; `string'
@@ -32147,7 +32147,7 @@ EXTRN	__imp__GetStockObject@4:NEAR
 EXTRN	__imp__GetSystemMetrics@4:NEAR
 EXTRN	__imp__RegisterClassA@4:NEAR
 ;	COMDAT ??_C@_0DP@DCII@SysInitApplicationWindow?5Class?3?5@
-; File C:\10C\w\oe\KZOESYAA.c
+; File c:\10c\w\oe\KZOESYAA.c
 _DATA	SEGMENT
 ??_C@_0DP@DCII@SysInitApplicationWindow?5Class?3?5@ DB 'SysInitApplicatio'
 	DB	'nWindow Class: %s  Title: %s  hWnd: 0x%08x=%d', 00H ; `string'
@@ -32418,7 +32418,7 @@ EXTRN	__imp__toupper:NEAR
 EXTRN	_NetClose@8:NEAR
 EXTRN	__imp__GetVersionExA@4:NEAR
 ;	COMDAT ??_C@_08HAKP@KZOESRVC?$AA@
-; File C:\10C\w\oe\KZOESYAA.c
+; File c:\10c\w\oe\KZOESYAA.c
 _DATA	SEGMENT
 ??_C@_08HAKP@KZOESRVC?$AA@ DB 'KZOESRVC', 00H		; `string'
 _DATA	ENDS

@@ -1,4 +1,4 @@
-	TITLE	C:\10C\w\oe\KZOECLNT.C
+	TITLE	c:\10c\w\oe\KZOECLNT.C
 	.386P
 include listing.inc
 if @Version gt 510
@@ -134,7 +134,7 @@ PUBLIC	??_C@_06BPHG@?$CFd?3?5?$CFs?$AA@		; `string'
 EXTRN	__imp__SendMessageA@16:NEAR
 EXTRN	_sprintf:NEAR
 ;	COMDAT ??_C@_06BPHG@?$CFd?3?5?$CFs?$AA@
-; File C:\10C\w\oe\KZOECLNT.C
+; File c:\10c\w\oe\KZOECLNT.C
 _DATA	SEGMENT
 ??_C@_06BPHG@?$CFd?3?5?$CFs?$AA@ DB '%d: %s', 00H	; `string'
 _DATA	ENDS
@@ -235,7 +235,7 @@ EXTRN	_RegisterZeidonApplication@28:NEAR
 EXTRN	_UnregisterZeidonApplication@4:NEAR
 EXTRN	_SysGetDateTime@4:NEAR
 ;	COMDAT ??_C@_0BF@IHIM@Starting?5thread?5test?$AA@
-; File C:\10C\w\oe\KZOECLNT.C
+; File c:\10c\w\oe\KZOECLNT.C
 _DATA	SEGMENT
 ??_C@_0BF@IHIM@Starting?5thread?5test?$AA@ DB 'Starting thread test', 00H ; `string'
 _DATA	ENDS
@@ -717,7 +717,7 @@ EXTRN	_SfCreateSubtask@12:NEAR
 EXTRN	_SfDropSubtask@8:NEAR
 EXTRN	__imp__KillTimer@8:NEAR
 ;	COMDAT ??_C@_06GLEP@Zencas?$AA@
-; File C:\10C\w\oe\KZOECLNT.C
+; File c:\10c\w\oe\KZOECLNT.C
 _DATA	SEGMENT
 ??_C@_06GLEP@Zencas?$AA@ DB 'Zencas', 00H		; `string'
 _DATA	ENDS
@@ -889,7 +889,7 @@ EXTRN	_NetStatus@8:NEAR
 EXTRN	__imp__DefWindowProcA@16:NEAR
 EXTRN	__imp__PostQuitMessage@4:NEAR
 ;	COMDAT ??_C@_0BD@LOPD@Close?5running?5test?$AA@
-; File C:\10C\w\oe\KZOECLNT.C
+; File c:\10c\w\oe\KZOECLNT.C
 _DATA	SEGMENT
 ??_C@_0BD@LOPD@Close?5running?5test?$AA@ DB 'Close running test', 00H ; `string'
 _DATA	ENDS
@@ -1301,7 +1301,7 @@ EXTRN	__imp__LoadIconA@8:NEAR
 EXTRN	__imp__GetStockObject@4:NEAR
 EXTRN	__imp__RegisterClassA@4:NEAR
 ;	COMDAT ??_C@_08FLEO@KZOECLNT?$AA@
-; File C:\10C\w\oe\KZOECLNT.C
+; File c:\10c\w\oe\KZOECLNT.C
 _DATA	SEGMENT
 ??_C@_08FLEO@KZOECLNT?$AA@ DB 'KZOECLNT', 00H		; `string'
 _DATA	ENDS
@@ -1409,7 +1409,7 @@ EXTRN	__imp__HeapAlloc@12:NEAR
 EXTRN	__imp__HeapFree@12:NEAR
 EXTRN	__imp__GetProcessHeap@0:NEAR
 ;	COMDAT ??_C@_0M@OBCJ@Test?5Client?$AA@
-; File C:\10C\w\oe\KZOECLNT.C
+; File c:\10c\w\oe\KZOECLNT.C
 _DATA	SEGMENT
 ??_C@_0M@OBCJ@Test?5Client?$AA@ DB 'Test Client', 00H	; `string'
 _DATA	ENDS

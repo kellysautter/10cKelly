@@ -1,4 +1,4 @@
-	TITLE	C:\10C\w\oe\ZWINSOCK.CPP
+	TITLE	c:\10c\w\oe\ZWINSOCK.CPP
 	.386P
 include listing.inc
 if @Version gt 510
@@ -548,7 +548,7 @@ EXTRN	_TraceLineS@8:NEAR
 EXTRN	__imp__wsprintfA:NEAR
 EXTRN	_WSAGetLastError@0:NEAR
 ;	COMDAT ??_C@_00A@?$AA@
-; File C:\10C\w\oe\ZWINSOCK.CPP
+; File c:\10c\w\oe\ZWINSOCK.CPP
 _BSS	SEGMENT
 ??_C@_00A@?$AA@ DB 01H DUP (?)				; `string'
 _BSS	ENDS
@@ -1109,7 +1109,7 @@ EXTRN	_TraceBuffer@12:NEAR
 EXTRN	_memcpy:NEAR
 EXTRN	_send@16:NEAR
 ;	COMDAT ??_C@_0BP@CEPC@?$CIzwinsock?$CJ?5zNetSend?5?9?9?5uLth?5?$DN?5?$AA@
-; File C:\10C\w\oe\ZWINSOCK.CPP
+; File c:\10c\w\oe\ZWINSOCK.CPP
 _DATA	SEGMENT
 ??_C@_0BP@CEPC@?$CIzwinsock?$CJ?5zNetSend?5?9?9?5uLth?5?$DN?5?$AA@ DB '(z'
 	DB	'winsock) zNetSend -- uLth = ', 00H		; `string'
@@ -1591,7 +1591,7 @@ EXTRN	__imp__malloc:NEAR
 EXTRN	_SysMessageBox@16:NEAR
 EXTRN	_recv@16:NEAR
 ;	COMDAT ??_C@_0CC@JAKC@?$CIzwinsock?$CJ?5zNetReceive?5?9?9?5uLth?5?$DN@
-; File C:\10C\w\oe\ZWINSOCK.CPP
+; File c:\10c\w\oe\ZWINSOCK.CPP
 _DATA	SEGMENT
 ??_C@_0CC@JAKC@?$CIzwinsock?$CJ?5zNetReceive?5?9?9?5uLth?5?$DN@ DB '(zwin'
 	DB	'sock) zNetReceive -- uLth = ', 00H		; `string'
@@ -2239,7 +2239,7 @@ EXTRN	_socket@12:NEAR
 EXTRN	_gethostbyname@4:NEAR
 EXTRN	__fltused:NEAR
 ;	COMDAT ??_C@_08PDEL@ApplPort?$AA@
-; File C:\10C\w\oe\ZWINSOCK.CPP
+; File c:\10c\w\oe\ZWINSOCK.CPP
 _DATA	SEGMENT
 ??_C@_08PDEL@ApplPort?$AA@ DB 'ApplPort', 00H		; `string'
 _DATA	ENDS
@@ -3148,7 +3148,7 @@ _TEXT	ENDS
 PUBLIC	_zNetCloseConnection@8
 PUBLIC	??_C@_0M@BGOH@closesocket?$AA@			; `string'
 ;	COMDAT ??_C@_0M@BGOH@closesocket?$AA@
-; File C:\10C\w\oe\ZWINSOCK.CPP
+; File c:\10c\w\oe\ZWINSOCK.CPP
 _DATA	SEGMENT
 ??_C@_0M@BGOH@closesocket?$AA@ DB 'closesocket', 00H	; `string'
 _DATA	ENDS
@@ -3326,7 +3326,7 @@ EXTRN	_RegisterZeidonApplication@28:NEAR
 EXTRN	_UnregisterZeidonApplication@4:NEAR
 EXTRN	_SysGetPointerFromHandle@4:NEAR
 ;	COMDAT ??_C@_0BB@BIOA@SyncServerAccess?$AA@
-; File C:\10C\w\oe\ZWINSOCK.CPP
+; File c:\10c\w\oe\ZWINSOCK.CPP
 _DATA	SEGMENT
 ??_C@_0BB@BIOA@SyncServerAccess?$AA@ DB 'SyncServerAccess', 00H ; `string'
 _DATA	ENDS
@@ -3734,7 +3734,7 @@ EXTRN	_accept@12:NEAR
 EXTRN	_bind@12:NEAR
 EXTRN	_listen@8:NEAR
 ;	COMDAT ??_C@_0L@DNJN@ListenPort?$AA@
-; File C:\10C\w\oe\ZWINSOCK.CPP
+; File c:\10c\w\oe\ZWINSOCK.CPP
 _DATA	SEGMENT
 ??_C@_0L@DNJN@ListenPort?$AA@ DB 'ListenPort', 00H	; `string'
 _DATA	ENDS
@@ -4402,7 +4402,7 @@ PUBLIC	??_C@_0CN@ENIM@?$CIzwinsock?$CJ?5Error?5shutting?5down?5l@ ; `string'
 PUBLIC	??_C@_0DH@IIDH@NetStopListen?5wait?5for?5socket?5to@ ; `string'
 PUBLIC	??_C@_0BK@BAFL@?$CIzwinsock?$CJ?5Listen?5stopped?$AA@ ; `string'
 ;	COMDAT ??_C@_0BL@GKON@?$CIzwinsock?$CJ?5Stopping?5listen?$AA@
-; File C:\10C\w\oe\ZWINSOCK.CPP
+; File c:\10c\w\oe\ZWINSOCK.CPP
 _DATA	SEGMENT
 ??_C@_0BL@GKON@?$CIzwinsock?$CJ?5Stopping?5listen?$AA@ DB '(zwinsock) Sto'
 	DB	'pping listen', 00H				; `string'
@@ -4627,7 +4627,7 @@ EXTRN	_getpeername@12:NEAR
 EXTRN	_gethostbyaddr@12:NEAR
 EXTRN	_gethostname@8:NEAR
 ;	COMDAT ??_C@_0CH@OIJA@?$CIzwinsock?$CJ?5Getting?5local?5host?5ad@
-; File C:\10C\w\oe\ZWINSOCK.CPP
+; File c:\10c\w\oe\ZWINSOCK.CPP
 _DATA	SEGMENT
 ??_C@_0CH@OIJA@?$CIzwinsock?$CJ?5Getting?5local?5host?5ad@ DB '(zwinsock)'
 	DB	' Getting local host address.', 00H		; `string'
@@ -4923,7 +4923,7 @@ EXTRN	_TraceLineX@8:NEAR
 EXTRN	_WSAStartup@8:NEAR
 EXTRN	_WSACleanup@0:NEAR
 ;	COMDAT ??_C@_0CD@JNBC@Error?5loading?5starting?5WinSock?3?5@
-; File C:\10C\w\oe\ZWINSOCK.CPP
+; File c:\10c\w\oe\ZWINSOCK.CPP
 _DATA	SEGMENT
 ??_C@_0CD@JNBC@Error?5loading?5starting?5WinSock?3?5@ DB 'Error loading s'
 	DB	'tarting WinSock: %d', 00H			; `string'
@@ -5191,7 +5191,7 @@ _TEXT	ENDS
 PUBLIC	_zNetClose@8
 PUBLIC	??_C@_0CK@EMAI@?$CIzwinsock?$CJ?5Shutting?5down?5network@ ; `string'
 ;	COMDAT ??_C@_0CK@EMAI@?$CIzwinsock?$CJ?5Shutting?5down?5network@
-; File C:\10C\w\oe\ZWINSOCK.CPP
+; File c:\10c\w\oe\ZWINSOCK.CPP
 _DATA	SEGMENT
 ??_C@_0CK@EMAI@?$CIzwinsock?$CJ?5Shutting?5down?5network@ DB '(zwinsock) '
 	DB	'Shutting down network zWinSock', 00H	; `string'
@@ -5310,7 +5310,7 @@ EXTRN	_SetAttributeFromAttribute@24:NEAR
 EXTRN	_strcat:NEAR
 EXTRN	_SfActivateSysEmptyOI@16:NEAR
 ;	COMDAT ??_C@_08LFLP@KZFXFERO?$AA@
-; File C:\10C\w\oe\ZWINSOCK.CPP
+; File c:\10c\w\oe\ZWINSOCK.CPP
 _DATA	SEGMENT
 ??_C@_08LFLP@KZFXFERO?$AA@ DB 'KZFXFERO', 00H		; `string'
 _DATA	ENDS
@@ -5623,7 +5623,7 @@ EXTRN	_CompareAttributeToAttribute@24:NEAR
 EXTRN	_SetMatchingAttributesByName@20:NEAR
 EXTRN	_SfActivateSysOI_FromFile@20:NEAR
 ;	COMDAT ??_C@_06HLLH@ZEIDON?$AA@
-; File C:\10C\w\oe\ZWINSOCK.CPP
+; File c:\10c\w\oe\ZWINSOCK.CPP
 _DATA	SEGMENT
 ??_C@_06HLLH@ZEIDON?$AA@ DB 'ZEIDON', 00H		; `string'
 _DATA	ENDS
@@ -6253,7 +6253,7 @@ PUBLIC	__zCall_CompareFiles@8
 PUBLIC	??_C@_0M@BKKK@ReturnValue?$AA@			; `string'
 PUBLIC	??_C@_09GMMJ@Operation?$AA@			; `string'
 ;	COMDAT ??_C@_0M@BKKK@ReturnValue?$AA@
-; File C:\10C\w\oe\ZWINSOCK.CPP
+; File c:\10c\w\oe\ZWINSOCK.CPP
 _DATA	SEGMENT
 ??_C@_0M@BKKK@ReturnValue?$AA@ DB 'ReturnValue', 00H	; `string'
 _DATA	ENDS
@@ -6318,7 +6318,7 @@ EXTRN	_SysSetFileTime@12:NEAR
 EXTRN	_WriteBlobToFile@16:NEAR
 EXTRN	_GetAddrForAttribute@16:NEAR
 ;	COMDAT ??_C@_0N@FJNC@SourceServer?$AA@
-; File C:\10C\w\oe\ZWINSOCK.CPP
+; File c:\10c\w\oe\ZWINSOCK.CPP
 _DATA	SEGMENT
 ??_C@_0N@FJNC@SourceServer?$AA@ DB 'SourceServer', 00H	; `string'
 _DATA	ENDS

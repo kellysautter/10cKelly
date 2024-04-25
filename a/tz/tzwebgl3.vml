@@ -197,8 +197,10 @@ BuildMainNavSection( VIEW vDialog,
       IF ActionType = zWAB_LinkToHTML_Address
          szHTML_Address = ""
          IF vDialogRoot.OptAct EXISTS
-            SET CURSOR FIRST vDialogRoot.Action WHERE vDialogRoot.Action.ZKey = vDialogRoot.OptAct.ZKey
-            szHTML_Address = vDialogRoot.Action.WebHTML_TransferAddress
+            //SET CURSOR FIRST vDialogRoot.Action WHERE vDialogRoot.Action.ZKey = vDialogRoot.OptAct.ZKey
+            // KJS 10/20/23 - commenting this out because of incompatiblilies, I took off WebHTML_TransferAddress from OptAct.
+            //szHTML_Address = vDialogRoot.OptAct.WebHTML_TransferAddress
+            szHTML_Address = ""
          END
       END
       IF ActionType = zWAB_LinkToHTML_Address AND szStyleIsBootstrap = ""
@@ -2322,6 +2324,8 @@ GenJSP_CrteComboBox( VIEW vDialog BASED ON LOD TZWDLGSO,
 
    szWriteBuffer = "<% strErrorMapValue = ^^;  %>"
    WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
+   
+   CreateDisabledString( vDialog, szDisabled )
 
    lSubtype = vDialog.Control.Subtype
    nRC = AreBitsSetInFlag( lSubtype, 61440 ) // 0x0000F000
@@ -2348,8 +2352,6 @@ GenJSP_CrteComboBox( VIEW vDialog BASED ON LOD TZWDLGSO,
          szSelectAction   = "onchange"
          szSelectFunction = "OnChange"
       END
-
-      CreateDisabledString( vDialog, szDisabled )
 
       IF szClass = ""
          szWriteBuffer = "<select name=^" + szCtrlTag + "^ id=^" + szCtrlTag + "^ size=^1^ " + szTitleHTML + szStyle + szDisabled + szSelectAction + "=^" +
@@ -3578,6 +3580,7 @@ GenJSPJ_CrteSideMenuRecurs( VIEW vDialog,
    STRING ( 50 )    szMenuName
    //STRING ( 34 )    szActionName
    STRING ( 100 )   szActionName
+   STRING ( 256 )   szLinkName
    STRING ( 1 )     szStyleIsjMobile
    STRING ( 1 )     szStyleIsBootstrap
    STRING ( 256 )   szClass
@@ -3635,25 +3638,33 @@ GenJSPJ_CrteSideMenuRecurs( VIEW vDialog,
       ELSE
          szMenuName = vDialogMenu.Option.Tag
       END
-
-   // szHTML_Name = szDialogName + vDialogMenu.OptAct.WindowName + ".jsp"
+      
+      szLinkName = "#"
+      // szHTML_Name = szDialogName + vDialogMenu.OptAct.WindowName + ".jsp"
       IF vDialogMenu.OptAct EXISTS
-
-         // Because the menu actions can be created on separate windows from the control
-         // actions, we need to make sure these actions are unique.  We will prefix a
-         // "m" to the main menu actions and prefix a "sm" to the side menu actions.
-         IF szReusableMenu = "Y"
-            szActionName = "onclick=^" + "sm" + vDialogMenu.OptAct.Tag + "()^"
-            //szActionName = "sm" + vDialogMenu.OptAct.Tag
-         // lLth = zstrlen( szActionName )
-         // IF lLth > 32
-         //    MessageSend( vDialog, "", "Reusable Menu Action Name Length > 32",
-         //                 szActionName,
-         //                 zMSGQ_OBJECT_CONSTRAINT_WARNING, 0 )
-         // END
+         IF vDialogMenu.OptAct.Type = 45    // Type 45 is Hyperlink Action.
+            // KJS 10/20/23 - commenting this out because of incompatiblilies, I took off WebHTML_TransferAddress from OptAct.
+            //szLinkName = vDialogMenu.OptAct.WebHTML_TransferAddress
+            //szActionName = "target=^_blank^"
+            szLinkName = ""
+            szActionName = ""
          ELSE
-            szActionName = "onclick=^" + vDialogMenu.OptAct.Tag + "()^"
-            //szActionName = vDialogMenu.OptAct.Tag
+            // Because the menu actions can be created on separate windows from the control
+            // actions, we need to make sure these actions are unique.  We will prefix a
+            // "m" to the main menu actions and prefix a "sm" to the side menu actions.
+            IF szReusableMenu = "Y"
+               szActionName = "onclick=^" + "sm" + vDialogMenu.OptAct.Tag + "()^"
+               //szActionName = "sm" + vDialogMenu.OptAct.Tag
+            // lLth = zstrlen( szActionName )
+            // IF lLth > 32
+            //    MessageSend( vDialog, "", "Reusable Menu Action Name Length > 32",
+            //                 szActionName,
+            //                 zMSGQ_OBJECT_CONSTRAINT_WARNING, 0 )
+            // END
+            ELSE
+               szActionName = "onclick=^" + vDialogMenu.OptAct.Tag + "()^"
+               //szActionName = vDialogMenu.OptAct.Tag
+            END
          END
          ActionType = vDialogMenu.OptAct.Type
       ELSE
@@ -3697,7 +3708,7 @@ GenJSPJ_CrteSideMenuRecurs( VIEW vDialog,
 
       IF szStyleIsBootstrap = ""
          //szWriteBuffer = "       <li id=^" + szMenuName + "^ name=^" + szMenuName + "^" + szClass + "><a href=^#^ " + szClass2 + " onclick=^" + szActionName + "()^>" + szNavigationTitle + "</a></li>"
-         szWriteBuffer = "       <li id=^" + szMenuName + "^ name=^" + szMenuName + "^" + szClass + "><a href=^#^ " + szClass2 + " " + szActionName + ">" + szNavigationTitle + "</a></li>"
+         szWriteBuffer = "       <li id=^" + szMenuName + "^ name=^" + szMenuName + "^" + szClass + "><a href=^" + szLinkName + "^ " + szClass2 + " " + szActionName + ">" + szNavigationTitle + "</a></li>"
          WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
       ELSE
          IF vDialogMenu.Option.WebHTML5Attribute != ""
@@ -3711,9 +3722,11 @@ GenJSPJ_CrteSideMenuRecurs( VIEW vDialog,
          END
          szWriteBuffer = "       <li " + szClass + " id=^" + szMenuName + "^ name=^" + szMenuName + "^>"
          IF szOptOptTag = ""
-            szWriteBuffer = szWriteBuffer + "<a class=^sidebar-link^ href=^#" + szOptOptTag + "^ " +  " " + szActionName + ">" + szText + " <span class=^align-middle^>" + szNavigationTitle + "</span></a></li>"
+            szWriteBuffer = szWriteBuffer + "<a class=^sidebar-link^ href=^" + szLinkName + szOptOptTag + "^ " +  " " + szActionName + ">" + szText + " <span class=^align-middle^>" + szNavigationTitle + "</span></a></li>"
          ELSE
-            szWriteBuffer = szWriteBuffer + "<a class=^sidebar-link^ data-toggle=^collapse^ aria-expanded=^true^ href=^#" + szOptOptTag + "^ " +  " " + szActionName + ">" + szText + " <span class=^align-middle^>" + szNavigationTitle + "</span></a></li>"
+            szWriteBuffer = szWriteBuffer + "<a class=^sidebar-link^ data-toggle=^collapse^ aria-expanded=^true^ href=^" + szLinkName + szOptOptTag
+            szWriteBuffer = szWriteBuffer + "^ " +  " " + szActionName + ">" + szText + " <span class=^align-middle^>" + szNavigationTitle + "</span></a></li>"
+            //szWriteBuffer = szWriteBuffer + "<a class=^sidebar-link^ data-toggle=^collapse^ aria-expanded=^true^ href=^" + szLinkName + szOptOptTag + "^ " +  " " + szActionName + ">" + szText + " <span class=^align-middle^>" + szNavigationTitle + "</span></a></li>"
          END
           //szWriteBuffer = szWriteBuffer + "<a class=^sidebar-link^ href=^#^ " +  " onclick=^" + szActionName + "()^><i class=^align-middle mr-2 fas fa-fw " + szText  + "^></i> <span class=^align-middle^>" + szNavigationTitle + "</span></a></li>"
          WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
@@ -3830,9 +3843,11 @@ BuildMainNavSectionBootstrap( VIEW vDialog,
       // is not assumed? 
       IF vDialogMenu.OptOpt EXISTS
          szMenuStyle = "Vertical"
+      ELSE
+         szMenuStyle = "Horizontal"
       END
       //szWriteBuffer = "<div data-role=^navbar^ id=^div" + szMenuName + "^ " + szClass + ">"
-      szWriteBuffer = "<nav class=^navbar navbar-expand navbar-theme^>"
+      szWriteBuffer = "<nav  id='" + szMenuName + "'class=^navbar navbar-expand navbar-theme^>   <!-- using Bootstrap -->"
       WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
       IF SideMenuExistsFlag = "Y"
          szWriteBuffer = "<a class=^sidebar-toggle d-flex mr-2^>"
@@ -3854,7 +3869,7 @@ BuildMainNavSectionBootstrap( VIEW vDialog,
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
          END
       
-         szWriteBuffer = "<div class=^navbar-collapse collapse^>"
+         szWriteBuffer = "<div class=^navbar-collapse collapse^>   <!-- Vertical -->"
          WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
          szWriteBuffer = "   <ul  class=^navbar-nav ml-auto " + vDialogMenu.Menu.CSS_Class + "^ >"
          WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
@@ -3894,10 +3909,11 @@ BuildMainNavSectionBootstrap( VIEW vDialog,
          // log_banner.inc... but would everyone want to have that around banner/top nav? In non bootstrap code, the banner and top nav are separate. Feels in a way like
          // it should be that way...
          // Not sure exactly what to do...
-        szHasBanner = "N"
-        IF vDialog.Dialog.WEB_TopBannerName != "" OR vDialog.Window.WEB_TopBannerName != ""
+         // KJS 01/30/23 - I'm not exactly sure that I made changes for Jeff (which I really thought I did). But now changing for David Lofcutoff (nmm).
+         szHasBanner = "N"
+         IF vDialog.Dialog.WEB_TopBannerName != "" OR vDialog.Window.WEB_TopBannerName != ""
             szHasBanner = "Y"
-            szWriteBuffer = "<div>"  // Place a div around the surrounding area?
+            szWriteBuffer = "<div class=^navbar-collapse collapse^>  <!-- Horizontal with Banner -->"  // Place a div around the surrounding area?
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
 
             // Look at the top banner for the dialog we are in (vDialog) not the dialog where the actions are coming from (vDialogMenu)
@@ -3908,17 +3924,18 @@ BuildMainNavSectionBootstrap( VIEW vDialog,
             END
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
           
-            szWriteBuffer = "          <div>"  // Place a div around the surrounding area?
-            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-            szWriteBuffer = "          <nav id='" + szMenuName + "'>"  // Place a div around the surrounding area?
-            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-            szWriteBuffer = "          <ul>"  // Place a div around the surrounding area?
+            //szWriteBuffer = "          <div>   <!-- Horizontal with Banner 2nd div? -->"  // Place a div around the surrounding area?
+            //WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+            //szWriteBuffer = "          <nav id='" + szMenuName + "'>"  // Place a div around the surrounding area?
+            //WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+            //szWriteBuffer = "          <ul>"  // Place a div around the surrounding area?
+            szWriteBuffer = "   <ul  class=^navbar-nav ml-auto " + vDialogMenu.Menu.CSS_Class + "^ >"
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
          ELSE
             // KJS 04/13/22 - above code (with banner) was code for Jeff in nmmftm. But now looking at
             // nmm, where there is no banner, the generated code isn't like it used to be. Trying to put the old
             // code back in.
-            szWriteBuffer = "<div class=^navbar-collapse collapse^>"
+            szWriteBuffer = "<div class=^navbar-collapse collapse^>   <!-- Horizontal NO Banner -->"
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
             szWriteBuffer = "   <ul  class=^navbar-nav ml-auto " + vDialogMenu.Menu.CSS_Class + "^ >"
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
@@ -3927,6 +3944,7 @@ BuildMainNavSectionBootstrap( VIEW vDialog,
         
       END
    ELSE
+      // Not szStyleIsjMobile or szStyleIsBoostrap
       szWriteBuffer = "<div id=^mainnavigation^" + szHTML5Attr + szClass + ">"
       WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
       szWriteBuffer = "   <ol id=^" + szMenuName + "^ name=^" + szMenuName + "^" + szHTML5Attr + " >"
@@ -4010,11 +4028,13 @@ BuildMainNavSectionBootstrap( VIEW vDialog,
       IF ActionType = zWAB_LinkToHTML_Address
          szHTML_Address = ""
          IF vDialogMenu.OptAct EXISTS
-            SET CURSOR FIRST vDialogMenu.Action WHERE vDialogMenu.Action.ZKey = vDialogMenu.OptAct.ZKey
-            szHTML_Address = vDialogMenu.Action.WebHTML_TransferAddress
+            //SET CURSOR FIRST vDialogMenu.Action WHERE vDialogMenu.Action.ZKey = vDialogMenu.OptAct.ZKey
+            // KJS 10/20/23 - commenting this out because of incompatiblilies, I took off WebHTML_TransferAddress from OptAct.
+            //szHTML_Address = vDialogMenu.OptAct.WebHTML_TransferAddress
+            szHTML_Address = ""
          END
       END
-     IF ActionType = zWAB_LinkToHTML_Address AND ( szStyleIsBootstrap = "" OR ( szStyleIsBootstrap = "Y" AND szMenuStyle = "Horizontal" AND szHasBanner = "Y") ) // KJS 05/24/22 - added szHasBanner
+      IF ActionType = zWAB_LinkToHTML_Address AND ( szStyleIsBootstrap = "" ) //OR ( szStyleIsBootstrap = "Y" AND szMenuStyle = "Horizontal" AND szHasBanner = "Y") ) // KJS 05/24/22 - added szHasBanner
          szWriteBuffer = "       <li id=^l" + szOptionTag + "^ name=^l" + szOptionTag + "^ " + szHTML5Attr + szClass + "><a href=^" + szHTML_Address + "^ target=^_blank^>" + szNavigationTitle + "</a></li>"
       ELSE
          // Regular Action
@@ -4046,7 +4066,7 @@ BuildMainNavSectionBootstrap( VIEW vDialog,
             END
             szWriteBuffer = szWriteBuffer + "<i class=^align-middle mr-1 fas fa-fw " + szHTML5Attr + "^></i>" + szNavigationTitle + "</a>"
          ELSE
-         IF szStyleIsBootstrap = "Y" AND szMenuStyle = "Horizontal" AND szHasBanner = "N" // KJS 05/24/22 - added szHasBanner
+         IF szStyleIsBootstrap = "Y" AND szMenuStyle = "Horizontal" //AND szHasBanner = "N" // KJS 05/24/22 - added szHasBanner
             szWriteBuffer = "       <li class=^nav-item dropdown ml-lg-2^ id=^l" + szActionName + "^ name=^l" + szActionName + "^ ><a href=^#^ id=^a" + szActionName + "^ " +
                             "  class=^nav-link dropdown-toggle^ " + szClass + " data-toggle=^dropdown^>"
             //szWriteBuffer = szWriteBuffer + "<i class=^align-middle fas fa-cog^></i></a>"
@@ -4097,7 +4117,7 @@ BuildMainNavSectionBootstrap( VIEW vDialog,
 
    IF szStyleIsBootstrap = "Y" AND szMenuStyle = "Vertical"
       ResetViewFromSubobject( vDialogMenu )
-      szWriteBuffer = "          </div>"
+      szWriteBuffer = "          </div>  <!-- Vertical  -->"
       WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
       szWriteBuffer = "       </li>"
       WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
@@ -4113,13 +4133,13 @@ BuildMainNavSectionBootstrap( VIEW vDialog,
 
    IF szStyleIsBootstrap = "Y" AND szMenuStyle = "Horizontal" and szHasBanner = "Y"
       ResetViewFromSubobject( vDialogMenu )
-      szWriteBuffer = "   </nav>"
-      WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-      szWriteBuffer = "</div>"
-      WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
+      //szWriteBuffer = "   </nav>  <!-- Horizontal with banner -->"
+      //WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+      //szWriteBuffer = "</div>  <!-- Horizontal with banner -->"
+      //WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
    END
 
-   szWriteBuffer = "</div>  <!-- end Navigation Bar -->"
+   szWriteBuffer = "</div>  <!-- end of Top Navigation -->"
    WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
    szWriteBuffer = ""
    WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
@@ -4132,7 +4152,7 @@ BuildMainNavSectionBootstrap( VIEW vDialog,
       WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
    END
    IF szStyleIsBootstrap = "Y"
-      szWriteBuffer = "</nav>"
+      szWriteBuffer = "</nav>   <!-- using Bootstrap -->"
       WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
    END
    // KJS 07/31/08 - I am taking out the following inc file.  I am
@@ -4245,7 +4265,6 @@ GenJSP_MenuFunctionsRecurs( VIEW vDialog BASED ON LOD TZWDLGSO,
                szWriteBuffer = "      // END of Javascript code entered by user."
                WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 1 )
             END
-
                // KJS 10/28/10 - Testing this to see how using an hourglass would work while
                // the user is waiting for something to happen.
                //szWriteBuffer = "      document.body.style.cursor = ^wait^;"
@@ -4259,9 +4278,14 @@ GenJSP_MenuFunctionsRecurs( VIEW vDialog BASED ON LOD TZWDLGSO,
                WL_QC( vDialogRoot, lFile, szWriteBuffer, "^", 0 )
             END
 
-            IF vDialogMenuRoot.Action.Type = zWAB_ExitDialogTask
-               // For exiting the Dialog (ie., Session), the Action is OnUnload.
-               szWriteBuffer = "      document." + szFormName + ".zAction.value = ^_OnUnload^;"
+            IF vDialogMenuRoot.Action.Type = zWAB_ExitDialogTask 
+               IF ( vDialogMenuRoot.ActOper EXISTS OR ( vDialogMenuRoot.Action.DialogName != "" AND vDialogMenuRoot.Action.WindowName != "" ) )
+                  // KJS 06/12/23 - If the action has an operation to call or has a dialog.window specified to direct to, don't use _OnUnload.
+                  szWriteBuffer = "      document." + szFormName + ".zAction.value = ^" + szActionName + "^;"
+               ELSE
+                  // For exiting the Dialog (ie., Session), the Action is OnUnload.
+                  szWriteBuffer = "      document." + szFormName + ".zAction.value = ^_OnUnload^;"
+               END                          
             ELSE
                szWriteBuffer = "      document." + szFormName + ".zAction.value = ^" + szActionName + "^;"
             END
@@ -4310,7 +4334,11 @@ GenJSPJ_ActionRecurs( VIEW vDialogMenu,
       IF vDialogMenu.OptAct EXISTS
           SET CURSOR FIRST vDialogMenuRoot.Action WHERE vDialogMenuRoot.Action.ZKey = vDialogMenu.OptAct.ZKey
           IF RESULT >= zCURSOR_SET
-             IF vDialogMenuRoot.Action.Type != zWAB_ExitDialogTask
+             // Don't create an action if this is a normal zWAB_ExistDialogTask. If the action has code or "next window", then
+             // create a new one.
+             IF vDialogMenuRoot.Action.Type != zWAB_ExitDialogTask OR
+                ( vDialogMenuRoot.Action.Type = zWAB_ExitDialogTask AND 
+                ( vDialogMenuRoot.ActOper EXISTS OR (vDialogMenuRoot.Action.DialogName != "" AND vDialogMenuRoot.Action.WindowName != "" ) ) )
                 //Because the menu actions can be created on separate windows from the control
                 //actions, we need to make sure these actions are unique.  We will prefix a
                 //"m" to the main menu actions and prefix a "sm" to the side menu actions.

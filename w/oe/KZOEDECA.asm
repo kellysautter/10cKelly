@@ -1,4 +1,4 @@
-	TITLE	C:\10C\A\oe\KZOEDECA.CPP
+	TITLE	c:\10c\A\oe\KZOEDECA.CPP
 	.386P
 include listing.inc
 if @Version gt 510
@@ -18465,7 +18465,7 @@ PUBLIC	??_GARACrypt@@UAEPAXI@Z				; ARACrypt::`scalar deleting destructor'
 PUBLIC	??_EARACrypt@@UAEPAXI@Z				; ARACrypt::`vector deleting destructor'
 EXTRN	_strcpy:NEAR
 ;	COMDAT ??_7ARACrypt@@6B@
-; File C:\10C\A\oe\KZOEDECA.CPP
+; File c:\10c\A\oe\KZOEDECA.CPP
 CONST	SEGMENT
 ??_7ARACrypt@@6B@ DD FLAT:?TransformString@ARACrypt@@UAEXPADPBD@Z ; ARACrypt::`vftable'
 	DD	FLAT:?SetKey@ARACrypt@@UAEXPBD@Z
@@ -18583,7 +18583,7 @@ _TEXT	ENDS
 PUBLIC	??_C@_0N@GGH@C?H?$CB?S?t?$LD?$BA?8?7?$KK?$BIV?$AA@ ; `string'
 EXTRN	_strlen:NEAR
 ;	COMDAT ??_C@_0N@GGH@C?H?$CB?S?t?$LD?$BA?8?7?$KK?$BIV?$AA@
-; File C:\10C\A\oe\KZOEDECA.CPP
+; File c:\10c\A\oe\KZOEDECA.CPP
 _DATA	SEGMENT
 ??_C@_0N@GGH@C?H?$CB?S?t?$LD?$BA?8?7?$KK?$BIV?$AA@ DB 'C', 0c8H, '!', 0d3H
 	DB	0f4H, 0b3H, 010H, '''', 09H, 0aaH, 018H, 'V', 00H ; `string'
@@ -19248,7 +19248,7 @@ EXTRN	__imp__strncpy:NEAR
 EXTRN	__imp__rand:NEAR
 EXTRN	__imp__srand:NEAR
 ;	COMDAT ??_C@_0BP@MFLM@Length?5Error?5Encrypting?5String?$AA@
-; File C:\10C\A\oe\KZOEDECA.CPP
+; File c:\10c\A\oe\KZOEDECA.CPP
 _DATA	SEGMENT
 ??_C@_0BP@MFLM@Length?5Error?5Encrypting?5String?$AA@ DB 'Length Error En'
 	DB	'crypting String', 00H			; `string'
@@ -20081,7 +20081,7 @@ PUBLIC	?fnDecryptStringUL@@YGFPAD00GE@Z		; fnDecryptStringUL
 PUBLIC	??_C@_0CO@CCLB@Length?5Error?5Decrypting?5String?3?5@ ; `string'
 EXTRN	__imp__sprintf:NEAR
 ;	COMDAT ??_C@_0CO@CCLB@Length?5Error?5Decrypting?5String?3?5@
-; File C:\10C\A\oe\KZOEDECA.CPP
+; File c:\10c\A\oe\KZOEDECA.CPP
 _DATA	SEGMENT
 ??_C@_0CO@CCLB@Length?5Error?5Decrypting?5String?3?5@ DB 'Length Error De'
 	DB	'crypting String: (%d:%d)  "%s"', 00H	; `string'
@@ -20796,7 +20796,7 @@ PUBLIC	??_C@_0CL@KBOB@?$CIZDecimal?$CJ?5Error?5calling?5INIT?5fu@ ; `string'
 EXTRN	_DecimalOperation@16:NEAR
 EXTRN	_TraceLineS@8:NEAR
 ;	COMDAT ??_C@_0BC@FJKM@zDecimalOperation?$AA@
-; File C:\10C\A\oe\KZOEDECA.CPP
+; File c:\10c\A\oe\KZOEDECA.CPP
 _DATA	SEGMENT
 ??_C@_0BC@FJKM@zDecimalOperation?$AA@ DB 'zDecimalOperation', 00H ; `string'
 _DATA	ENDS

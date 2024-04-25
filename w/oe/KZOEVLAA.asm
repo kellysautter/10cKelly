@@ -1,4 +1,4 @@
-	TITLE	C:\10C\A\oe\KZOEVLAA.C
+	TITLE	c:\10c\A\oe\KZOEVLAA.C
 	.386P
 include listing.inc
 if @Version gt 510
@@ -2587,7 +2587,7 @@ EXTRN	_g_pfnGetHndl:DWORD
 EXTRN	_fnSysLockCoreMutex@4:NEAR
 EXTRN	_fnSysUnlockCoreMutex@4:NEAR
 ;	COMDAT ??_C@_08CBN@?$CFs?4?$CFs?4?$CFs?$AA@
-; File C:\10C\A\oe\KZOEVLAA.C
+; File c:\10c\A\oe\KZOEVLAA.C
 _DATA	SEGMENT
 ??_C@_08CBN@?$CFs?4?$CFs?4?$CFs?$AA@ DB '%s.%s.%s', 00H	; `string'
 _DATA	ENDS
@@ -3116,7 +3116,7 @@ PUBLIC	??_C@_0N@KJLH@New?5Value?5?$DN?5?$AA@		; `string'
 EXTRN	_TraceLineI@8:NEAR
 EXTRN	_fnRecordForEntityAttr:NEAR
 ;	COMDAT ??_C@_0CK@CDJA@?9?9?9?9?9?9?9?5Attribute?5from?5same?5EI?5?9@
-; File C:\10C\A\oe\KZOEVLAA.C
+; File c:\10c\A\oe\KZOEVLAA.C
 _DATA	SEGMENT
 ??_C@_0CK@CDJA@?9?9?9?9?9?9?9?5Attribute?5from?5same?5EI?5?9@ DB '-------'
 	DB	' Attribute from same EI ----------', 00H	; `string'
@@ -3461,7 +3461,7 @@ EXTRN	_strcmp:NEAR
 EXTRN	_fnStoreStringInDataspace:NEAR
 EXTRN	__imp____mb_cur_max:DWORD
 ;	COMDAT ??_C@_0BC@FGMD@?$CIDbgChg?$CJ?5Storing?5?$AA@
-; File C:\10C\A\oe\KZOEVLAA.C
+; File c:\10c\A\oe\KZOEVLAA.C
 _DATA	SEGMENT
 ??_C@_0BC@FGMD@?$CIDbgChg?$CJ?5Storing?5?$AA@ DB '(DbgChg) Storing ', 00H ; `string'
 _DATA	ENDS
@@ -4470,7 +4470,7 @@ EXTRN	_SysReadZeidonIni@16:NEAR
 EXTRN	_g_vRealTaskView:DWORD
 EXTRN	_fnIssueCoreError:NEAR
 ;	COMDAT ??_C@_0DA@EANH@KZOEE101?5?9?5Invalid?5view?50x?$CF08x?5f@
-; File C:\10C\A\oe\KZOEVLAA.C
+; File c:\10c\A\oe\KZOEVLAA.C
 _DATA	SEGMENT
 ??_C@_0DA@EANH@KZOEE101?5?9?5Invalid?5view?50x?$CF08x?5f@ DB 'KZOEE101 - '
 	DB	'Invalid view 0x%08x for Task: 0x%08x', 00H	; `string'
@@ -5075,7 +5075,7 @@ PUBLIC	??_C@_0FN@KOCI@KZOEE013?5?9?5Internal?5operation?5?$CI?$CF@ ; `string'
 PUBLIC	??_C@_0CK@CGOJ@KZOEE013?5?9?5Internal?5operation?5ca@ ; `string'
 PUBLIC	??_C@_0BC@LP@Zeidon?5Core?5Error?$AA@		; `string'
 ;	COMDAT ??_C@_0FN@KOCI@KZOEE013?5?9?5Internal?5operation?5?$CI?$CF@
-; File C:\10C\A\oe\KZOEVLAA.C
+; File c:\10c\A\oe\KZOEVLAA.C
 _DATA	SEGMENT
 ??_C@_0FN@KOCI@KZOEE013?5?9?5Internal?5operation?5?$CI?$CF@ DB 'KZOEE013 '
 	DB	'- Internal operation (%d) %s call error: Recovering lost inde'
@@ -5287,7 +5287,7 @@ _TEXT	ENDS
 PUBLIC	??_C@_0CK@OOLP@CheckValidView?5found?5Invalid?5vie@ ; `string'
 EXTRN	_SysValidAddress@12:NEAR
 ;	COMDAT ??_C@_0CK@OOLP@CheckValidView?5found?5Invalid?5vie@
-; File C:\10C\A\oe\KZOEVLAA.C
+; File c:\10c\A\oe\KZOEVLAA.C
 _DATA	SEGMENT
 ??_C@_0CK@OOLP@CheckValidView?5found?5Invalid?5vie@ DB 'CheckValidView fo'
 	DB	'und Invalid view: 0x%08x', 00H		; `string'
@@ -5664,7 +5664,7 @@ PUBLIC	??_C@_0EJ@FMLA@fnValidViewEntity?5?9?5Invalid?5Enti@ ; `string'
 PUBLIC	_fnValidViewEntity@16
 PUBLIC	_TrueName@8
 ;	COMDAT ??_C@_0DJ@FPGP@fnValidViewEntity?5?9?5Invalid?5View@
-; File C:\10C\A\oe\KZOEVLAA.C
+; File c:\10c\A\oe\KZOEVLAA.C
 _DATA	SEGMENT
 ??_C@_0DJ@FPGP@fnValidViewEntity?5?9?5Invalid?5View@ DB 'fnValidViewEntit'
 	DB	'y - Invalid View (0x%08x) for Entity: %s', 00H ; `string'
@@ -6007,7 +6007,7 @@ PUBLIC	??_C@_0BI@CEHB@?$FLView?3?50x?$CF08x?$FN?5?$CFs?4?$CFs?4?$CFs?$AA@ ; `str
 PUBLIC	??_C@_0BK@ECJP@fnValidViewAttrib?5error?3?5?$AA@ ; `string'
 PUBLIC	_fnValidViewAttrib
 ;	COMDAT ??_C@_0BI@CEHB@?$FLView?3?50x?$CF08x?$FN?5?$CFs?4?$CFs?4?$CFs?$AA@
-; File C:\10C\A\oe\KZOEVLAA.C
+; File c:\10c\A\oe\KZOEVLAA.C
 _DATA	SEGMENT
 ??_C@_0BI@CEHB@?$FLView?3?50x?$CF08x?$FN?5?$CFs?4?$CFs?4?$CFs?$AA@ DB '[V'
 	DB	'iew: 0x%08x] %s.%s.%s', 00H			; `string'
@@ -6272,7 +6272,7 @@ _BSS	SEGMENT
 _?szWorkString@?1??TrueName@@9@9 DB 032H DUP (?)
 _BSS	ENDS
 ;	COMDAT ??_C@_02NDAK@?5?$CI?$AA@
-; File C:\10C\A\oe\KZOEVLAA.C
+; File c:\10c\A\oe\KZOEVLAA.C
 _DATA	SEGMENT
 ??_C@_02NDAK@?5?$CI?$AA@ DB ' (', 00H			; `string'
 _DATA	ENDS
@@ -6922,7 +6922,7 @@ PUBLIC	??_C@_0BE@ENBN@Too?5many?5linked?5EIs?$AA@	; `string'
 PUBLIC	??_C@_0BC@LABF@Invalid?5linked?5EI?$AA@		; `string'
 PUBLIC	_SfCheckOI_Integrity@8
 ;	COMDAT ??_C@_0BO@CJGN@View?5does?5not?5have?5a?5valid?5OD?$AA@
-; File C:\10C\A\oe\KZOEVLAA.C
+; File c:\10c\A\oe\KZOEVLAA.C
 _DATA	SEGMENT
 ??_C@_0BO@CJGN@View?5does?5not?5have?5a?5valid?5OD?$AA@ DB 'View does not'
 	DB	' have a valid OD', 00H			; `string'

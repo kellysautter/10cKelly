@@ -1,4 +1,4 @@
-	TITLE	C:\10C\A\oe\KZOEVMAA.C
+	TITLE	c:\10c\A\oe\KZOEVMAA.C
 	.386P
 include listing.inc
 if @Version gt 510
@@ -577,7 +577,7 @@ PUBLIC	??_C@_0CA@CMPL@CreateView?5?$CFs?3?50x?$CF08x?5?5?5LOD?3?5?$CFs?$AA@ ; `s
 EXTRN	_TraceLine:NEAR
 EXTRN	_g_pfnGetPtr:DWORD
 ;	COMDAT ??_C@_0CA@CMPL@CreateView?5?$CFs?3?50x?$CF08x?5?5?5LOD?3?5?$CFs?$AA@
-; File C:\10C\A\oe\KZOEVMAA.C
+; File c:\10c\A\oe\KZOEVMAA.C
 _DATA	SEGMENT
 ??_C@_0CA@CMPL@CreateView?5?$CFs?3?50x?$CF08x?5?5?5LOD?3?5?$CFs?$AA@ DB 'C'
 	DB	'reateView %s: 0x%08x   LOD: %s', 00H	; `string'
@@ -928,7 +928,7 @@ _TEXT	ENDS
 PUBLIC	_SfCreateSysViewFromView@8
 PUBLIC	??_C@_0CA@PGCC@SfCreateSysViewFromView?3?50x?$CF08x?$AA@ ; `string'
 ;	COMDAT ??_C@_0CA@PGCC@SfCreateSysViewFromView?3?50x?$CF08x?$AA@
-; File C:\10C\A\oe\KZOEVMAA.C
+; File c:\10c\A\oe\KZOEVMAA.C
 _DATA	SEGMENT
 ??_C@_0CA@PGCC@SfCreateSysViewFromView?3?50x?$CF08x?$AA@ DB 'SfCreateSysV'
 	DB	'iewFromView: 0x%08x', 00H			; `string'
@@ -3082,7 +3082,7 @@ EXTRN	_strlen:NEAR
 EXTRN	_g_nOE_TraceWarning:WORD
 EXTRN	_g_vDefaultTaskView:DWORD
 ;	COMDAT ??_C@_0HO@KFBJ@DropNameForView?5sending?5in?5view?5@
-; File C:\10C\A\oe\KZOEVMAA.C
+; File c:\10c\A\oe\KZOEVMAA.C
 _DATA	SEGMENT
 ??_C@_0HO@KFBJ@DropNameForView?5sending?5in?5view?5@ DB 'DropNameForView '
 	DB	'sending in view for TRANSIENT task: %d (0x%08x)  should be fo'
@@ -5120,7 +5120,7 @@ PUBLIC	??_C@_0EC@PBDN@?$CIvm?$CJ?5Naming?5non?9application?5leve@ ; `string'
 PUBLIC	??_C@_0BN@GIHG@?$CIvm?$CJ?5Invalid?5view?5?9?9?5name?5?$DN?5?$AA@ ; `string'
 PUBLIC	??_C@_0CG@GNGP@?$CIvm?$CJ?5Invalid?5scoping?5level?5?9?9?5na@ ; `string'
 ;	COMDAT ??_C@_0HN@NDNE@SetNameForView?5sending?5in?5view?5f@
-; File C:\10C\A\oe\KZOEVMAA.C
+; File c:\10c\A\oe\KZOEVMAA.C
 _DATA	SEGMENT
 ??_C@_0HN@NDNE@SetNameForView?5sending?5in?5view?5f@ DB 'SetNameForView s'
 	DB	'ending in view for TRANSIENT task: %d (0x%08x)  should be for'
@@ -6620,7 +6620,7 @@ PUBLIC	??_C@_0GG@DEDH@GetViewByName?5TRANSIENT?5ERROR?5?$CI0@ ; `string'
 PUBLIC	_GetViewByName@16
 EXTRN	_SysMessageBox@16:NEAR
 ;	COMDAT ??_C@_00A@?$AA@
-; File C:\10C\A\oe\KZOEVMAA.C
+; File c:\10c\A\oe\KZOEVMAA.C
 _BSS	SEGMENT
 ??_C@_00A@?$AA@ DB 01H DUP (?)				; `string'
 _BSS	ENDS
@@ -9803,7 +9803,7 @@ PUBLIC	??_C@_0BO@GLH@DropView?5?$CFs?3?50x?$CF08x?5?5?5LOD?3?5?$CFs?$AA@ ; `stri
 PUBLIC	_DropView@4
 PUBLIC	_DropViewTrace@8
 ;	COMDAT ??_C@_0BO@GLH@DropView?5?$CFs?3?50x?$CF08x?5?5?5LOD?3?5?$CFs?$AA@
-; File C:\10C\A\oe\KZOEVMAA.C
+; File c:\10c\A\oe\KZOEVMAA.C
 _DATA	SEGMENT
 ??_C@_0BO@GLH@DropView?5?$CFs?3?50x?$CF08x?5?5?5LOD?3?5?$CFs?$AA@ DB 'Dro'
 	DB	'pView %s: 0x%08x   LOD: %s', 00H		; `string'
@@ -10304,7 +10304,7 @@ _TEXT	ENDS
 PUBLIC	??_C@_0DA@FJAL@SfSetApplicationTask?5for?5App?3?5?$CFs@ ; `string'
 PUBLIC	_SfSetApplicationTask@8
 ;	COMDAT ??_C@_0DA@FJAL@SfSetApplicationTask?5for?5App?3?5?$CFs@
-; File C:\10C\A\oe\KZOEVMAA.C
+; File c:\10c\A\oe\KZOEVMAA.C
 _DATA	SEGMENT
 ??_C@_0DA@FJAL@SfSetApplicationTask?5for?5App?3?5?$CFs@ DB 'SfSetApplicat'
 	DB	'ionTask for App: %s   Task: 0x%08x', 00H	; `string'
@@ -10578,7 +10578,7 @@ PUBLIC	??_C@_0P@CGJB@Recursive?5view?$AA@		; `string'
 PUBLIC	??_C@_0BO@DHAO@Houston?5?4?4?4?5we?5have?5a?5problem?$AA@ ; `string'
 EXTRN	_SysReadZeidonIni@16:NEAR
 ;	COMDAT ??_C@_0O@GNFE@SCOPE?5UNKNOWN?$AA@
-; File C:\10C\A\oe\KZOEVMAA.C
+; File c:\10c\A\oe\KZOEVMAA.C
 _DATA	SEGMENT
 ??_C@_0O@GNFE@SCOPE?5UNKNOWN?$AA@ DB 'SCOPE UNKNOWN', 00H ; `string'
 _DATA	ENDS
@@ -11277,7 +11277,7 @@ EXTRN	_fnCheckIfViewOD_IsUsed@8:NEAR
 EXTRN	_fnCallListeners:NEAR
 EXTRN	_fnDeleteViewObject@4:NEAR
 ;	COMDAT ??_C@_09DGDA@?4Subtask?4?$AA@
-; File C:\10C\A\oe\KZOEVMAA.C
+; File c:\10c\A\oe\KZOEVMAA.C
 _DATA	SEGMENT
 ??_C@_09DGDA@?4Subtask?4?$AA@ DB '.Subtask.', 00H	; `string'
 _DATA	ENDS
@@ -14556,7 +14556,7 @@ PUBLIC	??_C@_0CM@KCDH@Root?5cursors?5don?8t?5match?4?5?5Conta@ ; `string'
 PUBLIC	??_C@_0BK@OEDD@QuinSoft?5Internal?5Message?$AA@	; `string'
 EXTRN	_SysDiagnosticMessage@16:NEAR
 ;	COMDAT ??_C@_0CM@KCDH@Root?5cursors?5don?8t?5match?4?5?5Conta@
-; File C:\10C\A\oe\KZOEVMAA.C
+; File c:\10c\A\oe\KZOEVMAA.C
 _DATA	SEGMENT
 ??_C@_0CM@KCDH@Root?5cursors?5don?8t?5match?4?5?5Conta@ DB 'Root cursors '
 	DB	'don''t match.  Contact QuinSoft', 00H	; `string'

@@ -173,6 +173,9 @@ oTZDGSRCO_DomainMigrateReus( zVIEW     NewDomainGroup,
    zSHORT    lTempInteger_1; 
 
 
+   //:TraceLineS( "*** Begin DomainMigrateReus", "" )
+   TraceLineS( "*** Begin DomainMigrateReus", "" );
+
    //:// KJS 05/03/22 - We should always do a search of the domain name both in the group and in the LPLR to make sure we don't
    //:// add duplicates.
    //:// The question is... what if a domain already exists, but we have new context? What should we do, we would need to 
@@ -180,19 +183,23 @@ oTZDGSRCO_DomainMigrateReus( zVIEW     NewDomainGroup,
    //://SET CURSOR FIRST CurrentLPLR.W_MetaDef WHERE CurrentLPLR.W_MetaDef.Name = OldDomainGroup.Domain.Name
    //:RetrieveViewForMetaList( vSubtask, CurrentLPLRO, zREFER_DOMAIN_META ) // This points to DOMAIN as opposed to DomainGrp
    RetrieveViewForMetaList( vSubtask, &CurrentLPLRO, zREFER_DOMAIN_META );
+   //:NAME VIEW CurrentLPLRO "CurrentLPLRO"
+   SetNameForView( CurrentLPLRO, "CurrentLPLRO", 0, zLEVEL_TASK );
    //:SET CURSOR FIRST CurrentLPLRO.W_MetaDef WHERE CurrentLPLRO.W_MetaDef.Name = OldDomainGroup.Domain.Name
    GetStringFromAttribute( szTempString_0, OldDomainGroup, "Domain", "Name" );
    RESULT = SetCursorFirstEntityByString( CurrentLPLRO, "W_MetaDef", "Name", szTempString_0, "" );
    //:IF RESULT >= zCURSOR_SET
    if ( RESULT >= zCURSOR_SET )
    { 
-      //://DropMetaOI( vSubtask, CurrentLPLRO )
+      //:DropMetaOI( vSubtask, CurrentLPLRO )
+      DropMetaOI( vSubtask, CurrentLPLRO );
       //:RETURN 0
       return( 0 );
    } 
 
    //:END
-   //://DropMetaOI( vSubtask, CurrentLPLRO )
+   //:DropMetaOI( vSubtask, CurrentLPLRO )
+   DropMetaOI( vSubtask, CurrentLPLRO );
 
    //:// If the source Domain has an Operation subobject and the target does not, add it.
    //:IF OldDomainGroup.SelectedOperation EXISTS
@@ -219,6 +226,8 @@ oTZDGSRCO_DomainMigrateReus( zVIEW     NewDomainGroup,
    } 
 
    //:END
+   //:TraceLineS( "*** After Operation Add", "" )
+   TraceLineS( "*** After Operation Add", "" );
 
    //:// KJS 05/03/22 - We should always do a search of the domain name both in the group and in the LPLR to make sure we don't
    //:// Add duplicates.
@@ -233,9 +242,13 @@ oTZDGSRCO_DomainMigrateReus( zVIEW     NewDomainGroup,
       //:SetMatchingAttributesByName( NewDomainGroup, "Domain",
       //:                             OldDomainGroup, "Domain", zSET_NULL )
       SetMatchingAttributesByName( NewDomainGroup, "Domain", OldDomainGroup, "Domain", zSET_NULL );
+      //:TraceLineS( "*** After Create Domain", "" )
+      TraceLineS( "*** After Create Domain", "" );
    } 
 
-   //:END                                
+   //:END  
+   //:TraceLineS( "*** After Domain Check", "" )                          
+   TraceLineS( "*** After Domain Check", "" );
 
    //:FOR EACH OldDomainGroup.Context
    RESULT = SetCursorFirstEntity( OldDomainGroup, "Context", "" );
@@ -281,6 +294,8 @@ oTZDGSRCO_DomainMigrateReus( zVIEW     NewDomainGroup,
          } 
 
          //:END
+         //:TraceLineS( "*** After Context Add", "" )
+         TraceLineS( "*** After Context Add", "" );
       } 
 
       RESULT = SetCursorNextEntity( OldDomainGroup, "Context", "" );
@@ -288,6 +303,8 @@ oTZDGSRCO_DomainMigrateReus( zVIEW     NewDomainGroup,
    } 
 
    //:END
+   //:TraceLineS( "*** After Context Loop", "" )
+   TraceLineS( "*** After Context Loop", "" );
 
    //:IF OldDomainGroup.SelectedOperation EXISTS
    lTempInteger_1 = CheckExistenceOfEntity( OldDomainGroup, "SelectedOperation" );
@@ -327,16 +344,27 @@ oTZDGSRCO_DomainAddForMerge( zPVIEW    NewDomainGroup,
    zVIEW     OldDomainGroup = 0; 
    //:VIEW CurrentLPLRO   BASED ON LOD TZCMLPLO
    zVIEW     CurrentLPLRO = 0; 
+   //:VIEW OrigSourceLPLR BASED ON LOD TZCMLPLO
+   zVIEW     OrigSourceLPLR = 0; 
    //:STRING ( 513 ) SourceFileName                 // size according to zMAX_FILESPEC_LTH+1
    zCHAR     SourceFileName[ 514 ] = { 0 }; 
+   //:STRING ( 513 ) SourceFileName2 
+   zCHAR     SourceFileName2[ 514 ] = { 0 }; 
    //:STRING ( 32 )  DomainGroupMetaName
    zCHAR     DomainGroupMetaName[ 33 ] = { 0 }; 
+   //:STRING ( 50 )  SourceMetaName
+   zCHAR     SourceMetaName[ 51 ] = { 0 }; 
+   //:STRING ( 50 )  SourceName
+   zCHAR     SourceName[ 51 ] = { 0 }; 
    //:STRING ( 200 ) szMsg
    zCHAR     szMsg[ 201 ] = { 0 }; 
    //:SHORT          nRC
    zSHORT    nRC = 0; 
    zSHORT    RESULT; 
 
+
+   //:TraceLineS( "*** DomainAddForMerge for: ", DomainName )
+   TraceLineS( "*** DomainAddForMerge for: ", DomainName );
 
    //:// KJS 05/03/22 - We should always do a search of the domain name both in the group and in the LPLR to make sure we don't
    //:// add duplicates.
@@ -345,9 +373,35 @@ oTZDGSRCO_DomainAddForMerge( zPVIEW    NewDomainGroup,
    //:RetrieveViewForMetaList( vSubtask, CurrentLPLRO, zREFER_DOMAIN_META ) // This points to DOMAIN as opposed to DomainGrp
    RetrieveViewForMetaList( vSubtask, &CurrentLPLRO, zREFER_DOMAIN_META );
 
-   //:// Activate existing source meta OldDomainGroup. To do this, we must locate the Domain and DomainGroup in the  SourceLPLR.
+   //:// Activate existing source meta OldDomainGroup. To do this, we must locate the Domain and DomainGroup in the SourceLPLR.
+   //:// However, for LPLR Merge the SourceLPLR doesn't contain Domains so we need to use the OrigLPLR which does.
    //:SET CURSOR FIRST SourceLPLR.W_MetaType WHERE SourceLPLR.W_MetaType.Type = 2003    // 2003 is Domain
    RESULT = SetCursorFirstEntityByInteger( SourceLPLR, "W_MetaType", "Type", 2003, "" );
+   //:IF RESULT < zCURSOR_SET
+   if ( RESULT < zCURSOR_SET )
+   { 
+      //:GET VIEW OrigSourceLPLR NAMED "OrigLPLR"
+      RESULT = GetViewByName( &OrigSourceLPLR, "OrigLPLR", SourceLPLR, zLEVEL_TASK );
+      //:IF RESULT >= 0
+      if ( RESULT >= 0 )
+      { 
+         //:SET CURSOR FIRST OrigSourceLPLR.W_MetaType WHERE OrigSourceLPLR.W_MetaType.Type = 2003    // 2003 is Domain
+         RESULT = SetCursorFirstEntityByInteger( OrigSourceLPLR, "W_MetaType", "Type", 2003, "" );
+         //:IF RESULT >= zCURSOR_SET
+         if ( RESULT >= zCURSOR_SET )
+         { 
+            //:// Us the OrigSourceLPLR view for this function
+            //:SourceLPLR = OrigSourceLPLR
+            SourceLPLR = OrigSourceLPLR;
+         } 
+
+         //:END
+      } 
+
+      //:END
+   } 
+
+   //:END
    //:IF RESULT < zCURSOR_SET
    if ( RESULT < zCURSOR_SET )
    { 
@@ -360,9 +414,12 @@ oTZDGSRCO_DomainAddForMerge( zPVIEW    NewDomainGroup,
    } 
 
    //:END
+
    //:// KJS 05/03/2022 - As an added check... see if the domain already exists for the currentLPLR.
    //://SET CURSOR FIRST CurrentLPLR.W_MetaType WHERE CurrentLPLR.W_MetaType.Type = 2003    // 2003 is Domain
    //://IF RESULT >= zCURSOR_SET
+   //:TraceLineS( "*** Before Domain Check", "" )
+   TraceLineS( "*** Before Domain Check", "" );
    //:   SET CURSOR FIRST CurrentLPLRO.W_MetaDef WHERE CurrentLPLRO.W_MetaDef.Name = DomainName
    RESULT = SetCursorFirstEntityByString( CurrentLPLRO, "W_MetaDef", "Name", DomainName, "" );
    //:   IF RESULT >= zCURSOR_SET
@@ -414,49 +471,88 @@ oTZDGSRCO_DomainAddForMerge( zPVIEW    NewDomainGroup,
    } 
 
    //:END
+   //:NAME VIEW OldDomainGroup "OldDomainGroup"
+   SetNameForView( OldDomainGroup, "OldDomainGroup", 0, zLEVEL_TASK );
+   //:TraceLineS( "*** After Old Group Activate", "" )
+   TraceLineS( "*** After Old Group Activate", "" );
 
    //:// Activate the Target Domain Group which will contain the new Domain.
    //:// KJS 05/03/22 - We should probably check FIRST to see if the domain name already exists for the LPLR.
    //:// Then... if it doesn't we could add the domain group? Or we should just add one domain at a time into group?
    //:nRC = ActivateMetaOI_ByName( vSubtask, NewDomainGroup, 0, zSOURCE_DOMAINGRP_META, zSINGLE, DomainGroupMetaName, 0 )
    nRC = ActivateMetaOI_ByName( vSubtask, NewDomainGroup, 0, zSOURCE_DOMAINGRP_META, zSINGLE, DomainGroupMetaName, 0 );
-   //:IF nRC < 0
-   if ( nRC < 0 )
+   //:IF nRC >= 0
+   if ( nRC >= 0 )
    { 
+      //:NAME VIEW NewDomainGroup "NewDomainGroup"
+      SetNameForView( *NewDomainGroup, "NewDomainGroup", 0, zLEVEL_TASK );
+      //:ELSE
+   } 
+   else
+   { 
+      //:TraceLineS( "*** Create New Domain Group", "" )
+      TraceLineS( "*** Create New Domain Group", "" );
       //:// KJS 05/02/22 - If we don't have the domain group... then migrate it.
       //:ActivateEmptyMetaOI( vSubtask, NewDomainGroup, zSOURCE_DOMAINGRP_META, zSINGLE )
       ActivateEmptyMetaOI( vSubtask, NewDomainGroup, zSOURCE_DOMAINGRP_META, zSINGLE );
-      //:nRC = DomainGrpMigrate( NewDomainGroup, DomainGroupMetaName, SourceLPLR, vSubtask )
-      nRC = oTZDGSRCO_DomainGrpMigrate( *NewDomainGroup, DomainGroupMetaName, SourceLPLR, vSubtask );
-      //:IF nRC < 0
-      if ( nRC < 0 )
+      //://nRC = DomainGrpMigrate( NewDomainGroup, DomainGroupMetaName, SourceLPLR, vSubtask )
+      //:// IF nRC < 0
+      //://   szMsg = "Domain Group (" + DomainGroupMetaName + ") was not found in Target LPLR."
+      //://   MessageSend( vSubtask, "", "Add/Merge Domain", szMsg, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
+      //://   RETURN -1
+      //://END
+      //:NAME VIEW NewDomainGroup "NewDomainGroup"
+      SetNameForView( *NewDomainGroup, "NewDomainGroup", 0, zLEVEL_TASK );
+
+      //:// New Domain Group
+      //:CreateMetaEntity( vSubtask, NewDomainGroup, "DomainGroup", zPOS_AFTER )
+      CreateMetaEntity( vSubtask, *NewDomainGroup, "DomainGroup", zPOS_AFTER );
+      //:SetMatchingAttributesByName( NewDomainGroup, "DomainGroup", 
+      //:                             OldDomainGroup, "DomainGroup", zSET_NULL )
+      SetMatchingAttributesByName( *NewDomainGroup, "DomainGroup", OldDomainGroup, "DomainGroup", zSET_NULL );
+
+      //:// Copy over the source file to the new LPLR directory, if there is a source file.
+      //:// We will assume a source file exists if the SourceFile.Extension is not null.  If there
+      //:// is actually no source file, the CopyFile does no harm.
+      //:IF OldDomainGroup.DomainGroup.Extension != ""
+      if ( CompareAttributeToString( OldDomainGroup, "DomainGroup", "Extension", "" ) != 0 )
       { 
-         //://MG_ErrorMessage = "Domain Group(" + DomainGroupMetaName + ") aborted."
-         //:szMsg = "Domain Group (" + DomainGroupMetaName + ") was not found in Target LPLR."
-         ZeidonStringCopy( szMsg, 1, 0, "Domain Group (", 1, 0, 201 );
-         ZeidonStringConcat( szMsg, 1, 0, DomainGroupMetaName, 1, 0, 201 );
-         ZeidonStringConcat( szMsg, 1, 0, ") was not found in Target LPLR.", 1, 0, 201 );
-         //:MessageSend( vSubtask, "", "Add/Merge Domain", szMsg, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
-         MessageSend( vSubtask, "", "Add/Merge Domain", szMsg, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
-         //://MessageSend( vSubtask, "CM01001", "Configuration Management",
-         //://             MG_ErrorMessage, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
-         //:RETURN -1
-         return( -1 );
+         //:SourceMetaName = NewDomainGroup.DomainGroup.Name
+         GetVariableFromAttribute( SourceMetaName, 0, 'S', 51, *NewDomainGroup, "DomainGroup", "Name", "", 0 );
+         //:IF OldDomainGroup.DomainGroup.Extension = "C"
+         if ( CompareAttributeToString( OldDomainGroup, "DomainGroup", "Extension", "C" ) == 0 )
+         { 
+            //:SourceName = SourceMetaName + ".C"
+            ZeidonStringCopy( SourceName, 1, 0, SourceMetaName, 1, 0, 51 );
+            ZeidonStringConcat( SourceName, 1, 0, ".C", 1, 0, 51 );
+            //:ELSE
+         } 
+         else
+         { 
+            //:SourceName = SourceMetaName + ".VML"
+            ZeidonStringCopy( SourceName, 1, 0, SourceMetaName, 1, 0, 51 );
+            ZeidonStringConcat( SourceName, 1, 0, ".VML", 1, 0, 51 );
+         } 
+
+         //:END
+         //:SourceFileName = SourceLPLR.LPLR.PgmSrcDir + "\" + SourceName
+         GetStringFromAttribute( SourceFileName, SourceLPLR, "LPLR", "PgmSrcDir" );
+         ZeidonStringConcat( SourceFileName, 1, 0, "\\", 1, 0, 514 );
+         ZeidonStringConcat( SourceFileName, 1, 0, SourceName, 1, 0, 514 );
+         //:SourceFileName2 = CurrentLPLR.LPLR.PgmSrcDir + "\" + SourceName
+         GetStringFromAttribute( SourceFileName2, CurrentLPLR, "LPLR", "PgmSrcDir" );
+         ZeidonStringConcat( SourceFileName2, 1, 0, "\\", 1, 0, 514 );
+         ZeidonStringConcat( SourceFileName2, 1, 0, SourceName, 1, 0, 514 );
+         //:SysCopyFile( vSubtask, SourceFileName, SourceFileName2, TRUE )
+         SysCopyFile( vSubtask, SourceFileName, SourceFileName2, TRUE );
       } 
 
       //:END
    } 
 
-
-   //:   //szMsg = "Domain Group (" + DomainGroupMetaName + ") was not found in Target LPLR."
-   //:   //MessageSend( vSubtask, "", "Add/Merge Domain", szMsg, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
-   //:   //RETURN -1
    //:END
-
-   //:NAME VIEW OldDomainGroup "OldDomainGroup"
-   SetNameForView( OldDomainGroup, "OldDomainGroup", 0, zLEVEL_TASK );
-   //:NAME VIEW NewDomainGroup "NewDomainGroup"
-   SetNameForView( *NewDomainGroup, "NewDomainGroup", 0, zLEVEL_TASK );
+   //:TraceLineS( "*** After New Group Activate", "" )
+   TraceLineS( "*** After New Group Activate", "" );
 
    //:// Position on the correct Domain in the source DomainGroup
    //:SET CURSOR FIRST OldDomainGroup.Domain WHERE OldDomainGroup.Domain.Name = DomainName
@@ -471,18 +567,11 @@ oTZDGSRCO_DomainAddForMerge( zPVIEW    NewDomainGroup,
    //:END
 
    //:// KJS 05/04/22 If we migrated the group above... then we want to position on the domain name in group.
-   //:SET CURSOR FIRST NewDomainGroup.Domain WHERE NewDomainGroup.Domain.Name = DomainName
-   RESULT = SetCursorFirstEntityByString( *NewDomainGroup, "Domain", "Name", DomainName, "" );
+   //:/*SET CURSOR FIRST NewDomainGroup.Domain WHERE NewDomainGroup.Domain.Name = DomainName
    //:IF RESULT >= zCURSOR_SET
-   if ( RESULT >= zCURSOR_SET )
-   { 
-      //:DropObjectInstance( OldDomainGroup )
-      DropObjectInstance( OldDomainGroup );
-      //:RETURN 0
-      return( 0 );
-   } 
-
-   //:END
+   //:   DropObjectInstance( OldDomainGroup )
+   //:   RETURN 0
+   //:END*/
 
    //:// KJS 05/03/2022 - As an added check... see if the domain already exists for the currentLPLR.
    //://SET CURSOR FIRST CurrentLPLR.W_MetaType WHERE CurrentLPLR.W_MetaType.Type = 2003    // 2003 is Domain
@@ -499,6 +588,10 @@ oTZDGSRCO_DomainAddForMerge( zPVIEW    NewDomainGroup,
       //:   // Domain exists in current lplr, so we can return?
       //:   DropObjectInstance( OldDomainGroup )
       DropObjectInstance( OldDomainGroup );
+      //:   DropObjectInstance( NewDomainGroup )
+      DropObjectInstance( *NewDomainGroup );
+      //:   TraceLineS( "*** Domain Exists", "" )
+      TraceLineS( "*** Domain Exists", "" );
       //:   RETURN 0
       return( 0 );
    } 
@@ -507,34 +600,24 @@ oTZDGSRCO_DomainAddForMerge( zPVIEW    NewDomainGroup,
    //://END
 
    //:// Call operation to actually do the copy of the Domain.
+   //:TraceLineS( "*** Before DomainMigrateReus", "" )
+   TraceLineS( "*** Before DomainMigrateReus", "" );
    //:DomainMigrateReus( NewDomainGroup, OldDomainGroup, vSubtask )
    oTZDGSRCO_DomainMigrateReus( *NewDomainGroup, OldDomainGroup, vSubtask );
 
    //:// Prompt User for Add of Domain.
    //:// KJS 05/03/22 - Do we want to ask user or should we just commit. Seems annoying to continue to ask and I'm not sure
    //:// why the user would not want to.
-   //:szMsg = "Domain, " + DomainName + ", has been added. Do you want it commited to the new LPLR?"
-   ZeidonStringCopy( szMsg, 1, 0, "Domain, ", 1, 0, 201 );
-   ZeidonStringConcat( szMsg, 1, 0, DomainName, 1, 0, 201 );
-   ZeidonStringConcat( szMsg, 1, 0, ", has been added. Do you want it commited to the new LPLR?", 1, 0, 201 );
+   //://szMsg = "Domain, " + DomainName + ", has been added. Do you want it commited to the new LPLR?"
    //://nRC = MessagePrompt( vSubtask, "", "Add/Merge Domain", szMsg, 1, zBUTTONS_YESNO, zRESPONSE_YES, 0 )
-   //:nRC = zRESPONSE_YES
-   nRC = zRESPONSE_YES;
-   //:IF nRC = zRESPONSE_YES
-   if ( nRC == zRESPONSE_YES )
-   { 
-      //:CommitMetaOI( vSubtask, NewDomainGroup, 13 )  // 13 is zSOURCE_DOMAINGRP_META
-      CommitMetaOI( vSubtask, *NewDomainGroup, 13 );
-      //:ELSE
-   } 
-   else
-   { 
-      //:// Indicate Domain wasn't saved, so that we won't save the LOD or ER.
-      //:CurrentLPLR.LPLR.wMergeComponentError = "Y"
-      SetAttributeFromString( CurrentLPLR, "LPLR", "wMergeComponentError", "Y" );
-   } 
-
-   //:END
+   //://nRC = zRESPONSE_YES
+   //://IF nRC = zRESPONSE_YES
+   //:CommitMetaOI( vSubtask, NewDomainGroup, 13 )  // 13 is zSOURCE_DOMAINGRP_META
+   CommitMetaOI( vSubtask, *NewDomainGroup, 13 );
+   //://ELSE
+   //:   // Indicate Domain wasn't saved, so that we won't save the LOD or ER.
+   //:   //CurrentLPLR.LPLR.wMergeComponentError = "Y"
+   //://END
 
    //:DropObjectInstance( OldDomainGroup )
    DropObjectInstance( OldDomainGroup );

@@ -1,4 +1,4 @@
-	TITLE	C:\10C\w\oe\KZOENGWA.C
+	TITLE	c:\10c\w\oe\KZOENGWA.C
 	.386P
 include listing.inc
 if @Version gt 510
@@ -474,7 +474,7 @@ EXTRN	__imp__TranslateMessage@4:NEAR
 EXTRN	__imp__DispatchMessageA@4:NEAR
 EXTRN	__imp__TranslateAcceleratorA@12:NEAR
 ;	COMDAT ??_C@_0BH@MPNN@Zeidon?5Object?5Services?$AA@
-; File C:\10C\w\oe\KZOENGWA.C
+; File c:\10c\w\oe\KZOENGWA.C
 _DATA	SEGMENT
 ??_C@_0BH@MPNN@Zeidon?5Object?5Services?$AA@ DB 'Zeidon Object Services', 00H ; `string'
 _DATA	ENDS
@@ -610,7 +610,7 @@ EXTRN	__imp__DefWindowProcA@16:NEAR
 EXTRN	_SysGetDateTimeDifference@16:NEAR
 EXTRN	__imp__PostQuitMessage@4:NEAR
 ;	COMDAT ??_C@_0EJ@IEEH@OE?5Setting?5Kill?5Timer?5for?5hWnd?3?5@
-; File C:\10C\w\oe\KZOENGWA.C
+; File c:\10c\w\oe\KZOENGWA.C
 _DATA	SEGMENT
 ??_C@_0EJ@IEEH@OE?5Setting?5Kill?5Timer?5for?5hWnd?3?5@ DB 'OE Setting Ki'
 	DB	'll Timer for hWnd: 0x%08x   g_hWndMainFrame: 0x%08x  Id: %d', 00H ; `string'
@@ -1018,7 +1018,7 @@ EXTRN	__imp__DrawMenuBar@4:NEAR
 EXTRN	__imp__GetSubMenu@8:NEAR
 EXTRN	_strstr:NEAR
 ;	COMDAT ??_C@_00A@?$AA@
-; File C:\10C\w\oe\KZOENGWA.C
+; File c:\10c\w\oe\KZOENGWA.C
 _BSS	SEGMENT
 ??_C@_00A@?$AA@ DB 01H DUP (?)				; `string'
 _BSS	ENDS
@@ -2073,7 +2073,7 @@ EXTRN	__imp__CheckMenuItem@12:NEAR
 EXTRN	_SysGetPointerFromHandle@4:NEAR
 EXTRN	_SysDescribeZeidonPageTable@4:NEAR
 ;	COMDAT ??_C@_0BJ@JCD@Wrap?5to?5continue?5search?$DP?$AA@
-; File C:\10C\w\oe\KZOENGWA.C
+; File c:\10c\w\oe\KZOENGWA.C
 _DATA	SEGMENT
 ??_C@_0BJ@JCD@Wrap?5to?5continue?5search?$DP?$AA@ DB 'Wrap to continue se'
 	DB	'arch?', 00H					; `string'
@@ -6848,7 +6848,7 @@ EXTRN	__imp__GetTextMetricsA@8:NEAR
 EXTRN	__imp__DestroyMenu@4:NEAR
 EXTRN	__imp__SetWindowLongA@12:NEAR
 ;	COMDAT ??_C@_08MHKG@KZOENGWA?$AA@
-; File C:\10C\w\oe\KZOENGWA.C
+; File c:\10c\w\oe\KZOENGWA.C
 _DATA	SEGMENT
 ??_C@_08MHKG@KZOENGWA?$AA@ DB 'KZOENGWA', 00H		; `string'
 _DATA	ENDS
@@ -9512,7 +9512,7 @@ _FindStringDlgProc@16 ENDP
 _TEXT	ENDS
 PUBLIC	??_C@_0DB@GEK@?$CIkzoengwa?$CJ?5DBH?5Trace?5Level?5for?5a@ ; `string'
 ;	COMDAT ??_C@_0DB@GEK@?$CIkzoengwa?$CJ?5DBH?5Trace?5Level?5for?5a@
-; File C:\10C\w\oe\KZOENGWA.C
+; File c:\10c\w\oe\KZOENGWA.C
 _DATA	SEGMENT
 ??_C@_0DB@GEK@?$CIkzoengwa?$CJ?5DBH?5Trace?5Level?5for?5a@ DB '(kzoengwa)'
 	DB	' DBH Trace Level for all tasks set to ', 00H ; `string'
@@ -10397,7 +10397,7 @@ EXTRN	__imp__GetActiveWindow@0:NEAR
 EXTRN	__imp__SetWindowTextA@8:NEAR
 EXTRN	__imp__EnableWindow@8:NEAR
 ;	COMDAT ??_C@_0BK@GHMC@Error?5opening?5trace?5file?$CB?$AA@
-; File C:\10C\w\oe\KZOENGWA.C
+; File c:\10c\w\oe\KZOENGWA.C
 _DATA	SEGMENT
 ??_C@_0BK@GHMC@Error?5opening?5trace?5file?$CB?$AA@ DB 'Error opening tra'
 	DB	'ce file!', 00H				; `string'

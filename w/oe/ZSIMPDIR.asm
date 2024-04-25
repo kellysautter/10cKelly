@@ -1,4 +1,4 @@
-	TITLE	C:\10C\A\oe\ZSIMPDIR.C
+	TITLE	c:\10c\A\oe\ZSIMPDIR.C
 	.386P
 include listing.inc
 if @Version gt 510
@@ -134,7 +134,7 @@ EXTRN	__imp__sprintf:NEAR
 EXTRN	_GetStringFromAttribute@16:NEAR
 EXTRN	_SetAttributeFromString@16:NEAR
 ;	COMDAT ??_C@_0BN@EAEA@Zeidon?5DBHandler?5Work?5Object?$AA@
-; File C:\10C\A\oe\ZSIMPDIR.C
+; File c:\10c\A\oe\ZSIMPDIR.C
 _DATA	SEGMENT
 ??_C@_0BN@EAEA@Zeidon?5DBHandler?5Work?5Object?$AA@ DB 'Zeidon DBHandler '
 	DB	'Work Object', 00H				; `string'

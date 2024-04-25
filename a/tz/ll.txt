@@ -1,0 +1,5 @@
+tzzolodd.c:   SetTitleWithCheckOutState( vSubtask, "Logical Object Definition", "TZZOLODO",
+tzzolodd.c:   SetTitleWithCheckOutState( vSubtask, "Logical Object Definition", "TZZOLODO",
+tzzolodd.c:      zstrcpy( szMsg, "Unable to Delete Root Entity in Logical Object." );
+tzzolodd.c:   SetTitleWithCheckOutState( vParentWindow, "Logical Object Definition",
+tzzolodq.c:      zstrcpy( szMsg, "Unable to Delete Root Entity in Logical Object." );

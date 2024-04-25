@@ -1,4 +1,4 @@
-	TITLE	C:\10C\A\oe\KZOESOAA.C
+	TITLE	c:\10c\A\oe\KZOESOAA.C
 	.386P
 include listing.inc
 if @Version gt 510
@@ -2571,7 +2571,7 @@ EXTRN	_SetNameForView@16:NEAR
 EXTRN	_strcpy:NEAR
 EXTRN	_strcat:NEAR
 ;	COMDAT ??_C@_08JNLF@KZOEE106?$AA@
-; File C:\10C\A\oe\KZOESOAA.C
+; File c:\10c\A\oe\KZOESOAA.C
 _DATA	SEGMENT
 ??_C@_08JNLF@KZOEE106?$AA@ DB 'KZOEE106', 00H		; `string'
 _DATA	ENDS
@@ -3015,7 +3015,7 @@ PUBLIC	??_C@_0BN@JAL@maximum?5cardinality?5exceeded?$AA@ ; `string'
 PUBLIC	_fnCheckChildEntities
 EXTRN	_fnValidateInstanceAttributes:NEAR
 ;	COMDAT ??_C@_0BB@PAEO@?6Relationship?3?5?7?$AA@
-; File C:\10C\A\oe\KZOESOAA.C
+; File c:\10c\A\oe\KZOESOAA.C
 _DATA	SEGMENT
 ??_C@_0BB@PAEO@?6Relationship?3?5?7?$AA@ DB 0aH, 'Relationship: ', 09H, 00H ; `string'
 _DATA	ENDS
@@ -8175,7 +8175,7 @@ EXTRN	_fnEstablishCursorForView:NEAR
 EXTRN	_fnValidateInsertPosition:NEAR
 EXTRN	_AnchorBlock:DWORD
 ;	COMDAT ??_C@_00A@?$AA@
-; File C:\10C\A\oe\KZOESOAA.C
+; File c:\10c\A\oe\KZOESOAA.C
 _BSS	SEGMENT
 ??_C@_00A@?$AA@ DB 01H DUP (?)				; `string'
 _BSS	ENDS
@@ -10468,7 +10468,7 @@ EXTRN	_SetCursorFirstEntity@12:NEAR
 EXTRN	_SetCursorLastEntity@12:NEAR
 EXTRN	_fnCreateEntity@20:NEAR
 ;	COMDAT ??_C@_0BN@JLPK@Source?5Entity?5not?5excludable?$AA@
-; File C:\10C\A\oe\KZOESOAA.C
+; File c:\10c\A\oe\KZOESOAA.C
 _DATA	SEGMENT
 ??_C@_0BN@JLPK@Source?5Entity?5not?5excludable?$AA@ DB 'Source Entity not'
 	DB	' excludable', 00H				; `string'
@@ -13411,7 +13411,7 @@ EXTRN	_fnEntityInRecursivePath:NEAR
 EXTRN	_fnFirstLevel2_ForViewEntity:NEAR
 EXTRN	_fnStillPrevVersion:NEAR
 ;	COMDAT ??_C@_0BI@EDF@?5and?5should?5be?5re?9built?$AA@
-; File C:\10C\A\oe\KZOESOAA.C
+; File c:\10c\A\oe\KZOESOAA.C
 _DATA	SEGMENT
 ??_C@_0BI@EDF@?5and?5should?5be?5re?9built?$AA@ DB ' and should be re-bui'
 	DB	'lt', 00H					; `string'
@@ -16040,7 +16040,7 @@ PUBLIC	??_C@_0O@JKKA@?5?5?5?5?5?5Key?5?5?$DN?5?$AA@	; `string'
 EXTRN	_TraceLineI@8:NEAR
 EXTRN	_TraceLineX@8:NEAR
 ;	COMDAT ??_C@_0O@BPEJ@?9?9?9?5Error?5?9?9?9?$AA@
-; File C:\10C\A\oe\KZOESOAA.C
+; File c:\10c\A\oe\KZOESOAA.C
 _DATA	SEGMENT
 ??_C@_0O@BPEJ@?9?9?9?5Error?5?9?9?9?$AA@ DB '--- Error ---', 00H ; `string'
 _DATA	ENDS
@@ -17749,7 +17749,7 @@ _fnIncludeEntityAndChildren@20 ENDP
 _TEXT	ENDS
 PUBLIC	??_C@_0DB@JDAG@Source?5view?5entity?5?$DN?5?$CFs?0?5Target?5@ ; `string'
 ;	COMDAT ??_C@_0DB@JDAG@Source?5view?5entity?5?$DN?5?$CFs?0?5Target?5@
-; File C:\10C\A\oe\KZOESOAA.C
+; File c:\10c\A\oe\KZOESOAA.C
 _DATA	SEGMENT
 ??_C@_0DB@JDAG@Source?5view?5entity?5?$DN?5?$CFs?0?5Target?5@ DB 'Source '
 	DB	'view entity = %s, Target view entity = %s', 00H ; `string'
@@ -19499,7 +19499,7 @@ PUBLIC	??_C@_0P@PINC@Call?5DG?5?$CI?$CD102?$CJ?$AA@	; `string'
 PUBLIC	??_C@_0O@NIPO@QuinSoft?5Info?$AA@		; `string'
 EXTRN	_SysMessageBox@16:NEAR
 ;	COMDAT ??_C@_0P@PINC@Call?5DG?5?$CI?$CD102?$CJ?$AA@
-; File C:\10C\A\oe\KZOESOAA.C
+; File c:\10c\A\oe\KZOESOAA.C
 _DATA	SEGMENT
 ??_C@_0P@PINC@Call?5DG?5?$CI?$CD102?$CJ?$AA@ DB 'Call DG (#102)', 00H ; `string'
 _DATA	ENDS

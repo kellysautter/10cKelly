@@ -1,4 +1,4 @@
-	TITLE	C:\10C\A\oe\KZOEOIAA.C
+	TITLE	c:\10c\A\oe\KZOEOIAA.C
 	.386P
 include listing.inc
 if @Version gt 510
@@ -606,7 +606,7 @@ EXTRN	_AnchorBlock:DWORD
 EXTRN	_g_pfnGetPtr:DWORD
 EXTRN	_fnIssueCoreError:NEAR
 ;	COMDAT ??_C@_0CH@CKH@More?5than?5one?5zLEVEL_?5option?5req@
-; File C:\10C\A\oe\KZOEOIAA.C
+; File c:\10c\A\oe\KZOEOIAA.C
 _DATA	SEGMENT
 ??_C@_0CH@CKH@More?5than?5one?5zLEVEL_?5option?5req@ DB 'More than one zL'
 	DB	'EVEL_ option requested', 00H		; `string'
@@ -1103,7 +1103,7 @@ EXTRN	_SetCursorNextEntity@12:NEAR
 EXTRN	_SetCursorFirstEntity@12:NEAR
 EXTRN	_SetAttributeFromString@16:NEAR
 ;	COMDAT ??_C@_00A@?$AA@
-; File C:\10C\A\oe\KZOEOIAA.C
+; File c:\10c\A\oe\KZOEOIAA.C
 _BSS	SEGMENT
 ??_C@_00A@?$AA@ DB 01H DUP (?)				; `string'
 _BSS	ENDS
@@ -1680,7 +1680,7 @@ EXTRN	_fnSetAttributeFromVariable:NEAR
 EXTRN	_strcmp:NEAR
 EXTRN	_SysGetDateTime@4:NEAR
 ;	COMDAT ??_C@_08GDMG@LOD_Name?$AA@
-; File C:\10C\A\oe\KZOEOIAA.C
+; File c:\10c\A\oe\KZOEOIAA.C
 _DATA	SEGMENT
 ??_C@_08GDMG@LOD_Name?$AA@ DB 'LOD_Name', 00H		; `string'
 _DATA	ENDS
@@ -2201,7 +2201,7 @@ EXTRN	_fnSysLockCoreMutex@4:NEAR
 EXTRN	_fnSysUnlockCoreMutex@4:NEAR
 EXTRN	_szlOE_SystemError:DWORD
 ;	COMDAT ??_C@_07KIPN@ZPLOCKO?$AA@
-; File C:\10C\A\oe\KZOEOIAA.C
+; File c:\10c\A\oe\KZOEOIAA.C
 _DATA	SEGMENT
 ??_C@_07KIPN@ZPLOCKO?$AA@ DB 'ZPLOCKO', 00H		; `string'
 _DATA	ENDS
@@ -4244,7 +4244,7 @@ EXTRN	_NetStatus@8:NEAR
 EXTRN	_szlOper:DWORD
 EXTRN	_szlQualAttrib:DWORD
 ;	COMDAT ??_C@_0CK@FJHF@Expecting?5valid?5OI?5for?5zACTIVATE@
-; File C:\10C\A\oe\KZOEOIAA.C
+; File c:\10c\A\oe\KZOEOIAA.C
 _DATA	SEGMENT
 ??_C@_0CK@FJHF@Expecting?5valid?5OI?5for?5zACTIVATE@ DB 'Expecting valid '
 	DB	'OI for zACTIVATE_CONTINUE', 00H		; `string'
@@ -7337,7 +7337,7 @@ EXTRN	_SysAppendcDirSep@4:NEAR
 EXTRN	_fnSysCloseFile@12:NEAR
 EXTRN	_SysConvertEnvironmentString@8:NEAR
 ;	COMDAT ??_C@_0N@FGFK@TZCMULWO?4POR?$AA@
-; File C:\10C\A\oe\KZOEOIAA.C
+; File c:\10c\A\oe\KZOEOIAA.C
 _DATA	SEGMENT
 ??_C@_0N@FGFK@TZCMULWO?4POR?$AA@ DB 'TZCMULWO.POR', 00H	; `string'
 _DATA	ENDS
@@ -9355,7 +9355,7 @@ PUBLIC	??_C@_0BE@CKOO@Out?5of?5buffer?5space?$AA@	; `string'
 PUBLIC	??_C@_0BE@LIH@Internal?5Core?5Error?$AA@	; `string'
 EXTRN	_SysMessageBox@16:NEAR
 ;	COMDAT ??_C@_0BE@CKOO@Out?5of?5buffer?5space?$AA@
-; File C:\10C\A\oe\KZOEOIAA.C
+; File c:\10c\A\oe\KZOEOIAA.C
 _DATA	SEGMENT
 ??_C@_0BE@CKOO@Out?5of?5buffer?5space?$AA@ DB 'Out of buffer space', 00H ; `string'
 _DATA	ENDS
@@ -9859,7 +9859,7 @@ EXTRN	_SysGetProcessID@4:NEAR
 EXTRN	_SysLoadLibrary@8:NEAR
 EXTRN	__imp___strnicmp:NEAR
 ;	COMDAT ??_C@_02CJCI@KZ?$AA@
-; File C:\10C\A\oe\KZOEOIAA.C
+; File c:\10c\A\oe\KZOEOIAA.C
 _DATA	SEGMENT
 ??_C@_02CJCI@KZ?$AA@ DB 'KZ', 00H			; `string'
 _DATA	ENDS
@@ -10314,7 +10314,7 @@ PUBLIC	??_C@_0M@GIDM@GKH_MsgProc?$AA@			; `string'
 PUBLIC	??_C@_0N@KCPG@_GKH_MsgProc?$AA@			; `string'
 EXTRN	__imp__strncmp:NEAR
 ;	COMDAT ??_C@_0CH@KJEE@?$CIoi?$CJ?5Attempting?5to?5load?5GK?9handl@
-; File C:\10C\A\oe\KZOEOIAA.C
+; File c:\10c\A\oe\KZOEOIAA.C
 _DATA	SEGMENT
 ??_C@_0CH@KJEE@?$CIoi?$CJ?5Attempting?5to?5load?5GK?9handl@ DB '(oi) Atte'
 	DB	'mpting to load GK-handler as ', 00H		; `string'
@@ -10929,7 +10929,7 @@ _TEXT	ENDS
 PUBLIC	_AddToViewCluster@12
 PUBLIC	??_C@_0BI@HCHL@View?5doesn?8t?5have?5an?5OI?$AA@ ; `string'
 ;	COMDAT ??_C@_0BI@HCHL@View?5doesn?8t?5have?5an?5OI?$AA@
-; File C:\10C\A\oe\KZOEOIAA.C
+; File c:\10c\A\oe\KZOEOIAA.C
 _DATA	SEGMENT
 ??_C@_0BI@HCHL@View?5doesn?8t?5have?5an?5OI?$AA@ DB 'View doesn''t have a'
 	DB	'n OI', 00H					; `string'
@@ -11457,7 +11457,7 @@ EXTRN	_fnValidViewCsr:NEAR
 EXTRN	_NetCommitOI@28:NEAR
 EXTRN	_SysDiagnosticMessage@16:NEAR
 ;	COMDAT ??_C@_0P@ECGE@Object?5Name?5?$DN?5?$AA@
-; File C:\10C\A\oe\KZOEOIAA.C
+; File c:\10c\A\oe\KZOEOIAA.C
 _DATA	SEGMENT
 ??_C@_0P@ECGE@Object?5Name?5?$DN?5?$AA@ DB 'Object Name = ', 00H ; `string'
 _DATA	ENDS
@@ -13962,7 +13962,7 @@ PUBLIC	??_C@_0KE@LDAH@Warning?3?5Trying?5to?5commit?5an?5ent@ ; `string'
 PUBLIC	??_C@_0BE@DMJL@?9?9?9?9?9?9?9?9?9?9?9?9?9?9?9?9?9?9?9?$AA@ ; `string'
 EXTRN	_DisplayEntityInstancePath@8:NEAR
 ;	COMDAT ??_C@_0CL@DMOI@?9?9?9?9?9?9?9?9?9?9?9?9?9?9?9?9?9?5Warning?5?9?9?9?9?9?9@
-; File C:\10C\A\oe\KZOEOIAA.C
+; File c:\10c\A\oe\KZOEOIAA.C
 _DATA	SEGMENT
 ??_C@_0CL@DMOI@?9?9?9?9?9?9?9?9?9?9?9?9?9?9?9?9?9?5Warning?5?9?9?9?9?9?9@ DB '-'
 	DB	'---------------- Warning ----------------', 00H ; `string'
@@ -14723,7 +14723,7 @@ PUBLIC	??_C@_09JMBN@TableName?$AA@			; `string'
 EXTRN	_AddToAttributeFromInteger@16:NEAR
 EXTRN	_SetCursorFirstEntityByInteger@20:NEAR
 ;	COMDAT ??_C@_0CC@KCFL@No?5GenKey?5handler?5set?5for?5LOD?3?5?$CF@
-; File C:\10C\A\oe\KZOEOIAA.C
+; File c:\10c\A\oe\KZOEOIAA.C
 _DATA	SEGMENT
 ??_C@_0CC@KCFL@No?5GenKey?5handler?5set?5for?5LOD?3?5?$CF@ DB 'No GenKey '
 	DB	'handler set for LOD: %s', 00H		; `string'
@@ -18154,7 +18154,7 @@ PUBLIC	_fnDeleteLocksOnTwins@24
 PUBLIC	??_C@_03LNBB@?$EA?$CFs?$AA@			; `string'
 PUBLIC	_fnCreateConcatKey@16
 ;	COMDAT ??_C@_03LNBB@?$EA?$CFs?$AA@
-; File C:\10C\A\oe\KZOEOIAA.C
+; File c:\10c\A\oe\KZOEOIAA.C
 _DATA	SEGMENT
 ??_C@_03LNBB@?$EA?$CFs?$AA@ DB '@%s', 00H		; `string'
 _DATA	ENDS
@@ -19095,7 +19095,7 @@ PUBLIC	??_C@_0CG@JDBO@?$CIoi?$CJ?5Optimistic?5locking?5compare?5@ ; `string'
 EXTRN	_fnCompareOI_ToOI:NEAR
 EXTRN	_fnResetViewFromSubobject:NEAR
 ;	COMDAT ??_C@_0BL@CNGJ@Couldn?8t?5find?5original?5OI?$CB?$AA@
-; File C:\10C\A\oe\KZOEOIAA.C
+; File c:\10c\A\oe\KZOEOIAA.C
 _DATA	SEGMENT
 ??_C@_0BL@CNGJ@Couldn?8t?5find?5original?5OI?$CB?$AA@ DB 'Couldn''t find '
 	DB	'original OI!', 00H				; `string'
@@ -21880,7 +21880,7 @@ EXTRN	_strlen:NEAR
 EXTRN	__imp__atol:NEAR
 EXTRN	__imp___ltoa:NEAR
 ;	COMDAT ??_C@_0L@BBG@mOITAG?5?$CFlx?$AA@
-; File C:\10C\A\oe\KZOEOIAA.C
+; File c:\10c\A\oe\KZOEOIAA.C
 _DATA	SEGMENT
 ??_C@_0L@BBG@mOITAG?5?$CFlx?$AA@ DB 'mOITAG %lx', 00H	; `string'
 _DATA	ENDS
@@ -25387,7 +25387,7 @@ EXTRN	_szlmZeidon:DWORD
 EXTRN	_MiSetOI_ReleaseForView@8:NEAR
 EXTRN	_MiCompareOI_ToRelease@8:NEAR
 ;	COMDAT ??_C@_08ION@?5?5?5?5?5?5?5?5?$AA@
-; File C:\10C\A\oe\KZOEOIAA.C
+; File c:\10c\A\oe\KZOEOIAA.C
 _DATA	SEGMENT
 ??_C@_08ION@?5?5?5?5?5?5?5?5?$AA@ DB '        ', 00H	; `string'
 _DATA	ENDS
@@ -27460,7 +27460,7 @@ PUBLIC	??_C@_0CP@GGJF@Trying?5to?5drop?5original?5OI?5but?5i@ ; `string'
 EXTRN	_fnDeleteAttributeRecord:NEAR
 EXTRN	_fnRemoveEntityFromDebugChange@4:NEAR
 ;	COMDAT ??_C@_0CP@GGJF@Trying?5to?5drop?5original?5OI?5but?5i@
-; File C:\10C\A\oe\KZOEOIAA.C
+; File c:\10c\A\oe\KZOEOIAA.C
 _DATA	SEGMENT
 ??_C@_0CP@GGJF@Trying?5to?5drop?5original?5OI?5but?5i@ DB 'Trying to drop'
 	DB	' original OI but it''s not there!', 00H	; `string'
@@ -28882,7 +28882,7 @@ EXTRN	_fnAttributeValueNull:NEAR
 EXTRN	_StoreValueInRecord@20:NEAR
 EXTRN	_GetValueFromRecord@24:NEAR
 ;	COMDAT ??_C@_0BO@NIPI@?9?5ParentEntity?5?$DN?$DN?5ChildEntity?$AA@
-; File C:\10C\A\oe\KZOEOIAA.C
+; File c:\10c\A\oe\KZOEOIAA.C
 _DATA	SEGMENT
 ??_C@_0BO@NIPI@?9?5ParentEntity?5?$DN?$DN?5ChildEntity?$AA@ DB '- ParentE'
 	DB	'ntity == ChildEntity', 00H			; `string'
@@ -30363,7 +30363,7 @@ PUBLIC	??_C@_0BJ@POBP@?$CIoi?$CJ?5Concatenated?5key?5?$DN?5?$AA@ ; `string'
 EXTRN	_UfFormatDateTime@12:NEAR
 EXTRN	_GetStringFromAttribute@16:NEAR
 ;	COMDAT ??_C@_0BD@BKHK@LOD?5?8?$CFs?8?5is?5locked?$AA@
-; File C:\10C\A\oe\KZOEOIAA.C
+; File c:\10c\A\oe\KZOEOIAA.C
 _DATA	SEGMENT
 ??_C@_0BD@BKHK@LOD?5?8?$CFs?8?5is?5locked?$AA@ DB 'LOD ''%s'' is locked', 00H ; `string'
 _DATA	ENDS
@@ -30929,7 +30929,7 @@ PUBLIC	??_C@_0BB@NJHF@Child?5Entity?5?5?$DN?5?$AA@	; `string'
 PUBLIC	??_C@_0BB@IHNO@Child?5level?5?5?5?$DN?5?$AA@	; `string'
 EXTRN	_DisplayEntityInstance@8:NEAR
 ;	COMDAT ??_C@_0DH@OLHA@?$DN?$DN?$DN?$DN?5Activate?5error?3?5Infinite?5re@
-; File C:\10C\A\oe\KZOEOIAA.C
+; File c:\10c\A\oe\KZOEOIAA.C
 _DATA	SEGMENT
 ??_C@_0DH@OLHA@?$DN?$DN?$DN?$DN?5Activate?5error?3?5Infinite?5re@ DB '==='
 	DB	'= Activate error: Infinite recursive subobject ====', 00H ; `string'
@@ -32128,7 +32128,7 @@ _TEXT	ENDS
 PUBLIC	_fnSetLocksOnTwins@24
 PUBLIC	??_C@_01PCJP@Y?$AA@				; `string'
 ;	COMDAT ??_C@_01PCJP@Y?$AA@
-; File C:\10C\A\oe\KZOEOIAA.C
+; File c:\10c\A\oe\KZOEOIAA.C
 _DATA	SEGMENT
 ??_C@_01PCJP@Y?$AA@ DB 'Y', 00H				; `string'
 _DATA	ENDS
@@ -33483,7 +33483,7 @@ EXTRN	_SysParseLine@12:NEAR
 EXTRN	__imp__strtoul:NEAR
 EXTRN	_fnSetAttributeFromString:NEAR
 ;	COMDAT ??_C@_07ICJO@CONTROL?$AA@
-; File C:\10C\A\oe\KZOEOIAA.C
+; File c:\10c\A\oe\KZOEOIAA.C
 _DATA	SEGMENT
 ??_C@_07ICJO@CONTROL?$AA@ DB 'CONTROL', 00H		; `string'
 _DATA	ENDS
@@ -37597,7 +37597,7 @@ PUBLIC	??_C@_08NLFK@TZCMULWO?$AA@			; `string'
 PUBLIC	??_C@_0CN@HFJB@?$CIoi?$CJ?5Total?5time?5for?5SfActivateOI@ ; `string'
 EXTRN	__imp__strncpy:NEAR
 ;	COMDAT ??_C@_08NLFK@TZCMULWO?$AA@
-; File C:\10C\A\oe\KZOEOIAA.C
+; File c:\10c\A\oe\KZOEOIAA.C
 _DATA	SEGMENT
 ??_C@_08NLFK@TZCMULWO?$AA@ DB 'TZCMULWO', 00H		; `string'
 _DATA	ENDS
@@ -38906,7 +38906,7 @@ PUBLIC	??_C@_0FM@LNBI@SfActivateSysOI_FromFile?5now?5REQ@ ; `string'
 PUBLIC	??_C@_09BPDN@Zeidon?5OE?$AA@			; `string'
 PUBLIC	_SfActivateSysOI_FromFile@20
 ;	COMDAT ??_C@_0FO@KBNJ@SfActivateSysOI_FromFile?5now?5REQ@
-; File C:\10C\A\oe\KZOEOIAA.C
+; File c:\10c\A\oe\KZOEOIAA.C
 _DATA	SEGMENT
 ??_C@_0FO@KBNJ@SfActivateSysOI_FromFile?5now?5REQ@ DB 'SfActivateSysOI_Fr'
 	DB	'omFile now REQUIRES a non-zero qualification view for Object '
@@ -39038,7 +39038,7 @@ _TEXT	ENDS
 PUBLIC	??_C@_0FL@BEFB@SfActivateSysEmptyOI?5now?5REQUIRE@ ; `string'
 PUBLIC	??_C@_0FI@FKHH@SfActivateSysEmptyOI?5now?5REQUIRE@ ; `string'
 ;	COMDAT ??_C@_0FL@BEFB@SfActivateSysEmptyOI?5now?5REQUIRE@
-; File C:\10C\A\oe\KZOEOIAA.C
+; File c:\10c\A\oe\KZOEOIAA.C
 _DATA	SEGMENT
 ??_C@_0FL@BEFB@SfActivateSysEmptyOI?5now?5REQUIRE@ DB 'SfActivateSysEmpty'
 	DB	'OI now REQUIRES a non-zero qualification view for Object Defi'
@@ -42302,7 +42302,7 @@ EXTRN	_fnSetUpdateIndicator:NEAR
 EXTRN	_fnEstablishCursorForView:NEAR
 EXTRN	__chkstk:NEAR
 ;	COMDAT ??_C@_0N@CEOG@?4bubblesort?5?$AA@
-; File C:\10C\A\oe\KZOEOIAA.C
+; File c:\10c\A\oe\KZOEOIAA.C
 _DATA	SEGMENT
 ??_C@_0N@CEOG@?4bubblesort?5?$AA@ DB '.bubblesort ', 00H ; `string'
 _DATA	ENDS
@@ -43124,7 +43124,7 @@ PUBLIC	??_C@_0CD@FCAC@Maximum?5?$CD?5of?5order?5attributes?5us@ ; `string'
 PUBLIC	??_C@_0CL@FGMF@KZOEE013?5?9?5Internal?5operation?5ca@ ; `string'
 PUBLIC	??_C@_0BL@NNA@fnOrderOI_ByDefaultAttribs?$AA@	; `string'
 ;	COMDAT ??_C@_0CD@FCAC@Maximum?5?$CD?5of?5order?5attributes?5us@
-; File C:\10C\A\oe\KZOEOIAA.C
+; File c:\10c\A\oe\KZOEOIAA.C
 _DATA	SEGMENT
 ??_C@_0CD@FCAC@Maximum?5?$CD?5of?5order?5attributes?5us@ DB 'Maximum # of'
 	DB	' order attributes used', 00H		; `string'
@@ -43344,7 +43344,7 @@ PUBLIC	_fnOrderOI_ByDefaultAttribs
 PUBLIC	??_C@_0BK@NHNF@Out?5of?5space?5for?5entities?$AA@ ; `string'
 PUBLIC	??_C@_0CB@LCPB@Maximum?5?$CD?5of?5order?5entities?5used@ ; `string'
 ;	COMDAT ??_C@_0BK@NHNF@Out?5of?5space?5for?5entities?$AA@
-; File C:\10C\A\oe\KZOEOIAA.C
+; File c:\10c\A\oe\KZOEOIAA.C
 _DATA	SEGMENT
 ??_C@_0BK@NHNF@Out?5of?5space?5for?5entities?$AA@ DB 'Out of space for en'
 	DB	'tities', 00H				; `string'
@@ -44078,7 +44078,7 @@ PUBLIC	_fnOrderEntitiesByDefaultAttribs
 PUBLIC	??_C@_0BG@KEBP@Sequencing?5error?5?$DO?540?$AA@	; `string'
 PUBLIC	??_C@_0CA@OIFL@fnOrderEntitiesByDefaultAttribs?$AA@ ; `string'
 ;	COMDAT ??_C@_0BG@KEBP@Sequencing?5error?5?$DO?540?$AA@
-; File C:\10C\A\oe\KZOEOIAA.C
+; File c:\10c\A\oe\KZOEOIAA.C
 _DATA	SEGMENT
 ??_C@_0BG@KEBP@Sequencing?5error?5?$DO?540?$AA@ DB 'Sequencing error > 40'
 	DB	00H						; `string'
@@ -44427,7 +44427,7 @@ PUBLIC	??_C@_0O@GNIP@OrderEntities?$AA@		; `string'
 PUBLIC	??_C@_0CO@OBEN@Ordering?5attributes?5?9?9?5Entity?5cu@ ; `string'
 PUBLIC	_OrderEntitiesByDefaultAttribs@8
 ;	COMDAT ??_C@_0DA@BDHH@Ordering?5attributes?5?9?9?5resetting@
-; File C:\10C\A\oe\KZOEOIAA.C
+; File c:\10c\A\oe\KZOEOIAA.C
 _DATA	SEGMENT
 ??_C@_0DA@BDHH@Ordering?5attributes?5?9?9?5resetting@ DB 'Ordering attrib'
 	DB	'utes -- resetting entity cursor.', 00H	; `string'
@@ -45109,7 +45109,7 @@ PUBLIC	_fnQualError@8
 PUBLIC	??_C@_0BF@DGOD@Error?5occurs?5after?3?5?$AA@	; `string'
 PUBLIC	??_C@_0CM@MJO@Error?5parsing?5command?4?5?5See?5trac@ ; `string'
 ;	COMDAT ??_C@_0BF@DGOD@Error?5occurs?5after?3?5?$AA@
-; File C:\10C\A\oe\KZOEOIAA.C
+; File c:\10c\A\oe\KZOEOIAA.C
 _DATA	SEGMENT
 ??_C@_0BF@DGOD@Error?5occurs?5after?3?5?$AA@ DB 'Error occurs after: ', 00H ; `string'
 _DATA	ENDS
@@ -45157,7 +45157,7 @@ EXTRN	__imp___pctype:DWORD
 EXTRN	__imp___isctype:NEAR
 EXTRN	__imp____mb_cur_max:DWORD
 ;	COMDAT ??_C@_09MHIP@ACTIVATE?5?$AA@
-; File C:\10C\A\oe\KZOEOIAA.C
+; File c:\10c\A\oe\KZOEOIAA.C
 _DATA	SEGMENT
 ??_C@_09MHIP@ACTIVATE?5?$AA@ DB 'ACTIVATE ', 00H	; `string'
 _DATA	ENDS
@@ -46482,7 +46482,7 @@ PUBLIC	??_C@_0N@GDFL@IntegerValue?$AA@			; `string'
 PUBLIC	_GenerateQualFromEntityList@20
 EXTRN	_fnValidateCursorParameters:NEAR
 ;	COMDAT ??_C@_06KGGE@?$CKroot?$CK?$AA@
-; File C:\10C\A\oe\KZOEOIAA.C
+; File c:\10c\A\oe\KZOEOIAA.C
 _DATA	SEGMENT
 ??_C@_06KGGE@?$CKroot?$CK?$AA@ DB '*root*', 00H		; `string'
 _DATA	ENDS

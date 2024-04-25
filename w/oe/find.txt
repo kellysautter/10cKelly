@@ -1,0 +1,681 @@
+kzoeclnt.c://  ENVIRONMENT: DOS 5.0
+kzoeclnt.c:#define  KZSYSSVC_INCL
+kzoeclnt.c:zVIEW  vSubtask;
+kzoeclnt.c:fnThreadProc2( zPVOID p )
+kzoeclnt.c:   zVIEW  vSubtask;
+kzoeclnt.c:   zVIEW  vView;
+kzoeclnt.c:      nRC = ActivateObjectInstance( &vView, "mUser", vSubtask, 0, zSINGLE );
+kzoeclnt.c:         DropView( vView );
+kzoeclnt.c:VOID CALLBACK
+kzoeclnt.c:   zVIEW  vView;
+kzoeclnt.c:   zVIEW  vLocalSubtask;
+kzoeclnt.c:      ActivateObjectInstance( &vView, "mMedCode", vSubtask, 0, zSINGLE );
+kzoeclnt.c:      DropView( vView );
+kzoeclnt.c:         if ( wParam == VK_F3 )
+kzoeclnt.c:                            WS_OVERLAPPEDWINDOW,            // Window style.
+kzoeclnt.c:                            WS_VISIBLE | WS_CHILD | WS_VSCROLL | WS_HSCROLL |
+kzoeclnt.c:      LPVOID pv;
+kzoeclnt.c:      LPVOID pv2;
+kzoengwa.c://  ENVIRONMENT: DOS 5.0
+kzoengwa.c:2001.8.07   TMV   R55580
+kzoengwa.c:2001.5.21   TMV   2000   R55248
+kzoengwa.c:2001.4.9   TMV   2000
+kzoengwa.c:2001.04.02  TMV  10a
+kzoengwa.c:   check AnchorBlock against zCALL_ERROR to avoid chrash if Environment Variable
+kzoengwa.c:SRVANY.EXE: a utility to run Windows NT applications as services
+kzoengwa.c:INSTSRV.EXE: a command-line utility which installs and uninstalls services and assigns names to them, or
+kzoengwa.c:SRVINSTW.EXE: Service Installation Wizard which guides the user through the installation of a service.
+kzoengwa.c:To install the Object Engine as a service the tool INSTSRV.EXE is applied.
+kzoengwa.c:RVANY.EXE when the service is started (DIRECTORY specifies the fully qualified path to the
+kzoengwa.c:Use the registry editor to provide additional information SRVANY.EXE needs to wrap an application
+kzoengwa.c:zVIEW    g_vSystemTaskView = 0;
+kzoengwa.c:void fnThreadProc( zPVOID p )
+kzoengwa.c:unsigned __stdcall fnThreadProc( zPVOID p )
+kzoengwa.c:   zPVOID ppvFile = 0;
+kzoengwa.c:fnListDataspaceLeak( LPANCHOR lpAnchorBlock, zPVOID hTask, zSHORT nFlag );
+kzoengwa.c:              wCommand == IDM_FINDPREV )
+kzoengwa.c:               if ( wCommand == IDM_FINDPREV )
+kzoengwa.c:                  if ( wCommand == IDM_FINDPREV )
+kzoengwa.c:               SfAllocTaskMemory( g_vSystemTaskView,
+kzoengwa.c:         if ( wCommand == IDM_PRINTPREVIEW    ||
+kzoengwa.c:              wCommand == IDM_PREVIEW_ZOOMOUT ||
+kzoengwa.c:              wCommand == IDM_PREVIEW_ZOOM    ||
+kzoengwa.c:              wCommand == IDM_PREVIEW_ZOOMIN )
+kzoengwa.c:            CheckMenuItem( hMenu, IDM_PRINTPREVIEW,
+kzoengwa.c:            CheckMenuItem( hMenu, IDM_PREVIEW_ZOOMOUT,
+kzoengwa.c:            CheckMenuItem( hMenu, IDM_PREVIEW_ZOOM,
+kzoengwa.c:            CheckMenuItem( hMenu, IDM_PREVIEW_ZOOMIN,
+kzoengwa.c:               case IDM_PREVIEW_ZOOMOUT:
+kzoengwa.c:                  CheckMenuItem( hMenu, IDM_PREVIEW_ZOOMOUT,
+kzoengwa.c:               case IDM_PREVIEW_ZOOM:
+kzoengwa.c:                  CheckMenuItem( hMenu, IDM_PREVIEW_ZOOM,
+kzoengwa.c:               case IDM_PREVIEW_ZOOMIN:
+kzoengwa.c:                  CheckMenuItem( hMenu, IDM_PREVIEW_ZOOMIN,
+kzoengwa.c:               case IDM_PRINTPREVIEW:
+kzoengwa.c:                  CheckMenuItem( hMenu, IDM_PRINTPREVIEW,
+kzoengwa.c:               CheckMenuItem( hMenu, IDM_PRINTPREVIEW,
+kzoengwa.c:               CheckMenuItem( hMenu, IDM_PREVIEW_ZOOMOUT,
+kzoengwa.c:               CheckMenuItem( hMenu, IDM_PREVIEW_ZOOM,
+kzoengwa.c:               CheckMenuItem( hMenu, IDM_PREVIEW_ZOOMIN,
+kzoengwa.c:                          dw != STILL_ACTIVE )
+kzoengwa.c:                        zstrcat( szMessage, "INVALID WINDOW HANDLE!" );
+kzoengwa.c:                        lpSubtaskView = zGETPTR( lpSubtask->hFirstView );
+kzoengwa.c:                        while( lpSubtaskView )
+kzoengwa.c:                           if ( lpSubtaskView->hSubtask )
+kzoengwa.c:                           lpSubtaskView = zGETPTR( lpSubtaskView->hNextView );
+kzoengwa.c:                        lpTempSubtask = zGETPTR( lpSubtaskView->hSubtask );
+kzoengwa.c:                        if ( lpSubtaskView && lpSubtaskView->hViewName )
+kzoengwa.c:                                    zGETPTR( lpSubtaskView->hViewName ) );
+kzoengwa.c:                        lpSubtaskView = zGETPTR( lpSubtask->hFirstView );
+kzoengwa.c:                        while( lpSubtaskView )
+kzoengwa.c:                           zstrcpy( szMessage, "         View:'" );
+kzoengwa.c:                           if ( lpSubtaskView->hSubtaskView == 0 )
+kzoengwa.c:                              if ( lpSubtaskView->hViewName )
+kzoengwa.c:                                          zGETPTR( lpSubtaskView->hViewName ) );
+kzoengwa.c:                              if ( lpSubtaskView->hViewCsr )
+kzoengwa.c:                                 LPVIEWCSR lpViewCsr =
+kzoengwa.c:                                          zGETPTR( lpSubtaskView->hViewCsr );
+kzoengwa.c:                                 LPVIEWOI  lpViewOI  =
+kzoengwa.c:                                          zGETPTR( lpViewCsr->hViewOI );
+kzoengwa.c:                                 LPVIEWOD  lpViewOD  =
+kzoengwa.c:                                          zGETPTR( lpViewOI->hViewOD );
+kzoengwa.c:                                          lpViewOD->szName );
+kzoengwa.c:                           lpSubtaskView = zGETPTR( lpSubtaskView->hNextView );
+kzoengwa.c:         if ( wCommand == IDM_LISTVOBJS )   // Display objects
+kzoengwa.c:               LPVIEWOD lpViewOD;
+kzoengwa.c:                  lpViewOD = zGETPTR( lpApp->hFirstViewOD );
+kzoengwa.c:                  while ( lpViewOD )
+kzoengwa.c:                     zstrcpy( szMessage, "   View Object:'" );
+kzoengwa.c:                     if ( *lpViewOD->szName )
+kzoengwa.c:                        zstrcat( szMessage, lpViewOD->szName );
+kzoengwa.c:                     lpViewOD = zGETPTR( lpViewOD->hNextViewOD );
+kzoengwa.c:         if ( wCommand == IDM_GETPRINTPREVIEW )
+kzoengwa.c:               GetEnvironmentVariable( "ZEIDON", szIniName, sizeof( szIniName ) );
+kzoengwa.c:#define zZEIDON_DRIVER_MSG                                   0x4000
+kzoengwa.c:#define zZEIDON_COMMUNICATE_OE              (zZEIDON_DRIVER_MSG + 1)
+kzoengwa.c:#define zZEIDON_POSTED_CLOSE                (zZEIDON_DRIVER_MSG + 2)
+kzoengwa.c:            zPVOID            hNewInt;
+kzoengwa.c:      case WM_QUERYALIVE:
+kzoengwa.c:   zVIEW        vDbhWork;
+kzoengwa.c:      WS_OVERLAPPEDWINDOW,            // window style
+kzoengwa.c:      WS_CHILD | WS_VSCROLL | WS_HSCROLL |
+kzoengwa.c:      SetEnvironmentVariable( "ZEIDON", g_szZeidonEnvDirectory );
+kzoengwa.c:   GetEnvironmentVariable( "ZEIDON", szFileName, zMAX_FILENAME_LTH + 1 );
+kzoengwa.c:         WS_CHILD | WS_VSCROLL | WS_HSCROLL |
+kzoengwa.c:   g_wOENG_Message = RegisterWindowMessage( "KZOESRVC" );
+kzoengwa.c:   g_vSystemTaskView = zGETPTR( lpTask->hFirstView );
+kzoengwa.c:   CheckMenuItem( hMenu, IDM_PRINTPREVIEW,
+kzoengwa.c:   CheckMenuItem( hMenu, IDM_PREVIEW_ZOOMOUT,
+kzoengwa.c:   CheckMenuItem( hMenu, IDM_PREVIEW_ZOOM,
+kzoengwa.c:   CheckMenuItem( hMenu, IDM_PREVIEW_ZOOMIN,
+kzoengwa.c:   GetViewByName( &vDbhWork, zDBHANDLER_WORK_VIEW_NAME,
+kzoengwa.c:                  g_vSystemTaskView, zLEVEL_SYSTEM );
+kzoengwa.c:                            g_vSystemTaskView, zSINGLE );
+kzoengwa.c:      SfLockView( vDbhWork );
+kzoengwa.c:      SetNameForView( vDbhWork, zDBHANDLER_WORK_VIEW_NAME,
+kzoengwa.c:                      g_vSystemTaskView, zLEVEL_SYSTEM );
+kzoengwa.c:   SfStartNetworks( g_vSystemTaskView, 0 );
+kzoengwa.c:               if ( SendDlgItemMessage( hWndDlg, IDC_SAVEUSERID,
+kzoengwa.c:      zLONG  lValue;
+kzoengwa.c:         lValue = zatol( pch );
+kzoengwa.c:            wp.flags = lValue;
+kzoengwa.c:            wp.showCmd = lValue;
+kzoengwa.c:            wp.ptMinPosition.x = lValue;
+kzoengwa.c:            wp.ptMinPosition.y = lValue;
+kzoengwa.c:            wp.ptMaxPosition.x = lValue;
+kzoengwa.c:            wp.ptMaxPosition.y = lValue;
+kzoengwa.c:            wp.rcNormalPosition.left = lValue;
+kzoengwa.c:            wp.rcNormalPosition.top = lValue;
+kzoengwa.c:            wp.rcNormalPosition.right = lValue;
+kzoengwa.c:            wp.rcNormalPosition.bottom = lValue;
+kzoengwa.c:   BOOL bIsVisible;
+kzoengwa.c:   bIsVisible = IsWindowVisible( hwnd );
+kzoengwa.c:   EnableMenuItem( hMenu, IDM_SHOWTRACE, bIsVisible ? MF_GRAYED : MF_ENABLED );
+kzoengwa.c:   EnableMenuItem( hMenu, IDM_HIDEWINDOW, bIsVisible ? MF_ENABLED : MF_GRAYED );
+kzoesyaa.c://  ENVIRONMENT: Win32
+kzoesyaa.c:   Change signature of SysValidDirOrFile so that it can be called from VML.
+kzoesyaa.c:   Modified SysValidDirOrFile for remove leading spaces
+kzoesyaa.c:   Modified SysGetEnvVar for init Return String
+kzoesyaa.c:   Modified SysValidDirOrFile for create multiple directory layers
+kzoesyaa.c:// _VAR is a LARGE_INTEGER.
+kzoesyaa.c:#define GET_CPU_TIME(_VAR)         \
+kzoesyaa.c:       _asm mov _VAR.LowPart, eax  \
+kzoesyaa.c:       _asm mov _VAR.HighPart, edx \
+kzoesyaa.c:#define zZEIDON_DRIVER_MSG                           0x4000
+kzoesyaa.c:#define zZEIDON_COMMUNICATE_OE      (zZEIDON_DRIVER_MSG + 1)
+kzoesyaa.c:#define zZEIDON_POSTED_CLOSE        (zZEIDON_DRIVER_MSG + 2)
+kzoesyaa.c:zVOID LOCALOPER
+kzoesyaa.c:extern zPVOID g_pProbeArea;
+kzoesyaa.c:      g_hMutexMemFile = CreateFileMapping( INVALID_HANDLE_VALUE, NULL, PAGE_READWRITE,
+kzoesyaa.c:      g_MutexInfoTable = MapViewOfFile( (HANDLE) g_hMutexMemFile,
+kzoesyaa.c:zPVOID LOCALOPER
+kzoesyaa.c:zVOID
+kzoesyaa.c://  RETURNS:    zVIEW    - Web Subtask for the task
+kzoesyaa.c:zVIEW  OPERATION
+kzoesyaa.c://./ ADD NAME=SysGetTaskFromView
+kzoesyaa.c://  ENTRY:      SysGetTaskFromView
+kzoesyaa.c:SysGetTaskFromView( zVIEW lpView )
+kzoesyaa.c:   if ( lpView )
+kzoesyaa.c:      return( (zLONG) lpView->hTask );
+kzoesyaa.c:SysSetDefaultTaskForProcess( zVIEW vTaskView )
+kzoesyaa.c:   SysMessageBox( vTaskView, "Zeidon Object Services",
+kzoesyaa.c:   if ( g_vDefaultTaskView && vTaskView )
+kzoesyaa.c:      SysMessageBox( vTaskView, "Zeidon Object Services",
+kzoesyaa.c:   g_vDefaultTaskView = vTaskView;
+kzoesyaa.c:// zVIEW g_vGlobalView = NULL;
+kzoesyaa.c://         if ( g_vGlobalView == NULL )
+kzoesyaa.c://                 // initialize g_vGlobalView
+kzoesyaa.c:// have to put a mutex around it to make sure g_vGlobalView doesn't get
+kzoesyaa.c://    if ( g_vGlobalView == NULL )
+kzoesyaa.c://       // initialize g_vGlobalView
+kzoesyaa.c://    if ( g_vGlobalView == NULL )
+kzoesyaa.c://       if ( g_vGlobalView == NULL )
+kzoesyaa.c://          // initialize g_vGlobalView
+kzoesyaa.c:// problem is that the compiler might store the value of g_vGlobalView in a
+kzoesyaa.c:// value of g_vGlobalView isn't re-loaded for the second 'if' statement.
+kzoesyaa.c:// To protect against this, g_vGlobalView needs to be declared with the
+kzoesyaa.c:// volatile zVIEW g_vGlobalView = NULL;
+kzoesyaa.c:// This tells the compiler to reload the value of g_vGlobalView *every*
+kzoesyaa.c:// g_vGlobalView is used it could slow down processing because it is
+kzoesyaa.c:SetTransientTaskProcess( zCPCHAR cpcSessionId, zVIEW vSubtask, zBOOL bOn, zCPCHAR cpcTitle )
+kzoesyaa.c:      TraceLine( "STP S/V/T: %s/0x%08x/0x%08x  ==> %s (%s)  Thread: %d",
+kzoesyaa.c:      TraceLine( "STP S/V/T: %s/0x%08x/0x%08x  ==> Conflict with Task Session Id: %s  (%s)  Thread: %d",
+kzoesyaa.c:   // TraceLine( "EnterCriticalSection STP S/V/T: %s/0x%08x/0x%08x  ==> %s (%s)  Thread: %d",
+kzoesyaa.c:   // TraceLine( "LeaveCriticalSection STP S/V/T: %s/0x%08x/0x%08x  ==> %s (%s)  Thread: %d",
+kzoesyaa.c:SysMakeWebFileName( zPCHAR pchReturnName, zVIEW v, zLONG lFlags )
+kzoesyaa.c:SysSetFocusToWebCtrl( zVIEW v, zCPCHAR cpcDialog, zCPCHAR cpcWindow,
+kzoesyaa.c:   zVIEW      vKZXMLPGO;
+kzoesyaa.c:   GetViewByName( &vKZXMLPGO, "KZXMLPGO", v, zLEVEL_TASK );
+kzoesyaa.c:SysSetWebBannerName( zVIEW v, zCPCHAR cpcDialog, zCPCHAR cpcBannerName )
+kzoesyaa.c:   zVIEW      vKZXMLPGO;
+kzoesyaa.c:   GetViewByName( &vKZXMLPGO, "KZXMLPGO", v, zLEVEL_TASK );
+kzoesyaa.c:SysGetWebBannerName( zVIEW v, zCPCHAR cpcDialog, zPCHAR pchBannerName )
+kzoesyaa.c:   zVIEW      vKZXMLPGO;
+kzoesyaa.c:   GetViewByName( &vKZXMLPGO, "KZXMLPGO", v, zLEVEL_TASK );
+kzoesyaa.c:RegisterZeidonApplication( zPVIEW    pvSubtask,
+kzoesyaa.c:         ActivateViewObject( zGETPTR( lpTask->hFirstView ), szlMessageObject, 0 );
+kzoesyaa.c:         *pvSubtask = zGETPTR( lpTask->hFirstView );
+kzoesyaa.c:         SetViewFlags( *pvSubtask, zVF_MESSAGEONDROP );
+kzoesyaa.c:      //    zPVOID p = zGETHNDL( lpTask );
+kzoesyaa.c:         TraceLine( "RegisterZeidonApplication ===============> %s   V/Task: 0x%08x / 0x%08x  Process: %d   Thread: %d",
+kzoesyaa.c:UnregisterZeidonApplication( zVIEW vTaskView )
+kzoesyaa.c:   lpTask = zGETPTR( vTaskView->hTask );
+kzoesyaa.c:                 vTaskView, vTaskView->hTask, lpTask, GetCurrentProcessId( ),
+kzoesyaa.c:   //    zVIEW        vDbhWork;
+kzoesyaa.c:   //    GetViewByName( &vDbhWork, zDBHANDLER_WORK_VIEW_NAME,
+kzoesyaa.c:   //                   vTaskView, zLEVEL_SYSTEM );
+kzoesyaa.c:zVOID OPERATION
+kzoesyaa.c:   // fnIssueCoreError( 0, lpView, 16, 360, 0, sz, "from WIN.INI" );
+kzoesyaa.c://    Content/value         SV_CXDBLCLK size in pels.
+kzoesyaa.c://    Content/value         SV_CYDBLCLK size in pels.
+kzoesyaa.c://    Content/value         SV_CXMOTIONSTART size in pels.
+kzoesyaa.c://    Content/value         SV_CYMOTIONSTART size in pels.
+kzoesyaa.c://    Content/value         Values have the following meanings:
+kzoesyaa.c:SysCreateInternational( zVOID )
+kzoesyaa.c:   zPVOID            hInternational;
+kzoesyaa.c:   // Value defining the number of decimal digits that should be used in a
+kzoesyaa.c:   // Value specifying whether a decimal value less than 1.0 (and greater
+kzoesyaa.c:      SysGetEnvVar( pchTarget, pchSource, zMAX_FILENAME_LTH );
+kzoesyaa.c:   SysGetEnvVar( pchFileName, szlZEIDON, nMaxLth );
+kzoesyaa.c:   zPVOID pvFile;
+kzoesyaa.c:   // Validate that environment variable ZEIDON set, NOTE: This
+kzoesyaa.c:   // Validate that environment variable ZEIDON set, NOTE: This
+kzoesyaa.c:   SysGetEnvVar( szZeidonEnv, szlZEIDON, sizeof( szZeidonEnv ) );
+kzoesyaa.c:   lSize += 3 * ALLOC_FREE_TRACE * sizeof( zPVOID );
+kzoesyaa.c:   AnchorBlock->hFirstViewName   = 0;
+kzoesyaa.c:         SysGetEnvVar( szZeidonEnv, "TEMP", sizeof( szZeidonEnv ) );
+kzoesyaa.c:            SysGetEnvVar( szZeidonEnv, "TMP", sizeof( szZeidonEnv ) );
+kzoesyaa.c:      UnmapViewOfFile( g_ZeidonPageTable[ lPageTableIndex ] );
+kzoesyaa.c:zPVOID AddressTable[ 8 ] = { 0 };
+kzoesyaa.c:      SysMessageBox( (zVIEW) wParam, szlOE_SystemError,
+kzoesyaa.c:         SysMessageBox( (zVIEW) wParam, "Zeidon Object Engine",
+kzoesyaa.c:            LocalFree( (LPVOID) lpMsg );
+kzoesyaa.c:                  //    TraceLine( "UnmapViewOfFile1 Page Table at Index: %x   0x%08x   Process: 0x%08x",
+kzoesyaa.c:                     UnmapViewOfFile( g_ZeidonPageTable[ lPageTableIndex ] );
+kzoesyaa.c:            //    TraceLine( "UnmapViewOfFile2 Page Table at Index: %x   0x%08x   Process: 0x%08x",
+kzoesyaa.c:               UnmapViewOfFile( g_ZeidonPageTable[ lPageTableIndex ] );
+kzoesyaa.c:      //    TraceLine( "UnmapViewOfFile3 Page Table at Index: %x   0x%08x   Process: 0x%08x",
+kzoesyaa.c:         UnmapViewOfFile( g_ZeidonPageTable[ lPageTableIndex ] );
+kzoesyaa.c:         SysMessageBox( (zVIEW) wParam, "Zeidon Object Engine", "Unknown message", -1 );
+kzoesyaa.c:zPVOID
+kzoesyaa.c:CheckPointer( zVIEW lpView, zLONG lPageTableIndex, zPVOID pHandle )
+kzoesyaa.c:      LPVIEWOD lpViewOD;
+kzoesyaa.c:      if ( lpView )
+kzoesyaa.c:         lpViewOD = zGETPTR( lpView->hViewOD );
+kzoesyaa.c:         lpViewOD = 0;
+kzoesyaa.c:      TraceLine( "Check Pointer Error for TableIndex: %d   ViewOD Name: %s",
+kzoesyaa.c:                 lPageTableIndex, lpViewOD ? lpViewOD->szName : "No view" );
+kzoesyaa.c:   zVIEW     lpView;
+kzoesyaa.c:   LPVIEWCSR lpViewCsr;
+kzoesyaa.c:   LPVIEWOI  lpViewOI;
+kzoesyaa.c:   LPVIEWENTITY lpViewEntity;
+kzoesyaa.c:      lpView = CheckPointer( 0, lPageTableIndex, lpTask->hFirstView );
+kzoesyaa.c:      while ( lpView )
+kzoesyaa.c:         lpViewCsr = CheckPointer( lpView, lPageTableIndex, lpView->hViewCsr );
+kzoesyaa.c:         if ( lpViewCsr )
+kzoesyaa.c:            lpViewOI = CheckPointer( lpView, lPageTableIndex, lpViewCsr->hViewOI );
+kzoesyaa.c:            if ( lpViewOI )
+kzoesyaa.c:               lpEntityInstance = CheckPointer( lpView, lPageTableIndex,
+kzoesyaa.c:                                                lpViewOI->hRootEntityInstance );
+kzoesyaa.c:            lpNextEntityInstance = CheckPointer( lpView, lPageTableIndex,
+kzoesyaa.c:            lpViewEntity = CheckPointer( lpView, lPageTableIndex,
+kzoesyaa.c:                                         lpEntityInstance->hViewEntity );
+kzoesyaa.c:            lpRecord = CheckPointer( lpView, lPageTableIndex,
+kzoesyaa.c:            lpRecord = CheckPointer( lpView, lPageTableIndex,
+kzoesyaa.c:         lpView = CheckPointer( lpView, lPageTableIndex, lpView->hNextView );
+kzoesyaa.c:      lpTask = CheckPointer( lpView, lPageTableIndex, lpTask->hNextTask );
+kzoesyaa.c:      SysFree( (zPVOID) hMemory );
+kzoesyaa.c:      UnmapViewOfFile( g_ZeidonPageTable[ lPageTableIndex ] );
+kzoesyaa.c:      UnmapViewOfFile( g_ZeidonPageTable[ lPageTableIndex ] );
+kzoesyaa.c:// PROTOTYPE: zPVOID OPERATION
+kzoesyaa.c:zPVOID OPERATION
+kzoesyaa.c:   zPVOID pvMemory;
+kzoesyaa.c://      zVOID OPERATION
+kzoesyaa.c://      SysFree( zPVOID pMemory );
+kzoesyaa.c:zVOID OPERATION
+kzoesyaa.c:SysFree( zPVOID pvMemory )
+kzoesyaa.c://      zVOID OPERATION
+kzoesyaa.c://      SysMemSize( zPVOID pMemory );
+kzoesyaa.c:SysMemSize( zPVOID pMemory )
+kzoesyaa.c:   SysFree( (zPVOID) hMemory );
+kzoesyaa.c://./ ADD NAME=SysValidAddress
+kzoesyaa.c://  ENTRY:      SysValidAddress
+kzoesyaa.c:SysValidAddress( zPVOID lpAddress,
+kzoesyaa.c:   zBOOL  bValidWindow;
+kzoesyaa.c:   AnchorBlock = MapViewOfFile( (HANDLE) g_hAnchorBlock,
+kzoesyaa.c:      bValidWindow = TRUE;
+kzoesyaa.c:      bValidWindow = FALSE;
+kzoesyaa.c:   while ( bValidWindow )
+kzoesyaa.c:zPVOID  OPERATION
+kzoesyaa.c:            return( (zPVOID) AnchorBlock->lOE_hMainWnd );
+kzoesyaa.c:            return( (zPVOID) AnchorBlock->lOE_hListWnd );
+kzoesyaa.c:   // Validate that environment variable ZEIDON set
+kzoesyaa.c:   SysGetEnvVar( szProgramName, szlZEIDON, sizeof( szProgramName ) - 1 );
+kzoesyaa.c:zPVOID LOCALOPER
+kzoesyaa.c:fnSysGetPointerFromHandleServerMode( zPVOID pHandle )
+kzoesyaa.c:zPVOID LOCALOPER
+kzoesyaa.c:fnSysGetPointerFromHandleShared( zPVOID pHandle )
+kzoesyaa.c:   if ( pHandle == (zPVOID) 1 )
+kzoesyaa.c:      return( (zPVOID) 1 );
+kzoesyaa.c:   pHandle = (zPVOID) ((zLONG) g_ZeidonPageTable[ k ] + lOffset);
+kzoesyaa.c:zPVOID OPERATION
+kzoesyaa.c:SysGetPointerFromHandle( zPVOID pHandle )
+kzoesyaa.c:zPVOID LOCALOPER
+kzoesyaa.c:fnSysGetHandleFromPointerServerMode( zPVOID pPointer )
+kzoesyaa.c:zPVOID LOCALOPER
+kzoesyaa.c:fnSysGetHandleFromPointerShared( zPVOID pPointer )
+kzoesyaa.c:zPVOID OPERATION
+kzoesyaa.c:SysGetHandleFromPointer( zPVOID pPointer )
+kzoesyaa.c:zPVOID LOCALOPER
+kzoesyaa.c:                   zPVOID       pPointer )
+kzoesyaa.c:   pbBase = zGETPTR( (zPVOID) lpDataHeader->hDataHandle );
+kzoesyaa.c:   pPointer = (zPVOID) (lpDataHeader->hDataHandle | lOffset);
+kzoesyaa.c:zPVOID LOCALOPER
+kzoesyaa.c:   zPVOID pv;
+kzoesyaa.c:   pv = MapViewOfFile( *phHandle, FILE_MAP_WRITE, 0, 0, 0 );
+kzoesyaa.c:zPVOID *g_pvAlloc[ zMAX_ALLOC_TEST + 1 ];
+kzoesyaa.c://./ ADD NAME=SysGetEnvVar
+kzoesyaa.c://  ENTRY:      SysGetEnvVar
+kzoesyaa.c:SysGetEnvVar( zPCHAR pchReturnEnv, zCPCHAR cpcEnvName, int nMaxLth )
+kzoesyaa.c:   if ( GetEnvironmentVariable( cpcEnvName, pchReturnEnv, nMaxLth ) == 0 )
+kzoesyaa.c:SysDiagnosticMessage( zVIEW lpTaskView, zCPCHAR cpcTitle,
+kzoesyaa.c:      return( SysMessageBox( lpTaskView, cpcTitle, cpcMessage, nBeep ) );
+kzoesyaa.c:SysMessageBox( zVIEW lpTaskView, zCPCHAR cpcTitle,
+kzoesyaa.c:         LPTASK lpTask = lpTaskView ? zGETPTR( lpTaskView->hTask ) : 0;
+kzoesyaa.c:      zVIEW v = GetDefaultViewForActiveTask( );
+kzoesyaa.c:SysSetDB_UserID( zVIEW lpView, zCPCHAR cpcUserID, zCPCHAR cpcPassword )
+kzoesyaa.c:   lpTask = zGETPTR( lpView->hTask );
+kzoesyaa.c:SysGetUserID( zVIEW lpView, zPCHAR pchUserID, zPCHAR pchPassword )
+kzoesyaa.c:   if ( lpView == 0 )
+kzoesyaa.c:      lpTask = zGETPTR( lpView->hTask );
+kzoesyaa.c:SysGetDB_UserID( zVIEW lpView, zPCHAR pchUserID, zPCHAR pchPassword )
+kzoesyaa.c:   lpTask = zGETPTR( lpView->hTask );
+kzoesyaa.c:      SysGetUserID( lpView, pchUserID, pchPassword );
+kzoesyaa.c://   RETURN VALUE: 0 - Name created OK.  The only possible error is that the
+kzoesyaa.c://   RETURN VALUE:  1 - Copy OK.
+kzoesyaa.c:SysCopyFile( zVIEW   lpTaskView,
+kzoesyaa.c:   LPTASK lpTask = lpTaskView ? zGETPTR( lpTaskView->hTask ) : 0;
+kzoesyaa.c://   RETURN VALUE:  1 - Rename OK.
+kzoesyaa.c:SysRenameFile( zVIEW   lpTaskView,
+kzoesyaa.c:   LPTASK lpTask = lpTaskView ? zGETPTR( lpTaskView->hTask ) : 0;
+kzoesyaa.c://     SysOpenFile( zVIEW lpTaskView, zCPCHAR cpcFileName, int Flags )
+kzoesyaa.c://       SysOpenFile( lpTaskView, "oldname.txt\0newname.txt", COREFILE_RENAME );
+kzoesyaa.c://   RETURN VALUE: A handle to the file opened or -1 if the file could not be
+kzoesyaa.c:         if ( hFile == INVALID_HANDLE_VALUE )
+kzoesyaa.c:      zPVOID hOpenFile;
+kzoesyaa.c:SysOpenFile( zVIEW lpTaskView, zCPCHAR cpcFileName, int nFlags )
+kzoesyaa.c:   LPTASK lpTask = lpTaskView ? zGETPTR( lpTaskView->hTask ) : 0;
+kzoesyaa.c://                  FILE_ARCHIVED | FILE_NORMAL, // File attribute
+kzoesyaa.c://                   (PVOID) uchFileData,  // String to be written
+kzoesyaa.c://       12        ERROR_INVALID_ACCESS
+kzoesyaa.c://       32        ERROR_SHARING_VIOLATION
+kzoesyaa.c://       87        ERROR_INVALID_PARAMETER
+kzoesyaa.c://       99        ERROR_DEVICE_IN_USE
+kzoesyaa.c://       108       ERROR_DRIVE_LOCKED
+kzoesyaa.c://       6         ERROR_INVALID_HANDLE
+kzoesyaa.c://       33        ERROR_LOCK_VIOLATION
+kzoesyaa.c:SysReadFile( zVIEW   lpTaskView,
+kzoesyaa.c:   LPTASK lpTask = lpTaskView ? zGETPTR( lpTaskView->hTask ) : 0;
+kzoesyaa.c:               zPVOID   *ppvFile )
+kzoesyaa.c:      zVIEW vTask = zGETPTR( lpTask->hFirstView );
+kzoesyaa.c:         zVIEW vTask = zGETPTR( lpTask->hFirstView );
+kzoesyaa.c:SysReadLine( zVIEW    lpTaskView,
+kzoesyaa.c:   LPTASK lpTask = lpTaskView ? zGETPTR( lpTaskView->hTask ) : 0;
+kzoesyaa.c:                  zPVOID   *ppvFile,
+kzoesyaa.c:      zPVOID hNewBuffer;
+kzoesyaa.c:SysReadLineLth( zVIEW    lpTaskView,
+kzoesyaa.c:   LPTASK lpTask = lpTaskView ? zGETPTR( lpTaskView->hTask ) : 0;
+kzoesyaa.c:SysWriteFile( zVIEW   lpTaskView,
+kzoesyaa.c:   LPTASK lpTask = lpTaskView ? zGETPTR( lpTaskView->hTask ) : 0;
+kzoesyaa.c:                zPVOID   *ppvFile,
+kzoesyaa.c:SysWriteLine( zVIEW   lpTaskView,
+kzoesyaa.c:   LPTASK lpTask = lpTaskView ? zGETPTR( lpTaskView->hTask ) : 0;
+kzoesyaa.c:                   zPVOID   *ppvFile,
+kzoesyaa.c:SysWriteLineLth( zVIEW   lpTaskView,
+kzoesyaa.c:   LPTASK lpTask = lpTaskView ? zGETPTR( lpTaskView->hTask ) : 0;
+kzoesyaa.c:SysCloseFileWithControl( zVIEW  lpTaskView,
+kzoesyaa.c:   LPTASK lpTask = lpTaskView ? zGETPTR( lpTaskView->hTask ) : 0;
+kzoesyaa.c:SysCloseFile( zVIEW  lpTaskView,
+kzoesyaa.c:   LPTASK lpTask = lpTaskView ? zGETPTR( lpTaskView->hTask ) : 0;
+kzoesyaa.c:#define CONVERT_2_DIGITS( pch ) ((*(pch) - '0') * 10 + *(pch + 1) - '0')
+kzoesyaa.c:   SysTime.wMonth        = CONVERT_2_DIGITS( cpcDateTime + 4 );
+kzoesyaa.c:   SysTime.wDay          = CONVERT_2_DIGITS( cpcDateTime + 6 );
+kzoesyaa.c:   SysTime.wHour         = CONVERT_2_DIGITS( cpcDateTime + 8 );
+kzoesyaa.c:   SysTime.wMinute       = CONVERT_2_DIGITS( cpcDateTime + 10 );
+kzoesyaa.c:   SysTime.wSecond       = CONVERT_2_DIGITS( cpcDateTime + 12 );
+kzoesyaa.c:   if ( hFile == INVALID_HANDLE_VALUE )
+kzoesyaa.c:SysTruncateFile( zVIEW lpTaskView, zLONG hFile )
+kzoesyaa.c:   LPTASK lpTask = lpTaskView ? zGETPTR( lpTaskView->hTask ) : 0;
+kzoesyaa.c://    has no embedded blanks.  PortValue, however, may. If there
+kzoesyaa.c://    and PortValue is returned null.
+kzoesyaa.c:              zCOREMEM  PortValue,
+kzoesyaa.c:         *PortValue = szNullS;
+kzoesyaa.c:            *PortValue = szNullS;
+kzoesyaa.c:            *PortValue = szNullS;
+kzoesyaa.c:            *PortValue = (zPCHAR) (pchInputString + iStartPos);
+kzoesyaa.c:            k = zstrlen( *PortValue ) - 1;
+kzoesyaa.c:               if ( (*PortValue)[ k ] == ' ' )
+kzoesyaa.c:                  (*PortValue)[ k-- ] = 0;
+kzoesyaa.c:_zCall_GetDateTime( zVIEW  vArgs,
+kzoesyaa.c:                    zPVIEW pvViewList[] )
+kzoesyaa.c:   SetAttributeFromString( vArgs, "Operation", "ReturnValue", szDateTime );
+kzoesyaa.c:SysGetServerDateTime( zVIEW lpView, zPCHAR pchDateTime )
+kzoesyaa.c:   LPVIEWOD lpViewOD;
+kzoesyaa.c:   if ( lpView &&
+kzoesyaa.c:        (lpViewOD = zGETPTR( lpView->hViewOD )) != 0 &&
+kzoesyaa.c:        lpViewOD->szNetwork[ 0 ] &&
+kzoesyaa.c:        NetStatus( lpView, lpViewOD->szNetwork ) != 0 )
+kzoesyaa.c:      zVIEW  vSystem;
+kzoesyaa.c:      SfCreateSystemSubtask( &vSystem, lpView, "Zeidon System" );
+kzoesyaa.c://    zCALL_ERROR - Validation error during call (invalid Date Type)
+kzoesyaa.c://     SysLoadLibraryWithErrFlag( zVIEW   lpTaskView,
+kzoesyaa.c://           lpTaskView - Subtask view that specifies the application.  If
+kzoesyaa.c://                lpTaskView is NULL, then the system application is assumed.
+kzoesyaa.c:SysLoadLibraryWithErrFlag( zVIEW   lpTaskView,
+kzoesyaa.c:   if ( AnchorBlock == 0 || lpTaskView == 0 ||
+kzoesyaa.c:        (lpTask = zGETPTR( lpTaskView->hTask )) == 0 )
+kzoesyaa.c:   if ( lpTaskView )
+kzoesyaa.c:      if ( fnValidView( lpTask, lpTaskView ) == 0 )
+kzoesyaa.c:      if ( fnGetApplicationForSubtask( &lpApp, lpTaskView ) != 0 )
+kzoesyaa.c:         MessageSend( lpTaskView, "SY00101", "System Services", szMsg,
+kzoesyaa.c://     SysLoadLibrary( zVIEW lpTaskView, zCPCHAR szLibraryName )
+kzoesyaa.c://           lpTaskView - Subtask view that specifies the application.  If lpTaskView
+kzoesyaa.c:SysLoadLibrary( zVIEW lpTaskView, zCPCHAR cpcLibraryName )
+kzoesyaa.c:   return( SysLoadLibraryWithErrFlag( lpTaskView, cpcLibraryName, zLOADLIB_WITHERR ) );
+kzoesyaa.c://     zPVOID OPERATION
+kzoesyaa.c:zPVOID OPERATION
+kzoesyaa.c:   zPVOID    pfReturn;
+kzoesyaa.c:SysFreeLibrary( zVIEW lpTaskView, LPLIBRARY hLibrary )
+kzoesyaa.c:   LPTASK lpTask = lpTaskView ? zGETPTR( lpTaskView->hTask ) : 0;
+kzoesyaa.c:zPVOID OPERATION
+kzoesyaa.c:fnReuseEntity( zPVOID lpViewEntityCsr )
+kzoesyaa.c:   lpEntityInstance = zGETPTR( ((LPVIEWENTITYCSR) lpViewEntityCsr)->hEntityInstance );
+kzoesyaa.c://             Value - Parameter value returned
+kzoesyaa.c://                                     szValue )) == -1 )
+kzoesyaa.c:                  zPCHAR  pchValue )
+kzoesyaa.c:   zPVOID pvFile;
+kzoesyaa.c:   zPCHAR pchParseValue;
+kzoesyaa.c:   zPCHAR pchLineValue;
+kzoesyaa.c:   pchValue[ 0 ] = 0;
+kzoesyaa.c:         SysParseLine( szParseName, &pchParseValue, pchLine );
+kzoesyaa.c:      SysParseLine( szParseName, &pchParseValue, pchLine );
+kzoesyaa.c:      // Remove blanks before Parse Value.
+kzoesyaa.c:      while ( pchParseValue[ 0 ] == ' ' )
+kzoesyaa.c:         pchParseValue++;
+kzoesyaa.c:      if ( pchParseValue[ 0 ] == '=' )
+kzoesyaa.c:         pchLineValue = pchLine;
+kzoesyaa.c:         while ( pchLineValue[ 0 ] == ' ' )
+kzoesyaa.c:            pchLineValue++;
+kzoesyaa.c:         while ( pchLineValue[ 0 ] != ' ' && pchLineValue[ 0 ] != '=' )
+kzoesyaa.c:            pchLineValue++;
+kzoesyaa.c:         // '=' sign, then increment pchParseValue after the equal sign.
+kzoesyaa.c:         if ( pchLineValue[ 0 ] != '=' )
+kzoesyaa.c:            pchParseValue++;
+kzoesyaa.c:            // Remove blanks before Parse Value.
+kzoesyaa.c:            while ( pchParseValue[ 0 ] == ' ' )
+kzoesyaa.c:               pchParseValue++;
+kzoesyaa.c:         zstrcpy( pchValue, pchParseValue );
+kzoesyaa.c://              Value - The Value to be set for the parameter
+kzoesyaa.c:// DESCRIPTION: The Parameter and the Value passed are concatenated
+kzoesyaa.c:                    zCPCHAR cpcValue )
+kzoesyaa.c:   zPVOID pvFileIn;
+kzoesyaa.c:   zPVOID pvFileOut;
+kzoesyaa.c:   zPCHAR pchParseValue;
+kzoesyaa.c:   zsprintf( szParmString, "%s=%s", cpcParameter, cpcValue );
+kzoesyaa.c:         SysParseLine( szParseName, &pchParseValue, pchLine );
+kzoesyaa.c:         SysParseLine( szParseName, &pchParseValue, pchLine );
+kzoesyaa.c://./ ADD NAME=SysValidDirOrFile
+kzoesyaa.c:SysValidDirOrFile( zPCHAR pchPath,
+kzoesyaa.c:   // fnIssueCoreError( 0, lpView, 16, 25, 0, pchPath, 0 );
+kzoesyaa.c:// fnIssueCoreError( 0, lpView, 16, 26, 0, szFullPath, 0 );
+kzoesyaa.c:SysSetAnchorBlock( zPVOID pvAnchorBlock )
+kzoesyaa.c:zVOID OPERATION
+kzoesyaa.c:zVOID OPERATION
+kzoesyaa.c:// PARAMETERS:  plSubVersion - If not zero the sub-version of the OS will
+kzoesyaa.c:// RETURNS:     Code indicating current OS.  Valid values are:
+kzoesyaa.c://                    zOS_MVS                    5
+kzoesyaa.c:SysGetOS_Info( zPLONG plSubVersion )
+kzoesyaa.c:   if ( plSubVersion )
+kzoesyaa.c:      *plSubVersion = 0;
+kzoesyaa.c://    wParam: IDM_GETPRINTPREVIEW = 206  lParam: 0  Returns: bPrintPreview
+kzoesyaa.c:      case zDEC_CMD_DIVDEC:
+kzoesyaa.c:zVOID LOCALOPER
+kzoesyaa.c:zVOID LOCALOPER
+kzoesyaa.c:zVOID LOCALOPER
+kzoesyaa.c:zVOID LOCALOPER
+kzoesyaa.c:zVOID LOCALOPER
+kzoesyaa.c:zVOID LOCALOPER
+kzoesyaa.c:zVOID LOCALOPER
+kzoesyaa.c:zVOID LOCALOPER
+kzoesyaa.c:   // fnIssueCoreError( lpTask, lpView, 16, 32, 0, 0, 0 );
+kzoesyaa.c:SysMutexCreate( zVIEW lpTaskView, zCPCHAR cpcMutexName, zLONG lControl )
+kzoesyaa.c:   if ( lpTaskView == 0 || (lpTask = zGETPTR( lpTaskView->hTask )) == 0 )
+kzoesyaa.c://  PARAMETERS: lpTaskView   - View to identify the current task
+kzoesyaa.c:SysMutexLock( zVIEW   lpTaskView,
+kzoesyaa.c:   if ( lpTaskView == 0 || (lpTask = zGETPTR( lpTaskView->hTask )) == 0 )
+kzoesyaa.c:      SysMessageBox( lpTaskView, "Error", "Error locking mutex", 0 );
+kzoesyaa.c://  PARAMETERS: lpTaskView   - View to identify the current task
+kzoesyaa.c:SysMutexUnlock( zVIEW lpTaskView, zCPCHAR cpcMutexName, zLONG lControl )
+kzoesyaa.c:   if ( lpTaskView == 0 || (lpTask = zGETPTR( lpTaskView->hTask )) == 0 )
+kzoesyaa.c:SysStartBrowseOfTaskList( zVIEW lpTaskView )
+kzoesyaa.c:   return( fnStartBrowseOfTaskList( lpTaskView->hTask, FALSE ) );
+kzoesyaa.c:// the mouse or keyboard, such as WM_MOUSEMOVE, WM_LBUTTONDOWN, WM_KEYDOWN, and
+kzoesyaa.c:// Windows sends the window a series of messages, including WM_ACTIVATE,
+kzoesyaa.c:// WM_ACTIVATE message first to the window being deactivated and then to the
+kzoesyaa.c:// When the default window procedure receives the WM_ACTIVATE message, it sets
+kzoesyaa.c:                               WS_OVERLAPPEDWINDOW, // window style
+kzoesyaa.c:// GLOBAL VARS: ghMod - handle of DLL (initialized when PROCESS_ATTACHes)
+kzoesyaa.c:DllMain( HINSTANCE hDLL, DWORD dwReason, LPVOID lpReserved )
+kzoesyaa.c:         OSVERSIONINFO os;
+kzoesyaa.c:         g_wOENG_Message = RegisterWindowMessage( "KZOESRVC" );
+kzoesyaa.c:         os.dwOSVersionInfoSize = sizeof( os );
+kzoesyaa.c:         GetVersionEx( &os );
+kzoesyaa.c:         if ( os.dwPlatformId == VER_PLATFORM_WIN32_NT && g_bServerMode == FALSE )
+kzoesyaa.c:            zVIEW      vSystemView = zGETPTR( lpSystemTask->hFirstView );
+kzoesyaa.c:            if ( vSystemView )
+kzoesyaa.c:                  NetClose( vSystemView, lpNetwork->szNetworkName );
+KZSchedT.c://  ENVIRONMENT: Windows
+KZSchedT.c:#define  KZSYSSVC_INCL
+KZSchedT.c:zVIEW  g_vSubtask;
+KZSchedT.c:fnThreadProc2( zPVOID p )
+KZSchedT.c:   zVIEW  vSubtask;
+KZSchedT.c:   zVIEW  vView;
+KZSchedT.c:      nRC = ActivateObjectInstance( &vView, "mUser", vSubtask, 0, zSINGLE );
+KZSchedT.c:         DropView( vView );
+KZSchedT.c:PostBuild( zVIEW vSubtask )
+KZSchedT.c:Cleanup( zVIEW vSubtask )
+KZSchedT.c:Exit( zVIEW vSubtask )
+KZSchedT.c:   BOOL  bIsVisible;
+KZSchedT.c:   bIsVisible = IsWindowVisible( hWnd );
+KZSchedT.c:VOID CALLBACK
+KZSchedT.c:   zVIEW  vView;
+KZSchedT.c:   zVIEW  vLocalSubtask;
+KZSchedT.c:      ActivateObjectInstance( &vView, "mMedCode", vLocalSubtask, 0, zSINGLE );
+KZSchedT.c:      DropView( vView );
+KZSchedT.c:         if ( wParam == VK_F3 )
+KZSchedT.c:                            WS_OVERLAPPEDWINDOW,            // window style
+metersec.c:BOOL CreateMetSectFileView(LPMETERED_SECTION lpMetSect, LONG lInitialCount, LONG lMaximumCount, LPCTSTR lpName, BOOL bOpenOnly);
+metersec.c:    // Verify the parameters
+metersec.c:        SetLastError(ERROR_INVALID_PARAMETER);
+metersec.c:        SetLastError(ERROR_INVALID_PARAMETER);
+metersec.c:        if (lpMetSect->lpSharedInfo) UnmapViewOfFile(lpMetSect->lpSharedInfo);
+metersec.c:        if (CreateMetSectFileView(lpMetSect, lInitialCount, lMaximumCount, lpName, bOpenOnly))
+metersec.c:        wsprintf(sz, _TEXT("DKC_MSECT_EVT_%s"), lpName);
+metersec.c: * CreateMetSectFileView
+metersec.c:BOOL CreateMetSectFileView(LPMETERED_SECTION lpMetSect, LONG lInitialCount, LONG lMaximumCount,
+metersec.c:            lpMetSect->hFileMap = CreateFileMapping(INVALID_HANDLE_VALUE, NULL, PAGE_READWRITE, 0, sizeof(METSECT_SHARED_INFO), sz);
+metersec.c:        lpMetSect->hFileMap = CreateFileMapping(INVALID_HANDLE_VALUE, NULL, PAGE_READWRITE, 0, sizeof(METSECT_SHARED_INFO), NULL);
+metersec.c:        lpMetSect->lpSharedInfo = (LPMETSECT_SHARED_INFO) MapViewOfFile(lpMetSect->hFileMap, FILE_MAP_WRITE, 0, 0, 0);
+zdllinst.c:#define KZSYSSVC_INCL
+zdllinst.c:// GLOBAL VARS: ghMod - handle of DLL (initialized when PROCESS_ATTACHes)
+zdllinst.c:DllMain( HINSTANCE hDLL, DWORD dwReason, LPVOID lpReserved )
+zdllinst.c:GetDLL_Instance( zVIEW vSubtask )
+zwinsckb.c://  ENVIRONMENT: Windows 3.1
+zwinsckb.c:#define TRACELEVEL      1
+zwinsckb.c:typedef struct ActivateStruct *LPACTIVATE;
+zwinsckb.c:ReceiveBootstrapFile( LPVOID ppvConnPtr );
+zwinsckb.c:void TraceBuffer( LPSTR pszPrefix, LPVOID pvBuffer, UINT uLth )
+zwinsckb.c:      WSAEINVAL,             "WSAEINVAL",
+zwinsckb.c:      WSAEADDRNOTAVAIL,      "WSAEADDRNOTAVAIL",
+zwinsckb.c:      WSAVERNOTSUPPORTED,    "WSAVERNOTSUPPORTED",
+zwinsckb.c:          LPVOID  * ppHandle,
+zwinsckb.c:          LPVOID  * ppvConnPtr,
+zwinsckb.c:             LPVOID  * ppHandle,
+zwinsckb.c:             LPVOID  * ppvConnPtr,
+zwinsckb.c:            LPVOID  * ppHandle )
+zwinsckb.c:   int         nTraceLevel = TRACELEVEL;
+zwinsckb.c:   if ( sock == INVALID_SOCKET )
+zwinsckb.c:                LPVOID  * ppHandle )
+zwinsckb.c:   int         nTraceLevel = TRACELEVEL;
+zwinsckb.c:   if ( lpSockets->sockListen == INVALID_SOCKET )
+zwinsckb.c:   lpSockets->sockListen = INVALID_SOCKET;
+zwinsckb.c:         if ( WSAGETSELECTEVENT( lParam ) == FD_READ )
+zwinsckb.c:            LPVOID  pv;
+zwinsckb.c:            // RECEIVE the data synchronously. ( If the sending socket is
+zwinsckb.c:            cr.nTraceLevel = TRACELEVEL;
+zwinsckb.c://               ppHandle       - Void pointer that has been initialized to
+zwinsckb.c:           LPVOID *   ppHandle,
+zwinsckb.c:   TraceLineX( "(zwinsock) WinSock Version     = ", WSAData.wVersion );
+zwinsckb.c:   TraceLineX( "(zwinsock) WinSock HighVersion = ", WSAData.wHighVersion );
+zwinsckb.c:   lpSockets->sockListen = INVALID_SOCKET;
+zwinsckb.c:           LPVOID *  ppHandle,
+zwinsckb.c:   if ( TRACELEVEL > 0 )
+zwinsock.cpp://  ENVIRONMENT: Windows 3.1
+zwinsock.cpp:   #define INVALID_SOCKET     -1
+zwinsock.cpp:      WSAEINVAL,             "WSAEINVAL",
+zwinsock.cpp:      WSAEADDRNOTAVAIL,      "WSAEADDRNOTAVAIL",
+zwinsock.cpp:      WSAVERNOTSUPPORTED,    "WSAVERNOTSUPPORTED",
+zwinsock.cpp:zNetSend( zPPVOID  ppHandle,
+zwinsock.cpp:          zPPVOID  ppvConnPtr,
+zwinsock.cpp:zNetReceive( zPPVOID  ppHandle,
+zwinsock.cpp:             zPPVOID  ppvConnPtr,
+zwinsock.cpp:         free( (zPVOID) lpConn->hBufferMem );
+zwinsock.cpp://               ppvConnPtr  - Void pointer that has been initialized to
+zwinsock.cpp://               vConnGrp    - View to OI with ConnectionGroup entity.
+zwinsock.cpp:zNetOpenConnection( zPPVOID  ppHandle,
+zwinsock.cpp:                    zPPVOID  ppvConnPtr,
+zwinsock.cpp:                    zVIEW    lpView )
+zwinsock.cpp:   SOCKET         sock = INVALID_SOCKET;
+zwinsock.cpp:   if ( sock == INVALID_SOCKET )
+zwinsock.cpp:      if ( SysMessageBox( lpView, szlErrorTitle, szMsg, MB_RETRYCANCEL ) == IDCANCEL )
+zwinsock.cpp:      if ( SysMessageBox( lpView, szlErrorTitle, szMsg, MB_RETRYCANCEL ) == IDCANCEL )
+zwinsock.cpp:   lpConn->nTraceLevel  = NetGetTraceLevel( lpView, "zWinSock" );
+zwinsock.cpp:         free( (zPVOID) lpConn->hBufferMem );
+zwinsock.cpp:         free( (zPVOID) lpConn->hPeerNameMem );
+zwinsock.cpp:         free( (zPVOID) lpConn->hMemHandle );
+zwinsock.cpp:      if ( sock != INVALID_SOCKET )
+zwinsock.cpp:zNetCloseConnection( zPPVOID  ppHandle,
+zwinsock.cpp:                     zPPVOID  ppvConnPtr )
+zwinsock.cpp:      free( (zPVOID) lpConn->hBufferMem );
+zwinsock.cpp:      free( (zPVOID) lpConn->hPeerNameMem );
+zwinsock.cpp:      free( (zPVOID) lpConn->hMemHandle );
+zwinsock.cpp:fnProcessConnectionThreadProc( zPVOID p )
+zwinsock.cpp:   zVIEW              vSubtask = 0;
+zwinsock.cpp:   zPVOID             pv;
+zwinsock.cpp:   zPVOID pp = 0;  // debug code
+zwinsock.cpp:   // Valid values for DoSync:  0 = zeidon.ini not read yet
+zwinsock.cpp:   pp = (zPVOID) vSubtask->hTask;
+zwinsock.cpp:   zNetCloseConnection( (zPPVOID) &pv, (zPPVOID) &pv );
+zwinsock.cpp:fnListenThreadProc( zPVOID p )
+zwinsock.cpp:   zSHORT       nTraceLevel = 1; // NetGetTraceLevel( lpView, "zWinSock" );
+zwinsock.cpp:   zVIEW        vSubtask = 0;
+zwinsock.cpp:   if ( listenSocket == INVALID_SOCKET )
+zwinsock.cpp:      struct timeval sTimeVal;
+zwinsock.cpp:      if ( pSockTask->sock == INVALID_SOCKET )
+zwinsock.cpp:                           (zPVOID) pSockTask ) != 0 )
+zwinsock.cpp:                                             (zPVOID) pSockTask, 0,  // arglist, initial state
+zwinsock.cpp:zNetListen( zPPVOID  ppHandle,
+zwinsock.cpp:            zVIEW    lpView )
+zwinsock.cpp:   LisnInfo.hTask = lpView->hTask;
+zwinsock.cpp:   zSHORT      nTraceLevel = NetGetTraceLevel( lpView, "zwinsock" );
+zwinsock.cpp:                                     (zPVOID) &LisnInfo, 0, // arglist, initflag
+zwinsock.cpp:zNetStopListen( zVIEW lpView, zPPVOID ppHandle )
+zwinsock.cpp:   zSHORT      nTraceLevel = NetGetTraceLevel( lpView, "zWinSock" );
+zwinsock.cpp:   if ( lpSockets->sockListen == INVALID_SOCKET )
+zwinsock.cpp:   lpSockets->sockListen = INVALID_SOCKET;
+zwinsock.cpp:zNetGetHostAddress( zVIEW   lpView,
+zwinsock.cpp:                    zPPVOID ppHandle,
+zwinsock.cpp:                    zPPVOID ppvConnPtr,
+zwinsock.cpp:   zSHORT       nTraceLevel = NetGetTraceLevel( lpView, "zWinSock" );
+zwinsock.cpp://               ppHandle       - Void pointer that has been initialized to
+zwinsock.cpp:zNetStart( zPCHAR pchNetworkName, zPPVOID  ppHandle )
+zwinsock.cpp:   TraceLineX( "(zwinsock) WinSock Version     = ", WSAData.wVersion );
+zwinsock.cpp:   TraceLineX( "(zwinsock) WinSock HighVersion = ", WSAData.wHighVersion );
+zwinsock.cpp:   lpSockets->sockListen = INVALID_SOCKET;
+zwinsock.cpp:zNetClose( zVIEW lpView, zPPVOID ppHandle )
+zwinsock.cpp:   if ( NetGetTraceLevel( lpView, "zWinSock" ) > 0 )
+zwinsock.cpp:   if ( lpSockets->sockListen != INVALID_SOCKET )
+zwinsock.cpp:      zNetStopListen( lpView, ppHandle );
+zwinsock.cpp:   free( (zPVOID) lpSockets->hMemHandle );
+zwinsock.cpp:zNetBufferEnd( zPPVOID  ppHandle,
+zwinsock.cpp:               zPPVOID  ppvConnPtr )
+zwinsock.cpp:zNetSendPacket( zPPVOID  ppHandle,
+zwinsock.cpp:                zPPVOID  ppvConnPtr,
+zwinsock.cpp:zNetReceivePacket( zPPVOID  ppHandle,
+zwinsock.cpp:                   zPPVOID  ppvConnPtr,
+zwinsock.cpp:GetDirectoryList( zPVIEW pvList, zVIEW vAppList )
+zwinsock.cpp:   zVIEW           vList;
+zwinsock.cpp:      SfActivateSysEmptyOI( pvList, "KZFXFERO", 0, zMULTIPLE | zLEVEL_SYSTEM );
+zwinsock.cpp:   if ( hFind != INVALID_HANDLE_VALUE )
+zwinsock.cpp:   OrderEntityForView( vList, "File", "FileName" );
+zwinsock.cpp:CompareFiles( zPVIEW pvList )
+zwinsock.cpp:   zVIEW  vServerList = 0;
+zwinsock.cpp:   zVIEW  vAppList;
+zwinsock.cpp:   zVIEW  vClientList = *pvList;
+zwinsock.cpp:   SysGetEnvVar( szFileName, "ZEIDON", sizeof( szFileName ) );
+zwinsock.cpp:   GetViewByName( &vServerList, szFileName, 0, zLEVEL_SYSTEM );
+zwinsock.cpp:      SetNameForView( vServerList, szFileName, 0, zLEVEL_SYSTEM );
+zwinsock.cpp:         CreateEntity( vClientList, "File", zPOS_PREV );
+zwinsock.cpp:_zCall_CompareFiles( zVIEW  vArgs, zPVIEW pvViewList[] )
+zwinsock.cpp:   zSHORT   ReturnValue;
+zwinsock.cpp:   ReturnValue = CompareFiles( pvViewList[ 0 ] );
+zwinsock.cpp:   SetAttributeFromInteger( vArgs, "Operation", "ReturnValue", ReturnValue );
+zwinsock.cpp:PerformApplicationUpdate( zVIEW lpView )
+zwinsock.cpp:   zVIEW  vList = 0;
+zwinsock.cpp:   zVIEW  vAppList;
+zwinsock.cpp:   SysGetEnvVar( szFileName, "ZEIDON", sizeof( szFileName ) );
+zwinsock.cpp:   SfActivateSysOI_FromFile( &vAppList, "KZAPPLOO", lpView, szFileName, 0 );
+zwinsock.cpp:                           "zWinSock", "CompareFiles", &nMore, "NpV", &vList );
+zwinsock.cpp:         DropView( vList );
+zwinsock.cpp:   DropView( vAppList );
+zwinsock.cpp:         LPVOID lpReserved )

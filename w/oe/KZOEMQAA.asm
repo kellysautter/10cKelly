@@ -1,4 +1,4 @@
-	TITLE	C:\10C\A\oe\KZOEMQAA.C
+	TITLE	c:\10c\A\oe\KZOEMQAA.C
 	.386P
 include listing.inc
 if @Version gt 510
@@ -124,7 +124,7 @@ EXTRN	_szlId:DWORD
 EXTRN	_szl__MSGQ:DWORD
 EXTRN	_szlTask:DWORD
 ;	COMDAT ??_C@_08JIIE@KZMSGQOO?$AA@
-; File C:\10C\A\oe\KZOEMQAA.C
+; File c:\10c\A\oe\KZOEMQAA.C
 _DATA	SEGMENT
 ??_C@_08JIIE@KZMSGQOO?$AA@ DB 'KZMSGQOO', 00H		; `string'
 _DATA	ENDS
@@ -343,7 +343,7 @@ EXTRN	_CreateEntity@12:NEAR
 EXTRN	_g_pchMQI:BYTE
 EXTRN	_SetAttributeFromString@16:NEAR
 ;	COMDAT ??_C@_0CH@DILJ@MessageSend?5Task?5Error?3?5?$CFs?5?5?$CFs?5?5@
-; File C:\10C\A\oe\KZOEMQAA.C
+; File c:\10c\A\oe\KZOEMQAA.C
 _DATA	SEGMENT
 ??_C@_0CH@DILJ@MessageSend?5Task?5Error?3?5?$CFs?5?5?$CFs?5?5@ DB 'Messag'
 	DB	'eSend Task Error: %s  %s  %s  %d', 00H	; `string'
@@ -1000,7 +1000,7 @@ PUBLIC	??_C@_04FCOP@Type?$AA@				; `string'
 PUBLIC	_MessagePrompt@32
 EXTRN	_TraceLineS@8:NEAR
 ;	COMDAT ??_C@_0CF@PEEM@MessagePrompt?5Task?5Error?3?5?$CFs?5?5?$CFs@
-; File C:\10C\A\oe\KZOEMQAA.C
+; File c:\10c\A\oe\KZOEMQAA.C
 _DATA	SEGMENT
 ??_C@_0CF@PEEM@MessagePrompt?5Task?5Error?3?5?$CFs?5?5?$CFs@ DB 'MessageP'
 	DB	'rompt Task Error: %s  %s  %s', 00H		; `string'
@@ -1485,7 +1485,7 @@ PUBLIC	??_C@_0CN@DBII@MessagePromptForInput?5Task?5Error@ ; `string'
 PUBLIC	??_C@_0DC@GIEP@MessagePromptForInput?5Recursive?5@ ; `string'
 PUBLIC	_MessagePromptForInput@28
 ;	COMDAT ??_C@_0CN@DBII@MessagePromptForInput?5Task?5Error@
-; File C:\10C\A\oe\KZOEMQAA.C
+; File c:\10c\A\oe\KZOEMQAA.C
 _DATA	SEGMENT
 ??_C@_0CN@DBII@MessagePromptForInput?5Task?5Error@ DB 'MessagePromptForIn'
 	DB	'put Task Error: %s  %s  %s', 00H		; `string'
@@ -1751,7 +1751,7 @@ PUBLIC	??_C@_0BO@FPIH@MessagePresent?5Task?5Error?3?5?$CFd?$AA@ ; `string'
 PUBLIC	??_C@_0CD@OKDI@MessagePresent?5Recursive?5Error?3?5@ ; `string'
 PUBLIC	_MessagePresent@12
 ;	COMDAT ??_C@_0BO@FPIH@MessagePresent?5Task?5Error?3?5?$CFd?$AA@
-; File C:\10C\A\oe\KZOEMQAA.C
+; File c:\10c\A\oe\KZOEMQAA.C
 _DATA	SEGMENT
 ??_C@_0BO@FPIH@MessagePresent?5Task?5Error?3?5?$CFd?$AA@ DB 'MessagePrese'
 	DB	'nt Task Error: %d', 00H			; `string'
@@ -2093,7 +2093,7 @@ EXTRN	_fnSysUnlockCoreMutex@4:NEAR
 EXTRN	_fnIssueCoreError:NEAR
 EXTRN	_SysFreeLibrary@8:NEAR
 ;	COMDAT ??_C@_0O@EKFD@TaskAppRecord?$AA@
-; File C:\10C\A\oe\KZOEMQAA.C
+; File c:\10c\A\oe\KZOEMQAA.C
 _DATA	SEGMENT
 ??_C@_0O@EKFD@TaskAppRecord?$AA@ DB 'TaskAppRecord', 00H ; `string'
 _DATA	ENDS

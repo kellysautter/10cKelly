@@ -1,0 +1,368 @@
+tzwdlg4o.vml:// Empty Tags: <hr> , <br> and <img>
+tzwdlg4o.vml:// tags.  A few other tags (like the <img> tag) were suffering from the same
+tzwdlg4o.vml:// problem as above. We decided not to close the <img> tags with </img>, but
+tzwdlg4o.vml:      //szWriteBuffer = "<a href=^#^><img src=^images/<%=strBannerName%>^ width=^800^ height=^93^></a>"
+tzwdlg4o.vml:   // Eliminating <input termination.
+tzwdlg4o.vml:   szWriteBuffer = "   <input name=^zAction^ id=^zAction^ type=^hidden^ value=^NOVALUE^>"
+tzwdlg4o.vml:   szWriteBuffer = "   <input name=^zTableRowSelect^ id=^zTableRowSelect^ type=^hidden^ value=^NOVALUE^>"
+tzwdlg4o.vml:   szWriteBuffer = "   <input name=^zDisable^ id=^zDisable^ type=^hidden^ value=^NOVALUE^>"
+tzwdlg4o.vml:   // Eliminating <input termination.
+tzwdlg4o.vml:   szWriteBuffer = "   <input name=^zFocusCtrl^ id=^zFocusCtrl^ type=^hidden^ value=^<%=strFocusCtrl%>^>"
+tzwdlg4o.vml:   szWriteBuffer = "   <input name=^zOpenFile^ id=^zOpenFile^ type=^hidden^ value=^<%=strOpenFile%>^>"
+tzwdlg4o.vml:   szWriteBuffer = "   <input name=^zDateFormat^ id=^zDateFormat^ type=^hidden^ value=^<%=strDateFormat%>^>"
+tzwdlg4o.vml:      szWriteBuffer = "   <input name=^zLoginName^ id=^zLoginName^ type=^hidden^ value=^<%=strLoginName%>^>"
+tzwdlg4o.vml:      szWriteBuffer = "   <input name=^zKeyRole^ id=^zKeyRole^ type=^hidden^ value=^<%=strKeyRole%>^>"
+tzwdlg4o.vml:   szWriteBuffer = "   <input name=^zOpenPopupWindow^ id=^zOpenPopupWindow^ type=^hidden^ value=^<%=strOpenPopupWindow%>^>"
+tzwdlg4o.vml:   szWriteBuffer = "   <input name=^zPopupWindowSZX^ id=^zPopupWindowSZX^ type=^hidden^ value=^<%=strPopupWindowSZX%>^>"
+tzwdlg4o.vml:   szWriteBuffer = "   <input name=^zPopupWindowSZY^ id=^zPopupWindowSZY^ type=^hidden^ value=^<%=strPopupWindowSZY%>^>"
+tzwdlg4o.vml:   szWriteBuffer = "   <input name=^zErrorFlag^ id=^zErrorFlag^ type=^hidden^ value=^<%=strErrorFlag%>^>"
+tzwdlg4o.vml:      szWriteBuffer = "   <input name=^zTimeout^ id=^zTimeout^ type=^hidden^ value=^"
+tzwdlg4o.vml:         szWriteBuffer = "   <input name=^zTimeout^ id=^zTimeout^ type=^hidden^ value=^"
+tzwdlg4o.vml:         szWriteBuffer = "   <input name=^zTimeout^ id=^zTimeout^ type=^hidden^ value=^<%=nTimeout%>^>"
+tzwdlg4o.vml:   szWriteBuffer = "   <input name=^zSolicitSave^ id=^zSolicitSave^ type=^hidden^ value=^<%=strSolicitSave%>^>"
+tzwdlg4o.vml:   szWriteBuffer = "   <input name=^zError^ id=^zError^ type=^hidden^ value=^<%=strErrorMsg%>^>"
+tzwdlg4o.vml:      szWriteBuffer = "   <td nowrap style=^background-color:blue;color:white;border:none;padding-top:6px;padding-bottom:6px;font-size:11px;^><input name=^zFeedback^ id=^zFeedback^ style=^left:4px;width:700px;^></td>"
+tzwdlg4o.vml:      szWriteBuffer = "   <input name=^zAction^ id=^zAction^ type=^hidden^ value=^HELP^>"
+tzwdlg4o.vml:      szWriteBuffer = "   <input name=^zTargetFileName^ id=^zTargetFileName^ type=^hidden^ value=^<%=strErrorMapValue%>^ >"
+tzwdlg4o.vml:            // For some reason with the <input type="file" control, the width property doesn't
+tzwdlg4o.vml:               szWriteBuffer = "   <input name=^" + szCtrlTag + "^ id=^" + szCtrlTag + "^ size=^" + szWidth + "^ " + szStyle + " type=^file^  >"
+tzwdlg4o.vml:               szWriteBuffer = "   <input class=^" + szClass + "^ name=^" + szCtrlTag + "^ id=^" + szCtrlTag + "^ size=^" + szWidth + "^ " + szStyle + " type=^file^  >"
+tzwdlg4o.vml:               //szWriteBuffer = "   <input type=^submit^ name=^" + szCtrlTag + "^ id=^" + szCtrlTag + "^ " + " value=^" + vDialogTemp.Control.Text + "^" +
+tzwdlg4o.vml:               //szWriteBuffer = "   <input class=^" + szClass + "^ type=^submit^ name=^" + szCtrlTag + "^ id=^" + szCtrlTag + "^ " + " value=^" + vDialogTemp.Control.Text + "^" +
+TZWDLG6O.VML:// Empty Tags: <hr> , <br> and <img>
+TZWDLG6O.VML:// tags.  A few other tags (like the <img> tag) were suffering from the same
+TZWDLG6O.VML:// problem as above. We decided not to close the <img> tags with </img>, but
+TZWDLG6O.VML:   szWriteBuffer = "   $.blockUI({ message: '<h1><img src=^./images/busy.gif^ /></h1>', overlayCSS: { backgroundColor: '#eee' } });"
+TZWDLG6O.VML:            szWriteBuffer = "<i class=^hamburger align-self-center^></i>"
+TZWDLG6O.VML:   // Eliminating <input termination.
+TZWDLG6O.VML:   szWriteBuffer = "   <input name=^zAction^ id=^zAction^ type=^hidden^ value=^NOVALUE^>"
+TZWDLG6O.VML:   szWriteBuffer = "   <input name=^zTableRowSelect^ id=^zTableRowSelect^ type=^hidden^ value=^NOVALUE^>"
+TZWDLG6O.VML:   szWriteBuffer = "   <input name=^zDisable^ id=^zDisable^ type=^hidden^ value=^NOVALUE^>"
+TZWDLG6O.VML:   // Eliminating <input termination.
+TZWDLG6O.VML:   szWriteBuffer = "   <input name=^zFocusCtrl^ id=^zFocusCtrl^ type=^hidden^ value=^<%=strFocusCtrl%>^>"
+TZWDLG6O.VML:   szWriteBuffer = "   <input name=^zOpenFile^ id=^zOpenFile^ type=^hidden^ value=^<%=strOpenFile%>^>"
+TZWDLG6O.VML:   szWriteBuffer = "   <input name=^zDateFormat^ id=^zDateFormat^ type=^hidden^ value=^<%=strDateFormat%>^>"   
+TZWDLG6O.VML:   szWriteBuffer = "   <input name=^zDateSequence^ id=^zDateSequence^ type=^hidden^ value=^<%=strDateSequence%>^>"   
+TZWDLG6O.VML:      szWriteBuffer = "   <input name=^zLanguage^ id=^zLanguage^ type=^hidden^ value=^<%=LangConv.getLanguage()%>^>"   
+TZWDLG6O.VML:      szWriteBuffer = "   <input name=^zLanguage^ id=^zLanguage^ type=^hidden^ value=^^>"   
+TZWDLG6O.VML:      szWriteBuffer = "   <input name=^zLoginName^ id=^zLoginName^ type=^hidden^ value=^<%=strLoginName%>^>"
+TZWDLG6O.VML:      szWriteBuffer = "   <input name=^zKeyRole^ id=^zKeyRole^ type=^hidden^ value=^<%=strKeyRole%>^>"
+TZWDLG6O.VML:   szWriteBuffer = "   <input name=^zOpenPopupWindow^ id=^zOpenPopupWindow^ type=^hidden^ value=^<%=strOpenPopupWindow%>^>"
+TZWDLG6O.VML:   szWriteBuffer = "   <input name=^zPopupWindowSZX^ id=^zPopupWindowSZX^ type=^hidden^ value=^<%=strPopupWindowSZX%>^>"
+TZWDLG6O.VML:   szWriteBuffer = "   <input name=^zPopupWindowSZY^ id=^zPopupWindowSZY^ type=^hidden^ value=^<%=strPopupWindowSZY%>^>"
+TZWDLG6O.VML:   szWriteBuffer = "   <input name=^zErrorFlag^ id=^zErrorFlag^ type=^hidden^ value=^<%=strErrorFlag%>^>"  // Kelly?
+TZWDLG6O.VML:      szWriteBuffer = "   <input name=^zControlPageActions^ id=^zControlPageActions^ type=^hidden^ value=^<%=strCtrlActions%>^>"
+TZWDLG6O.VML:      szWriteBuffer = "   <input name=^zTimeout^ id=^zTimeout^ type=^hidden^ value=^"
+TZWDLG6O.VML:         szWriteBuffer = "   <input name=^zTimeout^ id=^zTimeout^ type=^hidden^ value=^"
+TZWDLG6O.VML:         szWriteBuffer = "   <input name=^zTimeout^ id=^zTimeout^ type=^hidden^ value=^<%=nTimeout%>^>"
+TZWDLG6O.VML:   szWriteBuffer = "   <input name=^zSolicitSave^ id=^zSolicitSave^ type=^hidden^ value=^<%=strSolicitSave%>^>"
+TZWDLG6O.VML:   szWriteBuffer = "   <input name=^zError^ id=^zError^ type=^hidden^ value=^<%=strErrorMsg%>^>"
+TZWDLG6O.VML:      szWriteBuffer = "   <td nowrap style=^background-color:blue;color:white;border:none;padding-top:6px;padding-bottom:6px;font-size:11px;^><input name=^zFeedback^ id=^zFeedback^ style=^left:4px;width:700px;^></td>"
+tzwebgl1.vml:            szWriteBuffer = "                          <iframe src=^<%=szDashboardSource%>^ width=^100%^ height=^100%^> "
+tzwebgl1.vml:               szWriteBuffer = "<iframe " + szAbsoluteStyle + " name=^" + szCtrlTag + "^ id=^" + szCtrlTag + "^ src=^" + vDialog.Control.WebFileName + "^>  <!-- " + vDialog.Control.Tag + " --> "
+tzwebgl1.vml:               szWriteBuffer = "<iframe class=^" + szClass + "^ " + szAbsoluteStyle + ">  <!-- " + vDialog.Control.Tag + " --> "
+tzwebgl1.vml:               szWriteBuffer = "   <iframe src=^https://api-secure.recaptcha.net/noscript?k=" + vDialog.Control.WebreCAPTCHAPublicKey + "^"
+tzwebgl1.vml:               szWriteBuffer = "   <input type=^hidden^ name=^recaptcha_response_field^"
+tzwebgl1.vml:               szWidget = "<input type=^submit^ " + szClass + szTitleHTML + "name=^"
+tzwebgl1.vml:            szWriteBuffer = "   <input name=^<%=szQuestionIDName%>^ id=^<%=szQuestionIDName%>^ type=^hidden^ value=^<%=szQuestionID%>^>"
+tzwebgl1.vml:            szWriteBuffer = "   <input name=^<%=szQuestionTypeName%>^ id=^<%=szQuestionTypeName%>^ type=^hidden^ value=^<%=szType%>^>"
+tzwebgl1.vml:            szWriteBuffer = "   <input name=^<%=szAllowCommentName%>^ id=^<%=szAllowCommentName%>^ type=^hidden^ value=^<%=szCommentFlag%>^>"
+tzwebgl1.vml:            szWriteBuffer = "   <input name=^<%=szIsOptional%>^ id=^<%=szIsOptional%>^ type=^hidden^ value=^<%=szResponseIsOptional%>^>"
+tzwebgl1.vml:            szWriteBuffer = "            strchkAnswer = ^<input name='^ + strchkAnswerName + ^' id='^ + strchkAnswerId + ^' value='^ + strQuestionChoiceID + ^' type='^ + szCheckType + ^'  CHECKED >^;"
+tzwebgl1.vml:            szWriteBuffer = "            strchkAnswer = ^<input name='^ + strchkAnswerName + ^' id='^ + strchkAnswerId + ^' value='^ + strQuestionChoiceID + ^' type='^ + szCheckType + ^' >^;"
+tzwebgl1.vml:            szWriteBuffer = "   <input name=^SurveyQuestionCount^ id=^SurveyQuestionCount^ type=^hidden^ value=<%=iQuestionCount%>>"
+tzwebgl1.vml:               szWriteBuffer = "<img src=^./images/btn_expand.gif^ name=^btmp" + szCtrlTag + "^ id=^btmp" + szCtrlTag + "^ " +
+tzwebgl1.vml:                           szWriteBuffer = szWriteBuffer + "<input type=^checkbox^ onclick=^CheckAllInGrid(this,'" + vDialog.Control.Tag +"')^>"
+tzwebgl1.vml:                                        " = ^<input name='^ + " + szControlTag + "Value + ^' id='^ + " + szControlTag +
+tzwebgl1.vml:                        //szWriteBuffer = "            " + szControlTag + " = ^<input name='^ + " + szControlTag +
+tzwebgl1.vml:                                        " = ^<input name='^ + " + szControlTag + "Value + ^' id='^ + " + szControlTag +
+tzwebgl1.vml:                     szWriteBuffer = "<input type=^hidden^ value=^<%=str" + szListCtrlTag + "%>^ " +
+tzwebgl1.vml:                     // szWriteBuffer = "   " + szItemTableHeader + "><input type=^submit^ " + szTitleHTML + szClass + "name=<%=strButtonName%> onclick=^" + szActionName +
+tzwebgl1.vml:                           // szWriteBuffer = szWriteBuffer + "<input name=^h" + szListCtrlTag + "::<%=strEntityKey%>^ id=^h" + szListCtrlTag + "::<%=strEntityKey%>^ type=^hidden^ value=^<%=str" + szListCtrlTag + "%>^ >"
+tzwebgl1.vml:                           // szWriteBuffer = szWriteBuffer + "<input name=^h" + szListCtrlTag + "::<%=strEntityKey%>^ id=^h" + szListCtrlTag + "::<%=strEntityKey%>^ type=^hidden^ value=^<%=str" + szListCtrlTag + "%>^ >"
+tzwebgl1.vml:                              szWriteBuffer = "<input name=^h" + szListCtrlTag + "::<%=strEntityKey%>^ id=^h" + szListCtrlTag + "::<%=strEntityKey%>^ type=^hidden^ value=^<%=strComboCurrentValue%>^ >"
+tzwebgl1.vml:                              szWriteBuffer = "<input name=^h" + szListCtrlTag + "::<%=strEntityKey%>^ id=^h" + szListCtrlTag + "::<%=strEntityKey%>^ type=^hidden^ value=^<%=strComboSelectedValue%>^ >"
+tzwebgl1.vml:                           szWriteBuffer = szWriteBuffer + "<input name=^" + szListCtrlTag + "::<%=strEntityKey%>^ id=^" + szListCtrlTag + "::<%=strEntityKey%>^ "
+tzwebgl1.vml:                           szWriteBuffer = "              <img src=^images/scw.gif^  name=^" + szListCtrlTag + "Img::<%=strEntityKey%>^ id=^" + szListCtrlTag + "Img::<%=strEntityKey%>^ title=^Select Date^ alt=^Select Date^ " + szDisabled + " "
+tzwebgl1.vml:                           szWriteBuffer = "   " + szItemTableHeader + "><input size=^" + szSize + "^ value=^<%=str" + szListCtrlTag + "%>^<%=str" + szListCtrlTag +
+tzwebgl1.vml:                                              vDialog.EventAct.Tag + "( this.id )^><img src=^" + vDialog.Control.WebFileName + "^ " + szTitleHTML + szText + "></a></td>"
+tzwebgl1.vml:                              szWriteBuffer = "   " + szItemTableHeader + "><a href=^#^ name=^" + szListCtrlTag + "^ id=^" + szListCtrlTag + "::<%=strEntityKey%>^ ><img src=^" +
+tzwebgl1.vml:                                                 "( this.id )^ id=^" + szListCtrlTag + "::<%=strEntityKey%>^><img src=^" + vDialog.Control.WebFileName + "^ " + szTitleHTML + szText + " /></a></td>"
+tzwebgl1.vml:                                                 "^ id=^" + szListCtrlTag + "::<%=strEntityKey%>^ ><img src=^" + vDialog.Control.WebFileName + "^ " + szTitleHTML + szText + " /></a></td>"
+tzwebgl1hassomenew.vml:            szWriteBuffer = "                          <iframe src=^<%=szDashboardSource%>^ width=^100%^ height=^100%^> "
+tzwebgl1hassomenew.vml:               szWriteBuffer = "<iframe " + szAbsoluteStyle + " name=^" + szCtrlTag + "^ id=^" + szCtrlTag + "^ src=^" + vDialog.Control.WebFileName + "^>  <!-- " + vDialog.Control.Tag + " --> "
+tzwebgl1hassomenew.vml:               szWriteBuffer = "<iframe class=^" + szClass + "^ " + szAbsoluteStyle + ">  <!-- " + vDialog.Control.Tag + " --> "
+tzwebgl1hassomenew.vml:                     // is where the text is <img src="./images/admi..." border="0".
+tzwebgl1hassomenew.vml:                  // is where the text is <img src="./images/admi..." border="0".
+tzwebgl1hassomenew.vml:               szWriteBuffer = szWriteBuffer + "<div class=^showhidetoggle^><div style=^float:right^><img src=^toggle-close.png^ /></div>" + szText + "</div></a></div>"
+tzwebgl1hassomenew.vml:               szWriteBuffer = "   <iframe src=^https://api-secure.recaptcha.net/noscript?k=" + vDialog.Control.WebreCAPTCHAPublicKey + "^"
+tzwebgl1hassomenew.vml:               szWriteBuffer = "   <input type=^hidden^ name=^recaptcha_response_field^"
+tzwebgl1hassomenew.vml:               szWidget = "<input type=^submit^ " + szClass + szTitleHTML + "name=^"
+tzwebgl1hassomenew.vml:            szWriteBuffer = "   <input name=^<%=szQuestionIDName%>^ id=^<%=szQuestionIDName%>^ type=^hidden^ value=^<%=szQuestionID%>^>"
+tzwebgl1hassomenew.vml:            szWriteBuffer = "   <input name=^<%=szQuestionTypeName%>^ id=^<%=szQuestionTypeName%>^ type=^hidden^ value=^<%=szType%>^>"
+tzwebgl1hassomenew.vml:            szWriteBuffer = "   <input name=^<%=szAllowCommentName%>^ id=^<%=szAllowCommentName%>^ type=^hidden^ value=^<%=szCommentFlag%>^>"
+tzwebgl1hassomenew.vml:            szWriteBuffer = "   <input name=^<%=szIsOptional%>^ id=^<%=szIsOptional%>^ type=^hidden^ value=^<%=szResponseIsOptional%>^>"
+tzwebgl1hassomenew.vml:            szWriteBuffer = "            strchkAnswer = ^<input name='^ + strchkAnswerName + ^' id='^ + strchkAnswerId + ^' value='^ + strQuestionChoiceID + ^' type='^ + szCheckType + ^'  CHECKED >^;"
+tzwebgl1hassomenew.vml:            szWriteBuffer = "            strchkAnswer = ^<input name='^ + strchkAnswerName + ^' id='^ + strchkAnswerId + ^' value='^ + strQuestionChoiceID + ^' type='^ + szCheckType + ^' >^;"
+tzwebgl1hassomenew.vml:            szWriteBuffer = "   <input name=^SurveyQuestionCount^ id=^SurveyQuestionCount^ type=^hidden^ value=<%=iQuestionCount%>>"
+tzwebgl1hassomenew.vml:               szWriteBuffer = "<img src=^./images/btn_expand.gif^ name=^btmp" + szCtrlTag + "^ id=^btmp" + szCtrlTag + "^ " +
+tzwebgl1hassomenew.vml:                           szWriteBuffer = szWriteBuffer + "<input type=^checkbox^ onclick=^CheckAllInGrid(this,'" + vDialog.Control.Tag +"')^>"
+tzwebgl1hassomenew.vml:                                        " = ^<input name='^ + " + szControlTag + "Value + ^' id='^ + " + szControlTag +
+tzwebgl1hassomenew.vml:                        //szWriteBuffer = "            " + szControlTag + " = ^<input name='^ + " + szControlTag +
+tzwebgl1hassomenew.vml:                                        " = ^<input name='^ + " + szControlTag + "Value + ^' id='^ + " + szControlTag +
+tzwebgl1hassomenew.vml:                     szWriteBuffer = "<input type=^hidden^ value=^<%=str" + szListCtrlTag + "%>^ " +
+tzwebgl1hassomenew.vml:                     // szWriteBuffer = "   " + szItemTableHeader + "><input type=^submit^ " + szTitleHTML + szClass + "name=<%=strButtonName%> onclick=^" + szActionName +
+tzwebgl1hassomenew.vml:                           // szWriteBuffer = szWriteBuffer + "<input name=^h" + szListCtrlTag + "::<%=strEntityKey%>^ id=^h" + szListCtrlTag + "::<%=strEntityKey%>^ type=^hidden^ value=^<%=str" + szListCtrlTag + "%>^ >"
+tzwebgl1hassomenew.vml:                           // szWriteBuffer = szWriteBuffer + "<input name=^h" + szListCtrlTag + "::<%=strEntityKey%>^ id=^h" + szListCtrlTag + "::<%=strEntityKey%>^ type=^hidden^ value=^<%=str" + szListCtrlTag + "%>^ >"
+tzwebgl1hassomenew.vml:                              szWriteBuffer = "<input name=^h" + szListCtrlTag + "::<%=strEntityKey%>^ id=^h" + szListCtrlTag + "::<%=strEntityKey%>^ type=^hidden^ value=^<%=strComboCurrentValue%>^ >"
+tzwebgl1hassomenew.vml:                              szWriteBuffer = "<input name=^h" + szListCtrlTag + "::<%=strEntityKey%>^ id=^h" + szListCtrlTag + "::<%=strEntityKey%>^ type=^hidden^ value=^<%=strComboSelectedValue%>^ >"
+tzwebgl1hassomenew.vml:                           szWriteBuffer = szWriteBuffer + "<input name=^" + szListCtrlTag + "::<%=strEntityKey%>^ id=^" + szListCtrlTag + "::<%=strEntityKey%>^ "
+tzwebgl1hassomenew.vml:                           szWriteBuffer = "              <img src=^images/scw.gif^  name=^" + szListCtrlTag + "Img::<%=strEntityKey%>^ id=^" + szListCtrlTag + "Img::<%=strEntityKey%>^ title=^Select Date^ alt=^Select Date^ " + szDisabled + " "
+tzwebgl1hassomenew.vml:                           szWriteBuffer = "   " + szItemTableHeader + "><input size=^" + szSize + "^ value=^<%=str" + szListCtrlTag + "%>^<%=str" + szListCtrlTag +
+tzwebgl1hassomenew.vml:                                              vDialog.EventAct.Tag + "( this.id )^><img src=^" + vDialog.Control.WebFileName + "^ " + szTitleHTML + szText + "></a></td>"
+tzwebgl1hassomenew.vml:                              szWriteBuffer = "   " + szItemTableHeader + "><a href=^#^ name=^" + szListCtrlTag + "^ id=^" + szListCtrlTag + "::<%=strEntityKey%>^ ><img src=^" +
+tzwebgl1hassomenew.vml:                                                 "( this.id )^ id=^" + szListCtrlTag + "::<%=strEntityKey%>^><img src=^" + vDialog.Control.WebFileName + "^ " + szTitleHTML + szText + " /></a></td>"
+tzwebgl1hassomenew.vml:                                                 "^ id=^" + szListCtrlTag + "::<%=strEntityKey%>^ ><img src=^" + vDialog.Control.WebFileName + "^ " + szTitleHTML + szText + " /></a></td>"
+TZWEBGL2.VML:      // It is simply a string and we will add it to different controls like <div> or <input> etc.
+TZWEBGL2.VML:            szWriteBuffer = "                          <iframe src=^<%=szDashboardSource%>^ width=^100%^ height=^100%^> "
+TZWEBGL2.VML:                  szWriteBuffer = "<iframe " + szAbsoluteStyle + " name=^" + szCtrlTag + "^ id=^" + szCtrlTag + "^ src=^" + vDialog.Control.WebFileName + "^>  <!-- " + vDialog.Control.Tag + " --> "
+TZWEBGL2.VML:                  szWriteBuffer = "<iframe class=^" + szClass + "^ " + szAbsoluteStyle + ">  <!-- " + vDialog.Control.Tag + " --> "
+TZWEBGL2.VML:                     // is where the text is <img src="./images/admi..." border="0".
+TZWEBGL2.VML:                  // is where the text is <img src="./images/admi..." border="0".
+TZWEBGL2.VML:               szWriteBuffer = szWriteBuffer + "<div class=^showhidetoggle^><div style=^float:right^><img src=^toggle-close.png^ /></div>" + szText + "</div></a></div>"
+TZWEBGL2.VML:               szWriteBuffer = "   <iframe src=^https://api-secure.recaptcha.net/noscript?k=" + vDialog.Control.WebreCAPTCHAPublicKey + "^"
+TZWEBGL2.VML:               szWriteBuffer = "   <input type=^hidden^ name=^recaptcha_response_field^"
+TZWEBGL2.VML:            szWriteBuffer = "   <input name=^<%=szQuestionIDName%>^ id=^<%=szQuestionIDName%>^ type=^hidden^ value=^<%=szQuestionID%>^>"
+TZWEBGL2.VML:            szWriteBuffer = "   <input name=^<%=szQuestionTypeName%>^ id=^<%=szQuestionTypeName%>^ type=^hidden^ value=^<%=szType%>^>"
+TZWEBGL2.VML:            szWriteBuffer = "   <input name=^<%=szAllowCommentName%>^ id=^<%=szAllowCommentName%>^ type=^hidden^ value=^<%=szCommentFlag%>^>"
+TZWEBGL2.VML:            szWriteBuffer = "   <input name=^<%=szIsOptional%>^ id=^<%=szIsOptional%>^ type=^hidden^ value=^<%=szResponseIsOptional%>^>"
+TZWEBGL2.VML:            szWriteBuffer = "            strchkAnswer = ^<input name='^ + strchkAnswerName + ^' id='^ + strchkAnswerId + ^' value='^ + strQuestionChoiceID + ^' type='^ + szCheckType + ^'  CHECKED >^;"
+TZWEBGL2.VML:            szWriteBuffer = "            strchkAnswer = ^<input name='^ + strchkAnswerName + ^' id='^ + strchkAnswerId + ^' value='^ + strQuestionChoiceID + ^' type='^ + szCheckType + ^' >^;"
+TZWEBGL2.VML:            szWriteBuffer = "   <input name=^SurveyQuestionCount^ id=^SurveyQuestionCount^ type=^hidden^ value=<%=iQuestionCount%>>"
+TZWEBGL2.VML:               szWriteBuffer = "<img src=^./images/btn_expand.gif^ name=^btmp" + szCtrlTag + "^ id=^btmp" + szCtrlTag + "^ " +
+TZWEBGL2.VML:                           // is where the text is <img src="./images/admi..." border="0".
+TZWEBGL2.VML:                           szWriteBuffer = szWriteBuffer + "<input type=^checkbox^ onclick=^CheckAllInGrid(this,'" + vDialog.Control.Tag +"')^>"
+TZWEBGL2.VML:                     szWriteBuffer = "<input type=^hidden^ value=^<%=str" + szListCtrlTag + "%>^ " +
+TZWEBGL2.VML:                              // is where the text is <img src="./images/admi..." border="0".
+TZWEBGL2.VML:                           // szWriteBuffer = szWriteBuffer + "<input name=^h" + szListCtrlTag + "::<%=strEntityKey%>^ id=^h" + szListCtrlTag + "::<%=strEntityKey%>^ type=^hidden^ value=^<%=str" + szListCtrlTag + "%>^ >"
+TZWEBGL2.VML:                              szWriteBuffer = "<input name=^h" + szListCtrlTag + "::<%=strEntityKey%>^ id=^h" + szListCtrlTag + "::<%=strEntityKey%>^ type=^hidden^ value=^<%=strComboCurrentInternalValue%>^ >"
+TZWEBGL2.VML:                              szWriteBuffer = "<input name=^h" + szListCtrlTag + "::<%=strEntityKey%>^ id=^h" + szListCtrlTag + "::<%=strEntityKey%>^ type=^hidden^ value=^<%=strComboSelectedValue%>^ >"
+TZWEBGL2.VML:                              szWriteBuffer = szWriteBuffer + "<input " + szClass + " name=^" + szListCtrlTag + "::<%=strEntityKey%>^ id=^" + szListCtrlTag + "::<%=strEntityKey%>^ <%=strDisabled%> "
+TZWEBGL2.VML:                              szWriteBuffer = szWriteBuffer + "<input name=^" + szListCtrlTag + "::<%=strEntityKey%>^ id=^" + szListCtrlTag + "::<%=strEntityKey%>^ <%=strDisabled%> "
+TZWEBGL2.VML:                              szWriteBuffer = "              <img src=^images/scw.gif^  name=^" + szListCtrlTag + "Img::<%=strEntityKey%>^ id=^" + szListCtrlTag + "Img::<%=strEntityKey%>^ title=^Select Date^ alt=^Select Date^ " + szDisabled + " "
+TZWEBGL2.VML:                              szWriteBuffer = "   " + szItemTableHeader + "><input" + szNumber + szPlaceholder + " size=^" + szSize + "^ value=^<%=str" + szListCtrlTag + "%>^<%=str" + szListCtrlTag +
+TZWEBGL2.VML:                              szWriteBuffer = "   " + szItemTableHeader + "><input" + szNumber + szPlaceholder + " size=^" + szSize + "^ value=^<%=str" + szListCtrlTag + "%>^<%=str" + szListCtrlTag +
+TZWEBGL2.VML:                                                 vDialog.EventAct.Tag + "( this.id )^><img src=^" + vDialog.Control.WebFileName + "^ " + szTitleHTML + szText + "></a></td>"
+TZWEBGL2.VML:                                                 vDialog.EventAct.Tag + "( this.id )^><img src=^" + vDialog.Control.WebFileName + "^ " + szTitleHTML + szText + "></a></td>"
+TZWEBGL2.VML:                              szWriteBuffer = "   " + szItemTableHeader + "><a href=^#^ name=^" + szListCtrlTag + "^ id=^" + szListCtrlTag + "::<%=strEntityKey%>^ ><img src=^" +
+TZWEBGL2.VML:                                              // "( '<%=strEntityKey%>' )^ id=^" + szListCtrlTag + "::<%=strEntityKey%>^><img src=^" + vDialog.Control.WebFileName + "^ " + szTitleHTML + szText + "></a></td>"
+TZWEBGL2.VML:                                                 "( this.id )^ id=^" + szListCtrlTag + "::<%=strEntityKey%>^><img src=^" + vDialog.Control.WebFileName + "^ " + szTitleHTML + szText + "></a></td>"
+TZWEBGL2.VML:                                              // "( '<%=strEntityKey%>' )^ id=^" + szListCtrlTag + "::<%=strEntityKey%>^><img src=^" + vDialog.Control.WebFileName + "^ " + szTitleHTML + szText + "></a></td>"
+TZWEBGL2.VML:                                                 "( this.id )^ id=^" + szListCtrlTag + "::<%=strEntityKey%>^><img src=^" + vDialog.Control.WebFileName + "^ " + szTitleHTML + szText + "></a></td>"
+TZWEBGL2.VML:                                              "^ id=^" + szListCtrlTag + "::<%=strEntityKey%>^ ><img src=^" + vDialog.Control.WebFileName + "^ " + szTitleHTML + szText + "></a></td>"
+TZWEBGL2.VML:                              szWriteBuffer = "   " + szItemTableHeader + "><input type=^checkbox^ name=^" + szListCtrlTag + "::<%=strEntityKey%>^ id=^" + szListCtrlTag + "::<%=strEntityKey%>^ <%=strDisabled%> " + szDisabled +
+TZWEBGL2.VML:                              szWriteBuffer = "   " + szItemTableHeader + "><input type=^checkbox^ name=^" + szListCtrlTag + "::<%=strEntityKey%>^ id=^" + szListCtrlTag + "::<%=strEntityKey%>^ <%=strDisabled%> " + szDisabled +
+TZWEBGL2.VML:                           szWriteBuffer = szWriteBuffer + "<input type=^hidden^ name=^zhidden" + szListCtrlTag + "::<%=strEntityKey%>^ id=^zhidden" + szListCtrlTag + "::<%=strEntityKey%>^ <%=strDisabled%> " + szDisabled + "value=^^ ></td>"
+TZWEBGL2.VML:                  // is where the text is <img src="./images/admi..." border="0".
+TZWEBGL2_NoHeightForAadit.VML:      // It is simply a string and we will add it to different controls like <div> or <input> etc.
+TZWEBGL2_NoHeightForAadit.VML:            szWriteBuffer = "                          <iframe src=^<%=szDashboardSource%>^ width=^100%^ height=^100%^> "
+TZWEBGL2_NoHeightForAadit.VML:                  szWriteBuffer = "<iframe " + szAbsoluteStyle + " name=^" + szCtrlTag + "^ id=^" + szCtrlTag + "^ src=^" + vDialog.Control.WebFileName + "^>  <!-- " + vDialog.Control.Tag + " --> "
+TZWEBGL2_NoHeightForAadit.VML:                  szWriteBuffer = "<iframe class=^" + szClass + "^ " + szAbsoluteStyle + ">  <!-- " + vDialog.Control.Tag + " --> "
+TZWEBGL2_NoHeightForAadit.VML:                     // is where the text is <img src="./images/admi..." border="0".
+TZWEBGL2_NoHeightForAadit.VML:                  // is where the text is <img src="./images/admi..." border="0".
+TZWEBGL2_NoHeightForAadit.VML:               szWriteBuffer = szWriteBuffer + "<div class=^showhidetoggle^><div style=^float:right^><img src=^toggle-close.png^ /></div>" + szText + "</div></a></div>"
+TZWEBGL2_NoHeightForAadit.VML:               szWriteBuffer = "   <iframe src=^https://api-secure.recaptcha.net/noscript?k=" + vDialog.Control.WebreCAPTCHAPublicKey + "^"
+TZWEBGL2_NoHeightForAadit.VML:               szWriteBuffer = "   <input type=^hidden^ name=^recaptcha_response_field^"
+TZWEBGL2_NoHeightForAadit.VML:            szWriteBuffer = "   <input name=^<%=szQuestionIDName%>^ id=^<%=szQuestionIDName%>^ type=^hidden^ value=^<%=szQuestionID%>^>"
+TZWEBGL2_NoHeightForAadit.VML:            szWriteBuffer = "   <input name=^<%=szQuestionTypeName%>^ id=^<%=szQuestionTypeName%>^ type=^hidden^ value=^<%=szType%>^>"
+TZWEBGL2_NoHeightForAadit.VML:            szWriteBuffer = "   <input name=^<%=szAllowCommentName%>^ id=^<%=szAllowCommentName%>^ type=^hidden^ value=^<%=szCommentFlag%>^>"
+TZWEBGL2_NoHeightForAadit.VML:            szWriteBuffer = "   <input name=^<%=szIsOptional%>^ id=^<%=szIsOptional%>^ type=^hidden^ value=^<%=szResponseIsOptional%>^>"
+TZWEBGL2_NoHeightForAadit.VML:            szWriteBuffer = "            strchkAnswer = ^<input name='^ + strchkAnswerName + ^' id='^ + strchkAnswerId + ^' value='^ + strQuestionChoiceID + ^' type='^ + szCheckType + ^'  CHECKED >^;"
+TZWEBGL2_NoHeightForAadit.VML:            szWriteBuffer = "            strchkAnswer = ^<input name='^ + strchkAnswerName + ^' id='^ + strchkAnswerId + ^' value='^ + strQuestionChoiceID + ^' type='^ + szCheckType + ^' >^;"
+TZWEBGL2_NoHeightForAadit.VML:            szWriteBuffer = "   <input name=^SurveyQuestionCount^ id=^SurveyQuestionCount^ type=^hidden^ value=<%=iQuestionCount%>>"
+TZWEBGL2_NoHeightForAadit.VML:               szWriteBuffer = "<img src=^./images/btn_expand.gif^ name=^btmp" + szCtrlTag + "^ id=^btmp" + szCtrlTag + "^ " +
+TZWEBGL2_NoHeightForAadit.VML:                           szWriteBuffer = szWriteBuffer + "<input type=^checkbox^ onclick=^CheckAllInGrid(this,'" + vDialog.Control.Tag +"')^>"
+TZWEBGL2_NoHeightForAadit.VML:                                        " = ^<input name='^ + " + szControlTag + "Value + ^' id='^ + " + szControlTag +
+TZWEBGL2_NoHeightForAadit.VML:                        //szWriteBuffer = "            " + szControlTag + " = ^<input name='^ + " + szControlTag +
+TZWEBGL2_NoHeightForAadit.VML:                                        " = ^<input name='^ + " + szControlTag + "Value + ^' id='^ + " + szControlTag +
+TZWEBGL2_NoHeightForAadit.VML:                     szWriteBuffer = "<input type=^hidden^ value=^<%=str" + szListCtrlTag + "%>^ " +
+TZWEBGL2_NoHeightForAadit.VML:                     // szWriteBuffer = "   " + szItemTableHeader + "><input type=^submit^ " + szTitleHTML + szClass + "name=<%=strButtonName%> onclick=^" + szActionName +
+TZWEBGL2_NoHeightForAadit.VML:                           // szWriteBuffer = szWriteBuffer + "<input name=^h" + szListCtrlTag + "::<%=strEntityKey%>^ id=^h" + szListCtrlTag + "::<%=strEntityKey%>^ type=^hidden^ value=^<%=str" + szListCtrlTag + "%>^ >"
+TZWEBGL2_NoHeightForAadit.VML:                              szWriteBuffer = "<input name=^h" + szListCtrlTag + "::<%=strEntityKey%>^ id=^h" + szListCtrlTag + "::<%=strEntityKey%>^ type=^hidden^ value=^<%=strComboCurrentValue%>^ >"
+TZWEBGL2_NoHeightForAadit.VML:                              szWriteBuffer = "<input name=^h" + szListCtrlTag + "::<%=strEntityKey%>^ id=^h" + szListCtrlTag + "::<%=strEntityKey%>^ type=^hidden^ value=^<%=strComboSelectedValue%>^ >"
+TZWEBGL2_NoHeightForAadit.VML:                           szWriteBuffer = szWriteBuffer + "<input name=^" + szListCtrlTag + "::<%=strEntityKey%>^ id=^" + szListCtrlTag + "::<%=strEntityKey%>^ "
+TZWEBGL2_NoHeightForAadit.VML:                           szWriteBuffer = "              <img src=^images/scw.gif^  name=^" + szListCtrlTag + "Img::<%=strEntityKey%>^ id=^" + szListCtrlTag + "Img::<%=strEntityKey%>^ title=^Select Date^ alt=^Select Date^ " + szDisabled + " "
+TZWEBGL2_NoHeightForAadit.VML:                           szWriteBuffer = "   " + szItemTableHeader + "><input" + szNumber + szPlaceholder + " size=^" + szSize + "^ value=^<%=str" + szListCtrlTag + "%>^<%=str" + szListCtrlTag +
+TZWEBGL2_NoHeightForAadit.VML:                                              vDialog.EventAct.Tag + "( this.id )^><img src=^" + vDialog.Control.WebFileName + "^ " + szTitleHTML + szText + "></a></td>"
+TZWEBGL2_NoHeightForAadit.VML:                              szWriteBuffer = "   " + szItemTableHeader + "><a href=^#^ name=^" + szListCtrlTag + "^ id=^" + szListCtrlTag + "::<%=strEntityKey%>^ ><img src=^" +
+TZWEBGL2_NoHeightForAadit.VML:                                           // "( '<%=strEntityKey%>' )^ id=^" + szListCtrlTag + "::<%=strEntityKey%>^><img src=^" + vDialog.Control.WebFileName + "^ " + szTitleHTML + szText + "></a></td>"
+TZWEBGL2_NoHeightForAadit.VML:                                              "( this.id )^ id=^" + szListCtrlTag + "::<%=strEntityKey%>^><img src=^" + vDialog.Control.WebFileName + "^ " + szTitleHTML + szText + "></a></td>"
+TZWEBGL2_NoHeightForAadit.VML:                                              "^ id=^" + szListCtrlTag + "::<%=strEntityKey%>^ ><img src=^" + vDialog.Control.WebFileName + "^ " + szTitleHTML + szText + "></a></td>"
+tzwebgl2_tmp.vml:            szWriteBuffer = "                          <iframe src=^<%=szDashboardSource%>^ width=^100%^ height=^100%^> "
+tzwebgl2_tmp.vml:                  szWriteBuffer = "<iframe " + szAbsoluteStyle + " name=^" + szCtrlTag + "^ id=^" + szCtrlTag + "^ src=^" + vDialog.Control.WebFileName + "^>  <!-- " + vDialog.Control.Tag + " --> "
+tzwebgl2_tmp.vml:                  szWriteBuffer = "<iframe class=^" + szClass + "^ " + szAbsoluteStyle + ">  <!-- " + vDialog.Control.Tag + " --> "
+tzwebgl2_tmp.vml:               szWriteBuffer = "   <iframe src=^https://api-secure.recaptcha.net/noscript?k=" + vDialog.Control.WebreCAPTCHAPublicKey + "^"
+tzwebgl2_tmp.vml:               szWriteBuffer = "   <input type=^hidden^ name=^recaptcha_response_field^"
+tzwebgl2_tmp.vml:               szWidget = "<input type=^submit^ " + szClass + szTitleHTML + "name=^"
+tzwebgl2_tmp.vml:            szWriteBuffer = "   <input name=^<%=szQuestionIDName%>^ id=^<%=szQuestionIDName%>^ type=^hidden^ value=^<%=szQuestionID%>^>"
+tzwebgl2_tmp.vml:            szWriteBuffer = "   <input name=^<%=szQuestionTypeName%>^ id=^<%=szQuestionTypeName%>^ type=^hidden^ value=^<%=szType%>^>"
+tzwebgl2_tmp.vml:            szWriteBuffer = "   <input name=^<%=szAllowCommentName%>^ id=^<%=szAllowCommentName%>^ type=^hidden^ value=^<%=szCommentFlag%>^>"
+tzwebgl2_tmp.vml:            szWriteBuffer = "   <input name=^<%=szIsOptional%>^ id=^<%=szIsOptional%>^ type=^hidden^ value=^<%=szResponseIsOptional%>^>"
+tzwebgl2_tmp.vml:            szWriteBuffer = "            strchkAnswer = ^<input name='^ + strchkAnswerName + ^' id='^ + strchkAnswerId + ^' value='^ + strQuestionChoiceID + ^' type='^ + szCheckType + ^'  CHECKED >^;"
+tzwebgl2_tmp.vml:            szWriteBuffer = "            strchkAnswer = ^<input name='^ + strchkAnswerName + ^' id='^ + strchkAnswerId + ^' value='^ + strQuestionChoiceID + ^' type='^ + szCheckType + ^' >^;"
+tzwebgl2_tmp.vml:            szWriteBuffer = "   <input name=^SurveyQuestionCount^ id=^SurveyQuestionCount^ type=^hidden^ value=<%=iQuestionCount%>>"
+tzwebgl2_tmp.vml:               szWriteBuffer = "<img src=^./images/btn_expand.gif^ name=^btmp" + szCtrlTag + "^ id=^btmp" + szCtrlTag + "^ " +
+tzwebgl2_tmp.vml:                           szWriteBuffer = szWriteBuffer + "<input type=^checkbox^ onclick=^CheckAllInGrid(this,'" + vDialog.Control.Tag +"')^>"
+tzwebgl2_tmp.vml:                                        " = ^<input name='^ + " + szControlTag + "Value + ^' id='^ + " + szControlTag +
+tzwebgl2_tmp.vml:                        //szWriteBuffer = "            " + szControlTag + " = ^<input name='^ + " + szControlTag +
+tzwebgl2_tmp.vml:                                        " = ^<input name='^ + " + szControlTag + "Value + ^' id='^ + " + szControlTag +
+tzwebgl2_tmp.vml:                     szWriteBuffer = "<input type=^hidden^ value=^<%=str" + szListCtrlTag + "%>^ " +
+tzwebgl2_tmp.vml:                     // szWriteBuffer = "   " + szItemTableHeader + "><input type=^submit^ " + szTitleHTML + szClass + "name=<%=strButtonName%> onclick=^" + szActionName +
+tzwebgl2_tmp.vml:                           // szWriteBuffer = szWriteBuffer + "<input name=^h" + szListCtrlTag + "::<%=strEntityKey%>^ id=^h" + szListCtrlTag + "::<%=strEntityKey%>^ type=^hidden^ value=^<%=str" + szListCtrlTag + "%>^ >"
+tzwebgl2_tmp.vml:                              szWriteBuffer = "<input name=^h" + szListCtrlTag + "::<%=strEntityKey%>^ id=^h" + szListCtrlTag + "::<%=strEntityKey%>^ type=^hidden^ value=^<%=strComboCurrentValue%>^ >"
+tzwebgl2_tmp.vml:                              szWriteBuffer = "<input name=^h" + szListCtrlTag + "::<%=strEntityKey%>^ id=^h" + szListCtrlTag + "::<%=strEntityKey%>^ type=^hidden^ value=^<%=strComboSelectedValue%>^ >"
+tzwebgl2_tmp.vml:                           szWriteBuffer = szWriteBuffer + "<input name=^" + szListCtrlTag + "::<%=strEntityKey%>^ id=^" + szListCtrlTag + "::<%=strEntityKey%>^ "
+tzwebgl2_tmp.vml:                           szWriteBuffer = "              <img src=^images/scw.gif^ title=^Select Date^ alt=^Select Date^ " + szDisabled + " "
+tzwebgl2_tmp.vml:                           szWriteBuffer = "   " + szItemTableHeader + "><input size=^" + szSize + "^ value=^<%=str" + szListCtrlTag + "%>^<%=str" + szListCtrlTag +
+tzwebgl2_tmp.vml:                                              vDialog.EventAct.Tag + "( this.id )^><img src=^" + vDialog.Control.WebFileName + "^ " + szTitleHTML + szText + "></a></td>"
+tzwebgl2_tmp.vml:                              szWriteBuffer = "   " + szItemTableHeader + "><a href=^#^ name=^" + szListCtrlTag + "^ id=^" + szListCtrlTag + "::<%=strEntityKey%>^ ><img src=^" +
+tzwebgl2_tmp.vml:                                           // "( '<%=strEntityKey%>' )^ id=^" + szListCtrlTag + "::<%=strEntityKey%>^><img src=^" + vDialog.Control.WebFileName + "^ " + szTitleHTML + szText + "></a></td>"
+tzwebgl2_tmp.vml:                                              "( this.id )^ id=^" + szListCtrlTag + "::<%=strEntityKey%>^><img src=^" + vDialog.Control.WebFileName + "^ " + szTitleHTML + szText + "></a></td>"
+tzwebgl2_tmp.vml:                                              "^ id=^" + szListCtrlTag + "::<%=strEntityKey%>^ ><img src=^" + vDialog.Control.WebFileName + "^ " + szTitleHTML + szText + "></a></td>"
+tzwebgl3.vml:   // It is simply a string and we will add it to different controls like <div> or <input> etc.
+tzwebgl3.vml:      szWriteBuffer = "<i class=^hamburger align-self-center^></i>"
+tzwebgl3.vml:      // It is simply a string and we will add it to different controls like <div> or <input> etc.
+tzwebgl3.vml:                  <i class="align-middle fas fa-cog"></i>
+tzwebgl3.vml:              <i class="align-middle mr-1 fas fa-fw fa-arrow-alt-circle-right"></i>Sign Out</a>
+tzwebgl3.vml:            //szWriteBuffer = szWriteBuffer + "<i class=^align-middle fas fa-cog^></i></a>"
+tzwebgl3.vml:            szWriteBuffer = szWriteBuffer + "<i class=^align-middle fas " + szHTML5Attr + "^></i></a>"
+tzwebgl3.vml:            szWriteBuffer = szWriteBuffer + "<i class=^align-middle mr-1 fas fa-fw fa-arrow-alt-circle-right^></i>" + szNavigationTitle + "</a></div>"
+tzwebgl3.vml:         szWriteBuffer = "   <input name=^" + szCtrlTag + "^ id='" + szCtrlTag + "' " + szDisabled +
+tzwebgl3.vml:         szWriteBuffer = "   <input class=^" + szClass + "^ name=^" + szCtrlTag + "^ id='" + szCtrlTag + "' " + szDisabled +
+tzwebgl3.vml:      szWriteBuffer = "   <img src=^images/scw.gif^  name=^" + szCtrlTag + "Img^ id=^" + szCtrlTag + "Img^ title=^Select Date^ alt=^Select Date^"
+tzwebgl3.vml:      szWriteBuffer = "<input name=^h" + szCtrlTag + "^ id=^h" + szCtrlTag + "^ type=^hidden^ value=^<%=strComboSelectedValue%>^ >"
+tzwebgl3.vml:         szWriteBuffer = "      <td style=^width:15px;border:0px;^><input type=^radio^ name=^" + szRadioGroupName + "^ id=^" + szCtrlTag +
+tzwebgl3.vml:         szWriteBuffer = "      <td style=^width:15px;border:0px;^><input type=^radio^ name=^" + szRadioGroupName + "^ id=^" + szCtrlTag +
+tzwebgl3.vml:      szWriteBuffer = "<input type=^checkbox^ name=^" + szCtrlTag + "^ id=^" + szCtrlTag + "^ " + szDisabled +
+tzwebgl3.vml:      szWriteBuffer = "<input type=^checkbox^ name=^" + szCtrlTag + "^ id=^" + szCtrlTag + "^ " + szDisabled +
+tzwebgl3.vml:   // If there is an Event for the EditBox, build code to insert in <input statement.
+tzwebgl3.vml:      szWriteBuffer = "<input name=^" + szCtrlTag + "^ id=^" + szCtrlTag + "^ " + szDisabled + szTitleHTML + szStyle + szType +
+tzwebgl3.vml:      szWriteBuffer = "<input class=^" + szClass + "^ name=^" + szCtrlTag + "^ id=^" + szCtrlTag + "^ " + szDisabled +
+tzwebgl3.vml:         szWriteBuffer = "<img src=^<%=strErrorMapValue%>^ " + szStyle + szTitleHTML + szClass + szText + ">"
+tzwebgl3.vml:         szWriteBuffer = "<img src=^<%=strErrorMapValue%>^ onclick=^" + szActionName + "()^ " + szStyle + szTitleHTML + szClass + szText + ">"
+tzwebgl3.vml:            //szWriteBuffer = "<a href=^#^ name=^" + szCtrlTag + "^ id=^" + szCtrlTag + "^ ><img src=^" +
+tzwebgl3.vml:            szWriteBuffer = "<img src=^" + vDialog.Control.WebFileName + "^  name=^" + szCtrlTag + "^ id=^" + szCtrlTag + "^ " +
+tzwebgl3.vml:            szWriteBuffer = "<img src=^" + vDialog.Control.WebFileName + "^ name=^" + szCtrlTag + "^ id=^" + szCtrlTag + "^ onclick=^" +
+tzwebgl3.vml:            //                szActionName + "( )^><img src=^" + vDialog.Control.WebFileName + "^ " + szStyle + szTitleHTML + "></a>"
+tzwebgl3.vml:      szWriteBuffer = "<input name=^h" + szCtrlTag + "^ id=^h" + szCtrlTag + "^ type=^hidden^ value=^0^ >"
+tzwebgl3.vml:      szWriteBuffer = "<input name=^h" + szCtrlTag + "^ id=^h" + szCtrlTag + "^ type=^hidden^ value=^<%=strComboSelectedValue%>^ >"
+tzwebgl3.vml:            szText = "<i class=^align-middle mr-2 fas fa-fw " + vDialogMenu.Option.WebHTML5Attribute  + "^></i>"
+tzwebgl3.vml:          //szWriteBuffer = szWriteBuffer + "<a class=^sidebar-link^ href=^#^ " +  " onclick=^" + szActionName + "()^><i class=^align-middle mr-2 fas fa-fw " + szText  + "^></i> <span class=^align-middle^>" + szNavigationTitle + "</span></a></li>"
+tzwebgl3.vml:   // It is simply a string and we will add it to different controls like <div> or <input> etc.
+tzwebgl3.vml:         szWriteBuffer = "<i class=^hamburger align-self-center^></i>"
+tzwebgl3.vml:         szWriteBuffer = szWriteBuffer + "<i class=^align-middle fas fa-fw " + vDialogMenu.Option.WebHTML5Attribute + "^></i>" + szNavigationTitle + "</a>"
+tzwebgl3.vml:         //szWriteBuffer = szWriteBuffer + "<i class=^align-middle fas " + vDialogMenu.Menu.WebHTML5Attribute + "^></i></a>"
+tzwebgl3.vml:      // It is simply a string and we will add it to different controls like <div> or <input> etc.
+tzwebgl3.vml:                  <i class="align-middle fas fa-cog"></i>
+tzwebgl3.vml:              <i class="align-middle mr-1 fas fa-fw fa-arrow-alt-circle-right"></i>Sign Out</a>
+tzwebgl3.vml:            //<a class="dropdown-item" href="#" id="amGOTO_Help"  onclick="mGOTO_Help()"><i class="align-middle mr-1 fas fa-fw fa-hands-helping"></i> Help</a>
+tzwebgl3.vml:            szWriteBuffer = szWriteBuffer + "<i class=^align-middle mr-1 fas fa-fw " + szHTML5Attr + "^></i>" + szNavigationTitle + "</a>"
+tzwebgl3.vml:            //szWriteBuffer = szWriteBuffer + "<i class=^align-middle fas fa-cog^></i></a>"
+tzwebgl3.vml:            szWriteBuffer = szWriteBuffer + "<i class=^align-middle fas " + szHTML5Attr + "^></i></a>"
+tzwebgl3.vml:            szWriteBuffer = szWriteBuffer + "<i class=^align-middle mr-1 fas fa-fw fa-arrow-alt-circle-right^></i>" + szNavigationTitle + "</a></div>"
+tzwebgl3.vml:            //szWriteBuffer = szWriteBuffer + "<i class=^align-middle fas fa-cog^></i></a>"
+tzwebgl3.vml:            szWriteBuffer = szWriteBuffer + "<i class=^align-middle fas " + szHTML5Attr + "^></i></a>"
+tzwebgl4.vml:            szText = "<i class=^align-middle mr-2 fas fa-fw " + vDialogMenu.Option.WebHTML5Attribute  + "^></i>"
+tzwebgl4.vml:         //szWriteBuffer = szWriteBuffer + "<a class=^sidebar-link^ href=^#^ " +  " onclick=^" + szActionName + "()^><i class=^align-middle mr-2 fas fa-fw " + szText  + "^></i> <span class=^align-middle^>" + szNavigationTitle + "</span></a></li>"
+tzwebgl4.vml:               szText = "<i class=^align-middle mr-2 fas fa-fw " + vDialogDfltT.Option.WebHTML5Attribute  + "^></i>"
+tzwebgl4.vml:            //szWriteBuffer = szWriteBuffer + "<a class=^sidebar-link^ href=^#^ " +  " onclick=^" + szActionName + "()^><i class=^align-middle mr-2 fas fa-fw " + szText + "^></i> <span class=^align-middle^>" + szNavigationTitle + "</span></a></li>"
+tzwebgl4.vml:         szWriteBuffer = "   <input class=^" + szClass + "^ name=^" + szCtrlTag + szRepeatGrpKey + "^ id=^" + szCtrlTag + szRepeatGrpKey + "^ <%=strDisabled%> " + szDisabled + 
+tzwebgl4.vml:            szWriteBuffer = "   <input name=^" + szCtrlTag + szRepeatGrpKey + "^ id=^" + szCtrlTag + szRepeatGrpKey + "^ <%=strDisabled%> " + szDisabled +
+tzwebgl4.vml:            szWriteBuffer = "   <input class=^" + szClass + "^ name=^" + szCtrlTag + szRepeatGrpKey + "^ id=^" + szCtrlTag + szRepeatGrpKey + "^ <%=strDisabled%> " + szDisabled +
+tzwebgl4.vml:         szWriteBuffer = "   <img src=^images/scw.gif^  name=^" + szCtrlTag + "Img" + szRepeatGrpKey + "^ id=^" + szCtrlTag + "Img" + szRepeatGrpKey + "^ <%=strDisabled%> title=^Select Date^ alt=^Select Date^"
+tzwebgl4.vml:      szWriteBuffer = "<input type=^checkbox^ name=^" + szCtrlTag + szRepeatGrpKey + "^ id=^" + szCtrlTag + szRepeatGrpKey + "^ <%=strDisabled%> " + szDisabled +
+tzwebgl4.vml:      szWriteBuffer = "<input type=^checkbox^ name=^" + szCtrlTag + szRepeatGrpKey + "^ id=^" + szCtrlTag + szRepeatGrpKey + "^ <%=strDisabled%> " + szDisabled +
+tzwebgl4.vml:   szWriteBuffer = "<input type=^hidden^ name=^zhidden" + szCtrlTag + szRepeatGrpKey + "^ id=^zhidden" + szCtrlTag + szRepeatGrpKey + "^ <%=strDisabled%> " + szDisabled + " value=^^ >"
+tzwebgl4.vml:      //szWriteBuffer = "<input name=^h" + szCtrlTag + szRepeatGrpKey + "^ id=^h" + szCtrlTag + szRepeatGrpKey + "^ type=^hidden^ value=^0^ >"
+tzwebgl4.vml:      szWriteBuffer = "<input name=^h" + szCtrlTag + szRepeatGrpKey + "^ id=^h" + szCtrlTag + szRepeatGrpKey + "^ type=^hidden^ value=^<%=strComboCurrentInternalValue%>^ >"
+tzwebgl4.vml:      szWriteBuffer = "<input name=^h" + szCtrlTag + szRepeatGrpKey + "^ id=^h" + szCtrlTag + szRepeatGrpKey + "^ type=^hidden^ value=^<%=strComboSelectedValue%>^ >"
+tzwebgl4.vml:               // is where the text is <img src="./images/admi..." border="0".
+tzwebgl4.vml:         szWriteBuffer = "      <td style=^width:15px;border:0px;^><input type=^radio^ name=^" + szRadioGroupName + szRepeatGrpKey + "^ id=^" + szCtrlTag + szRepeatGrpKey +
+tzwebgl4.vml:         szWriteBuffer = "      <td style=^width:15px;border:0px;^><input type=^radio^ name=^" + szRadioGroupName + szRepeatGrpKey + "^ id=^" + szCtrlTag + szRepeatGrpKey +
+tzwebgl4.vml:         szWriteBuffer = "      <td style=^width:15px;border:0px;^><input type=^radio^ name=^" + szRadioGroupName + "::<%=strEntityKey%>^ id=^" + szCtrlTag + "::<%=strEntityKey%>^" + 
+tzwebgl4.vml:         szWriteBuffer = "      <td style=^width:15px;border:0px;^><input type=^radio^ name=^" + szRadioGroupName + "::<%=strEntityKey%>^ id=^" + szCtrlTag + "::<%=strEntityKey%>^" + 
+tzwebgl4.vml:   // It is simply a string and we will add it to different controls like <div> or <input> etc.
+tzwebgl4.vml:      // It is simply a string and we will add it to different controls like <div> or <input> etc.
+tzwebgl4.vml:                  // is where the text is <img src="./images/admi..." border="0".
+tzwebgl4.vml:               // is where the text is <img src="./images/admi..." border="0".
+tzwebgl4.vml:   // If there is an Event for the EditBox, build code to insert in <input statement.
+tzwebgl4.vml:   szWriteBuffer = "<input" + szClass + " name=^" + szCtrlTag + szRepeatGrpKey + "^ id=^" + szCtrlTag + szRepeatGrpKey + "^ <%=strDisabled%> " + szDisabled +
+tzwebgl4.vml:      // is where the text is <img src="./images/admi..." border="0".
+tzwebgl4.vml:         szWriteBuffer = szActionName + "<img src=^<%=strErrorMapValue%>^ name=^" + szCtrlTag + "^ id=^" + szCtrlTag + "^ " + szStyle + szTitleHTML + szClass + szText + ">"
+tzwebgl4.vml:         // szWriteBuffer = "<a href=^#^ name=^" + szCtrlTag + "^ id=^" + szCtrlTag + "^ ><img src=^" +
+tzwebgl4.vml:            szWriteBuffer = szActionName + "<img src=^" + vDialog.Control.WebFileName + "^  name=^" + szCtrlTag + "^ id=^" + szCtrlTag + "^ " +
+tzwebgl4.vml:         //                 szActionName + "( )^><img src=^" + vDialog.Control.WebFileName + "^ " + szStyle + szTitleHTML + "></a>"
+tzwebgl4.vml:      szWriteBuffer = "<input name=^h" + szCtrlTag + "^ id=^h" + szCtrlTag + "^ type=^hidden^ value=^<%=strComboSelectedValue%>^ >"
+tzwebgl4.vml:   szWriteBuffer = "   <input name=^zError^ id=^zError^ type=^hidden^ value=^<%=strErrorMsg%>^>"
+tzwebgl4.vml:   szWriteBuffer = "   <input name=^zAction^ id=^zAction^ type=^hidden^ value=^HELP^>"
+tzwebgl4.vml:         szWriteBuffer = "   <input name=^zFileSize^ id=^zFileSize^ type=^hidden^ value=^<%=strErrorMapValue%>^ >"
+tzwebgl4.vml:      szWriteBuffer = "   <input name=^zTargetFileName^ id=^zTargetFileName^ type=^hidden^ value=^<%=strErrorMapValue%>^ >"
+tzwebgl4.vml:      szWriteBuffer = "   <input name=^zNewFileName^ id=^zNewFileName^ type=^hidden^ value=^<%=vKZXMLPGO.cursor(^Session^).getAttribute(^PrintFileName^).getString()%>^ >"
+tzwebgl4.vml:            // For some reason with the <input type="file" control, the width property doesn't
+tzwebgl4.vml:            szWriteBuffer = "   <input name=^" + szCtrlTag + "^ id=^" + szCtrlTag + "^" + szClass + szHTML5Attr + szTitleHTML + szPlaceholder + " size=^" + szWidth + "^ " + szStyle + " type=^file^  >"
+tzwebgl4.vml:               //szWriteBuffer = "   <input type=^submit^ name=^" + szCtrlTag + "^ id=^" + szCtrlTag + "^ " + " value=^" + vDialogTemp.Control.Text + "^" +
+tzwebgl4.vml:               //szWriteBuffer = "   <input class=^" + szClass + "^ type=^submit^ name=^" + szCtrlTag + "^ id=^" + szCtrlTag + "^ " + " value=^" + vDialogTemp.Control.Text + "^" +
+tzwebgl4copy.vml:         szWriteBuffer = "   <input name=^" + szCtrlTag + szRepeatGrpKey + "^ id=^" + szCtrlTag + szRepeatGrpKey + "^ " + szDisabled +
+tzwebgl4copy.vml:         szWriteBuffer = "   <input class=^" + szClass + "^ name=^" + szCtrlTag + szRepeatGrpKey + "^ id=^" + szCtrlTag + szRepeatGrpKey + "^ " + szDisabled +
+tzwebgl4copy.vml:      szWriteBuffer = "   <img src=^images/scw.gif^  name=^" + szCtrlTag + "Img" + szRepeatGrpKey + "^ id=^" + szCtrlTag + "Img" + szRepeatGrpKey + "^ title=^Select Date^ alt=^Select Date^"
+tzwebgl4copy.vml:      szWriteBuffer = "<input type=^checkbox^ name=^" + szCtrlTag + szRepeatGrpKey + "^ id=^" + szCtrlTag + szRepeatGrpKey + "^ " + szDisabled +
+tzwebgl4copy.vml:      szWriteBuffer = "<input type=^checkbox^ name=^" + szCtrlTag + szRepeatGrpKey + "^ id=^" + szCtrlTag + szRepeatGrpKey + "^ " + szDisabled +
+tzwebgl4copy.vml:      //szWriteBuffer = "<input name=^h" + szCtrlTag + szRepeatGrpKey + "^ id=^h" + szCtrlTag + szRepeatGrpKey + "^ type=^hidden^ value=^0^ >"
+tzwebgl4copy.vml:      szWriteBuffer = "<input name=^h" + szCtrlTag + szRepeatGrpKey + "^ id=^h" + szCtrlTag + szRepeatGrpKey + "^ type=^hidden^ value=^<%=strComboCurrentValue%>^ >"
+tzwebgl4copy.vml:      szWriteBuffer = "<input name=^h" + szCtrlTag + szRepeatGrpKey + "^ id=^h" + szCtrlTag + szRepeatGrpKey + "^ type=^hidden^ value=^<%=strComboSelectedValue%>^ >"
+tzwebgl4copy.vml:         szWriteBuffer = "      <td style=^width:15px;border:0px;^><input type=^radio^ name=^" + szRadioGroupName + szRepeatGrpKey + "^ id=^" + szCtrlTag + szRepeatGrpKey +
+tzwebgl4copy.vml:         szWriteBuffer = "      <td style=^width:15px;border:0px;^><input type=^radio^ name=^" + szRadioGroupName + szRepeatGrpKey + "^ id=^" + szCtrlTag + szRepeatGrpKey +
+tzwebgl4copy.vml:   // It is simply a string and we will add it to different controls like <div> or <input> etc.
+tzwebgl4copy.vml:      // It is simply a string and we will add it to different controls like <div> or <input> etc.
+tzwebgl4copy.vml:   // If there is an Event for the EditBox, build code to insert in <input statement.
+tzwebgl4copy.vml:      szWriteBuffer = "<input name=^" + szCtrlTag + szRepeatGrpKey + "^ id=^" + szCtrlTag + szRepeatGrpKey + "^ " + szDisabled + szTitleHTML + szStyle + szType +
+tzwebgl4copy.vml:      szWriteBuffer = "<input class=^" + szClass + "^ name=^" + szCtrlTag + szRepeatGrpKey + "^ id=^" + szCtrlTag + szRepeatGrpKey + "^ " + szDisabled +
+tzwebgl4copy.vml:         szWriteBuffer = "<img src=^<%=strErrorMapValue%>^ " + szStyle + szTitleHTML + szClass + szText + ">"
+tzwebgl4copy.vml:         szWriteBuffer = "<img src=^<%=strErrorMapValue%>^ onclick=^" + szActionName + "( )^ " + szStyle + szTitleHTML + szClass + szText + ">"
+tzwebgl4copy.vml:         // szWriteBuffer = "<a href=^#^ name=^" + szCtrlTag + "^ id=^" + szCtrlTag + "^ ><img src=^" +
+tzwebgl4copy.vml:            szWriteBuffer = "<img src=^" + vDialog.Control.WebFileName + "^  name=^" + szCtrlTag + "^ id=^" + szCtrlTag + "^ " +
+tzwebgl4copy.vml:            szWriteBuffer = "<img src=^" + vDialog.Control.WebFileName + "^ name=^" + szCtrlTag + "^ id=^" + szCtrlTag + "^ onclick=^" +
+tzwebgl4copy.vml:         //                 szActionName + "( )^><img src=^" + vDialog.Control.WebFileName + "^ " + szStyle + szTitleHTML + "></a>"
+tzwebgl4copy.vml:      szWriteBuffer = "<input name=^h" + szCtrlTag + "^ id=^h" + szCtrlTag + "^ type=^hidden^ value=^<%=strComboSelectedValue%>^ >"
+tzwebgl4_NoHeightForAadit.vml:         szWriteBuffer = "   <input name=^" + szCtrlTag + szRepeatGrpKey + "^ id=^" + szCtrlTag + szRepeatGrpKey + "^ " + szDisabled +
+tzwebgl4_NoHeightForAadit.vml:         szWriteBuffer = "   <input class=^" + szClass + "^ name=^" + szCtrlTag + szRepeatGrpKey + "^ id=^" + szCtrlTag + szRepeatGrpKey + "^ " + szDisabled +
+tzwebgl4_NoHeightForAadit.vml:      szWriteBuffer = "   <img src=^images/scw.gif^  name=^" + szCtrlTag + "Img" + szRepeatGrpKey + "^ id=^" + szCtrlTag + "Img" + szRepeatGrpKey + "^ title=^Select Date^ alt=^Select Date^"
+tzwebgl4_NoHeightForAadit.vml:      szWriteBuffer = "<input type=^checkbox^ name=^" + szCtrlTag + szRepeatGrpKey + "^ id=^" + szCtrlTag + szRepeatGrpKey + "^ " + szDisabled +
+tzwebgl4_NoHeightForAadit.vml:      szWriteBuffer = "<input type=^checkbox^ name=^" + szCtrlTag + szRepeatGrpKey + "^ id=^" + szCtrlTag + szRepeatGrpKey + "^ " + szDisabled +
+tzwebgl4_NoHeightForAadit.vml:      //szWriteBuffer = "<input name=^h" + szCtrlTag + szRepeatGrpKey + "^ id=^h" + szCtrlTag + szRepeatGrpKey + "^ type=^hidden^ value=^0^ >"
+tzwebgl4_NoHeightForAadit.vml:      szWriteBuffer = "<input name=^h" + szCtrlTag + szRepeatGrpKey + "^ id=^h" + szCtrlTag + szRepeatGrpKey + "^ type=^hidden^ value=^<%=strComboCurrentValue%>^ >"
+tzwebgl4_NoHeightForAadit.vml:      szWriteBuffer = "<input name=^h" + szCtrlTag + szRepeatGrpKey + "^ id=^h" + szCtrlTag + szRepeatGrpKey + "^ type=^hidden^ value=^<%=strComboSelectedValue%>^ >"
+tzwebgl4_NoHeightForAadit.vml:         szWriteBuffer = "      <td style=^width:15px;border:0px;^><input type=^radio^ name=^" + szRadioGroupName + szRepeatGrpKey + "^ id=^" + szCtrlTag + szRepeatGrpKey +
+tzwebgl4_NoHeightForAadit.vml:         szWriteBuffer = "      <td style=^width:15px;border:0px;^><input type=^radio^ name=^" + szRadioGroupName + szRepeatGrpKey + "^ id=^" + szCtrlTag + szRepeatGrpKey +
+tzwebgl4_NoHeightForAadit.vml:   // It is simply a string and we will add it to different controls like <div> or <input> etc.
+tzwebgl4_NoHeightForAadit.vml:      // It is simply a string and we will add it to different controls like <div> or <input> etc.
+tzwebgl4_NoHeightForAadit.vml:                  // is where the text is <img src="./images/admi..." border="0".
+tzwebgl4_NoHeightForAadit.vml:               // is where the text is <img src="./images/admi..." border="0".
+tzwebgl4_NoHeightForAadit.vml:            // is where the text is <img src="./images/admi..." border="0".
+tzwebgl4_NoHeightForAadit.vml:   // If there is an Event for the EditBox, build code to insert in <input statement.
+tzwebgl4_NoHeightForAadit.vml:   szWriteBuffer = "<input" + szClass + " name=^" + szCtrlTag + szRepeatGrpKey + "^ id=^" + szCtrlTag + szRepeatGrpKey + "^ " + szDisabled +
+tzwebgl4_NoHeightForAadit.vml:      // is where the text is <img src="./images/admi..." border="0".
+tzwebgl4_NoHeightForAadit.vml:         szWriteBuffer = "<img src=^<%=strErrorMapValue%>^ " + szStyle + szTitleHTML + szClass + szText + ">"
+tzwebgl4_NoHeightForAadit.vml:         szWriteBuffer = "<img src=^<%=strErrorMapValue%>^ onclick=^" + szActionName + "( )^ " + szStyle + szTitleHTML + szClass + szText + ">"
+tzwebgl4_NoHeightForAadit.vml:         // szWriteBuffer = "<a href=^#^ name=^" + szCtrlTag + "^ id=^" + szCtrlTag + "^ ><img src=^" +
+tzwebgl4_NoHeightForAadit.vml:            szWriteBuffer = "<img src=^" + vDialog.Control.WebFileName + "^  name=^" + szCtrlTag + "^ id=^" + szCtrlTag + "^ " +
+tzwebgl4_NoHeightForAadit.vml:            szWriteBuffer = "<img src=^" + vDialog.Control.WebFileName + "^ name=^" + szCtrlTag + "^ id=^" + szCtrlTag + "^ onclick=^" +
+tzwebgl4_NoHeightForAadit.vml:         //                 szActionName + "( )^><img src=^" + vDialog.Control.WebFileName + "^ " + szStyle + szTitleHTML + "></a>"
+tzwebgl4_NoHeightForAadit.vml:      szWriteBuffer = "<input name=^h" + szCtrlTag + "^ id=^h" + szCtrlTag + "^ type=^hidden^ value=^<%=strComboSelectedValue%>^ >"
+tzwebgl4_NoHeightForAadit.vml:   szWriteBuffer = "   <input name=^zAction^ id=^zAction^ type=^hidden^ value=^HELP^>"
+tzwebgl4_NoHeightForAadit.vml:      szWriteBuffer = "   <input name=^zTargetFileName^ id=^zTargetFileName^ type=^hidden^ value=^<%=strErrorMapValue%>^ >"
+tzwebgl4_NoHeightForAadit.vml:            // For some reason with the <input type="file" control, the width property doesn't
+tzwebgl4_NoHeightForAadit.vml:               szWriteBuffer = "   <input name=^" + szCtrlTag + "^ id=^" + szCtrlTag + "^ size=^" + szWidth + "^ " + szStyle + " type=^file^  >"
+tzwebgl4_NoHeightForAadit.vml:               szWriteBuffer = "   <input class=^" + szClass + "^ name=^" + szCtrlTag + "^ id=^" + szCtrlTag + "^ size=^" + szWidth + "^ " + szStyle + " type=^file^  >"
+tzwebgl4_NoHeightForAadit.vml:               //szWriteBuffer = "   <input type=^submit^ name=^" + szCtrlTag + "^ id=^" + szCtrlTag + "^ " + " value=^" + vDialogTemp.Control.Text + "^" +
+tzwebgl4_NoHeightForAadit.vml:               //szWriteBuffer = "   <input class=^" + szClass + "^ type=^submit^ name=^" + szCtrlTag + "^ id=^" + szCtrlTag + "^ " + " value=^" + vDialogTemp.Control.Text + "^" +

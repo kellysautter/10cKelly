@@ -1,4 +1,4 @@
-	TITLE	C:\10C\a\oe\KZHGENKY.C
+	TITLE	c:\10c\a\oe\KZHGENKY.C
 	.386P
 include listing.inc
 if @Version gt 510
@@ -273,7 +273,7 @@ EXTRN	_SetCursorFirstEntity@12:NEAR
 EXTRN	_SetCursorFirstEntityByString@20:NEAR
 EXTRN	_SetAttributeFromString@16:NEAR
 ;	COMDAT ??_C@_00A@?$AA@
-; File C:\10C\a\oe\KZHGENKY.C
+; File c:\10c\a\oe\KZHGENKY.C
 _BSS	SEGMENT
 ??_C@_00A@?$AA@ DB 01H DUP (?)				; `string'
 _BSS	ENDS
@@ -780,7 +780,7 @@ EXTRN	_StoreValueInRecord@20:NEAR
 EXTRN	_SetCursorFirstEntityByInteger@20:NEAR
 EXTRN	_SysGetPointerFromHandle@4:NEAR
 ;	COMDAT ??_C@_08OHJM@EntityID?$AA@
-; File C:\10C\a\oe\KZHGENKY.C
+; File c:\10c\a\oe\KZHGENKY.C
 _DATA	SEGMENT
 ??_C@_08OHJM@EntityID?$AA@ DB 'EntityID', 00H		; `string'
 _DATA	ENDS

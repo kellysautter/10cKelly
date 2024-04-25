@@ -1,4 +1,4 @@
-	TITLE	C:\10C\A\oe\KZOECMAA.C
+	TITLE	c:\10c\A\oe\KZOECMAA.C
 	.386P
 include listing.inc
 if @Version gt 510
@@ -1721,7 +1721,7 @@ EXTRN	_UfStringToDateTime@8:NEAR
 EXTRN	_GetDefaultContext@8:NEAR
 EXTRN	_fnIssueCoreError:NEAR
 ;	COMDAT ??_C@_09PDHB@?$CIS?9?$DODT?$CJ?0?5?$AA@
-; File C:\10C\A\oe\KZOECMAA.C
+; File c:\10c\A\oe\KZOECMAA.C
 _DATA	SEGMENT
 ??_C@_09PDHB@?$CIS?9?$DODT?$CJ?0?5?$AA@ DB '(S->DT), ', 00H ; `string'
 _DATA	ENDS
@@ -2207,7 +2207,7 @@ _TEXT	ENDS
 PUBLIC	_SetCursorNextEntityByString@20
 PUBLIC	??_C@_0BM@EHFF@SetCursorNextEntityByString?$AA@	; `string'
 ;	COMDAT ??_C@_0BM@EHFF@SetCursorNextEntityByString?$AA@
-; File C:\10C\A\oe\KZOECMAA.C
+; File c:\10c\A\oe\KZOECMAA.C
 _DATA	SEGMENT
 ??_C@_0BM@EHFF@SetCursorNextEntityByString?$AA@ DB 'SetCursorNextEntityBy'
 	DB	'String', 00H				; `string'
@@ -9538,7 +9538,7 @@ EXTRN	_fnReclaimHiddenInstances@4:NEAR
 EXTRN	__imp___ltoa:NEAR
 EXTRN	_SysAssignDecimalFromNull@4:NEAR
 ;	COMDAT ??_C@_0EE@ELLG@Operation?5?8?$CFs?8?5does?5not?5handle?5a@
-; File C:\10C\A\oe\KZOECMAA.C
+; File c:\10c\A\oe\KZOECMAA.C
 _DATA	SEGMENT
 ??_C@_0EE@ELLG@Operation?5?8?$CFs?8?5does?5not?5handle?5a@ DB 'Operation '
 	DB	'''%s'' does not handle an Entry Type of %ld for domain ''%s'''
@@ -17385,7 +17385,7 @@ _TEXT	ENDS
 PUBLIC	??_C@_0EB@NEHK@?$CIcm?$CJ?5ERROR?5Unexpected?5Recursive?5@ ; `string'
 PUBLIC	??_C@_0P@HOOF@Internal?5Error?$AA@		; `string'
 ;	COMDAT ??_C@_0EB@NEHK@?$CIcm?$CJ?5ERROR?5Unexpected?5Recursive?5@
-; File C:\10C\A\oe\KZOECMAA.C
+; File c:\10c\A\oe\KZOECMAA.C
 _DATA	SEGMENT
 ??_C@_0EB@NEHK@?$CIcm?$CJ?5ERROR?5Unexpected?5Recursive?5@ DB '(cm) ERROR'
 	DB	' Unexpected Recursive call to fnEstablishCursorForView', 00H ; `string'

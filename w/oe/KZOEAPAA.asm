@@ -1,4 +1,4 @@
-	TITLE	C:\10C\A\oe\KZOEAPAA.C
+	TITLE	c:\10c\A\oe\KZOEAPAA.C
 	.386P
 include listing.inc
 if @Version gt 510
@@ -1635,7 +1635,7 @@ EXTRN	_szlText:DWORD
 EXTRN	_szlTYPE:DWORD
 EXTRN	_szlZKEY:DWORD
 ;	COMDAT ??_C@_0EM@BOOB@?$CIAPP?$CJ?5About?5to?5create?5app?5?$CI0x?$CF08@
-; File C:\10C\A\oe\KZOEAPAA.C
+; File c:\10c\A\oe\KZOEAPAA.C
 _DATA	SEGMENT
 ??_C@_0EM@BOOB@?$CIAPP?$CJ?5About?5to?5create?5app?5?$CI0x?$CF08@ DB '(AP'
 	DB	'P) About to create app (0x%08x): %s (%s)  for Task: 0x%08x   '
@@ -6159,7 +6159,7 @@ EXTRN	_fnDropView@4:NEAR
 EXTRN	_fnDropTaskDomain:NEAR
 EXTRN	_fnDeleteViewObject@4:NEAR
 ;	COMDAT ??_C@_00A@?$AA@
-; File C:\10C\A\oe\KZOEAPAA.C
+; File c:\10c\A\oe\KZOEAPAA.C
 _BSS	SEGMENT
 ??_C@_00A@?$AA@ DB 01H DUP (?)				; `string'
 _BSS	ENDS
@@ -7431,7 +7431,7 @@ EXTRN	_CreateEntity@12:NEAR
 EXTRN	_SfActivateSysEmptyOI@16:NEAR
 EXTRN	_SetAttributeFromString@16:NEAR
 ;	COMDAT ??_C@_08ILBJ@KZDBHQUA?$AA@
-; File C:\10C\A\oe\KZOEAPAA.C
+; File c:\10c\A\oe\KZOEAPAA.C
 _DATA	SEGMENT
 ??_C@_08ILBJ@KZDBHQUA?$AA@ DB 'KZDBHQUA', 00H		; `string'
 _DATA	ENDS

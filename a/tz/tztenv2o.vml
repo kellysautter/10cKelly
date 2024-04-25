@@ -1000,3 +1000,116 @@ SetFieldDataRelKeyFlag( VIEW vTZTENVRO BASED ON LOD TZTENVRO )
    DropView( vTZTENVRO1 )
 
 END
+
+/*************************************************************************************************
+**    
+**    OPERATION: RebuildDBMS_Tables
+**    
+*************************************************************************************************/
+TRANSFORMATION OPERATION
+RebuildDBMS_Tables( VIEW vDTE BASED ON LOD TZTENVRO,
+                    VIEW vEMD BASED ON LOD TZEREMDO,
+                    VIEW vSubtask,
+                    STRING ( 32 ) szStartingEntityName )
+
+   VIEW vDTE_Old     BASED ON LOD TZTENVRO
+   //VIEW vDTE_OldTemp BASED ON LOD TZTENVRO
+   //VIEW vDTE_NewTemp BASED ON LOD TZTENVRO
+   INTEGER nRC
+   
+   // Make sure that the DTE has a DBH_Data value for the current source. If it doesn't, it will create an error
+   // later during the BuildSQL_RelsFromEMD operation call below. This is also done in the operation, MergeLODsToER, which
+   // calls this operation. However this operation is also called from zwTZEREMDD_RebuildMergeTE, which needs this function.
+   IF vDTE.TE_DBMS_Source.DBH_Data = ""
+      nRC = InitializeDBH_Data( vDTE )
+   END
+  
+   // Drop Error List View (This probably isn't necessary when called from LPLR ERD Merge.
+   //zwTZTEUPDD_ClearErrorWindow( vSubtask )
+   
+   // First create a copy of the TE.
+   ActivateOI_FromOI_ForTask( vDTE_Old, vDTE, 0, zMULTIPLE )
+   SetCursorFirstEntityByAttr( vDTE_Old, "TE_DBMS_Source", "ZKey",
+                               vDTE,     "TE_DBMS_Source", "ZKey", 0 )
+   NAME VIEW vDTE_Old "vDTE_Old"
+
+   //CreateViewFromViewForTask( vDTE_OldTemp, vDTE_Old, 0 )
+   //CreateViewFromViewForTask( vDTE_NewTemp, vDTE, 0 )
+   
+   // Run through all the tables and columns and delete them.
+   FOR EACH vDTE.TE_TablRec 
+      DELETE ENTITY vDTE.TE_TablRec NONE  
+   END
+
+   // Rebuild the entities
+   nRC = oTZTENVRO_BuildTablRecsFromEMD( vSubtask, vDTE, vEMD, szStartingEntityName )
+   IF nRC < 0
+      TraceLineI( "*** BuildTablRecsFromEMD RC: ", nRC )
+      IssueError( vSubtask,0,0, "Error on BuildTablRecsFromEMD exec" )
+      DropView( vDTE_Old )
+      //DropView( vDTE_OldTemp )
+      //DropView( vDTE_NewTemp )
+      RETURN -1
+   END
+   
+   // Rebuild the relationships.
+   oTZTENVRO_BuildSQL_RelsFromEMD( vSubtask, vDTE, vEMD ) 
+   
+   // Copy over some of the specific physical information that might have been specified manually in the existing entry.
+   // This logic was taken as a conversion to VML of the code in operation TZTEUPDD.fnRebuildTables.
+   FOR EACH vDTE_Old.TE_TablRec  
+
+      // If the TablRec in the TE copy source has the KeepPhysCharsFlagForAllColumns flag set and if the ER_Entity
+      // or ER_RelType is in the new TE TablRec entry, copy over the physical attributes.
+      IF vDTE.TE_TablRec.KeepPhysicalCharacteristicsFlag = "Y"
+         IF vDTE_Old.ER_Entity EXISTS
+            SET CURSOR FIRST vDTE.ER_Entity WITHIN vDTE.TE_DBMS_Source 
+                       WHERE vDTE.ER_Entity.ZKey = vDTE_Old.ER_Entity.ZKey 
+         ELSE
+            SET CURSOR FIRST vDTE.ER_RelType WITHIN vDTE.TE_DBMS_Source
+                       WHERE vDTE.ER_RelType.ZKey = vDTE_Old.ER_RelType.ZKey 
+         END
+         IF RESULT >= zCURSOR_SET 
+            // We are positioned on the correct TE_TablRec for either above so opy over physical attributes.
+            vDTE.TE_TablRec.KeepPhysicalCharacteristicsFlag = vDTE_Old.TE_TablRec.KeepPhysicalCharacteristicsFlag
+            vDTE.TE_TablRec.Name                            = vDTE_Old.TE_TablRec.Name
+            vDTE.TE_TablRec.SQL_TableQual                   = vDTE_Old.TE_TablRec.SQL_TableQual
+            vDTE.TE_TablRec.SQL_TableOwner                  = vDTE_Old.TE_TablRec.SQL_TableOwner
+            vDTE.TE_TablRec.Desc                            = vDTE_Old.TE_TablRec.Desc
+            vDTE.TE_TablRec.KeepPhysCharsFlagForAllColumns  = vDTE_Old.TE_TablRec.KeepPhysCharsFlagForAllColumns
+         END
+      END
+
+   END
+   
+   // if field sequence does not exist, set it
+   SetFieldSequence( vDTE )
+   DropView( vDTE_Old )
+
+END
+
+/*************************************************************************************************
+**    
+**    OPERATION: InitializeDBH_Data
+**    
+*************************************************************************************************/
+TRANSFORMATION OPERATION
+InitializeDBH_Data( VIEW vDTE BASED ON LOD TZTENVRO )
+
+   VIEW TaskLPLR REGISTERED AS TaskLPLR
+   VIEW vBaseDTE BASED ON LOD  TZTENVRO
+   STRING ( 200 ) szSourceFileName
+   SHORT nRC
+   
+   // Use the DTE in the AD_Base LPLR to get the Source DBH value.
+   szSourceFileName = "c:\lplr\AD_Base\AD_Base.DTE"
+   nRC = ActivateOI_FromFile ( vBaseDTE, "TZTENVRO", TaskLPLR, szSourceFileName, 8192 )   // 8192 is zIGNORE_ATTRIB_ERRORS
+   IF nRC < 0
+      IssueError( vDTE,0,0, "The Base TE in AD_Base could not be loaded, so the DBH Data could not be initialized." )
+      RETURN -2
+   END
+   NAME VIEW vBaseDTE "vBaseDTE"
+   vDTE.TE_DBMS_Source.DBH_Data = vBaseDTE.TE_DBMS_Source.DBH_Data 
+   DropObjectInstance( vBaseDTE )
+
+END

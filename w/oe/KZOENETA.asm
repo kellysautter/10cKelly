@@ -1,4 +1,4 @@
-	TITLE	C:\10C\A\oe\KZOENETA.C
+	TITLE	c:\10c\A\oe\KZOENETA.C
 	.386P
 include listing.inc
 if @Version gt 510
@@ -904,7 +904,7 @@ EXTRN	_g_pfnGetPtr:DWORD
 EXTRN	_fnSysLockCoreMutex@4:NEAR
 EXTRN	_fnSysUnlockCoreMutex@4:NEAR
 ;	COMDAT ??_C@_0BJ@EHOH@Cannot?5find?5network?5?8?$CFs?8?$AA@
-; File C:\10C\A\oe\KZOENETA.C
+; File c:\10c\A\oe\KZOENETA.C
 _DATA	SEGMENT
 ??_C@_0BJ@EHOH@Cannot?5find?5network?5?8?$CFs?8?$AA@ DB 'Cannot find netw'
 	DB	'ork ''%s''', 00H				; `string'
@@ -1132,7 +1132,7 @@ PUBLIC	??_C@_0BF@GLC@Zeidon?5Network?5Error?$AA@	; `string'
 EXTRN	_SysGetProc@8:NEAR
 EXTRN	_SysLoadLibraryWithErrFlag@12:NEAR
 ;	COMDAT ??_C@_0P@NBFJ@zServerDirInit?$AA@
-; File C:\10C\A\oe\KZOENETA.C
+; File c:\10c\A\oe\KZOENETA.C
 _DATA	SEGMENT
 ??_C@_0P@NBFJ@zServerDirInit?$AA@ DB 'zServerDirInit', 00H ; `string'
 _DATA	ENDS
@@ -1319,7 +1319,7 @@ PUBLIC	??_C@_0L@MHGJ@ApplServer?$AA@			; `string'
 EXTRN	_SysReadZeidonIni@16:NEAR
 EXTRN	__chkstk:NEAR
 ;	COMDAT ??_C@_04GKDJ@?$FL?$CFs?$FN?$AA@
-; File C:\10C\A\oe\KZOENETA.C
+; File c:\10c\A\oe\KZOENETA.C
 _DATA	SEGMENT
 ??_C@_04GKDJ@?$FL?$CFs?$FN?$AA@ DB '[%s]', 00H		; `string'
 _DATA	ENDS
@@ -1503,7 +1503,7 @@ EXTRN	_TraceLineI@8:NEAR
 EXTRN	_TraceLineS@8:NEAR
 EXTRN	_fnAllocDataspace:NEAR
 ;	COMDAT ??_C@_0DL@HADH@?$CIkzoeneta?$CJ?5?$CK?$CK?5Opening?5a?5connecti@
-; File C:\10C\A\oe\KZOENETA.C
+; File c:\10c\A\oe\KZOENETA.C
 _DATA	SEGMENT
 ??_C@_0DL@HADH@?$CIkzoeneta?$CJ?5?$CK?$CK?5Opening?5a?5connecti@ DB '(kzo'
 	DB	'eneta) ** Opening a connection. Current connections = ', 00H ; `string'
@@ -1743,7 +1743,7 @@ PUBLIC	??_C@_0BJ@HMHB@Couldn?8t?5find?5lpNetConn?$CB?$AA@ ; `string'
 EXTRN	_SysMessageBox@16:NEAR
 EXTRN	_fnFreeDataspace:NEAR
 ;	COMDAT ??_C@_0BJ@HMHB@Couldn?8t?5find?5lpNetConn?$CB?$AA@
-; File C:\10C\A\oe\KZOENETA.C
+; File c:\10c\A\oe\KZOENETA.C
 _DATA	SEGMENT
 ??_C@_0BJ@HMHB@Couldn?8t?5find?5lpNetConn?$CB?$AA@ DB 'Couldn''t find lpN'
 	DB	'etConn!', 00H				; `string'
@@ -2437,7 +2437,7 @@ EXTRN	_CreateEntity@12:NEAR
 EXTRN	_strcat:NEAR
 EXTRN	_SetAttributeFromString@16:NEAR
 ;	COMDAT ??_C@_06OMJI@__MSGQ?$AA@
-; File C:\10C\A\oe\KZOENETA.C
+; File c:\10c\A\oe\KZOENETA.C
 _DATA	SEGMENT
 ??_C@_06OMJI@__MSGQ?$AA@ DB '__MSGQ', 00H		; `string'
 _DATA	ENDS
@@ -2634,7 +2634,7 @@ EXTRN	_SetCursorNextEntity@12:NEAR
 EXTRN	_SetCursorFirstEntity@12:NEAR
 EXTRN	_szl__MSGQ:DWORD
 ;	COMDAT ??_C@_00A@?$AA@
-; File C:\10C\A\oe\KZOENETA.C
+; File c:\10c\A\oe\KZOENETA.C
 _BSS	SEGMENT
 ??_C@_00A@?$AA@ DB 01H DUP (?)				; `string'
 _BSS	ENDS
@@ -2950,7 +2950,7 @@ PUBLIC	??_C@_0CL@IOJK@?$CIkzoeneta?$CJ?5?$CK?$CK?5Unable?5to?5send?5Tra@ ; `stri
 EXTRN	_SetAttributeFromVariable@32:NEAR
 EXTRN	_SysGetDateTime@4:NEAR
 ;	COMDAT ??_C@_08JIKI@KZTRACEO?$AA@
-; File C:\10C\A\oe\KZOENETA.C
+; File c:\10c\A\oe\KZOENETA.C
 _DATA	SEGMENT
 ??_C@_08JIKI@KZTRACEO?$AA@ DB 'KZTRACEO', 00H		; `string'
 _DATA	ENDS
@@ -3303,7 +3303,7 @@ EXTRN	_DropView@4:NEAR
 EXTRN	_CountEntitiesForView@8:NEAR
 EXTRN	_MessagePresent@12:NEAR
 ;	COMDAT ??_C@_0CO@OJEE@?$CIkzoeneta?$CJ?5?$CK?$CK?5Couldn?8t?5retrieve?5@
-; File C:\10C\A\oe\KZOENETA.C
+; File c:\10c\A\oe\KZOENETA.C
 _DATA	SEGMENT
 ??_C@_0CO@OJEE@?$CIkzoeneta?$CJ?5?$CK?$CK?5Couldn?8t?5retrieve?5@ DB '(kz'
 	DB	'oeneta) ** Couldn''t retrieve Message flag.', 00H ; `string'
@@ -3614,7 +3614,7 @@ PUBLIC	??_C@_0BF@EGEJ@?$CIkzoeneta?$CJ?5?$CK?$CK?5Line?3?5?$AA@ ; `string'
 PUBLIC	??_C@_0CB@KMFA@?$CIkzoeneta?$CJ?5?$CK?$CK?5End?5Server?5Trace?3?5@ ; `string'
 EXTRN	_GetStringFromAttribute@16:NEAR
 ;	COMDAT ??_C@_0CM@NAPH@?$CIkzoeneta?$CJ?5?$CK?$CK?5Couldn?8t?5retrieve?5@
-; File C:\10C\A\oe\KZOENETA.C
+; File c:\10c\A\oe\KZOENETA.C
 _DATA	SEGMENT
 ??_C@_0CM@NAPH@?$CIkzoeneta?$CJ?5?$CK?$CK?5Couldn?8t?5retrieve?5@ DB '(kz'
 	DB	'oeneta) ** Couldn''t retrieve Trace flag.', 00H ; `string'
@@ -4072,7 +4072,7 @@ _TEXT	ENDS
 PUBLIC	_fnSendTraceSwitches@12
 PUBLIC	??_C@_06DOOC@?$CF2?42hd?$AA@			; `string'
 ;	COMDAT ??_C@_06DOOC@?$CF2?42hd?$AA@
-; File C:\10C\A\oe\KZOENETA.C
+; File c:\10c\A\oe\KZOENETA.C
 _DATA	SEGMENT
 ??_C@_06DOOC@?$CF2?42hd?$AA@ DB '%2.2hd', 00H		; `string'
 _DATA	ENDS
@@ -4281,7 +4281,7 @@ PUBLIC	??_C@_0CC@BADB@Application?5not?5defined?5on?5Serve@ ; `string'
 EXTRN	_SysGetUserID@12:NEAR
 EXTRN	_TraceLine:NEAR
 ;	COMDAT ??_C@_0CH@PBEA@?$CIkzoeneta?$CJ?5?$CK?$CK?5Sending?5RequestOI?5@
-; File C:\10C\A\oe\KZOENETA.C
+; File c:\10c\A\oe\KZOENETA.C
 _DATA	SEGMENT
 ??_C@_0CH@PBEA@?$CIkzoeneta?$CJ?5?$CK?$CK?5Sending?5RequestOI?5@ DB '(kzo'
 	DB	'eneta) ** Sending RequestOI packet', 00H	; `string'
@@ -5250,7 +5250,7 @@ EXTRN	_cDirSep:BYTE
 EXTRN	__imp__atol:NEAR
 EXTRN	_SysFreeLibrary@8:NEAR
 ;	COMDAT ??_C@_0P@BGAE@DefaultNetwork?$AA@
-; File C:\10C\A\oe\KZOENETA.C
+; File c:\10c\A\oe\KZOENETA.C
 _DATA	SEGMENT
 ??_C@_0P@BGAE@DefaultNetwork?$AA@ DB 'DefaultNetwork', 00H ; `string'
 _DATA	ENDS
@@ -6849,7 +6849,7 @@ PUBLIC	??_C@_0CF@NPEH@?$CIkzoeneta?$CJ?5?$CK?$CK?5NetClose?5for?5Netwo@ ; `strin
 PUBLIC	??_C@_0BP@OPC@?$CIkzoeneta?$CJ?5?$CK?$CK?5Closing?5network?5?$AA@ ; `string'
 PUBLIC	_NetStopListen@8
 ;	COMDAT ??_C@_0CF@NPEH@?$CIkzoeneta?$CJ?5?$CK?$CK?5NetClose?5for?5Netwo@
-; File C:\10C\A\oe\KZOENETA.C
+; File c:\10c\A\oe\KZOENETA.C
 _DATA	SEGMENT
 ??_C@_0CF@NPEH@?$CIkzoeneta?$CJ?5?$CK?$CK?5NetClose?5for?5Netwo@ DB '(kzo'
 	DB	'eneta) ** NetClose for Network: ', 00H	; `string'
@@ -7288,7 +7288,7 @@ PUBLIC	??_C@_0CJ@JJBO@?$CIkzoeneta?$CJ?5?$CK?$CK?5Network?5already?5li@ ; `strin
 PUBLIC	??_C@_0CL@IJCC@?$CIkzoeneta?$CJ?5?$CK?$CK?5Starting?5listen?5fo@ ; `string'
 PUBLIC	_NetListen@8
 ;	COMDAT ??_C@_0CO@EOKO@?$CIkzoeneta?$CJ?5?$CK?$CK?5Starting?5NetListen@
-; File C:\10C\A\oe\KZOENETA.C
+; File c:\10c\A\oe\KZOENETA.C
 _DATA	SEGMENT
 ??_C@_0CO@EOKO@?$CIkzoeneta?$CJ?5?$CK?$CK?5Starting?5NetListen@ DB '(kzoe'
 	DB	'neta) ** Starting NetListen for network ', 00H ; `string'
@@ -7502,7 +7502,7 @@ _TEXT	ENDS
 PUBLIC	??_C@_0CL@BKLL@?$CIkzoeneta?$CJ?5?$CK?$CK?5Stopping?5listen?5fo@ ; `string'
 PUBLIC	??_C@_0CF@JGGP@?$CIkzoeneta?$CJ?5?$CK?$CK?5Network?5not?5listen@ ; `string'
 ;	COMDAT ??_C@_0CL@BKLL@?$CIkzoeneta?$CJ?5?$CK?$CK?5Stopping?5listen?5fo@
-; File C:\10C\A\oe\KZOENETA.C
+; File c:\10c\A\oe\KZOENETA.C
 _DATA	SEGMENT
 ??_C@_0CL@BKLL@?$CIkzoeneta?$CJ?5?$CK?$CK?5Stopping?5listen?5fo@ DB '(kzo'
 	DB	'eneta) ** Stopping listen for network ', 00H ; `string'
@@ -7715,7 +7715,7 @@ EXTRN	__setjmp3:NEAR
 EXTRN	_SfActivateSysEmptyOI@16:NEAR
 EXTRN	_SfLockView@4:NEAR
 ;	COMDAT ??_C@_0DE@NCA@?$CIkzoeneta?$CJ?5?$CK?$CK?5Inside?5NetProcessM@
-; File C:\10C\A\oe\KZOENETA.C
+; File c:\10c\A\oe\KZOENETA.C
 _DATA	SEGMENT
 ??_C@_0DE@NCA@?$CIkzoeneta?$CJ?5?$CK?$CK?5Inside?5NetProcessM@ DB '(kzoen'
 	DB	'eta) ** Inside NetProcessMessage( ) network: ', 00H ; `string'
@@ -8674,7 +8674,7 @@ EXTRN	_CompareAttributeToString@16:NEAR
 EXTRN	_fnValidViewEntity@16:NEAR
 EXTRN	_fnEstablishViewForInstance:NEAR
 ;	COMDAT ??_C@_0L@DIOI@QualAttrib?$AA@
-; File C:\10C\A\oe\KZOENETA.C
+; File c:\10c\A\oe\KZOENETA.C
 _DATA	SEGMENT
 ??_C@_0L@DIOI@QualAttrib?$AA@ DB 'QualAttrib', 00H	; `string'
 _DATA	ENDS
@@ -9301,7 +9301,7 @@ _TEXT	ENDS
 PUBLIC	??_C@_0DO@DJKH@?$CIkzoeneta?$CJ?5?$CK?$CK?5Starting?5activate?5@ ; `string'
 PUBLIC	_NetActivateOI@28
 ;	COMDAT ??_C@_0DO@DJKH@?$CIkzoeneta?$CJ?5?$CK?$CK?5Starting?5activate?5@
-; File C:\10C\A\oe\KZOENETA.C
+; File c:\10c\A\oe\KZOENETA.C
 _DATA	SEGMENT
 ??_C@_0DO@DJKH@?$CIkzoeneta?$CJ?5?$CK?$CK?5Starting?5activate?5@ DB '(kzo'
 	DB	'eneta) ** Starting activate for network: %s   OD Name: %s', 00H ; `string'
@@ -9910,7 +9910,7 @@ _TEXT	ENDS
 PUBLIC	_fnSetLinkBuffer@20
 PUBLIC	??_C@_06CEIK@?$CFx?3?$CFlx?$AA@			; `string'
 ;	COMDAT ??_C@_06CEIK@?$CFx?3?$CFlx?$AA@
-; File C:\10C\A\oe\KZOENETA.C
+; File c:\10c\A\oe\KZOENETA.C
 _DATA	SEGMENT
 ??_C@_06CEIK@?$CFx?3?$CFlx?$AA@ DB '%x:%lx', 00H	; `string'
 _DATA	ENDS
@@ -10762,7 +10762,7 @@ EXTRN	_fnStoreValueInEntityInstance:NEAR
 EXTRN	_TraceLineX@8:NEAR
 EXTRN	_fnGetAttribFlagsPtr@8:NEAR
 ;	COMDAT ??_C@_0CI@JLMD@?$CImerge?$CJ?5Tags?5don?8t?5match?$CB?5Old?5en@
-; File C:\10C\A\oe\KZOENETA.C
+; File c:\10c\A\oe\KZOENETA.C
 _DATA	SEGMENT
 ??_C@_0CI@JLMD@?$CImerge?$CJ?5Tags?5don?8t?5match?$CB?5Old?5en@ DB '(merg'
 	DB	'e) Tags don''t match! Old entity = ', 00H	; `string'
@@ -11395,7 +11395,7 @@ EXTRN	_TraceBuffer@12:NEAR
 EXTRN	_SfCreateSubtask@12:NEAR
 EXTRN	_fnReclaimHiddenInstances@4:NEAR
 ;	COMDAT ??_C@_0CH@DJGN@?$CIkzoeneta?$CJ?5?$CK?$CK?5Sending?5Commit?5OI?5@
-; File C:\10C\A\oe\KZOENETA.C
+; File c:\10c\A\oe\KZOENETA.C
 _DATA	SEGMENT
 ??_C@_0CH@DJGN@?$CIkzoeneta?$CJ?5?$CK?$CK?5Sending?5Commit?5OI?5@ DB '(kz'
 	DB	'oeneta) ** Sending Commit OI packet', 00H	; `string'
@@ -13607,7 +13607,7 @@ EXTRN	_GetAddrForAttribute@16:NEAR
 EXTRN	_SetCursorFirstEntityByString@20:NEAR
 EXTRN	_SetCursorNextEntityByString@20:NEAR
 ;	COMDAT ??_C@_08FNEA@kztranwo?$AA@
-; File C:\10C\A\oe\KZOENETA.C
+; File c:\10c\A\oe\KZOENETA.C
 _DATA	SEGMENT
 ??_C@_08FNEA@kztranwo?$AA@ DB 'kztranwo', 00H		; `string'
 _DATA	ENDS
@@ -15925,7 +15925,7 @@ _TEXT	ENDS
 PUBLIC	??_C@_0CK@EJAP@?$CIkzoeneta?$CJ?5?$CK?$CK?5Setting?5Net?5trace?5@ ; `string'
 PUBLIC	_NetSetTraceLevel@12
 ;	COMDAT ??_C@_0CK@EJAP@?$CIkzoeneta?$CJ?5?$CK?$CK?5Setting?5Net?5trace?5@
-; File C:\10C\A\oe\KZOENETA.C
+; File c:\10c\A\oe\KZOENETA.C
 _DATA	SEGMENT
 ??_C@_0CK@EJAP@?$CIkzoeneta?$CJ?5?$CK?$CK?5Setting?5Net?5trace?5@ DB '(kz'
 	DB	'oeneta) ** Setting Net trace level to ', 00H ; `string'
@@ -16131,7 +16131,7 @@ PUBLIC	??_C@_0CM@ENIE@?$CIkzoeneta?$CJ?5?5?5?5?5?5?5?5?5?$CK?$CK?5Connection@ ; 
 PUBLIC	??_C@_0CI@DBIM@?$CIkzoeneta?$CJ?5?5?5?5?5?5?5?5?5?$CK?$CK?5Network?5li@ ; `string'
 PUBLIC	_NetStatus@8
 ;	COMDAT ??_C@_09GPO@?$CKdefault?$CK?$AA@
-; File C:\10C\A\oe\KZOENETA.C
+; File c:\10c\A\oe\KZOENETA.C
 _DATA	SEGMENT
 ??_C@_09GPO@?$CKdefault?$CK?$AA@ DB '*default*', 00H	; `string'
 _DATA	ENDS
@@ -16486,7 +16486,7 @@ PUBLIC	??_C@_0CD@ICDP@?$CIkzoeneta?$CJ?5?$CK?$CK?5Error?5receiving?5da@ ; `strin
 PUBLIC	_fnReadDataFromNet@20
 EXTRN	_fnIssueCoreError:NEAR
 ;	COMDAT ??_C@_0CB@NPJ@?$CIkzoeneta?$CJ?5?$CK?$CK?5Read?5Data?5error?5?$DN?5@
-; File C:\10C\A\oe\KZOENETA.C
+; File c:\10c\A\oe\KZOENETA.C
 _DATA	SEGMENT
 ??_C@_0CB@NPJ@?$CIkzoeneta?$CJ?5?$CK?$CK?5Read?5Data?5error?5?$DN?5@ DB '('
 	DB	'kzoeneta) ** Read Data error = ', 00H	; `string'
@@ -16985,7 +16985,7 @@ PUBLIC	??_C@_0CL@KNHF@?$CIkzoeneta?$CJ?5?$CK?$CK?5Receive?5OI?5OK?4?5?5Se@ ; `st
 PUBLIC	??_C@_0DJ@MJAH@?$CIkzoeneta?$CJ?5?$CK?$CK?5Error?5receiving?5OI@ ; `string'
 EXTRN	_SfActivateOI_FromStream@24:NEAR
 ;	COMDAT ??_C@_0CH@BNNI@?$CIkzoeneta?$CJ?5?$CK?$CK?5Initiating?5receive@
-; File C:\10C\A\oe\KZOENETA.C
+; File c:\10c\A\oe\KZOENETA.C
 _DATA	SEGMENT
 ??_C@_0CH@BNNI@?$CIkzoeneta?$CJ?5?$CK?$CK?5Initiating?5receive@ DB '(kzoe'
 	DB	'neta) ** Initiating receive of OI', 00H	; `string'
@@ -17130,7 +17130,7 @@ PUBLIC	??_C@_0CM@DIGI@?$CIkzoeneta?$CJ?5?$CK?$CK?5Error?5sending?5zPAC@ ; `strin
 PUBLIC	??_C@_0CG@HNMP@?$CIkzoeneta?$CJ?5?$CK?$CK?5Error?5sending?5data@ ; `string'
 PUBLIC	_fnSendOI_Data@20
 ;	COMDAT ??_C@_0CM@DIGI@?$CIkzoeneta?$CJ?5?$CK?$CK?5Error?5sending?5zPAC@
-; File C:\10C\A\oe\KZOENETA.C
+; File c:\10c\A\oe\KZOENETA.C
 _DATA	SEGMENT
 ??_C@_0CM@DIGI@?$CIkzoeneta?$CJ?5?$CK?$CK?5Error?5sending?5zPAC@ DB '(kzo'
 	DB	'eneta) ** Error sending zPACKET_SENDLTH', 00H ; `string'
@@ -17298,7 +17298,7 @@ PUBLIC	??_C@_0CC@IGND@?$CIkzoeneta?$CJ?5?$CK?$CK?5Sending?5END?5packet@ ; `strin
 EXTRN	__imp__toupper:NEAR
 EXTRN	_SfWriteOI_ToStream@20:NEAR
 ;	COMDAT ??_C@_0BC@MJJP@NetSendCompressed?$AA@
-; File C:\10C\A\oe\KZOENETA.C
+; File c:\10c\A\oe\KZOENETA.C
 _DATA	SEGMENT
 ??_C@_0BC@MJJP@NetSendCompressed?$AA@ DB 'NetSendCompressed', 00H ; `string'
 _DATA	ENDS
@@ -17549,7 +17549,7 @@ EXTRN	_ActivateObjectInstance@20:NEAR
 EXTRN	_memcpy:NEAR
 EXTRN	_ActivateViewObject@12:NEAR
 ;	COMDAT ??_C@_0CM@CNPK@?$CIkzoeneta?$CJ?5?$CK?$CK?5Received?5Activate?5@
-; File C:\10C\A\oe\KZOENETA.C
+; File c:\10c\A\oe\KZOENETA.C
 _DATA	SEGMENT
 ??_C@_0CM@CNPK@?$CIkzoeneta?$CJ?5?$CK?$CK?5Received?5Activate?5@ DB '(kzo'
 	DB	'eneta) ** Received Activate OI message.', 00H ; `string'
@@ -18314,7 +18314,7 @@ _TEXT	ENDS
 PUBLIC	??_C@_0CO@OODD@fnProcessActivateOI_FromFile?$CI?5?$CJ?5@ ; `string'
 PUBLIC	??_C@_0P@JNC@?$CIkzoeneta?$CJ?5?$CK?$CK?5?$AA@	; `string'
 ;	COMDAT ??_C@_0CO@OODD@fnProcessActivateOI_FromFile?$CI?5?$CJ?5@
-; File C:\10C\A\oe\KZOENETA.C
+; File c:\10c\A\oe\KZOENETA.C
 _DATA	SEGMENT
 ??_C@_0CO@OODD@fnProcessActivateOI_FromFile?$CI?5?$CJ?5@ DB 'fnProcessAct'
 	DB	'ivateOI_FromFile( ) is deprecated', 00H	; `string'
@@ -18543,7 +18543,7 @@ EXTRN	_fnRelinkInstanceToInstance:NEAR
 EXTRN	__imp__strtol:NEAR
 EXTRN	_SysFreeMemory@4:NEAR
 ;	COMDAT ??_C@_0CF@LGAL@Link?5buffer?5doesn?8t?5start?5with?5a@
-; File C:\10C\A\oe\KZOENETA.C
+; File c:\10c\A\oe\KZOENETA.C
 _DATA	SEGMENT
 ??_C@_0CF@LGAL@Link?5buffer?5doesn?8t?5start?5with?5a@ DB 'Link buffer do'
 	DB	'esn''t start with a ''(''', 00H		; `string'
@@ -19212,7 +19212,7 @@ PUBLIC	??_C@_0CI@KGJB@?$CIkzoeneta?$CJ?5?$CK?$CK?5Sending?5RC?5packet?4@ ; `stri
 PUBLIC	??_C@_0CM@HING@?$CIkzoeneta?$CJ?5?$CK?$CK?5Not?5able?5send?5Erro@ ; `string'
 EXTRN	_CommitMultipleOIs@16:NEAR
 ;	COMDAT ??_C@_0CK@CFI@?$CIkzoeneta?$CJ?5?$CK?$CK?5Received?5Commit?5OI@
-; File C:\10C\A\oe\KZOENETA.C
+; File c:\10c\A\oe\KZOENETA.C
 _DATA	SEGMENT
 ??_C@_0CK@CFI@?$CIkzoeneta?$CJ?5?$CK?$CK?5Received?5Commit?5OI@ DB '(kzoe'
 	DB	'neta) ** Received Commit OI message.', 00H	; `string'
@@ -20631,7 +20631,7 @@ _fnProcessCommitOI@12 ENDP
 _TEXT	ENDS
 PUBLIC	??_C@_0CK@HFCJ@fnProcessCommitOI_ToFile?$CI?5?$CJ?5is?5D@ ; `string'
 ;	COMDAT ??_C@_0CK@HFCJ@fnProcessCommitOI_ToFile?$CI?5?$CJ?5is?5D@
-; File C:\10C\A\oe\KZOENETA.C
+; File c:\10c\A\oe\KZOENETA.C
 _DATA	SEGMENT
 ??_C@_0CK@HFCJ@fnProcessCommitOI_ToFile?$CI?5?$CJ?5is?5D@ DB 'fnProcessCo'
 	DB	'mmitOI_ToFile( ) is Deprecated', 00H	; `string'
@@ -20869,7 +20869,7 @@ EXTRN	_SysWriteLine@12:NEAR
 EXTRN	_SysAppendcDirSep@4:NEAR
 EXTRN	_SysCloseFile@12:NEAR
 ;	COMDAT ??_C@_0CK@CBKM@?$CIkzoeneta?$CJ?5?$CK?$CK?5Received?5Send?5File@
-; File C:\10C\A\oe\KZOENETA.C
+; File c:\10c\A\oe\KZOENETA.C
 _DATA	SEGMENT
 ??_C@_0CK@CBKM@?$CIkzoeneta?$CJ?5?$CK?$CK?5Received?5Send?5File@ DB '(kzo'
 	DB	'eneta) ** Received Send File message.', 00H	; `string'
@@ -21596,7 +21596,7 @@ PUBLIC	??_C@_0DC@FCON@?$CIkzoeneta?$CJ?5?$CK?$CK?5Not?5able?5send?5vArg@ ; `stri
 PUBLIC	??_C@_0DK@BJBO@?$CIkzoeneta?$CJ?5?$CK?$CK?5Not?5able?5send?5view@ ; `string'
 EXTRN	_SfGetApplicationForSubtask@8:NEAR
 ;	COMDAT ??_C@_0CP@HAIB@?$CIkzoeneta?$CJ?5?$CK?$CK?5Received?5Transform@
-; File C:\10C\A\oe\KZOENETA.C
+; File c:\10c\A\oe\KZOENETA.C
 _DATA	SEGMENT
 ??_C@_0CP@HAIB@?$CIkzoeneta?$CJ?5?$CK?$CK?5Received?5Transform@ DB '(kzoe'
 	DB	'neta) ** Received Transformation message.', 00H ; `string'
@@ -23242,7 +23242,7 @@ _TEXT	ENDS
 PUBLIC	??_C@_0DF@EBAP@?$CIkzoeneta?$CJ?5?$CK?$CK?5Couldn?8t?5retrieve?5@ ; `string'
 PUBLIC	??_C@_0CN@EFKG@?$CIkzoeneta?$CJ?5?$CK?$CK?5Received?5Trace?5Swi@ ; `string'
 ;	COMDAT ??_C@_0DF@EBAP@?$CIkzoeneta?$CJ?5?$CK?$CK?5Couldn?8t?5retrieve?5@
-; File C:\10C\A\oe\KZOENETA.C
+; File c:\10c\A\oe\KZOENETA.C
 _DATA	SEGMENT
 ??_C@_0DF@EBAP@?$CIkzoeneta?$CJ?5?$CK?$CK?5Couldn?8t?5retrieve?5@ DB '(kz'
 	DB	'oeneta) ** Couldn''t retrieve Trace Switch Message', 00H ; `string'
@@ -23433,7 +23433,7 @@ _TEXT	ENDS
 PUBLIC	??_C@_0DC@OJLL@?$CIkzoeneta?$CJ?5?$CK?$CK?5Couldn?8t?5retrieve?5@ ; `string'
 PUBLIC	??_C@_0CK@DIDM@?$CIkzoeneta?$CJ?5?$CK?$CK?5Received?5Timestamp@ ; `string'
 ;	COMDAT ??_C@_0DC@OJLL@?$CIkzoeneta?$CJ?5?$CK?$CK?5Couldn?8t?5retrieve?5@
-; File C:\10C\A\oe\KZOENETA.C
+; File c:\10c\A\oe\KZOENETA.C
 _DATA	SEGMENT
 ??_C@_0DC@OJLL@?$CIkzoeneta?$CJ?5?$CK?$CK?5Couldn?8t?5retrieve?5@ DB '(kz'
 	DB	'oeneta) ** Couldn''t retrieve Timestamp Message', 00H ; `string'
@@ -23550,7 +23550,7 @@ PUBLIC	??_C@_0CG@LJDE@?$CIkzoeneta?$CJ?5?$CK?$CK?5Error?5calling?5NetL@ ; `strin
 PUBLIC	??_C@_0CK@JOAC@?$CIkzoeneta?$CJ?5?$CK?$CK?5Error?5calling?5NetS@ ; `string'
 PUBLIC	??_C@_0CK@IJNL@?$CIkzoeneta?$CJ?5?$CK?$CK?5Startup?5networks?5s@ ; `string'
 ;	COMDAT ??_C@_0CJ@DNEK@?$CIkzoeneta?$CJ?5?$CK?$CK?5Trying?5to?5startup?5@
-; File C:\10C\A\oe\KZOENETA.C
+; File c:\10c\A\oe\KZOENETA.C
 _DATA	SEGMENT
 ??_C@_0CJ@DNEK@?$CIkzoeneta?$CJ?5?$CK?$CK?5Trying?5to?5startup?5@ DB '(kz'
 	DB	'oeneta) ** Trying to startup networks', 00H	; `string'

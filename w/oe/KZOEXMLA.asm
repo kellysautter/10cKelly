@@ -1,4 +1,4 @@
-	TITLE	C:\10C\A\oe\KZOEXMLA.C
+	TITLE	c:\10c\A\oe\KZOEXMLA.C
 	.386P
 include listing.inc
 if @Version gt 510
@@ -401,7 +401,7 @@ EXTRN	_SysAllocMemory@20:NEAR
 EXTRN	__imp___ltoa:NEAR
 EXTRN	_SysFreeMemory@4:NEAR
 ;	COMDAT ??_C@_0BN@CPNA@KEY?5WAS?5BLOB?5?9?5NOT?5SUPPORTED?$AA@
-; File C:\10C\A\oe\KZOEXMLA.C
+; File c:\10c\A\oe\KZOEXMLA.C
 _DATA	SEGMENT
 ??_C@_0BN@CPNA@KEY?5WAS?5BLOB?5?9?5NOT?5SUPPORTED?$AA@ DB 'KEY WAS BLOB -'
 	DB	' NOT SUPPORTED', 00H			; `string'
@@ -1279,7 +1279,7 @@ EXTRN	_GetAttributeFlags@16:NEAR
 EXTRN	_strcat:NEAR
 EXTRN	_strcmp:NEAR
 ;	COMDAT ??_C@_00A@?$AA@
-; File C:\10C\A\oe\KZOEXMLA.C
+; File c:\10c\A\oe\KZOEXMLA.C
 _BSS	SEGMENT
 ??_C@_00A@?$AA@ DB 01H DUP (?)				; `string'
 _BSS	ENDS
@@ -2685,7 +2685,7 @@ PUBLIC	??_C@_0P@FFBM@?5zSelect?$CFd?$DN?$CCY?$CC?$AA@	; `string'
 EXTRN	_fnEstablishViewForInstance:NEAR
 EXTRN	_g_pfnGetHndl:DWORD
 ;	COMDAT ??_C@_0O@CLKD@?5zLevel?$DN?$CC?$CFld?$CC?$AA@
-; File C:\10C\A\oe\KZOEXMLA.C
+; File c:\10c\A\oe\KZOEXMLA.C
 _DATA	SEGMENT
 ??_C@_0O@CLKD@?5zLevel?$DN?$CC?$CFld?$CC?$AA@ DB ' zLevel="%ld"', 00H ; `string'
 _DATA	ENDS
@@ -3680,7 +3680,7 @@ _TEXT	ENDS
 PUBLIC	_fnWriteAttribEntry@24
 PUBLIC	??_C@_04GGNJ@?$DM?$CFs?$DO?$AA@			; `string'
 ;	COMDAT ??_C@_04GGNJ@?$DM?$CFs?$DO?$AA@
-; File C:\10C\A\oe\KZOEXMLA.C
+; File c:\10c\A\oe\KZOEXMLA.C
 _DATA	SEGMENT
 ??_C@_04GGNJ@?$DM?$CFs?$DO?$AA@ DB '<%s>', 00H		; `string'
 _DATA	ENDS
@@ -4439,7 +4439,7 @@ PUBLIC	??_C@_0BL@IJPH@?$DMListEntryValue?5Name?$DN?$CC?$CFs?$CC?$DO?$AA@ ; `stri
 PUBLIC	??_C@_0N@LFLB@CurrentValue?$AA@			; `string'
 PUBLIC	??_C@_0BC@PFOL@?$DM?1ListEntryValue?$DO?$AA@	; `string'
 ;	COMDAT ??_C@_0BL@IJPH@?$DMListEntryValue?5Name?$DN?$CC?$CFs?$CC?$DO?$AA@
-; File C:\10C\A\oe\KZOEXMLA.C
+; File c:\10c\A\oe\KZOEXMLA.C
 _DATA	SEGMENT
 ??_C@_0BL@IJPH@?$DMListEntryValue?5Name?$DN?$CC?$CFs?$CC?$DO?$AA@ DB '<Li'
 	DB	'stEntryValue Name="%s">', 00H		; `string'
@@ -4648,7 +4648,7 @@ PUBLIC	??_C@_0O@JKC@?$DM?1ComboValue?$DO?$AA@		; `string'
 PUBLIC	??_C@_0L@DMN@?$DM?1Control?$DO?$AA@		; `string'
 PUBLIC	_fnConvertEntity@12
 ;	COMDAT ??_C@_0BO@GGBI@?$DMControl?5Name?$DN?$CC?$CFs?$CC?5Type?$DN?$CC?$CFs?$CC?$DO?$AA@
-; File C:\10C\A\oe\KZOEXMLA.C
+; File c:\10c\A\oe\KZOEXMLA.C
 _DATA	SEGMENT
 ??_C@_0BO@GGBI@?$DMControl?5Name?$DN?$CC?$CFs?$CC?5Type?$DN?$CC?$CFs?$CC?$DO?$AA@ DB '<'
 	DB	'Control Name="%s" Type="%s">', 00H		; `string'
@@ -5674,7 +5674,7 @@ PUBLIC	??_C@_07FNBF@Control?$AA@			; `string'
 PUBLIC	??_C@_0P@BABB@ListEntryValue?$AA@		; `string'
 EXTRN	_fnEntityInstanceIsDead@4:NEAR
 ;	COMDAT ??_C@_07FNBF@Control?$AA@
-; File C:\10C\A\oe\KZOEXMLA.C
+; File c:\10c\A\oe\KZOEXMLA.C
 _DATA	SEGMENT
 ??_C@_07FNBF@Control?$AA@ DB 'Control', 00H		; `string'
 _DATA	ENDS
@@ -6252,7 +6252,7 @@ EXTRN	_CreateViewFromViewForTask@12:NEAR
 EXTRN	_fnEstablishCursorForView:NEAR
 EXTRN	__chkstk:NEAR
 ;	COMDAT ??_C@_0CM@DIIJ@?$DM?$DPxml?5version?$DN?$CC1?40?$CC?5encoding?$DN?$CCis@
-; File C:\10C\A\oe\KZOEXMLA.C
+; File c:\10c\A\oe\KZOEXMLA.C
 _DATA	SEGMENT
 ??_C@_0CM@DIIJ@?$DM?$DPxml?5version?$DN?$CC1?40?$CC?5encoding?$DN?$CCis@ DB '<'
 	DB	'?xml version="1.0" encoding="iso-8859-1"?>', 00H ; `string'
@@ -7659,7 +7659,7 @@ PUBLIC	??_C@_0BB@FEMM@?$CIxml?$CJ?5Element?5?$DN?5?$AA@ ; `string'
 PUBLIC	??_C@_0BF@NAAN@?$CIxml?$CJ?5Attrib?5?$CFs?5?$DN?5?$CFs?$AA@ ; `string'
 EXTRN	_TraceLineS@8:NEAR
 ;	COMDAT ??_C@_0BB@FEMM@?$CIxml?$CJ?5Element?5?$DN?5?$AA@
-; File C:\10C\A\oe\KZOEXMLA.C
+; File c:\10c\A\oe\KZOEXMLA.C
 _DATA	SEGMENT
 ??_C@_0BB@FEMM@?$CIxml?$CJ?5Element?5?$DN?5?$AA@ DB '(xml) Element = ', 00H ; `string'
 _DATA	ENDS
@@ -7749,7 +7749,7 @@ EXTRN	_ActivateEmptyObjectInstance@16:NEAR
 EXTRN	_SfCreateSubtask@12:NEAR
 EXTRN	_SfDropSubtask@8:NEAR
 ;	COMDAT ??_C@_08BKDG@zAppName?$AA@
-; File C:\10C\A\oe\KZOEXMLA.C
+; File c:\10c\A\oe\KZOEXMLA.C
 _DATA	SEGMENT
 ??_C@_08BKDG@zAppName?$AA@ DB 'zAppName', 00H		; `string'
 _DATA	ENDS
@@ -7923,7 +7923,7 @@ EXTRN	_fnResetViewFromSubobject:NEAR
 EXTRN	_fnCreateEntity@20:NEAR
 EXTRN	__imp__strtoul:NEAR
 ;	COMDAT ??_C@_0DA@NBNK@?$CIxml?$CJ?5Parent?5mismatch?5?$CI?$CFs?5?$CB?$DN?5?$CFs?$CJ@
-; File C:\10C\A\oe\KZOEXMLA.C
+; File c:\10c\A\oe\KZOEXMLA.C
 _DATA	SEGMENT
 ??_C@_0DA@NBNK@?$CIxml?$CJ?5Parent?5mismatch?5?$CI?$CFs?5?$CB?$DN?5?$CFs?$CJ@ DB '('
 	DB	'xml) Parent mismatch (%s != %s) for entity: %s', 00H ; `string'
@@ -8625,7 +8625,7 @@ _TEXT	ENDS
 PUBLIC	_fnProcessAttribElement@12
 PUBLIC	??_C@_0CN@IKCJ@?$CIxml?$CJ?5Could?5not?5find?5Entity?4Attr@ ; `string'
 ;	COMDAT ??_C@_0CN@IKCJ@?$CIxml?$CJ?5Could?5not?5find?5Entity?4Attr@
-; File C:\10C\A\oe\KZOEXMLA.C
+; File c:\10c\A\oe\KZOEXMLA.C
 _DATA	SEGMENT
 ??_C@_0CN@IKCJ@?$CIxml?$CJ?5Could?5not?5find?5Entity?4Attr@ DB '(xml) Cou'
 	DB	'ld not find Entity.Attribute: %s.%s', 00H	; `string'
@@ -9001,7 +9001,7 @@ EXTRN	_TraceLine:NEAR
 EXTRN	_StoreValueInRecord@20:NEAR
 EXTRN	_StoreStringInRecord@16:NEAR
 ;	COMDAT ??_C@_03PHMG@zOI?$AA@
-; File C:\10C\A\oe\KZOEXMLA.C
+; File c:\10c\A\oe\KZOEXMLA.C
 _DATA	SEGMENT
 ??_C@_03PHMG@zOI?$AA@ DB 'zOI', 00H			; `string'
 _DATA	ENDS
@@ -9736,7 +9736,7 @@ _TEXT	ENDS
 PUBLIC	_endElement
 PUBLIC	??_C@_0BI@NINK@Depth?5Error?5parsing?5XML?$AA@	; `string'
 ;	COMDAT ??_C@_0BI@NINK@Depth?5Error?5parsing?5XML?$AA@
-; File C:\10C\A\oe\KZOEXMLA.C
+; File c:\10c\A\oe\KZOEXMLA.C
 _DATA	SEGMENT
 ??_C@_0BI@NINK@Depth?5Error?5parsing?5XML?$AA@ DB 'Depth Error parsing XM'
 	DB	'L', 00H					; `string'
@@ -10393,7 +10393,7 @@ EXTRN	_XML_ErrorString:NEAR
 EXTRN	_AnchorBlock:DWORD
 EXTRN	_fnIssueCoreError:NEAR
 ;	COMDAT ??_C@_0CH@CKH@More?5than?5one?5zLEVEL_?5option?5req@
-; File C:\10C\A\oe\KZOEXMLA.C
+; File c:\10c\A\oe\KZOEXMLA.C
 _DATA	SEGMENT
 ??_C@_0CH@CKH@More?5than?5one?5zLEVEL_?5option?5req@ DB 'More than one zL'
 	DB	'EVEL_ option requested', 00H		; `string'
@@ -11207,7 +11207,7 @@ PUBLIC	??_C@_04BAFE@?$CF?$CKs?5?$AA@			; `string'
 EXTRN	_SysWriteLine@12:NEAR
 EXTRN	_SysWriteLineLth@20:NEAR
 ;	COMDAT ??_C@_01FCOA@?5?$AA@
-; File C:\10C\A\oe\KZOEXMLA.C
+; File c:\10c\A\oe\KZOEXMLA.C
 _DATA	SEGMENT
 ??_C@_01FCOA@?5?$AA@ DB ' ', 00H			; `string'
 _DATA	ENDS
@@ -11352,7 +11352,7 @@ EXTRN	__imp__strchr:NEAR
 EXTRN	_cDirSep:BYTE
 EXTRN	_SysAppendcDirSep@4:NEAR
 ;	COMDAT ??_C@_0CH@JMAI@Invalid?5view?5for?5CommitOI_ToXML_@
-; File C:\10C\A\oe\KZOEXMLA.C
+; File c:\10c\A\oe\KZOEXMLA.C
 _DATA	SEGMENT
 ??_C@_0CH@JMAI@Invalid?5view?5for?5CommitOI_ToXML_@ DB 'Invalid view for '
 	DB	'CommitOI_ToXML_File: ', 00H			; `string'

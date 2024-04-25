@@ -1,4 +1,4 @@
-	TITLE	C:\10C\A\oe\KZOETMAA.C
+	TITLE	c:\10c\A\oe\KZOETMAA.C
 	.386P
 include listing.inc
 if @Version gt 510
@@ -905,7 +905,7 @@ EXTRN	_AnchorBlock:DWORD
 EXTRN	_fnSysLockCoreMutex@4:NEAR
 EXTRN	_fnSysUnlockCoreMutex@4:NEAR
 ;	COMDAT ??_C@_0BA@OPAB@App?5Task?50x?$CF08x?$AA@
-; File C:\10C\A\oe\KZOETMAA.C
+; File c:\10c\A\oe\KZOETMAA.C
 _DATA	SEGMENT
 ??_C@_0BA@OPAB@App?5Task?50x?$CF08x?$AA@ DB 'App Task 0x%08x', 00H ; `string'
 _DATA	ENDS
@@ -1757,7 +1757,7 @@ PUBLIC	??_C@_00A@?$AA@					; `string'
 PUBLIC	??_C@_0CL@HHOL@?$CItm?$CJ?5DeleteTask?5error?5dropping?5t@ ; `string'
 EXTRN	_SysGetProcessID@4:NEAR
 ;	COMDAT ??_C@_00A@?$AA@
-; File C:\10C\A\oe\KZOETMAA.C
+; File c:\10c\A\oe\KZOETMAA.C
 _BSS	SEGMENT
 ??_C@_00A@?$AA@ DB 01H DUP (?)				; `string'
 _BSS	ENDS
@@ -2337,7 +2337,7 @@ _TEXT	ENDS
 PUBLIC	_fnDropTaskOperations@4
 PUBLIC	??_C@_0CO@HMPF@?$CItm?$CJ?5DeleteTask?5error?5dropping?5t@ ; `string'
 ;	COMDAT ??_C@_0CO@HMPF@?$CItm?$CJ?5DeleteTask?5error?5dropping?5t@
-; File C:\10C\A\oe\KZOETMAA.C
+; File c:\10c\A\oe\KZOETMAA.C
 _DATA	SEGMENT
 ??_C@_0CO@HMPF@?$CItm?$CJ?5DeleteTask?5error?5dropping?5t@ DB '(tm) Delet'
 	DB	'eTask error dropping task operation', 00H	; `string'
@@ -2402,7 +2402,7 @@ EXTRN	_SysMutexLock@16:NEAR
 EXTRN	_SysMutexUnlock@12:NEAR
 EXTRN	_TraceLine:NEAR
 ;	COMDAT ??_C@_0DJ@BMKD@SfCloseTaskDatabases?5for?5Process@
-; File C:\10C\A\oe\KZOETMAA.C
+; File c:\10c\A\oe\KZOETMAA.C
 _DATA	SEGMENT
 ??_C@_0DJ@BMKD@SfCloseTaskDatabases?5for?5Process@ DB 'SfCloseTaskDatabas'
 	DB	'es for Process: %d   Task: %d (0x%08x)', 00H ; `string'
@@ -2575,7 +2575,7 @@ _TEXT	ENDS
 PUBLIC	_fnDropTaskHandlers@4
 PUBLIC	??_C@_0L@KGHJ@Zeidon?5GKH?$AA@			; `string'
 ;	COMDAT ??_C@_0L@KGHJ@Zeidon?5GKH?$AA@
-; File C:\10C\A\oe\KZOETMAA.C
+; File c:\10c\A\oe\KZOETMAA.C
 _DATA	SEGMENT
 ??_C@_0L@KGHJ@Zeidon?5GKH?$AA@ DB 'Zeidon GKH', 00H	; `string'
 _DATA	ENDS
@@ -3151,7 +3151,7 @@ PUBLIC	_fnCloseTaskOpenFiles@4
 PUBLIC	??_C@_0CD@NJNE@?$CItm?$CJ?5DeleteTask?5error?5closing?5fi@ ; `string'
 EXTRN	_fnSysCloseFile@12:NEAR
 ;	COMDAT ??_C@_0CD@NJNE@?$CItm?$CJ?5DeleteTask?5error?5closing?5fi@
-; File C:\10C\A\oe\KZOETMAA.C
+; File c:\10c\A\oe\KZOETMAA.C
 _DATA	SEGMENT
 ??_C@_0CD@NJNE@?$CItm?$CJ?5DeleteTask?5error?5closing?5fi@ DB '(tm) Delet'
 	DB	'eTask error closing file', 00H		; `string'
@@ -3228,7 +3228,7 @@ PUBLIC	??_C@_0BF@DAAA@Zeidon?5Library?5Error?$AA@	; `string'
 EXTRN	_fnSysMessageBox@16:NEAR
 EXTRN	_fnSysFreeLibrary@12:NEAR
 ;	COMDAT ??_C@_0CG@IBDO@?$CItm?$CJ?5DeleteTask?5error?5freeing?5li@
-; File C:\10C\A\oe\KZOETMAA.C
+; File c:\10c\A\oe\KZOETMAA.C
 _DATA	SEGMENT
 ??_C@_0CG@IBDO@?$CItm?$CJ?5DeleteTask?5error?5freeing?5li@ DB '(tm) Delet'
 	DB	'eTask error freeing library', 00H		; `string'
@@ -3705,7 +3705,7 @@ PUBLIC	_fnBuildHexAscii
 PUBLIC	??_C@_03MFGH@?5?5?5?$AA@			; `string'
 EXTRN	__imp___ltoa:NEAR
 ;	COMDAT ??_C@_03MFGH@?5?5?5?$AA@
-; File C:\10C\A\oe\KZOETMAA.C
+; File c:\10c\A\oe\KZOETMAA.C
 _DATA	SEGMENT
 ??_C@_03MFGH@?5?5?5?$AA@ DB '   ', 00H			; `string'
 _DATA	ENDS
@@ -3984,7 +3984,7 @@ PUBLIC	??_C@_0L@DKDJ@Keep?5Alive?$AA@			; `string'
 PUBLIC	??_C@_0DE@GDPP@?5?5?5App?3?50x?$CF08x?5?$CI?$CFs?$CJ?5?5?5Applicatio@ ; `string'
 EXTRN	_fnChainFreespaces:NEAR
 ;	COMDAT ??_C@_0BP@GFNL@CleanupTask?5unexpected?5Library?$AA@
-; File C:\10C\A\oe\KZOETMAA.C
+; File c:\10c\A\oe\KZOETMAA.C
 _DATA	SEGMENT
 ??_C@_0BP@GFNL@CleanupTask?5unexpected?5Library?$AA@ DB 'CleanupTask unex'
 	DB	'pected Library', 00H			; `string'
@@ -4759,7 +4759,7 @@ EXTRN	_SysCheckTaskMemory@0:NEAR
 EXTRN	_SysFreeMemory@4:NEAR
 EXTRN	_fnDeleteApp:NEAR
 ;	COMDAT ??_C@_0GE@OHAM@DeleteTask?5?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DO?50@
-; File C:\10C\A\oe\KZOETMAA.C
+; File c:\10c\A\oe\KZOETMAA.C
 _DATA	SEGMENT
 ??_C@_0GE@OHAM@DeleteTask?5?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DN?$DO?50@ DB 'D'
 	DB	'eleteTask ==================> 0x%08x   ProcessID: %d   Task: '
@@ -6333,7 +6333,7 @@ EXTRN	_ActivateViewObject@12:NEAR
 EXTRN	_szlMessageObject:DWORD
 EXTRN	_fnCreateApp:NEAR
 ;	COMDAT ??_C@_0EP@HEE@SfCreateSubtask?5now?5REQUIRES?5a?5n@
-; File C:\10C\A\oe\KZOETMAA.C
+; File c:\10c\A\oe\KZOETMAA.C
 _DATA	SEGMENT
 ??_C@_0EP@HEE@SfCreateSubtask?5now?5REQUIRES?5a?5n@ DB 'SfCreateSubtask n'
 	DB	'ow REQUIRES a non-zero qualification viewfor Application: %s.'
@@ -6610,7 +6610,7 @@ PUBLIC	??_C@_0FF@BGIB@SfCreateSystemSubtask?5now?5REQUIR@ ; `string'
 PUBLIC	??_C@_0FJ@JIHH@SfCreateSystemSubtask?5now?5REQUIR@ ; `string'
 PUBLIC	_SfCreateSystemSubtask@12
 ;	COMDAT ??_C@_0FF@BGIB@SfCreateSystemSubtask?5now?5REQUIR@
-; File C:\10C\A\oe\KZOETMAA.C
+; File c:\10c\A\oe\KZOETMAA.C
 _DATA	SEGMENT
 ??_C@_0FF@BGIB@SfCreateSystemSubtask?5now?5REQUIR@ DB 'SfCreateSystemSubt'
 	DB	'ask now REQUIRES a non-zero qualification viewfor Application'
@@ -7276,7 +7276,7 @@ EXTRN	_UnregisterZeidonApplication@4:NEAR
 EXTRN	_SysGetDateTime@4:NEAR
 EXTRN	_SysGetDateTimeDifference@16:NEAR
 ;	COMDAT ??_C@_0CJ@GIAB@GarbageCollectViews?5Unregisterin@
-; File C:\10C\A\oe\KZOETMAA.C
+; File c:\10c\A\oe\KZOETMAA.C
 _DATA	SEGMENT
 ??_C@_0CJ@GIAB@GarbageCollectViews?5Unregisterin@ DB 'GarbageCollectViews'
 	DB	' Unregistering Task: ', 00H			; `string'
@@ -8368,7 +8368,7 @@ PUBLIC	??_C@_0M@OGPE@?$CIKeepAlive?$CJ?$AA@		; `string'
 PUBLIC	??_C@_0BI@DJFI@?5?5?5App?5?$CI0x?$CF08x?$CJ?5?$CFs?5?5?5?$CFs?$AA@ ; `string'
 PUBLIC	??_C@_0BN@JOJD@?5?5?5?5?5?5View?5OD?5?$CI0x?$CF08x?$CJ?3?5?8?$CFs?8?$AA@ ; `string'
 ;	COMDAT ??_C@_0BE@FEHD@Display?5Tasks?1Apps?5?$AA@
-; File C:\10C\A\oe\KZOETMAA.C
+; File c:\10c\A\oe\KZOETMAA.C
 _DATA	SEGMENT
 ??_C@_0BE@FEHD@Display?5Tasks?1Apps?5?$AA@ DB 'Display Tasks/Apps ', 00H ; `string'
 _DATA	ENDS

@@ -656,8 +656,8 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
       END
       END
       
-      szWriteBuffer = "<% /* " + szCtrlTag + ":" + szControlType + " */ %>"
-      WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+      //szWriteBuffer = "<% /* " + szCtrlTag + ":" + szControlType + " */ %>"
+      //WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
 
       // Check to see if this GroupBox has a WebControlProperty of "Table".  If so, then we will create this
       // as a table and try and position what is in this group box as a table.
@@ -922,13 +922,13 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
             vGroupParent = 0
             szWriteBuffer = ""
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-            //kkkkkkkkk
+            
             szWriteBuffer = "</div>  <!-- " + szCtrlTag + " --> "
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
             
             // If we are on the most outer group box, put 
             IF lIndexStrLth = 0 AND szStyleIsBootstrap = "Y" AND szBootstrapOuterCard = "Y"
-               //kkkkkkk
+               
                szWriteBuffer = "   </div>  <!-- Close card/card-body for bootstrap -->"
                WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
             END         
@@ -1242,13 +1242,12 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
 
 //*****************************************  END OF DASHBOARD   ********************************************************
-            //kkkkkkkkkkkk
+            
             szWriteBuffer = "</div>  <!-- " + szCtrlTag + " --> "
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
             
             // If we are on the most outer group box, put 
             IF lIndexStrLth = 0 AND szStyleIsBootstrap = "Y" AND szBootstrapOuterCard = "Y"
-               //kkkkkkk
                szWriteBuffer = "   </div>  <!-- Close card/card-body for bootstrap -->"
                WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
             END         
@@ -1589,7 +1588,6 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
 
             szWriteBuffer = ""
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-            //kkkkkkkkkkkk
             //szWriteBuffer = "</div>  <!--  " + szCtrlTag + " --> "
             szWriteBuffer = "</" + szGroupBoxType + ">  <!--  " + szCtrlTag + " --> "
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
@@ -1611,7 +1609,6 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
             
             // If we are on the most outer group box, put 
             IF lIndexStrLth = 0 AND szStyleIsBootstrap = "Y" AND szToggleFlag = "" AND szToggleFlag2 = "" AND szBootstrapOuterCard = "Y" 
-               //kkkkkkk
                szWriteBuffer = "</div>  <!-- Close card/card-body for bootstrap -->"
                WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
             END         
@@ -1982,16 +1979,17 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
             // Get the Question
             szWriteBuffer = "          iQuestionCount = iQuestionCount + 1;"
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-            szWriteBuffer = "          szQuestion = " + vDialog.CtrlMapView.Name + ".cursor(^SurveyQuestion^).getAttribute(^Number^).getString(^^);"
-            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-            szWriteBuffer = "          if ( szQuestion.length() > 0 )"
-            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-            szWriteBuffer = "             szQuestion = szQuestion + ^. ^;"
-            WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
             IF vDialogRoot.Dialog.wWebUsesLanguageConversion = "Y"
                // If we are using language conversion, then we will use the derived attribute names instead of the normal entity/attribute name.
-               szWriteBuffer = "          szQuestion = szQuestion + " + vDialog.CtrlMapView.Name + ".cursor(^SurveyQuestion^).getAttribute(^dQuestion^).getString(^^);"
+               szWriteBuffer = "          szQuestion = " + vDialog.CtrlMapView.Name + ".cursor(^SurveyQuestion^).getAttribute(^dQuestion^).getString(^^);"
             ELSE
+               // KJS 08/22/23 - Putting the Number here... only if we are not using language. Otherwise, it needs to be part of dQuestion.
+               szWriteBuffer = "          szQuestion = " + vDialog.CtrlMapView.Name + ".cursor(^SurveyQuestion^).getAttribute(^Number^).getString(^^);"
+               WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+               szWriteBuffer = "          if ( szQuestion.length() > 0 )"
+               WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+               szWriteBuffer = "             szQuestion = szQuestion + ^. ^;"
+               WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
                szWriteBuffer = "          szQuestion = szQuestion + " + vDialog.CtrlMapView.Name + ".cursor(^SurveyQuestion^).getAttribute(^Question^).getString(^^);"
             END
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
@@ -2749,15 +2747,15 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
                END         
                WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
 
-               szWriteBuffer = "<table name=^" + szCtrlTag + "^ id=^" + szCtrlTag + "^ cellspacing=0 " + szSort + szColCount + "  >"
+               szWriteBuffer = "<table" + szHTMLCtrlID + " cellspacing=0 " + szSort + szColCount + "  >"
             ELSE  // Not a scrolling table.
                IF szNoPositioning = "S" // No positioning.
-                  szWriteBuffer = "<table " + szjMobileDataRole + szSort + szColCount + szHTML5Attr  + " name=^" + szCtrlTag + "^ id=^" + szCtrlTag + "^>"
+                  szWriteBuffer = "<table " + szjMobileDataRole + szSort + szColCount + szHTML5Attr + szHTMLCtrlID + ">"
                ELSE
                   IF szWebCtrlType = "RelativePos" OR szWebCtrlType = "Span"
-                     szWriteBuffer = "<table " + szjMobileDataRole + szSort + szColCount + szHTML5Attr + " style=^position:relative^  name=^" + szCtrlTag + "^ id=^" + szCtrlTag + "^>"
+                     szWriteBuffer = "<table " + szjMobileDataRole + szSort + szColCount + szHTML5Attr + " style=^position:relative^" + szHTMLCtrlID + ">"
                   ELSE
-                     szWriteBuffer = "<table " + szjMobileDataRole + szSort + szColCount + szHTML5Attr  + " style=^" + szPosition + "^  name=^" + szCtrlTag + "^ id=^" + szCtrlTag + "^>"
+                     szWriteBuffer = "<table " + szjMobileDataRole + szSort + szColCount + szHTML5Attr  + " style=^" + szPosition + "^"  + szHTMLCtrlID + ">"
                   END
                END
             END
@@ -2895,9 +2893,26 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
                         ELSE
                            szText = "<%=strErrorMapValue%>"
                         END
-                        
+                        //kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk KJS 09/08/23
+                        // KJS 09/08/23 - The variable header, didn't have the "text-right". I want to add that.
+                        // Need to set on the mapping that is not the header. To see the domain type.
+                        SET CURSOR FIRST vDialog.CtrlMap WHERE vDialog.CtrlMap.Tag != "Variable Header"                        
+                        IF szStyleIsBootstrap = "Y" AND vDialog.CtrlMapER_Domain EXISTS AND 
+                           ( vDialog.CtrlMapER_Domain.DataType = "M" OR vDialog.CtrlMapER_Domain.DataType = "L" )
+                           IF ZeidonStringFind( vDialog.Control.CSS_Class, 1, "text-left" ) <= 0
+                              szClass = " text-right"
+                           END   
+                        ELSE
+                           szClass = ""
+                        END  
+                       //kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk
                         IF szAbsoluteWidth = ""
-                           szWriteBuffer = "   <th><%=strErrorMapValue%></th>"
+                           IF szClass = ""
+                              szWriteBuffer = "   <th"
+                           ELSE
+                              szWriteBuffer = "   <th class=^" + szClass + "^"
+                           END
+                           szWriteBuffer = szWriteBuffer + "><%=strErrorMapValue%></th>"
                         ELSE
                            szWriteBuffer = "   <th style=^" + szAbsoluteWidth + "^><%=strErrorMapValue%></th>"
                         END
@@ -3412,16 +3427,18 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
                         
                         // KJS 05/14/21 - Making a change for language translation... if there is no context... I think we should assume then that on an edit field,
                         // that we will get the internal value .getString() not what we were doing .getString(""). Because if we are editting, shouldn't we be looking
-                        // at "internal value"? If this is edit I don't think we should ever hav ea context but I won't change that for now.
-                        IF szContextName = ""
+                        // at "internal value"? If this is edit I don't think we should ever have a context but I won't change that for now.
+             // KJS 02/14/23 When we are using TimeDomain... we would like to have the default context. So now I am rethinking
+            // as to whether or not we should be using .getString(""); Adding back for a bit...??
+                       IF szContextName = ""
                            szWriteBuffer = "               " + szControlTag + " = " + szGridView +
                                         ".cursor( ^" + vDialog.CtrlMapRelatedEntity.Name +
-                                        "^ ).getAttribute( ^" + vDialog.CtrlMapER_Attribute.Name + "^ ).getString( );"                        
+                                        "^ ).getAttribute( ^" + vDialog.CtrlMapER_Attribute.Name + "^ ).getString( ^^ );"                        
                         ELSE
                            szWriteBuffer = "               " + szControlTag + " = " + szGridView +
                                         ".cursor( ^" + vDialog.CtrlMapRelatedEntity.Name +
                                         "^ ).getAttribute( ^" + vDialog.CtrlMapER_Attribute.Name + "^ ).getString( ^" + szContextName + "^ );"                        
-                       END
+                        END
 
 
                         WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )

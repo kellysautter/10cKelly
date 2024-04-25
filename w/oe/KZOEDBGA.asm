@@ -1,4 +1,4 @@
-	TITLE	C:\10C\w\oe\KZOEDBGA.CPP
+	TITLE	c:\10c\w\oe\KZOEDBGA.CPP
 	.386P
 include listing.inc
 if @Version gt 510
@@ -33,7 +33,7 @@ _DATA	ENDS
 ;	COMDAT ??_C@_0BF@ODOJ@MSH_SCROLL_LINES_MSG?$AA@
 _DATA	SEGMENT DWORD USE32 PUBLIC 'DATA'
 _DATA	ENDS
-;	COMDAT ??_C@_0DL@CDG@C?3?2lplr?2Microsoft?5Visual?5Studio?2@
+;	COMDAT ??_C@_0EP@BBMI@C?3?2Program?5Files?5?$CIx86?$CJ?2Microsoft@
 _DATA	SEGMENT DWORD USE32 PUBLIC 'DATA'
 _DATA	ENDS
 ;	COMDAT ??_C@_02DILL@?$CFs?$AA@
@@ -83,7 +83,7 @@ PUBLIC	_zDumpString
 PUBLIC	??_C@_02DILL@?$CFs?$AA@				; `string'
 EXTRN	?AfxTrace@@YAXPBDZZ:NEAR			; AfxTrace
 ;	COMDAT ??_C@_02DILL@?$CFs?$AA@
-; File C:\10C\w\oe\KZOEDBGA.CPP
+; File c:\10c\w\oe\KZOEDBGA.CPP
 _DATA	SEGMENT
 ??_C@_02DILL@?$CFs?$AA@ DB '%s', 00H			; `string'
 _DATA	ENDS

@@ -1,4 +1,4 @@
-	TITLE	C:\10C\A\oe\KZOEERAA.C
+	TITLE	c:\10c\A\oe\KZOEERAA.C
 	.386P
 include listing.inc
 if @Version gt 510
@@ -300,7 +300,7 @@ EXTRN	_strcat:NEAR
 EXTRN	_MessageSend@24:NEAR
 EXTRN	_szlApplicationLogicError:DWORD
 ;	COMDAT ??_C@_00A@?$AA@
-; File C:\10C\A\oe\KZOEERAA.C
+; File c:\10c\A\oe\KZOEERAA.C
 _BSS	SEGMENT
 ??_C@_00A@?$AA@ DB 01H DUP (?)				; `string'
 _BSS	ENDS
@@ -1460,7 +1460,7 @@ EXTRN	_TraceLineS@8:NEAR
 EXTRN	_g_pfnGetPtr:DWORD
 EXTRN	_szlOE_SystemError:DWORD
 ;	COMDAT ??_C@_0N@OBAJ@IssueError?3?5?$AA@
-; File C:\10C\A\oe\KZOEERAA.C
+; File c:\10c\A\oe\KZOEERAA.C
 _DATA	SEGMENT
 ??_C@_0N@OBAJ@IssueError?3?5?$AA@ DB 'IssueError: ', 00H ; `string'
 _DATA	ENDS
@@ -1552,7 +1552,7 @@ PUBLIC	??_C@_0BI@CKFD@?$CIer?$CJ?5?9?5recursive?5error?5?$AA@ ; `string'
 PUBLIC	_fnIssueCoreError
 EXTRN	_MiValidView@4:NEAR
 ;	COMDAT ??_C@_0L@PCAD@No?5message?$AA@
-; File C:\10C\A\oe\KZOEERAA.C
+; File c:\10c\A\oe\KZOEERAA.C
 _DATA	SEGMENT
 ??_C@_0L@PCAD@No?5message?$AA@ DB 'No message', 00H	; `string'
 _DATA	ENDS
@@ -1728,7 +1728,7 @@ EXTRN	__imp___ltoa:NEAR
 EXTRN	_SysGetBaseMessage@12:NEAR
 EXTRN	_SysGetOperationMessage@12:NEAR
 ;	COMDAT ??_C@_0BI@IKFG@Unknown?5Error?5Message?5?$CI?$AA@
-; File C:\10C\A\oe\KZOEERAA.C
+; File c:\10c\A\oe\KZOEERAA.C
 _DATA	SEGMENT
 ??_C@_0BI@IKFG@Unknown?5Error?5Message?5?$CI?$AA@ DB 'Unknown Error Messa'
 	DB	'ge (', 00H					; `string'

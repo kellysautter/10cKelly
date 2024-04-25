@@ -1,4 +1,4 @@
-	TITLE	C:\10C\w\oe\METERSEC.c
+	TITLE	c:\10c\w\oe\METERSEC.c
 	.386P
 include listing.inc
 if @Version gt 510
@@ -630,7 +630,7 @@ EXTRN	__imp__wsprintfA:NEAR
 EXTRN	__imp__CreateEventA@16:NEAR
 EXTRN	__imp__OpenEventA@12:NEAR
 ;	COMDAT ??_C@_0BB@PIKC@DKC_MSECT_EVT_?$CFs?$AA@
-; File C:\10C\w\oe\METERSEC.c
+; File c:\10c\w\oe\METERSEC.c
 _DATA	SEGMENT
 ??_C@_0BB@PIKC@DKC_MSECT_EVT_?$CFs?$AA@ DB 'DKC_MSECT_EVT_%s', 00H ; `string'
 _DATA	ENDS
@@ -739,7 +739,7 @@ EXTRN	__imp__OpenFileMappingA@12:NEAR
 EXTRN	__imp__InterlockedExchange@8:NEAR
 EXTRN	__imp__MapViewOfFile@20:NEAR
 ;	COMDAT ??_C@_0BB@KJDG@DKC_MSECT_MMF_?$CFs?$AA@
-; File C:\10C\w\oe\METERSEC.c
+; File c:\10c\w\oe\METERSEC.c
 _DATA	SEGMENT
 ??_C@_0BB@KJDG@DKC_MSECT_MMF_?$CFs?$AA@ DB 'DKC_MSECT_MMF_%s', 00H ; `string'
 _DATA	ENDS

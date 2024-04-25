@@ -1,3 +1,9 @@
+Changes 04/25/24
+* There have been many changes that I have not kept up with. 
+* JSP generation changes/fixes
+* Don's autodesign changes
+* Some cpp copy/paste fixes
+
 Changes 08/12/22
 
 * Disable in Common was not working for MLEdit and for "Select Entity" combo box. This has been fixed.

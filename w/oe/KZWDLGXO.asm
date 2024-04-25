@@ -1,4 +1,4 @@
-	TITLE	C:\10C\A\oe\KZWDLGXO.C
+	TITLE	c:\10c\A\oe\KZWDLGXO.C
 	.386P
 include listing.inc
 if @Version gt 510
@@ -75,7 +75,7 @@ EXTRN	_SetCursorFirstEntity@12:NEAR
 EXTRN	_SetCursorFirstEntityByInteger@20:NEAR
 EXTRN	_SetCursorRelativeEntity@16:NEAR
 ;	COMDAT ??_C@_00A@?$AA@
-; File C:\10C\A\oe\KZWDLGXO.C
+; File c:\10c\A\oe\KZWDLGXO.C
 _BSS	SEGMENT
 ??_C@_00A@?$AA@ DB 01H DUP (?)				; `string'
 _BSS	ENDS
@@ -297,7 +297,7 @@ _TEXT	ENDS
 PUBLIC	_oKZWDLGXO_DerivedOptionText@16
 PUBLIC	??_C@_03EKCM@Opt?$AA@				; `string'
 ;	COMDAT ??_C@_03EKCM@Opt?$AA@
-; File C:\10C\A\oe\KZWDLGXO.C
+; File c:\10c\A\oe\KZWDLGXO.C
 _DATA	SEGMENT
 ??_C@_03EKCM@Opt?$AA@ DB 'Opt', 00H			; `string'
 _DATA	ENDS
@@ -497,7 +497,7 @@ PUBLIC	_oKZWDLGXO_DerivedCaption@16
 PUBLIC	??_C@_03PKIB@Wnd?$AA@				; `string'
 PUBLIC	??_C@_07FMLO@Caption?$AA@			; `string'
 ;	COMDAT ??_C@_03PKIB@Wnd?$AA@
-; File C:\10C\A\oe\KZWDLGXO.C
+; File c:\10c\A\oe\KZWDLGXO.C
 _DATA	SEGMENT
 ??_C@_03PKIB@Wnd?$AA@ DB 'Wnd', 00H			; `string'
 _DATA	ENDS
@@ -664,7 +664,7 @@ PUBLIC	??_C@_03IDDH@Msg?$AA@				; `string'
 PUBLIC	??_C@_03JPIP@DIL?$AA@				; `string'
 EXTRN	_CheckExistenceOfEntity@8:NEAR
 ;	COMDAT ??_C@_0N@GDDG@NLS_DIL_Text?$AA@
-; File C:\10C\A\oe\KZWDLGXO.C
+; File c:\10c\A\oe\KZWDLGXO.C
 _DATA	SEGMENT
 ??_C@_0N@GDDG@NLS_DIL_Text?$AA@ DB 'NLS_DIL_Text', 00H	; `string'
 _DATA	ENDS

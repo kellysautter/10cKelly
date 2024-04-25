@@ -1,0 +1,164 @@
+TZWDLG6O.VML:               szWriteBuffer = "      strMessage = vView.cursor( ^Root^ ).getAttribute( ^WebReturnMessage^ ).getString( ^^ );"
+TZWDLG6O.VML:      szWriteBuffer = "      strBannerName = vKZXMLPGO.cursor( ^DynamicBannerName^ ).getAttribute( ^BannerName^ ).getString( ^^ );"
+TZWDLG6O.VML:      szWriteBuffer = "   strViewName = " + szViewName + ".cursor( ^DashboardFrame^ ).getAttribute( ^Name^ ).getString( ^^ );"
+TZWDLG6O.VML:      szWriteBuffer = "      strViewName = " + szViewName + ".cursor( ^DashboardFrame^ ).getAttribute( ^ObjectInstanceName^ ).getString( ^^ );"
+TZWDLG6O.VML:   szWriteBuffer = "   strSolicitSave = vKZXMLPGO.cursor( ^Session^ ).getAttribute( ^SolicitSaveFlag^ ).getString( ^^ );"
+TZWDLG6O.VML:      szWriteBuffer = "         strLoginName = wWebXA.cursor( ^Root^ ).getAttribute( ^LoginName^ ).getString( ^LoginName^ );"
+TZWDLG6O.VML:      szWriteBuffer = "         strKeyRole = wWebXA.cursor( ^Root^ ).getAttribute( ^KeyRole^ ).getString( ^KeyRole^ );"
+TZWDLG6O.VML:   szWriteBuffer = "        if ( ! vKZXMLPGO.cursor(^Session^).getAttribute(^PrintFileName^).getString().equals(^^) )"
+TZWDLG6O.VML:   szWriteBuffer = "          sSourceFileNameOnly = vKZXMLPGO.cursor(^Session^).getAttribute(^PrintFileName^).getString();"
+TZWEBGL2.VML:            szWriteBuffer = "            szDisplayFrame = " + vDialog.CtrlMapView.Name + ".cursor( ^DashboardFrameUser^ ).getAttribute( ^ActiveOnCurrentDashboard^ ).getString( ^^ );"
+TZWEBGL2.VML:            szWriteBuffer = "               szDisplayFrame = " + vDialog.CtrlMapView.Name + ".cursor( ^DashboardFrameUser^ ).getAttribute( ^ActiveOnCurrentDashboard^ ).getString( ^^ );"
+TZWEBGL2.VML:            szWriteBuffer = "                  szDashboardSource = " + vDialog.CtrlMapView.Name + ".cursor( ^DashboardFrame^ ).getAttribute( ^DashboardDisplayURL^ ).getString( ^^ );"
+TZWEBGL2.VML:            szWriteBuffer = "                  szDashboardMore = " + vDialog.CtrlMapView.Name + ".cursor( ^DashboardFrame^ ).getAttribute( ^ExpandedDisplayURL^ ).getString( ^^ );"
+TZWEBGL2.VML:               szWriteBuffer = "          strChartOutput = mChart" + szCtrlTag + ".cursor( ^CodeLine^ ).getAttribute( ^Line^ ).getString();"
+TZWEBGL2.VML:            szWriteBuffer = "         szGroupNbr = " + vDialog.CtrlMapView.Name + ".cursor(^SurveyQuestionaire^).getAttribute(^wCurrentSurveyGroup^).getString(^^);"
+TZWEBGL2.VML:               szWriteBuffer = "          String szGroupName = " + vDialog.CtrlMapView.Name + ".cursor(^SurveyQuestionGroup^).getAttribute(^dName^).getString(^^);"
+TZWEBGL2.VML:               szWriteBuffer = "          String szGroupName = " + vDialog.CtrlMapView.Name + ".cursor(^SurveyQuestionGroup^).getAttribute(^Name^).getString(^^);"
+TZWEBGL2.VML:            szWriteBuffer = "          szQuestion = " + vDialog.CtrlMapView.Name + ".cursor(^SurveyQuestion^).getAttribute(^Number^).getString(^^);"
+TZWEBGL2.VML:               szWriteBuffer = "          szQuestion = szQuestion + " + vDialog.CtrlMapView.Name + ".cursor(^SurveyQuestion^).getAttribute(^dQuestion^).getString(^^);"
+TZWEBGL2.VML:               szWriteBuffer = "          szQuestion = szQuestion + " + vDialog.CtrlMapView.Name + ".cursor(^SurveyQuestion^).getAttribute(^Question^).getString(^^);"
+TZWEBGL2.VML:            szWriteBuffer = "          String szQuestionID = " + vDialog.CtrlMapView.Name + ".cursor(^SurveyQuestion^).getAttribute(^ID^).getString(^^);"
+TZWEBGL2.VML:            szWriteBuffer = "          String szType = " + vDialog.CtrlMapView.Name + ".cursor(^SurveyQuestion^).getAttribute(^Type^).getString();"
+TZWEBGL2.VML:            szWriteBuffer = "          String szCommentFlag = " + vDialog.CtrlMapView.Name + ".cursor(^SurveyQuestion^).getAttribute(^AllowCommentFlag^).getString();"
+TZWEBGL2.VML:            szWriteBuffer = "          String szResponseIsOptional = " + vDialog.CtrlMapView.Name + ".cursor(^SurveyQuestion^).getAttribute(^ResponseIsOptional^).getString(^^);"
+TZWEBGL2.VML:               szWriteBuffer = "          String szQuestionHelp = " + vDialog.CtrlMapView.Name + ".cursor(^SurveyQuestion^).getAttribute(^dHelpDescription^).getString(^^);"
+TZWEBGL2.VML:               szWriteBuffer = "          String szQuestionHelp = " + vDialog.CtrlMapView.Name + ".cursor(^SurveyQuestion^).getAttribute(^HelpDescription^).getString(^^);"
+TZWEBGL2.VML:            szWriteBuffer = "   strErrorMapValue = " + vDialog.CtrlMapView.Name + ".cursor(^SurveyQuestion^).getAttribute(^wTextAnswer^).getString(^^);"
+TZWEBGL2.VML:               szWriteBuffer = "         strAnswerText = vtblMultChoice.cursor( ^SurveyMultiChoiceOption^ ).getAttribute( ^dOptionText^ ).getString( ^^ );"
+TZWEBGL2.VML:               szWriteBuffer = "         strAnswerText = vtblMultChoice.cursor( ^SurveyMultiChoiceOption^ ).getAttribute( ^OptionText^ ).getString( ^^ );"
+TZWEBGL2.VML:            szWriteBuffer = "         strchkAnswer = vtblMultChoice.cursor( ^SurveyMultiChoiceOption^ ).getAttribute( ^wSelectedAnswer^).getString( ^^ );"
+TZWEBGL2.VML:            szWriteBuffer = "         strQuestionChoiceID = vtblMultChoice.cursor( ^SurveyMultiChoiceOption^ ).getAttribute( ^ID^ ).getString( ^^ );"
+TZWEBGL2.VML:               szWriteBuffer = "          szCommentText = " + vDialog.CtrlMapView.Name + ".cursor(^SurveyQuestion^).getAttribute(^dRequestCommentText^).getString(^^);"
+TZWEBGL2.VML:               szWriteBuffer = "          szCommentText = " + vDialog.CtrlMapView.Name + ".cursor(^SurveyQuestion^).getAttribute(^RequestCommentText^).getString(^^);"
+TZWEBGL2.VML:            szWriteBuffer = "   strErrorMapValue = " + vDialog.CtrlMapView.Name + ".cursor(^SurveyQuestion^).getAttribute(^wComment^).getString(^^);"
+TZWEBGL2.VML:                                     "^ ).getAttribute( ^" + vDialog.CtrlMapER_Attribute.Name + "^ ).getString( ^^ );"
+TZWEBGL2.VML:                               "^ ).getAttribute( ^wHideTableRow^ ).getString( ^^ );"
+TZWEBGL2.VML:                        // that we will get the internal value .getString() not what we were doing .getString(""). Because if we are editting, shouldn't we be looking
+TZWEBGL2.VML:                                        "^ ).getAttribute( ^" + vDialog.CtrlMapER_Attribute.Name + "^ ).getString( );"                        
+TZWEBGL2.VML:                                        "^ ).getAttribute( ^" + vDialog.CtrlMapER_Attribute.Name + "^ ).getString( ^" + szContextName + "^ );"                        
+TZWEBGL2.VML:                                     "^ ).getAttribute( ^" + vDialog.CtrlMapER_Attribute.Name + "^ ).getString( strDateFormat );"
+TZWEBGL2.VML:                                     "^ ).getAttribute( ^" + vDialog.CtrlMapER_Attribute.Name + "^ ).getString( );"
+TZWEBGL2.VML:                                     "^ ).getAttribute( ^" + vDialog.CtrlMapER_Attribute.Name + "^ ).getString( ^" + szContextName + "^ );"
+TZWEBGL2.VML:                                        "^ ).getAttribute( ^" + vDialog.CtrlMapER_Attribute.Name + "^ ).getString( ^" + szContextName + "^ );"
+TZWEBGL2.VML:                                           vDialog.CtrlMapER_Attribute.Name + "^ ).getString( ^" +
+TZWEBGL2.VML:                                              szMapAttributeName + "^ ).getString( ^^ );"
+TZWEBGL2.VML:                              //                szMapAttributeName + "^ ).getString( ^" + szContextName + "^ );"
+TZWEBGL2.VML:                                              szMapAttributeName + "^ ).getString( );"
+TZWEBGL2.VML:                                             vDialog.CtrlMapER_Attribute.Name + "^ ).getString( );"
+TZWEBGL2.VML:                                             //vDialog.CtrlMapER_Attribute.Name + "^ ).getString( ^" + szContextName + "^ );"
+TZWEBGL2.VML:                                                    vList.CtrlMapER_Attribute.Name + "^ ).getString( ^" +
+TZWEBGL2.VML:                                                    vList.CtrlMapER_Attribute.Name + "^ ).getString( ) ) )"
+TZWEBGL2.VML:               szWriteBuffer = "                    strQuestionChoiceID = " + ViewName + ".cursor( ^SurveyMultiChoiceOption^ ).getAttribute( ^ID^ ).getString();"
+TZWEBGL2.VML:                              vDialog2.CtrlMapER_Attribute.Name + "^ ).getString( );"
+TZWEBGL2.VML:                              //vDialog2.CtrlMapER_Attribute.Name + "^ ).getString( ^" + szContextName + "^ );"
+TZWEBGL2.VML:                                           vDialog.CtrlMapRelatedEntity.Name + "^ ).getAttribute( ^" + vDialog.CtrlMapER_Attribute.Name + "^ ).getString( );"
+TZWEBGL2.VML:                                           //vDialog.CtrlMapRelatedEntity.Name + "^ ).getAttribute( ^" + vDialog.CtrlMapER_Attribute.Name + "^ ).getString( ^^ );"
+TZWEBGL2.VML:                                           "^ ).getAttribute( ^" + vDialog2.CtrlMapER_Attribute.Name + "^ ).getString( ) ) )"
+TZWEBGL2.VML:                                           //"^ ).getAttribute( ^" + vDialog2.CtrlMapER_Attribute.Name + "^ ).getString( ^^ ) ) )"
+TZWEBGL2.VML:                                       vDialog2.CtrlMapER_Attribute.Name + "^ ).getString( );"
+TZWEBGL2.VML:                                       //vDialog2.CtrlMapER_Attribute.Name + "^ ).getString( ^" + szContextName + "^ );"
+TZWEBGL2.VML:                                                    vDialog.CtrlMapRelatedEntity.Name + "^ ).getAttribute( ^" + vDialog.CtrlMapER_Attribute.Name + "^ ).getString( ) ;"
+TZWEBGL2.VML:                                                    "^ ).getAttribute( ^" + vDialog2.CtrlMapER_Attribute.Name + "^ ).getString( ) ) )"
+TZWEBGL2_NoHeightForAadit.VML:            szWriteBuffer = "            szDisplayFrame = " + vDialog.CtrlMapView.Name + ".cursor( ^DashboardFrameUser^ ).getAttribute( ^ActiveOnCurrentDashboard^ ).getString( ^^ );"
+TZWEBGL2_NoHeightForAadit.VML:            szWriteBuffer = "               szDisplayFrame = " + vDialog.CtrlMapView.Name + ".cursor( ^DashboardFrameUser^ ).getAttribute( ^ActiveOnCurrentDashboard^ ).getString( ^^ );"
+TZWEBGL2_NoHeightForAadit.VML:            szWriteBuffer = "                  szDashboardSource = " + vDialog.CtrlMapView.Name + ".cursor( ^DashboardFrame^ ).getAttribute( ^DashboardDisplayURL^ ).getString( ^^ );"
+TZWEBGL2_NoHeightForAadit.VML:            szWriteBuffer = "                  szDashboardMore = " + vDialog.CtrlMapView.Name + ".cursor( ^DashboardFrame^ ).getAttribute( ^ExpandedDisplayURL^ ).getString( ^^ );"
+TZWEBGL2_NoHeightForAadit.VML:                               vDialog.CtrlMapER_Attribute.Name + "^ ).getString( );"
+TZWEBGL2_NoHeightForAadit.VML:                                     "^ ).getAttribute( ^" + vDialog.CtrlMapER_Attribute.Name + "^ ).getString( ^^ );"
+TZWEBGL2_NoHeightForAadit.VML:                               "^ ).getAttribute( ^wHideTableRow^ ).getString( ^^ );"
+TZWEBGL2_NoHeightForAadit.VML:                                     "^ ).getAttribute( ^" + vDialog.CtrlMapER_Attribute.Name + "^ ).getString( ^" + szContextName + "^ );"
+TZWEBGL2_NoHeightForAadit.VML:                                     "^ ).getAttribute( ^" + vDialog.CtrlMapER_Attribute.Name + "^ ).getString( strDateFormat );"
+TZWEBGL2_NoHeightForAadit.VML:                                     "^ ).getAttribute( ^" + vDialog.CtrlMapER_Attribute.Name + "^ ).getString( ^" + szContextName + "^ );"
+TZWEBGL2_NoHeightForAadit.VML:                                        "^ ).getAttribute( ^" + vDialog.CtrlMapER_Attribute.Name + "^ ).getString( ^" + szContextName + "^ );"
+TZWEBGL2_NoHeightForAadit.VML:                                           vDialog.CtrlMapER_Attribute.Name + "^ ).getString( ^" +
+TZWEBGL2_NoHeightForAadit.VML:                                              szMapAttributeName + "^ ).getString( ^" + szContextName + "^ );"
+TZWEBGL2_NoHeightForAadit.VML:                                             vDialog.CtrlMapER_Attribute.Name + "^ ).getString( ^" + szContextName + "^ );"
+TZWEBGL2_NoHeightForAadit.VML:                                                    vList.CtrlMapER_Attribute.Name + "^ ).getString( ^" +
+TZWEBGL2_NoHeightForAadit.VML:                              vDialog2.CtrlMapER_Attribute.Name + "^ ).getString( ^" + szContextName + "^ );"
+TZWEBGL2_NoHeightForAadit.VML:                                           vDialog.CtrlMapRelatedEntity.Name + "^ ).getAttribute( ^" + vDialog.CtrlMapER_Attribute.Name + "^ ).getString( ^^ );"
+TZWEBGL2_NoHeightForAadit.VML:                                           "^ ).getAttribute( ^" + vDialog2.CtrlMapER_Attribute.Name + "^ ).getString( ^^ ) ) )"
+TZWEBGL2_NoHeightForAadit.VML:                                       vDialog2.CtrlMapER_Attribute.Name + "^ ).getString( ^" + szContextName + "^ );"
+TZWEBGL2_NoHeightForAadit.VML:                                                    vDialog.CtrlMapRelatedEntity.Name + "^ ).getAttribute( ^" + vDialog.CtrlMapER_Attribute.Name + "^ ).getString( ^^ );"
+TZWEBGL2_NoHeightForAadit.VML:                                                    "^ ).getAttribute( ^" + vDialog2.CtrlMapER_Attribute.Name + "^ ).getString( ^^ ) ) )"
+TZWEBGL2_NoHeightForAadit.VML:               szWriteBuffer = "                    strQuestionChoiceID = " + szViewName + ".cursor( ^SurveyMultiChoiceOption^ ).getAttribute( ^ID^ ).getString( ^^ );"
+TZWEBGL2_NoHeightForAadit.VML:            szWriteBuffer = "         strDialogName = vKZXMLPGO.cursor( ^NextDialogWindow^ ).getAttribute( ^DialogName^ ).getString( ^^ );"
+TZWEBGL2_NoHeightForAadit.VML:            szWriteBuffer = "         strWindowName = vKZXMLPGO.cursor( ^NextDialogWindow^ ).getAttribute( ^WindowName^ ).getString( ^^ );"
+TZWEBGL2_NoHeightForAadit.VML:            szWriteBuffer = "            strFunctionCall = vKZXMLPGO.cursor( ^NextDialogWindow^ ).getAttribute( ^FunctionCall^ ).getString( ^^ );"
+TZWEBGL2_NoHeightForAadit.VML:      szWriteBuffer = "         strLastPage = vKZXMLPGO.cursor( ^PagePath^ ).getAttribute( ^LastPageName^ ).getString( ^^ );"
+TZWEBGL2_NoHeightForAadit.VML:                            "^ ).getAttribute( ^" + vDialogCtrl.CtrlMapER_Attribute.Name + "^ ).getString( ^^ );"
+tzwebgl4.vml:                      vDialog.CtrlMapER_Attribute.Name + "^ ).getString( " + szContextName + " );"
+tzwebgl4.vml:                      vDialog.CtrlMapER_Attribute.Name + "^ ).getString( );"
+tzwebgl4.vml:                     vDialog.CtrlMapER_Attribute.Name + "^ ).getString( ^^ );"
+tzwebgl4.vml:                     //vDialog.CtrlMapER_Attribute.Name + "^ ).getString( ^" + szContextName + "^ );"
+tzwebgl4.vml:                     vDialog.CtrlMapER_Attribute.Name + "^ ).getString( );"
+tzwebgl4.vml:                     vDialog.CtrlMapER_Attribute.Name + "^ ).getString( );"
+tzwebgl4.vml:                     //vDialog.CtrlMapER_Attribute.Name + "^ ).getString( ^" + szContextName + "^ );"
+tzwebgl4.vml:                            vList.CtrlMapER_Attribute.Name + "^ ).getString( ^" +
+tzwebgl4.vml:                            vList.CtrlMapER_Attribute.Name + "^ ).getString( ) ) )"
+tzwebgl4.vml:                               vDialog.CtrlMapER_Attribute.Name + "^ ).getString( );"
+tzwebgl4.vml:                               vDialog.CtrlMapER_Attribute.Name + "^ ).getString( );"
+tzwebgl4.vml:                            vDialog.CtrlMapER_Attribute.Name + "^ ).getString( );"
+tzwebgl4.vml:      // that we will get the internal value .getString() not what we were doing .getString(""). Because if we are editting, shouldn't we be looking
+tzwebgl4.vml:                            vDialog.CtrlMapER_Attribute.Name + "^ ).getString( ^^ );"
+tzwebgl4.vml:                            vDialog.CtrlMapER_Attribute.Name + "^ ).getString( );"
+tzwebgl4.vml:                         vDialog.CtrlMapER_Attribute.Name + "^ ).getString( ^" +
+tzwebgl4.vml:                         vDialog.CtrlMapER_Attribute.Name + "^ ).getString( ^" +
+tzwebgl4.vml:                         vDialog.CtrlMapER_Attribute.Name + "^ ).getString( ^" +
+tzwebgl4.vml:                               vDialog.CtrlMapER_Attribute.Name + "^ ).getString( ^" +
+tzwebgl4.vml:                               vDialog.CtrlMapER_Attribute.Name + "^ ).getString( ^" +
+tzwebgl4.vml:                      vDialog.CtrlMapER_Attribute.Name + "^ ).getString( ^" +
+tzwebgl4.vml:                     szAttributeName + "^ ).getString( ^" + szContextName + "^ );"
+tzwebgl4.vml:                            szAttributeName + "^ ).getString( ^" +
+tzwebgl4.vml:                     szAttributeName + "^ ).getString( ^" + szContextName + "^ );"
+tzwebgl4.vml:                               "^ ).getAttribute( ^" + vDialog.CtrlMapER_Attribute.Name + "^ ).getString( ^" + szContextName + "^ );"
+tzwebgl4.vml:                      vDialog.CtrlMapER_Attribute.Name + "^ ).getString( ^" +
+tzwebgl4.vml:                      vDialog.CtrlMapER_Attribute.Name + "^ ).getString( ^" +
+tzwebgl4.vml:         szWriteBuffer = "            strErrorMapValue = sHostT.cursor(^Host^).getAttribute( ^UploadFileSizeMax^ ).getString( );"
+tzwebgl4.vml:                               vDialogTemp.CtrlMapER_Attribute.Name + "^ ).getString( ^^ );"
+tzwebgl4.vml:      szWriteBuffer = "   <input name=^zNewFileName^ id=^zNewFileName^ type=^hidden^ value=^<%=vKZXMLPGO.cursor(^Session^).getAttribute(^PrintFileName^).getString()%>^ >"
+tzwebgl4.vml:            szWriteBuffer = "         strDialogName = vKZXMLPGO.cursor( ^NextDialogWindow^ ).getAttribute( ^DialogName^ ).getString( ^^ );"
+tzwebgl4.vml:            szWriteBuffer = "         strWindowName = vKZXMLPGO.cursor( ^NextDialogWindow^ ).getAttribute( ^WindowName^ ).getString( ^^ );"
+tzwebgl4.vml:            szWriteBuffer = "            strFunctionCall = vKZXMLPGO.cursor( ^NextDialogWindow^ ).getAttribute( ^FunctionCall^ ).getString( ^^ );"
+tzwebgl4.vml:      szWriteBuffer = "         strLastPage = vKZXMLPGO.cursor( ^PagePath^ ).getAttribute( ^LastPageName^ ).getString( ^^ );"
+tzwebgl4.vml:                            "^ ).getAttribute( ^" + vDialogCtrl.CtrlMapER_Attribute.Name + "^ ).getString( ^^ );"
+tzwebgl4.vml:            szWriteBuffer = "         if ( ! vKZXMLPGO.cursor(^Session^).getAttribute(^PrintFileName^).getString().equals(^^) )"
+tzwebgl4.vml:            szWriteBuffer = "            sSourceFileNameOnly = vKZXMLPGO.cursor(^Session^).getAttribute(^PrintFileName^).getString();"
+tzwebgl4.vml:      szWriteBuffer = "               String strDirFileName = vKZXMLPGO.cursor(^Session^).getAttribute(^PrintFileName^).getString();"
+tzwebgl4copy.vml:                      vDialog.CtrlMapER_Attribute.Name + "^ ).getString( " + szContextName + " );"
+tzwebgl4copy.vml:                      vDialog.CtrlMapER_Attribute.Name + "^ ).getString( );"
+tzwebgl4copy.vml:                     vDialog.CtrlMapER_Attribute.Name + "^ ).getString( ^^ );"
+tzwebgl4copy.vml:                     vDialog.CtrlMapER_Attribute.Name + "^ ).getString( ^" + szContextName + "^ );"
+tzwebgl4copy.vml:                            vList.CtrlMapER_Attribute.Name + "^ ).getString( ^" +
+tzwebgl4copy.vml:                            vDialog.CtrlMapER_Attribute.Name + "^ ).getString( );"
+tzwebgl4copy.vml:                            vDialog.CtrlMapER_Attribute.Name + "^ ).getString( ^" +
+tzwebgl4copy.vml:                      vDialog.CtrlMapER_Attribute.Name + "^ ).getString( ^" +
+tzwebgl4copy.vml:                         vDialog.CtrlMapER_Attribute.Name + "^ ).getString( ^" +
+tzwebgl4copy.vml:                         vDialog.CtrlMapER_Attribute.Name + "^ ).getString( ^" +
+tzwebgl4copy.vml:                               vDialog.CtrlMapER_Attribute.Name + "^ ).getString( ^" +
+tzwebgl4copy.vml:                               vDialog.CtrlMapER_Attribute.Name + "^ ).getString( ^" +
+tzwebgl4copy.vml:                      vDialog.CtrlMapER_Attribute.Name + "^ ).getString( ^" +
+tzwebgl4copy.vml:                     szAttributeName + "^ ).getString( ^" + szContextName + "^ );"
+tzwebgl4copy.vml:                            szAttributeName + "^ ).getString( ^" +
+tzwebgl4copy.vml:                     szAttributeName + "^ ).getString( ^" + szContextName + "^ );"
+tzwebgl4copy.vml:                      vDialog.CtrlMapER_Attribute.Name + "^ ).getString( ^" +
+tzwebgl4copy.vml:                      vDialog.CtrlMapER_Attribute.Name + "^ ).getString( ^" +
+tzwebgl4_NoHeightForAadit.vml:                      vDialog.CtrlMapER_Attribute.Name + "^ ).getString( " + szContextName + " );"
+tzwebgl4_NoHeightForAadit.vml:                      vDialog.CtrlMapER_Attribute.Name + "^ ).getString( );"
+tzwebgl4_NoHeightForAadit.vml:                     vDialog.CtrlMapER_Attribute.Name + "^ ).getString( ^^ );"
+tzwebgl4_NoHeightForAadit.vml:                     vDialog.CtrlMapER_Attribute.Name + "^ ).getString( ^" + szContextName + "^ );"
+tzwebgl4_NoHeightForAadit.vml:                            vList.CtrlMapER_Attribute.Name + "^ ).getString( ^" +
+tzwebgl4_NoHeightForAadit.vml:                            vDialog.CtrlMapER_Attribute.Name + "^ ).getString( );"
+tzwebgl4_NoHeightForAadit.vml:                            vDialog.CtrlMapER_Attribute.Name + "^ ).getString( ^" +
+tzwebgl4_NoHeightForAadit.vml:                      vDialog.CtrlMapER_Attribute.Name + "^ ).getString( ^" +
+tzwebgl4_NoHeightForAadit.vml:                         vDialog.CtrlMapER_Attribute.Name + "^ ).getString( ^" +
+tzwebgl4_NoHeightForAadit.vml:                         vDialog.CtrlMapER_Attribute.Name + "^ ).getString( ^" +
+tzwebgl4_NoHeightForAadit.vml:                               vDialog.CtrlMapER_Attribute.Name + "^ ).getString( ^" +
+tzwebgl4_NoHeightForAadit.vml:                               vDialog.CtrlMapER_Attribute.Name + "^ ).getString( ^" +
+tzwebgl4_NoHeightForAadit.vml:                      vDialog.CtrlMapER_Attribute.Name + "^ ).getString( ^" +
+tzwebgl4_NoHeightForAadit.vml:                     szAttributeName + "^ ).getString( ^" + szContextName + "^ );"
+tzwebgl4_NoHeightForAadit.vml:                            szAttributeName + "^ ).getString( ^" +
+tzwebgl4_NoHeightForAadit.vml:                     szAttributeName + "^ ).getString( ^" + szContextName + "^ );"
+tzwebgl4_NoHeightForAadit.vml:                      vDialog.CtrlMapER_Attribute.Name + "^ ).getString( ^" +
+tzwebgl4_NoHeightForAadit.vml:                      vDialog.CtrlMapER_Attribute.Name + "^ ).getString( ^" +
+tzwebgl4_NoHeightForAadit.vml:                               vDialogTemp.CtrlMapER_Attribute.Name + "^ ).getString( ^^ );"

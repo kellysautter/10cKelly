@@ -648,12 +648,15 @@ ZDrFrame::OnCreate( LPCREATESTRUCT lpCreateStruct )
 // TraceLineX( "ZDrFrame::OnCreate Style: ", m_pZSubtask->Attr.Style );
    ModifyStyle( ~(m_pZSubtask->Attr.Style | 0x00001111),
                 m_pZSubtask->Attr.Style & 0x11110000 );
+   //ModifyStyle( WS_MINIMIZEBOX, 0); // KJS 11/05/20
    if ( m_pZSubtask->m_pZParent )
    {
 //    TraceLineS( "(frame) OnCreate modify style from OVERLAPPED to POPUP: ",
 //                *(m_pZSubtask->m_pzsWndTag) );
    // ModifyStyle( 0, /* WS_POPUPWINDOW | */ WS_MINIMIZEBOX | WS_MAXIMIZEBOX );
-
+	  // KJS 11/05/20 - When someone is in the editor, if you accidently minimize the editor window, you can't get back
+	  // to it, even doing a Alt-Tab. ModifyStyle is disabling the minimize button.
+      ModifyStyle( WS_MINIMIZEBOX, 0); // KJS 11/05/20
       m_pZSubtask->Attr.StyleEx &= ~WS_EX_APPWINDOW;
       m_pZSubtask->Attr.StyleEx |= WS_EX_CONTROLPARENT;
       ModifyStyleEx( WS_EX_APPWINDOW, m_pZSubtask->Attr.StyleEx );

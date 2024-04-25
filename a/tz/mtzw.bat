@@ -24,3 +24,5 @@ call makeall tz %1 %2 %3 %4 %5 %6 %7 %8 %9
 call cds a tz
 dir *.ler
 dir *.err /os
+call cds w tz
+call mtzw

@@ -1,4 +1,4 @@
-	TITLE	C:\10C\A\oe\KZOEMMAA.C
+	TITLE	c:\10c\A\oe\KZOEMMAA.C
 	.386P
 include listing.inc
 if @Version gt 510
@@ -205,7 +205,7 @@ EXTRN	_SysMessageBox@16:NEAR
 EXTRN	_fnSysLockCoreMutex@4:NEAR
 EXTRN	_fnSysUnlockCoreMutex@4:NEAR
 ;	COMDAT ??_C@_0DE@LLGA@Memory?5Management?5Error?$CB?5Wrong?5D@
-; File C:\10C\A\oe\KZOEMMAA.C
+; File c:\10c\A\oe\KZOEMMAA.C
 _DATA	SEGMENT
 ??_C@_0DE@LLGA@Memory?5Management?5Error?$CB?5Wrong?5D@ DB 'Memory Manage'
 	DB	'ment Error! Wrong Dataspace Table ID: ', 00H ; `string'
@@ -517,7 +517,7 @@ PUBLIC	??_C@_0BA@JAEC@TraceDataHeader?$AA@		; `string'
 EXTRN	_TraceLineS@8:NEAR
 EXTRN	_g_bServerMode:BYTE
 ;	COMDAT ??_C@_00A@?$AA@
-; File C:\10C\A\oe\KZOEMMAA.C
+; File c:\10c\A\oe\KZOEMMAA.C
 _BSS	SEGMENT
 ??_C@_00A@?$AA@ DB 01H DUP (?)				; `string'
 _BSS	ENDS
@@ -831,7 +831,7 @@ EXTRN	_memset:NEAR
 EXTRN	_AnchorBlock:DWORD
 EXTRN	_fnSysCreateHandle@8:NEAR
 ;	COMDAT ??_C@_0CH@HDNL@?$CImm?$CJ?5Invalid?5fnAllocDataspace?5re@
-; File C:\10C\A\oe\KZOEMMAA.C
+; File c:\10c\A\oe\KZOEMMAA.C
 _DATA	SEGMENT
 ??_C@_0CH@HDNL@?$CImm?$CJ?5Invalid?5fnAllocDataspace?5re@ DB '(mm) Invali'
 	DB	'd fnAllocDataspace request ', 00H		; `string'
@@ -1795,7 +1795,7 @@ PUBLIC	_fnFreeDataspace
 EXTRN	_fnSysMessageBox@16:NEAR
 EXTRN	_fnFreeSharedMemory@8:NEAR
 ;	COMDAT ??_C@_0EI@JPKG@FreeDataspace?3?5Memory?5to?5free?5al@
-; File C:\10C\A\oe\KZOEMMAA.C
+; File c:\10c\A\oe\KZOEMMAA.C
 _DATA	SEGMENT
 ??_C@_0EI@JPKG@FreeDataspace?3?5Memory?5to?5free?5al@ DB 'FreeDataspace: '
 	DB	'Memory to free already freed (ID: %d) 0x%08x   ++ 0x%08x', 00H ; `string'
@@ -2413,7 +2413,7 @@ PUBLIC	??_C@_0BK@PMAL@Freespace?5request?5invalid?$AA@	; `string'
 PUBLIC	??_C@_0BM@BEKD@Data?5header?5request?5invalid?$AA@ ; `string'
 PUBLIC	_fnGetDataspaceLength
 ;	COMDAT ??_C@_0BK@PMAL@Freespace?5request?5invalid?$AA@
-; File C:\10C\A\oe\KZOEMMAA.C
+; File c:\10c\A\oe\KZOEMMAA.C
 _DATA	SEGMENT
 ??_C@_0BK@PMAL@Freespace?5request?5invalid?$AA@ DB 'Freespace request inv'
 	DB	'alid', 00H					; `string'
@@ -2549,7 +2549,7 @@ PUBLIC	??_C@_0DK@MPFG@Allocating?5new?5space?5for?5Task?5?$CI0@ ; `string'
 EXTRN	_g_pfnGetHndl:DWORD
 EXTRN	_fnAllocSharedMemory@16:NEAR
 ;	COMDAT ??_C@_0DK@MPFG@Allocating?5new?5space?5for?5Task?5?$CI0@
-; File C:\10C\A\oe\KZOEMMAA.C
+; File c:\10c\A\oe\KZOEMMAA.C
 _DATA	SEGMENT
 ??_C@_0DK@MPFG@Allocating?5new?5space?5for?5Task?5?$CI0@ DB 'Allocating n'
 	DB	'ew space for Task (0x%08x) [0x%08x] size = %d', 00H ; `string'

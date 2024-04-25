@@ -1,4 +1,4 @@
-	TITLE	C:\10C\A\oe\KZOEEIAA.C
+	TITLE	c:\10c\A\oe\KZOEEIAA.C
 	.386P
 include listing.inc
 if @Version gt 510
@@ -918,7 +918,7 @@ EXTRN	_fnDropView@4:NEAR
 EXTRN	_CreateViewFromViewForTask@12:NEAR
 EXTRN	_fnIssueCoreError:NEAR
 ;	COMDAT ??_C@_0BM@PPJM@Entity?5Creation?5not?5allowed?$AA@
-; File C:\10C\A\oe\KZOEEIAA.C
+; File c:\10c\A\oe\KZOEEIAA.C
 _DATA	SEGMENT
 ??_C@_0BM@PPJM@Entity?5Creation?5not?5allowed?$AA@ DB 'Entity Creation no'
 	DB	't allowed', 00H				; `string'
@@ -3402,7 +3402,7 @@ PUBLIC	??_C@_0DC@CMIH@Entity?5Deletion?5not?5allowed?5?9?5ch@ ; `string'
 EXTRN	__imp__sprintf:NEAR
 EXTRN	_TraceLineS@8:NEAR
 ;	COMDAT ??_C@_00A@?$AA@
-; File C:\10C\A\oe\KZOEEIAA.C
+; File c:\10c\A\oe\KZOEEIAA.C
 _BSS	SEGMENT
 ??_C@_00A@?$AA@ DB 01H DUP (?)				; `string'
 _BSS	ENDS
@@ -4668,7 +4668,7 @@ PUBLIC	_ExcludeEntity@12
 PUBLIC	_fnExcludeEntity
 PUBLIC	??_C@_0BN@HDIE@Entity?5Exclusion?5not?5allowed?$AA@ ; `string'
 ;	COMDAT ??_C@_0BN@HDIE@Entity?5Exclusion?5not?5allowed?$AA@
-; File C:\10C\A\oe\KZOEEIAA.C
+; File c:\10c\A\oe\KZOEEIAA.C
 _DATA	SEGMENT
 ??_C@_0BN@HDIE@Entity?5Exclusion?5not?5allowed?$AA@ DB 'Entity Exclusion '
 	DB	'not allowed', 00H				; `string'
@@ -5233,7 +5233,7 @@ PUBLIC	??_C@_0O@IMEJ@?$FLWorkstation?$FN?$AA@		; `string'
 PUBLIC	??_C@_0DH@HEFK@LODs?5are?5potentially?5out?5of?5sync@ ; `string'
 EXTRN	_SysReadZeidonIni@16:NEAR
 ;	COMDAT ??_C@_0BN@OGJL@Source?5Entity?5not?5includeble?$AA@
-; File C:\10C\A\oe\KZOEEIAA.C
+; File c:\10c\A\oe\KZOEEIAA.C
 _DATA	SEGMENT
 ??_C@_0BN@OGJL@Source?5Entity?5not?5includeble?$AA@ DB 'Source Entity not'
 	DB	' includeble', 00H				; `string'
@@ -8478,7 +8478,7 @@ PUBLIC	_GetEntityKey@8
 EXTRN	_SysMessageBox@16:NEAR
 EXTRN	_fnValidateCursorParameters:NEAR
 ;	COMDAT ??_C@_0BM@MFFF@Entity?5Instance?5key?5is?5NULL?$AA@
-; File C:\10C\A\oe\KZOEEIAA.C
+; File c:\10c\A\oe\KZOEEIAA.C
 _DATA	SEGMENT
 ??_C@_0BM@MFFF@Entity?5Instance?5key?5is?5NULL?$AA@ DB 'Entity Instance k'
 	DB	'ey is NULL', 00H				; `string'
@@ -8601,7 +8601,7 @@ EXTRN	_fnAddEntityToDebugChange@4:NEAR
 EXTRN	_fnNullCursorForViewChildren:NEAR
 EXTRN	_fnAllocDataspace:NEAR
 ;	COMDAT ??_C@_0EL@COED@fnCreateEntity?5ERROR?5locating?5Re@
-; File C:\10C\A\oe\KZOEEIAA.C
+; File c:\10c\A\oe\KZOEEIAA.C
 _DATA	SEGMENT
 ??_C@_0EL@COED@fnCreateEntity?5ERROR?5locating?5Re@ DB 'fnCreateEntity ER'
 	DB	'ROR locating RecursViewEntity for lpViewSubobject: 0x%08x', 00H ; `string'
@@ -10047,7 +10047,7 @@ EXTRN	_TraceLineX@8:NEAR
 EXTRN	_fnValidViewCsr:NEAR
 EXTRN	_fnEntityNameFromCsr@4:NEAR
 ;	COMDAT ??_C@_0DI@HOGP@KZOEE119?5?9?5Invalid?5View?0?5View?5is@
-; File C:\10C\A\oe\KZOEEIAA.C
+; File c:\10c\A\oe\KZOEEIAA.C
 _DATA	SEGMENT
 ??_C@_0DI@HOGP@KZOEE119?5?9?5Invalid?5View?0?5View?5is@ DB 'KZOEE119 - In'
 	DB	'valid View, View is Read Only for Entity: ', 00H ; `string'
@@ -15349,7 +15349,7 @@ PUBLIC	??_C@_0BA@JIGI@?5dks?52007?404?423?$AA@		; `string'
 PUBLIC	??_C@_0CC@IILP@RemoveAllTemporal?5skipping?5break@ ; `string'
 EXTRN	_AcceptSubobject@8:NEAR
 ;	COMDAT ??_C@_0BA@JIGI@?5dks?52007?404?423?$AA@
-; File C:\10C\A\oe\KZOEEIAA.C
+; File c:\10c\A\oe\KZOEEIAA.C
 _DATA	SEGMENT
 ??_C@_0BA@JIGI@?5dks?52007?404?423?$AA@ DB ' dks 2007.04.23', 00H ; `string'
 _DATA	ENDS

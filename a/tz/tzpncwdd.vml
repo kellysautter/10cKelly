@@ -255,6 +255,7 @@ END
 DIALOG OPERATION
 SEL_CLONE_OK( VIEW vSubtask )
 
+   VIEW TZPNCTWO      REGISTERED AS TZPNCTWO
    VIEW OrigWindow    BASED ON LOD TZWDLGSO
    VIEW TempWindow    BASED ON LOD TZWDLGSO
    VIEW NewWindow     BASED ON LOD TZWDLGSO
@@ -300,7 +301,10 @@ SEL_CLONE_OK( VIEW vSubtask )
             RETURN -1
          END
 
+         // On 6/9/2023 DonC made the change to set the Clone Window flag to use SourceFile Name in Target Dialog.
+         TZPNCTWO.TZPNCTWO.CloneWindowSourceFileFlag = "T"
          CloneWindow( NewWindow, OrigWindow, SourceLPLR, vSubtask )
+         TZPNCTWO.TZPNCTWO.CloneWindowSourceFileFlag = ""
 
          // Set new window name if name was entered.
          IF vWork.TZPNCTWO.WindowName != ""

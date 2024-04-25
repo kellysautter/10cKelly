@@ -1,4 +1,4 @@
-	TITLE	C:\10C\a\oe\KZHSQLGA.C
+	TITLE	c:\10c\a\oe\KZHSQLGA.C
 	.386P
 include listing.inc
 if @Version gt 510
@@ -1258,7 +1258,7 @@ PUBLIC	_SqlBuildInsert@20
 PUBLIC	??_C@_02HJJN@?5?$CJ?$AA@			; `string'
 EXTRN	_strcat:NEAR
 ;	COMDAT ??_C@_02HJJN@?5?$CJ?$AA@
-; File C:\10C\a\oe\KZHSQLGA.C
+; File c:\10c\a\oe\KZHSQLGA.C
 _DATA	SEGMENT
 ??_C@_02HJJN@?5?$CJ?$AA@ DB ' )', 00H			; `string'
 _DATA	ENDS
@@ -1804,7 +1804,7 @@ PUBLIC	??_C@_02GIEM@?0?5?$AA@				; `string'
 PUBLIC	??_C@_01PJCK@?4?$AA@				; `string'
 EXTRN	_GetAttributeFlags@16:NEAR
 ;	COMDAT ??_C@_02GIEM@?0?5?$AA@
-; File C:\10C\a\oe\KZHSQLGA.C
+; File c:\10c\a\oe\KZHSQLGA.C
 _DATA	SEGMENT
 ??_C@_02GIEM@?0?5?$AA@ DB ', ', 00H			; `string'
 _DATA	ENDS
@@ -2537,7 +2537,7 @@ _fnSqlBuildColumnList ENDP
 _TEXT	ENDS
 PUBLIC	??_C@_03CKJJ@?5?0?5?$AA@			; `string'
 ;	COMDAT ??_C@_03CKJJ@?5?0?5?$AA@
-; File C:\10C\a\oe\KZHSQLGA.C
+; File c:\10c\a\oe\KZHSQLGA.C
 _DATA	SEGMENT
 ??_C@_03CKJJ@?5?0?5?$AA@ DB ' , ', 00H			; `string'
 _DATA	ENDS
@@ -3223,7 +3223,7 @@ _fnSqlGetAttributeValue ENDP
 _TEXT	ENDS
 PUBLIC	??_C@_04GOCP@null?$AA@				; `string'
 ;	COMDAT ??_C@_04GOCP@null?$AA@
-; File C:\10C\a\oe\KZHSQLGA.C
+; File c:\10c\a\oe\KZHSQLGA.C
 _DATA	SEGMENT
 ??_C@_04GOCP@null?$AA@ DB 'null', 00H			; `string'
 _DATA	ENDS
@@ -3310,7 +3310,7 @@ EXTRN	_SysMessageBox@16:NEAR
 EXTRN	_UfFormatDateTime@12:NEAR
 EXTRN	__imp__sprintf:NEAR
 ;	COMDAT ??_C@_0CJ@GMJF@Blobs?5not?5supported?5as?5string?5at@
-; File C:\10C\a\oe\KZHSQLGA.C
+; File c:\10c\a\oe\KZHSQLGA.C
 _DATA	SEGMENT
 ??_C@_0CJ@GMJF@Blobs?5not?5supported?5as?5string?5at@ DB 'Blobs not suppo'
 	DB	'rted as string attributes', 00H		; `string'
@@ -4238,7 +4238,7 @@ PUBLIC	??_C@_06JMOA@?5FROM?5?$AA@			; `string'
 PUBLIC	??_C@_09JNIL@?5WHERE?5?$CI?5?$AA@		; `string'
 PUBLIC	??_C@_07FAJG@?5WHERE?5?$AA@			; `string'
 ;	COMDAT ??_C@_06JMOA@?5FROM?5?$AA@
-; File C:\10C\a\oe\KZHSQLGA.C
+; File c:\10c\a\oe\KZHSQLGA.C
 _DATA	SEGMENT
 ??_C@_06JMOA@?5FROM?5?$AA@ DB ' FROM ', 00H		; `string'
 _DATA	ENDS
@@ -4509,7 +4509,7 @@ PUBLIC	??_C@_05DNFI@?5SET?5?$AA@			; `string'
 PUBLIC	??_C@_01FCOA@?5?$AA@				; `string'
 PUBLIC	??_C@_03FGJK@?5?$DN?5?$AA@			; `string'
 ;	COMDAT ??_C@_03FGJK@?5?$DN?5?$AA@
-; File C:\10C\a\oe\KZHSQLGA.C
+; File c:\10c\a\oe\KZHSQLGA.C
 _DATA	SEGMENT
 ??_C@_03FGJK@?5?$DN?5?$AA@ DB ' = ', 00H		; `string'
 _DATA	ENDS
@@ -5044,7 +5044,7 @@ PUBLIC	??_C@_05COPK@?5AND?5?$AA@			; `string'
 EXTRN	_TraceLineS@8:NEAR
 EXTRN	_IssueError@16:NEAR
 ;	COMDAT ??_C@_05COPK@?5AND?5?$AA@
-; File C:\10C\a\oe\KZHSQLGA.C
+; File c:\10c\a\oe\KZHSQLGA.C
 _DATA	SEGMENT
 ??_C@_05COPK@?5AND?5?$AA@ DB ' AND ', 00H		; `string'
 _DATA	ENDS
@@ -6238,7 +6238,7 @@ _TEXT	ENDS
 PUBLIC	_SqlBuildDelete@20
 PUBLIC	??_C@_0N@MCBO@DELETE?5FROM?5?$AA@		; `string'
 ;	COMDAT ??_C@_0N@MCBO@DELETE?5FROM?5?$AA@
-; File C:\10C\a\oe\KZHSQLGA.C
+; File c:\10c\a\oe\KZHSQLGA.C
 _DATA	SEGMENT
 ??_C@_0N@MCBO@DELETE?5FROM?5?$AA@ DB 'DELETE FROM ', 00H ; `string'
 _DATA	ENDS
@@ -7697,7 +7697,7 @@ PUBLIC	_SqlBuildSelect@24
 PUBLIC	??_C@_02DCOG@?$CI?5?$AA@			; `string'
 PUBLIC	??_C@_07EDAG@SELECT?5?$AA@			; `string'
 ;	COMDAT ??_C@_02DCOG@?$CI?5?$AA@
-; File C:\10C\a\oe\KZHSQLGA.C
+; File c:\10c\a\oe\KZHSQLGA.C
 _DATA	SEGMENT
 ??_C@_02DCOG@?$CI?5?$AA@ DB '( ', 00H			; `string'
 _DATA	ENDS
@@ -8480,7 +8480,7 @@ PUBLIC	??_C@_0M@PBEI@?5LEFT?5JOIN?5?$AA@		; `string'
 PUBLIC	??_C@_04DLNC@?5ON?5?$AA@			; `string'
 PUBLIC	??_C@_03GGJJ@?5?$CJ?5?$AA@			; `string'
 ;	COMDAT ??_C@_0BL@GEPD@Too?5many?5tables?5in?5SQL?5cmd?$AA@
-; File C:\10C\a\oe\KZHSQLGA.C
+; File c:\10c\a\oe\KZHSQLGA.C
 _DATA	SEGMENT
 ??_C@_0BL@GEPD@Too?5many?5tables?5in?5SQL?5cmd?$AA@ DB 'Too many tables i'
 	DB	'n SQL cmd', 00H				; `string'
@@ -10013,7 +10013,7 @@ _TEXT	ENDS
 PUBLIC	??_C@_03NND@?5AS?$AA@				; `string'
 EXTRN	__imp___ltoa:NEAR
 ;	COMDAT ??_C@_03NND@?5AS?$AA@
-; File C:\10C\a\oe\KZHSQLGA.C
+; File c:\10c\a\oe\KZHSQLGA.C
 _DATA	SEGMENT
 ??_C@_03NND@?5AS?$AA@ DB ' AS', 00H			; `string'
 _DATA	ENDS
@@ -10140,7 +10140,7 @@ _TEXT	ENDS
 PUBLIC	??_C@_06HNHI@?5INTO?5?$AA@			; `string'
 PUBLIC	??_C@_01PKAG@?3?$AA@				; `string'
 ;	COMDAT ??_C@_06HNHI@?5INTO?5?$AA@
-; File C:\10C\a\oe\KZHSQLGA.C
+; File c:\10c\a\oe\KZHSQLGA.C
 _DATA	SEGMENT
 ??_C@_06HNHI@?5INTO?5?$AA@ DB ' INTO ', 00H		; `string'
 _DATA	ENDS
@@ -10485,7 +10485,7 @@ PUBLIC	??_C@_0CJ@NCBL@Internal?5error?5?$CD11?9?9can?8t?5find?5R@ ; `string'
 PUBLIC	??_C@_0BL@NJCO@Zeidon?5SQL?5Generator?5Error?$AA@ ; `string'
 EXTRN	_MiGetViewEntityForView@8:NEAR
 ;	COMDAT ??_C@_0BG@JPHD@?$CI?$CD11?$CJ?5View?5OD?5Name?5?$DN?5?$AA@
-; File C:\10C\a\oe\KZHSQLGA.C
+; File c:\10c\a\oe\KZHSQLGA.C
 _DATA	SEGMENT
 ??_C@_0BG@JPHD@?$CI?$CD11?$CJ?5View?5OD?5Name?5?$DN?5?$AA@ DB '(#11) View'
 	DB	' OD Name = ', 00H				; `string'
@@ -12054,7 +12054,7 @@ PUBLIC	??_C@_05DBOO@UPPER?$AA@				; `string'
 EXTRN	__imp___strnicmp:NEAR
 EXTRN	_SysGetTaskFromView@4:NEAR
 ;	COMDAT ??_C@_05DBOO@UPPER?$AA@
-; File C:\10C\a\oe\KZHSQLGA.C
+; File c:\10c\a\oe\KZHSQLGA.C
 _DATA	SEGMENT
 ??_C@_05DBOO@UPPER?$AA@ DB 'UPPER', 00H			; `string'
 _DATA	ENDS
@@ -13648,7 +13648,7 @@ _fnSqlAddTableToSelect ENDP
 _TEXT	ENDS
 PUBLIC	??_C@_0L@OFNJ@?5?$CI?5SELECT?5?$AA@		; `string'
 ;	COMDAT ??_C@_0L@OFNJ@?5?$CI?5SELECT?5?$AA@
-; File C:\10C\a\oe\KZHSQLGA.C
+; File c:\10c\a\oe\KZHSQLGA.C
 _DATA	SEGMENT
 ??_C@_0L@OFNJ@?5?$CI?5SELECT?5?$AA@ DB ' ( SELECT ', 00H ; `string'
 _DATA	ENDS
@@ -14479,7 +14479,7 @@ PUBLIC	??_C@_07DHPL@KZH0202?$AA@			; `string'
 EXTRN	_MessageSend@24:NEAR
 EXTRN	_GetStringFromAttribute@16:NEAR
 ;	COMDAT ??_C@_0CG@FFMP@Cursor?5is?5NULL?5for?5attribute?5?8?$EA?$CF@
-; File C:\10C\a\oe\KZHSQLGA.C
+; File c:\10c\a\oe\KZHSQLGA.C
 _DATA	SEGMENT
 ??_C@_0CG@FFMP@Cursor?5is?5NULL?5for?5attribute?5?8?$EA?$CF@ DB 'Cursor i'
 	DB	's NULL for attribute ''@%s.%s''', 00H	; `string'
@@ -15474,7 +15474,7 @@ EXTRN	_StoreStringInRecord@16:NEAR
 EXTRN	_LoadEntity@16:NEAR
 EXTRN	_DropEntity@12:NEAR
 ;	COMDAT ??_C@_0BN@GKLN@?$CIkzhsqlga?$CJ?5Internal?5error?5?$CD2?$AA@
-; File C:\10C\a\oe\KZHSQLGA.C
+; File c:\10c\a\oe\KZHSQLGA.C
 _DATA	SEGMENT
 ??_C@_0BN@GKLN@?$CIkzhsqlga?$CJ?5Internal?5error?5?$CD2?$AA@ DB '(kzhsqlg'
 	DB	'a) Internal error #2', 00H			; `string'
@@ -17478,7 +17478,7 @@ _TEXT	ENDS
 PUBLIC	??_C@_0L@GLGB@?5ORDER?5BY?5?$AA@		; `string'
 PUBLIC	??_C@_05PLAL@?5DESC?$AA@			; `string'
 ;	COMDAT ??_C@_0L@GLGB@?5ORDER?5BY?5?$AA@
-; File C:\10C\a\oe\KZHSQLGA.C
+; File c:\10c\a\oe\KZHSQLGA.C
 _DATA	SEGMENT
 ??_C@_0L@GLGB@?5ORDER?5BY?5?$AA@ DB ' ORDER BY ', 00H	; `string'
 _DATA	ENDS
@@ -17931,7 +17931,7 @@ _fnGenerateOrderBy ENDP
 _TEXT	ENDS
 PUBLIC	??_C@_0CH@LDBH@Invalid?5Sequencing?5defined?5for?5E@ ; `string'
 ;	COMDAT ??_C@_0CH@LDBH@Invalid?5Sequencing?5defined?5for?5E@
-; File C:\10C\a\oe\KZHSQLGA.C
+; File c:\10c\a\oe\KZHSQLGA.C
 _DATA	SEGMENT
 ??_C@_0CH@LDBH@Invalid?5Sequencing?5defined?5for?5E@ DB 'Invalid Sequenci'
 	DB	'ng defined for Entity ', 00H		; `string'
@@ -18521,7 +18521,7 @@ PUBLIC	??_C@_0BL@KJOM@?5?5bContainsSubselect?3?5TRUE?$AA@ ; `string'
 PUBLIC	??_C@_0BM@LAPF@?5?5bContainsSubselect?3?5FALSE?$AA@ ; `string'
 PUBLIC	_SqlDisplayQualEntity@8
 ;	COMDAT ??_C@_00A@?$AA@
-; File C:\10C\a\oe\KZHSQLGA.C
+; File c:\10c\a\oe\KZHSQLGA.C
 _BSS	SEGMENT
 ??_C@_00A@?$AA@ DB 01H DUP (?)				; `string'
 _BSS	ENDS
@@ -18725,7 +18725,7 @@ PUBLIC	??_C@_0BF@OLCB@Source?5Entity?5name?3?5?$AA@	; `string'
 PUBLIC	??_C@_0BF@DAIK@Source?5Attrib?5name?3?5?$AA@	; `string'
 PUBLIC	??_C@_0BG@HNMB@SourceView?5is?5defined?$AA@	; `string'
 ;	COMDAT ??_C@_0BD@PCAK@?9?9?9?5QualAttrib?5?9?9?9?$AA@
-; File C:\10C\a\oe\KZHSQLGA.C
+; File c:\10c\a\oe\KZHSQLGA.C
 _DATA	SEGMENT
 ??_C@_0BD@PCAK@?9?9?9?5QualAttrib?5?9?9?9?$AA@ DB '--- QualAttrib ---', 00H ; `string'
 _DATA	ENDS
@@ -19264,7 +19264,7 @@ PUBLIC	??_C@_03LACO@AND?$AA@				; `string'
 PUBLIC	??_C@_0M@ELME@IS?5NOT?5NULL?$AA@		; `string'
 PUBLIC	??_C@_01GFI@?$CI?$AA@				; `string'
 ;	COMDAT ??_C@_01KMMP@?$CJ?$AA@
-; File C:\10C\a\oe\KZHSQLGA.C
+; File c:\10c\a\oe\KZHSQLGA.C
 _DATA	SEGMENT
 ??_C@_01KMMP@?$CJ?$AA@ DB ')', 00H			; `string'
 _DATA	ENDS
@@ -19585,7 +19585,7 @@ _fnAllocOper ENDP
 _TEXT	ENDS
 PUBLIC	??_C@_0BI@HMNO@Cannot?5allocate?5memory?4?$AA@	; `string'
 ;	COMDAT ??_C@_0BI@HMNO@Cannot?5allocate?5memory?4?$AA@
-; File C:\10C\a\oe\KZHSQLGA.C
+; File c:\10c\a\oe\KZHSQLGA.C
 _DATA	SEGMENT
 ??_C@_0BI@HMNO@Cannot?5allocate?5memory?4?$AA@ DB 'Cannot allocate memory'
 	DB	'.', 00H					; `string'
@@ -19844,7 +19844,7 @@ PUBLIC	??_C@_0BN@OKLO@Qualification?5Object?5Warning?$AA@ ; `string'
 PUBLIC	??_C@_07MIEC@KZH0201?$AA@			; `string'
 EXTRN	_DisplayEntityInstancePath@8:NEAR
 ;	COMDAT ??_C@_07JCGI@Warning?$AA@
-; File C:\10C\a\oe\KZHSQLGA.C
+; File c:\10c\a\oe\KZHSQLGA.C
 _DATA	SEGMENT
 ??_C@_07JCGI@Warning?$AA@ DB 'Warning', 00H		; `string'
 _DATA	ENDS
@@ -20072,7 +20072,7 @@ EXTRN	_SetCursorNextEntity@12:NEAR
 EXTRN	__imp__strstr:NEAR
 EXTRN	_SetCursorFirstEntity@12:NEAR
 ;	COMDAT ??_C@_0BH@PEAG@Cannot?5allocate?5memory?$AA@
-; File C:\10C\a\oe\KZHSQLGA.C
+; File c:\10c\a\oe\KZHSQLGA.C
 _DATA	SEGMENT
 ??_C@_0BH@PEAG@Cannot?5allocate?5memory?$AA@ DB 'Cannot allocate memory', 00H ; `string'
 _DATA	ENDS
@@ -21255,7 +21255,7 @@ EXTRN	_SetCursorPrevEntity@12:NEAR
 EXTRN	_SetCursorLastEntity@12:NEAR
 EXTRN	__imp__malloc:NEAR
 ;	COMDAT ??_C@_04FKDH@Oper?$AA@
-; File C:\10C\a\oe\KZHSQLGA.C
+; File c:\10c\a\oe\KZHSQLGA.C
 _DATA	SEGMENT
 ??_C@_04FKDH@Oper?$AA@ DB 'Oper', 00H			; `string'
 _DATA	ENDS
@@ -25219,7 +25219,7 @@ PUBLIC	??_C@_04CBCM@H?3MI?$AA@				; `string'
 PUBLIC	??_C@_0BC@OOFP@19000101000000000?$AA@		; `string'
 EXTRN	_UfEditFormatDateTime@8:NEAR
 ;	COMDAT ??_C@_08IHH@YYYYMMDD?$AA@
-; File C:\10C\a\oe\KZHSQLGA.C
+; File c:\10c\a\oe\KZHSQLGA.C
 _DATA	SEGMENT
 ??_C@_08IHH@YYYYMMDD?$AA@ DB 'YYYYMMDD', 00H		; `string'
 _DATA	ENDS
@@ -26185,7 +26185,7 @@ PUBLIC	??_C@_07FJEG@VALUES?5?$AA@			; `string'
 PUBLIC	??_C@_06ICCC@WHERE?5?$AA@			; `string'
 EXTRN	__imp__strncpy:NEAR
 ;	COMDAT ??_C@_03JBJA@ON?5?$AA@
-; File C:\10C\a\oe\KZHSQLGA.C
+; File c:\10c\a\oe\KZHSQLGA.C
 _DATA	SEGMENT
 ??_C@_03JBJA@ON?5?$AA@ DB 'ON ', 00H			; `string'
 _DATA	ENDS
@@ -27481,7 +27481,7 @@ PUBLIC	??_C@_01KHHK@?$FO?$AA@				; `string'
 EXTRN	_SysMalloc@4:NEAR
 EXTRN	_SysFree@4:NEAR
 ;	COMDAT ??_C@_06DDKN@ERR?$DO?5?5?$AA@
-; File C:\10C\a\oe\KZHSQLGA.C
+; File c:\10c\a\oe\KZHSQLGA.C
 _DATA	SEGMENT
 ??_C@_06DDKN@ERR?$DO?5?5?$AA@ DB 'ERR>  ', 00H		; `string'
 _DATA	ENDS
@@ -27865,7 +27865,7 @@ _TEXT	ENDS
 PUBLIC	_fnTraceSql@8
 PUBLIC	??_C@_06FEFN@SQL?$DO?5?5?$AA@			; `string'
 ;	COMDAT ??_C@_06FEFN@SQL?$DO?5?5?$AA@
-; File C:\10C\a\oe\KZHSQLGA.C
+; File c:\10c\a\oe\KZHSQLGA.C
 _DATA	SEGMENT
 ??_C@_06FEFN@SQL?$DO?5?5?$AA@ DB 'SQL>  ', 00H		; `string'
 _DATA	ENDS

@@ -1,0 +1,49 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: Z2MP - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating command line "rc.exe /l 0x409 /fo".\Debug/Z2MP.res" /d "_DEBUG" /d "_AFXDLL" "C:\10c\a\zdr\Z2MP.rc"" 
+Creating temporary file "C:\Users\kelly\AppData\Local\Temp\RSP463C.tmp" with contents
+[
+/nologo /MDd /W3 /WX /Gm /GX /ZI /Od /I "c:\10c\w\incz" /I "c:\10c\w\incr" /I "c:\10c\a\incz" /I "c:\10c\a\incr" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_WINDLL" /D "_AFXDLL" /D "_MBCS" /D "_USRDLL" /D "__WIN32__" /D "QUINSOFT" /D "_NOANCHOR" /FR".\Debug/" /Fp".\Debug/Z2MP.pch" /Yu"mpna81.h" /Fo".\Debug/" /Fd".\Debug/" /FD /GZ /c 
+"C:\10c\a\zdr\Z2MP.cpp"
+"C:\10c\a\zdr\Z2MPAPI.CPP"
+]
+Creating command line "cl.exe @C:\Users\kelly\AppData\Local\Temp\RSP463C.tmp" 
+Creating temporary file "C:\Users\kelly\AppData\Local\Temp\RSP464C.tmp" with contents
+[
+/nologo /MDd /W3 /WX /Gm /GX /ZI /Od /I "c:\10c\w\incz" /I "c:\10c\w\incr" /I "c:\10c\a\incz" /I "c:\10c\a\incr" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_WINDLL" /D "_AFXDLL" /D "_MBCS" /D "_USRDLL" /D "__WIN32__" /D "QUINSOFT" /D "_NOANCHOR" /FR".\Debug/" /Fp".\Debug/Z2MP.pch" /Yc"mpna81.h" /Fo".\Debug/" /Fd".\Debug/" /FD /GZ /c 
+"C:\10c\a\zdr\mpna81.cpp"
+]
+Creating command line "cl.exe @C:\Users\kelly\AppData\Local\Temp\RSP464C.tmp" 
+Creating temporary file "C:\Users\kelly\AppData\Local\Temp\RSP464D.tmp" with contents
+[
+kzoengaa.lib zdrapp.lib /nologo /subsystem:windows /dll /incremental:yes /pdb:".\Debug/Z2MP.pdb" /debug /machine:I386 /def:".\Z2MP.def" /out:"..\..\w\bin\Z2MP.dll" /implib:"..\..\w\libr\Z2MP.lib" /pdbtype:sept /libpath:"c:\10c\w\libz" /libpath:"c:\10c\w\libr" 
+.\Debug\mpna81.obj
+.\Debug\Z2MP.obj
+.\Debug\Z2MPAPI.OBJ
+.\Debug\Z2MP.res
+]
+Creating command line "link.exe @C:\Users\kelly\AppData\Local\Temp\RSP464D.tmp"
+<h3>Output Window</h3>
+Compiling resources...
+Compiling...
+mpna81.cpp
+Compiling...
+Z2MP.cpp
+Z2MPAPI.CPP
+Generating Code...
+Linking...
+   Creating library ..\..\w\libr\Z2MP.lib and object ..\..\w\libr\Z2MP.exp
+
+
+
+<h3>Results</h3>
+Z2MP.dll - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

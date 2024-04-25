@@ -1,4 +1,4 @@
-	TITLE	C:\10C\A\oe\KZOEODAA.C
+	TITLE	c:\10c\A\oe\KZOEODAA.C
 	.386P
 include listing.inc
 if @Version gt 510
@@ -180,7 +180,7 @@ EXTRN	_szlOFRECID:DWORD
 EXTRN	_szlOFBUFSZ:DWORD
 EXTRN	_szlOPER_LIBNM:DWORD
 ;	COMDAT ??_C@_08OGPE@CACHENUM?$AA@
-; File C:\10C\A\oe\KZOEODAA.C
+; File c:\10c\A\oe\KZOEODAA.C
 _DATA	SEGMENT
 ??_C@_08OGPE@CACHENUM?$AA@ DB 'CACHENUM', 00H		; `string'
 _DATA	ENDS
@@ -2198,7 +2198,7 @@ EXTRN	_fnIssueCoreError:NEAR
 EXTRN	_szlSERVER:DWORD
 EXTRN	_szlUPDATE:DWORD
 ;	COMDAT ??_C@_08BHLN@ABSTRACT?$AA@
-; File C:\10C\A\oe\KZOEODAA.C
+; File c:\10c\A\oe\KZOEODAA.C
 _DATA	SEGMENT
 ??_C@_08BHLN@ABSTRACT?$AA@ DB 'ABSTRACT', 00H		; `string'
 _DATA	ENDS
@@ -4650,7 +4650,7 @@ EXTRN	_szlTYPE:DWORD
 EXTRN	_szlUP_DATE:DWORD
 EXTRN	_szlUSERID:DWORD
 ;	COMDAT ??_C@_07KJPG@DB_OPER?$AA@
-; File C:\10C\A\oe\KZOEODAA.C
+; File c:\10c\A\oe\KZOEODAA.C
 _DATA	SEGMENT
 ??_C@_07KJPG@DB_OPER?$AA@ DB 'DB_OPER', 00H		; `string'
 _DATA	ENDS
@@ -7473,7 +7473,7 @@ PUBLIC	??_C@_04JIJO@JOIN?$AA@				; `string'
 EXTRN	_szlRECID:DWORD
 EXTRN	_szlRECNAME:DWORD
 ;	COMDAT ??_C@_04JIJO@JOIN?$AA@
-; File C:\10C\A\oe\KZOEODAA.C
+; File c:\10c\A\oe\KZOEODAA.C
 _DATA	SEGMENT
 ??_C@_04JIJO@JOIN?$AA@ DB 'JOIN', 00H			; `string'
 _DATA	ENDS
@@ -9168,7 +9168,7 @@ EXTRN	_TraceLineS@8:NEAR
 EXTRN	_TraceLine:NEAR
 EXTRN	_memset:NEAR
 ;	COMDAT ??_C@_00A@?$AA@
-; File C:\10C\A\oe\KZOEODAA.C
+; File c:\10c\A\oe\KZOEODAA.C
 _BSS	SEGMENT
 ??_C@_00A@?$AA@ DB 01H DUP (?)				; `string'
 _BSS	ENDS
@@ -9923,7 +9923,7 @@ EXTRN	_SysCloseFile@12:NEAR
 EXTRN	_szlRELFIELD:DWORD
 EXTRN	_szlRELRECORD:DWORD
 ;	COMDAT ??_C@_0CE@LLEF@?$CIod?$CJ?5opening?5Object?5Def?5file?5Nam@
-; File C:\10C\A\oe\KZOEODAA.C
+; File c:\10c\A\oe\KZOEODAA.C
 _DATA	SEGMENT
 ??_C@_0CE@LLEF@?$CIod?$CJ?5opening?5Object?5Def?5file?5Nam@ DB '(od) open'
 	DB	'ing Object Def file Name: ', 00H		; `string'
@@ -12205,7 +12205,7 @@ PUBLIC	??_C@_0DE@BPPH@Deleting?5Object?5Definition?5?$CI0x?$CF0@ ; `string'
 EXTRN	_fnDropTaskOperation@8:NEAR
 EXTRN	_fnFreeDataspace:NEAR
 ;	COMDAT ??_C@_0DE@BPPH@Deleting?5Object?5Definition?5?$CI0x?$CF0@
-; File C:\10C\A\oe\KZOEODAA.C
+; File c:\10c\A\oe\KZOEODAA.C
 _DATA	SEGMENT
 ??_C@_0DE@BPPH@Deleting?5Object?5Definition?5?$CI0x?$CF0@ DB 'Deleting Ob'
 	DB	'ject Definition (0x%08x): %s for App: %s', 00H ; `string'
@@ -12740,7 +12740,7 @@ EXTRN	__imp__sprintf:NEAR
 EXTRN	_fnOperationCall:NEAR
 EXTRN	_fnOperationReturn:NEAR
 ;	COMDAT ??_C@_0BJ@NENA@View?5referencing?5?8?$CFs?8?5?$DN?5?$AA@
-; File C:\10C\A\oe\KZOEODAA.C
+; File c:\10c\A\oe\KZOEODAA.C
 _DATA	SEGMENT
 ??_C@_0BJ@NENA@View?5referencing?5?8?$CFs?8?5?$DN?5?$AA@ DB 'View referen'
 	DB	'cing ''%s'' = ', 00H			; `string'

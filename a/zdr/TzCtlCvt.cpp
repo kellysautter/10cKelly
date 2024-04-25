@@ -1871,7 +1871,7 @@ ConvertRadioBtn( zVIEW   vSubtask,
 
    CreateEntity( vTgtRemote, "RadioButton", zPOS_AFTER );
    GetAddrForAttribute( (zCOREMEM) &pch, vSrcDialog, szlControl, szlCtrlBOI );
-   if ( *pch )
+   if ( pch )
    {
       zULONG ulSubtype;
       zVIEW  vGroup;

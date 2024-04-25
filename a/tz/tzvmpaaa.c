@@ -1458,6 +1458,7 @@ RemoveTabs( zPCHAR pchWork )
    zPCHAR pch;
    zSHORT nTab = 0;
    zSHORT nLth = zstrlen( qqin );
+   zSHORT i = 0;
 
    // Count the tabs.
    pch = qqin;

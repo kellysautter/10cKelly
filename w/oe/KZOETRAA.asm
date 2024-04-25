@@ -1,4 +1,4 @@
-	TITLE	C:\10C\A\oe\KZOETRAA.C
+	TITLE	c:\10c\A\oe\KZOETRAA.C
 	.386P
 include listing.inc
 if @Version gt 510
@@ -686,7 +686,7 @@ EXTRN	__imp___ltoa:NEAR
 EXTRN	_SysGetOperationMessage@12:NEAR
 EXTRN	_SysGetDateTime@4:NEAR
 ;	COMDAT ??_C@_00A@?$AA@
-; File C:\10C\A\oe\KZOETRAA.C
+; File c:\10c\A\oe\KZOETRAA.C
 _BSS	SEGMENT
 ??_C@_00A@?$AA@ DB 01H DUP (?)				; `string'
 _BSS	ENDS
@@ -1547,7 +1547,7 @@ EXTRN	_strlen:NEAR
 EXTRN	__imp__strrchr:NEAR
 EXTRN	_g_hAnchorBlock:DWORD
 ;	COMDAT ??_C@_06ONKE@?$CInull?$CJ?$AA@
-; File C:\10C\A\oe\KZOETRAA.C
+; File c:\10c\A\oe\KZOETRAA.C
 _DATA	SEGMENT
 ??_C@_06ONKE@?$CInull?$CJ?$AA@ DB '(null)', 00H		; `string'
 _DATA	ENDS
@@ -2119,7 +2119,7 @@ PUBLIC	??_C@_0BL@JLBH@Error?5formatting?5message?3?5?$AA@ ; `string'
 EXTRN	__imp___vsnprintf:NEAR
 EXTRN	__chkstk:NEAR
 ;	COMDAT ??_C@_0BL@JLBH@Error?5formatting?5message?3?5?$AA@
-; File C:\10C\A\oe\KZOETRAA.C
+; File c:\10c\A\oe\KZOETRAA.C
 _DATA	SEGMENT
 ??_C@_0BL@JLBH@Error?5formatting?5message?3?5?$AA@ DB 'Error formatting m'
 	DB	'essage: ', 00H				; `string'
@@ -2209,7 +2209,7 @@ PUBLIC	??_C@_01PLJA@0?$AA@				; `string'
 PUBLIC	??_C@_01FCOA@?5?$AA@				; `string'
 EXTRN	__imp__sprintf:NEAR
 ;	COMDAT ??_C@_0CE@NBGF@?$CFs?5?5?$CFd?5Repeat?5Lines?5?$CI?$CF4d?5thru?5?$CF4@
-; File C:\10C\A\oe\KZOETRAA.C
+; File c:\10c\A\oe\KZOETRAA.C
 _DATA	SEGMENT
 ??_C@_0CE@NBGF@?$CFs?5?5?$CFd?5Repeat?5Lines?5?$CI?$CF4d?5thru?5?$CF4@ DB '%'
 	DB	's  %d Repeat Lines (%4d thru %4d) ', 00H	; `string'
@@ -3083,7 +3083,7 @@ EXTRN	_fnOperationReturn:NEAR
 EXTRN	_fnValidViewEntity@16:NEAR
 EXTRN	_fnEstablishCursorForView:NEAR
 ;	COMDAT ??_C@_0CO@IMKJ@Entity?5Instance?5Display?3?5?$CFs?5?5for@
-; File C:\10C\A\oe\KZOETRAA.C
+; File c:\10c\A\oe\KZOETRAA.C
 _DATA	SEGMENT
 ??_C@_0CO@IMKJ@Entity?5Instance?5Display?3?5?$CFs?5?5for@ DB 'Entity Inst'
 	DB	'ance Display: %s  for view: 0x%08x', 00H	; `string'
@@ -3341,7 +3341,7 @@ EXTRN	_CreateViewFromViewForTask@12:NEAR
 EXTRN	_DropView@4:NEAR
 EXTRN	_fnEstablishViewForInstance:NEAR
 ;	COMDAT ??_C@_04NCHB@?9?9?9?9?$AA@
-; File C:\10C\A\oe\KZOETRAA.C
+; File c:\10c\A\oe\KZOETRAA.C
 _DATA	SEGMENT
 ??_C@_04NCHB@?9?9?9?9?$AA@ DB '----', 00H		; `string'
 _DATA	ENDS
@@ -3699,7 +3699,7 @@ EXTRN	_ResetViewPositions@4:NEAR
 EXTRN	_strcmp:NEAR
 EXTRN	_fnResetCursorForViewChildren:NEAR
 ;	COMDAT ??_C@_0CE@PFDL@Object?5Instance?5is?5NULL?5for?5enti@
-; File C:\10C\A\oe\KZOETRAA.C
+; File c:\10c\A\oe\KZOETRAA.C
 _DATA	SEGMENT
 ??_C@_0CE@PFDL@Object?5Instance?5is?5NULL?5for?5enti@ DB 'Object Instance'
 	DB	' is NULL for entity ', 00H			; `string'
@@ -4293,7 +4293,7 @@ EXTRN	_fnGetStringFromAttribute:NEAR
 EXTRN	_fnGetAttributeLength:NEAR
 EXTRN	_SysReadZeidonIni@16:NEAR
 ;	COMDAT ??_C@_0BD@MPLN@TraceAllAttributes?$AA@
-; File C:\10C\A\oe\KZOETRAA.C
+; File c:\10c\A\oe\KZOETRAA.C
 _DATA	SEGMENT
 ??_C@_0BD@MPLN@TraceAllAttributes?$AA@ DB 'TraceAllAttributes', 00H ; `string'
 _DATA	ENDS
@@ -5262,7 +5262,7 @@ PUBLIC	??_C@_0P@GPAM@?5?5?5?5?5?5?5is?5NULL?$AA@	; `string'
 PUBLIC	??_C@_0P@MACG@?5?5?5?5?5?5?5level?5?5?$AA@	; `string'
 PUBLIC	??_C@_0P@HFNI@?5?5?5?5?5?5?5name?5?5?5?$AA@	; `string'
 ;	COMDAT ??_C@_0BB@LHDO@EntityInstance?5?5?$AA@
-; File C:\10C\A\oe\KZOETRAA.C
+; File c:\10c\A\oe\KZOETRAA.C
 _DATA	SEGMENT
 ??_C@_0BB@LHDO@EntityInstance?5?5?$AA@ DB 'EntityInstance  ', 00H ; `string'
 _DATA	ENDS
@@ -5388,7 +5388,7 @@ PUBLIC	_fnShowViewEntityCsrInfo
 PUBLIC	??_C@_09BLKP@EntityCsr?$AA@			; `string'
 PUBLIC	??_C@_0P@JBBB@?5?5?5?5?5?5?5hier?5?5?5?$AA@	; `string'
 ;	COMDAT ??_C@_09BLKP@EntityCsr?$AA@
-; File C:\10C\A\oe\KZOETRAA.C
+; File c:\10c\A\oe\KZOETRAA.C
 _DATA	SEGMENT
 ??_C@_09BLKP@EntityCsr?$AA@ DB 'EntityCsr', 00H		; `string'
 _DATA	ENDS
@@ -5516,7 +5516,7 @@ PUBLIC	??_C@_0BM@HBPI@?5?5?5?5?5?5?5?5?5?5?5?5View?5Entity?5Csr?$AA@ ; `string'
 PUBLIC	??_C@_0BO@BAPJ@?5?5?5?5?5?5?5?5Parent?5EntityInstance?$AA@ ; `string'
 PUBLIC	??_C@_0CB@GMNE@?4?4End?5Recursive?5subobject?5info?4?4@ ; `string'
 ;	COMDAT ??_C@_0BN@IGGG@View?5Cursor?5Info?5for?5Object?5?$AA@
-; File C:\10C\A\oe\KZOETRAA.C
+; File c:\10c\A\oe\KZOETRAA.C
 _DATA	SEGMENT
 ??_C@_0BN@IGGG@View?5Cursor?5Info?5for?5Object?5?$AA@ DB 'View Cursor Inf'
 	DB	'o for Object ', 00H				; `string'
@@ -6213,7 +6213,7 @@ PUBLIC	??_C@_0BE@EHDI@?5?5?5?5?5?5?5?5?5?5bRelLink1?$AA@ ; `string'
 PUBLIC	??_C@_0BM@INHE@?5?5?5?5?5?5?5?5?5?5bCreateConstraint?$AA@ ; `string'
 PUBLIC	??_C@_0BM@OIDA@?5?5?5?5?5?5?5?5?5?5bDeleteConstraint?$AA@ ; `string'
 ;	COMDAT ??_C@_0BF@PMND@?5?5?5?5?5?5ENTITY?5Name?5?$DN?5?$AA@
-; File C:\10C\A\oe\KZOETRAA.C
+; File c:\10c\A\oe\KZOETRAA.C
 _DATA	SEGMENT
 ??_C@_0BF@PMND@?5?5?5?5?5?5ENTITY?5Name?5?$DN?5?$AA@ DB '      ENTITY Nam'
 	DB	'e = ', 00H					; `string'
@@ -7272,7 +7272,7 @@ PUBLIC	??_C@_0BO@PBAD@?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5bSequencingD?$AA@ ; `str
 PUBLIC	??_C@_0BL@LHG@?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5bNoUpdate?$AA@ ; `string'
 PUBLIC	??_C@_0BP@CCOP@?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5bNoPersistUpd?$AA@ ; `string'
 ;	COMDAT ??_C@_0CA@IONI@?5?5?5?5?5?5?5?5?5?5?5?5?5?5ATTRIBUTE?5Name?5?$DN?5?$AA@
-; File C:\10C\A\oe\KZOETRAA.C
+; File c:\10c\A\oe\KZOETRAA.C
 _DATA	SEGMENT
 ??_C@_0CA@IONI@?5?5?5?5?5?5?5?5?5?5?5?5?5?5ATTRIBUTE?5Name?5?$DN?5?$AA@ DB ' '
 	DB	'             ATTRIBUTE Name = ', 00H	; `string'
@@ -7825,7 +7825,7 @@ PUBLIC	??_C@_0CD@LEMB@?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5Rel?5entity?5@ ;
 PUBLIC	??_C@_0CD@JEEK@?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5Rel?5attrib?5@ ; `string'
 PUBLIC	??_C@_0CD@CMCO@?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5?5Field?5name?5@ ; `string'
 ;	COMDAT ??_C@_0BK@CKGB@Tracing?5object?5definition?$AA@
-; File C:\10C\A\oe\KZOETRAA.C
+; File c:\10c\A\oe\KZOETRAA.C
 _DATA	SEGMENT
 ??_C@_0BK@CKGB@Tracing?5object?5definition?$AA@ DB 'Tracing object defini'
 	DB	'tion', 00H					; `string'
@@ -10464,7 +10464,7 @@ PUBLIC	??_C@_0DA@FNCN@?$CItr?$CJ?5CompareOI_ToOI?5?9?5Entity?5Str@ ; `string'
 PUBLIC	??_C@_0CP@DLAG@?$CItr?$CJ?5CompareOI_ToOI?5?9?5Entity?5Ins@ ; `string'
 PUBLIC	??_C@_06PADD@?5Empty?$AA@			; `string'
 ;	COMDAT ??_C@_0DA@FNCN@?$CItr?$CJ?5CompareOI_ToOI?5?9?5Entity?5Str@
-; File C:\10C\A\oe\KZOETRAA.C
+; File c:\10c\A\oe\KZOETRAA.C
 _DATA	SEGMENT
 ??_C@_0DA@FNCN@?$CItr?$CJ?5CompareOI_ToOI?5?9?5Entity?5Str@ DB '(tr) Comp'
 	DB	'areOI_ToOI - Entity Structure mismatch', 00H ; `string'
@@ -10836,7 +10836,7 @@ PUBLIC	??_C@_0DE@HGD@?$CItr?$CJ?5CompareOI_ToOI?5?9?5Src?5and?5Tg@ ; `string'
 PUBLIC	_CompareOI_ToOI@8
 EXTRN	_fnValidViewCsr:NEAR
 ;	COMDAT ??_C@_0CG@EHFN@CompareOI_ToOI?5?9?5Object?5type?5mis@
-; File C:\10C\A\oe\KZOETRAA.C
+; File c:\10c\A\oe\KZOETRAA.C
 _DATA	SEGMENT
 ??_C@_0CG@EHFN@CompareOI_ToOI?5?9?5Object?5type?5mis@ DB 'CompareOI_ToOI '
 	DB	'- Object type mismatch', 00H		; `string'

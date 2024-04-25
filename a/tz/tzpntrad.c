@@ -9444,8 +9444,8 @@ fnCloneCtrlMap( zVIEW     vTgt,
                 zVIEW     vSrcLPLR,
                 zVIEW     vSubtask )
 {
-   zVIEW     vLOD;
-   zVIEW     vLOD_List;
+   zVIEW     vLOD = NULL;
+   zVIEW     vLOD_List = NULL;
    zCHAR     szMsg[ 65 ];
    zCHAR     szTag[ 33 ];
    zSHORT    nRC;
@@ -9480,27 +9480,29 @@ fnCloneCtrlMap( zVIEW     vTgt,
 
    if ( CheckExistenceOfEntity( vSrcC, "CtrlMapLOD_Entity" ) >= 0 )
    {
-      GetViewByName( &vLOD, "TZTMPLOD", vSubtask, zLEVEL_TASK );
       GetStringFromAttribute( szTag, vSrcC, "CtrlMapLOD_Entity", "Name" );
-      nRC = SetCursorFirstEntityByString( vLOD, "LOD_Entity", "Name",
-                                          szTag, 0 );
-      if ( nRC >= 0 )
+      if ( GetViewByName( &vLOD, "TZTMPLOD", vSubtask, zLEVEL_TASK ) >= 0 )
       {
-         IncludeSubobjectFromSubobject( vTgtC, "CtrlMapLOD_Entity",
-                                        vLOD, "LOD_Entity", zPOS_AFTER );
-      }
-      else
-      {
-         GetVariableFromAttribute( szTag, 0, 'S', 33, vSrcC,
-                                   "CtrlMapLOD_Entity", "Name", "", 0 );
-         zstrcpy( szMsg, "LOD_Entity doesn't exist: " );
-         zstrcat( szMsg, szTag );
-         MessageSend( vSubtask, "WD00209", "Control Clone",
-                      szMsg, zMSGQ_OBJECT_CONSTRAINT_WARNING, 0 );
+         nRC = SetCursorFirstEntityByString( vLOD, "LOD_Entity", "Name",
+                                             szTag, 0 );
+         if ( nRC >= 0 )
+         {
+            IncludeSubobjectFromSubobject( vTgtC, "CtrlMapLOD_Entity",
+                                           vLOD, "LOD_Entity", zPOS_AFTER );
+         }
+         else
+         {
+            GetVariableFromAttribute( szTag, 0, 'S', 33, vSrcC,
+                                      "CtrlMapLOD_Entity", "Name", "", 0 );
+            zstrcpy( szMsg, "LOD_Entity doesn't exist: " );
+            zstrcat( szMsg, szTag );
+            MessageSend( vSubtask, "WD00209", "Control Clone",
+                         szMsg, zMSGQ_OBJECT_CONSTRAINT_WARNING, 0 );
+         }
       }
    }
 
-   if ( CheckExistenceOfEntity( vSrcC, "CtrlMapLOD_Attribute" ) >= 0 )
+   if ( CheckExistenceOfEntity( vSrcC, "CtrlMapLOD_Attribute" ) >= 0 && vLOD != NULL)
    {
       GetStringFromAttribute( szTag, vSrcC, "CtrlMapRelatedEntity", "Name" );
       nRC = SetCursorFirstEntityByString( vLOD, "LOD_Entity", "Name",
@@ -16557,6 +16559,8 @@ FindCtrl( zVIEW vSubtask )
    zVIEW  vTZWINDOW;
    zCHAR  szText[ 256 ];
 
+   TraceLineS("Find Ctrl", "");
+
    if ( GetViewByName( &vTZWINDOW, "TZWINDOW", vSubtask, zLEVEL_TASK ) < 0 )
    {
       return( -1 );
@@ -16602,15 +16606,21 @@ FindCtrl( zVIEW vSubtask )
       // RefreshWindowExceptForCtrl( vSubtask, "CtrlList" );
       // fnShowCtrlList( vSubtask );
 
-      // if ( OL_SetCursorByEntityNumber( vTZWINDOW, "Control", lRC ) == 0 )
+         //if ( OL_SetCursorByEntityNumber( vTZWINDOW, "Control", lRC ) == 0 )
          {
             OL_SelectItemAtPosForEntity( vSubtask, "CtrlList", "Control", 2 + 4 + 16 );
+			// KJS 01/10/24 - For some reason, even when the user clicks on the control in the CtrlList,
+			// if we perform the find a couple of times, when we click on the control, the information changes to 
+			// a different control (I think the control we had previously on). This is even if I uncomment the above "if".
+			// I add ShowCtrlList, user still has to click on the control, but the information stays.
+			// Confused about this...
+			ShowCtrlList(vSubtask);
          }
 
          GetStringFromAttribute( szText, vTZWINDOW, "Control", "Tag" );
          zstrcat( szText, " - Control found" );
          SysMessageBox( 0, szText,
-                        "Please click on Ctrl to Show Information Properly", -1 );
+                        "Control found. Please click on this control in the list to Show Information Properly", -1 );
       }
       else
          SetCtrlText( vSubtask, "InvisibleForFind", "" );

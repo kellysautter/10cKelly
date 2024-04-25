@@ -1,4 +1,4 @@
-	TITLE	C:\10C\A\oe\KZOEMIAA.C
+	TITLE	c:\10c\A\oe\KZOEMIAA.C
 	.386P
 include listing.inc
 if @Version gt 510
@@ -1711,7 +1711,7 @@ PUBLIC	_MiGetKeyFromInstance@16
 EXTRN	_fnGetStringFromAttribute:NEAR
 EXTRN	_strcat:NEAR
 ;	COMDAT ??_C@_01PJCK@?4?$AA@
-; File C:\10C\A\oe\KZOEMIAA.C
+; File c:\10c\A\oe\KZOEMIAA.C
 _DATA	SEGMENT
 ??_C@_01PJCK@?4?$AA@ DB '.', 00H			; `string'
 _DATA	ENDS
@@ -3181,7 +3181,7 @@ PUBLIC	??_C@_0EF@FKMI@MiGetSetViewTaskAppFlags?5setting@ ; `string'
 PUBLIC	_MiGetSetViewTaskAppFlags@16
 EXTRN	_TraceLine:NEAR
 ;	COMDAT ??_C@_02HAKO@ON?$AA@
-; File C:\10C\A\oe\KZOEMIAA.C
+; File c:\10c\A\oe\KZOEMIAA.C
 _DATA	SEGMENT
 ??_C@_02HAKO@ON?$AA@ DB 'ON', 00H			; `string'
 _DATA	ENDS
@@ -3429,7 +3429,7 @@ EXTRN	_g_pfnGetHndl:DWORD
 EXTRN	_fnSysLockCoreMutex@4:NEAR
 EXTRN	_fnSysUnlockCoreMutex@4:NEAR
 ;	COMDAT ??_C@_00A@?$AA@
-; File C:\10C\A\oe\KZOEMIAA.C
+; File c:\10c\A\oe\KZOEMIAA.C
 _BSS	SEGMENT
 ??_C@_00A@?$AA@ DB 01H DUP (?)				; `string'
 _BSS	ENDS

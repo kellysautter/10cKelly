@@ -1,4 +1,4 @@
-	TITLE	C:\10C\A\oe\KZOEUFAA.C
+	TITLE	c:\10c\A\oe\KZOEUFAA.C
 	.386P
 include listing.inc
 if @Version gt 510
@@ -544,7 +544,7 @@ EXTRN	__imp__atol:NEAR
 EXTRN	_g_pchMon:BYTE
 EXTRN	_g_pchDOW:BYTE
 ;	COMDAT ??_C@_02ENLM@AM?$AA@
-; File C:\10C\A\oe\KZOEUFAA.C
+; File c:\10c\A\oe\KZOEUFAA.C
 _DATA	SEGMENT
 ??_C@_02ENLM@AM?$AA@ DB 'AM', 00H			; `string'
 _DATA	ENDS
@@ -8476,7 +8476,7 @@ PUBLIC	??_C@_0BG@OOBG@Zeidon?5Internal?5Error?$AA@	; `string'
 PUBLIC	_UfDecryptString@12
 EXTRN	_SysMessageBox@16:NEAR
 ;	COMDAT ??_C@_0BI@CIAL@Error?5decrypting?5string?$AA@
-; File C:\10C\A\oe\KZOEUFAA.C
+; File c:\10c\A\oe\KZOEUFAA.C
 _DATA	SEGMENT
 ??_C@_0BI@CIAL@Error?5decrypting?5string?$AA@ DB 'Error decrypting string'
 	DB	00H						; `string'
@@ -8903,7 +8903,7 @@ PUBLIC	_UfAddToDateTime@12
 EXTRN	_stNullDateTime:FWORD
 EXTRN	_labs:NEAR
 ;	COMDAT ??_C@_08NEDP@00010101?$AA@
-; File C:\10C\A\oe\KZOEUFAA.C
+; File c:\10c\A\oe\KZOEUFAA.C
 _DATA	SEGMENT
 ??_C@_08NEDP@00010101?$AA@ DB '00010101', 00H		; `string'
 _DATA	ENDS
@@ -12692,7 +12692,7 @@ PUBLIC	??_C@_0DE@ILOG@ZeidonStringCopy?3?5Invalid?5parame@ ; `string'
 PUBLIC	_ZeidonStringCopy@28
 EXTRN	_szlOE_SystemError:DWORD
 ;	COMDAT ??_C@_0CF@GGNO@ZeidonStringCopy?3?5Invalid?5parame@
-; File C:\10C\A\oe\KZOEUFAA.C
+; File c:\10c\A\oe\KZOEUFAA.C
 _DATA	SEGMENT
 ??_C@_0CF@GGNO@ZeidonStringCopy?3?5Invalid?5parame@ DB 'ZeidonStringCopy:'
 	DB	' Invalid parameter.', 00H			; `string'
@@ -13056,7 +13056,7 @@ PUBLIC	??_C@_0DH@POEO@ZeidonStringConcat?3?5Source?5strin@ ; `string'
 PUBLIC	??_C@_0DA@DAKA@ZeidonStringConcat?3?5Target?5strin@ ; `string'
 PUBLIC	_ZeidonStringConcat@28
 ;	COMDAT ??_C@_0CH@DGFG@ZeidonStringConcat?3?5Invalid?5para@
-; File C:\10C\A\oe\KZOEUFAA.C
+; File c:\10c\A\oe\KZOEUFAA.C
 _DATA	SEGMENT
 ??_C@_0CH@DGFG@ZeidonStringConcat?3?5Invalid?5para@ DB 'ZeidonStringConca'
 	DB	't: Invalid parameter.', 00H			; `string'
@@ -13393,7 +13393,7 @@ PUBLIC	??_C@_0DI@FDFM@ZeidonStringCompare?3?5Source?5stri@ ; `string'
 PUBLIC	??_C@_0DB@PLHO@ZeidonStringCompare?3?5Target?5stri@ ; `string'
 PUBLIC	_ZeidonStringCompare@28
 ;	COMDAT ??_C@_0CI@GIMP@ZeidonStringCompare?3?5Invalid?5par@
-; File C:\10C\A\oe\KZOEUFAA.C
+; File c:\10c\A\oe\KZOEUFAA.C
 _DATA	SEGMENT
 ??_C@_0CI@GIMP@ZeidonStringCompare?3?5Invalid?5par@ DB 'ZeidonStringCompa'
 	DB	're: Invalid parameter.', 00H		; `string'
@@ -13711,7 +13711,7 @@ PUBLIC	??_C@_0DC@HIDH@ZeidonStringConvertFromNumber?3?5I@ ; `string'
 PUBLIC	_ZeidonStringConvertFromNumber@64
 EXTRN	_ConvertDecimalToString@52:NEAR
 ;	COMDAT ??_C@_0EC@BPIP@ZeidonStringConvertFromNumber?3?5T@
-; File C:\10C\A\oe\KZOEUFAA.C
+; File c:\10c\A\oe\KZOEUFAA.C
 _DATA	SEGMENT
 ??_C@_0EC@BPIP@ZeidonStringConvertFromNumber?3?5T@ DB 'ZeidonStringConver'
 	DB	'tFromNumber: Target string has negative length.', 00H ; `string'
@@ -14510,7 +14510,7 @@ PUBLIC	??_C@_01NON@_?$AA@				; `string'
 PUBLIC	??_C@_01FDHG@?$CK?$AA@				; `string'
 PUBLIC	??_C@_0BG@BAHO@bcdfghjklmnpqrstvwxyz?$AA@	; `string'
 ;	COMDAT ??_C@_05BDLH@aeiou?$AA@
-; File C:\10C\A\oe\KZOEUFAA.C
+; File c:\10c\A\oe\KZOEUFAA.C
 _DATA	SEGMENT
 ??_C@_05BDLH@aeiou?$AA@ DB 'aeiou', 00H			; `string'
 _DATA	ENDS
@@ -15387,7 +15387,7 @@ EXTRN	_TraceLineI@8:NEAR
 EXTRN	_TraceLineS@8:NEAR
 EXTRN	__imp___stricmp:NEAR
 ;	COMDAT ??_C@_0CL@DANP@UfZProbeOn?3?5No?5more?5probes?5avail@
-; File C:\10C\A\oe\KZOEUFAA.C
+; File c:\10c\A\oe\KZOEUFAA.C
 _DATA	SEGMENT
 ??_C@_0CL@DANP@UfZProbeOn?3?5No?5more?5probes?5avail@ DB 'UfZProbeOn: No '
 	DB	'more probes available for: ', 00H		; `string'
@@ -15694,7 +15694,7 @@ PUBLIC	??_C@_0CE@KINL@UfZProbeOff?3?5?5?5?5?5?5?5?5?5?5?5descripto@ ; `string'
 PUBLIC	??_C@_0CH@MMBH@UfZProbeOff?3?5Probe?5not?5on?5for?5nu@ ; `string'
 PUBLIC	??_C@_0CH@FHPJ@UfZProbeOff?3?5?5?5?5?5?5?5?5?5?5?5?5?5?5descri@ ; `string'
 ;	COMDAT ??_C@_0CE@FHKC@UfZProbeOff?3?5Invalid?5probe?5numbe@
-; File C:\10C\A\oe\KZOEUFAA.C
+; File c:\10c\A\oe\KZOEUFAA.C
 _DATA	SEGMENT
 ??_C@_0CE@FHKC@UfZProbeOff?3?5Invalid?5probe?5numbe@ DB 'UfZProbeOff: Inv'
 	DB	'alid probe number: ', 00H			; `string'
@@ -16010,7 +16010,7 @@ _TEXT	ENDS
 PUBLIC	_UfZProbeOffByDesc@4
 PUBLIC	??_C@_0DB@GLLK@UfZProbeOffByDesc?3?5Probe?5not?5on?5@ ; `string'
 ;	COMDAT ??_C@_0DB@GLLK@UfZProbeOffByDesc?3?5Probe?5not?5on?5@
-; File C:\10C\A\oe\KZOEUFAA.C
+; File c:\10c\A\oe\KZOEUFAA.C
 _DATA	SEGMENT
 ??_C@_0DB@GLLK@UfZProbeOffByDesc?3?5Probe?5not?5on?5@ DB 'UfZProbeOffByDe'
 	DB	'sc: Probe not on for descriptor: ', 00H	; `string'
@@ -16139,7 +16139,7 @@ PUBLIC	??_C@_0CH@MEFI@?$DN?$DN?$DN?$DN?$DN?$DN?$DN?5Probe?5Trace?5?9?5?$CF30s?5?
 EXTRN	__imp__sprintf:NEAR
 EXTRN	__fltused:NEAR
 ;	COMDAT ??_C@_00A@?$AA@
-; File C:\10C\A\oe\KZOEUFAA.C
+; File c:\10c\A\oe\KZOEUFAA.C
 _BSS	SEGMENT
 ??_C@_00A@?$AA@ DB 01H DUP (?)				; `string'
 _BSS	ENDS

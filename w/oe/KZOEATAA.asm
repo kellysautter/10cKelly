@@ -1,4 +1,4 @@
-	TITLE	C:\10C\A\oe\KZOEATAA.C
+	TITLE	c:\10c\A\oe\KZOEATAA.C
 	.386P
 include listing.inc
 if @Version gt 510
@@ -3713,7 +3713,7 @@ PUBLIC	_fnGetBlobFromAttribute
 PUBLIC	??_C@_0DL@MBON@Binary?5large?5object?5length?3?5?$CFd?5?5@ ; `string'
 EXTRN	_TraceLine:NEAR
 ;	COMDAT ??_C@_0DL@MBON@Binary?5large?5object?5length?3?5?$CFd?5?5@
-; File C:\10C\A\oe\KZOEATAA.C
+; File c:\10c\A\oe\KZOEATAA.C
 _DATA	SEGMENT
 ??_C@_0DL@MBON@Binary?5large?5object?5length?3?5?$CFd?5?5@ DB 'Binary lar'
 	DB	'ge object length: %d   exceeds passed length: %d', 00H ; `string'
@@ -4973,7 +4973,7 @@ EXTRN	_strcat:NEAR
 EXTRN	_GetContext@12:NEAR
 EXTRN	_GetDefaultContext@8:NEAR
 ;	COMDAT ??_C@_02GIEM@?0?5?$AA@
-; File C:\10C\A\oe\KZOEATAA.C
+; File c:\10c\A\oe\KZOEATAA.C
 _DATA	SEGMENT
 ??_C@_02GIEM@?0?5?$AA@ DB ', ', 00H			; `string'
 _DATA	ENDS
@@ -8225,7 +8225,7 @@ PUBLIC	_fnSetAttributeFromDecimal
 PUBLIC	??_C@_00A@?$AA@					; `string'
 EXTRN	_SysConvertDecimalToString@12:NEAR
 ;	COMDAT ??_C@_00A@?$AA@
-; File C:\10C\A\oe\KZOEATAA.C
+; File c:\10c\A\oe\KZOEATAA.C
 _BSS	SEGMENT
 ??_C@_00A@?$AA@ DB 01H DUP (?)				; `string'
 _BSS	ENDS
@@ -10227,7 +10227,7 @@ EXTRN	_SysCloseFile@12:NEAR
 EXTRN	_SysCreateTempFileName@4:NEAR
 EXTRN	_SysFreeMemory@4:NEAR
 ;	COMDAT ??_C@_0CI@PDJD@?$CIat?$CJ?5Couldn?8t?5read?5entire?5file?4?5@
-; File C:\10C\A\oe\KZOEATAA.C
+; File c:\10c\A\oe\KZOEATAA.C
 _DATA	SEGMENT
 ??_C@_0CI@PDJD@?$CIat?$CJ?5Couldn?8t?5read?5entire?5file?4?5@ DB '(at) Co'
 	DB	'uldn''t read entire file.  Lth = ', 00H	; `string'
@@ -12327,7 +12327,7 @@ PUBLIC	??_C@_0CD@HHFA@?$CIat?$CJ?5in?5SAFA?5fnGetAddrForAttribu@ ; `string'
 EXTRN	_TraceLineS@8:NEAR
 EXTRN	_fnCallDomainOper2@36:NEAR
 ;	COMDAT ??_C@_08DAHE@?5failed?4?$AA@
-; File C:\10C\A\oe\KZOEATAA.C
+; File c:\10c\A\oe\KZOEATAA.C
 _DATA	SEGMENT
 ??_C@_08DAHE@?5failed?4?$AA@ DB ' failed.', 00H		; `string'
 _DATA	ENDS
@@ -17561,7 +17561,7 @@ EXTRN	_SfCreateSubtask@12:NEAR
 EXTRN	_SfDropSubtask@8:NEAR
 EXTRN	_fnGetDataspaceLength:NEAR
 ;	COMDAT ??_C@_0BA@EJKH@DerivedFunction?$AA@
-; File C:\10C\A\oe\KZOEATAA.C
+; File c:\10c\A\oe\KZOEATAA.C
 _DATA	SEGMENT
 ??_C@_0BA@EJKH@DerivedFunction?$AA@ DB 'DerivedFunction', 00H ; `string'
 _DATA	ENDS
@@ -18247,7 +18247,7 @@ PUBLIC	_fnGetAttribOper
 PUBLIC	??_C@_09JBJF@DfExprVML?$AA@			; `string'
 PUBLIC	??_C@_05GPHN@?$CKxpg?$CK?$AA@			; `string'
 ;	COMDAT ??_C@_09JBJF@DfExprVML?$AA@
-; File C:\10C\A\oe\KZOEATAA.C
+; File c:\10c\A\oe\KZOEATAA.C
 _DATA	SEGMENT
 ??_C@_09JBJF@DfExprVML?$AA@ DB 'DfExprVML', 00H		; `string'
 _DATA	ENDS
@@ -19550,7 +19550,7 @@ EXTRN	_fnValidViewCsr:NEAR
 EXTRN	_fnResetCursorForViewChildren:NEAR
 EXTRN	_fnEstablishCursorForView:NEAR
 ;	COMDAT ??_C@_0BK@CFAE@Entity?5Update?5not?5allowed?$AA@
-; File C:\10C\A\oe\KZOEATAA.C
+; File c:\10c\A\oe\KZOEATAA.C
 _DATA	SEGMENT
 ??_C@_0BK@CFAE@Entity?5Update?5not?5allowed?$AA@ DB 'Entity Update not al'
 	DB	'lowed', 00H					; `string'
@@ -22577,7 +22577,7 @@ EXTRN	_MessageSend@24:NEAR
 EXTRN	_TrueName@8:NEAR
 EXTRN	_szlApplicationLogicError:DWORD
 ;	COMDAT ??_C@_08DIIO@Entity?3?7?$AA@
-; File C:\10C\A\oe\KZOEATAA.C
+; File c:\10c\A\oe\KZOEATAA.C
 _DATA	SEGMENT
 ??_C@_08DIIO@Entity?3?7?$AA@ DB 'Entity:', 09H, 00H	; `string'
 _DATA	ENDS
@@ -27503,7 +27503,7 @@ _TEXT	ENDS
 PUBLIC	??_C@_01FDLN@?1?$AA@				; `string'
 EXTRN	_UfFormatString@8:NEAR
 ;	COMDAT ??_C@_01FDLN@?1?$AA@
-; File C:\10C\A\oe\KZOEATAA.C
+; File c:\10c\A\oe\KZOEATAA.C
 _DATA	SEGMENT
 ??_C@_01FDLN@?1?$AA@ DB '/', 00H			; `string'
 _DATA	ENDS

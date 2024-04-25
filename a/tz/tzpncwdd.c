@@ -1540,10 +1540,13 @@ SEL_CLONE_Cancel( zVIEW     vSubtask )
 //:DIALOG OPERATION
 //:SEL_CLONE_OK( VIEW vSubtask )
 
-//:   VIEW OrigWindow    BASED ON LOD TZWDLGSO
+//:   VIEW TZPNCTWO      REGISTERED AS TZPNCTWO
 zOPER_EXPORT zSHORT OPERATION
 SEL_CLONE_OK( zVIEW     vSubtask )
 {
+   zVIEW     TZPNCTWO = 0; 
+   zSHORT    RESULT; 
+   //:VIEW OrigWindow    BASED ON LOD TZWDLGSO
    zVIEW     OrigWindow = 0; 
    //:VIEW TempWindow    BASED ON LOD TZWDLGSO
    zVIEW     TempWindow = 0; 
@@ -1571,6 +1574,7 @@ SEL_CLONE_OK( zVIEW     vSubtask )
    zSHORT    lTempInteger_0; 
    zSHORT    lTempInteger_1; 
 
+   RESULT = GetViewByName( &TZPNCTWO, "TZPNCTWO", vSubtask, zLEVEL_TASK );
 
    //:GetViewByName( OrigWindow, "TZWND_List", vSubtask, zLEVEL_ANY )
    GetViewByName( &OrigWindow, "TZWND_List", vSubtask, zLEVEL_ANY );
@@ -1636,8 +1640,13 @@ SEL_CLONE_OK( zVIEW     vSubtask )
 
          //:END
 
+         //:// On 6/9/2023 DonC made the change to set the Clone Window flag to use SourceFile Name in Target Dialog.
+         //:TZPNCTWO.TZPNCTWO.CloneWindowSourceFileFlag = "T"
+         SetAttributeFromString( TZPNCTWO, "TZPNCTWO", "CloneWindowSourceFileFlag", "T" );
          //:CloneWindow( NewWindow, OrigWindow, SourceLPLR, vSubtask )
          oTZWDLGSO_CloneWindow( NewWindow, OrigWindow, SourceLPLR, vSubtask );
+         //:TZPNCTWO.TZPNCTWO.CloneWindowSourceFileFlag = ""
+         SetAttributeFromString( TZPNCTWO, "TZPNCTWO", "CloneWindowSourceFileFlag", "" );
 
          //:// Set new window name if name was entered.
          //:IF vWork.TZPNCTWO.WindowName != ""

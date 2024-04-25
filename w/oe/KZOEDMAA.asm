@@ -1,4 +1,4 @@
-	TITLE	C:\10C\A\oe\KZOEDMAA.C
+	TITLE	c:\10c\A\oe\KZOEDMAA.C
 	.386P
 include listing.inc
 if @Version gt 510
@@ -267,7 +267,7 @@ EXTRN	_fnSysMessageBox@16:NEAR
 EXTRN	__imp___stricmp:NEAR
 EXTRN	_g_pfnGetPtr:DWORD
 ;	COMDAT ??_C@_0BO@PGDP@Domain?5has?5an?5unnamed?5Context?$AA@
-; File C:\10C\A\oe\KZOEDMAA.C
+; File c:\10c\A\oe\KZOEDMAA.C
 _DATA	SEGMENT
 ??_C@_0BO@PGDP@Domain?5has?5an?5unnamed?5Context?$AA@ DB 'Domain has an u'
 	DB	'nnamed Context', 00H			; `string'
@@ -1844,7 +1844,7 @@ EXTRN	_memcpy:NEAR
 EXTRN	_strcat:NEAR
 EXTRN	_MessageSend@24:NEAR
 ;	COMDAT ??_C@_0EE@ELLG@Operation?5?8?$CFs?8?5does?5not?5handle?5a@
-; File C:\10C\A\oe\KZOEDMAA.C
+; File c:\10c\A\oe\KZOEDMAA.C
 _DATA	SEGMENT
 ??_C@_0EE@ELLG@Operation?5?8?$CFs?8?5does?5not?5handle?5a@ DB 'Operation '
 	DB	'''%s'' does not handle an Entry Type of %ld for domain ''%s'''
@@ -2386,7 +2386,7 @@ EXTRN	_SendDomainError@28:NEAR
 EXTRN	__imp___ltoa:NEAR
 EXTRN	_SysAssignDecimalFromNull@4:NEAR
 ;	COMDAT ??_C@_00A@?$AA@
-; File C:\10C\A\oe\KZOEDMAA.C
+; File c:\10c\A\oe\KZOEDMAA.C
 _BSS	SEGMENT
 ??_C@_00A@?$AA@ DB 01H DUP (?)				; `string'
 _BSS	ENDS

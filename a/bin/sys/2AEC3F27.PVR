@@ -1,0 +1,12 @@
+z1000-Zeidon    2AEC3F27 TZWDVORO 07/20/22   12:57:34 1.0a2    
+eViewObjRef 1
+aZKey      720125735
+aNextZKeyToAssign 720125735
+aName      TZWDSECO
+aDesc      VOR automatically built from LOD Dialog
+
+eLOD       2
+aZKey      720125542
+aName      TZWDSECO
+aDesc      Security component definition
+
