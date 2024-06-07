@@ -543,28 +543,6 @@ END
 
 /*************************************************************************************************
 **    
-**    OPERATION: ActivateAD_Base
-**    
-*************************************************************************************************/
-TRANSFORMATION OPERATION
-ActivateAD_Base( VIEW TZADWWKO BASED ON LOD TZADWWKO,
-                 VIEW RetAD_BaseView )
-
-   SHORT  nRC
-   
-   nRC = ActivateOI_FromFile( RetAD_BaseView, "TZWDLGSO", TZADWWKO, "C:\LPLR\AD_Base\AD_Base.PWD", zSINGLE )
-   IF nRC < 0
-      MessageSend( TZADWWKO, "", "Autodesign Window Group",
-                   "Unable to activate AD_Base.PWD from AD_Base LPLR.",
-                   zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
-      SetWindowActionBehavior( TZADWWKO, zWAB_StayOnWindow, 0, 0 )
-      RETURN -2
-   END
-
-END
-
-/*************************************************************************************************
-**    
 **    OPERATION: CloneSimpleControl
 **    
 *************************************************************************************************/
@@ -773,12 +751,17 @@ ConvertHeaderText( VIEW TZADWWKO  BASED ON LOD TZADWWKO,
    SHORT lInitialLevel
    SHORT nRC
    
-   // Process Group Area and Group Area Name for the subGroups of the "card" Group for the current Control.
-   // If we're not on the "card" Control, we will back up until we get there.
-   // Then replace modifiable variables _Section and _SectionTitle with Group Area Name and Group Area Title
-   // in the Tag and Text values of any Text Control.
-   // Do the same for the Tag and HTML5 values of any "collapse show" Groupbox.
-   // We will do this by processing all the subControls of the "card" Group.
+   // BOOTSTRAP OPTION 1 (Group with "collapse show" and header text)
+   
+   // This operation is used only for modifying the header text in a particular option of Bootstrap and for setting
+   // values in the "collapse show" group that goes with it.
+   // The Group template for this option has the List or Detail Group just generated imbedded within one or more parent Groups.
+   // This code first positions back to the parent "card" Group.
+   // It then searches both for the header text and collapse/show Group.
+   // For the header text, it replaces modifiable variables _Section and _SectionTitle with Group Area Name and Group Area Title.
+   // For the "collapse show" group, it modifies the Control Tag and HTML5 values.
+   
+   // This will be done by processing all the subControls of the "card" Group hierarchially to locate the Controls needing to be converted.
    
    // Back up to the "card Groupbox as necesary.
    IF TZCONTROL.Control.CSS_Class != "card"
@@ -810,7 +793,7 @@ ConvertHeaderText( VIEW TZADWWKO  BASED ON LOD TZADWWKO,
       IF szReturnedEntityName = "CtrlCtrl"
          szControlDef = TZCtlHier.ControlDef.Tag 
          IF szControlDef = "Text"
-            // This is a Text Control, so convert any _Section or xxx characters
+            // This is a Text Control, so convert any _Section or _SectionTitle characters
             CreateViewFromView( TZCtlTemp, TZCtlHier )
             NAME VIEW TZCtlTemp "TZCtlTemp"
             
@@ -1002,6 +985,7 @@ AutodesignFindPages( VIEW TZADWWKO BASED ON LOD TZADWWKO,
    STRING ( 50 )  szNewGridViewName
    STRING ( 200 ) szControlText
    STRING ( 1 )   szCopyVML_Flag
+   STRING ( 1 )   szFoundFlag
    STRING ( 256 ) szSourceDirectory
    STRING ( 256 ) szFindBaseVML
    STRING ( 256 ) szFindVML
@@ -1205,30 +1189,33 @@ AutodesignFindPages( VIEW TZADWWKO BASED ON LOD TZADWWKO,
    DELETE ENTITY FindBaseSrc.SourceFile  
    DropView( FindBaseSrc )
    
-   // Also convert the Header Text _AD_Area.
-   // Step down to that Group.
-   CreateViewFromView( TZCONTROL, TZWINDOWL )
-   NAME VIEW TZCONTROL "TZCONTROLAD"
-   SetViewToSubobject( TZCONTROL, "CtrlCtrl" )  // Step into 2nd level
-   SET CURSOR FIRST TZCONTROL.Control           // Position on Header
-   SET CURSOR NEXT TZCONTROL.Control            // Position on Accordian
-   SetViewToSubobject( TZCONTROL, "CtrlCtrl" )  // Step into card Group
-   SetViewToSubobject( TZCONTROL, "CtrlCtrl" )  // Step into Header Group
-   SetViewToSubobject( TZCONTROL, "CtrlCtrl" )  // Step into Header Text
-   szControlText = TZCONTROL.Control.Text
-   zSearchAndReplace( szControlText, 200, "_AD_Area", szAD_Area )
-   TZCONTROL.Control.Text = szControlText
-   DropView( TZCONTROL )
-   
-   // Make sure ViewObjRef exists in the dialog for the ReturnedLOD, unless the Find is "CRM"..
-   IF TZADWWKO.AutodesignSubdialog.FindType != "CRM"
-      szReturnedViewName = ReturnedLOD.LOD.Name
-      SET CURSOR FIRST TZWINDOW.ViewObjRef WHERE TZWINDOW.ViewObjRef.Name = szReturnedViewName
-      IF RESULT < zCURSOR_SET
-         // The following operation creates the ViewObjRef as necessary and includes it in the Dialog.
-         AddRegisteredViewName( TZADWWKO, TZWINDOW, ReturnedLOD, szReturnedViewName )
+   // Convert the Header Text if there is a Group named "search-header".
+   CreateViewFromView( TZCtlHier, TZWINDOWL )
+   DefineHierarchicalCursor( TZCtlHier, "Control" )
+   NAME VIEW TZCtlHier "TZCtlHier"
+   nRC = SetCursorNextEntityHierarchical( lReturnedLevel, szReturnedEntityName, TZCtlHier )
+   lInitialLevel = lReturnedLevel
+   szFoundFlag = ""
+   LOOP WHILE nRC >= zCURSOR_SET AND lReturnedLevel >= lInitialLevel AND szFoundFlag = ""
+      IF nRC = zCURSOR_SET_RECURSIVECHILD
+         SetViewToSubobject( TZCtlHier, "CtrlCtrl" )
       END
+      IF szReturnedEntityName = "CtrlCtrl"
+         szControlTag = TZCtlHier.Control.Tag 
+         IF szControlTag = "search-header" 
+            CreateViewFromView( TZCONTROL, TZCtlHier )
+            NAME VIEW TZCONTROL "TZCONTROLAD"
+            SetViewToSubobject( TZCONTROL, "CtrlCtrl" )  // Step into the Text field.
+            szControlText = TZCONTROL.Control.Text
+            zSearchAndReplace( szControlText, 200, "_AD_Area", szAD_Area )
+            TZCONTROL.Control.Text = szControlText
+            szFoundFlag = "Y"
+            DropView( TZCONTROL )
+         END
+      END
+      nRC = SetCursorNextEntityHierarchical( lReturnedLevel, szReturnedEntityName, TZCtlHier )
    END
+   DropView( TZCtlHier )      
       
    // 3. Build the Search fields group from the selected attributes in TZADWWKO.FlatSelectedSearchAttribute.
    //    In order to reuse the GenDetailGrpBootstrap operation that uses TZADWWKO.DetailMappingLOD_Attribute, we will copy the 
@@ -1449,6 +1436,11 @@ AutodesignFindPages( VIEW TZADWWKO BASED ON LOD TZADWWKO,
                   nPromptSize = (( nPromptLength + 5 ) * 4 )
                   TZCtlTemp.Control.SZDLG_X = nPromptSize
                   nLastPosition = nLastPosition + nPromptSize    // Set up the position for the next control
+               END
+               // Set position of any next control (which would be a button) to next position.
+               SET CURSOR NEXT TZCtlTemp.Control
+               IF RESULT >= zCURSOR_SET
+                  TZCtlTemp.Control.PSDLG_X = nLastPosition
                END
                ResetViewFromSubobject( TZCtlTemp )
                DropView( TZCONTROL2 )
@@ -2175,18 +2167,16 @@ GenListDetailPage( VIEW TZADWWKO  BASED ON LOD TZADWWKO,
       // Set work attributes.
       SetMatchingAttributesByName( TZADWWKO, "DetailMappingLOD_Attribute", TZADWWKO, "ESG_DetailLOD_Attribute", zSET_NULL )  
    END
-
-   // Set up TZCONTROL as positioned on Detail Group control.
+   
+   // Create TZCONTROL and position it on the last / innermost Group of the nested set of Groups in the window, which is where
+   // the data Controls will be built.
    CreateViewFromView( TZCONTROL, TZWINDOWL2 )  
    NAME VIEW TZCONTROL "TZCONTROLAD"
-   nRC = SetViewToSubobject( TZCONTROL, "CtrlCtrl" )
    SET CURSOR LAST TZCONTROL.Control
-   nRC = SetViewToSubobject( TZCONTROL, "CtrlCtrl" )
-   SET CURSOR LAST TZCONTROL.Control
-   nRC = SetViewToSubobject( TZCONTROL, "CtrlCtrl" )
-   SET CURSOR LAST TZCONTROL.Control
-   nRC = SetViewToSubobject( TZCONTROL, "CtrlCtrl" )
-   SET CURSOR LAST TZCONTROL.Control
+   LOOP WHILE TZCONTROL.CtrlCtrl EXISTS
+      nRC = SetViewToSubobject( TZCONTROL, "CtrlCtrl" )
+      SET CURSOR LAST TZCONTROL.Control
+   END
 
    GenDetailGrpBootstrap( TZADWWKO, TZCONTROL, TZWINDOWL2, "MultiGroup" )
    
@@ -2279,7 +2269,6 @@ GenIncludePage( VIEW TZADWWKO  BASED ON LOD TZADWWKO,
    VIEW SearchLOD   BASED ON LOD  TZZOLODO
    VIEW TZWDVORO    BASED ON LOD  TZWDVORO
    VIEW AD_BaseUC   BASED ON LOD  TZWDLGSO
-   VIEW TZCtlHier   BASED ON LOD  TZWDLGSO
    STRING ( 50 )  szWindowName
    STRING ( 50 )  szGroupName
    STRING ( 50 )  szGroupType
@@ -2288,7 +2277,6 @@ GenIncludePage( VIEW TZADWWKO  BASED ON LOD TZADWWKO,
    STRING ( 50 )  szAD_AreaTitle
    STRING ( 50 )  szActionName
    STRING ( 50 )  szOperationName
-   STRING ( 50 )  szReturnedEntityName
    STRING ( 50 )  szReturnedObjectName
    STRING ( 50 )  szLOD_ListEntityName
    STRING ( 50 )  szControlTag
@@ -2329,8 +2317,6 @@ GenIncludePage( VIEW TZADWWKO  BASED ON LOD TZADWWKO,
    INTEGER nFileIn
    INTEGER nFileOut
    INTEGER nLength  
-   SHORT   lReturnedLevel
-   SHORT   lInitialLevel
    
    // GROUP DETAIL INCLUDE PAGE
    
@@ -2383,44 +2369,37 @@ GenIncludePage( VIEW TZADWWKO  BASED ON LOD TZADWWKO,
          SetMatchingAttributesByName( TZADWWKO, "DetailMappingLOD_Attribute", TZADWWKO, "ESG_SearchLOD_Attribute", zSET_NULL )  
       END
       
-      // Step down into the header GroupBox to change the title.
-      CreateViewFromView( TZCONTROL, TZWINDOW2 )
-      NAME VIEW TZCONTROL "TZCONTROLAD"
-      SetViewToSubobject( TZCONTROL, "CtrlCtrl" )   // Step into 2nd level
-      SET CURSOR NEXT TZCONTROL.Control             // Position on 2nd Group which is Accordian Group
-      SetViewToSubobject( TZCONTROL, "CtrlCtrl" )   // Step into card Group
-      SetViewToSubobject( TZCONTROL, "CtrlCtrl" )   // Step into card-header Group
-      SetViewToSubobject( TZCONTROL, "CtrlCtrl" )   // Step into card-title Text Group
-      szControlText = TZCONTROL.Control.Text 
-      szAD_AreaTitle = TZADWWKO.EntitySubGroup.GroupAreaTitle 
-      zSearchAndReplace( szControlText, 256, "_InclEntT", szAD_AreaTitle )
-      TZCONTROL.Control.Text = szControlText
-      DropView( TZCONTROL )
-   
-      // Step down into the GroupBox that will hold the generated search fields.
-      // This is currently supporting only Bootstrap.
-      CreateViewFromView( TZCONTROL, TZWINDOW2 )
-      NAME VIEW TZCONTROL "TZCONTROLAD"
-      SetViewToSubobject( TZCONTROL, "CtrlCtrl" )   // Step into 2nd level
-      SET CURSOR NEXT TZCONTROL.Control             // Position on 2nd Group which is Accordian Group
-      SetViewToSubobject( TZCONTROL, "CtrlCtrl" )   // Step into card Group
-      SetViewToSubobject( TZCONTROL, "CtrlCtrl" )   // Step into next level, which starts with card-header Group
-      SET CURSOR NEXT TZCONTROL.Control             // Position on 2nd Group which is collapse show Group
-      SetViewToSubobject( TZCONTROL, "CtrlCtrl" )   // Step into card-body Group which holds the buttons
-      SET CURSOR NEXT TZCONTROL.Control             // Position on next card-body Group whick will hold search controls.
+      // Modify Header Text named "txtSearch" within Search Group by replacing "_InclEntT" string with GroupAreaTitle.
+      nRC = PositionOnControlByTag( TZADWWKO, TZCONTROL, TZWINDOW2, "txtSearch" )
+      IF nRC = 0
+         NAME VIEW TZCONTROL "TZCONTROLAD"
+         szControlText = TZCONTROL.Control.Text 
+         szAD_AreaTitle = TZADWWKO.EntitySubGroup.GroupAreaTitle 
+         zSearchAndReplace( szControlText, 256, "_InclEntT", szAD_AreaTitle )
+         TZCONTROL.Control.Text = szControlText
+         DropView( TZCONTROL )
+      END
       
-      // Generate the Search Controls
-      GenDetailGrpBootstrap( TZADWWKO, TZCONTROL, TZWINDOWL, "Search Fields" )
-      DropNameForView( SearchLOD, "TZZOLODO_Update", ViewToWindow, zLEVEL_TASK )
-      NAME VIEW UpdateLOD "TZZOLODO_Update"    // Rename the UpdateLOD aince we reused the name for the SearchLOD.
-      DropView( TZCONTROL )
-
+      // Locate Group GroupBoxSearch for generating Search Fields.
+      nRC = PositionOnControlByTag( TZADWWKO, TZCONTROL, TZWINDOW2, "GroupBoxSearch" )
+      IF nRC >= 0
+         // Generate the Search Controls
+         GenDetailGrpBootstrap( TZADWWKO, TZCONTROL, TZWINDOWL, "Search Fields" )
+         DropNameForView( SearchLOD, "TZZOLODO_Update", ViewToWindow, zLEVEL_TASK )
+         NAME VIEW UpdateLOD "TZZOLODO_Update"    // Rename the UpdateLOD aince we reused the name for the SearchLOD.
+         DropView( TZCONTROL )
+      ELSE
+         MessageSend( TZADWWKO, "", "Autodesign Subdialog",
+                   "Include Find Search Group, GroupBoxSearch, not found in AD_Base.",
+                   zMSGQ_OBJECT_CONSTRAINT_WARNING, 0 )
+         RETURN -2
+      END
+      
    END
-         
-   // Build the Object List Group.
+   
+   // Build the Select List Grid,
    
    // Begin by activating the Returned LOD and making sure a ViewObjRef entry exists for it.
-   // What would normally be the Returned LOD is the 
    GET VIEW SrcInclLOD NAMED "ESGL_IncludeLOD"   
    szViewName = TZADWWKO.ESG_ListIncludeW_MetaDef.Name   // View Name is in ESG_ListIncludeW_MetaDef.
    SET CURSOR FIRST TZWINDOW.ViewObjRef WHERE TZWINDOW.ViewObjRef.Name = szViewName
@@ -2429,41 +2408,19 @@ GenIncludePage( VIEW TZADWWKO  BASED ON LOD TZADWWKO,
       AddRegisteredViewName( TZADWWKO, TZWINDOW, SrcInclLOD, szViewName )
    END
    szLOD_ListEntityName = TZADWWKO.ESG_LOD_Entity2.Name    // List Entity Name was selected on interface.
-   
-   // For AddListMapping, position on the GroupBox holding the Grid.
-   // To position on the Grid, we will process all Controls hierarchically.
-   CreateViewFromView( TZCtlHier, TZWINDOW2 )
-   DefineHierarchicalCursor( TZCtlHier, "Control" )
-   NAME VIEW TZCtlHier "TZCtlHier"
-   nRC = SetCursorNextEntityHierarchical( lReturnedLevel, szReturnedEntityName, TZCtlHier )
-   lInitialLevel = lReturnedLevel
-   szFoundFlag = ""
-   LOOP WHILE nRC >= zCURSOR_SET AND lReturnedLevel >= lInitialLevel AND szFoundFlag = ""
-      IF nRC = zCURSOR_SET_RECURSIVECHILD
-         SetViewToSubobject( TZCtlHier, "CtrlCtrl" )
-      END
-      IF szReturnedEntityName = "CtrlCtrl"
-         szControlDef = TZCtlHier.ControlDef.Tag 
-         szControlTag = TZCtlHier.Control.Tag 
-         IF szControlDef = "Grid" AND szControlTag = "GridSelectList" 
-            CreateViewFromView( TZCONTROL, TZCtlHier )
-            NAME VIEW TZCONTROL "TZCONTROLAD"
-            szFoundFlag = "Y"
-         END
-      END
-      nRC = SetCursorNextEntityHierarchical( lReturnedLevel, szReturnedEntityName, TZCtlHier )
-   END
-   IF szFoundFlag = ""
+
+   // Position on the template Grid, GridSelectList, and then build out subcontrols using AddListMapping.
+   nRC = PositionOnControlByTag( TZADWWKO, TZCONTROL, TZWINDOW2, "GridSelectList" )
+   IF nRC < 0
       MessageSend( TZADWWKO, "", "Autodesign Subdialog",
                 "Grid GridSelectList not found.",
                 zMSGQ_OBJECT_CONSTRAINT_WARNING, 0 )
       RETURN -2
    END
    nRC = ResetViewFromSubobject( TZCONTROL )    // We're now on the Grid, so back up to the GroupBox.
-
    AddListMapping( TZADWWKO, TZCONTROL, TZWINDOW2, SrcInclLOD, szLOD_ListEntityName, szViewName, "ESG_List2" )
    
-   // Add the correct Entity mapping.
+   // Add the correct Entity mapping for Grid Control itself.
    IF TZCONTROL.CtrlMapLOD_Entity EXISTS
       EXCLUDE TZCONTROL.CtrlMapLOD_Entity  
    END
@@ -2526,7 +2483,6 @@ GenIncludePage( VIEW TZADWWKO  BASED ON LOD TZADWWKO,
    ELSE
       szCheckForOperation = "SELECT_Include" + szInclSuff
    END
-TraceLineS( "*** szCheckForOperation: ", szCheckForOperation )
    nLength = zGetStringLen( szCheckForOperation )
    szSourceDirectory = TaskLPLR.LPLR.PgmSrcDir 
    szFindVML = szSourceDirectory + "\" + TZWINDOW.Dialog.Tag + ".VML"
@@ -2539,7 +2495,6 @@ TraceLineS( "*** szCheckForOperation: ", szCheckForOperation )
       nRC = zSysReadLine( TZWINDOW, szVML_Statement, nFileIn, 256 )
    END
    SysCloseFile( TZWINDOW, nFileIn, 0 )
-TraceLineI( "*** nRC2: ", nRC2 )
    IF nRC2 != 0     // Operation was not found.
       // Copy the VML from ObjIncl.VML or ObjIncl.VML and append it to the current Find VML
       // Which VML code version to use depends on whether or not this is a Find subpage.
@@ -2786,43 +2741,15 @@ DeleteControlByName( VIEW TZADWWKO  BASED ON LOD TZADWWKO,
                      VIEW TZWINDOWL BASED ON LOD TZWDLGSO,
                      STRING ( 32 ) szControlName )
 
-   VIEW TZCtlHier BASED ON LOD TZWDLGSO
    VIEW TZCtlTemp BASED ON LOD TZWDLGSO
-   STRING ( 32 ) szReturnedEntityName
-   STRING ( 32 ) szControlTag
-   STRING ( 1 )  szDeletedFlag
-   SHORT lReturnedLevel
-   SHORT lInitialLevel
    SHORT nRC
    
    // Delete the identified Control within the current Window.
-   // We will process all Controls hierarchically to locate the Control.
-   
-   CreateViewFromView( TZCtlHier, TZWINDOWL )
-   DefineHierarchicalCursor( TZCtlHier, "Control" )
-   NAME VIEW TZCtlHier "TZCtlHier"
-   szDeletedFlag = ""
-   nRC = SetCursorNextEntityHierarchical( lReturnedLevel, szReturnedEntityName, TZCtlHier )
-   lInitialLevel = lReturnedLevel
-   LOOP WHILE nRC >= zCURSOR_SET AND lReturnedLevel >= lInitialLevel AND szDeletedFlag = ""
-      IF nRC = zCURSOR_SET_RECURSIVECHILD
-         SetViewToSubobject( TZCtlHier, "CtrlCtrl" )
-      END
-      IF szReturnedEntityName = "CtrlCtrl"
-         szControlTag = TZCtlHier.Control.Tag 
-         IF szControlTag = szControlName
-            CreateViewFromView( TZCtlTemp, TZCtlHier )
-            NAME VIEW TZCtlTemp "TZCtlTemp"
-
-            // Simply delete the Control.
-            DELETE ENTITY TZCtlTemp.Control NONE
-            szDeletedFlag = "Y"
-            DropView( TZCtlTemp )
-         END
-      END
-      nRC = SetCursorNextEntityHierarchical( lReturnedLevel, szReturnedEntityName, TZCtlHier )
+   nRC = PositionOnControlByTag( TZADWWKO, TZCtlTemp, TZWINDOWL, "txtSearch" )
+   IF nRC = 0
+      DELETE ENTITY TZCtlTemp.Control NONE
+      DropView( TZCtlTemp )
    END
-   DropView( TZCtlHier )
 
 END
 
@@ -2871,14 +2798,19 @@ GenEntitySubGroup( VIEW TZADWWKO  BASED ON LOD TZADWWKO,
    VIEW UpdateLOD   BASED ON LOD  TZZOLODO
    VIEW SearchLOD   BASED ON LOD  TZZOLODO
    VIEW ReturnedLOD BASED ON LOD  TZZOLODO
-   VIEW TZWINDOW2   BASED ON LOD  TZWDLGSO
+   VIEW TZCONTROL2  BASED ON LOD  TZWDLGSO
+   VIEW TZCtlHier   BASED ON LOD  TZWDLGSO
    STRING ( 50 )  szLOD_ListEntityName
    STRING ( 50 )  szGroupName
    STRING ( 50 )  szViewName
    STRING ( 50 )  szTemplateGroupName
+   STRING ( 50 )  szReturnedEntityName 
+   STRING ( 50 )  szControlDef
    STRING ( 200 ) szMsg
    SHORT   nRC
    INTEGER nLevel
+   INTEGER lInitialLevel
+   INTEGER lReturnedLevel 
    
    // Generate an Entity Subgroup based on the Group Type passed in.
    // The structure we are generating is assumed to be Bootstrap.
@@ -2927,9 +2859,6 @@ GenEntitySubGroup( VIEW TZADWWKO  BASED ON LOD TZADWWKO,
          RETURN -2
       END
       
-      // Make sure we're on the last Control.
-      //SET CURSOR LAST TZCONTROL.Control
-      
       // Build the Grid Control with subcontrols.
       
       // First clone basic structure at the current position.
@@ -2952,28 +2881,15 @@ GenEntitySubGroup( VIEW TZADWWKO  BASED ON LOD TZADWWKO,
          AddAD_ListUpdActions( TZADWWKO, TZWINDOWL, AD_Base, szGroupType )
       END
       
-      // If this is Bootstrap, go down 3 levels to Group holding Grid.
-      IF TZWINDOWL.Dialog.WEB_JSPGenerationPositioning = "B"
-         SET CURSOR LAST TZCONTROL.CtrlCtrl 
-         nRC = SetViewToSubobject( TZCONTROL, "CtrlCtrl" )
-         SET CURSOR LAST TZCONTROL.CtrlCtrl 
-         nRC = SetViewToSubobject( TZCONTROL, "CtrlCtrl" )
-         SET CURSOR LAST TZCONTROL.CtrlCtrl 
-         nRC = SetViewToSubobject( TZCONTROL, "CtrlCtrl" )
-      END
-      
-      // Build the list mapping entries.
+      // Build the list mapping entries for Grid. Note that the AddListMapping operation handles any parent Groups
+      // that contain the Grid.
       szLOD_ListEntityName = TZADWWKO.ESG_LOD_Entity.Name
       GetStringFromAttribute( szViewName, UpdateLOD, "LOD", "Name" )   // View Name is same as LOD Name.
       AddListMapping( TZADWWKO, TZCONTROL, TZWINDOWL, UpdateLOD, szLOD_ListEntityName, szViewName, "ESG_List" )
       
-      CreateViewFromView( TZWINDOW2, TZCONTROL )
-      NAME VIEW TZWINDOW2 "TZWINDOW2"
-      
       // Convert Header Data.
-      ConvertHeaderText( TZADWWKO, TZWINDOW2 )
+      ConvertHeaderText( TZADWWKO, TZCONTROL )
 
-      DropView( TZWINDOW2 )
    END
 
    // DETAIL GROUP
@@ -3018,11 +2934,11 @@ GenEntitySubGroup( VIEW TZADWWKO  BASED ON LOD TZADWWKO,
       // the page. If it's not the first Group, the position will be reset later.
       TZCONTROL.Control.PSDLG_Y = 10
 
-      // After the Clone, we need to also step past the header from the Control copied and down 2 levels.
-      nRC = SetViewToSubobject( TZCONTROL, "CtrlCtrl" )
-      SET CURSOR LAST TZCONTROL.Control
-      nRC = SetViewToSubobject( TZCONTROL, "CtrlCtrl" )
-      SET CURSOR LAST TZCONTROL.Control       // Skip first control if there are 2 because it would be the Button Group.
+      // After the Clone, we need to step into the inner-most and last subGroup.
+      LOOP WHILE TZCONTROL.CtrlCtrl EXISTS
+         nRC = SetViewToSubobject( TZCONTROL, "CtrlCtrl" )
+         SET CURSOR LAST TZCONTROL.Control
+      END
 
       GenDetailGrpBootstrap( TZADWWKO, TZCONTROL, TZWINDOWL, "MultiGroup" )
       
@@ -3743,3 +3659,45 @@ AddAD_GoExclActions( VIEW TZADWWKO BASED ON LOD TZADWWKO,
    END
 END
 
+/*************************************************************************************************
+**    
+**    OPERATION: PositionOnControlByTag
+**    
+*************************************************************************************************/
+TRANSFORMATION OPERATION
+PositionOnControlByTag( VIEW TZADWWKO       BASED ON LOD TZADWWKO,
+                        VIEW ReturnedView   BASED ON LOD TZWDLGSO,
+                        VIEW OuterStartView BASED ON LOD TZWDLGSO,
+                        STRING ( 50 ) szControlTagName )
+
+   VIEW TZCtlHier BASED ON LOD  TZWDLGSO
+   STRING ( 50 ) szReturnedEntityName
+   STRING ( 50 ) szControlDef
+   SHORT lReturnedLevel
+   SHORT lInitialLevel
+   SHORT nRC
+
+   CreateViewFromView( TZCtlHier, OuterStartView )
+   DefineHierarchicalCursor( TZCtlHier, "Control" )
+   NAME VIEW TZCtlHier "TZCtlHier"
+   nRC = SetCursorNextEntityHierarchical( lReturnedLevel, szReturnedEntityName, TZCtlHier )
+   lInitialLevel = lReturnedLevel
+   LOOP WHILE nRC >= zCURSOR_SET AND lReturnedLevel >= lInitialLevel
+      IF nRC = zCURSOR_SET_RECURSIVECHILD
+         SetViewToSubobject( TZCtlHier, "CtrlCtrl" )
+      END
+      IF szReturnedEntityName = "CtrlCtrl"
+         szControlDef = TZCtlHier.Control.Tag 
+         IF szControlDef = szControlTagName
+            // This is a Text Control, so convert any _Section or _SectionTitle characters
+            CreateViewFromView( ReturnedView, TZCtlHier )
+            DropView( TZCtlHier )
+            RETURN 0
+         END
+      END
+      nRC = SetCursorNextEntityHierarchical( lReturnedLevel, szReturnedEntityName, TZCtlHier )
+   END
+   DropView( TZCtlHier )
+   RETURN -1
+
+END

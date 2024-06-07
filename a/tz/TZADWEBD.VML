@@ -74,13 +74,11 @@ GOTO_AutodesignCRMSubdialog( VIEW ViewToWindow )
    GET VIEW AD_Base NAMED "AD_Base"
    IF RESULT < 0
       // The AD_Base object isn't in memory, so load it.
-      TraceLineS( "*** Start of ActivateAD_Base", "" )
       nRC = ActivateAD_BaseL( AD_Base, ViewToWindow )
       IF nRC < 0
          RETURN nRC
       END
       NAME VIEW AD_Base "AD_Base"
-      TraceLineS( "*** After of ActivateAD_Base", "" )
    END
    
    // Make sure that the TZZOLFLO object of Meta LOD entries exists.
@@ -141,13 +139,11 @@ GOTO_AutodesignObjectFindSubdlg( VIEW ViewToWindow )
    GET VIEW AD_Base NAMED "AD_Base"
    IF RESULT < 0
       // The AD_Base object isn't in memory, so load it.
-      TraceLineS( "*** Start of ActivateAD_Base", "" )
       nRC = ActivateAD_BaseL( AD_Base, ViewToWindow )
       IF nRC < 0
          RETURN nRC
       END
       NAME VIEW AD_Base "AD_Base"
-      TraceLineS( "*** After of ActivateAD_Base", "" )
    END
    
    // The TZADWWKO object  should be created new.
@@ -1171,7 +1167,7 @@ AUTODESIGN_NewGroup( VIEW ViewToWindow )
    // Reuse the GenEntitySubGroup operation to build the Group and an optional, subpage, depending on the Group Type.
    
    // Also activate AD_Base to pick up reusable data values.
-   nRC = ActivateAD_Base( TZADWWKO, AD_Base )
+   nRC = ActivateAD_BaseL( AD_Base, ViewToWindow )
    IF nRC < 0
       RETURN nRC
    END
@@ -1639,29 +1635,31 @@ AUTODESIGN_MPG_Pages( VIEW ViewToWindow )
    //     2 - accordion
    //       3 - card  (exists for each Area Group)
    //         4 = card-header
-   //         4 - collapse show  
+   //         4 - collapse show
+   
+   // If the outside Group is has CSS Class "container-fluid", then this is Boostrap with 2 outer Groups and we need to
+   // step down past the header to the "accordian" Group.
+   IF TZCONTROL.Control.CSS_Class = "container-fluid"
+      nRC = SetViewToSubobject( TZCONTROL, "CtrlCtrl" )
+      SET CURSOR LAST TZCONTROL.Control
+      nRC = SetViewToSubobject( TZCONTROL, "CtrlCtrl" )
+      SET CURSOR LAST TZCONTROL.Control 
+   END  
    
    FOR EACH TZADWWKO.EntitySubGroup 
       szGroupType = TZADWWKO.EntitySubGroup.GroupType
 TraceLineS( "*** szGroupType: ", szGroupType )
 
-      // We are assuming Bootstrap, which means we must step down 2 levels.
-      nRC = SetViewToSubobject( TZCONTROL, "CtrlCtrl" )
-      SET CURSOR LAST TZCONTROL.Control
-      nRC = SetViewToSubobject( TZCONTROL, "CtrlCtrl" )
-      SET CURSOR LAST TZCONTROL.Control 
-      
       // Use reusable operation, GenEntitySubGroup, to build out the Group.
       nRC = GenEntitySubGroup( TZADWWKO, TZCONTROL, TZWINDOWL, AD_Base, szGroupType, szAD_Area )
       IF nRC < 0
          RETURN nRC
       END
-      
-      // Always reset to top Group.
-      nRC = ResetViewFromSubobject( TZCONTROL )    // Make sure we reset view to the top.
-      LOOP WHILE nRC = 0
-         nRC = ResetViewFromSubobject( TZCONTROL )
-      END
+   END
+   // Always reset to top Group.
+   nRC = ResetViewFromSubobject( TZCONTROL )    // Make sure we reset view to the top.
+   LOOP WHILE nRC = 0
+      nRC = ResetViewFromSubobject( TZCONTROL )
    END
    
    // Reposition and Resize all Group Controls.
@@ -1711,6 +1709,10 @@ TraceLineS( "*** szGroupType: ", szGroupType )
    IF RESULT < 0
       DropObjectInstance( UpdateLOD )
    END
+   
+   MessageSend( ViewToWindow, "", "Autodesign Subdialog",
+                "Generate MultiGroup pages is complete.",
+                zMSGQ_OBJECT_CONSTRAINT_WARNING, 0 )
    
 END
 
@@ -2344,7 +2346,7 @@ PostbuildAD_MultiGroupPage( VIEW ViewToWindow )
       CREATE ENTITY TZWINDOWL.AutoDesignGroup  
       
       // Also activate AD_Base to pick up reusable data values.
-      nRC = ActivateAD_Base( TZADWWKO, AD_Base )
+      nRC = ActivateAD_BaseL( AD_Base, ViewToWindow )
       IF nRC < 0
          RETURN nRC
       END
@@ -2582,7 +2584,7 @@ PostbuildAutodesignGroup( VIEW ViewToWindow )
    // Make sure AD_Base dialog is loaded.
    GET VIEW AD_Base NAMED "AD_Base"
    IF RESULT < 0
-      nRC = ActivateAD_Base( TZADWWKO, AD_Base )
+      nRC = ActivateAD_BaseL( AD_Base, ViewToWindow )
       IF nRC < 0
          RETURN nRC
       END
@@ -2671,7 +2673,7 @@ PostbuildAutodesignSubgroup( VIEW ViewToWindow )
    // Make sure AD_Base dialog is loaded.
    GET VIEW AD_Base NAMED "AD_Base"
    IF RESULT < 0
-      nRC = ActivateAD_Base( TZADWWKO, AD_Base )
+      nRC = ActivateAD_BaseL( AD_Base, ViewToWindow )
       IF nRC < 0
          RETURN nRC
       END
@@ -4021,175 +4023,6 @@ END
 
 /*************************************************************************************************
 **    
-**    OPERATION: PostbuildAD_DetailSpecBootstrap
-**    
-*************************************************************************************************/
-DIALOG OPERATION
-PostbuildAD_DetailSpecBootstrap( VIEW ViewToWindow )
-
-   VIEW TZWINDOWL REGISTERED AS TZWINDOWL
-   VIEW TZCONTROL REGISTERED AS TZCONTROL
-   VIEW TaskLPLR  REGISTERED AS TaskLPLR
-   VIEW TZADWWKO  REGISTERED AS TZADWWKO
-   VIEW TempCtrl  BASED ON LOD  TZWDLGSO
-   VIEW TempCtrl2 BASED ON LOD  TZWDLGSO
-   VIEW TZZOLFLO  BASED ON LOD  TZCMLPLO
-   VIEW UpdateLOD BASED ON LOD  TZZOLODO
-   VIEW UpdateVOR BASED ON LOD  TZWDVORO
-   VIEW AD_Base   BASED ON LOD  TZWDLGSO
-   STRING ( 20 ) szControlDefTag
-   STRING ( 20 ) szControlType
-   STRING ( 50 ) szViewName
-   STRING ( 50 ) szLOD_Name
-   STRING ( 50 ) szTextPrompt
-   STRING ( 50 ) szTextCSS_Class
-   STRING ( 4 )  szSubControlType
-   INTEGER Count
-   INTEGER RowCount
-   INTEGER SubRowCount
-   SHORT   nRC
-
-   // Set up work data necessary for autodesigning an AutodesignSubdialog.
-   
-   // Make sure TZADWWKO and the related autodesign objects exist in memory.
-   GET VIEW TZADWWKO NAMED "TZADWWKO"
-   IF RESULT < 0
-      // The autodesign work objects need to be set up.
-      
-      // The TZADWWKO itself
-      ACTIVATE TZADWWKO EMPTY 
-      NAME VIEW TZADWWKO "TZADWWKO"
-      CREATE ENTITY TZADWWKO.AutoDesignWork 
-      CREATE ENTITY TZADWWKO.AutodesignSubdialog 
-      CREATE ENTITY TZADWWKO.EntitySubGroup  
-      
-      // Default state will be resize and reposition top Groups.
-      TZADWWKO.AutoDesignWork.RepositionGroupFlag = "Y"
-
-      // Remove any existing Autodesign entries from TZWINDOWL.
-      IF TZWINDOWL.AutoDesignWindow EXISTS
-         DELETE ENTITY TZWINDOWL.AutoDesignWindow  
-      END
-      CREATE ENTITY TZWINDOWL.AutoDesignWindow 
-      CREATE ENTITY TZWINDOWL.AutoDesignGroup  
-      
-         IF szSubControlType = "Updt"
-IssueError( ViewToWindow,0,0, "Before Updt Code" )
-      // The layout for Bootstrap assumes the Prompt and target control pairs are set within an outer "row" Group and an
-      // inner "col-X" or null Group. The "row" Groups will be counted to determine the row value for initial mapping entries.
-      
-      // Find the first update/display control to get object mapping information.
-      CreateViewFromView( TempCtrl2, TempCtrl )
-      NAME VIEW TempCtrl2 "TempCtrl2"
-      SetViewToSubobject( TempCtrl2, "CtrlCtrl" )   // Position on Row Group.
-      SetViewToSubobject( TempCtrl2, "CtrlCtrl" )   // Position on Pairing Group
-      SetViewToSubobject( TempCtrl2, "CtrlCtrl" )   // Position on Prompt Control.
-      SET CURSOR NEXT TempCtrl2.Control             // Position on update/display Control with mapping. 
-      IF TempCtrl2.CtrlMap DOES NOT EXIST
-         MessageSend( ViewToWindow, "", "Autodesign Group",
-                      "The update/display mapping entry is missing.",
-                      zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
-         SetWindowActionBehavior( ViewToWindow, zWAB_StayOnWindow, 0, 0 )
-         RETURN -2
-      END
-IssueError( ViewToWindow,0,0, "After SetViews" )
-      
-      // Set up the Mapping Object from the Control Mapping.
-      TZADWWKO.AutoDesignWork.AutodesignGroupCtrlsExistFlag = "Y"
-      TZADWWKO.EntitySubGroup.GroupType                     = "DetailGroupUpdate"
-      TZADWWKO.EntitySubGroup.AutodesignGroupTemplateName   = "GroupDetail"
-      CREATE ENTITY TZADWWKO.AutodesignGroupTemplate 
-      TZADWWKO.AutodesignGroupTemplate.GroupName = "GroupDetail"
-      
-      // Activate Object View and LOD.
-      szViewName = TempCtrl2.CtrlMapView.Name 
-      nRC = ActivateMetaOI_ByName( ViewToWindow, UpdateVOR, 0, zREFER_VOR_META, zSINGLE, szViewName, 0 )
-      NAME VIEW UpdateVOR "UpdateObjectViewRef"
-      IF TZADWWKO.W_MetaDefUpdateView EXISTS
-         EXCLUDE TZADWWKO.W_MetaDefUpdateView  
-      END 
-      SET CURSOR FIRST TaskLPLR.W_MetaType WHERE TaskLPLR.W_MetaType.Type = 9   // Read view of Registered View
-      SET CURSOR FIRST TaskLPLR.W_MetaDef  WHERE TaskLPLR.W_MetaDef.Name  = UpdateVOR.ViewObjRef.Name  
-      INCLUDE TZADWWKO.W_MetaDefUpdateView  FROM TaskLPLR.W_MetaDef 
-      szLOD_Name = UpdateVOR.LOD.Name 
-      nRC = ActivateMetaOI_ByName( ViewToWindow, UpdateLOD, 0, zREFER_LOD_META, zSINGLE, szLOD_Name, 0 )
-      NAME VIEW UpdateLOD "TZZOLODO_Update"
-      SET CURSOR FIRST TaskLPLR.W_MetaType  WHERE TaskLPLR.W_MetaType.Type = 7   // Read view of LOD
-      SET CURSOR FIRST TaskLPLR.W_MetaDef   WHERE TaskLPLR.W_MetaDef.Name  = UpdateLOD.LOD.Name   
-      INCLUDE TZADWWKO.W_MetaDefUpdateObject FROM TaskLPLR.W_MetaDef
-      
-      // Loop through each row Group and then each detail pair Group within the row.
-      RowCount = 0
-      SetViewToSubobject( TempCtrl, "CtrlCtrl" )
-IssueError( ViewToWindow,0,0, "Before Updt Loop" )
-      FOR EACH TempCtrl.Control 
-         IF TempCtrl.Control.CSS_Class != "row"
-            MessageSend( ViewToWindow, "", "Autodesign Group",
-                         "Invalid subcontrol encountered. Row Class expected..",
-                         zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
-            SetWindowActionBehavior( ViewToWindow, zWAB_StayOnWindow, 0, 0 )
-            DropView( TempCtrl )
-            RETURN -2
-         END
-         RowCount = RowCount + 1
-         
-         // Step down to detail pair Groups that contains each Prompt plus Control with mapping.
-         SetViewToSubobject( TempCtrl, "CtrlCtrl" )
-         SubRowCount = 0
-         FOR EACH TempCtrl.Control
-            SubRowCount = SubRowCount + 1
-TraceLineI( "*** SubRowCount: ", SubRowCount )
-IssueError( ViewToWindow,0,0, "Inside Detail Loop" )
-            SetViewToSubobject( TempCtrl, "CtrlCtrl" )
-            // Prompt
-            szTextPrompt = TempCtrl.Control.Text
-            SET CURSOR NEXT TempCtrl.Control    // Step to mapping control
-            // Mapping Control
-            IF TempCtrl.CtrlMapLOD_Attribute DOES NOT EXIST
-               IssueError( ViewToWindow,0,0, "The Group layout is not valid. You must Cancel the Autodesign process." ) 
-               RETURN
-            END
-            INCLUDE TZADWWKO.ESG_DetailLOD_Attribute FROM TempCtrl.CtrlMapLOD_Attribute 
-            TZADWWKO.ESG_DetailLOD_Attribute.PromptValue         = szTextPrompt
-            TZADWWKO.ESG_DetailLOD_Attribute.ControlType         = TempCtrl.ControlDef.Tag
-IssueError( ViewToWindow,0,0, "Inside Detail Loop End" )
-            ResetViewFromSubobject( TempCtrl )
-         END
-         
-      END
-      ResetViewFromSubobject( TempCtrl )
-      
-      // Delete any current potential attributes and then go to build them.
-      BuildAD_GroupPotAttrList( TZADWWKO, UpdateLOD, UpdateLOD.LOD_EntityParent.Name, "" )
-   END
-
-   END
-   
-   // Make sure AD_Base dialog is loaded.
-   GET VIEW AD_Base NAMED "AD_Base"
-   IF RESULT < 0
-      nRC = ActivateAD_Base( TZADWWKO, AD_Base )
-      IF nRC < 0
-         RETURN nRC
-      END
-      NAME VIEW AD_Base "AD_Base" 
-   END
-   
-   // Make sure that the TZZOLFLO object of Meta ViewObjRef entries exists.
-   GET VIEW TZZOLFLO NAMED "TZZOLFLO"
-   IF RESULT < 0
-      CreateViewFromView( TZZOLFLO, TaskLPLR )
-      NAME VIEW TZZOLFLO "TZZOLFLO"
-      SET CURSOR FIRST TZZOLFLO.W_MetaType WHERE TZZOLFLO.W_MetaType.Type = 9   // 9 is read view of Registered View 
-   END
-   
-   // Accept the current Control because it is the GroupBox that should be versioned.
-   AcceptSubobject( TZCONTROL, "Control" )
-
-END
-
-/*************************************************************************************************
-**    
 **    OPERATION: ActivateAD_BaseL
 **    
 *************************************************************************************************/
@@ -4197,12 +4030,18 @@ LOCAL OPERATION
 ActivateAD_BaseL( VIEW RetAD_BaseView,
                   VIEW ViewToWindow )
 
-   VIEW TZWINDOWL BASED ON LOD TZWDLGSO
+   VIEW TaskLPLR  REGISTERED AS TaskLPLR
+   STRING ( 300 ) szAutodesignLPLR_Directory
    INTEGER nRC
    
    // Activate correct AD_Base dialog based on Generation type.
    // For now, only activate the Bootstrap AD_Base.
-   nRC = ActivateOI_FromFile( RetAD_BaseView, "TZWDLGSO", ViewToWindow, "C:\LPLR\AD_Base\AD_Base.PWD", zSINGLE )
+   IF TaskLPLR.LPLR.AutodesignBase = ""
+      szAutodesignLPLR_Directory = "C:\LPLR\AD_Base\AD_Base.PWD"    // Use default
+   ELSE
+      szAutodesignLPLR_Directory = TaskLPLR.LPLR.AutodesignBase     // Use specified directory
+   END
+   nRC = ActivateOI_FromFile( RetAD_BaseView, "TZWDLGSO", ViewToWindow, szAutodesignLPLR_Directory, zSINGLE )
    
    IF nRC < 0
       MessageSend( ViewToWindow, "", "Autodesign Window Group",

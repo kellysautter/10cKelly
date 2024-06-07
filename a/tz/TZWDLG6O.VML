@@ -1811,7 +1811,7 @@ GenerateJSPJava( VIEW vDialog BASED ON LOD TZWDLGSO,
    // KJS 09/04/14 - Setting a logout date, to try and determine if a user tries to log into application when they already have a session open.
    // It looks like users write over data when they have a couple of browser sessions open.
    /*
-   IF szRegisterZeidon = "Y" AND szNoMonitorTaskLogout = ""
+   IF szRegisterZeidon = "Y" AND (szNoMonitorTaskLogout = "" OR  OR szNoMonitorTaskLogout = "N")
       szWriteBuffer = "Date dLogin = (Date) session.getAttribute( ^ZeidonTaskLoginDate^ );"
       WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
       szWriteBuffer = "Date dLogout = (Date) session.getAttribute( ^ZeidonTaskLogoutDate^ );"
@@ -1855,7 +1855,7 @@ GenerateJSPJava( VIEW vDialog BASED ON LOD TZWDLGSO,
    END
 
    /*
-   IF szRegisterZeidon = "Y" AND szNoMonitorTaskLogout = ""
+   IF szRegisterZeidon = "Y" AND (szNoMonitorTaskLogout = "" OR szNoMonitorTaskLogout = "N")
       szWriteBuffer = "   // We are trying to determine on login, if a user is already logged into the task, and if so, then do not allow them to log in again. "
       WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
       szWriteBuffer = "   if ( dLogin != null && dLogout != null ) "
@@ -1879,7 +1879,7 @@ GenerateJSPJava( VIEW vDialog BASED ON LOD TZWDLGSO,
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    szWriteBuffer = "{"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
-   IF szRegisterZeidon = "Y" AND szNoMonitorTaskLogout = ""
+   IF szRegisterZeidon = "Y" AND (szNoMonitorTaskLogout = "" OR szNoMonitorTaskLogout = "N")
       szWriteBuffer = "   strURL = response.encodeRedirectURL( ^loggedintotask.jsp^ );"
       WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
       szWriteBuffer = "   response.sendRedirect( strURL );"

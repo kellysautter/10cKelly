@@ -1518,7 +1518,7 @@ oTZCMCPRO_CPLR_Enqueue( zVIEW vTZCMCPRO0,
                         zSHORT nEnqueueType2 );
 
 //end
-//start TZCMLPLO 2024.04.25 11:04:24
+//start TZCMLPLO 2023.12.12 11:35:16
 zOPER_EXPORT zSHORT OPERATION
 oTZCMLPLO_CheckOI_ForDupZKey( zVIEW vViewToInstance0,
                               zVIEW vViewSubjectOI1,
@@ -2293,11 +2293,7 @@ zOPER_EXPORT zSHORT OPERATION
 oDonTestXXXXXXXXYYYYYYYYCCCCCCCCB_ThisIsATest( zVIEW vViewToInstance0 );
 
 //end
-//start TZADWWKO 2024.04.18 21:40:27
-zOPER_EXPORT zSHORT OPERATION
-oTZADWWKO_ActivateAD_Base( zVIEW vViewToInstance0,
-                           zPVIEW vReturnedAD_BaseView1 );
-
+//start TZADWWKO 2024.05.03 15:34:13
 zOPER_EXPORT zSHORT OPERATION
 oTZADWWKO_AddAD_ListInclActions( zVIEW vViewToInstance0,
                                  zVIEW vTZCONTROL1,
@@ -2466,5 +2462,11 @@ zOPER_EXPORT zSHORT OPERATION
 oTZADWWKO_AddAD_GoExclActions( zVIEW vViewToInstance0,
                                zVIEW vTZWINDOWL1,
                                zVIEW vAD_Base2 );
+
+zOPER_EXPORT zSHORT OPERATION
+oTZADWWKO_PositionOnControlByTag( zVIEW vViewToInstance0,
+                                  zPVIEW vReturnedView1,
+                                  zVIEW vOuterStartView2,
+                                  zPCHAR pchszControlTagName3 );
 
 //end

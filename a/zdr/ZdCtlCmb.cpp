@@ -2006,6 +2006,11 @@ ZComboBox::MapFromOI( WPARAM wFlag )
                if ( m_nDisplaySelSet )
                {
                   // If there are no entities to list ... quit.
+				  zSHORT  nPrevSelSet = 0;
+				  // KJS 05/08/24 - I added the nPrevSelSet and the SetSelect... at the end of this if becaues
+				  // otherwise, the SetSelect was set for 2, not 1. Then if we tried to update a WebControlProperty, the
+				  // assignment wouldn't work.
+				  nPrevSelSet = SetSelectSetForView( vApp, m_nDisplaySelSet );
                   SetSelectSetForView( vApp, m_nDisplaySelSet );
                   if ( SetEntityCursor( vApp, *m_pzsListMapEName, 0,
                                         m_ulFlag | zPOS_FIRST |
@@ -2014,7 +2019,8 @@ ZComboBox::MapFromOI( WPARAM wFlag )
                   {
                      uMapState |= zMAPACT_ENTITY_EXISTS;
                   }
-               }
+ 				  SetSelectSetForView(vApp, nPrevSelSet);
+              }
                else
                {
                   // If there are no entities to list ... quit.

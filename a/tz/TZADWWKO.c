@@ -1,4 +1,3 @@
-
 #define KZSYSSVC_INCL
 #include "KZOENGAA.H" 
 #include "TZ__OPRS.H" 
@@ -18,39 +17,6 @@ oTZADWWKO_ReturnAttrControlType( zVIEW     AnyView,
                                  zPCHAR    szDomainType,
                                  zPCHAR    szControlType,
                                  zPCHAR    szUpdateFlag );
-
-
-//:TRANSFORMATION OPERATION
-//:ActivateAD_Base( VIEW TZADWWKO BASED ON LOD TZADWWKO,
-//:                 VIEW RetAD_BaseView )
-
-//:   SHORT  nRC
-zOPER_EXPORT zSHORT OPERATION
-oTZADWWKO_ActivateAD_Base( zVIEW     TZADWWKO,
-                           zPVIEW    RetAD_BaseView )
-{
-   zSHORT    nRC = 0; 
-
-
-   //:nRC = ActivateOI_FromFile( RetAD_BaseView, "TZWDLGSO", TZADWWKO, "C:\LPLR\AD_Base\AD_Base.PWD", zSINGLE )
-   nRC = ActivateOI_FromFile( RetAD_BaseView, "TZWDLGSO", TZADWWKO, "C:\\LPLR\\AD_Base\\AD_Base.PWD", zSINGLE );
-   //:IF nRC < 0
-   if ( nRC < 0 )
-   { 
-      //:MessageSend( TZADWWKO, "", "Autodesign Window Group",
-      //:             "Unable to activate AD_Base.PWD from AD_Base LPLR.",
-      //:             zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
-      MessageSend( TZADWWKO, "", "Autodesign Window Group", "Unable to activate AD_Base.PWD from AD_Base LPLR.", zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
-      //:SetWindowActionBehavior( TZADWWKO, zWAB_StayOnWindow, 0, 0 )
-      SetWindowActionBehavior( TZADWWKO, zWAB_StayOnWindow, 0, 0 );
-      //:RETURN -2
-      return( -2 );
-   } 
-
-   //:END
-   return( 0 );
-// END
-} 
 
 
 //:TRANSFORMATION OPERATION
@@ -1534,6 +1500,8 @@ oTZADWWKO_AutodesignFindPages( zVIEW     TZADWWKO,
    zCHAR     szControlText[ 201 ] = { 0 }; 
    //:STRING ( 1 )   szCopyVML_Flag
    zCHAR     szCopyVML_Flag[ 2 ] = { 0 }; 
+   //:STRING ( 1 )   szFoundFlag
+   zCHAR     szFoundFlag[ 2 ] = { 0 }; 
    //:STRING ( 256 ) szSourceDirectory
    zCHAR     szSourceDirectory[ 257 ] = { 0 }; 
    //:STRING ( 256 ) szFindBaseVML
@@ -1960,53 +1928,67 @@ oTZADWWKO_AutodesignFindPages( zVIEW     TZADWWKO,
    //:DropView( FindBaseSrc )
    DropView( FindBaseSrc );
 
-   //:// Also convert the Header Text _AD_Area.
-   //:// Step down to that Group.
-   //:CreateViewFromView( TZCONTROL, TZWINDOWL )
-   CreateViewFromView( &TZCONTROL, TZWINDOWL );
-   //:NAME VIEW TZCONTROL "TZCONTROLAD"
-   SetNameForView( TZCONTROL, "TZCONTROLAD", 0, zLEVEL_TASK );
-   //:SetViewToSubobject( TZCONTROL, "CtrlCtrl" )  // Step into 2nd level
-   SetViewToSubobject( TZCONTROL, "CtrlCtrl" );
-   //:SET CURSOR FIRST TZCONTROL.Control           // Position on Header
-   RESULT = SetCursorFirstEntity( TZCONTROL, "Control", "" );
-   //:SET CURSOR NEXT TZCONTROL.Control            // Position on Accordian
-   RESULT = SetCursorNextEntity( TZCONTROL, "Control", "" );
-   //:SetViewToSubobject( TZCONTROL, "CtrlCtrl" )  // Step into card Group
-   SetViewToSubobject( TZCONTROL, "CtrlCtrl" );
-   //:SetViewToSubobject( TZCONTROL, "CtrlCtrl" )  // Step into Header Group
-   SetViewToSubobject( TZCONTROL, "CtrlCtrl" );
-   //:SetViewToSubobject( TZCONTROL, "CtrlCtrl" )  // Step into Header Text
-   SetViewToSubobject( TZCONTROL, "CtrlCtrl" );
-   //:szControlText = TZCONTROL.Control.Text
-   GetVariableFromAttribute( szControlText, 0, 'S', 201, TZCONTROL, "Control", "Text", "", 0 );
-   //:zSearchAndReplace( szControlText, 200, "_AD_Area", szAD_Area )
-   zSearchAndReplace( szControlText, 200, "_AD_Area", szAD_Area );
-   //:TZCONTROL.Control.Text = szControlText
-   SetAttributeFromString( TZCONTROL, "Control", "Text", szControlText );
-   //:DropView( TZCONTROL )
-   DropView( TZCONTROL );
-
-   //:// Make sure ViewObjRef exists in the dialog for the ReturnedLOD, unless the Find is "CRM"..
-   //:IF TZADWWKO.AutodesignSubdialog.FindType != "CRM"
-   if ( CompareAttributeToString( TZADWWKO, "AutodesignSubdialog", "FindType", "CRM" ) != 0 )
+   //:// Convert the Header Text if there is a Group named "search-header".
+   //:CreateViewFromView( TZCtlHier, TZWINDOWL )
+   CreateViewFromView( &TZCtlHier, TZWINDOWL );
+   //:DefineHierarchicalCursor( TZCtlHier, "Control" )
+   DefineHierarchicalCursor( TZCtlHier, "Control" );
+   //:NAME VIEW TZCtlHier "TZCtlHier"
+   SetNameForView( TZCtlHier, "TZCtlHier", 0, zLEVEL_TASK );
+   //:nRC = SetCursorNextEntityHierarchical( lReturnedLevel, szReturnedEntityName, TZCtlHier )
+   nRC = SetCursorNextEntityHierarchical( (zPUSHORT) &lReturnedLevel, szReturnedEntityName, TZCtlHier );
+   //:lInitialLevel = lReturnedLevel
+   lInitialLevel = lReturnedLevel;
+   //:szFoundFlag = ""
+   ZeidonStringCopy( szFoundFlag, 1, 0, "", 1, 0, 2 );
+   //:LOOP WHILE nRC >= zCURSOR_SET AND lReturnedLevel >= lInitialLevel AND szFoundFlag = ""
+   while ( nRC >= zCURSOR_SET && lReturnedLevel >= lInitialLevel && ZeidonStringCompare( szFoundFlag, 1, 0, "", 1, 0, 2 ) == 0 )
    { 
-      //:szReturnedViewName = ReturnedLOD.LOD.Name
-      GetVariableFromAttribute( szReturnedViewName, 0, 'S', 51, ReturnedLOD, "LOD", "Name", "", 0 );
-      //:SET CURSOR FIRST TZWINDOW.ViewObjRef WHERE TZWINDOW.ViewObjRef.Name = szReturnedViewName
-      RESULT = SetCursorFirstEntityByString( TZWINDOW, "ViewObjRef", "Name", szReturnedViewName, "" );
-      //:IF RESULT < zCURSOR_SET
-      if ( RESULT < zCURSOR_SET )
+      //:IF nRC = zCURSOR_SET_RECURSIVECHILD
+      if ( nRC == zCURSOR_SET_RECURSIVECHILD )
       { 
-         //:// The following operation creates the ViewObjRef as necessary and includes it in the Dialog.
-         //:AddRegisteredViewName( TZADWWKO, TZWINDOW, ReturnedLOD, szReturnedViewName )
-         oTZADWWKO_AddRegisteredViewName( TZADWWKO, TZWINDOW, ReturnedLOD, szReturnedViewName );
+         //:SetViewToSubobject( TZCtlHier, "CtrlCtrl" )
+         SetViewToSubobject( TZCtlHier, "CtrlCtrl" );
       } 
 
       //:END
+      //:IF szReturnedEntityName = "CtrlCtrl"
+      if ( ZeidonStringCompare( szReturnedEntityName, 1, 0, "CtrlCtrl", 1, 0, 51 ) == 0 )
+      { 
+         //:szControlTag = TZCtlHier.Control.Tag 
+         GetVariableFromAttribute( szControlTag, 0, 'S', 51, TZCtlHier, "Control", "Tag", "", 0 );
+         //:IF szControlTag = "search-header" 
+         if ( ZeidonStringCompare( szControlTag, 1, 0, "search-header", 1, 0, 51 ) == 0 )
+         { 
+            //:CreateViewFromView( TZCONTROL, TZCtlHier )
+            CreateViewFromView( &TZCONTROL, TZCtlHier );
+            //:NAME VIEW TZCONTROL "TZCONTROLAD"
+            SetNameForView( TZCONTROL, "TZCONTROLAD", 0, zLEVEL_TASK );
+            //:SetViewToSubobject( TZCONTROL, "CtrlCtrl" )  // Step into the Text field.
+            SetViewToSubobject( TZCONTROL, "CtrlCtrl" );
+            //:szControlText = TZCONTROL.Control.Text
+            GetVariableFromAttribute( szControlText, 0, 'S', 201, TZCONTROL, "Control", "Text", "", 0 );
+            //:zSearchAndReplace( szControlText, 200, "_AD_Area", szAD_Area )
+            zSearchAndReplace( szControlText, 200, "_AD_Area", szAD_Area );
+            //:TZCONTROL.Control.Text = szControlText
+            SetAttributeFromString( TZCONTROL, "Control", "Text", szControlText );
+            //:szFoundFlag = "Y"
+            ZeidonStringCopy( szFoundFlag, 1, 0, "Y", 1, 0, 2 );
+            //:DropView( TZCONTROL )
+            DropView( TZCONTROL );
+         } 
+
+         //:END
+      } 
+
+      //:END
+      //:nRC = SetCursorNextEntityHierarchical( lReturnedLevel, szReturnedEntityName, TZCtlHier )
+      nRC = SetCursorNextEntityHierarchical( (zPUSHORT) &lReturnedLevel, szReturnedEntityName, TZCtlHier );
    } 
 
    //:END
+   //:DropView( TZCtlHier )      
+   DropView( TZCtlHier );
    //:   
    //:// 3. Build the Search fields group from the selected attributes in TZADWWKO.FlatSelectedSearchAttribute.
    //://    In order to reuse the GenDetailGrpBootstrap operation that uses TZADWWKO.DetailMappingLOD_Attribute, we will copy the 
@@ -2441,6 +2423,17 @@ oTZADWWKO_AutodesignFindPages( zVIEW     TZADWWKO,
                   //:nLastPosition = nLastPosition + nPromptSize    // Set up the position for the next control
                   nLastPosition = nLastPosition + nPromptSize;
                   RESULT = SetCursorNextEntity( TZADWWKO, "FlatSelectedListAttribute", "" );
+               } 
+
+               //:END
+               //:// Set position of any next control (which would be a button) to next position.
+               //:SET CURSOR NEXT TZCtlTemp.Control
+               RESULT = SetCursorNextEntity( TZCtlTemp, "Control", "" );
+               //:IF RESULT >= zCURSOR_SET
+               if ( RESULT >= zCURSOR_SET )
+               { 
+                  //:TZCtlTemp.Control.PSDLG_X = nLastPosition
+                  SetAttributeFromInteger( TZCtlTemp, "Control", "PSDLG_X", nLastPosition );
                } 
 
                //:END
@@ -3422,12 +3415,17 @@ oTZADWWKO_ConvertHeaderText( zVIEW     TZADWWKO,
    zSHORT    nRC = 0; 
 
 
-   //:// Process Group Area and Group Area Name for the subGroups of the "card" Group for the current Control.
-   //:// If we're not on the "card" Control, we will back up until we get there.
-   //:// Then replace modifiable variables _Section and _SectionTitle with Group Area Name and Group Area Title
-   //:// in the Tag and Text values of any Text Control.
-   //:// Do the same for the Tag and HTML5 values of any "collapse show" Groupbox.
-   //:// We will do this by processing all the subControls of the "card" Group.
+   //:// BOOTSTRAP OPTION 1 (Group with "collapse show" and header text)
+
+   //:// This operation is used only for modifying the header text in a particular option of Bootstrap and for setting
+   //:// values in the "collapse show" group that goes with it.
+   //:// The Group template for this option has the List or Detail Group just generated imbedded within one or more parent Groups.
+   //:// This code first positions back to the parent "card" Group.
+   //:// It then searches both for the header text and collapse/show Group.
+   //:// For the header text, it replaces modifiable variables _Section and _SectionTitle with Group Area Name and Group Area Title.
+   //:// For the "collapse show" group, it modifies the Control Tag and HTML5 values.
+
+   //:// This will be done by processing all the subControls of the "card" Group hierarchially to locate the Controls needing to be converted.
 
    //:// Back up to the "card Groupbox as necesary.
    //:IF TZCONTROL.Control.CSS_Class != "card"
@@ -3498,7 +3496,7 @@ oTZADWWKO_ConvertHeaderText( zVIEW     TZADWWKO,
          //:IF szControlDef = "Text"
          if ( ZeidonStringCompare( szControlDef, 1, 0, "Text", 1, 0, 51 ) == 0 )
          { 
-            //:// This is a Text Control, so convert any _Section or xxx characters
+            //:// This is a Text Control, so convert any _Section or _SectionTitle characters
             //:CreateViewFromView( TZCtlTemp, TZCtlHier )
             CreateViewFromView( &TZCtlTemp, TZCtlHier );
             //:NAME VIEW TZCtlTemp "TZCtlTemp"
@@ -3633,89 +3631,31 @@ oTZADWWKO_DeleteActionOperation( zVIEW     TZADWWKO,
 //:                     VIEW TZWINDOWL BASED ON LOD TZWDLGSO,
 //:                     STRING ( 32 ) szControlName )
 
-//:   VIEW TZCtlHier BASED ON LOD TZWDLGSO
+//:   VIEW TZCtlTemp BASED ON LOD TZWDLGSO
 zOPER_EXPORT zSHORT OPERATION
 oTZADWWKO_DeleteControlByName( zVIEW     TZADWWKO,
                                zVIEW     TZWINDOWL,
                                zPCHAR    szControlName )
 {
-   zVIEW     TZCtlHier = 0; 
-   //:VIEW TZCtlTemp BASED ON LOD TZWDLGSO
    zVIEW     TZCtlTemp = 0; 
-   //:STRING ( 32 ) szReturnedEntityName
-   zCHAR     szReturnedEntityName[ 33 ] = { 0 }; 
-   //:STRING ( 32 ) szControlTag
-   zCHAR     szControlTag[ 33 ] = { 0 }; 
-   //:STRING ( 1 )  szDeletedFlag
-   zCHAR     szDeletedFlag[ 2 ] = { 0 }; 
-   //:SHORT lReturnedLevel
-   zSHORT    lReturnedLevel = 0; 
-   //:SHORT lInitialLevel
-   zSHORT    lInitialLevel = 0; 
    //:SHORT nRC
    zSHORT    nRC = 0; 
    zSHORT    RESULT; 
 
 
    //:// Delete the identified Control within the current Window.
-   //:// We will process all Controls hierarchically to locate the Control.
-
-   //:CreateViewFromView( TZCtlHier, TZWINDOWL )
-   CreateViewFromView( &TZCtlHier, TZWINDOWL );
-   //:DefineHierarchicalCursor( TZCtlHier, "Control" )
-   DefineHierarchicalCursor( TZCtlHier, "Control" );
-   //:NAME VIEW TZCtlHier "TZCtlHier"
-   SetNameForView( TZCtlHier, "TZCtlHier", 0, zLEVEL_TASK );
-   //:szDeletedFlag = ""
-   ZeidonStringCopy( szDeletedFlag, 1, 0, "", 1, 0, 2 );
-   //:nRC = SetCursorNextEntityHierarchical( lReturnedLevel, szReturnedEntityName, TZCtlHier )
-   nRC = SetCursorNextEntityHierarchical( (zPUSHORT) &lReturnedLevel, szReturnedEntityName, TZCtlHier );
-   //:lInitialLevel = lReturnedLevel
-   lInitialLevel = lReturnedLevel;
-   //:LOOP WHILE nRC >= zCURSOR_SET AND lReturnedLevel >= lInitialLevel AND szDeletedFlag = ""
-   while ( nRC >= zCURSOR_SET && lReturnedLevel >= lInitialLevel && ZeidonStringCompare( szDeletedFlag, 1, 0, "", 1, 0, 2 ) == 0 )
+   //:nRC = PositionOnControlByTag( TZADWWKO, TZCtlTemp, TZWINDOWL, "txtSearch" )
+   nRC = oTZADWWKO_PositionOnControlByTag( TZADWWKO, &TZCtlTemp, TZWINDOWL, "txtSearch" );
+   //:IF nRC = 0
+   if ( nRC == 0 )
    { 
-      //:IF nRC = zCURSOR_SET_RECURSIVECHILD
-      if ( nRC == zCURSOR_SET_RECURSIVECHILD )
-      { 
-         //:SetViewToSubobject( TZCtlHier, "CtrlCtrl" )
-         SetViewToSubobject( TZCtlHier, "CtrlCtrl" );
-      } 
-
-      //:END
-      //:IF szReturnedEntityName = "CtrlCtrl"
-      if ( ZeidonStringCompare( szReturnedEntityName, 1, 0, "CtrlCtrl", 1, 0, 33 ) == 0 )
-      { 
-         //:szControlTag = TZCtlHier.Control.Tag 
-         GetVariableFromAttribute( szControlTag, 0, 'S', 33, TZCtlHier, "Control", "Tag", "", 0 );
-         //:IF szControlTag = szControlName
-         if ( ZeidonStringCompare( szControlTag, 1, 0, szControlName, 1, 0, 33 ) == 0 )
-         { 
-            //:CreateViewFromView( TZCtlTemp, TZCtlHier )
-            CreateViewFromView( &TZCtlTemp, TZCtlHier );
-            //:NAME VIEW TZCtlTemp "TZCtlTemp"
-            SetNameForView( TZCtlTemp, "TZCtlTemp", 0, zLEVEL_TASK );
-
-            //:// Simply delete the Control.
-            //:DELETE ENTITY TZCtlTemp.Control NONE
-            RESULT = DeleteEntity( TZCtlTemp, "Control", zREPOS_NONE );
-            //:szDeletedFlag = "Y"
-            ZeidonStringCopy( szDeletedFlag, 1, 0, "Y", 1, 0, 2 );
-            //:DropView( TZCtlTemp )
-            DropView( TZCtlTemp );
-         } 
-
-         //:END
-      } 
-
-      //:END
-      //:nRC = SetCursorNextEntityHierarchical( lReturnedLevel, szReturnedEntityName, TZCtlHier )
-      nRC = SetCursorNextEntityHierarchical( (zPUSHORT) &lReturnedLevel, szReturnedEntityName, TZCtlHier );
+      //:DELETE ENTITY TZCtlTemp.Control NONE
+      RESULT = DeleteEntity( TZCtlTemp, "Control", zREPOS_NONE );
+      //:DropView( TZCtlTemp )
+      DropView( TZCtlTemp );
    } 
 
    //:END
-   //:DropView( TZCtlHier )
-   DropView( TZCtlHier );
    return( 0 );
 // END
 } 
@@ -5133,8 +5073,10 @@ oTZADWWKO_GenEntitySubGroup( zVIEW     TZADWWKO,
    zVIEW     SearchLOD = 0; 
    //:VIEW ReturnedLOD BASED ON LOD  TZZOLODO
    zVIEW     ReturnedLOD = 0; 
-   //:VIEW TZWINDOW2   BASED ON LOD  TZWDLGSO
-   zVIEW     TZWINDOW2 = 0; 
+   //:VIEW TZCONTROL2  BASED ON LOD  TZWDLGSO
+   zVIEW     TZCONTROL2 = 0; 
+   //:VIEW TZCtlHier   BASED ON LOD  TZWDLGSO
+   zVIEW     TZCtlHier = 0; 
    //:STRING ( 50 )  szLOD_ListEntityName
    zCHAR     szLOD_ListEntityName[ 51 ] = { 0 }; 
    //:STRING ( 50 )  szGroupName
@@ -5143,15 +5085,24 @@ oTZADWWKO_GenEntitySubGroup( zVIEW     TZADWWKO,
    zCHAR     szViewName[ 51 ] = { 0 }; 
    //:STRING ( 50 )  szTemplateGroupName
    zCHAR     szTemplateGroupName[ 51 ] = { 0 }; 
+   //:STRING ( 50 )  szReturnedEntityName 
+   zCHAR     szReturnedEntityName[ 51 ] = { 0 }; 
+   //:STRING ( 50 )  szControlDef
+   zCHAR     szControlDef[ 51 ] = { 0 }; 
    //:STRING ( 200 ) szMsg
    zCHAR     szMsg[ 201 ] = { 0 }; 
    //:SHORT   nRC
    zSHORT    nRC = 0; 
    //:INTEGER nLevel
    zLONG     nLevel = 0; 
+   //:INTEGER lInitialLevel
+   zLONG     lInitialLevel = 0; 
+   //:INTEGER lReturnedLevel 
+   zLONG     lReturnedLevel = 0; 
    zSHORT    RESULT; 
    zCHAR     szTempString_0[ 33 ]; 
    zCHAR     szTempString_1[ 33 ]; 
+   zSHORT    lTempInteger_0; 
    zCHAR     szTempString_2[ 33 ]; 
 
 
@@ -5257,9 +5208,6 @@ oTZADWWKO_GenEntitySubGroup( zVIEW     TZADWWKO,
 
       //:END
 
-      //:// Make sure we're on the last Control.
-      //://SET CURSOR LAST TZCONTROL.Control
-
       //:// Build the Grid Control with subcontrols.
 
       //:// First clone basic structure at the current position.
@@ -5299,27 +5247,8 @@ oTZADWWKO_GenEntitySubGroup( zVIEW     TZADWWKO,
 
       //:END
 
-      //:// If this is Bootstrap, go down 3 levels to Group holding Grid.
-      //:IF TZWINDOWL.Dialog.WEB_JSPGenerationPositioning = "B"
-      if ( CompareAttributeToString( TZWINDOWL, "Dialog", "WEB_JSPGenerationPositioning", "B" ) == 0 )
-      { 
-         //:SET CURSOR LAST TZCONTROL.CtrlCtrl 
-         RESULT = SetCursorLastEntity( TZCONTROL, "CtrlCtrl", "" );
-         //:nRC = SetViewToSubobject( TZCONTROL, "CtrlCtrl" )
-         nRC = SetViewToSubobject( TZCONTROL, "CtrlCtrl" );
-         //:SET CURSOR LAST TZCONTROL.CtrlCtrl 
-         RESULT = SetCursorLastEntity( TZCONTROL, "CtrlCtrl", "" );
-         //:nRC = SetViewToSubobject( TZCONTROL, "CtrlCtrl" )
-         nRC = SetViewToSubobject( TZCONTROL, "CtrlCtrl" );
-         //:SET CURSOR LAST TZCONTROL.CtrlCtrl 
-         RESULT = SetCursorLastEntity( TZCONTROL, "CtrlCtrl", "" );
-         //:nRC = SetViewToSubobject( TZCONTROL, "CtrlCtrl" )
-         nRC = SetViewToSubobject( TZCONTROL, "CtrlCtrl" );
-      } 
-
-      //:END
-
-      //:// Build the list mapping entries.
+      //:// Build the list mapping entries for Grid. Note that the AddListMapping operation handles any parent Groups
+      //:// that contain the Grid.
       //:szLOD_ListEntityName = TZADWWKO.ESG_LOD_Entity.Name
       GetVariableFromAttribute( szLOD_ListEntityName, 0, 'S', 51, TZADWWKO, "ESG_LOD_Entity", "Name", "", 0 );
       //:GetStringFromAttribute( szViewName, UpdateLOD, "LOD", "Name" )   // View Name is same as LOD Name.
@@ -5327,18 +5256,11 @@ oTZADWWKO_GenEntitySubGroup( zVIEW     TZADWWKO,
       //:AddListMapping( TZADWWKO, TZCONTROL, TZWINDOWL, UpdateLOD, szLOD_ListEntityName, szViewName, "ESG_List" )
       oTZADWWKO_AddListMapping( TZADWWKO, TZCONTROL, TZWINDOWL, UpdateLOD, szLOD_ListEntityName, szViewName, "ESG_List" );
 
-      //:CreateViewFromView( TZWINDOW2, TZCONTROL )
-      CreateViewFromView( &TZWINDOW2, TZCONTROL );
-      //:NAME VIEW TZWINDOW2 "TZWINDOW2"
-      SetNameForView( TZWINDOW2, "TZWINDOW2", 0, zLEVEL_TASK );
-
       //:// Convert Header Data.
-      //:ConvertHeaderText( TZADWWKO, TZWINDOW2 )
-      oTZADWWKO_ConvertHeaderText( TZADWWKO, TZWINDOW2 );
-
-      //:DropView( TZWINDOW2 )
-      DropView( TZWINDOW2 );
+      //:ConvertHeaderText( TZADWWKO, TZCONTROL )
+      oTZADWWKO_ConvertHeaderText( TZADWWKO, TZCONTROL );
    } 
+
 
    //:END
 
@@ -5425,15 +5347,19 @@ oTZADWWKO_GenEntitySubGroup( zVIEW     TZADWWKO,
       //:TZCONTROL.Control.PSDLG_Y = 10
       SetAttributeFromInteger( TZCONTROL, "Control", "PSDLG_Y", 10 );
 
-      //:// After the Clone, we need to also step past the header from the Control copied and down 2 levels.
-      //:nRC = SetViewToSubobject( TZCONTROL, "CtrlCtrl" )
-      nRC = SetViewToSubobject( TZCONTROL, "CtrlCtrl" );
-      //:SET CURSOR LAST TZCONTROL.Control
-      RESULT = SetCursorLastEntity( TZCONTROL, "Control", "" );
-      //:nRC = SetViewToSubobject( TZCONTROL, "CtrlCtrl" )
-      nRC = SetViewToSubobject( TZCONTROL, "CtrlCtrl" );
-      //:SET CURSOR LAST TZCONTROL.Control       // Skip first control if there are 2 because it would be the Button Group.
-      RESULT = SetCursorLastEntity( TZCONTROL, "Control", "" );
+      //:// After the Clone, we need to step into the inner-most and last subGroup.
+      //:LOOP WHILE TZCONTROL.CtrlCtrl EXISTS
+      lTempInteger_0 = CheckExistenceOfEntity( TZCONTROL, "CtrlCtrl" );
+      while ( lTempInteger_0 == 0 )
+      { 
+         //:nRC = SetViewToSubobject( TZCONTROL, "CtrlCtrl" )
+         nRC = SetViewToSubobject( TZCONTROL, "CtrlCtrl" );
+         //:SET CURSOR LAST TZCONTROL.Control
+         RESULT = SetCursorLastEntity( TZCONTROL, "Control", "" );
+         lTempInteger_0 = CheckExistenceOfEntity( TZCONTROL, "CtrlCtrl" );
+      } 
+
+      //:END
 
       //:GenDetailGrpBootstrap( TZADWWKO, TZCONTROL, TZWINDOWL, "MultiGroup" )
       oTZADWWKO_GenDetailGrpBootstrap( TZADWWKO, TZCONTROL, TZWINDOWL, "MultiGroup" );
@@ -5576,8 +5502,6 @@ oTZADWWKO_GenIncludePage( zVIEW     TZADWWKO,
    zVIEW     TZWDVORO = 0; 
    //:VIEW AD_BaseUC   BASED ON LOD  TZWDLGSO
    zVIEW     AD_BaseUC = 0; 
-   //:VIEW TZCtlHier   BASED ON LOD  TZWDLGSO
-   zVIEW     TZCtlHier = 0; 
    //:STRING ( 50 )  szWindowName
    zCHAR     szWindowName[ 51 ] = { 0 }; 
    //:STRING ( 50 )  szGroupName
@@ -5594,8 +5518,6 @@ oTZADWWKO_GenIncludePage( zVIEW     TZADWWKO,
    zCHAR     szActionName[ 51 ] = { 0 }; 
    //:STRING ( 50 )  szOperationName
    zCHAR     szOperationName[ 51 ] = { 0 }; 
-   //:STRING ( 50 )  szReturnedEntityName
-   zCHAR     szReturnedEntityName[ 51 ] = { 0 }; 
    //:STRING ( 50 )  szReturnedObjectName
    zCHAR     szReturnedObjectName[ 51 ] = { 0 }; 
    //:STRING ( 50 )  szLOD_ListEntityName
@@ -5676,10 +5598,6 @@ oTZADWWKO_GenIncludePage( zVIEW     TZADWWKO,
    zLONG     nFileOut = 0; 
    //:INTEGER nLength  
    zLONG     nLength = 0; 
-   //:SHORT   lReturnedLevel
-   zSHORT    lReturnedLevel = 0; 
-   //:SHORT   lInitialLevel
-   zSHORT    lInitialLevel = 0; 
    zSHORT    lTempInteger_0; 
    zSHORT    lTempInteger_1; 
    zCHAR     szTempString_0[ 33 ]; 
@@ -5785,71 +5703,64 @@ oTZADWWKO_GenIncludePage( zVIEW     TZADWWKO,
 
       //:END
 
-      //:// Step down into the header GroupBox to change the title.
-      //:CreateViewFromView( TZCONTROL, TZWINDOW2 )
-      CreateViewFromView( &TZCONTROL, TZWINDOW2 );
-      //:NAME VIEW TZCONTROL "TZCONTROLAD"
-      SetNameForView( TZCONTROL, "TZCONTROLAD", 0, zLEVEL_TASK );
-      //:SetViewToSubobject( TZCONTROL, "CtrlCtrl" )   // Step into 2nd level
-      SetViewToSubobject( TZCONTROL, "CtrlCtrl" );
-      //:SET CURSOR NEXT TZCONTROL.Control             // Position on 2nd Group which is Accordian Group
-      RESULT = SetCursorNextEntity( TZCONTROL, "Control", "" );
-      //:SetViewToSubobject( TZCONTROL, "CtrlCtrl" )   // Step into card Group
-      SetViewToSubobject( TZCONTROL, "CtrlCtrl" );
-      //:SetViewToSubobject( TZCONTROL, "CtrlCtrl" )   // Step into card-header Group
-      SetViewToSubobject( TZCONTROL, "CtrlCtrl" );
-      //:SetViewToSubobject( TZCONTROL, "CtrlCtrl" )   // Step into card-title Text Group
-      SetViewToSubobject( TZCONTROL, "CtrlCtrl" );
-      //:szControlText = TZCONTROL.Control.Text 
-      GetVariableFromAttribute( szControlText, 0, 'S', 257, TZCONTROL, "Control", "Text", "", 0 );
-      //:szAD_AreaTitle = TZADWWKO.EntitySubGroup.GroupAreaTitle 
-      GetVariableFromAttribute( szAD_AreaTitle, 0, 'S', 51, TZADWWKO, "EntitySubGroup", "GroupAreaTitle", "", 0 );
-      //:zSearchAndReplace( szControlText, 256, "_InclEntT", szAD_AreaTitle )
-      zSearchAndReplace( szControlText, 256, "_InclEntT", szAD_AreaTitle );
-      //:TZCONTROL.Control.Text = szControlText
-      SetAttributeFromString( TZCONTROL, "Control", "Text", szControlText );
-      //:DropView( TZCONTROL )
-      DropView( TZCONTROL );
+      //:// Modify Header Text named "txtSearch" within Search Group by replacing "_InclEntT" string with GroupAreaTitle.
+      //:nRC = PositionOnControlByTag( TZADWWKO, TZCONTROL, TZWINDOW2, "txtSearch" )
+      nRC = oTZADWWKO_PositionOnControlByTag( TZADWWKO, &TZCONTROL, TZWINDOW2, "txtSearch" );
+      //:IF nRC = 0
+      if ( nRC == 0 )
+      { 
+         //:NAME VIEW TZCONTROL "TZCONTROLAD"
+         SetNameForView( TZCONTROL, "TZCONTROLAD", 0, zLEVEL_TASK );
+         //:szControlText = TZCONTROL.Control.Text 
+         GetVariableFromAttribute( szControlText, 0, 'S', 257, TZCONTROL, "Control", "Text", "", 0 );
+         //:szAD_AreaTitle = TZADWWKO.EntitySubGroup.GroupAreaTitle 
+         GetVariableFromAttribute( szAD_AreaTitle, 0, 'S', 51, TZADWWKO, "EntitySubGroup", "GroupAreaTitle", "", 0 );
+         //:zSearchAndReplace( szControlText, 256, "_InclEntT", szAD_AreaTitle )
+         zSearchAndReplace( szControlText, 256, "_InclEntT", szAD_AreaTitle );
+         //:TZCONTROL.Control.Text = szControlText
+         SetAttributeFromString( TZCONTROL, "Control", "Text", szControlText );
+         //:DropView( TZCONTROL )
+         DropView( TZCONTROL );
+      } 
 
-      //:// Step down into the GroupBox that will hold the generated search fields.
-      //:// This is currently supporting only Bootstrap.
-      //:CreateViewFromView( TZCONTROL, TZWINDOW2 )
-      CreateViewFromView( &TZCONTROL, TZWINDOW2 );
-      //:NAME VIEW TZCONTROL "TZCONTROLAD"
-      SetNameForView( TZCONTROL, "TZCONTROLAD", 0, zLEVEL_TASK );
-      //:SetViewToSubobject( TZCONTROL, "CtrlCtrl" )   // Step into 2nd level
-      SetViewToSubobject( TZCONTROL, "CtrlCtrl" );
-      //:SET CURSOR NEXT TZCONTROL.Control             // Position on 2nd Group which is Accordian Group
-      RESULT = SetCursorNextEntity( TZCONTROL, "Control", "" );
-      //:SetViewToSubobject( TZCONTROL, "CtrlCtrl" )   // Step into card Group
-      SetViewToSubobject( TZCONTROL, "CtrlCtrl" );
-      //:SetViewToSubobject( TZCONTROL, "CtrlCtrl" )   // Step into next level, which starts with card-header Group
-      SetViewToSubobject( TZCONTROL, "CtrlCtrl" );
-      //:SET CURSOR NEXT TZCONTROL.Control             // Position on 2nd Group which is collapse show Group
-      RESULT = SetCursorNextEntity( TZCONTROL, "Control", "" );
-      //:SetViewToSubobject( TZCONTROL, "CtrlCtrl" )   // Step into card-body Group which holds the buttons
-      SetViewToSubobject( TZCONTROL, "CtrlCtrl" );
-      //:SET CURSOR NEXT TZCONTROL.Control             // Position on next card-body Group whick will hold search controls.
-      RESULT = SetCursorNextEntity( TZCONTROL, "Control", "" );
+      //:END
 
-      //:// Generate the Search Controls
-      //:GenDetailGrpBootstrap( TZADWWKO, TZCONTROL, TZWINDOWL, "Search Fields" )
-      oTZADWWKO_GenDetailGrpBootstrap( TZADWWKO, TZCONTROL, TZWINDOWL, "Search Fields" );
-      //:DropNameForView( SearchLOD, "TZZOLODO_Update", ViewToWindow, zLEVEL_TASK )
-      DropNameForView( SearchLOD, "TZZOLODO_Update", ViewToWindow, zLEVEL_TASK );
-      //:NAME VIEW UpdateLOD "TZZOLODO_Update"    // Rename the UpdateLOD aince we reused the name for the SearchLOD.
-      SetNameForView( UpdateLOD, "TZZOLODO_Update", 0, zLEVEL_TASK );
-      //:DropView( TZCONTROL )
-      DropView( TZCONTROL );
+      //:// Locate Group GroupBoxSearch for generating Search Fields.
+      //:nRC = PositionOnControlByTag( TZADWWKO, TZCONTROL, TZWINDOW2, "GroupBoxSearch" )
+      nRC = oTZADWWKO_PositionOnControlByTag( TZADWWKO, &TZCONTROL, TZWINDOW2, "GroupBoxSearch" );
+      //:IF nRC >= 0
+      if ( nRC >= 0 )
+      { 
+         //:// Generate the Search Controls
+         //:GenDetailGrpBootstrap( TZADWWKO, TZCONTROL, TZWINDOWL, "Search Fields" )
+         oTZADWWKO_GenDetailGrpBootstrap( TZADWWKO, TZCONTROL, TZWINDOWL, "Search Fields" );
+         //:DropNameForView( SearchLOD, "TZZOLODO_Update", ViewToWindow, zLEVEL_TASK )
+         DropNameForView( SearchLOD, "TZZOLODO_Update", ViewToWindow, zLEVEL_TASK );
+         //:NAME VIEW UpdateLOD "TZZOLODO_Update"    // Rename the UpdateLOD aince we reused the name for the SearchLOD.
+         SetNameForView( UpdateLOD, "TZZOLODO_Update", 0, zLEVEL_TASK );
+         //:DropView( TZCONTROL )
+         DropView( TZCONTROL );
+         //:ELSE
+      } 
+      else
+      { 
+         //:MessageSend( TZADWWKO, "", "Autodesign Subdialog",
+         //:          "Include Find Search Group, GroupBoxSearch, not found in AD_Base.",
+         //:          zMSGQ_OBJECT_CONSTRAINT_WARNING, 0 )
+         MessageSend( TZADWWKO, "", "Autodesign Subdialog", "Include Find Search Group, GroupBoxSearch, not found in AD_Base.", zMSGQ_OBJECT_CONSTRAINT_WARNING, 0 );
+         //:RETURN -2
+         return( -2 );
+      } 
+
+      //:END
    } 
 
-
+   //:   
    //:END
-   //:      
-   //:// Build the Object List Group.
+
+   //:// Build the Select List Grid,
 
    //:// Begin by activating the Returned LOD and making sure a ViewObjRef entry exists for it.
-   //:// What would normally be the Returned LOD is the 
    //:GET VIEW SrcInclLOD NAMED "ESGL_IncludeLOD"   
    RESULT = GetViewByName( &SrcInclLOD, "ESGL_IncludeLOD", TZADWWKO, zLEVEL_TASK );
    //:szViewName = TZADWWKO.ESG_ListIncludeW_MetaDef.Name   // View Name is in ESG_ListIncludeW_MetaDef.
@@ -5868,60 +5779,11 @@ oTZADWWKO_GenIncludePage( zVIEW     TZADWWKO,
    //:szLOD_ListEntityName = TZADWWKO.ESG_LOD_Entity2.Name    // List Entity Name was selected on interface.
    GetVariableFromAttribute( szLOD_ListEntityName, 0, 'S', 51, TZADWWKO, "ESG_LOD_Entity2", "Name", "", 0 );
 
-   //:// For AddListMapping, position on the GroupBox holding the Grid.
-   //:// To position on the Grid, we will process all Controls hierarchically.
-   //:CreateViewFromView( TZCtlHier, TZWINDOW2 )
-   CreateViewFromView( &TZCtlHier, TZWINDOW2 );
-   //:DefineHierarchicalCursor( TZCtlHier, "Control" )
-   DefineHierarchicalCursor( TZCtlHier, "Control" );
-   //:NAME VIEW TZCtlHier "TZCtlHier"
-   SetNameForView( TZCtlHier, "TZCtlHier", 0, zLEVEL_TASK );
-   //:nRC = SetCursorNextEntityHierarchical( lReturnedLevel, szReturnedEntityName, TZCtlHier )
-   nRC = SetCursorNextEntityHierarchical( (zPUSHORT) &lReturnedLevel, szReturnedEntityName, TZCtlHier );
-   //:lInitialLevel = lReturnedLevel
-   lInitialLevel = lReturnedLevel;
-   //:szFoundFlag = ""
-   ZeidonStringCopy( szFoundFlag, 1, 0, "", 1, 0, 2 );
-   //:LOOP WHILE nRC >= zCURSOR_SET AND lReturnedLevel >= lInitialLevel AND szFoundFlag = ""
-   while ( nRC >= zCURSOR_SET && lReturnedLevel >= lInitialLevel && ZeidonStringCompare( szFoundFlag, 1, 0, "", 1, 0, 2 ) == 0 )
-   { 
-      //:IF nRC = zCURSOR_SET_RECURSIVECHILD
-      if ( nRC == zCURSOR_SET_RECURSIVECHILD )
-      { 
-         //:SetViewToSubobject( TZCtlHier, "CtrlCtrl" )
-         SetViewToSubobject( TZCtlHier, "CtrlCtrl" );
-      } 
-
-      //:END
-      //:IF szReturnedEntityName = "CtrlCtrl"
-      if ( ZeidonStringCompare( szReturnedEntityName, 1, 0, "CtrlCtrl", 1, 0, 51 ) == 0 )
-      { 
-         //:szControlDef = TZCtlHier.ControlDef.Tag 
-         GetVariableFromAttribute( szControlDef, 0, 'S', 51, TZCtlHier, "ControlDef", "Tag", "", 0 );
-         //:szControlTag = TZCtlHier.Control.Tag 
-         GetVariableFromAttribute( szControlTag, 0, 'S', 51, TZCtlHier, "Control", "Tag", "", 0 );
-         //:IF szControlDef = "Grid" AND szControlTag = "GridSelectList" 
-         if ( ZeidonStringCompare( szControlDef, 1, 0, "Grid", 1, 0, 51 ) == 0 && ZeidonStringCompare( szControlTag, 1, 0, "GridSelectList", 1, 0, 51 ) == 0 )
-         { 
-            //:CreateViewFromView( TZCONTROL, TZCtlHier )
-            CreateViewFromView( &TZCONTROL, TZCtlHier );
-            //:NAME VIEW TZCONTROL "TZCONTROLAD"
-            SetNameForView( TZCONTROL, "TZCONTROLAD", 0, zLEVEL_TASK );
-            //:szFoundFlag = "Y"
-            ZeidonStringCopy( szFoundFlag, 1, 0, "Y", 1, 0, 2 );
-         } 
-
-         //:END
-      } 
-
-      //:END
-      //:nRC = SetCursorNextEntityHierarchical( lReturnedLevel, szReturnedEntityName, TZCtlHier )
-      nRC = SetCursorNextEntityHierarchical( (zPUSHORT) &lReturnedLevel, szReturnedEntityName, TZCtlHier );
-   } 
-
-   //:END
-   //:IF szFoundFlag = ""
-   if ( ZeidonStringCompare( szFoundFlag, 1, 0, "", 1, 0, 2 ) == 0 )
+   //:// Position on the template Grid, GridSelectList, and then build out subcontrols using AddListMapping.
+   //:nRC = PositionOnControlByTag( TZADWWKO, TZCONTROL, TZWINDOW2, "GridSelectList" )
+   nRC = oTZADWWKO_PositionOnControlByTag( TZADWWKO, &TZCONTROL, TZWINDOW2, "GridSelectList" );
+   //:IF nRC < 0
+   if ( nRC < 0 )
    { 
       //:MessageSend( TZADWWKO, "", "Autodesign Subdialog",
       //:          "Grid GridSelectList not found.",
@@ -5934,11 +5796,10 @@ oTZADWWKO_GenIncludePage( zVIEW     TZADWWKO,
    //:END
    //:nRC = ResetViewFromSubobject( TZCONTROL )    // We're now on the Grid, so back up to the GroupBox.
    nRC = ResetViewFromSubobject( TZCONTROL );
-
    //:AddListMapping( TZADWWKO, TZCONTROL, TZWINDOW2, SrcInclLOD, szLOD_ListEntityName, szViewName, "ESG_List2" )
    oTZADWWKO_AddListMapping( TZADWWKO, TZCONTROL, TZWINDOW2, SrcInclLOD, szLOD_ListEntityName, szViewName, "ESG_List2" );
 
-   //:// Add the correct Entity mapping.
+   //:// Add the correct Entity mapping for Grid Control itself.
    //:IF TZCONTROL.CtrlMapLOD_Entity EXISTS
    lTempInteger_0 = CheckExistenceOfEntity( TZCONTROL, "CtrlMapLOD_Entity" );
    if ( lTempInteger_0 == 0 )
@@ -6076,8 +5937,6 @@ oTZADWWKO_GenIncludePage( zVIEW     TZADWWKO,
    } 
 
    //:END
-   //:TraceLineS( "*** szCheckForOperation: ", szCheckForOperation )
-   TraceLineS( "*** szCheckForOperation: ", szCheckForOperation );
    //:nLength = zGetStringLen( szCheckForOperation )
    nLength = zGetStringLen( szCheckForOperation );
    //:szSourceDirectory = TaskLPLR.LPLR.PgmSrcDir 
@@ -6108,8 +5967,6 @@ oTZADWWKO_GenIncludePage( zVIEW     TZADWWKO,
    //:END
    //:SysCloseFile( TZWINDOW, nFileIn, 0 )
    SysCloseFile( TZWINDOW, nFileIn, 0 );
-   //:TraceLineI( "*** nRC2: ", nRC2 )
-   TraceLineI( "*** nRC2: ", nRC2 );
    //:IF nRC2 != 0     // Operation was not found.
    if ( nRC2 != 0 )
    { 
@@ -6425,6 +6282,7 @@ oTZADWWKO_GenListDetailPage( zVIEW     TZADWWKO,
    //:INTEGER nLevel
    zLONG     nLevel = 0; 
    zLONG     lTempInteger_0; 
+   zSHORT    lTempInteger_1; 
    zCHAR     szTempString_0[ 33 ]; 
 
    RESULT = GetViewByName( &TaskLPLR, "TaskLPLR", TZADWWKO, zLEVEL_TASK );
@@ -6502,27 +6360,26 @@ oTZADWWKO_GenListDetailPage( zVIEW     TZADWWKO,
 
    //:END
 
-   //:// Set up TZCONTROL as positioned on Detail Group control.
+   //:// Create TZCONTROL and position it on the last / innermost Group of the nested set of Groups in the window, which is where
+   //:// the data Controls will be built.
    //:CreateViewFromView( TZCONTROL, TZWINDOWL2 )  
    CreateViewFromView( &TZCONTROL, TZWINDOWL2 );
    //:NAME VIEW TZCONTROL "TZCONTROLAD"
    SetNameForView( TZCONTROL, "TZCONTROLAD", 0, zLEVEL_TASK );
-   //:nRC = SetViewToSubobject( TZCONTROL, "CtrlCtrl" )
-   nRC = SetViewToSubobject( TZCONTROL, "CtrlCtrl" );
    //:SET CURSOR LAST TZCONTROL.Control
    RESULT = SetCursorLastEntity( TZCONTROL, "Control", "" );
-   //:nRC = SetViewToSubobject( TZCONTROL, "CtrlCtrl" )
-   nRC = SetViewToSubobject( TZCONTROL, "CtrlCtrl" );
-   //:SET CURSOR LAST TZCONTROL.Control
-   RESULT = SetCursorLastEntity( TZCONTROL, "Control", "" );
-   //:nRC = SetViewToSubobject( TZCONTROL, "CtrlCtrl" )
-   nRC = SetViewToSubobject( TZCONTROL, "CtrlCtrl" );
-   //:SET CURSOR LAST TZCONTROL.Control
-   RESULT = SetCursorLastEntity( TZCONTROL, "Control", "" );
-   //:nRC = SetViewToSubobject( TZCONTROL, "CtrlCtrl" )
-   nRC = SetViewToSubobject( TZCONTROL, "CtrlCtrl" );
-   //:SET CURSOR LAST TZCONTROL.Control
-   RESULT = SetCursorLastEntity( TZCONTROL, "Control", "" );
+   //:LOOP WHILE TZCONTROL.CtrlCtrl EXISTS
+   lTempInteger_1 = CheckExistenceOfEntity( TZCONTROL, "CtrlCtrl" );
+   while ( lTempInteger_1 == 0 )
+   { 
+      //:nRC = SetViewToSubobject( TZCONTROL, "CtrlCtrl" )
+      nRC = SetViewToSubobject( TZCONTROL, "CtrlCtrl" );
+      //:SET CURSOR LAST TZCONTROL.Control
+      RESULT = SetCursorLastEntity( TZCONTROL, "Control", "" );
+      lTempInteger_1 = CheckExistenceOfEntity( TZCONTROL, "CtrlCtrl" );
+   } 
+
+   //:END
 
    //:GenDetailGrpBootstrap( TZADWWKO, TZCONTROL, TZWINDOWL2, "MultiGroup" )
    oTZADWWKO_GenDetailGrpBootstrap( TZADWWKO, TZCONTROL, TZWINDOWL2, "MultiGroup" );
@@ -7617,6 +7474,87 @@ oTZADWWKO_AddAD_GoExclActions( zVIEW     TZADWWKO,
 
    //:END
    return( 0 );
+// END
+} 
+
+
+//:TRANSFORMATION OPERATION
+//:PositionOnControlByTag( VIEW TZADWWKO       BASED ON LOD TZADWWKO,
+//:                        VIEW ReturnedView   BASED ON LOD TZWDLGSO,
+//:                        VIEW OuterStartView BASED ON LOD TZWDLGSO,
+//:                        STRING ( 50 ) szControlTagName )
+
+//:   VIEW TZCtlHier BASED ON LOD  TZWDLGSO
+zOPER_EXPORT zSHORT OPERATION
+oTZADWWKO_PositionOnControlByTag( zVIEW     TZADWWKO,
+                                  zPVIEW    ReturnedView,
+                                  zVIEW     OuterStartView,
+                                  zPCHAR    szControlTagName )
+{
+   zVIEW     TZCtlHier = 0; 
+   //:STRING ( 50 ) szReturnedEntityName
+   zCHAR     szReturnedEntityName[ 51 ] = { 0 }; 
+   //:STRING ( 50 ) szControlDef
+   zCHAR     szControlDef[ 51 ] = { 0 }; 
+   //:SHORT lReturnedLevel
+   zSHORT    lReturnedLevel = 0; 
+   //:SHORT lInitialLevel
+   zSHORT    lInitialLevel = 0; 
+   //:SHORT nRC
+   zSHORT    nRC = 0; 
+
+
+   //:CreateViewFromView( TZCtlHier, OuterStartView )
+   CreateViewFromView( &TZCtlHier, OuterStartView );
+   //:DefineHierarchicalCursor( TZCtlHier, "Control" )
+   DefineHierarchicalCursor( TZCtlHier, "Control" );
+   //:NAME VIEW TZCtlHier "TZCtlHier"
+   SetNameForView( TZCtlHier, "TZCtlHier", 0, zLEVEL_TASK );
+   //:nRC = SetCursorNextEntityHierarchical( lReturnedLevel, szReturnedEntityName, TZCtlHier )
+   nRC = SetCursorNextEntityHierarchical( (zPUSHORT) &lReturnedLevel, szReturnedEntityName, TZCtlHier );
+   //:lInitialLevel = lReturnedLevel
+   lInitialLevel = lReturnedLevel;
+   //:LOOP WHILE nRC >= zCURSOR_SET AND lReturnedLevel >= lInitialLevel
+   while ( nRC >= zCURSOR_SET && lReturnedLevel >= lInitialLevel )
+   { 
+      //:IF nRC = zCURSOR_SET_RECURSIVECHILD
+      if ( nRC == zCURSOR_SET_RECURSIVECHILD )
+      { 
+         //:SetViewToSubobject( TZCtlHier, "CtrlCtrl" )
+         SetViewToSubobject( TZCtlHier, "CtrlCtrl" );
+      } 
+
+      //:END
+      //:IF szReturnedEntityName = "CtrlCtrl"
+      if ( ZeidonStringCompare( szReturnedEntityName, 1, 0, "CtrlCtrl", 1, 0, 51 ) == 0 )
+      { 
+         //:szControlDef = TZCtlHier.Control.Tag 
+         GetVariableFromAttribute( szControlDef, 0, 'S', 51, TZCtlHier, "Control", "Tag", "", 0 );
+         //:IF szControlDef = szControlTagName
+         if ( ZeidonStringCompare( szControlDef, 1, 0, szControlTagName, 1, 0, 51 ) == 0 )
+         { 
+            //:// This is a Text Control, so convert any _Section or _SectionTitle characters
+            //:CreateViewFromView( ReturnedView, TZCtlHier )
+            CreateViewFromView( ReturnedView, TZCtlHier );
+            //:DropView( TZCtlHier )
+            DropView( TZCtlHier );
+            //:RETURN 0
+            return( 0 );
+         } 
+
+         //:END
+      } 
+
+      //:END
+      //:nRC = SetCursorNextEntityHierarchical( lReturnedLevel, szReturnedEntityName, TZCtlHier )
+      nRC = SetCursorNextEntityHierarchical( (zPUSHORT) &lReturnedLevel, szReturnedEntityName, TZCtlHier );
+   } 
+
+   //:END
+   //:DropView( TZCtlHier )
+   DropView( TZCtlHier );
+   //:RETURN -1
+   return( -1 );
 // END
 } 
 

@@ -1,4 +1,4 @@
-z1000-Zeidon    ZEIDON   TZCMLPLO 04/25/24   11:06:18 1.0a2    
+z1000-Zeidon    ZEIDON   TZCMLPLO 06/05/24   13:55:37 1.0a2    
 eLPLR      1
 aName      Zeidon
 aZKey      4106137
@@ -8,7 +8,7 @@ aMetaSrcDir %kzd%:\%kzv%\a\bin\sys
 aTaskUseCount 0
 aLastBuildDate 20240220124548966
 aJavaPackageName com\quinsoft\zeidon\zeidontools
-awFullyQualifiedFileName C:\10c191119\a\bin\sys
+awFullyQualifiedFileName C:\10c\a\bin\sys\back\TZCMLPLD.PWD
 
 eW_MetaType 2
 
@@ -6165,8 +6165,8 @@ aStatus    1
 aUpdateInd 2
 aName      account
 aDesc      Test bed for Zeidon 10C
-aLastSyncDate 20220726180426864
-aLastUpdateDate 20220726180426864
+aLastSyncDate 20240507173806458
+aLastUpdateDate 20240507173806458
 
 eW_MetaDef 3
 aCPLR_ZKey 90025052
@@ -6262,8 +6262,8 @@ aStatus    1
 aUpdateInd 2
 aName      TZCMLPLD
 aDesc      Local Project Library Maintenence
-aLastSyncDate 20240425110607176
-aLastUpdateDate 20240425110607176
+aLastSyncDate 20240528150138393
+aLastUpdateDate 20240528150138393
 
 eW_MetaDef 3
 aCPLR_ZKey 1337786
@@ -6514,8 +6514,8 @@ aStatus    1
 aUpdateInd 2
 aName      TZPNCTAD
 aDesc      System delivered controls dialog
-aLastSyncDate 20231219162128083
-aLastUpdateDate 20231219162128083
+aLastSyncDate 20240507163833851
+aLastUpdateDate 20240507163833851
 
 eW_MetaDef 3
 aCPLR_ZKey 1137589

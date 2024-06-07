@@ -6,6 +6,56 @@
 --------------------Configuration: ZdCtl - Win32 Debug--------------------
 </h3>
 <h3>Command Lines</h3>
+Creating temporary file "C:\Users\kelly\AppData\Local\Temp\RSP464.tmp" with contents
+[
+/nologo /MDd /W3 /WX /Gm /GX /ZI /Od /I "c:\10c\w\incz" /I "c:\10c\w\incr" /I "c:\10c\a\incz" /I "c:\10c\a\incr" /D "_DEBUG" /D "_AFXEXT" /D "WIN32" /D "_WINDOWS" /D "_MBCS" /D "__WIN32__" /D "QUINSOFT" /D "_NOANCHOR" /FR".\Debug/" /Fp".\Debug/ZdCtl.pch" /Yu"ZdCtl.h" /Fo".\Debug/" /Fd".\Debug/" /FD /c 
+"C:\10c\a\zdr\ZdCtlCMB.cpp"
+]
+Creating command line "cl.exe @C:\Users\kelly\AppData\Local\Temp\RSP464.tmp" 
+Creating temporary file "C:\Users\kelly\AppData\Local\Temp\RSP465.tmp" with contents
+[
+ZDrApp.lib kzoengaa.lib jpeglib.lib msimg32.lib /nologo /subsystem:windows /dll /incremental:yes /pdb:".\Debug/ZdCtl.pdb" /debug /machine:I386 /def:".\ZdCtl.def" /out:"..\..\w\bin\ZdCtl.dll" /implib:"..\..\w\libr\ZdCtl.lib" /libpath:"c:\10c\w\libz" /libpath:"c:\10c\w\libr" 
+.\Debug\ZdCtl.obj
+.\Debug\ZdCtlATX.obj
+.\Debug\ZdCtlBar.obj
+.\Debug\ZdCtlBMB.obj
+.\Debug\ZdCtlBMP.obj
+.\Debug\ZdCtlBTN.obj
+.\Debug\ZdCtlCal.obj
+.\Debug\ZdCtlCHK.obj
+.\Debug\ZdCtlCMB.obj
+.\Debug\ZdCtlDIL.obj
+.\Debug\ZdCtlDT.obj
+.\Debug\ZdCtlEDT.obj
+.\Debug\ZdCtlGBX.obj
+.\Debug\ZdCtlHD.obj
+.\Debug\ZdCtlHDN.obj
+.\Debug\ZdCtlHot.obj
+.\Debug\ZdCtlICO.obj
+.\Debug\ZdCtlLBH.obj
+.\Debug\ZdCtlLBX.obj
+.\Debug\ZdCtlMLE.obj
+.\Debug\ZdCtlMST.obj
+.\Debug\ZdCtlO.obj
+.\Debug\ZdCtlOLB.obj
+.\Debug\ZdCtlRB.obj
+.\Debug\ZdCtlRTE.obj
+.\Debug\ZdCtlRTO.obj
+.\Debug\ZdCtlSS.obj
+.\Debug\ZdCtlSSU.obj
+.\Debug\ZdCtlTAB.obj
+.\Debug\ZdCtlTim.obj
+.\Debug\ZdCtlTXT.obj
+.\Debug\ZdCtlVWG.obj
+.\Debug\ZdCtl.res
+\10c\w\libr\ZDrApp.lib
+\10c\w\libr\JpegLib.lib
+]
+Creating command line "link.exe @C:\Users\kelly\AppData\Local\Temp\RSP465.tmp"
+<h3>Output Window</h3>
+Compiling...
+ZdCtlCMB.cpp
+Linking...
 
 
 

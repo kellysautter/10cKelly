@@ -204,6 +204,9 @@ UpdateRadioSubcontrol( zVIEW vSubtask );
 zOPER_EXPORT zSHORT OPERATION
 PrebuildSpreadSheet( zVIEW vSubtask );
 
+zOPER_EXPORT zSHORT OPERATION
+UPD_ACT_SelectDialogOpers(zVIEW vSubtask);
+
 zOPER_EXPORT zSHORT OPERATION CtrlContextMappingInit( zVIEW vSubtask );
 zOPER_EXPORT zSHORT OPERATION fnSetupEventList( zVIEW vSubtask, zVIEW vDialog );
 zOPER_EXPORT zSHORT OPERATION fnSearchForEntityRecursively( zVIEW vLOD, zLONG lZKey,
@@ -4877,6 +4880,17 @@ LIST_ACT_UpdateAction( zVIEW vSubtask )
    zVIEW    vDialogW;
    zVIEW    vWork;
 
+   // KJS 05/08/24
+   // I tried taking this out of LoadOperations (which then gets called a million times). And put it only on updating the action.
+   // Operation List is a modeless Window, if an Operation is updated or
+   // newly created, then refresh the Operation combobox.
+   MapCtrl(vSubtask, "OtherOpers");
+
+   UPD_ACT_SelectDialogOpers(vSubtask);
+
+   RefreshCtrl(vSubtask, "OtherOpers");
+   // END KJS 05/08/24
+
    GetViewByName( &vDialogW, "TZWINDOW", vSubtask, zLEVEL_TASK );
    GetViewByName( &vWork, "TZPNCTWO", vSubtask, zLEVEL_TASK );
    SetAttributeFromString( vWork, "TZPNCTWO", "ParentIsSelectAction", "N" );
@@ -5161,13 +5175,10 @@ UPD_ACT_Init( zVIEW vSubtask )
    // View has to be updateble. After change attribute set View read only again
    if ( !ComponentIsCheckedOut( vSubtask, vDialogW, zSOURCE_DIALOG_META ) )
       SetViewUpdate( vDialogW );
-
    // Make sure we're positioned on first ActMap.
    SetCursorFirstEntity( vDialogW, "ActMap", "" );
-
    CreateViewFromViewForTask( &vScope, vDialogW, 0 );
    SetNameForView( vScope, "TZSCOPE", vSubtask, zLEVEL_TASK );
-
    // If ActMap entities exist, position scoping view to the second one.
    if ( CheckExistenceOfEntity( vDialogW, "ActMap" ) == zCURSOR_SET )
    {
@@ -5182,18 +5193,14 @@ UPD_ACT_Init( zVIEW vSubtask )
       SetViewFromView( vScope, vDialogW );
       CreateMetaEntity( vSubtask, vScope, "ActMap", zPOS_AFTER );
    }
-
    // Set up SEL_LOD, if current mapping exists, and any other
    // mapping data required.
    fnSetUpSEL_LOD( vDialogW, vDialogW, vSubtask, "ActMapView" );
-
    // Set up TZSCOPEL for listing potential scoping entities for
    // the ScopeList combo box.
    fnSetUpScopeListOI( vDialogW, vSubtask, "ActMapLOD_Entity" );
-
    UPD_ACT_SelectDialogOpers( vSubtask );
    UPD_ACT_SetupDialogList( vSubtask );
-
    if ( !ComponentIsCheckedOut( vSubtask, vDialogW, zSOURCE_DIALOG_META ) )
    {
       SetViewReadOnly( vDialogW );
@@ -5205,10 +5212,8 @@ UPD_ACT_Init( zVIEW vSubtask )
       SetCtrlState( vSubtask, "ScopeList", zCONTROL_STATUS_ENABLED, FALSE );
       SetCtrlState( vSubtask, "ReadOnly", zCONTROL_STATUS_ENABLED, FALSE );
    }
-
    // Handle Disable and ReadOnly checkbox manually.
    MapDisableAction( vSubtask, vDialogW, TRUE );
-
    // Action List is a multi selection list, delesect all Actions
    CreateViewFromViewForTask( &vDialogCopy, vDialogW, 0 );
    for ( nRC = SetCursorFirstSelectedEntity( vDialogW, "Action", "" );
@@ -5217,15 +5222,12 @@ UPD_ACT_Init( zVIEW vSubtask )
    {
       SetSelectStateOfEntityForSet( vDialogW, "Action", 0, 1 );
    }
-
    SetCursorFirstEntityByAttr( vDialogW, "Action", "ZKey",
                                vDialogCopy, "Action", "ZKey", "" );
    DropView( vDialogCopy );
    SetSelectStateOfEntityForSet( vDialogW, "Action", 1, 1 );
-
    if ( GetSubtaskForWindowName( vSubtask, &vWindow, "LIST_ACT" ) >= 0 )
       RefreshCtrl( vWindow, "ActionList" );
-
    UPD_ACT_SetEditButtonStatus( vSubtask );
 
    return( 0 );
@@ -9640,14 +9642,18 @@ zwTZPNCTAD_DeleteAllActions( zVIEW vSubtask )
 zOPER_EXPORT zSHORT OPERATION
 LoadOperations( zVIEW vSubtask )
 {
+   // KJS 05/08/24 - I have removed these lines from here and I have put them in 
+   // LIST_ACT_UpdateAction. It seems like LoadOperations gets called for every operation? 
+   // I'm not sure that needs to happen so many times. So far, that seems to be working.
    // Operation List is a modeless Window, if an Operation is updated or
    // newly created, then refresh the Operation combobox.
+   /*
    MapCtrl( vSubtask, "OtherOpers" );
 
    UPD_ACT_SelectDialogOpers( vSubtask );
 
    RefreshCtrl( vSubtask, "OtherOpers" );
-
+   */
    return( 0 );
 }
 
@@ -10902,6 +10908,7 @@ SET_CurrentWebControlProperties( zVIEW vSubtask )
    // Include each selected WebControlPropertyOption entity into WebControlProperty.
    GetViewByName( &vDialogC, "TZCONTROL", vSubtask, zLEVEL_TASK );
    GetViewByName( &vDialog, "TZWINDOW", vSubtask, zLEVEL_TASK );
+   nRC = SetCursorFirstEntity( vDialog, "WebControlPropertyOption", "" );
    for ( nRC = SetCursorFirstSelectedEntity( vDialog, "WebControlPropertyOption", "" );
          nRC >= zCURSOR_SET;
          nRC = SetCursorNextSelectedEntity( vDialog, "WebControlPropertyOption", "" ) )

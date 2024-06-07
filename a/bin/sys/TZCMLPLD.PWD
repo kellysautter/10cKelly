@@ -1,9 +1,9 @@
-z1000-Zeidon    TZCMLPLD TZWDLGSO 04/25/24   11:06:07 1.0b0    
+z1000-Zeidon    TZCMLPLD TZWDLGSO 05/28/24   15:01:38 1.0b0    
 eDialog    1
 aTag       TZCMLPLD
 aDLL_Name  TZCMLPLD
 aZKey      1338932
-aNextZKeyToAssign 130069507
+aNextZKeyToAssign 130069516
 aDesc      Local Project Library Maintenence
 
 eDfltWnd   2
@@ -6700,20 +6700,6 @@ aUpdate    Y
 aSeqOrder  Y
 
 eCtrlMapRelatedEntity 7
-aName      LPLR
-aIndentName LPLR
-aIndentLvl 0
-aZKey      1326019
-aCreate    Y
-aDelete    Y
-aUpdate    Y
-aInclude   N
-aInclSrc   Y
-aExclude   N
-aRecursive N
-aDerived   N
-aWork      N
-aParentDeleteBehave D
 
 eCtrlMapER_Attribute 7
 aName      AutodesignBase
@@ -6833,19 +6819,6 @@ aType      D
 aReturnDataType N
 
 eSourceFileForOper 5
-
-eAction    3
-aTag       GOTO_MergeComponents
-aType      34
-aZKey      130069441
-aDialogName TZCMLPMD
-aWindowName SourceLPLRSelectMerge
-aSB_ActionDisabling 0
-
-eActOpt    4
-aTag       MergeComponents
-aText      Merge Components...
-aZKey      130069440
 
 eAction    3
 aTag       BuildDialogExecutables
@@ -6969,6 +6942,19 @@ aType      D
 aReturnDataType N
 
 eSourceFileForOper 5
+
+eAction    3
+aTag       GOTO_MergeComponents
+aType      34
+aZKey      130069441
+aDialogName TZCMLPMD
+aWindowName SourceLPLRSelectMerge
+aSB_ActionDisabling 0
+
+eActOpt    4
+aTag       MergeComponents
+aText      Merge Components...
+aZKey      130069440
 
 eAction    3
 aTag       GoToCompareDataModels
@@ -7139,9 +7125,9 @@ eActMap    4
 aZKey      1339612
 
 eActOpt    4
-aTag       MigrateComponents
+aTag       mnuMigrate
 aText      &Migrate Components...
-aZKey      97096220
+aZKey      130069516
 
 eAction    3
 aTag       OptionCheckIn
@@ -9914,9 +9900,6 @@ aZKey      1339144
 aName      TZCMCPRO
 
 eLOD       3
-aZKey      1329986
-aName      TZCMCPRO
-aDesc      CPLR Object
 
 eViewObjRef 2
 aZKey      1339506
@@ -9929,6 +9912,8 @@ aDesc      Object for listing CPLRs available to User
 aDLL_Name  TZLODOPR
 
 eViewObjRef 2
+aZKey      1337825
+aName      TZCMLPLO
 
 eLOD       3
 
@@ -9955,11 +9940,6 @@ aName      TZCMREPW
 aDesc      Temp work view of Repository Users
 
 eLOD       3
-aZKey      1325883
-aName      TZCMREPO
-aDesc      CM Repository Object
-aDLL_Name  TZLODOPR
-aCommitConstraint Y
 
 eViewObjRef 2
 aZKey      1351468
@@ -9976,9 +9956,6 @@ aName      TZCMULWO
 aDesc      VOR automatically built from LOD Dialog
 
 eLOD       3
-aZKey      1329892
-aName      TZCMULWO
-aDesc      CM User list work Object
 
 eViewObjRef 2
 aZKey      1339042
@@ -12069,6 +12046,7 @@ i1398      42
 i1400      42
 i1403      42
 i1405      42
+i1409      216
 i1411      8
 i1413      29
 i1415      346
@@ -12076,10 +12054,10 @@ i1419      223
 i1422      223
 i1424      59
 i1436      71
-i1443      71
-i1448      71
-i1460      71
-i1464      71
+i1441      71
+i1446      71
+i1458      71
+i1462      71
 i1476      71
 i1482      71
 i1488      71
@@ -12091,34 +12069,34 @@ i1499      1428
 i1500      1427
 i1502      71
 i1511      71
-i1515      1451
-i1516      1452
+i1515      1449
+i1516      1450
 i1518      71
 i1522      71
-i1525      1451
-i1526      1452
+i1525      1449
+i1526      1450
 i1528      71
 i1529      1426
 i1532      1425
 i1534      71
 i1540      71
 i1545      71
-i1548      1451
+i1548      1449
 i1552      71
-i1555      1451
-i1556      1452
+i1555      1449
+i1556      1450
 i1558      71
-i1571      1451
-i1572      1452
+i1571      1449
+i1572      1450
 i1575      1329
 i1576      939
 i1583      71
 i1586      1582
 i1587      71
-i1597      1451
+i1597      1449
 i1600      71
-i1603      1451
-i1604      1452
+i1603      1449
+i1604      1450
 i1607      1574
 i1608      1573
 i1609      1581
@@ -12131,14 +12109,14 @@ i1617      1434
 i1618      1431
 i1621      1506
 i1622      1503
-i1623      1438
-i1624      1437
+i1623      1464
+i1624      1463
 i1625      1470
 i1626      1467
 i1627      1466
 i1628      1465
-i1629      1462
-i1630      1461
+i1629      1460
+i1630      1459
 i1631      1594
 i1632      1591
 i1633      1568
@@ -12198,7 +12176,7 @@ i1712      42
 i1714      42
 i1717      42
 i1720      42
-i1724      1451
+i1724      1449
 i1726      8
 i1727      1656
 i1728      42
@@ -12208,15 +12186,15 @@ i1737      223
 i1739      59
 i1750      1435
 i1751      71
-i1755      1442
+i1755      1440
 i1756      71
-i1760      1447
+i1760      1445
 i1761      71
-i1764      1451
+i1764      1449
 i1765      1656
-i1773      1459
+i1773      1457
 i1774      71
-i1777      1463
+i1777      1461
 i1778      71
 i1789      1475
 i1790      71
@@ -12236,11 +12214,11 @@ i1815      1501
 i1816      71
 i1825      1510
 i1826      71
-i1831      1451
+i1831      1449
 i1832      1656
 i1834      1517
 i1835      71
-i1838      1451
+i1838      1449
 i1839      1656
 i1841      1527
 i1842      71
@@ -12252,25 +12230,25 @@ i1853      1539
 i1854      71
 i1858      1544
 i1859      71
-i1862      1451
+i1862      1449
 i1863      1656
 i1866      1551
 i1867      71
-i1870      1451
+i1870      1449
 i1871      1656
 i1873      1557
 i1874      71
-i1887      1451
+i1887      1449
 i1888      1656
 i1895      1582
 i1896      71
 i1899      1582
 i1900      71
-i1910      1451
+i1910      1449
 i1911      1656
 i1913      1599
 i1914      71
-i1917      1451
+i1917      1449
 i1918      1656
 i1922      1894
 i1923      1893
@@ -12387,9 +12365,11 @@ i2116      2082
 i2117      2081
 i2118      2080
 i2120      71
-i2134      1412
+i2131      2129
 i2135      2123
 i2137      2123
+i2141      2139
+i2145      2143
 i2151      2123
 i2152      71
 i2153      70
@@ -12400,7 +12380,7 @@ i2161      258
 i2163      1510
 i2167      471
 i2171      237
-i2173      1442
+i2173      1440
 i2177      1316
 i2179      1582
 i2181      244
@@ -12412,7 +12392,7 @@ i2191      1308
 i2193      446
 i2197      575
 i2199      1435
-i2201      1459
+i2201      1457
 i2203      1475
 i2205      1481
 i2207      1493
@@ -12432,7 +12412,7 @@ i2247      1599
 i2253      1533
 i2255      1138
 i2257      1544
-i2259      1447
+i2259      1445
 i2263      1228
 i2265      1215
 i2267      84
@@ -12441,7 +12421,7 @@ i2275      451
 i2277      268
 i2279      1501
 i2297      1527
-i2318      1463
+i2318      1461
 i2320      477
 i2322      838
 i2324      547
@@ -12492,11 +12472,11 @@ i2403      1510
 i2404      71
 i2405      471
 i2406      71
-i2407      1442
+i2407      1440
 i2408      71
 i2409      2169
 i2410      71
-i2411      1447
+i2411      1445
 i2412      71
 i2413      2110
 i2414      71
@@ -12558,9 +12538,9 @@ i2469      2249
 i2470      71
 i2471      2271
 i2472      71
-i2473      1459
+i2473      1457
 i2474      71
-i2475      1463
+i2475      1461
 i2476      71
 i2477      2315
 i2478      71
