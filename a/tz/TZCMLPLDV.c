@@ -72,6 +72,10 @@ o_CopyContentsOfDirectory( zVIEW     ViewToWindow,
                            zPCHAR    szCopyFiles );
 
 
+zOPER_EXPORT zSHORT OPERATION
+GOTO_Migrate( zVIEW     ViewToWindow );
+
+
 //:DIALOG OPERATION
 //:PostbuildNewLPLR( VIEW ViewToWindow )
 
@@ -1853,6 +1857,44 @@ o_CopyContentsOfDirectory( zVIEW     ViewToWindow,
       } 
 
       //:END 
+   } 
+
+   //:END
+   return( 0 );
+// END
+} 
+
+
+//:DIALOG OPERATION
+//:GOTO_Migrate( VIEW ViewToWindow )
+
+//:   VIEW CurrentLPLR BASED ON LOD TZCMLPLO
+zOPER_EXPORT zSHORT OPERATION
+GOTO_Migrate( zVIEW     ViewToWindow )
+{
+   zVIEW     CurrentLPLR = 0; 
+   zSHORT    RESULT; 
+   zSHORT    lTempInteger_0; 
+
+
+
+   //:// Check if an ERD alread exists in the current LPLR. If so, the Migrate function cannot be used.
+   //:GET VIEW  CurrentLPLR NAMED "TaskLPLR"
+   RESULT = GetViewByName( &CurrentLPLR, "TaskLPLR", ViewToWindow, zLEVEL_TASK );
+   //:SET CURSOR FIRST CurrentLPLR.W_MetaType WHERE CurrentLPLR.W_MetaType.Type = 4
+   RESULT = SetCursorFirstEntityByInteger( CurrentLPLR, "W_MetaType", "Type", 4, "" );
+   //:IF CurrentLPLR.W_MetaDef EXISTS 
+   lTempInteger_0 = CheckExistenceOfEntity( CurrentLPLR, "W_MetaDef" );
+   if ( lTempInteger_0 == 0 )
+   { 
+      //:MessageSend( ViewToWindow, "", "LPLR Migrate",
+      //:             "The Current LPLR already has an ER, so the Migrate function cannot be used. Use Merge instead.", 
+      //:             zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
+      MessageSend( ViewToWindow, "", "LPLR Migrate", "The Current LPLR already has an ER, so the Migrate function cannot be used. Use Merge instead.", zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
+      //:SetWindowActionBehavior( ViewToWindow, zWAB_StayOnWindow, 0, 0 )                   
+      SetWindowActionBehavior( ViewToWindow, zWAB_StayOnWindow, 0, 0 );
+      //:RETURN -1
+      return( -1 );
    } 
 
    //:END

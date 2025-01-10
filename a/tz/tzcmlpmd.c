@@ -36,10 +36,6 @@ SelectLPLR_ForMerge( zVIEW     vSubtask );
 
 
 zOPER_EXPORT zSHORT OPERATION
-MigrateCompilerSubobjects( zVIEW     vSubtask );
-
-
-zOPER_EXPORT zSHORT OPERATION
 CommitTZWDLCVO( zVIEW     vSubtask );
 
 
@@ -114,7 +110,15 @@ GOTO_MergeERDs( zVIEW     vSubtask );
 
 
 zOPER_EXPORT zSHORT OPERATION
+MigrateMetaOld( zVIEW     vSubtask );
+
+
+zOPER_EXPORT zSHORT OPERATION
 BuildTargetLPLR_ListForMerge( zVIEW     vSubtask );
+
+
+zOPER_EXPORT zSHORT OPERATION
+MigrateCompilerSubobjects( zVIEW     vSubtask );
 
 
 zOPER_EXPORT zSHORT OPERATION
@@ -127,6 +131,10 @@ MERGE_AllLPLR_Metas( zVIEW     ViewToWindow );
 
 static zVOID
 o_MergeAllObjectViews( zVIEW     ViewToWindow );
+
+
+zOPER_EXPORT zSHORT OPERATION
+CLOSE_LPLR_MergeErrors( zVIEW     ViewToWindow );
 
 
 //:DIALOG OPERATION
@@ -431,8 +439,8 @@ MERGE_SelectedLPLR_Metas( zVIEW     ViewToWindow )
          ZeidonStringConcat( MG_ErrorMessage, 1, 0, MetaName, 1, 0, 251 );
          //:MB_SetMessage( ViewToWindow, 1, MG_ErrorMessage )
          MB_SetMessage( ViewToWindow, 1, MG_ErrorMessage );
-         //:nRC = GlobalOperGrpMigrate( NewOperationGroup, MetaName, SourceLPLR, ViewToWindow )
-         nRC = oTZOGSRCO_GlobalOperGrpMigrate( NewOperationGroup, MetaName, SourceLPLR, ViewToWindow );
+         //:nRC = GlobalOperGrpMerge( NewOperationGroup, MetaName, SourceLPLR, ViewToWindow )
+         nRC = oTZOGSRCO_GlobalOperGrpMerge( NewOperationGroup, MetaName, SourceLPLR, ViewToWindow );
          //:IF nRC < 0
          if ( nRC < 0 )
          { 
@@ -901,12 +909,12 @@ zOPER_EXPORT zSHORT OPERATION
 MigrateMeta( zVIEW     vSubtask )
 {
    zVIEW     SourceLPLR = 0; 
-   //:VIEW SourceVOR_LPLR     BASED ON LOD TZCMLPLO
-   zVIEW     SourceVOR_LPLR = 0; 
-   //:VIEW TargetVOR_LPLR     BASED ON LOD TZCMLPLO
-   zVIEW     TargetVOR_LPLR = 0; 
-   //:VIEW OrigLPLR           BASED ON LOD TZCMLPLO
-   zVIEW     OrigLPLR = 0; 
+   //:VIEW SourceLPLR_Dialog  BASED ON LOD TZCMLPLO
+   zVIEW     SourceLPLR_Dialog = 0; 
+   //:VIEW TempLPLR           BASED ON LOD TZCMLPLO
+   zVIEW     TempLPLR = 0; 
+   //:VIEW TargetLPLR         BASED ON LOD TZCMLPLO
+   zVIEW     TargetLPLR = 0; 
    //:VIEW CurrentLPLR        BASED ON LOD TZCMLPLO
    zVIEW     CurrentLPLR = 0; 
    //:VIEW NewERD             BASED ON LOD TZEREMDO
@@ -937,162 +945,120 @@ MigrateMeta( zVIEW     vSubtask )
    zVIEW     vPE = 0; 
    //:VIEW vVOR               BASED ON LOD TZWDVORO
    zVIEW     vVOR = 0; 
-
    //:STRING (32)  MetaName
    zCHAR     MetaName[ 33 ] = { 0 }; 
-   //:STRING (32)  NewTE_Name
-   zCHAR     NewTE_Name[ 33 ] = { 0 }; 
    //:STRING (250) MG_ErrorMessage
    zCHAR     MG_ErrorMessage[ 251 ] = { 0 }; 
    //:STRING (513) SourceDirectoryName       // zMAX_FILESPEC_LTH+1
    zCHAR     SourceDirectoryName[ 514 ] = { 0 }; 
    //:STRING (513) SourceFileName            // zMAX_FILESPEC_LTH+1
    zCHAR     SourceFileName[ 514 ] = { 0 }; 
-   //:STRING ( 1 ) szDoNotMergeOperationsFlag
-   zCHAR     szDoNotMergeOperationsFlag[ 2 ] = { 0 }; 
-   //://INTEGER      nConvertFlag
-   //:INTEGER      lZKey
-   zLONG     lZKey = 0; 
+   //:STRING ( 1 ) szReExecuteFlag
+   zCHAR     szReExecuteFlag[ 2 ] = { 0 }; 
    //:SHORT        nRC
    zSHORT    nRC = 0; 
    //:SHORT        nRC1
    zSHORT    nRC1 = 0; 
    zSHORT    RESULT; 
-   zLONG     lTempInteger_0; 
-   zCHAR     szTempString_0[ 33 ]; 
+   zSHORT    lTempInteger_0; 
    zSHORT    lTempInteger_1; 
+   zCHAR     szTempString_0[ 33 ]; 
+   zCHAR     szTempString_1[ 33 ]; 
    zSHORT    lTempInteger_2; 
-   zSHORT    lTempInteger_3; 
 
 
-   //:GET VIEW SourceLPLR NAMED "SourceLPLR"
-   RESULT = GetViewByName( &SourceLPLR, "SourceLPLR", vSubtask, zLEVEL_TASK );
-   //:GET VIEW SourceVOR_LPLR NAMED "SourceVOR_LPLR"
-   RESULT = GetViewByName( &SourceVOR_LPLR, "SourceVOR_LPLR", vSubtask, zLEVEL_TASK );
+   //:// Copy all metas in the Source LPLR to create entries in the Current LPLR.
+   //:// The metas will be copied over in the following order.
+   //:// 2000 - Header
+   //:// 2001 - Source
+   //:// 2002 - Global Operations
+   //:// 2003 - Domain Groups
+   //:// 2004 - ERD
+   //:// 2005 - Subject Area
+   //:// 2006 - TE
+   //:// 2007 - LOD
+   //:// 2008 - POD
+   //:// 2009 - PVR (VOR)
+   //:// 2010 - PE
+   //:// 2011 - Dialog
+   //:// 2012 - UIS
+   //:// 2013 - Domain Group / PDG
+   //:// 2014 - Global Operation Group
+   //:// 2015 - Report
+   //:// 2016 - XSLT
+   //:// The ones that will be processed here are as follows and will be copied over in the following order.
+   //:// 2010 - PE
+   //:// 2014 - Global Operation Group
+   //:// 2013 - Domain Group
+   //:// 2004 - ERD
+   //:// 2006 - TE
+   //:// 2007 - LOD
+   //:// 2009 - PVR (VOR)
+   //:// 2011 - Dialog
 
-   //:// Process the Domain Groups and the Operation Groups first, since they must exist before
-   //:// other metas can be processed, and their numbers put them at the end of the list.
+   //:GET VIEW SourceLPLR  NAMED "OrigLPLR"   // We want the full LPLR, not the edited list currently stored as SourceLPLR.
+   RESULT = GetViewByName( &SourceLPLR, "OrigLPLR", vSubtask, zLEVEL_TASK );
+   //:GET VIEW CurrentLPLR NAMED "TaskLPLR"
+   RESULT = GetViewByName( &CurrentLPLR, "TaskLPLR", vSubtask, zLEVEL_TASK );
+   //:GET VIEW TargetLPLR  NAMED "TargetLPLR"
+   RESULT = GetViewByName( &TargetLPLR, "TargetLPLR", vSubtask, zLEVEL_TASK );
 
-   //:// For creating/updating VOR's, put the ObjectName for each VOR in the W_MetaDef entry.
-   //:SourceDirectoryName = SourceLPLR.LPLR.MetaSrcDir
-   GetVariableFromAttribute( SourceDirectoryName, 0, 'S', 514, SourceLPLR, "LPLR", "MetaSrcDir", "", 0 );
-   //:FOR EACH SourceVOR_LPLR.W_MetaDef
-   RESULT = SetCursorFirstEntity( SourceVOR_LPLR, "W_MetaDef", "" );
-   while ( RESULT > zCURSOR_UNCHANGED )
+   //:// Set Flag so that error messages will be written to ErrorMessage entities rather displayed immediately to the user.
+   //:CurrentLPLR.LPLR.MergeType = "L"
+   SetAttributeFromString( CurrentLPLR, "LPLR", "MergeType", "L" );
+
+   //:// Check if this is a repeat of migrate for additional selected Dialog entries. We know this because of the existence.
+   //:// of the ERD.
+   //:szReExecuteFlag = ""
+   ZeidonStringCopy( szReExecuteFlag, 1, 0, "", 1, 0, 2 );
+   //:GET VIEW  CurrentLPLR NAMED "TaskLPLR"
+   RESULT = GetViewByName( &CurrentLPLR, "TaskLPLR", vSubtask, zLEVEL_TASK );
+   //:SET CURSOR FIRST CurrentLPLR.W_MetaType WHERE CurrentLPLR.W_MetaType.Type = 4
+   RESULT = SetCursorFirstEntityByInteger( CurrentLPLR, "W_MetaType", "Type", 4, "" );
+   //:IF CurrentLPLR.W_MetaDef EXISTS 
+   lTempInteger_0 = CheckExistenceOfEntity( CurrentLPLR, "W_MetaDef" );
+   if ( lTempInteger_0 == 0 )
    { 
-      //:// Activate existing source meta VOR
-      //:lZKey = SourceVOR_LPLR.W_MetaDef.CPLR_ZKey
-      GetIntegerFromAttribute( &lZKey, SourceVOR_LPLR, "W_MetaDef", "CPLR_ZKey" );
-      //:zltoxa( lZKey, MetaName )
-      zltoxa( lZKey, MetaName );
-      //:SourceFileName = SourceDirectoryName + "\" + MetaName + ".PVR"
-      ZeidonStringCopy( SourceFileName, 1, 0, SourceDirectoryName, 1, 0, 514 );
-      ZeidonStringConcat( SourceFileName, 1, 0, "\\", 1, 0, 514 );
-      ZeidonStringConcat( SourceFileName, 1, 0, MetaName, 1, 0, 514 );
-      ZeidonStringConcat( SourceFileName, 1, 0, ".PVR", 1, 0, 514 );
-      //:ActivateOI_FromFile ( vVOR, "TZWDVORO", vSubtask, SourceFileName, 8192 )
-      ActivateOI_FromFile( &vVOR, "TZWDVORO", vSubtask, SourceFileName, 8192 );
-      //:// 8192 is zIGNORE_ATTRIB_ERRORS
-      //:NAME VIEW vVOR "vVOR"
-      SetNameForView( vVOR, "vVOR", 0, zLEVEL_TASK );
-      //:// Set the work name as the LOD name.
-      //:SourceVOR_LPLR.W_MetaDef.MigrateWorkName = vVOR.LOD.Name
-      SetAttributeFromAttribute( SourceVOR_LPLR, "W_MetaDef", "MigrateWorkName", vVOR, "LOD", "Name" );
-      //:DropObjectInstance( vVOR )
-      DropObjectInstance( vVOR );
-      RESULT = SetCursorNextEntity( SourceVOR_LPLR, "W_MetaDef", "" );
+      //:szReExecuteFlag = "Y"
+      ZeidonStringCopy( szReExecuteFlag, 1, 0, "Y", 1, 0, 2 );
    } 
 
    //:END
 
-   //:// KJS 05/03/22
-   //:GET VIEW  CurrentLPLR NAMED "TaskLPLR"
-   RESULT = GetViewByName( &CurrentLPLR, "TaskLPLR", vSubtask, zLEVEL_TASK );
-
-   //://nConvertFlag = 0        // Indicate that we are not converting.
-   //:nRC = SetCursorFirstSelectedEntity( SourceLPLR, "W_MetaDef", "LPLR" )
-   nRC = SetCursorFirstSelectedEntity( SourceLPLR, "W_MetaDef", "LPLR" );
-   //:LOOP WHILE nRC >= zCURSOR_SET
-   while ( nRC >= zCURSOR_SET )
+   //:// Migrate non Dialog entries if we're not re-exeuting this function.
+   //:IF szReExecuteFlag = ""
+   if ( ZeidonStringCompare( szReExecuteFlag, 1, 0, "", 1, 0, 2 ) == 0 )
    { 
 
-      //:MetaName = SourceLPLR.W_MetaDef.Name
-      GetVariableFromAttribute( MetaName, 0, 'S', 33, SourceLPLR, "W_MetaDef", "Name", "", 0 );
+      //:// Process the Domain Groups and the Operation Groups first, since they must exist before
+      //:// other metas can be processed, and their numbers put them at the end of the list.
 
-      //:// Domain Group: W_MetaType.Type = 2013 for domain group meta
-      //:IF SourceLPLR.W_MetaType.Type = 2013
-      if ( CompareAttributeToInteger( SourceLPLR, "W_MetaType", "Type", 2013 ) == 0 )
+      //:// PE
+      //:// We are not migrating the PE since it is not used for Web apps.
+
+      //:// Operation Groups
+      //:SET CURSOR FIRST SourceLPLR.W_MetaType WHERE SourceLPLR.W_MetaType.Type = 2014 
+      RESULT = SetCursorFirstEntityByInteger( SourceLPLR, "W_MetaType", "Type", 2014, "" );
+      //:SET CURSOR FIRST TargetLPLR.W_MetaType WHERE TargetLPLR.W_MetaType.Type = 2014 
+      RESULT = SetCursorFirstEntityByInteger( TargetLPLR, "W_MetaType", "Type", 2014, "" );
+      //:IF RESULT < 0
+      if ( RESULT < 0 )
       { 
-         //:// If the Domain Group doesn't already exist, create it.
-         //:// Otherwise pass the activated DomainGroup to the migrate routine so
-         //:// that Domains can be merged.
-         //:nRC = ActivateMetaOI_ByName( vSubtask, NewDomainGroup, 0, zSOURCE_DOMAINGRP_META, zSINGLE, MetaName, 0 )
-         nRC = ActivateMetaOI_ByName( vSubtask, &NewDomainGroup, 0, zSOURCE_DOMAINGRP_META, zSINGLE, MetaName, 0 );
-         //:IF nRC < 0
-         if ( nRC < 0 )
-         { 
-            //:ActivateEmptyMetaOI( vSubtask, NewDomainGroup, zSOURCE_DOMAINGRP_META, zSINGLE )
-            ActivateEmptyMetaOI( vSubtask, &NewDomainGroup, zSOURCE_DOMAINGRP_META, zSINGLE );
-         } 
-
-         //:END
-
-         //:MG_ErrorMessage = "Migrating Domain Group: " + MetaName
-         ZeidonStringCopy( MG_ErrorMessage, 1, 0, "Migrating Domain Group: ", 1, 0, 251 );
-         ZeidonStringConcat( MG_ErrorMessage, 1, 0, MetaName, 1, 0, 251 );
-         //:MB_SetMessage( vSubtask, 1, MG_ErrorMessage )
-         MB_SetMessage( vSubtask, 1, MG_ErrorMessage );
-         //:nRC = DomainGrpMigrate( NewDomainGroup, MetaName, SourceLPLR, vSubtask )
-         nRC = oTZDGSRCO_DomainGrpMigrate( NewDomainGroup, MetaName, SourceLPLR, vSubtask );
-         //:IF nRC < 0
-         if ( nRC < 0 )
-         { 
-            //:MG_ErrorMessage = "Domain Group(" + MetaName + ") aborted."
-            ZeidonStringCopy( MG_ErrorMessage, 1, 0, "Domain Group(", 1, 0, 251 );
-            ZeidonStringConcat( MG_ErrorMessage, 1, 0, MetaName, 1, 0, 251 );
-            ZeidonStringConcat( MG_ErrorMessage, 1, 0, ") aborted.", 1, 0, 251 );
-            //:MessageSend( vSubtask, "CM01001", "Configuration Management",
-            //:             MG_ErrorMessage, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
-            MessageSend( vSubtask, "CM01001", "Configuration Management", MG_ErrorMessage, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
-         } 
-
-         //:END
-
-         //:IF NewDomainGroup != 0
-         if ( NewDomainGroup != 0 )
-         { 
-            //:DropMetaOI( vSubtask, NewDomainGroup )
-            DropMetaOI( vSubtask, NewDomainGroup );
-         } 
-
-         //:END
-
-         //:// Turn off the selected state flag
-         //:SetSelectStateOfEntity( SourceLPLR, "W_MetaDef", 0 )
-         SetSelectStateOfEntity( SourceLPLR, "W_MetaDef", 0 );
+         //:CREATE ENTITY TargetLPLR.W_MetaType
+         RESULT = CreateEntity( TargetLPLR, "W_MetaType", zPOS_AFTER );
+         //:TargetLPLR.W_MetaType.Type = 2014
+         SetAttributeFromInteger( TargetLPLR, "W_MetaType", "Type", 2014 );
       } 
 
-
       //:END
-
-      //:// Global Operation Group: W_MetaType.Type = 2014 for global operation group meta
-      //:IF SourceLPLR.W_MetaType.Type = 2014
-      if ( CompareAttributeToInteger( SourceLPLR, "W_MetaType", "Type", 2014 ) == 0 )
+      //:FOR EACH SourceLPLR.W_MetaDef 
+      RESULT = SetCursorFirstEntity( SourceLPLR, "W_MetaDef", "" );
+      while ( RESULT > zCURSOR_UNCHANGED )
       { 
-         //:// If the Global Operation Group doesn't already exist, create it.
-         //:// Otherwise pass the activated GlobalOperationGroup to the migrate routine so
-         //:// that Global Operations can be merged.
-         //:nRC = ActivateMetaOI_ByName( vSubtask, NewOperationGroup, 0, zSOURCE_GOPGRP_META, zSINGLE, MetaName, 0 )
-         nRC = ActivateMetaOI_ByName( vSubtask, &NewOperationGroup, 0, zSOURCE_GOPGRP_META, zSINGLE, MetaName, 0 );
-         //:IF nRC < 0
-         if ( nRC < 0 )
-         { 
-            //:ActivateEmptyMetaOI( vSubtask, NewOperationGroup, zSOURCE_GOPGRP_META, zSINGLE )
-            ActivateEmptyMetaOI( vSubtask, &NewOperationGroup, zSOURCE_GOPGRP_META, zSINGLE );
-         } 
-
-         //:END
-
+         //:MetaName = SourceLPLR.W_MetaDef.Name 
+         GetVariableFromAttribute( MetaName, 0, 'S', 33, SourceLPLR, "W_MetaDef", "Name", "", 0 );
+         //:ActivateEmptyMetaOI( vSubtask, NewOperationGroup, zSOURCE_GOPGRP_META, zSINGLE )
+         ActivateEmptyMetaOI( vSubtask, &NewOperationGroup, zSOURCE_GOPGRP_META, zSINGLE );
          //:MG_ErrorMessage = "Migrating Global Operation Group: " + MetaName
          ZeidonStringCopy( MG_ErrorMessage, 1, 0, "Migrating Global Operation Group: ", 1, 0, 251 );
          ZeidonStringConcat( MG_ErrorMessage, 1, 0, MetaName, 1, 0, 251 );
@@ -1107,142 +1073,136 @@ MigrateMeta( zVIEW     vSubtask )
             ZeidonStringCopy( MG_ErrorMessage, 1, 0, "Global Operation Group(", 1, 0, 251 );
             ZeidonStringConcat( MG_ErrorMessage, 1, 0, MetaName, 1, 0, 251 );
             ZeidonStringConcat( MG_ErrorMessage, 1, 0, ") aborted.", 1, 0, 251 );
-            //:MessageSend( vSubtask, "CM01001", "Configuration Management",
+            //:MessageSend( vSubtask, "", "LPLR Migrate",
             //:             MG_ErrorMessage, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
-            MessageSend( vSubtask, "CM01001", "Configuration Management", MG_ErrorMessage, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
-         } 
-
-         //:END
-
-         //:IF NewOperationGroup != 0
-         if ( NewOperationGroup != 0 )
-         { 
-            //:DropMetaOI( vSubtask, NewOperationGroup )
-            DropMetaOI( vSubtask, NewOperationGroup );
-         } 
-
-         //:END
-         //:// Turn off the selected state flag
-         //:SetSelectStateOfEntity( SourceLPLR, "W_MetaDef", 0 )
-         SetSelectStateOfEntity( SourceLPLR, "W_MetaDef", 0 );
-      } 
-
-
-      //:END
-
-      //:nRC = SetCursorNextSelectedEntity( SourceLPLR, "W_MetaDef", "LPLR" )
-      nRC = SetCursorNextSelectedEntity( SourceLPLR, "W_MetaDef", "LPLR" );
-   } 
-
-
-   //:END
-
-   //:// Because some migration operations need an LPLR view with Domains in it??, we will
-   //:// pass the OrigLPLR view instead of the SourceLPLR view.
-   //:GET VIEW OrigLPLR NAMED "OrigLPLR"
-   RESULT = GetViewByName( &OrigLPLR, "OrigLPLR", vSubtask, zLEVEL_TASK );
-
-   //:// Now loop and process the regular metas (those for the current release).
-   //:nRC = SetCursorFirstSelectedEntity( SourceLPLR, "W_MetaDef", "LPLR" )
-   nRC = SetCursorFirstSelectedEntity( SourceLPLR, "W_MetaDef", "LPLR" );
-   //:LOOP WHILE nRC >= zCURSOR_SET
-   while ( nRC >= zCURSOR_SET )
-   { 
-
-      //:// Position on the corresponding meta in the OrigLPLR view.
-      //:SET CURSOR FIRST OrigLPLR.W_MetaDef WITHIN OrigLPLR.LPLR WHERE
-      //:                 OrigLPLR.W_MetaDef.CPLR_ZKey = SourceLPLR.W_MetaDef.CPLR_ZKey
-      GetIntegerFromAttribute( &lTempInteger_0, SourceLPLR, "W_MetaDef", "CPLR_ZKey" );
-      RESULT = SetCursorFirstEntityByInteger( OrigLPLR, "W_MetaDef", "CPLR_ZKey", lTempInteger_0, "LPLR" );
-
-      //:// Turn off the selected state flag
-      //:SetSelectStateOfEntity( SourceLPLR, "W_MetaDef", 0 )
-      SetSelectStateOfEntity( SourceLPLR, "W_MetaDef", 0 );
-      //:MetaName = SourceLPLR.W_MetaDef.Name
-      GetVariableFromAttribute( MetaName, 0, 'S', 33, SourceLPLR, "W_MetaDef", "Name", "", 0 );
-
-      //:// Header: W_MetaType.Type = 2000 for Header meta
-      //:IF SourceLPLR.W_MetaType.Type = 2000
-      if ( CompareAttributeToInteger( SourceLPLR, "W_MetaType", "Type", 2000 ) == 0 )
-      { 
-
-         //:// If the Header doesn't already exist, create it.
-         //:// Otherwise return error message.
-         //:nRC = ActivateMetaOI_ByName( vSubtask, ReturnedHeader, 0, zREFER_HDR_META, zSINGLE, MetaName, 0 )
-         nRC = ActivateMetaOI_ByName( vSubtask, &ReturnedHeader, 0, zREFER_HDR_META, zSINGLE, MetaName, 0 );
-         //:IF nRC < 0
-         if ( nRC < 0 )
-         { 
-            //:MG_ErrorMessage = "Migrating Header: " + MetaName
-            ZeidonStringCopy( MG_ErrorMessage, 1, 0, "Migrating Header: ", 1, 0, 251 );
-            ZeidonStringConcat( MG_ErrorMessage, 1, 0, MetaName, 1, 0, 251 );
-            //:MB_SetMessage( vSubtask, 1, MG_ErrorMessage )
-            MB_SetMessage( vSubtask, 1, MG_ErrorMessage );
-            //:nRC = HeaderMigrate( OrigLPLR, MetaName, ReturnedHeader, vSubtask )
-            nRC = oTZCMLPLO_HeaderMigrate( OrigLPLR, MetaName, &ReturnedHeader, vSubtask );
-            //:IF nRC < 0
-            if ( nRC < 0 )
-            { 
-               //:MG_ErrorMessage = "Header (" + MetaName + ") aborted."
-               ZeidonStringCopy( MG_ErrorMessage, 1, 0, "Header (", 1, 0, 251 );
-               ZeidonStringConcat( MG_ErrorMessage, 1, 0, MetaName, 1, 0, 251 );
-               ZeidonStringConcat( MG_ErrorMessage, 1, 0, ") aborted.", 1, 0, 251 );
-               //:MessageSend( vSubtask, "CM01005", "Configuration Management",
-               //:             MG_ErrorMessage, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
-               MessageSend( vSubtask, "CM01005", "Configuration Management", MG_ErrorMessage, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
-            } 
-
-            //:END
-            //:IF ReturnedHeader != 0
-            if ( ReturnedHeader != 0 )
-            { 
-               //:DropMetaOI( vSubtask, ReturnedHeader )
-               DropMetaOI( vSubtask, ReturnedHeader );
-            } 
-
-            //:END
+            MessageSend( vSubtask, "", "LPLR Migrate", MG_ErrorMessage, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
             //:ELSE
          } 
          else
          { 
-            //:MG_ErrorMessage = "Header (" + MetaName + ") already exists."
-            ZeidonStringCopy( MG_ErrorMessage, 1, 0, "Header (", 1, 0, 251 );
-            ZeidonStringConcat( MG_ErrorMessage, 1, 0, MetaName, 1, 0, 251 );
-            ZeidonStringConcat( MG_ErrorMessage, 1, 0, ") already exists.", 1, 0, 251 );
-            //:MessageSend( vSubtask, "CM01006", "Configuration Management",
-            //:             MG_ErrorMessage, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
-            MessageSend( vSubtask, "CM01006", "Configuration Management", MG_ErrorMessage, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
-            //:DropMetaOI( vSubtask, ReturnedHeader )
-            DropMetaOI( vSubtask, ReturnedHeader );
+            //:CREATE ENTITY TargetLPLR.W_MetaDef
+            RESULT = CreateEntity( TargetLPLR, "W_MetaDef", zPOS_AFTER );
+            //:TargetLPLR.W_MetaDef.Name = SourceLPLR.W_MetaDef.Name
+            SetAttributeFromAttribute( TargetLPLR, "W_MetaDef", "Name", SourceLPLR, "W_MetaDef", "Name" );
          } 
 
          //:END
+         //:DropObjectInstance( NewOperationGroup )
+         DropObjectInstance( NewOperationGroup );
+         RESULT = SetCursorNextEntity( SourceLPLR, "W_MetaDef", "" );
       } 
 
       //:END
 
-      //:// ERD: W_MetaType.Type = 2004 for ERD meta
-      //:IF SourceLPLR.W_MetaType.Type = 2004
-      if ( CompareAttributeToInteger( SourceLPLR, "W_MetaType", "Type", 2004 ) == 0 )
+      //:// Domain Groups
+      //:SET CURSOR FIRST SourceLPLR.W_MetaType WHERE SourceLPLR.W_MetaType.Type = 2013
+      RESULT = SetCursorFirstEntityByInteger( SourceLPLR, "W_MetaType", "Type", 2013, "" );
+      //:SET CURSOR FIRST TargetLPLR.W_MetaType WHERE TargetLPLR.W_MetaType.Type = 2013
+      RESULT = SetCursorFirstEntityByInteger( TargetLPLR, "W_MetaType", "Type", 2013, "" );
+      //:IF RESULT < 0
+      if ( RESULT < 0 )
       { 
+         //:CREATE ENTITY TargetLPLR.W_MetaType
+         RESULT = CreateEntity( TargetLPLR, "W_MetaType", zPOS_AFTER );
+         //:TargetLPLR.W_MetaType.Type = 2013
+         SetAttributeFromInteger( TargetLPLR, "W_MetaType", "Type", 2013 );
+      } 
 
-         //:// If the ERD doesn't already exist, create it.
-         //:// Otherwise pass the activated ERD to the migrate routine so that entities, attributes and
-         //:// relationships can be merged.
+      //:END
+      //:FOR EACH SourceLPLR.W_MetaDef 
+      RESULT = SetCursorFirstEntity( SourceLPLR, "W_MetaDef", "" );
+      while ( RESULT > zCURSOR_UNCHANGED )
+      { 
+         //:MetaName = SourceLPLR.W_MetaDef.Name 
+         GetVariableFromAttribute( MetaName, 0, 'S', 33, SourceLPLR, "W_MetaDef", "Name", "", 0 );
+         //:ActivateEmptyMetaOI( vSubtask, NewDomainGroup, zSOURCE_DOMAINGRP_META, zSINGLE )
+         ActivateEmptyMetaOI( vSubtask, &NewDomainGroup, zSOURCE_DOMAINGRP_META, zSINGLE );
+         //:MG_ErrorMessage = "Migrating Domain Group: " + MetaName
+         ZeidonStringCopy( MG_ErrorMessage, 1, 0, "Migrating Domain Group: ", 1, 0, 251 );
+         ZeidonStringConcat( MG_ErrorMessage, 1, 0, MetaName, 1, 0, 251 );
+         //:MB_SetMessage( vSubtask, 1, MG_ErrorMessage )
+         MB_SetMessage( vSubtask, 1, MG_ErrorMessage );
+         //:nRC = DomainGrpMigrate( NewDomainGroup, MetaName, SourceLPLR, vSubtask )
+         nRC = oTZDGSRCO_DomainGrpMigrate( NewDomainGroup, MetaName, SourceLPLR, vSubtask );
+         //:IF nRC < 0
+         if ( nRC < 0 )
+         { 
+            //:MG_ErrorMessage = "Domain Group(" + MetaName + ") aborted."
+            ZeidonStringCopy( MG_ErrorMessage, 1, 0, "Domain Group(", 1, 0, 251 );
+            ZeidonStringConcat( MG_ErrorMessage, 1, 0, MetaName, 1, 0, 251 );
+            ZeidonStringConcat( MG_ErrorMessage, 1, 0, ") aborted.", 1, 0, 251 );
+            //:MessageSend( vSubtask, "", "LPLR Migrate",
+            //:             MG_ErrorMessage, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
+            MessageSend( vSubtask, "", "LPLR Migrate", MG_ErrorMessage, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
+            //:ELSE
+         } 
+         else
+         { 
+            //:CREATE ENTITY TargetLPLR.W_MetaDef
+            RESULT = CreateEntity( TargetLPLR, "W_MetaDef", zPOS_AFTER );
+            //:TargetLPLR.W_MetaDef.Name = SourceLPLR.W_MetaDef.Name
+            SetAttributeFromAttribute( TargetLPLR, "W_MetaDef", "Name", SourceLPLR, "W_MetaDef", "Name" );
+         } 
+
+         //:END
+         //:DropObjectInstance( NewDomainGroup )
+         DropObjectInstance( NewDomainGroup );
+         RESULT = SetCursorNextEntity( SourceLPLR, "W_MetaDef", "" );
+      } 
+
+      //:END
+
+      //:// ERD
+      //:SET CURSOR FIRST SourceLPLR.W_MetaType WHERE SourceLPLR.W_MetaType.Type = 2004
+      RESULT = SetCursorFirstEntityByInteger( SourceLPLR, "W_MetaType", "Type", 2004, "" );
+      //:SET CURSOR FIRST TargetLPLR.W_MetaType WHERE TargetLPLR.W_MetaType.Type = 2004
+      RESULT = SetCursorFirstEntityByInteger( TargetLPLR, "W_MetaType", "Type", 2004, "" );
+      //:IF RESULT < 0
+      if ( RESULT < 0 )
+      { 
+         //:CREATE ENTITY TargetLPLR.W_MetaType
+         RESULT = CreateEntity( TargetLPLR, "W_MetaType", zPOS_AFTER );
+         //:TargetLPLR.W_MetaType.Type = 2004
+         SetAttributeFromInteger( TargetLPLR, "W_MetaType", "Type", 2004 );
+      } 
+
+      //:END
+      //:IF SourceLPLR.W_MetaDef EXISTS
+      lTempInteger_1 = CheckExistenceOfEntity( SourceLPLR, "W_MetaDef" );
+      if ( lTempInteger_1 == 0 )
+      { 
+         //:// Migrate the Source ERD to the Current LPLR.
+         //:// We have already checked that the Current LPLR does not have an ER.
+
+         //:// Check that ERD name is same as LPLR name.
+         //:IF SourceLPLR.W_MetaDef.Name != SourceLPLR.LPLR.Name 
+         if ( CompareAttributeToAttribute( SourceLPLR, "W_MetaDef", "Name", SourceLPLR, "LPLR", "Name" ) != 0 )
+         { 
+            //:MG_ErrorMessage = "ERD Name of " + SourceLPLR.W_MetaDef.Name + " does not match LPLR Name of " + SourceLPLR.LPLR.Name + "," +
+            //:                  "Migrate will be aborted."
+            GetVariableFromAttribute( szTempString_0, 0, 'S', 33, SourceLPLR, "W_MetaDef", "Name", "", 0 );
+            ZeidonStringCopy( MG_ErrorMessage, 1, 0, "ERD Name of ", 1, 0, 251 );
+            ZeidonStringConcat( MG_ErrorMessage, 1, 0, szTempString_0, 1, 0, 251 );
+            ZeidonStringConcat( MG_ErrorMessage, 1, 0, " does not match LPLR Name of ", 1, 0, 251 );
+            GetVariableFromAttribute( szTempString_1, 0, 'S', 33, SourceLPLR, "LPLR", "Name", "", 0 );
+            ZeidonStringConcat( MG_ErrorMessage, 1, 0, szTempString_1, 1, 0, 251 );
+            ZeidonStringConcat( MG_ErrorMessage, 1, 0, ",", 1, 0, 251 );
+            ZeidonStringConcat( MG_ErrorMessage, 1, 0, "Migrate will be aborted.", 1, 0, 251 );
+            //:MessageSend( vSubtask, "", "LPLR Migrate",
+            //:             MG_ErrorMessage, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
+            MessageSend( vSubtask, "", "LPLR Migrate", MG_ErrorMessage, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
+            //:RETURN nRC
+            return( nRC );
+         } 
+
+         //:END
+
          //:GET VIEW  CurrentLPLR NAMED "TaskLPLR"
          RESULT = GetViewByName( &CurrentLPLR, "TaskLPLR", vSubtask, zLEVEL_TASK );
          //:MetaName = CurrentLPLR.LPLR.Name
          GetVariableFromAttribute( MetaName, 0, 'S', 33, CurrentLPLR, "LPLR", "Name", "", 0 );
-         //:nRC = ActivateMetaOI_ByName( vSubtask, NewERD, 0, zSOURCE_ERD_META, zSINGLE, MetaName, 0 )
-         nRC = ActivateMetaOI_ByName( vSubtask, &NewERD, 0, zSOURCE_ERD_META, zSINGLE, MetaName, 0 );
-         //:IF nRC < 0
-         if ( nRC < 0 )
-         { 
-            //:ActivateEmptyMetaOI( vSubtask, NewERD, zSOURCE_ERD_META, zSINGLE )
-            ActivateEmptyMetaOI( vSubtask, &NewERD, zSOURCE_ERD_META, zSINGLE );
-         } 
-
-         //:END
+         //:ActivateEmptyMetaOI( vSubtask, NewERD, zSOURCE_ERD_META, zSINGLE )
+         ActivateEmptyMetaOI( vSubtask, &NewERD, zSOURCE_ERD_META, zSINGLE );
          //:NAME VIEW NewERD "NewERD"
          SetNameForView( NewERD, "NewERD", 0, zLEVEL_TASK );
 
@@ -1251,724 +1211,320 @@ MigrateMeta( zVIEW     vSubtask )
          ZeidonStringConcat( MG_ErrorMessage, 1, 0, MetaName, 1, 0, 251 );
          //:MB_SetMessage( vSubtask, 1, MG_ErrorMessage )
          MB_SetMessage( vSubtask, 1, MG_ErrorMessage );
-         //:ERD_Migrate( NewERD, OrigLPLR, vSubtask )
-         oTZEREMDO_ERD_Migrate( NewERD, &OrigLPLR, vSubtask );
+         //:nRC = ERD_Migrate( NewERD, SourceLPLR, vSubtask )
+         nRC = oTZEREMDO_ERD_Migrate( NewERD, &SourceLPLR, vSubtask );
+         //:IF nRC < 0
+         if ( nRC < 0 )
+         { 
+            //:MG_ErrorMessage = "ERD aborted because of problems migrating it."
+            ZeidonStringCopy( MG_ErrorMessage, 1, 0, "ERD aborted because of problems migrating it.", 1, 0, 251 );
+            //:MessageSend( vSubtask, "", "LPLR Migrate",
+            //:             MG_ErrorMessage, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
+            MessageSend( vSubtask, "", "LPLR Migrate", MG_ErrorMessage, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
+            //:RETURN nRC
+            return( nRC );
+            //:ELSE
+         } 
+         else
+         { 
+            //:CREATE ENTITY TargetLPLR.W_MetaDef
+            RESULT = CreateEntity( TargetLPLR, "W_MetaDef", zPOS_AFTER );
+            //:TargetLPLR.W_MetaDef.Name = SourceLPLR.W_MetaDef.Name
+            SetAttributeFromAttribute( TargetLPLR, "W_MetaDef", "Name", SourceLPLR, "W_MetaDef", "Name" );
+         } 
+
+         //:END
          //:DropMetaOI( vSubtask, NewERD )
          DropMetaOI( vSubtask, NewERD );
-         //:ELSE
       } 
-      else
+
+      //:END
+
+      //:// Subject Area
+      //:// We are not migrating Subject Areas as they are no longer of significant importance and the previous Migrate
+      //:// did not copy them either.
+
+      //:// Technical Environment
+      //:SET CURSOR FIRST SourceLPLR.W_MetaType WHERE SourceLPLR.W_MetaType.Type = 2006
+      RESULT = SetCursorFirstEntityByInteger( SourceLPLR, "W_MetaType", "Type", 2006, "" );
+      //:SET CURSOR FIRST TargetLPLR.W_MetaType WHERE TargetLPLR.W_MetaType.Type = 2006
+      RESULT = SetCursorFirstEntityByInteger( TargetLPLR, "W_MetaType", "Type", 2006, "" );
+      //:IF RESULT < 0
+      if ( RESULT < 0 )
       { 
-         //:// KJS 05/02/22 - Maybe this is where we should check... activate the ER, if it doesn't exist, then create one.
+         //:CREATE ENTITY TargetLPLR.W_MetaType
+         RESULT = CreateEntity( TargetLPLR, "W_MetaType", zPOS_AFTER );
+         //:TargetLPLR.W_MetaType.Type = 2006
+         SetAttributeFromInteger( TargetLPLR, "W_MetaType", "Type", 2006 );
+      } 
 
-         //:// If the ERD doesn't already exist, create it.
-         //:// Otherwise pass the activated ERD to the migrate routine so that entities, attributes and
-         //:// relationships can be merged.
-         //:GET VIEW  CurrentLPLR NAMED "TaskLPLR"
-         RESULT = GetViewByName( &CurrentLPLR, "TaskLPLR", vSubtask, zLEVEL_TASK );
-         //:MetaName = CurrentLPLR.LPLR.Name
-         GetVariableFromAttribute( MetaName, 0, 'S', 33, CurrentLPLR, "LPLR", "Name", "", 0 );
-         //:nRC = ActivateMetaOI_ByName( vSubtask, NewERD, 0, zSOURCE_ERD_META, zSINGLE, MetaName, 0 )
-         nRC = ActivateMetaOI_ByName( vSubtask, &NewERD, 0, zSOURCE_ERD_META, zSINGLE, MetaName, 0 );
-         //:IF nRC < 0
-         if ( nRC < 0 )
-         { 
-            //:ActivateEmptyMetaOI( vSubtask, NewERD, zSOURCE_ERD_META, zSINGLE )
-            ActivateEmptyMetaOI( vSubtask, &NewERD, zSOURCE_ERD_META, zSINGLE );
-            //:CreateMetaEntity( vSubtask, NewERD, "EntpER_Model", zPOS_AFTER )
-            CreateMetaEntity( vSubtask, NewERD, "EntpER_Model", zPOS_AFTER );
-            //:NewERD.EntpER_Model.Name = MetaName
-            SetAttributeFromString( NewERD, "EntpER_Model", "Name", MetaName );
-            //:CreateMetaEntity( vSubtask, NewERD, "ER_Entity", zPOS_AFTER )
-            CreateMetaEntity( vSubtask, NewERD, "ER_Entity", zPOS_AFTER );
-            //:SetAttributeFromString( NewERD, "ER_Entity", "Purpose", "F" )
-            SetAttributeFromString( NewERD, "ER_Entity", "Purpose", "F" );
-            //:SetAttributeFromAttribute( NewERD, "ER_Entity", "Name", CurrentLPLR, "LPLR", "Name" )
-            SetAttributeFromAttribute( NewERD, "ER_Entity", "Name", CurrentLPLR, "LPLR", "Name" );
-            //:CommitMetaOI( vSubtask, NewERD, zSOURCE_ERD_META )
-            CommitMetaOI( vSubtask, NewERD, zSOURCE_ERD_META );
-            //:DropMetaOI( vSubtask, NewERD )
-            DropMetaOI( vSubtask, NewERD );
-         } 
-
-         //:   // We overwrote original MetaName, so get the one we originally had.
-         //: END
-         //: MetaName = SourceLPLR.W_MetaDef.Name         
+      //:END
+      //:FOR EACH SourceLPLR.W_MetaDef 
+      RESULT = SetCursorFirstEntity( SourceLPLR, "W_MetaDef", "" );
+      while ( RESULT > zCURSOR_UNCHANGED )
+      { 
+         //:MetaName = SourceLPLR.W_MetaDef.Name 
          GetVariableFromAttribute( MetaName, 0, 'S', 33, SourceLPLR, "W_MetaDef", "Name", "", 0 );
-      } 
-
-      //:   //NAME VIEW NewERD "NewERD"
-      //:   //NAME VIEW NewERD "TZEREMDO_REF"
-
-      //:          
-      //:   // KJS 05/02/22 - Question... should we activate the ER now, so that it exists when needed for other operations.
-      //:   // And if there is no ER, should we create one?
-      //:   // Was thinking this should happen after looking at the domains/operations, but now I'm not sure.   
-      //:   // Get access to ER Object.
-      //:   /*
-      //:   IF GetViewByName( vTZEREMDO_REF, "TZEREMDO_REF", vSubtask, zLEVEL_TASK ) < 1 
-      //:      RetrieveViewForMetaList( vSubtask, CurrentLPLR, zREFER_ERD_META )
-      //:      IF ( CheckExistenceOfEntity( CurrentLPLR, "W_MetaDef" ) == zCURSOR_SET )
-      //:         ActivateMetaOI( vSubtask, &vTZEREMDO_REF, CurrentLPLR, zREFER_ERD_META, zSINGLE | zLEVEL_APPLICATION )
-      //:         SetNameForView( vTZEREMDO_REF, "TZEREMDO_REF", vSubtask, zLEVEL_TASK )
-      //:      ELSE
-      //:         vTZEREMDO_REF = 0
-      //:      END      
-      //:   END
-      //:   */
-      //:END
-
-      //:// Subject Area: W_MetaType.Type = 2005 for Subject Area meta
-      //:IF SourceLPLR.W_MetaType.Type = 2005
-      if ( CompareAttributeToInteger( SourceLPLR, "W_MetaType", "Type", 2005 ) == 0 )
-      { 
-
-         //:// If the Subject Area doesn't already exist, create it.
-         //:// Otherwise return error message, as we're not going to merge subject areas at this time.
-         //:nRC = ActivateMetaOI_ByName( vSubtask, ReturnedSA, 0, zREFER_SA_META, zSINGLE, MetaName, 0 )
-         nRC = ActivateMetaOI_ByName( vSubtask, &ReturnedSA, 0, zREFER_SA_META, zSINGLE, MetaName, 0 );
-         //:IF nRC < 0
-         if ( nRC < 0 )
-         { 
-            //:MG_ErrorMessage = "Migrating Subject Area: " + MetaName
-            ZeidonStringCopy( MG_ErrorMessage, 1, 0, "Migrating Subject Area: ", 1, 0, 251 );
-            ZeidonStringConcat( MG_ErrorMessage, 1, 0, MetaName, 1, 0, 251 );
-            //:MB_SetMessage( vSubtask, 1, MG_ErrorMessage )
-            MB_SetMessage( vSubtask, 1, MG_ErrorMessage );
-            //:SA_Migrate( ReturnedSA, MetaName, OrigLPLR, vSubtask )
-            oTZERSASO_SA_Migrate( &ReturnedSA, MetaName, OrigLPLR, vSubtask );
-            //:IF ReturnedSA != 0
-            if ( ReturnedSA != 0 )
-            { 
-               //:DropMetaOI( vSubtask, ReturnedSA )
-               DropMetaOI( vSubtask, ReturnedSA );
-            } 
-
-            //:END
-            //:ELSE
-         } 
-         else
-         { 
-            //:MG_ErrorMessage = "Subject Area (" + MetaName + ") already exists."
-            ZeidonStringCopy( MG_ErrorMessage, 1, 0, "Subject Area (", 1, 0, 251 );
-            ZeidonStringConcat( MG_ErrorMessage, 1, 0, MetaName, 1, 0, 251 );
-            ZeidonStringConcat( MG_ErrorMessage, 1, 0, ") already exists.", 1, 0, 251 );
-            //:MessageSend( vSubtask, "CM01011", "Configuration Management",
-            //:             MG_ErrorMessage, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
-            MessageSend( vSubtask, "CM01011", "Configuration Management", MG_ErrorMessage, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
-         } 
-
-         //:END
-      } 
-
-      //:END
-
-      //:// Technical Environment: W_MetaType.Type = 2006 for TE meta
-      //:IF SourceLPLR.W_MetaType.Type = 2006
-      if ( CompareAttributeToInteger( SourceLPLR, "W_MetaType", "Type", 2006 ) == 0 )
-      { 
-
-         //:// If the TE doesn't already exist, create it.
-         //:// Otherwise return error message, as we're not going to merge TEs at this time.
-         //:// Note that the name of the Meta is the name of the LPLR.
-         //:GET VIEW  CurrentLPLR NAMED "TaskLPLR"
-         RESULT = GetViewByName( &CurrentLPLR, "TaskLPLR", vSubtask, zLEVEL_TASK );
-         //:NewTE_Name = CurrentLPLR.LPLR.Name
-         GetVariableFromAttribute( NewTE_Name, 0, 'S', 33, CurrentLPLR, "LPLR", "Name", "", 0 );
-         //:nRC = ActivateMetaOI_ByName( vSubtask, ReturnedTE, 0, zREFER_DTE_META, zSINGLE, NewTE_Name, 0 )
-         nRC = ActivateMetaOI_ByName( vSubtask, &ReturnedTE, 0, zREFER_DTE_META, zSINGLE, NewTE_Name, 0 );
-         //:IF nRC < 0
-         if ( nRC < 0 )
-         { 
-            //:MG_ErrorMessage = "Migrating TE: " + MetaName
-            ZeidonStringCopy( MG_ErrorMessage, 1, 0, "Migrating TE: ", 1, 0, 251 );
-            ZeidonStringConcat( MG_ErrorMessage, 1, 0, MetaName, 1, 0, 251 );
-            //:MB_SetMessage( vSubtask, 1, MG_ErrorMessage )
-            MB_SetMessage( vSubtask, 1, MG_ErrorMessage );
-            //:TE_Migrate( ReturnedTE, MetaName, OrigLPLR, vSubtask )
-            oTZTENVRO_TE_Migrate( &ReturnedTE, MetaName, OrigLPLR, vSubtask );
-            //:IF ReturnedTE != 0
-            if ( ReturnedTE != 0 )
-            { 
-               //:DropMetaOI( vSubtask, ReturnedTE )
-               DropMetaOI( vSubtask, ReturnedTE );
-            } 
-
-            //:END
-            //:ELSE
-         } 
-         else
-         { 
-            //:MG_ErrorMessage = "Technical Environment (" + NewTE_Name + ") already exists."
-            ZeidonStringCopy( MG_ErrorMessage, 1, 0, "Technical Environment (", 1, 0, 251 );
-            ZeidonStringConcat( MG_ErrorMessage, 1, 0, NewTE_Name, 1, 0, 251 );
-            ZeidonStringConcat( MG_ErrorMessage, 1, 0, ") already exists.", 1, 0, 251 );
-            //:MessageSend( vSubtask, "CM01012", "Configuration Management",
-            //:             MG_ErrorMessage, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
-            MessageSend( vSubtask, "CM01012", "Configuration Management", MG_ErrorMessage, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
-            //:DropMetaOI( vSubtask, ReturnedTE )
-            DropMetaOI( vSubtask, ReturnedTE );
-         } 
-
-         //:END
-      } 
-
-      //:END
-
-      //:// LOD: W_MetaType.Type = 2007 for LOD meta
-      //:IF SourceLPLR.W_MetaType.Type = 2007
-      if ( CompareAttributeToInteger( SourceLPLR, "W_MetaType", "Type", 2007 ) == 0 )
-      { 
-
-         //:// Copy over or merge LOD based on value of DoNotMergeFlag for the LOD.
-         //:// If the DoNotMergeFlag is set but the DoNotMergeOperationsFlag is not, we will only merge in Operations.
-         //:// If both are set, we will not do anything to this LOD.
-         //:// If the DoNotMergeFlag is not set, we will delete the old LOD structure and recreate it in totality, including Operations.
-         //:GET VIEW  CurrentLPLR NAMED "TaskLPLR"
-         RESULT = GetViewByName( &CurrentLPLR, "TaskLPLR", vSubtask, zLEVEL_TASK );
-         //:nRC = ActivateMetaOI_ByName( vSubtask, NewLOD, 0, zSOURCE_LOD_META, zSINGLE, MetaName, 0 )
-         nRC = ActivateMetaOI_ByName( vSubtask, &NewLOD, 0, zSOURCE_LOD_META, zSINGLE, MetaName, 0 );
-         //:IF nRC >= 0
-         if ( nRC >= 0 )
-         { 
-            //:SET CURSOR FIRST CurrentLPLR.W_MetaType WHERE CurrentLPLR.W_MetaType.Type = 7
-            RESULT = SetCursorFirstEntityByInteger( CurrentLPLR, "W_MetaType", "Type", 7, "" );
-            //:SET CURSOR FIRST CurrentLPLR.W_MetaDef WHERE CurrentLPLR.W_MetaDef.Name = SourceLPLR.W_MetaDef.Name
-            GetStringFromAttribute( szTempString_0, SourceLPLR, "W_MetaDef", "Name" );
-            RESULT = SetCursorFirstEntityByString( CurrentLPLR, "W_MetaDef", "Name", szTempString_0, "" );
-            //:IF NewLOD.LOD.DoNotMergeFlag = "" AND NewLOD.LOD.DoNotMergeOperationsFlag = ""
-            if ( CompareAttributeToString( NewLOD, "LOD", "DoNotMergeFlag", "" ) == 0 && CompareAttributeToString( NewLOD, "LOD", "DoNotMergeOperationsFlag", "" ) == 0 )
-            { 
-               //:DELETE ENTITY NewLOD.LOD_EntityParent
-               RESULT = DeleteEntity( NewLOD, "LOD_EntityParent", zPOS_NEXT );
-               //:FOR EACH NewLOD.SourceFile
-               RESULT = SetCursorFirstEntity( NewLOD, "SourceFile", "" );
-               while ( RESULT > zCURSOR_UNCHANGED )
-               { 
-                  //:DELETE ENTITY NewLOD.SourceFile NONE
-                  RESULT = DeleteEntity( NewLOD, "SourceFile", zREPOS_NONE );
-                  RESULT = SetCursorNextEntity( NewLOD, "SourceFile", "" );
-               } 
-
-               //:END
-               //:IF NewLOD.POD EXISTS
-               lTempInteger_1 = CheckExistenceOfEntity( NewLOD, "POD" );
-               if ( lTempInteger_1 == 0 )
-               { 
-                  //:DELETE ENTITY NewLOD.POD
-                  RESULT = DeleteEntity( NewLOD, "POD", zPOS_NEXT );
-               } 
-
-               //:END
-               //:IF NewLOD.LOD_ConstraintOper EXISTS
-               lTempInteger_2 = CheckExistenceOfEntity( NewLOD, "LOD_ConstraintOper" );
-               if ( lTempInteger_2 == 0 )
-               { 
-                  //:EXCLUDE NewLOD.LOD_ConstraintOper
-                  RESULT = ExcludeEntity( NewLOD, "LOD_ConstraintOper", zREPOS_AFTER );
-               } 
-
-               //:END
-            } 
-
-            //:END
-            //:NAME VIEW NewLOD "NewLOD"
-            SetNameForView( NewLOD, "NewLOD", 0, zLEVEL_TASK );
-            //:ELSE
-         } 
-         else
-         { 
-            //:ActivateEmptyMetaOI( vSubtask, NewLOD, zSOURCE_LOD_META, zSINGLE )
-            ActivateEmptyMetaOI( vSubtask, &NewLOD, zSOURCE_LOD_META, zSINGLE );
-         } 
-
-         //:END
-         //:NAME VIEW NewLOD "NewLOD"
-         SetNameForView( NewLOD, "NewLOD", 0, zLEVEL_TASK );
-
-         //:// Migrate LOD, unless the request is for both the Structure and Operations to not be merged.
-         //:// If LOD_EntityParent doesn't exist, then this is either a new LOD or the DoNotMergeFlag was not set for an existing LOD.
-         //:IF NewLOD.LOD_EntityParent DOES NOT EXIST OR szDoNotMergeOperationsFlag = ""
-         lTempInteger_3 = CheckExistenceOfEntity( NewLOD, "LOD_EntityParent" );
-         if ( lTempInteger_3 != 0 || ZeidonStringCompare( szDoNotMergeOperationsFlag, 1, 0, "", 1, 0, 2 ) == 0 )
-         { 
-            //:MG_ErrorMessage = "Migrating LOD: " + MetaName
-            ZeidonStringCopy( MG_ErrorMessage, 1, 0, "Migrating LOD: ", 1, 0, 251 );
-            ZeidonStringConcat( MG_ErrorMessage, 1, 0, MetaName, 1, 0, 251 );
-            //:MB_SetMessage( vSubtask, 1, MG_ErrorMessage )
-            MB_SetMessage( vSubtask, 1, MG_ErrorMessage );
-            //:nRC = LOD_Migrate( NewLOD, MetaName, OrigLPLR, vSubtask )
-            nRC = oTZZOLODO_LOD_Migrate( NewLOD, MetaName, OrigLPLR, vSubtask );
-            //:IF nRC < 0
-            if ( nRC < 0 )
-            { 
-               //:MG_ErrorMessage = "LOD (" + MetaName + ") aborted."
-               ZeidonStringCopy( MG_ErrorMessage, 1, 0, "LOD (", 1, 0, 251 );
-               ZeidonStringConcat( MG_ErrorMessage, 1, 0, MetaName, 1, 0, 251 );
-               ZeidonStringConcat( MG_ErrorMessage, 1, 0, ") aborted.", 1, 0, 251 );
-               //:MessageSend( vSubtask, "CM01013", "Configuration Management",
-               //:             MG_ErrorMessage, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
-               MessageSend( vSubtask, "CM01013", "Configuration Management", MG_ErrorMessage, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
-            } 
-
-            //:END
-         } 
-
-         //:END
-         //:DropMetaOI( vSubtask, NewLOD )
-         DropMetaOI( vSubtask, NewLOD );
-      } 
-
-      //:END
-
-      //:// PPE: W_MetaType.Type = 2010 for PPE meta
-      //:IF SourceLPLR.W_MetaType.Type = 2010
-      if ( CompareAttributeToInteger( SourceLPLR, "W_MetaType", "Type", 2010 ) == 0 )
-      { 
-
-         //:// If the PPE doesn't already exist, create it.
-         //:// Otherwise ask for merge.
-         //:nRC = ActivateMetaOI_ByName( vSubtask, ReturnedPPE, 0, zSOURCE_PENV_META, zSINGLE, MetaName, 0 )
-         nRC = ActivateMetaOI_ByName( vSubtask, &ReturnedPPE, 0, zSOURCE_PENV_META, zSINGLE, MetaName, 0 );
-         //:IF nRC < 0
-         if ( nRC < 0 )
-         { 
-            //:MG_ErrorMessage = "Migrating PPE: " + MetaName
-            ZeidonStringCopy( MG_ErrorMessage, 1, 0, "Migrating PPE: ", 1, 0, 251 );
-            ZeidonStringConcat( MG_ErrorMessage, 1, 0, MetaName, 1, 0, 251 );
-            //:MB_SetMessage( vSubtask, 1, MG_ErrorMessage )
-            MB_SetMessage( vSubtask, 1, MG_ErrorMessage );
-            //:nRC = MigratePPE( ReturnedPPE, SourceLPLR, vSubtask )
-            nRC = oTZPESRCO_MigratePPE( &ReturnedPPE, SourceLPLR, vSubtask );
-            //:IF nRC < 0
-            if ( nRC < 0 )
-            { 
-               //:IF nRC = -16  //SourceLPLR has a old PPE
-               if ( nRC == -16 )
-               { 
-                  //:MG_ErrorMessage = "Invalid PPE in Source Project!" + NEW_LINE +
-                  //:                  "New PPE required. Migrating aborted."
-                  ZeidonStringCopy( MG_ErrorMessage, 1, 0, "Invalid PPE in Source Project!", 1, 0, 251 );
-                  ZeidonStringConcat( MG_ErrorMessage, 1, 0, NEW_LINE, 1, 0, 251 );
-                  ZeidonStringConcat( MG_ErrorMessage, 1, 0, "New PPE required. Migrating aborted.", 1, 0, 251 );
-                  //:ELSE
-               } 
-               else
-               { 
-                  //:MG_ErrorMessage = "Migrating of PPE will be aborted."
-                  ZeidonStringCopy( MG_ErrorMessage, 1, 0, "Migrating of PPE will be aborted.", 1, 0, 251 );
-               } 
-
-               //:END
-               //:MessageSend( vSubtask, "CM01013", "Configuration Management",
-               //:             MG_ErrorMessage, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
-               MessageSend( vSubtask, "CM01013", "Configuration Management", MG_ErrorMessage, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
-               //:RETURN nRC
-               return( nRC );
-            } 
-
-            //:END
-            //:ELSE //PPE exists
-         } 
-         else
-         { 
-            //:MG_ErrorMessage = "PPE already exists. Do you want to merge it?"
-            ZeidonStringCopy( MG_ErrorMessage, 1, 0, "PPE already exists. Do you want to merge it?", 1, 0, 251 );
-            //:nRC = MessagePrompt( vSubtask, "CM01014", "Configuration Management",
-            //:                     MG_ErrorMessage, 1,         zBUTTONS_YESNO,
-            //:                     zRESPONSE_YES  ,  0 )
-            nRC = MessagePrompt( vSubtask, "CM01014", "Configuration Management", MG_ErrorMessage, 1, zBUTTONS_YESNO, zRESPONSE_YES, 0 );
-            //:IF nRC = zRESPONSE_YES
-            if ( nRC == zRESPONSE_YES )
-            { 
-               //:MB_SetMessage( vSubtask, 1, "Merging Zeidon.PPE" )
-               MB_SetMessage( vSubtask, 1, "Merging Zeidon.PPE" );
-               //://if Repository Project, check check out status
-               //:nRC1 = ComponentIsCheckedOut( vSubtask, ReturnedPPE, 2010 )
-               nRC1 = ComponentIsCheckedOut( vSubtask, ReturnedPPE, 2010 );
-               //:IF nRC1 = 0
-               if ( nRC1 == 0 )
-               { 
-                  //:MG_ErrorMessage = "PPE is not checked out. Merging aborted."
-                  ZeidonStringCopy( MG_ErrorMessage, 1, 0, "PPE is not checked out. Merging aborted.", 1, 0, 251 );
-                  //:MessageSend( vSubtask, "CM01013", "Configuration Management",
-                  //:             MG_ErrorMessage, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
-                  MessageSend( vSubtask, "CM01013", "Configuration Management", MG_ErrorMessage, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
-                  //:RETURN -1
-                  return( -1 );
-               } 
-
-               //:END
-               //:nRC = MergePPE( ReturnedPPE, SourceLPLR, vSubtask )
-               nRC = oTZPESRCO_MergePPE( ReturnedPPE, SourceLPLR, vSubtask );
-               //:IF nRC < 0
-               if ( nRC < 0 )
-               { 
-                  //:IF nRC = -16  //SourceLPLR has a old PPE
-                  if ( nRC == -16 )
-                  { 
-                     //:MG_ErrorMessage = "Invalid PPE in Source Project! " + NEW_LINE +
-                     //:                  "New PPE required. Merging aborted."
-                     ZeidonStringCopy( MG_ErrorMessage, 1, 0, "Invalid PPE in Source Project! ", 1, 0, 251 );
-                     ZeidonStringConcat( MG_ErrorMessage, 1, 0, NEW_LINE, 1, 0, 251 );
-                     ZeidonStringConcat( MG_ErrorMessage, 1, 0, "New PPE required. Merging aborted.", 1, 0, 251 );
-                     //:MessageSend( vSubtask, "CM01013", "Configuration Management",
-                     //:             MG_ErrorMessage, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
-                     MessageSend( vSubtask, "CM01013", "Configuration Management", MG_ErrorMessage, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
-                  } 
-
-                  //:END
-                  //:IF ReturnedPPE != 0
-                  if ( ReturnedPPE != 0 )
-                  { 
-                     //:DropMetaOI( vSubtask, ReturnedPPE )
-                     DropMetaOI( vSubtask, ReturnedPPE );
-                  } 
-
-                  //:END
-                  //:RETURN nRC
-                  return( nRC );
-               } 
-
-               //:END
-            } 
-
-            //:END
-         } 
-
-         //:END //END IF nRC < 0
-         //:DropMetaOI( vSubtask, ReturnedPPE )
-         DropMetaOI( vSubtask, ReturnedPPE );
-      } 
-
-      //:END
-
-      //:// Dialog: W_MetaType.Type = 2011 for Dialog meta
-      //:IF SourceLPLR.W_MetaType.Type = 2011
-      if ( CompareAttributeToInteger( SourceLPLR, "W_MetaType", "Type", 2011 ) == 0 )
-      { 
-
-         //:// Make sure a valid Presentation Environment exists.
-         //:// If not, exit the operation.
-         //:RetrieveViewForMetaList( vSubtask, CurrentLPLR, zREFER_PENV_META )
-         RetrieveViewForMetaList( vSubtask, &CurrentLPLR, zREFER_PENV_META );
-         //:MG_ErrorMessage = "Dialog (" + MetaName + ") aborted."
-         ZeidonStringCopy( MG_ErrorMessage, 1, 0, "Dialog (", 1, 0, 251 );
+         //://nRC = ActivateMetaOI_ByName( vSubtask, ReturnedTE, 0, zREFER_DTE_META, zSINGLE, NewTE_Name, 0 )
+         //:ActivateEmptyMetaOI( vSubtask, ReturnedTE, zREFER_DTE_META, zSINGLE )
+         ActivateEmptyMetaOI( vSubtask, &ReturnedTE, zREFER_DTE_META, zSINGLE );
+         //:MG_ErrorMessage = "Migrating TE: " + MetaName
+         ZeidonStringCopy( MG_ErrorMessage, 1, 0, "Migrating TE: ", 1, 0, 251 );
          ZeidonStringConcat( MG_ErrorMessage, 1, 0, MetaName, 1, 0, 251 );
-         ZeidonStringConcat( MG_ErrorMessage, 1, 0, ") aborted.", 1, 0, 251 );
-         //:nRC = LoadZeidonPPE( vSubtask, vPE, zREFER_PENV_META, CurrentLPLR,
-         //:                     "Configuration Management", MG_ErrorMessage )
-         nRC = LoadZeidonPPE( vSubtask, &vPE, zREFER_PENV_META, CurrentLPLR, "Configuration Management", MG_ErrorMessage );
-         //:DropView( CurrentLPLR )
-         DropView( CurrentLPLR );
+         //:MB_SetMessage( vSubtask, 1, MG_ErrorMessage )
+         MB_SetMessage( vSubtask, 1, MG_ErrorMessage );
+         //:nRC = TE_Migrate( ReturnedTE, MetaName, SourceLPLR, vSubtask )
+         nRC = oTZTENVRO_TE_Migrate( &ReturnedTE, MetaName, SourceLPLR, vSubtask );
          //:IF nRC < 0
          if ( nRC < 0 )
          { 
-            //:RETURN -16
-            return( -16 );
-         } 
-
-         //:END
-
-         //:// If the Dialog doesn't already exist, create it.
-         //:// Otherwise return error message.
-         //:nRC = ActivateMetaOI_ByName( vSubtask, NewDialog, 0, zSOURCE_DIALOG_META, zSINGLE, MetaName, 0 )
-         nRC = ActivateMetaOI_ByName( vSubtask, &NewDialog, 0, zSOURCE_DIALOG_META, zSINGLE, MetaName, 0 );
-         //:IF nRC < 0
-         if ( nRC < 0 )
-         { 
-            //:MG_ErrorMessage = "Migrating Dialog: " + MetaName
-            ZeidonStringCopy( MG_ErrorMessage, 1, 0, "Migrating Dialog: ", 1, 0, 251 );
+            //:MG_ErrorMessage = "TE (" + MetaName + ") aborted."
+            ZeidonStringCopy( MG_ErrorMessage, 1, 0, "TE (", 1, 0, 251 );
             ZeidonStringConcat( MG_ErrorMessage, 1, 0, MetaName, 1, 0, 251 );
-            //:MB_SetMessage( vSubtask, 1, MG_ErrorMessage )
-            MB_SetMessage( vSubtask, 1, MG_ErrorMessage );
-            //:ActivateEmptyMetaOI( vSubtask, NewDialog, zSOURCE_DIALOG_META, zSINGLE )
-            ActivateEmptyMetaOI( vSubtask, &NewDialog, zSOURCE_DIALOG_META, zSINGLE );
-            //:NAME VIEW NewDialog "NewDialog"
-            SetNameForView( NewDialog, "NewDialog", 0, zLEVEL_TASK );
-            //:nRC = DialogMigrate( NewDialog, MetaName, OrigLPLR, vSubtask )
-            nRC = oTZWDLGSO_DialogMigrate( NewDialog, MetaName, OrigLPLR, vSubtask );
-            //:IF nRC < 0
-            if ( nRC < 0 )
-            { 
-               //:MG_ErrorMessage = "Dialog (" + MetaName + ") aborted."
-               ZeidonStringCopy( MG_ErrorMessage, 1, 0, "Dialog (", 1, 0, 251 );
-               ZeidonStringConcat( MG_ErrorMessage, 1, 0, MetaName, 1, 0, 251 );
-               ZeidonStringConcat( MG_ErrorMessage, 1, 0, ") aborted.", 1, 0, 251 );
-               //:MessageSend( vSubtask, "CM01016",
-               //:             "Configuration Management",
-               //:             MG_ErrorMessage,
-               //:             zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
-               MessageSend( vSubtask, "CM01016", "Configuration Management", MG_ErrorMessage, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
-            } 
-
-            //:END
-            //:ELSE
-         } 
-         else
-         { 
-            //:MG_ErrorMessage = "Migrating Dialog: " + MetaName
-            ZeidonStringCopy( MG_ErrorMessage, 1, 0, "Migrating Dialog: ", 1, 0, 251 );
-            ZeidonStringConcat( MG_ErrorMessage, 1, 0, MetaName, 1, 0, 251 );
-            //:MB_SetMessage( vSubtask, 1, MG_ErrorMessage )
-            MB_SetMessage( vSubtask, 1, MG_ErrorMessage );
-            //:nRC = DialogMigrate( NewDialog, MetaName, OrigLPLR, vSubtask )
-            nRC = oTZWDLGSO_DialogMigrate( NewDialog, MetaName, OrigLPLR, vSubtask );
-            //:IF nRC < 0
-            if ( nRC < 0 )
-            { 
-               //:MG_ErrorMessage = "Dialog (" + MetaName + ") aborted."
-               ZeidonStringCopy( MG_ErrorMessage, 1, 0, "Dialog (", 1, 0, 251 );
-               ZeidonStringConcat( MG_ErrorMessage, 1, 0, MetaName, 1, 0, 251 );
-               ZeidonStringConcat( MG_ErrorMessage, 1, 0, ") aborted.", 1, 0, 251 );
-               //:MessageSend( vSubtask, "CM01016",
-               //:             "Configuration Management",
-               //:             MG_ErrorMessage,
-               //:             zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
-               MessageSend( vSubtask, "CM01016", "Configuration Management", MG_ErrorMessage, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
-            } 
-
-            //:END
-         } 
-
-         //:END
-         //:DropMetaOI( vSubtask, NewDialog )
-         DropMetaOI( vSubtask, NewDialog );
-      } 
-
-      //:END
-
-      //:// UIS: W_MetaType.Type = 2012 for User Interface Spec meta
-      //:IF SourceLPLR.W_MetaType.Type = 2012
-      if ( CompareAttributeToInteger( SourceLPLR, "W_MetaType", "Type", 2012 ) == 0 )
-      { 
-
-         //:// If the User Spec doesn't already exist, create it.
-         //:// Otherwise return error message.
-         //:nRC = ActivateMetaOI_ByName( vSubtask, ReturnedDialogSpec, 0, zREFER_UIS_META, zSINGLE, MetaName, 0 )
-         nRC = ActivateMetaOI_ByName( vSubtask, &ReturnedDialogSpec, 0, zREFER_UIS_META, zSINGLE, MetaName, 0 );
-         //:IF nRC < 0
-         if ( nRC < 0 )
-         { 
-            //:MG_ErrorMessage = "Migrating User Interface Spec: " + MetaName
-            ZeidonStringCopy( MG_ErrorMessage, 1, 0, "Migrating User Interface Spec: ", 1, 0, 251 );
-            ZeidonStringConcat( MG_ErrorMessage, 1, 0, MetaName, 1, 0, 251 );
-            //:MB_SetMessage( vSubtask, 1, MG_ErrorMessage )
-            MB_SetMessage( vSubtask, 1, MG_ErrorMessage );
-            //:nRC = DialogSpecMigrate( ReturnedDialogSpec,
-            //:                         MetaName, OrigLPLR, vSubtask )
-            nRC = oTZADCSDO_DialogSpecMigrate( &ReturnedDialogSpec, MetaName, OrigLPLR, vSubtask );
-            //:IF ReturnedDialogSpec != 0
-            if ( ReturnedDialogSpec != 0 )
-            { 
-               //:DropMetaOI( vSubtask, ReturnedDialogSpec )
-               DropMetaOI( vSubtask, ReturnedDialogSpec );
-            } 
-
-            //:END
-            //:IF nRC < 0
-            if ( nRC < 0 )
-            { 
-               //:IF  nRC = -16  //PPE does not exists
-               if ( nRC == -16 )
-               { 
-                  //:RETURN nRC
-                  return( nRC );
-                  //:ELSE
-               } 
-               else
-               { 
-                  //:MG_ErrorMessage = "User Interface Spec (" + MetaName + ") aborted."
-                  ZeidonStringCopy( MG_ErrorMessage, 1, 0, "User Interface Spec (", 1, 0, 251 );
-                  ZeidonStringConcat( MG_ErrorMessage, 1, 0, MetaName, 1, 0, 251 );
-                  ZeidonStringConcat( MG_ErrorMessage, 1, 0, ") aborted.", 1, 0, 251 );
-                  //:MessageSend( vSubtask, "CM01018",
-                  //:             "Configuration Management",
-                  //:             MG_ErrorMessage,
-                  //:             zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
-                  MessageSend( vSubtask, "CM01018", "Configuration Management", MG_ErrorMessage, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
-               } 
-
-               //:END
-            } 
-
-            //:END
-            //:ELSE
-         } 
-         else
-         { 
-            //:MG_ErrorMessage = "User Interface Spec (" + MetaName + ") already exists."
-            ZeidonStringCopy( MG_ErrorMessage, 1, 0, "User Interface Spec (", 1, 0, 251 );
-            ZeidonStringConcat( MG_ErrorMessage, 1, 0, MetaName, 1, 0, 251 );
-            ZeidonStringConcat( MG_ErrorMessage, 1, 0, ") already exists.", 1, 0, 251 );
-            //:MessageSend( vSubtask, "CM01019", "Configuration Management",
+            ZeidonStringConcat( MG_ErrorMessage, 1, 0, ") aborted.", 1, 0, 251 );
+            //:MessageSend( vSubtask, "", "LPLR Migrate",
             //:             MG_ErrorMessage, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
-            MessageSend( vSubtask, "CM01019", "Configuration Management", MG_ErrorMessage, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
-            //:DropMetaOI( vSubtask, ReturnedDialogSpec )
-            DropMetaOI( vSubtask, ReturnedDialogSpec );
-         } 
-
-         //:END
-      } 
-
-      //:END
-
-      //:// Report: W_MetaType.Type = 2015 for Report Definition meta
-      //:IF SourceLPLR.W_MetaType.Type = 2015
-      if ( CompareAttributeToInteger( SourceLPLR, "W_MetaType", "Type", 2015 ) == 0 )
-      { 
-
-         //:// If the ReportDef doesn't already exist, create it.
-         //:// Otherwise return error message.
-         //:nRC = ActivateMetaOI_ByName( vSubtask, ReturnedReport, 0, zREFER_REPORT_META, zSINGLE, MetaName, 0 )
-         nRC = ActivateMetaOI_ByName( vSubtask, &ReturnedReport, 0, zREFER_REPORT_META, zSINGLE, MetaName, 0 );
-         //:IF nRC < 0
-         if ( nRC < 0 )
-         { 
-            //:MG_ErrorMessage = "Migrating Report Definition: " + MetaName
-            ZeidonStringCopy( MG_ErrorMessage, 1, 0, "Migrating Report Definition: ", 1, 0, 251 );
-            ZeidonStringConcat( MG_ErrorMessage, 1, 0, MetaName, 1, 0, 251 );
-            //:MB_SetMessage( vSubtask, 1, MG_ErrorMessage )
-            MB_SetMessage( vSubtask, 1, MG_ErrorMessage );
-            //:nRC = ReportMigrate( ReturnedReport, MetaName, OrigLPLR, vSubtask )
-            nRC = oTZRPSRCO_ReportMigrate( &ReturnedReport, MetaName, OrigLPLR, vSubtask );
-            //:IF ReturnedReport != 0
-            if ( ReturnedReport != 0 )
-            { 
-               //:DropMetaOI( vSubtask, ReturnedReport )
-               DropMetaOI( vSubtask, ReturnedReport );
-            } 
-
-            //:END
-            //:IF nRC < 0
-            if ( nRC < 0 )
-            { 
-               //:IF  nRC = -16  //PPE does not exists
-               if ( nRC == -16 )
-               { 
-                  //:RETURN nRC
-                  return( nRC );
-                  //:ELSE
-               } 
-               else
-               { 
-                  //:MG_ErrorMessage = "Report Definition (" + MetaName + ") aborted."
-                  ZeidonStringCopy( MG_ErrorMessage, 1, 0, "Report Definition (", 1, 0, 251 );
-                  ZeidonStringConcat( MG_ErrorMessage, 1, 0, MetaName, 1, 0, 251 );
-                  ZeidonStringConcat( MG_ErrorMessage, 1, 0, ") aborted.", 1, 0, 251 );
-                  //:MessageSend( vSubtask, "CM01023",
-                  //:             "Configuration Management",
-                  //:             MG_ErrorMessage,
-                  //:             zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
-                  MessageSend( vSubtask, "CM01023", "Configuration Management", MG_ErrorMessage, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
-               } 
-
-               //:END
-            } 
-
-            //:END
+            MessageSend( vSubtask, "", "LPLR Migrate", MG_ErrorMessage, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
             //:ELSE
          } 
          else
          { 
-            //:MG_ErrorMessage = "Report Definition (" + MetaName + ") already exists."
-            ZeidonStringCopy( MG_ErrorMessage, 1, 0, "Report Definition (", 1, 0, 251 );
-            ZeidonStringConcat( MG_ErrorMessage, 1, 0, MetaName, 1, 0, 251 );
-            ZeidonStringConcat( MG_ErrorMessage, 1, 0, ") already exists.", 1, 0, 251 );
-            //:MessageSend( vSubtask, "CM01024", "Configuration Management",
-            //:             MG_ErrorMessage, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
-            MessageSend( vSubtask, "CM01024", "Configuration Management", MG_ErrorMessage, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
-            //:DropMetaOI( vSubtask, ReturnedReport )
-            DropMetaOI( vSubtask, ReturnedReport );
+            //:CREATE ENTITY TargetLPLR.W_MetaDef
+            RESULT = CreateEntity( TargetLPLR, "W_MetaDef", zPOS_AFTER );
+            //:TargetLPLR.W_MetaDef.Name = SourceLPLR.W_MetaDef.Name
+            SetAttributeFromAttribute( TargetLPLR, "W_MetaDef", "Name", SourceLPLR, "W_MetaDef", "Name" );
          } 
 
          //:END
+         //:DropObjectInstance( ReturnedTE )
+         DropObjectInstance( ReturnedTE );
+         RESULT = SetCursorNextEntity( SourceLPLR, "W_MetaDef", "" );
       } 
 
       //:END
-
-      //:// XSLT: W_MetaType.Type = 2016 for XSLT Definition meta
-      //:IF SourceLPLR.W_MetaType.Type = 2016
-      if ( CompareAttributeToInteger( SourceLPLR, "W_MetaType", "Type", 2016 ) == 0 )
+      //:   
+      //:// LOD
+      //:SET CURSOR FIRST SourceLPLR.W_MetaType WHERE SourceLPLR.W_MetaType.Type = 2007
+      RESULT = SetCursorFirstEntityByInteger( SourceLPLR, "W_MetaType", "Type", 2007, "" );
+      //:SET CURSOR FIRST TargetLPLR.W_MetaType WHERE TargetLPLR.W_MetaType.Type = 2007
+      RESULT = SetCursorFirstEntityByInteger( TargetLPLR, "W_MetaType", "Type", 2007, "" );
+      //:IF RESULT < 0
+      if ( RESULT < 0 )
       { 
+         //:CREATE ENTITY TargetLPLR.W_MetaType
+         RESULT = CreateEntity( TargetLPLR, "W_MetaType", zPOS_AFTER );
+         //:TargetLPLR.W_MetaType.Type = 2007
+         SetAttributeFromInteger( TargetLPLR, "W_MetaType", "Type", 2007 );
+      } 
 
-         //:// If the XSLTDef doesn't already exist, create it.
-         //:// Otherwise return error message.
-         //:nRC = ActivateMetaOI_ByName( vSubtask, ReturnedXSLT, 0, zREFER_XSLT_META, zSINGLE, MetaName, 0 )
-         nRC = ActivateMetaOI_ByName( vSubtask, &ReturnedXSLT, 0, zREFER_XSLT_META, zSINGLE, MetaName, 0 );
+      //:END
+      //:FOR EACH SourceLPLR.W_MetaDef 
+      RESULT = SetCursorFirstEntity( SourceLPLR, "W_MetaDef", "" );
+      while ( RESULT > zCURSOR_UNCHANGED )
+      { 
+         //:MetaName = SourceLPLR.W_MetaDef.Name 
+         GetVariableFromAttribute( MetaName, 0, 'S', 33, SourceLPLR, "W_MetaDef", "Name", "", 0 );
+         //:ActivateEmptyMetaOI( vSubtask, NewLOD, zSOURCE_LOD_META, zSINGLE )
+         ActivateEmptyMetaOI( vSubtask, &NewLOD, zSOURCE_LOD_META, zSINGLE );
+         //:MG_ErrorMessage = "Migrating LOD: " + MetaName
+         ZeidonStringCopy( MG_ErrorMessage, 1, 0, "Migrating LOD: ", 1, 0, 251 );
+         ZeidonStringConcat( MG_ErrorMessage, 1, 0, MetaName, 1, 0, 251 );
+         //:MB_SetMessage( vSubtask, 1, MG_ErrorMessage )
+         MB_SetMessage( vSubtask, 1, MG_ErrorMessage );
+         //:nRC = LOD_Migrate( NewLOD, MetaName, SourceLPLR, vSubtask )
+         nRC = oTZZOLODO_LOD_Migrate( NewLOD, MetaName, SourceLPLR, vSubtask );
          //:IF nRC < 0
          if ( nRC < 0 )
          { 
-            //:MG_ErrorMessage = "Migrating XSLT Definition: " + MetaName
-            ZeidonStringCopy( MG_ErrorMessage, 1, 0, "Migrating XSLT Definition: ", 1, 0, 251 );
+            //:MG_ErrorMessage = "LOD (" + MetaName + ") aborted."
+            ZeidonStringCopy( MG_ErrorMessage, 1, 0, "LOD (", 1, 0, 251 );
             ZeidonStringConcat( MG_ErrorMessage, 1, 0, MetaName, 1, 0, 251 );
-            //:MB_SetMessage( vSubtask, 1, MG_ErrorMessage )
-            MB_SetMessage( vSubtask, 1, MG_ErrorMessage );
-            //://xnRC = XSLT_Migrate( ReturnedXSLT, MetaName, OrigLPLR, vSubtask )
-            //:IF ReturnedXSLT != 0
-            if ( ReturnedXSLT != 0 )
-            { 
-               //:DropMetaOI( vSubtask, ReturnedXSLT )
-               DropMetaOI( vSubtask, ReturnedXSLT );
-            } 
-
-            //:END
-            //:IF nRC < 0
-            if ( nRC < 0 )
-            { 
-               //:IF  nRC = -16  //PPE does not exists
-               if ( nRC == -16 )
-               { 
-                  //:RETURN nRC
-                  return( nRC );
-                  //:ELSE
-               } 
-               else
-               { 
-                  //:MG_ErrorMessage = "XSLT Definition (" + MetaName + ") aborted."
-                  ZeidonStringCopy( MG_ErrorMessage, 1, 0, "XSLT Definition (", 1, 0, 251 );
-                  ZeidonStringConcat( MG_ErrorMessage, 1, 0, MetaName, 1, 0, 251 );
-                  ZeidonStringConcat( MG_ErrorMessage, 1, 0, ") aborted.", 1, 0, 251 );
-                  //:MessageSend( vSubtask, "CM01023",
-                  //:             "Configuration Management",
-                  //:             MG_ErrorMessage,
-                  //:             zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
-                  MessageSend( vSubtask, "CM01023", "Configuration Management", MG_ErrorMessage, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
-               } 
-
-               //:END
-            } 
-
-            //:END
+            ZeidonStringConcat( MG_ErrorMessage, 1, 0, ") aborted.", 1, 0, 251 );
+            //:MessageSend( vSubtask, "", "LPLR Migrate",
+            //:             MG_ErrorMessage, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
+            MessageSend( vSubtask, "", "LPLR Migrate", MG_ErrorMessage, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
             //:ELSE
          } 
          else
          { 
-            //:MG_ErrorMessage = "XSLT Definition (" + MetaName + ") already exists."
-            ZeidonStringCopy( MG_ErrorMessage, 1, 0, "XSLT Definition (", 1, 0, 251 );
-            ZeidonStringConcat( MG_ErrorMessage, 1, 0, MetaName, 1, 0, 251 );
-            ZeidonStringConcat( MG_ErrorMessage, 1, 0, ") already exists.", 1, 0, 251 );
-            //:MessageSend( vSubtask, "CM01024", "Configuration Management",
-            //:             MG_ErrorMessage, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
-            MessageSend( vSubtask, "CM01024", "Configuration Management", MG_ErrorMessage, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
-            //:DropMetaOI( vSubtask, ReturnedXSLT )
-            DropMetaOI( vSubtask, ReturnedXSLT );
+            //:CREATE ENTITY TargetLPLR.W_MetaDef
+            RESULT = CreateEntity( TargetLPLR, "W_MetaDef", zPOS_AFTER );
+            //:TargetLPLR.W_MetaDef.Name = SourceLPLR.W_MetaDef.Name
+            SetAttributeFromAttribute( TargetLPLR, "W_MetaDef", "Name", SourceLPLR, "W_MetaDef", "Name" );
          } 
 
          //:END
+         //:DropObjectInstance( NewLOD )
+         DropObjectInstance( NewLOD );
+         RESULT = SetCursorNextEntity( SourceLPLR, "W_MetaDef", "" );
       } 
 
       //:END
 
-      //:nRC = SetCursorNextSelectedEntity( SourceLPLR, "W_MetaDef", "LPLR" )
-      nRC = SetCursorNextSelectedEntity( SourceLPLR, "W_MetaDef", "LPLR" );
+      //:// Reports
+      //:SET CURSOR FIRST SourceLPLR.W_MetaType WHERE SourceLPLR.W_MetaType.Type = 2015
+      RESULT = SetCursorFirstEntityByInteger( SourceLPLR, "W_MetaType", "Type", 2015, "" );
+      //:SET CURSOR FIRST TargetLPLR.W_MetaType WHERE TargetLPLR.W_MetaType.Type = 2015
+      RESULT = SetCursorFirstEntityByInteger( TargetLPLR, "W_MetaType", "Type", 2015, "" );
+      //:IF RESULT < 0
+      if ( RESULT < 0 )
+      { 
+         //:CREATE ENTITY TargetLPLR.W_MetaType
+         RESULT = CreateEntity( TargetLPLR, "W_MetaType", zPOS_AFTER );
+         //:TargetLPLR.W_MetaType.Type = 2015
+         SetAttributeFromInteger( TargetLPLR, "W_MetaType", "Type", 2015 );
+      } 
+
+      //:END
+      //:FOR EACH SourceLPLR.W_MetaDef 
+      RESULT = SetCursorFirstEntity( SourceLPLR, "W_MetaDef", "" );
+      while ( RESULT > zCURSOR_UNCHANGED )
+      { 
+         //:MetaName = SourceLPLR.W_MetaDef.Name 
+         GetVariableFromAttribute( MetaName, 0, 'S', 33, SourceLPLR, "W_MetaDef", "Name", "", 0 );
+         //:ActivateEmptyMetaOI( vSubtask, ReturnedReport, zREFER_REPORT_META, zSINGLE )
+         ActivateEmptyMetaOI( vSubtask, &ReturnedReport, zREFER_REPORT_META, zSINGLE );
+         //:MG_ErrorMessage = "Migrating Report: " + MetaName
+         ZeidonStringCopy( MG_ErrorMessage, 1, 0, "Migrating Report: ", 1, 0, 251 );
+         ZeidonStringConcat( MG_ErrorMessage, 1, 0, MetaName, 1, 0, 251 );
+         //:MB_SetMessage( vSubtask, 1, MG_ErrorMessage )
+         MB_SetMessage( vSubtask, 1, MG_ErrorMessage );
+         //:nRC = ReportMigrate( ReturnedReport, MetaName, SourceLPLR, vSubtask )
+         nRC = oTZRPSRCO_ReportMigrate( &ReturnedReport, MetaName, SourceLPLR, vSubtask );
+         //:IF nRC < 0
+         if ( nRC < 0 )
+         { 
+            //:MG_ErrorMessage = "Report(" + MetaName + ") aborted."
+            ZeidonStringCopy( MG_ErrorMessage, 1, 0, "Report(", 1, 0, 251 );
+            ZeidonStringConcat( MG_ErrorMessage, 1, 0, MetaName, 1, 0, 251 );
+            ZeidonStringConcat( MG_ErrorMessage, 1, 0, ") aborted.", 1, 0, 251 );
+            //:MessageSend( vSubtask, "", "LPLR Migrate",
+            //:             MG_ErrorMessage, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
+            MessageSend( vSubtask, "", "LPLR Migrate", MG_ErrorMessage, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
+            //:ELSE
+         } 
+         else
+         { 
+            //:CREATE ENTITY TargetLPLR.W_MetaDef
+            RESULT = CreateEntity( TargetLPLR, "W_MetaDef", zPOS_AFTER );
+            //:TargetLPLR.W_MetaDef.Name = SourceLPLR.W_MetaDef.Name
+            SetAttributeFromAttribute( TargetLPLR, "W_MetaDef", "Name", SourceLPLR, "W_MetaDef", "Name" );
+         } 
+
+         //:END
+         //:DropObjectInstance( ReturnedReport )
+         DropObjectInstance( ReturnedReport );
+         RESULT = SetCursorNextEntity( SourceLPLR, "W_MetaDef", "" );
+      } 
+
+      //:END
    } 
-
 
    //:END
 
-   //:MB_SetMessage( vSubtask, 1, "Migration Complete" )
-   MB_SetMessage( vSubtask, 1, "Migration Complete" );
+   //:// Dialog
+   //:// For Dialogs, we will use the Source LPLR OI where Dialog entries are selected.
+   //:// Note that we actually pass SourceLPLR, which contains all metas, to DialogMigrate.
+   //:GET VIEW SourceLPLR_Dialog NAMED "SourceLPLR"
+   RESULT = GetViewByName( &SourceLPLR_Dialog, "SourceLPLR", vSubtask, zLEVEL_TASK );
+   //:SET CURSOR FIRST SourceLPLR_Dialog.W_MetaType WHERE SourceLPLR_Dialog.W_MetaType.Type = 2011
+   RESULT = SetCursorFirstEntityByInteger( SourceLPLR_Dialog, "W_MetaType", "Type", 2011, "" );
+   //:SET CURSOR FIRST TargetLPLR.W_MetaType        WHERE TargetLPLR.W_MetaType.Type = 2011
+   RESULT = SetCursorFirstEntityByInteger( TargetLPLR, "W_MetaType", "Type", 2011, "" );
+   //:IF RESULT < 0
+   if ( RESULT < 0 )
+   { 
+      //:CREATE ENTITY TargetLPLR.W_MetaType
+      RESULT = CreateEntity( TargetLPLR, "W_MetaType", zPOS_AFTER );
+      //:TargetLPLR.W_MetaType.Type = 2011
+      SetAttributeFromInteger( TargetLPLR, "W_MetaType", "Type", 2011 );
+   } 
+
+   //:END
+   //:FOR EACH SourceLPLR_Dialog.W_MetaDef 
+   RESULT = SetCursorFirstEntity( SourceLPLR_Dialog, "W_MetaDef", "" );
+   while ( RESULT > zCURSOR_UNCHANGED )
+   { 
+      //:nRC = GetSelectStateOfEntity( SourceLPLR_Dialog, "W_MetaDef" )
+      nRC = GetSelectStateOfEntity( SourceLPLR_Dialog, "W_MetaDef" );
+      //:IF nRC = 1
+      if ( nRC == 1 )
+      { 
+         //:MetaName = SourceLPLR_Dialog.W_MetaDef.Name 
+         GetVariableFromAttribute( MetaName, 0, 'S', 33, SourceLPLR_Dialog, "W_MetaDef", "Name", "", 0 );
+         //:ActivateEmptyMetaOI( vSubtask, NewDialog, zSOURCE_DIALOG_META, zSINGLE )
+         ActivateEmptyMetaOI( vSubtask, &NewDialog, zSOURCE_DIALOG_META, zSINGLE );
+         //:MG_ErrorMessage = "Migrating Dialog: " + MetaName
+         ZeidonStringCopy( MG_ErrorMessage, 1, 0, "Migrating Dialog: ", 1, 0, 251 );
+         ZeidonStringConcat( MG_ErrorMessage, 1, 0, MetaName, 1, 0, 251 );
+         //:MB_SetMessage( vSubtask, 1, MG_ErrorMessage )
+         MB_SetMessage( vSubtask, 1, MG_ErrorMessage );
+         //:CreateViewFromView( TempLPLR, SourceLPLR )   // Use temporary view because DialogMigrate sometimes alters position.
+         CreateViewFromView( &TempLPLR, SourceLPLR );
+         //:nRC = DialogMigrate( NewDialog, MetaName, TempLPLR, vSubtask )
+         nRC = oTZWDLGSO_DialogMigrate( NewDialog, MetaName, TempLPLR, vSubtask );
+         //:DropView( TempLPLR )
+         DropView( TempLPLR );
+         //:IF nRC >= 0
+         if ( nRC >= 0 )
+         { 
+            //:// Delete the Dialog entry from the list.
+            //:CREATE ENTITY TargetLPLR.W_MetaDef
+            RESULT = CreateEntity( TargetLPLR, "W_MetaDef", zPOS_AFTER );
+            //:TargetLPLR.W_MetaDef.Name = SourceLPLR_Dialog.W_MetaDef.Name
+            SetAttributeFromAttribute( TargetLPLR, "W_MetaDef", "Name", SourceLPLR_Dialog, "W_MetaDef", "Name" );
+            //:DELETE ENTITY SourceLPLR_Dialog.W_MetaDef NONE
+            RESULT = DeleteEntity( SourceLPLR_Dialog, "W_MetaDef", zREPOS_NONE );
+            //:ELSE
+         } 
+         else
+         { 
+            //:MG_ErrorMessage = "Dialog (" + MetaName + ") has not been migrated."
+            ZeidonStringCopy( MG_ErrorMessage, 1, 0, "Dialog (", 1, 0, 251 );
+            ZeidonStringConcat( MG_ErrorMessage, 1, 0, MetaName, 1, 0, 251 );
+            ZeidonStringConcat( MG_ErrorMessage, 1, 0, ") has not been migrated.", 1, 0, 251 );
+            //:MessageSend( vSubtask, "", "LPLR Migrate",
+            //:             MG_ErrorMessage, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
+            MessageSend( vSubtask, "", "LPLR Migrate", MG_ErrorMessage, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
+         } 
+
+         //:END
+         //:DropObjectInstance( NewDialog )
+         DropObjectInstance( NewDialog );
+      } 
+
+      RESULT = SetCursorNextEntity( SourceLPLR_Dialog, "W_MetaDef", "" );
+      //:END
+   } 
+
+   //:END
+
+   //:// UIS
+   //:// We will not copy User Interface Specifications as they are no longer used.
+
+   //:// XSLT
+   //:// We will not copy XSLT entries as they appear to no longer be used.
+
+   //:// If there are any error messages, transfer to the window to display them.
+   //:// Otherwise, send a message to the user that the migrate function completed without error.
+   //:IF CurrentLPLR.ErrorMessage EXISTS 
+   lTempInteger_2 = CheckExistenceOfEntity( CurrentLPLR, "ErrorMessage" );
+   if ( lTempInteger_2 == 0 )
+   { 
+      //:SetWindowActionBehavior( vSubtask, ZWAB_StartModalSubwindow, "TZCMLPMD", "MetaLPLR_MergeErrors" )
+      SetWindowActionBehavior( vSubtask, zWAB_StartModalSubwindow, "TZCMLPMD", "MetaLPLR_MergeErrors" );
+      //:ELSE
+   } 
+   else
+   { 
+      //:MessageSend( vSubtask, "", 
+      //:             "Configuration Management",
+      //:             "LPLR Migrate has completed without error.",
+      //:             zMSGQ_OBJECT_CONSTRAINT_WARNING, 0 )
+      MessageSend( vSubtask, "", "Configuration Management", "LPLR Migrate has completed without error.", zMSGQ_OBJECT_CONSTRAINT_WARNING, 0 );
+   } 
+
+   //:END
    return( 0 );
 // END
 } 
@@ -1998,52 +1554,47 @@ SelectLPLR( zVIEW     vSubtask )
    //:INTEGER        TempType
    zLONG     TempType = 0; 
    zSHORT    RESULT; 
-   zCHAR     szTempString_0[ 33 ]; 
+   zSHORT    lTempInteger_0; 
 
 
    //:GET VIEW vCM NAMED "TZCMWKSO"
    RESULT = GetViewByName( &vCM, "TZCMWKSO", vSubtask, zLEVEL_TASK );
+
+   //:// Check if an ERD alread exists in the current LPLR. If so, the Migrate function cannot be used.
+   //:GET VIEW  CurrentLPLR NAMED "TaskLPLR"
+   RESULT = GetViewByName( &CurrentLPLR, "TaskLPLR", vSubtask, zLEVEL_TASK );
+   //:SET CURSOR FIRST CurrentLPLR.W_MetaType WHERE CurrentLPLR.W_MetaType.Type = 4
+   RESULT = SetCursorFirstEntityByInteger( CurrentLPLR, "W_MetaType", "Type", 4, "" );
+   //:IF CurrentLPLR.W_MetaDef EXISTS 
+   lTempInteger_0 = CheckExistenceOfEntity( CurrentLPLR, "W_MetaDef" );
+   if ( lTempInteger_0 == 0 )
+   { 
+      //:MessageSend( vSubtask, "", "LPLR Migrate",
+      //:             "The Current LPLR already has an ER, so the Migrate function cannot be used.", 
+      //:             zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
+      MessageSend( vSubtask, "", "LPLR Migrate", "The Current LPLR already has an ER, so the Migrate function cannot be used.", zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
+      //:RETURN -2
+      return( -2 );
+   } 
+
+   //:END
 
    //:// Activate OI and View to the source LPLR
    //:SourceFileName = vCM.LPLR.Name
    GetVariableFromAttribute( SourceFileName, 0, 'S', 514, vCM, "LPLR", "Name", "", 0 );
    //:TruncatedName = SourceFileName [1:32]
    ZeidonStringCopy( TruncatedName, 1, 0, SourceFileName, 1, 32, 33 );
-   //:SourceFileName = vCM.LPLR.ExecDir + "\" +
-   //:                 TruncatedName + ".XLP"
+   //:SourceFileName = vCM.LPLR.ExecDir + "\" + TruncatedName + ".XLP"
    GetStringFromAttribute( SourceFileName, vCM, "LPLR", "ExecDir" );
    ZeidonStringConcat( SourceFileName, 1, 0, "\\", 1, 0, 514 );
    ZeidonStringConcat( SourceFileName, 1, 0, TruncatedName, 1, 0, 514 );
    ZeidonStringConcat( SourceFileName, 1, 0, ".XLP", 1, 0, 514 );
-   //:ActivateOI_FromFile( OrigLPLR, "TZCMLPLO", vSubtask,
-   //:                     SourceFileName, zSINGLE )
+   //:ActivateOI_FromFile( OrigLPLR, "TZCMLPLO", vSubtask, SourceFileName, zSINGLE )
    ActivateOI_FromFile( &OrigLPLR, "TZCMLPLO", vSubtask, SourceFileName, zSINGLE );
    //:NAME VIEW OrigLPLR "OrigLPLR"
    SetNameForView( OrigLPLR, "OrigLPLR", 0, zLEVEL_TASK );
 
-   //:// Create the views that will be positioned on the list of VOR's for VOR migration.
-   //:CreateViewFromView( VOR_LPLR, OrigLPLR )
-   CreateViewFromView( &VOR_LPLR, OrigLPLR );
-   //:NAME VIEW VOR_LPLR "SourceVOR_LPLR"
-   SetNameForView( VOR_LPLR, "SourceVOR_LPLR", 0, zLEVEL_TASK );
-   //:SET CURSOR FIRST VOR_LPLR.W_MetaType WHERE VOR_LPLR.W_MetaType.Type = 2009  // 2009 is the VOR.
-   RESULT = SetCursorFirstEntityByInteger( VOR_LPLR, "W_MetaType", "Type", 2009, "" );
-   //:GET VIEW CurrentLPLR NAMED "TaskLPLR"
-   RESULT = GetViewByName( &CurrentLPLR, "TaskLPLR", vSubtask, zLEVEL_TASK );
-   //:CreateViewFromView( VOR_LPLR, CurrentLPLR )
-   CreateViewFromView( &VOR_LPLR, CurrentLPLR );
-   //:NAME VIEW VOR_LPLR "TargetVOR_LPLR"
-   SetNameForView( VOR_LPLR, "TargetVOR_LPLR", 0, zLEVEL_TASK );
-   //:SET CURSOR FIRST VOR_LPLR.W_MetaType WHERE VOR_LPLR.W_MetaType.Type = 2009  // 2009 is the VOR.
-   RESULT = SetCursorFirstEntityByInteger( VOR_LPLR, "W_MetaType", "Type", 2009, "" );
-
-   //:// Reposition work station view on original LPLR so that any ZKeys generated during migration will
-   //:// be created using the correct next ZKey.
-   //:SET CURSOR FIRST vCM.LPLR WHERE vCM.LPLR.Name = CurrentLPLR.LPLR.Name 
-   GetStringFromAttribute( szTempString_0, CurrentLPLR, "LPLR", "Name" );
-   RESULT = SetCursorFirstEntityByString( vCM, "LPLR", "Name", szTempString_0, "" );
-
-   //:// Copy the Orig members with Type >= 2000 to Source
+   //:// Copy the Orig Dialog members to Source since they are the only entries to be selectable in the list.
    //:ACTIVATE SourceLPLR EMPTY
    RESULT = ActivateEmptyObjectInstance( &SourceLPLR, "TZCMLPLO", vSubtask, zSINGLE );
    //:NAME VIEW SourceLPLR "SourceLPLR"
@@ -2054,48 +1605,32 @@ SelectLPLR( zVIEW     vSubtask )
    //:SetMatchingAttributesByName( SourceLPLR, "LPLR", OrigLPLR, "LPLR", zSET_ALL )
    SetMatchingAttributesByName( SourceLPLR, "LPLR", OrigLPLR, "LPLR", zSET_ALL );
    //:FOR EACH OrigLPLR.W_MetaType WHERE
-   //:         OrigLPLR.W_MetaType.Type >= 2000
-   RESULT = SetCursorFirstEntity( OrigLPLR, "W_MetaType", "" );
+   //:         OrigLPLR.W_MetaType.Type = 2011
+   RESULT = SetCursorFirstEntityByInteger( OrigLPLR, "W_MetaType", "Type", 2011, "" );
    while ( RESULT > zCURSOR_UNCHANGED )
    { 
-      if ( CompareAttributeToInteger( OrigLPLR, "W_MetaType", "Type", 2000 ) >= 0 )
+      //:CREATE ENTITY SourceLPLR.W_MetaType
+      RESULT = CreateEntity( SourceLPLR, "W_MetaType", zPOS_AFTER );
+      //:// This code has to use a work integer in setting SourceLPLR.W_MetaType.Type to
+      //:// OrigLPLR.W_MetaType.Type, because the domain on Type, CM_Type, seems to always
+      //:// convert a REFER value to a SOURCE value.  This is an error in the table domain
+      //:// and should eventually get corrected.
+      //:TempType = OrigLPLR.W_MetaType.Type
+      GetIntegerFromAttribute( &TempType, OrigLPLR, "W_MetaType", "Type" );
+      //:SourceLPLR.W_MetaType.Type = TempType
+      SetAttributeFromInteger( SourceLPLR, "W_MetaType", "Type", TempType );
+      //:FOR EACH OrigLPLR.W_MetaDef
+      RESULT = SetCursorFirstEntity( OrigLPLR, "W_MetaDef", "" );
+      while ( RESULT > zCURSOR_UNCHANGED )
       { 
-
-         //:// Do not include Domains (2003), Global Operations (2002) or
-         //:// Registered Views (2009) in the list.
-         //:IF OrigLPLR.W_MetaType.Type != 2002 AND
-         //:OrigLPLR.W_MetaType.Type != 2003 AND
-         //:OrigLPLR.W_MetaType.Type != 2009
-         if ( CompareAttributeToInteger( OrigLPLR, "W_MetaType", "Type", 2002 ) != 0 && CompareAttributeToInteger( OrigLPLR, "W_MetaType", "Type", 2003 ) != 0 && CompareAttributeToInteger( OrigLPLR, "W_MetaType", "Type", 2009 ) != 0 )
-         { 
-
-            //:CREATE ENTITY SourceLPLR.W_MetaType
-            RESULT = CreateEntity( SourceLPLR, "W_MetaType", zPOS_AFTER );
-            //:// This code has to use a work integer in setting SourceLPLR.W_MetaType.Type to
-            //:// OrigLPLR.W_MetaType.Type, because the domain on Type, CM_Type, seems to always
-            //:// convert a REFER value to a SOURCE value.  This is an error in the table domain
-            //:// and should eventually get corrected.
-            //:TempType = OrigLPLR.W_MetaType.Type
-            GetIntegerFromAttribute( &TempType, OrigLPLR, "W_MetaType", "Type" );
-            //:SourceLPLR.W_MetaType.Type = TempType
-            SetAttributeFromInteger( SourceLPLR, "W_MetaType", "Type", TempType );
-            //:FOR EACH OrigLPLR.W_MetaDef
-            RESULT = SetCursorFirstEntity( OrigLPLR, "W_MetaDef", "" );
-            while ( RESULT > zCURSOR_UNCHANGED )
-            { 
-               //:CREATE ENTITY SourceLPLR.W_MetaDef
-               RESULT = CreateEntity( SourceLPLR, "W_MetaDef", zPOS_AFTER );
-               //:SetMatchingAttributesByName( SourceLPLR, "W_MetaDef", OrigLPLR, "W_MetaDef", zSET_ALL )
-               SetMatchingAttributesByName( SourceLPLR, "W_MetaDef", OrigLPLR, "W_MetaDef", zSET_ALL );
-               RESULT = SetCursorNextEntity( OrigLPLR, "W_MetaDef", "" );
-            } 
-
-            //:END
-         } 
-
+         //:CREATE ENTITY SourceLPLR.W_MetaDef
+         RESULT = CreateEntity( SourceLPLR, "W_MetaDef", zPOS_AFTER );
+         //:SetMatchingAttributesByName( SourceLPLR, "W_MetaDef", OrigLPLR, "W_MetaDef", zSET_ALL )
+         SetMatchingAttributesByName( SourceLPLR, "W_MetaDef", OrigLPLR, "W_MetaDef", zSET_ALL );
+         RESULT = SetCursorNextEntity( OrigLPLR, "W_MetaDef", "" );
       } 
 
-      RESULT = SetCursorNextEntity( OrigLPLR, "W_MetaType", "" );
+      RESULT = SetCursorNextEntityByInteger( OrigLPLR, "W_MetaType", "Type", 2011, "" );
       //:END
    } 
 
@@ -2132,9 +1667,6 @@ SelectLPLR_ForMerge( zVIEW     vSubtask )
 
    RESULT = GetViewByName( &vCM, "TZCMWKSO", vSubtask, zLEVEL_TASK );
    RESULT = GetViewByName( &TaskLPLR, "TaskLPLR", vSubtask, zLEVEL_TASK );
-
-   //:TraceLineS( "*********** Trace 6/2 9:11", "" )
-   TraceLineS( "*********** Trace 6/2 9:11", "" );
 
    //:// Make sure there is currently no TargetLPLR view as that will be created later in postbuild of merge window.
    //:GET VIEW TargetLPLR NAMED "TargetLPLR"
@@ -2223,31 +1755,6 @@ SelectLPLR_ForMerge( zVIEW     vSubtask )
    } 
 
    //:END
-   return( 0 );
-// END
-} 
-
-
-//:DIALOG OPERATION
-//:MigrateCompilerSubobjects( VIEW vSubtask )
-
-//:   VIEW SourceLPLR    BASED ON LOD TZCMLPLO
-zOPER_EXPORT zSHORT OPERATION
-MigrateCompilerSubobjects( zVIEW     vSubtask )
-{
-   zVIEW     SourceLPLR = 0; 
-   //:VIEW CurrentLPLR   BASED ON LOD TZCMLPLO
-   zVIEW     CurrentLPLR = 0; 
-   zSHORT    RESULT; 
-
-
-   //:GET VIEW SourceLPLR  NAMED "OrigLPLR"
-   RESULT = GetViewByName( &SourceLPLR, "OrigLPLR", vSubtask, zLEVEL_TASK );
-   //:GET VIEW CurrentLPLR NAMED "TaskLPLR"
-   RESULT = GetViewByName( &CurrentLPLR, "TaskLPLR", vSubtask, zLEVEL_TASK );
-
-   //:CompilerMigrate( CurrentLPLR, SourceLPLR, vSubtask )
-   oTZCMLPLO_CompilerMigrate( CurrentLPLR, SourceLPLR, vSubtask );
    return( 0 );
 // END
 } 
@@ -3696,7 +3203,7 @@ CleanUpVORs( zVIEW     ViewToWindow )
 //:DIALOG OPERATION
 //:GOTO_MergeERDs( VIEW vSubtask )
 
-//:   VIEW vTaskLPLR REGISTERED AS TaskLPLR
+//:   VIEW vTaskLPLR      REGISTERED AS TaskLPLR
 zOPER_EXPORT zSHORT OPERATION
 GOTO_MergeERDs( zVIEW     vSubtask )
 {
@@ -3716,6 +3223,1088 @@ GOTO_MergeERDs( zVIEW     vSubtask )
    } 
 
    //:END
+   return( 0 );
+//     
+// END
+} 
+
+
+//:DIALOG OPERATION
+//:MigrateMetaOld( VIEW vSubtask )
+
+//:   VIEW SourceLPLR         BASED ON LOD TZCMLPLO
+zOPER_EXPORT zSHORT OPERATION
+MigrateMetaOld( zVIEW     vSubtask )
+{
+   zVIEW     SourceLPLR = 0; 
+   //:VIEW SourceVOR_LPLR     BASED ON LOD TZCMLPLO
+   zVIEW     SourceVOR_LPLR = 0; 
+   //:VIEW TargetVOR_LPLR     BASED ON LOD TZCMLPLO
+   zVIEW     TargetVOR_LPLR = 0; 
+   //:VIEW OrigLPLR           BASED ON LOD TZCMLPLO
+   zVIEW     OrigLPLR = 0; 
+   //:VIEW CurrentLPLR        BASED ON LOD TZCMLPLO
+   zVIEW     CurrentLPLR = 0; 
+   //:VIEW NewERD             BASED ON LOD TZEREMDO
+   zVIEW     NewERD = 0; 
+   //:VIEW ReturnedSA         BASED ON LOD TZERSASO
+   zVIEW     ReturnedSA = 0; 
+   //:VIEW ReturnedTE         BASED ON LOD TZTENVRO
+   zVIEW     ReturnedTE = 0; 
+   //:VIEW NewLOD             BASED ON LOD TZZOLODO
+   zVIEW     NewLOD = 0; 
+   //:VIEW ReturnedPPE        BASED ON LOD TZPESRCO
+   zVIEW     ReturnedPPE = 0; 
+   //:VIEW NewDialog          BASED ON LOD TZWDLGSO
+   zVIEW     NewDialog = 0; 
+   //:VIEW ReturnedDialogSpec BASED ON LOD TZADCSDO
+   zVIEW     ReturnedDialogSpec = 0; 
+   //:VIEW ReturnedReport     BASED ON LOD TZRPSRCO
+   zVIEW     ReturnedReport = 0; 
+   //:VIEW ReturnedXSLT       BASED ON LOD TZXSLTSO
+   zVIEW     ReturnedXSLT = 0; 
+   //:VIEW NewDomainGroup     BASED ON LOD TZDGSRCO
+   zVIEW     NewDomainGroup = 0; 
+   //:VIEW NewOperationGroup  BASED ON LOD TZOGSRCO
+   zVIEW     NewOperationGroup = 0; 
+   //:VIEW ReturnedHeader     BASED ON LOD TZOPHDRO
+   zVIEW     ReturnedHeader = 0; 
+   //:VIEW vPE                BASED ON LOD TZPESRCO
+   zVIEW     vPE = 0; 
+   //:VIEW vVOR               BASED ON LOD TZWDVORO
+   zVIEW     vVOR = 0; 
+
+   //:STRING (32)  MetaName
+   zCHAR     MetaName[ 33 ] = { 0 }; 
+   //:STRING (32)  NewTE_Name
+   zCHAR     NewTE_Name[ 33 ] = { 0 }; 
+   //:STRING (250) MG_ErrorMessage
+   zCHAR     MG_ErrorMessage[ 251 ] = { 0 }; 
+   //:STRING (513) SourceDirectoryName       // zMAX_FILESPEC_LTH+1
+   zCHAR     SourceDirectoryName[ 514 ] = { 0 }; 
+   //:STRING (513) SourceFileName            // zMAX_FILESPEC_LTH+1
+   zCHAR     SourceFileName[ 514 ] = { 0 }; 
+   //:STRING ( 1 ) szDoNotMergeOperationsFlag
+   zCHAR     szDoNotMergeOperationsFlag[ 2 ] = { 0 }; 
+   //://INTEGER      nConvertFlag
+   //:INTEGER      lZKey
+   zLONG     lZKey = 0; 
+   //:SHORT        nRC
+   zSHORT    nRC = 0; 
+   //:SHORT        nRC1
+   zSHORT    nRC1 = 0; 
+   zSHORT    RESULT; 
+   zLONG     lTempInteger_0; 
+   zCHAR     szTempString_0[ 33 ]; 
+   zSHORT    lTempInteger_1; 
+   zSHORT    lTempInteger_2; 
+   zSHORT    lTempInteger_3; 
+
+
+   //:GET VIEW SourceLPLR NAMED "SourceLPLR"
+   RESULT = GetViewByName( &SourceLPLR, "SourceLPLR", vSubtask, zLEVEL_TASK );
+   //:GET VIEW SourceVOR_LPLR NAMED "SourceVOR_LPLR"
+   RESULT = GetViewByName( &SourceVOR_LPLR, "SourceVOR_LPLR", vSubtask, zLEVEL_TASK );
+
+   //:// Process the Domain Groups and the Operation Groups first, since they must exist before
+   //:// other metas can be processed, and their numbers put them at the end of the list.
+
+   //:// For creating/updating VOR's, put the ObjectName for each VOR in the W_MetaDef entry.
+   //:SourceDirectoryName = SourceLPLR.LPLR.MetaSrcDir
+   GetVariableFromAttribute( SourceDirectoryName, 0, 'S', 514, SourceLPLR, "LPLR", "MetaSrcDir", "", 0 );
+   //:FOR EACH SourceVOR_LPLR.W_MetaDef
+   RESULT = SetCursorFirstEntity( SourceVOR_LPLR, "W_MetaDef", "" );
+   while ( RESULT > zCURSOR_UNCHANGED )
+   { 
+      //:// Activate existing source meta VOR
+      //:lZKey = SourceVOR_LPLR.W_MetaDef.CPLR_ZKey
+      GetIntegerFromAttribute( &lZKey, SourceVOR_LPLR, "W_MetaDef", "CPLR_ZKey" );
+      //:zltoxa( lZKey, MetaName )
+      zltoxa( lZKey, MetaName );
+      //:SourceFileName = SourceDirectoryName + "\" + MetaName + ".PVR"
+      ZeidonStringCopy( SourceFileName, 1, 0, SourceDirectoryName, 1, 0, 514 );
+      ZeidonStringConcat( SourceFileName, 1, 0, "\\", 1, 0, 514 );
+      ZeidonStringConcat( SourceFileName, 1, 0, MetaName, 1, 0, 514 );
+      ZeidonStringConcat( SourceFileName, 1, 0, ".PVR", 1, 0, 514 );
+      //:ActivateOI_FromFile ( vVOR, "TZWDVORO", vSubtask, SourceFileName, 8192 )
+      ActivateOI_FromFile( &vVOR, "TZWDVORO", vSubtask, SourceFileName, 8192 );
+      //:// 8192 is zIGNORE_ATTRIB_ERRORS
+      //:NAME VIEW vVOR "vVOR"
+      SetNameForView( vVOR, "vVOR", 0, zLEVEL_TASK );
+      //:// Set the work name as the LOD name.
+      //:SourceVOR_LPLR.W_MetaDef.MigrateWorkName = vVOR.LOD.Name
+      SetAttributeFromAttribute( SourceVOR_LPLR, "W_MetaDef", "MigrateWorkName", vVOR, "LOD", "Name" );
+      //:DropObjectInstance( vVOR )
+      DropObjectInstance( vVOR );
+      RESULT = SetCursorNextEntity( SourceVOR_LPLR, "W_MetaDef", "" );
+   } 
+
+   //:END
+
+   //:// KJS 05/03/22
+   //:GET VIEW  CurrentLPLR NAMED "TaskLPLR"
+   RESULT = GetViewByName( &CurrentLPLR, "TaskLPLR", vSubtask, zLEVEL_TASK );
+
+   //://nConvertFlag = 0        // Indicate that we are not converting.
+   //:nRC = SetCursorFirstSelectedEntity( SourceLPLR, "W_MetaDef", "LPLR" )
+   nRC = SetCursorFirstSelectedEntity( SourceLPLR, "W_MetaDef", "LPLR" );
+   //:LOOP WHILE nRC >= zCURSOR_SET
+   while ( nRC >= zCURSOR_SET )
+   { 
+
+      //:MetaName = SourceLPLR.W_MetaDef.Name
+      GetVariableFromAttribute( MetaName, 0, 'S', 33, SourceLPLR, "W_MetaDef", "Name", "", 0 );
+
+      //:// Domain Group: W_MetaType.Type = 2013 for domain group meta
+      //:IF SourceLPLR.W_MetaType.Type = 2013
+      if ( CompareAttributeToInteger( SourceLPLR, "W_MetaType", "Type", 2013 ) == 0 )
+      { 
+         //:// If the Domain Group doesn't already exist, create it.
+         //:// Otherwise pass the activated DomainGroup to the migrate routine so
+         //:// that Domains can be merged.
+         //:nRC = ActivateMetaOI_ByName( vSubtask, NewDomainGroup, 0, zSOURCE_DOMAINGRP_META, zSINGLE, MetaName, 0 )
+         nRC = ActivateMetaOI_ByName( vSubtask, &NewDomainGroup, 0, zSOURCE_DOMAINGRP_META, zSINGLE, MetaName, 0 );
+         //:IF nRC < 0
+         if ( nRC < 0 )
+         { 
+            //:ActivateEmptyMetaOI( vSubtask, NewDomainGroup, zSOURCE_DOMAINGRP_META, zSINGLE )
+            ActivateEmptyMetaOI( vSubtask, &NewDomainGroup, zSOURCE_DOMAINGRP_META, zSINGLE );
+         } 
+
+         //:END
+
+         //:MG_ErrorMessage = "Migrating Domain Group: " + MetaName
+         ZeidonStringCopy( MG_ErrorMessage, 1, 0, "Migrating Domain Group: ", 1, 0, 251 );
+         ZeidonStringConcat( MG_ErrorMessage, 1, 0, MetaName, 1, 0, 251 );
+         //:MB_SetMessage( vSubtask, 1, MG_ErrorMessage )
+         MB_SetMessage( vSubtask, 1, MG_ErrorMessage );
+         //:nRC = DomainGrpMigrate( NewDomainGroup, MetaName, SourceLPLR, vSubtask )
+         nRC = oTZDGSRCO_DomainGrpMigrate( NewDomainGroup, MetaName, SourceLPLR, vSubtask );
+         //:IF nRC < 0
+         if ( nRC < 0 )
+         { 
+            //:MG_ErrorMessage = "Domain Group(" + MetaName + ") aborted."
+            ZeidonStringCopy( MG_ErrorMessage, 1, 0, "Domain Group(", 1, 0, 251 );
+            ZeidonStringConcat( MG_ErrorMessage, 1, 0, MetaName, 1, 0, 251 );
+            ZeidonStringConcat( MG_ErrorMessage, 1, 0, ") aborted.", 1, 0, 251 );
+            //:MessageSend( vSubtask, "CM01001", "Configuration Management",
+            //:             MG_ErrorMessage, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
+            MessageSend( vSubtask, "CM01001", "Configuration Management", MG_ErrorMessage, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
+         } 
+
+         //:END
+
+         //:IF NewDomainGroup != 0
+         if ( NewDomainGroup != 0 )
+         { 
+            //:DropMetaOI( vSubtask, NewDomainGroup )
+            DropMetaOI( vSubtask, NewDomainGroup );
+         } 
+
+         //:END
+
+         //:// Turn off the selected state flag
+         //:SetSelectStateOfEntity( SourceLPLR, "W_MetaDef", 0 )
+         SetSelectStateOfEntity( SourceLPLR, "W_MetaDef", 0 );
+      } 
+
+
+      //:END
+
+      //:// Global Operation Group: W_MetaType.Type = 2014 for global operation group meta
+      //:IF SourceLPLR.W_MetaType.Type = 2014
+      if ( CompareAttributeToInteger( SourceLPLR, "W_MetaType", "Type", 2014 ) == 0 )
+      { 
+         //:// If the Global Operation Group doesn't already exist, create it.
+         //:// Otherwise pass the activated GlobalOperationGroup to the migrate routine so
+         //:// that Global Operations can be merged.
+         //:nRC = ActivateMetaOI_ByName( vSubtask, NewOperationGroup, 0, zSOURCE_GOPGRP_META, zSINGLE, MetaName, 0 )
+         nRC = ActivateMetaOI_ByName( vSubtask, &NewOperationGroup, 0, zSOURCE_GOPGRP_META, zSINGLE, MetaName, 0 );
+         //:IF nRC < 0
+         if ( nRC < 0 )
+         { 
+            //:ActivateEmptyMetaOI( vSubtask, NewOperationGroup, zSOURCE_GOPGRP_META, zSINGLE )
+            ActivateEmptyMetaOI( vSubtask, &NewOperationGroup, zSOURCE_GOPGRP_META, zSINGLE );
+         } 
+
+         //:END
+
+         //:MG_ErrorMessage = "Migrating Global Operation Group: " + MetaName
+         ZeidonStringCopy( MG_ErrorMessage, 1, 0, "Migrating Global Operation Group: ", 1, 0, 251 );
+         ZeidonStringConcat( MG_ErrorMessage, 1, 0, MetaName, 1, 0, 251 );
+         //:MB_SetMessage( vSubtask, 1, MG_ErrorMessage )
+         MB_SetMessage( vSubtask, 1, MG_ErrorMessage );
+         //:nRC = GlobalOperGrpMerge( NewOperationGroup, MetaName, SourceLPLR, vSubtask )
+         nRC = oTZOGSRCO_GlobalOperGrpMerge( NewOperationGroup, MetaName, SourceLPLR, vSubtask );
+         //:IF nRC < 0
+         if ( nRC < 0 )
+         { 
+            //:MG_ErrorMessage = "Global Operation Group(" + MetaName + ") aborted."
+            ZeidonStringCopy( MG_ErrorMessage, 1, 0, "Global Operation Group(", 1, 0, 251 );
+            ZeidonStringConcat( MG_ErrorMessage, 1, 0, MetaName, 1, 0, 251 );
+            ZeidonStringConcat( MG_ErrorMessage, 1, 0, ") aborted.", 1, 0, 251 );
+            //:MessageSend( vSubtask, "CM01001", "Configuration Management",
+            //:             MG_ErrorMessage, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
+            MessageSend( vSubtask, "CM01001", "Configuration Management", MG_ErrorMessage, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
+         } 
+
+         //:END
+
+         //:IF NewOperationGroup != 0
+         if ( NewOperationGroup != 0 )
+         { 
+            //:DropMetaOI( vSubtask, NewOperationGroup )
+            DropMetaOI( vSubtask, NewOperationGroup );
+         } 
+
+         //:END
+         //:// Turn off the selected state flag
+         //:SetSelectStateOfEntity( SourceLPLR, "W_MetaDef", 0 )
+         SetSelectStateOfEntity( SourceLPLR, "W_MetaDef", 0 );
+      } 
+
+
+      //:END
+
+      //:nRC = SetCursorNextSelectedEntity( SourceLPLR, "W_MetaDef", "LPLR" )
+      nRC = SetCursorNextSelectedEntity( SourceLPLR, "W_MetaDef", "LPLR" );
+   } 
+
+
+   //:END
+
+   //:// Because some migration operations need an LPLR view with Domains in it??, we will
+   //:// pass the OrigLPLR view instead of the SourceLPLR view.
+   //:GET VIEW OrigLPLR NAMED "OrigLPLR"
+   RESULT = GetViewByName( &OrigLPLR, "OrigLPLR", vSubtask, zLEVEL_TASK );
+
+   //:// Now loop and process the regular metas (those for the current release).
+   //:nRC = SetCursorFirstSelectedEntity( SourceLPLR, "W_MetaDef", "LPLR" )
+   nRC = SetCursorFirstSelectedEntity( SourceLPLR, "W_MetaDef", "LPLR" );
+   //:LOOP WHILE nRC >= zCURSOR_SET
+   while ( nRC >= zCURSOR_SET )
+   { 
+
+      //:// Position on the corresponding meta in the OrigLPLR view.
+      //:SET CURSOR FIRST OrigLPLR.W_MetaDef WITHIN OrigLPLR.LPLR WHERE
+      //:                 OrigLPLR.W_MetaDef.CPLR_ZKey = SourceLPLR.W_MetaDef.CPLR_ZKey
+      GetIntegerFromAttribute( &lTempInteger_0, SourceLPLR, "W_MetaDef", "CPLR_ZKey" );
+      RESULT = SetCursorFirstEntityByInteger( OrigLPLR, "W_MetaDef", "CPLR_ZKey", lTempInteger_0, "LPLR" );
+
+      //:// Turn off the selected state flag
+      //:SetSelectStateOfEntity( SourceLPLR, "W_MetaDef", 0 )
+      SetSelectStateOfEntity( SourceLPLR, "W_MetaDef", 0 );
+      //:MetaName = SourceLPLR.W_MetaDef.Name
+      GetVariableFromAttribute( MetaName, 0, 'S', 33, SourceLPLR, "W_MetaDef", "Name", "", 0 );
+
+      //:// Header: W_MetaType.Type = 2000 for Header meta
+      //:IF SourceLPLR.W_MetaType.Type = 2000
+      if ( CompareAttributeToInteger( SourceLPLR, "W_MetaType", "Type", 2000 ) == 0 )
+      { 
+
+         //:// If the Header doesn't already exist, create it.
+         //:// Otherwise return error message.
+         //:nRC = ActivateMetaOI_ByName( vSubtask, ReturnedHeader, 0, zREFER_HDR_META, zSINGLE, MetaName, 0 )
+         nRC = ActivateMetaOI_ByName( vSubtask, &ReturnedHeader, 0, zREFER_HDR_META, zSINGLE, MetaName, 0 );
+         //:IF nRC < 0
+         if ( nRC < 0 )
+         { 
+            //:MG_ErrorMessage = "Migrating Header: " + MetaName
+            ZeidonStringCopy( MG_ErrorMessage, 1, 0, "Migrating Header: ", 1, 0, 251 );
+            ZeidonStringConcat( MG_ErrorMessage, 1, 0, MetaName, 1, 0, 251 );
+            //:MB_SetMessage( vSubtask, 1, MG_ErrorMessage )
+            MB_SetMessage( vSubtask, 1, MG_ErrorMessage );
+            //:nRC = HeaderMigrate( OrigLPLR, MetaName, ReturnedHeader, vSubtask )
+            nRC = oTZCMLPLO_HeaderMigrate( OrigLPLR, MetaName, &ReturnedHeader, vSubtask );
+            //:IF nRC < 0
+            if ( nRC < 0 )
+            { 
+               //:MG_ErrorMessage = "Header (" + MetaName + ") aborted."
+               ZeidonStringCopy( MG_ErrorMessage, 1, 0, "Header (", 1, 0, 251 );
+               ZeidonStringConcat( MG_ErrorMessage, 1, 0, MetaName, 1, 0, 251 );
+               ZeidonStringConcat( MG_ErrorMessage, 1, 0, ") aborted.", 1, 0, 251 );
+               //:MessageSend( vSubtask, "CM01005", "Configuration Management",
+               //:             MG_ErrorMessage, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
+               MessageSend( vSubtask, "CM01005", "Configuration Management", MG_ErrorMessage, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
+            } 
+
+            //:END
+            //:IF ReturnedHeader != 0
+            if ( ReturnedHeader != 0 )
+            { 
+               //:DropMetaOI( vSubtask, ReturnedHeader )
+               DropMetaOI( vSubtask, ReturnedHeader );
+            } 
+
+            //:END
+            //:ELSE
+         } 
+         else
+         { 
+            //:MG_ErrorMessage = "Header (" + MetaName + ") already exists."
+            ZeidonStringCopy( MG_ErrorMessage, 1, 0, "Header (", 1, 0, 251 );
+            ZeidonStringConcat( MG_ErrorMessage, 1, 0, MetaName, 1, 0, 251 );
+            ZeidonStringConcat( MG_ErrorMessage, 1, 0, ") already exists.", 1, 0, 251 );
+            //:MessageSend( vSubtask, "CM01006", "Configuration Management",
+            //:             MG_ErrorMessage, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
+            MessageSend( vSubtask, "CM01006", "Configuration Management", MG_ErrorMessage, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
+            //:DropMetaOI( vSubtask, ReturnedHeader )
+            DropMetaOI( vSubtask, ReturnedHeader );
+         } 
+
+         //:END
+      } 
+
+      //:END
+
+      //:// ERD: W_MetaType.Type = 2004 for ERD meta
+      //:IF SourceLPLR.W_MetaType.Type = 2004
+      if ( CompareAttributeToInteger( SourceLPLR, "W_MetaType", "Type", 2004 ) == 0 )
+      { 
+
+         //:// If the ERD doesn't already exist, create it.
+         //:// Otherwise pass the activated ERD to the migrate routine so that entities, attributes and
+         //:// relationships can be merged.
+         //:GET VIEW  CurrentLPLR NAMED "TaskLPLR"
+         RESULT = GetViewByName( &CurrentLPLR, "TaskLPLR", vSubtask, zLEVEL_TASK );
+         //:MetaName = CurrentLPLR.LPLR.Name
+         GetVariableFromAttribute( MetaName, 0, 'S', 33, CurrentLPLR, "LPLR", "Name", "", 0 );
+         //:nRC = ActivateMetaOI_ByName( vSubtask, NewERD, 0, zSOURCE_ERD_META, zSINGLE, MetaName, 0 )
+         nRC = ActivateMetaOI_ByName( vSubtask, &NewERD, 0, zSOURCE_ERD_META, zSINGLE, MetaName, 0 );
+         //:IF nRC < 0
+         if ( nRC < 0 )
+         { 
+            //:ActivateEmptyMetaOI( vSubtask, NewERD, zSOURCE_ERD_META, zSINGLE )
+            ActivateEmptyMetaOI( vSubtask, &NewERD, zSOURCE_ERD_META, zSINGLE );
+         } 
+
+         //:END
+         //:NAME VIEW NewERD "NewERD"
+         SetNameForView( NewERD, "NewERD", 0, zLEVEL_TASK );
+
+         //:MG_ErrorMessage = "Migrating ERD: " + MetaName
+         ZeidonStringCopy( MG_ErrorMessage, 1, 0, "Migrating ERD: ", 1, 0, 251 );
+         ZeidonStringConcat( MG_ErrorMessage, 1, 0, MetaName, 1, 0, 251 );
+         //:MB_SetMessage( vSubtask, 1, MG_ErrorMessage )
+         MB_SetMessage( vSubtask, 1, MG_ErrorMessage );
+         //:ERD_Migrate( NewERD, OrigLPLR, vSubtask )
+         oTZEREMDO_ERD_Migrate( NewERD, &OrigLPLR, vSubtask );
+         //:DropMetaOI( vSubtask, NewERD )
+         DropMetaOI( vSubtask, NewERD );
+         //:ELSE
+      } 
+      else
+      { 
+         //:// KJS 05/02/22 - Maybe this is where we should check... activate the ER, if it doesn't exist, then create one.
+
+         //:// If the ERD doesn't already exist, create it.
+         //:// Otherwise pass the activated ERD to the migrate routine so that entities, attributes and
+         //:// relationships can be merged.
+         //:GET VIEW  CurrentLPLR NAMED "TaskLPLR"
+         RESULT = GetViewByName( &CurrentLPLR, "TaskLPLR", vSubtask, zLEVEL_TASK );
+         //:MetaName = CurrentLPLR.LPLR.Name
+         GetVariableFromAttribute( MetaName, 0, 'S', 33, CurrentLPLR, "LPLR", "Name", "", 0 );
+         //:nRC = ActivateMetaOI_ByName( vSubtask, NewERD, 0, zSOURCE_ERD_META, zSINGLE, MetaName, 0 )
+         nRC = ActivateMetaOI_ByName( vSubtask, &NewERD, 0, zSOURCE_ERD_META, zSINGLE, MetaName, 0 );
+         //:IF nRC < 0
+         if ( nRC < 0 )
+         { 
+            //:ActivateEmptyMetaOI( vSubtask, NewERD, zSOURCE_ERD_META, zSINGLE )
+            ActivateEmptyMetaOI( vSubtask, &NewERD, zSOURCE_ERD_META, zSINGLE );
+            //:CreateMetaEntity( vSubtask, NewERD, "EntpER_Model", zPOS_AFTER )
+            CreateMetaEntity( vSubtask, NewERD, "EntpER_Model", zPOS_AFTER );
+            //:NewERD.EntpER_Model.Name = MetaName
+            SetAttributeFromString( NewERD, "EntpER_Model", "Name", MetaName );
+            //:CreateMetaEntity( vSubtask, NewERD, "ER_Entity", zPOS_AFTER )
+            CreateMetaEntity( vSubtask, NewERD, "ER_Entity", zPOS_AFTER );
+            //:SetAttributeFromString( NewERD, "ER_Entity", "Purpose", "F" )
+            SetAttributeFromString( NewERD, "ER_Entity", "Purpose", "F" );
+            //:SetAttributeFromAttribute( NewERD, "ER_Entity", "Name", CurrentLPLR, "LPLR", "Name" )
+            SetAttributeFromAttribute( NewERD, "ER_Entity", "Name", CurrentLPLR, "LPLR", "Name" );
+            //:CommitMetaOI( vSubtask, NewERD, zSOURCE_ERD_META )
+            CommitMetaOI( vSubtask, NewERD, zSOURCE_ERD_META );
+            //:DropMetaOI( vSubtask, NewERD )
+            DropMetaOI( vSubtask, NewERD );
+         } 
+
+         //:   // We overwrote original MetaName, so get the one we originally had.
+         //: END
+         //: MetaName = SourceLPLR.W_MetaDef.Name         
+         GetVariableFromAttribute( MetaName, 0, 'S', 33, SourceLPLR, "W_MetaDef", "Name", "", 0 );
+      } 
+
+      //:   //NAME VIEW NewERD "NewERD"
+      //:   //NAME VIEW NewERD "TZEREMDO_REF"
+
+      //:          
+      //:   // KJS 05/02/22 - Question... should we activate the ER now, so that it exists when needed for other operations.
+      //:   // And if there is no ER, should we create one?
+      //:   // Was thinking this should happen after looking at the domains/operations, but now I'm not sure.   
+      //:   // Get access to ER Object.
+      //:   /*
+      //:   IF GetViewByName( vTZEREMDO_REF, "TZEREMDO_REF", vSubtask, zLEVEL_TASK ) < 1 
+      //:      RetrieveViewForMetaList( vSubtask, CurrentLPLR, zREFER_ERD_META )
+      //:      IF ( CheckExistenceOfEntity( CurrentLPLR, "W_MetaDef" ) == zCURSOR_SET )
+      //:         ActivateMetaOI( vSubtask, &vTZEREMDO_REF, CurrentLPLR, zREFER_ERD_META, zSINGLE | zLEVEL_APPLICATION )
+      //:         SetNameForView( vTZEREMDO_REF, "TZEREMDO_REF", vSubtask, zLEVEL_TASK )
+      //:      ELSE
+      //:         vTZEREMDO_REF = 0
+      //:      END      
+      //:   END
+      //:   */
+      //:END
+
+      //:// Subject Area: W_MetaType.Type = 2005 for Subject Area meta
+      //:IF SourceLPLR.W_MetaType.Type = 2005
+      if ( CompareAttributeToInteger( SourceLPLR, "W_MetaType", "Type", 2005 ) == 0 )
+      { 
+
+         //:// If the Subject Area doesn't already exist, create it.
+         //:// Otherwise return error message, as we're not going to merge subject areas at this time.
+         //:nRC = ActivateMetaOI_ByName( vSubtask, ReturnedSA, 0, zREFER_SA_META, zSINGLE, MetaName, 0 )
+         nRC = ActivateMetaOI_ByName( vSubtask, &ReturnedSA, 0, zREFER_SA_META, zSINGLE, MetaName, 0 );
+         //:IF nRC < 0
+         if ( nRC < 0 )
+         { 
+            //:MG_ErrorMessage = "Migrating Subject Area: " + MetaName
+            ZeidonStringCopy( MG_ErrorMessage, 1, 0, "Migrating Subject Area: ", 1, 0, 251 );
+            ZeidonStringConcat( MG_ErrorMessage, 1, 0, MetaName, 1, 0, 251 );
+            //:MB_SetMessage( vSubtask, 1, MG_ErrorMessage )
+            MB_SetMessage( vSubtask, 1, MG_ErrorMessage );
+            //:SA_Migrate( ReturnedSA, MetaName, OrigLPLR, vSubtask )
+            oTZERSASO_SA_Migrate( &ReturnedSA, MetaName, OrigLPLR, vSubtask );
+            //:IF ReturnedSA != 0
+            if ( ReturnedSA != 0 )
+            { 
+               //:DropMetaOI( vSubtask, ReturnedSA )
+               DropMetaOI( vSubtask, ReturnedSA );
+            } 
+
+            //:END
+            //:ELSE
+         } 
+         else
+         { 
+            //:MG_ErrorMessage = "Subject Area (" + MetaName + ") already exists."
+            ZeidonStringCopy( MG_ErrorMessage, 1, 0, "Subject Area (", 1, 0, 251 );
+            ZeidonStringConcat( MG_ErrorMessage, 1, 0, MetaName, 1, 0, 251 );
+            ZeidonStringConcat( MG_ErrorMessage, 1, 0, ") already exists.", 1, 0, 251 );
+            //:MessageSend( vSubtask, "CM01011", "Configuration Management",
+            //:             MG_ErrorMessage, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
+            MessageSend( vSubtask, "CM01011", "Configuration Management", MG_ErrorMessage, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
+         } 
+
+         //:END
+      } 
+
+      //:END
+
+      //:// Technical Environment: W_MetaType.Type = 2006 for TE meta
+      //:IF SourceLPLR.W_MetaType.Type = 2006
+      if ( CompareAttributeToInteger( SourceLPLR, "W_MetaType", "Type", 2006 ) == 0 )
+      { 
+
+         //:// If the TE doesn't already exist, create it.
+         //:// Otherwise return error message, as we're not going to merge TEs at this time.
+         //:// Note that the name of the Meta is the name of the LPLR.
+         //:GET VIEW  CurrentLPLR NAMED "TaskLPLR"
+         RESULT = GetViewByName( &CurrentLPLR, "TaskLPLR", vSubtask, zLEVEL_TASK );
+         //:NewTE_Name = CurrentLPLR.LPLR.Name
+         GetVariableFromAttribute( NewTE_Name, 0, 'S', 33, CurrentLPLR, "LPLR", "Name", "", 0 );
+         //:nRC = ActivateMetaOI_ByName( vSubtask, ReturnedTE, 0, zREFER_DTE_META, zSINGLE, NewTE_Name, 0 )
+         nRC = ActivateMetaOI_ByName( vSubtask, &ReturnedTE, 0, zREFER_DTE_META, zSINGLE, NewTE_Name, 0 );
+         //:IF nRC < 0
+         if ( nRC < 0 )
+         { 
+            //:MG_ErrorMessage = "Migrating TE: " + MetaName
+            ZeidonStringCopy( MG_ErrorMessage, 1, 0, "Migrating TE: ", 1, 0, 251 );
+            ZeidonStringConcat( MG_ErrorMessage, 1, 0, MetaName, 1, 0, 251 );
+            //:MB_SetMessage( vSubtask, 1, MG_ErrorMessage )
+            MB_SetMessage( vSubtask, 1, MG_ErrorMessage );
+            //:TE_Migrate( ReturnedTE, MetaName, OrigLPLR, vSubtask )
+            oTZTENVRO_TE_Migrate( &ReturnedTE, MetaName, OrigLPLR, vSubtask );
+            //:IF ReturnedTE != 0
+            if ( ReturnedTE != 0 )
+            { 
+               //:DropMetaOI( vSubtask, ReturnedTE )
+               DropMetaOI( vSubtask, ReturnedTE );
+            } 
+
+            //:END
+            //:ELSE
+         } 
+         else
+         { 
+            //:MG_ErrorMessage = "Technical Environment (" + NewTE_Name + ") already exists."
+            ZeidonStringCopy( MG_ErrorMessage, 1, 0, "Technical Environment (", 1, 0, 251 );
+            ZeidonStringConcat( MG_ErrorMessage, 1, 0, NewTE_Name, 1, 0, 251 );
+            ZeidonStringConcat( MG_ErrorMessage, 1, 0, ") already exists.", 1, 0, 251 );
+            //:MessageSend( vSubtask, "CM01012", "Configuration Management",
+            //:             MG_ErrorMessage, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
+            MessageSend( vSubtask, "CM01012", "Configuration Management", MG_ErrorMessage, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
+            //:DropMetaOI( vSubtask, ReturnedTE )
+            DropMetaOI( vSubtask, ReturnedTE );
+         } 
+
+         //:END
+      } 
+
+      //:END
+
+      //:// LOD: W_MetaType.Type = 2007 for LOD meta
+      //:IF SourceLPLR.W_MetaType.Type = 2007
+      if ( CompareAttributeToInteger( SourceLPLR, "W_MetaType", "Type", 2007 ) == 0 )
+      { 
+
+         //:// Copy over or merge LOD based on value of DoNotMergeFlag for the LOD.
+         //:// If the DoNotMergeFlag is set but the DoNotMergeOperationsFlag is not, we will only merge in Operations.
+         //:// If both are set, we will not do anything to this LOD.
+         //:// If the DoNotMergeFlag is not set, we will delete the old LOD structure and recreate it in totality, including Operations.
+         //:GET VIEW  CurrentLPLR NAMED "TaskLPLR"
+         RESULT = GetViewByName( &CurrentLPLR, "TaskLPLR", vSubtask, zLEVEL_TASK );
+         //:nRC = ActivateMetaOI_ByName( vSubtask, NewLOD, 0, zSOURCE_LOD_META, zSINGLE, MetaName, 0 )
+         nRC = ActivateMetaOI_ByName( vSubtask, &NewLOD, 0, zSOURCE_LOD_META, zSINGLE, MetaName, 0 );
+         //:IF nRC >= 0
+         if ( nRC >= 0 )
+         { 
+            //:SET CURSOR FIRST CurrentLPLR.W_MetaType WHERE CurrentLPLR.W_MetaType.Type = 7
+            RESULT = SetCursorFirstEntityByInteger( CurrentLPLR, "W_MetaType", "Type", 7, "" );
+            //:SET CURSOR FIRST CurrentLPLR.W_MetaDef WHERE CurrentLPLR.W_MetaDef.Name = SourceLPLR.W_MetaDef.Name
+            GetStringFromAttribute( szTempString_0, SourceLPLR, "W_MetaDef", "Name" );
+            RESULT = SetCursorFirstEntityByString( CurrentLPLR, "W_MetaDef", "Name", szTempString_0, "" );
+            //:IF NewLOD.LOD.DoNotMergeFlag = "" AND NewLOD.LOD.DoNotMergeOperationsFlag = ""
+            if ( CompareAttributeToString( NewLOD, "LOD", "DoNotMergeFlag", "" ) == 0 && CompareAttributeToString( NewLOD, "LOD", "DoNotMergeOperationsFlag", "" ) == 0 )
+            { 
+               //:DELETE ENTITY NewLOD.LOD_EntityParent
+               RESULT = DeleteEntity( NewLOD, "LOD_EntityParent", zPOS_NEXT );
+               //:FOR EACH NewLOD.SourceFile
+               RESULT = SetCursorFirstEntity( NewLOD, "SourceFile", "" );
+               while ( RESULT > zCURSOR_UNCHANGED )
+               { 
+                  //:DELETE ENTITY NewLOD.SourceFile NONE
+                  RESULT = DeleteEntity( NewLOD, "SourceFile", zREPOS_NONE );
+                  RESULT = SetCursorNextEntity( NewLOD, "SourceFile", "" );
+               } 
+
+               //:END
+               //:IF NewLOD.POD EXISTS
+               lTempInteger_1 = CheckExistenceOfEntity( NewLOD, "POD" );
+               if ( lTempInteger_1 == 0 )
+               { 
+                  //:DELETE ENTITY NewLOD.POD
+                  RESULT = DeleteEntity( NewLOD, "POD", zPOS_NEXT );
+               } 
+
+               //:END
+               //:IF NewLOD.LOD_ConstraintOper EXISTS
+               lTempInteger_2 = CheckExistenceOfEntity( NewLOD, "LOD_ConstraintOper" );
+               if ( lTempInteger_2 == 0 )
+               { 
+                  //:EXCLUDE NewLOD.LOD_ConstraintOper
+                  RESULT = ExcludeEntity( NewLOD, "LOD_ConstraintOper", zREPOS_AFTER );
+               } 
+
+               //:END
+            } 
+
+            //:END
+            //:NAME VIEW NewLOD "NewLOD"
+            SetNameForView( NewLOD, "NewLOD", 0, zLEVEL_TASK );
+            //:ELSE
+         } 
+         else
+         { 
+            //:ActivateEmptyMetaOI( vSubtask, NewLOD, zSOURCE_LOD_META, zSINGLE )
+            ActivateEmptyMetaOI( vSubtask, &NewLOD, zSOURCE_LOD_META, zSINGLE );
+         } 
+
+         //:END
+         //:NAME VIEW NewLOD "NewLOD"
+         SetNameForView( NewLOD, "NewLOD", 0, zLEVEL_TASK );
+
+         //:// Migrate LOD, unless the request is for both the Structure and Operations to not be merged.
+         //:// If LOD_EntityParent doesn't exist, then this is either a new LOD or the DoNotMergeFlag was not set for an existing LOD.
+         //:IF NewLOD.LOD_EntityParent DOES NOT EXIST OR szDoNotMergeOperationsFlag = ""
+         lTempInteger_3 = CheckExistenceOfEntity( NewLOD, "LOD_EntityParent" );
+         if ( lTempInteger_3 != 0 || ZeidonStringCompare( szDoNotMergeOperationsFlag, 1, 0, "", 1, 0, 2 ) == 0 )
+         { 
+            //:MG_ErrorMessage = "Migrating LOD: " + MetaName
+            ZeidonStringCopy( MG_ErrorMessage, 1, 0, "Migrating LOD: ", 1, 0, 251 );
+            ZeidonStringConcat( MG_ErrorMessage, 1, 0, MetaName, 1, 0, 251 );
+            //:MB_SetMessage( vSubtask, 1, MG_ErrorMessage )
+            MB_SetMessage( vSubtask, 1, MG_ErrorMessage );
+            //:nRC = LOD_Migrate( NewLOD, MetaName, OrigLPLR, vSubtask )
+            nRC = oTZZOLODO_LOD_Migrate( NewLOD, MetaName, OrigLPLR, vSubtask );
+            //:IF nRC < 0
+            if ( nRC < 0 )
+            { 
+               //:MG_ErrorMessage = "LOD (" + MetaName + ") aborted."
+               ZeidonStringCopy( MG_ErrorMessage, 1, 0, "LOD (", 1, 0, 251 );
+               ZeidonStringConcat( MG_ErrorMessage, 1, 0, MetaName, 1, 0, 251 );
+               ZeidonStringConcat( MG_ErrorMessage, 1, 0, ") aborted.", 1, 0, 251 );
+               //:MessageSend( vSubtask, "CM01013", "Configuration Management",
+               //:             MG_ErrorMessage, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
+               MessageSend( vSubtask, "CM01013", "Configuration Management", MG_ErrorMessage, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
+            } 
+
+            //:END
+         } 
+
+         //:END
+         //:DropMetaOI( vSubtask, NewLOD )
+         DropMetaOI( vSubtask, NewLOD );
+      } 
+
+      //:END
+
+      //:// PPE: W_MetaType.Type = 2010 for PPE meta
+      //:IF SourceLPLR.W_MetaType.Type = 2010
+      if ( CompareAttributeToInteger( SourceLPLR, "W_MetaType", "Type", 2010 ) == 0 )
+      { 
+
+         //:// If the PPE doesn't already exist, create it.
+         //:// Otherwise ask for merge.
+         //:nRC = ActivateMetaOI_ByName( vSubtask, ReturnedPPE, 0, zSOURCE_PENV_META, zSINGLE, MetaName, 0 )
+         nRC = ActivateMetaOI_ByName( vSubtask, &ReturnedPPE, 0, zSOURCE_PENV_META, zSINGLE, MetaName, 0 );
+         //:IF nRC < 0
+         if ( nRC < 0 )
+         { 
+            //:MG_ErrorMessage = "Migrating PPE: " + MetaName
+            ZeidonStringCopy( MG_ErrorMessage, 1, 0, "Migrating PPE: ", 1, 0, 251 );
+            ZeidonStringConcat( MG_ErrorMessage, 1, 0, MetaName, 1, 0, 251 );
+            //:MB_SetMessage( vSubtask, 1, MG_ErrorMessage )
+            MB_SetMessage( vSubtask, 1, MG_ErrorMessage );
+            //:nRC = MigratePPE( ReturnedPPE, SourceLPLR, vSubtask )
+            nRC = oTZPESRCO_MigratePPE( &ReturnedPPE, SourceLPLR, vSubtask );
+            //:IF nRC < 0
+            if ( nRC < 0 )
+            { 
+               //:IF nRC = -16  //SourceLPLR has a old PPE
+               if ( nRC == -16 )
+               { 
+                  //:MG_ErrorMessage = "Invalid PPE in Source Project!" + NEW_LINE +
+                  //:                  "New PPE required. Migrating aborted."
+                  ZeidonStringCopy( MG_ErrorMessage, 1, 0, "Invalid PPE in Source Project!", 1, 0, 251 );
+                  ZeidonStringConcat( MG_ErrorMessage, 1, 0, NEW_LINE, 1, 0, 251 );
+                  ZeidonStringConcat( MG_ErrorMessage, 1, 0, "New PPE required. Migrating aborted.", 1, 0, 251 );
+                  //:ELSE
+               } 
+               else
+               { 
+                  //:MG_ErrorMessage = "Migrating of PPE will be aborted."
+                  ZeidonStringCopy( MG_ErrorMessage, 1, 0, "Migrating of PPE will be aborted.", 1, 0, 251 );
+               } 
+
+               //:END
+               //:MessageSend( vSubtask, "CM01013", "Configuration Management",
+               //:             MG_ErrorMessage, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
+               MessageSend( vSubtask, "CM01013", "Configuration Management", MG_ErrorMessage, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
+               //:RETURN nRC
+               return( nRC );
+            } 
+
+            //:END
+            //:ELSE //PPE exists
+         } 
+         else
+         { 
+            //:MG_ErrorMessage = "PPE already exists. Do you want to merge it?"
+            ZeidonStringCopy( MG_ErrorMessage, 1, 0, "PPE already exists. Do you want to merge it?", 1, 0, 251 );
+            //:nRC = MessagePrompt( vSubtask, "CM01014", "Configuration Management",
+            //:                     MG_ErrorMessage, 1,         zBUTTONS_YESNO,
+            //:                     zRESPONSE_YES  ,  0 )
+            nRC = MessagePrompt( vSubtask, "CM01014", "Configuration Management", MG_ErrorMessage, 1, zBUTTONS_YESNO, zRESPONSE_YES, 0 );
+            //:IF nRC = zRESPONSE_YES
+            if ( nRC == zRESPONSE_YES )
+            { 
+               //:MB_SetMessage( vSubtask, 1, "Merging Zeidon.PPE" )
+               MB_SetMessage( vSubtask, 1, "Merging Zeidon.PPE" );
+               //://if Repository Project, check check out status
+               //:nRC1 = ComponentIsCheckedOut( vSubtask, ReturnedPPE, 2010 )
+               nRC1 = ComponentIsCheckedOut( vSubtask, ReturnedPPE, 2010 );
+               //:IF nRC1 = 0
+               if ( nRC1 == 0 )
+               { 
+                  //:MG_ErrorMessage = "PPE is not checked out. Merging aborted."
+                  ZeidonStringCopy( MG_ErrorMessage, 1, 0, "PPE is not checked out. Merging aborted.", 1, 0, 251 );
+                  //:MessageSend( vSubtask, "CM01013", "Configuration Management",
+                  //:             MG_ErrorMessage, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
+                  MessageSend( vSubtask, "CM01013", "Configuration Management", MG_ErrorMessage, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
+                  //:RETURN -1
+                  return( -1 );
+               } 
+
+               //:END
+               //:nRC = MergePPE( ReturnedPPE, SourceLPLR, vSubtask )
+               nRC = oTZPESRCO_MergePPE( ReturnedPPE, SourceLPLR, vSubtask );
+               //:IF nRC < 0
+               if ( nRC < 0 )
+               { 
+                  //:IF nRC = -16  //SourceLPLR has a old PPE
+                  if ( nRC == -16 )
+                  { 
+                     //:MG_ErrorMessage = "Invalid PPE in Source Project! " + NEW_LINE +
+                     //:                  "New PPE required. Merging aborted."
+                     ZeidonStringCopy( MG_ErrorMessage, 1, 0, "Invalid PPE in Source Project! ", 1, 0, 251 );
+                     ZeidonStringConcat( MG_ErrorMessage, 1, 0, NEW_LINE, 1, 0, 251 );
+                     ZeidonStringConcat( MG_ErrorMessage, 1, 0, "New PPE required. Merging aborted.", 1, 0, 251 );
+                     //:MessageSend( vSubtask, "CM01013", "Configuration Management",
+                     //:             MG_ErrorMessage, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
+                     MessageSend( vSubtask, "CM01013", "Configuration Management", MG_ErrorMessage, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
+                  } 
+
+                  //:END
+                  //:IF ReturnedPPE != 0
+                  if ( ReturnedPPE != 0 )
+                  { 
+                     //:DropMetaOI( vSubtask, ReturnedPPE )
+                     DropMetaOI( vSubtask, ReturnedPPE );
+                  } 
+
+                  //:END
+                  //:RETURN nRC
+                  return( nRC );
+               } 
+
+               //:END
+            } 
+
+            //:END
+         } 
+
+         //:END //END IF nRC < 0
+         //:DropMetaOI( vSubtask, ReturnedPPE )
+         DropMetaOI( vSubtask, ReturnedPPE );
+      } 
+
+      //:END
+
+      //:// Dialog: W_MetaType.Type = 2011 for Dialog meta
+      //:IF SourceLPLR.W_MetaType.Type = 2011
+      if ( CompareAttributeToInteger( SourceLPLR, "W_MetaType", "Type", 2011 ) == 0 )
+      { 
+
+         //:// Make sure a valid Presentation Environment exists.
+         //:// If not, exit the operation.
+         //:RetrieveViewForMetaList( vSubtask, CurrentLPLR, zREFER_PENV_META )
+         RetrieveViewForMetaList( vSubtask, &CurrentLPLR, zREFER_PENV_META );
+         //:MG_ErrorMessage = "Dialog (" + MetaName + ") aborted."
+         ZeidonStringCopy( MG_ErrorMessage, 1, 0, "Dialog (", 1, 0, 251 );
+         ZeidonStringConcat( MG_ErrorMessage, 1, 0, MetaName, 1, 0, 251 );
+         ZeidonStringConcat( MG_ErrorMessage, 1, 0, ") aborted.", 1, 0, 251 );
+         //:nRC = LoadZeidonPPE( vSubtask, vPE, zREFER_PENV_META, CurrentLPLR,
+         //:                     "Configuration Management", MG_ErrorMessage )
+         nRC = LoadZeidonPPE( vSubtask, &vPE, zREFER_PENV_META, CurrentLPLR, "Configuration Management", MG_ErrorMessage );
+         //:DropView( CurrentLPLR )
+         DropView( CurrentLPLR );
+         //:IF nRC < 0
+         if ( nRC < 0 )
+         { 
+            //:RETURN -16
+            return( -16 );
+         } 
+
+         //:END
+
+         //:// If the Dialog doesn't already exist, create it.
+         //:// Otherwise return error message.
+         //:nRC = ActivateMetaOI_ByName( vSubtask, NewDialog, 0, zSOURCE_DIALOG_META, zSINGLE, MetaName, 0 )
+         nRC = ActivateMetaOI_ByName( vSubtask, &NewDialog, 0, zSOURCE_DIALOG_META, zSINGLE, MetaName, 0 );
+         //:IF nRC < 0
+         if ( nRC < 0 )
+         { 
+            //:MG_ErrorMessage = "Migrating Dialog: " + MetaName
+            ZeidonStringCopy( MG_ErrorMessage, 1, 0, "Migrating Dialog: ", 1, 0, 251 );
+            ZeidonStringConcat( MG_ErrorMessage, 1, 0, MetaName, 1, 0, 251 );
+            //:MB_SetMessage( vSubtask, 1, MG_ErrorMessage )
+            MB_SetMessage( vSubtask, 1, MG_ErrorMessage );
+            //:ActivateEmptyMetaOI( vSubtask, NewDialog, zSOURCE_DIALOG_META, zSINGLE )
+            ActivateEmptyMetaOI( vSubtask, &NewDialog, zSOURCE_DIALOG_META, zSINGLE );
+            //:NAME VIEW NewDialog "NewDialog"
+            SetNameForView( NewDialog, "NewDialog", 0, zLEVEL_TASK );
+            //:nRC = DialogMigrate( NewDialog, MetaName, OrigLPLR, vSubtask )
+            nRC = oTZWDLGSO_DialogMigrate( NewDialog, MetaName, OrigLPLR, vSubtask );
+            //:IF nRC < 0
+            if ( nRC < 0 )
+            { 
+               //:MG_ErrorMessage = "Dialog (" + MetaName + ") aborted."
+               ZeidonStringCopy( MG_ErrorMessage, 1, 0, "Dialog (", 1, 0, 251 );
+               ZeidonStringConcat( MG_ErrorMessage, 1, 0, MetaName, 1, 0, 251 );
+               ZeidonStringConcat( MG_ErrorMessage, 1, 0, ") aborted.", 1, 0, 251 );
+               //:MessageSend( vSubtask, "CM01016",
+               //:             "Configuration Management",
+               //:             MG_ErrorMessage,
+               //:             zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
+               MessageSend( vSubtask, "CM01016", "Configuration Management", MG_ErrorMessage, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
+            } 
+
+            //:END
+            //:ELSE
+         } 
+         else
+         { 
+            //:MG_ErrorMessage = "Migrating Dialog: " + MetaName
+            ZeidonStringCopy( MG_ErrorMessage, 1, 0, "Migrating Dialog: ", 1, 0, 251 );
+            ZeidonStringConcat( MG_ErrorMessage, 1, 0, MetaName, 1, 0, 251 );
+            //:MB_SetMessage( vSubtask, 1, MG_ErrorMessage )
+            MB_SetMessage( vSubtask, 1, MG_ErrorMessage );
+            //:nRC = DialogMigrate( NewDialog, MetaName, OrigLPLR, vSubtask )
+            nRC = oTZWDLGSO_DialogMigrate( NewDialog, MetaName, OrigLPLR, vSubtask );
+            //:IF nRC < 0
+            if ( nRC < 0 )
+            { 
+               //:MG_ErrorMessage = "Dialog (" + MetaName + ") aborted."
+               ZeidonStringCopy( MG_ErrorMessage, 1, 0, "Dialog (", 1, 0, 251 );
+               ZeidonStringConcat( MG_ErrorMessage, 1, 0, MetaName, 1, 0, 251 );
+               ZeidonStringConcat( MG_ErrorMessage, 1, 0, ") aborted.", 1, 0, 251 );
+               //:MessageSend( vSubtask, "CM01016",
+               //:             "Configuration Management",
+               //:             MG_ErrorMessage,
+               //:             zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
+               MessageSend( vSubtask, "CM01016", "Configuration Management", MG_ErrorMessage, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
+            } 
+
+            //:END
+         } 
+
+         //:END
+         //:DropMetaOI( vSubtask, NewDialog )
+         DropMetaOI( vSubtask, NewDialog );
+      } 
+
+      //:END
+
+      //:// UIS: W_MetaType.Type = 2012 for User Interface Spec meta
+      //:IF SourceLPLR.W_MetaType.Type = 2012
+      if ( CompareAttributeToInteger( SourceLPLR, "W_MetaType", "Type", 2012 ) == 0 )
+      { 
+
+         //:// If the User Spec doesn't already exist, create it.
+         //:// Otherwise return error message.
+         //:nRC = ActivateMetaOI_ByName( vSubtask, ReturnedDialogSpec, 0, zREFER_UIS_META, zSINGLE, MetaName, 0 )
+         nRC = ActivateMetaOI_ByName( vSubtask, &ReturnedDialogSpec, 0, zREFER_UIS_META, zSINGLE, MetaName, 0 );
+         //:IF nRC < 0
+         if ( nRC < 0 )
+         { 
+            //:MG_ErrorMessage = "Migrating User Interface Spec: " + MetaName
+            ZeidonStringCopy( MG_ErrorMessage, 1, 0, "Migrating User Interface Spec: ", 1, 0, 251 );
+            ZeidonStringConcat( MG_ErrorMessage, 1, 0, MetaName, 1, 0, 251 );
+            //:MB_SetMessage( vSubtask, 1, MG_ErrorMessage )
+            MB_SetMessage( vSubtask, 1, MG_ErrorMessage );
+            //:nRC = DialogSpecMigrate( ReturnedDialogSpec,
+            //:                         MetaName, OrigLPLR, vSubtask )
+            nRC = oTZADCSDO_DialogSpecMigrate( &ReturnedDialogSpec, MetaName, OrigLPLR, vSubtask );
+            //:IF ReturnedDialogSpec != 0
+            if ( ReturnedDialogSpec != 0 )
+            { 
+               //:DropMetaOI( vSubtask, ReturnedDialogSpec )
+               DropMetaOI( vSubtask, ReturnedDialogSpec );
+            } 
+
+            //:END
+            //:IF nRC < 0
+            if ( nRC < 0 )
+            { 
+               //:IF  nRC = -16  //PPE does not exists
+               if ( nRC == -16 )
+               { 
+                  //:RETURN nRC
+                  return( nRC );
+                  //:ELSE
+               } 
+               else
+               { 
+                  //:MG_ErrorMessage = "User Interface Spec (" + MetaName + ") aborted."
+                  ZeidonStringCopy( MG_ErrorMessage, 1, 0, "User Interface Spec (", 1, 0, 251 );
+                  ZeidonStringConcat( MG_ErrorMessage, 1, 0, MetaName, 1, 0, 251 );
+                  ZeidonStringConcat( MG_ErrorMessage, 1, 0, ") aborted.", 1, 0, 251 );
+                  //:MessageSend( vSubtask, "CM01018",
+                  //:             "Configuration Management",
+                  //:             MG_ErrorMessage,
+                  //:             zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
+                  MessageSend( vSubtask, "CM01018", "Configuration Management", MG_ErrorMessage, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
+               } 
+
+               //:END
+            } 
+
+            //:END
+            //:ELSE
+         } 
+         else
+         { 
+            //:MG_ErrorMessage = "User Interface Spec (" + MetaName + ") already exists."
+            ZeidonStringCopy( MG_ErrorMessage, 1, 0, "User Interface Spec (", 1, 0, 251 );
+            ZeidonStringConcat( MG_ErrorMessage, 1, 0, MetaName, 1, 0, 251 );
+            ZeidonStringConcat( MG_ErrorMessage, 1, 0, ") already exists.", 1, 0, 251 );
+            //:MessageSend( vSubtask, "CM01019", "Configuration Management",
+            //:             MG_ErrorMessage, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
+            MessageSend( vSubtask, "CM01019", "Configuration Management", MG_ErrorMessage, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
+            //:DropMetaOI( vSubtask, ReturnedDialogSpec )
+            DropMetaOI( vSubtask, ReturnedDialogSpec );
+         } 
+
+         //:END
+      } 
+
+      //:END
+
+      //:// Report: W_MetaType.Type = 2015 for Report Definition meta
+      //:IF SourceLPLR.W_MetaType.Type = 2015
+      if ( CompareAttributeToInteger( SourceLPLR, "W_MetaType", "Type", 2015 ) == 0 )
+      { 
+
+         //:// If the ReportDef doesn't already exist, create it.
+         //:// Otherwise return error message.
+         //:nRC = ActivateMetaOI_ByName( vSubtask, ReturnedReport, 0, zREFER_REPORT_META, zSINGLE, MetaName, 0 )
+         nRC = ActivateMetaOI_ByName( vSubtask, &ReturnedReport, 0, zREFER_REPORT_META, zSINGLE, MetaName, 0 );
+         //:IF nRC < 0
+         if ( nRC < 0 )
+         { 
+            //:MG_ErrorMessage = "Migrating Report Definition: " + MetaName
+            ZeidonStringCopy( MG_ErrorMessage, 1, 0, "Migrating Report Definition: ", 1, 0, 251 );
+            ZeidonStringConcat( MG_ErrorMessage, 1, 0, MetaName, 1, 0, 251 );
+            //:MB_SetMessage( vSubtask, 1, MG_ErrorMessage )
+            MB_SetMessage( vSubtask, 1, MG_ErrorMessage );
+            //:nRC = ReportMigrate( ReturnedReport, MetaName, OrigLPLR, vSubtask )
+            nRC = oTZRPSRCO_ReportMigrate( &ReturnedReport, MetaName, OrigLPLR, vSubtask );
+            //:IF ReturnedReport != 0
+            if ( ReturnedReport != 0 )
+            { 
+               //:DropMetaOI( vSubtask, ReturnedReport )
+               DropMetaOI( vSubtask, ReturnedReport );
+            } 
+
+            //:END
+            //:IF nRC < 0
+            if ( nRC < 0 )
+            { 
+               //:IF  nRC = -16  //PPE does not exists
+               if ( nRC == -16 )
+               { 
+                  //:RETURN nRC
+                  return( nRC );
+                  //:ELSE
+               } 
+               else
+               { 
+                  //:MG_ErrorMessage = "Report Definition (" + MetaName + ") aborted."
+                  ZeidonStringCopy( MG_ErrorMessage, 1, 0, "Report Definition (", 1, 0, 251 );
+                  ZeidonStringConcat( MG_ErrorMessage, 1, 0, MetaName, 1, 0, 251 );
+                  ZeidonStringConcat( MG_ErrorMessage, 1, 0, ") aborted.", 1, 0, 251 );
+                  //:MessageSend( vSubtask, "CM01023",
+                  //:             "Configuration Management",
+                  //:             MG_ErrorMessage,
+                  //:             zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
+                  MessageSend( vSubtask, "CM01023", "Configuration Management", MG_ErrorMessage, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
+               } 
+
+               //:END
+            } 
+
+            //:END
+            //:ELSE
+         } 
+         else
+         { 
+            //:MG_ErrorMessage = "Report Definition (" + MetaName + ") already exists."
+            ZeidonStringCopy( MG_ErrorMessage, 1, 0, "Report Definition (", 1, 0, 251 );
+            ZeidonStringConcat( MG_ErrorMessage, 1, 0, MetaName, 1, 0, 251 );
+            ZeidonStringConcat( MG_ErrorMessage, 1, 0, ") already exists.", 1, 0, 251 );
+            //:MessageSend( vSubtask, "CM01024", "Configuration Management",
+            //:             MG_ErrorMessage, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
+            MessageSend( vSubtask, "CM01024", "Configuration Management", MG_ErrorMessage, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
+            //:DropMetaOI( vSubtask, ReturnedReport )
+            DropMetaOI( vSubtask, ReturnedReport );
+         } 
+
+         //:END
+      } 
+
+      //:END
+
+      //:// XSLT: W_MetaType.Type = 2016 for XSLT Definition meta
+      //:IF SourceLPLR.W_MetaType.Type = 2016
+      if ( CompareAttributeToInteger( SourceLPLR, "W_MetaType", "Type", 2016 ) == 0 )
+      { 
+
+         //:// If the XSLTDef doesn't already exist, create it.
+         //:// Otherwise return error message.
+         //:nRC = ActivateMetaOI_ByName( vSubtask, ReturnedXSLT, 0, zREFER_XSLT_META, zSINGLE, MetaName, 0 )
+         nRC = ActivateMetaOI_ByName( vSubtask, &ReturnedXSLT, 0, zREFER_XSLT_META, zSINGLE, MetaName, 0 );
+         //:IF nRC < 0
+         if ( nRC < 0 )
+         { 
+            //:MG_ErrorMessage = "Migrating XSLT Definition: " + MetaName
+            ZeidonStringCopy( MG_ErrorMessage, 1, 0, "Migrating XSLT Definition: ", 1, 0, 251 );
+            ZeidonStringConcat( MG_ErrorMessage, 1, 0, MetaName, 1, 0, 251 );
+            //:MB_SetMessage( vSubtask, 1, MG_ErrorMessage )
+            MB_SetMessage( vSubtask, 1, MG_ErrorMessage );
+            //://xnRC = XSLT_Migrate( ReturnedXSLT, MetaName, OrigLPLR, vSubtask )
+            //:IF ReturnedXSLT != 0
+            if ( ReturnedXSLT != 0 )
+            { 
+               //:DropMetaOI( vSubtask, ReturnedXSLT )
+               DropMetaOI( vSubtask, ReturnedXSLT );
+            } 
+
+            //:END
+            //:IF nRC < 0
+            if ( nRC < 0 )
+            { 
+               //:IF  nRC = -16  //PPE does not exists
+               if ( nRC == -16 )
+               { 
+                  //:RETURN nRC
+                  return( nRC );
+                  //:ELSE
+               } 
+               else
+               { 
+                  //:MG_ErrorMessage = "XSLT Definition (" + MetaName + ") aborted."
+                  ZeidonStringCopy( MG_ErrorMessage, 1, 0, "XSLT Definition (", 1, 0, 251 );
+                  ZeidonStringConcat( MG_ErrorMessage, 1, 0, MetaName, 1, 0, 251 );
+                  ZeidonStringConcat( MG_ErrorMessage, 1, 0, ") aborted.", 1, 0, 251 );
+                  //:MessageSend( vSubtask, "CM01023",
+                  //:             "Configuration Management",
+                  //:             MG_ErrorMessage,
+                  //:             zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
+                  MessageSend( vSubtask, "CM01023", "Configuration Management", MG_ErrorMessage, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
+               } 
+
+               //:END
+            } 
+
+            //:END
+            //:ELSE
+         } 
+         else
+         { 
+            //:MG_ErrorMessage = "XSLT Definition (" + MetaName + ") already exists."
+            ZeidonStringCopy( MG_ErrorMessage, 1, 0, "XSLT Definition (", 1, 0, 251 );
+            ZeidonStringConcat( MG_ErrorMessage, 1, 0, MetaName, 1, 0, 251 );
+            ZeidonStringConcat( MG_ErrorMessage, 1, 0, ") already exists.", 1, 0, 251 );
+            //:MessageSend( vSubtask, "CM01024", "Configuration Management",
+            //:             MG_ErrorMessage, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
+            MessageSend( vSubtask, "CM01024", "Configuration Management", MG_ErrorMessage, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
+            //:DropMetaOI( vSubtask, ReturnedXSLT )
+            DropMetaOI( vSubtask, ReturnedXSLT );
+         } 
+
+         //:END
+      } 
+
+      //:END
+
+      //:nRC = SetCursorNextSelectedEntity( SourceLPLR, "W_MetaDef", "LPLR" )
+      nRC = SetCursorNextSelectedEntity( SourceLPLR, "W_MetaDef", "LPLR" );
+   } 
+
+
+   //:END
+
+   //:MB_SetMessage( vSubtask, 1, "Migration Complete" )
+   MB_SetMessage( vSubtask, 1, "Migration Complete" );
    return( 0 );
 // END
 } 
@@ -3920,6 +4509,31 @@ BuildTargetLPLR_ListForMerge( zVIEW     vSubtask )
 
 
 //:DIALOG OPERATION
+//:MigrateCompilerSubobjects( VIEW vSubtask )
+
+//:   VIEW SourceLPLR    BASED ON LOD TZCMLPLO
+zOPER_EXPORT zSHORT OPERATION
+MigrateCompilerSubobjects( zVIEW     vSubtask )
+{
+   zVIEW     SourceLPLR = 0; 
+   //:VIEW CurrentLPLR   BASED ON LOD TZCMLPLO
+   zVIEW     CurrentLPLR = 0; 
+   zSHORT    RESULT; 
+
+
+   //:GET VIEW SourceLPLR  NAMED "OrigLPLR"
+   RESULT = GetViewByName( &SourceLPLR, "OrigLPLR", vSubtask, zLEVEL_TASK );
+   //:GET VIEW CurrentLPLR NAMED "TaskLPLR"
+   RESULT = GetViewByName( &CurrentLPLR, "TaskLPLR", vSubtask, zLEVEL_TASK );
+
+   //:CompilerMigrate( CurrentLPLR, SourceLPLR, vSubtask )
+   oTZCMLPLO_CompilerMigrate( CurrentLPLR, SourceLPLR, vSubtask );
+   return( 0 );
+// END
+} 
+
+
+//:DIALOG OPERATION
 //:WRITE_MergeMessagesToFile( VIEW ViewToWindow )
 
 //:   VIEW TaskLPLR REGISTERED AS TaskLPLR  
@@ -3947,10 +4561,57 @@ MERGE_AllLPLR_Metas( zVIEW     ViewToWindow )
 {
    zVIEW     SourceLPLR = 0; 
    zSHORT    RESULT; 
+   //:VIEW TaskLPLR   REGISTERED AS TaskLPLR
+   zVIEW     TaskLPLR = 0; 
+   //:STRING ( 500 ) PromptMessage 
+   zCHAR     PromptMessage[ 501 ] = { 0 }; 
    //:SHORT nRC
    zSHORT    nRC = 0; 
 
    RESULT = GetViewByName( &SourceLPLR, "SourceLPLR", ViewToWindow, zLEVEL_TASK );
+   RESULT = GetViewByName( &TaskLPLR, "TaskLPLR", ViewToWindow, zLEVEL_TASK );
+
+   //:// Prompt User to make sure they are aware of the extence of this function.
+   //:PromptMessage = "Note that this function will ignore any selections and will merge ALL entries into the target LPLR. " + NEW_LINE
+   ZeidonStringCopy( PromptMessage, 1, 0, "Note that this function will ignore any selections and will merge ALL entries into the target LPLR. ", 1, 0, 501 );
+   ZeidonStringConcat( PromptMessage, 1, 0, NEW_LINE, 1, 0, 501 );
+   //:IF TaskLPLR.LPLR.wMergeAllLOD_ER_EntriesFlag = "Y"
+   if ( CompareAttributeToString( TaskLPLR, "LPLR", "wMergeAllLOD_ER_EntriesFlag", "Y" ) == 0 )
+   { 
+      //:PromptMessage = PromptMessage + "Also, the 'Merge LOD ER Data' option IS selected so any LOD entities/attributes tied to the ER in " +
+      //:                                "the source LPLR will generate new entity/attributes into the target LPLR." + NEW_LINE
+      ZeidonStringConcat( PromptMessage, 1, 0, "Also, the 'Merge LOD ER Data' option IS selected so any LOD entities/attributes tied to the ER in ", 1, 0, 501 );
+      ZeidonStringConcat( PromptMessage, 1, 0, "the source LPLR will generate new entity/attributes into the target LPLR.", 1, 0, 501 );
+      ZeidonStringConcat( PromptMessage, 1, 0, NEW_LINE, 1, 0, 501 );
+      //:ELSE
+   } 
+   else
+   { 
+      //:PromptMessage = PromptMessage + "Also, the 'Merge LOD ER Data' option is NOT selected so any LOD entities/attributes tied to " +
+      //:                                "the ER in the source LPLR will NOT be merged into the target LPLR." + NEW_LINE
+      ZeidonStringConcat( PromptMessage, 1, 0, "Also, the 'Merge LOD ER Data' option is NOT selected so any LOD entities/attributes tied to ", 1, 0, 501 );
+      ZeidonStringConcat( PromptMessage, 1, 0, "the ER in the source LPLR will NOT be merged into the target LPLR.", 1, 0, 501 );
+      ZeidonStringConcat( PromptMessage, 1, 0, NEW_LINE, 1, 0, 501 );
+   } 
+
+   //:END
+   //:PromptMessage = PromptMessage + "Do you want to continue Merging All Entries?"
+   ZeidonStringConcat( PromptMessage, 1, 0, "Do you want to continue Merging All Entries?", 1, 0, 501 );
+   //:nRC = MessagePrompt( ViewToWindow, "", "Merge Entries",
+   //:                     PromptMessage, 1,         zBUTTONS_YESNO,
+   //:                     zRESPONSE_YES  ,  0 )
+   nRC = MessagePrompt( ViewToWindow, "", "Merge Entries", PromptMessage, 1, zBUTTONS_YESNO, zRESPONSE_YES, 0 );
+   //:IF nRC = zRESPONSE_NO
+   if ( nRC == zRESPONSE_NO )
+   { 
+      //:MessageSend( ViewToWindow, "", "Merge Entries",
+      //:             "The Merge function is aborted.", zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
+      MessageSend( ViewToWindow, "", "Merge Entries", "The Merge function is aborted.", zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
+      //:RETURN -1
+      return( -1 );
+   } 
+
+   //:END
 
    //:// Select all entries in SourceLPLR and call the MERGE_SelectedLMergeoperation.
    //:// Note we will not select the AD_Base PWD as its mapping can create errors and we don't want 
@@ -3989,19 +4650,21 @@ MERGE_AllLPLR_Metas( zVIEW     ViewToWindow )
 //:LOCAL OPERATION
 //:MergeAllObjectViews( VIEW ViewToWindow )
 
-//:   VIEW TaskLPLR   REGISTERED AS TaskLPLR
+//:   VIEW TaskLPLR    REGISTERED AS TaskLPLR
 static zVOID
 o_MergeAllObjectViews( zVIEW     ViewToWindow )
 {
    zVIEW     TaskLPLR = 0; 
    zSHORT    RESULT; 
-   //:VIEW SourceLPLR BASED ON LOD  TZCMLPLO
+   //:VIEW SourceLPLR  BASED ON LOD  TZCMLPLO
    zVIEW     SourceLPLR = 0; 
-   //:VIEW TZWDVOROS  BASED ON LOD TZWDVORO
+   //:VIEW CurrentLPLR BASED ON LOD  TZCMLPLO
+   zVIEW     CurrentLPLR = 0; 
+   //:VIEW TZWDVOROS   BASED ON LOD  TZWDVORO
    zVIEW     TZWDVOROS = 0; 
-   //:VIEW TZWDVOROT  BASED ON LOD TZWDVORO
+   //:VIEW TZWDVOROT   BASED ON LOD  TZWDVORO
    zVIEW     TZWDVOROT = 0; 
-   //:VIEW TZZOLODO   BASED ON LOD TZZOLODO
+   //:VIEW TZZOLODO    BASED ON LOD  TZZOLODO
    zVIEW     TZZOLODO = 0; 
    //:STRING ( 50 )  szLOD_Name
    zCHAR     szLOD_Name[ 51 ] = { 0 }; 
@@ -4017,14 +4680,15 @@ o_MergeAllObjectViews( zVIEW     ViewToWindow )
    zLONG     nRC = 0; 
    //:INTEGER lZKey
    zLONG     lZKey = 0; 
-   zCHAR     szTempString_0[ 33 ]; 
 
    RESULT = GetViewByName( &TaskLPLR, "TaskLPLR", ViewToWindow, zLEVEL_TASK );
 
    //:// Make sure that an ObjectView exists in the TaskLPLR (the current LPLR) for every ObjectView in the Source LPLR.
 
-   //:GET VIEW SourceLPLR NAMED "OrigLPLR"
+   //:GET VIEW SourceLPLR  NAMED "OrigLPLR"
    RESULT = GetViewByName( &SourceLPLR, "OrigLPLR", ViewToWindow, zLEVEL_TASK );
+   //:GET VIEW CurrentLPLR NAMED "TaskLPLR"
+   RESULT = GetViewByName( &CurrentLPLR, "TaskLPLR", ViewToWindow, zLEVEL_TASK );
 
    //:// Note that update Registered View is W_MetaType 2009.  
    //:SET CURSOR FIRST SourceLPLR.W_MetaType WHERE SourceLPLR.W_MetaType.Type = 2009
@@ -4086,11 +4750,14 @@ o_MergeAllObjectViews( zVIEW     ViewToWindow )
             DropObjectInstance( TZWDVOROT );
             //:DropObjectInstance( TZZOLODO )
             DropObjectInstance( TZZOLODO );
-            //:szMsg = "Registered View, " + TZWDVOROS.ViewObjRef.Name + ", copied."
-            GetVariableFromAttribute( szTempString_0, 0, 'S', 33, TZWDVOROS, "ViewObjRef", "Name", "", 0 );
-            ZeidonStringCopy( szMsg, 1, 0, "Registered View, ", 1, 0, 201 );
-            ZeidonStringConcat( szMsg, 1, 0, szTempString_0, 1, 0, 201 );
-            ZeidonStringConcat( szMsg, 1, 0, ", copied.", 1, 0, 201 );
+
+            //:// Create Registered View Copied message.  (Modified by DonC, 7/12/2024)
+            //:szMsg = "Copied."
+            ZeidonStringCopy( szMsg, 1, 0, "Copied.", 1, 0, 201 );
+            //:CurrentLPLR.LPLR.wMergeMetaType = "Registered View"
+            SetAttributeFromString( CurrentLPLR, "LPLR", "wMergeMetaType", "Registered View" );
+            //:CurrentLPLR.LPLR.wMergeMetaName = TZWDVOROS.ViewObjRef.Name
+            SetAttributeFromAttribute( CurrentLPLR, "LPLR", "wMergeMetaName", TZWDVOROS, "ViewObjRef", "Name" );
             //:CreateErrorMessage( TaskLPLR, szMsg )
             oTZCMLPLO_CreateErrorMessage( TaskLPLR, szMsg );
          } 
@@ -4106,6 +4773,34 @@ o_MergeAllObjectViews( zVIEW     ViewToWindow )
 
    //:END
    return;
+// END
+} 
+
+
+//:DIALOG OPERATION
+//:CLOSE_LPLR_MergeErrors( VIEW ViewToWindow )
+
+//:   VIEW TaskLPLR REGISTERED AS TaskLPLR
+zOPER_EXPORT zSHORT OPERATION
+CLOSE_LPLR_MergeErrors( zVIEW     ViewToWindow )
+{
+   zVIEW     TaskLPLR = 0; 
+   zSHORT    RESULT; 
+
+   RESULT = GetViewByName( &TaskLPLR, "TaskLPLR", ViewToWindow, zLEVEL_TASK );
+
+   //:// Delete current entries in TaskLPLR.ErrorMessage.
+   //:FOR EACH TaskLPLR.ErrorMessage 
+   RESULT = SetCursorFirstEntity( TaskLPLR, "ErrorMessage", "" );
+   while ( RESULT > zCURSOR_UNCHANGED )
+   { 
+      //:DELETE ENTITY TaskLPLR.ErrorMessage NONE  
+      RESULT = DeleteEntity( TaskLPLR, "ErrorMessage", zREPOS_NONE );
+      RESULT = SetCursorNextEntity( TaskLPLR, "ErrorMessage", "" );
+   } 
+
+   //:END
+   return( 0 );
 // END
 } 
 

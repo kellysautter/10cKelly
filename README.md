@@ -1,3 +1,47 @@
+Changes 01/09/25
+* Changed tzlodopr.h #define WHERE_ARRAY_SIZE 30 to #define WHERE_ARRAY_SIZE 100 (long WHERE clauses were causing an error)
+
+Changes 10/08/24
+* Added *.xrp files to this zip
+
+Changes 08/29/24
+* Don C's changes to "Merge" and "Autodesign"
+* Fix to file download processing (also Jasper downloads) where tomcat console displayed the following error:
+  "****  Data ERROR within <form> ***** getOutputStream() has already been called for this response" (Thanks Kindra!)
+
+Change 07/18/24
+* Don C's fixes for Workstation "Merge" processing 
+
+Changes 07/10/24
+* Took out generated js code that included "eval(...". The .focus() can easily be created using javascript in an action.
+  This was taken out becuase eval is not secure and creates issues when using <meta http-equiv="Content-Security-Policy".
+
+Changes 06/26/24
+* Don's changes for Merge and Migrate.
+* Fix in generation of jsp (problem with the logout not going to the logout.jsp on generate for all dialogs).
+
+Changes 06/05/24
+* Forgot to uncomment a line I had commented out when fixing the 05/08/24 issue (with web properties), so all operations
+  were being displayed in the operation drop down on the Update Action window.
+
+Changes 06/04/24
+* Fix for HTML_LinkToAddress from side/top menu options. I had added this but then had issues with some compatibilities... took HTML_LinkToAddress
+  off of the side/top menu options but then added them back. Forgot to uncomment code I had commented out...
+
+Changes 05/08/24
+* Fix for when Control Web Properties won't assign (and you need to close the Window).
+
+Changes 05/3/24
+* Fix for ACTIVATE with many RESTRICTIONS causing weird java error.
+* Latest Autodesign changes changes from Don.
+
+Changes 04/22/24
+* Fix for copy grid crash.
+
+Changes 04/18/24
+* Autodesign fixes/changes by Don.
+* Fix for copy/paste radio group.
+
 Changes 04/25/24
 * There have been many changes that I have not kept up with. 
 * JSP generation changes/fixes

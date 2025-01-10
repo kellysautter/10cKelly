@@ -555,6 +555,9 @@ DomainAddForMerge( VIEW           NewDomainGroup BASED ON LOD TZDGSRCO,
       // Indicate Domain wasn't saved, so that we won't save the LOD or ER.
       //CurrentLPLR.LPLR.wMergeComponentError = "Y"
    //END
+   
+   // Position NewDomainGroup on the Domain just added.
+   SET CURSOR FIRST NewDomainGroup.Domain WHERE NewDomainGroup.Domain.Name = DomainName
 
    DropObjectInstance( OldDomainGroup )
 

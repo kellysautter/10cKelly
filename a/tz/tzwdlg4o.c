@@ -4118,47 +4118,27 @@ oTZWDLGSO_GenerateJSP( zVIEW     vDialog,
    //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 );
 
+   //:// KJS 07/10/24 - Ken Paynter said that 'eval(' statement is not safe. I don't think we need this because we can
+   //:// create javascript on the page. Not necessary for the web.
+   //:/*
    //:szWriteBuffer = "   var szFocusCtrl = document." + szFormName + ".zFocusCtrl.value;"
-   ZeidonStringCopy( szWriteBuffer, 1, 0, "   var szFocusCtrl = document.", 1, 0, 10001 );
-   ZeidonStringConcat( szWriteBuffer, 1, 0, szFormName, 1, 0, 10001 );
-   ZeidonStringConcat( szWriteBuffer, 1, 0, ".zFocusCtrl.value;", 1, 0, 10001 );
-   //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
-   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
-   //:szWriteBuffer = "   if ( szFocusCtrl != ^^ )"
-   ZeidonStringCopy( szWriteBuffer, 1, 0, "   if ( szFocusCtrl != ^^ )", 1, 0, 10001 );
-   //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
-   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   //:szWriteBuffer = "   if ( szFocusCtrl != ^^ && szFocusCtrl != ^null^ && szFocusCtrl != null )"
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
    //:szWriteBuffer = "      eval( 'document." + szFormName + ".' + szFocusCtrl + '.focus( )' );"
-   ZeidonStringCopy( szWriteBuffer, 1, 0, "      eval( 'document.", 1, 0, 10001 );
-   ZeidonStringConcat( szWriteBuffer, 1, 0, szFormName, 1, 0, 10001 );
-   ZeidonStringConcat( szWriteBuffer, 1, 0, ".' + szFocusCtrl + '.focus( )' );", 1, 0, 10001 );
-   //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
-   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
 
    //:// Need to know "first" tab index by the time we get here!
    //:IF szFocusCtrlTag != ""
-   if ( ZeidonStringCompare( szFocusCtrlTag, 1, 0, "", 1, 0, 33 ) != 0 )
-   { 
-      //:szWriteBuffer = "   else"
-      ZeidonStringCopy( szWriteBuffer, 1, 0, "   else", 1, 0, 10001 );
-      //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
-      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
-      //:szWriteBuffer = "      document." + szFormName + "." + szFocusCtrlTag + ".focus( );"
-      ZeidonStringCopy( szWriteBuffer, 1, 0, "      document.", 1, 0, 10001 );
-      ZeidonStringConcat( szWriteBuffer, 1, 0, szFormName, 1, 0, 10001 );
-      ZeidonStringConcat( szWriteBuffer, 1, 0, ".", 1, 0, 10001 );
-      ZeidonStringConcat( szWriteBuffer, 1, 0, szFocusCtrlTag, 1, 0, 10001 );
-      ZeidonStringConcat( szWriteBuffer, 1, 0, ".focus( );", 1, 0, 10001 );
-      //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
-      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
-   } 
-
+   //:   szWriteBuffer = "   else"
+   //:   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   //:   szWriteBuffer = "      document." + szFormName + "." + szFocusCtrlTag + ".focus( );"
+   //:   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
    //:END
 
    //:szWriteBuffer = ""
-   ZeidonStringCopy( szWriteBuffer, 1, 0, "", 1, 0, 10001 );
-   //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 ) // add a blank line
-   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 ) // add a blank line
+   //:*/
    //:szWriteBuffer = "   // This is where we put out a message from the previous iteration on this window"
    ZeidonStringCopy( szWriteBuffer, 1, 0, "   // This is where we put out a message from the previous iteration on this window", 1, 0, 10001 );
    //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
@@ -4272,7 +4252,7 @@ oTZWDLGSO_GenerateJSP( zVIEW     vDialog,
    //:      END
    //:   END
    //:END
-   //:*/ // ePamms needs the above code
+   //:*/ // ePamms needs the above code ... but not in the C world
    //:// If this Window/Page has a "Start Web Popup" Action with mapping, then we need the following code
    //:// to actually start up the Popup, since the script code for the Action had to do the submit to
    //:// do input mapping.
@@ -5130,6 +5110,7 @@ oTZWDLGSO_GenerateJSP( zVIEW     vDialog,
                   //:szJavaScript = vDialog.Action.WebJavaScript
                   GetVariableFromAttribute( szJavaScript, 0, 'S', 10001, vDialog, "Action", "WebJavaScript", "", 0 );
 
+                  //:// dks Note to Kelly 2016.04.26 - Since ePamms is not using C generation, make this do what you want
                   //:// DKS 2015.06.20 - remove prebuild javascript if it is being inserted in _AfterPageLoaded
                   //:IF szInsertPrebuildJavascriptInline = "Y"
                   if ( ZeidonStringCompare( szInsertPrebuildJavascriptInline, 1, 0, "Y", 1, 0, 2 ) == 0 )

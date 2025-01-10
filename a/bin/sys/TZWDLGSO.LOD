@@ -1,4 +1,4 @@
-z1000-Zeidon    TZWDLGSO TZZOLODO 10/23/23   08:56:10 1.0a2    
+z1000-Zeidon    TZWDLGSO TZZOLODO 10/21/24   14:37:11 1.0a2    
 eLOD       1
 aZKey      1325104
 aNextZKeyToAssign 130070187
@@ -3142,7 +3142,7 @@ aDesc      Name of Control Mapping Reference (optional)
 eDomainRec 8
 aZKey      1158762
 aName      MapTypeGeneral
-aDomainType E
+aDomainType T
 aDataType  S
 aMaxStringLth 32
 aDesc      Specify the type of mapping
@@ -14984,6 +14984,8 @@ aSeqOrder  Y
 eER_AttributeRec 4
 aName      wClassNameConvertType
 aZKey      1448506
+aLth       32
+aDesc      KJS changing this to text domain (was MapGeneralType) but keeping the previous length of 32.
 
 eDomainRec 5
 
@@ -15456,7 +15458,7 @@ aContextRestriction N
 eER_EntityRec 3
 
 eLOD_Entity 2
-awkSelectedAttributeForDragSort 9
+awkSelectedAttributeForDragSort 40
 
 eLOD_Attribute 3
 awkSequence 1
@@ -27415,7 +27417,7 @@ i3634      2615
 i3635      176
 i3641      5
 i3644      5
-i3647      657
+i3647      5
 i3649      2960
 i3650      1591
 i3652      2618
@@ -27569,7 +27571,7 @@ i3870      3643
 i3871      5
 i3872      3645
 i3873      3646
-i3874      657
+i3874      5
 i3875      2620
 i3876      2
 i3877      3

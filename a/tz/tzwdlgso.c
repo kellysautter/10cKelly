@@ -91,11 +91,12 @@ oTZWDLGSO_CloneActMap( zVIEW     vSourceLPLR,
    zCHAR     szTempString_0[ 33 ]; 
    zCHAR     szTempString_1[ 33 ]; 
    zCHAR     szTempString_2[ 33 ]; 
+   zCHAR     szTempString_3[ 33 ]; 
    zSHORT    lTempInteger_1; 
    zSHORT    lTempInteger_2; 
-   zCHAR     szTempString_3[ 33 ]; 
    zCHAR     szTempString_4[ 33 ]; 
    zCHAR     szTempString_5[ 33 ]; 
+   zCHAR     szTempString_6[ 33 ]; 
 
    RESULT = GetViewByName( &TaskLPLR, "TaskLPLR", vSourceLPLR, zLEVEL_TASK );
 
@@ -129,10 +130,14 @@ oTZWDLGSO_CloneActMap( zVIEW     vSourceLPLR,
       { 
          //:// Delete the ActMap entity created above since it can't be completed.
          //:// Return Error Message
-         //:szMsg = "ActionMap, '" + vOrigW.ActMapView.Name + "', will not be created because of missing Named View."
-         GetVariableFromAttribute( szTempString_1, 0, 'S', 33, vOrigW, "ActMapView", "Name", "", 0 );
+         //:szMsg = "ActionMap, '" + vOrigW.Window.Tag + "." + vOrigW.ActMapView.Name + 
+         //:        "', will not be created because of missing Named View."
+         GetVariableFromAttribute( szTempString_1, 0, 'S', 33, vOrigW, "Window", "Tag", "", 0 );
          ZeidonStringCopy( szMsg, 1, 0, "ActionMap, '", 1, 0, 201 );
          ZeidonStringConcat( szMsg, 1, 0, szTempString_1, 1, 0, 201 );
+         ZeidonStringConcat( szMsg, 1, 0, ".", 1, 0, 201 );
+         GetVariableFromAttribute( szTempString_2, 0, 'S', 33, vOrigW, "ActMapView", "Name", "", 0 );
+         ZeidonStringConcat( szMsg, 1, 0, szTempString_2, 1, 0, 201 );
          ZeidonStringConcat( szMsg, 1, 0, "', will not be created because of missing Named View.", 1, 0, 201 );
          //:CreateErrorMessage( TaskLPLR, szMsg )
          oTZCMLPLO_CreateErrorMessage( TaskLPLR, szMsg );
@@ -149,8 +154,8 @@ oTZWDLGSO_CloneActMap( zVIEW     vSourceLPLR,
       //:RetrieveViewForMetaList( vSubtask, LOD_List, zREFER_LOD_META )
       RetrieveViewForMetaList( vSubtask, &LOD_List, zREFER_LOD_META );
       //:SET CURSOR FIRST LOD_List.W_MetaDef WHERE  LOD_List.W_MetaDef.Name = vNewW.LOD.Name
-      GetStringFromAttribute( szTempString_2, vNewW, "LOD", "Name" );
-      RESULT = SetCursorFirstEntityByString( LOD_List, "W_MetaDef", "Name", szTempString_2, "" );
+      GetStringFromAttribute( szTempString_3, vNewW, "LOD", "Name" );
+      RESULT = SetCursorFirstEntityByString( LOD_List, "W_MetaDef", "Name", szTempString_3, "" );
       //:IF GetViewByName( vLOD, "TZTMPLOD", vSubtask, zLEVEL_TASK ) > 0
       lTempInteger_1 = GetViewByName( &vLOD, "TZTMPLOD", vSubtask, zLEVEL_TASK );
       if ( lTempInteger_1 > 0 )
@@ -175,8 +180,8 @@ oTZWDLGSO_CloneActMap( zVIEW     vSourceLPLR,
          //:// We assume position on the correct LOD from the ActMapView.
          //:SET CURSOR FIRST vLOD.LOD_Entity
          //:    WHERE  vLOD.LOD_Entity.Name = vOrigW.ActMapLOD_Entity.Name
-         GetStringFromAttribute( szTempString_2, vOrigW, "ActMapLOD_Entity", "Name" );
-         RESULT = SetCursorFirstEntityByString( vLOD, "LOD_Entity", "Name", szTempString_2, "" );
+         GetStringFromAttribute( szTempString_3, vOrigW, "ActMapLOD_Entity", "Name" );
+         RESULT = SetCursorFirstEntityByString( vLOD, "LOD_Entity", "Name", szTempString_3, "" );
          //:IF RESULT >= 0
          if ( RESULT >= 0 )
          { 
@@ -191,18 +196,18 @@ oTZWDLGSO_CloneActMap( zVIEW     vSourceLPLR,
          { 
             //:szMsg = "LOD_Entity, " + vOrigW.ActMapView.Name + "." + vOrigW.ActMapLOD_Entity.Name + ", does not exist. ActMap for Action, " + 
             //:        vNewW.Window.Tag + "." + vNewW.Action.Tag + ", will not be created." 
-            GetVariableFromAttribute( szTempString_2, 0, 'S', 33, vOrigW, "ActMapView", "Name", "", 0 );
+            GetVariableFromAttribute( szTempString_3, 0, 'S', 33, vOrigW, "ActMapView", "Name", "", 0 );
             ZeidonStringCopy( szMsg, 1, 0, "LOD_Entity, ", 1, 0, 201 );
-            ZeidonStringConcat( szMsg, 1, 0, szTempString_2, 1, 0, 201 );
-            ZeidonStringConcat( szMsg, 1, 0, ".", 1, 0, 201 );
-            GetVariableFromAttribute( szTempString_3, 0, 'S', 33, vOrigW, "ActMapLOD_Entity", "Name", "", 0 );
             ZeidonStringConcat( szMsg, 1, 0, szTempString_3, 1, 0, 201 );
-            ZeidonStringConcat( szMsg, 1, 0, ", does not exist. ActMap for Action, ", 1, 0, 201 );
-            GetVariableFromAttribute( szTempString_4, 0, 'S', 33, vNewW, "Window", "Tag", "", 0 );
-            ZeidonStringConcat( szMsg, 1, 0, szTempString_4, 1, 0, 201 );
             ZeidonStringConcat( szMsg, 1, 0, ".", 1, 0, 201 );
-            GetVariableFromAttribute( szTempString_5, 0, 'S', 33, vNewW, "Action", "Tag", "", 0 );
+            GetVariableFromAttribute( szTempString_4, 0, 'S', 33, vOrigW, "ActMapLOD_Entity", "Name", "", 0 );
+            ZeidonStringConcat( szMsg, 1, 0, szTempString_4, 1, 0, 201 );
+            ZeidonStringConcat( szMsg, 1, 0, ", does not exist. ActMap for Action, ", 1, 0, 201 );
+            GetVariableFromAttribute( szTempString_5, 0, 'S', 33, vNewW, "Window", "Tag", "", 0 );
             ZeidonStringConcat( szMsg, 1, 0, szTempString_5, 1, 0, 201 );
+            ZeidonStringConcat( szMsg, 1, 0, ".", 1, 0, 201 );
+            GetVariableFromAttribute( szTempString_6, 0, 'S', 33, vNewW, "Action", "Tag", "", 0 );
+            ZeidonStringConcat( szMsg, 1, 0, szTempString_6, 1, 0, 201 );
             ZeidonStringConcat( szMsg, 1, 0, ", will not be created.", 1, 0, 201 );
             //:CreateErrorMessage( TaskLPLR, szMsg )
             oTZCMLPLO_CreateErrorMessage( TaskLPLR, szMsg );
@@ -1146,21 +1151,23 @@ oTZWDLGSO_CloneCtrlMap( zVIEW     vNewW,
    zVIEW     LOD_List = 0; 
    //:INTEGER       nRC
    zLONG     nRC = 0; 
-   //:STRING ( 64 ) szMsg
-   zCHAR     szMsg[ 65 ] = { 0 }; 
+   //:STRING ( 200 ) szMsg
+   zCHAR     szMsg[ 201 ] = { 0 }; 
    zSHORT    lTempInteger_0; 
    zCHAR     szTempString_0[ 33 ]; 
    zCHAR     szTempString_1[ 33 ]; 
    zCHAR     szTempString_2[ 33 ]; 
    zCHAR     szTempString_3[ 33 ]; 
+   zCHAR     szTempString_4[ 33 ]; 
    zSHORT    lTempInteger_1; 
    zSHORT    lTempInteger_2; 
-   zCHAR     szTempString_4[ 33 ]; 
    zCHAR     szTempString_5[ 33 ]; 
-   zSHORT    lTempInteger_3; 
    zCHAR     szTempString_6[ 33 ]; 
+   zSHORT    lTempInteger_3; 
    zCHAR     szTempString_7[ 33 ]; 
    zCHAR     szTempString_8[ 33 ]; 
+   zCHAR     szTempString_9[ 33 ]; 
+   zCHAR     szTempString_10[ 33 ]; 
 
    RESULT = GetViewByName( &TaskLPLR, "TaskLPLR", vNewW, zLEVEL_TASK );
 
@@ -1195,14 +1202,18 @@ oTZWDLGSO_CloneCtrlMap( zVIEW     vNewW,
       else
       { 
          //:// Return Error Message
-         //:szMsg = "Named View, " + vOrigWC.CtrlMapView.Name + ", does not exist. CtrlMap for Control, " + vOrigWC.Control.Tag + ", will not be created."
+         //:szMsg = "Named View, " + vOrigWC.CtrlMapView.Name + ", does not exist. CtrlMap for Control, " + 
+         //:        vOrigW.Window.Tag + "." + vOrigWC.Control.Tag + ", will not be created."
          GetVariableFromAttribute( szTempString_1, 0, 'S', 33, vOrigWC, "CtrlMapView", "Name", "", 0 );
-         ZeidonStringCopy( szMsg, 1, 0, "Named View, ", 1, 0, 65 );
-         ZeidonStringConcat( szMsg, 1, 0, szTempString_1, 1, 0, 65 );
-         ZeidonStringConcat( szMsg, 1, 0, ", does not exist. CtrlMap for Control, ", 1, 0, 65 );
-         GetVariableFromAttribute( szTempString_2, 0, 'S', 33, vOrigWC, "Control", "Tag", "", 0 );
-         ZeidonStringConcat( szMsg, 1, 0, szTempString_2, 1, 0, 65 );
-         ZeidonStringConcat( szMsg, 1, 0, ", will not be created.", 1, 0, 65 );
+         ZeidonStringCopy( szMsg, 1, 0, "Named View, ", 1, 0, 201 );
+         ZeidonStringConcat( szMsg, 1, 0, szTempString_1, 1, 0, 201 );
+         ZeidonStringConcat( szMsg, 1, 0, ", does not exist. CtrlMap for Control, ", 1, 0, 201 );
+         GetVariableFromAttribute( szTempString_2, 0, 'S', 33, vOrigW, "Window", "Tag", "", 0 );
+         ZeidonStringConcat( szMsg, 1, 0, szTempString_2, 1, 0, 201 );
+         ZeidonStringConcat( szMsg, 1, 0, ".", 1, 0, 201 );
+         GetVariableFromAttribute( szTempString_3, 0, 'S', 33, vOrigWC, "Control", "Tag", "", 0 );
+         ZeidonStringConcat( szMsg, 1, 0, szTempString_3, 1, 0, 201 );
+         ZeidonStringConcat( szMsg, 1, 0, ", will not be created.", 1, 0, 201 );
          //:CreateErrorMessage( TaskLPLR, szMsg )
          oTZCMLPLO_CreateErrorMessage( TaskLPLR, szMsg );
 
@@ -1226,8 +1237,8 @@ oTZWDLGSO_CloneCtrlMap( zVIEW     vNewW,
       RetrieveViewForMetaList( vSubtask, &LOD_List, zREFER_LOD_META );
       //:SET CURSOR FIRST LOD_List.W_MetaDef
       //:   WHERE  LOD_List.W_MetaDef.Name = vNewW.LOD.Name
-      GetStringFromAttribute( szTempString_3, vNewW, "LOD", "Name" );
-      RESULT = SetCursorFirstEntityByString( LOD_List, "W_MetaDef", "Name", szTempString_3, "" );
+      GetStringFromAttribute( szTempString_4, vNewW, "LOD", "Name" );
+      RESULT = SetCursorFirstEntityByString( LOD_List, "W_MetaDef", "Name", szTempString_4, "" );
 
       //:IF GetViewByName( vLOD, "TZTMPLOD", vSubtask, zLEVEL_TASK ) > 0
       lTempInteger_1 = GetViewByName( &vLOD, "TZTMPLOD", vSubtask, zLEVEL_TASK );
@@ -1258,8 +1269,8 @@ oTZWDLGSO_CloneCtrlMap( zVIEW     vNewW,
       GetViewByName( &vLOD, "TZTMPLOD", vSubtask, zLEVEL_TASK );
       //:SET CURSOR FIRST vLOD.LOD_Entity
       //:    WHERE  vLOD.LOD_Entity.Name = vOrigWC.CtrlMapLOD_Entity.Name 
-      GetStringFromAttribute( szTempString_3, vOrigWC, "CtrlMapLOD_Entity", "Name" );
-      RESULT = SetCursorFirstEntityByString( vLOD, "LOD_Entity", "Name", szTempString_3, "" );
+      GetStringFromAttribute( szTempString_4, vOrigWC, "CtrlMapLOD_Entity", "Name" );
+      RESULT = SetCursorFirstEntityByString( vLOD, "LOD_Entity", "Name", szTempString_4, "" );
       //:IF RESULT >= 0
       if ( RESULT >= 0 )
       { 
@@ -1271,18 +1282,18 @@ oTZWDLGSO_CloneCtrlMap( zVIEW     vNewW,
       else
       { 
          //:szMsg = "LOD_Entity, " + vOrigWC.CtrlMapLOD_Entity.Name + ", does not exist." + 
-         //:        " CtrlMap for Control, " + vOrigWC.CtrlMapView.Name + "." + vOrigWC.Control.Tag + ", will not be created."
-         GetVariableFromAttribute( szTempString_3, 0, 'S', 33, vOrigWC, "CtrlMapLOD_Entity", "Name", "", 0 );
-         ZeidonStringCopy( szMsg, 1, 0, "LOD_Entity, ", 1, 0, 65 );
-         ZeidonStringConcat( szMsg, 1, 0, szTempString_3, 1, 0, 65 );
-         ZeidonStringConcat( szMsg, 1, 0, ", does not exist.", 1, 0, 65 );
-         ZeidonStringConcat( szMsg, 1, 0, " CtrlMap for Control, ", 1, 0, 65 );
-         GetVariableFromAttribute( szTempString_4, 0, 'S', 33, vOrigWC, "CtrlMapView", "Name", "", 0 );
-         ZeidonStringConcat( szMsg, 1, 0, szTempString_4, 1, 0, 65 );
-         ZeidonStringConcat( szMsg, 1, 0, ".", 1, 0, 65 );
-         GetVariableFromAttribute( szTempString_5, 0, 'S', 33, vOrigWC, "Control", "Tag", "", 0 );
-         ZeidonStringConcat( szMsg, 1, 0, szTempString_5, 1, 0, 65 );
-         ZeidonStringConcat( szMsg, 1, 0, ", will not be created.", 1, 0, 65 );
+         //:        " CtrlMap for Control, " + vOrigW.Window.Tag + "." + vOrigWC.Control.Tag + ", will not be created."
+         GetVariableFromAttribute( szTempString_4, 0, 'S', 33, vOrigWC, "CtrlMapLOD_Entity", "Name", "", 0 );
+         ZeidonStringCopy( szMsg, 1, 0, "LOD_Entity, ", 1, 0, 201 );
+         ZeidonStringConcat( szMsg, 1, 0, szTempString_4, 1, 0, 201 );
+         ZeidonStringConcat( szMsg, 1, 0, ", does not exist.", 1, 0, 201 );
+         ZeidonStringConcat( szMsg, 1, 0, " CtrlMap for Control, ", 1, 0, 201 );
+         GetVariableFromAttribute( szTempString_5, 0, 'S', 33, vOrigW, "Window", "Tag", "", 0 );
+         ZeidonStringConcat( szMsg, 1, 0, szTempString_5, 1, 0, 201 );
+         ZeidonStringConcat( szMsg, 1, 0, ".", 1, 0, 201 );
+         GetVariableFromAttribute( szTempString_6, 0, 'S', 33, vOrigWC, "Control", "Tag", "", 0 );
+         ZeidonStringConcat( szMsg, 1, 0, szTempString_6, 1, 0, 201 );
+         ZeidonStringConcat( szMsg, 1, 0, ", will not be created.", 1, 0, 201 );
          //:CreateErrorMessage( TaskLPLR, szMsg )
          oTZCMLPLO_CreateErrorMessage( TaskLPLR, szMsg );
 
@@ -1314,8 +1325,8 @@ oTZWDLGSO_CloneCtrlMap( zVIEW     vNewW,
       //:// We assume position on the correct LOD from the CtrlMapView.
       //:SET CURSOR FIRST vLOD.LOD_Entity
       //:    WHERE  vLOD.LOD_Entity.Name = vOrigWC.CtrlMapRelatedEntity.Name
-      GetStringFromAttribute( szTempString_6, vOrigWC, "CtrlMapRelatedEntity", "Name" );
-      RESULT = SetCursorFirstEntityByString( vLOD, "LOD_Entity", "Name", szTempString_6, "" );
+      GetStringFromAttribute( szTempString_7, vOrigWC, "CtrlMapRelatedEntity", "Name" );
+      RESULT = SetCursorFirstEntityByString( vLOD, "LOD_Entity", "Name", szTempString_7, "" );
       //:IF RESULT >= 0
       if ( RESULT >= 0 )
       { 
@@ -1327,18 +1338,21 @@ oTZWDLGSO_CloneCtrlMap( zVIEW     vNewW,
       else
       { 
          //:szMsg = "LOD_Entity, " + vOrigWC.CtrlMapView.Name + "." + vOrigWC.CtrlMapRelatedEntity.Name + ", does not exist." + 
-         //:        " CtrlMap for Control, " + vOrigWC.Control.Tag + ", will not be created."
-         GetVariableFromAttribute( szTempString_6, 0, 'S', 33, vOrigWC, "CtrlMapView", "Name", "", 0 );
-         ZeidonStringCopy( szMsg, 1, 0, "LOD_Entity, ", 1, 0, 65 );
-         ZeidonStringConcat( szMsg, 1, 0, szTempString_6, 1, 0, 65 );
-         ZeidonStringConcat( szMsg, 1, 0, ".", 1, 0, 65 );
-         GetVariableFromAttribute( szTempString_7, 0, 'S', 33, vOrigWC, "CtrlMapRelatedEntity", "Name", "", 0 );
-         ZeidonStringConcat( szMsg, 1, 0, szTempString_7, 1, 0, 65 );
-         ZeidonStringConcat( szMsg, 1, 0, ", does not exist.", 1, 0, 65 );
-         ZeidonStringConcat( szMsg, 1, 0, " CtrlMap for Control, ", 1, 0, 65 );
-         GetVariableFromAttribute( szTempString_8, 0, 'S', 33, vOrigWC, "Control", "Tag", "", 0 );
-         ZeidonStringConcat( szMsg, 1, 0, szTempString_8, 1, 0, 65 );
-         ZeidonStringConcat( szMsg, 1, 0, ", will not be created.", 1, 0, 65 );
+         //:        " CtrlMap for Control, " + vOrigW.Window.Tag + "." + vOrigWC.Control.Tag + ", will not be created."
+         GetVariableFromAttribute( szTempString_7, 0, 'S', 33, vOrigWC, "CtrlMapView", "Name", "", 0 );
+         ZeidonStringCopy( szMsg, 1, 0, "LOD_Entity, ", 1, 0, 201 );
+         ZeidonStringConcat( szMsg, 1, 0, szTempString_7, 1, 0, 201 );
+         ZeidonStringConcat( szMsg, 1, 0, ".", 1, 0, 201 );
+         GetVariableFromAttribute( szTempString_8, 0, 'S', 33, vOrigWC, "CtrlMapRelatedEntity", "Name", "", 0 );
+         ZeidonStringConcat( szMsg, 1, 0, szTempString_8, 1, 0, 201 );
+         ZeidonStringConcat( szMsg, 1, 0, ", does not exist.", 1, 0, 201 );
+         ZeidonStringConcat( szMsg, 1, 0, " CtrlMap for Control, ", 1, 0, 201 );
+         GetVariableFromAttribute( szTempString_9, 0, 'S', 33, vOrigW, "Window", "Tag", "", 0 );
+         ZeidonStringConcat( szMsg, 1, 0, szTempString_9, 1, 0, 201 );
+         ZeidonStringConcat( szMsg, 1, 0, ".", 1, 0, 201 );
+         GetVariableFromAttribute( szTempString_10, 0, 'S', 33, vOrigWC, "Control", "Tag", "", 0 );
+         ZeidonStringConcat( szMsg, 1, 0, szTempString_10, 1, 0, 201 );
+         ZeidonStringConcat( szMsg, 1, 0, ", will not be created.", 1, 0, 201 );
          //:CreateErrorMessage( TaskLPLR, szMsg )
          oTZCMLPLO_CreateErrorMessage( TaskLPLR, szMsg );
 
@@ -1484,8 +1498,8 @@ oTZWDLGSO_CloneOptMap( zVIEW     vSourceLPLR,
    zVIEW     LOD_List = 0; 
    //:INTEGER       nRC
    zLONG     nRC = 0; 
-   //:STRING ( 64 ) szMsg
-   zCHAR     szMsg[ 65 ] = { 0 }; 
+   //:STRING ( 200 ) szMsg
+   zCHAR     szMsg[ 201 ] = { 0 }; 
    zSHORT    lTempInteger_0; 
    zCHAR     szTempString_0[ 33 ]; 
    zCHAR     szTempString_1[ 33 ]; 
@@ -1538,12 +1552,12 @@ oTZWDLGSO_CloneOptMap( zVIEW     vSourceLPLR,
          //:// Return Error Message
          //:szMsg = "OptionMap, '" + vNewW.Window.Tag + "." + vOrigWO.OptMapView.Name + "', will not be created because of missing Named View."
          GetVariableFromAttribute( szTempString_1, 0, 'S', 33, vNewW, "Window", "Tag", "", 0 );
-         ZeidonStringCopy( szMsg, 1, 0, "OptionMap, '", 1, 0, 65 );
-         ZeidonStringConcat( szMsg, 1, 0, szTempString_1, 1, 0, 65 );
-         ZeidonStringConcat( szMsg, 1, 0, ".", 1, 0, 65 );
+         ZeidonStringCopy( szMsg, 1, 0, "OptionMap, '", 1, 0, 201 );
+         ZeidonStringConcat( szMsg, 1, 0, szTempString_1, 1, 0, 201 );
+         ZeidonStringConcat( szMsg, 1, 0, ".", 1, 0, 201 );
          GetVariableFromAttribute( szTempString_2, 0, 'S', 33, vOrigWO, "OptMapView", "Name", "", 0 );
-         ZeidonStringConcat( szMsg, 1, 0, szTempString_2, 1, 0, 65 );
-         ZeidonStringConcat( szMsg, 1, 0, "', will not be created because of missing Named View.", 1, 0, 65 );
+         ZeidonStringConcat( szMsg, 1, 0, szTempString_2, 1, 0, 201 );
+         ZeidonStringConcat( szMsg, 1, 0, "', will not be created because of missing Named View.", 1, 0, 201 );
          //:CreateErrorMessage( TaskLPLR, szMsg )
          oTZCMLPLO_CreateErrorMessage( TaskLPLR, szMsg );
          //:RETURN 
@@ -1588,18 +1602,18 @@ oTZWDLGSO_CloneOptMap( zVIEW     vSourceLPLR,
          //:szMsg ="LOD_Entity, " + vNewWO.OptMapView.Name + "."  + vOrigWO.OptMapRelatedEntity.Name + ", does not exist. OptMap for Option, " + 
          //:        vNewW.Window.Tag + "." + vNewW.Option.Tag + ", will not be created."
          GetVariableFromAttribute( szTempString_3, 0, 'S', 33, vNewWO, "OptMapView", "Name", "", 0 );
-         ZeidonStringCopy( szMsg, 1, 0, "LOD_Entity, ", 1, 0, 65 );
-         ZeidonStringConcat( szMsg, 1, 0, szTempString_3, 1, 0, 65 );
-         ZeidonStringConcat( szMsg, 1, 0, ".", 1, 0, 65 );
+         ZeidonStringCopy( szMsg, 1, 0, "LOD_Entity, ", 1, 0, 201 );
+         ZeidonStringConcat( szMsg, 1, 0, szTempString_3, 1, 0, 201 );
+         ZeidonStringConcat( szMsg, 1, 0, ".", 1, 0, 201 );
          GetVariableFromAttribute( szTempString_4, 0, 'S', 33, vOrigWO, "OptMapRelatedEntity", "Name", "", 0 );
-         ZeidonStringConcat( szMsg, 1, 0, szTempString_4, 1, 0, 65 );
-         ZeidonStringConcat( szMsg, 1, 0, ", does not exist. OptMap for Option, ", 1, 0, 65 );
+         ZeidonStringConcat( szMsg, 1, 0, szTempString_4, 1, 0, 201 );
+         ZeidonStringConcat( szMsg, 1, 0, ", does not exist. OptMap for Option, ", 1, 0, 201 );
          GetVariableFromAttribute( szTempString_5, 0, 'S', 33, vNewW, "Window", "Tag", "", 0 );
-         ZeidonStringConcat( szMsg, 1, 0, szTempString_5, 1, 0, 65 );
-         ZeidonStringConcat( szMsg, 1, 0, ".", 1, 0, 65 );
+         ZeidonStringConcat( szMsg, 1, 0, szTempString_5, 1, 0, 201 );
+         ZeidonStringConcat( szMsg, 1, 0, ".", 1, 0, 201 );
          GetVariableFromAttribute( szTempString_6, 0, 'S', 33, vNewW, "Option", "Tag", "", 0 );
-         ZeidonStringConcat( szMsg, 1, 0, szTempString_6, 1, 0, 65 );
-         ZeidonStringConcat( szMsg, 1, 0, ", will not be created.", 1, 0, 65 );
+         ZeidonStringConcat( szMsg, 1, 0, szTempString_6, 1, 0, 201 );
+         ZeidonStringConcat( szMsg, 1, 0, ", will not be created.", 1, 0, 201 );
          //:CreateErrorMessage( TaskLPLR, szMsg )
          oTZCMLPLO_CreateErrorMessage( TaskLPLR, szMsg );
          //:DELETE ENTITY vNewWO.OptMap
@@ -1882,8 +1896,8 @@ oTZWDLGSO_CtrlAttributeMapping( zVIEW     vSubtask,
    zVIEW     vDomain = 0; 
    //:VIEW DomainList BASED ON LOD  TZCMLPLO
    zVIEW     DomainList = 0; 
-   //:STRING ( 64 ) szMsg
-   zCHAR     szMsg[ 65 ] = { 0 }; 
+   //:STRING ( 200 ) szMsg
+   zCHAR     szMsg[ 201 ] = { 0 }; 
    zCHAR     szTempString_0[ 33 ]; 
    zSHORT    lTempInteger_0; 
    zLONG     lTempInteger_1; 
@@ -1921,6 +1935,8 @@ oTZWDLGSO_CtrlAttributeMapping( zVIEW     vSubtask,
          RESULT = SetCursorFirstEntityByInteger( vSourceLPLR, "W_MetaDef", "CPLR_ZKey", lTempInteger_1, "" );
          //:RetrieveViewForMetaList( vSubtask, DomainList, zREFER_DOMAIN_META )
          RetrieveViewForMetaList( vSubtask, &DomainList, zREFER_DOMAIN_META );
+         //:NAME VIEW DomainList "DomainListCtrl"
+         SetNameForView( DomainList, "DomainListCtrl", 0, zLEVEL_TASK );
          //:SET CURSOR FIRST DomainList.W_MetaDef WHERE DomainList.W_MetaDef.Name = vSourceLPLR.W_MetaDef.Name
          GetStringFromAttribute( szTempString_0, vSourceLPLR, "W_MetaDef", "Name" );
          RESULT = SetCursorFirstEntityByString( DomainList, "W_MetaDef", "Name", szTempString_0, "" );
@@ -1929,6 +1945,8 @@ oTZWDLGSO_CtrlAttributeMapping( zVIEW     vSubtask,
          { 
             //:ActivateMetaOI( vSubtask, vDomain, DomainList, zREFER_DOMAIN_META, zSINGLE )
             ActivateMetaOI( vSubtask, &vDomain, DomainList, zREFER_DOMAIN_META, zSINGLE );
+            //:NAME VIEW vDomain "vDomainContextMap"
+            SetNameForView( vDomain, "vDomainContextMap", 0, zLEVEL_TASK );
             //:SET CURSOR FIRST vDomain.Context WHERE vDomain.Context.Name = vOrigWC.CtrlMapContext.Name
             GetStringFromAttribute( szTempString_0, vOrigWC, "CtrlMapContext", "Name" );
             RESULT = SetCursorFirstEntityByString( vDomain, "Context", "Name", szTempString_0, "" );
@@ -1944,12 +1962,12 @@ oTZWDLGSO_CtrlAttributeMapping( zVIEW     vSubtask,
             { 
                //:szMsg = "Context, " + vOrigWC.CtrlMapContext.Name + ", does not exist within Domain, " + vSourceLPLR.W_MetaDef.Name + ". Context will not be created."       
                GetVariableFromAttribute( szTempString_0, 0, 'S', 33, vOrigWC, "CtrlMapContext", "Name", "", 0 );
-               ZeidonStringCopy( szMsg, 1, 0, "Context, ", 1, 0, 65 );
-               ZeidonStringConcat( szMsg, 1, 0, szTempString_0, 1, 0, 65 );
-               ZeidonStringConcat( szMsg, 1, 0, ", does not exist within Domain, ", 1, 0, 65 );
+               ZeidonStringCopy( szMsg, 1, 0, "Context, ", 1, 0, 201 );
+               ZeidonStringConcat( szMsg, 1, 0, szTempString_0, 1, 0, 201 );
+               ZeidonStringConcat( szMsg, 1, 0, ", does not exist within Domain, ", 1, 0, 201 );
                GetVariableFromAttribute( szTempString_1, 0, 'S', 33, vSourceLPLR, "W_MetaDef", "Name", "", 0 );
-               ZeidonStringConcat( szMsg, 1, 0, szTempString_1, 1, 0, 65 );
-               ZeidonStringConcat( szMsg, 1, 0, ". Context will not be created.", 1, 0, 65 );
+               ZeidonStringConcat( szMsg, 1, 0, szTempString_1, 1, 0, 201 );
+               ZeidonStringConcat( szMsg, 1, 0, ". Context will not be created.", 1, 0, 201 );
                //:CreateErrorMessage( TaskLPLR, szMsg )
                oTZCMLPLO_CreateErrorMessage( TaskLPLR, szMsg );
             } 
@@ -1963,12 +1981,12 @@ oTZWDLGSO_CtrlAttributeMapping( zVIEW     vSubtask,
          { 
             //:szMsg = "Domain, " + vSourceLPLR.W_MetaDef.Name + ", does not exist, Context, " + vOrigWC.CtrlMapContext.Name + ", will not be created."
             GetVariableFromAttribute( szTempString_2, 0, 'S', 33, vSourceLPLR, "W_MetaDef", "Name", "", 0 );
-            ZeidonStringCopy( szMsg, 1, 0, "Domain, ", 1, 0, 65 );
-            ZeidonStringConcat( szMsg, 1, 0, szTempString_2, 1, 0, 65 );
-            ZeidonStringConcat( szMsg, 1, 0, ", does not exist, Context, ", 1, 0, 65 );
+            ZeidonStringCopy( szMsg, 1, 0, "Domain, ", 1, 0, 201 );
+            ZeidonStringConcat( szMsg, 1, 0, szTempString_2, 1, 0, 201 );
+            ZeidonStringConcat( szMsg, 1, 0, ", does not exist, Context, ", 1, 0, 201 );
             GetVariableFromAttribute( szTempString_3, 0, 'S', 33, vOrigWC, "CtrlMapContext", "Name", "", 0 );
-            ZeidonStringConcat( szMsg, 1, 0, szTempString_3, 1, 0, 65 );
-            ZeidonStringConcat( szMsg, 1, 0, ", will not be created.", 1, 0, 65 );
+            ZeidonStringConcat( szMsg, 1, 0, szTempString_3, 1, 0, 201 );
+            ZeidonStringConcat( szMsg, 1, 0, ", will not be created.", 1, 0, 201 );
             //:CreateErrorMessage( TaskLPLR, szMsg )
             oTZCMLPLO_CreateErrorMessage( TaskLPLR, szMsg );
          } 
@@ -1986,15 +2004,15 @@ oTZWDLGSO_CtrlAttributeMapping( zVIEW     vSubtask,
       //:szMsg = "ER_Attribute, " + vOrigWC.CtrlMapView.Name + "." + vOrigWC.CtrlMapRelatedEntity.Name + "." + vOrigWC.CtrlMapER_Attribute.Name + 
       //:        ", does not exist and will not be created."
       GetVariableFromAttribute( szTempString_4, 0, 'S', 33, vOrigWC, "CtrlMapView", "Name", "", 0 );
-      ZeidonStringCopy( szMsg, 1, 0, "ER_Attribute, ", 1, 0, 65 );
-      ZeidonStringConcat( szMsg, 1, 0, szTempString_4, 1, 0, 65 );
-      ZeidonStringConcat( szMsg, 1, 0, ".", 1, 0, 65 );
+      ZeidonStringCopy( szMsg, 1, 0, "ER_Attribute, ", 1, 0, 201 );
+      ZeidonStringConcat( szMsg, 1, 0, szTempString_4, 1, 0, 201 );
+      ZeidonStringConcat( szMsg, 1, 0, ".", 1, 0, 201 );
       GetVariableFromAttribute( szTempString_5, 0, 'S', 33, vOrigWC, "CtrlMapRelatedEntity", "Name", "", 0 );
-      ZeidonStringConcat( szMsg, 1, 0, szTempString_5, 1, 0, 65 );
-      ZeidonStringConcat( szMsg, 1, 0, ".", 1, 0, 65 );
+      ZeidonStringConcat( szMsg, 1, 0, szTempString_5, 1, 0, 201 );
+      ZeidonStringConcat( szMsg, 1, 0, ".", 1, 0, 201 );
       GetVariableFromAttribute( szTempString_6, 0, 'S', 33, vOrigWC, "CtrlMapER_Attribute", "Name", "", 0 );
-      ZeidonStringConcat( szMsg, 1, 0, szTempString_6, 1, 0, 65 );
-      ZeidonStringConcat( szMsg, 1, 0, ", does not exist and will not be created.", 1, 0, 65 );
+      ZeidonStringConcat( szMsg, 1, 0, szTempString_6, 1, 0, 201 );
+      ZeidonStringConcat( szMsg, 1, 0, ", does not exist and will not be created.", 1, 0, 201 );
       //:CreateErrorMessage( TaskLPLR, szMsg )
       oTZCMLPLO_CreateErrorMessage( TaskLPLR, szMsg );
    } 
@@ -2241,6 +2259,8 @@ oTZWDLGSO_MergeWebMenus( zVIEW     vNewW,
    zVIEW     TZDLG_List = 0; 
    //:VIEW TZWND_List BASED ON LOD  TZWDLGSO
    zVIEW     TZWND_List = 0; 
+   //:VIEW TempDialog BASED ON LOD  TZWDLGSO
+   zVIEW     TempDialog = 0; 
    //:STRING ( 200 ) szMsg
    zCHAR     szMsg[ 201 ] = { 0 }; 
    //:INTEGER nRC
@@ -2248,9 +2268,7 @@ oTZWDLGSO_MergeWebMenus( zVIEW     vNewW,
    zSHORT    lTempInteger_0; 
    zSHORT    lTempInteger_1; 
    zCHAR     szTempString_0[ 33 ]; 
-   zCHAR     szTempString_1[ 33 ]; 
    zSHORT    lTempInteger_2; 
-   zCHAR     szTempString_2[ 33 ]; 
    zSHORT    lTempInteger_3; 
    zSHORT    lTempInteger_4; 
    zSHORT    lTempInteger_5; 
@@ -2312,20 +2330,37 @@ oTZWDLGSO_MergeWebMenus( zVIEW     vNewW,
          //:IF RESULT < zCURSOR_SET
          if ( RESULT < zCURSOR_SET )
          { 
+            //:// Modified by DonC on 7/18/2024 so that the target LPLR on a Merge Dialog does not have to contain
+            //:// the Dialog holding the reusable menu.
+            //:// To handle this situation, we will create a temporary Dialog with a Window entity to be used as
+            //:// the source of the include creating the ReusableSideWindow.
+            //:ACTIVATE TempDialog EMPTY 
+            RESULT = ActivateEmptyObjectInstance( &TempDialog, "TZWDLGSO", vNewW, zSINGLE );
+            //:NAME VIEW TempDialog "TempDialog"
+            SetNameForView( TempDialog, "TempDialog", 0, zLEVEL_TASK );
+            //:CREATE ENTITY TempDialog.Dialog 
+            RESULT = CreateEntity( TempDialog, "Dialog", zPOS_AFTER );
+            //:TempDialog.Dialog.ZKey = 1   // Use a Zkey value that would never get relinked with an incorrect Dialog.
+            SetAttributeFromInteger( TempDialog, "Dialog", "ZKey", 1 );
+            //:TempDialog.Dialog.Tag  = vOrigW.ReusableSideDialog.Tag
+            SetAttributeFromAttribute( TempDialog, "Dialog", "Tag", vOrigW, "ReusableSideDialog", "Tag" );
+            //:CREATE ENTITY TempDialog.Window 
+            RESULT = CreateEntity( TempDialog, "Window", zPOS_AFTER );
+            //:TempDialog.Window.ZKey = 2
+            SetAttributeFromInteger( TempDialog, "Window", "ZKey", 2 );
+            //:TempDialog.Window.Tag  = vOrigW.ReusableSideWindow.Tag  
+            SetAttributeFromAttribute( TempDialog, "Window", "Tag", vOrigW, "ReusableSideWindow", "Tag" );
+            //:INCLUDE vNewW.ReusableSideWindow FROM TempDialog.Window
+            RESULT = IncludeSubobjectFromSubobject( vNewW, "ReusableSideWindow", TempDialog, "Window", zPOS_AFTER );
+            //:DropObjectInstance( TempDialog )
+            DropObjectInstance( TempDialog );
+
             //:// The Dialog holding the Menu does not exist in the target LPLR, so return an error message.
-            //:szMsg = "Dialog defining Menu, '" + vOrigW.ReusableSideDialog.Tag + "." + vOrigW.ReusableSideWindow.Tag +
-            //:        "', does not exist in target LPLR and will not be copied."
-            GetVariableFromAttribute( szTempString_0, 0, 'S', 33, vOrigW, "ReusableSideDialog", "Tag", "", 0 );
-            ZeidonStringCopy( szMsg, 1, 0, "Dialog defining Menu, '", 1, 0, 201 );
-            ZeidonStringConcat( szMsg, 1, 0, szTempString_0, 1, 0, 201 );
-            ZeidonStringConcat( szMsg, 1, 0, ".", 1, 0, 201 );
-            GetVariableFromAttribute( szTempString_1, 0, 'S', 33, vOrigW, "ReusableSideWindow", "Tag", "", 0 );
-            ZeidonStringConcat( szMsg, 1, 0, szTempString_1, 1, 0, 201 );
-            ZeidonStringConcat( szMsg, 1, 0, "', does not exist in target LPLR and will not be copied.", 1, 0, 201 );
-            //:CreateErrorMessage( TaskLPLR, szMsg )
-            oTZCMLPLO_CreateErrorMessage( TaskLPLR, szMsg );
-            //:RETURN -1
-            return( -1 );
+            //://szMsg = "Dialog, " + vOrigW.Dialog.Tag + ", uses Menu, '" + 
+            //://        vOrigW.ReusableSideDialog.Tag + "." + vOrigW.ReusableSideWindow.Tag +
+            //://        "', which does not exist in target LPLR and will thus not be copied."
+            //://CreateErrorMessage( TaskLPLR, szMsg )
+            //://RETURN -2
             //:ELSE
          } 
          else
@@ -2387,8 +2422,8 @@ oTZWDLGSO_MergeWebMenus( zVIEW     vNewW,
             { 
                //:SET CURSOR FIRST TZWND_List.Window
                //:           WHERE TZWND_List.Window.Tag = vOrigW.ReusableSideWindow.Tag
-               GetStringFromAttribute( szTempString_2, vOrigW, "ReusableSideWindow", "Tag" );
-               RESULT = SetCursorFirstEntityByString( TZWND_List, "Window", "Tag", szTempString_2, "" );
+               GetStringFromAttribute( szTempString_0, vOrigW, "ReusableSideWindow", "Tag" );
+               RESULT = SetCursorFirstEntityByString( TZWND_List, "Window", "Tag", szTempString_0, "" );
                //:IF RESULT >= zCURSOR_SET
                if ( RESULT >= zCURSOR_SET )
                { 
@@ -2425,8 +2460,8 @@ oTZWDLGSO_MergeWebMenus( zVIEW     vNewW,
          CreateViewFromView( &TZWND_List, vNewW );
          //:SET CURSOR FIRST TZWND_List.Window
          //:           WHERE TZWND_List.Window.Tag = vOrigW.ReusableMainWindow.Tag
-         GetStringFromAttribute( szTempString_2, vOrigW, "ReusableMainWindow", "Tag" );
-         RESULT = SetCursorFirstEntityByString( TZWND_List, "Window", "Tag", szTempString_2, "" );
+         GetStringFromAttribute( szTempString_0, vOrigW, "ReusableMainWindow", "Tag" );
+         RESULT = SetCursorFirstEntityByString( TZWND_List, "Window", "Tag", szTempString_0, "" );
          //:IF RESULT >= zCURSOR_SET
          if ( RESULT >= zCURSOR_SET )
          { 
@@ -2443,8 +2478,8 @@ oTZWDLGSO_MergeWebMenus( zVIEW     vNewW,
       { 
          //:SET CURSOR FIRST TZDLG_List.W_MetaDef
          //:           WHERE TZDLG_List.W_MetaDef.Name = vOrigW.ReusableMainDialog.Tag
-         GetStringFromAttribute( szTempString_2, vOrigW, "ReusableMainDialog", "Tag" );
-         RESULT = SetCursorFirstEntityByString( TZDLG_List, "W_MetaDef", "Name", szTempString_2, "" );
+         GetStringFromAttribute( szTempString_0, vOrigW, "ReusableMainDialog", "Tag" );
+         RESULT = SetCursorFirstEntityByString( TZDLG_List, "W_MetaDef", "Name", szTempString_0, "" );
          //:IF RESULT >= zCURSOR_SET
          if ( RESULT >= zCURSOR_SET )
          { 
@@ -2505,8 +2540,8 @@ oTZWDLGSO_MergeWebMenus( zVIEW     vNewW,
             { 
                //:SET CURSOR FIRST TZWND_List.Window
                //:           WHERE TZWND_List.Window.Tag = vOrigW.ReusableMainWindow.Tag
-               GetStringFromAttribute( szTempString_2, vOrigW, "ReusableMainWindow", "Tag" );
-               RESULT = SetCursorFirstEntityByString( TZWND_List, "Window", "Tag", szTempString_2, "" );
+               GetStringFromAttribute( szTempString_0, vOrigW, "ReusableMainWindow", "Tag" );
+               RESULT = SetCursorFirstEntityByString( TZWND_List, "Window", "Tag", szTempString_0, "" );
                //:IF RESULT >= zCURSOR_SET
                if ( RESULT >= zCURSOR_SET )
                { 
@@ -2557,8 +2592,8 @@ oTZWDLGSO_OptAttributeMapping( zVIEW     vSubtask,
    zVIEW     vDomain = 0; 
    //:VIEW DomainList BASED ON LOD  TZCMLPLO
    zVIEW     DomainList = 0; 
-   //:STRING ( 64 ) szMsg
-   zCHAR     szMsg[ 65 ] = { 0 }; 
+   //:STRING ( 200 ) szMsg
+   zCHAR     szMsg[ 201 ] = { 0 }; 
    zCHAR     szTempString_0[ 33 ]; 
    zSHORT    lTempInteger_0; 
    zLONG     lTempInteger_1; 
@@ -2594,6 +2629,8 @@ oTZWDLGSO_OptAttributeMapping( zVIEW     vSubtask,
          RESULT = SetCursorFirstEntityByInteger( vSourceLPLR, "W_MetaDef", "CPLR_ZKey", lTempInteger_1, "" );
          //:RetrieveViewForMetaList( vSubtask, DomainList, zREFER_DOMAIN_META )
          RetrieveViewForMetaList( vSubtask, &DomainList, zREFER_DOMAIN_META );
+         //:NAME VIEW DomainList "DomainListOpt"
+         SetNameForView( DomainList, "DomainListOpt", 0, zLEVEL_TASK );
          //:SET CURSOR FIRST DomainList.W_MetaDef WHERE DomainList.W_MetaDef.Name = vSourceLPLR.W_MetaDef.Name
          GetStringFromAttribute( szTempString_0, vSourceLPLR, "W_MetaDef", "Name" );
          RESULT = SetCursorFirstEntityByString( DomainList, "W_MetaDef", "Name", szTempString_0, "" );
@@ -2617,12 +2654,12 @@ oTZWDLGSO_OptAttributeMapping( zVIEW     vSubtask,
             { 
                //:szMsg = "Context, " + vOrigWO.OptMapContext.Name + ", does not exist within Domain, " + vSourceLPLR.W_MetaDef.Name + ". Context will not be created."   
                GetVariableFromAttribute( szTempString_0, 0, 'S', 33, vOrigWO, "OptMapContext", "Name", "", 0 );
-               ZeidonStringCopy( szMsg, 1, 0, "Context, ", 1, 0, 65 );
-               ZeidonStringConcat( szMsg, 1, 0, szTempString_0, 1, 0, 65 );
-               ZeidonStringConcat( szMsg, 1, 0, ", does not exist within Domain, ", 1, 0, 65 );
+               ZeidonStringCopy( szMsg, 1, 0, "Context, ", 1, 0, 201 );
+               ZeidonStringConcat( szMsg, 1, 0, szTempString_0, 1, 0, 201 );
+               ZeidonStringConcat( szMsg, 1, 0, ", does not exist within Domain, ", 1, 0, 201 );
                GetVariableFromAttribute( szTempString_1, 0, 'S', 33, vSourceLPLR, "W_MetaDef", "Name", "", 0 );
-               ZeidonStringConcat( szMsg, 1, 0, szTempString_1, 1, 0, 65 );
-               ZeidonStringConcat( szMsg, 1, 0, ". Context will not be created.", 1, 0, 65 );
+               ZeidonStringConcat( szMsg, 1, 0, szTempString_1, 1, 0, 201 );
+               ZeidonStringConcat( szMsg, 1, 0, ". Context will not be created.", 1, 0, 201 );
                //:CreateErrorMessage( TaskLPLR, szMsg )
                oTZCMLPLO_CreateErrorMessage( TaskLPLR, szMsg );
                //:RETURN -1
@@ -2638,12 +2675,12 @@ oTZWDLGSO_OptAttributeMapping( zVIEW     vSubtask,
          { 
             //:szMsg = "Domain, " + vSourceLPLR.W_MetaDef.Name + ", does not exist, Context, " + vOrigWO.OptMapContext.Name + ", will not be created."
             GetVariableFromAttribute( szTempString_2, 0, 'S', 33, vSourceLPLR, "W_MetaDef", "Name", "", 0 );
-            ZeidonStringCopy( szMsg, 1, 0, "Domain, ", 1, 0, 65 );
-            ZeidonStringConcat( szMsg, 1, 0, szTempString_2, 1, 0, 65 );
-            ZeidonStringConcat( szMsg, 1, 0, ", does not exist, Context, ", 1, 0, 65 );
+            ZeidonStringCopy( szMsg, 1, 0, "Domain, ", 1, 0, 201 );
+            ZeidonStringConcat( szMsg, 1, 0, szTempString_2, 1, 0, 201 );
+            ZeidonStringConcat( szMsg, 1, 0, ", does not exist, Context, ", 1, 0, 201 );
             GetVariableFromAttribute( szTempString_3, 0, 'S', 33, vOrigWO, "OptMapContext", "Name", "", 0 );
-            ZeidonStringConcat( szMsg, 1, 0, szTempString_3, 1, 0, 65 );
-            ZeidonStringConcat( szMsg, 1, 0, ", will not be created.", 1, 0, 65 );
+            ZeidonStringConcat( szMsg, 1, 0, szTempString_3, 1, 0, 201 );
+            ZeidonStringConcat( szMsg, 1, 0, ", will not be created.", 1, 0, 201 );
             //:CreateErrorMessage( TaskLPLR, szMsg )
             oTZCMLPLO_CreateErrorMessage( TaskLPLR, szMsg );
             //:RETURN -1
@@ -2662,15 +2699,15 @@ oTZWDLGSO_OptAttributeMapping( zVIEW     vSubtask,
    { 
       //:szMsg = "ER_Attribute, " + vOrigWO.OptMapView.Name + "." + vOrigWO.OptMapRelatedEntity.Name + "." + vOrigWO.OptMapER_Attribute.Name + ", does not exist and will not be created."
       GetVariableFromAttribute( szTempString_4, 0, 'S', 33, vOrigWO, "OptMapView", "Name", "", 0 );
-      ZeidonStringCopy( szMsg, 1, 0, "ER_Attribute, ", 1, 0, 65 );
-      ZeidonStringConcat( szMsg, 1, 0, szTempString_4, 1, 0, 65 );
-      ZeidonStringConcat( szMsg, 1, 0, ".", 1, 0, 65 );
+      ZeidonStringCopy( szMsg, 1, 0, "ER_Attribute, ", 1, 0, 201 );
+      ZeidonStringConcat( szMsg, 1, 0, szTempString_4, 1, 0, 201 );
+      ZeidonStringConcat( szMsg, 1, 0, ".", 1, 0, 201 );
       GetVariableFromAttribute( szTempString_5, 0, 'S', 33, vOrigWO, "OptMapRelatedEntity", "Name", "", 0 );
-      ZeidonStringConcat( szMsg, 1, 0, szTempString_5, 1, 0, 65 );
-      ZeidonStringConcat( szMsg, 1, 0, ".", 1, 0, 65 );
+      ZeidonStringConcat( szMsg, 1, 0, szTempString_5, 1, 0, 201 );
+      ZeidonStringConcat( szMsg, 1, 0, ".", 1, 0, 201 );
       GetVariableFromAttribute( szTempString_6, 0, 'S', 33, vOrigWO, "OptMapER_Attribute", "Name", "", 0 );
-      ZeidonStringConcat( szMsg, 1, 0, szTempString_6, 1, 0, 65 );
-      ZeidonStringConcat( szMsg, 1, 0, ", does not exist and will not be created.", 1, 0, 65 );
+      ZeidonStringConcat( szMsg, 1, 0, szTempString_6, 1, 0, 201 );
+      ZeidonStringConcat( szMsg, 1, 0, ", does not exist and will not be created.", 1, 0, 201 );
       //:CreateErrorMessage( TaskLPLR, szMsg )
       oTZCMLPLO_CreateErrorMessage( TaskLPLR, szMsg );
       //:RETURN -1
@@ -3149,7 +3186,6 @@ oTZWDLGSO_DialogMigrate( zVIEW     NewDialog,
    zVIEW     TZDLG_List = 0; 
    //:VIEW OldDialog   BASED ON LOD TZWDLGSO
    zVIEW     OldDialog = 0; 
-
    //:STRING ( 513 ) SourceFileName            // zMAX_FILESPEC_LTH+1
    zCHAR     SourceFileName[ 514 ] = { 0 }; 
    //:STRING ( 32 )  SourceName
@@ -3181,9 +3217,16 @@ oTZWDLGSO_DialogMigrate( zVIEW     NewDialog,
    ZeidonStringConcat( SourceFileName, 1, 0, DialogName, 1, 0, 514 );
    ZeidonStringConcat( SourceFileName, 1, 0, ".PWD", 1, 0, 514 );
 
-   //:ActivateOI_FromFile( OldDialog, "TZWDLGSO", SourceLPLR, SourceFileName, 8192 )
-   ActivateOI_FromFile( &OldDialog, "TZWDLGSO", SourceLPLR, SourceFileName, 8192 );
-   //:// 8192 is zIGNORE_ATTRIB_ERRORS
+   //:nRC = ActivateOI_FromFile( OldDialog, "TZWDLGSO", SourceLPLR, SourceFileName, 8192 )   // 8192 is zIGNORE_ATTRIB_ERRORS
+   nRC = ActivateOI_FromFile( &OldDialog, "TZWDLGSO", SourceLPLR, SourceFileName, 8192 );
+   //:IF nRC < 0
+   if ( nRC < 0 )
+   { 
+      //:RETURN nRC
+      return( nRC );
+   } 
+
+   //:END
    //:NAME VIEW OldDialog "OldDialog"
    SetNameForView( OldDialog, "OldDialog", 0, zLEVEL_TASK );
 
@@ -3277,8 +3320,20 @@ oTZWDLGSO_DialogMigrate( zVIEW     NewDialog,
       //:IF RESULT >= zCURSOR_SET
       if ( RESULT >= zCURSOR_SET )
       { 
-         //:MergeWebMenus( NewDialog, OldDialog, vSubtask )
-         oTZWDLGSO_MergeWebMenus( NewDialog, OldDialog, vSubtask );
+         //:nRC = MergeWebMenus( NewDialog, OldDialog, vSubtask )
+         nRC = oTZWDLGSO_MergeWebMenus( NewDialog, OldDialog, vSubtask );
+         //:IF nRC = -2
+         if ( nRC == -2 )
+         { 
+            //:MessageSend( vSubtask, "", "LPLR Migrate",
+            //:             "Because of Copy Menu errors, this function is aborted. See Merge Errors window for more detail.", 
+            //:             zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
+            MessageSend( vSubtask, "", "LPLR Migrate", "Because of Copy Menu errors, this function is aborted. See Merge Errors window for more detail.", zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
+            //:RETURN -2
+            return( -2 );
+         } 
+
+         //:END
       } 
 
       RESULT = SetCursorNextEntity( OldDialog, "Window", "" );

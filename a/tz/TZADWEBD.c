@@ -249,13 +249,6 @@ zOPER_EXPORT zSHORT OPERATION
 SELECT_AutodesignGroupTemplate( zVIEW     ViewToWindow );
 
 
-static zVOID
-o_InitializeUpdateGroupsForCSS( zVIEW     AD_Base,
-                                zVIEW     TZADWWKO,
-                                zPCHAR    szBaseWindowName,
-                                zPCHAR    szBaseGroupName );
-
-
 static zLONG
 o_CloneControlAD( zVIEW     ViewToWindow,
                   zVIEW     TZCONTROL,
@@ -397,6 +390,18 @@ GOTO_MultiGroupSubSpec( zVIEW     ViewToWindow );
 
 zOPER_EXPORT zSHORT OPERATION
 SELECT_MultiPageMGP_Object( zVIEW     ViewToWindow );
+
+
+zOPER_EXPORT zSHORT OPERATION
+PostbuildAutodesignCRM_Subdialog( zVIEW     ViewToWindow );
+
+
+zOPER_EXPORT zSHORT OPERATION
+SELECT_ExactMatchAttribute( zVIEW     ViewToWindow );
+
+
+zOPER_EXPORT zSHORT OPERATION
+ACCEPT_DashboardGroup( zVIEW     ViewToWindow );
 
 
 //:LOCAL OPERATION
@@ -1211,27 +1216,54 @@ ACCEPT_GroupListWInclude( zVIEW     ViewToWindow )
    zLONG     nRC = 0; 
    zSHORT    lTempInteger_0; 
    zSHORT    lTempInteger_1; 
+   zSHORT    lTempInteger_2; 
 
    RESULT = GetViewByName( &TZADWWKO, "TZADWWKO", ViewToWindow, zLEVEL_TASK );
    RESULT = GetViewByName( &TZCONTROL, "TZCONTROL", ViewToWindow, zLEVEL_TASK );
    RESULT = GetViewByName( &TZWINDOWL, "TZWINDOWL", ViewToWindow, zLEVEL_TASK );
 
-   //:// Make sure that both the Search and Include MetaDef entries have been selected.
-   //:IF TZADWWKO.ESG_ListSearchW_MetaDef DOES NOT EXIST OR 
-   lTempInteger_0 = CheckExistenceOfEntity( TZADWWKO, "ESG_ListSearchW_MetaDef" );
-   //:   TZADWWKO.ESG_ListIncludeW_MetaDef DOES NOT EXIST
-   lTempInteger_1 = CheckExistenceOfEntity( TZADWWKO, "ESG_ListIncludeW_MetaDef" );
-   if ( lTempInteger_0 != 0 || lTempInteger_1 != 0 )
+   //:// For ListGroupwInclude Type, make sure Include MetaDef entr been selected.
+   //:IF TZADWWKO.AutoDesignWork.SelectedGroupType = "ListGroupwInclude"
+   if ( CompareAttributeToString( TZADWWKO, "AutoDesignWork", "SelectedGroupType", "ListGroupwInclude" ) == 0 )
    { 
+      //:IF TZADWWKO.ESG_ListIncludeW_MetaDef DOES NOT EXIST
+      lTempInteger_0 = CheckExistenceOfEntity( TZADWWKO, "ESG_ListIncludeW_MetaDef" );
+      if ( lTempInteger_0 != 0 )
+      { 
+         //:MessageSend( ViewToWindow, "", "Autodesign Subdialog",
+         //:             "An Include object must be selected.",
+         //:             zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
+         MessageSend( ViewToWindow, "", "Autodesign Subdialog", "An Include object must be selected.", zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
+         //:SetWindowActionBehavior( ViewToWindow, zWAB_StayOnWindow, 0,0 )
+         SetWindowActionBehavior( ViewToWindow, zWAB_StayOnWindow, 0, 0 );
+         //:RETURN -2
+         return( -2 );
+      } 
 
-      //:MessageSend( ViewToWindow, "", "Autodesign Subdialog",
-      //:             "Both a Search and Include object must be selected.",
-      //:             zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
-      MessageSend( ViewToWindow, "", "Autodesign Subdialog", "Both a Search and Include object must be selected.", zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
-      //:SetWindowActionBehavior( ViewToWindow, zWAB_StayOnWindow, 0,0 )
-      SetWindowActionBehavior( ViewToWindow, zWAB_StayOnWindow, 0, 0 );
-      //:RETURN -2
-      return( -2 );
+      //:END
+      //:ELSE
+   } 
+   else
+   { 
+      //:// For the others, make sure that both the Search and Include MetaDef entries have been selected.
+      //:IF TZADWWKO.ESG_ListSearchW_MetaDef DOES NOT EXIST OR 
+      lTempInteger_1 = CheckExistenceOfEntity( TZADWWKO, "ESG_ListSearchW_MetaDef" );
+      //:   TZADWWKO.ESG_ListIncludeW_MetaDef DOES NOT EXIST
+      lTempInteger_2 = CheckExistenceOfEntity( TZADWWKO, "ESG_ListIncludeW_MetaDef" );
+      if ( lTempInteger_1 != 0 || lTempInteger_2 != 0 )
+      { 
+
+         //:MessageSend( ViewToWindow, "", "Autodesign Subdialog",
+         //:             "Both a Search and Include object must be selected.",
+         //:             zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
+         MessageSend( ViewToWindow, "", "Autodesign Subdialog", "Both a Search and Include object must be selected.", zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
+         //:SetWindowActionBehavior( ViewToWindow, zWAB_StayOnWindow, 0,0 )
+         SetWindowActionBehavior( ViewToWindow, zWAB_StayOnWindow, 0, 0 );
+         //:RETURN -2
+         return( -2 );
+      } 
+
+      //:END
    } 
 
    //:END
@@ -1620,6 +1652,7 @@ SELECT_FindSearchObject( zVIEW     ViewToWindow )
    //:SHORT nRC
    zSHORT    nRC = 0; 
    zSHORT    lTempInteger_0; 
+   zLONG     lTempInteger_1; 
 
    RESULT = GetViewByName( &TZADWWKO, "TZADWWKO", ViewToWindow, zLEVEL_TASK );
 
@@ -1673,6 +1706,21 @@ SELECT_FindSearchObject( zVIEW     ViewToWindow )
    GetVariableFromAttribute( szEntityName, 0, 'S', 51, SearchLOD, "LOD_EntityParent", "Name", "", 0 );
    //:BuildAD_GroupPotAttrList( TZADWWKO, SearchLOD, szEntityName, "" )
    o_BuildAD_GroupPotAttrList( TZADWWKO, SearchLOD, szEntityName, "" );
+
+   //:// Clear any existing TZADWWKO.PotentialExactMatchAttribute entries and rebuild them from the root Entity.
+   //:SET CURSOR FIRST SearchLOD.LOD_Entity WHERE SearchLOD.LOD_Entity.ZKey = SearchLOD.LOD_EntityParent.ZKey  
+   GetIntegerFromAttribute( &lTempInteger_1, SearchLOD, "LOD_EntityParent", "ZKey" );
+   RESULT = SetCursorFirstEntityByInteger( SearchLOD, "LOD_Entity", "ZKey", lTempInteger_1, "" );
+   //:FOR EACH SearchLOD.LOD_Attribute 
+   RESULT = SetCursorFirstEntity( SearchLOD, "LOD_Attribute", "" );
+   while ( RESULT > zCURSOR_UNCHANGED )
+   { 
+      //:INCLUDE TZADWWKO.PotentialExactMatchAttribute FROM SearchLOD.LOD_Attribute 
+      RESULT = IncludeSubobjectFromSubobject( TZADWWKO, "PotentialExactMatchAttribute", SearchLOD, "LOD_Attribute", zPOS_AFTER );
+      RESULT = SetCursorNextEntity( SearchLOD, "LOD_Attribute", "" );
+   } 
+
+   //:END
    return( 0 );
 // END
 } 
@@ -1696,7 +1744,6 @@ PostbuildAutodesignFindSubdialog( zVIEW     ViewToWindow )
    //:SHORT nRC
    zSHORT    nRC = 0; 
    zSHORT    lTempInteger_0; 
-   zSHORT    lTempInteger_1; 
 
    RESULT = GetViewByName( &TZWINDOWL, "TZWINDOWL", ViewToWindow, zLEVEL_TASK );
 
@@ -1721,6 +1768,8 @@ PostbuildAutodesignFindSubdialog( zVIEW     ViewToWindow )
       RESULT = CreateEntity( TZADWWKO, "AutodesignSubdialog", zPOS_AFTER );
       //:CREATE ENTITY TZADWWKO.EntitySubGroup  
       RESULT = CreateEntity( TZADWWKO, "EntitySubGroup", zPOS_AFTER );
+      //:InitializeL_SymbolType( TZADWWKO )
+      oTZADWWKO_InitializeL_SymbolType( TZADWWKO );
 
       //:// Remove any existing Autodesign entries from TZWINDOWL.
       //:IF TZWINDOWL.AutoDesignWindow EXISTS
@@ -1757,52 +1806,6 @@ PostbuildAutodesignFindSubdialog( zVIEW     ViewToWindow )
    } 
 
    //:END
-
-   //:// Make sure the list of Contact List Domain Types exists.
-   //:IF TZADWWKO.ContactListTypeDomain DOES NOT EXIST
-   lTempInteger_1 = CheckExistenceOfEntity( TZADWWKO, "ContactListTypeDomain" );
-   if ( lTempInteger_1 != 0 )
-   { 
-      //:// Get the list of ContactListType Domain values.
-      //:nRC = ActivateMetaOI_ByName( ViewToWindow, CL_Domain, 0, zREFER_DOMAIN_META, zSINGLE, "ContactListType", 0 )
-      nRC = ActivateMetaOI_ByName( ViewToWindow, &CL_Domain, 0, zREFER_DOMAIN_META, zSINGLE, "ContactListType", 0 );
-      //:IF nRC <0
-      if ( nRC < 0 )
-      { 
-         //:MessageSend( ViewToWindow, "", "Autodesign Subdialog",
-         //:             "Domain ContactListType.",
-         //:             zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
-         MessageSend( ViewToWindow, "", "Autodesign Subdialog", "Domain ContactListType.", zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
-         //:RETURN -2
-         return( -2 );
-      } 
-
-      //:END
-      //:NAME VIEW CL_Domain "CL_Domain"
-      SetNameForView( CL_Domain, "CL_Domain", 0, zLEVEL_TASK );
-      //:CREATE ENTITY TZADWWKO.ContactListTypeDomain   // Create empty entry.
-      RESULT = CreateEntity( TZADWWKO, "ContactListTypeDomain", zPOS_AFTER );
-      //:FOR EACH CL_Domain.TableEntry 
-      RESULT = SetCursorFirstEntity( CL_Domain, "TableEntry", "" );
-      while ( RESULT > zCURSOR_UNCHANGED )
-      { 
-         //:CREATE ENTITY TZADWWKO.ContactListTypeDomain 
-         RESULT = CreateEntity( TZADWWKO, "ContactListTypeDomain", zPOS_AFTER );
-         //:TZADWWKO.ContactListTypeDomain.DisplayedValue = CL_Domain.TableEntry.ExternalValue 
-         SetAttributeFromAttribute( TZADWWKO, "ContactListTypeDomain", "DisplayedValue", CL_Domain, "TableEntry", "ExternalValue" );
-         //:TZADWWKO.ContactListTypeDomain.InternalType   = CL_Domain.TableEntry.InternalValue 
-         SetAttributeFromAttribute( TZADWWKO, "ContactListTypeDomain", "InternalType", CL_Domain, "TableEntry", "InternalValue" );
-         RESULT = SetCursorNextEntity( CL_Domain, "TableEntry", "" );
-      } 
-
-      //:END 
-      //:DropObjectInstance( CL_Domain )
-      DropObjectInstance( CL_Domain );
-   } 
-
-   //:END
-   //:SET CURSOR FIRST TZADWWKO.ContactListTypeDomain
-   RESULT = SetCursorFirstEntity( TZADWWKO, "ContactListTypeDomain", "" );
 
    //:// If an update LOD exists, make sure that we also name it TZZOLODO_Desc for the combobox.
    //:GET VIEW UpdateLOD NAMED "TZZOLODO_Update"
@@ -2315,8 +2318,8 @@ AUTODESIGN_Group( zVIEW     ViewToWindow )
    DropObjectInstance( CurrentLOD );
 
    //:// Reposition and Resize all Group Controls.
-   //:ResizeReposGroupBoxes( TZADWWKO, TZWINDOWL )
-   oTZADWWKO_ResizeReposGroupBoxes( TZADWWKO, TZWINDOWL );
+   //:// Resize should be done above.
+   //://ResizeReposGroupBoxes( TZADWWKO, TZWINDOWL )
 
    //:// Rename some Controls to avoid duplicate Tags.
    //:SET CURSOR FIRST TZWINDOWL.Control
@@ -2539,6 +2542,10 @@ GOTO_AutodesignCRMSubdialog( zVIEW     ViewToWindow )
    zVIEW     TZZOLFLO = 0; 
    //:VIEW mConListLOD BASED ON LOD  TZZOLODO
    zVIEW     mConListLOD = 0; 
+   //:STRING ( 300 ) szAutodesignLPLR_Directory
+   zCHAR     szAutodesignLPLR_Directory[ 301 ] = { 0 }; 
+   //:STRING ( 300 ) szMsg
+   zCHAR     szMsg[ 301 ] = { 0 }; 
    //:SHORT nRC
    zSHORT    nRC = 0; 
 
@@ -2625,6 +2632,8 @@ GOTO_AutodesignCRMSubdialog( zVIEW     ViewToWindow )
    SetAttributeFromString( TZADWWKO, "AutodesignSubdialog", "FindType", "CRM" );
    //:CREATE ENTITY TZADWWKO.EntitySubGroup  
    RESULT = CreateEntity( TZADWWKO, "EntitySubGroup", zPOS_AFTER );
+   //:InitializeL_SymbolType( TZADWWKO )
+   oTZADWWKO_InitializeL_SymbolType( TZADWWKO );
 
    //:// First activate the mConList Object.
    //:nRC = ActivateMetaOI_ByName( ViewToWindow, mConListLOD, 0, zREFER_LOD_META, zSINGLE, "mConList", 0 )
@@ -3317,7 +3326,6 @@ SELECT_ESGL_DetailPotAttributes( zVIEW     ViewToWindow )
    //:SHORT   nRC
    zSHORT    nRC = 0; 
    zLONG     lTempInteger_0; 
-   zSHORT    lTempInteger_1; 
 
    RESULT = GetViewByName( &TZADWWKO, "TZADWWKO", ViewToWindow, zLEVEL_TASK );
 
@@ -3361,17 +3369,6 @@ SELECT_ESGL_DetailPotAttributes( zVIEW     ViewToWindow )
             { 
                //:TZADWWKO.ESG_DetailLOD_Attribute.ControlType = "Text"
                SetAttributeFromString( TZADWWKO, "ESG_DetailLOD_Attribute", "ControlType", "Text" );
-            } 
-
-            //:END
-            //:IF TZADWWKO.CSS_ClassPageGroup EXISTS
-            lTempInteger_1 = CheckExistenceOfEntity( TZADWWKO, "CSS_ClassPageGroup" );
-            if ( lTempInteger_1 == 0 )
-            { 
-               //:TZADWWKO.ESG_DetailLOD_Attribute.CSS_ClassForPrompt  = TZADWWKO.CSS_ClassPageGroup.CSS_ClassPromptValue 
-               SetAttributeFromAttribute( TZADWWKO, "ESG_DetailLOD_Attribute", "CSS_ClassForPrompt", TZADWWKO, "CSS_ClassPageGroup", "CSS_ClassPromptValue" );
-               //:TZADWWKO.ESG_DetailLOD_Attribute.CSS_ClassForControl = TZADWWKO.CSS_ClassPageGroup.CSS_ClassControlValue 
-               SetAttributeFromAttribute( TZADWWKO, "ESG_DetailLOD_Attribute", "CSS_ClassForControl", TZADWWKO, "CSS_ClassPageGroup", "CSS_ClassControlValue" );
             } 
 
             //:END
@@ -3598,6 +3595,10 @@ AUTODESIGN_MPG_Pages( zVIEW     ViewToWindow )
    zCHAR     szAD_UpdE[ 51 ] = { 0 }; 
    //:STRING ( 50 )  szControlType
    zCHAR     szControlType[ 51 ] = { 0 }; 
+   //:STRING ( 50 )  szTemplateWindow
+   zCHAR     szTemplateWindow[ 51 ] = { 0 }; 
+   //:STRING ( 200 ) szMsg
+   zCHAR     szMsg[ 201 ] = { 0 }; 
    //:STRING ( 256 ) szSourceDirectory
    zCHAR     szSourceDirectory[ 257 ] = { 0 }; 
    //:STRING ( 256 ) szOriginalVML
@@ -3632,6 +3633,9 @@ AUTODESIGN_MPG_Pages( zVIEW     ViewToWindow )
    zSHORT    lTempInteger_2; 
    zSHORT    lTempInteger_3; 
    zSHORT    lTempInteger_4; 
+   zSHORT    lTempInteger_5; 
+   zSHORT    lTempInteger_6; 
+   zSHORT    lTempInteger_7; 
 
    RESULT = GetViewByName( &TZADWWKO, "TZADWWKO", ViewToWindow, zLEVEL_TASK );
    RESULT = GetViewByName( &TaskLPLR, "TaskLPLR", ViewToWindow, zLEVEL_TASK );
@@ -3820,7 +3824,7 @@ AUTODESIGN_MPG_Pages( zVIEW     ViewToWindow )
 
    //:END 
 
-   //:// The Clone above creates the Save/Cancel  or Return Actions and Operations, but they need to have their names converted.
+   //:// The Clone above creates the Save/Cancel or Return Actions and Operations, but they need to have their names converted.
    //:FOR EACH TZWINDOWL.Action 
    RESULT = SetCursorFirstEntity( TZWINDOWL, "Action", "" );
    while ( RESULT > zCURSOR_UNCHANGED )
@@ -4150,15 +4154,32 @@ AUTODESIGN_MPG_Pages( zVIEW     ViewToWindow )
    //:// MAIN WINDOW GENERATION
 
    //:// Build each Group based on the SubGroup type and content.
-   //:SET CURSOR FIRST AD_Base.Window WHERE AD_Base.Window.Tag = "ObjectUpdateGroups"
-   RESULT = SetCursorFirstEntityByString( AD_Base, "Window", "Tag", "ObjectUpdateGroups", "" );
+   //:IF TZADWWKO.AutoDesignWork.SelectedListboxSymbolType = "Icons"
+   if ( CompareAttributeToString( TZADWWKO, "AutoDesignWork", "SelectedListboxSymbolType", "Icons" ) == 0 )
+   { 
+      //:szTemplateWindow = "ObjectUpdateGroupsIcons" 
+      ZeidonStringCopy( szTemplateWindow, 1, 0, "ObjectUpdateGroupsIcons", 1, 0, 51 );
+      //:ELSE
+   } 
+   else
+   { 
+      //:szTemplateWindow = "ObjectUpdateGroups"
+      ZeidonStringCopy( szTemplateWindow, 1, 0, "ObjectUpdateGroups", 1, 0, 51 );
+   } 
+
+   //:END
+   //:SET CURSOR FIRST AD_Base.Window WHERE AD_Base.Window.Tag = szTemplateWindow
+   RESULT = SetCursorFirstEntityByString( AD_Base, "Window", "Tag", szTemplateWindow, "" );
    //:IF RESULT < zCURSOR_SET
    if ( RESULT < zCURSOR_SET )
    { 
-      //:MessageSend( ViewToWindow, "", "Autodesign Subdialog",
-      //:             "ObjectUpdateGroups Window doesn't exist.",
+      //:szMsg = "The template window, " + szTemplateWindow + ", could not be found in AD_Base."
+      ZeidonStringCopy( szMsg, 1, 0, "The template window, ", 1, 0, 201 );
+      ZeidonStringConcat( szMsg, 1, 0, szTemplateWindow, 1, 0, 201 );
+      ZeidonStringConcat( szMsg, 1, 0, ", could not be found in AD_Base.", 1, 0, 201 );
+      //:MessageSend( ViewToWindow, "", "Autodesign Subdialog", szMsg,
       //:             zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
-      MessageSend( ViewToWindow, "", "Autodesign Subdialog", "ObjectUpdateGroups Window doesn't exist.", zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
+      MessageSend( ViewToWindow, "", "Autodesign Subdialog", szMsg, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
       //:SetWindowActionBehavior( ViewToWindow, zWAB_StayOnWindow, 0,0 )
       SetWindowActionBehavior( ViewToWindow, zWAB_StayOnWindow, 0, 0 );
       //:RETURN -2
@@ -4175,31 +4196,50 @@ AUTODESIGN_MPG_Pages( zVIEW     ViewToWindow )
    //:NAME VIEW  AD_BaseCtl "AD_BaseCtl"
    SetNameForView( AD_BaseCtl, "AD_BaseCtl", 0, zLEVEL_TASK );
 
-   //:// We are assuming Bootstrap and must step down 2 levels to the Accordian level and then position on the last Control.
-   //:// The Bootstrap Group structure follows for the first 4 levels.
-   //://   1. - container-fluid
-   //://     2 - header (includes the buttons)
-   //://     2 - accordion
-   //://       3 - card  (exists for each Area Group)
-   //://         4 = card-header
-   //://         4 - collapse show
-
-   //:// If the outside Group is has CSS Class "container-fluid", then this is Boostrap with 2 outer Groups and we need to
-   //:// step down past the header to the "accordian" Group.
-   //:IF TZCONTROL.Control.CSS_Class = "container-fluid"
-   if ( CompareAttributeToString( TZCONTROL, "Control", "CSS_Class", "container-fluid" ) == 0 )
+   //:// We are assuming Bootstrap and must step down to the level which contain the SubGroups from GenEntitySubGroup.
+   //:// Position on the last and innermost Group, which will contain the Subgroups.
+   //:// We assume there is always at least one Group
+   //:SET CURSOR LAST TZCONTROL.Control
+   RESULT = SetCursorLastEntity( TZCONTROL, "Control", "" );
+   //:nRC = SetViewToSubobject( TZCONTROL, "CtrlCtrl" )
+   nRC = SetViewToSubobject( TZCONTROL, "CtrlCtrl" );
+   //:SET CURSOR LAST TZCONTROL.Control
+   RESULT = SetCursorLastEntity( TZCONTROL, "Control", "" );
+   //:IF TZCONTROL.CtrlCtrl EXISTS
+   lTempInteger_4 = CheckExistenceOfEntity( TZCONTROL, "CtrlCtrl" );
+   if ( lTempInteger_4 == 0 )
    { 
       //:nRC = SetViewToSubobject( TZCONTROL, "CtrlCtrl" )
       nRC = SetViewToSubobject( TZCONTROL, "CtrlCtrl" );
       //:SET CURSOR LAST TZCONTROL.Control
       RESULT = SetCursorLastEntity( TZCONTROL, "Control", "" );
-      //:nRC = SetViewToSubobject( TZCONTROL, "CtrlCtrl" )
-      nRC = SetViewToSubobject( TZCONTROL, "CtrlCtrl" );
-      //:SET CURSOR LAST TZCONTROL.Control 
-      RESULT = SetCursorLastEntity( TZCONTROL, "Control", "" );
+      //:IF TZCONTROL.CtrlCtrl EXISTS
+      lTempInteger_5 = CheckExistenceOfEntity( TZCONTROL, "CtrlCtrl" );
+      if ( lTempInteger_5 == 0 )
+      { 
+         //:nRC = SetViewToSubobject( TZCONTROL, "CtrlCtrl" )
+         nRC = SetViewToSubobject( TZCONTROL, "CtrlCtrl" );
+         //:SET CURSOR LAST TZCONTROL.Control
+         RESULT = SetCursorLastEntity( TZCONTROL, "Control", "" );
+         //:IF TZCONTROL.CtrlCtrl EXISTS
+         lTempInteger_6 = CheckExistenceOfEntity( TZCONTROL, "CtrlCtrl" );
+         if ( lTempInteger_6 == 0 )
+         { 
+            //:nRC = SetViewToSubobject( TZCONTROL, "CtrlCtrl" )
+            nRC = SetViewToSubobject( TZCONTROL, "CtrlCtrl" );
+            //:SET CURSOR LAST TZCONTROL.Control
+            RESULT = SetCursorLastEntity( TZCONTROL, "Control", "" );
+         } 
+
+         //:END
+      } 
+
+      //:END
    } 
 
-   //:END  
+   //:END
+   //:SetViewToSubobject( TZCONTROL, "CtrlCtrl" )   // We need to go down one additional level.
+   SetViewToSubobject( TZCONTROL, "CtrlCtrl" );
 
    //:FOR EACH TZADWWKO.EntitySubGroup 
    RESULT = SetCursorFirstEntity( TZADWWKO, "EntitySubGroup", "" );
@@ -4302,8 +4342,8 @@ AUTODESIGN_MPG_Pages( zVIEW     ViewToWindow )
 
    //:// If this is NOT part of a Find autodesgin, drop the work object so that it will be create anew.
    //:IF TZADWWKO.FlatSelectedSearchAttribute DOES NOT EXIST
-   lTempInteger_4 = CheckExistenceOfEntity( TZADWWKO, "FlatSelectedSearchAttribute" );
-   if ( lTempInteger_4 != 0 )
+   lTempInteger_7 = CheckExistenceOfEntity( TZADWWKO, "FlatSelectedSearchAttribute" );
+   if ( lTempInteger_7 != 0 )
    { 
       //:DropObjectInstance( TZADWWKO )
       DropObjectInstance( TZADWWKO );
@@ -4414,11 +4454,11 @@ GOTO_AD_GroupUpdate( zVIEW     ViewToWindow )
                   } 
                   else
                   { 
-                     //:IF szGroupType = "ListGroupwFindInclude"
-                     if ( ZeidonStringCompare( szGroupType, 1, 0, "ListGroupwFindInclude", 1, 0, 31 ) == 0 )
+                     //:IF szGroupType = "ListGroupwInclude"
+                     if ( ZeidonStringCompare( szGroupType, 1, 0, "ListGroupwInclude", 1, 0, 31 ) == 0 )
                      { 
-                        //:SetWindowActionBehavior( ViewToWindow, zWAB_StartModalSubwindow, "TZADWEBD", "AD_GroupListwFindIncludeSpec" )
-                        SetWindowActionBehavior( ViewToWindow, zWAB_StartModalSubwindow, "TZADWEBD", "AD_GroupListwFindIncludeSpec" );
+                        //:SetWindowActionBehavior( ViewToWindow, zWAB_StartModalSubwindow, "TZADWEBD", "AD_GroupListwIncludeSpec" )
+                        SetWindowActionBehavior( ViewToWindow, zWAB_StartModalSubwindow, "TZADWEBD", "AD_GroupListwIncludeSpec" );
                         //:ELSE
                      } 
                      else
@@ -4432,7 +4472,6 @@ GOTO_AD_GroupUpdate( zVIEW     ViewToWindow )
                         } 
                         else
                         { 
-
                            //:MessageSend( ViewToWindow, "", "Autodesign Subdialog",
                            //:"A Valid Type must be selected.",
                            //:zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
@@ -4511,8 +4550,6 @@ GOTO_AD_GroupUpdate( zVIEW     ViewToWindow )
    //:IF szGroupType = "ListGroupWIncludePage"
    if ( ZeidonStringCompare( szGroupType, 1, 0, "ListGroupWIncludePage", 1, 0, 31 ) == 0 )
    { 
-      //:InitializeUpdateGroupsForCSS( AD_Base, TZADWWKO, "GroupListInclude", "GroupSearchBy" )
-      o_InitializeUpdateGroupsForCSS( AD_Base, TZADWWKO, "GroupListInclude", "GroupSearchBy" );
       //:SETUP_ESGL_MainIncludeObject( ViewToWindow )
       SETUP_ESGL_MainIncludeObject( ViewToWindow );
       //:ELSE
@@ -4525,8 +4562,6 @@ GOTO_AD_GroupUpdate( zVIEW     ViewToWindow )
          //:IF TZADWWKO.EntitySubGroup.SavedGroupType = ""
          if ( CompareAttributeToString( TZADWWKO, "EntitySubGroup", "SavedGroupType", "" ) == 0 )
          { 
-            //:InitializeUpdateGroupsForCSS( AD_Base, TZADWWKO, "GroupListUpdate", "GroupDetail" )
-            o_InitializeUpdateGroupsForCSS( AD_Base, TZADWWKO, "GroupListUpdate", "GroupDetail" );
             //:BuildAD_GroupPotAttrList( TZADWWKO, UpdateLOD, TZADWWKO.ESG_LOD_Entity.Name, "" )
             GetStringFromAttribute( szTempString_0, TZADWWKO, "ESG_LOD_Entity", "Name" );
             o_BuildAD_GroupPotAttrList( TZADWWKO, UpdateLOD, szTempString_0, "" );
@@ -4540,8 +4575,6 @@ GOTO_AD_GroupUpdate( zVIEW     ViewToWindow )
          //:IF szGroupType = "ListGroupwMGP"
          if ( ZeidonStringCompare( szGroupType, 1, 0, "ListGroupwMGP", 1, 0, 31 ) == 0 )
          { 
-            //:InitializeUpdateGroupsForCSS( AD_Base, TZADWWKO, "ObjectUpdateGroups", "GroupDetail" )
-            o_InitializeUpdateGroupsForCSS( AD_Base, TZADWWKO, "ObjectUpdateGroups", "GroupDetail" );
             //:BuildAD_GroupPotAttrList( TZADWWKO, UpdateLOD, TZADWWKO.ESG_LOD_Entity.Name, "" )
             GetStringFromAttribute( szTempString_1, TZADWWKO, "ESG_LOD_Entity", "Name" );
             o_BuildAD_GroupPotAttrList( TZADWWKO, UpdateLOD, szTempString_1, "" );
@@ -4549,8 +4582,6 @@ GOTO_AD_GroupUpdate( zVIEW     ViewToWindow )
          } 
          else
          { 
-            //:InitializeUpdateGroupsForCSS( AD_Base, TZADWWKO, "ObjectUpdateGroups", "GroupDetail" )
-            o_InitializeUpdateGroupsForCSS( AD_Base, TZADWWKO, "ObjectUpdateGroups", "GroupDetail" );
             //:BuildAD_GroupPotAttrList( TZADWWKO, UpdateLOD, TZADWWKO.ESG_LOD_Entity.Name, "" )
             GetStringFromAttribute( szTempString_2, TZADWWKO, "ESG_LOD_Entity", "Name" );
             o_BuildAD_GroupPotAttrList( TZADWWKO, UpdateLOD, szTempString_2, "" );
@@ -5201,6 +5232,8 @@ PostbuildAD_MultiGroupPage( zVIEW     ViewToWindow )
       RESULT = CreateEntity( TZADWWKO, "AutoDesignWork", zPOS_AFTER );
       //:CREATE ENTITY TZADWWKO.AutodesignSubdialog 
       RESULT = CreateEntity( TZADWWKO, "AutodesignSubdialog", zPOS_AFTER );
+      //:InitializeL_SymbolType( TZADWWKO ) 
+      oTZADWWKO_InitializeL_SymbolType( TZADWWKO );
 
       //:// Remove any existing Autodesign entries from TZWINDOWL.
       //:IF TZWINDOWL.AutoDesignWindow EXISTS
@@ -5475,6 +5508,8 @@ PostbuildAutodesignGroup( zVIEW     ViewToWindow )
    zVIEW     TZADWWKO = 0; 
    //:VIEW AD_Base    BASED ON LOD  TZWDLGSO
    zVIEW     AD_Base = 0; 
+   //:STRING ( 50 ) szListboxSymbol
+   zCHAR     szListboxSymbol[ 51 ] = { 0 }; 
    //:SHORT   nRC
    zSHORT    nRC = 0; 
    zSHORT    lTempInteger_0; 
@@ -5492,6 +5527,8 @@ PostbuildAutodesignGroup( zVIEW     ViewToWindow )
    //:IF RESULT >= 0
    if ( RESULT >= 0 )
    { 
+      //:szListboxSymbol = TZADWWKO.AutoDesignWork.SelectedListboxSymbolType    // Save the symbol value.
+      GetVariableFromAttribute( szListboxSymbol, 0, 'S', 51, TZADWWKO, "AutoDesignWork", "SelectedListboxSymbolType", "", 0 );
       //:DropObjectInstance( TZADWWKO )
       DropObjectInstance( TZADWWKO );
    } 
@@ -5509,8 +5546,12 @@ PostbuildAutodesignGroup( zVIEW     ViewToWindow )
    RESULT = CreateEntity( TZADWWKO, "AutoDesignWork", zPOS_AFTER );
    //:CREATE ENTITY TZADWWKO.AutodesignSubdialog 
    RESULT = CreateEntity( TZADWWKO, "AutodesignSubdialog", zPOS_AFTER );
-   //:CREATE ENTITY TZADWWKO.EntitySubGroup  
+   //:CREATE ENTITY TZADWWKO.EntitySubGroup 
    RESULT = CreateEntity( TZADWWKO, "EntitySubGroup", zPOS_AFTER );
+   //:InitializeL_SymbolType( TZADWWKO ) 
+   oTZADWWKO_InitializeL_SymbolType( TZADWWKO );
+   //:TZADWWKO.AutoDesignWork.SelectedListboxSymbolType = szListboxSymbol   // Restore the original symbol value.
+   SetAttributeFromString( TZADWWKO, "AutoDesignWork", "SelectedListboxSymbolType", szListboxSymbol );
 
    //:// Default state will be resize and reposition top Groups.
    //:TZADWWKO.AutoDesignWork.RepositionGroupFlag = "Y"
@@ -5813,151 +5854,6 @@ SELECT_AutodesignGroupTemplate( zVIEW     ViewToWindow )
 //       END
 //       DropView( AD_Base2 )
 //    END*/
-// END
-} 
-
-
-//:LOCAL OPERATION
-//:InitializeUpdateGroupsForCSS( VIEW AD_Base  BASED ON LOD TZWDLGSO,
-//:                              VIEW TZADWWKO BASED ON LOD TZADWWKO,
-//:                              STRING ( 50 ) szBaseWindowName,
-//:                              STRING ( 50 ) szBaseGroupName )
-
-//:   VIEW AD_BaseCtl BASED ON LOD TZWDLGSO
-static zVOID
-o_InitializeUpdateGroupsForCSS( zVIEW     AD_Base,
-                                zVIEW     TZADWWKO,
-                                zPCHAR    szBaseWindowName,
-                                zPCHAR    szBaseGroupName )
-{
-   zVIEW     AD_BaseCtl = 0; 
-   //:INTEGER nRC
-   zLONG     nRC = 0; 
-   zSHORT    RESULT; 
-   zSHORT    lTempInteger_0; 
-   zSHORT    lTempInteger_1; 
-   zSHORT    lTempInteger_2; 
-   zSHORT    lTempInteger_3; 
-
-
-   //:// DonC Comment on 11/20/2013
-   //:// This operation may no longer be necessary because the setting of CSS_Class in GenDetailGrpBootstrap does not use it.
-
-   //:// Initialize CSS_Class work areas in TZADWWKO for a particular AD_Base Template Window.
-   //:// The Template Window and GroupBox names are passed to this operation. 
-   //:// If an entry for them already exists, no action is taken.
-   //:// If an entry doesn't exist, then the work area is created and the existing Text and EditBox in the AD_Base Template in memory
-   //:// are deleted so that they won't create a problem when the Control is cloned later in processing.
-
-   //:SET CURSOR FIRST TZADWWKO.CSS_ClassPageGroup
-   //:           WHERE TZADWWKO.CSS_ClassPageGroup.WindowName   = szBaseWindowName
-   //:             AND TZADWWKO.CSS_ClassPageGroup.GroupBoxName = szBaseGroupName
-   RESULT = SetCursorFirstEntity( TZADWWKO, "CSS_ClassPageGroup", "" );
-   if ( RESULT > zCURSOR_UNCHANGED )
-   { 
-      while ( RESULT > zCURSOR_UNCHANGED && ( CompareAttributeToString( TZADWWKO, "CSS_ClassPageGroup", "WindowName", szBaseWindowName ) != 0 || CompareAttributeToString( TZADWWKO, "CSS_ClassPageGroup", "GroupBoxName", szBaseGroupName ) != 0 ) )
-      { 
-         RESULT = SetCursorNextEntity( TZADWWKO, "CSS_ClassPageGroup", "" );
-      } 
-
-   } 
-
-   //:IF RESULT < zCURSOR_SET
-   if ( RESULT < zCURSOR_SET )
-   { 
-      //:// We need to create the entry.
-      //:CreateViewFromView( AD_BaseCtl, AD_Base )
-      CreateViewFromView( &AD_BaseCtl, AD_Base );
-      //:NAME VIEW  AD_BaseCtl "AD_BaseCtl"
-      SetNameForView( AD_BaseCtl, "AD_BaseCtl", 0, zLEVEL_TASK );
-      //:CREATE ENTITY TZADWWKO.CSS_ClassPageGroup 
-      RESULT = CreateEntity( TZADWWKO, "CSS_ClassPageGroup", zPOS_AFTER );
-      //:TZADWWKO.CSS_ClassPageGroup.WindowName   = szBaseWindowName
-      SetAttributeFromString( TZADWWKO, "CSS_ClassPageGroup", "WindowName", szBaseWindowName );
-      //:TZADWWKO.CSS_ClassPageGroup.GroupBoxName = szBaseGroupName
-      SetAttributeFromString( TZADWWKO, "CSS_ClassPageGroup", "GroupBoxName", szBaseGroupName );
-      //:SET CURSOR FIRST AD_BaseCtl.Window  WHERE AD_BaseCtl.Window.Tag  = szBaseWindowName
-      RESULT = SetCursorFirstEntityByString( AD_BaseCtl, "Window", "Tag", szBaseWindowName, "" );
-      //:SET CURSOR FIRST AD_BaseCtl.Control WHERE AD_BaseCtl.Control.Tag = szBaseGroupName
-      RESULT = SetCursorFirstEntityByString( AD_BaseCtl, "Control", "Tag", szBaseGroupName, "" );
-      //:IF AD_BaseCtl.CtrlCtrl EXISTS
-      lTempInteger_0 = CheckExistenceOfEntity( AD_BaseCtl, "CtrlCtrl" );
-      if ( lTempInteger_0 == 0 )
-      { 
-         //:// There is a subgroup, so look for Text and Control GroupListUpdatetemplate controls.
-         //:SetViewToSubobject( AD_BaseCtl, "CtrlCtrl" )
-         SetViewToSubobject( AD_BaseCtl, "CtrlCtrl" );
-         //:IF AD_BaseCtl.CtrlCtrl EXISTS
-         lTempInteger_1 = CheckExistenceOfEntity( AD_BaseCtl, "CtrlCtrl" );
-         if ( lTempInteger_1 == 0 )
-         { 
-            //:SetViewToSubobject( AD_BaseCtl, "CtrlCtrl" )
-            SetViewToSubobject( AD_BaseCtl, "CtrlCtrl" );
-            //:IF AD_BaseCtl.CtrlCtrl EXISTS
-            lTempInteger_2 = CheckExistenceOfEntity( AD_BaseCtl, "CtrlCtrl" );
-            if ( lTempInteger_2 == 0 )
-            { 
-               //:SetViewToSubobject( AD_BaseCtl, "CtrlCtrl" )
-               SetViewToSubobject( AD_BaseCtl, "CtrlCtrl" );
-               //:IF AD_BaseCtl.CtrlCtrl EXISTS
-               lTempInteger_3 = CheckExistenceOfEntity( AD_BaseCtl, "CtrlCtrl" );
-               if ( lTempInteger_3 == 0 )
-               { 
-                  //:SetViewToSubobject( AD_BaseCtl, "CtrlCtrl" )
-                  SetViewToSubobject( AD_BaseCtl, "CtrlCtrl" );
-               } 
-
-               //:END
-            } 
-
-            //:END
-         } 
-
-         //:END
-
-         //:// We should be at the level of the Text and EditBox controls if they exist.
-         //:// Set the CSS values as necessary and delete the base Controls.
-         //:FOR EACH AD_BaseCtl.Control
-         RESULT = SetCursorFirstEntity( AD_BaseCtl, "Control", "" );
-         while ( RESULT > zCURSOR_UNCHANGED )
-         { 
-            //:IF AD_BaseCtl.ControlDef.Tag = "Text"
-            if ( CompareAttributeToString( AD_BaseCtl, "ControlDef", "Tag", "Text" ) == 0 )
-            { 
-               //:TZADWWKO.CSS_ClassPageGroup.CSS_ClassPromptValue = AD_BaseCtl.Control.CSS_Class 
-               SetAttributeFromAttribute( TZADWWKO, "CSS_ClassPageGroup", "CSS_ClassPromptValue", AD_BaseCtl, "Control", "CSS_Class" );
-               //:DELETE ENTITY AD_BaseCtl.Control NONE
-               RESULT = DeleteEntity( AD_BaseCtl, "Control", zREPOS_NONE );
-               //:ELSE
-            } 
-            else
-            { 
-               //:IF AD_BaseCtl.ControlDef.Tag = "EditBox"
-               if ( CompareAttributeToString( AD_BaseCtl, "ControlDef", "Tag", "EditBox" ) == 0 )
-               { 
-                  //:TZADWWKO.CSS_ClassPageGroup.CSS_ClassControlValue = AD_BaseCtl.Control.CSS_Class 
-                  SetAttributeFromAttribute( TZADWWKO, "CSS_ClassPageGroup", "CSS_ClassControlValue", AD_BaseCtl, "Control", "CSS_Class" );
-                  //:DELETE ENTITY AD_BaseCtl.Control NONE
-                  RESULT = DeleteEntity( AD_BaseCtl, "Control", zREPOS_NONE );
-               } 
-
-               //:END
-            } 
-
-            RESULT = SetCursorNextEntity( AD_BaseCtl, "Control", "" );
-            //:END
-         } 
-
-         //:END
-      } 
-
-      //:END
-      //:DropView( AD_BaseCtl )
-      DropView( AD_BaseCtl );
-   } 
-
-   //:END
-   return;
 // END
 } 
 
@@ -6400,6 +6296,10 @@ GOTO_AutodesignObjectFindSubdlg( zVIEW     ViewToWindow )
    zVIEW     TZZOLFLO = 0; 
    //:VIEW TZADWWKO BASED ON LOD  TZADWWKO
    zVIEW     TZADWWKO = 0; 
+   //:STRING ( 300 ) szAutodesignLPLR_Directory
+   zCHAR     szAutodesignLPLR_Directory[ 301 ] = { 0 }; 
+   //:STRING ( 300 ) szMsg
+   zCHAR     szMsg[ 301 ] = { 0 }; 
    //:SHORT nRC
    zSHORT    nRC = 0; 
 
@@ -6451,6 +6351,8 @@ GOTO_AutodesignObjectFindSubdlg( zVIEW     ViewToWindow )
    SetAttributeFromString( TZADWWKO, "AutodesignSubdialog", "AD_AreaSuffix", "Object" );
    //:CREATE ENTITY TZADWWKO.EntitySubGroup 
    RESULT = CreateEntity( TZADWWKO, "EntitySubGroup", zPOS_AFTER );
+   //:InitializeL_SymbolType( TZADWWKO )
+   oTZADWWKO_InitializeL_SymbolType( TZADWWKO );
 
    //:// Make sure that the TZZOLFLO object of Meta LOD entries exists.
    //:GET VIEW TZZOLFLO NAMED "TZZOLFLO"
@@ -6971,8 +6873,8 @@ o_ActivateAD_BaseL( zPVIEW    RetAD_BaseView,
    //:IF TaskLPLR.LPLR.AutodesignBase = ""
    if ( CompareAttributeToString( TaskLPLR, "LPLR", "AutodesignBase", "" ) == 0 )
    { 
-      //:szAutodesignLPLR_Directory = "C:\LPLR\AD_Base\AD_Base.PWD"    // Use default
-      ZeidonStringCopy( szAutodesignLPLR_Directory, 1, 0, "C:\\LPLR\\AD_Base\\AD_Base.PWD", 1, 0, 301 );
+      //:szAutodesignLPLR_Directory = "C:\LPLR\AD_Base"                // Use default
+      ZeidonStringCopy( szAutodesignLPLR_Directory, 1, 0, "C:\\LPLR\\AD_Base", 1, 0, 301 );
       //:ELSE
    } 
    else
@@ -6982,6 +6884,8 @@ o_ActivateAD_BaseL( zPVIEW    RetAD_BaseView,
    } 
 
    //:END
+   //:szAutodesignLPLR_Directory = szAutodesignLPLR_Directory + "\AD_Base.PWD"
+   ZeidonStringConcat( szAutodesignLPLR_Directory, 1, 0, "\\AD_Base.PWD", 1, 0, 301 );
    //:nRC = ActivateOI_FromFile( RetAD_BaseView, "TZWDLGSO", ViewToWindow, szAutodesignLPLR_Directory, zSINGLE )
    nRC = ActivateOI_FromFile( RetAD_BaseView, "TZWDLGSO", ViewToWindow, szAutodesignLPLR_Directory, zSINGLE );
 
@@ -8076,6 +7980,8 @@ PostbuildAutodesignSubgroup( zVIEW     ViewToWindow )
    zCHAR     szMappingCompleteFlag[ 2 ] = { 0 }; 
    //:STRING ( 1 )  szContainsGridFlag
    zCHAR     szContainsGridFlag[ 2 ] = { 0 }; 
+   //:STRING ( 1 )  szDetailFound
+   zCHAR     szDetailFound[ 2 ] = { 0 }; 
    //:SHORT   nRC
    zSHORT    nRC = 0; 
    //:SHORT   lReturnedLevel
@@ -8466,49 +8372,79 @@ PostbuildAutodesignSubgroup( zVIEW     ViewToWindow )
                   SetNameForView( TZCtlCopy, "TZCtlCopy", 0, zLEVEL_TASK );
                   //:szPromptValue = TZCtlCopy.Control.Text 
                   GetVariableFromAttribute( szPromptValue, 0, 'S', 51, TZCtlCopy, "Control", "Text", "", 0 );
-                  //:SET CURSOR NEXT TZCtlCopy.Control    // Position on related mapping Control
-                  RESULT = SetCursorNextEntity( TZCtlCopy, "Control", "" );
-                  //:IF TZCtlCopy.CtrlMap EXISTS
-                  lTempInteger_3 = CheckExistenceOfEntity( TZCtlCopy, "CtrlMap" );
-                  if ( lTempInteger_3 == 0 )
-                  { 
-                     //:INCLUDE TZADWWKO.ESG_ListLOD_Attribute FROM TZCtlCopy.CtrlMapLOD_Attribute 
-                     RESULT = IncludeSubobjectFromSubobject( TZADWWKO, "ESG_ListLOD_Attribute", TZCtlCopy, "CtrlMapLOD_Attribute", zPOS_AFTER );
-                     //:TZADWWKO.ESG_ListLOD_Attribute.PromptValue = szPromptValue
-                     SetAttributeFromString( TZADWWKO, "ESG_ListLOD_Attribute", "PromptValue", szPromptValue );
-                     //:TZADWWKO.ESG_ListLOD_Attribute.ControlType = TZCtlCopy.ControlDef.Tag 
-                     SetAttributeFromAttribute( TZADWWKO, "ESG_ListLOD_Attribute", "ControlType", TZCtlCopy, "ControlDef", "Tag" );
+                  //:DropView( TZCtlCopy )
+                  DropView( TZCtlCopy );
 
-                     //:// If necessary, activate the current VOR and LOD LOD which are used for potential mapping.
-                     //:// Also include Update VOR in TZADWWKO.
-                     //:GET VIEW CurrentVOR NAMED "UpdateObjectViewRef"
-                     RESULT = GetViewByName( &CurrentVOR, "UpdateObjectViewRef", ViewToWindow, zLEVEL_TASK );
-                     //:IF RESULT < 0
-                     if ( RESULT < 0 )
+                  //:// Continue Hier Loop looking for the Detail Control.
+                  //:nRC = SetCursorNextEntityHierarchical( lReturnedLevel, szReturnedEntityName, TZCtlHier )
+                  nRC = SetCursorNextEntityHierarchical( (zPUSHORT) &lReturnedLevel, szReturnedEntityName, TZCtlHier );
+                  //:szDetailFound = ""
+                  ZeidonStringCopy( szDetailFound, 1, 0, "", 1, 0, 2 );
+                  //:LOOP WHILE nRC >= zCURSOR_SET AND lReturnedLevel >= lInitialLevel AND szDetailFound = ""
+                  while ( nRC >= zCURSOR_SET && lReturnedLevel >= lInitialLevel && ZeidonStringCompare( szDetailFound, 1, 0, "", 1, 0, 2 ) == 0 )
+                  { 
+                     //:IF nRC = zCURSOR_SET_RECURSIVECHILD
+                     if ( nRC == zCURSOR_SET_RECURSIVECHILD )
                      { 
-                        //:SET CURSOR FIRST TZZOLFLO.W_MetaDef WHERE TZZOLFLO.W_MetaDef.Name = TZCtlCopy.CtrlMapView.Name  
-                        GetStringFromAttribute( szTempString_3, TZCtlCopy, "CtrlMapView", "Name" );
-                        RESULT = SetCursorFirstEntityByString( TZZOLFLO, "W_MetaDef", "Name", szTempString_3, "" );
-                        //:INCLUDE TZADWWKO.W_MetaDefUpdateView FROM TZZOLFLO.W_MetaDef
-                        RESULT = IncludeSubobjectFromSubobject( TZADWWKO, "W_MetaDefUpdateView", TZZOLFLO, "W_MetaDef", zPOS_AFTER );
-                        //:nRC = ActivateMetaOI_ByName( ViewToWindow, CurrentVOR, 0, zREFER_VOR_META, zSINGLE, TZADWWKO.W_MetaDefUpdateView.Name, 0 )
-                        GetStringFromAttribute( szTempString_3, TZADWWKO, "W_MetaDefUpdateView", "Name" );
-                        nRC = ActivateMetaOI_ByName( ViewToWindow, &CurrentVOR, 0, zREFER_VOR_META, zSINGLE, szTempString_3, 0 );
-                        //:NAME VIEW CurrentVOR "UpdateObjectViewRef"
-                        SetNameForView( CurrentVOR, "UpdateObjectViewRef", 0, zLEVEL_TASK );
-                        //:nRC = ActivateMetaOI_ByName( ViewToWindow, CurrentLOD, 0, zREFER_LOD_META, zSINGLE, CurrentVOR.LOD.Name, 0 )
-                        GetStringFromAttribute( szTempString_4, CurrentVOR, "LOD", "Name" );
-                        nRC = ActivateMetaOI_ByName( ViewToWindow, &CurrentLOD, 0, zREFER_LOD_META, zSINGLE, szTempString_4, 0 );
-                        //:NAME VIEW CurrentLOD "TZZOLODO_Update"
-                        SetNameForView( CurrentLOD, "TZZOLODO_Update", 0, zLEVEL_TASK );
+                        //:SetViewToSubobject( TZCtlHier, "CtrlCtrl" )
+                        SetViewToSubobject( TZCtlHier, "CtrlCtrl" );
+
+                        //:// Check if this is a Control with mapping.
+                        //:CreateViewFromView( TZCtlCopy, TZCtlHier )
+                        CreateViewFromView( &TZCtlCopy, TZCtlHier );
+                        //:NAME VIEW TZCtlCopy "TZCtlCopy"
+                        SetNameForView( TZCtlCopy, "TZCtlCopy", 0, zLEVEL_TASK );
+                        //:IF TZCtlCopy.CtrlMap EXISTS
+                        lTempInteger_3 = CheckExistenceOfEntity( TZCtlCopy, "CtrlMap" );
+                        if ( lTempInteger_3 == 0 )
+                        { 
+                           //:szDetailFound = "F"
+                           ZeidonStringCopy( szDetailFound, 1, 0, "F", 1, 0, 2 );
+                           //:INCLUDE TZADWWKO.ESG_ListLOD_Attribute FROM TZCtlCopy.CtrlMapLOD_Attribute 
+                           RESULT = IncludeSubobjectFromSubobject( TZADWWKO, "ESG_ListLOD_Attribute", TZCtlCopy, "CtrlMapLOD_Attribute", zPOS_AFTER );
+                           //:TZADWWKO.ESG_ListLOD_Attribute.PromptValue = szPromptValue
+                           SetAttributeFromString( TZADWWKO, "ESG_ListLOD_Attribute", "PromptValue", szPromptValue );
+                           //:TZADWWKO.ESG_ListLOD_Attribute.ControlType = TZCtlCopy.ControlDef.Tag 
+                           SetAttributeFromAttribute( TZADWWKO, "ESG_ListLOD_Attribute", "ControlType", TZCtlCopy, "ControlDef", "Tag" );
+
+                           //:// If necessary, activate the current VOR and LOD LOD which are used for potential mapping.
+                           //:// Also include Update VOR in TZADWWKO.
+                           //:GET VIEW CurrentVOR NAMED "UpdateObjectViewRef"
+                           RESULT = GetViewByName( &CurrentVOR, "UpdateObjectViewRef", ViewToWindow, zLEVEL_TASK );
+                           //:IF RESULT < 0
+                           if ( RESULT < 0 )
+                           { 
+                              //:SET CURSOR FIRST TZZOLFLO.W_MetaDef WHERE TZZOLFLO.W_MetaDef.Name = TZCtlCopy.CtrlMapView.Name  
+                              GetStringFromAttribute( szTempString_3, TZCtlCopy, "CtrlMapView", "Name" );
+                              RESULT = SetCursorFirstEntityByString( TZZOLFLO, "W_MetaDef", "Name", szTempString_3, "" );
+                              //:INCLUDE TZADWWKO.W_MetaDefUpdateView FROM TZZOLFLO.W_MetaDef
+                              RESULT = IncludeSubobjectFromSubobject( TZADWWKO, "W_MetaDefUpdateView", TZZOLFLO, "W_MetaDef", zPOS_AFTER );
+                              //:nRC = ActivateMetaOI_ByName( ViewToWindow, CurrentVOR, 0, zREFER_VOR_META, zSINGLE, TZADWWKO.W_MetaDefUpdateView.Name, 0 )
+                              GetStringFromAttribute( szTempString_3, TZADWWKO, "W_MetaDefUpdateView", "Name" );
+                              nRC = ActivateMetaOI_ByName( ViewToWindow, &CurrentVOR, 0, zREFER_VOR_META, zSINGLE, szTempString_3, 0 );
+                              //:NAME VIEW CurrentVOR "UpdateObjectViewRef"
+                              SetNameForView( CurrentVOR, "UpdateObjectViewRef", 0, zLEVEL_TASK );
+                              //:nRC = ActivateMetaOI_ByName( ViewToWindow, CurrentLOD, 0, zREFER_LOD_META, zSINGLE, CurrentVOR.LOD.Name, 0 )
+                              GetStringFromAttribute( szTempString_4, CurrentVOR, "LOD", "Name" );
+                              nRC = ActivateMetaOI_ByName( ViewToWindow, &CurrentLOD, 0, zREFER_LOD_META, zSINGLE, szTempString_4, 0 );
+                              //:NAME VIEW CurrentLOD "TZZOLODO_Update"
+                              SetNameForView( CurrentLOD, "TZZOLODO_Update", 0, zLEVEL_TASK );
+                           } 
+
+                           //:END
+                        } 
+
+                        //:END
+                        //:DropView( TZCtlCopy )
+                        DropView( TZCtlCopy );
                      } 
 
                      //:END
+                     //:nRC = SetCursorNextEntityHierarchical( lReturnedLevel, szReturnedEntityName, TZCtlHier )
+                     nRC = SetCursorNextEntityHierarchical( (zPUSHORT) &lReturnedLevel, szReturnedEntityName, TZCtlHier );
                   } 
 
-                  //:END
-                  //:DropView( TZCtlCopy )
-                  DropView( TZCtlCopy );
+                  //:END 
                } 
 
                //:END
@@ -8578,9 +8514,33 @@ GOTO_AD_GroupSpecification( zVIEW     ViewToWindow )
 
    RESULT = GetViewByName( &TZADWWKO, "TZADWWKO", ViewToWindow, zLEVEL_TASK );
 
+   //:// The Groupd for Dashboard Entry has no mapping, so we'll skip the initialization code that the other Groups use.
+   //:IF TZADWWKO.EntitySubGroup.GroupType = "DetailGroupDBE"
+   if ( CompareAttributeToString( TZADWWKO, "EntitySubGroup", "GroupType", "DetailGroupDBE" ) == 0 )
+   { 
+      //:CreateTemporalSubobjectVersion( TZADWWKO, "EntitySubGroup" )
+      CreateTemporalSubobjectVersion( TZADWWKO, "EntitySubGroup" );
+      //:SetWindowActionBehavior( ViewToWindow, zWAB_StartModalSubwindow, "TZADWEBD", "AD_GroupDashboardSpec" )
+      SetWindowActionBehavior( ViewToWindow, zWAB_StartModalSubwindow, "TZADWEBD", "AD_GroupDashboardSpec" );
+      //:RETURN 
+      return( 0 );
+   } 
+
+   //:END
+
+   //:// Set up work areas for Groups other than Dashboard Entry.
+
    //:// Reuse the operation from Multi-Group Page.
-   //:GOTO_AD_GroupUpdate( ViewToWindow )
-   GOTO_AD_GroupUpdate( ViewToWindow );
+   //:nRC = GOTO_AD_GroupUpdate( ViewToWindow )
+   nRC = GOTO_AD_GroupUpdate( ViewToWindow );
+   //:IF nRC < 0
+   if ( nRC < 0 )
+   { 
+      //:RETURN 
+      return( 0 );
+   } 
+
+   //:END
 
    //:CreateTemporalSubobjectVersion( TZADWWKO, "EntitySubGroup" )
    CreateTemporalSubobjectVersion( TZADWWKO, "EntitySubGroup" );
@@ -8654,6 +8614,10 @@ AUTODESIGN_NewGroup( zVIEW     ViewToWindow )
    zCHAR     szGroupType[ 51 ] = { 0 }; 
    //:STRING ( 50 ) szAD_Area
    zCHAR     szAD_Area[ 51 ] = { 0 }; 
+   //:STRING ( 50 )  szTemplateWindow
+   zCHAR     szTemplateWindow[ 51 ] = { 0 }; 
+   //:STRING ( 200 ) szMsg
+   zCHAR     szMsg[ 201 ] = { 0 }; 
    //:SHORT nRC
    zSHORT    nRC = 0; 
 
@@ -8662,6 +8626,9 @@ AUTODESIGN_NewGroup( zVIEW     ViewToWindow )
    RESULT = GetViewByName( &TZWINDOWL, "TZWINDOWL", ViewToWindow, zLEVEL_TASK );
 
    //:// Reuse the GenEntitySubGroup operation to build the Group and an optional, subpage, depending on the Group Type.
+
+   //:szGroupType = TZADWWKO.EntitySubGroup.GroupType 
+   GetVariableFromAttribute( szGroupType, 0, 'S', 51, TZADWWKO, "EntitySubGroup", "GroupType", "", 0 );
 
    //:// Also activate AD_Base to pick up reusable data values.
    //:nRC = ActivateAD_BaseL( AD_Base, ViewToWindow )
@@ -8676,15 +8643,32 @@ AUTODESIGN_NewGroup( zVIEW     ViewToWindow )
    //:END
    //:NAME VIEW AD_Base "AD_Base" 
    SetNameForView( AD_Base, "AD_Base", 0, zLEVEL_TASK );
-   //:SET CURSOR FIRST AD_Base.Window WHERE AD_Base.Window.Tag = "ObjectUpdateGroups"
-   RESULT = SetCursorFirstEntityByString( AD_Base, "Window", "Tag", "ObjectUpdateGroups", "" );
+   //:IF TZADWWKO.AutoDesignWork.SelectedListboxSymbolType = "Icons"
+   if ( CompareAttributeToString( TZADWWKO, "AutoDesignWork", "SelectedListboxSymbolType", "Icons" ) == 0 )
+   { 
+      //:szTemplateWindow = "ObjectUpdateGroupsIcons" 
+      ZeidonStringCopy( szTemplateWindow, 1, 0, "ObjectUpdateGroupsIcons", 1, 0, 51 );
+      //:ELSE
+   } 
+   else
+   { 
+      //:szTemplateWindow = "ObjectUpdateGroups"
+      ZeidonStringCopy( szTemplateWindow, 1, 0, "ObjectUpdateGroups", 1, 0, 51 );
+   } 
+
+   //:END
+   //:SET CURSOR FIRST AD_Base.Window WHERE AD_Base.Window.Tag = szTemplateWindow
+   RESULT = SetCursorFirstEntityByString( AD_Base, "Window", "Tag", szTemplateWindow, "" );
    //:IF RESULT < zCURSOR_SET
    if ( RESULT < zCURSOR_SET )
    { 
-      //:MessageSend( TZADWWKO, "", "Autodesign Subdialog",
-      //:             "ObjectUpdateGroups Window doesn't exist.",
+      //:szMsg = "The template window, " + szTemplateWindow + ", could not be found in AD_Base."
+      ZeidonStringCopy( szMsg, 1, 0, "The template window, ", 1, 0, 201 );
+      ZeidonStringConcat( szMsg, 1, 0, szTemplateWindow, 1, 0, 201 );
+      ZeidonStringConcat( szMsg, 1, 0, ", could not be found in AD_Base.", 1, 0, 201 );
+      //:MessageSend( ViewToWindow, "", "Autodesign Subdialog", szMsg,
       //:             zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
-      MessageSend( TZADWWKO, "", "Autodesign Subdialog", "ObjectUpdateGroups Window doesn't exist.", zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
+      MessageSend( ViewToWindow, "", "Autodesign Subdialog", szMsg, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
       //:SetWindowActionBehavior( ViewToWindow, zWAB_StayOnWindow, 0,0 )
       SetWindowActionBehavior( ViewToWindow, zWAB_StayOnWindow, 0, 0 );
       //:RETURN -2
@@ -8693,28 +8677,32 @@ AUTODESIGN_NewGroup( zVIEW     ViewToWindow )
 
    //:END
 
-   //:// Check for Update LOD.
-   //:GET VIEW UpdateLOD NAMED "TZZOLODO_Update"
-   RESULT = GetViewByName( &UpdateLOD, "TZZOLODO_Update", ViewToWindow, zLEVEL_TASK );
-   //:IF RESULT < 0
-   if ( RESULT < 0 )
+   //:// Check for Update LOD, unless the Group is a DashboardEntry.
+   //:IF szGroupType != "DetailGroupDBE"
+   if ( ZeidonStringCompare( szGroupType, 1, 0, "DetailGroupDBE", 1, 0, 51 ) != 0 )
    { 
-      //:MessageSend( ViewToWindow, "", "Autodesign Subdialog",
-      //:             "The Update Object has not been selected.",
-      //:             zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
-      MessageSend( ViewToWindow, "", "Autodesign Subdialog", "The Update Object has not been selected.", zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
-      //:SetWindowActionBehavior( ViewToWindow, zWAB_StayOnWindow, 0,0 )
-      SetWindowActionBehavior( ViewToWindow, zWAB_StayOnWindow, 0, 0 );
-      //:RETURN -2
-      return( -2 );
+      //:GET VIEW UpdateLOD NAMED "TZZOLODO_Update"
+      RESULT = GetViewByName( &UpdateLOD, "TZZOLODO_Update", ViewToWindow, zLEVEL_TASK );
+      //:IF RESULT < 0
+      if ( RESULT < 0 )
+      { 
+         //:MessageSend( ViewToWindow, "", "Autodesign Subdialog",
+         //:             "The Update Object has not been selected.",
+         //:             zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
+         MessageSend( ViewToWindow, "", "Autodesign Subdialog", "The Update Object has not been selected.", zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
+         //:SetWindowActionBehavior( ViewToWindow, zWAB_StayOnWindow, 0,0 )
+         SetWindowActionBehavior( ViewToWindow, zWAB_StayOnWindow, 0, 0 );
+         //:RETURN -2
+         return( -2 );
+      } 
+
+      //:END
    } 
 
    //:END
 
    //:// Make sure that Mapping wasn't skipped. 
    //:// Note that we're not making sure all mapping entries have been selected, but just that the User has gone to mapping.
-   //:szGroupType = TZADWWKO.EntitySubGroup.GroupType 
-   GetVariableFromAttribute( szGroupType, 0, 'S', 51, TZADWWKO, "EntitySubGroup", "GroupType", "", 0 );
    //:IF szGroupType = "ListGroupOnly"         OR 
    //:   szGroupType = "ListGroupWDetailPage"  OR 
    //:   szGroupType = "ListGroupWUpdatePage"  OR
@@ -8813,6 +8801,8 @@ AUTODESIGN_NewGroup( zVIEW     ViewToWindow )
    RESULT = SetCursorFirstEntity( TZWINDOWL, "Control", "" );
    //:RenameAD_Controls( TZADWWKO, TZWINDOWL ) 
    oTZADWWKO_RenameAD_Controls( TZADWWKO, TZWINDOWL );
+
+   //:// SUBWINDOWS FOR SELECTED GROUP TYPES
 
    //:// Next, build the subwindow if there is one for the Group Type.
    //:IF szGroupType = "ListGroupWUpdatePage" OR szGroupType = "ListGroupWDetailPage"
@@ -9430,6 +9420,296 @@ SELECT_MultiPageMGP_Object( zVIEW     ViewToWindow )
    } 
 
    //:END
+   return( 0 );
+// END
+} 
+
+
+//:DIALOG OPERATION
+//:PostbuildAutodesignCRM_Subdialog( VIEW ViewToWindow )
+
+//:   VIEW TZWINDOWL   REGISTERED AS TZWINDOWL
+zOPER_EXPORT zSHORT OPERATION
+PostbuildAutodesignCRM_Subdialog( zVIEW     ViewToWindow )
+{
+   zVIEW     TZWINDOWL = 0; 
+   zSHORT    RESULT; 
+   //:VIEW TZADWWKO    BASED ON LOD  TZADWWKO
+   zVIEW     TZADWWKO = 0; 
+   //:VIEW CL_Domain   BASED ON LOD  TZDGSRCO
+   zVIEW     CL_Domain = 0; 
+   //:VIEW UpdateLOD   BASED ON LOD  TZZOLODO
+   zVIEW     UpdateLOD = 0; 
+   //:SHORT nRC
+   zSHORT    nRC = 0; 
+   zSHORT    lTempInteger_0; 
+   zSHORT    lTempInteger_1; 
+
+   RESULT = GetViewByName( &TZWINDOWL, "TZWINDOWL", ViewToWindow, zLEVEL_TASK );
+
+   //:// Set up work data necessary for autodesigning an AutodesignSubdialog.
+
+   //:// Make sure TZADWWKO and the related autodesign objects exist in memory.
+   //:GET VIEW TZADWWKO NAMED "TZADWWKO"
+   RESULT = GetViewByName( &TZADWWKO, "TZADWWKO", ViewToWindow, zLEVEL_TASK );
+   //:IF RESULT < 0
+   if ( RESULT < 0 )
+   { 
+      //:// The autodesign work objects need to be set up.
+
+      //:// The TZADWWKO itself
+      //:ACTIVATE TZADWWKO EMPTY 
+      RESULT = ActivateEmptyObjectInstance( &TZADWWKO, "TZADWWKO", ViewToWindow, zSINGLE );
+      //:NAME VIEW TZADWWKO "TZADWWKO"
+      SetNameForView( TZADWWKO, "TZADWWKO", 0, zLEVEL_TASK );
+      //:CREATE ENTITY TZADWWKO.AutoDesignWork 
+      RESULT = CreateEntity( TZADWWKO, "AutoDesignWork", zPOS_AFTER );
+      //:CREATE ENTITY TZADWWKO.AutodesignSubdialog 
+      RESULT = CreateEntity( TZADWWKO, "AutodesignSubdialog", zPOS_AFTER );
+      //:CREATE ENTITY TZADWWKO.EntitySubGroup  
+      RESULT = CreateEntity( TZADWWKO, "EntitySubGroup", zPOS_AFTER );
+      //:InitializeL_SymbolType( TZADWWKO )
+      oTZADWWKO_InitializeL_SymbolType( TZADWWKO );
+
+      //:// Remove any existing Autodesign entries from TZWINDOWL.
+      //:IF TZWINDOWL.AutoDesignWindow EXISTS
+      lTempInteger_0 = CheckExistenceOfEntity( TZWINDOWL, "AutoDesignWindow" );
+      if ( lTempInteger_0 == 0 )
+      { 
+         //:DELETE ENTITY TZWINDOWL.AutoDesignWindow  
+         RESULT = DeleteEntity( TZWINDOWL, "AutoDesignWindow", zPOS_NEXT );
+      } 
+
+      //:END
+      //:CREATE ENTITY TZWINDOWL.AutoDesignWindow 
+      RESULT = CreateEntity( TZWINDOWL, "AutoDesignWindow", zPOS_AFTER );
+      //:CREATE ENTITY TZWINDOWL.AutoDesignGroup  
+      RESULT = CreateEntity( TZWINDOWL, "AutoDesignGroup", zPOS_AFTER );
+
+      //:ELSE
+   } 
+   else
+   { 
+      //:// The Object exists, also make sure the AutoDesignWork entries exist.
+      //:SET CURSOR FIRST TZADWWKO.AutoDesignWork
+      RESULT = SetCursorFirstEntity( TZADWWKO, "AutoDesignWork", "" );
+      //:IF RESULT < zCURSOR_SET
+      if ( RESULT < zCURSOR_SET )
+      { 
+         //:CREATE ENTITY TZADWWKO.AutoDesignWork 
+         RESULT = CreateEntity( TZADWWKO, "AutoDesignWork", zPOS_AFTER );
+         //:CREATE ENTITY TZADWWKO.AutodesignSubdialog
+         RESULT = CreateEntity( TZADWWKO, "AutodesignSubdialog", zPOS_AFTER );
+      } 
+
+      //:END
+   } 
+
+   //:END
+
+   //:// Make sure the list of Contact List Domain Types exists.
+   //:IF TZADWWKO.ContactListTypeDomain DOES NOT EXIST
+   lTempInteger_1 = CheckExistenceOfEntity( TZADWWKO, "ContactListTypeDomain" );
+   if ( lTempInteger_1 != 0 )
+   { 
+      //:// Get the list of ContactListType Domain values.
+      //:nRC = ActivateMetaOI_ByName( ViewToWindow, CL_Domain, 0, zREFER_DOMAIN_META, zSINGLE, "ContactListType", 0 )
+      nRC = ActivateMetaOI_ByName( ViewToWindow, &CL_Domain, 0, zREFER_DOMAIN_META, zSINGLE, "ContactListType", 0 );
+      //:IF nRC <0
+      if ( nRC < 0 )
+      { 
+         //:MessageSend( ViewToWindow, "", "Autodesign Subdialog",
+         //:             "Domain ContactListType.",
+         //:             zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
+         MessageSend( ViewToWindow, "", "Autodesign Subdialog", "Domain ContactListType.", zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
+         //:RETURN -2
+         return( -2 );
+      } 
+
+      //:END
+      //:NAME VIEW CL_Domain "CL_Domain"
+      SetNameForView( CL_Domain, "CL_Domain", 0, zLEVEL_TASK );
+      //:CREATE ENTITY TZADWWKO.ContactListTypeDomain   // Create empty entry.
+      RESULT = CreateEntity( TZADWWKO, "ContactListTypeDomain", zPOS_AFTER );
+      //:FOR EACH CL_Domain.TableEntry 
+      RESULT = SetCursorFirstEntity( CL_Domain, "TableEntry", "" );
+      while ( RESULT > zCURSOR_UNCHANGED )
+      { 
+         //:CREATE ENTITY TZADWWKO.ContactListTypeDomain 
+         RESULT = CreateEntity( TZADWWKO, "ContactListTypeDomain", zPOS_AFTER );
+         //:TZADWWKO.ContactListTypeDomain.DisplayedValue = CL_Domain.TableEntry.ExternalValue 
+         SetAttributeFromAttribute( TZADWWKO, "ContactListTypeDomain", "DisplayedValue", CL_Domain, "TableEntry", "ExternalValue" );
+         //:TZADWWKO.ContactListTypeDomain.InternalType   = CL_Domain.TableEntry.InternalValue 
+         SetAttributeFromAttribute( TZADWWKO, "ContactListTypeDomain", "InternalType", CL_Domain, "TableEntry", "InternalValue" );
+         RESULT = SetCursorNextEntity( CL_Domain, "TableEntry", "" );
+      } 
+
+      //:END 
+      //:DropObjectInstance( CL_Domain )
+      DropObjectInstance( CL_Domain );
+   } 
+
+   //:END
+   //:SET CURSOR FIRST TZADWWKO.ContactListTypeDomain
+   RESULT = SetCursorFirstEntity( TZADWWKO, "ContactListTypeDomain", "" );
+
+   //:// If an update LOD exists, make sure that we also name it TZZOLODO_Desc for the combobox.
+   //:GET VIEW UpdateLOD NAMED "TZZOLODO_Update"
+   RESULT = GetViewByName( &UpdateLOD, "TZZOLODO_Update", ViewToWindow, zLEVEL_TASK );
+   //:IF RESULT >= 0
+   if ( RESULT >= 0 )
+   { 
+      //:NAME VIEW UpdateLOD "TZZOLODO_Desc"     // We need this named view for the Root select combobox.
+      SetNameForView( UpdateLOD, "TZZOLODO_Desc", 0, zLEVEL_TASK );
+   } 
+
+   //:END
+   return( 0 );
+// END
+} 
+
+
+//:DIALOG OPERATION
+//:SELECT_ExactMatchAttribute( VIEW ViewToWindow )
+
+//:   VIEW TZADWWKO REGISTERED AS TZADWWKO
+zOPER_EXPORT zSHORT OPERATION
+SELECT_ExactMatchAttribute( zVIEW     ViewToWindow )
+{
+   zVIEW     TZADWWKO = 0; 
+   zSHORT    RESULT; 
+   zSHORT    lTempInteger_0; 
+   zLONG     lTempInteger_1; 
+   zSHORT    lTempInteger_2; 
+
+   RESULT = GetViewByName( &TZADWWKO, "TZADWWKO", ViewToWindow, zLEVEL_TASK );
+
+   //:// Include the selected ExactMatch Attribute and set its name.
+   //:IF TZADWWKO.SelectedExactMatchAttribute EXISTS
+   lTempInteger_0 = CheckExistenceOfEntity( TZADWWKO, "SelectedExactMatchAttribute" );
+   if ( lTempInteger_0 == 0 )
+   { 
+      //:EXCLUDE TZADWWKO.SelectedExactMatchAttribute  
+      RESULT = ExcludeEntity( TZADWWKO, "SelectedExactMatchAttribute", zREPOS_AFTER );
+   } 
+
+   //:END
+   //:INCLUDE TZADWWKO.SelectedExactMatchAttribute FROM TZADWWKO.PotentialExactMatchAttribute 
+   RESULT = IncludeSubobjectFromSubobject( TZADWWKO, "SelectedExactMatchAttribute", TZADWWKO, "PotentialExactMatchAttribute", zPOS_AFTER );
+   //:TZADWWKO.SelectedExactMatchAttribute.wAttributeName = TZADWWKO.PotentialExactMatchER_Attribute.Name 
+   SetAttributeFromAttribute( TZADWWKO, "SelectedExactMatchAttribute", "wAttributeName", TZADWWKO, "PotentialExactMatchER_Attribute", "Name" );
+
+   //:// Also add the Attribute to the selected list.
+   //:// Make sure that it's the first in the list
+   //:SET CURSOR FIRST TZADWWKO.ESG_FlatLOD_Attribute WITHIN TZADWWKO.AutoDesignWork 
+   //:           WHERE TZADWWKO.ESG_FlatLOD_Attribute.ZKey = TZADWWKO.SelectedExactMatchAttribute.ZKey 
+   GetIntegerFromAttribute( &lTempInteger_1, TZADWWKO, "SelectedExactMatchAttribute", "ZKey" );
+   RESULT = SetCursorFirstEntityByInteger( TZADWWKO, "ESG_FlatLOD_Attribute", "ZKey", lTempInteger_1, "AutoDesignWork" );
+   //:IF TZADWWKO.FlatSelectedSearchAttribute EXISTS
+   lTempInteger_2 = CheckExistenceOfEntity( TZADWWKO, "FlatSelectedSearchAttribute" );
+   if ( lTempInteger_2 == 0 )
+   { 
+      //:SET CURSOR FIRST TZADWWKO.FlatSelectedSearchAttribute
+      RESULT = SetCursorFirstEntity( TZADWWKO, "FlatSelectedSearchAttribute", "" );
+      //:CREATE ENTITY TZADWWKO.FlatSelectedSearchAttribute BEFORE 
+      RESULT = CreateEntity( TZADWWKO, "FlatSelectedSearchAttribute", zPOS_BEFORE );
+      //:ELSE
+   } 
+   else
+   { 
+      //:CREATE ENTITY TZADWWKO.FlatSelectedSearchAttribute
+      RESULT = CreateEntity( TZADWWKO, "FlatSelectedSearchAttribute", zPOS_AFTER );
+   } 
+
+   //:END
+   //:SetMatchingAttributesByName( TZADWWKO, "FlatSelectedSearchAttribute", TZADWWKO, "ESG_FlatListPotentialAttribute", zSET_ALL )
+   SetMatchingAttributesByName( TZADWWKO, "FlatSelectedSearchAttribute", TZADWWKO, "ESG_FlatListPotentialAttribute", zSET_ALL );
+   //:TZADWWKO.FlatSelectedSearchAttribute.DataType = TZADWWKO.ESG_FlatDomain.DataType 
+   SetAttributeFromAttribute( TZADWWKO, "FlatSelectedSearchAttribute", "DataType", TZADWWKO, "ESG_FlatDomain", "DataType" );
+   //:INCLUDE TZADWWKO.FlatSearchLOD_Attribute FROM TZADWWKO.ESG_FlatLOD_Attribute 
+   RESULT = IncludeSubobjectFromSubobject( TZADWWKO, "FlatSearchLOD_Attribute", TZADWWKO, "ESG_FlatLOD_Attribute", zPOS_AFTER );
+   return( 0 );
+// END
+} 
+
+
+//:DIALOG OPERATION
+//:ACCEPT_DashboardGroup( VIEW ViewToWindow )
+
+//:   VIEW TZADWWKO  REGISTERED AS TZADWWKO
+zOPER_EXPORT zSHORT OPERATION
+ACCEPT_DashboardGroup( zVIEW     ViewToWindow )
+{
+   zVIEW     TZADWWKO = 0; 
+   zSHORT    RESULT; 
+   //:VIEW TZCONTROL REGISTERED AS TZCONTROL
+   zVIEW     TZCONTROL = 0; 
+   //:VIEW TZWINDOWL REGISTERED AS TZWINDOWL
+   zVIEW     TZWINDOWL = 0; 
+   //:VIEW UpdateLOD BASED ON LOD  TZZOLODO
+   zVIEW     UpdateLOD = 0; 
+   //:VIEW AD_Base   BASED ON LOD  TZWDLGSO
+   zVIEW     AD_Base = 0; 
+   //:STRING ( 5 ) szSuffix
+   zCHAR     szSuffix[ 6 ] = { 0 }; 
+   //:INTEGER nRC
+   zLONG     nRC = 0; 
+
+   RESULT = GetViewByName( &TZADWWKO, "TZADWWKO", ViewToWindow, zLEVEL_TASK );
+   RESULT = GetViewByName( &TZCONTROL, "TZCONTROL", ViewToWindow, zLEVEL_TASK );
+   RESULT = GetViewByName( &TZWINDOWL, "TZWINDOWL", ViewToWindow, zLEVEL_TASK );
+
+   //:// Make sure both Group Area Name and Area Title and Suffix have been entered
+   //:IF TZADWWKO.EntitySubGroup.GroupAreaName          = "" OR 
+   //:   TZADWWKO.EntitySubGroup.GroupAreaTitle         = "" OR 
+   //:   TZADWWKO.EntitySubGroup.DashboardRunTimeSuffix = ""
+   if ( CompareAttributeToString( TZADWWKO, "EntitySubGroup", "GroupAreaName", "" ) == 0 || CompareAttributeToString( TZADWWKO, "EntitySubGroup", "GroupAreaTitle", "" ) == 0 ||
+        CompareAttributeToString( TZADWWKO, "EntitySubGroup", "DashboardRunTimeSuffix", "" ) == 0 )
+   { 
+
+      //:MessageSend( ViewToWindow, "", "Autodesign Subdialog",
+      //:             "A Group Area Name, Title and Run Time Suffix must all be specified.",
+      //:             zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
+      MessageSend( ViewToWindow, "", "Autodesign Subdialog", "A Group Area Name, Title and Run Time Suffix must all be specified.", zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
+      //:SetWindowActionBehavior( ViewToWindow, zWAB_StayOnWindow, 0,0 )
+      SetWindowActionBehavior( ViewToWindow, zWAB_StayOnWindow, 0, 0 );
+      //:RETURN -2
+      return( -2 );
+   } 
+
+   //:END
+
+   //:// Make sure the suffix is a number from 1 to 5.
+   //:szSuffix = TZADWWKO.EntitySubGroup.DashboardRunTimeSuffix 
+   GetVariableFromAttribute( szSuffix, 0, 'S', 6, TZADWWKO, "EntitySubGroup", "DashboardRunTimeSuffix", "", 0 );
+   //:IF szSuffix != "1" AND   
+   //:   szSuffix != "2" AND 
+   //:   szSuffix != "3" AND 
+   //:   szSuffix != "4" AND 
+   //:   szSuffix != "5" AND 
+   //:   szSuffix != "6" 
+   if ( ZeidonStringCompare( szSuffix, 1, 0, "1", 1, 0, 6 ) != 0 && ZeidonStringCompare( szSuffix, 1, 0, "2", 1, 0, 6 ) != 0 && ZeidonStringCompare( szSuffix, 1, 0, "3", 1, 0, 6 ) != 0 && ZeidonStringCompare( szSuffix, 1, 0, "4", 1, 0, 6 ) != 0 &&
+        ZeidonStringCompare( szSuffix, 1, 0, "5", 1, 0, 6 ) != 0 && ZeidonStringCompare( szSuffix, 1, 0, "6", 1, 0, 6 ) != 0 )
+   { 
+
+      //:MessageSend( ViewToWindow, "", "Autodesign Subdialog",
+      //:             "The Run DateTime Suffix must be an integer from 1 to 6.",
+      //:             zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
+      MessageSend( ViewToWindow, "", "Autodesign Subdialog", "The Run DateTime Suffix must be an integer from 1 to 6.", zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
+      //:SetWindowActionBehavior( ViewToWindow, zWAB_StayOnWindow, 0,0 )
+      SetWindowActionBehavior( ViewToWindow, zWAB_StayOnWindow, 0, 0 );
+      //:RETURN -2
+      return( -2 );
+   } 
+
+   //:END
+
+   //:AcceptSubobject( TZADWWKO, "EntitySubGroup" )
+   AcceptSubobject( TZADWWKO, "EntitySubGroup" );
+
+   //:// The Action/Operation Suffix will be the same as the Group Area Name, at least for now.
+   //:TZADWWKO.EntitySubGroup.IncludeOperationSuffix = TZADWWKO.EntitySubGroup.GroupAreaName 
+   SetAttributeFromAttribute( TZADWWKO, "EntitySubGroup", "IncludeOperationSuffix", TZADWWKO, "EntitySubGroup", "GroupAreaName" );
    return( 0 );
 // END
 } 

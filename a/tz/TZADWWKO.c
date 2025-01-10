@@ -20,6 +20,835 @@ oTZADWWKO_ReturnAttrControlType( zVIEW     AnyView,
 
 
 //:TRANSFORMATION OPERATION
+//:AddAD_Dashbord( VIEW TZADWWKO   BASED ON LOD TZADWWKO,
+//:                VIEW TZWINDOWL  BASED ON LOD TZWDLGSO,
+//:                VIEW TZCONTROL  BASED ON LOD TZWDLGSO,
+//:                VIEW AD_Base    BASED ON LOD TZWDLGSO,
+//:                VIEW AD_BaseCtl BASED ON LOD TZWDLGSO )
+
+//:   VIEW TaskLPLR    REGISTERED AS TaskLPLR
+zOPER_EXPORT zSHORT OPERATION
+oTZADWWKO_AddAD_Dashbord( zVIEW     TZADWWKO,
+                          zVIEW     TZWINDOWL,
+                          zVIEW     TZCONTROL,
+                          zVIEW     AD_Base,
+                          zVIEW     AD_BaseCtl )
+{
+   zVIEW     TaskLPLR = 0; 
+   zSHORT    RESULT; 
+   //:VIEW TZCtlHier   BASED ON LOD  TZWDLGSO
+   zVIEW     TZCtlHier = 0; 
+   //:VIEW TZCtlTemp   BASED ON LOD  TZWDLGSO
+   zVIEW     TZCtlTemp = 0; 
+   //:VIEW TaskLPLR2   BASED ON LOD  TZCMLPLO
+   zVIEW     TaskLPLR2 = 0; 
+   //:VIEW mDashBDfLOD BASED ON LOD  TZZOLODO
+   zVIEW     mDashBDfLOD = 0; 
+   //:STRING ( 50 )  szActionName
+   zCHAR     szActionName[ 51 ] = { 0 }; 
+   //:STRING ( 50 )  szOrigName
+   zCHAR     szOrigName[ 51 ] = { 0 }; 
+   //:STRING ( 50 )  szAreaName
+   zCHAR     szAreaName[ 51 ] = { 0 }; 
+   //:STRING ( 50 )  szAreaTitle
+   zCHAR     szAreaTitle[ 51 ] = { 0 }; 
+   //:STRING ( 50 )  szOperationName
+   zCHAR     szOperationName[ 51 ] = { 0 }; 
+   //:STRING ( 50 )  szAD_DBE_Name
+   zCHAR     szAD_DBE_Name[ 51 ] = { 0 }; 
+   //:STRING ( 50 )  szReturnedEntityName 
+   zCHAR     szReturnedEntityName[ 51 ] = { 0 }; 
+   //:STRING ( 50 )  szControlDef
+   zCHAR     szControlDef[ 51 ] = { 0 }; 
+   //:STRING ( 50 )  szTemplateWindow
+   zCHAR     szTemplateWindow[ 51 ] = { 0 }; 
+   //:STRING ( 50 )  szControlName
+   zCHAR     szControlName[ 51 ] = { 0 }; 
+   //:STRING ( 50 )  szDashboardName
+   zCHAR     szDashboardName[ 51 ] = { 0 }; 
+   //:STRING ( 50 )  szCompare
+   zCHAR     szCompare[ 51 ] = { 0 }; 
+   //:STRING ( 50 )  szCSS_Class
+   zCHAR     szCSS_Class[ 51 ] = { 0 }; 
+   //:STRING ( 80 )  szReturnDialogPage
+   zCHAR     szReturnDialogPage[ 81 ] = { 0 }; 
+   //:STRING ( 256 ) szVML_Statement
+   zCHAR     szVML_Statement[ 257 ] = { 0 }; 
+   //:STRING ( 256 ) szTargetVML
+   zCHAR     szTargetVML[ 257 ] = { 0 }; 
+   //:STRING ( 256 ) szSourceVML
+   zCHAR     szSourceVML[ 257 ] = { 0 }; 
+   //:STRING ( 256 ) szSourceDirectory
+   zCHAR     szSourceDirectory[ 257 ] = { 0 }; 
+   //:STRING ( 256 ) szControlText
+   zCHAR     szControlText[ 257 ] = { 0 }; 
+   //:STRING ( 256 ) szMsg
+   zCHAR     szMsg[ 257 ] = { 0 }; 
+   //:INTEGER Count
+   zLONG     Count = 0; 
+   //:INTEGER nRC
+   zLONG     nRC = 0; 
+   //:INTEGER nRC2
+   zLONG     nRC2 = 0; 
+   //:INTEGER nFileIn
+   zLONG     nFileIn = 0; 
+   //:INTEGER nFileOut
+   zLONG     nFileOut = 0; 
+   //:INTEGER nLength 
+   zLONG     nLength = 0; 
+   //:INTEGER nLevel
+   zLONG     nLevel = 0; 
+   //:INTEGER lInitialLevel
+   zLONG     lInitialLevel = 0; 
+   //:SHORT   lReturnedLevel 
+   zSHORT    lReturnedLevel = 0; 
+   zCHAR     szTempString_0[ 33 ]; 
+   zCHAR     szTempString_1[ 33 ]; 
+   zCHAR     szTempString_2[ 255 ]; 
+   zCHAR     szTempString_3[ 33 ]; 
+   zCHAR     szTempString_4[ 33 ]; 
+   zCHAR     szTempString_5[ 33 ]; 
+
+   RESULT = GetViewByName( &TaskLPLR, "TaskLPLR", TZADWWKO, zLEVEL_TASK );
+
+   //:// Generate the Static Dashboard Group.
+
+   //:// Check that the wQueryR dialog exists.
+   //:CreateViewFromView( TaskLPLR2, TaskLPLR )
+   CreateViewFromView( &TaskLPLR2, TaskLPLR );
+   //:NAME VIEW TaskLPLR2 "TaskLPLR2"
+   SetNameForView( TaskLPLR2, "TaskLPLR2", 0, zLEVEL_TASK );
+   //:SET CURSOR FIRST TaskLPLR2.W_MetaType WHERE TaskLPLR2.W_MetaType.Type = 11   // 11 is read view of Dialogs.
+   RESULT = SetCursorFirstEntityByInteger( TaskLPLR2, "W_MetaType", "Type", 11, "" );
+   //:SET CURSOR FIRST TaskLPLR2.W_MetaDef WHERE TaskLPLR2.W_MetaDef.Name = "wQueryR" 
+   RESULT = SetCursorFirstEntityByString( TaskLPLR2, "W_MetaDef", "Name", "wQueryR", "" );
+   //:IF RESULT < zCURSOR_SET
+   if ( RESULT < zCURSOR_SET )
+   { 
+      //:MessageSend( TZADWWKO, "", "Autodesign Subdialog",
+      //:             "A Dashboard Name has not been specified.",
+      //:             zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
+      MessageSend( TZADWWKO, "", "Autodesign Subdialog", "A Dashboard Name has not been specified.", zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
+      //:SetWindowActionBehavior( TZADWWKO, zWAB_StayOnWindow, 0,0 )
+      SetWindowActionBehavior( TZADWWKO, zWAB_StayOnWindow, 0, 0 );
+      //:DropView( TaskLPLR2 )
+      DropView( TaskLPLR2 );
+      //:RETURN -2
+      return( -2 );
+   } 
+
+   //:END
+
+   //:// A Dashboard Name must be specfied.
+   //:IF TZADWWKO.EntitySubGroup.DashboardName = ""
+   if ( CompareAttributeToString( TZADWWKO, "EntitySubGroup", "DashboardName", "" ) == 0 )
+   { 
+      //:MessageSend( TZADWWKO, "", "Autodesign Subdialog",
+      //:             "A Dashboard Name has not been specified.",
+      //:             zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
+      MessageSend( TZADWWKO, "", "Autodesign Subdialog", "A Dashboard Name has not been specified.", zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
+      //:SetWindowActionBehavior( TZADWWKO, zWAB_StayOnWindow, 0,0 )
+      SetWindowActionBehavior( TZADWWKO, zWAB_StayOnWindow, 0, 0 );
+      //:RETURN -2
+      return( -2 );
+   } 
+
+   //:END
+
+   //:SET CURSOR FIRST AD_BaseCtl.Control WHERE AD_BaseCtl.Control.Tag = "GroupDashboardEntry"
+   RESULT = SetCursorFirstEntityByString( AD_BaseCtl, "Control", "Tag", "GroupDashboardEntry", "" );
+   //:IF RESULT < zCURSOR_SET
+   if ( RESULT < zCURSOR_SET )
+   { 
+      //:MessageSend( TZADWWKO, "", "Autodesign Subdialog",
+      //:             "DashboardEntry Control doesn't exist in AD_Base.",
+      //:             zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
+      MessageSend( TZADWWKO, "", "Autodesign Subdialog", "DashboardEntry Control doesn't exist in AD_Base.", zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
+      //:SetWindowActionBehavior( TZADWWKO, zWAB_StayOnWindow, 0,0 )
+      SetWindowActionBehavior( TZADWWKO, zWAB_StayOnWindow, 0, 0 );
+      //:RETURN -2
+      return( -2 );
+   } 
+
+   //:END
+
+   //:// Activate mDashBDf LOD and add ViewObjRef as necessary.
+   //:nRC = ActivateMetaOI_ByName( TZADWWKO, mDashBDfLOD, 0, zREFER_LOD_META, zSINGLE, "mDashBDf", 0 )
+   nRC = ActivateMetaOI_ByName( TZADWWKO, &mDashBDfLOD, 0, zREFER_LOD_META, zSINGLE, "mDashBDf", 0 );
+   //:IF nRC < 0
+   if ( nRC < 0 )
+   { 
+      //:MessageSend( TZADWWKO, "", "Autodesign Dashboard",
+      //:             "LOD mDashBDf does not exist in LPLR.",
+      //:             zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
+      MessageSend( TZADWWKO, "", "Autodesign Dashboard", "LOD mDashBDf does not exist in LPLR.", zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
+      //:SetWindowActionBehavior( TZADWWKO, zWAB_StayOnWindow, 0,0 )
+      SetWindowActionBehavior( TZADWWKO, zWAB_StayOnWindow, 0, 0 );
+      //:RETURN -2
+      return( -2 );
+   } 
+
+   //:END
+   //:NAME VIEW mDashBDfLOD "mDashBDfTemp"
+   SetNameForView( mDashBDfLOD, "mDashBDfTemp", 0, zLEVEL_TASK );
+   //:szDashboardName = TZADWWKO.EntitySubGroup.DashboardName 
+   GetVariableFromAttribute( szDashboardName, 0, 'S', 51, TZADWWKO, "EntitySubGroup", "DashboardName", "", 0 );
+   //:SET CURSOR FIRST TZWINDOWL.ViewObjRef WHERE TZWINDOWL.ViewObjRef.Name = szDashboardName
+   RESULT = SetCursorFirstEntityByString( TZWINDOWL, "ViewObjRef", "Name", szDashboardName, "" );
+   //:IF RESULT < zCURSOR_SET
+   if ( RESULT < zCURSOR_SET )
+   { 
+      //:AddRegisteredViewName( TZADWWKO, TZWINDOWL, mDashBDfLOD, szDashboardName )
+      oTZADWWKO_AddRegisteredViewName( TZADWWKO, TZWINDOWL, mDashBDfLOD, szDashboardName );
+   } 
+
+   //:END
+
+   //:// Clone Control at current position. Note that Clone does not copy Action Operations.
+   //:nRC = CloneControlAD( TZADWWKO, TZCONTROL, TZWINDOWL, AD_BaseCtl )
+   nRC = oTZADWWKO_CloneControlAD( TZADWWKO, TZCONTROL, TZWINDOWL, AD_BaseCtl );
+
+   //:// Get Group Area Name and Title values.
+   //:szAreaName         = TZADWWKO.EntitySubGroup.GroupAreaName 
+   GetVariableFromAttribute( szAreaName, 0, 'S', 51, TZADWWKO, "EntitySubGroup", "GroupAreaName", "", 0 );
+   //:szAreaTitle        = TZADWWKO.EntitySubGroup.GroupAreaTitle
+   GetVariableFromAttribute( szAreaTitle, 0, 'S', 51, TZADWWKO, "EntitySubGroup", "GroupAreaTitle", "", 0 );
+   //:szReturnDialogPage = TZWINDOWL.Dialog.Tag + TZWINDOWL.Window.Tag 
+   GetStringFromAttribute( szReturnDialogPage, TZWINDOWL, "Dialog", "Tag" );
+   GetStringFromAttribute( szTempString_0, TZWINDOWL, "Window", "Tag" );
+   ZeidonStringConcat( szReturnDialogPage, 1, 0, szTempString_0, 1, 0, 81 );
+
+   //:// Change data/names in controls as follows:
+   //://   Set Mapping Name for TxtLastRun1 control which contains Last Run Date.
+   //://      The mapping is to mDashBDf.DashboardDefinition.wLastRunDateTime1.
+   //://   Set "Chart" Group Tag to Dashboard Name.
+   //://   Convert _Section and _SectionTitle values for any Text Controls to Section and Title names.
+   //://   Convert Group data for CSS Class of "collapse show"
+   //:// Process the controls hierarchically looking for any specially named Controls as documented below.
+   //:CreateViewFromView( TZCtlHier, TZCONTROL )
+   CreateViewFromView( &TZCtlHier, TZCONTROL );
+   //:DefineHierarchicalCursor( TZCtlHier, "Control" )
+   DefineHierarchicalCursor( TZCtlHier, "Control" );
+   //:NAME VIEW TZCtlHier "TZCtlHier"
+   SetNameForView( TZCtlHier, "TZCtlHier", 0, zLEVEL_TASK );
+   //:nRC = SetCursorNextEntityHierarchical( lReturnedLevel, szReturnedEntityName, TZCtlHier )
+   nRC = SetCursorNextEntityHierarchical( (zPUSHORT) &lReturnedLevel, szReturnedEntityName, TZCtlHier );
+   //:lInitialLevel = lReturnedLevel
+   lInitialLevel = lReturnedLevel;
+   //:LOOP WHILE nRC >= zCURSOR_SET AND lReturnedLevel >= lInitialLevel 
+   while ( nRC >= zCURSOR_SET && lReturnedLevel >= lInitialLevel )
+   { 
+      //:IF nRC = zCURSOR_SET_RECURSIVECHILD
+      if ( nRC == zCURSOR_SET_RECURSIVECHILD )
+      { 
+         //:SetViewToSubobject( TZCtlHier, "CtrlCtrl" )
+         SetViewToSubobject( TZCtlHier, "CtrlCtrl" );
+      } 
+
+      //:END
+      //:IF szReturnedEntityName = "CtrlCtrl"
+      if ( ZeidonStringCompare( szReturnedEntityName, 1, 0, "CtrlCtrl", 1, 0, 51 ) == 0 )
+      { 
+         //:// We are positioned on correct Control.
+         //:szControlName = TZCtlHier.Control.Tag 
+         GetVariableFromAttribute( szControlName, 0, 'S', 51, TZCtlHier, "Control", "Tag", "", 0 );
+
+         //:// Process each special control type.
+         //:IF szControlName = "TextLastRunPrompt" OR szControlName = "TextLastRunValue"
+         if ( ZeidonStringCompare( szControlName, 1, 0, "TextLastRunPrompt", 1, 0, 51 ) == 0 || ZeidonStringCompare( szControlName, 1, 0, "TextLastRunValue", 1, 0, 51 ) == 0 )
+         { 
+            //:// First convert the Tag values of necessary controls.
+            //:CreateViewFromView( TZCtlTemp, TZCtlHier )
+            CreateViewFromView( &TZCtlTemp, TZCtlHier );
+            //:NAME VIEW TZCtlTemp "TZCtlTemp"
+            SetNameForView( TZCtlTemp, "TZCtlTemp", 0, zLEVEL_TASK );
+            //:TZCtlTemp.Control.Tag = szControlName + TZADWWKO.EntitySubGroup.DashboardRunTimeSuffix  
+            GetVariableFromAttribute( szTempString_2, 0, 'S', 255, TZADWWKO, "EntitySubGroup", "DashboardRunTimeSuffix", "", 0 );
+            ZeidonStringCopy( szTempString_1, 1, 0, szControlName, 1, 0, 33 );
+            ZeidonStringConcat( szTempString_1, 1, 0, szTempString_2, 1, 0, 33 );
+            SetAttributeFromString( TZCtlTemp, "Control", "Tag", szTempString_1 );
+
+            //:// Next, process TextLastRunValue entry.
+            //:IF szControlName = "TextLastRunValue"
+            if ( ZeidonStringCompare( szControlName, 1, 0, "TextLastRunValue", 1, 0, 51 ) == 0 )
+            { 
+               //:// Set mapping to mDashBDf.DashboardDefinition.wLastRunDateTimeX where X is correct Suffix
+               //:// Position on correct Run Date/Time attribute.
+               //:SET CURSOR FIRST mDashBDfLOD.LOD_Entity WHERE mDashBDfLOD.LOD_Entity.Name = "DashboardDefinition" 
+               RESULT = SetCursorFirstEntityByString( mDashBDfLOD, "LOD_Entity", "Name", "DashboardDefinition", "" );
+               //:SET CURSOR FIRST mDashBDfLOD.ER_Attribute WITHIN mDashBDfLOD.LOD_Entity 
+               //:           WHERE mDashBDfLOD.ER_Attribute.Name = "wLastRunDateTime1"  // The Attribute is always wLastRunDateTime1.
+               RESULT = SetCursorFirstEntityByString( mDashBDfLOD, "ER_Attribute", "Name", "wLastRunDateTime1", "LOD_Entity" );
+               //:INCLUDE TZCtlTemp.CtrlMapView FROM TZWINDOWL.ViewObjRef 
+               RESULT = IncludeSubobjectFromSubobject( TZCtlTemp, "CtrlMapView", TZWINDOWL, "ViewObjRef", zPOS_AFTER );
+               //:INCLUDE TZCtlTemp.CtrlMapLOD_Attribute FROM mDashBDfLOD.LOD_Attribute 
+               RESULT = IncludeSubobjectFromSubobject( TZCtlTemp, "CtrlMapLOD_Attribute", mDashBDfLOD, "LOD_Attribute", zPOS_AFTER );
+            } 
+
+            //:END
+            //:DropView( TZCtlTemp )
+            DropView( TZCtlTemp );
+            //:ELSE
+         } 
+         else
+         { 
+            //:IF szControlName = "Chart"
+            if ( ZeidonStringCompare( szControlName, 1, 0, "Chart", 1, 0, 51 ) == 0 )
+            { 
+               //:// Set Control Tag to Dashboard Name.
+               //:CreateViewFromView( TZCtlTemp, TZCtlHier )
+               CreateViewFromView( &TZCtlTemp, TZCtlHier );
+               //:NAME VIEW TZCtlTemp "TZCtlTemp"
+               SetNameForView( TZCtlTemp, "TZCtlTemp", 0, zLEVEL_TASK );
+               //:TZCtlTemp.Control.Tag = szDashboardName
+               SetAttributeFromString( TZCtlTemp, "Control", "Tag", szDashboardName );
+               //:DropView( TZCtlTemp )
+               DropView( TZCtlTemp );
+               //:ELSE
+            } 
+            else
+            { 
+               //:IF szControlName = "txt_Section"
+               if ( ZeidonStringCompare( szControlName, 1, 0, "txt_Section", 1, 0, 51 ) == 0 )
+               { 
+                  //:// Alter Tag and Text below.
+                  //:CreateViewFromView( TZCtlTemp, TZCtlHier )
+                  CreateViewFromView( &TZCtlTemp, TZCtlHier );
+                  //:NAME VIEW TZCtlTemp "TZCtlTemp"
+                  SetNameForView( TZCtlTemp, "TZCtlTemp", 0, zLEVEL_TASK );
+
+                  //:// Header Tag
+                  //:TZCtlTemp.Control.Tag = "txt" + szAreaName
+                  ZeidonStringCopy( szTempString_3, 1, 0, "txt", 1, 0, 33 );
+                  ZeidonStringConcat( szTempString_3, 1, 0, szAreaName, 1, 0, 33 );
+                  SetAttributeFromString( TZCtlTemp, "Control", "Tag", szTempString_3 );
+
+                  //:// Header Text
+                  //:szControlText = TZCtlTemp.Control.Text 
+                  GetVariableFromAttribute( szControlText, 0, 'S', 257, TZCtlTemp, "Control", "Text", "", 0 );
+                  //:zSearchAndReplace( szControlText, 200, "_SectionTitle", szAreaTitle )  // Title must be replaced first because it also has _Section it it.
+                  zSearchAndReplace( szControlText, 200, "_SectionTitle", szAreaTitle );
+                  //:zSearchAndReplace( szControlText, 200, "_Section", szAreaName )
+                  zSearchAndReplace( szControlText, 200, "_Section", szAreaName );
+                  //:TZCtlTemp.Control.Text = szControlText
+                  SetAttributeFromString( TZCtlTemp, "Control", "Text", szControlText );
+                  //:DropView( TZCtlTemp )
+                  DropView( TZCtlTemp );
+                  //:ELSE
+               } 
+               else
+               { 
+                  //:szCSS_Class = TZCtlHier.Control.CSS_Class 
+                  GetVariableFromAttribute( szCSS_Class, 0, 'S', 51, TZCtlHier, "Control", "CSS_Class", "", 0 );
+                  //:IF szCSS_Class = "collapse show"
+                  if ( ZeidonStringCompare( szCSS_Class, 1, 0, "collapse show", 1, 0, 51 ) == 0 )
+                  { 
+                     //:CreateViewFromView( TZCtlTemp, TZCtlHier )
+                     CreateViewFromView( &TZCtlTemp, TZCtlHier );
+                     //:NAME VIEW TZCtlTemp "TZCtlTemp"
+                     SetNameForView( TZCtlTemp, "TZCtlTemp", 0, zLEVEL_TASK );
+
+                     //:// Set the GroupBox Tag for the "collapse show" Group to AreaName.
+                     //:TZCtlTemp.Control.Tag = szAreaName
+                     SetAttributeFromString( TZCtlTemp, "Control", "Tag", szAreaName );
+
+                     //:// Convert the HTML5 text to replace _Section with AreaName.
+                     //:szControlText = TZCtlTemp.Control.WebHTML5Attribute 
+                     GetVariableFromAttribute( szControlText, 0, 'S', 257, TZCtlTemp, "Control", "WebHTML5Attribute", "", 0 );
+                     //:zSearchAndReplace( szControlText, 200, "_Section", szAreaName )
+                     zSearchAndReplace( szControlText, 200, "_Section", szAreaName );
+                     //:TZCtlTemp.Control.WebHTML5Attribute = szControlText
+                     SetAttributeFromString( TZCtlTemp, "Control", "WebHTML5Attribute", szControlText );
+
+                     //:DropView( TZCtlTemp )
+                     DropView( TZCtlTemp );
+                  } 
+
+                  //:END
+               } 
+
+               //:END
+            } 
+
+            //:END
+         } 
+
+         //:END
+      } 
+
+      //:END
+
+      //:nRC = SetCursorNextEntityHierarchical( lReturnedLevel, szReturnedEntityName, TZCtlHier )
+      nRC = SetCursorNextEntityHierarchical( (zPUSHORT) &lReturnedLevel, szReturnedEntityName, TZCtlHier );
+   } 
+
+   //:END
+   //:DropView( TZCtlHier )
+   DropView( TZCtlHier );
+   //:DropObjectInstance( mDashBDfLOD )
+   DropObjectInstance( mDashBDfLOD );
+
+   //:// Add the 2 Actions and 3 Operations for the Dashboard Entry.
+   //:Count = 0
+   Count = 0;
+   //:LOOP WHILE Count < 3
+   while ( Count < 3 )
+   { 
+
+      //:// Set Action/Oper orginal name.
+      //:Count = Count + 1
+      Count = Count + 1;
+      //:IF Count = 1
+      if ( Count == 1 )
+      { 
+         //:szOrigName = "GOTO_ShowDBE__AD_Area"
+         ZeidonStringCopy( szOrigName, 1, 0, "GOTO_ShowDBE__AD_Area", 1, 0, 51 );
+         //:ELSE
+      } 
+      else
+      { 
+         //:IF Count = 2
+         if ( Count == 2 )
+         { 
+            //:szOrigName = "GOTO_RunDBE__AD_Area"
+            ZeidonStringCopy( szOrigName, 1, 0, "GOTO_RunDBE__AD_Area", 1, 0, 51 );
+            //:ELSE
+         } 
+         else
+         { 
+            //:szOrigName = "INIT_DBE__AD_Area"
+            ZeidonStringCopy( szOrigName, 1, 0, "INIT_DBE__AD_Area", 1, 0, 51 );
+         } 
+
+         //:END
+      } 
+
+      //:END
+
+      //:// Convert Action Name which is also used for Operation without an action.
+      //:szActionName = szOrigName
+      ZeidonStringCopy( szActionName, 1, 0, szOrigName, 1, 0, 51 );
+      //:zSearchAndReplace( szActionName, 50, "_AD_Area", szAreaName )
+      zSearchAndReplace( szActionName, 50, "_AD_Area", szAreaName );
+
+      //:// Convert Actions for first 2 entries
+      //:IF Count < 3
+      if ( Count < 3 )
+      { 
+         //:SET CURSOR FIRST TZWINDOWL.Action WHERE TZWINDOWL.Action.Tag = szOrigName
+         RESULT = SetCursorFirstEntityByString( TZWINDOWL, "Action", "Tag", szOrigName, "" );
+         //:IF RESULT < zCURSOR_SET
+         if ( RESULT < zCURSOR_SET )
+         { 
+            //:TraceLineS( "*** No Action match on ", szOrigName )
+            TraceLineS( "*** No Action match on ", szOrigName );
+            //:IssueError( TZWINDOWL,0,0, "Programming Error: No Action match for Dashboard Actions." )
+            IssueError( TZWINDOWL, 0, 0, "Programming Error: No Action match for Dashboard Actions." );
+            //:RETURN 
+            return( 0 );
+         } 
+
+         //:END
+         //:TZWINDOWL.Action.Tag = szActionName
+         SetAttributeFromString( TZWINDOWL, "Action", "Tag", szActionName );
+      } 
+
+      //:END
+
+      //:// Position on Operation and convert name.
+      //:SET CURSOR FIRST AD_Base.Operation WITHIN AD_Base.Dialog 
+      //:           WHERE AD_Base.Operation.Name = szOrigName
+      RESULT = SetCursorFirstEntityByString( AD_Base, "Operation", "Name", szOrigName, "Dialog" );
+      //:SET CURSOR LAST TZWINDOWL.Operation
+      RESULT = SetCursorLastEntity( TZWINDOWL, "Operation", "" );
+      //:CreateMetaEntity( TZWINDOWL, TZWINDOWL, "Operation", zPOS_AFTER )
+      CreateMetaEntity( TZWINDOWL, TZWINDOWL, "Operation", zPOS_AFTER );
+      //:TZWINDOWL.Operation.Name = szActionName
+      SetAttributeFromString( TZWINDOWL, "Operation", "Name", szActionName );
+      //:SetMatchingAttributesByName( TZWINDOWL, "Operation", AD_Base, "Operation", zSET_NULL )
+      SetMatchingAttributesByName( TZWINDOWL, "Operation", AD_Base, "Operation", zSET_NULL );
+      //:FOR EACH AD_Base.Parameter 
+      RESULT = SetCursorFirstEntity( AD_Base, "Parameter", "" );
+      while ( RESULT > zCURSOR_UNCHANGED )
+      { 
+         //:CreateMetaEntity( TZWINDOWL, TZWINDOWL, "Parameter", zPOS_AFTER )
+         CreateMetaEntity( TZWINDOWL, TZWINDOWL, "Parameter", zPOS_AFTER );
+         //:SetMatchingAttributesByName( TZWINDOWL, "Parameter", AD_Base, "Parameter", zSET_NULL )
+         SetMatchingAttributesByName( TZWINDOWL, "Parameter", AD_Base, "Parameter", zSET_NULL );
+         RESULT = SetCursorNextEntity( AD_Base, "Parameter", "" );
+      } 
+
+      //:END
+
+      //:// For the first 2 Actions, include the Operation under the Action.
+      //:IF Count < 3
+      if ( Count < 3 )
+      { 
+         //:INCLUDE TZWINDOWL.ActOper FROM TZWINDOWL.Operation 
+         RESULT = IncludeSubobjectFromSubobject( TZWINDOWL, "ActOper", TZWINDOWL, "Operation", zPOS_AFTER );
+      } 
+
+      //:END
+   } 
+
+   //:END
+
+   //:// Determine if Operation VML Code for this Dashboard entry already exists.
+   //:// We will just check the Run operation to determine this.
+   //:// nRC2 will be 0 for a match.
+   //:szSourceDirectory  = TaskLPLR.LPLR.PgmSrcDir 
+   GetVariableFromAttribute( szSourceDirectory, 0, 'S', 257, TaskLPLR, "LPLR", "PgmSrcDir", "", 0 );
+   //:szSourceVML        = szSourceDirectory + "\" + TZWINDOWL.SourceFile.Name + ".VML"
+   ZeidonStringCopy( szSourceVML, 1, 0, szSourceDirectory, 1, 0, 257 );
+   ZeidonStringConcat( szSourceVML, 1, 0, "\\", 1, 0, 257 );
+   GetVariableFromAttribute( szTempString_4, 0, 'S', 33, TZWINDOWL, "SourceFile", "Name", "", 0 );
+   ZeidonStringConcat( szSourceVML, 1, 0, szTempString_4, 1, 0, 257 );
+   ZeidonStringConcat( szSourceVML, 1, 0, ".VML", 1, 0, 257 );
+   //:szOperationName = "GOTO_RunDBE_" + szAreaName
+   ZeidonStringCopy( szOperationName, 1, 0, "GOTO_RunDBE_", 1, 0, 51 );
+   ZeidonStringConcat( szOperationName, 1, 0, szAreaName, 1, 0, 51 );
+   //:nLength = zGetStringLen( szOperationName )
+   nLength = zGetStringLen( szOperationName );
+   //:nFileIn   = SysOpenFile( TZWINDOWL, szSourceVML, COREFILE_READ ) 
+   nFileIn = SysOpenFile( TZWINDOWL, szSourceVML, COREFILE_READ );
+   //:nRC2 = -1 
+   nRC2 = -1;
+   //:nRC = zSysReadLine( TZWINDOWL, szVML_Statement, nFileIn, 256 ) 
+   nRC = zSysReadLine( TZWINDOWL, szVML_Statement, nFileIn, 256 );
+   //:LOOP WHILE nRC = 1 AND nRC2 != 0
+   while ( nRC == 1 && nRC2 != 0 )
+   { 
+      //:zstrncpy( szCompare, szVML_Statement, nLength )
+      zstrncpy( szCompare, szVML_Statement, nLength );
+      //:nRC2 = zstrcmp( szCompare, szOperationName )
+      nRC2 = zstrcmp( szCompare, szOperationName );
+      //:nRC = zSysReadLine( TZWINDOWL, szVML_Statement, nFileIn, 256 )
+      nRC = zSysReadLine( TZWINDOWL, szVML_Statement, nFileIn, 256 );
+   } 
+
+   //:END
+   //:SysCloseFile( TZWINDOWL, nFileIn, 0 )
+   SysCloseFile( TZWINDOWL, nFileIn, 0 );
+
+   //:// Generate the VML code if the operation was not found.
+   //:IF nRC2 != 0
+   if ( nRC2 != 0 )
+   { 
+      //:// Copy Operation VML Code from ObjDashboard.VML file to the end of the target VML, converting the variable characters in the process.
+      //:szSourceDirectory = TaskLPLR.LPLR.PgmSrcDir 
+      GetVariableFromAttribute( szSourceDirectory, 0, 'S', 257, TaskLPLR, "LPLR", "PgmSrcDir", "", 0 );
+      //:szTargetVML       = szSourceDirectory + "\" + TZWINDOWL.SourceFile.Name + ".VML"
+      ZeidonStringCopy( szTargetVML, 1, 0, szSourceDirectory, 1, 0, 257 );
+      ZeidonStringConcat( szTargetVML, 1, 0, "\\", 1, 0, 257 );
+      GetVariableFromAttribute( szTempString_5, 0, 'S', 33, TZWINDOWL, "SourceFile", "Name", "", 0 );
+      ZeidonStringConcat( szTargetVML, 1, 0, szTempString_5, 1, 0, 257 );
+      ZeidonStringConcat( szTargetVML, 1, 0, ".VML", 1, 0, 257 );
+      //:szAD_DBE_Name = TZADWWKO.EntitySubGroup.DashboardName 
+      GetVariableFromAttribute( szAD_DBE_Name, 0, 'S', 51, TZADWWKO, "EntitySubGroup", "DashboardName", "", 0 );
+      //:nFileIn   = SysOpenFile( TZWINDOWL, "c:\lplr\AD_Base\ObjDashboard.VML", COREFILE_READ ) 
+      nFileIn = SysOpenFile( TZWINDOWL, "c:\\lplr\\AD_Base\\ObjDashboard.VML", COREFILE_READ );
+      //:nFileOut  = SysOpenFile( TZWINDOWL, szTargetVML, COREFILE_APPEND )  
+      nFileOut = SysOpenFile( TZWINDOWL, szTargetVML, COREFILE_APPEND );
+      //:nRC = zSysReadLine( TZWINDOWL, szVML_Statement, nFileIn, 256 ) 
+      nRC = zSysReadLine( TZWINDOWL, szVML_Statement, nFileIn, 256 );
+      //:LOOP WHILE nRC = 1 
+      while ( nRC == 1 )
+      { 
+         //:zSearchAndReplace( szVML_Statement, 256, "_AD_Area",           szAreaName )         // Group Area Name
+         zSearchAndReplace( szVML_Statement, 256, "_AD_Area", szAreaName );
+         //:zSearchAndReplace( szVML_Statement, 256, "_DashboardName",     szAD_DBE_Name )      // Dashboard Name
+         zSearchAndReplace( szVML_Statement, 256, "_DashboardName", szAD_DBE_Name );
+         //:zSearchAndReplace( szVML_Statement, 256, "_CurrentDialogPage", szReturnDialogPage ) // Combination Dialog & Window Name
+         zSearchAndReplace( szVML_Statement, 256, "_CurrentDialogPage", szReturnDialogPage );
+         //:SysWriteLine( TZWINDOWL, nFileOut, szVML_Statement )
+         SysWriteLine( TZWINDOWL, nFileOut, szVML_Statement );
+         //:nRC = zSysReadLine( TZWINDOWL, szVML_Statement, nFileIn, 256 )
+         nRC = zSysReadLine( TZWINDOWL, szVML_Statement, nFileIn, 256 );
+      } 
+
+      //:END
+      //:SysCloseFile( TZWINDOWL, nFileIn, 0 )
+      SysCloseFile( TZWINDOWL, nFileIn, 0 );
+      //:SysCloseFile( TZWINDOWL, nFileOut, 0 )
+      SysCloseFile( TZWINDOWL, nFileOut, 0 );
+
+      //:// Send the User a message that the call to the INIT operation must be added to the Postbuild operation for this
+      //:// page/window.
+      //:szMsg = "The following statement must be added to the Postbuild operation for this page/window to call the INIT " +
+      //:        "operation during postbuild processing:" + NEW_LINE + "INIT_DBE_" + szAreaName + "( ViewToWindow )"
+      ZeidonStringCopy( szMsg, 1, 0, "The following statement must be added to the Postbuild operation for this page/window to call the INIT ", 1, 0, 257 );
+      ZeidonStringConcat( szMsg, 1, 0, "operation during postbuild processing:", 1, 0, 257 );
+      ZeidonStringConcat( szMsg, 1, 0, NEW_LINE, 1, 0, 257 );
+      ZeidonStringConcat( szMsg, 1, 0, "INIT_DBE_", 1, 0, 257 );
+      ZeidonStringConcat( szMsg, 1, 0, szAreaName, 1, 0, 257 );
+      ZeidonStringConcat( szMsg, 1, 0, "( ViewToWindow )", 1, 0, 257 );
+      //:MessageSend( TZADWWKO, "", "Autodesign Subdialog", szMsg, zMSGQ_OBJECT_CONSTRAINT_WARNING, 0 )
+      MessageSend( TZADWWKO, "", "Autodesign Subdialog", szMsg, zMSGQ_OBJECT_CONSTRAINT_WARNING, 0 );
+   } 
+
+   //:END
+   return( 0 );
+// END
+} 
+
+
+//:TRANSFORMATION OPERATION
+//:AddAD_GoExclActions( VIEW TZADWWKO BASED ON LOD TZADWWKO,
+//:                     VIEW TZWINDOWL BASED ON LOD TZWDLGSO,
+//:                     VIEW AD_Base   BASED ON LOD TZWDLGSO )
+
+//:   VIEW TaskLPLR REGISTERED AS TaskLPLR
+zOPER_EXPORT zSHORT OPERATION
+oTZADWWKO_AddAD_GoExclActions( zVIEW     TZADWWKO,
+                               zVIEW     TZWINDOWL,
+                               zVIEW     AD_Base )
+{
+   zVIEW     TaskLPLR = 0; 
+   zSHORT    RESULT; 
+   //:STRING ( 256 ) szVML_Statement
+   zCHAR     szVML_Statement[ 257 ] = { 0 }; 
+   //:STRING ( 50 )  szSourceOperationName
+   zCHAR     szSourceOperationName[ 51 ] = { 0 }; 
+   //:STRING ( 50 )  szTargetOperationName
+   zCHAR     szTargetOperationName[ 51 ] = { 0 }; 
+   //:STRING ( 50 )  szAD_Area
+   zCHAR     szAD_Area[ 51 ] = { 0 }; 
+   //:STRING ( 50 )  szAD_UpdObj
+   zCHAR     szAD_UpdObj[ 51 ] = { 0 }; 
+   //:STRING ( 50 )  szEntityName
+   zCHAR     szEntityName[ 51 ] = { 0 }; 
+   //:STRING ( 50 )  szOperationName
+   zCHAR     szOperationName[ 51 ] = { 0 }; 
+   //:STRING ( 50 )  szActionName
+   zCHAR     szActionName[ 51 ] = { 0 }; 
+   //:STRING ( 256 ) szCompare
+   zCHAR     szCompare[ 257 ] = { 0 }; 
+   //:STRING ( 256 ) szSourceFileDirectory
+   zCHAR     szSourceFileDirectory[ 257 ] = { 0 }; 
+   //:STRING ( 256 ) szTargetFileDirectory
+   zCHAR     szTargetFileDirectory[ 257 ] = { 0 }; 
+   //:INTEGER nRC
+   zLONG     nRC = 0; 
+   //:INTEGER nRC2
+   zLONG     nRC2 = 0; 
+   //:INTEGER nFileIn
+   zLONG     nFileIn = 0; 
+   //:INTEGER nFileOut
+   zLONG     nFileOut = 0; 
+   //:INTEGER nLength 
+   zLONG     nLength = 0; 
+   zCHAR     szTempString_0[ 33 ]; 
+   zCHAR     szTempString_1[ 33 ]; 
+   zCHAR     szTempString_2[ 33 ]; 
+
+   RESULT = GetViewByName( &TaskLPLR, "TaskLPLR", TZADWWKO, zLEVEL_TASK );
+
+   //:// Process GOTO_SelectDetail Action
+   //:SET CURSOR FIRST TZWINDOWL.Action WHERE TZWINDOWL.Action.Tag = "GOTO_SelectDetail"
+   RESULT = SetCursorFirstEntityByString( TZWINDOWL, "Action", "Tag", "GOTO_SelectDetail", "" );
+   //:IF RESULT < zCURSOR_SET
+   if ( RESULT < zCURSOR_SET )
+   { 
+      //:MessageSend( TZADWWKO, "", "Autodesign Subdialog",
+      //:             "GOTO_SelectDetail Action doesn't exist in template.",
+      //:             zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
+      MessageSend( TZADWWKO, "", "Autodesign Subdialog", "GOTO_SelectDetail Action doesn't exist in template.", zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
+      //:SetWindowActionBehavior( TZADWWKO, zWAB_StayOnWindow, 0,0 )
+      SetWindowActionBehavior( TZADWWKO, zWAB_StayOnWindow, 0, 0 );
+      //:RETURN -2
+      return( -2 );
+   } 
+
+   //:END
+   //:szAD_Area = TZADWWKO.EntitySubGroup.GroupAreaName 
+   GetVariableFromAttribute( szAD_Area, 0, 'S', 51, TZADWWKO, "EntitySubGroup", "GroupAreaName", "", 0 );
+   //:TZWINDOWL.Action.Tag = "GOTO_Select" + szAD_Area
+   ZeidonStringCopy( szTempString_0, 1, 0, "GOTO_Select", 1, 0, 33 );
+   ZeidonStringConcat( szTempString_0, 1, 0, szAD_Area, 1, 0, 33 );
+   SetAttributeFromString( TZWINDOWL, "Action", "Tag", szTempString_0 );
+   //:TZWINDOWL.Action.DialogName = TZWINDOWL.Dialog.Tag 
+   SetAttributeFromAttribute( TZWINDOWL, "Action", "DialogName", TZWINDOWL, "Dialog", "Tag" );
+   //:TZWINDOWL.Action.WindowName = TZADWWKO.ESG_LOD_Entity.Name + "Include"
+   GetStringFromAttribute( szTempString_1, TZADWWKO, "ESG_LOD_Entity", "Name" );
+   ZeidonStringConcat( szTempString_1, 1, 0, "Include", 1, 0, 33 );
+   SetAttributeFromString( TZWINDOWL, "Action", "WindowName", szTempString_1 );
+
+   //:// Process EXCLUDE_For_AD_Area Action 
+   //:SET CURSOR FIRST TZWINDOWL.Action WHERE TZWINDOWL.Action.Tag = "EXCLUDE_For_AD_Area"
+   RESULT = SetCursorFirstEntityByString( TZWINDOWL, "Action", "Tag", "EXCLUDE_For_AD_Area", "" );
+   //:IF RESULT < zCURSOR_SET
+   if ( RESULT < zCURSOR_SET )
+   { 
+      //:MessageSend( TZADWWKO, "", "Autodesign Subdialog",
+      //:             "EXCLUDE_For_AD_Area Action doesn't exist in template.",
+      //:             zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
+      MessageSend( TZADWWKO, "", "Autodesign Subdialog", "EXCLUDE_For_AD_Area Action doesn't exist in template.", zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
+      //:SetWindowActionBehavior( TZADWWKO, zWAB_StayOnWindow, 0,0 )
+      SetWindowActionBehavior( TZADWWKO, zWAB_StayOnWindow, 0, 0 );
+      //:RETURN -2
+      return( -2 );
+   } 
+
+   //:END
+   //:szActionName = "EXCLUDE_For" + szAD_Area
+   ZeidonStringCopy( szActionName, 1, 0, "EXCLUDE_For", 1, 0, 51 );
+   ZeidonStringConcat( szActionName, 1, 0, szAD_Area, 1, 0, 51 );
+   //:TZWINDOWL.Action.Tag = szActionName
+   SetAttributeFromString( TZWINDOWL, "Action", "Tag", szActionName );
+
+   //:// Create Operation and include in Action.
+   //:SET CURSOR FIRST AD_Base.Operation WITHIN AD_Base.Dialog 
+   //:           WHERE AD_Base.Operation.Name = "EXCLUDE_For_AD_Area"
+   RESULT = SetCursorFirstEntityByString( AD_Base, "Operation", "Name", "EXCLUDE_For_AD_Area", "Dialog" );
+   //:IF RESULT < zCURSOR_SET
+   if ( RESULT < zCURSOR_SET )
+   { 
+      //:MessageSend( TZADWWKO, "", "Autodesign Subdialog",
+      //:             "Operation EXCLUDE_For_AD_Area doesn't exist in template.",
+      //:             zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
+      MessageSend( TZADWWKO, "", "Autodesign Subdialog", "Operation EXCLUDE_For_AD_Area doesn't exist in template.", zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
+      //:SetWindowActionBehavior( TZADWWKO, zWAB_StayOnWindow, 0,0 )
+      SetWindowActionBehavior( TZADWWKO, zWAB_StayOnWindow, 0, 0 );
+      //:RETURN -2
+      return( -2 );
+   } 
+
+   //:END  
+   //:SET CURSOR LAST TZWINDOWL.Operation   
+   RESULT = SetCursorLastEntity( TZWINDOWL, "Operation", "" );
+   //:CreateMetaEntity( TZWINDOWL, TZWINDOWL, "Operation", zPOS_AFTER )
+   CreateMetaEntity( TZWINDOWL, TZWINDOWL, "Operation", zPOS_AFTER );
+   //:TZWINDOWL.Operation.Name = szActionName
+   SetAttributeFromString( TZWINDOWL, "Operation", "Name", szActionName );
+   //:SetMatchingAttributesByName( TZWINDOWL, "Operation", AD_Base, "Operation", zSET_NULL )
+   SetMatchingAttributesByName( TZWINDOWL, "Operation", AD_Base, "Operation", zSET_NULL );
+   //:FOR EACH AD_Base.Parameter 
+   RESULT = SetCursorFirstEntity( AD_Base, "Parameter", "" );
+   while ( RESULT > zCURSOR_UNCHANGED )
+   { 
+      //:CreateMetaEntity( TZWINDOWL, TZWINDOWL, "Parameter", zPOS_AFTER )
+      CreateMetaEntity( TZWINDOWL, TZWINDOWL, "Parameter", zPOS_AFTER );
+      //:SetMatchingAttributesByName( TZWINDOWL, "Parameter", AD_Base, "Parameter", zSET_NULL )
+      SetMatchingAttributesByName( TZWINDOWL, "Parameter", AD_Base, "Parameter", zSET_NULL );
+      RESULT = SetCursorNextEntity( AD_Base, "Parameter", "" );
+   } 
+
+   //:END 
+   //:INCLUDE TZWINDOWL.ActOper FROM TZWINDOWL.Operation 
+   RESULT = IncludeSubobjectFromSubobject( TZWINDOWL, "ActOper", TZWINDOWL, "Operation", zPOS_AFTER );
+
+
+   //:// COPY AND CONVERT EXCLUDE_For_AD_Area OPERATION VML.
+
+   //:// Source Directory is from AD_Base
+   //:szSourceFileDirectory = "C:\LPLR\AD_Base\ObjExcl.VML"
+   ZeidonStringCopy( szSourceFileDirectory, 1, 0, "C:\\LPLR\\AD_Base\\ObjExcl.VML", 1, 0, 257 );
+
+   //:// Target Directory is current LPLR.
+   //:szTargetFileDirectory = TaskLPLR.LPLR.PgmSrcDir 
+   GetVariableFromAttribute( szTargetFileDirectory, 0, 'S', 257, TaskLPLR, "LPLR", "PgmSrcDir", "", 0 );
+   //:szTargetFileDirectory = szTargetFileDirectory + "\" + TZWINDOWL.SourceFile.Name + ".VML"
+   ZeidonStringConcat( szTargetFileDirectory, 1, 0, "\\", 1, 0, 257 );
+   GetVariableFromAttribute( szTempString_2, 0, 'S', 33, TZWINDOWL, "SourceFile", "Name", "", 0 );
+   ZeidonStringConcat( szTargetFileDirectory, 1, 0, szTempString_2, 1, 0, 257 );
+   ZeidonStringConcat( szTargetFileDirectory, 1, 0, ".VML", 1, 0, 257 );
+
+   //:// Check if Exclude operation is already in target VML file.
+   //:szTargetOperationName = szActionName
+   ZeidonStringCopy( szTargetOperationName, 1, 0, szActionName, 1, 0, 51 );
+   //:nLength = zGetStringLen( szTargetOperationName )
+   nLength = zGetStringLen( szTargetOperationName );
+   //:nFileIn = SysOpenFile( TZWINDOWL, szTargetFileDirectory, COREFILE_READ )
+   nFileIn = SysOpenFile( TZWINDOWL, szTargetFileDirectory, COREFILE_READ );
+   //:nRC2    = -1
+   nRC2 = -1;
+   //:IF nFileIn > 0 
+   if ( nFileIn > 0 )
+   { 
+      //:nRC = zSysReadLine( TZWINDOWL, szVML_Statement, nFileIn, 256 )
+      nRC = zSysReadLine( TZWINDOWL, szVML_Statement, nFileIn, 256 );
+      //:LOOP WHILE nRC = 1 AND nRC2 != 0
+      while ( nRC == 1 && nRC2 != 0 )
+      { 
+         //:zstrncpy( szCompare, szVML_Statement, nLength )
+         zstrncpy( szCompare, szVML_Statement, nLength );
+         //:nRC2 = zstrcmp( szCompare, szTargetOperationName )
+         nRC2 = zstrcmp( szCompare, szTargetOperationName );
+         //:nRC = zSysReadLine( TZWINDOWL, szVML_Statement, nFileIn, 256 )
+         nRC = zSysReadLine( TZWINDOWL, szVML_Statement, nFileIn, 256 );
+      } 
+
+      //:END
+      //:SysCloseFile( TZWINDOWL, nFileIn, 0 )
+      SysCloseFile( TZWINDOWL, nFileIn, 0 );
+      //:ELSE 
+   } 
+   else
+   { 
+      //:IssueError( TZADWWKO,0,0, "Target VML doesn't exist yet." )
+      IssueError( TZADWWKO, 0, 0, "Target VML doesn't exist yet." );
+      //:RETURN   // Don't continue if the VML hasn't been created yet
+      return( 0 );
+   } 
+
+   //:END
+
+   //:IF nRC2 != 0     // Operation was not found.
+   if ( nRC2 != 0 )
+   { 
+
+      //:// The Exclude Operation was not found in the target Source File, so copy source VML to end of target VML,
+      //:// converting the variable characters in the process.
+      //:szEntityName = TZADWWKO.ESG_LOD_Entity.Name 
+      GetVariableFromAttribute( szEntityName, 0, 'S', 51, TZADWWKO, "ESG_LOD_Entity", "Name", "", 0 );
+      //:szAD_UpdObj  = TZADWWKO.W_MetaDefUpdateObject.Name
+      GetVariableFromAttribute( szAD_UpdObj, 0, 'S', 51, TZADWWKO, "W_MetaDefUpdateObject", "Name", "", 0 );
+      //:nFileIn   = SysOpenFile( TZWINDOWL, szSourceFileDirectory, COREFILE_READ ) 
+      nFileIn = SysOpenFile( TZWINDOWL, szSourceFileDirectory, COREFILE_READ );
+      //:nFileOut  = SysOpenFile( TZWINDOWL, szTargetFileDirectory, COREFILE_APPEND )
+      nFileOut = SysOpenFile( TZWINDOWL, szTargetFileDirectory, COREFILE_APPEND );
+      //:nRC = zSysReadLine( TZWINDOWL, szVML_Statement, nFileIn, 256 )
+      nRC = zSysReadLine( TZWINDOWL, szVML_Statement, nFileIn, 256 );
+      //:LOOP WHILE nRC = 1 
+      while ( nRC == 1 )
+      { 
+         //:// Loop through source vml and convert variable data before copying to target.
+         //:zSearchAndReplace( szVML_Statement, 256, "_AD_Area",  szAD_Area )        // Area Name
+         zSearchAndReplace( szVML_Statement, 256, "_AD_Area", szAD_Area );
+         //:zSearchAndReplace( szVML_Statement, 256, "_AD_UpdO",  szAD_UpdObj )      // Entity Name
+         zSearchAndReplace( szVML_Statement, 256, "_AD_UpdO", szAD_UpdObj );
+         //:zSearchAndReplace( szVML_Statement, 256, "_EntityName",  szEntityName )  // Update Object Name
+         zSearchAndReplace( szVML_Statement, 256, "_EntityName", szEntityName );
+
+         //:SysWriteLine( TZWINDOWL, nFileOut, szVML_Statement )
+         SysWriteLine( TZWINDOWL, nFileOut, szVML_Statement );
+
+         //:nRC = zSysReadLine( TZWINDOWL, szVML_Statement, nFileIn, 256 )
+         nRC = zSysReadLine( TZWINDOWL, szVML_Statement, nFileIn, 256 );
+      } 
+
+      //:END
+
+      //:SysCloseFile( TZWINDOWL, nFileIn, 0 )
+      SysCloseFile( TZWINDOWL, nFileIn, 0 );
+      //:SysCloseFile( TZWINDOWL, nFileOut, 0 )
+      SysCloseFile( TZWINDOWL, nFileOut, 0 );
+   } 
+
+   //:END
+   return( 0 );
+// END
+} 
+
+
+//:TRANSFORMATION OPERATION
+//:AddAD_ListInclActions( VIEW TZADWWKO   BASED ON LOD  TZADWWKO,
+//:                       VIEW TZCONTROL  BASED ON LOD  TZWDLGSO,
+//:                       VIEW TZWINDOWL  BASED ON LOD  TZWDLGSO,
+//:                       VIEW AD_BaseCtl BASED ON LOD  TZWDLGSO,
+//:                       VIEW AD_Base    BASED ON LOD  TZWDLGSO )
+
+//:   VIEW TaskLPLR REGISTERED AS TaskLPLR
 zOPER_EXPORT zSHORT OPERATION
 oTZADWWKO_AddAD_ListInclActions( zVIEW     TZADWWKO,
                                  zVIEW     TZCONTROL,
@@ -27,19 +856,43 @@ oTZADWWKO_AddAD_ListInclActions( zVIEW     TZADWWKO,
                                  zVIEW     AD_BaseCtl,
                                  zVIEW     AD_Base )
 {
+   zVIEW     TaskLPLR = 0; 
    zSHORT    RESULT; 
+   //:STRING ( 50 )  szActionName
+   zCHAR     szActionName[ 51 ] = { 0 }; 
+   //:STRING ( 50 )  szOrigName
+   zCHAR     szOrigName[ 51 ] = { 0 }; 
+   //:STRING ( 50 )  szAD_Area
+   zCHAR     szAD_Area[ 51 ] = { 0 }; 
+   //:STRING ( 50 )  szCompare
+   zCHAR     szCompare[ 51 ] = { 0 }; 
+   //:STRING ( 50 )  szAD_UpdObj
+   zCHAR     szAD_UpdObj[ 51 ] = { 0 }; 
+   //:STRING ( 50 )  szEntityName
+   zCHAR     szEntityName[ 51 ] = { 0 }; 
+   //:STRING ( 256 ) szVML_Statement
+   zCHAR     szVML_Statement[ 257 ] = { 0 }; 
+   //:STRING ( 256 ) szFindVML
+   zCHAR     szFindVML[ 257 ] = { 0 }; 
+   //:STRING ( 256 ) szSourceDirectory
+   zCHAR     szSourceDirectory[ 257 ] = { 0 }; 
+   //:INTEGER nRC
+   zLONG     nRC = 0; 
+   //:INTEGER nRC2
+   zLONG     nRC2 = 0; 
+   //:INTEGER nFileIn
+   zLONG     nFileIn = 0; 
+   //:INTEGER nFileOut
+   zLONG     nFileOut = 0; 
+   //:INTEGER nLength 
+   zLONG     nLength = 0; 
    zCHAR     szTempString_0[ 33 ]; 
    zCHAR     szTempString_1[ 33 ]; 
    zSHORT    lTempInteger_0; 
    zCHAR     szTempString_2[ 33 ]; 
-   zCHAR     szTempString_3[ 255 ]; 
    zSHORT    lTempInteger_1; 
 
-   //:AddAD_ListInclActions( VIEW TZADWWKO   BASED ON LOD  TZADWWKO,
-   //:                    VIEW TZCONTROL  BASED ON LOD  TZWDLGSO,
-   //:                    VIEW TZWINDOWL  BASED ON LOD  TZWDLGSO,
-   //:                    VIEW AD_BaseCtl BASED ON LOD  TZWDLGSO,
-   //:                    VIEW AD_Base    BASED ON LOD  TZWDLGSO )
+   RESULT = GetViewByName( &TaskLPLR, "TaskLPLR", TZADWWKO, zLEVEL_TASK );
 
    //:// Process CrtlCrtl entries recursively for building Actions for AD New and Delete/Remove entries.
    //:SetViewToSubobject( AD_BaseCtl, "CtrlCtrl" )
@@ -87,38 +940,137 @@ oTZADWWKO_AddAD_ListInclActions( zVIEW     TZADWWKO,
 
          //:END
 
-         //:// If the Action is Delete/Remove, build the ActMap entry to include the list LOD_Entity and View.
-         //:IF AD_BaseCtl.Control.Text = "Delete" OR AD_BaseCtl.Control.Text = "Remove" 
-         if ( CompareAttributeToString( AD_BaseCtl, "Control", "Text", "Delete" ) == 0 || CompareAttributeToString( AD_BaseCtl, "Control", "Text", "Remove" ) == 0 )
+         //:// Add Suffix to Action Name.
+         //:szActionName = TZWINDOWL.Action.Tag
+         GetVariableFromAttribute( szActionName, 0, 'S', 51, TZWINDOWL, "Action", "Tag", "", 0 );
+         //:szOrigName   = szActionName
+         ZeidonStringCopy( szOrigName, 1, 0, szActionName, 1, 0, 51 );
+         //:szAD_Area    = TZADWWKO.EntitySubGroup.IncludeOperationSuffix
+         GetVariableFromAttribute( szAD_Area, 0, 'S', 51, TZADWWKO, "EntitySubGroup", "IncludeOperationSuffix", "", 0 );
+         //:zSearchAndReplace( szActionName, 50, "_AD_Area", szAD_Area )
+         zSearchAndReplace( szActionName, 50, "_AD_Area", szAD_Area );
+         //:TZWINDOWL.Action.Tag = szActionName
+         SetAttributeFromString( TZWINDOWL, "Action", "Tag", szActionName );
+
+         //:// If the Action has an operation, add it, including the VML.
+         //:// The Operation Name is the same as the Action Name.
+         //:SET CURSOR FIRST AD_Base.Action WHERE AD_Base.Action.Tag = szOrigName
+         RESULT = SetCursorFirstEntityByString( AD_Base, "Action", "Tag", szOrigName, "" );
+         //:IF AD_Base.ActOper EXISTS
+         lTempInteger_0 = CheckExistenceOfEntity( AD_Base, "ActOper" );
+         if ( lTempInteger_0 == 0 )
          { 
-            //:IF TZWINDOWL.ActMap EXISTS
-            lTempInteger_0 = CheckExistenceOfEntity( TZWINDOWL, "ActMap" );
-            if ( lTempInteger_0 == 0 )
+            //:SET CURSOR FIRST AD_Base.Operation WITHIN AD_Base.Dialog 
+            //:           WHERE AD_Base.Operation.Name = szOrigName
+            RESULT = SetCursorFirstEntityByString( AD_Base, "Operation", "Name", szOrigName, "Dialog" );
+            //:SET CURSOR LAST TZWINDOWL.Operation
+            RESULT = SetCursorLastEntity( TZWINDOWL, "Operation", "" );
+            //:CreateMetaEntity( TZWINDOWL, TZWINDOWL, "Operation", zPOS_AFTER )
+            CreateMetaEntity( TZWINDOWL, TZWINDOWL, "Operation", zPOS_AFTER );
+            //:TZWINDOWL.Operation.Name = szActionName
+            SetAttributeFromString( TZWINDOWL, "Operation", "Name", szActionName );
+            //:SetMatchingAttributesByName( TZWINDOWL, "Operation", AD_Base, "Operation", zSET_NULL )
+            SetMatchingAttributesByName( TZWINDOWL, "Operation", AD_Base, "Operation", zSET_NULL );
+            //:FOR EACH AD_Base.Parameter 
+            RESULT = SetCursorFirstEntity( AD_Base, "Parameter", "" );
+            while ( RESULT > zCURSOR_UNCHANGED )
             { 
-               //:DELETE ENTITY TZWINDOWL.ActMap 
-               RESULT = DeleteEntity( TZWINDOWL, "ActMap", zPOS_NEXT );
+               //:CreateMetaEntity( TZWINDOWL, TZWINDOWL, "Parameter", zPOS_AFTER )
+               CreateMetaEntity( TZWINDOWL, TZWINDOWL, "Parameter", zPOS_AFTER );
+               //:SetMatchingAttributesByName( TZWINDOWL, "Parameter", AD_Base, "Parameter", zSET_NULL )
+               SetMatchingAttributesByName( TZWINDOWL, "Parameter", AD_Base, "Parameter", zSET_NULL );
+               RESULT = SetCursorNextEntity( AD_Base, "Parameter", "" );
             } 
 
             //:END
-            //:CREATE ENTITY TZWINDOWL.ActMap 
-            RESULT = CreateEntity( TZWINDOWL, "ActMap", zPOS_AFTER );
-            //:INCLUDE TZWINDOWL.ActMapLOD_Entity FROM TZADWWKO.ESG_LOD_Entity 
-            RESULT = IncludeSubobjectFromSubobject( TZWINDOWL, "ActMapLOD_Entity", TZADWWKO, "ESG_LOD_Entity", zPOS_AFTER );
-            //:SET CURSOR FIRST TZWINDOWL.ViewObjRef WHERE TZWINDOWL.ViewObjRef.Name = TZADWWKO.W_MetaDefUpdateObject.Name 
-            GetStringFromAttribute( szTempString_2, TZADWWKO, "W_MetaDefUpdateObject", "Name" );
-            RESULT = SetCursorFirstEntityByString( TZWINDOWL, "ViewObjRef", "Name", szTempString_2, "" );
-            //:INCLUDE TZWINDOWL.ActMapView FROM TZWINDOWL.ViewObjRef 
-            RESULT = IncludeSubobjectFromSubobject( TZWINDOWL, "ActMapView", TZWINDOWL, "ViewObjRef", zPOS_AFTER );
+            //:INCLUDE TZWINDOWL.ActOper FROM TZWINDOWL.Operation 
+            RESULT = IncludeSubobjectFromSubobject( TZWINDOWL, "ActOper", TZWINDOWL, "Operation", zPOS_AFTER );
+
+            //:// Check to see if the Operation exists in the VML File.
+            //:// Note that the Operation Name starts in column 1.
+            //:szCompare = szOrigName
+            ZeidonStringCopy( szCompare, 1, 0, szOrigName, 1, 0, 51 );
+            //:nLength = zGetStringLen( szActionName )
+            nLength = zGetStringLen( szActionName );
+            //:szSourceDirectory = TaskLPLR.LPLR.PgmSrcDir 
+            GetVariableFromAttribute( szSourceDirectory, 0, 'S', 257, TaskLPLR, "LPLR", "PgmSrcDir", "", 0 );
+            //:szFindVML = szSourceDirectory + "\" + TZWINDOWL.Dialog.Tag + ".VML"
+            ZeidonStringCopy( szFindVML, 1, 0, szSourceDirectory, 1, 0, 257 );
+            ZeidonStringConcat( szFindVML, 1, 0, "\\", 1, 0, 257 );
+            GetVariableFromAttribute( szTempString_2, 0, 'S', 33, TZWINDOWL, "Dialog", "Tag", "", 0 );
+            ZeidonStringConcat( szFindVML, 1, 0, szTempString_2, 1, 0, 257 );
+            ZeidonStringConcat( szFindVML, 1, 0, ".VML", 1, 0, 257 );
+            //:nFileIn   = SysOpenFile( TZWINDOWL, szFindVML, COREFILE_READ )
+            nFileIn = SysOpenFile( TZWINDOWL, szFindVML, COREFILE_READ );
+            //:nRC2 = -1
+            nRC2 = -1;
+            //:IF nFileIn > 0   // Don't continue if the VML hasn't been created yet.
+            if ( nFileIn > 0 )
+            { 
+               //:nRC = zSysReadLine( TZWINDOWL, szVML_Statement, nFileIn, 256 )
+               nRC = zSysReadLine( TZWINDOWL, szVML_Statement, nFileIn, 256 );
+               //:LOOP WHILE nRC = 1 AND nRC2 != 0
+               while ( nRC == 1 && nRC2 != 0 )
+               { 
+                  //:zstrncpy( szCompare, szVML_Statement, nLength )
+                  zstrncpy( szCompare, szVML_Statement, nLength );
+                  //:nRC2 = zstrcmp( szCompare, szActionName )
+                  nRC2 = zstrcmp( szCompare, szActionName );
+                  //:nRC = zSysReadLine( TZWINDOWL, szVML_Statement, nFileIn, 256 )
+                  nRC = zSysReadLine( TZWINDOWL, szVML_Statement, nFileIn, 256 );
+               } 
+
+               //:END
+               //:SysCloseFile( TZWINDOWL, nFileIn, 0 )
+               SysCloseFile( TZWINDOWL, nFileIn, 0 );
+            } 
+
+            //:END
+
+            //:IF nRC2 != 0     // Operation was not found.
+            if ( nRC2 != 0 )
+            { 
+
+               //:// The Operation was not found in the Source File, so copy the VML
+
+               //:// Copy the source VML to the end of the target Find VML, converting the variable characters in the process.
+               //:szAD_UpdObj  = TZADWWKO.W_MetaDefUpdateObject.Name 
+               GetVariableFromAttribute( szAD_UpdObj, 0, 'S', 51, TZADWWKO, "W_MetaDefUpdateObject", "Name", "", 0 );
+               //:szEntityName = TZADWWKO.ESG_LOD_Entity.Name 
+               GetVariableFromAttribute( szEntityName, 0, 'S', 51, TZADWWKO, "ESG_LOD_Entity", "Name", "", 0 );
+               //:nFileIn   = SysOpenFile( TZWINDOWL, "c:\lplr\AD_Base\ObjExcl.VML", COREFILE_READ ) 
+               nFileIn = SysOpenFile( TZWINDOWL, "c:\\lplr\\AD_Base\\ObjExcl.VML", COREFILE_READ );
+               //:nFileOut  = SysOpenFile( TZWINDOWL, szFindVML, COREFILE_APPEND )
+               nFileOut = SysOpenFile( TZWINDOWL, szFindVML, COREFILE_APPEND );
+               //:nRC = zSysReadLine( TZWINDOWL, szVML_Statement, nFileIn, 256 ) 
+               nRC = zSysReadLine( TZWINDOWL, szVML_Statement, nFileIn, 256 );
+               //:LOOP WHILE nRC = 1 
+               while ( nRC == 1 )
+               { 
+                  //:zSearchAndReplace( szVML_Statement, 256, "_AD_Area",    szAD_Area )      // Suffix
+                  zSearchAndReplace( szVML_Statement, 256, "_AD_Area", szAD_Area );
+                  //:zSearchAndReplace( szVML_Statement, 256, "_AD_UpdO",    szAD_UpdObj )    // Update Object Name
+                  zSearchAndReplace( szVML_Statement, 256, "_AD_UpdO", szAD_UpdObj );
+                  //:zSearchAndReplace( szVML_Statement, 256, "_EntityName", szEntityName )   // Entity Name
+                  zSearchAndReplace( szVML_Statement, 256, "_EntityName", szEntityName );
+                  //:SysWriteLine( TZWINDOWL, nFileOut, szVML_Statement )
+                  SysWriteLine( TZWINDOWL, nFileOut, szVML_Statement );
+                  //:nRC = zSysReadLine( TZWINDOWL, szVML_Statement, nFileIn, 256 )
+                  nRC = zSysReadLine( TZWINDOWL, szVML_Statement, nFileIn, 256 );
+               } 
+
+               //:END
+
+               //:SysCloseFile( TZWINDOWL, nFileIn, 0 )
+               SysCloseFile( TZWINDOWL, nFileIn, 0 );
+               //:SysCloseFile( TZWINDOWL, nFileOut, 0 )
+               SysCloseFile( TZWINDOWL, nFileOut, 0 );
+            } 
+
+            //:END
          } 
 
          //:END
-
-         //:// Add Suffix to Action Name.
-         //:TZWINDOWL.Action.Tag = TZWINDOWL.Action.Tag + TZADWWKO.EntitySubGroup.IncludeOperationSuffix 
-         GetStringFromAttribute( szTempString_2, TZWINDOWL, "Action", "Tag" );
-         GetStringFromAttribute( szTempString_3, TZADWWKO, "EntitySubGroup", "IncludeOperationSuffix" );
-         ZeidonStringConcat( szTempString_2, 1, 0, szTempString_3, 1, 0, 33 );
-         SetAttributeFromString( TZWINDOWL, "Action", "Tag", szTempString_2 );
          //:ELSE
       } 
       else
@@ -145,6 +1097,279 @@ oTZADWWKO_AddAD_ListInclActions( zVIEW     TZADWWKO,
    ResetViewFromSubobject( AD_BaseCtl );
    //:ResetViewFromSubobject( TZCONTROL )
    ResetViewFromSubobject( TZCONTROL );
+   return( 0 );
+// END
+} 
+
+
+//:TRANSFORMATION OPERATION
+//:AddAD_ListMGP_Actions( VIEW TZADWWKO   BASED ON LOD  TZADWWKO,
+//:                       VIEW TZCONTROL  BASED ON LOD  TZWDLGSO,
+//:                       VIEW TZWINDOWL  BASED ON LOD  TZWDLGSO,
+//:                       VIEW AD_BaseCtl BASED ON LOD  TZWDLGSO,
+//:                       VIEW AD_Base    BASED ON LOD  TZWDLGSO )
+
+//:   VIEW TaskLPLR    REGISTERED AS TaskLPLR
+zOPER_EXPORT zSHORT OPERATION
+oTZADWWKO_AddAD_ListMGP_Actions( zVIEW     TZADWWKO,
+                                 zVIEW     TZCONTROL,
+                                 zVIEW     TZWINDOWL,
+                                 zVIEW     AD_BaseCtl,
+                                 zVIEW     AD_Base )
+{
+   zVIEW     TaskLPLR = 0; 
+   zSHORT    RESULT; 
+   //:VIEW TZADWWKOSub BASED ON LOD  TZADWWKO
+   zVIEW     TZADWWKOSub = 0; 
+   //:VIEW UpdateLOD   BASED ON LOD  TZZOLODO
+   zVIEW     UpdateLOD = 0; 
+   //:STRING ( 50 )  szActionName
+   zCHAR     szActionName[ 51 ] = { 0 }; 
+   //:STRING ( 50 )  szOperationName
+   zCHAR     szOperationName[ 51 ] = { 0 }; 
+   //:STRING ( 50 )  szAD_Area
+   zCHAR     szAD_Area[ 51 ] = { 0 }; 
+   //:STRING ( 50 )  szCompare
+   zCHAR     szCompare[ 51 ] = { 0 }; 
+   //:STRING ( 50 )  szAD_MainV
+   zCHAR     szAD_MainV[ 51 ] = { 0 }; 
+   //:STRING ( 50 )  szAD_ListE
+   zCHAR     szAD_ListE[ 51 ] = { 0 }; 
+   //:STRING ( 50 )  szAD_MGP
+   zCHAR     szAD_MGP[ 51 ] = { 0 }; 
+   //:STRING ( 50 )  szAD_MGPO
+   zCHAR     szAD_MGPO[ 51 ] = { 0 }; 
+   //:STRING ( 50 )  szAD_MGPRoot
+   zCHAR     szAD_MGPRoot[ 51 ] = { 0 }; 
+   //:STRING ( 256 ) szVML_Statement
+   zCHAR     szVML_Statement[ 257 ] = { 0 }; 
+   //:STRING ( 256 ) szFindVML
+   zCHAR     szFindVML[ 257 ] = { 0 }; 
+   //:STRING ( 256 ) szSourceDirectory
+   zCHAR     szSourceDirectory[ 257 ] = { 0 }; 
+   //:INTEGER nRC
+   zLONG     nRC = 0; 
+   //:INTEGER nRC2
+   zLONG     nRC2 = 0; 
+   //:INTEGER nLevel
+   zLONG     nLevel = 0; 
+   //:INTEGER nFileIn
+   zLONG     nFileIn = 0; 
+   //:INTEGER nFileOut
+   zLONG     nFileOut = 0; 
+   //:INTEGER nLength  
+   zLONG     nLength = 0; 
+   zCHAR     szTempString_0[ 33 ]; 
+   zCHAR     szTempString_1[ 33 ]; 
+   zCHAR     szTempString_2[ 33 ]; 
+   zSHORT    lTempInteger_0; 
+
+   RESULT = GetViewByName( &TaskLPLR, "TaskLPLR", TZADWWKO, zLEVEL_TASK );
+
+   //:// Check for Update LOD, which is the main LOD for the multi-group page for both Update and Detail.
+   //:GET VIEW UpdateLOD NAMED "TZZOLODO_UpdateMGP"
+   RESULT = GetViewByName( &UpdateLOD, "TZZOLODO_UpdateMGP", TZADWWKO, zLEVEL_TASK );
+   //:IF RESULT < 0
+   if ( RESULT < 0 )
+   { 
+      //:MessageSend( TZADWWKO, "", "Autodesign Subdialog",
+      //:             "The Update Object has not been selected.",
+      //:             zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
+      MessageSend( TZADWWKO, "", "Autodesign Subdialog", "The Update Object has not been selected.", zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
+      //:SetWindowActionBehavior( TZADWWKO, zWAB_StayOnWindow, 0,0 )
+      SetWindowActionBehavior( TZADWWKO, zWAB_StayOnWindow, 0, 0 );
+      //:RETURN -2
+      return( -2 );
+   } 
+
+   //:END
+
+   //:// Process the GOTO__AreaMGP Action and Operation.
+   //:GET VIEW TZADWWKOSub NAMED "TZADWWKOSub"
+   RESULT = GetViewByName( &TZADWWKOSub, "TZADWWKOSub", TZADWWKO, zLEVEL_TASK );
+   //:szAD_Area    = TZADWWKOSub.AutodesignSubdialog.AD_AreaName
+   GetVariableFromAttribute( szAD_Area, 0, 'S', 51, TZADWWKOSub, "AutodesignSubdialog", "AD_AreaName", "", 0 );
+   //:szActionName = "GOTO_" + szAD_Area + "MGP"
+   ZeidonStringCopy( szActionName, 1, 0, "GOTO_", 1, 0, 51 );
+   ZeidonStringConcat( szActionName, 1, 0, szAD_Area, 1, 0, 51 );
+   ZeidonStringConcat( szActionName, 1, 0, "MGP", 1, 0, 51 );
+   //:SET CURSOR FIRST TZWINDOWL.Action WHERE TZWINDOWL.Action.Tag = "GOTO__MGP"
+   RESULT = SetCursorFirstEntityByString( TZWINDOWL, "Action", "Tag", "GOTO__MGP", "" );
+   //:IF RESULT < zCURSOR_SET
+   if ( RESULT < zCURSOR_SET )
+   { 
+      //:IssueError( TZWINDOWL,0,0, "Programming Error: No Action match for GOTO__MGP Action." )
+      IssueError( TZWINDOWL, 0, 0, "Programming Error: No Action match for GOTO__MGP Action." );
+      //:RETURN 
+      return( 0 );
+   } 
+
+   //:END
+   //:TZWINDOWL.Action.Tag = szActionName
+   SetAttributeFromString( TZWINDOWL, "Action", "Tag", szActionName );
+   //:TZWINDOWL.Action.DialogName = TZWINDOWL.Dialog.Tag 
+   SetAttributeFromAttribute( TZWINDOWL, "Action", "DialogName", TZWINDOWL, "Dialog", "Tag" );
+   //:TZWINDOWL.Action.WindowName = szAD_Area + "Detail"
+   ZeidonStringCopy( szTempString_0, 1, 0, szAD_Area, 1, 0, 33 );
+   ZeidonStringConcat( szTempString_0, 1, 0, "Detail", 1, 0, 33 );
+   SetAttributeFromString( TZWINDOWL, "Action", "WindowName", szTempString_0 );
+
+   //:// Copy Operation and include under Action.
+   //:SET CURSOR FIRST AD_Base.Operation WITHIN AD_Base.Dialog 
+   //:           WHERE AD_Base.Operation.Name = "GOTO__MGP"
+   RESULT = SetCursorFirstEntityByString( AD_Base, "Operation", "Name", "GOTO__MGP", "Dialog" );
+   //:IF RESULT < zCURSOR_SET
+   if ( RESULT < zCURSOR_SET )
+   { 
+      //:IssueError( TZWINDOWL,0,0, "Programming Error: No Operation match for GOTO__MGP Operation." )
+      IssueError( TZWINDOWL, 0, 0, "Programming Error: No Operation match for GOTO__MGP Operation." );
+      //:RETURN 
+      return( 0 );
+   } 
+
+   //:END
+   //:SET CURSOR LAST TZWINDOWL.Operation
+   RESULT = SetCursorLastEntity( TZWINDOWL, "Operation", "" );
+   //:CreateMetaEntity( TZWINDOWL, TZWINDOWL, "Operation", zPOS_AFTER )
+   CreateMetaEntity( TZWINDOWL, TZWINDOWL, "Operation", zPOS_AFTER );
+   //:szOperationName = szActionName
+   ZeidonStringCopy( szOperationName, 1, 0, szActionName, 1, 0, 51 );
+   //:TZWINDOWL.Operation.Name = szOperationName
+   SetAttributeFromString( TZWINDOWL, "Operation", "Name", szOperationName );
+   //:SetMatchingAttributesByName( TZWINDOWL, "Operation", AD_Base, "Operation", zSET_NULL )
+   SetMatchingAttributesByName( TZWINDOWL, "Operation", AD_Base, "Operation", zSET_NULL );
+   //:FOR EACH AD_Base.Parameter 
+   RESULT = SetCursorFirstEntity( AD_Base, "Parameter", "" );
+   while ( RESULT > zCURSOR_UNCHANGED )
+   { 
+      //:CreateMetaEntity( TZWINDOWL, TZWINDOWL, "Parameter", zPOS_AFTER )
+      CreateMetaEntity( TZWINDOWL, TZWINDOWL, "Parameter", zPOS_AFTER );
+      //:SetMatchingAttributesByName( TZWINDOWL, "Parameter", AD_Base, "Parameter", zSET_NULL )
+      SetMatchingAttributesByName( TZWINDOWL, "Parameter", AD_Base, "Parameter", zSET_NULL );
+      RESULT = SetCursorNextEntity( AD_Base, "Parameter", "" );
+   } 
+
+   //:END
+   //:INCLUDE TZWINDOWL.ActOper FROM TZWINDOWL.Operation 
+   RESULT = IncludeSubobjectFromSubobject( TZWINDOWL, "ActOper", TZWINDOWL, "Operation", zPOS_AFTER );
+
+   //:// Check to see if the GOTO Operation exists in the VML File. Operation Name is same as Action Name
+   //:// Note that the Operation Name starts in column 1.
+   //:nLength = zGetStringLen( szOperationName )
+   nLength = zGetStringLen( szOperationName );
+   //:szSourceDirectory = TaskLPLR.LPLR.PgmSrcDir 
+   GetVariableFromAttribute( szSourceDirectory, 0, 'S', 257, TaskLPLR, "LPLR", "PgmSrcDir", "", 0 );
+   //:szFindVML = szSourceDirectory + "\" + TZWINDOWL.Dialog.Tag + ".VML"
+   ZeidonStringCopy( szFindVML, 1, 0, szSourceDirectory, 1, 0, 257 );
+   ZeidonStringConcat( szFindVML, 1, 0, "\\", 1, 0, 257 );
+   GetVariableFromAttribute( szTempString_1, 0, 'S', 33, TZWINDOWL, "Dialog", "Tag", "", 0 );
+   ZeidonStringConcat( szFindVML, 1, 0, szTempString_1, 1, 0, 257 );
+   ZeidonStringConcat( szFindVML, 1, 0, ".VML", 1, 0, 257 );
+   //:nFileIn   = SysOpenFile( TZWINDOWL, szFindVML, COREFILE_READ )
+   nFileIn = SysOpenFile( TZWINDOWL, szFindVML, COREFILE_READ );
+   //:nRC2 = -1
+   nRC2 = -1;
+   //:IF nFileIn > 0   // Don't continue if the VML hasn't been created yet.
+   if ( nFileIn > 0 )
+   { 
+      //:nRC = zSysReadLine( TZWINDOWL, szVML_Statement, nFileIn, 256 )
+      nRC = zSysReadLine( TZWINDOWL, szVML_Statement, nFileIn, 256 );
+      //:LOOP WHILE nRC = 1 AND nRC2 != 0
+      while ( nRC == 1 && nRC2 != 0 )
+      { 
+         //:zstrncpy( szCompare, szVML_Statement, nLength )
+         zstrncpy( szCompare, szVML_Statement, nLength );
+         //:nRC2 = zstrcmp( szCompare, szOperationName )
+         nRC2 = zstrcmp( szCompare, szOperationName );
+         //:nRC = zSysReadLine( TZWINDOWL, szVML_Statement, nFileIn, 256 )
+         nRC = zSysReadLine( TZWINDOWL, szVML_Statement, nFileIn, 256 );
+      } 
+
+      //:END
+      //:SysCloseFile( TZWINDOWL, nFileIn, 0 )
+      SysCloseFile( TZWINDOWL, nFileIn, 0 );
+   } 
+
+   //:END
+
+   //:IF nRC2 != 0     // Operation was not found.
+   if ( nRC2 != 0 )
+   { 
+
+      //:// The Operation was not found in the Source File, so copy the VML
+      //:szSourceDirectory = TaskLPLR.LPLR.PgmSrcDir
+      GetVariableFromAttribute( szSourceDirectory, 0, 'S', 257, TaskLPLR, "LPLR", "PgmSrcDir", "", 0 );
+      //:szFindVML         = szSourceDirectory + "\" + TZWINDOWL.Dialog.Tag + ".VML" 
+      ZeidonStringCopy( szFindVML, 1, 0, szSourceDirectory, 1, 0, 257 );
+      ZeidonStringConcat( szFindVML, 1, 0, "\\", 1, 0, 257 );
+      GetVariableFromAttribute( szTempString_2, 0, 'S', 33, TZWINDOWL, "Dialog", "Tag", "", 0 );
+      ZeidonStringConcat( szFindVML, 1, 0, szTempString_2, 1, 0, 257 );
+      ZeidonStringConcat( szFindVML, 1, 0, ".VML", 1, 0, 257 );
+
+      //:// Set variables to be used in VML conversion.
+      //:// Check to see if an Activate entity was specifified. If so use it. Otherwise use the List entity.
+      //:IF TZADWWKO.ESG_LOD_Entity2 EXISTS    // Check to see if an Activate Entity was specifified.
+      lTempInteger_0 = CheckExistenceOfEntity( TZADWWKO, "ESG_LOD_Entity2" );
+      if ( lTempInteger_0 == 0 )
+      { 
+         //:szAD_ListE = TZADWWKO.ESG_LOD_Entity2.Name
+         GetVariableFromAttribute( szAD_ListE, 0, 'S', 51, TZADWWKO, "ESG_LOD_Entity2", "Name", "", 0 );
+         //:ELSE
+      } 
+      else
+      { 
+         //:szAD_ListE = TZADWWKO.ESG_LOD_Entity.Name
+         GetVariableFromAttribute( szAD_ListE, 0, 'S', 51, TZADWWKO, "ESG_LOD_Entity", "Name", "", 0 );
+      } 
+
+      //:END
+      //:szAD_MainV   = TZADWWKO.W_MetaDefUpdateView.Name 
+      GetVariableFromAttribute( szAD_MainV, 0, 'S', 51, TZADWWKO, "W_MetaDefUpdateView", "Name", "", 0 );
+      //:szAD_MGP     = TZADWWKOSub.W_MetaDefUpdateView.Name 
+      GetVariableFromAttribute( szAD_MGP, 0, 'S', 51, TZADWWKOSub, "W_MetaDefUpdateView", "Name", "", 0 );
+      //:szAD_MGPO    = TZADWWKOSub.W_MetaDefUpdateObject.Name 
+      GetVariableFromAttribute( szAD_MGPO, 0, 'S', 51, TZADWWKOSub, "W_MetaDefUpdateObject", "Name", "", 0 );
+      //:szAD_MGPRoot = UpdateLOD.LOD_EntityParent.Name 
+      GetVariableFromAttribute( szAD_MGPRoot, 0, 'S', 51, UpdateLOD, "LOD_EntityParent", "Name", "", 0 );
+
+      //:// Copy the source VML to the end of the Find VML, converting the variable characters in the process.
+      //:nFileIn   = SysOpenFile( TZWINDOWL, "c:\lplr\AD_Base\ObjMGP.VML", COREFILE_READ ) 
+      nFileIn = SysOpenFile( TZWINDOWL, "c:\\lplr\\AD_Base\\ObjMGP.VML", COREFILE_READ );
+      //:nFileOut  = SysOpenFile( TZWINDOWL, szFindVML, COREFILE_APPEND )
+      nFileOut = SysOpenFile( TZWINDOWL, szFindVML, COREFILE_APPEND );
+      //:nRC = zSysReadLine( TZWINDOWL, szVML_Statement, nFileIn, 256 ) 
+      nRC = zSysReadLine( TZWINDOWL, szVML_Statement, nFileIn, 256 );
+      //:LOOP WHILE nRC = 1 
+      while ( nRC == 1 )
+      { 
+         //:zSearchAndReplace( szVML_Statement, 256, "_Area",     szAD_Area )    // MGP Area
+         zSearchAndReplace( szVML_Statement, 256, "_Area", szAD_Area );
+         //:zSearchAndReplace( szVML_Statement, 256, "_ADMainV",  szAD_MainV )   // Main Page View
+         zSearchAndReplace( szVML_Statement, 256, "_ADMainV", szAD_MainV );
+         //:zSearchAndReplace( szVML_Statement, 256, "_ADListE",  szAD_ListE )   // Entity Name from Main page listbox
+         zSearchAndReplace( szVML_Statement, 256, "_ADListE", szAD_ListE );
+         //:zSearchAndReplace( szVML_Statement, 256, "_MGPV",     szAD_MGP )     // Area Name for MGP Page Spec
+         zSearchAndReplace( szVML_Statement, 256, "_MGPV", szAD_MGP );
+         //:zSearchAndReplace( szVML_Statement, 256, "_MGPO",     szAD_MGPO )    // LOD Name for MGP Page Spec
+         zSearchAndReplace( szVML_Statement, 256, "_MGPO", szAD_MGPO );
+         //:zSearchAndReplace( szVML_Statement, 256, "_MGPRoot",  szAD_MGPRoot ) // Root Entity Name for the LOD above
+         zSearchAndReplace( szVML_Statement, 256, "_MGPRoot", szAD_MGPRoot );
+
+         //:SysWriteLine( TZWINDOWL, nFileOut, szVML_Statement )
+         SysWriteLine( TZWINDOWL, nFileOut, szVML_Statement );
+         //:nRC = zSysReadLine( TZWINDOWL, szVML_Statement, nFileIn, 256 )
+         nRC = zSysReadLine( TZWINDOWL, szVML_Statement, nFileIn, 256 );
+      } 
+
+      //:END
+
+      //:SysCloseFile( TZWINDOWL, nFileIn, 0 )
+      SysCloseFile( TZWINDOWL, nFileIn, 0 );
+      //:SysCloseFile( TZWINDOWL, nFileOut, 0 )
+      SysCloseFile( TZWINDOWL, nFileOut, 0 );
+   } 
+
+   //:END
    return( 0 );
 // END
 } 
@@ -500,279 +1725,6 @@ oTZADWWKO_AddAD_ListUpdActions( zVIEW     TZADWWKO,
 
       RESULT = SetCursorNextEntity( TZWINDOWL, "Action", "" );
       //:END
-   } 
-
-   //:END
-   return( 0 );
-// END
-} 
-
-
-//:TRANSFORMATION OPERATION
-//:AddAD_ListMGP_Actions( VIEW TZADWWKO   BASED ON LOD  TZADWWKO,
-//:                       VIEW TZCONTROL  BASED ON LOD  TZWDLGSO,
-//:                       VIEW TZWINDOWL  BASED ON LOD  TZWDLGSO,
-//:                       VIEW AD_BaseCtl BASED ON LOD  TZWDLGSO,
-//:                       VIEW AD_Base    BASED ON LOD  TZWDLGSO )
-
-//:   VIEW TaskLPLR    REGISTERED AS TaskLPLR
-zOPER_EXPORT zSHORT OPERATION
-oTZADWWKO_AddAD_ListMGP_Actions( zVIEW     TZADWWKO,
-                                 zVIEW     TZCONTROL,
-                                 zVIEW     TZWINDOWL,
-                                 zVIEW     AD_BaseCtl,
-                                 zVIEW     AD_Base )
-{
-   zVIEW     TaskLPLR = 0; 
-   zSHORT    RESULT; 
-   //:VIEW TZADWWKOSub BASED ON LOD  TZADWWKO
-   zVIEW     TZADWWKOSub = 0; 
-   //:VIEW UpdateLOD   BASED ON LOD  TZZOLODO
-   zVIEW     UpdateLOD = 0; 
-   //:STRING ( 50 )  szActionName
-   zCHAR     szActionName[ 51 ] = { 0 }; 
-   //:STRING ( 50 )  szOperationName
-   zCHAR     szOperationName[ 51 ] = { 0 }; 
-   //:STRING ( 50 )  szAD_Area
-   zCHAR     szAD_Area[ 51 ] = { 0 }; 
-   //:STRING ( 50 )  szCompare
-   zCHAR     szCompare[ 51 ] = { 0 }; 
-   //:STRING ( 50 )  szAD_MainV
-   zCHAR     szAD_MainV[ 51 ] = { 0 }; 
-   //:STRING ( 50 )  szAD_ListE
-   zCHAR     szAD_ListE[ 51 ] = { 0 }; 
-   //:STRING ( 50 )  szAD_MGP
-   zCHAR     szAD_MGP[ 51 ] = { 0 }; 
-   //:STRING ( 50 )  szAD_MGPO
-   zCHAR     szAD_MGPO[ 51 ] = { 0 }; 
-   //:STRING ( 50 )  szAD_MGPRoot
-   zCHAR     szAD_MGPRoot[ 51 ] = { 0 }; 
-   //:STRING ( 256 ) szVML_Statement
-   zCHAR     szVML_Statement[ 257 ] = { 0 }; 
-   //:STRING ( 256 ) szFindVML
-   zCHAR     szFindVML[ 257 ] = { 0 }; 
-   //:STRING ( 256 ) szSourceDirectory
-   zCHAR     szSourceDirectory[ 257 ] = { 0 }; 
-   //:INTEGER nRC
-   zLONG     nRC = 0; 
-   //:INTEGER nRC2
-   zLONG     nRC2 = 0; 
-   //:INTEGER nLevel
-   zLONG     nLevel = 0; 
-   //:INTEGER nFileIn
-   zLONG     nFileIn = 0; 
-   //:INTEGER nFileOut
-   zLONG     nFileOut = 0; 
-   //:INTEGER nLength  
-   zLONG     nLength = 0; 
-   zCHAR     szTempString_0[ 33 ]; 
-   zCHAR     szTempString_1[ 33 ]; 
-   zCHAR     szTempString_2[ 33 ]; 
-   zSHORT    lTempInteger_0; 
-
-   RESULT = GetViewByName( &TaskLPLR, "TaskLPLR", TZADWWKO, zLEVEL_TASK );
-
-   //:// Check for Update LOD, which is the main LOD for the multi-group page for both Update and Detail.
-   //:GET VIEW UpdateLOD NAMED "TZZOLODO_UpdateMGP"
-   RESULT = GetViewByName( &UpdateLOD, "TZZOLODO_UpdateMGP", TZADWWKO, zLEVEL_TASK );
-   //:IF RESULT < 0
-   if ( RESULT < 0 )
-   { 
-      //:MessageSend( TZADWWKO, "", "Autodesign Subdialog",
-      //:             "The Update Object has not been selected.",
-      //:             zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
-      MessageSend( TZADWWKO, "", "Autodesign Subdialog", "The Update Object has not been selected.", zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
-      //:SetWindowActionBehavior( TZADWWKO, zWAB_StayOnWindow, 0,0 )
-      SetWindowActionBehavior( TZADWWKO, zWAB_StayOnWindow, 0, 0 );
-      //:RETURN -2
-      return( -2 );
-   } 
-
-   //:END
-
-   //:// Process the GOTO__AreaMGP Action and Operation.
-   //:GET VIEW TZADWWKOSub NAMED "TZADWWKOSub"
-   RESULT = GetViewByName( &TZADWWKOSub, "TZADWWKOSub", TZADWWKO, zLEVEL_TASK );
-   //:szAD_Area    = TZADWWKOSub.AutodesignSubdialog.AD_AreaName
-   GetVariableFromAttribute( szAD_Area, 0, 'S', 51, TZADWWKOSub, "AutodesignSubdialog", "AD_AreaName", "", 0 );
-   //:szActionName = "GOTO_" + szAD_Area + "MGP"
-   ZeidonStringCopy( szActionName, 1, 0, "GOTO_", 1, 0, 51 );
-   ZeidonStringConcat( szActionName, 1, 0, szAD_Area, 1, 0, 51 );
-   ZeidonStringConcat( szActionName, 1, 0, "MGP", 1, 0, 51 );
-   //:SET CURSOR FIRST TZWINDOWL.Action WHERE TZWINDOWL.Action.Tag = "GOTO__MGP"
-   RESULT = SetCursorFirstEntityByString( TZWINDOWL, "Action", "Tag", "GOTO__MGP", "" );
-   //:IF RESULT < zCURSOR_SET
-   if ( RESULT < zCURSOR_SET )
-   { 
-      //:IssueError( TZWINDOWL,0,0, "Programming Error: No Action match for GOTO__MGP Action." )
-      IssueError( TZWINDOWL, 0, 0, "Programming Error: No Action match for GOTO__MGP Action." );
-      //:RETURN 
-      return( 0 );
-   } 
-
-   //:END
-   //:TZWINDOWL.Action.Tag = szActionName
-   SetAttributeFromString( TZWINDOWL, "Action", "Tag", szActionName );
-   //:TZWINDOWL.Action.DialogName = TZWINDOWL.Dialog.Tag 
-   SetAttributeFromAttribute( TZWINDOWL, "Action", "DialogName", TZWINDOWL, "Dialog", "Tag" );
-   //:TZWINDOWL.Action.WindowName = szAD_Area + "Detail"
-   ZeidonStringCopy( szTempString_0, 1, 0, szAD_Area, 1, 0, 33 );
-   ZeidonStringConcat( szTempString_0, 1, 0, "Detail", 1, 0, 33 );
-   SetAttributeFromString( TZWINDOWL, "Action", "WindowName", szTempString_0 );
-
-   //:// Copy Operation and include under Action.
-   //:SET CURSOR FIRST AD_Base.Operation WITHIN AD_Base.Dialog 
-   //:           WHERE AD_Base.Operation.Name = "GOTO__MGP"
-   RESULT = SetCursorFirstEntityByString( AD_Base, "Operation", "Name", "GOTO__MGP", "Dialog" );
-   //:IF RESULT < zCURSOR_SET
-   if ( RESULT < zCURSOR_SET )
-   { 
-      //:IssueError( TZWINDOWL,0,0, "Programming Error: No Operation match for GOTO__MGP Operation." )
-      IssueError( TZWINDOWL, 0, 0, "Programming Error: No Operation match for GOTO__MGP Operation." );
-      //:RETURN 
-      return( 0 );
-   } 
-
-   //:END
-   //:SET CURSOR LAST TZWINDOWL.Operation
-   RESULT = SetCursorLastEntity( TZWINDOWL, "Operation", "" );
-   //:CreateMetaEntity( TZWINDOWL, TZWINDOWL, "Operation", zPOS_AFTER )
-   CreateMetaEntity( TZWINDOWL, TZWINDOWL, "Operation", zPOS_AFTER );
-   //:szOperationName = szActionName
-   ZeidonStringCopy( szOperationName, 1, 0, szActionName, 1, 0, 51 );
-   //:TZWINDOWL.Operation.Name = szOperationName
-   SetAttributeFromString( TZWINDOWL, "Operation", "Name", szOperationName );
-   //:SetMatchingAttributesByName( TZWINDOWL, "Operation", AD_Base, "Operation", zSET_NULL )
-   SetMatchingAttributesByName( TZWINDOWL, "Operation", AD_Base, "Operation", zSET_NULL );
-   //:FOR EACH AD_Base.Parameter 
-   RESULT = SetCursorFirstEntity( AD_Base, "Parameter", "" );
-   while ( RESULT > zCURSOR_UNCHANGED )
-   { 
-      //:CreateMetaEntity( TZWINDOWL, TZWINDOWL, "Parameter", zPOS_AFTER )
-      CreateMetaEntity( TZWINDOWL, TZWINDOWL, "Parameter", zPOS_AFTER );
-      //:SetMatchingAttributesByName( TZWINDOWL, "Parameter", AD_Base, "Parameter", zSET_NULL )
-      SetMatchingAttributesByName( TZWINDOWL, "Parameter", AD_Base, "Parameter", zSET_NULL );
-      RESULT = SetCursorNextEntity( AD_Base, "Parameter", "" );
-   } 
-
-   //:END
-   //:INCLUDE TZWINDOWL.ActOper FROM TZWINDOWL.Operation 
-   RESULT = IncludeSubobjectFromSubobject( TZWINDOWL, "ActOper", TZWINDOWL, "Operation", zPOS_AFTER );
-
-   //:// Check to see if the GOTO Operation exists in the VML File. Operation Name is same as Action Name
-   //:// Note that the Operation Name starts in column 1.
-   //:nLength = zGetStringLen( szOperationName )
-   nLength = zGetStringLen( szOperationName );
-   //:szSourceDirectory = TaskLPLR.LPLR.PgmSrcDir 
-   GetVariableFromAttribute( szSourceDirectory, 0, 'S', 257, TaskLPLR, "LPLR", "PgmSrcDir", "", 0 );
-   //:szFindVML = szSourceDirectory + "\" + TZWINDOWL.Dialog.Tag + ".VML"
-   ZeidonStringCopy( szFindVML, 1, 0, szSourceDirectory, 1, 0, 257 );
-   ZeidonStringConcat( szFindVML, 1, 0, "\\", 1, 0, 257 );
-   GetVariableFromAttribute( szTempString_1, 0, 'S', 33, TZWINDOWL, "Dialog", "Tag", "", 0 );
-   ZeidonStringConcat( szFindVML, 1, 0, szTempString_1, 1, 0, 257 );
-   ZeidonStringConcat( szFindVML, 1, 0, ".VML", 1, 0, 257 );
-   //:nFileIn   = SysOpenFile( TZWINDOWL, szFindVML, COREFILE_READ )
-   nFileIn = SysOpenFile( TZWINDOWL, szFindVML, COREFILE_READ );
-   //:nRC2 = -1
-   nRC2 = -1;
-   //:IF nFileIn > 0   // Don't continue if the VML hasn't been created yet.
-   if ( nFileIn > 0 )
-   { 
-      //:nRC = zSysReadLine( TZWINDOWL, szVML_Statement, nFileIn, 256 )
-      nRC = zSysReadLine( TZWINDOWL, szVML_Statement, nFileIn, 256 );
-      //:LOOP WHILE nRC = 1 AND nRC2 != 0
-      while ( nRC == 1 && nRC2 != 0 )
-      { 
-         //:zstrncpy( szCompare, szVML_Statement, nLength )
-         zstrncpy( szCompare, szVML_Statement, nLength );
-         //:nRC2 = zstrcmp( szCompare, szOperationName )
-         nRC2 = zstrcmp( szCompare, szOperationName );
-         //:nRC = zSysReadLine( TZWINDOWL, szVML_Statement, nFileIn, 256 )
-         nRC = zSysReadLine( TZWINDOWL, szVML_Statement, nFileIn, 256 );
-      } 
-
-      //:END
-      //:SysCloseFile( TZWINDOWL, nFileIn, 0 )
-      SysCloseFile( TZWINDOWL, nFileIn, 0 );
-   } 
-
-   //:END
-
-   //:IF nRC2 != 0     // Operation was not found.
-   if ( nRC2 != 0 )
-   { 
-
-      //:// The Operation was not found in the Source File, so copy the VML
-      //:szSourceDirectory = TaskLPLR.LPLR.PgmSrcDir
-      GetVariableFromAttribute( szSourceDirectory, 0, 'S', 257, TaskLPLR, "LPLR", "PgmSrcDir", "", 0 );
-      //:szFindVML         = szSourceDirectory + "\" + TZWINDOWL.Dialog.Tag + ".VML" 
-      ZeidonStringCopy( szFindVML, 1, 0, szSourceDirectory, 1, 0, 257 );
-      ZeidonStringConcat( szFindVML, 1, 0, "\\", 1, 0, 257 );
-      GetVariableFromAttribute( szTempString_2, 0, 'S', 33, TZWINDOWL, "Dialog", "Tag", "", 0 );
-      ZeidonStringConcat( szFindVML, 1, 0, szTempString_2, 1, 0, 257 );
-      ZeidonStringConcat( szFindVML, 1, 0, ".VML", 1, 0, 257 );
-
-      //:// Set variables to be used in VML conversion.
-      //:// Check to see if an Activate entity was specifified. If so use it. Otherwise use the List entity.
-      //:IF TZADWWKO.ESG_LOD_Entity2 EXISTS    // Check to see if an Activate Entity was specifified.
-      lTempInteger_0 = CheckExistenceOfEntity( TZADWWKO, "ESG_LOD_Entity2" );
-      if ( lTempInteger_0 == 0 )
-      { 
-         //:szAD_ListE = TZADWWKO.ESG_LOD_Entity2.Name
-         GetVariableFromAttribute( szAD_ListE, 0, 'S', 51, TZADWWKO, "ESG_LOD_Entity2", "Name", "", 0 );
-         //:ELSE
-      } 
-      else
-      { 
-         //:szAD_ListE = TZADWWKO.ESG_LOD_Entity.Name
-         GetVariableFromAttribute( szAD_ListE, 0, 'S', 51, TZADWWKO, "ESG_LOD_Entity", "Name", "", 0 );
-      } 
-
-      //:END
-      //:szAD_MainV   = TZADWWKO.W_MetaDefUpdateView.Name 
-      GetVariableFromAttribute( szAD_MainV, 0, 'S', 51, TZADWWKO, "W_MetaDefUpdateView", "Name", "", 0 );
-      //:szAD_MGP     = TZADWWKOSub.W_MetaDefUpdateView.Name 
-      GetVariableFromAttribute( szAD_MGP, 0, 'S', 51, TZADWWKOSub, "W_MetaDefUpdateView", "Name", "", 0 );
-      //:szAD_MGPO    = TZADWWKOSub.W_MetaDefUpdateObject.Name 
-      GetVariableFromAttribute( szAD_MGPO, 0, 'S', 51, TZADWWKOSub, "W_MetaDefUpdateObject", "Name", "", 0 );
-      //:szAD_MGPRoot = UpdateLOD.LOD_EntityParent.Name 
-      GetVariableFromAttribute( szAD_MGPRoot, 0, 'S', 51, UpdateLOD, "LOD_EntityParent", "Name", "", 0 );
-
-      //:// Copy the source VML to the end of the Find VML, converting the variable characters in the process.
-      //:nFileIn   = SysOpenFile( TZWINDOWL, "c:\lplr\AD_Base\ObjMGP.VML", COREFILE_READ ) 
-      nFileIn = SysOpenFile( TZWINDOWL, "c:\\lplr\\AD_Base\\ObjMGP.VML", COREFILE_READ );
-      //:nFileOut  = SysOpenFile( TZWINDOWL, szFindVML, COREFILE_APPEND )
-      nFileOut = SysOpenFile( TZWINDOWL, szFindVML, COREFILE_APPEND );
-      //:nRC = zSysReadLine( TZWINDOWL, szVML_Statement, nFileIn, 256 ) 
-      nRC = zSysReadLine( TZWINDOWL, szVML_Statement, nFileIn, 256 );
-      //:LOOP WHILE nRC = 1 
-      while ( nRC == 1 )
-      { 
-         //:zSearchAndReplace( szVML_Statement, 256, "_Area",     szAD_Area )    // MGP Area
-         zSearchAndReplace( szVML_Statement, 256, "_Area", szAD_Area );
-         //:zSearchAndReplace( szVML_Statement, 256, "_ADMainV",  szAD_MainV )   // Main Page View
-         zSearchAndReplace( szVML_Statement, 256, "_ADMainV", szAD_MainV );
-         //:zSearchAndReplace( szVML_Statement, 256, "_ADListE",  szAD_ListE )   // Entity Name from Main page listbox
-         zSearchAndReplace( szVML_Statement, 256, "_ADListE", szAD_ListE );
-         //:zSearchAndReplace( szVML_Statement, 256, "_MGPV",     szAD_MGP )     // Area Name for MGP Page Spec
-         zSearchAndReplace( szVML_Statement, 256, "_MGPV", szAD_MGP );
-         //:zSearchAndReplace( szVML_Statement, 256, "_MGPO",     szAD_MGPO )    // LOD Name for MGP Page Spec
-         zSearchAndReplace( szVML_Statement, 256, "_MGPO", szAD_MGPO );
-         //:zSearchAndReplace( szVML_Statement, 256, "_MGPRoot",  szAD_MGPRoot ) // Root Entity Name for the LOD above
-         zSearchAndReplace( szVML_Statement, 256, "_MGPRoot", szAD_MGPRoot );
-
-         //:SysWriteLine( TZWINDOWL, nFileOut, szVML_Statement )
-         SysWriteLine( TZWINDOWL, nFileOut, szVML_Statement );
-         //:nRC = zSysReadLine( TZWINDOWL, szVML_Statement, nFileIn, 256 )
-         nRC = zSysReadLine( TZWINDOWL, szVML_Statement, nFileIn, 256 );
-      } 
-
-      //:END
-
-      //:SysCloseFile( TZWINDOWL, nFileIn, 0 )
-      SysCloseFile( TZWINDOWL, nFileIn, 0 );
-      //:SysCloseFile( TZWINDOWL, nFileOut, 0 )
-      SysCloseFile( TZWINDOWL, nFileOut, 0 );
    } 
 
    //:END
@@ -1197,6 +2149,7 @@ oTZADWWKO_AddListMapping( zVIEW     TZADWWKO,
                RESULT = IncludeSubobjectFromSubobject( TZCONTROL, "ControlDef", vCtrl1Pos, "ControlDef", zPOS_AFTER );
             } 
 
+            //:   
             //:END       
 
             //:// Position on list ctrl mapping LOD Entity and Attribute for CtrlMap include.
@@ -1458,6 +2411,8 @@ oTZADWWKO_AutodesignFindPages( zVIEW     TZADWWKO,
    zCHAR     szCompare[ 201 ] = { 0 }; 
    //:STRING ( 50 )  szCompareInit
    zCHAR     szCompareInit[ 51 ] = { 0 }; 
+   //:STRING ( 50 )  szCompareOption
+   zCHAR     szCompareOption[ 51 ] = { 0 }; 
    //:STRING ( 50 )  szGroupTitle
    zCHAR     szGroupTitle[ 51 ] = { 0 }; 
    //:STRING ( 50 )  szWindowName
@@ -1484,6 +2439,10 @@ oTZADWWKO_AutodesignFindPages( zVIEW     TZADWWKO,
    zCHAR     szAD_EMRA[ 201 ] = { 0 }; 
    //:STRING ( 200 ) szAD_DspN  // Update the view.entity.attribute value from the first ContactListItem mapping entry.
    zCHAR     szAD_DspN[ 201 ] = { 0 }; 
+   //:STRING ( 50 )  szAD_SchEME  // Exact Match Entity Name
+   zCHAR     szAD_SchEME[ 51 ] = { 0 }; 
+   //:STRING ( 50 )  szAD_SchEMA  // Exact Match Attribute Name
+   zCHAR     szAD_SchEMA[ 51 ] = { 0 }; 
    //:STRING ( 50 )  szCount
    zCHAR     szCount[ 51 ] = { 0 }; 
    //:STRING ( 50 )  szPrompt
@@ -1496,10 +2455,14 @@ oTZADWWKO_AutodesignFindPages( zVIEW     TZADWWKO,
    zCHAR     szControlDef[ 51 ] = { 0 }; 
    //:STRING ( 50 )  szNewGridViewName
    zCHAR     szNewGridViewName[ 51 ] = { 0 }; 
+   //:STRING ( 50 )  szFindAreaWindow
+   zCHAR     szFindAreaWindow[ 51 ] = { 0 }; 
    //:STRING ( 200 ) szControlText
    zCHAR     szControlText[ 201 ] = { 0 }; 
    //:STRING ( 1 )   szCopyVML_Flag
    zCHAR     szCopyVML_Flag[ 2 ] = { 0 }; 
+   //:STRING ( 1 )   szCopyExact
+   zCHAR     szCopyExact[ 2 ] = { 0 }; 
    //:STRING ( 1 )   szFoundFlag
    zCHAR     szFoundFlag[ 2 ] = { 0 }; 
    //:STRING ( 256 ) szSourceDirectory
@@ -1512,6 +2475,8 @@ oTZADWWKO_AutodesignFindPages( zVIEW     TZADWWKO,
    zCHAR     szVML_Statement[ 257 ] = { 0 }; 
    //:STRING ( 256 ) szDirectoryFileName
    zCHAR     szDirectoryFileName[ 257 ] = { 0 }; 
+   //:STRING ( 256 ) szMsg
+   zCHAR     szMsg[ 257 ] = { 0 }; 
    //:INTEGER nFileIn
    zLONG     nFileIn = 0; 
    //:INTEGER nFileOut
@@ -1546,6 +2511,7 @@ oTZADWWKO_AutodesignFindPages( zVIEW     TZADWWKO,
    zCHAR     szTempString_4[ 33 ]; 
    zSHORT    lTempInteger_5; 
    zCHAR     szTempString_5[ 33 ]; 
+   zSHORT    lTempInteger_6; 
    zCHAR     szTempString_6[ 33 ]; 
 
    RESULT = GetViewByName( &TZADWWKOT, "TZADWWKO", TZADWWKO, zLEVEL_TASK );
@@ -1697,11 +2663,38 @@ oTZADWWKO_AutodesignFindPages( zVIEW     TZADWWKO,
    //:END
 
    //:// If this is a CRM Find, activate the CRMBase dialog.
+   //:// Note that the directory for the Autodesign templates CAN BE specified in TaskLPLR.LPLR.AutodesignBase.
    //:IF szFindType = "CRM"
    if ( ZeidonStringCompare( szFindType, 1, 0, "CRM", 1, 0, 51 ) == 0 )
    { 
-      //:nRC = ActivateOI_FromFile( CRMBase, "TZWDLGSO", ViewToWindow, "C:\LPLR\AD_Base\CRMBase.PWD", zSINGLE )
-      nRC = ActivateOI_FromFile( &CRMBase, "TZWDLGSO", ViewToWindow, "C:\\LPLR\\AD_Base\\CRMBase.PWD", zSINGLE );
+      //:szDirectoryFileName = TaskLPLR.LPLR.AutodesignBase 
+      GetVariableFromAttribute( szDirectoryFileName, 0, 'S', 257, TaskLPLR, "LPLR", "AutodesignBase", "", 0 );
+      //:IF szDirectoryFileName = ""
+      if ( ZeidonStringCompare( szDirectoryFileName, 1, 0, "", 1, 0, 257 ) == 0 )
+      { 
+         //:szDirectoryFileName = "C:\LPLR\AD_Base"
+         ZeidonStringCopy( szDirectoryFileName, 1, 0, "C:\\LPLR\\AD_Base", 1, 0, 257 );
+      } 
+
+      //:END
+      //:szDirectoryFileName = szDirectoryFileName + "\CRMBase.PWD"
+      ZeidonStringConcat( szDirectoryFileName, 1, 0, "\\CRMBase.PWD", 1, 0, 257 );
+      //:nRC = ActivateOI_FromFile( CRMBase, "TZWDLGSO", ViewToWindow, szDirectoryFileName, zSINGLE )
+      nRC = ActivateOI_FromFile( &CRMBase, "TZWDLGSO", ViewToWindow, szDirectoryFileName, zSINGLE );
+      //:IF nRC < 0
+      if ( nRC < 0 )
+      { 
+         //:MessageSend( ViewToWindow, "", "Autodesign Subdialog",
+         //:             "CRMBase PWD could not be activated.",
+         //:             zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
+         MessageSend( ViewToWindow, "", "Autodesign Subdialog", "CRMBase PWD could not be activated.", zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
+         //:SetWindowActionBehavior( ViewToWindow, zWAB_StayOnWindow, 0,0 )
+         SetWindowActionBehavior( ViewToWindow, zWAB_StayOnWindow, 0, 0 );
+         //:RETURN -2
+         return( -2 );
+      } 
+
+      //:END
       //:NAME VIEW CRMBase "CRMBase"
       SetNameForView( CRMBase, "CRMBase", 0, zLEVEL_TASK );
    } 
@@ -1747,15 +2740,32 @@ oTZADWWKO_AutodesignFindPages( zVIEW     TZADWWKO,
    { 
       //:GET VIEW AD_Base NAMED "AD_Base"
       RESULT = GetViewByName( &AD_Base, "AD_Base", TZADWWKO, zLEVEL_TASK );
-      //:SET CURSOR FIRST AD_Base.Window WHERE AD_Base.Window.Tag = "FindArea" 
-      RESULT = SetCursorFirstEntityByString( AD_Base, "Window", "Tag", "FindArea", "" );
+      //:IF TZADWWKO.AutoDesignWork.SelectedListboxSymbolType = "Icons"
+      if ( CompareAttributeToString( TZADWWKO, "AutoDesignWork", "SelectedListboxSymbolType", "Icons" ) == 0 )
+      { 
+         //:szFindAreaWindow = "FindAreaIcons" 
+         ZeidonStringCopy( szFindAreaWindow, 1, 0, "FindAreaIcons", 1, 0, 51 );
+         //:ELSE
+      } 
+      else
+      { 
+         //:szFindAreaWindow = "FindArea"
+         ZeidonStringCopy( szFindAreaWindow, 1, 0, "FindArea", 1, 0, 51 );
+      } 
+
+      //:END
+      //:SET CURSOR FIRST AD_Base.Window WHERE AD_Base.Window.Tag = szFindAreaWindow
+      RESULT = SetCursorFirstEntityByString( AD_Base, "Window", "Tag", szFindAreaWindow, "" );
       //:IF RESULT < zCURSOR_SET
       if ( RESULT < zCURSOR_SET )
       { 
-         //:MessageSend( ViewToWindow, "", "Autodesign Subdialog",
-         //:             "The FindArea Window could not be found in AD_Base.",
+         //:szMsg = "The template window, " + szFindAreaWindow + ", could not be found in AD_Base."
+         ZeidonStringCopy( szMsg, 1, 0, "The template window, ", 1, 0, 257 );
+         ZeidonStringConcat( szMsg, 1, 0, szFindAreaWindow, 1, 0, 257 );
+         ZeidonStringConcat( szMsg, 1, 0, ", could not be found in AD_Base.", 1, 0, 257 );
+         //:MessageSend( ViewToWindow, "", "Autodesign Subdialog", szMsg,
          //:             zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
-         MessageSend( ViewToWindow, "", "Autodesign Subdialog", "The FindArea Window could not be found in AD_Base.", zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
+         MessageSend( ViewToWindow, "", "Autodesign Subdialog", szMsg, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
          //:SetWindowActionBehavior( ViewToWindow, zWAB_StayOnWindow, 0,0 )
          SetWindowActionBehavior( ViewToWindow, zWAB_StayOnWindow, 0, 0 );
          //:RETURN -2
@@ -1882,9 +2892,27 @@ oTZADWWKO_AutodesignFindPages( zVIEW     TZADWWKO,
       zSearchAndReplace( szOperationName, 50, "_AD_Area", szAD_Area );
       //:SET CURSOR FIRST TZWINDOW.Operation WHERE TZWINDOW.Operation.Name = szOperationName 
       RESULT = SetCursorFirstEntityByString( TZWINDOW, "Operation", "Name", szOperationName, "" );
-      //:IF RESULT < zCURSOR_SET
-      if ( RESULT < zCURSOR_SET )
+      //:IF RESULT >= zCURSOR_SET
+      if ( RESULT >= zCURSOR_SET )
       { 
+         //:// The Operation exists so check if it's tied to an Action. If so, exclude any current Operation and include the new.
+         //:SET CURSOR FIRST TZWINDOWL.ActOper WITHIN TZWINDOWL.Window WHERE TZWINDOWL.ActOper.Name = szOperationName
+         RESULT = SetCursorFirstEntityByString( TZWINDOWL, "ActOper", "Name", szOperationName, "Window" );
+         //:IF RESULT >= zCURSOR_SET
+         if ( RESULT >= zCURSOR_SET )
+         { 
+            //:EXCLUDE TZWINDOWL.ActOper 
+            RESULT = ExcludeEntity( TZWINDOWL, "ActOper", zREPOS_AFTER );
+            //:INCLUDE TZWINDOWL.ActOper FROM TZWINDOW.Operation  
+            RESULT = IncludeSubobjectFromSubobject( TZWINDOWL, "ActOper", TZWINDOW, "Operation", zPOS_AFTER );
+         } 
+
+         //:END
+         //:ELSE
+      } 
+      else
+      { 
+         //:// The Operation doesn't exist, so create and tie it to the Action.
          //:SET CURSOR LAST TZWINDOW.Operation
          RESULT = SetCursorLastEntity( TZWINDOW, "Operation", "" );
          //:CreateMetaEntity( TZWINDOW, TZWINDOW, "Operation", zPOS_AFTER )
@@ -1937,12 +2965,10 @@ oTZADWWKO_AutodesignFindPages( zVIEW     TZADWWKO,
    SetNameForView( TZCtlHier, "TZCtlHier", 0, zLEVEL_TASK );
    //:nRC = SetCursorNextEntityHierarchical( lReturnedLevel, szReturnedEntityName, TZCtlHier )
    nRC = SetCursorNextEntityHierarchical( (zPUSHORT) &lReturnedLevel, szReturnedEntityName, TZCtlHier );
-   //:lInitialLevel = lReturnedLevel
-   lInitialLevel = lReturnedLevel;
    //:szFoundFlag = ""
    ZeidonStringCopy( szFoundFlag, 1, 0, "", 1, 0, 2 );
-   //:LOOP WHILE nRC >= zCURSOR_SET AND lReturnedLevel >= lInitialLevel AND szFoundFlag = ""
-   while ( nRC >= zCURSOR_SET && lReturnedLevel >= lInitialLevel && ZeidonStringCompare( szFoundFlag, 1, 0, "", 1, 0, 2 ) == 0 )
+   //:LOOP WHILE nRC >= zCURSOR_SET AND szFoundFlag = ""
+   while ( nRC >= zCURSOR_SET && ZeidonStringCompare( szFoundFlag, 1, 0, "", 1, 0, 2 ) == 0 )
    { 
       //:IF nRC = zCURSOR_SET_RECURSIVECHILD
       if ( nRC == zCURSOR_SET_RECURSIVECHILD )
@@ -1987,8 +3013,9 @@ oTZADWWKO_AutodesignFindPages( zVIEW     TZADWWKO,
    } 
 
    //:END
-   //:DropView( TZCtlHier )      
+   //:DropView( TZCtlHier )   
    DropView( TZCtlHier );
+   //:   
    //:   
    //:// 3. Build the Search fields group from the selected attributes in TZADWWKO.FlatSelectedSearchAttribute.
    //://    In order to reuse the GenDetailGrpBootstrap operation that uses TZADWWKO.DetailMappingLOD_Attribute, we will copy the 
@@ -2084,24 +3111,72 @@ oTZADWWKO_AutodesignFindPages( zVIEW     TZADWWKO,
 
    //:// Step down into the GroupBox that will hold the generated search fields.
    //:// This is currently supporting only Bootstrap.
-   //:CreateViewFromView( TZCONTROL, TZWINDOWL )
-   CreateViewFromView( &TZCONTROL, TZWINDOWL );
-   //:NAME VIEW TZCONTROL "TZCONTROLAD"
-   SetNameForView( TZCONTROL, "TZCONTROLAD", 0, zLEVEL_TASK );
-   //:SetViewToSubobject( TZCONTROL, "CtrlCtrl" )   // Step into 2nd level
-   SetViewToSubobject( TZCONTROL, "CtrlCtrl" );
-   //:SET CURSOR NEXT TZCONTROL.Control             // Position on 2nd Group which is Accordian Group
-   RESULT = SetCursorNextEntity( TZCONTROL, "Control", "" );
-   //:SetViewToSubobject( TZCONTROL, "CtrlCtrl" )   // Step into card Group
-   SetViewToSubobject( TZCONTROL, "CtrlCtrl" );
-   //:SetViewToSubobject( TZCONTROL, "CtrlCtrl" )   // Step into next level, which starts with card-header Group
-   SetViewToSubobject( TZCONTROL, "CtrlCtrl" );
-   //:SET CURSOR NEXT TZCONTROL.Control             // Position on 2nd Group which is collapse show Group
-   RESULT = SetCursorNextEntity( TZCONTROL, "Control", "" );
-   //:SetViewToSubobject( TZCONTROL, "CtrlCtrl" )   // Step into card-body Group which holds the buttons
-   SetViewToSubobject( TZCONTROL, "CtrlCtrl" );
-   //:SET CURSOR NEXT TZCONTROL.Control             // Position on next card-body Group will hold search controls.
-   RESULT = SetCursorNextEntity( TZCONTROL, "Control", "" );
+   //:// Do this by locating the Group, "SearchGroup".
+   //:CreateViewFromView( TZCtlHier, TZWINDOWL )
+   CreateViewFromView( &TZCtlHier, TZWINDOWL );
+   //:DefineHierarchicalCursor( TZCtlHier, "Control" )
+   DefineHierarchicalCursor( TZCtlHier, "Control" );
+   //:NAME VIEW TZCtlHier "TZCtlHier"
+   SetNameForView( TZCtlHier, "TZCtlHier", 0, zLEVEL_TASK );
+   //:nRC = SetCursorNextEntityHierarchical( lReturnedLevel, szReturnedEntityName, TZCtlHier )
+   nRC = SetCursorNextEntityHierarchical( (zPUSHORT) &lReturnedLevel, szReturnedEntityName, TZCtlHier );
+   //:lInitialLevel = lReturnedLevel
+   lInitialLevel = lReturnedLevel;
+   //:szFoundFlag = ""
+   ZeidonStringCopy( szFoundFlag, 1, 0, "", 1, 0, 2 );
+   //:LOOP WHILE nRC >= zCURSOR_SET AND szFoundFlag = ""
+   while ( nRC >= zCURSOR_SET && ZeidonStringCompare( szFoundFlag, 1, 0, "", 1, 0, 2 ) == 0 )
+   { 
+      //:IF nRC = zCURSOR_SET_RECURSIVECHILD
+      if ( nRC == zCURSOR_SET_RECURSIVECHILD )
+      { 
+         //:SetViewToSubobject( TZCtlHier, "CtrlCtrl" )
+         SetViewToSubobject( TZCtlHier, "CtrlCtrl" );
+      } 
+
+      //:END
+      //:IF szReturnedEntityName = "CtrlCtrl"
+      if ( ZeidonStringCompare( szReturnedEntityName, 1, 0, "CtrlCtrl", 1, 0, 51 ) == 0 )
+      { 
+         //:szControlTag = TZCtlHier.Control.Tag 
+         GetVariableFromAttribute( szControlTag, 0, 'S', 51, TZCtlHier, "Control", "Tag", "", 0 );
+         //:IF szControlTag = "SearchGroup"
+         if ( ZeidonStringCompare( szControlTag, 1, 0, "SearchGroup", 1, 0, 51 ) == 0 )
+         { 
+            //:szFoundFlag = "Y"
+            ZeidonStringCopy( szFoundFlag, 1, 0, "Y", 1, 0, 2 );
+            //:CreateViewFromView( TZCONTROL, TZCtlHier )
+            CreateViewFromView( &TZCONTROL, TZCtlHier );
+            //:NAME VIEW TZCONTROL "TZCONTROLAD"
+            SetNameForView( TZCONTROL, "TZCONTROLAD", 0, zLEVEL_TASK );
+         } 
+
+         //:END
+      } 
+
+      //:END
+      //:nRC = SetCursorNextEntityHierarchical( lReturnedLevel, szReturnedEntityName, TZCtlHier )
+      nRC = SetCursorNextEntityHierarchical( (zPUSHORT) &lReturnedLevel, szReturnedEntityName, TZCtlHier );
+   } 
+
+   //:END
+   //:DropView( TZCtlHier )
+   DropView( TZCtlHier );
+   //:IF szFoundFlag = ""
+   if ( ZeidonStringCompare( szFoundFlag, 1, 0, "", 1, 0, 2 ) == 0 )
+   { 
+      //:// The SearchGroup Control wasn't found.
+      //:MessageSend( ViewToWindow, "", "Autodesign Subdialog",
+      //:             "The SearchGroup was not found in AD_Base or CRMBase Find Area. The process is aborted",
+      //:             zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
+      MessageSend( ViewToWindow, "", "Autodesign Subdialog", "The SearchGroup was not found in AD_Base or CRMBase Find Area. The process is aborted", zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
+      //:SetWindowActionBehavior( ViewToWindow, zWAB_StayOnWindow, 0,0 )
+      SetWindowActionBehavior( ViewToWindow, zWAB_StayOnWindow, 0, 0 );
+      //:RETURN -2
+      return( -2 );
+   } 
+
+   //:END
 
    //:// Generate the Search Controls
    //:GenDetailGrpBootstrap( TZADWWKO, TZCONTROL, TZWINDOWL, "Search Fields" )
@@ -2607,7 +3682,6 @@ oTZADWWKO_AutodesignFindPages( zVIEW     TZADWWKO,
 
    //:END
 
-
    //:// 6. Add VML Operations for Find.
 
    //:// Copy VML if operation code is not already in the target VML.
@@ -2615,11 +3689,6 @@ oTZADWWKO_AutodesignFindPages( zVIEW     TZADWWKO,
    //:// If that operation is there, the others should also be there and we don't need to check for each operation separately.
    //:szCopyVML_Flag    = ""
    ZeidonStringCopy( szCopyVML_Flag, 1, 0, "", 1, 0, 2 );
-   //:szOperationName   = "PostBuildFind" + szAD_Area
-   ZeidonStringCopy( szOperationName, 1, 0, "PostBuildFind", 1, 0, 51 );
-   ZeidonStringConcat( szOperationName, 1, 0, szAD_Area, 1, 0, 51 );
-   //:nLength           = zGetStringLen( szOperationName )
-   nLength = zGetStringLen( szOperationName );
    //:szSourceDirectory = TaskLPLR.LPLR.PgmSrcDir 
    GetVariableFromAttribute( szSourceDirectory, 0, 'S', 257, TaskLPLR, "LPLR", "PgmSrcDir", "", 0 );
    //:IF szFindType = "CRM"
@@ -2627,22 +3696,30 @@ oTZADWWKO_AutodesignFindPages( zVIEW     TZADWWKO,
    { 
       //:szFindBaseVML = "c:\lplr\AD_Base\CRMBase.VML"
       ZeidonStringCopy( szFindBaseVML, 1, 0, "c:\\lplr\\AD_Base\\CRMBase.VML", 1, 0, 257 );
+      //:szOperationName   = "PostBuildFind" + szAD_Area
+      ZeidonStringCopy( szOperationName, 1, 0, "PostBuildFind", 1, 0, 51 );
+      ZeidonStringConcat( szOperationName, 1, 0, szAD_Area, 1, 0, 51 );
       //:ELSE
    } 
    else
    { 
       //:szFindBaseVML = "c:\lplr\AD_Base\FindBase.VML"
       ZeidonStringCopy( szFindBaseVML, 1, 0, "c:\\lplr\\AD_Base\\FindBase.VML", 1, 0, 257 );
+      //:szOperationName   = "PostBuildObjectFind" + szAD_Area
+      ZeidonStringCopy( szOperationName, 1, 0, "PostBuildObjectFind", 1, 0, 51 );
+      ZeidonStringConcat( szOperationName, 1, 0, szAD_Area, 1, 0, 51 );
    } 
 
    //:END
-   //:szFindVML         = szSourceDirectory + "\" + TZWINDOW.Dialog.Tag + ".VML"
+   //:nLength   = zGetStringLen( szOperationName )
+   nLength = zGetStringLen( szOperationName );
+   //:szFindVML = szSourceDirectory + "\" + TZWINDOW.Dialog.Tag + ".VML"
    ZeidonStringCopy( szFindVML, 1, 0, szSourceDirectory, 1, 0, 257 );
    ZeidonStringConcat( szFindVML, 1, 0, "\\", 1, 0, 257 );
    GetVariableFromAttribute( szTempString_5, 0, 'S', 33, TZWINDOW, "Dialog", "Tag", "", 0 );
    ZeidonStringConcat( szFindVML, 1, 0, szTempString_5, 1, 0, 257 );
    ZeidonStringConcat( szFindVML, 1, 0, ".VML", 1, 0, 257 );
-   //:nFileIn           = SysOpenFile( TZWINDOW, szFindVML, COREFILE_READ )
+   //:nFileIn   = SysOpenFile( TZWINDOW, szFindVML, COREFILE_READ )
    nFileIn = SysOpenFile( TZWINDOW, szFindVML, COREFILE_READ );
    //:IF nFileIn >= 0  
    if ( nFileIn >= 0 )
@@ -2652,8 +3729,8 @@ oTZADWWKO_AutodesignFindPages( zVIEW     TZADWWKO,
       nRC = (zSHORT) zSysReadLine( TZWINDOW, szVML_Statement, nFileIn, 256 );
       //:nRC2 = -1
       nRC2 = -1;
-      //:LOOP WHILE nRC = 1 AND nRC2 != 1
-      while ( nRC == 1 && nRC2 != 1 )
+      //:LOOP WHILE nRC = 1 AND nRC2 != 0
+      while ( nRC == 1 && nRC2 != 0 )
       { 
          //:zstrncpy( szCompare, szVML_Statement, nLength )    // Copy the necsssary characters of the line to the compare field.
          zstrncpy( szCompare, szVML_Statement, nLength );
@@ -2666,10 +3743,10 @@ oTZADWWKO_AutodesignFindPages( zVIEW     TZADWWKO,
       //:END
       //:SysCloseFile( TZWINDOW, nFileIn, 0 )
       SysCloseFile( TZWINDOW, nFileIn, 0 );
-      //:IF nRC2 != 1
-      if ( nRC2 != 1 )
+      //:IF nRC2 != 0
+      if ( nRC2 != 0 )
       { 
-         //:// The file exists but doesn't have operations, so set flag for copy and open output file for APPEND.
+         //:// The file exists but doesn't have the Find operations, so set flag for copy and open output file for APPEND.
          //:szCopyVML_Flag = "Y"
          ZeidonStringCopy( szCopyVML_Flag, 1, 0, "Y", 1, 0, 2 );
          //:nFileOut  = SysOpenFile( TZWINDOW, szFindVML, COREFILE_APPEND )
@@ -2710,8 +3787,6 @@ oTZADWWKO_AutodesignFindPages( zVIEW     TZADWWKO,
       GetVariableFromAttribute( szAD_UpdO, 0, 'S', 51, TZADWWKO, "W_MetaDefUpdateObject", "Name", "", 0 );
       //:szAD_UpdR = TZADWWKO.LOD_EntityUpdateObjectRoot.Name 
       GetVariableFromAttribute( szAD_UpdR, 0, 'S', 51, TZADWWKO, "LOD_EntityUpdateObjectRoot", "Name", "", 0 );
-      //:szAD_CLTP = TZADWWKO.ContactListTypeDomain.InternalType 
-      GetVariableFromAttribute( szAD_CLTP, 0, 'S', 51, TZADWWKO, "ContactListTypeDomain", "InternalType", "", 0 );
       //:szAD_EMRA = TZADWWKO.AutoDesignWork.RecipientEmailAddressMapping 
       GetVariableFromAttribute( szAD_EMRA, 0, 'S', 201, TZADWWKO, "AutoDesignWork", "RecipientEmailAddressMapping", "", 0 );
       //:SET CURSOR FIRST TZADWWKO.FlatSelectedListAttribute 
@@ -2725,6 +3800,8 @@ oTZADWWKO_AutodesignFindPages( zVIEW     TZADWWKO,
          //:szAD_RetN = szAD_SchN + "R"
          ZeidonStringCopy( szAD_RetN, 1, 0, szAD_SchN, 1, 0, 51 );
          ZeidonStringConcat( szAD_RetN, 1, 0, "R", 1, 0, 51 );
+         //:szAD_CLTP = TZADWWKO.ContactListTypeDomain.InternalType 
+         GetVariableFromAttribute( szAD_CLTP, 0, 'S', 51, TZADWWKO, "ContactListTypeDomain", "InternalType", "", 0 );
          //:ELSE
       } 
       else
@@ -2764,6 +3841,70 @@ oTZADWWKO_AutodesignFindPages( zVIEW     TZADWWKO,
       //:LOOP WHILE nRC = 1 
       while ( nRC == 1 )
       { 
+
+         //:// Check for Option Start/End characters for optionally copying Exact Match Code.
+         //:zstrncpy( szCompareOption, szVML_Statement, 6 )
+         zstrncpy( szCompareOption, szVML_Statement, 6 );
+         //:nRC2 = zstrcmp( szCompareOption, "Option" )
+         nRC2 = (zSHORT) zstrcmp( szCompareOption, "Option" );
+         //:IF nRC2 = 0
+         if ( nRC2 == 0 )
+         { 
+            //:// Start of optional statements, so loop through them and either copy or skip.
+            //:IF TZADWWKO.SelectedExactMatchAttribute EXISTS
+            lTempInteger_6 = CheckExistenceOfEntity( TZADWWKO, "SelectedExactMatchAttribute" );
+            if ( lTempInteger_6 == 0 )
+            { 
+               //:szCopyExact = "Y"
+               ZeidonStringCopy( szCopyExact, 1, 0, "Y", 1, 0, 2 );
+               //:szAD_SchEME = TZADWWKO.PotentialExactMatchLOD_Entity.Name 
+               GetVariableFromAttribute( szAD_SchEME, 0, 'S', 51, TZADWWKO, "PotentialExactMatchLOD_Entity", "Name", "", 0 );
+               //:szAD_SchEMA = TZADWWKO.PotentialExactMatchER_Attribute.Name 
+               GetVariableFromAttribute( szAD_SchEMA, 0, 'S', 51, TZADWWKO, "PotentialExactMatchER_Attribute", "Name", "", 0 );
+               //:ELSE
+            } 
+            else
+            { 
+               //:szCopyExact = ""
+               ZeidonStringCopy( szCopyExact, 1, 0, "", 1, 0, 2 );
+            } 
+
+            //:END
+            //:nRC = zSysReadLine( TZWINDOWL, szVML_Statement, nFileIn, 256 )  // Skip the Option Start statement.
+            nRC = (zSHORT) zSysReadLine( TZWINDOWL, szVML_Statement, nFileIn, 256 );
+            //:zstrncpy( szCompareOption, szVML_Statement, 6 )
+            zstrncpy( szCompareOption, szVML_Statement, 6 );
+            //:LOOP WHILE nRC = 1 AND szCompareOption != "Option"
+            while ( nRC == 1 && ZeidonStringCompare( szCompareOption, 1, 0, "Option", 1, 0, 51 ) != 0 )
+            { 
+               //:IF szCopyExact = "Y"
+               if ( ZeidonStringCompare( szCopyExact, 1, 0, "Y", 1, 0, 2 ) == 0 )
+               { 
+                  //:// Convert the line and write it out.
+                  //:zSearchAndReplace( szVML_Statement, 256, "_AD_SchN",              szAD_SchN )    // Find Object Name
+                  zSearchAndReplace( szVML_Statement, 256, "_AD_SchN", szAD_SchN );
+                  //:zSearchAndReplace( szVML_Statement, 256, "_AD_SchExactEntity",    szAD_SchEME )  // Exact Match Entity
+                  zSearchAndReplace( szVML_Statement, 256, "_AD_SchExactEntity", szAD_SchEME );
+                  //:zSearchAndReplace( szVML_Statement, 256, "_AD_SchExactAttribute", szAD_SchEMA )  // Exact Match Attribute
+                  zSearchAndReplace( szVML_Statement, 256, "_AD_SchExactAttribute", szAD_SchEMA );
+                  //:SysWriteLine( TZWINDOWL, nFileOut, szVML_Statement ) 
+                  SysWriteLine( TZWINDOWL, nFileOut, szVML_Statement );
+               } 
+
+               //:END
+               //:nRC = zSysReadLine( TZWINDOWL, szVML_Statement, nFileIn, 256 )
+               nRC = (zSHORT) zSysReadLine( TZWINDOWL, szVML_Statement, nFileIn, 256 );
+               //:zstrncpy( szCompareOption, szVML_Statement, 6 )
+               zstrncpy( szCompareOption, szVML_Statement, 6 );
+            } 
+
+            //:END
+            //:nRC = zSysReadLine( TZWINDOWL, szVML_Statement, nFileIn, 256 )  // Skip the Option End statement.
+            nRC = (zSHORT) zSysReadLine( TZWINDOWL, szVML_Statement, nFileIn, 256 );
+         } 
+
+         //:END
+
          //:// Check for character string, "   // Start FindRangeInitialization", and generate Range statements following it.
          //:zstrncpy( szCompare, szVML_Statement, nLength )    // Copy the necsssary characters of the line to the compare field.
          zstrncpy( szCompare, szVML_Statement, nLength );
@@ -5057,7 +6198,7 @@ oTZADWWKO_GenDetailGrpBootstrpR( zVIEW     TZADWWKO,
 //:                   STRING ( 50 ) szGroupType,
 //:                   STRING ( 50 ) szAD_Area )
 
-//:   VIEW AD_BaseCtl  BASED ON LOD  TZWDLGSO
+//:   VIEW TaskLPLR    REGISTERED AS TaskLPLR
 zOPER_EXPORT zSHORT OPERATION
 oTZADWWKO_GenEntitySubGroup( zVIEW     TZADWWKO,
                              zVIEW     TZCONTROL,
@@ -5066,17 +6207,22 @@ oTZADWWKO_GenEntitySubGroup( zVIEW     TZADWWKO,
                              zPCHAR    szGroupType,
                              zPCHAR    szAD_Area )
 {
+   zVIEW     TaskLPLR = 0; 
+   zSHORT    RESULT; 
+   //:VIEW AD_BaseCtl  BASED ON LOD  TZWDLGSO
    zVIEW     AD_BaseCtl = 0; 
    //:VIEW UpdateLOD   BASED ON LOD  TZZOLODO
    zVIEW     UpdateLOD = 0; 
    //:VIEW SearchLOD   BASED ON LOD  TZZOLODO
    zVIEW     SearchLOD = 0; 
-   //:VIEW ReturnedLOD BASED ON LOD  TZZOLODO
-   zVIEW     ReturnedLOD = 0; 
    //:VIEW TZCONTROL2  BASED ON LOD  TZWDLGSO
    zVIEW     TZCONTROL2 = 0; 
    //:VIEW TZCtlHier   BASED ON LOD  TZWDLGSO
    zVIEW     TZCtlHier = 0; 
+   //:VIEW TZCtlTemp   BASED ON LOD  TZWDLGSO
+   zVIEW     TZCtlTemp = 0; 
+   //:VIEW TaskLPLR2   BASED ON LOD  TZCMLPLO
+   zVIEW     TaskLPLR2 = 0; 
    //:STRING ( 50 )  szLOD_ListEntityName
    zCHAR     szLOD_ListEntityName[ 51 ] = { 0 }; 
    //:STRING ( 50 )  szGroupName
@@ -5089,6 +6235,10 @@ oTZADWWKO_GenEntitySubGroup( zVIEW     TZADWWKO,
    zCHAR     szReturnedEntityName[ 51 ] = { 0 }; 
    //:STRING ( 50 )  szControlDef
    zCHAR     szControlDef[ 51 ] = { 0 }; 
+   //:STRING ( 50 )  szTemplateWindow
+   zCHAR     szTemplateWindow[ 51 ] = { 0 }; 
+   //:STRING ( 50 )  szControlName
+   zCHAR     szControlName[ 51 ] = { 0 }; 
    //:STRING ( 200 ) szMsg
    zCHAR     szMsg[ 201 ] = { 0 }; 
    //:SHORT   nRC
@@ -5099,22 +6249,54 @@ oTZADWWKO_GenEntitySubGroup( zVIEW     TZADWWKO,
    zLONG     lInitialLevel = 0; 
    //:INTEGER lReturnedLevel 
    zLONG     lReturnedLevel = 0; 
-   zSHORT    RESULT; 
    zCHAR     szTempString_0[ 33 ]; 
    zCHAR     szTempString_1[ 33 ]; 
    zSHORT    lTempInteger_0; 
    zCHAR     szTempString_2[ 33 ]; 
 
+   RESULT = GetViewByName( &TaskLPLR, "TaskLPLR", TZADWWKO, zLEVEL_TASK );
 
    //:// Generate an Entity Subgroup based on the Group Type passed in.
    //:// The structure we are generating is assumed to be Bootstrap.
+
+   //:IF TZADWWKO.AutoDesignWork.SelectedListboxSymbolType = "Icons"
+   if ( CompareAttributeToString( TZADWWKO, "AutoDesignWork", "SelectedListboxSymbolType", "Icons" ) == 0 )
+   { 
+      //:szTemplateWindow = "ObjectUpdateGroupsIcons" 
+      ZeidonStringCopy( szTemplateWindow, 1, 0, "ObjectUpdateGroupsIcons", 1, 0, 51 );
+      //:ELSE
+   } 
+   else
+   { 
+      //:szTemplateWindow = "ObjectUpdateGroups"
+      ZeidonStringCopy( szTemplateWindow, 1, 0, "ObjectUpdateGroups", 1, 0, 51 );
+   } 
+
+   //:END
+   //:SET CURSOR FIRST AD_Base.Window WHERE AD_Base.Window.Tag = szTemplateWindow
+   RESULT = SetCursorFirstEntityByString( AD_Base, "Window", "Tag", szTemplateWindow, "" );
+   //:IF RESULT < zCURSOR_SET
+   if ( RESULT < zCURSOR_SET )
+   { 
+      //:szMsg = "The template window, " + szTemplateWindow + ", could not be found in AD_Base."
+      ZeidonStringCopy( szMsg, 1, 0, "The template window, ", 1, 0, 201 );
+      ZeidonStringConcat( szMsg, 1, 0, szTemplateWindow, 1, 0, 201 );
+      ZeidonStringConcat( szMsg, 1, 0, ", could not be found in AD_Base.", 1, 0, 201 );
+      //:MessageSend( TZADWWKO, "", "Autodesign Subdialog", szMsg,
+      //:             zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
+      MessageSend( TZADWWKO, "", "Autodesign Subdialog", szMsg, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
+      //:SetWindowActionBehavior( TZADWWKO, zWAB_StayOnWindow, 0,0 )
+      SetWindowActionBehavior( TZADWWKO, zWAB_StayOnWindow, 0, 0 );
+      //:RETURN -2
+      return( -2 );
+   } 
+
+   //:END
 
    //:CreateViewFromView( AD_BaseCtl, AD_Base )
    CreateViewFromView( &AD_BaseCtl, AD_Base );
    //:NAME VIEW  AD_BaseCtl "AD_BaseCtl"
    SetNameForView( AD_BaseCtl, "AD_BaseCtl", 0, zLEVEL_TASK );
-   //:SET CURSOR FIRST AD_BaseCtl.Window WHERE AD_BaseCtl.Window.Tag = "ObjectUpdateGroups" 
-   RESULT = SetCursorFirstEntityByString( AD_BaseCtl, "Window", "Tag", "ObjectUpdateGroups", "" );
 
    //:GET VIEW UpdateLOD NAMED "TZZOLODO_Update"
    RESULT = GetViewByName( &UpdateLOD, "TZZOLODO_Update", TZADWWKO, zLEVEL_TASK );
@@ -5241,8 +6423,15 @@ oTZADWWKO_GenEntitySubGroup( zVIEW     TZADWWKO,
       else
       { 
          //:// Process the Actions and Operations tied to the List Detail or Update Groups.
-         //:AddAD_ListUpdActions( TZADWWKO, TZWINDOWL, AD_Base, szGroupType )
-         oTZADWWKO_AddAD_ListUpdActions( TZADWWKO, TZWINDOWL, AD_Base, szGroupType );
+         //:// Don't execute for ListOnly groups, which have no Actions.
+         //:IF szGroupType != "ListGroupOnly"
+         if ( ZeidonStringCompare( szGroupType, 1, 0, "ListGroupOnly", 1, 0, 51 ) != 0 )
+         { 
+            //:AddAD_ListUpdActions( TZADWWKO, TZWINDOWL, AD_Base, szGroupType )
+            oTZADWWKO_AddAD_ListUpdActions( TZADWWKO, TZWINDOWL, AD_Base, szGroupType );
+         } 
+
+         //:END
       } 
 
       //:END
@@ -5302,7 +6491,7 @@ oTZADWWKO_GenEntitySubGroup( zVIEW     TZADWWKO,
 
       //:// Build the Detail control Group.
 
-      //:// Because the GenDetailGrpBootstrap routine uses the DetailMapping suboject, we will copy the Search subobject
+      //:// Because the GenDetailGrpBootstrap routine uses the DetailMapping suboject, we will copy the ESG_DetailLOD_Attribute subobject
       //:// entries to the DetailMapping suboject.
       //:FOR EACH TZADWWKO.DetailMappingLOD_Attribute 
       RESULT = SetCursorFirstEntity( TZADWWKO, "DetailMappingLOD_Attribute", "" );
@@ -5405,7 +6594,7 @@ oTZADWWKO_GenEntitySubGroup( zVIEW     TZADWWKO,
 
       //:END
 
-      //:// Clone Control at current position.
+      //:// Clone Control at current position. Note that Clone does not copy Action Operations.
       //:nRC = CloneControlAD( TZADWWKO, TZCONTROL, TZWINDOWL, AD_BaseCtl )
       nRC = oTZADWWKO_CloneControlAD( TZADWWKO, TZCONTROL, TZWINDOWL, AD_BaseCtl );
 
@@ -5453,6 +6642,21 @@ oTZADWWKO_GenEntitySubGroup( zVIEW     TZADWWKO,
       } 
 
       //:END
+   } 
+
+
+   //:END
+
+   //:// DASHBOARD ENTRY TZCONTROL,
+
+   //:IF szGroupType = "DetailGroupDBE"
+   if ( ZeidonStringCompare( szGroupType, 1, 0, "DetailGroupDBE", 1, 0, 51 ) == 0 )
+   { 
+
+      //:// Build Group Dashboard Entry. 
+      //:// Process Mapping, Actions & Operations.
+      //:AddAD_Dashbord( TZADWWKO,TZWINDOWL, TZCONTROL, AD_Base, AD_BaseCtl )
+      oTZADWWKO_AddAD_Dashbord( TZADWWKO, TZWINDOWL, TZCONTROL, AD_Base, AD_BaseCtl );
    } 
 
 
@@ -5560,6 +6764,8 @@ oTZADWWKO_GenIncludePage( zVIEW     TZADWWKO,
    zCHAR     szAD_UpdObj[ 51 ] = { 0 }; 
    //:STRING ( 50 )  szControlType
    zCHAR     szControlType[ 51 ] = { 0 }; 
+   //:STRING ( 50 )  szTemplateWindow
+   zCHAR     szTemplateWindow[ 51 ] = { 0 }; 
    //:STRING ( 6 )   szCompareOption
    zCHAR     szCompareOption[ 7 ] = { 0 }; 
    //:STRING ( 1 )   szOption
@@ -5568,6 +6774,8 @@ oTZADWWKO_GenIncludePage( zVIEW     TZADWWKO,
    zCHAR     szGroupIncludeType[ 2 ] = { 0 }; 
    //:STRING ( 1 )   szFoundFlag
    zCHAR     szFoundFlag[ 2 ] = { 0 }; 
+   //:STRING ( 200 ) szMsg
+   zCHAR     szMsg[ 201 ] = { 0 }; 
    //:STRING ( 256 ) szControlText
    zCHAR     szControlText[ 257 ] = { 0 }; 
    //:STRING ( 256 ) szSourceDirectory
@@ -5619,17 +6827,60 @@ oTZADWWKO_GenIncludePage( zVIEW     TZADWWKO,
    SetNameForView( TZWINDOW2, "TZWINDOW2", 0, zLEVEL_TASK );
    //:   
    //:// First clone the GroupListInclude or GroupListFindInclude Window depending on GroupType.
-   //:IF szGroupType = "DetailGroupwInclude"
-   if ( ZeidonStringCompare( szGroupType, 1, 0, "DetailGroupwInclude", 1, 0, 51 ) == 0 )
+   //:IF TZADWWKO.AutoDesignWork.SelectedListboxSymbolType = "Icons"
+   if ( CompareAttributeToString( TZADWWKO, "AutoDesignWork", "SelectedListboxSymbolType", "Icons" ) == 0 )
    { 
-      //:SET CURSOR FIRST AD_Base.Window WHERE AD_Base.Window.Tag = "GroupListInclude"
-      RESULT = SetCursorFirstEntityByString( AD_Base, "Window", "Tag", "GroupListInclude", "" );
+      //:IF szGroupType = "DetailGroupwInclude" OR szGroupType = "ListGroupwInclude"
+      if ( ZeidonStringCompare( szGroupType, 1, 0, "DetailGroupwInclude", 1, 0, 51 ) == 0 || ZeidonStringCompare( szGroupType, 1, 0, "ListGroupwInclude", 1, 0, 51 ) == 0 )
+      { 
+         //:szTemplateWindow = "GroupListIncludeIcons"
+         ZeidonStringCopy( szTemplateWindow, 1, 0, "GroupListIncludeIcons", 1, 0, 51 );
+         //:ELSE
+      } 
+      else
+      { 
+         //:szTemplateWindow = "GroupListFindIncludeIcons"
+         ZeidonStringCopy( szTemplateWindow, 1, 0, "GroupListFindIncludeIcons", 1, 0, 51 );
+      } 
+
+      //:END
       //:ELSE
    } 
    else
    { 
-      //:SET CURSOR FIRST AD_Base.Window WHERE AD_Base.Window.Tag = "GroupListFindInclude"
-      RESULT = SetCursorFirstEntityByString( AD_Base, "Window", "Tag", "GroupListFindInclude", "" );
+      //:IF szGroupType = "DetailGroupwInclude" OR szGroupType = "ListGroupwInclude"
+      if ( ZeidonStringCompare( szGroupType, 1, 0, "DetailGroupwInclude", 1, 0, 51 ) == 0 || ZeidonStringCompare( szGroupType, 1, 0, "ListGroupwInclude", 1, 0, 51 ) == 0 )
+      { 
+         //:szTemplateWindow = "GroupListInclude" 
+         ZeidonStringCopy( szTemplateWindow, 1, 0, "GroupListInclude", 1, 0, 51 );
+         //:ELSE
+      } 
+      else
+      { 
+         //:szTemplateWindow = "GroupListFindInclude"
+         ZeidonStringCopy( szTemplateWindow, 1, 0, "GroupListFindInclude", 1, 0, 51 );
+      } 
+
+      //:END
+   } 
+
+   //:END
+   //:SET CURSOR FIRST AD_Base.Window WHERE AD_Base.Window.Tag = szTemplateWindow
+   RESULT = SetCursorFirstEntityByString( AD_Base, "Window", "Tag", szTemplateWindow, "" );
+   //:IF RESULT < zCURSOR_SET
+   if ( RESULT < zCURSOR_SET )
+   { 
+      //:szMsg = "The template window, " + szTemplateWindow + ", could not be found in AD_Base."
+      ZeidonStringCopy( szMsg, 1, 0, "The template window, ", 1, 0, 201 );
+      ZeidonStringConcat( szMsg, 1, 0, szTemplateWindow, 1, 0, 201 );
+      ZeidonStringConcat( szMsg, 1, 0, ", could not be found in AD_Base.", 1, 0, 201 );
+      //:MessageSend( TZADWWKO, "", "Autodesign Subdialog", szMsg,
+      //:             zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
+      MessageSend( TZADWWKO, "", "Autodesign Subdialog", szMsg, zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
+      //:SetWindowActionBehavior( TZADWWKO, zWAB_StayOnWindow, 0,0 )
+      SetWindowActionBehavior( TZADWWKO, zWAB_StayOnWindow, 0, 0 );
+      //:RETURN -2
+      return( -2 );
    } 
 
    //:END
@@ -5761,10 +7012,29 @@ oTZADWWKO_GenIncludePage( zVIEW     TZADWWKO,
    //:// Build the Select List Grid,
 
    //:// Begin by activating the Returned LOD and making sure a ViewObjRef entry exists for it.
-   //:GET VIEW SrcInclLOD NAMED "ESGL_IncludeLOD"   
-   RESULT = GetViewByName( &SrcInclLOD, "ESGL_IncludeLOD", TZADWWKO, zLEVEL_TASK );
+   //:// Note that we are assuming here that the View Name is the same as the LOD Name.
+
    //:szViewName = TZADWWKO.ESG_ListIncludeW_MetaDef.Name   // View Name is in ESG_ListIncludeW_MetaDef.
    GetVariableFromAttribute( szViewName, 0, 'S', 51, TZADWWKO, "ESG_ListIncludeW_MetaDef", "Name", "", 0 );
+   //:nRC = ActivateMetaOI_ByName( ViewToWindow, SrcInclLOD, 0, zREFER_LOD_META, zSINGLE, szViewName, 0 )
+   nRC = ActivateMetaOI_ByName( ViewToWindow, &SrcInclLOD, 0, zREFER_LOD_META, zSINGLE, szViewName, 0 );
+   //:IF nRC < 0
+   if ( nRC < 0 )
+   { 
+      //:szMsg = "The View Name specified, " + szViewName + ", is not a valid LOD Name."
+      ZeidonStringCopy( szMsg, 1, 0, "The View Name specified, ", 1, 0, 201 );
+      ZeidonStringConcat( szMsg, 1, 0, szViewName, 1, 0, 201 );
+      ZeidonStringConcat( szMsg, 1, 0, ", is not a valid LOD Name.", 1, 0, 201 );
+      //:MessageSend( TZADWWKO, "", "Autodesign Subdialog", szMsg, zMSGQ_OBJECT_CONSTRAINT_WARNING, 0 )
+      MessageSend( TZADWWKO, "", "Autodesign Subdialog", szMsg, zMSGQ_OBJECT_CONSTRAINT_WARNING, 0 );
+      //:RETURN -2
+      return( -2 );
+   } 
+
+   //:END
+   //:NAME VIEW SrcInclLOD "ESGL_IncludeLOD"
+   SetNameForView( SrcInclLOD, "ESGL_IncludeLOD", 0, zLEVEL_TASK );
+
    //:SET CURSOR FIRST TZWINDOW.ViewObjRef WHERE TZWINDOW.ViewObjRef.Name = szViewName
    RESULT = SetCursorFirstEntityByString( TZWINDOW, "ViewObjRef", "Name", szViewName, "" );
    //:IF RESULT < zCURSOR_SET
@@ -5776,8 +7046,8 @@ oTZADWWKO_GenIncludePage( zVIEW     TZADWWKO,
    } 
 
    //:END
-   //:szLOD_ListEntityName = TZADWWKO.ESG_LOD_Entity2.Name    // List Entity Name was selected on interface.
-   GetVariableFromAttribute( szLOD_ListEntityName, 0, 'S', 51, TZADWWKO, "ESG_LOD_Entity2", "Name", "", 0 );
+   //:szLOD_ListEntityName = TZADWWKO.ESG_List2LOD_Entity.Name    // List Entity Name was selected on interface.
+   GetVariableFromAttribute( szLOD_ListEntityName, 0, 'S', 51, TZADWWKO, "ESG_List2LOD_Entity", "Name", "", 0 );
 
    //:// Position on the template Grid, GridSelectList, and then build out subcontrols using AddListMapping.
    //:nRC = PositionOnControlByTag( TZADWWKO, TZCONTROL, TZWINDOW2, "GridSelectList" )
@@ -5809,8 +7079,8 @@ oTZADWWKO_GenIncludePage( zVIEW     TZADWWKO,
    } 
 
    //:END
-   //:INCLUDE TZCONTROL.CtrlMapLOD_Entity FROM TZADWWKO.ESG_LOD_Entity2 
-   RESULT = IncludeSubobjectFromSubobject( TZCONTROL, "CtrlMapLOD_Entity", TZADWWKO, "ESG_LOD_Entity2", zPOS_AFTER );
+   //:INCLUDE TZCONTROL.CtrlMapLOD_Entity FROM TZADWWKO.ESG_List2LOD_Entity 
+   RESULT = IncludeSubobjectFromSubobject( TZCONTROL, "CtrlMapLOD_Entity", TZADWWKO, "ESG_List2LOD_Entity", zPOS_AFTER );
    //:DropView( TZCONTROL )
    DropView( TZCONTROL );
 
@@ -6098,8 +7368,8 @@ oTZADWWKO_GenIncludePage( zVIEW     TZADWWKO,
             if ( nRC2 == 0 )
             { 
                //:// We will handle the List and Detail options separately.
-               //:IF szGroupType = "ListGroupwFindInclude"
-               if ( ZeidonStringCompare( szGroupType, 1, 0, "ListGroupwFindInclude", 1, 0, 51 ) == 0 )
+               //:IF szGroupType = "ListGroupwFindInclude" OR szGroupType = "ListGroupwInclude"
+               if ( ZeidonStringCompare( szGroupType, 1, 0, "ListGroupwFindInclude", 1, 0, 51 ) == 0 || ZeidonStringCompare( szGroupType, 1, 0, "ListGroupwInclude", 1, 0, 51 ) == 0 )
                { 
                   //:// For List, we will copy the first set and skip the second.
                   //:nRC = zSysReadLine( TZWINDOW, szVML_Statement, nFileIn, 256 )  // Skip the Option statement.
@@ -6486,7 +7756,7 @@ oTZADWWKO_InitGridSelectAttribs( zVIEW     TZADWWKO,
 
    //:// Set up existing mapping for Grid.
 
-   //:// If we're not positioned on the Grid, step down to it.\
+   //:// If we're not positioned on the Grid, step down to it.
    //:IF TempCtrl.ControlDef.Tag != "Grid"
    if ( CompareAttributeToString( TempCtrl, "ControlDef", "Tag", "Grid" ) != 0 )
    { 
@@ -6672,6 +7942,119 @@ oTZADWWKO_InitGridSelectAttribs( zVIEW     TZADWWKO,
 
 
 //:TRANSFORMATION OPERATION
+zOPER_EXPORT zSHORT OPERATION
+oTZADWWKO_InitializeL_SymbolType( zVIEW     TZADWWKO )
+{
+   zSHORT    lTempInteger_0; 
+   zSHORT    RESULT; 
+
+   //:InitializeL_SymbolType( VIEW TZADWWKO BASED ON LOD TZADWWKO )
+
+   //:// Initialize ListboxSymbolType entries if they don't already exist.
+   //:IF TZADWWKO.ListboxSymbolType DOES NOT EXIST
+   lTempInteger_0 = CheckExistenceOfEntity( TZADWWKO, "ListboxSymbolType" );
+   if ( lTempInteger_0 != 0 )
+   { 
+      //:TZADWWKO.AutoDesignWork.SelectedListboxSymbolType = "Buttons"
+      SetAttributeFromString( TZADWWKO, "AutoDesignWork", "SelectedListboxSymbolType", "Buttons" );
+      //:CREATE ENTITY TZADWWKO.ListboxSymbolType 
+      RESULT = CreateEntity( TZADWWKO, "ListboxSymbolType", zPOS_AFTER );
+      //:TZADWWKO.ListboxSymbolType.Name = "Buttons"
+      SetAttributeFromString( TZADWWKO, "ListboxSymbolType", "Name", "Buttons" );
+      //:CREATE ENTITY TZADWWKO.ListboxSymbolType 
+      RESULT = CreateEntity( TZADWWKO, "ListboxSymbolType", zPOS_AFTER );
+      //:TZADWWKO.ListboxSymbolType.Name = "Icons" 
+      SetAttributeFromString( TZADWWKO, "ListboxSymbolType", "Name", "Icons" );
+   } 
+
+   //:END
+   return( 0 );
+// END
+} 
+
+
+//:TRANSFORMATION OPERATION
+//:PositionOnControlByTag( VIEW TZADWWKO       BASED ON LOD TZADWWKO,
+//:                        VIEW ReturnedView   BASED ON LOD TZWDLGSO,
+//:                        VIEW OuterStartView BASED ON LOD TZWDLGSO,
+//:                        STRING ( 50 ) szControlTagName )
+
+//:   VIEW TZCtlHier BASED ON LOD  TZWDLGSO
+zOPER_EXPORT zSHORT OPERATION
+oTZADWWKO_PositionOnControlByTag( zVIEW     TZADWWKO,
+                                  zPVIEW    ReturnedView,
+                                  zVIEW     OuterStartView,
+                                  zPCHAR    szControlTagName )
+{
+   zVIEW     TZCtlHier = 0; 
+   //:STRING ( 50 ) szReturnedEntityName
+   zCHAR     szReturnedEntityName[ 51 ] = { 0 }; 
+   //:STRING ( 50 ) szControlDef
+   zCHAR     szControlDef[ 51 ] = { 0 }; 
+   //:SHORT lReturnedLevel
+   zSHORT    lReturnedLevel = 0; 
+   //:SHORT lInitialLevel
+   zSHORT    lInitialLevel = 0; 
+   //:SHORT nRC
+   zSHORT    nRC = 0; 
+
+
+   //:CreateViewFromView( TZCtlHier, OuterStartView )
+   CreateViewFromView( &TZCtlHier, OuterStartView );
+   //:DefineHierarchicalCursor( TZCtlHier, "Control" )
+   DefineHierarchicalCursor( TZCtlHier, "Control" );
+   //:NAME VIEW TZCtlHier "TZCtlHier"
+   SetNameForView( TZCtlHier, "TZCtlHier", 0, zLEVEL_TASK );
+   //:nRC = SetCursorNextEntityHierarchical( lReturnedLevel, szReturnedEntityName, TZCtlHier )
+   nRC = SetCursorNextEntityHierarchical( (zPUSHORT) &lReturnedLevel, szReturnedEntityName, TZCtlHier );
+   //:lInitialLevel = lReturnedLevel
+   lInitialLevel = lReturnedLevel;
+   //:LOOP WHILE nRC >= zCURSOR_SET AND lReturnedLevel >= lInitialLevel
+   while ( nRC >= zCURSOR_SET && lReturnedLevel >= lInitialLevel )
+   { 
+      //:IF nRC = zCURSOR_SET_RECURSIVECHILD
+      if ( nRC == zCURSOR_SET_RECURSIVECHILD )
+      { 
+         //:SetViewToSubobject( TZCtlHier, "CtrlCtrl" )
+         SetViewToSubobject( TZCtlHier, "CtrlCtrl" );
+      } 
+
+      //:END
+      //:IF szReturnedEntityName = "CtrlCtrl"
+      if ( ZeidonStringCompare( szReturnedEntityName, 1, 0, "CtrlCtrl", 1, 0, 51 ) == 0 )
+      { 
+         //:szControlDef = TZCtlHier.Control.Tag 
+         GetVariableFromAttribute( szControlDef, 0, 'S', 51, TZCtlHier, "Control", "Tag", "", 0 );
+         //:IF szControlDef = szControlTagName
+         if ( ZeidonStringCompare( szControlDef, 1, 0, szControlTagName, 1, 0, 51 ) == 0 )
+         { 
+            //:// This is a Text Control, so convert any _Section or _SectionTitle characters
+            //:CreateViewFromView( ReturnedView, TZCtlHier )
+            CreateViewFromView( ReturnedView, TZCtlHier );
+            //:DropView( TZCtlHier )
+            DropView( TZCtlHier );
+            //:RETURN 0
+            return( 0 );
+         } 
+
+         //:END
+      } 
+
+      //:END
+      //:nRC = SetCursorNextEntityHierarchical( lReturnedLevel, szReturnedEntityName, TZCtlHier )
+      nRC = SetCursorNextEntityHierarchical( (zPUSHORT) &lReturnedLevel, szReturnedEntityName, TZCtlHier );
+   } 
+
+   //:END
+   //:DropView( TZCtlHier )
+   DropView( TZCtlHier );
+   //:RETURN -1
+   return( -1 );
+// END
+} 
+
+
+//:TRANSFORMATION OPERATION
 //:RenameAD_Controls( VIEW TZADWWKO BASED ON LOD TZADWWKO,
 //:                   VIEW TZWINDOW BASED ON LOD TZWDLGSO )
 
@@ -6689,46 +8072,85 @@ oTZADWWKO_RenameAD_Controls( zVIEW     TZADWWKO,
 
 
    //:// Rename GroupBox, Grid and PushBtn controls to avoid duplicate generated names.
-   //:// We will leave the name of the top level control and rename the 2 Groupbox controls under it, GA * GB.
-   //:// The rest will be a combination of GAxxx or GBxxx were xxx is a number string made up of the sequential Group Number
+   //:// We will leave the name of the top level Group control and rename the the Groupbox controls under it, except for
+   //:// those with CSS_Class "header" or "collapse show".
+   //:// The rest will be a combination of GBxxx were xxx is a number string made up of the sequential Group Number
    //:// at each level
-   //:SetViewToSubobject( TZWINDOW, "CtrlCtrl" )
-   SetViewToSubobject( TZWINDOW, "CtrlCtrl" );
-   //:SET CURSOR FIRST TZWINDOW.Control 
-   RESULT = SetCursorFirstEntity( TZWINDOW, "Control", "" );
-   //:// Don't alter mapping of top page header
 
-   //:SET CURSOR NEXT TZWINDOW.Control 
-   RESULT = SetCursorNextEntity( TZWINDOW, "Control", "" );
-   //:TZWINDOW.Control.Tag = "GB"  
-   SetAttributeFromString( TZWINDOW, "Control", "Tag", "GB" );
+   //:// We'll only perform this logic for any top-level GroupBox.
+   //:// Also, if there's only one GroupBox entry at this level, we will rename it "GB" and process it's subgroups.
+   //:// If there are multiple  GroupBox entries, we will start renaming them with number suffix's.
    //:Count = 0
    Count = 0;
-   //:SetViewToSubobject( TZWINDOW, "CtrlCtrl" )
-   SetViewToSubobject( TZWINDOW, "CtrlCtrl" );
-   //:FOR EACH TZWINDOW.Control 
+   //:FOR EACH TZWINDOW.Control
    RESULT = SetCursorFirstEntity( TZWINDOW, "Control", "" );
    while ( RESULT > zCURSOR_UNCHANGED )
    { 
-      //:Count = Count + 1
-      Count = Count + 1;
-      //:zIntegerToString( szCount, 5, Count )
-      zIntegerToString( szCount, 5, Count );
-      //:szPrefix = "GB" + szCount
-      ZeidonStringCopy( szPrefix, 1, 0, "GB", 1, 0, 6 );
-      ZeidonStringConcat( szPrefix, 1, 0, szCount, 1, 0, 6 );
-      //:TZWINDOW.Control.Tag = szPrefix
-      SetAttributeFromString( TZWINDOW, "Control", "Tag", szPrefix );
-      //:RenameAD_ControlsR( TZADWWKO, TZWINDOW, szPrefix )
-      oTZADWWKO_RenameAD_ControlsR( TZADWWKO, TZWINDOW, szPrefix );
+      //:IF TZWINDOW.ControlDef.Tag = "GroupBox"
+      if ( CompareAttributeToString( TZWINDOW, "ControlDef", "Tag", "GroupBox" ) == 0 )
+      { 
+         //:Count = Count + 1
+         Count = Count + 1;
+      } 
+
       RESULT = SetCursorNextEntity( TZWINDOW, "Control", "" );
+      //:END
    } 
 
    //:END
-   //:ResetViewFromSubobject( TZWINDOW )
-   ResetViewFromSubobject( TZWINDOW );
-   //:ResetViewFromSubobject( TZWINDOW )
-   ResetViewFromSubobject( TZWINDOW );
+   //:IF Count > 0
+   if ( Count > 0 )
+   { 
+      //:IF Count = 1
+      if ( Count == 1 )
+      { 
+         //:// Rename single top-level GroupBox "GB".
+         //:SET CURSOR FIRST TZWINDOW.ControlDef WITHIN TZWINDOW.Window 
+         //:           WHERE TZWINDOW.ControlDef.Tag = "GroupBox" 
+         RESULT = SetCursorFirstEntityByString( TZWINDOW, "ControlDef", "Tag", "GroupBox", "Window" );
+         //:TZWINDOW.Control.Tag = "GB" 
+         SetAttributeFromString( TZWINDOW, "Control", "Tag", "GB" );
+         //:SetViewToSubobject( TZWINDOW, "CtrlCtrl" )
+         SetViewToSubobject( TZWINDOW, "CtrlCtrl" );
+      } 
+
+      //:END
+
+      //:// Process multiple GroupBox entries. Skip any entry of CSS_Class "header".
+      //:Count = 0
+      Count = 0;
+      //:FOR EACH TZWINDOW.Control 
+      RESULT = SetCursorFirstEntity( TZWINDOW, "Control", "" );
+      while ( RESULT > zCURSOR_UNCHANGED )
+      { 
+         //:IF TZWINDOW.Control.CSS_Class != "header"
+         if ( CompareAttributeToString( TZWINDOW, "Control", "CSS_Class", "header" ) != 0 )
+         { 
+            //:Count = Count + 1
+            Count = Count + 1;
+            //:zIntegerToString( szCount, 5, Count )
+            zIntegerToString( szCount, 5, Count );
+            //:szPrefix = "GB" + szCount
+            ZeidonStringCopy( szPrefix, 1, 0, "GB", 1, 0, 6 );
+            ZeidonStringConcat( szPrefix, 1, 0, szCount, 1, 0, 6 );
+            //:TZWINDOW.Control.Tag = szPrefix
+            SetAttributeFromString( TZWINDOW, "Control", "Tag", szPrefix );
+            //:RenameAD_ControlsR( TZADWWKO, TZWINDOW, szPrefix )
+            oTZADWWKO_RenameAD_ControlsR( TZADWWKO, TZWINDOW, szPrefix );
+         } 
+
+         RESULT = SetCursorNextEntity( TZWINDOW, "Control", "" );
+         //:END
+      } 
+
+      //:END
+      //:ResetViewFromSubobject( TZWINDOW )
+      ResetViewFromSubobject( TZWINDOW );
+      //:ResetViewFromSubobject( TZWINDOW )
+      ResetViewFromSubobject( TZWINDOW );
+   } 
+
+   //:END
    return( 0 );
 // END
 } 
@@ -6763,6 +8185,7 @@ oTZADWWKO_RenameAD_ControlsR( zVIEW     TZADWWKO,
    zSHORT    lTempInteger_0; 
    zSHORT    RESULT; 
    zSHORT    lTempInteger_1; 
+   zSHORT    lTempInteger_2; 
    zCHAR     szTempString_0[ 33 ]; 
    zCHAR     szTempString_1[ 33 ]; 
 
@@ -6790,23 +8213,31 @@ oTZADWWKO_RenameAD_ControlsR( zVIEW     TZADWWKO,
          //:IF TZWINDOW.ControlDef.Tag = "GroupBox"
          if ( CompareAttributeToString( TZWINDOW, "ControlDef", "Tag", "GroupBox" ) == 0 )
          { 
-            //:IF TZWINDOW.Control.CSS_Class != "collapse show"  // Skip the collapsable Group because we need to keep it's existing name.
-            if ( CompareAttributeToString( TZWINDOW, "Control", "CSS_Class", "collapse show" ) != 0 )
-            { 
-               //:// Add the Prefix and TopCount to the outside GroupBox Tag.
-               //:szNewControlName = szLocalPrefix
-               ZeidonStringCopy( szNewControlName, 1, 0, szLocalPrefix, 1, 0, 51 );
-               //:TZWINDOW.Control.Tag = szNewControlName
-               SetAttributeFromString( TZWINDOW, "Control", "Tag", szNewControlName );
-            } 
-
-            //:END
+            //:// Don't rename a GroupBox if it has no subcontrols as it is special & needs to keep its name.
             //:IF TZWINDOW.CtrlCtrl EXISTS
             lTempInteger_1 = CheckExistenceOfEntity( TZWINDOW, "CtrlCtrl" );
             if ( lTempInteger_1 == 0 )
             { 
-               //:RenameAD_ControlsR( TZADWWKO, TZWINDOW, szNewControlName )
-               oTZADWWKO_RenameAD_ControlsR( TZADWWKO, TZWINDOW, szNewControlName );
+               //:IF TZWINDOW.Control.CSS_Class != "collapse show"  // Skip the collapsable Group because we need to keep it's existing name.
+               if ( CompareAttributeToString( TZWINDOW, "Control", "CSS_Class", "collapse show" ) != 0 )
+               { 
+                  //:// Add the Prefix and TopCount to the outside GroupBox Tag.
+                  //:szNewControlName = szLocalPrefix
+                  ZeidonStringCopy( szNewControlName, 1, 0, szLocalPrefix, 1, 0, 51 );
+                  //:TZWINDOW.Control.Tag = szNewControlName
+                  SetAttributeFromString( TZWINDOW, "Control", "Tag", szNewControlName );
+               } 
+
+               //:END
+               //:IF TZWINDOW.CtrlCtrl EXISTS
+               lTempInteger_2 = CheckExistenceOfEntity( TZWINDOW, "CtrlCtrl" );
+               if ( lTempInteger_2 == 0 )
+               { 
+                  //:RenameAD_ControlsR( TZADWWKO, TZWINDOW, szNewControlName )
+                  oTZADWWKO_RenameAD_ControlsR( TZADWWKO, TZWINDOW, szNewControlName );
+               } 
+
+               //:END
             } 
 
             //:END
@@ -6884,26 +8315,34 @@ oTZADWWKO_RenameAD_ControlsR( zVIEW     TZADWWKO,
 
 
 //:TRANSFORMATION OPERATION
+//:ResizeReposGroupBoxes( VIEW TZADWWKO  BASED ON LOD TZADWWKO,
+//:                       VIEW TZWINDOWL BASED ON LOD TZWDLGSO )
+
+//:   VIEW vGroup BASED ON LOD TZWDLGSO
 zOPER_EXPORT zSHORT OPERATION
 oTZADWWKO_ResizeReposGroupBoxes( zVIEW     TZADWWKO,
-                                 zVIEW     vGroup )
+                                 zVIEW     TZWINDOWL )
 {
+   zVIEW     vGroup = 0; 
    zSHORT    RESULT; 
    zLONG     lTempInteger_0; 
    zLONG     lTempInteger_1; 
    zLONG     lTempInteger_2; 
 
-   //:ResizeReposGroupBoxes( VIEW TZADWWKO BASED ON LOD TZADWWKO,
-   //:                    VIEW vGroup   BASED ON LOD TZWDLGSO )
 
    //:// RECOMPUTE GROUP SIZES AND POSITIONS.
    //:// Call Recursive operation to compute size and reposition subcontrols.
    //:// However, first step down past the first two outer control levels.
+   //:CreateViewFromView( vGroup, TZWINDOWL )
+   CreateViewFromView( &vGroup, TZWINDOWL );
+   //:NAME VIEW vGroup "vGroup"
+   SetNameForView( vGroup, "vGroup", 0, zLEVEL_TASK );
+   //:SET CURSOR LAST vGroup.Control   // Make sure we're on outer Group, which should be last control.
+   RESULT = SetCursorLastEntity( vGroup, "Control", "" );
+   //:ResizeReposRecurs( vGroup )
+   oTZADWWKO_ResizeReposRecurs( vGroup );
 
-   //:ResizeReposRecurs( vGroup, 1 )
-   oTZADWWKO_ResizeReposRecurs( vGroup, 1 );
-
-   //:// Compute the size of the outer Group..
+   //:// Compute the size of the outer Group, which is determined from the last subcontrol.
    //:SET CURSOR LAST vGroup.CtrlCtrl
    RESULT = SetCursorLastEntity( vGroup, "CtrlCtrl", "" );
    //:vGroup.Control.SZDLG_Y = vGroup.CtrlCtrl.PSDLG_Y + vGroup.CtrlCtrl.SZDLG_Y + 10
@@ -6911,6 +8350,8 @@ oTZADWWKO_ResizeReposGroupBoxes( zVIEW     TZADWWKO,
    GetIntegerFromAttribute( &lTempInteger_1, vGroup, "CtrlCtrl", "SZDLG_Y" );
    lTempInteger_2 = lTempInteger_0 + lTempInteger_1 + 10;
    SetAttributeFromInteger( vGroup, "Control", "SZDLG_Y", lTempInteger_2 );
+   //:DropView( vGroup )
+   DropView( vGroup );
    return( 0 );
 //    
 // END
@@ -6918,211 +8359,160 @@ oTZADWWKO_ResizeReposGroupBoxes( zVIEW     TZADWWKO,
 
 
 //:LOCAL OPERATION
-//:ResizeReposRecurs( VIEW vGroup BASED ON LOD TZWDLGSO,
-//:                   INTEGER nLevel )
+//:ResizeReposRecurs( VIEW vGroup BASED ON LOD TZWDLGSO )
 
-//:   INTEGER Count
+//:   INTEGER CurrentPositionY
 zOPER_EXPORT zSHORT OPERATION
-oTZADWWKO_ResizeReposRecurs( zVIEW     vGroup,
-                             zLONG     nLevel )
+oTZADWWKO_ResizeReposRecurs( zVIEW     vGroup )
 {
-   zLONG     Count = 0; 
-   //:INTEGER CurrentPositionY
    zLONG     CurrentPositionY = 0; 
-   //:INTEGER OriginalPositionY
-   zLONG     OriginalPositionY = 0; 
-   //:INTEGER LastPositionY
-   zLONG     LastPositionY = 0; 
-   //:INTEGER LastControlSizeY
-   zLONG     LastControlSizeY = 0; 
-   //:STRING ( 20 ) szClass
-   zCHAR     szClass[ 21 ] = { 0 }; 
-   //:STRING ( 4 )  szClasscol
-   zCHAR     szClasscol[ 5 ] = { 0 }; 
+   //:INTEGER LastOriginalPositionY
+   zLONG     LastOriginalPositionY = 0; 
+   //:INTEGER LargestControlSizeX
+   zLONG     LargestControlSizeX = 0; 
+   //:INTEGER CurrentControlSizeX
+   zLONG     CurrentControlSizeX = 0; 
+   //:STRING ( 200 ) szMsg
+   zCHAR     szMsg[ 201 ] = { 0 }; 
+   //:STRING ( 20 )  szGroupClass
+   zCHAR     szGroupClass[ 21 ] = { 0 }; 
+   //:STRING ( 4 )   szCol4
+   zCHAR     szCol4[ 5 ] = { 0 }; 
+   //:STRING ( 5 )   szInteger
+   zCHAR     szInteger[ 6 ] = { 0 }; 
+   zSHORT    lTempInteger_0; 
    zSHORT    RESULT; 
-   zLONG     lTempInteger_0; 
    zLONG     lTempInteger_1; 
    zLONG     lTempInteger_2; 
    zLONG     lTempInteger_3; 
    zLONG     lTempInteger_4; 
    zLONG     lTempInteger_5; 
+   zLONG     lTempInteger_6; 
+   zLONG     lTempInteger_7; 
 
 
-   //:// Process nested GroupBox Controls recursively recomputing the size of each based on the size of subcontrols.
+   //:// Process nested GroupBox Controls recursively recomputing the size and position of each based on the size of subcontrols.
+   //:// Exit if there are no subcontrols or if any subcontrol is not a GroupBox.
 
-   //:nLevel = nLevel + 1 
-   nLevel = nLevel + 1;
+   //:IF vGroup.CtrlCtrl DOES NOT EXIST
+   lTempInteger_0 = CheckExistenceOfEntity( vGroup, "CtrlCtrl" );
+   if ( lTempInteger_0 != 0 )
+   { 
+      //:RETURN 1
+      return( 1 );
+      //:ELSE
+   } 
+   else
+   { 
+      //:SetViewToSubobject( vGroup, "CtrlCtrl" )
+      SetViewToSubobject( vGroup, "CtrlCtrl" );
+      //:FOR EACH vGroup.Control 
+      RESULT = SetCursorFirstEntity( vGroup, "Control", "" );
+      while ( RESULT > zCURSOR_UNCHANGED )
+      { 
+         //:IF vGroup.ControlDef.Tag != "GroupBox"
+         if ( CompareAttributeToString( vGroup, "ControlDef", "Tag", "GroupBox" ) != 0 )
+         { 
+            //:ResetViewFromSubobject( vGroup )
+            ResetViewFromSubobject( vGroup );
+            //:RETURN 1
+            return( 1 );
+         } 
 
-   //:// First process each GroupBox subcontrol to determine its size.
-   //:FOR EACH vGroup.CtrlCtrl 
+         RESULT = SetCursorNextEntity( vGroup, "Control", "" );
+         //:END
+      } 
+
+      //:END
+      //:ResetViewFromSubobject( vGroup )
+      ResetViewFromSubobject( vGroup );
+   } 
+
+   //:END
+
+   //:// Process each GroupBox subcontrol to determine its size and position relative to this GroupBox.
+   //:CurrentPositionY      = 10
+   CurrentPositionY = 10;
+   //:LastOriginalPositionY = -1
+   LastOriginalPositionY = -1;
+   //:FOR EACH vGroup.CtrlCtrl  
    RESULT = SetCursorFirstEntity( vGroup, "CtrlCtrl", "" );
    while ( RESULT > zCURSOR_UNCHANGED )
    { 
       //:SetViewToSubobject( vGroup, "CtrlCtrl" )
       SetViewToSubobject( vGroup, "CtrlCtrl" );
-      //:IF vGroup.ControlDef.Tag = "GroupBox"
-      if ( CompareAttributeToString( vGroup, "ControlDef", "Tag", "GroupBox" ) == 0 )
+      //:szGroupClass = vGroup.Control.CSS_Class 
+      GetVariableFromAttribute( szGroupClass, 0, 'S', 21, vGroup, "Control", "CSS_Class", "", 0 );
+      //:szCol4 = szGroupClass[1:4]
+      ZeidonStringCopy( szCol4, 1, 0, szGroupClass, 1, 4, 5 );
+      //:// Only process Groups that don't have a subcontrol of CSS_Class = col-xxx
+      //:IF vGroup.ControlDef.Tag = "GroupBox" AND szCol4 != "col-" AND szGroupClass != "col"
+      if ( CompareAttributeToString( vGroup, "ControlDef", "Tag", "GroupBox" ) == 0 && ZeidonStringCompare( szCol4, 1, 0, "col-", 1, 0, 5 ) != 0 && ZeidonStringCompare( szGroupClass, 1, 0, "col", 1, 0, 21 ) != 0 )
       { 
-         //:ResizeReposRecurs( vGroup, nLevel )
-         oTZADWWKO_ResizeReposRecurs( vGroup, nLevel );
+         //:ResizeReposRecurs( vGroup )
+         oTZADWWKO_ResizeReposRecurs( vGroup );
       } 
 
       //:END 
       //:ResetViewFromSubobject( vGroup )
       ResetViewFromSubobject( vGroup );
-      RESULT = SetCursorNextEntity( vGroup, "CtrlCtrl", "" );
-   } 
 
-   //:END
-
-   //:szClass = vGroup.Control.CSS_Class 
-   GetVariableFromAttribute( szClass, 0, 'S', 21, vGroup, "Control", "CSS_Class", "", 0 );
-
-   //:// Set X position consistently for selected Classes.
-   //:IF szClass = "card"
-   if ( ZeidonStringCompare( szClass, 1, 0, "card", 1, 0, 21 ) == 0 )
-   { 
-      //:vGroup.Control.PSDLG_X = 10
-      SetAttributeFromInteger( vGroup, "Control", "PSDLG_X", 10 );
-      //:ELSE
-   } 
-   else
-   { 
-      //:IF szClass = "collapse show" OR 
-      //:   szClass = "card-body" OR 
-      //:   szClass = "card-body row" OR 
-      //:   szClass = "card-header"
-      if ( ZeidonStringCompare( szClass, 1, 0, "collapse show", 1, 0, 21 ) == 0 || ZeidonStringCompare( szClass, 1, 0, "card-body", 1, 0, 21 ) == 0 || ZeidonStringCompare( szClass, 1, 0, "card-body row", 1, 0, 21 ) == 0 ||
-           ZeidonStringCompare( szClass, 1, 0, "card-header", 1, 0, 21 ) == 0 )
+      //:// Determine Y position of each based on the previous GroupBox size and position.
+      //:// Don't process Groups than have col-xxx subgroups as they don't need it and may also be side by side.
+      //:IF szCol4 != "col-" AND szGroupClass != "col"
+      if ( ZeidonStringCompare( szCol4, 1, 0, "col-", 1, 0, 5 ) != 0 && ZeidonStringCompare( szGroupClass, 1, 0, "col", 1, 0, 21 ) != 0 )
       { 
-
-         //:vGroup.Control.PSDLG_X = 5
-         SetAttributeFromInteger( vGroup, "Control", "PSDLG_X", 5 );
-      } 
-
-      //:END
-   } 
-
-   //:END
-
-   //:// Next reposition subgroups for selected groups based on the size of each subgroup.
-   //:// The position of the first is considered correct and won't be recomputed.
-   //:// We will also process only the controls selected below.
-   //:IF szClass = "container-fluid" OR 
-   //:   szClass = "accordion" OR
-   //:   szClass = "card" OR
-   //:   szClass = "collapse show" OR
-   //:   szClass = "card-body" OR 
-   //:   szClass = "card-body row"
-   if ( ZeidonStringCompare( szClass, 1, 0, "container-fluid", 1, 0, 21 ) == 0 || ZeidonStringCompare( szClass, 1, 0, "accordion", 1, 0, 21 ) == 0 || ZeidonStringCompare( szClass, 1, 0, "card", 1, 0, 21 ) == 0 ||
-        ZeidonStringCompare( szClass, 1, 0, "collapse show", 1, 0, 21 ) == 0 || ZeidonStringCompare( szClass, 1, 0, "card-body", 1, 0, 21 ) == 0 || ZeidonStringCompare( szClass, 1, 0, "card-body row", 1, 0, 21 ) == 0 )
-   { 
-
-      //:Count = 0
-      Count = 0;
-      //:SET CURSOR FIRST vGroup.CtrlCtrl 
-      RESULT = SetCursorFirstEntity( vGroup, "CtrlCtrl", "" );
-      //:OriginalPositionY = vGroup.CtrlCtrl.PSDLG_Y 
-      GetIntegerFromAttribute( &OriginalPositionY, vGroup, "CtrlCtrl", "PSDLG_Y" );
-      //:CurrentPositionY  = vGroup.CtrlCtrl.PSDLG_Y 
-      GetIntegerFromAttribute( &CurrentPositionY, vGroup, "CtrlCtrl", "PSDLG_Y" );
-      //:OriginalPositionY = vGroup.CtrlCtrl.PSDLG_Y 
-      GetIntegerFromAttribute( &OriginalPositionY, vGroup, "CtrlCtrl", "PSDLG_Y" );
-      //:LastControlSizeY = -1
-      LastControlSizeY = -1;
-      //:LastPositionY = -1
-      LastPositionY = -1;
-
-      //:// Skip looping through Groups of class "col-xxx" as they are likely horizontal.
-      //:szClass = vGroup.CtrlCtrl.CSS_Class 
-      GetVariableFromAttribute( szClass, 0, 'S', 21, vGroup, "CtrlCtrl", "CSS_Class", "", 0 );
-      //:szClasscol = szClass[1:4]
-      ZeidonStringCopy( szClasscol, 1, 0, szClass, 1, 4, 5 );
-      //:IF szClasscol = "col-"
-      if ( ZeidonStringCompare( szClasscol, 1, 0, "col-", 1, 0, 5 ) == 0 )
-      { 
-         //:// Set current values for use in next iteration.
-         //:LastPositionY    = vGroup.CtrlCtrl.PSDLG_Y    // Set the last value to the current value.
-         GetIntegerFromAttribute( &LastPositionY, vGroup, "CtrlCtrl", "PSDLG_Y" );
-         //:LastControlSizeY = vGroup.CtrlCtrl.SZDLG_Y 
-         GetIntegerFromAttribute( &LastControlSizeY, vGroup, "CtrlCtrl", "SZDLG_Y" );
-         //:ELSE
-      } 
-      else
-      { 
-         //:FOR EACH vGroup.CtrlCtrl 
-         RESULT = SetCursorFirstEntity( vGroup, "CtrlCtrl", "" );
-         while ( RESULT > zCURSOR_UNCHANGED )
-         { 
-            //:Count = Count + 1
-            Count = Count + 1;
-            //:// We skip any repositioning logic for the first control.
-            //:IF Count > 1
-            if ( Count > 1 )
-            { 
-               //:// The position of this control will be the position of the previous control plus that previous control's size + margin.
-               //:// The gap at the beginning for Accordion is a little larger than the others.
-               //:IF szClass = "accordion"
-               if ( ZeidonStringCompare( szClass, 1, 0, "accordion", 1, 0, 21 ) == 0 )
-               { 
-                  //:CurrentPositionY = LastPositionY + LastControlSizeY + 20
-                  CurrentPositionY = LastPositionY + LastControlSizeY + 20;
-                  //:ELSE
-               } 
-               else
-               { 
-                  //:CurrentPositionY = LastPositionY + LastControlSizeY + 10
-                  CurrentPositionY = LastPositionY + LastControlSizeY + 10;
-               } 
-
-               //:END
-               //:vGroup.CtrlCtrl.PSDLG_Y = CurrentPositionY 
-               SetAttributeFromInteger( vGroup, "CtrlCtrl", "PSDLG_Y", CurrentPositionY );
-            } 
-
-            //:END
-
-            //:// Set current values for use in next iteration.
-            //:LastPositionY    = vGroup.CtrlCtrl.PSDLG_Y    // Set the last value to the current value.
-            GetIntegerFromAttribute( &LastPositionY, vGroup, "CtrlCtrl", "PSDLG_Y" );
-            //:LastControlSizeY = vGroup.CtrlCtrl.SZDLG_Y 
-            GetIntegerFromAttribute( &LastControlSizeY, vGroup, "CtrlCtrl", "SZDLG_Y" );
-            RESULT = SetCursorNextEntity( vGroup, "CtrlCtrl", "" );
-         } 
-
-         //:END 
-      } 
-
-      //:END
-
-      //:// The size of this Control is the position of the last subcontrol plus its size plus a small area between Controls.
-      //:// The gap at the end for Accordion is a little larger than the others.
-      //:IF szClass = "card"
-      if ( ZeidonStringCompare( szClass, 1, 0, "card", 1, 0, 21 ) == 0 )
-      { 
-         //:vGroup.Control.SZDLG_Y = vGroup.CtrlCtrl.PSDLG_Y + vGroup.CtrlCtrl.SZDLG_Y + 30
-         GetIntegerFromAttribute( &lTempInteger_0, vGroup, "CtrlCtrl", "PSDLG_Y" );
+         //:LastOriginalPositionY = vGroup.CtrlCtrl.PSDLG_Y
+         GetIntegerFromAttribute( &LastOriginalPositionY, vGroup, "CtrlCtrl", "PSDLG_Y" );
+         //:vGroup.CtrlCtrl.PSDLG_Y = CurrentPositionY
+         SetAttributeFromInteger( vGroup, "CtrlCtrl", "PSDLG_Y", CurrentPositionY );
+         //:CurrentPositionY = CurrentPositionY + vGroup.CtrlCtrl.SZDLG_Y + 10
          GetIntegerFromAttribute( &lTempInteger_1, vGroup, "CtrlCtrl", "SZDLG_Y" );
-         lTempInteger_2 = lTempInteger_0 + lTempInteger_1 + 30;
-         SetAttributeFromInteger( vGroup, "Control", "SZDLG_Y", lTempInteger_2 );
-         //:ELSE
-      } 
-      else
-      { 
-         //:vGroup.Control.SZDLG_Y = vGroup.CtrlCtrl.PSDLG_Y + vGroup.CtrlCtrl.SZDLG_Y + 10
-         GetIntegerFromAttribute( &lTempInteger_3, vGroup, "CtrlCtrl", "PSDLG_Y" );
-         GetIntegerFromAttribute( &lTempInteger_4, vGroup, "CtrlCtrl", "SZDLG_Y" );
-         lTempInteger_5 = lTempInteger_3 + lTempInteger_4 + 10;
-         SetAttributeFromInteger( vGroup, "Control", "SZDLG_Y", lTempInteger_5 );
+         CurrentPositionY = CurrentPositionY + lTempInteger_1 + 10;
       } 
 
+      RESULT = SetCursorNextEntity( vGroup, "CtrlCtrl", "" );
       //:END
    } 
 
+   //:END
+
+   //:// Determine the Y size of this GroupBox based on the size and position of the last subGroupBox + 10.
+   //:SET CURSOR LAST vGroup.CtrlCtrl
+   RESULT = SetCursorLastEntity( vGroup, "CtrlCtrl", "" );
+   //:vGroup.Control.SZDLG_Y = vGroup.CtrlCtrl.PSDLG_Y + vGroup.CtrlCtrl.SZDLG_Y + 10
+   GetIntegerFromAttribute( &lTempInteger_2, vGroup, "CtrlCtrl", "PSDLG_Y" );
+   GetIntegerFromAttribute( &lTempInteger_3, vGroup, "CtrlCtrl", "SZDLG_Y" );
+   lTempInteger_4 = lTempInteger_2 + lTempInteger_3 + 10;
+   SetAttributeFromInteger( vGroup, "Control", "SZDLG_Y", lTempInteger_4 );
+
+   //:// Determine the X size of this GroupBox based on the position and size of the subGroupBox entries.
+   //:LargestControlSizeX = 0
+   LargestControlSizeX = 0;
+   //:FOR EACH vGroup.CtrlCtrl  
+   RESULT = SetCursorFirstEntity( vGroup, "CtrlCtrl", "" );
+   while ( RESULT > zCURSOR_UNCHANGED )
+   { 
+      //:CurrentControlSizeX = vGroup.CtrlCtrl.PSDLG_X + vGroup.CtrlCtrl.SZDLG_X 
+      GetIntegerFromAttribute( &lTempInteger_5, vGroup, "CtrlCtrl", "PSDLG_X" );
+      GetIntegerFromAttribute( &lTempInteger_6, vGroup, "CtrlCtrl", "SZDLG_X" );
+      CurrentControlSizeX = lTempInteger_5 + lTempInteger_6;
+      //:IF CurrentControlSizeX > LargestControlSizeX
+      if ( CurrentControlSizeX > LargestControlSizeX )
+      { 
+         //:LargestControlSizeX = CurrentControlSizeX
+         LargestControlSizeX = CurrentControlSizeX;
+      } 
+
+      RESULT = SetCursorNextEntity( vGroup, "CtrlCtrl", "" );
+      //:END
+   } 
 
    //:END
+   //:vGroup.Control.SZDLG_X = LargestControlSizeX + 10
+   lTempInteger_7 = LargestControlSizeX + 10;
+   SetAttributeFromInteger( vGroup, "Control", "SZDLG_X", lTempInteger_7 );
    return( 0 );
-//    
 // END
 } 
 
@@ -7225,336 +8615,6 @@ oTZADWWKO_SetDialogProperties( zVIEW     TZADWWKO,
 
    //:END
    return( 0 );
-// END
-} 
-
-
-//:TRANSFORMATION OPERATION
-//:AddAD_GoExclActions( VIEW TZADWWKO BASED ON LOD TZADWWKO,
-//:                     VIEW TZWINDOWL BASED ON LOD TZWDLGSO,
-//:                     VIEW AD_Base   BASED ON LOD TZWDLGSO )
-
-//:   VIEW TaskLPLR REGISTERED AS TaskLPLR
-zOPER_EXPORT zSHORT OPERATION
-oTZADWWKO_AddAD_GoExclActions( zVIEW     TZADWWKO,
-                               zVIEW     TZWINDOWL,
-                               zVIEW     AD_Base )
-{
-   zVIEW     TaskLPLR = 0; 
-   zSHORT    RESULT; 
-   //:STRING ( 256 ) szVML_Statement
-   zCHAR     szVML_Statement[ 257 ] = { 0 }; 
-   //:STRING ( 50 )  szSourceOperationName
-   zCHAR     szSourceOperationName[ 51 ] = { 0 }; 
-   //:STRING ( 50 )  szTargetOperationName
-   zCHAR     szTargetOperationName[ 51 ] = { 0 }; 
-   //:STRING ( 50 )  szAD_Area
-   zCHAR     szAD_Area[ 51 ] = { 0 }; 
-   //:STRING ( 50 )  szAD_UpdObj
-   zCHAR     szAD_UpdObj[ 51 ] = { 0 }; 
-   //:STRING ( 50 )  szEntityName
-   zCHAR     szEntityName[ 51 ] = { 0 }; 
-   //:STRING ( 50 )  szOperationName
-   zCHAR     szOperationName[ 51 ] = { 0 }; 
-   //:STRING ( 50 )  szActionName
-   zCHAR     szActionName[ 51 ] = { 0 }; 
-   //:STRING ( 256 ) szCompare
-   zCHAR     szCompare[ 257 ] = { 0 }; 
-   //:STRING ( 256 ) szSourceFileDirectory
-   zCHAR     szSourceFileDirectory[ 257 ] = { 0 }; 
-   //:STRING ( 256 ) szTargetFileDirectory
-   zCHAR     szTargetFileDirectory[ 257 ] = { 0 }; 
-   //:INTEGER nRC
-   zLONG     nRC = 0; 
-   //:INTEGER nRC2
-   zLONG     nRC2 = 0; 
-   //:INTEGER nFileIn
-   zLONG     nFileIn = 0; 
-   //:INTEGER nFileOut
-   zLONG     nFileOut = 0; 
-   //:INTEGER nLength 
-   zLONG     nLength = 0; 
-   zCHAR     szTempString_0[ 33 ]; 
-   zCHAR     szTempString_1[ 33 ]; 
-   zCHAR     szTempString_2[ 33 ]; 
-
-   RESULT = GetViewByName( &TaskLPLR, "TaskLPLR", TZADWWKO, zLEVEL_TASK );
-
-   //:// Process GOTO_SelectDetail Action
-   //:SET CURSOR FIRST TZWINDOWL.Action WHERE TZWINDOWL.Action.Tag = "GOTO_SelectDetail"
-   RESULT = SetCursorFirstEntityByString( TZWINDOWL, "Action", "Tag", "GOTO_SelectDetail", "" );
-   //:IF RESULT < zCURSOR_SET
-   if ( RESULT < zCURSOR_SET )
-   { 
-      //:MessageSend( TZADWWKO, "", "Autodesign Subdialog",
-      //:             "GOTO_SelectDetail Action doesn't exist in template.",
-      //:             zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
-      MessageSend( TZADWWKO, "", "Autodesign Subdialog", "GOTO_SelectDetail Action doesn't exist in template.", zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
-      //:SetWindowActionBehavior( TZADWWKO, zWAB_StayOnWindow, 0,0 )
-      SetWindowActionBehavior( TZADWWKO, zWAB_StayOnWindow, 0, 0 );
-      //:RETURN -2
-      return( -2 );
-   } 
-
-   //:END
-   //:szAD_Area = TZADWWKO.EntitySubGroup.GroupAreaName 
-   GetVariableFromAttribute( szAD_Area, 0, 'S', 51, TZADWWKO, "EntitySubGroup", "GroupAreaName", "", 0 );
-   //:TZWINDOWL.Action.Tag = "GOTO_Select" + szAD_Area
-   ZeidonStringCopy( szTempString_0, 1, 0, "GOTO_Select", 1, 0, 33 );
-   ZeidonStringConcat( szTempString_0, 1, 0, szAD_Area, 1, 0, 33 );
-   SetAttributeFromString( TZWINDOWL, "Action", "Tag", szTempString_0 );
-   //:TZWINDOWL.Action.DialogName = TZWINDOWL.Dialog.Tag 
-   SetAttributeFromAttribute( TZWINDOWL, "Action", "DialogName", TZWINDOWL, "Dialog", "Tag" );
-   //:TZWINDOWL.Action.WindowName = TZADWWKO.ESG_LOD_Entity.Name + "Include"
-   GetStringFromAttribute( szTempString_1, TZADWWKO, "ESG_LOD_Entity", "Name" );
-   ZeidonStringConcat( szTempString_1, 1, 0, "Include", 1, 0, 33 );
-   SetAttributeFromString( TZWINDOWL, "Action", "WindowName", szTempString_1 );
-
-   //:// Process EXCLUDE_For_AD_Area Action 
-   //:SET CURSOR FIRST TZWINDOWL.Action WHERE TZWINDOWL.Action.Tag = "EXCLUDE_For_AD_Area"
-   RESULT = SetCursorFirstEntityByString( TZWINDOWL, "Action", "Tag", "EXCLUDE_For_AD_Area", "" );
-   //:IF RESULT < zCURSOR_SET
-   if ( RESULT < zCURSOR_SET )
-   { 
-      //:MessageSend( TZADWWKO, "", "Autodesign Subdialog",
-      //:             "EXCLUDE_For_AD_Area Action doesn't exist in template.",
-      //:             zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
-      MessageSend( TZADWWKO, "", "Autodesign Subdialog", "EXCLUDE_For_AD_Area Action doesn't exist in template.", zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
-      //:SetWindowActionBehavior( TZADWWKO, zWAB_StayOnWindow, 0,0 )
-      SetWindowActionBehavior( TZADWWKO, zWAB_StayOnWindow, 0, 0 );
-      //:RETURN -2
-      return( -2 );
-   } 
-
-   //:END
-   //:szActionName = "EXCLUDE_For" + szAD_Area
-   ZeidonStringCopy( szActionName, 1, 0, "EXCLUDE_For", 1, 0, 51 );
-   ZeidonStringConcat( szActionName, 1, 0, szAD_Area, 1, 0, 51 );
-   //:TZWINDOWL.Action.Tag = szActionName
-   SetAttributeFromString( TZWINDOWL, "Action", "Tag", szActionName );
-
-   //:// Create Operation and include in Action.
-   //:SET CURSOR FIRST AD_Base.Operation WITHIN AD_Base.Dialog 
-   //:           WHERE AD_Base.Operation.Name = "EXCLUDE_For_AD_Area"
-   RESULT = SetCursorFirstEntityByString( AD_Base, "Operation", "Name", "EXCLUDE_For_AD_Area", "Dialog" );
-   //:IF RESULT < zCURSOR_SET
-   if ( RESULT < zCURSOR_SET )
-   { 
-      //:MessageSend( TZADWWKO, "", "Autodesign Subdialog",
-      //:             "Operation EXCLUDE_For_AD_Area doesn't exist in template.",
-      //:             zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
-      MessageSend( TZADWWKO, "", "Autodesign Subdialog", "Operation EXCLUDE_For_AD_Area doesn't exist in template.", zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
-      //:SetWindowActionBehavior( TZADWWKO, zWAB_StayOnWindow, 0,0 )
-      SetWindowActionBehavior( TZADWWKO, zWAB_StayOnWindow, 0, 0 );
-      //:RETURN -2
-      return( -2 );
-   } 
-
-   //:END  
-   //:SET CURSOR LAST TZWINDOWL.Operation   
-   RESULT = SetCursorLastEntity( TZWINDOWL, "Operation", "" );
-   //:CreateMetaEntity( TZWINDOWL, TZWINDOWL, "Operation", zPOS_AFTER )
-   CreateMetaEntity( TZWINDOWL, TZWINDOWL, "Operation", zPOS_AFTER );
-   //:TZWINDOWL.Operation.Name = szActionName
-   SetAttributeFromString( TZWINDOWL, "Operation", "Name", szActionName );
-   //:SetMatchingAttributesByName( TZWINDOWL, "Operation", AD_Base, "Operation", zSET_NULL )
-   SetMatchingAttributesByName( TZWINDOWL, "Operation", AD_Base, "Operation", zSET_NULL );
-   //:FOR EACH AD_Base.Parameter 
-   RESULT = SetCursorFirstEntity( AD_Base, "Parameter", "" );
-   while ( RESULT > zCURSOR_UNCHANGED )
-   { 
-      //:CreateMetaEntity( TZWINDOWL, TZWINDOWL, "Parameter", zPOS_AFTER )
-      CreateMetaEntity( TZWINDOWL, TZWINDOWL, "Parameter", zPOS_AFTER );
-      //:SetMatchingAttributesByName( TZWINDOWL, "Parameter", AD_Base, "Parameter", zSET_NULL )
-      SetMatchingAttributesByName( TZWINDOWL, "Parameter", AD_Base, "Parameter", zSET_NULL );
-      RESULT = SetCursorNextEntity( AD_Base, "Parameter", "" );
-   } 
-
-   //:END 
-   //:INCLUDE TZWINDOWL.ActOper FROM TZWINDOWL.Operation 
-   RESULT = IncludeSubobjectFromSubobject( TZWINDOWL, "ActOper", TZWINDOWL, "Operation", zPOS_AFTER );
-
-
-   //:// COPY AND CONVERT EXCLUDE_For_AD_Area OPERATION VML.
-
-   //:// Source Directory is from AD_Base
-   //:szSourceFileDirectory = "C:\LPLR\AD_Base\ObjExcl.VML"
-   ZeidonStringCopy( szSourceFileDirectory, 1, 0, "C:\\LPLR\\AD_Base\\ObjExcl.VML", 1, 0, 257 );
-
-   //:// Target Directory is current LPLR.
-   //:szTargetFileDirectory = TaskLPLR.LPLR.PgmSrcDir 
-   GetVariableFromAttribute( szTargetFileDirectory, 0, 'S', 257, TaskLPLR, "LPLR", "PgmSrcDir", "", 0 );
-   //:szTargetFileDirectory = szTargetFileDirectory + "\" + TZWINDOWL.SourceFile.Name + ".VML"
-   ZeidonStringConcat( szTargetFileDirectory, 1, 0, "\\", 1, 0, 257 );
-   GetVariableFromAttribute( szTempString_2, 0, 'S', 33, TZWINDOWL, "SourceFile", "Name", "", 0 );
-   ZeidonStringConcat( szTargetFileDirectory, 1, 0, szTempString_2, 1, 0, 257 );
-   ZeidonStringConcat( szTargetFileDirectory, 1, 0, ".VML", 1, 0, 257 );
-
-   //:// Check if Exclude operation is already in target VML file.
-   //:szTargetOperationName = szActionName
-   ZeidonStringCopy( szTargetOperationName, 1, 0, szActionName, 1, 0, 51 );
-   //:nLength = zGetStringLen( szTargetOperationName )
-   nLength = zGetStringLen( szTargetOperationName );
-   //:nFileIn = SysOpenFile( TZWINDOWL, szTargetFileDirectory, COREFILE_READ )
-   nFileIn = SysOpenFile( TZWINDOWL, szTargetFileDirectory, COREFILE_READ );
-   //:nRC2    = -1
-   nRC2 = -1;
-   //:IF nFileIn > 0 
-   if ( nFileIn > 0 )
-   { 
-      //:nRC = zSysReadLine( TZWINDOWL, szVML_Statement, nFileIn, 256 )
-      nRC = zSysReadLine( TZWINDOWL, szVML_Statement, nFileIn, 256 );
-      //:LOOP WHILE nRC = 1 AND nRC2 != 0
-      while ( nRC == 1 && nRC2 != 0 )
-      { 
-         //:zstrncpy( szCompare, szVML_Statement, nLength )
-         zstrncpy( szCompare, szVML_Statement, nLength );
-         //:nRC2 = zstrcmp( szCompare, szTargetOperationName )
-         nRC2 = zstrcmp( szCompare, szTargetOperationName );
-         //:nRC = zSysReadLine( TZWINDOWL, szVML_Statement, nFileIn, 256 )
-         nRC = zSysReadLine( TZWINDOWL, szVML_Statement, nFileIn, 256 );
-      } 
-
-      //:END
-      //:SysCloseFile( TZWINDOWL, nFileIn, 0 )
-      SysCloseFile( TZWINDOWL, nFileIn, 0 );
-      //:ELSE 
-   } 
-   else
-   { 
-      //:IssueError( TZADWWKO,0,0, "Target VML doesn't exist yet." )
-      IssueError( TZADWWKO, 0, 0, "Target VML doesn't exist yet." );
-      //:RETURN   // Don't continue if the VML hasn't been created yet
-      return( 0 );
-   } 
-
-   //:END
-
-   //:IF nRC2 != 0     // Operation was not found.
-   if ( nRC2 != 0 )
-   { 
-
-      //:// The Exclude Operation was not found in the target Source File, so copy source VML to end of target VML,
-      //:// converting the variable characters in the process.
-      //:szEntityName = TZADWWKO.ESG_LOD_Entity.Name 
-      GetVariableFromAttribute( szEntityName, 0, 'S', 51, TZADWWKO, "ESG_LOD_Entity", "Name", "", 0 );
-      //:szAD_UpdObj  = TZADWWKO.W_MetaDefUpdateObject.Name
-      GetVariableFromAttribute( szAD_UpdObj, 0, 'S', 51, TZADWWKO, "W_MetaDefUpdateObject", "Name", "", 0 );
-      //:nFileIn   = SysOpenFile( TZWINDOWL, szSourceFileDirectory, COREFILE_READ ) 
-      nFileIn = SysOpenFile( TZWINDOWL, szSourceFileDirectory, COREFILE_READ );
-      //:nFileOut  = SysOpenFile( TZWINDOWL, szTargetFileDirectory, COREFILE_APPEND )
-      nFileOut = SysOpenFile( TZWINDOWL, szTargetFileDirectory, COREFILE_APPEND );
-      //:nRC = zSysReadLine( TZWINDOWL, szVML_Statement, nFileIn, 256 )
-      nRC = zSysReadLine( TZWINDOWL, szVML_Statement, nFileIn, 256 );
-      //:LOOP WHILE nRC = 1 
-      while ( nRC == 1 )
-      { 
-         //:// Loop through source vml and convert variable data before copying to target.
-         //:zSearchAndReplace( szVML_Statement, 256, "_AD_Area",  szAD_Area )        // Area Name
-         zSearchAndReplace( szVML_Statement, 256, "_AD_Area", szAD_Area );
-         //:zSearchAndReplace( szVML_Statement, 256, "_AD_UpdO",  szAD_UpdObj )      // Entity Name
-         zSearchAndReplace( szVML_Statement, 256, "_AD_UpdO", szAD_UpdObj );
-         //:zSearchAndReplace( szVML_Statement, 256, "_EntityName",  szEntityName )  // Update Object Name
-         zSearchAndReplace( szVML_Statement, 256, "_EntityName", szEntityName );
-
-         //:SysWriteLine( TZWINDOWL, nFileOut, szVML_Statement )
-         SysWriteLine( TZWINDOWL, nFileOut, szVML_Statement );
-
-         //:nRC = zSysReadLine( TZWINDOWL, szVML_Statement, nFileIn, 256 )
-         nRC = zSysReadLine( TZWINDOWL, szVML_Statement, nFileIn, 256 );
-      } 
-
-      //:END
-
-      //:SysCloseFile( TZWINDOWL, nFileIn, 0 )
-      SysCloseFile( TZWINDOWL, nFileIn, 0 );
-      //:SysCloseFile( TZWINDOWL, nFileOut, 0 )
-      SysCloseFile( TZWINDOWL, nFileOut, 0 );
-   } 
-
-   //:END
-   return( 0 );
-// END
-} 
-
-
-//:TRANSFORMATION OPERATION
-//:PositionOnControlByTag( VIEW TZADWWKO       BASED ON LOD TZADWWKO,
-//:                        VIEW ReturnedView   BASED ON LOD TZWDLGSO,
-//:                        VIEW OuterStartView BASED ON LOD TZWDLGSO,
-//:                        STRING ( 50 ) szControlTagName )
-
-//:   VIEW TZCtlHier BASED ON LOD  TZWDLGSO
-zOPER_EXPORT zSHORT OPERATION
-oTZADWWKO_PositionOnControlByTag( zVIEW     TZADWWKO,
-                                  zPVIEW    ReturnedView,
-                                  zVIEW     OuterStartView,
-                                  zPCHAR    szControlTagName )
-{
-   zVIEW     TZCtlHier = 0; 
-   //:STRING ( 50 ) szReturnedEntityName
-   zCHAR     szReturnedEntityName[ 51 ] = { 0 }; 
-   //:STRING ( 50 ) szControlDef
-   zCHAR     szControlDef[ 51 ] = { 0 }; 
-   //:SHORT lReturnedLevel
-   zSHORT    lReturnedLevel = 0; 
-   //:SHORT lInitialLevel
-   zSHORT    lInitialLevel = 0; 
-   //:SHORT nRC
-   zSHORT    nRC = 0; 
-
-
-   //:CreateViewFromView( TZCtlHier, OuterStartView )
-   CreateViewFromView( &TZCtlHier, OuterStartView );
-   //:DefineHierarchicalCursor( TZCtlHier, "Control" )
-   DefineHierarchicalCursor( TZCtlHier, "Control" );
-   //:NAME VIEW TZCtlHier "TZCtlHier"
-   SetNameForView( TZCtlHier, "TZCtlHier", 0, zLEVEL_TASK );
-   //:nRC = SetCursorNextEntityHierarchical( lReturnedLevel, szReturnedEntityName, TZCtlHier )
-   nRC = SetCursorNextEntityHierarchical( (zPUSHORT) &lReturnedLevel, szReturnedEntityName, TZCtlHier );
-   //:lInitialLevel = lReturnedLevel
-   lInitialLevel = lReturnedLevel;
-   //:LOOP WHILE nRC >= zCURSOR_SET AND lReturnedLevel >= lInitialLevel
-   while ( nRC >= zCURSOR_SET && lReturnedLevel >= lInitialLevel )
-   { 
-      //:IF nRC = zCURSOR_SET_RECURSIVECHILD
-      if ( nRC == zCURSOR_SET_RECURSIVECHILD )
-      { 
-         //:SetViewToSubobject( TZCtlHier, "CtrlCtrl" )
-         SetViewToSubobject( TZCtlHier, "CtrlCtrl" );
-      } 
-
-      //:END
-      //:IF szReturnedEntityName = "CtrlCtrl"
-      if ( ZeidonStringCompare( szReturnedEntityName, 1, 0, "CtrlCtrl", 1, 0, 51 ) == 0 )
-      { 
-         //:szControlDef = TZCtlHier.Control.Tag 
-         GetVariableFromAttribute( szControlDef, 0, 'S', 51, TZCtlHier, "Control", "Tag", "", 0 );
-         //:IF szControlDef = szControlTagName
-         if ( ZeidonStringCompare( szControlDef, 1, 0, szControlTagName, 1, 0, 51 ) == 0 )
-         { 
-            //:// This is a Text Control, so convert any _Section or _SectionTitle characters
-            //:CreateViewFromView( ReturnedView, TZCtlHier )
-            CreateViewFromView( ReturnedView, TZCtlHier );
-            //:DropView( TZCtlHier )
-            DropView( TZCtlHier );
-            //:RETURN 0
-            return( 0 );
-         } 
-
-         //:END
-      } 
-
-      //:END
-      //:nRC = SetCursorNextEntityHierarchical( lReturnedLevel, szReturnedEntityName, TZCtlHier )
-      nRC = SetCursorNextEntityHierarchical( (zPUSHORT) &lReturnedLevel, szReturnedEntityName, TZCtlHier );
-   } 
-
-   //:END
-   //:DropView( TZCtlHier )
-   DropView( TZCtlHier );
-   //:RETURN -1
-   return( -1 );
 // END
 } 
 

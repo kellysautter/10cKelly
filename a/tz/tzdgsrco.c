@@ -619,6 +619,10 @@ oTZDGSRCO_DomainAddForMerge( zPVIEW    NewDomainGroup,
    //:   //CurrentLPLR.LPLR.wMergeComponentError = "Y"
    //://END
 
+   //:// Position NewDomainGroup on the Domain just added.
+   //:SET CURSOR FIRST NewDomainGroup.Domain WHERE NewDomainGroup.Domain.Name = DomainName
+   RESULT = SetCursorFirstEntityByString( *NewDomainGroup, "Domain", "Name", DomainName, "" );
+
    //:DropObjectInstance( OldDomainGroup )
    DropObjectInstance( OldDomainGroup );
    return( 0 );

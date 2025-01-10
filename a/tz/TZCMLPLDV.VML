@@ -942,3 +942,28 @@ CopyContentsOfDirectory( VIEW ViewToWindow,
    END
 
 END
+
+
+/*************************************************************************************************
+**    
+**    OPERATION: GOTO_Migrate
+**    
+*************************************************************************************************/
+DIALOG OPERATION
+GOTO_Migrate( VIEW ViewToWindow )
+
+   VIEW CurrentLPLR BASED ON LOD TZCMLPLO
+
+   
+   // Check if an ERD alread exists in the current LPLR. If so, the Migrate function cannot be used.
+   GET VIEW  CurrentLPLR NAMED "TaskLPLR"
+   SET CURSOR FIRST CurrentLPLR.W_MetaType WHERE CurrentLPLR.W_MetaType.Type = 4
+   IF CurrentLPLR.W_MetaDef EXISTS 
+      MessageSend( ViewToWindow, "", "LPLR Migrate",
+                   "The Current LPLR already has an ER, so the Migrate function cannot be used. Use Merge instead.", 
+                   zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
+      SetWindowActionBehavior( ViewToWindow, zWAB_StayOnWindow, 0, 0 )                   
+      RETURN -1
+   END
+
+END
