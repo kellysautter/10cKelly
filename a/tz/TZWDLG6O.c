@@ -219,8 +219,8 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
    zCHAR     szDateTimeFileUpload[ 2 ] = { 0 }; 
    //:STRING ( 10 )    szTimeout
    zCHAR     szTimeout[ 11 ] = { 0 }; 
-   //:STRING ( 10 )    szDOCTYPE
-   zCHAR     szDOCTYPE[ 11 ] = { 0 }; 
+   //:STRING ( 10 )    szTOMCAT10
+   zCHAR     szTOMCAT10[ 11 ] = { 0 }; 
    //:STRING ( 18 )    szDateTime
    zCHAR     szDateTime[ 19 ] = { 0 }; 
    //:STRING ( 20 )    szTimestamp
@@ -443,8 +443,8 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
    SysReadZeidonIni( -1, szSystemIniApplName, "WebDynamicBanner", szDynamicBanner );
    //:SysReadZeidonIni( -1, szSystemIniApplName, "JSPTraceLevel", szTrace )
    SysReadZeidonIni( -1, szSystemIniApplName, "JSPTraceLevel", szTrace );
-   //:SysReadZeidonIni( -1, szSystemIniApplName, "DOCTYPE", szDOCTYPE )
-   SysReadZeidonIni( -1, szSystemIniApplName, "DOCTYPE", szDOCTYPE );
+   //:SysReadZeidonIni( -1, szSystemIniApplName, "TOMCAT10", szTOMCAT10 )
+   SysReadZeidonIni( -1, szSystemIniApplName, "TOMCAT10", szTOMCAT10 );
    //:SysReadZeidonIni( -1, szSystemIniApplName, "UseZeidonTaskTimeout", szZeidonTaskTimeout )
    SysReadZeidonIni( -1, szSystemIniApplName, "UseZeidonTaskTimeout", szZeidonTaskTimeout );
    //:SysReadZeidonIni( -1, szSystemIniApplName, "NoMonitorTaskLogout", szNoMonitorTaskLogout )
@@ -810,23 +810,8 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
    //:END
 
    //:// JSP HEADER
-
-   //:// KJS 05/29/08 - We need to add a DOCTYPE to the jsp page.  Not exactly sure
-   //:// which one to add and how often this might need to change (wondering if this should
-   //:// be kept in the .ini file or something but for now I'll put it here.
-   //:// Here is a website with a little info http://www.alistapart.com/stories/doctype/
-   //:// Also this one http://htmlhelp.com/tools/validator/doctype.html
-   //:// KJS 10/03/12 - Jeff wants to use HTML5 instead of 4.01. I am putting this in the zeidon.ini at least for now because
-   //:// I'm not sure if we want to use 5 or not...
-   //:// I think we should always be HTML5 now...
-   //://IF szDOCTYPE = "" OR szDOCTYPE = "4.01"
-   //://   szWriteBuffer = "<!DOCTYPE HTML PUBLIC ^-//W3C//DTD HTML 4.01 Transitional//EN^ ^http://www.w3.org/TR/html4/loose.dtd^>"
-   //://ELSE
-   //://IF szDOCTYPE = "5"
-   //:   szWriteBuffer = "<!DOCTYPE HTML>"
+   //:szWriteBuffer = "<!DOCTYPE HTML>"
    ZeidonStringCopy( szWriteBuffer, 1, 0, "<!DOCTYPE HTML>", 1, 0, 10001 );
-   //://END
-   //://END
    //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 );
 
@@ -1002,23 +987,38 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
 
    //:END
 
-   //:// szWriteBuffer = "<%@ page import=^java.util.*,javax.servlet.*,javax.servlet.http.*,org.apache.commons.lang3.*," +
-   //://                 "com.quinsoft.zeidon.*,com.quinsoft.zeidon.standardoe.*," +
-   //://                 "com.quinsoft.zeidon.utils.*,com.quinsoft.zeidon.vml.*,com.quinsoft.zeidon.domains.*" + szAppImport +
-   //://                 szIOImport + szreCAPTCHAImport + "^ %>"
-   //:// WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
    //:szWriteBuffer = "<%@ page import=^java.util.*^ %>"
    ZeidonStringCopy( szWriteBuffer, 1, 0, "<%@ page import=^java.util.*^ %>", 1, 0, 10001 );
    //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
-   //:szWriteBuffer = "<%@ page import=^javax.servlet.*^ %>"
-   ZeidonStringCopy( szWriteBuffer, 1, 0, "<%@ page import=^javax.servlet.*^ %>", 1, 0, 10001 );
-   //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
-   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
-   //:szWriteBuffer = "<%@ page import=^javax.servlet.http.*^ %>"
-   ZeidonStringCopy( szWriteBuffer, 1, 0, "<%@ page import=^javax.servlet.http.*^ %>", 1, 0, 10001 );
-   //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
-   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
+   //:// KJS 01/31/25 With tomcat versions 10 and above, the name was changed to jakarta (from javax).
+   //:// Currently having a zeidon.ini setting for this.
+   //:IF szTOMCAT10 = "Y"
+   if ( ZeidonStringCompare( szTOMCAT10, 1, 0, "Y", 1, 0, 11 ) == 0 )
+   { 
+      //:szWriteBuffer = "<%@ page import=^jakarta.servlet.*^ %>"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "<%@ page import=^jakarta.servlet.*^ %>", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "<%@ page import=^jakarta.servlet.http.*^ %>"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "<%@ page import=^jakarta.servlet.http.*^ %>", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
+      //:ELSE
+   } 
+   else
+   { 
+      //:szWriteBuffer = "<%@ page import=^javax.servlet.*^ %>"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "<%@ page import=^javax.servlet.*^ %>", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "<%@ page import=^javax.servlet.http.*^ %>"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "<%@ page import=^javax.servlet.http.*^ %>", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
+   } 
+
+   //:END
    //:szWriteBuffer = "<%@ page import=^org.apache.commons.lang3.*^ %>"
    ZeidonStringCopy( szWriteBuffer, 1, 0, "<%@ page import=^org.apache.commons.lang3.*^ %>", 1, 0, 10001 );
    //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
@@ -9184,7 +9184,9 @@ oTZWDLGSO_FlagUsedViewsGetFocusJ( zVIEW     vDialog,
 
       //:END
       //:IF szControlType = "EditBox" OR
+      //:   szControlType = "GridEditCtl" OR
       //:   szControlType = "ComboBox" OR
+      //:   szControlType = "GridComboCtl" OR
       //:   szControlType = "Text" OR
       //:   szControlType = "CheckBox" OR
       //:   szControlType = "ListBox" OR
@@ -9195,10 +9197,11 @@ oTZWDLGSO_FlagUsedViewsGetFocusJ( zVIEW     vDialog,
       //:   szControlType = "Grid" OR
       //:   szControlType = "Calendar" OR
       //:   szProcessControlFlag = "Y"
-      if ( ZeidonStringCompare( szControlType, 1, 0, "EditBox", 1, 0, 51 ) == 0 || ZeidonStringCompare( szControlType, 1, 0, "ComboBox", 1, 0, 51 ) == 0 || ZeidonStringCompare( szControlType, 1, 0, "Text", 1, 0, 51 ) == 0 ||
-           ZeidonStringCompare( szControlType, 1, 0, "CheckBox", 1, 0, 51 ) == 0 || ZeidonStringCompare( szControlType, 1, 0, "ListBox", 1, 0, 51 ) == 0 || ZeidonStringCompare( szControlType, 1, 0, "MLEdit", 1, 0, 51 ) == 0 ||
-           ZeidonStringCompare( szControlType, 1, 0, "Outliner", 1, 0, 51 ) == 0 || ZeidonStringCompare( szControlType, 1, 0, "RadioGrp", 1, 0, 51 ) == 0 || ZeidonStringCompare( szControlType, 1, 0, "GridCheckCtl", 1, 0, 51 ) == 0 ||
-           ZeidonStringCompare( szControlType, 1, 0, "Grid", 1, 0, 51 ) == 0 || ZeidonStringCompare( szControlType, 1, 0, "Calendar", 1, 0, 51 ) == 0 || ZeidonStringCompare( szProcessControlFlag, 1, 0, "Y", 1, 0, 2 ) == 0 )
+      if ( ZeidonStringCompare( szControlType, 1, 0, "EditBox", 1, 0, 51 ) == 0 || ZeidonStringCompare( szControlType, 1, 0, "GridEditCtl", 1, 0, 51 ) == 0 || ZeidonStringCompare( szControlType, 1, 0, "ComboBox", 1, 0, 51 ) == 0 ||
+           ZeidonStringCompare( szControlType, 1, 0, "GridComboCtl", 1, 0, 51 ) == 0 || ZeidonStringCompare( szControlType, 1, 0, "Text", 1, 0, 51 ) == 0 || ZeidonStringCompare( szControlType, 1, 0, "CheckBox", 1, 0, 51 ) == 0 ||
+           ZeidonStringCompare( szControlType, 1, 0, "ListBox", 1, 0, 51 ) == 0 || ZeidonStringCompare( szControlType, 1, 0, "MLEdit", 1, 0, 51 ) == 0 || ZeidonStringCompare( szControlType, 1, 0, "Outliner", 1, 0, 51 ) == 0 ||
+           ZeidonStringCompare( szControlType, 1, 0, "RadioGrp", 1, 0, 51 ) == 0 || ZeidonStringCompare( szControlType, 1, 0, "GridCheckCtl", 1, 0, 51 ) == 0 || ZeidonStringCompare( szControlType, 1, 0, "Grid", 1, 0, 51 ) == 0 ||
+           ZeidonStringCompare( szControlType, 1, 0, "Calendar", 1, 0, 51 ) == 0 || ZeidonStringCompare( szProcessControlFlag, 1, 0, "Y", 1, 0, 2 ) == 0 )
       { 
 
          //:// 1.(above) Identify any Named Views that have mapping on this window.
@@ -9220,8 +9223,8 @@ oTZWDLGSO_FlagUsedViewsGetFocusJ( zVIEW     vDialog,
 
             //:END
 
-            //:IF szControlType = "ComboBox"
-            if ( ZeidonStringCompare( szControlType, 1, 0, "ComboBox", 1, 0, 51 ) == 0 )
+            //:IF szControlType = "ComboBox" OR szControlType = "GridComboCtl"
+            if ( ZeidonStringCompare( szControlType, 1, 0, "ComboBox", 1, 0, 51 ) == 0 || ZeidonStringCompare( szControlType, 1, 0, "GridComboCtl", 1, 0, 51 ) == 0 )
             { 
                //:SET CURSOR NEXT vDialog.CtrlMap
                RESULT = SetCursorNextEntity( vDialog, "CtrlMap", "" );
@@ -9311,8 +9314,8 @@ oTZWDLGSO_FlagUsedViewsGetFocusJ( zVIEW     vDialog,
          //:END
 
          //:// 4.(above) Create entry for ComboBox.
-         //:IF szControlType = "ComboBox"
-         if ( ZeidonStringCompare( szControlType, 1, 0, "ComboBox", 1, 0, 51 ) == 0 )
+         //:IF szControlType = "ComboBox" OR szControlType = "GridComboCtl"
+         if ( ZeidonStringCompare( szControlType, 1, 0, "ComboBox", 1, 0, 51 ) == 0 || ZeidonStringCompare( szControlType, 1, 0, "GridComboCtl", 1, 0, 51 ) == 0 )
          { 
             //:lSubtype = vDialog.Control.Subtype
             GetIntegerFromAttribute( &lSubtype, vDialog, "Control", "Subtype" );

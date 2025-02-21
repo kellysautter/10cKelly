@@ -854,7 +854,7 @@ SELECT_ESGL_ListPotAttributes( VIEW ViewToWindow )
       nRC = GetSelectStateOfEntity( TZADWWKO, "ESG_FlatListPotentialAttribute" )
       IF nRC = 1
          SET CURSOR FIRST TZADWWKO.ESG_ListLOD_Attribute  
-                    WHERE TZADWWKO.ESG_ListLOD_Attribute.ZKey = TZADWWKO.ESG_FlatListPotentialAttribute.ZKey
+                    WHERE TZADWWKO.ESG_ListLOD_Attribute.ZKey = TZADWWKO.ESG_FlatLOD_Attribute.ZKey
          IF RESULT < zCURSOR_SET
             INCLUDE TZADWWKO.ESG_ListLOD_Attribute FROM TZADWWKO.ESG_FlatLOD_Attribute 
             // We will use the list title value if it exists. Otherwise, we will use the Prompt value.
@@ -1454,6 +1454,7 @@ AUTODESIGN_MPG_Pages( VIEW ViewToWindow )
    STRING ( 50 )  szAD_RetO 
    STRING ( 50 )  szAD_RetE 
    STRING ( 50 )  szAD_UpdObj
+   STRING ( 50 )  szAD_ID
    STRING ( 50 )  szMainV
    STRING ( 50 )  szMainE
    STRING ( 50 )  szAD_UpdE
@@ -1687,6 +1688,7 @@ AUTODESIGN_MPG_Pages( VIEW ViewToWindow )
       ELSE
          szOriginalVML = "c:\lplr\AD_Base\ObjDtl.VML"
       END
+      ReturnID_NameForEntity( TZADWWKO, szAD_ID, szAD_UpdE, UpdateLOD )  // Get Identifier Name for UpdateLOD LOD & Entity szAD_UpdE
       
       // Copy the source VML to the end of the Find VML, converting the variable characters in the process.
       nFileIn   = SysOpenFile( TZWINDOW, szOriginalVML, COREFILE_READ ) 
@@ -1701,6 +1703,7 @@ AUTODESIGN_MPG_Pages( VIEW ViewToWindow )
          zSearchAndReplace( szVML_Statement, 256, "_AD_RetE",  szAD_RetE )    // The Main Object Entity for Activate
          zSearchAndReplace( szVML_Statement, 256, "_AD_UpdE",  szAD_UpdE )    // The Root Entity of the MGP Update LOD.
          zSearchAndReplace( szVML_Statement, 256, "_AD_Suff",  szAD_Suffix )  // The Root Entity of the MGP Update LOD.
+         zSearchAndReplace( szVML_Statement, 256, "_AD_ID",    szAD_ID )      // Update Identifier Name for object and entity above.
          
          SysWriteLine( TZWINDOW, nFileOut, szVML_Statement )
          
@@ -2261,10 +2264,18 @@ ACCEPT_GroupListWInclude( VIEW ViewToWindow )
    VIEW TZWINDOWL REGISTERED AS TZWINDOWL
    VIEW UpdateLOD BASED ON LOD  TZZOLODO
    VIEW AD_Base   BASED ON LOD  TZWDLGSO
+   STRING ( 50 ) szGroupType
    INTEGER nRC
    
-   // For ListGroupwInclude Type, make sure Include MetaDef entr been selected.
-   IF TZADWWKO.AutoDesignWork.SelectedGroupType = "ListGroupwInclude"
+   // For ListGroupwInclude Type, make sure Include MetaDef entry has been selected.
+   IF TZADWWKO.AutoDesignWork.SelectedGroupType = ""
+      // Group Type is specified in EntitySubGroup.GroupType.
+      szGroupType = TZADWWKO.EntitySubGroup.GroupType 
+   ELSE
+      // Group Type is specified in AutoDesignWork.SelectedGroupType.
+      szGroupType = TZADWWKO.AutoDesignWork.SelectedGroupType 
+   END
+   IF szGroupType = "ListGroupwInclude"
       IF TZADWWKO.ESG_ListIncludeW_MetaDef DOES NOT EXIST
          MessageSend( ViewToWindow, "", "Autodesign Subdialog",
                       "An Include object must be selected.",

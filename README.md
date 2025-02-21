@@ -1,3 +1,20 @@
+Changes 02/21/25
+* Fix for grid control CSS error, reported by Dave Loscutoff.
+
+Changes 02/17/25
+* Don's latest autodesign changes.
+* New AD_Base.zip the lplr used by autodesign.
+
+Changes 02/10/25
+* Fixed jsp generation error where a GridComboCtl's mapping wasn't creating a View variable in DoInputMapping.
+
+Changes 01/14/25
+* Added two fields to Control 
+  CSS_Class2
+  WebHTML5Attribute2
+  This is so that on a checkbox we can have a css/html5 for both the checkbox <input> and the checkbox text <span>.
+* Latest updates for autodesign from Don C.
+
 Changes 01/09/25
 * Changed tzlodopr.h #define WHERE_ARRAY_SIZE 30 to #define WHERE_ARRAY_SIZE 100 (long WHERE clauses were causing an error)
 

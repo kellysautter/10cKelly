@@ -859,9 +859,11 @@ GenJSPJ_CrteCheckBox( VIEW vDialog BASED ON LOD TZWDLGSO,
    VIEW vDialogRoot BASED ON LOD TZWDLGSO
    STRING ( 300 ) szStyle
    STRING ( 256 ) szClass
+   STRING ( 256 ) szClass2
    STRING ( 256 ) szTitle
    STRING ( 256 ) szTitleHTML
    STRING ( 265 ) szHTML5Attr
+   STRING ( 265 ) szHTML5Attr2
    STRING ( 100 ) szDisabled
    STRING ( 300 ) szPosition
    STRING ( 16 )  szTabIndex
@@ -991,13 +993,29 @@ GenJSPJ_CrteCheckBox( VIEW vDialog BASED ON LOD TZWDLGSO,
       szTitleHTML = " title=^" + szTitle + "^ "
    END
    
+   // CSS_Class2 and WebHTML5Attribute will be for the text portion.
+   szClass = ""
+   IF vDialog.Control.CSS_Class != ""
+      szClass = " class=^" + vDialog.Control.CSS_Class + "^ " 
+   END
    szHTML5Attr = ""
    IF vDialog.Control.WebHTML5Attribute != ""
       szHTML5Attr = " " + vDialog.Control.WebHTML5Attribute + " "
    END
 
+   // CSS_Class2 and WebHTML5Attribute2 will be for the checkbox portion.
+   szClass2 = ""
+   IF vDialog.Control.CSS_Class2 != ""
+      szClass2 = " class=^" + vDialog.Control.CSS_Class2 + "^ " 
+   END
+   szHTML5Attr2 = ""
+   IF vDialog.Control.WebHTML5Attribute2 != ""
+      szHTML5Attr2 = " " + vDialog.Control.WebHTML5Attribute2 + " "
+   END
+
    IF vDialog.EventAct EXISTS
-      szWriteBuffer = "<input type=^checkbox^ name=^" + szCtrlTag + szRepeatGrpKey + "^ id=^" + szCtrlTag + szRepeatGrpKey + szHTML5Attr + "^ <%=strDisabled%> " + szDisabled +
+      szWriteBuffer = "<input type=^checkbox^ name=^" + szCtrlTag + szRepeatGrpKey + "^ id=^" + szCtrlTag + szRepeatGrpKey + "^" +
+                      szClass2 + szHTML5Attr2 + " <%=strDisabled%> " + szDisabled +
                       " value=^" + vDialog.Control.RadioOrCheckboxValue
       IF szRepeatGrpKey = ""
          szWriteBuffer = szWriteBuffer + "^ <%=strErrorMapValue%> " + szTitleHTML + szStyle + " onclick=^" + vDialog.EventAct.Tag + "( )^>"
@@ -1005,7 +1023,8 @@ GenJSPJ_CrteCheckBox( VIEW vDialog BASED ON LOD TZWDLGSO,
          szWriteBuffer = szWriteBuffer + "^ <%=strErrorMapValue%> " + szTitleHTML + szStyle + " onclick=^" + vDialog.EventAct.Tag + "( '" + szCtrlTag + szRepeatGrpKey + "' )^>"
       END
    ELSE
-      szWriteBuffer = "<input type=^checkbox^ name=^" + szCtrlTag + szRepeatGrpKey + "^ id=^" + szCtrlTag + szRepeatGrpKey + "^ <%=strDisabled%> " + szDisabled +
+      szWriteBuffer = "<input type=^checkbox^ name=^" + szCtrlTag + szRepeatGrpKey + "^ id=^" + szCtrlTag + szRepeatGrpKey + "^" + 
+                      szClass2 + szHTML5Attr2 + " <%=strDisabled%> " + szDisabled +
                       " value=^" + vDialog.Control.RadioOrCheckboxValue +
                       "^ <%=strErrorMapValue%> " + szTitleHTML + szStyle + ">"
    END
@@ -1029,7 +1048,6 @@ GenJSPJ_CrteCheckBox( VIEW vDialog BASED ON LOD TZWDLGSO,
       szSpaces = ""
    END
    END
-   szClass = vDialog.Control.CSS_Class
    
 
    // KJS 09/30/16 - Language Conversion.
@@ -1052,11 +1070,8 @@ GenJSPJ_CrteCheckBox( VIEW vDialog BASED ON LOD TZWDLGSO,
       szText = vDialog.Control.Text
    END   
 
-   IF szClass = ""
-      szWriteBuffer = "<span name=^span" + szCtrlTag + szRepeatGrpKey + "^ id=^span" + szCtrlTag + szRepeatGrpKey + "^ " + szTitleHTML + szStyle + ">" + szSpaces + szText + "</span>"
-   ELSE
-      szWriteBuffer = "<span name=^span" + szCtrlTag + szRepeatGrpKey + "^ id=^span" + szCtrlTag + szRepeatGrpKey + "^ class=^" + szClass + "^ " + szTitleHTML + szStyle + ">" + szSpaces + szText + "</span>"
-   END
+   szWriteBuffer = "<span name=^span" + szCtrlTag + szRepeatGrpKey + "^ id=^span" + szCtrlTag + szRepeatGrpKey +  "^ " +
+                   szClass + szHTML5Attr + szTitleHTML + szStyle + ">" + szSpaces + szText + "</span>"
    WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
 
 END

@@ -1,9 +1,9 @@
-z1000-Zeidon    TZWDSECO TZZOXODO 12/16/24   17:33:11 1.0a2    
+z1000-Zeidon    TZWDSECO TZZOXODO 01/13/25   15:13:06 1.0a2    
 eOBJECT    1
 aNAME      TZWDSECO
 aZKey      720125542
 aOPER_LIBNM TZWDSECO
-aER_DATE   20241216172916695
+aER_DATE   20250113151210751
 
 eENTITY    2
 aNAME      SecuritySet
@@ -423,7 +423,7 @@ aPDELETE   E
 aINCLUDE   Y
 aEXCLUDE   Y
 aINCLSRC   Y
-aMAX_LTH   2818
+aMAX_LTH   6390
 aHANG_FK   N
 
 eATTRIB    7
@@ -738,6 +738,17 @@ aHIDDEN    Y
 aXVAATT_TOK 56
 
 eATTRIB    7
+aNAME      Disabled
+aERATT_TOK 130000494
+aPERSIST   Y
+aAPDM_TOK  90000014
+aDOMAIN    Y/N
+aTYPE      S
+aLTH       1
+aHIDDEN    Y
+aXVAATT_TOK 57
+
+eATTRIB    7
 aNAME      CSS_Class
 aERATT_TOK 91471500
 aPERSIST   Y
@@ -746,7 +757,18 @@ aDOMAIN    Text
 aTYPE      S
 aLTH       254
 aHIDDEN    Y
-aXVAATT_TOK 57
+aXVAATT_TOK 58
+
+eATTRIB    7
+aNAME      CSS_Class2
+aERATT_TOK 130000508
+aPERSIST   Y
+aAPDM_TOK  90000032
+aDOMAIN    Text
+aTYPE      S
+aLTH       254
+aHIDDEN    Y
+aXVAATT_TOK 59
 
 eATTRIB    7
 aNAME      CSS_Id
@@ -757,7 +779,7 @@ aDOMAIN    QSName
 aTYPE      S
 aLTH       32
 aHIDDEN    Y
-aXVAATT_TOK 58
+aXVAATT_TOK 60
 
 eATTRIB    7
 aNAME      CSS_Font
@@ -768,7 +790,7 @@ aDOMAIN    Y/N
 aTYPE      S
 aLTH       1
 aHIDDEN    Y
-aXVAATT_TOK 59
+aXVAATT_TOK 61
 
 eATTRIB    7
 aNAME      CSS_Position
@@ -779,7 +801,7 @@ aDOMAIN    Y/N
 aTYPE      S
 aLTH       1
 aHIDDEN    Y
-aXVAATT_TOK 60
+aXVAATT_TOK 62
 
 eATTRIB    7
 aNAME      CSS_Size
@@ -790,7 +812,7 @@ aDOMAIN    Y/N
 aTYPE      S
 aLTH       1
 aHIDDEN    Y
-aXVAATT_TOK 61
+aXVAATT_TOK 63
 
 eATTRIB    7
 aNAME      JavaScript
@@ -801,7 +823,7 @@ aDOMAIN    Text
 aTYPE      S
 aLTH       254
 aHIDDEN    Y
-aXVAATT_TOK 62
+aXVAATT_TOK 64
 
 eATTRIB    7
 aNAME      RadioOrCheckboxValue
@@ -812,7 +834,7 @@ aDOMAIN    Text
 aTYPE      S
 aLTH       50
 aHIDDEN    Y
-aXVAATT_TOK 63
+aXVAATT_TOK 65
 
 eATTRIB    7
 aNAME      WebFileName
@@ -823,7 +845,29 @@ aDOMAIN    QSFullPathName
 aTYPE      S
 aLTH       260
 aHIDDEN    Y
-aXVAATT_TOK 64
+aXVAATT_TOK 66
+
+eATTRIB    7
+aNAME      WebCtrlLabelLink
+aERATT_TOK 130000495
+aPERSIST   Y
+aAPDM_TOK  90000032
+aDOMAIN    Text
+aTYPE      S
+aLTH       254
+aHIDDEN    Y
+aXVAATT_TOK 67
+
+eATTRIB    7
+aNAME      WebSelectSetName
+aERATT_TOK 130000496
+aPERSIST   Y
+aAPDM_TOK  90000032
+aDOMAIN    Text
+aTYPE      S
+aLTH       254
+aHIDDEN    Y
+aXVAATT_TOK 68
 
 eATTRIB    7
 aNAME      WebCtrlType
@@ -834,7 +878,7 @@ aDOMAIN    WD_WebCtrlType
 aTYPE      S
 aLTH       32
 aHIDDEN    Y
-aXVAATT_TOK 65
+aXVAATT_TOK 69
 
 eATTRIB    7
 aNAME      WebColumnSpan
@@ -845,7 +889,7 @@ aDOMAIN    Text
 aTYPE      S
 aLTH       254
 aHIDDEN    Y
-aXVAATT_TOK 66
+aXVAATT_TOK 70
 
 eATTRIB    7
 aNAME      WebWrap
@@ -856,7 +900,128 @@ aDOMAIN    Y/N
 aTYPE      S
 aLTH       1
 aHIDDEN    Y
-aXVAATT_TOK 67
+aXVAATT_TOK 71
+
+eATTRIB    7
+aNAME      WebNoGridDataMessage
+aERATT_TOK 130000497
+aPERSIST   Y
+aAPDM_TOK  90000032
+aDOMAIN    Text
+aTYPE      S
+aLTH       254
+aHIDDEN    Y
+aXVAATT_TOK 72
+
+eATTRIB    7
+aNAME      WebNoGridDataMsgClass
+aERATT_TOK 130000498
+aPERSIST   Y
+aAPDM_TOK  90000032
+aDOMAIN    Text
+aTYPE      S
+aLTH       254
+aHIDDEN    Y
+aXVAATT_TOK 73
+
+eATTRIB    7
+aNAME      WebreCAPTCHAPublicKey
+aERATT_TOK 130000499
+aPERSIST   Y
+aAPDM_TOK  90000032
+aDOMAIN    Text
+aTYPE      S
+aLTH       254
+aHIDDEN    Y
+aXVAATT_TOK 74
+
+eATTRIB    7
+aNAME      WebreCAPTCHAPrivateKey
+aERATT_TOK 130000500
+aPERSIST   Y
+aAPDM_TOK  90000032
+aDOMAIN    Text
+aTYPE      S
+aLTH       254
+aHIDDEN    Y
+aXVAATT_TOK 75
+
+eATTRIB    7
+aNAME      WebHTML5Attribute
+aERATT_TOK 130000501
+aPERSIST   Y
+aAPDM_TOK  90000032
+aDOMAIN    Text
+aTYPE      S
+aLTH       254
+aHIDDEN    Y
+aXVAATT_TOK 76
+
+eATTRIB    7
+aNAME      WebHTML5Attribute2
+aERATT_TOK 130000509
+aPERSIST   Y
+aAPDM_TOK  90000032
+aDOMAIN    Text
+aTYPE      S
+aLTH       254
+aHIDDEN    Y
+aXVAATT_TOK 77
+
+eATTRIB    7
+aNAME      WebPlaceholder
+aERATT_TOK 130000502
+aPERSIST   Y
+aAPDM_TOK  90000032
+aDOMAIN    Text
+aTYPE      S
+aLTH       254
+aHIDDEN    Y
+aXVAATT_TOK 78
+
+eATTRIB    7
+aNAME      MenuName
+aERATT_TOK 130000503
+aPERSIST   Y
+aAPDM_TOK  90000032
+aDOMAIN    Text
+aTYPE      S
+aLTH       254
+aHIDDEN    Y
+aXVAATT_TOK 79
+
+eATTRIB    7
+aNAME      DIL_Inherited
+aERATT_TOK 130000504
+aPERSIST   Y
+aAPDM_TOK  90000032
+aDOMAIN    Text
+aTYPE      S
+aLTH       254
+aHIDDEN    Y
+aXVAATT_TOK 80
+
+eATTRIB    7
+aNAME      NLS_Text
+aERATT_TOK 130000505
+aPERSIST   Y
+aAPDM_TOK  90000032
+aDOMAIN    Text
+aTYPE      S
+aLTH       254
+aHIDDEN    Y
+aXVAATT_TOK 81
+
+eATTRIB    7
+aNAME      NLS_DIL_Text
+aERATT_TOK 130000506
+aPERSIST   Y
+aAPDM_TOK  90000032
+aDOMAIN    Text
+aTYPE      S
+aLTH       254
+aHIDDEN    Y
+aXVAATT_TOK 82
 
 eATTRIB    7
 aNAME      BorderWidth
@@ -867,7 +1032,7 @@ aDOMAIN    Integer
 aTYPE      L
 aLTH       4
 aHIDDEN    Y
-aXVAATT_TOK 68
+aXVAATT_TOK 83
 
 eATTRIB    7
 aNAME      BorderStyle
@@ -878,7 +1043,7 @@ aDOMAIN    Integer
 aTYPE      L
 aLTH       4
 aHIDDEN    Y
-aXVAATT_TOK 69
+aXVAATT_TOK 84
 
 eATTRIB    7
 aNAME      BorderTop
@@ -889,7 +1054,7 @@ aDOMAIN    Integer
 aTYPE      L
 aLTH       4
 aHIDDEN    Y
-aXVAATT_TOK 70
+aXVAATT_TOK 85
 
 eATTRIB    7
 aNAME      BorderBottom
@@ -900,7 +1065,7 @@ aDOMAIN    Integer
 aTYPE      L
 aLTH       4
 aHIDDEN    Y
-aXVAATT_TOK 71
+aXVAATT_TOK 86
 
 eATTRIB    7
 aNAME      BorderLeft
@@ -911,7 +1076,7 @@ aDOMAIN    Integer
 aTYPE      L
 aLTH       4
 aHIDDEN    Y
-aXVAATT_TOK 72
+aXVAATT_TOK 87
 
 eATTRIB    7
 aNAME      BorderRight
@@ -922,7 +1087,7 @@ aDOMAIN    Integer
 aTYPE      L
 aLTH       4
 aHIDDEN    Y
-aXVAATT_TOK 73
+aXVAATT_TOK 88
 
 eATTRIB    7
 aNAME      TextAlignHorizontal
@@ -933,7 +1098,7 @@ aDOMAIN    Text
 aTYPE      S
 aLTH       254
 aHIDDEN    Y
-aXVAATT_TOK 74
+aXVAATT_TOK 89
 
 eATTRIB    7
 aNAME      FontSize
@@ -944,7 +1109,7 @@ aDOMAIN    Integer
 aTYPE      L
 aLTH       4
 aHIDDEN    Y
-aXVAATT_TOK 75
+aXVAATT_TOK 90
 
 eATTRIB    7
 aNAME      TextBold
@@ -955,7 +1120,7 @@ aDOMAIN    Y/N
 aTYPE      S
 aLTH       1
 aHIDDEN    Y
-aXVAATT_TOK 76
+aXVAATT_TOK 91
 
 eATTRIB    7
 aNAME      TextItalic
@@ -966,7 +1131,7 @@ aDOMAIN    Y/N
 aTYPE      S
 aLTH       1
 aHIDDEN    Y
-aXVAATT_TOK 77
+aXVAATT_TOK 92
 
 eATTRIB    7
 aNAME      TextUnderline
@@ -977,7 +1142,7 @@ aDOMAIN    Y/N
 aTYPE      S
 aLTH       1
 aHIDDEN    Y
-aXVAATT_TOK 78
+aXVAATT_TOK 93
 
 eATTRIB    7
 aNAME      LangID
@@ -988,7 +1153,7 @@ aDOMAIN    Text
 aTYPE      S
 aLTH       254
 aHIDDEN    Y
-aXVAATT_TOK 79
+aXVAATT_TOK 94
 
 eCHILDENTITY 4
 aNAME      AccessPathOptionL2
@@ -1016,7 +1181,7 @@ aLTH       4
 aKEY       Y
 aREQUIRED  Y
 aUPDATE    Y
-aXVAATT_TOK 80
+aXVAATT_TOK 95
 
 eATTRIB    5
 aNAME      Name
@@ -1028,7 +1193,7 @@ aTYPE      S
 aLTH       254
 aREQUIRED  Y
 aUPDATE    Y
-aXVAATT_TOK 81
+aXVAATT_TOK 96
 
 eATTRIB    5
 aNAME      NeedsAccessPermission
@@ -1039,7 +1204,7 @@ aDOMAIN    Y/N
 aTYPE      S
 aLTH       1
 aHIDDEN    Y
-aXVAATT_TOK 82
+aXVAATT_TOK 97
 
 eATTRIB    5
 aNAME      NoPermissionRemovesControlsFlag
@@ -1050,7 +1215,7 @@ aDOMAIN    Y/N
 aTYPE      S
 aLTH       1
 aHIDDEN    Y
-aXVAATT_TOK 83
+aXVAATT_TOK 98
 
 eCHILDENTITY 5
 aNAME      ObjectAreaL2
@@ -1079,7 +1244,7 @@ aLTH       4
 aKEY       Y
 aREQUIRED  Y
 aUPDATE    Y
-aXVAATT_TOK 84
+aXVAATT_TOK 99
 
 eATTRIB    6
 aNAME      Name
@@ -1091,7 +1256,7 @@ aTYPE      S
 aLTH       254
 aREQUIRED  Y
 aUPDATE    Y
-aXVAATT_TOK 85
+aXVAATT_TOK 100
 
 eCHILDENTITY 6
 aNAME      ObjectAreaActionL2
@@ -1119,7 +1284,7 @@ aLTH       4
 aKEY       Y
 aREQUIRED  Y
 aUPDATE    Y
-aXVAATT_TOK 86
+aXVAATT_TOK 101
 
 eCHILDENTITY 7
 aNAME      ActionL2
@@ -1143,7 +1308,7 @@ aDOMAIN    Text
 aTYPE      S
 aLTH       32
 aUPDATE    Y
-aXVAATT_TOK 87
+aXVAATT_TOK 102
 
 eATTRIB    8
 aNAME      ZKey
@@ -1156,7 +1321,7 @@ aLTH       4
 aKEY       Y
 aREQUIRED  Y
 aUPDATE    Y
-aXVAATT_TOK 88
+aXVAATT_TOK 103
 
 eATTRIB    8
 aNAME      SB_SubAction
@@ -1167,7 +1332,7 @@ aDOMAIN    WD_SB_SubAction
 aTYPE      L
 aLTH       4
 aHIDDEN    Y
-aXVAATT_TOK 89
+aXVAATT_TOK 104
 
 eATTRIB    8
 aNAME      SB_NextPrev
@@ -1178,7 +1343,7 @@ aDOMAIN    WD_SB_NextPrev
 aTYPE      L
 aLTH       4
 aHIDDEN    Y
-aXVAATT_TOK 90
+aXVAATT_TOK 105
 
 eATTRIB    8
 aNAME      SB_DeleteNull
@@ -1189,7 +1354,7 @@ aDOMAIN    WD_SB_DeleteNull
 aTYPE      L
 aLTH       4
 aHIDDEN    Y
-aXVAATT_TOK 91
+aXVAATT_TOK 106
 
 eATTRIB    8
 aNAME      SB_ActionDisabling
@@ -1200,7 +1365,7 @@ aDOMAIN    Integer
 aTYPE      L
 aLTH       4
 aHIDDEN    Y
-aXVAATT_TOK 92
+aXVAATT_TOK 107
 
 eATTRIB    8
 aNAME      NoMap
@@ -1211,7 +1376,7 @@ aDOMAIN    Text
 aTYPE      S
 aLTH       1
 aHIDDEN    Y
-aXVAATT_TOK 93
+aXVAATT_TOK 108
 
 eATTRIB    8
 aNAME      Type
@@ -1223,7 +1388,7 @@ aTYPE      L
 aLTH       4
 aREQUIRED  Y
 aHIDDEN    Y
-aXVAATT_TOK 94
+aXVAATT_TOK 109
 
 eATTRIB    8
 aNAME      ActionTypeAssociatedText
@@ -1234,7 +1399,7 @@ aDOMAIN    Text
 aTYPE      S
 aLTH       254
 aHIDDEN    Y
-aXVAATT_TOK 95
+aXVAATT_TOK 110
 
 eATTRIB    8
 aNAME      TypeData
@@ -1245,7 +1410,7 @@ aDOMAIN    Text
 aTYPE      S
 aLTH       32
 aHIDDEN    Y
-aXVAATT_TOK 96
+aXVAATT_TOK 111
 
 eATTRIB    8
 aNAME      DialogName
@@ -1256,7 +1421,7 @@ aDOMAIN    Text
 aTYPE      S
 aLTH       32
 aHIDDEN    Y
-aXVAATT_TOK 97
+aXVAATT_TOK 112
 
 eATTRIB    8
 aNAME      WindowName
@@ -1267,7 +1432,7 @@ aDOMAIN    Text
 aTYPE      S
 aLTH       32
 aHIDDEN    Y
-aXVAATT_TOK 98
+aXVAATT_TOK 113
 
 eATTRIB    8
 aNAME      DLL
@@ -1278,7 +1443,7 @@ aDOMAIN    Text
 aTYPE      S
 aLTH       8
 aHIDDEN    Y
-aXVAATT_TOK 99
+aXVAATT_TOK 114
 
 eATTRIB    8
 aNAME      OperCtrl
@@ -1289,7 +1454,7 @@ aDOMAIN    Integer
 aTYPE      L
 aLTH       4
 aHIDDEN    Y
-aXVAATT_TOK 100
+aXVAATT_TOK 115
 
 eATTRIB    8
 aNAME      PopupMenuName
@@ -1300,7 +1465,7 @@ aDOMAIN    Text
 aTYPE      S
 aLTH       32
 aHIDDEN    Y
-aXVAATT_TOK 101
+aXVAATT_TOK 116
 
 eATTRIB    8
 aNAME      WebJavaScript
@@ -1311,7 +1476,7 @@ aDOMAIN    Note
 aTYPE      S
 aLTH       10000
 aHIDDEN    Y
-aXVAATT_TOK 102
+aXVAATT_TOK 117
 
 eATTRIB    8
 aNAME      WebJavaScriptLocation
@@ -1322,7 +1487,7 @@ aDOMAIN    WD_WebScriptLocation
 aTYPE      S
 aLTH       16
 aHIDDEN    Y
-aXVAATT_TOK 103
+aXVAATT_TOK 118
 
 eATTRIB    8
 aNAME      WebHTML_TransferAddress
@@ -1333,7 +1498,7 @@ aDOMAIN    Text
 aTYPE      S
 aLTH       254
 aHIDDEN    Y
-aXVAATT_TOK 104
+aXVAATT_TOK 119
 
 eATTRIB    8
 aNAME      ParentIsGridOrGrp
@@ -1344,7 +1509,7 @@ aDOMAIN    Y/N
 aTYPE      S
 aLTH       1
 aHIDDEN    Y
-aXVAATT_TOK 105
+aXVAATT_TOK 120
 
 eCHILDENTITY 6
 aNAME      ObjectAreaControlL2
@@ -1372,7 +1537,7 @@ aLTH       4
 aKEY       Y
 aREQUIRED  Y
 aUPDATE    Y
-aXVAATT_TOK 106
+aXVAATT_TOK 121
 
 eCHILDENTITY 7
 aNAME      ControlL2
@@ -1385,7 +1550,7 @@ aPDELETE   E
 aINCLUDE   Y
 aEXCLUDE   Y
 aINCLSRC   Y
-aMAX_LTH   2818
+aMAX_LTH   6390
 aHANG_FK   N
 
 eATTRIB    8
@@ -1397,7 +1562,7 @@ aDOMAIN    Text
 aTYPE      S
 aLTH       32
 aUPDATE    Y
-aXVAATT_TOK 107
+aXVAATT_TOK 122
 
 eATTRIB    8
 aNAME      ZKey
@@ -1410,7 +1575,7 @@ aLTH       4
 aKEY       Y
 aREQUIRED  Y
 aUPDATE    Y
-aXVAATT_TOK 108
+aXVAATT_TOK 123
 
 eATTRIB    8
 aNAME      Text
@@ -1421,7 +1586,7 @@ aDOMAIN    Text
 aTYPE      S
 aLTH       254
 aHIDDEN    Y
-aXVAATT_TOK 109
+aXVAATT_TOK 124
 
 eATTRIB    8
 aNAME      Type
@@ -1432,7 +1597,7 @@ aDOMAIN    Integer
 aTYPE      L
 aLTH       4
 aHIDDEN    Y
-aXVAATT_TOK 110
+aXVAATT_TOK 125
 
 eATTRIB    8
 aNAME      Subtype
@@ -1443,7 +1608,7 @@ aDOMAIN    Integer
 aTYPE      L
 aLTH       4
 aHIDDEN    Y
-aXVAATT_TOK 111
+aXVAATT_TOK 126
 
 eATTRIB    8
 aNAME      DD_TargetKey
@@ -1454,7 +1619,7 @@ aDOMAIN    Text
 aTYPE      S
 aLTH       32
 aHIDDEN    Y
-aXVAATT_TOK 112
+aXVAATT_TOK 127
 
 eATTRIB    8
 aNAME      DD_SourceKey
@@ -1465,7 +1630,7 @@ aDOMAIN    Text
 aTYPE      S
 aLTH       32
 aHIDDEN    Y
-aXVAATT_TOK 113
+aXVAATT_TOK 128
 
 eATTRIB    8
 aNAME      OptionFlags
@@ -1476,7 +1641,7 @@ aDOMAIN    Integer
 aTYPE      L
 aLTH       4
 aHIDDEN    Y
-aXVAATT_TOK 114
+aXVAATT_TOK 129
 
 eATTRIB    8
 aNAME      DD_Type
@@ -1487,7 +1652,7 @@ aDOMAIN    DragDropType
 aTYPE      S
 aLTH       1
 aHIDDEN    Y
-aXVAATT_TOK 115
+aXVAATT_TOK 130
 
 eATTRIB    8
 aNAME      IdNbr
@@ -1498,7 +1663,7 @@ aDOMAIN    Integer
 aTYPE      L
 aLTH       4
 aHIDDEN    Y
-aXVAATT_TOK 116
+aXVAATT_TOK 131
 
 eATTRIB    8
 aNAME      PSDLG_X
@@ -1509,7 +1674,7 @@ aDOMAIN    Integer
 aTYPE      L
 aLTH       4
 aHIDDEN    Y
-aXVAATT_TOK 117
+aXVAATT_TOK 132
 
 eATTRIB    8
 aNAME      PSDLG_Y
@@ -1520,7 +1685,7 @@ aDOMAIN    Integer
 aTYPE      L
 aLTH       4
 aHIDDEN    Y
-aXVAATT_TOK 118
+aXVAATT_TOK 133
 
 eATTRIB    8
 aNAME      SZDLG_X
@@ -1531,7 +1696,7 @@ aDOMAIN    Integer
 aTYPE      L
 aLTH       4
 aHIDDEN    Y
-aXVAATT_TOK 119
+aXVAATT_TOK 134
 
 eATTRIB    8
 aNAME      SZDLG_Y
@@ -1542,7 +1707,7 @@ aDOMAIN    Integer
 aTYPE      L
 aLTH       4
 aHIDDEN    Y
-aXVAATT_TOK 120
+aXVAATT_TOK 135
 
 eATTRIB    8
 aNAME      CtrlBOI
@@ -1553,7 +1718,7 @@ aDOMAIN    Blob
 aTYPE      B
 aLTH       7
 aHIDDEN    Y
-aXVAATT_TOK 121
+aXVAATT_TOK 136
 
 eATTRIB    8
 aNAME      Underline
@@ -1564,7 +1729,7 @@ aDOMAIN    Integer
 aTYPE      L
 aLTH       4
 aHIDDEN    Y
-aXVAATT_TOK 122
+aXVAATT_TOK 137
 
 eATTRIB    8
 aNAME      SyncKey
@@ -1575,7 +1740,7 @@ aDOMAIN    Integer
 aTYPE      L
 aLTH       4
 aHIDDEN    Y
-aXVAATT_TOK 123
+aXVAATT_TOK 138
 
 eATTRIB    8
 aNAME      DIL_Text
@@ -1586,7 +1751,7 @@ aDOMAIN    Text
 aTYPE      S
 aLTH       254
 aHIDDEN    Y
-aXVAATT_TOK 124
+aXVAATT_TOK 139
 
 eATTRIB    8
 aNAME      Placeholder
@@ -1597,7 +1762,7 @@ aDOMAIN    Text
 aTYPE      S
 aLTH       254
 aHIDDEN    Y
-aXVAATT_TOK 125
+aXVAATT_TOK 140
 
 eATTRIB    8
 aNAME      ReportGroupType
@@ -1608,7 +1773,7 @@ aDOMAIN    ReportGroupType
 aTYPE      S
 aLTH       2
 aHIDDEN    Y
-aXVAATT_TOK 126
+aXVAATT_TOK 141
 
 eATTRIB    8
 aNAME      ForceHeaderPerEntity
@@ -1619,7 +1784,7 @@ aDOMAIN    Y/N
 aTYPE      S
 aLTH       1
 aHIDDEN    Y
-aXVAATT_TOK 127
+aXVAATT_TOK 142
 
 eATTRIB    8
 aNAME      ExtendedStyle
@@ -1630,7 +1795,7 @@ aDOMAIN    Integer
 aTYPE      L
 aLTH       4
 aHIDDEN    Y
-aXVAATT_TOK 128
+aXVAATT_TOK 143
 
 eATTRIB    8
 aNAME      GUID
@@ -1642,7 +1807,7 @@ aTYPE      S
 aLTH       64
 aCASESENS  Y
 aHIDDEN    Y
-aXVAATT_TOK 129
+aXVAATT_TOK 144
 
 eATTRIB    8
 aNAME      Properties
@@ -1653,7 +1818,7 @@ aDOMAIN    Blob
 aTYPE      B
 aLTH       7
 aHIDDEN    Y
-aXVAATT_TOK 130
+aXVAATT_TOK 145
 
 eATTRIB    8
 aNAME      LKey
@@ -1664,7 +1829,7 @@ aDOMAIN    Blob
 aTYPE      B
 aLTH       7
 aHIDDEN    Y
-aXVAATT_TOK 131
+aXVAATT_TOK 146
 
 eATTRIB    8
 aNAME      VisibleBorder
@@ -1675,7 +1840,7 @@ aDOMAIN    Y/N
 aTYPE      S
 aLTH       1
 aHIDDEN    Y
-aXVAATT_TOK 132
+aXVAATT_TOK 147
 
 eATTRIB    8
 aNAME      CenterJustify
@@ -1686,7 +1851,7 @@ aDOMAIN    Y/N
 aTYPE      S
 aLTH       1
 aHIDDEN    Y
-aXVAATT_TOK 133
+aXVAATT_TOK 148
 
 eATTRIB    8
 aNAME      RightJustify
@@ -1697,7 +1862,18 @@ aDOMAIN    Y/N
 aTYPE      S
 aLTH       1
 aHIDDEN    Y
-aXVAATT_TOK 134
+aXVAATT_TOK 149
+
+eATTRIB    8
+aNAME      Disabled
+aERATT_TOK 130000494
+aPERSIST   Y
+aAPDM_TOK  90000014
+aDOMAIN    Y/N
+aTYPE      S
+aLTH       1
+aHIDDEN    Y
+aXVAATT_TOK 150
 
 eATTRIB    8
 aNAME      CSS_Class
@@ -1708,7 +1884,18 @@ aDOMAIN    Text
 aTYPE      S
 aLTH       254
 aHIDDEN    Y
-aXVAATT_TOK 135
+aXVAATT_TOK 151
+
+eATTRIB    8
+aNAME      CSS_Class2
+aERATT_TOK 130000508
+aPERSIST   Y
+aAPDM_TOK  90000032
+aDOMAIN    Text
+aTYPE      S
+aLTH       254
+aHIDDEN    Y
+aXVAATT_TOK 152
 
 eATTRIB    8
 aNAME      CSS_Id
@@ -1719,7 +1906,7 @@ aDOMAIN    QSName
 aTYPE      S
 aLTH       32
 aHIDDEN    Y
-aXVAATT_TOK 136
+aXVAATT_TOK 153
 
 eATTRIB    8
 aNAME      CSS_Font
@@ -1730,7 +1917,7 @@ aDOMAIN    Y/N
 aTYPE      S
 aLTH       1
 aHIDDEN    Y
-aXVAATT_TOK 137
+aXVAATT_TOK 154
 
 eATTRIB    8
 aNAME      CSS_Position
@@ -1741,7 +1928,7 @@ aDOMAIN    Y/N
 aTYPE      S
 aLTH       1
 aHIDDEN    Y
-aXVAATT_TOK 138
+aXVAATT_TOK 155
 
 eATTRIB    8
 aNAME      CSS_Size
@@ -1752,7 +1939,7 @@ aDOMAIN    Y/N
 aTYPE      S
 aLTH       1
 aHIDDEN    Y
-aXVAATT_TOK 139
+aXVAATT_TOK 156
 
 eATTRIB    8
 aNAME      JavaScript
@@ -1763,7 +1950,7 @@ aDOMAIN    Text
 aTYPE      S
 aLTH       254
 aHIDDEN    Y
-aXVAATT_TOK 140
+aXVAATT_TOK 157
 
 eATTRIB    8
 aNAME      RadioOrCheckboxValue
@@ -1774,7 +1961,7 @@ aDOMAIN    Text
 aTYPE      S
 aLTH       50
 aHIDDEN    Y
-aXVAATT_TOK 141
+aXVAATT_TOK 158
 
 eATTRIB    8
 aNAME      WebFileName
@@ -1785,7 +1972,29 @@ aDOMAIN    QSFullPathName
 aTYPE      S
 aLTH       260
 aHIDDEN    Y
-aXVAATT_TOK 142
+aXVAATT_TOK 159
+
+eATTRIB    8
+aNAME      WebCtrlLabelLink
+aERATT_TOK 130000495
+aPERSIST   Y
+aAPDM_TOK  90000032
+aDOMAIN    Text
+aTYPE      S
+aLTH       254
+aHIDDEN    Y
+aXVAATT_TOK 160
+
+eATTRIB    8
+aNAME      WebSelectSetName
+aERATT_TOK 130000496
+aPERSIST   Y
+aAPDM_TOK  90000032
+aDOMAIN    Text
+aTYPE      S
+aLTH       254
+aHIDDEN    Y
+aXVAATT_TOK 161
 
 eATTRIB    8
 aNAME      WebCtrlType
@@ -1796,7 +2005,7 @@ aDOMAIN    WD_WebCtrlType
 aTYPE      S
 aLTH       32
 aHIDDEN    Y
-aXVAATT_TOK 143
+aXVAATT_TOK 162
 
 eATTRIB    8
 aNAME      WebColumnSpan
@@ -1807,7 +2016,7 @@ aDOMAIN    Text
 aTYPE      S
 aLTH       254
 aHIDDEN    Y
-aXVAATT_TOK 144
+aXVAATT_TOK 163
 
 eATTRIB    8
 aNAME      WebWrap
@@ -1818,7 +2027,128 @@ aDOMAIN    Y/N
 aTYPE      S
 aLTH       1
 aHIDDEN    Y
-aXVAATT_TOK 145
+aXVAATT_TOK 164
+
+eATTRIB    8
+aNAME      WebNoGridDataMessage
+aERATT_TOK 130000497
+aPERSIST   Y
+aAPDM_TOK  90000032
+aDOMAIN    Text
+aTYPE      S
+aLTH       254
+aHIDDEN    Y
+aXVAATT_TOK 165
+
+eATTRIB    8
+aNAME      WebNoGridDataMsgClass
+aERATT_TOK 130000498
+aPERSIST   Y
+aAPDM_TOK  90000032
+aDOMAIN    Text
+aTYPE      S
+aLTH       254
+aHIDDEN    Y
+aXVAATT_TOK 166
+
+eATTRIB    8
+aNAME      WebreCAPTCHAPublicKey
+aERATT_TOK 130000499
+aPERSIST   Y
+aAPDM_TOK  90000032
+aDOMAIN    Text
+aTYPE      S
+aLTH       254
+aHIDDEN    Y
+aXVAATT_TOK 167
+
+eATTRIB    8
+aNAME      WebreCAPTCHAPrivateKey
+aERATT_TOK 130000500
+aPERSIST   Y
+aAPDM_TOK  90000032
+aDOMAIN    Text
+aTYPE      S
+aLTH       254
+aHIDDEN    Y
+aXVAATT_TOK 168
+
+eATTRIB    8
+aNAME      WebHTML5Attribute
+aERATT_TOK 130000501
+aPERSIST   Y
+aAPDM_TOK  90000032
+aDOMAIN    Text
+aTYPE      S
+aLTH       254
+aHIDDEN    Y
+aXVAATT_TOK 169
+
+eATTRIB    8
+aNAME      WebHTML5Attribute2
+aERATT_TOK 130000509
+aPERSIST   Y
+aAPDM_TOK  90000032
+aDOMAIN    Text
+aTYPE      S
+aLTH       254
+aHIDDEN    Y
+aXVAATT_TOK 170
+
+eATTRIB    8
+aNAME      WebPlaceholder
+aERATT_TOK 130000502
+aPERSIST   Y
+aAPDM_TOK  90000032
+aDOMAIN    Text
+aTYPE      S
+aLTH       254
+aHIDDEN    Y
+aXVAATT_TOK 171
+
+eATTRIB    8
+aNAME      MenuName
+aERATT_TOK 130000503
+aPERSIST   Y
+aAPDM_TOK  90000032
+aDOMAIN    Text
+aTYPE      S
+aLTH       254
+aHIDDEN    Y
+aXVAATT_TOK 172
+
+eATTRIB    8
+aNAME      DIL_Inherited
+aERATT_TOK 130000504
+aPERSIST   Y
+aAPDM_TOK  90000032
+aDOMAIN    Text
+aTYPE      S
+aLTH       254
+aHIDDEN    Y
+aXVAATT_TOK 173
+
+eATTRIB    8
+aNAME      NLS_Text
+aERATT_TOK 130000505
+aPERSIST   Y
+aAPDM_TOK  90000032
+aDOMAIN    Text
+aTYPE      S
+aLTH       254
+aHIDDEN    Y
+aXVAATT_TOK 174
+
+eATTRIB    8
+aNAME      NLS_DIL_Text
+aERATT_TOK 130000506
+aPERSIST   Y
+aAPDM_TOK  90000032
+aDOMAIN    Text
+aTYPE      S
+aLTH       254
+aHIDDEN    Y
+aXVAATT_TOK 175
 
 eATTRIB    8
 aNAME      BorderWidth
@@ -1829,7 +2159,7 @@ aDOMAIN    Integer
 aTYPE      L
 aLTH       4
 aHIDDEN    Y
-aXVAATT_TOK 146
+aXVAATT_TOK 176
 
 eATTRIB    8
 aNAME      BorderStyle
@@ -1840,7 +2170,7 @@ aDOMAIN    Integer
 aTYPE      L
 aLTH       4
 aHIDDEN    Y
-aXVAATT_TOK 147
+aXVAATT_TOK 177
 
 eATTRIB    8
 aNAME      BorderTop
@@ -1851,7 +2181,7 @@ aDOMAIN    Integer
 aTYPE      L
 aLTH       4
 aHIDDEN    Y
-aXVAATT_TOK 148
+aXVAATT_TOK 178
 
 eATTRIB    8
 aNAME      BorderBottom
@@ -1862,7 +2192,7 @@ aDOMAIN    Integer
 aTYPE      L
 aLTH       4
 aHIDDEN    Y
-aXVAATT_TOK 149
+aXVAATT_TOK 179
 
 eATTRIB    8
 aNAME      BorderLeft
@@ -1873,7 +2203,7 @@ aDOMAIN    Integer
 aTYPE      L
 aLTH       4
 aHIDDEN    Y
-aXVAATT_TOK 150
+aXVAATT_TOK 180
 
 eATTRIB    8
 aNAME      BorderRight
@@ -1884,7 +2214,7 @@ aDOMAIN    Integer
 aTYPE      L
 aLTH       4
 aHIDDEN    Y
-aXVAATT_TOK 151
+aXVAATT_TOK 181
 
 eATTRIB    8
 aNAME      TextAlignHorizontal
@@ -1895,7 +2225,7 @@ aDOMAIN    Text
 aTYPE      S
 aLTH       254
 aHIDDEN    Y
-aXVAATT_TOK 152
+aXVAATT_TOK 182
 
 eATTRIB    8
 aNAME      FontSize
@@ -1906,7 +2236,7 @@ aDOMAIN    Integer
 aTYPE      L
 aLTH       4
 aHIDDEN    Y
-aXVAATT_TOK 153
+aXVAATT_TOK 183
 
 eATTRIB    8
 aNAME      TextBold
@@ -1917,7 +2247,7 @@ aDOMAIN    Y/N
 aTYPE      S
 aLTH       1
 aHIDDEN    Y
-aXVAATT_TOK 154
+aXVAATT_TOK 184
 
 eATTRIB    8
 aNAME      TextItalic
@@ -1928,7 +2258,7 @@ aDOMAIN    Y/N
 aTYPE      S
 aLTH       1
 aHIDDEN    Y
-aXVAATT_TOK 155
+aXVAATT_TOK 185
 
 eATTRIB    8
 aNAME      TextUnderline
@@ -1939,7 +2269,7 @@ aDOMAIN    Y/N
 aTYPE      S
 aLTH       1
 aHIDDEN    Y
-aXVAATT_TOK 156
+aXVAATT_TOK 186
 
 eATTRIB    8
 aNAME      LangID
@@ -1950,7 +2280,7 @@ aDOMAIN    Text
 aTYPE      S
 aLTH       254
 aHIDDEN    Y
-aXVAATT_TOK 157
+aXVAATT_TOK 187
 
 eCHILDENTITY 5
 aNAME      AccessPathOptionL3
@@ -1978,7 +2308,7 @@ aLTH       4
 aKEY       Y
 aREQUIRED  Y
 aUPDATE    Y
-aXVAATT_TOK 158
+aXVAATT_TOK 188
 
 eATTRIB    6
 aNAME      Name
@@ -1990,7 +2320,7 @@ aTYPE      S
 aLTH       254
 aREQUIRED  Y
 aUPDATE    Y
-aXVAATT_TOK 159
+aXVAATT_TOK 189
 
 eATTRIB    6
 aNAME      NeedsAccessPermission
@@ -2001,7 +2331,7 @@ aDOMAIN    Y/N
 aTYPE      S
 aLTH       1
 aHIDDEN    Y
-aXVAATT_TOK 160
+aXVAATT_TOK 190
 
 eATTRIB    6
 aNAME      NoPermissionRemovesControlsFlag
@@ -2012,7 +2342,7 @@ aDOMAIN    Y/N
 aTYPE      S
 aLTH       1
 aHIDDEN    Y
-aXVAATT_TOK 161
+aXVAATT_TOK 191
 
 eCHILDENTITY 6
 aNAME      ObjectAreaL3
@@ -2041,7 +2371,7 @@ aLTH       4
 aKEY       Y
 aREQUIRED  Y
 aUPDATE    Y
-aXVAATT_TOK 162
+aXVAATT_TOK 192
 
 eATTRIB    7
 aNAME      Name
@@ -2053,7 +2383,7 @@ aTYPE      S
 aLTH       254
 aREQUIRED  Y
 aUPDATE    Y
-aXVAATT_TOK 163
+aXVAATT_TOK 193
 
 eCHILDENTITY 7
 aNAME      ObjectAreaActionL3
@@ -2081,7 +2411,7 @@ aLTH       4
 aKEY       Y
 aREQUIRED  Y
 aUPDATE    Y
-aXVAATT_TOK 164
+aXVAATT_TOK 194
 
 eCHILDENTITY 8
 aNAME      ActionL3
@@ -2105,7 +2435,7 @@ aDOMAIN    Text
 aTYPE      S
 aLTH       32
 aUPDATE    Y
-aXVAATT_TOK 165
+aXVAATT_TOK 195
 
 eATTRIB    9
 aNAME      ZKey
@@ -2118,7 +2448,7 @@ aLTH       4
 aKEY       Y
 aREQUIRED  Y
 aUPDATE    Y
-aXVAATT_TOK 166
+aXVAATT_TOK 196
 
 eATTRIB    9
 aNAME      SB_SubAction
@@ -2129,7 +2459,7 @@ aDOMAIN    WD_SB_SubAction
 aTYPE      L
 aLTH       4
 aHIDDEN    Y
-aXVAATT_TOK 167
+aXVAATT_TOK 197
 
 eATTRIB    9
 aNAME      SB_NextPrev
@@ -2140,7 +2470,7 @@ aDOMAIN    WD_SB_NextPrev
 aTYPE      L
 aLTH       4
 aHIDDEN    Y
-aXVAATT_TOK 168
+aXVAATT_TOK 198
 
 eATTRIB    9
 aNAME      SB_DeleteNull
@@ -2151,7 +2481,7 @@ aDOMAIN    WD_SB_DeleteNull
 aTYPE      L
 aLTH       4
 aHIDDEN    Y
-aXVAATT_TOK 169
+aXVAATT_TOK 199
 
 eATTRIB    9
 aNAME      SB_ActionDisabling
@@ -2162,7 +2492,7 @@ aDOMAIN    Integer
 aTYPE      L
 aLTH       4
 aHIDDEN    Y
-aXVAATT_TOK 170
+aXVAATT_TOK 200
 
 eATTRIB    9
 aNAME      NoMap
@@ -2173,7 +2503,7 @@ aDOMAIN    Text
 aTYPE      S
 aLTH       1
 aHIDDEN    Y
-aXVAATT_TOK 171
+aXVAATT_TOK 201
 
 eATTRIB    9
 aNAME      Type
@@ -2185,7 +2515,7 @@ aTYPE      L
 aLTH       4
 aREQUIRED  Y
 aHIDDEN    Y
-aXVAATT_TOK 172
+aXVAATT_TOK 202
 
 eATTRIB    9
 aNAME      ActionTypeAssociatedText
@@ -2196,7 +2526,7 @@ aDOMAIN    Text
 aTYPE      S
 aLTH       254
 aHIDDEN    Y
-aXVAATT_TOK 173
+aXVAATT_TOK 203
 
 eATTRIB    9
 aNAME      TypeData
@@ -2207,7 +2537,7 @@ aDOMAIN    Text
 aTYPE      S
 aLTH       32
 aHIDDEN    Y
-aXVAATT_TOK 174
+aXVAATT_TOK 204
 
 eATTRIB    9
 aNAME      DialogName
@@ -2218,7 +2548,7 @@ aDOMAIN    Text
 aTYPE      S
 aLTH       32
 aHIDDEN    Y
-aXVAATT_TOK 175
+aXVAATT_TOK 205
 
 eATTRIB    9
 aNAME      WindowName
@@ -2229,7 +2559,7 @@ aDOMAIN    Text
 aTYPE      S
 aLTH       32
 aHIDDEN    Y
-aXVAATT_TOK 176
+aXVAATT_TOK 206
 
 eATTRIB    9
 aNAME      DLL
@@ -2240,7 +2570,7 @@ aDOMAIN    Text
 aTYPE      S
 aLTH       8
 aHIDDEN    Y
-aXVAATT_TOK 177
+aXVAATT_TOK 207
 
 eATTRIB    9
 aNAME      OperCtrl
@@ -2251,7 +2581,7 @@ aDOMAIN    Integer
 aTYPE      L
 aLTH       4
 aHIDDEN    Y
-aXVAATT_TOK 178
+aXVAATT_TOK 208
 
 eATTRIB    9
 aNAME      PopupMenuName
@@ -2262,7 +2592,7 @@ aDOMAIN    Text
 aTYPE      S
 aLTH       32
 aHIDDEN    Y
-aXVAATT_TOK 179
+aXVAATT_TOK 209
 
 eATTRIB    9
 aNAME      WebJavaScript
@@ -2273,7 +2603,7 @@ aDOMAIN    Note
 aTYPE      S
 aLTH       10000
 aHIDDEN    Y
-aXVAATT_TOK 180
+aXVAATT_TOK 210
 
 eATTRIB    9
 aNAME      WebJavaScriptLocation
@@ -2284,7 +2614,7 @@ aDOMAIN    WD_WebScriptLocation
 aTYPE      S
 aLTH       16
 aHIDDEN    Y
-aXVAATT_TOK 181
+aXVAATT_TOK 211
 
 eATTRIB    9
 aNAME      WebHTML_TransferAddress
@@ -2295,7 +2625,7 @@ aDOMAIN    Text
 aTYPE      S
 aLTH       254
 aHIDDEN    Y
-aXVAATT_TOK 182
+aXVAATT_TOK 212
 
 eATTRIB    9
 aNAME      ParentIsGridOrGrp
@@ -2306,7 +2636,7 @@ aDOMAIN    Y/N
 aTYPE      S
 aLTH       1
 aHIDDEN    Y
-aXVAATT_TOK 183
+aXVAATT_TOK 213
 
 eCHILDENTITY 7
 aNAME      ObjectAreaControlL3
@@ -2334,7 +2664,7 @@ aLTH       4
 aKEY       Y
 aREQUIRED  Y
 aUPDATE    Y
-aXVAATT_TOK 184
+aXVAATT_TOK 214
 
 eCHILDENTITY 8
 aNAME      ControlL3
@@ -2347,7 +2677,7 @@ aPDELETE   E
 aINCLUDE   Y
 aEXCLUDE   Y
 aINCLSRC   Y
-aMAX_LTH   2818
+aMAX_LTH   6390
 aHANG_FK   N
 
 eATTRIB    9
@@ -2359,7 +2689,7 @@ aDOMAIN    Text
 aTYPE      S
 aLTH       32
 aUPDATE    Y
-aXVAATT_TOK 185
+aXVAATT_TOK 215
 
 eATTRIB    9
 aNAME      ZKey
@@ -2372,7 +2702,7 @@ aLTH       4
 aKEY       Y
 aREQUIRED  Y
 aUPDATE    Y
-aXVAATT_TOK 186
+aXVAATT_TOK 216
 
 eATTRIB    9
 aNAME      Text
@@ -2383,7 +2713,7 @@ aDOMAIN    Text
 aTYPE      S
 aLTH       254
 aHIDDEN    Y
-aXVAATT_TOK 187
+aXVAATT_TOK 217
 
 eATTRIB    9
 aNAME      Type
@@ -2394,7 +2724,7 @@ aDOMAIN    Integer
 aTYPE      L
 aLTH       4
 aHIDDEN    Y
-aXVAATT_TOK 188
+aXVAATT_TOK 218
 
 eATTRIB    9
 aNAME      Subtype
@@ -2405,7 +2735,7 @@ aDOMAIN    Integer
 aTYPE      L
 aLTH       4
 aHIDDEN    Y
-aXVAATT_TOK 189
+aXVAATT_TOK 219
 
 eATTRIB    9
 aNAME      DD_TargetKey
@@ -2416,7 +2746,7 @@ aDOMAIN    Text
 aTYPE      S
 aLTH       32
 aHIDDEN    Y
-aXVAATT_TOK 190
+aXVAATT_TOK 220
 
 eATTRIB    9
 aNAME      DD_SourceKey
@@ -2427,7 +2757,7 @@ aDOMAIN    Text
 aTYPE      S
 aLTH       32
 aHIDDEN    Y
-aXVAATT_TOK 191
+aXVAATT_TOK 221
 
 eATTRIB    9
 aNAME      OptionFlags
@@ -2438,7 +2768,7 @@ aDOMAIN    Integer
 aTYPE      L
 aLTH       4
 aHIDDEN    Y
-aXVAATT_TOK 192
+aXVAATT_TOK 222
 
 eATTRIB    9
 aNAME      DD_Type
@@ -2449,7 +2779,7 @@ aDOMAIN    DragDropType
 aTYPE      S
 aLTH       1
 aHIDDEN    Y
-aXVAATT_TOK 193
+aXVAATT_TOK 223
 
 eATTRIB    9
 aNAME      IdNbr
@@ -2460,7 +2790,7 @@ aDOMAIN    Integer
 aTYPE      L
 aLTH       4
 aHIDDEN    Y
-aXVAATT_TOK 194
+aXVAATT_TOK 224
 
 eATTRIB    9
 aNAME      PSDLG_X
@@ -2471,7 +2801,7 @@ aDOMAIN    Integer
 aTYPE      L
 aLTH       4
 aHIDDEN    Y
-aXVAATT_TOK 195
+aXVAATT_TOK 225
 
 eATTRIB    9
 aNAME      PSDLG_Y
@@ -2482,7 +2812,7 @@ aDOMAIN    Integer
 aTYPE      L
 aLTH       4
 aHIDDEN    Y
-aXVAATT_TOK 196
+aXVAATT_TOK 226
 
 eATTRIB    9
 aNAME      SZDLG_X
@@ -2493,7 +2823,7 @@ aDOMAIN    Integer
 aTYPE      L
 aLTH       4
 aHIDDEN    Y
-aXVAATT_TOK 197
+aXVAATT_TOK 227
 
 eATTRIB    9
 aNAME      SZDLG_Y
@@ -2504,7 +2834,7 @@ aDOMAIN    Integer
 aTYPE      L
 aLTH       4
 aHIDDEN    Y
-aXVAATT_TOK 198
+aXVAATT_TOK 228
 
 eATTRIB    9
 aNAME      CtrlBOI
@@ -2515,7 +2845,7 @@ aDOMAIN    Blob
 aTYPE      B
 aLTH       7
 aHIDDEN    Y
-aXVAATT_TOK 199
+aXVAATT_TOK 229
 
 eATTRIB    9
 aNAME      Underline
@@ -2526,7 +2856,7 @@ aDOMAIN    Integer
 aTYPE      L
 aLTH       4
 aHIDDEN    Y
-aXVAATT_TOK 200
+aXVAATT_TOK 230
 
 eATTRIB    9
 aNAME      SyncKey
@@ -2537,7 +2867,7 @@ aDOMAIN    Integer
 aTYPE      L
 aLTH       4
 aHIDDEN    Y
-aXVAATT_TOK 201
+aXVAATT_TOK 231
 
 eATTRIB    9
 aNAME      DIL_Text
@@ -2548,7 +2878,7 @@ aDOMAIN    Text
 aTYPE      S
 aLTH       254
 aHIDDEN    Y
-aXVAATT_TOK 202
+aXVAATT_TOK 232
 
 eATTRIB    9
 aNAME      Placeholder
@@ -2559,7 +2889,7 @@ aDOMAIN    Text
 aTYPE      S
 aLTH       254
 aHIDDEN    Y
-aXVAATT_TOK 203
+aXVAATT_TOK 233
 
 eATTRIB    9
 aNAME      ReportGroupType
@@ -2570,7 +2900,7 @@ aDOMAIN    ReportGroupType
 aTYPE      S
 aLTH       2
 aHIDDEN    Y
-aXVAATT_TOK 204
+aXVAATT_TOK 234
 
 eATTRIB    9
 aNAME      ForceHeaderPerEntity
@@ -2581,7 +2911,7 @@ aDOMAIN    Y/N
 aTYPE      S
 aLTH       1
 aHIDDEN    Y
-aXVAATT_TOK 205
+aXVAATT_TOK 235
 
 eATTRIB    9
 aNAME      ExtendedStyle
@@ -2592,7 +2922,7 @@ aDOMAIN    Integer
 aTYPE      L
 aLTH       4
 aHIDDEN    Y
-aXVAATT_TOK 206
+aXVAATT_TOK 236
 
 eATTRIB    9
 aNAME      GUID
@@ -2604,7 +2934,7 @@ aTYPE      S
 aLTH       64
 aCASESENS  Y
 aHIDDEN    Y
-aXVAATT_TOK 207
+aXVAATT_TOK 237
 
 eATTRIB    9
 aNAME      Properties
@@ -2615,7 +2945,7 @@ aDOMAIN    Blob
 aTYPE      B
 aLTH       7
 aHIDDEN    Y
-aXVAATT_TOK 208
+aXVAATT_TOK 238
 
 eATTRIB    9
 aNAME      LKey
@@ -2626,7 +2956,7 @@ aDOMAIN    Blob
 aTYPE      B
 aLTH       7
 aHIDDEN    Y
-aXVAATT_TOK 209
+aXVAATT_TOK 239
 
 eATTRIB    9
 aNAME      VisibleBorder
@@ -2637,7 +2967,7 @@ aDOMAIN    Y/N
 aTYPE      S
 aLTH       1
 aHIDDEN    Y
-aXVAATT_TOK 210
+aXVAATT_TOK 240
 
 eATTRIB    9
 aNAME      CenterJustify
@@ -2648,7 +2978,7 @@ aDOMAIN    Y/N
 aTYPE      S
 aLTH       1
 aHIDDEN    Y
-aXVAATT_TOK 211
+aXVAATT_TOK 241
 
 eATTRIB    9
 aNAME      RightJustify
@@ -2659,7 +2989,18 @@ aDOMAIN    Y/N
 aTYPE      S
 aLTH       1
 aHIDDEN    Y
-aXVAATT_TOK 212
+aXVAATT_TOK 242
+
+eATTRIB    9
+aNAME      Disabled
+aERATT_TOK 130000494
+aPERSIST   Y
+aAPDM_TOK  90000014
+aDOMAIN    Y/N
+aTYPE      S
+aLTH       1
+aHIDDEN    Y
+aXVAATT_TOK 243
 
 eATTRIB    9
 aNAME      CSS_Class
@@ -2670,7 +3011,18 @@ aDOMAIN    Text
 aTYPE      S
 aLTH       254
 aHIDDEN    Y
-aXVAATT_TOK 213
+aXVAATT_TOK 244
+
+eATTRIB    9
+aNAME      CSS_Class2
+aERATT_TOK 130000508
+aPERSIST   Y
+aAPDM_TOK  90000032
+aDOMAIN    Text
+aTYPE      S
+aLTH       254
+aHIDDEN    Y
+aXVAATT_TOK 245
 
 eATTRIB    9
 aNAME      CSS_Id
@@ -2681,7 +3033,7 @@ aDOMAIN    QSName
 aTYPE      S
 aLTH       32
 aHIDDEN    Y
-aXVAATT_TOK 214
+aXVAATT_TOK 246
 
 eATTRIB    9
 aNAME      CSS_Font
@@ -2692,7 +3044,7 @@ aDOMAIN    Y/N
 aTYPE      S
 aLTH       1
 aHIDDEN    Y
-aXVAATT_TOK 215
+aXVAATT_TOK 247
 
 eATTRIB    9
 aNAME      CSS_Position
@@ -2703,7 +3055,7 @@ aDOMAIN    Y/N
 aTYPE      S
 aLTH       1
 aHIDDEN    Y
-aXVAATT_TOK 216
+aXVAATT_TOK 248
 
 eATTRIB    9
 aNAME      CSS_Size
@@ -2714,7 +3066,7 @@ aDOMAIN    Y/N
 aTYPE      S
 aLTH       1
 aHIDDEN    Y
-aXVAATT_TOK 217
+aXVAATT_TOK 249
 
 eATTRIB    9
 aNAME      JavaScript
@@ -2725,7 +3077,7 @@ aDOMAIN    Text
 aTYPE      S
 aLTH       254
 aHIDDEN    Y
-aXVAATT_TOK 218
+aXVAATT_TOK 250
 
 eATTRIB    9
 aNAME      RadioOrCheckboxValue
@@ -2736,7 +3088,7 @@ aDOMAIN    Text
 aTYPE      S
 aLTH       50
 aHIDDEN    Y
-aXVAATT_TOK 219
+aXVAATT_TOK 251
 
 eATTRIB    9
 aNAME      WebFileName
@@ -2747,7 +3099,29 @@ aDOMAIN    QSFullPathName
 aTYPE      S
 aLTH       260
 aHIDDEN    Y
-aXVAATT_TOK 220
+aXVAATT_TOK 252
+
+eATTRIB    9
+aNAME      WebCtrlLabelLink
+aERATT_TOK 130000495
+aPERSIST   Y
+aAPDM_TOK  90000032
+aDOMAIN    Text
+aTYPE      S
+aLTH       254
+aHIDDEN    Y
+aXVAATT_TOK 253
+
+eATTRIB    9
+aNAME      WebSelectSetName
+aERATT_TOK 130000496
+aPERSIST   Y
+aAPDM_TOK  90000032
+aDOMAIN    Text
+aTYPE      S
+aLTH       254
+aHIDDEN    Y
+aXVAATT_TOK 254
 
 eATTRIB    9
 aNAME      WebCtrlType
@@ -2758,7 +3132,7 @@ aDOMAIN    WD_WebCtrlType
 aTYPE      S
 aLTH       32
 aHIDDEN    Y
-aXVAATT_TOK 221
+aXVAATT_TOK 255
 
 eATTRIB    9
 aNAME      WebColumnSpan
@@ -2769,7 +3143,7 @@ aDOMAIN    Text
 aTYPE      S
 aLTH       254
 aHIDDEN    Y
-aXVAATT_TOK 222
+aXVAATT_TOK 256
 
 eATTRIB    9
 aNAME      WebWrap
@@ -2780,7 +3154,128 @@ aDOMAIN    Y/N
 aTYPE      S
 aLTH       1
 aHIDDEN    Y
-aXVAATT_TOK 223
+aXVAATT_TOK 257
+
+eATTRIB    9
+aNAME      WebNoGridDataMessage
+aERATT_TOK 130000497
+aPERSIST   Y
+aAPDM_TOK  90000032
+aDOMAIN    Text
+aTYPE      S
+aLTH       254
+aHIDDEN    Y
+aXVAATT_TOK 258
+
+eATTRIB    9
+aNAME      WebNoGridDataMsgClass
+aERATT_TOK 130000498
+aPERSIST   Y
+aAPDM_TOK  90000032
+aDOMAIN    Text
+aTYPE      S
+aLTH       254
+aHIDDEN    Y
+aXVAATT_TOK 259
+
+eATTRIB    9
+aNAME      WebreCAPTCHAPublicKey
+aERATT_TOK 130000499
+aPERSIST   Y
+aAPDM_TOK  90000032
+aDOMAIN    Text
+aTYPE      S
+aLTH       254
+aHIDDEN    Y
+aXVAATT_TOK 260
+
+eATTRIB    9
+aNAME      WebreCAPTCHAPrivateKey
+aERATT_TOK 130000500
+aPERSIST   Y
+aAPDM_TOK  90000032
+aDOMAIN    Text
+aTYPE      S
+aLTH       254
+aHIDDEN    Y
+aXVAATT_TOK 261
+
+eATTRIB    9
+aNAME      WebHTML5Attribute
+aERATT_TOK 130000501
+aPERSIST   Y
+aAPDM_TOK  90000032
+aDOMAIN    Text
+aTYPE      S
+aLTH       254
+aHIDDEN    Y
+aXVAATT_TOK 262
+
+eATTRIB    9
+aNAME      WebHTML5Attribute2
+aERATT_TOK 130000509
+aPERSIST   Y
+aAPDM_TOK  90000032
+aDOMAIN    Text
+aTYPE      S
+aLTH       254
+aHIDDEN    Y
+aXVAATT_TOK 263
+
+eATTRIB    9
+aNAME      WebPlaceholder
+aERATT_TOK 130000502
+aPERSIST   Y
+aAPDM_TOK  90000032
+aDOMAIN    Text
+aTYPE      S
+aLTH       254
+aHIDDEN    Y
+aXVAATT_TOK 264
+
+eATTRIB    9
+aNAME      MenuName
+aERATT_TOK 130000503
+aPERSIST   Y
+aAPDM_TOK  90000032
+aDOMAIN    Text
+aTYPE      S
+aLTH       254
+aHIDDEN    Y
+aXVAATT_TOK 265
+
+eATTRIB    9
+aNAME      DIL_Inherited
+aERATT_TOK 130000504
+aPERSIST   Y
+aAPDM_TOK  90000032
+aDOMAIN    Text
+aTYPE      S
+aLTH       254
+aHIDDEN    Y
+aXVAATT_TOK 266
+
+eATTRIB    9
+aNAME      NLS_Text
+aERATT_TOK 130000505
+aPERSIST   Y
+aAPDM_TOK  90000032
+aDOMAIN    Text
+aTYPE      S
+aLTH       254
+aHIDDEN    Y
+aXVAATT_TOK 267
+
+eATTRIB    9
+aNAME      NLS_DIL_Text
+aERATT_TOK 130000506
+aPERSIST   Y
+aAPDM_TOK  90000032
+aDOMAIN    Text
+aTYPE      S
+aLTH       254
+aHIDDEN    Y
+aXVAATT_TOK 268
 
 eATTRIB    9
 aNAME      BorderWidth
@@ -2791,7 +3286,7 @@ aDOMAIN    Integer
 aTYPE      L
 aLTH       4
 aHIDDEN    Y
-aXVAATT_TOK 224
+aXVAATT_TOK 269
 
 eATTRIB    9
 aNAME      BorderStyle
@@ -2802,7 +3297,7 @@ aDOMAIN    Integer
 aTYPE      L
 aLTH       4
 aHIDDEN    Y
-aXVAATT_TOK 225
+aXVAATT_TOK 270
 
 eATTRIB    9
 aNAME      BorderTop
@@ -2813,7 +3308,7 @@ aDOMAIN    Integer
 aTYPE      L
 aLTH       4
 aHIDDEN    Y
-aXVAATT_TOK 226
+aXVAATT_TOK 271
 
 eATTRIB    9
 aNAME      BorderBottom
@@ -2824,7 +3319,7 @@ aDOMAIN    Integer
 aTYPE      L
 aLTH       4
 aHIDDEN    Y
-aXVAATT_TOK 227
+aXVAATT_TOK 272
 
 eATTRIB    9
 aNAME      BorderLeft
@@ -2835,7 +3330,7 @@ aDOMAIN    Integer
 aTYPE      L
 aLTH       4
 aHIDDEN    Y
-aXVAATT_TOK 228
+aXVAATT_TOK 273
 
 eATTRIB    9
 aNAME      BorderRight
@@ -2846,7 +3341,7 @@ aDOMAIN    Integer
 aTYPE      L
 aLTH       4
 aHIDDEN    Y
-aXVAATT_TOK 229
+aXVAATT_TOK 274
 
 eATTRIB    9
 aNAME      TextAlignHorizontal
@@ -2857,7 +3352,7 @@ aDOMAIN    Text
 aTYPE      S
 aLTH       254
 aHIDDEN    Y
-aXVAATT_TOK 230
+aXVAATT_TOK 275
 
 eATTRIB    9
 aNAME      FontSize
@@ -2868,7 +3363,7 @@ aDOMAIN    Integer
 aTYPE      L
 aLTH       4
 aHIDDEN    Y
-aXVAATT_TOK 231
+aXVAATT_TOK 276
 
 eATTRIB    9
 aNAME      TextBold
@@ -2879,7 +3374,7 @@ aDOMAIN    Y/N
 aTYPE      S
 aLTH       1
 aHIDDEN    Y
-aXVAATT_TOK 232
+aXVAATT_TOK 277
 
 eATTRIB    9
 aNAME      TextItalic
@@ -2890,7 +3385,7 @@ aDOMAIN    Y/N
 aTYPE      S
 aLTH       1
 aHIDDEN    Y
-aXVAATT_TOK 233
+aXVAATT_TOK 278
 
 eATTRIB    9
 aNAME      TextUnderline
@@ -2901,7 +3396,7 @@ aDOMAIN    Y/N
 aTYPE      S
 aLTH       1
 aHIDDEN    Y
-aXVAATT_TOK 234
+aXVAATT_TOK 279
 
 eATTRIB    9
 aNAME      LangID
@@ -2912,5 +3407,5 @@ aDOMAIN    Text
 aTYPE      S
 aLTH       254
 aHIDDEN    Y
-aXVAATT_TOK 235
+aXVAATT_TOK 280
 

@@ -2802,6 +2802,8 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
                   ELSE
                      bResetToPlaceHolder = 0
                   END
+            
+                  szClass = ""
 
                   //KJS 2/12/2008
                   SET CURSOR  FIRST vDialog.WebControlProperty WHERE vDialog.WebControlProperty.Name = "Hidden"
@@ -3466,7 +3468,7 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
                            WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
                         ELSE   
                         IF szCtrlCtrlType = "GridCheckCtl" OR szCtrlCtrlType = "CheckBox" OR szCtrlCtrlType = "RadioGrp" 
-                           // KJS 03/19/21 - In a grid, the checbox and radio buttons should be getting internal value, not external.                           szWriteBuffer = "            " + szControlTag + " = " + szGridView +
+                           // KJS 03/19/21 - In a grid, the checbox and radio buttons should be getting internal value, not external.
                            szWriteBuffer = "            " + szControlTag + " = " + szGridView +
                                      ".cursor( ^" + vDialog.CtrlMapRelatedEntity.Name +
                                      "^ ).getAttribute( ^" + vDialog.CtrlMapER_Attribute.Name + "^ ).getString( );"
@@ -3765,6 +3767,17 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
                      //KJS 10/19/07 - Added title
                      IF szTitle != "" AND szCtrlCtrlType != "PushBtn"  // Don't add title here for Push Button.
                         szItemTableHeader = szItemTableHeader + szTitleHTML
+                     END
+
+                     //If we put a title on the control, when the mouse is hovered over the control, this text will display.
+                     szHTML5Attr = ""
+                     IF vDialog.Control.WebHTML5Attribute != ""
+                        szHTML5Attr = " " + vDialog.Control.WebHTML5Attribute
+                     END
+
+                     //KJS 01/14/25 - Added HTML5
+                     IF szHTML5Attr != "" AND szCtrlCtrlType != "PushBtn"  // Don't add title here for Push Button.
+                        szItemTableHeader = szItemTableHeader + szHTML5Attr
                      END
 
                      IF szCtrlCtrlType = "PushBtn"

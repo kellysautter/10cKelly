@@ -107,7 +107,9 @@ FlagUsedViewsGetFocusJ( VIEW vDialog     BASED ON LOD TZWDLGSO,
          END
       END
       IF szControlType = "EditBox" OR
+         szControlType = "GridEditCtl" OR
          szControlType = "ComboBox" OR
+         szControlType = "GridComboCtl" OR
          szControlType = "Text" OR
          szControlType = "CheckBox" OR
          szControlType = "ListBox" OR
@@ -128,7 +130,7 @@ FlagUsedViewsGetFocusJ( VIEW vDialog     BASED ON LOD TZWDLGSO,
                vDialogRoot.ViewObjRef.wWindowUseFlag = "Y"
             END
 
-            IF szControlType = "ComboBox"
+            IF szControlType = "ComboBox" OR szControlType = "GridComboCtl"
                SET CURSOR NEXT vDialog.CtrlMap
                IF vDialog.CtrlMapView EXISTS
                   SET CURSOR FIRST vDialogRoot.ViewObjRef
@@ -177,7 +179,7 @@ FlagUsedViewsGetFocusJ( VIEW vDialog     BASED ON LOD TZWDLGSO,
          END
 
          // 4.(above) Create entry for ComboBox.
-         IF szControlType = "ComboBox"
+         IF szControlType = "ComboBox" OR szControlType = "GridComboCtl"
             lSubtype = vDialog.Control.Subtype
             nRC = AreBitsSetInFlag( lSubtype, 61440 ) // 0x0000F000
             IF nRC = 0   // IF vDialog.Control.Subtype < 12000  ==> Domain Combobox
@@ -1053,7 +1055,7 @@ GenerateJSPJava( VIEW vDialog BASED ON LOD TZWDLGSO,
    STRING ( 1 )     szHasFileUpload
    STRING ( 1 )     szDateTimeFileUpload
    STRING ( 10 )    szTimeout
-   STRING ( 10 )    szDOCTYPE
+   STRING ( 10 )    szTOMCAT10
    STRING ( 18 )    szDateTime
    STRING ( 20 )    szTimestamp
    INTEGER          lActionType
@@ -1126,7 +1128,7 @@ GenerateJSPJava( VIEW vDialog BASED ON LOD TZWDLGSO,
    SysReadZeidonIni( -1, szSystemIniApplName, "WebKeyRole", szKeyRole )
    SysReadZeidonIni( -1, szSystemIniApplName, "WebDynamicBanner", szDynamicBanner )
    SysReadZeidonIni( -1, szSystemIniApplName, "JSPTraceLevel", szTrace )
-   SysReadZeidonIni( -1, szSystemIniApplName, "DOCTYPE", szDOCTYPE )
+   SysReadZeidonIni( -1, szSystemIniApplName, "TOMCAT10", szTOMCAT10 )
    SysReadZeidonIni( -1, szSystemIniApplName, "UseZeidonTaskTimeout", szZeidonTaskTimeout )
    SysReadZeidonIni( -1, szSystemIniApplName, "NoMonitorTaskLogout", szNoMonitorTaskLogout )
    SysReadZeidonIni( -1, szSystemIniApplName, "UsesLanguageConversion", szLangConvFlag )
@@ -1300,22 +1302,7 @@ GenerateJSPJava( VIEW vDialog BASED ON LOD TZWDLGSO,
    END
 
    // JSP HEADER
-
-   // KJS 05/29/08 - We need to add a DOCTYPE to the jsp page.  Not exactly sure
-   // which one to add and how often this might need to change (wondering if this should
-   // be kept in the .ini file or something but for now I'll put it here.
-   // Here is a website with a little info http://www.alistapart.com/stories/doctype/
-   // Also this one http://htmlhelp.com/tools/validator/doctype.html
-   // KJS 10/03/12 - Jeff wants to use HTML5 instead of 4.01. I am putting this in the zeidon.ini at least for now because
-   // I'm not sure if we want to use 5 or not...
-   // I think we should always be HTML5 now...
-   //IF szDOCTYPE = "" OR szDOCTYPE = "4.01"
-   //   szWriteBuffer = "<!DOCTYPE HTML PUBLIC ^-//W3C//DTD HTML 4.01 Transitional//EN^ ^http://www.w3.org/TR/html4/loose.dtd^>"
-   //ELSE
-   //IF szDOCTYPE = "5"
-      szWriteBuffer = "<!DOCTYPE HTML>"
-   //END
-   //END
+   szWriteBuffer = "<!DOCTYPE HTML>"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
 
    SysGetDateTime( szTimestamp )
@@ -1398,17 +1385,21 @@ GenerateJSPJava( VIEW vDialog BASED ON LOD TZWDLGSO,
       szreCAPTCHAImport = ",net.tanesha.recaptcha.*"
    END
 
-// szWriteBuffer = "<%@ page import=^java.util.*,javax.servlet.*,javax.servlet.http.*,org.apache.commons.lang3.*," +
-//                 "com.quinsoft.zeidon.*,com.quinsoft.zeidon.standardoe.*," +
-//                 "com.quinsoft.zeidon.utils.*,com.quinsoft.zeidon.vml.*,com.quinsoft.zeidon.domains.*" + szAppImport +
-//                 szIOImport + szreCAPTCHAImport + "^ %>"
-// WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
    szWriteBuffer = "<%@ page import=^java.util.*^ %>"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
-   szWriteBuffer = "<%@ page import=^javax.servlet.*^ %>"
-   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
-   szWriteBuffer = "<%@ page import=^javax.servlet.http.*^ %>"
-   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   // KJS 01/31/25 With tomcat versions 10 and above, the name was changed to jakarta (from javax).
+   // Currently having a zeidon.ini setting for this.
+   IF szTOMCAT10 = "Y"
+      szWriteBuffer = "<%@ page import=^jakarta.servlet.*^ %>"
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+      szWriteBuffer = "<%@ page import=^jakarta.servlet.http.*^ %>"
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   ELSE
+      szWriteBuffer = "<%@ page import=^javax.servlet.*^ %>"
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+      szWriteBuffer = "<%@ page import=^javax.servlet.http.*^ %>"
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   END
    szWriteBuffer = "<%@ page import=^org.apache.commons.lang3.*^ %>"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    szWriteBuffer = "<%@ page import=^com.quinsoft.zeidon.*^ %>"

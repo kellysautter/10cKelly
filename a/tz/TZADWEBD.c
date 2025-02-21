@@ -1212,6 +1212,8 @@ ACCEPT_GroupListWInclude( zVIEW     ViewToWindow )
    zVIEW     UpdateLOD = 0; 
    //:VIEW AD_Base   BASED ON LOD  TZWDLGSO
    zVIEW     AD_Base = 0; 
+   //:STRING ( 50 ) szGroupType
+   zCHAR     szGroupType[ 51 ] = { 0 }; 
    //:INTEGER nRC
    zLONG     nRC = 0; 
    zSHORT    lTempInteger_0; 
@@ -1222,9 +1224,25 @@ ACCEPT_GroupListWInclude( zVIEW     ViewToWindow )
    RESULT = GetViewByName( &TZCONTROL, "TZCONTROL", ViewToWindow, zLEVEL_TASK );
    RESULT = GetViewByName( &TZWINDOWL, "TZWINDOWL", ViewToWindow, zLEVEL_TASK );
 
-   //:// For ListGroupwInclude Type, make sure Include MetaDef entr been selected.
-   //:IF TZADWWKO.AutoDesignWork.SelectedGroupType = "ListGroupwInclude"
-   if ( CompareAttributeToString( TZADWWKO, "AutoDesignWork", "SelectedGroupType", "ListGroupwInclude" ) == 0 )
+   //:// For ListGroupwInclude Type, make sure Include MetaDef entry has been selected.
+   //:IF TZADWWKO.AutoDesignWork.SelectedGroupType = ""
+   if ( CompareAttributeToString( TZADWWKO, "AutoDesignWork", "SelectedGroupType", "" ) == 0 )
+   { 
+      //:// Group Type is specified in EntitySubGroup.GroupType.
+      //:szGroupType = TZADWWKO.EntitySubGroup.GroupType 
+      GetVariableFromAttribute( szGroupType, 0, 'S', 51, TZADWWKO, "EntitySubGroup", "GroupType", "", 0 );
+      //:ELSE
+   } 
+   else
+   { 
+      //:// Group Type is specified in AutoDesignWork.SelectedGroupType.
+      //:szGroupType = TZADWWKO.AutoDesignWork.SelectedGroupType 
+      GetVariableFromAttribute( szGroupType, 0, 'S', 51, TZADWWKO, "AutoDesignWork", "SelectedGroupType", "", 0 );
+   } 
+
+   //:END
+   //:IF szGroupType = "ListGroupwInclude"
+   if ( ZeidonStringCompare( szGroupType, 1, 0, "ListGroupwInclude", 1, 0, 51 ) == 0 )
    { 
       //:IF TZADWWKO.ESG_ListIncludeW_MetaDef DOES NOT EXIST
       lTempInteger_0 = CheckExistenceOfEntity( TZADWWKO, "ESG_ListIncludeW_MetaDef" );
@@ -3207,8 +3225,8 @@ SELECT_ESGL_ListPotAttributes( zVIEW     ViewToWindow )
       if ( nRC == 1 )
       { 
          //:SET CURSOR FIRST TZADWWKO.ESG_ListLOD_Attribute  
-         //:           WHERE TZADWWKO.ESG_ListLOD_Attribute.ZKey = TZADWWKO.ESG_FlatListPotentialAttribute.ZKey
-         GetIntegerFromAttribute( &lTempInteger_0, TZADWWKO, "ESG_FlatListPotentialAttribute", "ZKey" );
+         //:           WHERE TZADWWKO.ESG_ListLOD_Attribute.ZKey = TZADWWKO.ESG_FlatLOD_Attribute.ZKey
+         GetIntegerFromAttribute( &lTempInteger_0, TZADWWKO, "ESG_FlatLOD_Attribute", "ZKey" );
          RESULT = SetCursorFirstEntityByInteger( TZADWWKO, "ESG_ListLOD_Attribute", "ZKey", lTempInteger_0, "" );
          //:IF RESULT < zCURSOR_SET
          if ( RESULT < zCURSOR_SET )
@@ -3587,6 +3605,8 @@ AUTODESIGN_MPG_Pages( zVIEW     ViewToWindow )
    zCHAR     szAD_RetE[ 51 ] = { 0 }; 
    //:STRING ( 50 )  szAD_UpdObj
    zCHAR     szAD_UpdObj[ 51 ] = { 0 }; 
+   //:STRING ( 50 )  szAD_ID
+   zCHAR     szAD_ID[ 51 ] = { 0 }; 
    //:STRING ( 50 )  szMainV
    zCHAR     szMainV[ 51 ] = { 0 }; 
    //:STRING ( 50 )  szMainE
@@ -4099,6 +4119,8 @@ AUTODESIGN_MPG_Pages( zVIEW     ViewToWindow )
       } 
 
       //:END
+      //:ReturnID_NameForEntity( TZADWWKO, szAD_ID, szAD_UpdE, UpdateLOD )  // Get Identifier Name for UpdateLOD LOD & Entity szAD_UpdE
+      oTZADWWKO_ReturnID_NameForEntity( TZADWWKO, szAD_ID, szAD_UpdE, UpdateLOD );
 
       //:// Copy the source VML to the end of the Find VML, converting the variable characters in the process.
       //:nFileIn   = SysOpenFile( TZWINDOW, szOriginalVML, COREFILE_READ ) 
@@ -4126,6 +4148,8 @@ AUTODESIGN_MPG_Pages( zVIEW     ViewToWindow )
          zSearchAndReplace( szVML_Statement, 256, "_AD_UpdE", szAD_UpdE );
          //:zSearchAndReplace( szVML_Statement, 256, "_AD_Suff",  szAD_Suffix )  // The Root Entity of the MGP Update LOD.
          zSearchAndReplace( szVML_Statement, 256, "_AD_Suff", szAD_Suffix );
+         //:zSearchAndReplace( szVML_Statement, 256, "_AD_ID",    szAD_ID )      // Update Identifier Name for object and entity above.
+         zSearchAndReplace( szVML_Statement, 256, "_AD_ID", szAD_ID );
 
          //:SysWriteLine( TZWINDOW, nFileOut, szVML_Statement )
          SysWriteLine( TZWINDOW, nFileOut, szVML_Statement );
