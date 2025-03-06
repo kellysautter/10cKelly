@@ -39,7 +39,7 @@ zgGetZeidonToolsDir( zVIEW  vSubtask,
 
 // DGC 10/17/95 -----------------------------------------------------------
 
-//start TZWDLGSO 2024.12.09 10:40:15
+//start TZWDLGSO 2025.03.04 15:03:42
 zOPER_EXPORT zSHORT OPERATION
 oTZWDLGSO_ConvertListBoxToGrid( zVIEW vViewToInstance0 );
 
@@ -122,6 +122,14 @@ oTZWDLGSO_ControlRelinkDelete( zVIEW vViewToInstance0,
                                zPLONG lZKeyoflastLODviewproce3,
                                zVIEW vLPLRforLODs4,
                                zVIEW vSubtask5 );
+
+zOPER_EXPORT zSHORT OPERATION
+oTZWDLGSO_GenJSPJ_CommonActions( zVIEW vvDialogRoot0,
+                                 zVIEW vvDialog1,
+                                 zLONG lFile2,
+                                 zPCHAR pchszWriteBuffer3,
+                                 zPCHAR pchFormName4,
+                                 zPCHAR pchSortFlag5 );
 
 zOPER_EXPORT zSHORT OPERATION
 oTZWDLGSO_DialogRelinkDelete( zVIEW vViewToInstance0,

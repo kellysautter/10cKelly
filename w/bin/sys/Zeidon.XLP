@@ -1,4 +1,4 @@
-z1000-Zeidon    ZEIDON   TZCMLPLO 02/21/25   07:16:43 1.0a2    
+z1000-Zeidon    ZEIDON   TZCMLPLO 03/06/25   10:24:10 1.0a2    
 eLPLR      1
 aName      Zeidon
 aZKey      4106137
@@ -5484,8 +5484,8 @@ aStatus    1
 aUpdateInd 2
 aName      TZWDLGSO
 aDesc      Source Dialog Definition
-aLastSyncDate 20250113151433884
-aLastUpdateDate 20250113151433884
+aLastSyncDate 20250304150342365
+aLastUpdateDate 20250304150342365
 
 eW_MetaDef 3
 aCPLR_ZKey 720125542

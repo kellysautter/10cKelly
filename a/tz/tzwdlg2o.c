@@ -819,6 +819,866 @@ oTZWDLGSO_ControlRelinkDelete( zVIEW     vDialog,
 } 
 
 
+//:TRANSFORMATION OPERATION
+//:GenJSPJ_CommonActions( VIEW vDialogRoot,
+//:                       VIEW vDialog,
+//:                       INTEGER lFileJAVA,
+//:                       STRING ( 10000 ) szWriteBuffer,
+//:                       STRING ( 32 ) szFormName,
+//:                       STRING ( 1 )  szSortFlag )
+
+//:   VIEW vDialogTemp  BASED ON LOD TZWDLGSO
+zOPER_EXPORT zSHORT OPERATION
+oTZWDLGSO_GenJSPJ_CommonActions( zVIEW     vDialogRoot,
+                                 zVIEW     vDialog,
+                                 zLONG     lFileJAVA,
+                                 zPCHAR    szWriteBuffer,
+                                 zPCHAR    szFormName,
+                                 zPCHAR    szSortFlag )
+{
+   zVIEW     vDialogTemp = 0; 
+   //:STRING ( 1 )     szWindowIsPopup
+   zCHAR     szWindowIsPopup[ 2 ] = { 0 }; 
+   //:STRING ( 1 )     szNoAutoLogout
+   zCHAR     szNoAutoLogout[ 2 ] = { 0 }; 
+   //:SHORT            nRC
+   zSHORT    nRC = 0; 
+   //:INTEGER          lControl
+   zLONG     lControl = 0; 
+   zLONG     lTempInteger_0; 
+   zSHORT    lTempInteger_1; 
+   zCHAR     szTempString_0[ 33 ]; 
+
+
+   //:szWriteBuffer = "var isWindowClosing = true;"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "var isWindowClosing = true;", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "var timerID = null;"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "var timerID = null;", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "onerror = handleErr;"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "onerror = handleErr;", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "window.history.forward( 1 );"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "window.history.forward( 1 );", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+
+   //:// Look for additional Tab controls.
+   //:// KJS 0412/18 - I am not exactly sure why we have this following code. It puts variables in the
+   //:// js file that I don't see we need at the moment. If a tab control is on a group box, we run
+   //:// into an error on the SetEntityCursor (because Window is no longer in view). I am taking this
+   //:// out for now.
+   //:/*
+   //:CreateViewFromView( vDialogTemp, vDialogRoot )
+   //:LOOP WHILE nRC >= zCURSOR_SET
+   //:   szWriteBuffer = "var " + vDialogTemp.Control.Tag + ";"
+   //:   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   //:   lControl = zQUAL_STRING + zPOS_NEXT + zRECURS
+   //:   // Look for a control with controldef of "Tab"
+   //:   // vDialog.ControlDef.Tag
+   //:   nRC = SetEntityCursor( vDialogTemp, "ControlDef", "Tag", lControl,
+   //:                          szEntityName, "", "", 0, "Window", "" )
+   //:END
+   //:DropView( vDialogTemp )
+   //:*/
+
+   //:// Place a blank line here for reading purposes.
+   //:szWriteBuffer = ""
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+
+   //:szWriteBuffer = "function handleErr( msg, url, l )"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "function handleErr( msg, url, l )", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "{"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "{", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //://szWriteBuffer = "// Uncomment the following (invalid) line and put it in some function below to help find the error."
+   //://WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   //://szWriteBuffer = "// document.replace(^http://www.enc.edu/^);"
+   //://WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 )
+
+   //:szWriteBuffer = "   var txt = ^There was an error on this page.\n\n^;"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "   var txt = ^There was an error on this page.\\n\\n^;", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "   txt += ^Error: ^ + msg + ^\n^;"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "   txt += ^Error: ^ + msg + ^\\n^;", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "   txt += ^URL: ^ + url + ^\n^;"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "   txt += ^URL: ^ + url + ^\\n^;", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "   txt += ^Line: ^ + l + ^\n\n^;"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "   txt += ^Line: ^ + l + ^\\n\\n^;", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "   txt += ^Click OK to continue.\n\n^;"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "   txt += ^Click OK to continue.\\n\\n^;", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "// alert( txt );"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "// alert( txt );", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "   return true;"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "   return true;", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "}"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "}", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 );
+
+   //:szWriteBuffer = "// This function returns Internet Explorer's major version number,"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "// This function returns Internet Explorer's major version number,", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "// or 0 for others. It works by finding the ^MSIE ^ string and"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "// or 0 for others. It works by finding the ^MSIE ^ string and", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "// extracting the version number following the space, up to the decimal"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "// extracting the version number following the space, up to the decimal", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "// point, ignoring the minor version number."
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "// point, ignoring the minor version number.", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "function msieversion( )"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "function msieversion( )", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "{"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "{", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "   var ua = window.navigator.userAgent;"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "   var ua = window.navigator.userAgent;", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "   var msie = ua.indexOf( ^MSIE ^ );"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "   var msie = ua.indexOf( ^MSIE ^ );", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 );
+
+   //:szWriteBuffer = "   if ( msie > 0 )      // if Internet Explorer, return version number"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "   if ( msie > 0 )      // if Internet Explorer, return version number", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "      return parseInt( ua.substring( msie + 5, ua.indexOf( ^.^, msie ) ) );"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "      return parseInt( ua.substring( msie + 5, ua.indexOf( ^.^, msie ) ) );", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "   else                 // if another browser, return 0"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "   else                 // if another browser, return 0", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "      return 0;"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "      return 0;", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "}"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "}", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 );
+
+   //://Function _OnAlmostTimeout
+   //:szWriteBuffer = "function _OnAlmostTimeout()"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "function _OnAlmostTimeout()", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "{"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "{", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "   if ( _IsDocDisabled( ) == false )"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "   if ( _IsDocDisabled( ) == false )", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "   {"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "   {", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "      var tStart   = new Date();"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "      var tStart   = new Date();", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = ""
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "      alert( ^Your session will timeout in one minute.  Please click 'OK' within that time to continue and save your work if necessary.^ )"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "      alert( ^Your session will timeout in one minute.  Please click 'OK' within that time to continue and save your work if necessary.^ )", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 );
+   //:szWriteBuffer = "      var tEnd   = new Date();"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "      var tEnd   = new Date();", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "      var tDiff = tEnd.getTime() - tStart.getTime();"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "      var tDiff = tEnd.getTime() - tStart.getTime();", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 );
+   //:szWriteBuffer = "      // If the time is less than one minute, resubmit the page.  Otherwise, go to the timeout window."
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "      // If the time is less than one minute, resubmit the page.  Otherwise, go to the timeout window.", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "      if (tDiff < 60000)"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "      if (tDiff < 60000)", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "      {"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "      {", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "         document." + szFormName + ".zAction.value = ^_OnResubmitPage^;"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "         document.", 1, 0, 10001 );
+   ZeidonStringConcat( szWriteBuffer, 1, 0, szFormName, 1, 0, 10001 );
+   ZeidonStringConcat( szWriteBuffer, 1, 0, ".zAction.value = ^_OnResubmitPage^;", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "         document." + szFormName + ".submit( );"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "         document.", 1, 0, 10001 );
+   ZeidonStringConcat( szWriteBuffer, 1, 0, szFormName, 1, 0, 10001 );
+   ZeidonStringConcat( szWriteBuffer, 1, 0, ".submit( );", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "      }"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "      }", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "      else"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "      else", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "      {"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "      {", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "         _OnTimeout( );"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "         _OnTimeout( );", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "      }"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "      }", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "   }"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "   }", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "}"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "}", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 );
+
+   //://function _OnTimeout
+   //:szWriteBuffer = "function _OnTimeout( )"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "function _OnTimeout( )", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "{"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "{", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "   if ( _IsDocDisabled( ) == false )"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "   if ( _IsDocDisabled( ) == false )", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "   {"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "   {", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "      _DisableFormElements( true );"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "      _DisableFormElements( true );", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 );
+   //:szWriteBuffer = "      document." + szFormName + ".zAction.value = ^_OnTimeout^;"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "      document.", 1, 0, 10001 );
+   ZeidonStringConcat( szWriteBuffer, 1, 0, szFormName, 1, 0, 10001 );
+   ZeidonStringConcat( szWriteBuffer, 1, 0, ".zAction.value = ^_OnTimeout^;", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "      document." + szFormName + ".submit( );"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "      document.", 1, 0, 10001 );
+   ZeidonStringConcat( szWriteBuffer, 1, 0, szFormName, 1, 0, 10001 );
+   ZeidonStringConcat( szWriteBuffer, 1, 0, ".submit( );", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "   }"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "   }", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "}"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "}", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 );
+
+   //://function _BeforePageUnload
+   //:szWriteBuffer = "function _BeforePageUnload( )"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "function _BeforePageUnload( )", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "{"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "{", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "   if ( _IsDocDisabled( ) == false )"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "   if ( _IsDocDisabled( ) == false )", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "   {"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "   {", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "      // If the user clicked on the window close box, then"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "      // If the user clicked on the window close box, then", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "      // isWindowClosing will be true.  Otherwise if the user"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "      // isWindowClosing will be true.  Otherwise if the user", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "      // clicked on something else in the page, isWindowClosing will be false."
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "      // clicked on something else in the page, isWindowClosing will be false.", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "      // If the user clicked the window close box, unregister zeidon."
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "      // If the user clicked the window close box, unregister zeidon.", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:// If the user hits the close box in the upper right of the window or leave this page to another web site,
+   //:// then we want to try a log them out of zeidon because otherwise, we feel we have memory still cached.
+   //:// We want to try and eliminate this and determine if the user has left this application and thus do
+   //:// necessary clean up.
+   //:szWriteBuffer = "      if (isWindowClosing)"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "      if (isWindowClosing)", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "      {"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "      {", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szNoAutoLogout = vDialogRoot.Dialog.WEB_NoAutoLogOut
+   GetVariableFromAttribute( szNoAutoLogout, 0, 'S', 2, vDialogRoot, "Dialog", "WEB_NoAutoLogOut", "", 0 );
+   //:// If this is a log on page (like wStartupLogin) then we don't want to have the 'Unregister Zeidon' happen
+   //:// if the user leaves the page or refreshes.  It causes problems.
+   //:// KJS 01/19/11 - If the window is a popup window, then we are not going to try doing the unload if the user
+   //:// hits the close box because most likely on popup windows, user's would close the window this way.
+   //:// KJS 02/09/11 - I have added a new checkbox to the dialog properties window so that we can turn off
+   //:// automatically logging a user out for the pages of a dialog (currently we don't want this for the budget
+   //:// pages in Zencas).  Otherwise, I keep changing this code back and forth to comment out the submit lines.
+   //:IF ( vDialog.Window.WEB_RegisterZeidonWindow != "Y" AND szWindowIsPopup = "" AND szNoAutoLogout != "Y" )
+   if ( CompareAttributeToString( vDialog, "Window", "WEB_RegisterZeidonWindow", "Y" ) != 0 && ZeidonStringCompare( szWindowIsPopup, 1, 0, "", 1, 0, 2 ) == 0 && ZeidonStringCompare( szNoAutoLogout, 1, 0, "Y", 1, 0, 2 ) != 0 )
+   { 
+      //:szWriteBuffer = "         document." + szFormName + ".zAction.value = ^_OnUnload^;"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "         document.", 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, szFormName, 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, ".zAction.value = ^_OnUnload^;", 1, 0, 10001 );
+      //://szWriteBuffer = "         //document." + szFormName + ".zAction.value = ^_OnUnload^;"
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "         document." + szFormName + ".submit( );"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "         document.", 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, szFormName, 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, ".submit( );", 1, 0, 10001 );
+      //://szWriteBuffer = "         //document." + szFormName + ".submit( );"
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //:ELSE
+   } 
+   else
+   { 
+      //:szWriteBuffer = "         // These lines are commented out because either we are registering zeidon on this"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "         // These lines are commented out because either we are registering zeidon on this", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "         // window or this is a popup window so we don't want to do an unload if the user"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "         // window or this is a popup window so we don't want to do an unload if the user", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "         // closes the window using the red close button."
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "         // closes the window using the red close button.", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "         //document." + szFormName + ".zAction.value = ^_OnUnload^;"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "         //document.", 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, szFormName, 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, ".zAction.value = ^_OnUnload^;", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "         //document." + szFormName + ".submit( );"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "         //document.", 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, szFormName, 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, ".submit( );", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   } 
+
+   //:END
+   //:szWriteBuffer = "      }"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "      }", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //://szWriteBuffer = "      // No action needs to be taken here. This is just a place holder for traces."
+   //://WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   //://szWriteBuffer = "      // alert( document.wFacultDAdviseeList.zAction.value );"
+   //://WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   //:szWriteBuffer = "   }"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "   }", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "}"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "}", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 );
+
+   //://function _IsDocDisabled
+   //:szWriteBuffer = "function _IsDocDisabled( )"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "function _IsDocDisabled( )", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "{"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "{", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "   var bRC = false;"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "   var bRC = false;", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 );
+
+   //:szWriteBuffer = "   var $el = $(^#zDisable^);"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "   var $el = $(^#zDisable^);", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "   if ( $el.length > 0 ) {"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "   if ( $el.length > 0 ) {", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "      bRC = $el[0].disabled;"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "      bRC = $el[0].disabled;", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "   }"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "   }", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "   return bRC ? true : false;"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "   return bRC ? true : false;", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "}"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "}", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 );
+
+   //://function _DisableFormElements
+   //:szWriteBuffer = "function _DisableFormElements( bDisabled )"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "function _DisableFormElements( bDisabled )", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "{"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "{", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "   var bRC = false;"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "   var bRC = false;", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 );
+
+   //:szWriteBuffer = "   if ( bDisabled && timerID != null )"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "   if ( bDisabled && timerID != null )", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "   {"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "   {", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "      clearTimeout( timerID );"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "      clearTimeout( timerID );", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "      timerID = null;"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "      timerID = null;", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "   }"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "   }", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 );
+
+   //:// Controls on the window may have been set as disabled through javascript but
+   //:// when we try to get the values for these controls in jsp (response.getParameter)
+   //:// they will always be null.  Set any disabled fields to enabled for this reason.
+   //:szWriteBuffer = "   // Controls on the window may have been set as disabled through javascript but"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "   // Controls on the window may have been set as disabled through javascript but", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "   // when we try to get the values for these controls in jsp (response.getParameter)"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "   // when we try to get the values for these controls in jsp (response.getParameter)", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "   // they will always be null.  Set any disabled fields to enabled for this reason."
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "   // they will always be null.  Set any disabled fields to enabled for this reason.", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "   for ( j = 0; j < document.forms.length; j++ )"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "   for ( j = 0; j < document.forms.length; j++ )", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "   {"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "   {", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "      theForm = document.forms[ j ];"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "      theForm = document.forms[ j ];", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "      for ( k = 0; k < theForm.length; k++ )"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "      for ( k = 0; k < theForm.length; k++ )", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "      {"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "      {", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "         if (theForm.elements[ k ].disabled == true)"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "         if (theForm.elements[ k ].disabled == true)", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "             theForm.elements[ k ].disabled = false;"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "             theForm.elements[ k ].disabled = false;", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "      }"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "      }", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "   }"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "   }", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 );
+
+   //:szWriteBuffer = "   var $el = $(^#zDisable^);"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "   var $el = $(^#zDisable^);", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "   if ( $el.length > 0 ) {"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "   if ( $el.length > 0 ) {", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "      $el[0].disabled = true;"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "      $el[0].disabled = true;", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "      bRC = true;"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "      bRC = true;", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "   }"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "   }", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 );
+
+   //:szWriteBuffer = "   $.blockUI({ message: '<h1><img src=^./images/busy.gif^ /></h1>', overlayCSS: { backgroundColor: '#eee' } });"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "   $.blockUI({ message: '<h1><img src=^./images/busy.gif^ /></h1>', overlayCSS: { backgroundColor: '#eee' } });", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "   return bRC;"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "   return bRC;", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "}"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "}", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 )
+   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 );
+
+   //:// Default button function.
+   //:IF vDialog.Window.DfltButton != ""
+   if ( CompareAttributeToString( vDialog, "Window", "DfltButton", "" ) != 0 )
+   { 
+      //:CreateViewFromView( vDialogTemp, vDialog )
+      CreateViewFromView( &vDialogTemp, vDialog );
+      //:lControl = zQUAL_STRING + zPOS_FIRST + zRECURS
+      lControl = zQUAL_STRING + zPOS_FIRST + zRECURS;
+      //:nRC = SetEntityCursor( vDialogTemp, "Control", "Tag", lControl,
+      //:                       vDialog.Window.DfltButton, "", "", 0, "Window", "" )
+      GetIntegerFromAttribute( (zLONG *) &lTempInteger_0, vDialog, "Window", "DfltButton" );
+      nRC = SetEntityCursor( vDialogTemp, "Control", "Tag", lControl, lTempInteger_0, "", "", 0, "Window", "" );
+      //:IF nRC >= zCURSOR_SET
+      if ( nRC >= zCURSOR_SET )
+      { 
+         //:IF vDialogTemp.EventAct EXISTS
+         lTempInteger_1 = CheckExistenceOfEntity( vDialogTemp, "EventAct" );
+         if ( lTempInteger_1 == 0 )
+         { 
+            //:szWriteBuffer = "function _OnEnter( e )"
+            ZeidonStringCopy( szWriteBuffer, 1, 0, "function _OnEnter( e )", 1, 0, 10001 );
+            //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+            WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+            //:szWriteBuffer = "{"
+            ZeidonStringCopy( szWriteBuffer, 1, 0, "{", 1, 0, 10001 );
+            //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+            WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+            //:szWriteBuffer = "   var keycode;"
+            ZeidonStringCopy( szWriteBuffer, 1, 0, "   var keycode;", 1, 0, 10001 );
+            //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+            WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+            //:szWriteBuffer = "   if ( window.event )"
+            ZeidonStringCopy( szWriteBuffer, 1, 0, "   if ( window.event )", 1, 0, 10001 );
+            //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+            WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+            //:szWriteBuffer = "      keycode = window.event.keyCode;"
+            ZeidonStringCopy( szWriteBuffer, 1, 0, "      keycode = window.event.keyCode;", 1, 0, 10001 );
+            //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+            WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+            //:szWriteBuffer = "   else"
+            ZeidonStringCopy( szWriteBuffer, 1, 0, "   else", 1, 0, 10001 );
+            //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+            WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+            //:szWriteBuffer = "   {"
+            ZeidonStringCopy( szWriteBuffer, 1, 0, "   {", 1, 0, 10001 );
+            //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+            WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+            //:szWriteBuffer = "      if ( e )"
+            ZeidonStringCopy( szWriteBuffer, 1, 0, "      if ( e )", 1, 0, 10001 );
+            //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+            WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+            //:szWriteBuffer = "         keycode = e.which;"
+            ZeidonStringCopy( szWriteBuffer, 1, 0, "         keycode = e.which;", 1, 0, 10001 );
+            //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+            WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+            //:szWriteBuffer = "      else"
+            ZeidonStringCopy( szWriteBuffer, 1, 0, "      else", 1, 0, 10001 );
+            //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+            WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+            //:szWriteBuffer = "         return true;"
+            ZeidonStringCopy( szWriteBuffer, 1, 0, "         return true;", 1, 0, 10001 );
+            //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+            WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+            //:szWriteBuffer = "   }"
+            ZeidonStringCopy( szWriteBuffer, 1, 0, "   }", 1, 0, 10001 );
+            //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 )
+            WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 );
+
+            //:szWriteBuffer = "   if ( keycode == 13 )"
+            ZeidonStringCopy( szWriteBuffer, 1, 0, "   if ( keycode == 13 )", 1, 0, 10001 );
+            //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+            WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+            //:szWriteBuffer = "   {"
+            ZeidonStringCopy( szWriteBuffer, 1, 0, "   {", 1, 0, 10001 );
+            //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+            WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+            //:szWriteBuffer = "      " + vDialogTemp.EventAct.Tag + "( );"
+            GetVariableFromAttribute( szTempString_0, 0, 'S', 33, vDialogTemp, "EventAct", "Tag", "", 0 );
+            ZeidonStringCopy( szWriteBuffer, 1, 0, "      ", 1, 0, 10001 );
+            ZeidonStringConcat( szWriteBuffer, 1, 0, szTempString_0, 1, 0, 10001 );
+            ZeidonStringConcat( szWriteBuffer, 1, 0, "( );", 1, 0, 10001 );
+            //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+            WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+            //:szWriteBuffer = "      return false;"
+            ZeidonStringCopy( szWriteBuffer, 1, 0, "      return false;", 1, 0, 10001 );
+            //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+            WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+            //:szWriteBuffer = "   }"
+            ZeidonStringCopy( szWriteBuffer, 1, 0, "   }", 1, 0, 10001 );
+            //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+            WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+            //:szWriteBuffer = "   else"
+            ZeidonStringCopy( szWriteBuffer, 1, 0, "   else", 1, 0, 10001 );
+            //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+            WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+            //:szWriteBuffer = "      return true;"
+            ZeidonStringCopy( szWriteBuffer, 1, 0, "      return true;", 1, 0, 10001 );
+            //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+            WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+            //:szWriteBuffer = "   }"
+            ZeidonStringCopy( szWriteBuffer, 1, 0, "   }", 1, 0, 10001 );
+            //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 )
+            WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 );
+         } 
+
+         //:END
+      } 
+
+      //:END
+      //:DropView( vDialogTemp )
+      DropView( vDialogTemp );
+   } 
+
+   //:END
+
+   //:IF szSortFlag = "Y"  
+   if ( ZeidonStringCompare( szSortFlag, 1, 0, "Y", 1, 0, 2 ) == 0 )
+   { 
+      //:// KJS 03/04/25 - New function
+      //:// function _TableSort
+      //:szWriteBuffer = ""
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "function _TableSort( idName )"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "function _TableSort( idName )", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "{"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "{", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = ""
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "   if ( _IsDocDisabled( ) == false )"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "   if ( _IsDocDisabled( ) == false )", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "   {"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "   {", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "      // If the user clicked on the window close box, then"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "      // If the user clicked on the window close box, then", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "      // isWindowClosing will be true.  Otherwise if the user"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "      // isWindowClosing will be true.  Otherwise if the user", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "      // clicked on something else in the page, isWindowClosing will be false."
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "      // clicked on something else in the page, isWindowClosing will be false.", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "      // If the user clicked the window close box, unregister zeidon."
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "      // If the user clicked the window close box, unregister zeidon.", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "      if (isWindowClosing)"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "      if (isWindowClosing)", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "      {"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "      {", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "         var sortOrder = document.PersonList2.zSortOrder.value;"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "         var sortOrder = document.PersonList2.zSortOrder.value;", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "         var sortMap  = document.PersonList2.zSortMap.value;"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "         var sortMap  = document.PersonList2.zSortMap.value;", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "         if ( sortMap == idName )"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "         if ( sortMap == idName )", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "         {"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "         {", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "              if ( sortName.indexOf('A') >= 0 )"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "              if ( sortName.indexOf('A') >= 0 )", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "              {"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "              {", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "                 sortOrder = 'D';"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "                 sortOrder = 'D';", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "                 document.PersonList2.zSortOrder.value = 'D';"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "                 document.PersonList2.zSortOrder.value = 'D';", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "              }"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "              }", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "              else"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "              else", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "              {"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "              {", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "                 sortOrder = 'A';"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "                 sortOrder = 'A';", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "                 document.PersonList2.zSortOrder.value = 'A';"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "                 document.PersonList2.zSortOrder.value = 'A';", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "              }"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "              }", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "         }"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "         }", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "         else"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "         else", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "            sortOrder = 'A';"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "            sortOrder = 'A';", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = ""
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "         document.PersonList2.zSortOrder.value = sortOrder;"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "         document.PersonList2.zSortOrder.value = sortOrder;", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "         document.PersonList2.zSortMap.value = idName;"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "         document.PersonList2.zSortMap.value = idName;", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "         document.PersonList2.zAction.value = '_TableSort';"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "         document.PersonList2.zAction.value = '_TableSort';", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "         document.PersonList2.submit( );"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "         document.PersonList2.submit( );", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "      }"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "      }", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "   }"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "   }", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "}"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "}", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   } 
+
+   //:END
+   return( 0 );
+// END
+} 
+
+
 //:DERIVED ATTRIBUTE OPERATION
 //:CtrlListDisplayValueC( VIEW vDialog BASED ON LOD TZWDLGSO,
 //:                       STRING ( 32 ) lpEntity,

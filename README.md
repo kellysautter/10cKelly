@@ -1,3 +1,6 @@
+Changes 03/06/25
+* Trying new code for grid header sort, that sorts the view not just the table entries. Per David Loscutoff.
+
 Changes 02/21/25
 * Fix for grid control CSS error, reported by Dave Loscutoff.
 

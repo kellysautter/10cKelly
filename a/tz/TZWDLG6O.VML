@@ -1054,6 +1054,7 @@ GenerateJSPJava( VIEW vDialog BASED ON LOD TZWDLGSO,
    STRING ( 1 )     szBootstrapDataTables
    STRING ( 1 )     szHasFileUpload
    STRING ( 1 )     szDateTimeFileUpload
+   STRING ( 1 )     szUseVMLGridSort
    STRING ( 10 )    szTimeout
    STRING ( 10 )    szTOMCAT10
    STRING ( 18 )    szDateTime
@@ -1137,6 +1138,8 @@ GenerateJSPJava( VIEW vDialog BASED ON LOD TZWDLGSO,
    SysReadZeidonIni( -1, szSystemIniApplName, "UseZeidonControlActionsView", szUseZeidonCtrlActView )
    SysReadZeidonIni( -1, szSystemIniApplName, "BootstrapOuterCard", szBootstrapOuterCard )
    SysReadZeidonIni( -1, szSystemIniApplName, "BootstrapDataTables", szBootstrapDataTables )
+   // KJS 03/03/25 - I think "UseVMLGridSort" is just temporary, to make sure everyone thinks they would want this...
+   SysReadZeidonIni( -1, szSystemIniApplName, "UseVMLGridSort", szUseVMLGridSort )
    vWork.Root.BootstrapOuterCard = szBootstrapOuterCard
    vWork.Root.BootstrapDataTables = szBootstrapDataTables
    vDialog.Dialog.wWebUsesLanguageConversion = szLangConvFlag
@@ -1741,7 +1744,13 @@ GenerateJSPJava( VIEW vDialog BASED ON LOD TZWDLGSO,
    szWriteBuffer = "String strNextJSP_Name = ^^;"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    szWriteBuffer = "String strInputFileName = ^^;"
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+
+   szWriteBuffer = "String strLastSort = (String) request.getParameter( ^zSortOrder^ );"
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   szWriteBuffer = "String strLastSortMap = (String) request.getParameter( ^zSortMap^ );"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
+
 
    // KJS 09/29/10
    // If this time through, this happens to be a refresh, then go to the logout screen.
@@ -2302,6 +2311,41 @@ GenerateJSPJava( VIEW vDialog BASED ON LOD TZWDLGSO,
       END
    END
 
+   // KJS 03/04/25
+   // _TableSort
+   IF lSort != 0 AND szUseVMLGridSort = "Y"
+      szWriteBuffer = "   while ( bDone == false && StringUtils.equals( strActionToProcess, ^_TableSort^ ) )"
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+      szWriteBuffer = "   {"
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+      szWriteBuffer = "      bDone = true;"
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+      szWriteBuffer = "      VmlOperation.SetZeidonSessionAttribute( session, task, ^" + szFormName + "^, strActionToProcess );"
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+      szWriteBuffer = "      // Input Mapping"
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+      szWriteBuffer = "      nRC = DoInputMapping( request, session, application, false );"
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+      szWriteBuffer = "      if ( nRC < 0 )"
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+      szWriteBuffer = "         break;"
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
+      //szWriteBuffer = "      VmlOperation.SortTableData(task, request.getParameter( ^zSortMap^ ), request.getParameter( ^zSortOrder^ ) );"
+      szWriteBuffer = "      VmlOperation.OrderEntityForView( task.getViewByName( request.getParameter( ^zSortView^ ) ), request.getParameter( ^zSortEntity^ ), request.getParameter( ^zSortAttr^ ) );"
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
+   
+      szWriteBuffer = "      // Stay on Window with Refresh"
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+      szWriteBuffer = "      strURL = response.encodeRedirectURL( ^" + szFormName + ".jsp^ );"
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+      szWriteBuffer = "      nRC = 1;  // do the redirection"
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+      szWriteBuffer = "      break;"
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+      szWriteBuffer = "   }"
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
+   END
+
    // OnUnload
    szWriteBuffer = "   while ( bDone == false && strActionToProcess.equals( ^_OnUnload^ ) )"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
@@ -2780,7 +2824,7 @@ GenerateJSPJava( VIEW vDialog BASED ON LOD TZWDLGSO,
    // common.js is used by both the Grid and Calendar controls. Since it's small, we'll always send it.
    szWriteBuffer = "<script language=^JavaScript^ type=^text/javascript^ src=^./js/common.js?v=" + szDateTime + "^></script>"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
-   IF lSort != 0 //AND szStyleIsBootstrap = "" // Taking bootstrap out because if we use the sort header on grid, we need this. 
+   IF lSort != 0 AND szUseVMLGridSort = "" //AND szStyleIsBootstrap = "" // Taking bootstrap out because if we use the sort header on grid, we need this. 
       // KJS 06/12/20 - Added bootstrap check. We don't need these if we are using bootstrap...
       // css.js and sts.js are used only by the Grid control when sorting is requested. Thus, we'll only send
       // it down to the browser when sorting is requested.
@@ -2859,24 +2903,6 @@ GenerateJSPJava( VIEW vDialog BASED ON LOD TZWDLGSO,
       END
       WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
 
-   // // Use widgEditor rather than TinyMCE.
-   // szWriteBuffer = "<style type=^text/css^ media=^all^>"
-   // WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
-   // szWriteBuffer = "   @import ^../widgEditor/css/info.css^;"
-   // WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
-   // szWriteBuffer = "   @import ^../widgEditor/css/main.css^;"
-   // WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
-   // szWriteBuffer = "   @import ^../widgEditor/css/widgEditor.css^;"
-   // WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
-   // szWriteBuffer = "</style>"
-   // WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
-   //
-   // szWriteBuffer = "var theWidgEditor" + szWysiwygEditor + " = null"
-   // WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
-   //
-   // szWriteBuffer = "<script type=^text/javascript^ src=^../widgEditor/scripts/widgEditor.js^></script>"
-   // WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
-
       szWriteBuffer = "<!-- /TinyMCE -->"
       WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
 
@@ -2921,10 +2947,6 @@ GenerateJSPJava( VIEW vDialog BASED ON LOD TZWDLGSO,
    // KJS 08/02/13 - Going to try putting the javascript code in a separate .js file because
    // Jeffrey is running over the 65kb jsp limit.
 
-   // commenting out if we are creating a separate file for javascript funtions...
-   //szWriteBuffer = "<script language=^JavaScript^ type=^text/javascript^>"
-   //WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
-
    szWriteBuffer = "<script language=^JavaScript^ type=^text/javascript^ src=^./genjs/" + szFormName + ".js?v=" + szDateTime + "^></script>"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
 
@@ -2935,14 +2957,7 @@ GenerateJSPJava( VIEW vDialog BASED ON LOD TZWDLGSO,
                    zMSGQ_OBJECT_CONSTRAINT_WARNING, 0 )
       RETURN -1
    END
-
-   // Doug's code in 10d - I don't think we need this because we are putting a stamp on the included files so that
-   // the browser always clears cache on new jsp files.
-   /*
-   szWriteBuffer = "// " + szFormName + "   Generate Timestamp: " + szTimestamp
-   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 )
-   */
-
+  
    szWriteBuffer = "var isWindowClosing = true;"
    WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
    szWriteBuffer = "var timerID = null;"
@@ -2951,13 +2966,12 @@ GenerateJSPJava( VIEW vDialog BASED ON LOD TZWDLGSO,
    WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
    szWriteBuffer = "window.history.forward( 1 );"
    WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
-
    // Look for additional Tab controls.
    // KJS 0412/18 - I am not exactly sure why we have this following code. It puts variables in the
    // js file that I don't see we need at the moment. If a tab control is on a group box, we run
    // into an error on the SetEntityCursor (because Window is no longer in view). I am taking this
    // out for now.
-   /*
+   //
    CreateViewFromView( vDialogTemp, vDialogRoot )
    LOOP WHILE nRC >= zCURSOR_SET
       szWriteBuffer = "var " + vDialogTemp.Control.Tag + ";"
@@ -2969,21 +2983,14 @@ GenerateJSPJava( VIEW vDialog BASED ON LOD TZWDLGSO,
                              szEntityName, "", "", 0, "Window", "" )
    END
    DropView( vDialogTemp )
-   */
-
+   //
    // Place a blank line here for reading purposes.
    szWriteBuffer = ""
    WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
-
    szWriteBuffer = "function handleErr( msg, url, l )"
    WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
    szWriteBuffer = "{"
    WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
-   //szWriteBuffer = "// Uncomment the following (invalid) line and put it in some function below to help find the error."
-   //WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
-   //szWriteBuffer = "// document.replace(^http://www.enc.edu/^);"
-   //WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 )
-
    szWriteBuffer = "   var txt = ^There was an error on this page.\n\n^;"
    WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
    szWriteBuffer = "   txt += ^Error: ^ + msg + ^\n^;"
@@ -3000,7 +3007,6 @@ GenerateJSPJava( VIEW vDialog BASED ON LOD TZWDLGSO,
    WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
    szWriteBuffer = "}"
    WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 )
-
    szWriteBuffer = "// This function returns Internet Explorer's major version number,"
    WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
    szWriteBuffer = "// or 0 for others. It works by finding the ^MSIE ^ string and"
@@ -3017,7 +3023,6 @@ GenerateJSPJava( VIEW vDialog BASED ON LOD TZWDLGSO,
    WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
    szWriteBuffer = "   var msie = ua.indexOf( ^MSIE ^ );"
    WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 )
-
    szWriteBuffer = "   if ( msie > 0 )      // if Internet Explorer, return version number"
    WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
    szWriteBuffer = "      return parseInt( ua.substring( msie + 5, ua.indexOf( ^.^, msie ) ) );"
@@ -3028,7 +3033,6 @@ GenerateJSPJava( VIEW vDialog BASED ON LOD TZWDLGSO,
    WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
    szWriteBuffer = "}"
    WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 )
-
    //Function _OnAlmostTimeout
    szWriteBuffer = "function _OnAlmostTimeout()"
    WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
@@ -3072,7 +3076,6 @@ GenerateJSPJava( VIEW vDialog BASED ON LOD TZWDLGSO,
    WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
    szWriteBuffer = "}"
    WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 )
-
    //function _OnTimeout
    szWriteBuffer = "function _OnTimeout( )"
    WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
@@ -3092,7 +3095,6 @@ GenerateJSPJava( VIEW vDialog BASED ON LOD TZWDLGSO,
    WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
    szWriteBuffer = "}"
    WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 )
-
    //function _BeforePageUnload
    szWriteBuffer = "function _BeforePageUnload( )"
    WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
@@ -3155,7 +3157,6 @@ GenerateJSPJava( VIEW vDialog BASED ON LOD TZWDLGSO,
    WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
    szWriteBuffer = "}"
    WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 )
-
    //function _IsDocDisabled
    szWriteBuffer = "function _IsDocDisabled( )"
    WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
@@ -3163,7 +3164,6 @@ GenerateJSPJava( VIEW vDialog BASED ON LOD TZWDLGSO,
    WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
    szWriteBuffer = "   var bRC = false;"
    WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 )
-
    szWriteBuffer = "   var $el = $(^#zDisable^);"
    WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
    szWriteBuffer = "   if ( $el.length > 0 ) {"
@@ -3176,7 +3176,6 @@ GenerateJSPJava( VIEW vDialog BASED ON LOD TZWDLGSO,
    WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
    szWriteBuffer = "}"
    WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 )
-
    //function _DisableFormElements
    szWriteBuffer = "function _DisableFormElements( bDisabled )"
    WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
@@ -3184,7 +3183,6 @@ GenerateJSPJava( VIEW vDialog BASED ON LOD TZWDLGSO,
    WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
    szWriteBuffer = "   var bRC = false;"
    WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 )
-
    szWriteBuffer = "   if ( bDisabled && timerID != null )"
    WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
    szWriteBuffer = "   {"
@@ -3195,7 +3193,6 @@ GenerateJSPJava( VIEW vDialog BASED ON LOD TZWDLGSO,
    WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
    szWriteBuffer = "   }"
    WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 )
-
    // Controls on the window may have been set as disabled through javascript but
    // when we try to get the values for these controls in jsp (response.getParameter)
    // they will always be null.  Set any disabled fields to enabled for this reason.
@@ -3223,7 +3220,6 @@ GenerateJSPJava( VIEW vDialog BASED ON LOD TZWDLGSO,
    WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
    szWriteBuffer = "   }"
    WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 )
-
    szWriteBuffer = "   var $el = $(^#zDisable^);"
    WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
    szWriteBuffer = "   if ( $el.length > 0 ) {"
@@ -3234,14 +3230,12 @@ GenerateJSPJava( VIEW vDialog BASED ON LOD TZWDLGSO,
    WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
    szWriteBuffer = "   }"
    WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 )
-
    szWriteBuffer = "   $.blockUI({ message: '<h1><img src=^./images/busy.gif^ /></h1>', overlayCSS: { backgroundColor: '#eee' } });"
    WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
    szWriteBuffer = "   return bRC;"
    WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
    szWriteBuffer = "}"
    WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 )
-
    // Default button function.
    IF vDialog.Window.DfltButton != ""
       CreateViewFromView( vDialogTemp, vDialog )
@@ -3274,7 +3268,6 @@ GenerateJSPJava( VIEW vDialog BASED ON LOD TZWDLGSO,
             WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
             szWriteBuffer = "   }"
             WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 )
-
             szWriteBuffer = "   if ( keycode == 13 )"
             WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
             szWriteBuffer = "   {"
@@ -3294,6 +3287,96 @@ GenerateJSPJava( VIEW vDialog BASED ON LOD TZWDLGSO,
          END
       END
       DropView( vDialogTemp )
+   END
+    
+   IF lSort != 0 AND szUseVMLGridSort = "Y"
+      // KJS 03/04/25 - New function
+      // function _TableSort
+      szWriteBuffer = ""
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      szWriteBuffer = "function _TableSort( ctrlId, idName )"
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      szWriteBuffer = "{"
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      szWriteBuffer = ""
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      szWriteBuffer = "   if ( _IsDocDisabled( ) == false )"
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      szWriteBuffer = "   {"
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      szWriteBuffer = "      // If the user clicked on the window close box, then"
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      szWriteBuffer = "      // isWindowClosing will be true.  Otherwise if the user"
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      szWriteBuffer = "      // clicked on something else in the page, isWindowClosing will be false."
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      szWriteBuffer = "      // If the user clicked the window close box, unregister zeidon."
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      szWriteBuffer = "      if (isWindowClosing)"
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      szWriteBuffer = "      {"
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      
+      szWriteBuffer = "         const sortArray = idName.split(^.^);"
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      szWriteBuffer = "         var sortOrder = document." + szFormName + ".zSortOrder.value;"
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      szWriteBuffer = "         var sortMap  = document." + szFormName + ".zSortMap.value;"
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      szWriteBuffer = "         if ( sortMap == idName )"
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      szWriteBuffer = "         {"
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      szWriteBuffer = "              if ( sortOrder.indexOf('A') >= 0 )"
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      szWriteBuffer = "              {"
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      szWriteBuffer = "                 sortOrder = 'D';"
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      szWriteBuffer = "                 document." + szFormName + ".zSortOrder.value = 'D';"
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      szWriteBuffer = "              }"
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      szWriteBuffer = "              else"
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      szWriteBuffer = "              {"
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      szWriteBuffer = "                 sortOrder = 'A';"
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      szWriteBuffer = "                 document." + szFormName + ".zSortOrder.value = 'A';"
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      szWriteBuffer = "              }"
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      szWriteBuffer = "         }"
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      szWriteBuffer = "         else"
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      szWriteBuffer = "            sortOrder = 'A';"
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      szWriteBuffer = ""
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      szWriteBuffer = "         document." + szFormName + ".zSortOrder.value = sortOrder;"
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      szWriteBuffer = "         document." + szFormName + ".zSortMap.value = idName;"
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      
+      szWriteBuffer = "         document." + szFormName + ".zSortView.value = sortArray[0];"
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      szWriteBuffer = "         document." + szFormName + ".zSortEntity.value = sortArray[1];"
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      szWriteBuffer = "         document." + szFormName + ".zSortAttr.value = sortArray[2] + ' ' + sortOrder;"
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      
+      szWriteBuffer = "         document." + szFormName + ".zAction.value = '_TableSort';"
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      szWriteBuffer = "         document." + szFormName + ".submit( );"
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      szWriteBuffer = "      }"
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      szWriteBuffer = "   }"
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      szWriteBuffer = "}"
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
    END
 
    //function _AfterPageLoaded
@@ -4351,7 +4434,7 @@ GenerateJSPJava( VIEW vDialog BASED ON LOD TZWDLGSO,
    //but does not call onLoad if we are using table sorting and the _AfterPageLoaded gets called from addEvent in sts.js.
    //I did see some documentation on the web that said the addEvent function doesn't work on IE5/Mac.  Might want to see if that's
    //true. http://simonwillison.net/2004/May/26/addLoadEvent/
-   IF lSort = 0
+   IF lSort = 0 OR szUseVMLGridSort = "Y"
       szWriteBuffer = "<body onLoad=^_AfterPageLoaded( )^ onSubmit=^_DisableFormElements( true )^ onBeforeUnload=^_BeforePageUnload( )^>"
    ELSE
       szWriteBuffer = "<!-- "
@@ -4812,6 +4895,19 @@ GenerateJSPJava( VIEW vDialog BASED ON LOD TZWDLGSO,
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    szWriteBuffer = "   <input name=^zDisable^ id=^zDisable^ type=^hidden^ value=^NOVALUE^>"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
+   
+   IF lSort != 0 AND szUseVMLGridSort = "Y"
+      szWriteBuffer = "   <input name=^zSortMap^ id=^zSortAttribute^ type=^hidden^  value=^<%=strLastSortMap%>^>"
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+      szWriteBuffer = "   <input name=^zSortOrder^ id=^zSortOrder^ type=^hidden^  value=^<%=strLastSort%>^>"
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+      szWriteBuffer = "   <input name=^zSortView^ id=^zSortView^ type=^hidden^  value=^NOVALUE^>"
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+      szWriteBuffer = "   <input name=^zSortEntity^ id=^zSortEntity^ type=^hidden^  value=^NOVALUE^>"
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+      szWriteBuffer = "   <input name=^zSortAttr^ id=^zSortAttr^ type=^hidden^  value=^NOVALUE^>"
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   END
 
    szWriteBuffer = "<%"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
@@ -5514,7 +5610,6 @@ GenerateJSPJava( VIEW vDialog BASED ON LOD TZWDLGSO,
    DropView( vDialogRoot )
 
    SysCloseFile( vDialog, lFileJSP, 0 )
-
 END
 
 /////////////////////////////////////////////////////////////////////////////
@@ -5754,9 +5849,7 @@ GenJSPJ_DownloadFile( VIEW vDialog,
    SysCloseFile( vDialog, lFileJSP, 0 )
 
    RETURN 0
-
 END
-
 
 /*************************************************************************************************
 **    
@@ -5790,10 +5883,7 @@ GenerateJSPJavaInc( VIEW vDialog BASED ON LOD TZWDLGSO,
       END
    END
    vDialog.Dialog.Converted = "Y"
-
 END
-
-
      
 TRANSFORMATION OPERATION
 FixCtrlCtrlAttributes( VIEW vDialog BASED ON LOD TZWDLGSO,
@@ -5839,4 +5929,3 @@ FixCtrlCtrlAttributes( VIEW vDialog BASED ON LOD TZWDLGSO,
       END
    END
 END
-

@@ -80,6 +80,7 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
    STRING ( 2 )   szSuffix
    STRING ( 10 )  szMaxStringLth
    STRING ( 200 ) szItemTableHeader
+   STRING ( 300 ) szSortOnClick
    STRING ( 50 )  szParentWebType
    STRING ( 1 )   szRepeatingGroupFlag
    STRING ( 1 )   szSurveyGroupFlag
@@ -128,6 +129,8 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
    STRING ( 100 ) szRepeatingGroupKey
    STRING ( 100 ) szInListCtrlTag
    STRING ( 200 ) szMsg
+   STRING ( 64 )  szSystemIniApplName
+   STRING ( 1 )   szUseVMLGridSort
    DECIMAL        dDLUnits
    INTEGER        LastY_Pos
    INTEGER        LastY_Height
@@ -158,6 +161,14 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
    INTEGER        lIndexStrLth
    SHORT          bResetToPlaceHolder
    SHORT          nRC
+
+
+   // KJS 03/05/25
+   // Initialize Output JSP File.
+   GetViewByName( vLPLR, "TaskLPLR", vDialog, zLEVEL_TASK )
+   szLPLR_Name = vLPLR.LPLR.Name
+   szSystemIniApplName = "[App." + szLPLR_Name + "]"
+   SysReadZeidonIni( -1, szSystemIniApplName, "UseVMLGridSort", szUseVMLGridSort )
 
    PIX_PER_DU( vDialog, dDLUnits )
    
@@ -2895,10 +2906,10 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
                         ELSE
                            szText = "<%=strErrorMapValue%>"
                         END
-                        //kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk KJS 09/08/23
+
                         // KJS 09/08/23 - The variable header, didn't have the "text-right". I want to add that.
                         // Need to set on the mapping that is not the header. To see the domain type.
-                        SET CURSOR FIRST vDialog.CtrlMap WHERE vDialog.CtrlMap.Tag != "Variable Header"                        
+                        SET CURSOR FIRST vDialog.CtrlMap WHERE vDialog.CtrlMap.Tag = ""                        
                         IF szStyleIsBootstrap = "Y" AND vDialog.CtrlMapER_Domain EXISTS AND 
                            ( vDialog.CtrlMapER_Domain.DataType = "M" OR vDialog.CtrlMapER_Domain.DataType = "L" )
                            IF ZeidonStringFind( vDialog.Control.CSS_Class, 1, "text-left" ) <= 0
@@ -2907,17 +2918,27 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
                         ELSE
                            szClass = ""
                         END  
-                       //kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk
+                        //kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk
+                        // KJS 03/04/25
+                        szSortOnClick = ""
+                        IF lSort != 0 AND szStyleIsBootstrap = "Y" AND vDialog.CtrlMapLOD_Attribute EXISTS AND szUseVMLGridSort = "Y"
+                           // MAKE SURE WE ARE POSITIONED ON THE CORRECT MAPPING (in care there is more than one)
+                           //szSortOnClick = " id=^" + vDialog.Control.Tag + 
+                           szSortOnClick = " id=^" + vDialog.CtrlMapView.Name + "." + vDialog.CtrlMapRelatedEntity.Name + "." +  vDialog.CtrlMapER_Attribute.Name + 
+                                           "^ onclick=^_TableSort( '" + vDialog.Control.Tag + "', '" + vDialog.CtrlMapView.Name + "." + vDialog.CtrlMapRelatedEntity.Name + "." +  vDialog.CtrlMapER_Attribute.Name +"' )^"
+                        END
                         IF szAbsoluteWidth = ""
                            IF szClass = ""
                               szWriteBuffer = "   <th"
                            ELSE
                               szWriteBuffer = "   <th class=^" + szClass + "^"
                            END
-                           szWriteBuffer = szWriteBuffer + "><%=strErrorMapValue%></th>"
+                           //szWriteBuffer = szWriteBuffer + "><%=strErrorMapValue%></th>"
                         ELSE
-                           szWriteBuffer = "   <th style=^" + szAbsoluteWidth + "^><%=strErrorMapValue%></th>"
+                           szWriteBuffer = "   <th style=^" + szAbsoluteWidth + "^"//><%=strErrorMapValue%></th>"
                         END
+                        szWriteBuffer = szWriteBuffer + szSortOnClick
+                        szWriteBuffer = szWriteBuffer + "><%=strErrorMapValue%></th>"
                         WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
                         szWriteBuffer = "<%"
                         WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
@@ -2930,7 +2951,11 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
                         // but we won't write it out.
                         szWriteBuffer = "   }"
                         //WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-                     ELSE
+                     ELSE  // vDialog.CtrlMap.Tag = "Variable Header"
+                     
+                        // KJS 03/05/25 Should we be positioning on the view that has no tag???
+                        SET CURSOR FIRST vDialog.CtrlMap WHERE vDialog.CtrlMap.Tag = ""
+                     
                         // The Title is a constant.
                         IF szWriteBuffer = "   }"
                            // The last entry was a variable text, so create the "%>" statement.
@@ -2968,6 +2993,16 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
                            szClass = ""
                         END  
                         
+                        //kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk
+                        // KJS 03/04/25
+                        szSortOnClick = ""
+                        IF lSort != 0 AND szStyleIsBootstrap = "Y" AND vDialog.CtrlMapLOD_Attribute EXISTS AND szUseVMLGridSort = "Y"
+                           // MAKE SURE WE ARE POSITIONED ON THE CORRECT MAPPING (in care there is more than one)
+                           szSortOnClick = " id=^" + vDialog.CtrlMapView.Name + "." + vDialog.CtrlMapRelatedEntity.Name + "." +  vDialog.CtrlMapER_Attribute.Name + 
+                                           "^ onclick=^_TableSort( '" + vDialog.Control.Tag + "', '" + vDialog.CtrlMapView.Name + "." + vDialog.CtrlMapRelatedEntity.Name + "." +  vDialog.CtrlMapER_Attribute.Name +"' )^"
+                        END
+                        //kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk
+                        
                         IF szStyleIsBootstrap = "" OR vDialog.CtrlMapER_Attribute DOES NOT EXIST OR
                            ( szStyleIsBootstrap = "Y" AND vDialog.CtrlMapER_Attribute EXISTS AND vDialog.CtrlMapER_Attribute.Name != "wHide")
                            // If this is sortable and this is a pushbutton on the grid...
@@ -3001,7 +3036,9 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
                               IF vDialog.Control.Text = "" AND ( vDialog.ControlDef.Tag = "GridCheckCtl" OR vDialog.ControlDef.Tag = "CheckBox" )
                                  szWriteBuffer = szWriteBuffer + " class=^gridheading^"
                               END
-   
+                              
+                              szWriteBuffer = szWriteBuffer + szSortOnClick
+                                 
                               //Put the ending on the tag and the text if there is any.
                               szWriteBuffer = szWriteBuffer + ">" + szText
                            END
@@ -3092,7 +3129,7 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
             szWriteBuffer = "{"
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
-            
+                        
             IF vDialog.CtrlMapView EXISTS
 
                szWriteBuffer = "   iTableRowCnt = 0;"
