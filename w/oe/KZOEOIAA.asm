@@ -37905,7 +37905,7 @@ $L11557:
 	cmp	edx, 122				; 0000007aH
 	jne	$L11559
 
-; 11859:       // New header style.
+; 11859: 	   // New header style.
 ; 11860:       if ( zstrncmp( pchLine + 6, szlmZeidon, 6 ) != 0 )
 
 	push	6
@@ -37939,7 +37939,7 @@ $L11560:
 	cmp	eax, 55					; 00000037H
 	jbe	SHORT $L11561
 
-; 11871:          zstrncpy( lpViewOI->szRelease, pchLine + 54, 8 );
+; 11871: 		 zstrncpy( lpViewOI->szRelease, pchLine + 54, 8 );
 
 	push	8
 	mov	eax, DWORD PTR _pchLine$[ebp]

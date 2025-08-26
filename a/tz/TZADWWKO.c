@@ -5448,17 +5448,41 @@ oTZADWWKO_GenDetailGrpBootstrpG( zVIEW     TZADWWKO,
    RESULT = GetViewByName( &TZPESRCO, "TZPESRCO", TZADWWKO, zLEVEL_TASK );
    RESULT = GetViewByName( &TZWINDOW, "TZWINDOW", TZADWWKO, zLEVEL_TASK );
 
+   //:// Generate Detail Group when Group Numbers are Specified.
    //:// Generate a Detail Group of Prompt / Mapping Control for Bootstrap from TZADWWKO.DetailMappingLOD_Attribute entries..
    //:// We will effectively loop through all uniques rows and then the Prompt/Mapping Control pairs within them.
    //:// Note that it is currently not valid to have more than 4 Group values, which should have been validated earlier.
 
    //:// If the GroupNumbers are empty, default them all to 1.
+   //:// If they are a mixture of null and not null, send the user a message and change them all to 1.
    //:SET CURSOR FIRST TZADWWKO.DetailMappingLOD_Attribute WHERE TZADWWKO.DetailMappingLOD_Attribute.GroupNumber = ""
    RESULT = SetCursorFirstEntityByString( TZADWWKO, "DetailMappingLOD_Attribute", "GroupNumber", "", "" );
    //:IF RESULT >= zCURSOR_SET
    if ( RESULT >= zCURSOR_SET )
    { 
-      //:// At least one entry is null, so make them all 1.
+      //:SET CURSOR FIRST TZADWWKO.DetailMappingLOD_Attribute WHERE TZADWWKO.DetailMappingLOD_Attribute.GroupNumber != ""
+      RESULT = SetCursorFirstEntity( TZADWWKO, "DetailMappingLOD_Attribute", "" );
+      if ( RESULT > zCURSOR_UNCHANGED )
+      { 
+         while ( RESULT > zCURSOR_UNCHANGED && ( CompareAttributeToString( TZADWWKO, "DetailMappingLOD_Attribute", "GroupNumber", "" ) == 0 ) )
+         { 
+            RESULT = SetCursorNextEntity( TZADWWKO, "DetailMappingLOD_Attribute", "" );
+         } 
+
+      } 
+
+      //:IF RESULT >= zCURSOR_SET
+      if ( RESULT >= zCURSOR_SET )
+      { 
+         //:// Entries are a mixture so send user a warning message.
+         //:MessageSend( TZADWWKO, "", "Autodesign Window Group",
+         //:             "Group Numbers are a mixture of null and notnull and will be changed to 1.",
+         //:             zMSGQ_OBJECT_CONSTRAINT_WARNING, 0 )
+         MessageSend( TZADWWKO, "", "Autodesign Window Group", "Group Numbers are a mixture of null and notnull and will be changed to 1.", zMSGQ_OBJECT_CONSTRAINT_WARNING, 0 );
+      } 
+
+      //:END
+      //:// Change all entries to 1.
       //:FOR EACH TZADWWKO.DetailMappingLOD_Attribute 
       RESULT = SetCursorFirstEntity( TZADWWKO, "DetailMappingLOD_Attribute", "" );
       while ( RESULT > zCURSOR_UNCHANGED )
@@ -5797,6 +5821,21 @@ oTZADWWKO_GenDetailGrpBootstrpG( zVIEW     TZADWWKO,
             RESULT = SetCursorFirstEntityByString( UpdateLOD, "ER_Attribute", "Name", szTempString_6, "LOD_Entity" );
             //:IncludeSubobjectFromSubobject( TZCONTROL, "CtrlMapLOD_Attribute", UpdateLOD, "LOD_Attribute", zPOS_AFTER )
             IncludeSubobjectFromSubobject( TZCONTROL, "CtrlMapLOD_Attribute", UpdateLOD, "LOD_Attribute", zPOS_AFTER );
+
+            //:// If this Control is not "Text" and the Entity is not updatable, then disable the control so that it won't 
+            //:// show as updatable.
+            //:IF TZCONTROL.ControlDef.Tag = "MLEdit" AND UpdateLOD.LOD_Entity.Update != "Y"
+            if ( CompareAttributeToString( TZCONTROL, "ControlDef", "Tag", "MLEdit" ) == 0 && CompareAttributeToString( UpdateLOD, "LOD_Entity", "Update", "Y" ) != 0 )
+            { 
+               //:TZCONTROL.Control.Disabled      = "Y"
+               SetAttributeFromString( TZCONTROL, "Control", "Disabled", "Y" );
+               //:TZCONTROL.Control.VisibleBorder = "Y"
+               SetAttributeFromString( TZCONTROL, "Control", "VisibleBorder", "Y" );
+               //:TZCONTROL.Control.Subtype       = 67108864
+               SetAttributeFromInteger( TZCONTROL, "Control", "Subtype", 67108864 );
+            } 
+
+            //:END
          } 
 
          RESULT = SetCursorNextEntity( TZADWWKO, "DetailMappingLOD_Attribute", "" );
@@ -5928,14 +5967,13 @@ oTZADWWKO_GenDetailGrpBootstrpR( zVIEW     TZADWWKO,
    zCHAR     szTempString_4[ 255 ]; 
    zCHAR     szTempString_5[ 255 ]; 
    zCHAR     szTempString_6[ 255 ]; 
-   zCHAR     szTempString_7[ 255 ]; 
    zLONG     lTempInteger_2; 
    zLONG     lTempInteger_3; 
    zLONG     lTempInteger_4; 
    zLONG     lTempInteger_5; 
    zLONG     lTempInteger_6; 
    zLONG     lTempInteger_7; 
-   zCHAR     szTempString_8[ 33 ]; 
+   zCHAR     szTempString_7[ 33 ]; 
    zLONG     lTempInteger_8; 
    zLONG     lTempInteger_9; 
    zLONG     lTempInteger_10; 
@@ -5944,6 +5982,7 @@ oTZADWWKO_GenDetailGrpBootstrpR( zVIEW     TZADWWKO,
    RESULT = GetViewByName( &TZPESRCO, "TZPESRCO", TZADWWKO, zLEVEL_TASK );
    RESULT = GetViewByName( &TZWINDOW, "TZWINDOW", TZADWWKO, zLEVEL_TASK );
 
+   //:// Generate Detail Group when Rows are Specified.
    //:// Generate a Detail Group of Prompt / Mapping Control for Bootstrap from TZADWWKO.DetailMappingLOD_Attribute entries..
    //:// We will effectively loop through all uniques rows and then the Prompt/Mapping Control pairs within them.
 
@@ -6096,9 +6135,6 @@ oTZADWWKO_GenDetailGrpBootstrpR( zVIEW     TZADWWKO,
       ZeidonStringConcat( szDataControlName, 1, 0, szTempString_5, 1, 0, 51 );
       ZeidonStringConcat( szDataControlName, 1, 0, szCurrentRow, 1, 0, 51 );
       ZeidonStringConcat( szDataControlName, 1, 0, szCurrentPair, 1, 0, 51 );
-      //:TraceLineS( "*** Prompt Group: ", TZADWWKO.EntitySubGroup.GroupAreaName )
-      GetStringFromAttribute( szTempString_6, TZADWWKO, "EntitySubGroup", "GroupAreaName" );
-      TraceLineS( "*** Prompt Group: ", szTempString_6 );
 
       //:// Create Prompt 
       //:CreateMetaEntity( TZADWWKO, TZCONTROL, "Control", zPOS_AFTER )
@@ -6114,11 +6150,11 @@ oTZADWWKO_GenDetailGrpBootstrpR( zVIEW     TZADWWKO,
       //:TZCONTROL.Control.CSS_Class         = "input-group" 
       SetAttributeFromString( TZCONTROL, "Control", "CSS_Class", "input-group" );
       //:TZCONTROL.Control.WebHTML5Attribute = "style="+ QUOTES + "min-width: 112px"+ QUOTES
-      ZeidonStringCopy( szTempString_7, 1, 0, "style=", 1, 0, 255 );
-      ZeidonStringConcat( szTempString_7, 1, 0, QUOTES, 1, 0, 255 );
-      ZeidonStringConcat( szTempString_7, 1, 0, "min-width: 112px", 1, 0, 255 );
-      ZeidonStringConcat( szTempString_7, 1, 0, QUOTES, 1, 0, 255 );
-      SetAttributeFromString( TZCONTROL, "Control", "WebHTML5Attribute", szTempString_7 );
+      ZeidonStringCopy( szTempString_6, 1, 0, "style=", 1, 0, 255 );
+      ZeidonStringConcat( szTempString_6, 1, 0, QUOTES, 1, 0, 255 );
+      ZeidonStringConcat( szTempString_6, 1, 0, "min-width: 112px", 1, 0, 255 );
+      ZeidonStringConcat( szTempString_6, 1, 0, QUOTES, 1, 0, 255 );
+      SetAttributeFromString( TZCONTROL, "Control", "WebHTML5Attribute", szTempString_6 );
       //:TZCONTROL.Control.WebCtrlLabelLink  = szDataControlName
       SetAttributeFromString( TZCONTROL, "Control", "WebCtrlLabelLink", szDataControlName );
       //:TZCONTROL.Control.PSDLG_X           = 5
@@ -6289,12 +6325,12 @@ oTZADWWKO_GenDetailGrpBootstrpR( zVIEW     TZADWWKO,
       //:INCLUDE TZCONTROL.CtrlMapView FROM TZWINDOW.ViewObjRef
       RESULT = IncludeSubobjectFromSubobject( TZCONTROL, "CtrlMapView", TZWINDOW, "ViewObjRef", zPOS_AFTER );
       //:SET CURSOR FIRST UpdateLOD.LOD_Entity WHERE UpdateLOD.LOD_Entity.Name   = TZADWWKO.DetailMappingLOD_Entity.Name 
-      GetStringFromAttribute( szTempString_8, TZADWWKO, "DetailMappingLOD_Entity", "Name" );
-      RESULT = SetCursorFirstEntityByString( UpdateLOD, "LOD_Entity", "Name", szTempString_8, "" );
+      GetStringFromAttribute( szTempString_7, TZADWWKO, "DetailMappingLOD_Entity", "Name" );
+      RESULT = SetCursorFirstEntityByString( UpdateLOD, "LOD_Entity", "Name", szTempString_7, "" );
       //:SET CURSOR FIRST UpdateLOD.ER_Attribute WITHIN UpdateLOD.LOD_Entity 
       //:                                      WHERE UpdateLOD.ER_Attribute.Name = TZADWWKO.DetailMappingER_Attribute.Name 
-      GetStringFromAttribute( szTempString_8, TZADWWKO, "DetailMappingER_Attribute", "Name" );
-      RESULT = SetCursorFirstEntityByString( UpdateLOD, "ER_Attribute", "Name", szTempString_8, "LOD_Entity" );
+      GetStringFromAttribute( szTempString_7, TZADWWKO, "DetailMappingER_Attribute", "Name" );
+      RESULT = SetCursorFirstEntityByString( UpdateLOD, "ER_Attribute", "Name", szTempString_7, "LOD_Entity" );
       //:IncludeSubobjectFromSubobject( TZCONTROL, "CtrlMapLOD_Attribute", UpdateLOD, "LOD_Attribute", zPOS_AFTER )
       IncludeSubobjectFromSubobject( TZCONTROL, "CtrlMapLOD_Attribute", UpdateLOD, "LOD_Attribute", zPOS_AFTER );
 
@@ -8746,31 +8782,6 @@ oTZADWWKO_ReturnAttrControlType( zVIEW     AnyView,
 
 
 //:TRANSFORMATION OPERATION
-zOPER_EXPORT zSHORT OPERATION
-oTZADWWKO_SetDialogProperties( zVIEW     TZADWWKO,
-                               zVIEW     TargetDialog,
-                               zVIEW     SourceDialog )
-{
-
-   //:SetDialogProperties( VIEW TZADWWKO BASED ON LOD TZADWWKO,
-   //:                  VIEW TargetDialog BASED ON LOD  TZWDLGSO,
-   //:                  VIEW SourceDialog BASED ON LOD  TZWDLGSO )
-
-   //:// Initialize the necessary Dialog Properties if they haven't already been set.
-   //:IF TargetDialog.Dialog.WEB_PageHeadInclude = ""
-   if ( CompareAttributeToString( TargetDialog, "Dialog", "WEB_PageHeadInclude", "" ) == 0 )
-   { 
-      //:SetMatchingAttributesByName( TargetDialog, "Dialog", SourceDialog, "Dialog", zSET_NULL )
-      SetMatchingAttributesByName( TargetDialog, "Dialog", SourceDialog, "Dialog", zSET_NULL );
-   } 
-
-   //:END
-   return( 0 );
-// END
-} 
-
-
-//:TRANSFORMATION OPERATION
 //:ReturnID_NameForEntity( VIEW TZADWWKO BASED ON LOD TZADWWKO,
 //:                        STRING ( 50 ) szReturnedID_Name,
 //:                        STRING ( 50 ) szEntityName,
@@ -8845,6 +8856,31 @@ oTZADWWKO_ReturnID_NameForEntity( zVIEW     TZADWWKO,
    DropObjectInstance( vERD );
    //:DropView( TempLPLR )
    DropView( TempLPLR );
+   return( 0 );
+// END
+} 
+
+
+//:TRANSFORMATION OPERATION
+zOPER_EXPORT zSHORT OPERATION
+oTZADWWKO_SetDialogProperties( zVIEW     TZADWWKO,
+                               zVIEW     TargetDialog,
+                               zVIEW     SourceDialog )
+{
+
+   //:SetDialogProperties( VIEW TZADWWKO BASED ON LOD TZADWWKO,
+   //:                  VIEW TargetDialog BASED ON LOD  TZWDLGSO,
+   //:                  VIEW SourceDialog BASED ON LOD  TZWDLGSO )
+
+   //:// Initialize the necessary Dialog Properties if they haven't already been set.
+   //:IF TargetDialog.Dialog.WEB_PageHeadInclude = ""
+   if ( CompareAttributeToString( TargetDialog, "Dialog", "WEB_PageHeadInclude", "" ) == 0 )
+   { 
+      //:SetMatchingAttributesByName( TargetDialog, "Dialog", SourceDialog, "Dialog", zSET_NULL )
+      SetMatchingAttributesByName( TargetDialog, "Dialog", SourceDialog, "Dialog", zSET_NULL );
+   } 
+
+   //:END
    return( 0 );
 // END
 } 

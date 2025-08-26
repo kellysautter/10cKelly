@@ -1722,7 +1722,10 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
    ZeidonStringCopy( szWriteBuffer, 1, 0, "String strLastSortMap = (String) request.getParameter( ^zSortMap^ );", 1, 0, 10001 );
    //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 );
-
+   //:szWriteBuffer = "String strLastSortID = (String) request.getParameter( ^zSortID^ );"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "String strLastSortID = (String) request.getParameter( ^zSortID^ );", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 );
 
    //:// KJS 09/29/10
    //:// If this time through, this happens to be a refresh, then go to the logout screen.
@@ -1821,6 +1824,14 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
    { 
       //:szRegisterZeidon = "Y"
       ZeidonStringCopy( szRegisterZeidon, 1, 0, "Y", 1, 0, 2 );
+   } 
+
+   //:END
+   //:IF vDialog.Window.WEB_NoMonitorTask = "Y" // We register this page but don't check if another session is open.
+   if ( CompareAttributeToString( vDialog, "Window", "WEB_NoMonitorTask", "Y" ) == 0 )
+   { 
+      //:szNoMonitorTaskLogout = "Y"
+      ZeidonStringCopy( szNoMonitorTaskLogout, 1, 0, "Y", 1, 0, 2 );
    } 
 
    //:END
@@ -1929,6 +1940,7 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
    ZeidonStringCopy( szWriteBuffer, 1, 0, "{", 1, 0, 10001 );
    //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
+   //:// Now szRegisterZeidon can be "Y" or "T" (register but do not go to loggedintotask.jsp)
    //:IF szRegisterZeidon = "Y" AND (szNoMonitorTaskLogout = "" OR szNoMonitorTaskLogout = "N")
    if ( ZeidonStringCompare( szRegisterZeidon, 1, 0, "Y", 1, 0, 2 ) == 0 && ( ZeidonStringCompare( szNoMonitorTaskLogout, 1, 0, "", 1, 0, 2 ) == 0 || ZeidonStringCompare( szNoMonitorTaskLogout, 1, 0, "N", 1, 0, 2 ) == 0 ) )
    { 
@@ -2298,6 +2310,53 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
    //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 );
 
+   //:// KJS 05/14/25 - This code has been added to see if we can keep users from having more than one tab open for an app.
+   //:// It relies on having code in the logout.jsp that has the following code which creates a new sessionid (taskid) and so we can
+   //:// compare to zLastTask (which would be the last sessionid for this page).
+   //:/*
+   //:session.invalidate();
+   //:Cookie killSessionCookie = new Cookie("JSESSIONID", null);
+   //:killSessionCookie.setMaxAge(0);
+   //:killSessionCookie.setPath("/"); 
+   //:killSessionCookie.setDomain(request.getServerName());
+   //:response.addCookie(killSessionCookie);
+   //:*/ 
+   //:IF szRegisterZeidon = "" AND (szNoMonitorTaskLogout = "" OR szNoMonitorTaskLogout = "N")
+   if ( ZeidonStringCompare( szRegisterZeidon, 1, 0, "", 1, 0, 2 ) == 0 && ( ZeidonStringCompare( szNoMonitorTaskLogout, 1, 0, "", 1, 0, 2 ) == 0 || ZeidonStringCompare( szNoMonitorTaskLogout, 1, 0, "N", 1, 0, 2 ) == 0 ) )
+   { 
+      //:szWriteBuffer = "      String strLastTask = (String) request.getParameter( ^zLastTask^ );"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "      String strLastTask = (String) request.getParameter( ^zLastTask^ );", 1, 0, 10001 );
+      //:WL_QC( vDialogRoot, lFileJSP, szWriteBuffer, "^", 0 )
+      WL_QC( vDialogRoot, lFileJSP, szWriteBuffer, "^", 0 );
+
+      //:szWriteBuffer = "      if ( strLastTask != null && !taskId.equals(strLastTask) )"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "      if ( strLastTask != null && !taskId.equals(strLastTask) )", 1, 0, 10001 );
+      //:WL_QC( vDialogRoot, lFileJSP, szWriteBuffer, "^", 0 )
+      WL_QC( vDialogRoot, lFileJSP, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "      {"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "      {", 1, 0, 10001 );
+      //:WL_QC( vDialogRoot, lFileJSP, szWriteBuffer, "^", 0 )
+      WL_QC( vDialogRoot, lFileJSP, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "          strURL = response.encodeRedirectURL( ^loggedintotask.jsp^ );"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "          strURL = response.encodeRedirectURL( ^loggedintotask.jsp^ );", 1, 0, 10001 );
+      //:WL_QC( vDialogRoot, lFileJSP, szWriteBuffer, "^", 0 )
+      WL_QC( vDialogRoot, lFileJSP, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "          response.sendRedirect( strURL );"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "          response.sendRedirect( strURL );", 1, 0, 10001 );
+      //:WL_QC( vDialogRoot, lFileJSP, szWriteBuffer, "^", 0 )
+      WL_QC( vDialogRoot, lFileJSP, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "          return; // something really bad has happened!!!"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "          return; // something really bad has happened!!!", 1, 0, 10001 );
+      //:WL_QC( vDialogRoot, lFileJSP, szWriteBuffer, "^", 0 )
+      WL_QC( vDialogRoot, lFileJSP, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "      }"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "      }", 1, 0, 10001 );
+      //:WL_QC( vDialogRoot, lFileJSP, szWriteBuffer, "^", 1 )
+      WL_QC( vDialogRoot, lFileJSP, szWriteBuffer, "^", 1 );
+   } 
+
+   //:END  
+
    //:IF szWebDebugView != ""
    if ( ZeidonStringCompare( szWebDebugView, 1, 0, "", 1, 0, 33 ) != 0 )
    { 
@@ -2384,23 +2443,19 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
 
          //:END
 
-         //:IF vDialog.Action.Type != zWAB_ExitDialogTask
-         if ( CompareAttributeToInteger( vDialog, "Action", "Type", zWAB_ExitDialogTask ) != 0 )
+         //://IF vDialog.Action.Type != zWAB_ExitDialogTask
+         //:   // We don't format the Action on exit dialog, as the function in the java script calls OnUnload.
+         //:   nRC = GenJSPJ_Action( vDialog, vDialogRoot, lFileJSP, szWriteBuffer, szFormName, szActionTag, lTrace )
+         nRC = GenJSPJ_Action( vDialog, vDialogRoot, lFileJSP, szWriteBuffer, szFormName, szActionTag, lTrace );
+         //:   IF nRC != 0
+         if ( nRC != 0 )
          { 
-            //:// We don't format the Action on exit dialog, as the function in the java script calls OnUnload.
-            //:nRC = GenJSPJ_Action( vDialog, vDialogRoot, lFileJSP, szWriteBuffer, szFormName, szActionTag, lTrace )
-            nRC = GenJSPJ_Action( vDialog, vDialogRoot, lFileJSP, szWriteBuffer, szFormName, szActionTag, lTrace );
-            //:IF nRC != 0
-            if ( nRC != 0 )
-            { 
-               //:nSystemSort = nRC
-               nSystemSort = nRC;
-            } 
-
-            //:END
+            //:   nSystemSort = nRC
+            nSystemSort = nRC;
          } 
 
-         //:END
+         //:   END
+         //://END
          //:ELSE
       } 
       else
@@ -2776,8 +2831,8 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
 
    //:// KJS 03/04/25
    //:// _TableSort
-   //:IF lSort != 0 AND szUseVMLGridSort = "Y"
-   if ( lSort != 0 && ZeidonStringCompare( szUseVMLGridSort, 1, 0, "Y", 1, 0, 2 ) == 0 )
+   //:IF lSort >= 2 //AND szUseVMLGridSort = "Y"
+   if ( lSort >= 2 )
    { 
       //:szWriteBuffer = "   while ( bDone == false && StringUtils.equals( strActionToProcess, ^_TableSort^ ) )"
       ZeidonStringCopy( szWriteBuffer, 1, 0, "   while ( bDone == false && StringUtils.equals( strActionToProcess, ^_TableSort^ ) )", 1, 0, 10001 );
@@ -3750,8 +3805,8 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
    ZeidonStringConcat( szWriteBuffer, 1, 0, "^></script>", 1, 0, 10001 );
    //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
-   //:IF lSort != 0 AND szUseVMLGridSort = "" //AND szStyleIsBootstrap = "" // Taking bootstrap out because if we use the sort header on grid, we need this. 
-   if ( lSort != 0 && ZeidonStringCompare( szUseVMLGridSort, 1, 0, "", 1, 0, 2 ) == 0 )
+   //:IF lSort = 1 OR lSort = 3 //AND szUseVMLGridSort = "" //AND szStyleIsBootstrap = "" // Taking bootstrap out because if we use the sort header on grid, we need this. 
+   if ( lSort == 1 || lSort == 3 )
    { 
       //:// KJS 06/12/20 - Added bootstrap check. We don't need these if we are using bootstrap...
       //:// css.js and sts.js are used only by the Grid control when sorting is requested. Thus, we'll only send
@@ -4667,8 +4722,8 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
 
    //:END
    //: 
-   //:IF lSort != 0 AND szUseVMLGridSort = "Y"
-   if ( lSort != 0 && ZeidonStringCompare( szUseVMLGridSort, 1, 0, "Y", 1, 0, 2 ) == 0 )
+   //:IF lSort >= 2 //AND szUseVMLGridSort = "Y"
+   if ( lSort >= 2 )
    { 
       //:// KJS 03/04/25 - New function
       //:// function _TableSort
@@ -4676,69 +4731,96 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
       ZeidonStringCopy( szWriteBuffer, 1, 0, "", 1, 0, 10001 );
       //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
       WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
-      //:szWriteBuffer = "function _TableSort( ctrlId, idName )"
-      ZeidonStringCopy( szWriteBuffer, 1, 0, "function _TableSort( ctrlId, idName )", 1, 0, 10001 );
+      //:szWriteBuffer = "function _TableSort( thID, thSortMap )"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "function _TableSort( thID, thSortMap )", 1, 0, 10001 );
       //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
       WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
       //:szWriteBuffer = "{"
       ZeidonStringCopy( szWriteBuffer, 1, 0, "{", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 );
+      //:szWriteBuffer = "   // This is for indicating whether the user hit the window close box."
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "   // This is for indicating whether the user hit the window close box.", 1, 0, 10001 );
       //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
       WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
-      //:szWriteBuffer = ""
-      ZeidonStringCopy( szWriteBuffer, 1, 0, "", 1, 0, 10001 );
-      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
-      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "   isWindowClosing = false;"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "   isWindowClosing = false;", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 );
       //:szWriteBuffer = "   if ( _IsDocDisabled( ) == false )"
       ZeidonStringCopy( szWriteBuffer, 1, 0, "   if ( _IsDocDisabled( ) == false )", 1, 0, 10001 );
       //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
       WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
       //:szWriteBuffer = "   {"
       ZeidonStringCopy( szWriteBuffer, 1, 0, "   {", 1, 0, 10001 );
-      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
-      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
-      //:szWriteBuffer = "      // If the user clicked on the window close box, then"
-      ZeidonStringCopy( szWriteBuffer, 1, 0, "      // If the user clicked on the window close box, then", 1, 0, 10001 );
-      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
-      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
-      //:szWriteBuffer = "      // isWindowClosing will be true.  Otherwise if the user"
-      ZeidonStringCopy( szWriteBuffer, 1, 0, "      // isWindowClosing will be true.  Otherwise if the user", 1, 0, 10001 );
-      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
-      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
-      //:szWriteBuffer = "      // clicked on something else in the page, isWindowClosing will be false."
-      ZeidonStringCopy( szWriteBuffer, 1, 0, "      // clicked on something else in the page, isWindowClosing will be false.", 1, 0, 10001 );
-      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
-      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
-      //:szWriteBuffer = "      // If the user clicked the window close box, unregister zeidon."
-      ZeidonStringCopy( szWriteBuffer, 1, 0, "      // If the user clicked the window close box, unregister zeidon.", 1, 0, 10001 );
-      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
-      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
-      //:szWriteBuffer = "      if (isWindowClosing)"
-      ZeidonStringCopy( szWriteBuffer, 1, 0, "      if (isWindowClosing)", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 );
+      //:szWriteBuffer = "      _DisableFormElements( true );"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "      _DisableFormElements( true );", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 );
+
+      //:szWriteBuffer = "      if ( typeof(Storage) !== ^undefined^ )"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "      if ( typeof(Storage) !== ^undefined^ )", 1, 0, 10001 );
       //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
       WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
       //:szWriteBuffer = "      {"
       ZeidonStringCopy( szWriteBuffer, 1, 0, "      {", 1, 0, 10001 );
       //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
       WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
-
-      //:szWriteBuffer = "         const sortArray = idName.split(^.^);"
-      ZeidonStringCopy( szWriteBuffer, 1, 0, "         const sortArray = idName.split(^.^);", 1, 0, 10001 );
+      //:szWriteBuffer = "         // Code for sessionStorage."
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "         // Code for sessionStorage.", 1, 0, 10001 );
       //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
       WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
-      //:szWriteBuffer = "         var sortOrder = document." + szFormName + ".zSortOrder.value;"
+      //:szWriteBuffer = "         var storageName = ^" + szLPLR_Name + "." + szFormName + ".position^" //ZENCAS.wClassDClassListByTerm.position
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "         var storageName = ^", 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, szLPLR_Name, 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, ".", 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, szFormName, 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, ".position^", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "         var sy= window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "         var sy= window.pageYOffset | document.documentElement.scrollTop | document.body.scrollTop | 0;", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "         var sx= window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft || 0;"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "         var sx= window.pageXOffset | document.documentElement.scrollLeft | document.body.scrollLeft | 0;", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "         var scrollPosition = sy + '#' + sx;"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "         var scrollPosition = sy + '#' + sx;", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+
+      //:szWriteBuffer = "         sessionStorage.setItem( storageName, scrollPosition );"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "         sessionStorage.setItem( storageName, scrollPosition );", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "      }"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "      }", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+
+
+      //:szWriteBuffer = "         const sortArray = thSortMap.split(^.^);"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "         const sortArray = thSortMap.split(^.^);", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "         var sortOrder = document." + szFormName + ".zSortOrder.value; // this will be the last mapped value"
       ZeidonStringCopy( szWriteBuffer, 1, 0, "         var sortOrder = document.", 1, 0, 10001 );
       ZeidonStringConcat( szWriteBuffer, 1, 0, szFormName, 1, 0, 10001 );
-      ZeidonStringConcat( szWriteBuffer, 1, 0, ".zSortOrder.value;", 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, ".zSortOrder.value; // this will be the last mapped value", 1, 0, 10001 );
       //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
       WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
-      //:szWriteBuffer = "         var sortMap  = document." + szFormName + ".zSortMap.value;"
+      //:szWriteBuffer = "         var sortMap  = document." + szFormName + ".zSortMap.value; // this will be the last mapped value"
       ZeidonStringCopy( szWriteBuffer, 1, 0, "         var sortMap  = document.", 1, 0, 10001 );
       ZeidonStringConcat( szWriteBuffer, 1, 0, szFormName, 1, 0, 10001 );
-      ZeidonStringConcat( szWriteBuffer, 1, 0, ".zSortMap.value;", 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, ".zSortMap.value; // this will be the last mapped value", 1, 0, 10001 );
       //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
       WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
-      //:szWriteBuffer = "         if ( sortMap == idName )"
-      ZeidonStringCopy( szWriteBuffer, 1, 0, "         if ( sortMap == idName )", 1, 0, 10001 );
+      //:szWriteBuffer = "         if ( sortMap == thSortMap )"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "         if ( sortMap == thSortMap )", 1, 0, 10001 );
       //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
       WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
       //:szWriteBuffer = "         {"
@@ -4749,46 +4831,30 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
       ZeidonStringCopy( szWriteBuffer, 1, 0, "              if ( sortOrder.indexOf('A') >= 0 )", 1, 0, 10001 );
       //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
       WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
-      //:szWriteBuffer = "              {"
-      ZeidonStringCopy( szWriteBuffer, 1, 0, "              {", 1, 0, 10001 );
-      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
-      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //://szWriteBuffer = "              {"
+      //://WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
       //:szWriteBuffer = "                 sortOrder = 'D';"
       ZeidonStringCopy( szWriteBuffer, 1, 0, "                 sortOrder = 'D';", 1, 0, 10001 );
       //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
       WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
-      //:szWriteBuffer = "                 document." + szFormName + ".zSortOrder.value = 'D';"
-      ZeidonStringCopy( szWriteBuffer, 1, 0, "                 document.", 1, 0, 10001 );
-      ZeidonStringConcat( szWriteBuffer, 1, 0, szFormName, 1, 0, 10001 );
-      ZeidonStringConcat( szWriteBuffer, 1, 0, ".zSortOrder.value = 'D';", 1, 0, 10001 );
-      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
-      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
-      //:szWriteBuffer = "              }"
-      ZeidonStringCopy( szWriteBuffer, 1, 0, "              }", 1, 0, 10001 );
-      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
-      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //://szWriteBuffer = "                 document." + szFormName + ".zSortOrder.value = 'D';"
+      //://WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      //://szWriteBuffer = "              }"
+      //://WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
       //:szWriteBuffer = "              else"
       ZeidonStringCopy( szWriteBuffer, 1, 0, "              else", 1, 0, 10001 );
       //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
       WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
-      //:szWriteBuffer = "              {"
-      ZeidonStringCopy( szWriteBuffer, 1, 0, "              {", 1, 0, 10001 );
-      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
-      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //://szWriteBuffer = "              {"
+      //://WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
       //:szWriteBuffer = "                 sortOrder = 'A';"
       ZeidonStringCopy( szWriteBuffer, 1, 0, "                 sortOrder = 'A';", 1, 0, 10001 );
       //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
       WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
-      //:szWriteBuffer = "                 document." + szFormName + ".zSortOrder.value = 'A';"
-      ZeidonStringCopy( szWriteBuffer, 1, 0, "                 document.", 1, 0, 10001 );
-      ZeidonStringConcat( szWriteBuffer, 1, 0, szFormName, 1, 0, 10001 );
-      ZeidonStringConcat( szWriteBuffer, 1, 0, ".zSortOrder.value = 'A';", 1, 0, 10001 );
-      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
-      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
-      //:szWriteBuffer = "              }"
-      ZeidonStringCopy( szWriteBuffer, 1, 0, "              }", 1, 0, 10001 );
-      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
-      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //://szWriteBuffer = "                 document." + szFormName + ".zSortOrder.value = 'A';"
+      //://WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      //://szWriteBuffer = "              }"
+      //://WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
       //:szWriteBuffer = "         }"
       ZeidonStringCopy( szWriteBuffer, 1, 0, "         }", 1, 0, 10001 );
       //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
@@ -4811,10 +4877,16 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
       ZeidonStringConcat( szWriteBuffer, 1, 0, ".zSortOrder.value = sortOrder;", 1, 0, 10001 );
       //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
       WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
-      //:szWriteBuffer = "         document." + szFormName + ".zSortMap.value = idName;"
+      //:szWriteBuffer = "         document." + szFormName + ".zSortMap.value = thSortMap;"
       ZeidonStringCopy( szWriteBuffer, 1, 0, "         document.", 1, 0, 10001 );
       ZeidonStringConcat( szWriteBuffer, 1, 0, szFormName, 1, 0, 10001 );
-      ZeidonStringConcat( szWriteBuffer, 1, 0, ".zSortMap.value = idName;", 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, ".zSortMap.value = thSortMap;", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "         document." + szFormName + ".zSortID.value = thID;"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "         document.", 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, szFormName, 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, ".zSortID.value = thID;", 1, 0, 10001 );
       //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
       WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
 
@@ -4824,16 +4896,53 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
       ZeidonStringConcat( szWriteBuffer, 1, 0, ".zSortView.value = sortArray[0];", 1, 0, 10001 );
       //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
       WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
-      //:szWriteBuffer = "         document." + szFormName + ".zSortEntity.value = sortArray[1];"
-      ZeidonStringCopy( szWriteBuffer, 1, 0, "         document.", 1, 0, 10001 );
+
+      //:szWriteBuffer = "         if (sortArray.length == 4)"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "         if (sortArray.length == 4)", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "         {"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "         {", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "            document." + szFormName + ".zSortEntity.value = sortArray[3];"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "            document.", 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, szFormName, 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, ".zSortEntity.value = sortArray[3];", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "            document." + szFormName + ".zSortAttr.value = sortArray[1] + '.' + sortArray[2] + ' ' + sortOrder;"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "            document.", 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, szFormName, 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, ".zSortAttr.value = sortArray[1] + '.' + sortArray[2] + ' ' + sortOrder;", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "         }"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "         }", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "         else"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "         else", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "         {"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "         {", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "            document." + szFormName + ".zSortEntity.value = sortArray[1];"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "            document.", 1, 0, 10001 );
       ZeidonStringConcat( szWriteBuffer, 1, 0, szFormName, 1, 0, 10001 );
       ZeidonStringConcat( szWriteBuffer, 1, 0, ".zSortEntity.value = sortArray[1];", 1, 0, 10001 );
       //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
       WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
-      //:szWriteBuffer = "         document." + szFormName + ".zSortAttr.value = sortArray[2] + ' ' + sortOrder;"
-      ZeidonStringCopy( szWriteBuffer, 1, 0, "         document.", 1, 0, 10001 );
+      //:szWriteBuffer = "            document." + szFormName + ".zSortAttr.value = sortArray[2] + ' ' + sortOrder;"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "            document.", 1, 0, 10001 );
       ZeidonStringConcat( szWriteBuffer, 1, 0, szFormName, 1, 0, 10001 );
       ZeidonStringConcat( szWriteBuffer, 1, 0, ".zSortAttr.value = sortArray[2] + ' ' + sortOrder;", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "         }"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "         }", 1, 0, 10001 );
       //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
       WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
 
@@ -4849,10 +4958,8 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
       ZeidonStringConcat( szWriteBuffer, 1, 0, ".submit( );", 1, 0, 10001 );
       //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
       WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
-      //:szWriteBuffer = "      }"
-      ZeidonStringCopy( szWriteBuffer, 1, 0, "      }", 1, 0, 10001 );
-      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
-      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //://szWriteBuffer = "      }"
+      //://WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
       //:szWriteBuffer = "   }"
       ZeidonStringCopy( szWriteBuffer, 1, 0, "   }", 1, 0, 10001 );
       //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
@@ -5425,6 +5532,115 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
    ZeidonStringCopy( szWriteBuffer, 1, 0, "   isWindowClosing = true;", 1, 0, 10001 );
    //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
    WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+
+   //:// KJS 03/12/25 - Code for 'Auto Sort Buttons' in grid.
+   //:IF lSort >= 2 //AND szUseVMLGridSort = "Y"
+   if ( lSort >= 2 )
+   { 
+      //:szWriteBuffer = "   if ( document." + szFormName + ".zSortMap.value != null  )"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "   if ( document.", 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, szFormName, 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, ".zSortMap.value != null  )", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "   {"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "   {", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "      var sortedHeader = document.getElementById(document." + szFormName + ".zSortID.value);"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "      var sortedHeader = document.getElementById(document.", 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, szFormName, 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, ".zSortID.value);", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "      // This is assuming that the following class names are for bootstrap DataTables. We only want to add the <img> if we are not using bootstrap (currently)."
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "      // This is assuming that the following class names are for bootstrap DataTables. We only want to add the <img> if we are not using bootstrap (currently).", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "      if ( !(sortedHeader.classList.contains(^sorting_asc^) |||| sortedHeader.classList.contains(^sorting_desc^) |||| sortedHeader.classList.contains(^sorting^)) )"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "      if ( !(sortedHeader.classList.contains(^sorting_asc^) || sortedHeader.classList.contains(^sorting_desc^) || sortedHeader.classList.contains(^sorting^)) )", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "      {"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "      {", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+
+      //:szWriteBuffer = "      var sortOrder = document." + szFormName + ".zSortOrder.value;"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "      var sortOrder = document.", 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, szFormName, 1, 0, 10001 );
+      ZeidonStringConcat( szWriteBuffer, 1, 0, ".zSortOrder.value;", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "      var arrowIMG = createElement('img');"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "      var arrowIMG = createElement('img');", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "      arrowIMG.className = 'tableSortArrow';"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "      arrowIMG.className = 'tableSortArrow';", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "      if ( sortOrder == ^A^ )"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "      if ( sortOrder == ^A^ )", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "      {"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "      {", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "         arrowIMG.src = ^images/arrow_up.png^;"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "         arrowIMG.src = ^images/arrow_up.png^;", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "         arrowIMG.setAttribute('sortOrder', 'ASC');"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "         arrowIMG.setAttribute('sortOrder', 'ASC');", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "         sortedHeader.appendChild(arrowIMG);"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "         sortedHeader.appendChild(arrowIMG);", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "      }"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "      }", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "      else if ( sortOrder == ^D^ )"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "      else if ( sortOrder == ^D^ )", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "      {"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "      {", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "         arrowIMG.src = ^images/arrow_down.png^;"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "         arrowIMG.src = ^images/arrow_down.png^;", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "         arrowIMG.setAttribute('sortOrder', 'DESC');"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "         arrowIMG.setAttribute('sortOrder', 'DESC');", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "         sortedHeader.appendChild(arrowIMG);"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "         sortedHeader.appendChild(arrowIMG);", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "      }"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "      }", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "   }"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "   }", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+      //:// End of if ( !(sortedHeader.classList.contains(^sorting_asc^) || sortedHeader.classList.contains(^sorting_desc^) || sortedHeader.classList.contains(^sorting^)) )
+      //:szWriteBuffer = "      }"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "      }", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
+   } 
+
+   //:END
+
    //:szWriteBuffer = "}"
    ZeidonStringCopy( szWriteBuffer, 1, 0, "}", 1, 0, 10001 );
    //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 1 )
@@ -6354,27 +6570,19 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
 
                   //:END
 
-                  //:IF lActionType = zWAB_ExitDialogTask
-                  if ( lActionType == zWAB_ExitDialogTask )
-                  { 
-                     //:// For exiting the Dialog (ie., Session), the Action is OnUnload.
-                     //:szWriteBuffer = "      document." + szFormName + ".zAction.value = ^_OnUnload^;"
-                     ZeidonStringCopy( szWriteBuffer, 1, 0, "      document.", 1, 0, 10001 );
-                     ZeidonStringConcat( szWriteBuffer, 1, 0, szFormName, 1, 0, 10001 );
-                     ZeidonStringConcat( szWriteBuffer, 1, 0, ".zAction.value = ^_OnUnload^;", 1, 0, 10001 );
-                     //:ELSE
-                  } 
-                  else
-                  { 
-                     //:szWriteBuffer = "      document." + szFormName + ".zAction.value = ^" + szActionTag + "^;"
-                     ZeidonStringCopy( szWriteBuffer, 1, 0, "      document.", 1, 0, 10001 );
-                     ZeidonStringConcat( szWriteBuffer, 1, 0, szFormName, 1, 0, 10001 );
-                     ZeidonStringConcat( szWriteBuffer, 1, 0, ".zAction.value = ^", 1, 0, 10001 );
-                     ZeidonStringConcat( szWriteBuffer, 1, 0, szActionTag, 1, 0, 10001 );
-                     ZeidonStringConcat( szWriteBuffer, 1, 0, "^;", 1, 0, 10001 );
-                  } 
-
-                  //:END
+                  //:// KJS 05/15/25 - I am not sure that we always need to call "_OnUnload" when the action is ExitDialogTask.
+                  //:// I am going to comment this out for now...
+                  //://IF lActionType = zWAB_ExitDialogTask
+                  //:// For exiting the Dialog (ie., Session), the Action is OnUnload.
+                  //://   szWriteBuffer = "      document." + szFormName + ".zAction.value = ^_OnUnload^;"
+                  //://ELSE
+                  //:szWriteBuffer = "      document." + szFormName + ".zAction.value = ^" + szActionTag + "^;"
+                  ZeidonStringCopy( szWriteBuffer, 1, 0, "      document.", 1, 0, 10001 );
+                  ZeidonStringConcat( szWriteBuffer, 1, 0, szFormName, 1, 0, 10001 );
+                  ZeidonStringConcat( szWriteBuffer, 1, 0, ".zAction.value = ^", 1, 0, 10001 );
+                  ZeidonStringConcat( szWriteBuffer, 1, 0, szActionTag, 1, 0, 10001 );
+                  ZeidonStringConcat( szWriteBuffer, 1, 0, "^;", 1, 0, 10001 );
+                  //://END
                   //:WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 )
                   WL_QC( vDialog, lFileJAVA, szWriteBuffer, "^", 0 );
                   //:szWriteBuffer = "      document." + szFormName + ".submit( );"
@@ -6788,8 +6996,8 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
    //://but does not call onLoad if we are using table sorting and the _AfterPageLoaded gets called from addEvent in sts.js.
    //://I did see some documentation on the web that said the addEvent function doesn't work on IE5/Mac.  Might want to see if that's
    //://true. http://simonwillison.net/2004/May/26/addLoadEvent/
-   //:IF lSort = 0 OR szUseVMLGridSort = "Y"
-   if ( lSort == 0 || ZeidonStringCompare( szUseVMLGridSort, 1, 0, "Y", 1, 0, 2 ) == 0 )
+   //:IF lSort = 0 OR lSort > 1 //szUseVMLGridSort = "Y"
+   if ( lSort == 0 || lSort > 1 )
    { 
       //:szWriteBuffer = "<body onLoad=^_AfterPageLoaded( )^ onSubmit=^_DisableFormElements( true )^ onBeforeUnload=^_BeforePageUnload( )^>"
       ZeidonStringCopy( szWriteBuffer, 1, 0, "<body onLoad=^_AfterPageLoaded( )^ onSubmit=^_DisableFormElements( true )^ onBeforeUnload=^_BeforePageUnload( )^>", 1, 0, 10001 );
@@ -7800,15 +8008,19 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
    //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 );
 
-   //:IF lSort != 0 AND szUseVMLGridSort = "Y"
-   if ( lSort != 0 && ZeidonStringCompare( szUseVMLGridSort, 1, 0, "Y", 1, 0, 2 ) == 0 )
+   //:IF lSort >= 2 //AND szUseVMLGridSort = "Y"
+   if ( lSort >= 2 )
    { 
-      //:szWriteBuffer = "   <input name=^zSortMap^ id=^zSortAttribute^ type=^hidden^  value=^<%=strLastSortMap%>^>"
-      ZeidonStringCopy( szWriteBuffer, 1, 0, "   <input name=^zSortMap^ id=^zSortAttribute^ type=^hidden^  value=^<%=strLastSortMap%>^>", 1, 0, 10001 );
+      //:szWriteBuffer = "   <input name=^zSortMap^ id=^zSortMap^ type=^hidden^  value=^<%=strLastSortMap%>^>"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "   <input name=^zSortMap^ id=^zSortMap^ type=^hidden^  value=^<%=strLastSortMap%>^>", 1, 0, 10001 );
       //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
       WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
       //:szWriteBuffer = "   <input name=^zSortOrder^ id=^zSortOrder^ type=^hidden^  value=^<%=strLastSort%>^>"
       ZeidonStringCopy( szWriteBuffer, 1, 0, "   <input name=^zSortOrder^ id=^zSortOrder^ type=^hidden^  value=^<%=strLastSort%>^>", 1, 0, 10001 );
+      //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
+      //:szWriteBuffer = "   <input name=^zSortID^ id=^zSortID^ type=^hidden^  value=^<%=strLastSortID%>^>"
+      ZeidonStringCopy( szWriteBuffer, 1, 0, "   <input name=^zSortID^ id=^zSortID^ type=^hidden^  value=^<%=strLastSortID%>^>", 1, 0, 10001 );
       //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
       WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
       //:szWriteBuffer = "   <input name=^zSortView^ id=^zSortView^ type=^hidden^  value=^NOVALUE^>"
@@ -8653,6 +8865,10 @@ oTZWDLGSO_GenerateJSPJava( zVIEW     vDialog,
    //:END
    //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
+   //:szWriteBuffer = "   <input name=^zLastTask^ id=^zLastTask^ type=^hidden^ value=^<%=taskId%>^>"
+   ZeidonStringCopy( szWriteBuffer, 1, 0, "   <input name=^zLastTask^ id=^zLastTask^ type=^hidden^ value=^<%=taskId%>^>", 1, 0, 10001 );
+   //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 );
    //:szWriteBuffer = "   <input name=^zSolicitSave^ id=^zSolicitSave^ type=^hidden^ value=^<%=strSolicitSave%>^>"
    ZeidonStringCopy( szWriteBuffer, 1, 0, "   <input name=^zSolicitSave^ id=^zSolicitSave^ type=^hidden^ value=^<%=strSolicitSave%>^>", 1, 0, 10001 );
    //:WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
@@ -9393,6 +9609,10 @@ oTZWDLGSO_FlagUsedViewsGetFocusJ( zVIEW     vDialog,
    zLONG     lSubtypeX = 0; 
    //:INTEGER       lSort
    zLONG     lSort = 0; 
+   //:INTEGER       lSort1
+   zLONG     lSort1 = 0; 
+   //:INTEGER       lSort2
+   zLONG     lSort2 = 0; 
    //:INTEGER       nRC
    zLONG     nRC = 0; 
    zSHORT    RESULT; 
@@ -9529,8 +9749,9 @@ oTZWDLGSO_FlagUsedViewsGetFocusJ( zVIEW     vDialog,
          //:END
 
          //:// 2.(above) For Grid, identify is Sort is requested.
-         //:IF lSort = 0 AND szControlType = "Grid"
-         if ( lSort == 0 && ZeidonStringCompare( szControlType, 1, 0, "Grid", 1, 0, 51 ) == 0 )
+         //://IF lSort = 0 AND szControlType = "Grid"
+         //:IF lSort != 3 AND szControlType = "Grid"
+         if ( lSort != 3 && ZeidonStringCompare( szControlType, 1, 0, "Grid", 1, 0, 51 ) == 0 )
          { 
 
             //:lSubtypeX = vDialog.Control.ExtendedStyle
@@ -9539,13 +9760,49 @@ oTZWDLGSO_FlagUsedViewsGetFocusJ( zVIEW     vDialog,
             //:// #define zSS_SORTEDHEADERS 0x00040000 = 262144
             //:// #define zSS_REMEMBERSORT  0x00020000 = 131072
 
-            //:lSort = IsFlagSequenceSet( lSubtypeX, 262144 )
-            lSort = IsFlagSequenceSet( lSubtypeX, 262144 );
-            //:IF lSort = 0
-            if ( lSort == 0 )
+            //:// This is for "Auto Sort Headers". We might have a mixture of headers... 
+            //:// So we can have lSort = 1,2 or 3 (3 being both types of sorts)
+            //:IF lSort1 = 0
+            if ( lSort1 == 0 )
             { 
-               //:lSort = IsFlagSequenceSet( lSubtypeX, 131072 )
-               lSort = IsFlagSequenceSet( lSubtypeX, 131072 );
+               //:lSort1 = IsFlagSequenceSet( lSubtypeX, 262144 )
+               lSort1 = IsFlagSequenceSet( lSubtypeX, 262144 );
+            } 
+
+            //:END
+            //:IF lSort2 = 0
+            if ( lSort2 == 0 )
+            { 
+               //:lSort2 = IsFlagSequenceSet( lSubtypeX, 131072 )
+               lSort2 = IsFlagSequenceSet( lSubtypeX, 131072 );
+            } 
+
+            //:END
+            //:IF lSort1 = 1 AND lSort2 = 1
+            if ( lSort1 == 1 && lSort2 == 1 )
+            { 
+               //:lSort = 3
+               lSort = 3;
+               //:ELSE
+            } 
+            else
+            { 
+               //:IF lSort = 0 AND lSort1 = 1
+               if ( lSort == 0 && lSort1 == 1 )
+               { 
+                  //:lSort = 1
+                  lSort = 1;
+               } 
+
+               //:END
+               //:IF lSort = 0 AND lSort2 = 1
+               if ( lSort == 0 && lSort2 == 1 )
+               { 
+                  //:lSort = 2
+                  lSort = 2;
+               } 
+
+               //:END
             } 
 
             //:END
@@ -9696,8 +9953,32 @@ oTZWDLGSO_FlagUsedViewsGetFocusJ( zVIEW     vDialog,
          //:IF lTempIndex != 0
          if ( lTempIndex != 0 )
          { 
-            //:lSort = 1
-            lSort = 1;
+            //:IF lSort = 0
+            if ( lSort == 0 )
+            { 
+               //:lSort = lTempIndex
+               lSort = lTempIndex;
+               //:ELSE
+            } 
+            else
+            { 
+               //:IF (lTempIndex = 3 OR lSort = 3) OR (lTempIndex = 2 AND lSort = 1) OR (lTempIndex = 1 AND lSort = 2)
+               if ( ( lTempIndex == 3 || lSort == 3 ) || ( lTempIndex == 2 && lSort == 1 ) || ( lTempIndex == 1 && lSort == 2 ) )
+               { 
+                  //:lSort = 3
+                  lSort = 3;
+                  //:ELSE
+               } 
+               else
+               { 
+                  //:lSort = lTempIndex
+                  lSort = lTempIndex;
+               } 
+
+               //:END
+            } 
+
+            //:END
          } 
 
          //:END

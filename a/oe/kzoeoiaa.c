@@ -11856,7 +11856,7 @@ z1000-Zeidon    ACCOUNT  TZWDLGSO 04/18/07   09:18:42 1.0a2
    // information is stored as bit-flags.
    if ( *pchLine == 'z' )
    {
-      // New header style.
+	   // New header style.
       if ( zstrncmp( pchLine + 6, szlmZeidon, 6 ) != 0 )
       {
          //  "KZOEE073 - Invalid instance file header in "
@@ -11867,8 +11867,8 @@ z1000-Zeidon    ACCOUNT  TZWDLGSO 04/18/07   09:18:42 1.0a2
       // Just got the header ... set the release value from the file
       // header into the view (object instance) release value. (dks 3/5/96)
       if ( zstrlen( pchLine ) > 55 )
-      {
-         zstrncpy( lpViewOI->szRelease, pchLine + 54, 8 );
+      {		  
+		 zstrncpy( lpViewOI->szRelease, pchLine + 54, 8 );
          lpViewOI->szRelease[ 8 ] = 0;
       }
 

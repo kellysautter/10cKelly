@@ -1983,6 +1983,8 @@ AUTODESIGN_Group( zVIEW     ViewToWindow )
    zSHORT    lInitialLevel = 0; 
    zSHORT    lTempInteger_0; 
    zCHAR     szTempString_0[ 33 ]; 
+   zCHAR     szTempString_1[ 255 ]; 
+   zCHAR     szTempString_2[ 2 ]; 
    zSHORT    lTempInteger_1; 
 
    RESULT = GetViewByName( &TZADWWKO, "TZADWWKO", ViewToWindow, zLEVEL_TASK );
@@ -2165,8 +2167,11 @@ AUTODESIGN_Group( zVIEW     ViewToWindow )
       //:IF TZADWWKO.EntitySubGroup.GroupAreaName = ""
       if ( CompareAttributeToString( TZADWWKO, "EntitySubGroup", "GroupAreaName", "" ) == 0 )
       { 
-         //:TZADWWKO.EntitySubGroup.GroupAreaName = TZADWWKO.DetailMappingLOD_Entity.Name 
-         SetAttributeFromAttribute( TZADWWKO, "EntitySubGroup", "GroupAreaName", TZADWWKO, "DetailMappingLOD_Entity", "Name" );
+         //:TZADWWKO.EntitySubGroup.GroupAreaName = TZADWWKO.DetailMappingLOD_Entity.Name + TZADWWKO.EntitySubGroup.GroupAreaNameSuffix 
+         GetStringFromAttribute( szTempString_1, TZADWWKO, "DetailMappingLOD_Entity", "Name" );
+         GetStringFromAttribute( szTempString_2, TZADWWKO, "EntitySubGroup", "GroupAreaNameSuffix" );
+         ZeidonStringConcat( szTempString_1, 1, 0, szTempString_2, 1, 0, 255 );
+         SetAttributeFromString( TZADWWKO, "EntitySubGroup", "GroupAreaName", szTempString_1 );
       } 
 
       //:END

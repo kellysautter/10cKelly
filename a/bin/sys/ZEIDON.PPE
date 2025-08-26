@@ -1,7 +1,7 @@
-z1000-Zeidon    ZEIDON   TZPESRCO 03/01/18   15:57:06 1.0a2    
+z1000-Zeidon    ZEIDON   TZPESRCO 08/18/25   09:30:05 1.0a2    
 ePresEnvDef 1
 aZKey      5019543
-aNextZKeyToAssign 190008894
+aNextZKeyToAssign 190008895
 aName      ZEIDON
 aLastCtrl  28
 aLastFont  3
@@ -1950,6 +1950,11 @@ aZKey      68579827
 aTag       HotText
 aType      1
 
+eCtrlEventDef 3
+aZKey      190008895
+aTag       Change
+aType      18
+
 eValidParent 3
 
 eValidParent 3
@@ -2142,172 +2147,6 @@ aZKey      1081
 eConvertsSelfToChild 3
 
 eControlDef 2
-aZKey      4002
-aKey       4002
-aTag       INVISIBLE
-aRT_DLL_Name ZDCTL
-aRT_OperationName ActiveX
-aPainterDLL_Name TZCTL
-aPainterC_OperationName TZActiveXMsg
-aPainterBitmap Active
-aMaintenanceDialog TZPNCTLD
-aMaintenanceWindow UPD_ActiveX
-aAcceptsAllParents Y
-aInvisible 1
-aGUID      {00028C00-0000-0000-0000-000000000046}
-aActiveX_Script MsDBGridScript
-aActiveX_ScriptDLL MSDBGrid
-
-eCtrlEventDef 3
-aZKey      90003752
-aTag       Click
-aType      -600
-
-eCtrlEventDef 3
-aZKey      90003753
-aTag       DblClick
-aType      -601
-
-eCtrlEventDef 3
-aZKey      90003754
-aTag       AfterColUpdate
-aType      1
-
-eCtrlEventDef 3
-aZKey      90003755
-aTag       AfterDelete
-aType      2
-
-eCtrlEventDef 3
-aZKey      90003756
-aTag       AfterInsert
-aType      3
-
-eCtrlEventDef 3
-aZKey      90003757
-aTag       AfterUpdate
-aType      4
-
-eCtrlEventDef 3
-aZKey      90003758
-aTag       BeforeColUpdate
-aType      5
-
-eCtrlEventDef 3
-aZKey      90003759
-aTag       BeforeDelete
-aType      6
-
-eCtrlEventDef 3
-aZKey      90003760
-aTag       BeforeInsert
-aType      7
-
-eCtrlEventDef 3
-aZKey      90003761
-aTag       BeforeUpdate
-aType      8
-
-eCtrlEventDef 3
-aZKey      90003762
-aTag       ColResize
-aType      9
-
-eCtrlEventDef 3
-aZKey      90003763
-aTag       HeadClick
-aType      10
-
-eCtrlEventDef 3
-aZKey      90003764
-aTag       RowColChange
-aType      11
-
-eCtrlEventDef 3
-aZKey      90003765
-aTag       RowResize
-aType      13
-
-eCtrlEventDef 3
-aZKey      90003766
-aTag       Scroll
-aType      14
-
-eCtrlEventDef 3
-aZKey      90003767
-aTag       SelChange
-aType      15
-
-eCtrlEventDef 3
-aZKey      90003768
-aTag       SplitChange
-aType      24
-
-eCtrlEventDef 3
-aZKey      90003769
-aTag       Change
-aType      16
-
-eCtrlEventDef 3
-aZKey      90003770
-aTag       Error
-aType      22
-
-eCtrlEventDef 3
-aZKey      90003771
-aTag       AfterColEdit
-aType      25
-
-eCtrlEventDef 3
-aZKey      90003772
-aTag       BeforeColEdit
-aType      26
-
-eCtrlEventDef 3
-aZKey      90003773
-aTag       ColEdit
-aType      27
-
-eCtrlEventDef 3
-aZKey      90003774
-aTag       ButtonClick
-aType      33
-
-eCtrlEventDef 3
-aZKey      90003775
-aTag       OnAddNew
-aType      37
-
-eValidParent 3
-aZKey      2020
-aTag       MsgBar
-aId        20
-aRT_DLL_Name ZDCTL
-aRT_OperationName DIL
-aPainterDLL_Name TZCTL
-aPainterC_OperationName TZDilMsg
-aPainterConvertOperationName ConvertDIL
-aPainterBitmap DIL
-aMaintenanceDialog TZPNCTAD
-aMaintenanceWindow UPD_DIL
-aInvisible -1
-aKey       2020
-
-eCtrlMapDef 3
-aZKey      1169959
-aDesc      Scoping entity (not required)
-aTag       Scope
-aType      S
-aIterator  N
-
-eCtrlMapDef 3
-aZKey      1169960
-aDesc      One for each column of data
-aTag       Column
-aType      A
-aIterator  Y
-
-eControlDef 2
 aZKey      4005
 aKey       4005
 aTag       INVISIBLE
@@ -2477,6 +2316,172 @@ eCtrlEventDef 3
 aZKey      90018333
 aTag       LayoutReady
 aType      65
+
+eControlDef 2
+aZKey      4002
+aKey       4002
+aTag       INVISIBLE
+aRT_DLL_Name ZDCTL
+aRT_OperationName ActiveX
+aPainterDLL_Name TZCTL
+aPainterC_OperationName TZActiveXMsg
+aPainterBitmap Active
+aMaintenanceDialog TZPNCTLD
+aMaintenanceWindow UPD_ActiveX
+aAcceptsAllParents Y
+aInvisible 1
+aGUID      {00028C00-0000-0000-0000-000000000046}
+aActiveX_Script MsDBGridScript
+aActiveX_ScriptDLL MSDBGrid
+
+eCtrlEventDef 3
+aZKey      90003752
+aTag       Click
+aType      -600
+
+eCtrlEventDef 3
+aZKey      90003753
+aTag       DblClick
+aType      -601
+
+eCtrlEventDef 3
+aZKey      90003754
+aTag       AfterColUpdate
+aType      1
+
+eCtrlEventDef 3
+aZKey      90003755
+aTag       AfterDelete
+aType      2
+
+eCtrlEventDef 3
+aZKey      90003756
+aTag       AfterInsert
+aType      3
+
+eCtrlEventDef 3
+aZKey      90003757
+aTag       AfterUpdate
+aType      4
+
+eCtrlEventDef 3
+aZKey      90003758
+aTag       BeforeColUpdate
+aType      5
+
+eCtrlEventDef 3
+aZKey      90003759
+aTag       BeforeDelete
+aType      6
+
+eCtrlEventDef 3
+aZKey      90003760
+aTag       BeforeInsert
+aType      7
+
+eCtrlEventDef 3
+aZKey      90003761
+aTag       BeforeUpdate
+aType      8
+
+eCtrlEventDef 3
+aZKey      90003762
+aTag       ColResize
+aType      9
+
+eCtrlEventDef 3
+aZKey      90003763
+aTag       HeadClick
+aType      10
+
+eCtrlEventDef 3
+aZKey      90003764
+aTag       RowColChange
+aType      11
+
+eCtrlEventDef 3
+aZKey      90003765
+aTag       RowResize
+aType      13
+
+eCtrlEventDef 3
+aZKey      90003766
+aTag       Scroll
+aType      14
+
+eCtrlEventDef 3
+aZKey      90003767
+aTag       SelChange
+aType      15
+
+eCtrlEventDef 3
+aZKey      90003768
+aTag       SplitChange
+aType      24
+
+eCtrlEventDef 3
+aZKey      90003769
+aTag       Change
+aType      16
+
+eCtrlEventDef 3
+aZKey      90003770
+aTag       Error
+aType      22
+
+eCtrlEventDef 3
+aZKey      90003771
+aTag       AfterColEdit
+aType      25
+
+eCtrlEventDef 3
+aZKey      90003772
+aTag       BeforeColEdit
+aType      26
+
+eCtrlEventDef 3
+aZKey      90003773
+aTag       ColEdit
+aType      27
+
+eCtrlEventDef 3
+aZKey      90003774
+aTag       ButtonClick
+aType      33
+
+eCtrlEventDef 3
+aZKey      90003775
+aTag       OnAddNew
+aType      37
+
+eValidParent 3
+aZKey      2020
+aTag       MsgBar
+aId        20
+aRT_DLL_Name ZDCTL
+aRT_OperationName DIL
+aPainterDLL_Name TZCTL
+aPainterC_OperationName TZDilMsg
+aPainterConvertOperationName ConvertDIL
+aPainterBitmap DIL
+aMaintenanceDialog TZPNCTAD
+aMaintenanceWindow UPD_DIL
+aInvisible -1
+aKey       2020
+
+eCtrlMapDef 3
+aZKey      1169959
+aDesc      Scoping entity (not required)
+aTag       Scope
+aType      S
+aIterator  N
+
+eCtrlMapDef 3
+aZKey      1169960
+aDesc      One for each column of data
+aTag       Column
+aType      A
+aIterator  Y
 
 eControlDef 2
 aZKey      4017
@@ -3790,78 +3795,78 @@ i327       320
 i328       322
 i330       306
 i336       320
-i338       306
-i342       306
-i362       361
-i436       435
-i452       361
-i453       361
-i454       361
-i455       435
-i456       343
-i457       340
-i458       339
-i473       472
-i474       388
-i475       472
-i476       472
-i477       472
-i478       388
-i492       339
-i493       343
-i510       323
-i513       509
-i514       512
-i515       512
-i518       509
-i519       509
-i520       512
-i521       509
-i523       512
-i525       517
-i526       522
-i527       524
-i528       522
-i529       517
-i530       517
-i531       517
-i532       522
-i533       517
-i537       524
-i538       522
-i539       517
-i540       536
-i541       535
-i542       524
-i543       517
-i545       517
-i546       524
-i547       534
-i549       517
-i550       524
-i551       534
-i552       534
-i553       517
-i554       534
-i555       524
-i557       320
-i558       166
-i559       322
-i560       208
-i561       321
-i562       517
-i563       524
-i564       534
-i565       320
-i577       306
-i578       340
-i579       343
-i580       339
-i581       339
-i585       339
+i339       306
+i343       306
+i363       362
+i437       436
+i453       362
+i454       362
+i455       362
+i456       436
+i457       344
+i458       341
+i459       340
+i474       473
+i475       421
+i476       473
+i477       473
+i478       473
+i479       421
+i493       340
+i494       344
+i511       323
+i514       510
+i515       513
+i516       513
+i519       510
+i520       510
+i521       513
+i522       510
+i524       513
+i526       518
+i527       523
+i528       525
+i529       523
+i530       518
+i531       518
+i532       518
+i533       523
+i534       518
+i538       525
+i539       523
+i540       518
+i541       537
+i542       536
+i543       525
+i544       518
+i546       518
+i547       525
+i548       535
+i550       518
+i551       525
+i552       535
+i553       535
+i554       518
+i555       535
+i556       525
+i558       320
+i559       166
+i560       322
+i561       208
+i562       321
+i563       518
+i564       525
+i565       535
+i566       320
+i578       306
+i579       341
+i580       344
+i581       340
+i582       340
 i586       340
-i599       597
-i601       597
-i660       343
-i661       339
+i587       341
+i600       598
+i602       598
+i661       344
 i662       340
+i663       341
