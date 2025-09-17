@@ -31,7 +31,7 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
    STRING ( 100 ) szMapEntityName
    STRING ( 100 ) szMapAttributeName
    STRING ( 100 ) szActionName
-   STRING ( 256 ) szAction
+   STRING ( 600 ) szActionCode
    STRING ( 256 ) szHTML5Attr
    STRING ( 256 ) szPlaceholder
    STRING ( 256 ) szjMobileDataRole
@@ -4350,14 +4350,14 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
                               // 3. If Action is SelectEnd, use onfocusout.
                               IF vDialog.Event EXISTS
                                  IF vDialog.Event.Type = 1
-                                    szSelectAction   = "onchange"
+                                    szSelectAction   = " onchange"
                                     szSelectFunction = "OnChange"
                                  ELSE
-                                    szSelectAction   = "onblur"
+                                    szSelectAction   = " onblur"
                                     szSelectFunction = "OnBlur"
                                  END
                               ELSE
-                                 szSelectAction = "onchange"
+                                 szSelectAction = " onchange"
                                  szSelectFunction = "OnChange"
                               END
 
@@ -4365,16 +4365,13 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
                               szWriteBuffer = "   " + szItemTableHeader + ">" // <td nowrap>
 
                               IF szClass = ""
-                              // szWriteBuffer = szWriteBuffer + "<select name=^" + szListCtrlTag + "::<%=strEntityKey%>^ id=^" + szListCtrlTag + "::<%=strEntityKey%>^ size=^1^" + szTitleHTML + " style=^width:152px;height:20px;^ " +
                                  szWriteBuffer = szWriteBuffer + "<select name=^" + szListCtrlTag + "::<%=strEntityKey%>^ id=^" + szListCtrlTag + "::<%=strEntityKey%>^ <%=strDisabled%> size=^1^" + szTitleHTML + szStyle +
                                                  szDisabled + szSelectAction + "=^" +
                                                  szListCtrlTag + szSelectFunction + "( 'h" + szListCtrlTag + "::<%=strEntityKey%>', this, <%=strEntityKey%> )^>"
-                                                 //szListCtrlTag + szSelectFunction + "( h" + szListCtrlTag + "::<%=strEntityKey%>," + szListCtrlTag + "::<%=strEntityKey%>, <%=strEntityKey%> )^>"
-                              ELSE
+                               ELSE
                                  szWriteBuffer = szWriteBuffer + "<select class=^" + szClass + "^ name=^" + szListCtrlTag + "::<%=strEntityKey%>^ id=^" + szListCtrlTag + "::<%=strEntityKey%>^ <%=strDisabled%> size=^1^" + szTitleHTML +
                                                 szStyle + szDisabled + szSelectAction + "=^" + szListCtrlTag + szSelectFunction + "( 'h" + szListCtrlTag + "::<%=strEntityKey%>', this, <%=strEntityKey%> )^>"
-                                                //" style=^width:" + szWidth + "px;^ " + szDisabled + szSelectAction + "=^" + szListCtrlTag + szSelectFunction + "( h" + szListCtrlTag + "::<%=strEntityKey%>," + szListCtrlTag + "::<%=strEntityKey%> )^>"
-                              END
+                               END
                               WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
 
                               szWriteBuffer = "<%"
@@ -4638,6 +4635,18 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
 
                         ELSE
                         IF szCtrlCtrlType = "Calendar"
+                           ////////////// KJS 09/12/25 ///////////////
+                           szActionCode = ""
+                           FOR EACH vDialog.Event
+                              IF vDialog.EventAct EXISTS
+                                 szActionName = vDialog.EventAct.Tag
+                                 IF vDialog.Event.Type = 1 // Event is "Change" 
+                                    szActionCode = szActionCode + " onchange=^" + szActionName + "( this.id )^ "
+                                 END
+                              END
+                           END
+                           /////////////////////////////////
+                        
                            szWriteBuffer = "   " + szItemTableHeader + ">"
                            //KJS 7/26/07 - Added DISABLED option.
                            IF szStyleIsBootstrap = "Y"
@@ -4650,7 +4659,7 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
                               szWriteBuffer = szWriteBuffer + "<input " + szClass + " name=^" + szListCtrlTag + "::<%=strEntityKey%>^ id=^" + szListCtrlTag + "::<%=strEntityKey%>^ <%=strDisabled%> "
                               //szWriteBuffer = szWriteBuffer + "style=^width:80px^ type=^text^" + szDisabled + " value=^<%=str" + szListCtrlTag + "%>^ />"
                               // KJS 05/31/22 - taking out the calendar size (sometimes it's too small). But need to see if this should only be for
-                              szWriteBuffer = szWriteBuffer + "type=^text^" + szDisabled + " value=^<%=str" + szListCtrlTag + "%>^ />"
+                              szWriteBuffer = szWriteBuffer + "type=^text^" + szActionCode + szDisabled + " value=^<%=str" + szListCtrlTag + "%>^ />"
                            ELSE
                               szWriteBuffer = szWriteBuffer + "<input name=^" + szListCtrlTag + "::<%=strEntityKey%>^ id=^" + szListCtrlTag + "::<%=strEntityKey%>^ <%=strDisabled%> "
                               // KJS 05/31/22 - we might need to take out the size... but I changed from 80 to 85 at the moment. 
@@ -4677,6 +4686,17 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
                            IF RESULT >= zCURSOR_SET
                               szNumber = " type=^number^"
                            END
+                           ////////////// KJS 09/12/25 ///////////////
+                           szActionCode = ""
+                           FOR EACH vDialog.Event
+                              IF vDialog.EventAct EXISTS
+                                 szActionName = vDialog.EventAct.Tag
+                                 IF vDialog.Event.Type = 18  OR vDialog.Event.Type = 1024// Event is "Change" for subedit or mledit
+                                    szActionCode = szActionCode + " onchange=^" + szActionName + "( this.id )^ "
+                                 END
+                              END
+                           END
+                           /////////////////////////////////
                                                                               
                            //KJS 7/26/07 - Added DISABLED option.
                            //KJS 10/19/07 - Added title
@@ -4684,10 +4704,10 @@ GenJSPJ_CrteCtrlsRecurs( VIEW vDialog      BASED ON LOD TZWDLGSO,
                               // KJS 06/01/22 - If bootstrap (and maybe for all non position styles?) I am taking out the size=. 
                               // KJS 06/01/22 - but now per Kindra I am adding sze back. But will keep the "IF" because I have a feeling we will want to make another change.
                               szWriteBuffer = "   " + szItemTableHeader + "><input" + szNumber + szPlaceholder + " size=^" + szSize + "^ value=^<%=str" + szListCtrlTag + "%>^<%=str" + szListCtrlTag +
-                                                     "ErrorColor%> name=^" + szListCtrlTag + "::<%=strEntityKey%>^ id=^" + szListCtrlTag + "::<%=strEntityKey%>^ <%=strDisabled%> " + szTitleHTML + szDisabled + "></td>"
+                                                     "ErrorColor%> name=^" + szListCtrlTag + "::<%=strEntityKey%>^ id=^" + szListCtrlTag + "::<%=strEntityKey%>^ <%=strDisabled%> " + szActionCode + szTitleHTML + szDisabled + "></td>"
                            ELSE
                               szWriteBuffer = "   " + szItemTableHeader + "><input" + szNumber + szPlaceholder + " size=^" + szSize + "^ value=^<%=str" + szListCtrlTag + "%>^<%=str" + szListCtrlTag +
-                                                     "ErrorColor%> name=^" + szListCtrlTag + "::<%=strEntityKey%>^ id=^" + szListCtrlTag + "::<%=strEntityKey%>^ <%=strDisabled%> " + szTitleHTML + szDisabled + "></td>"
+                                                     "ErrorColor%> name=^" + szListCtrlTag + "::<%=strEntityKey%>^ id=^" + szListCtrlTag + "::<%=strEntityKey%>^ <%=strDisabled%> " + szActionCode + szTitleHTML + szDisabled + "></td>"
                            END
                         ELSE
                         IF vDialog.Control.WebCtrlType = "Multiline" OR szWCP_Multiline = "Y" OR szCtrlCtrlType = "MLEdit"

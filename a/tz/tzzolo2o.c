@@ -1239,8 +1239,13 @@ oTZZOLODO_LOD_AttributeCopy( zVIEW     vSubtask,
    zSHORT    lTempInteger_4; 
    zLONG     lTempInteger_5; 
    zCHAR     szTempString_0[ 33 ]; 
-   zCHAR     szTempString_1[ 255 ]; 
+   zCHAR     szTempString_1[ 33 ]; 
    zCHAR     szTempString_2[ 33 ]; 
+   zCHAR     szTempString_3[ 33 ]; 
+   zCHAR     szTempString_4[ 33 ]; 
+   zCHAR     szTempString_5[ 255 ]; 
+   zCHAR     szTempString_6[ 33 ]; 
+   zCHAR     szTempString_7[ 33 ]; 
    zSHORT    lTempInteger_6; 
 
    RESULT = GetViewByName( &TaskLPLR, "TaskLPLR", vSubtask, zLEVEL_TASK );
@@ -1454,8 +1459,28 @@ oTZZOLODO_LOD_AttributeCopy( zVIEW     vSubtask,
                      } 
                      else
                      { 
-                        //:IssueError( vSubtask,0,0, "System Error: No match on SourceLPLR Domain." )
-                        IssueError( vSubtask, 0, 0, "System Error: No match on SourceLPLR Domain." );
+                        //:TraceLineS( "*** Err Entity: ", OldRecursiveLOD.LOD_EntityParent.Name )
+                        GetStringFromAttribute( szTempString_0, OldRecursiveLOD, "LOD_EntityParent", "Name" );
+                        TraceLineS( "*** Err Entity: ", szTempString_0 );
+                        //:TraceLineS( "*** Err Attribute: ", OldRecursiveLOD.ER_AttributeRec.Name )
+                        GetStringFromAttribute( szTempString_1, OldRecursiveLOD, "ER_AttributeRec", "Name" );
+                        TraceLineS( "*** Err Attribute: ", szTempString_1 );
+                        //:TraceLineS( "*** Err Domain: ", OldRecursiveLOD.DomainRec.Name )
+                        GetStringFromAttribute( szTempString_2, OldRecursiveLOD, "DomainRec", "Name" );
+                        TraceLineS( "*** Err Domain: ", szTempString_2 );
+                        //:szMsg = "SourceLPLR Domain, " + OldRecursiveLOD.DomainRec.Name + ", not in Target LPLR." + NEW_LINE +
+                        //:        "Resave source LOD, " + OldRecursiveLOD.LOD.Name + ", and reexecute the Merge."
+                        GetVariableFromAttribute( szTempString_3, 0, 'S', 33, OldRecursiveLOD, "DomainRec", "Name", "", 0 );
+                        ZeidonStringCopy( szMsg, 1, 0, "SourceLPLR Domain, ", 1, 0, 255 );
+                        ZeidonStringConcat( szMsg, 1, 0, szTempString_3, 1, 0, 255 );
+                        ZeidonStringConcat( szMsg, 1, 0, ", not in Target LPLR.", 1, 0, 255 );
+                        ZeidonStringConcat( szMsg, 1, 0, NEW_LINE, 1, 0, 255 );
+                        ZeidonStringConcat( szMsg, 1, 0, "Resave source LOD, ", 1, 0, 255 );
+                        GetVariableFromAttribute( szTempString_4, 0, 'S', 33, OldRecursiveLOD, "LOD", "Name", "", 0 );
+                        ZeidonStringConcat( szMsg, 1, 0, szTempString_4, 1, 0, 255 );
+                        ZeidonStringConcat( szMsg, 1, 0, ", and reexecute the Merge.", 1, 0, 255 );
+                        //:IssueError( vSubtask,0,0, szMsg )
+                        IssueError( vSubtask, 0, 0, szMsg );
                      } 
 
                      //:END
@@ -1492,8 +1517,8 @@ oTZZOLODO_LOD_AttributeCopy( zVIEW     vSubtask,
                   //:DomainAddForMerge( NewDomain, SourceLPLR, CurrentLPLR,
                   //:                   SourceLPLR.LPLR.MetaSrcDir,    // Source directory for retrieving source Domain Group
                   //:                   DomainName, vSubtask )
-                  GetStringFromAttribute( szTempString_1, SourceLPLR, "LPLR", "MetaSrcDir" );
-                  oTZDGSRCO_DomainAddForMerge( &NewDomain, SourceLPLR, CurrentLPLR, szTempString_1, DomainName, vSubtask );
+                  GetStringFromAttribute( szTempString_5, SourceLPLR, "LPLR", "MetaSrcDir" );
+                  oTZDGSRCO_DomainAddForMerge( &NewDomain, SourceLPLR, CurrentLPLR, szTempString_5, DomainName, vSubtask );
                   //:INCLUDE NewRecursiveLOD.DomainRec FROM NewDomain.Domain
                   RESULT = IncludeSubobjectFromSubobject( NewRecursiveLOD, "DomainRec", NewDomain, "Domain", zPOS_AFTER );
                   //:DropMetaOI( vSubtask, NewDomain )
@@ -1513,9 +1538,9 @@ oTZZOLODO_LOD_AttributeCopy( zVIEW     vSubtask,
                   MessageSend( vSubtask, "ZO00403", "Entity Copy", szMsg, zMSGQ_OBJECT_CONSTRAINT_WARNING, 0 );
                   //:szMsg = "LOD (" + OldMainLOD.LOD.Name +
                   //:        ") will not be migrated."
-                  GetVariableFromAttribute( szTempString_0, 0, 'S', 33, OldMainLOD, "LOD", "Name", "", 0 );
+                  GetVariableFromAttribute( szTempString_6, 0, 'S', 33, OldMainLOD, "LOD", "Name", "", 0 );
                   ZeidonStringCopy( szMsg, 1, 0, "LOD (", 1, 0, 255 );
-                  ZeidonStringConcat( szMsg, 1, 0, szTempString_0, 1, 0, 255 );
+                  ZeidonStringConcat( szMsg, 1, 0, szTempString_6, 1, 0, 255 );
                   ZeidonStringConcat( szMsg, 1, 0, ") will not be migrated.", 1, 0, 255 );
                   //:MessageSend( vSubtask, "ZO00404", "Entity Copy",
                   //:             szMsg,
@@ -1541,8 +1566,8 @@ oTZZOLODO_LOD_AttributeCopy( zVIEW     vSubtask,
          n = 0;
          //:SET CURSOR FIRST NewERD.ER_Attribute
          //:           WHERE NewERD.ER_Attribute.Name = OldRecursiveLOD.ER_AttributeRec.Name
-         GetStringFromAttribute( szTempString_2, OldRecursiveLOD, "ER_AttributeRec", "Name" );
-         RESULT = SetCursorFirstEntityByString( NewERD, "ER_Attribute", "Name", szTempString_2, "" );
+         GetStringFromAttribute( szTempString_7, OldRecursiveLOD, "ER_AttributeRec", "Name" );
+         RESULT = SetCursorFirstEntityByString( NewERD, "ER_Attribute", "Name", szTempString_7, "" );
          //:IF RESULT < zCURSOR_SET
          if ( RESULT < zCURSOR_SET )
          { 
@@ -1657,8 +1682,8 @@ oTZZOLODO_LOD_AttributeCopy( zVIEW     vSubtask,
 
       //:SET CURSOR FIRST NewMainLOD.Operation WITHIN NewMainLOD.LOD WHERE
       //:                 NewMainLOD.Operation.Name = OldRecursiveLOD.LOD_AttrDerivationOperRec.Name
-      GetStringFromAttribute( szTempString_2, OldRecursiveLOD, "LOD_AttrDerivationOperRec", "Name" );
-      RESULT = SetCursorFirstEntityByString( NewMainLOD, "Operation", "Name", szTempString_2, "LOD" );
+      GetStringFromAttribute( szTempString_7, OldRecursiveLOD, "LOD_AttrDerivationOperRec", "Name" );
+      RESULT = SetCursorFirstEntityByString( NewMainLOD, "Operation", "Name", szTempString_7, "LOD" );
       //:IF RESULT >= 0
       if ( RESULT >= 0 )
       { 
@@ -2139,13 +2164,16 @@ oTZZOLODO_DIL_NLS_Text( zVIEW     vLOD,
 //:             VIEW          SourceLPLR BASED ON LOD TZCMLPLO,
 //:             VIEW          vSubtask )
 
-//:   VIEW SourceLPLR2      BASED ON LOD TZCMLPLO
+//:   VIEW TaskLPLR         REGISTERED AS TaskLPLR
 zOPER_EXPORT zSHORT OPERATION
 oTZZOLODO_LOD_Migrate( zVIEW     NewMainLOD,
                        zPCHAR    LOD_Name,
                        zVIEW     SourceLPLR,
                        zVIEW     vSubtask )
 {
+   zVIEW     TaskLPLR = 0; 
+   zSHORT    RESULT; 
+   //:VIEW SourceLPLR2      BASED ON LOD TZCMLPLO
    zVIEW     SourceLPLR2 = 0; 
    //:VIEW NewRecursiveLOD  BASED ON LOD TZZOLODO
    zVIEW     NewRecursiveLOD = 0; 
@@ -2201,7 +2229,6 @@ oTZZOLODO_LOD_Migrate( zVIEW     NewMainLOD,
    //:SHORT          nRC
    zSHORT    nRC = 0; 
    zCHAR     szTempString_0[ 33 ]; 
-   zSHORT    RESULT; 
    zSHORT    lTempInteger_0; 
    zSHORT    lTempInteger_1; 
    zSHORT    lTempInteger_2; 
@@ -2220,8 +2247,8 @@ oTZZOLODO_LOD_Migrate( zVIEW     NewMainLOD,
    zSHORT    lTempInteger_9; 
    zCHAR     szTempString_7[ 33 ]; 
    zCHAR     szTempString_8[ 33 ]; 
-   zCHAR     szTempString_9[ 33 ]; 
 
+   RESULT = GetViewByName( &TaskLPLR, "TaskLPLR", NewMainLOD, zLEVEL_TASK );
 
    //:// This operation is called from both TZCMLPMD.MERGE_SelectedLPLR_Metas and TZCMLPMD.MigrateMeta.
 
@@ -2518,6 +2545,26 @@ oTZZOLODO_LOD_Migrate( zVIEW     NewMainLOD,
          //:                      "",
          //:                      "" )
          nRC = oTZZOLODO_LOD_EntityCopy( NewMainLOD, NewRecursiveLOD, OldMainLOD, OldRecursiveLOD, SourceLPLR2, CurrentLPLR, NewERD, SourceERD, ReturnedTE, vSubtask, "", "" );
+         //:         
+         //:// If the ER Entity is the root entity of the LOD, srite out error message that the LOD cannot be
+         //:// created and abort the LOD Migrate. (DonC 8/7/2025)
+         //:// This will be true if the new LOD has no root Entity.
+         //:SET CURSOR FIRST NewMainLOD.LOD_EntityParent
+         RESULT = SetCursorFirstEntity( NewMainLOD, "LOD_EntityParent", "" );
+         //:IF RESULT < zCURSOR_SET
+         if ( RESULT < zCURSOR_SET )
+         { 
+            //:szMsg = "Since the root Entity for LOD, " + LOD_Name + ", is not in the ER, the LOD will not be copied.." 
+            ZeidonStringCopy( szMsg, 1, 0, "Since the root Entity for LOD, ", 1, 0, 201 );
+            ZeidonStringConcat( szMsg, 1, 0, LOD_Name, 1, 0, 201 );
+            ZeidonStringConcat( szMsg, 1, 0, ", is not in the ER, the LOD will not be copied..", 1, 0, 201 );
+            //:CreateErrorMessage( TaskLPLR, szMsg )
+            oTZCMLPLO_CreateErrorMessage( TaskLPLR, szMsg );
+            //:RETURN
+            return( 0 );
+         } 
+
+         //:END
 
          //:IF nRC != 0  // Pass along any errors
          if ( nRC != 0 )
@@ -2529,7 +2576,6 @@ oTZZOLODO_LOD_Migrate( zVIEW     NewMainLOD,
          RESULT = SetCursorNextEntity( OldRecursiveLOD, "LOD_EntityParent", "" );
          //:END
       } 
-
 
       //:END
       //:DropView( SourceLPLR2 )
@@ -2805,26 +2851,16 @@ oTZZOLODO_LOD_Migrate( zVIEW     NewMainLOD,
    //:DropObjectInstance( OldMainLOD )
    DropObjectInstance( OldMainLOD );
 
+   //:// The following code was removed by DonC on 8/8/2025 and the check was moved above to create an error message.
    //:// Don't migrate any LOD without a root entity.
-   //:SET CURSOR FIRST NewMainLOD.LOD_EntityParent
-   RESULT = SetCursorFirstEntity( NewMainLOD, "LOD_EntityParent", "" );
+   //:/*SET CURSOR FIRST NewMainLOD.LOD_EntityParent
    //:IF RESULT < zCURSOR_SET
-   if ( RESULT < zCURSOR_SET )
-   { 
-      //:szMsg = "LOD (" + NewMainLOD.LOD.Name + ") is empty and will not be migrated."
-      GetVariableFromAttribute( szTempString_7, 0, 'S', 33, NewMainLOD, "LOD", "Name", "", 0 );
-      ZeidonStringCopy( szMsg, 1, 0, "LOD (", 1, 0, 201 );
-      ZeidonStringConcat( szMsg, 1, 0, szTempString_7, 1, 0, 201 );
-      ZeidonStringConcat( szMsg, 1, 0, ") is empty and will not be migrated.", 1, 0, 201 );
-      //:MessageSend( vSubtask, "", "Entity Copy",
-      //:             szMsg,
-      //:             zMSGQ_OBJECT_CONSTRAINT_WARNING, 0 )
-      MessageSend( vSubtask, "", "Entity Copy", szMsg, zMSGQ_OBJECT_CONSTRAINT_WARNING, 0 );
-      //:RETURN -1
-      return( -1 );
-   } 
-
-   //:END
+   //:   szMsg = "LOD (" + NewMainLOD.LOD.Name + ") is empty and will not be migrated."
+   //:   MessageSend( vSubtask, "", "Entity Copy",
+   //:                szMsg,
+   //:                zMSGQ_OBJECT_CONSTRAINT_WARNING, 0 )
+   //:   RETURN -1
+   //:END*/
 
    //:// If the ERD was modified during LOD copy, prompt the user for save of both the LOD and ERD together. If the LOD
    //:// is to be saved, the ERD must also be saved. We will not do this if component errors have occurred during the copy.
@@ -2861,8 +2897,8 @@ oTZZOLODO_LOD_Migrate( zVIEW     NewMainLOD,
          //:             CurrentLPLR.LPLR.Name + ".PMD"
          GetStringFromAttribute( szFileName, CurrentLPLR, "LPLR", "MetaSrcDir" );
          ZeidonStringConcat( szFileName, 1, 0, "\\", 1, 0, 201 );
-         GetVariableFromAttribute( szTempString_8, 0, 'S', 33, CurrentLPLR, "LPLR", "Name", "", 0 );
-         ZeidonStringConcat( szFileName, 1, 0, szTempString_8, 1, 0, 201 );
+         GetVariableFromAttribute( szTempString_7, 0, 'S', 33, CurrentLPLR, "LPLR", "Name", "", 0 );
+         ZeidonStringConcat( szFileName, 1, 0, szTempString_7, 1, 0, 201 );
          ZeidonStringConcat( szFileName, 1, 0, ".PMD", 1, 0, 201 );
          //:nRC = CommitOI_ToFile( NewERD, szFileName, zASCII )
          nRC = CommitOI_ToFile( NewERD, szFileName, zASCII );
@@ -2945,8 +2981,8 @@ oTZZOLODO_LOD_Migrate( zVIEW     NewMainLOD,
          if ( CompareAttributeToString( SourceVOR_LPLR, "W_MetaDef", "MigrateWorkName", SourceName ) == 0 )
          { 
             //:SET CURSOR FIRST TargetVOR_LPLR.W_MetaDef WHERE TargetVOR_LPLR.W_MetaDef.Name = SourceVOR_LPLR.W_MetaDef.Name
-            GetStringFromAttribute( szTempString_9, SourceVOR_LPLR, "W_MetaDef", "Name" );
-            RESULT = SetCursorFirstEntityByString( TargetVOR_LPLR, "W_MetaDef", "Name", szTempString_9, "" );
+            GetStringFromAttribute( szTempString_8, SourceVOR_LPLR, "W_MetaDef", "Name" );
+            RESULT = SetCursorFirstEntityByString( TargetVOR_LPLR, "W_MetaDef", "Name", szTempString_8, "" );
             //:IF RESULT >= zCURSOR_SET
             if ( RESULT >= zCURSOR_SET )
             { 

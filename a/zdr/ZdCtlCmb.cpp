@@ -2171,10 +2171,10 @@ ZComboBox::MapFromOI( WPARAM wFlag )
          if ( AddString( pch ) < 0 )
 #endif
          {
-            TraceLineS( "Error adding string: ", pch );
+            //TraceLineS( "Error adding string: ", pch );
          }
-         else
-            TraceLine( "Added string: '%s'", pch );
+         //else
+         //   TraceLine( "Added string: '%s'", pch );
 
          if ( pchSemi )
          {
@@ -4620,7 +4620,7 @@ CB_SelectString( zVIEW   vSubtask,
          if ( lFlags & 1 )
          {
             lFirstPos = pCombo->SelectExactString( -1, cpcSearchString );
-            TraceLine( "CB_SelectString for String: %s  Position: %d", cpcSearchString, lFirstPos );
+            //TraceLine( "CB_SelectString for String: %s  Position: %d", cpcSearchString, lFirstPos );
          }
          else
          {

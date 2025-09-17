@@ -712,7 +712,22 @@ GenJSPJ_CrteCalendar( VIEW vDialog BASED ON LOD TZWDLGSO,
                szActionCode = szActionCode + " onblur=^" + szActionName + "( )^ "
             ELSE
             IF vDialog.Event.Type = 96 OR vDialog.Event.Type = 64 // Event is CloseUp
-               szCloseUpCode = szCloseUpCode + "scwNextAction=" + szActionName + ".runsAfterSCW(this);"
+               // KSJ 09/15/25 - Above comment, and I tried adding onfocusout for bootstrap (non scw) and 
+               // the date does not populate if we have onfocusout. I am going to make this onchange as well.
+               IF szStyleIsBootstrap = "Y"
+                  //szActionCode = szActionCode + " onfocusout=^" + szActionName + "( )^ "
+                  szActionCode = szActionCode + " onchange=^" + szActionName + "( )^ "
+               ELSE
+                  //szCloseUpCode = szCloseUpCode + "scwNextAction=" + szActionName + ".runsAfterSCW(this);"
+               END
+            ELSE
+            IF vDialog.Event.Type = 1 // Event is Changed
+               IF szStyleIsBootstrap = "Y"
+                  szActionCode = szActionCode + " onchange=^" + szActionName + "( )^ "
+               ELSE
+                  szCloseUpCode = szCloseUpCode + "scwNextAction=" + szActionName + ".runsAfterSCW(this);"
+               END
+            END
             END
             END
             END
@@ -792,7 +807,7 @@ GenJSPJ_CrteCalendar( VIEW vDialog BASED ON LOD TZWDLGSO,
 
       IF szStyleIsBootstrap = "Y"
          szWriteBuffer = "   <input class=^" + szClass + "^ name=^" + szCtrlTag + szRepeatGrpKey + "^ id=^" + szCtrlTag + szRepeatGrpKey + "^ <%=strDisabled%> " + szDisabled + 
-                             szAutoCompleteOff + szTitleHTML + szHTML5Attr + szPlaceholder + " style=^<%=strErrorColor%>^ type=^text^ value=^<%=strErrorMapValue%>^  >"
+                             szAutoCompleteOff + szTitleHTML + szHTML5Attr + szPlaceholder + szActionCode + " style=^<%=strErrorColor%>^ type=^text^ value=^<%=strErrorMapValue%>^  >"
          WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
       ELSE
          szWriteBuffer = "<span " + szStyle + ">"
@@ -950,7 +965,6 @@ GenJSPJ_CrteCheckBox( VIEW vDialog BASED ON LOD TZWDLGSO,
       szWriteBuffer = "     }"
       WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
       */
-
 
       szWriteBuffer = "   }"
       WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )

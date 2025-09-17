@@ -17018,8 +17018,8 @@ GenJSPJ_CrteComboBox( zVIEW     vDialog,
             //:// and wants to use the "No null in list" checkbox in the painter.  I would need to
             //:// change this code but I'm not sure how because I can't tell from DoInputMapping what
             //:// the value of combobox.selectedindex[0] is, I only know they selected the index 0.
-            //:szWriteBuffer = "      // For Auto Include, always add a null entry to the combo box. Unless the first entry is blank."
-            ZeidonStringCopy( szWriteBuffer, 1, 0, "      // For Auto Include, always add a null entry to the combo box. Unless the first entry is blank.", 1, 0, 10001 );
+            //:szWriteBuffer = "      // For Auto Include, always add a null entry to the combo box."
+            ZeidonStringCopy( szWriteBuffer, 1, 0, "      // For Auto Include, always add a null entry to the combo box.", 1, 0, 10001 );
             //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
             WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 );
             //://szWriteBuffer = "      ComboCount++;"
@@ -17028,6 +17028,10 @@ GenJSPJ_CrteComboBox( zVIEW     vDialog,
             //:IF szAutoIncludeComboBlank = "Y"
             if ( ZeidonStringCompare( szAutoIncludeComboBlank, 1, 0, "Y", 1, 0, 2 ) == 0 )
             { 
+               //:szWriteBuffer = "      // Unless the first entry is blank."
+               ZeidonStringCopy( szWriteBuffer, 1, 0, "      // Unless the first entry is blank.", 1, 0, 10001 );
+               //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
+               WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 );
                //:szWriteBuffer = "      if ( v" + szCtrlTag + ".cursor( ^" 
                ZeidonStringCopy( szWriteBuffer, 1, 0, "      if ( v", 1, 0, 10001 );
                ZeidonStringConcat( szWriteBuffer, 1, 0, szCtrlTag, 1, 0, 10001 );
@@ -17628,7 +17632,6 @@ GenJSPJ_CrteCheckBox( zVIEW     vDialog,
       //:szWriteBuffer = "     }"
       //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
       //:*/
-
 
       //:szWriteBuffer = "   }"
       ZeidonStringCopy( szWriteBuffer, 1, 0, "   }", 1, 0, 10001 );
@@ -18365,10 +18368,52 @@ GenJSPJ_CrteCalendar( zVIEW     vDialog,
                   //:IF vDialog.Event.Type = 96 OR vDialog.Event.Type = 64 // Event is CloseUp
                   if ( CompareAttributeToInteger( vDialog, "Event", "Type", 96 ) == 0 || CompareAttributeToInteger( vDialog, "Event", "Type", 64 ) == 0 )
                   { 
-                     //:szCloseUpCode = szCloseUpCode + "scwNextAction=" + szActionName + ".runsAfterSCW(this);"
-                     ZeidonStringConcat( szCloseUpCode, 1, 0, "scwNextAction=", 1, 0, 501 );
-                     ZeidonStringConcat( szCloseUpCode, 1, 0, szActionName, 1, 0, 501 );
-                     ZeidonStringConcat( szCloseUpCode, 1, 0, ".runsAfterSCW(this);", 1, 0, 501 );
+                     //:// KSJ 09/15/25 - Above comment, and I tried adding onfocusout for bootstrap (non scw) and 
+                     //:// the date does not populate if we have onfocusout. I am going to make this onchange as well.
+                     //:IF szStyleIsBootstrap = "Y"
+                     if ( ZeidonStringCompare( szStyleIsBootstrap, 1, 0, "Y", 1, 0, 2 ) == 0 )
+                     { 
+                        //://szActionCode = szActionCode + " onfocusout=^" + szActionName + "( )^ "
+                        //:szActionCode = szActionCode + " onchange=^" + szActionName + "( )^ "
+                        ZeidonStringConcat( szActionCode, 1, 0, " onchange=^", 1, 0, 501 );
+                        ZeidonStringConcat( szActionCode, 1, 0, szActionName, 1, 0, 501 );
+                        ZeidonStringConcat( szActionCode, 1, 0, "( )^ ", 1, 0, 501 );
+                        //:ELSE
+                     } 
+                     else
+                     { 
+                     } 
+
+                     //://szCloseUpCode = szCloseUpCode + "scwNextAction=" + szActionName + ".runsAfterSCW(this);"
+                     //:END
+                     //:ELSE
+                  } 
+                  else
+                  { 
+                     //:IF vDialog.Event.Type = 1 // Event is Changed
+                     if ( CompareAttributeToInteger( vDialog, "Event", "Type", 1 ) == 0 )
+                     { 
+                        //:IF szStyleIsBootstrap = "Y"
+                        if ( ZeidonStringCompare( szStyleIsBootstrap, 1, 0, "Y", 1, 0, 2 ) == 0 )
+                        { 
+                           //:szActionCode = szActionCode + " onchange=^" + szActionName + "( )^ "
+                           ZeidonStringConcat( szActionCode, 1, 0, " onchange=^", 1, 0, 501 );
+                           ZeidonStringConcat( szActionCode, 1, 0, szActionName, 1, 0, 501 );
+                           ZeidonStringConcat( szActionCode, 1, 0, "( )^ ", 1, 0, 501 );
+                           //:ELSE
+                        } 
+                        else
+                        { 
+                           //:szCloseUpCode = szCloseUpCode + "scwNextAction=" + szActionName + ".runsAfterSCW(this);"
+                           ZeidonStringConcat( szCloseUpCode, 1, 0, "scwNextAction=", 1, 0, 501 );
+                           ZeidonStringConcat( szCloseUpCode, 1, 0, szActionName, 1, 0, 501 );
+                           ZeidonStringConcat( szCloseUpCode, 1, 0, ".runsAfterSCW(this);", 1, 0, 501 );
+                        } 
+
+                        //:END
+                     } 
+
+                     //:END
                   } 
 
                   //:END
@@ -18552,7 +18597,7 @@ GenJSPJ_CrteCalendar( zVIEW     vDialog,
       if ( ZeidonStringCompare( szStyleIsBootstrap, 1, 0, "Y", 1, 0, 2 ) == 0 )
       { 
          //:szWriteBuffer = "   <input class=^" + szClass + "^ name=^" + szCtrlTag + szRepeatGrpKey + "^ id=^" + szCtrlTag + szRepeatGrpKey + "^ <%=strDisabled%> " + szDisabled + 
-         //:                    szAutoCompleteOff + szTitleHTML + szHTML5Attr + szPlaceholder + " style=^<%=strErrorColor%>^ type=^text^ value=^<%=strErrorMapValue%>^  >"
+         //:                    szAutoCompleteOff + szTitleHTML + szHTML5Attr + szPlaceholder + szActionCode + " style=^<%=strErrorColor%>^ type=^text^ value=^<%=strErrorMapValue%>^  >"
          ZeidonStringCopy( szWriteBuffer, 1, 0, "   <input class=^", 1, 0, 10001 );
          ZeidonStringConcat( szWriteBuffer, 1, 0, szClass, 1, 0, 10001 );
          ZeidonStringConcat( szWriteBuffer, 1, 0, "^ name=^", 1, 0, 10001 );
@@ -18567,6 +18612,7 @@ GenJSPJ_CrteCalendar( zVIEW     vDialog,
          ZeidonStringConcat( szWriteBuffer, 1, 0, szTitleHTML, 1, 0, 10001 );
          ZeidonStringConcat( szWriteBuffer, 1, 0, szHTML5Attr, 1, 0, 10001 );
          ZeidonStringConcat( szWriteBuffer, 1, 0, szPlaceholder, 1, 0, 10001 );
+         ZeidonStringConcat( szWriteBuffer, 1, 0, szActionCode, 1, 0, 10001 );
          ZeidonStringConcat( szWriteBuffer, 1, 0, " style=^<%=strErrorColor%>^ type=^text^ value=^<%=strErrorMapValue%>^  >", 1, 0, 10001 );
          //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 )
          WL_QC( vDialog, lFile, szWriteBuffer, "^", 0 );

@@ -1,9 +1,9 @@
-z1000-Zeidon    TZCMLPMD TZWDLGSO 06/26/24   16:20:39 1.0b0    
+z1000-Zeidon    TZCMLPMD TZWDLGSO 08/20/25   12:11:01 1.0b0    
 eDialog    1
 aTag       TZCMLPMD
 aDLL_Name  TZCMLPMD
 aZKey      1337786
-aNextZKeyToAssign 98004373
+aNextZKeyToAssign 98004648
 aDesc      Migration, Override Msgs, Language Conversion
 
 eDfltWnd   2
@@ -11,8 +11,8 @@ aTag       SourceLPLRSelect
 aCaption   Open Source Project
 aPSDLG_X   21
 aPSDLG_Y   72
-aSZDLG_X   22544752
-aSZDLG_Y   12189919
+aSZDLG_X   22937963
+aSZDLG_Y   12714207
 aDfltButton OK
 aZKey      1337841
 aDIL_Active Y
@@ -1422,8 +1422,8 @@ aTag       MetaLPLR_Merge
 aCaption   Merge LPLR Components
 aPSDLG_X   1
 aPSDLG_Y   32
-aSZDLG_X   29557212
-aSZDLG_Y   22741377
+aSZDLG_X   30736878
+aSZDLG_Y   22806913
 aDfltButton Close
 aZKey      98003917
 aDIL_Active Y
@@ -1437,7 +1437,7 @@ aZKey      98003926
 aSubtype   -2146303997
 aPSDLG_X   6
 aPSDLG_Y   25
-aSZDLG_X   161
+aSZDLG_X   168
 aSZDLG_Y   307
 aCtrlBOI   U34
 B]A`]`/D0/0!33@#_$#T`4UD`8!,]`$P#````*P!-`%,R````
@@ -1479,9 +1479,9 @@ aTag       ListCtl4
 aText      Type
 aZKey      98003929
 aSubtype   67108864
-aPSDLG_X   109
+aPSDLG_X   106
 aPSDLG_Y   0
-aSZDLG_X   63
+aSZDLG_X   45
 aSZDLG_Y   15
 aSyncKey   9999
 
@@ -1538,9 +1538,9 @@ aTag       ListBox1
 aText      ListBox1
 aZKey      98003934
 aSubtype   -2146295808
-aPSDLG_X   178
+aPSDLG_X   184
 aPSDLG_Y   25
-aSZDLG_X   161
+aSZDLG_X   168
 aSZDLG_Y   307
 aCtrlBOI   U34
 B]A`]`/D0/0!33@#_$#T`4UD`8!,]`$P`(```*P!-`%,R````
@@ -1582,9 +1582,9 @@ aTag       ListCtl2
 aText      Type
 aZKey      98003937
 aSubtype   67108864
-aPSDLG_X   109
+aPSDLG_X   106
 aPSDLG_Y   0
-aSZDLG_X   57
+aSZDLG_X   45
 aSZDLG_Y   15
 aSyncKey   9999
 
@@ -1627,7 +1627,7 @@ aTag       Close
 aText      &Close
 aZKey      98003942
 aSubtype   536870912
-aPSDLG_X   349
+aPSDLG_X   365
 aPSDLG_Y   7
 aSZDLG_X   51
 aSZDLG_Y   14
@@ -1652,12 +1652,12 @@ aTag       Migrate
 aText      Compare / Merge ERD's
 aZKey      98003945
 aSubtype   537001984
-aPSDLG_X   349
+aPSDLG_X   365
 aPSDLG_Y   28
 aSZDLG_X   91
 aSZDLG_Y   14
 aSyncKey   4
-aDIL_Text  Migrate the Source-Components to the Target LPLR.
+aDIL_Text  Go to compare and merge source & target ERD's
 
 eCtrlMap   4
 aZKey      98003946
@@ -1677,31 +1677,192 @@ aSB_ActionDisabling 0
 eControlDef 4
 
 eControl   3
+aTag       GroupBox1
+aZKey      98004370
+aSubtype   537395200
+aPSDLG_X   359
+aPSDLG_Y   68
+aSZDLG_X   108
+aSZDLG_Y   80
+aSyncKey   5
+aExtendedStyle 16777216
+
+eCtrlCtrl  4
 aTag       Push1
 aText      Merge All Entries
 aZKey      98003948
 aSubtype   537001984
-aPSDLG_X   349
-aPSDLG_Y   44
+aPSDLG_X   7
+aPSDLG_Y   10
 aSZDLG_X   91
 aSZDLG_Y   14
 aSyncKey   5
-aDIL_Text  Migrate Compiler Definitions if not in Target
+aDIL_Text  Merge all entries from the Source Project list.
 
-eCtrlMap   4
+eCtrlMap   5
 aZKey      98003949
 
-eEvent     4
+eEvent     5
 aType      1
 aZKey      98004270
 
-eEventAct  5
+eEventAct  6
 aTag       MERGE_AllLPLR_Metas
 aType      2
 aZKey      98004248
 aSB_ActionDisabling 0
 
+eControlDef 5
+
+eCtrlCtrl  4
+aTag       PushBtn1
+aText      Merge Selected Entries
+aZKey      98004263
+aSubtype   537001984
+aPSDLG_X   7
+aPSDLG_Y   29
+aSZDLG_X   91
+aSZDLG_Y   14
+aSyncKey   9999
+aDIL_Text  Merge selected entries from the Source Project list.
+
+eCtrlMap   5
+aZKey      98004264
+
+eEvent     5
+aType      1
+aZKey      98004265
+
+eEventAct  6
+aTag       MERGE_SelectedLPLR_Metas
+aType      2
+aZKey      98003922
+aSB_ActionDisabling 0
+
+eControlDef 5
+
+eCtrlCtrl  4
+aTag       CheckBox1
+aText      Replace Existing Metas
+aZKey      98004091
+aSubtype   536870912
+aPSDLG_X   7
+aPSDLG_Y   46
+aSZDLG_X   91
+aSZDLG_Y   12
+aCtrlBOI   U3
+#60``
+`
+aSyncKey   9999
+aExtendedStyle 16777216
+aRadioOrCheckboxValue Y
+
+eCtrlMap   5
+aZKey      98004092
+
+eCtrlMapLOD_Attribute 6
+aZKey      130069518
+aWork      Y
+aUpdate    Y
+aSeqOrder  Y
+
+eCtrlMapRelatedEntity 7
+
+eCtrlMapER_Attribute 7
+aName      wReplaceMetaFlag
+aZKey      130069519
+
+eCtrlMapER_Domain 8
+aZKey      90000014
+aDesc      Yes or No
+aName      Y/N
+aDomainType T
+aDataType  S
+aMaxStringLth 1
+aContextRestriction N
+
+eCtrlMapView 6
+aZKey      1340809
+aName      TaskLPLR
+
+eControlDef 5
+aTag       CheckBox
+aZKey      1040
+aKey       1040
+aRT_DLL_Name ZDCTL
+aRT_OperationName CheckBox
+aPainterDLL_Name TZCTL
+aPainterC_OperationName TZCheckMsg
+aPainterConvertOperationName ConvertCheckBox
+aPainterBitmap CHECK
+aMaintenanceDialog TZPNCTAD
+aMaintenanceWindow UPD_CHECK
+aAcceptsAllParents Y
+aId        13
+aInvisible -1
+
+eCtrlCtrl  4
+aTag       CheckBox2
+aText      Merge LOD ER Data
+aZKey      98004290
+aSubtype   536870912
+aPSDLG_X   7
+aPSDLG_Y   61
+aSZDLG_X   91
+aSZDLG_Y   12
+aCtrlBOI   U3
+#60``
+`
+aSyncKey   9999
+aExtendedStyle 16777216
+aRadioOrCheckboxValue Y
+
+eCtrlMap   5
+aZKey      98004291
+
+eCtrlMapLOD_Attribute 6
+aZKey      130069525
+aWork      Y
+aUpdate    Y
+aSeqOrder  Y
+
+eCtrlMapRelatedEntity 7
+
+eCtrlMapER_Attribute 7
+aName      wMergeAllLOD_ER_EntriesFlag
+aZKey      130069526
+
+eCtrlMapER_Domain 8
+
+eCtrlMapView 6
+
+eControlDef 5
+
+eCtrlMap   4
+aZKey      98004371
+
+eCtrlMap   4
+aZKey      98004372
+
+eCtrlMap   4
+aZKey      98004373
+
 eControlDef 4
+aTag       GroupBox
+aZKey      1090
+aKey       1090
+aRT_DLL_Name ZDCTL
+aRT_OperationName GroupBox
+aPainterDLL_Name TZCTL
+aPainterC_OperationName TZGroupBoxMsg
+aPainterConvertOperationName ConvertGroupBox
+aPainterBitmap GRPBOX
+aMaintenanceDialog TZPNCTAD
+aMaintenanceWindow UPD_GROUP
+aAcceptsAllParents Y
+aAcceptsAllChildren Y
+aId        16
+aInvisible -1
 
 eControl   3
 aTag       Text1
@@ -1754,9 +1915,9 @@ aTag       Text2
 aText      Target Project:
 aZKey      98003955
 aSubtype   537395200
-aPSDLG_X   178
+aPSDLG_X   184
 aPSDLG_Y   8
-aSZDLG_X   60
+aSZDLG_X   63
 aSZDLG_Y   12
 aSyncKey   9999
 
@@ -1770,9 +1931,9 @@ aTag       TargetName
 aText      TargetName
 aZKey      98003957
 aSubtype   524288
-aPSDLG_X   243
+aPSDLG_X   249
 aPSDLG_Y   8
-aSZDLG_X   97
+aSZDLG_X   88
 aSZDLG_Y   12
 aCtrlBOI   U64
 M`````````````/\```$`````````````````````````````````````````
@@ -1798,126 +1959,31 @@ aName      TZCMLPLO
 eControlDef 4
 
 eControl   3
-aTag       PushBtn1
-aText      Merge Selected Entries
-aZKey      98004263
+aTag       PushBtn2
+aText      Domains / Operations
+aZKey      98004400
 aSubtype   537001984
-aPSDLG_X   349
-aPSDLG_Y   63
-aSZDLG_X   91
+aPSDLG_X   365
+aPSDLG_Y   49
+aSZDLG_X   92
 aSZDLG_Y   14
 aSyncKey   9999
-aDIL_Text  Migrate Compiler Definitions if not in Target
+aDIL_Text  Go to compare and merge selected Domains and Operations
 
 eCtrlMap   4
-aZKey      98004264
+aZKey      98004401
 
 eEvent     4
 aType      1
-aZKey      98004265
+aZKey      98004495
 
 eEventAct  5
-aTag       MERGE_SelectedLPLR_Metas
-aType      2
-aZKey      98003922
+aTag       GOTO_MergeDomainsOps
+aType      34
+aZKey      98004496
+aDialogName TZCMLPMD
+aWindowName DomainOperationMerge
 aSB_ActionDisabling 0
-
-eControlDef 4
-
-eControl   3
-aTag       CheckBox1
-aText      Replace Existing Metas
-aZKey      98004091
-aSubtype   536870912
-aPSDLG_X   349
-aPSDLG_Y   80
-aSZDLG_X   91
-aSZDLG_Y   12
-aCtrlBOI   U3
-#60``
-`
-aSyncKey   9999
-aExtendedStyle 16777216
-aRadioOrCheckboxValue Y
-
-eCtrlMap   4
-aZKey      98004092
-
-eCtrlMapLOD_Attribute 5
-aZKey      130069518
-aWork      Y
-aUpdate    Y
-aSeqOrder  Y
-
-eCtrlMapRelatedEntity 6
-
-eCtrlMapER_Attribute 6
-aName      wReplaceMetaFlag
-aZKey      130069519
-
-eCtrlMapER_Domain 7
-aZKey      90000014
-aDesc      Yes or No
-aName      Y/N
-aDomainType T
-aDataType  S
-aMaxStringLth 1
-aContextRestriction N
-
-eCtrlMapView 5
-aZKey      1340809
-aName      TaskLPLR
-
-eControlDef 4
-aTag       CheckBox
-aZKey      1040
-aKey       1040
-aRT_DLL_Name ZDCTL
-aRT_OperationName CheckBox
-aPainterDLL_Name TZCTL
-aPainterC_OperationName TZCheckMsg
-aPainterConvertOperationName ConvertCheckBox
-aPainterBitmap CHECK
-aMaintenanceDialog TZPNCTAD
-aMaintenanceWindow UPD_CHECK
-aAcceptsAllParents Y
-aId        13
-aInvisible -1
-
-eControl   3
-aTag       CheckBox2
-aText      Merge LOD ER Data
-aZKey      98004290
-aSubtype   536870912
-aPSDLG_X   349
-aPSDLG_Y   95
-aSZDLG_X   91
-aSZDLG_Y   12
-aCtrlBOI   U3
-#60``
-`
-aSyncKey   9999
-aExtendedStyle 16777216
-aRadioOrCheckboxValue Y
-
-eCtrlMap   4
-aZKey      98004291
-
-eCtrlMapLOD_Attribute 5
-aZKey      130069525
-aWork      Y
-aUpdate    Y
-aSeqOrder  Y
-
-eCtrlMapRelatedEntity 6
-
-eCtrlMapER_Attribute 6
-aName      wMergeAllLOD_ER_EntriesFlag
-aZKey      130069526
-
-eCtrlMapER_Domain 7
-
-eCtrlMapView 5
 
 eControlDef 4
 
@@ -2010,6 +2076,21 @@ eActCtrl   5
 eActOper   4
 aName      GOTO_MergeERDs
 aZKey      98003973
+aClass     0
+aType      D
+aReturnDataType N
+
+eSourceFileForOper 5
+
+eAction    3
+
+eActEvent  4
+
+eActCtrl   5
+
+eActOper   4
+aName      GOTO_MergeDomainsOps
+aZKey      98004499
 aClass     0
 aType      D
 aReturnDataType N
@@ -2406,6 +2487,7 @@ eActCtrl   5
 eActOper   4
 aName      CLOSE_LPLR_MergeErrors
 aZKey      98004360
+aClass     0
 aType      D
 aReturnDataType N
 
@@ -3486,21 +3568,6 @@ eCtrlMap   4
 aZKey      70047188
 
 eControlDef 4
-aTag       GroupBox
-aZKey      1090
-aKey       1090
-aRT_DLL_Name ZDCTL
-aRT_OperationName GroupBox
-aPainterDLL_Name TZCTL
-aPainterC_OperationName TZGroupBoxMsg
-aPainterConvertOperationName ConvertGroupBox
-aPainterBitmap GRPBOX
-aMaintenanceDialog TZPNCTAD
-aMaintenanceWindow UPD_GROUP
-aAcceptsAllParents Y
-aAcceptsAllChildren Y
-aId        16
-aInvisible -1
 
 eControl   3
 aTag       GroupBox1
@@ -4337,7 +4404,7 @@ aZKey      1337855
 aSubtype   67108864
 aPSDLG_X   75
 aPSDLG_Y   0
-aSZDLG_X   199
+aSZDLG_X   375
 aSZDLG_Y   15
 aSyncKey   9999
 
@@ -4722,6 +4789,501 @@ aZKey      98003877
 
 eWndStyle  3
 
+eWindow    2
+aTag       DomainOperationMerge
+aCaption   Merge Selected Domains & Operations
+aPSDLG_X   2
+aPSDLG_Y   2
+aSZDLG_X   39846521
+aSZDLG_Y   22937987
+aZKey      98004513
+aDIL_Active Y
+aGeneralFlag 0
+
+eControl   3
+aTag       Close
+aText      &Close
+aZKey      98004536
+aSubtype   537001984
+aPSDLG_X   517
+aPSDLG_Y   7
+aSZDLG_X   51
+aSZDLG_Y   14
+aSyncKey   9999
+
+eCtrlMap   4
+aZKey      98004537
+
+eEvent     4
+aType      1
+aZKey      98004538
+
+eEventAct  5
+aTag       ESC
+aType      71
+aZKey      98004518
+aSB_ActionDisabling 0
+
+eControlDef 4
+
+eControl   3
+aTag       Text1
+aText      Source Project:
+aZKey      98004542
+aSubtype   537395200
+aPSDLG_X   6
+aPSDLG_Y   8
+aSZDLG_X   63
+aSZDLG_Y   12
+aSyncKey   9999
+
+eCtrlMap   4
+aZKey      98004543
+
+eControlDef 4
+
+eControl   3
+aTag       SourceName
+aText      SourceName
+aZKey      98004544
+aSubtype   524288
+aPSDLG_X   72
+aPSDLG_Y   8
+aSZDLG_X   93
+aSZDLG_Y   12
+aCtrlBOI   U64
+M`````````````/\```$`````````````````````````````````````````
+3````````````````````````````
+`
+aSyncKey   9999
+
+eCtrlMap   4
+aZKey      98004545
+
+eCtrlMapLOD_Attribute 5
+
+eCtrlMapRelatedEntity 6
+
+eCtrlMapER_Attribute 6
+
+eCtrlMapER_Domain 7
+
+eCtrlMapView 5
+aZKey      1337820
+aName      SourceLPLR
+aDesc      Source LPLR for Meta Migration
+
+eControlDef 4
+
+eControl   3
+aTag       Text2
+aText      Target Project:
+aZKey      98004546
+aSubtype   537395200
+aPSDLG_X   274
+aPSDLG_Y   8
+aSZDLG_X   60
+aSZDLG_Y   12
+aSyncKey   9999
+
+eCtrlMap   4
+aZKey      98004547
+
+eControlDef 4
+
+eControl   3
+aTag       TargetName
+aText      TargetName
+aZKey      98004548
+aSubtype   524288
+aPSDLG_X   339
+aPSDLG_Y   8
+aSZDLG_X   97
+aSZDLG_Y   12
+aCtrlBOI   U64
+M`````````````/\```$`````````````````````````````````````````
+3````````````````````````````
+`
+aSyncKey   9999
+
+eCtrlMap   4
+aZKey      98004549
+
+eCtrlMapLOD_Attribute 5
+
+eCtrlMapRelatedEntity 6
+
+eCtrlMapER_Attribute 6
+
+eCtrlMapER_Domain 7
+
+eCtrlMapView 5
+aZKey      1337825
+aName      TZCMLPLO
+
+eControlDef 4
+
+eControl   3
+aTag       ListBox2
+aText      ListBox2
+aZKey      98004520
+aSubtype   -2146303997
+aPSDLG_X   6
+aPSDLG_Y   25
+aSZDLG_X   260
+aSZDLG_Y   307
+aCtrlBOI   U34
+B]A`]`/D0/0!33@#_$#T`4UD`8!,]`$P#````*P!-`%,R````
+`
+aSyncKey   9999
+aExtendedStyle 16777216
+
+eCtrlCtrl  4
+aTag       ListCtl3
+aText      Name
+aZKey      98004521
+aSubtype   67108864
+aPSDLG_X   0
+aPSDLG_Y   0
+aSZDLG_X   106
+aSZDLG_Y   15
+aSyncKey   9999
+
+eCtrlMap   5
+aZKey      98004522
+
+eCtrlMapLOD_Attribute 6
+
+eCtrlMapRelatedEntity 7
+
+eCtrlMapER_Attribute 7
+
+eCtrlMapER_Domain 8
+
+eCtrlMapView 6
+
+eControlDef 5
+
+eCtrlCtrl  4
+aTag       ListCtl4
+aText      Type
+aZKey      98004523
+aSubtype   67108864
+aPSDLG_X   106
+aPSDLG_Y   0
+aSZDLG_X   51
+aSZDLG_Y   15
+aSyncKey   9999
+
+eCtrlMap   5
+aZKey      98004524
+
+eCtrlMapLOD_Attribute 6
+
+eCtrlMapRelatedEntity 7
+
+eCtrlMapER_Attribute 7
+
+eCtrlMapER_Domain 8
+
+eCtrlMapContext 6
+
+eCtrlMapView 6
+
+eControlDef 5
+
+eCtrlCtrl  4
+aTag       ListBoxCtl1
+aText      Group
+aZKey      98004601
+aSubtype   67108864
+aPSDLG_X   157
+aPSDLG_Y   0
+aSZDLG_X   63
+aSZDLG_Y   15
+aSyncKey   9999
+
+eCtrlMap   5
+aZKey      98004602
+
+eCtrlMapLOD_Attribute 6
+aZKey      1326033
+aWork      Y
+aUpdate    Y
+aSeqOrder  A
+
+eCtrlMapRelatedEntity 7
+
+eCtrlMapER_Attribute 7
+aName      GroupName
+aZKey      1326034
+aDesc      Corresponding Group Name for this meta
+
+eCtrlMapER_Domain 8
+
+eCtrlMapView 6
+
+eControlDef 5
+
+eCtrlCtrl  4
+aTag       ListBoxCtl3
+aText      Exists
+aZKey      98004647
+aSubtype   67108864
+aPSDLG_X   224
+aPSDLG_Y   0
+aSZDLG_X   23
+aSZDLG_Y   15
+aSyncKey   9999
+aDIL_Text  The Domain/Operation already exists in the Target LPLR
+aExtendedStyle 0
+aVisibleBorder Y
+aDisabled  Y
+
+eCtrlMap   5
+aZKey      98004648
+
+eCtrlMapLOD_Attribute 6
+aZKey      68363046
+aWork      Y
+aUpdate    Y
+aSeqOrder  Y
+
+eCtrlMapRelatedEntity 7
+
+eCtrlMapER_Attribute 7
+aName      DoNotMergeFlag
+aZKey      68363047
+
+eCtrlMapER_Domain 8
+
+eCtrlMapView 6
+
+eControlDef 5
+
+eCtrlMap   4
+aZKey      98004525
+
+eCtrlMapLOD_Entity 5
+
+eCtrlMapView 5
+
+eCtrlMap   4
+aZKey      98004526
+
+eCtrlMapLOD_Entity 5
+aName      LPLR
+aIndentName LPLR
+aIndentLvl 0
+aZKey      1326019
+aCreate    Y
+aDelete    Y
+aUpdate    Y
+aInclude   N
+aInclSrc   Y
+aExclude   N
+aRecursive N
+aDerived   N
+aWork      N
+aParentDeleteBehave D
+
+eCtrlMap   4
+aZKey      98004527
+
+eControlDef 4
+
+eControl   3
+aTag       ListBox1
+aText      ListBox1
+aZKey      98004528
+aSubtype   -2146304000
+aPSDLG_X   274
+aPSDLG_Y   25
+aSZDLG_X   235
+aSZDLG_Y   307
+aCtrlBOI   U34
+B]A`]`/D0/0!33@#_$#T`4UD`8!,]`$P`````*P!-`%,R````
+`
+aSyncKey   9999
+aExtendedStyle 16777216
+
+eCtrlCtrl  4
+aTag       ListCtl1
+aText      Name
+aZKey      98004529
+aSubtype   67108864
+aPSDLG_X   0
+aPSDLG_Y   0
+aSZDLG_X   106
+aSZDLG_Y   15
+aSyncKey   9999
+
+eCtrlMap   5
+aZKey      98004530
+
+eCtrlMapLOD_Attribute 6
+
+eCtrlMapRelatedEntity 7
+
+eCtrlMapER_Attribute 7
+
+eCtrlMapER_Domain 8
+
+eCtrlMapView 6
+aZKey      1337807
+aName      TargetLPLR
+aDesc      Component Migration - Target List
+
+eControlDef 5
+
+eCtrlCtrl  4
+aTag       ListCtl2
+aText      Type
+aZKey      98004531
+aSubtype   67108864
+aPSDLG_X   106
+aPSDLG_Y   0
+aSZDLG_X   51
+aSZDLG_Y   15
+aSyncKey   9999
+
+eCtrlMap   5
+aZKey      98004532
+
+eCtrlMapLOD_Attribute 6
+
+eCtrlMapRelatedEntity 7
+
+eCtrlMapER_Attribute 7
+
+eCtrlMapER_Domain 8
+
+eCtrlMapContext 6
+
+eCtrlMapView 6
+
+eControlDef 5
+
+eCtrlCtrl  4
+aTag       ListBoxCtl2
+aText      Group
+aZKey      98004603
+aSubtype   67108864
+aPSDLG_X   157
+aPSDLG_Y   0
+aSZDLG_X   63
+aSZDLG_Y   15
+aSyncKey   9999
+
+eCtrlMap   5
+aZKey      98004604
+
+eCtrlMapLOD_Attribute 6
+
+eCtrlMapRelatedEntity 7
+
+eCtrlMapER_Attribute 7
+
+eCtrlMapER_Domain 8
+
+eCtrlMapView 6
+
+eControlDef 5
+
+eCtrlMap   4
+aZKey      98004533
+
+eCtrlMapLOD_Entity 5
+
+eCtrlMapView 5
+
+eCtrlMap   4
+aZKey      98004534
+
+eCtrlMapLOD_Entity 5
+
+eCtrlMap   4
+aZKey      98004535
+
+eControlDef 4
+
+eControl   3
+aTag       Migrate
+aText      Merge Selected Entries
+aZKey      98004539
+aSubtype   537001984
+aPSDLG_X   517
+aPSDLG_Y   28
+aSZDLG_X   89
+aSZDLG_Y   14
+aSyncKey   9999
+aDIL_Text  Go to compare and merge source & target ERD's
+
+eCtrlMap   4
+aZKey      98004540
+
+eEvent     4
+aType      1
+aZKey      98004541
+
+eEventAct  5
+aTag       MERGE_DomainsAndOperations
+aType      2
+aZKey      98004519
+aSB_ActionDisabling 0
+
+eControlDef 4
+
+eControl   3
+aTag       DIL1
+aZKey      98004550
+aSubtype   1
+aPSDLG_X   7
+aPSDLG_Y   338
+aSZDLG_X   391
+aSZDLG_Y   20
+aSyncKey   9999
+
+eCtrlMap   4
+aZKey      98004551
+
+eControlDef 4
+
+eAction    3
+
+eActEvent  4
+
+eActCtrl   5
+
+eActOper   4
+aName      CLOSE_DomainsAndOperations
+aZKey      98004577
+aClass     0
+aType      D
+aReturnDataType N
+
+eSourceFileForOper 5
+
+eAction    3
+
+eActEvent  4
+
+eActCtrl   5
+
+eActOper   4
+aName      MERGE_DomainsAndOperations
+aZKey      98004559
+aClass     0
+aType      D
+aReturnDataType N
+
+eSourceFileForOper 5
+
+eWndStyle  3
+aTag       Sizeable Dialog Box
+aZKey      10024379
+aStyle     -2134114304
+
 eViewObjRef 2
 aZKey      98003862
 aName      OrigLPLR
@@ -4802,6 +5364,13 @@ eParameter 4
 aShortDesc View To Window
 aDataType  V
 aZKey      1337789
+
+eOperation 3
+
+eParameter 4
+aShortDesc View To Window
+aDataType  V
+aZKey      98004578
 
 eOperation 3
 
@@ -5003,6 +5572,18 @@ aDataType  V
 aZKey      98003749
 
 eOperation 3
+aName      CleanUpVORs
+aZKey      98004595
+aType      D
+aReturnDataType N
+aClass     0
+
+eParameter 4
+aShortDesc ViewToWindow
+aDataType  V
+aZKey      98004596
+
+eOperation 3
 
 eParameter 4
 aShortDesc View To Window
@@ -5015,6 +5596,18 @@ eParameter 4
 aShortDesc View To Window
 aDataType  V
 aZKey      98004009
+
+eOperation 3
+aName      MigrateCompilerSubobjects
+aZKey      98004593
+aType      D
+aReturnDataType N
+aClass     0
+
+eParameter 4
+aShortDesc vSubtask
+aDataType  V
+aZKey      98004594
 
 eOperation 3
 
@@ -5050,33 +5643,31 @@ aShortDesc View To Window
 aDataType  V
 aZKey      98004361
 
-eOperationList 2
+eOperation 3
 
-eOperSourceFile 3
+eParameter 4
+aShortDesc View To Window
+aDataType  V
+aZKey      98004500
 
-eOperationList 2
+eOperation 3
+aName      MigrateMetaOld
+aZKey      98004591
+aType      D
+aReturnDataType N
+aClass     0
 
-eOperSourceFile 3
+eParameter 4
+aShortDesc vSubtask
+aDataType  V
+aZKey      98004592
 
-eOperationList 2
+eOperation 3
 
-eOperSourceFile 3
-
-eOperationList 2
-
-eOperSourceFile 3
-
-eOperationList 2
-
-eOperSourceFile 3
-
-eOperationList 2
-
-eOperSourceFile 3
-
-eOperationList 2
-
-eOperSourceFile 3
+eParameter 4
+aShortDesc View To Window
+aDataType  V
+aZKey      98004560
 
 eOperationList 2
 
@@ -5162,21 +5753,69 @@ eOperationList 2
 
 eOperSourceFile 3
 
-eWebControlPropertyOption 2
-aName      No Height
-aZKey      98004370
+eOperationList 2
 
-eWebControlPropertyOption 2
-aName      No Width
-aZKey      98004371
+eOperSourceFile 3
 
-eWebControlPropertyOption 2
-aName      Button (Not Submit)
-aZKey      98004372
+eOperationList 2
 
-eWebControlPropertyOption 2
-aName      Hidden
-aZKey      98004373
+eOperSourceFile 3
+
+eOperationList 2
+
+eOperSourceFile 3
+
+eOperationList 2
+
+eOperSourceFile 3
+
+eOperationList 2
+
+eOperSourceFile 3
+
+eOperationList 2
+
+eOperSourceFile 3
+
+eOperationList 2
+
+eOperSourceFile 3
+
+eOperationList 2
+
+eOperSourceFile 3
+
+eOperationList 2
+
+eOperSourceFile 3
+
+eOperationList 2
+
+eOperSourceFile 3
+
+eOperationList 2
+
+eOperSourceFile 3
+
+eOperationList 2
+
+eOperSourceFile 3
+
+eOperationList 2
+
+eOperSourceFile 3
+
+eComboBoxEntry 2
+aName      Displayed Text
+aZKey      92762217
+
+eComboBoxEntry 2
+aName      Hyperlink URL
+aZKey      92762218
+
+eComboBoxEntry 2
+aName      HTML Title (future enhancement)
+aZKey      92762219
 
 i15        7
 i18        10
@@ -5308,433 +5947,523 @@ i313       288
 i315       27
 i320       32
 i325       32
-i330       32
-i333       236
-i336       239
-i337       219
-i338       8
-i339       9
-i340       273
-i341       236
-i344       236
-i347       239
+i331       32
+i336       32
+i340       219
 i348       219
-i349       8
-i350       9
-i352       236
-i357       32
-i361       219
-i369       219
-i371       363
-i372       364
-i373       365
-i376       40
-i380       378
-i382       319
-i383       378
-i384       377
-i385       379
-i387       47
-i390       319
-i391       381
-i392       318
-i393       316
-i395       47
-i396       324
-i397       323
-i398       321
-i400       47
-i401       329
-i402       328
-i403       326
+i350       342
+i351       343
+i352       344
+i359       236
+i362       239
+i363       219
+i364       8
+i365       9
+i366       273
+i367       236
+i370       236
+i373       239
+i374       219
+i375       8
+i376       9
+i378       236
+i383       32
+i386       40
+i390       388
+i392       319
+i393       388
+i394       387
+i395       389
+i397       47
+i400       319
+i401       391
+i402       318
+i403       316
 i405       47
-i406       356
-i407       355
-i408       353
+i406       324
+i407       323
+i408       321
 i410       47
-i416       236
-i420       219
-i422       86
-i429       32
-i434       32
-i443       11
-i447       439
-i449       86
-i450       442
-i451       11
-i455       439
-i457       86
-i458       442
-i459       11
-i463       439
-i465       86
-i466       442
-i467       11
-i469       439
-i470       442
-i473       27
-i476       40
-i477       433
-i478       432
-i479       430
-i481       47
-i482       428
-i483       427
-i484       425
-i486       47
-i490       236
-i493       419
-i494       219
-i495       421
-i496       86
-i498       424
-i502       32
-i506       32
-i510       438
-i511       439
-i512       440
-i513       441
-i514       497
-i515       11
-i518       446
-i519       439
-i520       448
-i521       86
-i522       497
-i523       11
+i411       382
+i412       381
+i413       379
+i415       47
+i416       330
+i417       329
+i418       327
+i420       47
+i421       335
+i422       334
+i423       332
+i425       47
+i431       236
+i435       219
+i437       86
+i444       32
+i449       32
+i458       11
+i462       454
+i464       86
+i465       457
+i466       11
+i470       454
+i472       86
+i473       457
+i474       11
+i478       454
+i480       86
+i481       457
+i482       11
+i484       454
+i485       457
+i488       27
+i491       40
+i492       448
+i493       447
+i494       445
+i496       47
+i497       443
+i498       442
+i499       440
+i501       47
+i505       236
+i508       434
+i509       219
+i510       436
+i511       86
+i513       439
+i517       32
+i521       32
+i525       453
 i526       454
-i527       439
+i527       455
 i528       456
-i529       86
-i530       497
-i531       11
-i534       462
-i535       439
-i536       464
-i537       86
-i538       497
-i539       11
-i541       439
-i542       497
-i545       27
-i547       40
-i548       505
-i549       504
-i550       503
-i551       501
-i552       500
-i553       499
-i554       485
-i555       47
-i561       188
-i562       189
-i563       190
-i564       86
-i566       11
-i569       196
-i570       197
-i571       198
-i572       199
-i573       200
-i574       565
-i575       11
+i529       512
+i530       11
+i533       461
+i534       454
+i535       463
+i536       86
+i537       512
+i538       11
+i541       469
+i542       454
+i543       471
+i544       86
+i545       512
+i546       11
+i549       477
+i550       454
+i551       479
+i552       86
+i553       512
+i554       11
+i556       454
+i557       512
+i560       27
+i562       40
+i563       520
+i564       519
+i565       518
+i566       516
+i567       515
+i568       514
+i569       500
+i570       47
+i576       188
 i577       189
-i578       565
-i582       27
-i586       188
-i587       189
-i588       190
-i589       86
-i591       11
-i594       196
-i595       197
-i596       198
-i597       199
-i598       200
-i599       590
-i600       11
+i578       190
+i579       86
+i581       11
+i584       196
+i585       197
+i586       198
+i587       199
+i588       200
+i589       580
+i590       11
+i592       189
+i593       580
+i597       27
+i601       188
 i602       189
-i603       590
-i605       580
-i607       27
-i612       32
-i617       32
-i620       236
-i623       239
-i624       219
-i625       8
-i626       9
-i627       565
-i628       236
-i631       236
-i634       239
-i635       219
-i636       8
-i637       9
-i639       236
-i641       236
+i603       190
+i604       86
+i606       11
+i609       196
+i610       197
+i611       198
+i612       199
+i613       200
+i614       605
+i615       11
+i617       189
+i618       605
+i620       595
+i622       27
+i627       32
+i632       32
+i635       236
+i638       239
+i639       219
+i640       8
+i641       9
+i642       580
 i643       236
-i645       236
-i648       40
-i652       611
-i653       650
-i654       649
-i656       47
-i657       611
-i658       651
-i659       610
-i660       608
-i661       394
-i662       47
-i665       47
-i667       616
-i669       189
-i671       615
-i672       613
-i674       47
-i676       666
-i677       663
-i684       441
-i686       424
-i693       86
-i694       685
-i695       11
-i701       86
-i703       11
-i705       691
-i706       685
-i711       27
-i717       32
-i724       682
-i726       441
-i727       685
-i728       424
-i733       32
-i737       710
-i738       32
-i741       236
-i743       719
-i749       32
-i751       719
-i756       32
-i761       32
-i764       236
-i767       40
-i770       760
-i773       759
-i774       757
-i775       755
-i778       754
-i779       752
-i781       47
-i782       716
-i785       715
-i786       713
-i788       47
-i789       732
-i792       731
-i793       729
-i795       47
-i796       710
-i799       736
-i800       734
-i801       709
-i802       687
-i804       47
-i805       748
-i808       747
-i809       745
-i811       47
-i812       769
-i815       768
-i817       47
-i818       183
-i823       690
-i824       691
-i825       692
-i826       86
-i828       424
-i831       698
-i832       699
-i833       700
-i834       86
-i835       827
-i836       424
-i839       236
-i842       236
-i844       719
-i849       32
-i854       32
-i859       32
+i646       236
+i649       239
+i650       219
+i651       8
+i652       9
+i654       236
+i656       236
+i658       236
+i660       236
+i663       40
+i667       626
+i668       665
+i669       664
+i671       47
+i672       626
+i673       666
+i674       625
+i675       623
+i676       404
+i677       47
+i680       47
+i682       631
+i684       189
+i686       630
+i687       628
+i689       47
+i691       681
+i692       678
+i699       456
+i701       439
+i708       86
+i709       700
+i710       11
+i716       86
+i718       11
+i720       706
+i721       700
+i726       27
+i732       32
+i734       356
+i739       697
+i741       456
+i742       700
+i743       439
+i748       32
+i752       725
+i753       32
+i756       236
+i758       356
+i764       32
+i766       356
+i771       32
+i776       32
+i779       236
+i782       40
+i785       775
+i788       774
+i789       772
+i790       770
+i793       769
+i794       767
+i796       47
+i797       731
+i800       730
+i801       728
+i803       47
+i804       747
+i807       746
+i808       744
+i810       47
+i811       725
+i814       751
+i815       749
+i816       724
+i817       702
+i819       47
+i820       763
+i823       762
+i824       760
+i826       47
+i827       784
+i830       783
+i832       47
+i833       183
+i838       705
+i839       706
+i840       707
+i841       86
+i843       439
+i846       713
+i847       714
+i848       715
+i849       86
+i850       842
+i851       439
+i854       236
+i857       236
+i859       356
 i864       32
-i868       681
-i869       682
-i870       683
-i871       441
-i873       236
-i876       723
-i877       682
-i878       725
-i879       441
-i880       872
-i881       236
-i884       236
-i887       236
-i889       719
-i892       40
-i893       848
-i896       847
-i897       845
-i898       853
-i901       852
-i902       850
-i903       858
-i905       691
-i906       872
-i908       857
-i909       855
-i910       863
-i912       691
-i913       872
-i915       862
-i916       860
-i918       1
-i922       6
-i923       7
-i924       8
-i925       9
-i927       11
-i930       14
-i931       7
-i932       16
-i933       17
-i934       926
-i935       11
-i937       7
-i938       926
-i943       27
-i947       942
-i948       32
-i953       32
-i956       40
-i957       952
-i960       951
-i961       949
-i962       942
-i965       941
-i966       919
-i967       946
-i968       944
-i970       47
-i979       6
-i980       7
-i981       8
-i982       9
-i984       11
-i987       14
-i988       7
-i989       16
-i990       17
-i991       983
-i992       11
-i994       7
-i995       983
-i1000      27
-i1004      999
-i1005      32
-i1010      32
-i1013      40
-i1014      1009
-i1017      1008
-i1018      1006
-i1019      999
-i1020      998
-i1021      976
-i1022      1003
-i1023      1001
-i1025      47
-i1029      412
-i1033      1031
-i1035      1031
-i1037      1031
-i1041      1031
-i1046      47
-i1047      655
-i1049      409
-i1051      46
-i1053      673
-i1055      969
-i1057      1024
-i1059      780
-i1061      787
-i1069      794
-i1071      816
-i1073      810
-i1083      803
-i1085      176
-i1087      258
-i1089      129
-i1091      664
-i1093      394
-i1095      262
-i1097      399
-i1099      386
-i1101      485
-i1103      404
-i1107      480
-i1109      816
-i1110      47
-i1111      655
-i1112      47
-i1113      386
-i1114      47
-i1115      480
-i1116      47
-i1117      780
-i1118      47
-i1119      1075
-i1120      47
-i1121      1079
-i1122      47
-i1123      810
-i1124      47
-i1125      46
-i1126      47
-i1127      394
-i1128      47
-i1129      399
-i1130      47
-i1131      664
-i1132      47
-i1133      1063
-i1134      47
-i1135      1066
-i1136      47
-i1137      787
-i1138      47
-i1139      404
-i1140      47
-i1141      409
-i1142      47
-i1143      1105
-i1144      47
-i1145      258
-i1146      47
-i1147      673
-i1148      47
-i1149      129
-i1150      47
-i1151      969
-i1152      47
-i1153      1024
-i1154      47
-i1155      176
-i1156      47
-i1157      794
-i1158      47
-i1159      262
-i1160      47
-i1161      803
-i1162      47
-i1163      485
+i869       32
+i874       32
+i879       32
+i883       696
+i884       697
+i885       698
+i886       456
+i888       236
+i891       738
+i892       697
+i893       740
+i894       456
+i895       887
+i896       236
+i899       236
+i902       236
+i904       356
+i907       40
+i908       863
+i911       862
+i912       860
+i913       868
+i916       867
+i917       865
+i918       873
+i920       706
+i921       887
+i923       872
+i924       870
+i925       878
+i927       706
+i928       887
+i930       877
+i931       875
+i933       1
+i937       6
+i938       7
+i939       8
+i940       9
+i942       11
+i945       14
+i946       7
+i947       16
+i948       17
+i949       941
+i950       11
+i952       7
+i953       941
+i958       27
+i962       957
+i963       32
+i968       32
+i971       40
+i972       967
+i975       966
+i976       964
+i977       957
+i980       956
+i981       934
+i982       961
+i983       959
+i985       47
+i994       6
+i995       7
+i996       8
+i997       9
+i999       11
+i1002      14
+i1003      7
+i1004      16
+i1005      17
+i1006      998
+i1007      11
+i1009      7
+i1010      998
+i1015      27
+i1019      1014
+i1020      32
+i1025      32
+i1028      40
+i1029      1024
+i1032      1023
+i1033      1021
+i1034      1014
+i1035      1013
+i1036      991
+i1037      1018
+i1038      1016
+i1040      47
+i1044      427
+i1050      32
+i1053      236
+i1056      239
+i1057      219
+i1058      8
+i1059      9
+i1061      236
+i1064      236
+i1067      239
+i1068      219
+i1069      8
+i1070      9
+i1072      236
+i1076      188
+i1077      189
+i1078      190
+i1079      86
+i1080      1060
+i1081      11
+i1084      196
+i1085      197
+i1086      198
+i1087      199
+i1088      200
+i1089      1060
+i1090      11
+i1094      189
+i1096      86
+i1097      1060
+i1098      11
+i1102      189
+i1104      342
+i1105      1060
+i1106      11
+i1108      189
+i1109      1060
+i1113      27
+i1117      188
+i1118      189
+i1119      190
+i1120      86
+i1122      11
+i1125      196
+i1126      197
+i1127      198
+i1128      199
+i1129      200
+i1130      1121
+i1131      11
+i1134      1093
+i1135      189
+i1136      1095
+i1137      86
+i1138      1121
+i1139      11
+i1141      189
+i1142      1121
+i1144      1111
+i1146      27
+i1151      32
+i1154      40
+i1155      1049
+i1156      1048
+i1157      1046
+i1159      47
+i1160      1150
+i1161      1149
+i1162      1147
 i1164      47
+i1169      1167
+i1171      1167
+i1173      1167
+i1177      1167
+i1182      47
+i1183      670
+i1185      1158
+i1187      424
+i1189      46
+i1191      688
+i1193      984
+i1195      1039
+i1197      795
+i1199      802
+i1207      809
+i1209      831
+i1211      825
+i1221      818
+i1223      176
+i1225      258
+i1227      129
+i1229      679
+i1231      404
+i1233      262
+i1237      409
+i1239      396
+i1243      500
+i1245      419
+i1249      495
+i1251      414
+i1255      1163
+i1257      831
+i1258      47
+i1259      670
+i1260      47
+i1261      396
+i1262      47
+i1263      1235
+i1264      47
+i1265      1158
+i1266      47
+i1267      495
+i1268      47
+i1269      795
+i1270      47
+i1271      1213
+i1272      47
+i1273      1217
+i1274      47
+i1275      825
+i1276      47
+i1277      46
+i1278      47
+i1279      404
+i1280      47
+i1281      414
+i1282      47
+i1283      409
+i1284      47
+i1285      679
+i1286      47
+i1287      1201
+i1288      47
+i1289      1204
+i1290      47
+i1291      802
+i1292      47
+i1293      419
+i1294      47
+i1295      1163
+i1296      47
+i1297      424
+i1298      47
+i1299      1247
+i1300      47
+i1301      258
+i1302      47
+i1303      1241
+i1304      47
+i1305      688
+i1306      47
+i1307      1253
+i1308      47
+i1309      129
+i1310      47
+i1311      984
+i1312      47
+i1313      1039
+i1314      47
+i1315      176
+i1316      47
+i1317      809
+i1318      47
+i1319      262
+i1320      47
+i1321      818
+i1322      47
+i1323      500
+i1324      47

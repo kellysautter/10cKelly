@@ -870,8 +870,8 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
    zCHAR     szMapAttributeName[ 101 ] = { 0 }; 
    //:STRING ( 100 ) szActionName
    zCHAR     szActionName[ 101 ] = { 0 }; 
-   //:STRING ( 256 ) szAction
-   zCHAR     szAction[ 257 ] = { 0 }; 
+   //:STRING ( 600 ) szActionCode
+   zCHAR     szActionCode[ 601 ] = { 0 }; 
    //:STRING ( 256 ) szHTML5Attr
    zCHAR     szHTML5Attr[ 257 ] = { 0 }; 
    //:STRING ( 256 ) szPlaceholder
@@ -1378,27 +1378,29 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
    zCHAR     szTempString_176[ 33 ]; 
    zCHAR     szTempString_177[ 33 ]; 
    zSHORT    lTempInteger_63; 
-   zCHAR     szTempString_178[ 255 ]; 
-   zCHAR     szTempString_179[ 255 ]; 
    zSHORT    lTempInteger_64; 
+   zCHAR     szTempString_178[ 255 ]; 
+   zSHORT    lTempInteger_65; 
+   zCHAR     szTempString_179[ 255 ]; 
+   zSHORT    lTempInteger_66; 
    zCHAR     szTempString_180[ 33 ]; 
    zCHAR     szTempString_181[ 261 ]; 
    zCHAR     szTempString_182[ 33 ]; 
    zCHAR     szTempString_183[ 261 ]; 
    zCHAR     szTempString_184[ 261 ]; 
    zCHAR     szTempString_185[ 255 ]; 
-   zSHORT    lTempInteger_65; 
+   zSHORT    lTempInteger_67; 
    zCHAR     szTempString_186[ 33 ]; 
    zCHAR     szTempString_187[ 261 ]; 
    zCHAR     szTempString_188[ 33 ]; 
    zCHAR     szTempString_189[ 261 ]; 
    zCHAR     szTempString_190[ 261 ]; 
    zCHAR     szTempString_191[ 51 ]; 
-   zSHORT    lTempInteger_66; 
+   zSHORT    lTempInteger_68; 
    zCHAR     szTempString_192[ 51 ]; 
    zCHAR     szTempString_193[ 33 ]; 
    zCHAR     szTempString_194[ 51 ]; 
-   zSHORT    lTempInteger_67; 
+   zSHORT    lTempInteger_69; 
    zCHAR     szTempString_195[ 33 ]; 
    zCHAR     szTempString_196[ 33 ]; 
    zCHAR     szTempString_197[ 33 ]; 
@@ -10704,16 +10706,16 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
                                  //:IF vDialog.Event.Type = 1
                                  if ( CompareAttributeToInteger( vDialog, "Event", "Type", 1 ) == 0 )
                                  { 
-                                    //:szSelectAction   = "onchange"
-                                    ZeidonStringCopy( szSelectAction, 1, 0, "onchange", 1, 0, 11 );
+                                    //:szSelectAction   = " onchange"
+                                    ZeidonStringCopy( szSelectAction, 1, 0, " onchange", 1, 0, 11 );
                                     //:szSelectFunction = "OnChange"
                                     ZeidonStringCopy( szSelectFunction, 1, 0, "OnChange", 1, 0, 11 );
                                     //:ELSE
                                  } 
                                  else
                                  { 
-                                    //:szSelectAction   = "onblur"
-                                    ZeidonStringCopy( szSelectAction, 1, 0, "onblur", 1, 0, 11 );
+                                    //:szSelectAction   = " onblur"
+                                    ZeidonStringCopy( szSelectAction, 1, 0, " onblur", 1, 0, 11 );
                                     //:szSelectFunction = "OnBlur"
                                     ZeidonStringCopy( szSelectFunction, 1, 0, "OnBlur", 1, 0, 11 );
                                  } 
@@ -10723,8 +10725,8 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
                               } 
                               else
                               { 
-                                 //:szSelectAction = "onchange"
-                                 ZeidonStringCopy( szSelectAction, 1, 0, "onchange", 1, 0, 11 );
+                                 //:szSelectAction = " onchange"
+                                 ZeidonStringCopy( szSelectAction, 1, 0, " onchange", 1, 0, 11 );
                                  //:szSelectFunction = "OnChange"
                                  ZeidonStringCopy( szSelectFunction, 1, 0, "OnChange", 1, 0, 11 );
                               } 
@@ -10740,7 +10742,6 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
                               //:IF szClass = ""
                               if ( ZeidonStringCompare( szClass, 1, 0, "", 1, 0, 257 ) == 0 )
                               { 
-                                 //:// szWriteBuffer = szWriteBuffer + "<select name=^" + szListCtrlTag + "::<%=strEntityKey%>^ id=^" + szListCtrlTag + "::<%=strEntityKey%>^ size=^1^" + szTitleHTML + " style=^width:152px;height:20px;^ " +
                                  //:szWriteBuffer = szWriteBuffer + "<select name=^" + szListCtrlTag + "::<%=strEntityKey%>^ id=^" + szListCtrlTag + "::<%=strEntityKey%>^ <%=strDisabled%> size=^1^" + szTitleHTML + szStyle +
                                  //:                szDisabled + szSelectAction + "=^" +
                                  //:                szListCtrlTag + szSelectFunction + "( 'h" + szListCtrlTag + "::<%=strEntityKey%>', this, <%=strEntityKey%> )^>"
@@ -10759,7 +10760,6 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
                                  ZeidonStringConcat( szWriteBuffer, 1, 0, "( 'h", 1, 0, 10001 );
                                  ZeidonStringConcat( szWriteBuffer, 1, 0, szListCtrlTag, 1, 0, 10001 );
                                  ZeidonStringConcat( szWriteBuffer, 1, 0, "::<%=strEntityKey%>', this, <%=strEntityKey%> )^>", 1, 0, 10001 );
-                                 //:                //szListCtrlTag + szSelectFunction + "( h" + szListCtrlTag + "::<%=strEntityKey%>," + szListCtrlTag + "::<%=strEntityKey%>, <%=strEntityKey%> )^>"
                                  //:ELSE
                               } 
                               else
@@ -10785,8 +10785,7 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
                                  ZeidonStringConcat( szWriteBuffer, 1, 0, "::<%=strEntityKey%>', this, <%=strEntityKey%> )^>", 1, 0, 10001 );
                               } 
 
-                              //:                  //" style=^width:" + szWidth + "px;^ " + szDisabled + szSelectAction + "=^" + szListCtrlTag + szSelectFunction + "( h" + szListCtrlTag + "::<%=strEntityKey%>," + szListCtrlTag + "::<%=strEntityKey%> )^>"
-                              //:END
+                              //: END
                               //:WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 )
                               WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 );
 
@@ -11413,6 +11412,38 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
                            //:IF szCtrlCtrlType = "Calendar"
                            if ( ZeidonStringCompare( szCtrlCtrlType, 1, 0, "Calendar", 1, 0, 51 ) == 0 )
                            { 
+                              //:////////////// KJS 09/12/25 ///////////////
+                              //:szActionCode = ""
+                              ZeidonStringCopy( szActionCode, 1, 0, "", 1, 0, 601 );
+                              //:FOR EACH vDialog.Event
+                              RESULT = SetCursorFirstEntity( vDialog, "Event", "" );
+                              while ( RESULT > zCURSOR_UNCHANGED )
+                              { 
+                                 //:IF vDialog.EventAct EXISTS
+                                 lTempInteger_63 = CheckExistenceOfEntity( vDialog, "EventAct" );
+                                 if ( lTempInteger_63 == 0 )
+                                 { 
+                                    //:szActionName = vDialog.EventAct.Tag
+                                    GetVariableFromAttribute( szActionName, 0, 'S', 101, vDialog, "EventAct", "Tag", "", 0 );
+                                    //:IF vDialog.Event.Type = 1 // Event is "Change" 
+                                    if ( CompareAttributeToInteger( vDialog, "Event", "Type", 1 ) == 0 )
+                                    { 
+                                       //:szActionCode = szActionCode + " onchange=^" + szActionName + "( this.id )^ "
+                                       ZeidonStringConcat( szActionCode, 1, 0, " onchange=^", 1, 0, 601 );
+                                       ZeidonStringConcat( szActionCode, 1, 0, szActionName, 1, 0, 601 );
+                                       ZeidonStringConcat( szActionCode, 1, 0, "( this.id )^ ", 1, 0, 601 );
+                                    } 
+
+                                    //:END
+                                 } 
+
+                                 RESULT = SetCursorNextEntity( vDialog, "Event", "" );
+                                 //:END
+                              } 
+
+                              //:END
+                              //://///////////////////////////////
+
                               //:szWriteBuffer = "   " + szItemTableHeader + ">"
                               ZeidonStringCopy( szWriteBuffer, 1, 0, "   ", 1, 0, 10001 );
                               ZeidonStringConcat( szWriteBuffer, 1, 0, szItemTableHeader, 1, 0, 10001 );
@@ -11423,8 +11454,8 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
                               { 
                                  //:// If there is no class for this calendar called "datefield", then add it.
                                  //:IF ZeidonStringFind( szClass, 1, "datefield" ) <= 0
-                                 lTempInteger_63 = ZeidonStringFind( szClass, 1, "datefield" );
-                                 if ( lTempInteger_63 <= 0 )
+                                 lTempInteger_64 = ZeidonStringFind( szClass, 1, "datefield" );
+                                 if ( lTempInteger_64 <= 0 )
                                  { 
                                     //:szClass = "class=^datefield^"
                                     ZeidonStringCopy( szClass, 1, 0, "class=^datefield^", 1, 0, 257 );
@@ -11447,8 +11478,9 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
                                  ZeidonStringConcat( szWriteBuffer, 1, 0, "::<%=strEntityKey%>^ <%=strDisabled%> ", 1, 0, 10001 );
                                  //://szWriteBuffer = szWriteBuffer + "style=^width:80px^ type=^text^" + szDisabled + " value=^<%=str" + szListCtrlTag + "%>^ />"
                                  //:// KJS 05/31/22 - taking out the calendar size (sometimes it's too small). But need to see if this should only be for
-                                 //:szWriteBuffer = szWriteBuffer + "type=^text^" + szDisabled + " value=^<%=str" + szListCtrlTag + "%>^ />"
+                                 //:szWriteBuffer = szWriteBuffer + "type=^text^" + szActionCode + szDisabled + " value=^<%=str" + szListCtrlTag + "%>^ />"
                                  ZeidonStringConcat( szWriteBuffer, 1, 0, "type=^text^", 1, 0, 10001 );
+                                 ZeidonStringConcat( szWriteBuffer, 1, 0, szActionCode, 1, 0, 10001 );
                                  ZeidonStringConcat( szWriteBuffer, 1, 0, szDisabled, 1, 0, 10001 );
                                  ZeidonStringConcat( szWriteBuffer, 1, 0, " value=^<%=str", 1, 0, 10001 );
                                  ZeidonStringConcat( szWriteBuffer, 1, 0, szListCtrlTag, 1, 0, 10001 );
@@ -11530,6 +11562,37 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
                                  } 
 
                                  //:END
+                                 //:////////////// KJS 09/12/25 ///////////////
+                                 //:szActionCode = ""
+                                 ZeidonStringCopy( szActionCode, 1, 0, "", 1, 0, 601 );
+                                 //:FOR EACH vDialog.Event
+                                 RESULT = SetCursorFirstEntity( vDialog, "Event", "" );
+                                 while ( RESULT > zCURSOR_UNCHANGED )
+                                 { 
+                                    //:IF vDialog.EventAct EXISTS
+                                    lTempInteger_65 = CheckExistenceOfEntity( vDialog, "EventAct" );
+                                    if ( lTempInteger_65 == 0 )
+                                    { 
+                                       //:szActionName = vDialog.EventAct.Tag
+                                       GetVariableFromAttribute( szActionName, 0, 'S', 101, vDialog, "EventAct", "Tag", "", 0 );
+                                       //:IF vDialog.Event.Type = 18  OR vDialog.Event.Type = 1024// Event is "Change" for subedit or mledit
+                                       if ( CompareAttributeToInteger( vDialog, "Event", "Type", 18 ) == 0 || CompareAttributeToInteger( vDialog, "Event", "Type", 1024 ) == 0 )
+                                       { 
+                                          //:szActionCode = szActionCode + " onchange=^" + szActionName + "( this.id )^ "
+                                          ZeidonStringConcat( szActionCode, 1, 0, " onchange=^", 1, 0, 601 );
+                                          ZeidonStringConcat( szActionCode, 1, 0, szActionName, 1, 0, 601 );
+                                          ZeidonStringConcat( szActionCode, 1, 0, "( this.id )^ ", 1, 0, 601 );
+                                       } 
+
+                                       //:END
+                                    } 
+
+                                    RESULT = SetCursorNextEntity( vDialog, "Event", "" );
+                                    //:END
+                                 } 
+
+                                 //:END
+                                 //://///////////////////////////////
                                  //:                                             
                                  //://KJS 7/26/07 - Added DISABLED option.
                                  //://KJS 10/19/07 - Added title
@@ -11539,7 +11602,7 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
                                     //:// KJS 06/01/22 - If bootstrap (and maybe for all non position styles?) I am taking out the size=. 
                                     //:// KJS 06/01/22 - but now per Kindra I am adding sze back. But will keep the "IF" because I have a feeling we will want to make another change.
                                     //:szWriteBuffer = "   " + szItemTableHeader + "><input" + szNumber + szPlaceholder + " size=^" + szSize + "^ value=^<%=str" + szListCtrlTag + "%>^<%=str" + szListCtrlTag +
-                                    //:                 "ErrorColor%> name=^" + szListCtrlTag + "::<%=strEntityKey%>^ id=^" + szListCtrlTag + "::<%=strEntityKey%>^ <%=strDisabled%> " + szTitleHTML + szDisabled + "></td>"
+                                    //:                 "ErrorColor%> name=^" + szListCtrlTag + "::<%=strEntityKey%>^ id=^" + szListCtrlTag + "::<%=strEntityKey%>^ <%=strDisabled%> " + szActionCode + szTitleHTML + szDisabled + "></td>"
                                     ZeidonStringCopy( szWriteBuffer, 1, 0, "   ", 1, 0, 10001 );
                                     ZeidonStringConcat( szWriteBuffer, 1, 0, szItemTableHeader, 1, 0, 10001 );
                                     ZeidonStringConcat( szWriteBuffer, 1, 0, "><input", 1, 0, 10001 );
@@ -11556,6 +11619,7 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
                                     ZeidonStringConcat( szWriteBuffer, 1, 0, "::<%=strEntityKey%>^ id=^", 1, 0, 10001 );
                                     ZeidonStringConcat( szWriteBuffer, 1, 0, szListCtrlTag, 1, 0, 10001 );
                                     ZeidonStringConcat( szWriteBuffer, 1, 0, "::<%=strEntityKey%>^ <%=strDisabled%> ", 1, 0, 10001 );
+                                    ZeidonStringConcat( szWriteBuffer, 1, 0, szActionCode, 1, 0, 10001 );
                                     ZeidonStringConcat( szWriteBuffer, 1, 0, szTitleHTML, 1, 0, 10001 );
                                     ZeidonStringConcat( szWriteBuffer, 1, 0, szDisabled, 1, 0, 10001 );
                                     ZeidonStringConcat( szWriteBuffer, 1, 0, "></td>", 1, 0, 10001 );
@@ -11564,7 +11628,7 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
                                  else
                                  { 
                                     //:szWriteBuffer = "   " + szItemTableHeader + "><input" + szNumber + szPlaceholder + " size=^" + szSize + "^ value=^<%=str" + szListCtrlTag + "%>^<%=str" + szListCtrlTag +
-                                    //:                 "ErrorColor%> name=^" + szListCtrlTag + "::<%=strEntityKey%>^ id=^" + szListCtrlTag + "::<%=strEntityKey%>^ <%=strDisabled%> " + szTitleHTML + szDisabled + "></td>"
+                                    //:                 "ErrorColor%> name=^" + szListCtrlTag + "::<%=strEntityKey%>^ id=^" + szListCtrlTag + "::<%=strEntityKey%>^ <%=strDisabled%> " + szActionCode + szTitleHTML + szDisabled + "></td>"
                                     ZeidonStringCopy( szWriteBuffer, 1, 0, "   ", 1, 0, 10001 );
                                     ZeidonStringConcat( szWriteBuffer, 1, 0, szItemTableHeader, 1, 0, 10001 );
                                     ZeidonStringConcat( szWriteBuffer, 1, 0, "><input", 1, 0, 10001 );
@@ -11581,6 +11645,7 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
                                     ZeidonStringConcat( szWriteBuffer, 1, 0, "::<%=strEntityKey%>^ id=^", 1, 0, 10001 );
                                     ZeidonStringConcat( szWriteBuffer, 1, 0, szListCtrlTag, 1, 0, 10001 );
                                     ZeidonStringConcat( szWriteBuffer, 1, 0, "::<%=strEntityKey%>^ <%=strDisabled%> ", 1, 0, 10001 );
+                                    ZeidonStringConcat( szWriteBuffer, 1, 0, szActionCode, 1, 0, 10001 );
                                     ZeidonStringConcat( szWriteBuffer, 1, 0, szTitleHTML, 1, 0, 10001 );
                                     ZeidonStringConcat( szWriteBuffer, 1, 0, szDisabled, 1, 0, 10001 );
                                     ZeidonStringConcat( szWriteBuffer, 1, 0, "></td>", 1, 0, 10001 );
@@ -11642,8 +11707,8 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
 
                                           //:END
                                           //:IF vDialog.EventAct EXISTS
-                                          lTempInteger_64 = CheckExistenceOfEntity( vDialog, "EventAct" );
-                                          if ( lTempInteger_64 == 0 )
+                                          lTempInteger_66 = CheckExistenceOfEntity( vDialog, "EventAct" );
+                                          if ( lTempInteger_66 == 0 )
                                           { 
                                              //:IF szNoPositioning = "S"
                                              if ( ZeidonStringCompare( szNoPositioning, 1, 0, "S", 1, 0, 2 ) == 0 )
@@ -11741,8 +11806,8 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
                                              //:END
 
                                              //:IF vDialog.EventAct EXISTS  // the line below was commented 3013.03.28 ... I need the line passing this.id.  dks
-                                             lTempInteger_65 = CheckExistenceOfEntity( vDialog, "EventAct" );
-                                             if ( lTempInteger_65 == 0 )
+                                             lTempInteger_67 = CheckExistenceOfEntity( vDialog, "EventAct" );
+                                             if ( lTempInteger_67 == 0 )
                                              { 
                                                 //:IF szNoPositioning = "S"
                                                 if ( ZeidonStringCompare( szNoPositioning, 1, 0, "S", 1, 0, 2 ) == 0 )
@@ -11854,8 +11919,8 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
                                                 WL_QC( vDialog, lFile, szWriteBuffer, "^", 1 );
                                                 //:   
                                                 //:IF vDialog.EventAct EXISTS
-                                                lTempInteger_66 = CheckExistenceOfEntity( vDialog, "EventAct" );
-                                                if ( lTempInteger_66 == 0 )
+                                                lTempInteger_68 = CheckExistenceOfEntity( vDialog, "EventAct" );
+                                                if ( lTempInteger_68 == 0 )
                                                 { 
                                                    //:szWriteBuffer = "   " + szItemTableHeader + "><input type=^checkbox^ name=^" + szListCtrlTag + "::<%=strEntityKey%>^ id=^" + szListCtrlTag + "::<%=strEntityKey%>^ <%=strDisabled%> " + szDisabled +
                                                    //:" value=^" + vDialog.Control.RadioOrCheckboxValue +
@@ -11940,8 +12005,8 @@ GenJSPJ_CrteCtrlsRecurs( zVIEW     vDialog,
                                                    //:END
 
                                                    //:IF vDialog.EventAct EXISTS
-                                                   lTempInteger_67 = CheckExistenceOfEntity( vDialog, "EventAct" );
-                                                   if ( lTempInteger_67 == 0 )
+                                                   lTempInteger_69 = CheckExistenceOfEntity( vDialog, "EventAct" );
+                                                   if ( lTempInteger_69 == 0 )
                                                    { 
                                                       //:// Right now the only EventAct on a regular grid subcontrol is HotText (now there is Bitmap and BitmapBtn)
                                                       //:// Process HotText Action the same as for the Text Control.

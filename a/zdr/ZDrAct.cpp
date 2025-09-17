@@ -2170,6 +2170,8 @@ fnProcessDialogOperationCode( ZSubtask *pZSubtask,
    zFARPROC_DRIVER lpfnDynRoutine;
    zLONG  lRC;
 
+   TraceLineS("==========>>>> Processing Dialog Operation ", cpcCodeName);
+
    zULONG ulSubtaskState = ZSubtask::GetSubtaskState( pZSubtask );
    if ( (ulSubtaskState & zSUBTASK_STATE_DELETED) == zSUBTASK_STATE_DELETED )
       return( 0 );

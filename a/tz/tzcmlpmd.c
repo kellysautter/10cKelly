@@ -16,6 +16,10 @@ BuildTargetLPLR_List( zVIEW     vSubtask );
 
 
 zOPER_EXPORT zSHORT OPERATION
+CLOSE_DomainsAndOperations( zVIEW     vSubtask );
+
+
+zOPER_EXPORT zSHORT OPERATION
 MERGE_SelectedLPLR_Metas( zVIEW     ViewToWindow );
 
 
@@ -110,10 +114,6 @@ GOTO_MergeERDs( zVIEW     vSubtask );
 
 
 zOPER_EXPORT zSHORT OPERATION
-MigrateMetaOld( zVIEW     vSubtask );
-
-
-zOPER_EXPORT zSHORT OPERATION
 BuildTargetLPLR_ListForMerge( zVIEW     vSubtask );
 
 
@@ -135,6 +135,18 @@ o_MergeAllObjectViews( zVIEW     ViewToWindow );
 
 zOPER_EXPORT zSHORT OPERATION
 CLOSE_LPLR_MergeErrors( zVIEW     ViewToWindow );
+
+
+zOPER_EXPORT zSHORT OPERATION
+GOTO_MergeDomainsOps( zVIEW     vSubtask );
+
+
+zOPER_EXPORT zSHORT OPERATION
+MigrateMetaOld( zVIEW     vSubtask );
+
+
+zOPER_EXPORT zSHORT OPERATION
+MERGE_DomainsAndOperations( zVIEW     vSubtask );
 
 
 //:DIALOG OPERATION
@@ -319,6 +331,64 @@ BuildTargetLPLR_List( zVIEW     vSubtask )
 
 
 //:DIALOG OPERATION
+//:CLOSE_DomainsAndOperations( VIEW vSubtask )
+
+//:   VIEW TaskLPLR     REGISTERED AS TaskLPLR
+zOPER_EXPORT zSHORT OPERATION
+CLOSE_DomainsAndOperations( zVIEW     vSubtask )
+{
+   zVIEW     TaskLPLR = 0; 
+   zSHORT    RESULT; 
+   //:VIEW SourceLPLR   BASED ON LOD  TZCMLPLO
+   zVIEW     SourceLPLR = 0; 
+   //:VIEW SourceLPLRDO BASED ON LOD  TZCMLPLO
+   zVIEW     SourceLPLRDO = 0; 
+   //:VIEW TargetLPLR   BASED ON LOD  TZCMLPLO
+   zVIEW     TargetLPLR = 0; 
+   //:VIEW TargetLPLRDO BASED ON LOD  TZCMLPLO
+   zVIEW     TargetLPLRDO = 0; 
+   //:VIEW OrigLPLR     BASED ON LOD  TZCMLPLO
+   zVIEW     OrigLPLR = 0; 
+   //:VIEW TZCMLPLO     BASED ON LOD  TZCMLPLO
+   zVIEW     TZCMLPLO = 0; 
+   //:INTEGER TempType
+   zLONG     TempType = 0; 
+
+   RESULT = GetViewByName( &TaskLPLR, "TaskLPLR", vSubtask, zLEVEL_TASK );
+
+   //:// Drop the SourceLPLRDO and TargetLPLRDO OI's and rename the original SourceLPLR and TargetLPLR
+   //:// back to their name for returning to the calling window.
+   //:// We renamed them to be able to reuse origingal mapping names.
+
+   //:// Drop Domain and Operation OI's.
+   //:GET VIEW SourceLPLRDO NAMED "SourceLPLR"
+   RESULT = GetViewByName( &SourceLPLRDO, "SourceLPLR", vSubtask, zLEVEL_TASK );
+   //:DropObjectInstance( SourceLPLRDO )
+   DropObjectInstance( SourceLPLRDO );
+   //:GET VIEW TargetLPLRDO NAMED "TargetLPLR"
+   RESULT = GetViewByName( &TargetLPLRDO, "TargetLPLR", vSubtask, zLEVEL_TASK );
+   //:DropObjectInstance( TargetLPLRDO )
+   DropObjectInstance( TargetLPLRDO );
+
+   //:// Rename original SourceLPLR and TargetLPLR
+   //:GET VIEW SourceLPLR NAMED "SourceLPLR_Orig"
+   RESULT = GetViewByName( &SourceLPLR, "SourceLPLR_Orig", vSubtask, zLEVEL_TASK );
+   //:DropNameForView( SourceLPLR, "SourceLPLR_Orig", vSubtask, zLEVEL_TASK)
+   DropNameForView( SourceLPLR, "SourceLPLR_Orig", vSubtask, zLEVEL_TASK );
+   //:NAME VIEW SourceLPLR "SourceLPLR"
+   SetNameForView( SourceLPLR, "SourceLPLR", 0, zLEVEL_TASK );
+   //:GET VIEW TargetLPLR NAMED "TargetLPLR_Orig"
+   RESULT = GetViewByName( &TargetLPLR, "TargetLPLR_Orig", vSubtask, zLEVEL_TASK );
+   //:DropNameForView( TargetLPLR, "TargetLPLR_Orig", vSubtask, zLEVEL_TASK)
+   DropNameForView( TargetLPLR, "TargetLPLR_Orig", vSubtask, zLEVEL_TASK );
+   //:NAME VIEW TargetLPLR "TargetLPLR"
+   SetNameForView( TargetLPLR, "TargetLPLR", 0, zLEVEL_TASK );
+   return( 0 );
+// END
+} 
+
+
+//:DIALOG OPERATION
 //:MERGE_SelectedLPLR_Metas( VIEW ViewToWindow )
 
 //:   VIEW SourceLPLR         BASED ON LOD TZCMLPLO
@@ -340,6 +410,16 @@ MERGE_SelectedLPLR_Metas( zVIEW     ViewToWindow )
    zVIEW     ReturnedReport = 0; 
    //:VIEW NewOperationGroup  BASED ON LOD TZOGSRCO
    zVIEW     NewOperationGroup = 0; 
+   //:VIEW TZZOXODO           BASED ON LOD TZZOXODO
+   zVIEW     TZZOXODO = 0; 
+   //:VIEW TZTMPLOD           BASED ON LOD TZZOLODO
+   zVIEW     TZTMPLOD = 0; 
+   //:VIEW TE_DB_Environ      BASED ON LOD TZTENVRO
+   zVIEW     TE_DB_Environ = 0; 
+   //:VIEW vEMD_Init          BASED ON LOD TZEREMDO
+   zVIEW     vEMD_Init = 0; 
+   //:VIEW TZEREMDO_REF       BASED ON LOD TZEREMDO
+   zVIEW     TZEREMDO_REF = 0; 
    //:STRING (32)  MetaName
    zCHAR     MetaName[ 33 ] = { 0 }; 
    //:STRING (250) MG_ErrorMessage
@@ -745,6 +825,11 @@ MERGE_SelectedLPLR_Metas( zVIEW     ViewToWindow )
 
    //:END
 
+   //:// Added DonC 8/12/2025
+   //:// Rebuild the XDM in case any domains were added during the copy/merge LODs.
+   //:RebuildXDM( ViewToWindow )
+   RebuildXDM( ViewToWindow );
+
    //:// If there are any error messages, transfer to the window to display them.
    //:// Otherwise, send a message to the user that the merge function completed without error.
    //:IF CurrentLPLR.ErrorMessage EXISTS 
@@ -762,6 +847,71 @@ MERGE_SelectedLPLR_Metas( zVIEW     ViewToWindow )
       //:             "LPLR Merge has completed without error.",
       //:             zMSGQ_OBJECT_CONSTRAINT_WARNING, 0 )
       MessageSend( ViewToWindow, "", "Configuration Management", "LPLR Merge has completed without error.", zMSGQ_OBJECT_CONSTRAINT_WARNING, 0 );
+   } 
+
+   //:END
+
+   //:// (DonC 8/13/2025) Make sure that all intermediate views have been dropped as they can create a problem
+   //:// with a new ERD save.
+   //:GET VIEW TZZOXODO NAMED "TZZOXODO"
+   RESULT = GetViewByName( &TZZOXODO, "TZZOXODO", ViewToWindow, zLEVEL_TASK );
+   //:IF RESULT >= 0
+   if ( RESULT >= 0 )
+   { 
+      //:DropObjectInstance( TZZOXODO )
+      DropObjectInstance( TZZOXODO );
+   } 
+
+   //:END
+   //:GET VIEW TZTMPLOD NAMED "TZTMPLOD"
+   RESULT = GetViewByName( &TZTMPLOD, "TZTMPLOD", ViewToWindow, zLEVEL_TASK );
+   //:IF RESULT >= 0
+   if ( RESULT >= 0 )
+   { 
+      //:DropObjectInstance( TZTMPLOD )
+      DropObjectInstance( TZTMPLOD );
+   } 
+
+   //:END
+   //:GET VIEW TE_DB_Environ NAMED "TE_DB_Environ"
+   RESULT = GetViewByName( &TE_DB_Environ, "TE_DB_Environ", ViewToWindow, zLEVEL_TASK );
+   //:IF RESULT >= 0
+   if ( RESULT >= 0 )
+   { 
+      //:DropObjectInstance( TE_DB_Environ )
+      DropObjectInstance( TE_DB_Environ );
+   } 
+
+   //:END
+   //:GET VIEW vEMD_Init NAMED "vEMD_Init"
+   RESULT = GetViewByName( &vEMD_Init, "vEMD_Init", ViewToWindow, zLEVEL_TASK );
+   //:IF RESULT >= 0
+   if ( RESULT >= 0 )
+   { 
+      //:DropObjectInstance( vEMD_Init )
+      DropObjectInstance( vEMD_Init );
+   } 
+
+   //:END
+   //:GET VIEW TZEREMDO_REF NAMED "TZEREMDO_REF"
+   RESULT = GetViewByName( &TZEREMDO_REF, "TZEREMDO_REF", ViewToWindow, zLEVEL_TASK );
+   //:IF RESULT >= 0
+   if ( RESULT >= 0 )
+   { 
+      //:DropObjectInstance( TZEREMDO_REF )
+      DropObjectInstance( TZEREMDO_REF );
+   } 
+
+   //:END
+
+   //:// (DonC 8/13/2025) Make sure listbox entries are not selected.
+   //:FOR EACH SourceLPLR.W_MetaDef WITHIN SourceLPLR.LPLR 
+   RESULT = SetCursorFirstEntity( SourceLPLR, "W_MetaDef", "LPLR" );
+   while ( RESULT > zCURSOR_UNCHANGED )
+   { 
+      //:SetSelectStateOfEntity( SourceLPLR, "W_MetaDef", 0 )
+      SetSelectStateOfEntity( SourceLPLR, "W_MetaDef", 0 );
+      RESULT = SetCursorNextEntity( SourceLPLR, "W_MetaDef", "LPLR" );
    } 
 
    //:END
@@ -3203,12 +3353,20 @@ CleanUpVORs( zVIEW     ViewToWindow )
 //:DIALOG OPERATION
 //:GOTO_MergeERDs( VIEW vSubtask )
 
-//:   VIEW vTaskLPLR      REGISTERED AS TaskLPLR
+//:   VIEW vTaskLPLR REGISTERED AS TaskLPLR
 zOPER_EXPORT zSHORT OPERATION
 GOTO_MergeERDs( zVIEW     vSubtask )
 {
    zVIEW     vTaskLPLR = 0; 
    zSHORT    RESULT; 
+   //:VIEW NewERD    BASED ON LOD  TZEREMDO
+   zVIEW     NewERD = 0; 
+   //:STRING ( 200 ) szTargetFileName
+   zCHAR     szTargetFileName[ 201 ] = { 0 }; 
+   //:INTEGER nRC
+   zLONG     nRC = 0; 
+   zSHORT    lTempInteger_0; 
+   zCHAR     szTempString_0[ 33 ]; 
 
    RESULT = GetViewByName( &vTaskLPLR, "TaskLPLR", vSubtask, zLEVEL_TASK );
 
@@ -3223,8 +3381,720 @@ GOTO_MergeERDs( zVIEW     vSubtask )
    } 
 
    //:END
+
+   //:// Create an ERD with one Entity if the ERD doesn't currently exist.
+   //:SET CURSOR FIRST vTaskLPLR.W_MetaType WHERE vTaskLPLR.W_MetaType.Type = 4 
+   RESULT = SetCursorFirstEntityByInteger( vTaskLPLR, "W_MetaType", "Type", 4, "" );
+   //:IF vTaskLPLR.W_MetaDef DOES NOT EXIST
+   lTempInteger_0 = CheckExistenceOfEntity( vTaskLPLR, "W_MetaDef" );
+   if ( lTempInteger_0 != 0 )
+   { 
+      //:szTargetFileName = vTaskLPLR.LPLR.MetaSrcDir + "\" + vTaskLPLR.LPLR.Name + ".PMD"
+      GetStringFromAttribute( szTargetFileName, vTaskLPLR, "LPLR", "MetaSrcDir" );
+      ZeidonStringConcat( szTargetFileName, 1, 0, "\\", 1, 0, 201 );
+      GetVariableFromAttribute( szTempString_0, 0, 'S', 33, vTaskLPLR, "LPLR", "Name", "", 0 );
+      ZeidonStringConcat( szTargetFileName, 1, 0, szTempString_0, 1, 0, 201 );
+      ZeidonStringConcat( szTargetFileName, 1, 0, ".PMD", 1, 0, 201 );
+      //:TraceLineS( "szTargetFileName: ", szTargetFileName )
+      TraceLineS( "szTargetFileName: ", szTargetFileName );
+      //:ActivateEmptyMetaOI( vSubtask, NewERD, zSOURCE_ERD_META, zSINGLE )
+      ActivateEmptyMetaOI( vSubtask, &NewERD, zSOURCE_ERD_META, zSINGLE );
+      //:NAME VIEW NewERD "NewERDCheck"
+      SetNameForView( NewERD, "NewERDCheck", 0, zLEVEL_TASK );
+      //:CreateMetaEntity( vSubtask, NewERD, "EntpER_Model", zPOS_AFTER )
+      CreateMetaEntity( vSubtask, NewERD, "EntpER_Model", zPOS_AFTER );
+      //:NewERD.EntpER_Model.Name = vTaskLPLR.LPLR.Name 
+      SetAttributeFromAttribute( NewERD, "EntpER_Model", "Name", vTaskLPLR, "LPLR", "Name" );
+      //:CreateMetaEntity( vSubtask, NewERD, "ER_Entity", zPOS_AFTER )
+      CreateMetaEntity( vSubtask, NewERD, "ER_Entity", zPOS_AFTER );
+      //:NewERD.ER_Entity.Name = "Temp"
+      SetAttributeFromString( NewERD, "ER_Entity", "Name", "Temp" );
+      //:NewERD.ER_Entity.Purpose = "F"
+      SetAttributeFromString( NewERD, "ER_Entity", "Purpose", "F" );
+      //:NewERD.ER_Entity.ER_DiagramPosX = 20
+      SetAttributeFromInteger( NewERD, "ER_Entity", "ER_DiagramPosX", 20 );
+      //:NewERD.ER_Entity.ER_DiagramPosY = 13
+      SetAttributeFromInteger( NewERD, "ER_Entity", "ER_DiagramPosY", 13 );
+      //:nRC = CommitMetaOI( vSubtask, NewERD, zSOURCE_ERD_META )
+      nRC = CommitMetaOI( vSubtask, NewERD, zSOURCE_ERD_META );
+      //:DropObjectInstance( NewERD )
+      DropObjectInstance( NewERD );
+   } 
+
+   //:END
    return( 0 );
 //     
+// END
+} 
+
+
+//:DIALOG OPERATION
+//:BuildTargetLPLR_ListForMerge( VIEW vSubtask )
+
+//:   // Build the Target LPLR list from the TZCMLPLO list by eliminating metas that are not merged.
+
+//:   VIEW TargetLPLR BASED ON LOD TZCMLPLO
+zOPER_EXPORT zSHORT OPERATION
+BuildTargetLPLR_ListForMerge( zVIEW     vSubtask )
+{
+   zVIEW     TargetLPLR = 0; 
+   //:VIEW SourceLPLR REGISTERED AS SourceLPLR
+   zVIEW     SourceLPLR = 0; 
+   zSHORT    RESULT; 
+   //:VIEW TZCMLPLO   REGISTERED AS TZCMLPLO
+   zVIEW     TZCMLPLO = 0; 
+   //:VIEW TaskLPLR   REGISTERED AS TaskLPLR
+   zVIEW     TaskLPLR = 0; 
+
+   RESULT = GetViewByName( &SourceLPLR, "SourceLPLR", vSubtask, zLEVEL_TASK );
+   RESULT = GetViewByName( &TZCMLPLO, "TZCMLPLO", vSubtask, zLEVEL_TASK );
+   RESULT = GetViewByName( &TaskLPLR, "TaskLPLR", vSubtask, zLEVEL_TASK );
+
+   //:// Make sure TargetLPLR is empty so that it can be rebuilt from TZCMLPLO below
+   //:GET VIEW TargetLPLR NAMED "TargetLPLR"
+   RESULT = GetViewByName( &TargetLPLR, "TargetLPLR", vSubtask, zLEVEL_TASK );
+   //:IF RESULT > 0
+   if ( RESULT > 0 )
+   { 
+      //:DELETE ENTITY TargetLPLR.LPLR
+      RESULT = DeleteEntity( TargetLPLR, "LPLR", zPOS_NEXT );
+      //:ELSE
+   } 
+   else
+   { 
+      //:ACTIVATE TargetLPLR EMPTY
+      RESULT = ActivateEmptyObjectInstance( &TargetLPLR, "TZCMLPLO", vSubtask, zSINGLE );
+      //:NAME VIEW TargetLPLR "TargetLPLR"
+      SetNameForView( TargetLPLR, "TargetLPLR", 0, zLEVEL_TASK );
+   } 
+
+   //:END
+
+   //:// Clear wFullyQualifiedFileName attribute for specifying csv file name for writing out Error Messages.
+   //:TaskLPLR.LPLR.wFullyQualifiedFileName = ""
+   SetAttributeFromString( TaskLPLR, "LPLR", "wFullyQualifiedFileName", "" );
+
+   //:// Copy the same meta entries that can be selected for merge, which are:
+   //://    2007 - LODs
+   //://    2011 - Dialogs
+   //://    2015 - Reports
+   //://    2014 - Global Operations
+   //:CREATE ENTITY TargetLPLR.LPLR
+   RESULT = CreateEntity( TargetLPLR, "LPLR", zPOS_AFTER );
+   //:SetMatchingAttributesByName( TargetLPLR, "LPLR", TZCMLPLO, "LPLR", zSET_NULL )
+   SetMatchingAttributesByName( TargetLPLR, "LPLR", TZCMLPLO, "LPLR", zSET_NULL );
+   //:FOR EACH TZCMLPLO.W_MetaType 
+   RESULT = SetCursorFirstEntity( TZCMLPLO, "W_MetaType", "" );
+   while ( RESULT > zCURSOR_UNCHANGED )
+   { 
+      //:IF TZCMLPLO.W_MetaType.Type = 2007 OR
+      //:   TZCMLPLO.W_MetaType.Type = 2011 OR
+      //:   TZCMLPLO.W_MetaType.Type = 2014 OR
+      //:   TZCMLPLO.W_MetaType.Type = 2015
+      if ( CompareAttributeToInteger( TZCMLPLO, "W_MetaType", "Type", 2007 ) == 0 || CompareAttributeToInteger( TZCMLPLO, "W_MetaType", "Type", 2011 ) == 0 || CompareAttributeToInteger( TZCMLPLO, "W_MetaType", "Type", 2014 ) == 0 ||
+           CompareAttributeToInteger( TZCMLPLO, "W_MetaType", "Type", 2015 ) == 0 )
+      { 
+
+         //:CREATE ENTITY TargetLPLR.W_MetaType
+         RESULT = CreateEntity( TargetLPLR, "W_MetaType", zPOS_AFTER );
+         //:TargetLPLR.W_MetaType.Type = TZCMLPLO.W_MetaType.Type
+         SetAttributeFromAttribute( TargetLPLR, "W_MetaType", "Type", TZCMLPLO, "W_MetaType", "Type" );
+         //:FOR EACH TZCMLPLO.W_MetaDef
+         RESULT = SetCursorFirstEntity( TZCMLPLO, "W_MetaDef", "" );
+         while ( RESULT > zCURSOR_UNCHANGED )
+         { 
+            //:CREATE ENTITY TargetLPLR.W_MetaDef
+            RESULT = CreateEntity( TargetLPLR, "W_MetaDef", zPOS_AFTER );
+            //:TargetLPLR.W_MetaDef.Name = TZCMLPLO.W_MetaDef.Name
+            SetAttributeFromAttribute( TargetLPLR, "W_MetaDef", "Name", TZCMLPLO, "W_MetaDef", "Name" );
+            RESULT = SetCursorNextEntity( TZCMLPLO, "W_MetaDef", "" );
+         } 
+
+         //:END
+      } 
+
+      RESULT = SetCursorNextEntity( TZCMLPLO, "W_MetaType", "" );
+      //:END
+   } 
+
+   //:END
+
+   //:// Make sure that the SourceLPLR only contains the meta types for merge, since the ERD_Merge code adds other metas to
+   //:// the SourceLPLR, which will still be there if returning from that function.
+   //:FOR EACH SourceLPLR.W_MetaType 
+   RESULT = SetCursorFirstEntity( SourceLPLR, "W_MetaType", "" );
+   while ( RESULT > zCURSOR_UNCHANGED )
+   { 
+      //:IF SourceLPLR.W_MetaType.Type != 2007 AND
+      //:   SourceLPLR.W_MetaType.Type != 2011 AND
+      //:   SourceLPLR.W_MetaType.Type != 2014 AND
+      //:   SourceLPLR.W_MetaType.Type != 2015
+      if ( CompareAttributeToInteger( SourceLPLR, "W_MetaType", "Type", 2007 ) != 0 && CompareAttributeToInteger( SourceLPLR, "W_MetaType", "Type", 2011 ) != 0 && CompareAttributeToInteger( SourceLPLR, "W_MetaType", "Type", 2014 ) != 0 &&
+           CompareAttributeToInteger( SourceLPLR, "W_MetaType", "Type", 2015 ) != 0 )
+      { 
+
+         //:DropEntity( SourceLPLR, "W_MetaType", zREPOS_NONE )
+         DropEntity( SourceLPLR, "W_MetaType", zREPOS_NONE );
+      } 
+
+      RESULT = SetCursorNextEntity( SourceLPLR, "W_MetaType", "" );
+      //:END
+   } 
+
+   //:END
+
+   //:// Now order both the Source and Target objects.  Do this by creating a sort
+   //:// order attribute that puts global operation groups at the beginning.
+   //:// Following this by sorting MetaDefs within each MetaType.
+   //:FOR EACH TargetLPLR.W_MetaType
+   RESULT = SetCursorFirstEntity( TargetLPLR, "W_MetaType", "" );
+   while ( RESULT > zCURSOR_UNCHANGED )
+   { 
+      //:IF TargetLPLR.W_MetaType.Type = 2015
+      if ( CompareAttributeToInteger( TargetLPLR, "W_MetaType", "Type", 2015 ) == 0 )
+      { 
+         //:TargetLPLR.W_MetaType.SortOrder = 2000
+         SetAttributeFromInteger( TargetLPLR, "W_MetaType", "SortOrder", 2000 );
+         //:else
+      } 
+      else
+      { 
+         //:TargetLPLR.W_MetaType.SortOrder = TargetLPLR.W_MetaType.Type
+         SetAttributeFromAttribute( TargetLPLR, "W_MetaType", "SortOrder", TargetLPLR, "W_MetaType", "Type" );
+      } 
+
+      RESULT = SetCursorNextEntity( TargetLPLR, "W_MetaType", "" );
+      //:END
+   } 
+
+   //:END
+   //:OrderEntityForView( TargetLPLR, "W_MetaType", "SortOrder A" )
+   OrderEntityForView( TargetLPLR, "W_MetaType", "SortOrder A" );
+   //:FOR EACH TargetLPLR.W_MetaType
+   RESULT = SetCursorFirstEntity( TargetLPLR, "W_MetaType", "" );
+   while ( RESULT > zCURSOR_UNCHANGED )
+   { 
+      //:OrderEntityForView( TargetLPLR, "W_MetaDef", "Name A" )
+      OrderEntityForView( TargetLPLR, "W_MetaDef", "Name A" );
+      RESULT = SetCursorNextEntity( TargetLPLR, "W_MetaType", "" );
+   } 
+
+   //:END
+
+   //:FOR EACH SourceLPLR.W_MetaType
+   RESULT = SetCursorFirstEntity( SourceLPLR, "W_MetaType", "" );
+   while ( RESULT > zCURSOR_UNCHANGED )
+   { 
+      //:IF SourceLPLR.W_MetaType.Type = 2015
+      if ( CompareAttributeToInteger( SourceLPLR, "W_MetaType", "Type", 2015 ) == 0 )
+      { 
+         //:SourceLPLR.W_MetaType.SortOrder = 2000
+         SetAttributeFromInteger( SourceLPLR, "W_MetaType", "SortOrder", 2000 );
+         //:else
+      } 
+      else
+      { 
+         //:SourceLPLR.W_MetaType.SortOrder = SourceLPLR.W_MetaType.Type
+         SetAttributeFromAttribute( SourceLPLR, "W_MetaType", "SortOrder", SourceLPLR, "W_MetaType", "Type" );
+      } 
+
+      RESULT = SetCursorNextEntity( SourceLPLR, "W_MetaType", "" );
+      //:END
+   } 
+
+   //:END
+   //:OrderEntityForView( SourceLPLR, "W_MetaType", "SortOrder A" )
+   OrderEntityForView( SourceLPLR, "W_MetaType", "SortOrder A" );
+   //:FOR EACH SourceLPLR.W_MetaType
+   RESULT = SetCursorFirstEntity( SourceLPLR, "W_MetaType", "" );
+   while ( RESULT > zCURSOR_UNCHANGED )
+   { 
+      //:OrderEntityForView( SourceLPLR, "W_MetaDef", "Name A" )
+      OrderEntityForView( SourceLPLR, "W_MetaDef", "Name A" );
+      RESULT = SetCursorNextEntity( SourceLPLR, "W_MetaType", "" );
+   } 
+
+   //:END
+
+   //:// Now be sure to position at the beginning of both lists.
+   //:SET CURSOR FIRST TargetLPLR.W_MetaType
+   RESULT = SetCursorFirstEntity( TargetLPLR, "W_MetaType", "" );
+   //:SET CURSOR FIRST SourceLPLR.W_MetaType
+   RESULT = SetCursorFirstEntity( SourceLPLR, "W_MetaType", "" );
+   return( 0 );
+// END
+} 
+
+
+//:DIALOG OPERATION
+//:MigrateCompilerSubobjects( VIEW vSubtask )
+
+//:   VIEW SourceLPLR    BASED ON LOD TZCMLPLO
+zOPER_EXPORT zSHORT OPERATION
+MigrateCompilerSubobjects( zVIEW     vSubtask )
+{
+   zVIEW     SourceLPLR = 0; 
+   //:VIEW CurrentLPLR   BASED ON LOD TZCMLPLO
+   zVIEW     CurrentLPLR = 0; 
+   zSHORT    RESULT; 
+
+
+   //:GET VIEW SourceLPLR  NAMED "OrigLPLR"
+   RESULT = GetViewByName( &SourceLPLR, "OrigLPLR", vSubtask, zLEVEL_TASK );
+   //:GET VIEW CurrentLPLR NAMED "TaskLPLR"
+   RESULT = GetViewByName( &CurrentLPLR, "TaskLPLR", vSubtask, zLEVEL_TASK );
+
+   //:CompilerMigrate( CurrentLPLR, SourceLPLR, vSubtask )
+   oTZCMLPLO_CompilerMigrate( CurrentLPLR, SourceLPLR, vSubtask );
+   return( 0 );
+// END
+} 
+
+
+//:DIALOG OPERATION
+//:WRITE_MergeMessagesToFile( VIEW ViewToWindow )
+
+//:   VIEW TaskLPLR REGISTERED AS TaskLPLR  
+zOPER_EXPORT zSHORT OPERATION
+WRITE_MergeMessagesToFile( zVIEW     ViewToWindow )
+{
+   zVIEW     TaskLPLR = 0; 
+   zSHORT    RESULT; 
+
+   RESULT = GetViewByName( &TaskLPLR, "TaskLPLR", ViewToWindow, zLEVEL_TASK );
+
+   //:WriteErrorMessagesCSV ( TaskLPLR )
+   oTZCMLPLO_WriteErrorMessagesCSV( TaskLPLR );
+   return( 0 );
+// END
+} 
+
+
+//:DIALOG OPERATION
+//:MERGE_AllLPLR_Metas( VIEW ViewToWindow )
+
+//:   VIEW SourceLPLR REGISTERED AS SourceLPLR
+zOPER_EXPORT zSHORT OPERATION
+MERGE_AllLPLR_Metas( zVIEW     ViewToWindow )
+{
+   zVIEW     SourceLPLR = 0; 
+   zSHORT    RESULT; 
+   //:VIEW TaskLPLR   REGISTERED AS TaskLPLR
+   zVIEW     TaskLPLR = 0; 
+   //:STRING ( 500 ) PromptMessage 
+   zCHAR     PromptMessage[ 501 ] = { 0 }; 
+   //:SHORT nRC
+   zSHORT    nRC = 0; 
+
+   RESULT = GetViewByName( &SourceLPLR, "SourceLPLR", ViewToWindow, zLEVEL_TASK );
+   RESULT = GetViewByName( &TaskLPLR, "TaskLPLR", ViewToWindow, zLEVEL_TASK );
+
+   //:// Prompt User to make sure they are aware of the extence of this function.
+   //:PromptMessage = "Note that this function will ignore any selections and will merge ALL entries into the target LPLR. " + NEW_LINE
+   ZeidonStringCopy( PromptMessage, 1, 0, "Note that this function will ignore any selections and will merge ALL entries into the target LPLR. ", 1, 0, 501 );
+   ZeidonStringConcat( PromptMessage, 1, 0, NEW_LINE, 1, 0, 501 );
+   //:IF TaskLPLR.LPLR.wMergeAllLOD_ER_EntriesFlag = "Y"
+   if ( CompareAttributeToString( TaskLPLR, "LPLR", "wMergeAllLOD_ER_EntriesFlag", "Y" ) == 0 )
+   { 
+      //:PromptMessage = PromptMessage + "Also, the 'Merge LOD ER Data' option IS selected so any LOD entities/attributes tied to the ER in " +
+      //:                                "the source LPLR will generate new entity/attributes into the target LPLR." + NEW_LINE
+      ZeidonStringConcat( PromptMessage, 1, 0, "Also, the 'Merge LOD ER Data' option IS selected so any LOD entities/attributes tied to the ER in ", 1, 0, 501 );
+      ZeidonStringConcat( PromptMessage, 1, 0, "the source LPLR will generate new entity/attributes into the target LPLR.", 1, 0, 501 );
+      ZeidonStringConcat( PromptMessage, 1, 0, NEW_LINE, 1, 0, 501 );
+      //:ELSE
+   } 
+   else
+   { 
+      //:PromptMessage = PromptMessage + "Also, the 'Merge LOD ER Data' option is NOT selected so any LOD entities/attributes tied to " +
+      //:                                "the ER in the source LPLR will NOT be merged into the target LPLR." + NEW_LINE
+      ZeidonStringConcat( PromptMessage, 1, 0, "Also, the 'Merge LOD ER Data' option is NOT selected so any LOD entities/attributes tied to ", 1, 0, 501 );
+      ZeidonStringConcat( PromptMessage, 1, 0, "the ER in the source LPLR will NOT be merged into the target LPLR.", 1, 0, 501 );
+      ZeidonStringConcat( PromptMessage, 1, 0, NEW_LINE, 1, 0, 501 );
+   } 
+
+   //:END
+   //:PromptMessage = PromptMessage + "Do you want to continue Merging All Entries?"
+   ZeidonStringConcat( PromptMessage, 1, 0, "Do you want to continue Merging All Entries?", 1, 0, 501 );
+   //:nRC = MessagePrompt( ViewToWindow, "", "Merge Entries",
+   //:                     PromptMessage, 1,         zBUTTONS_YESNO,
+   //:                     zRESPONSE_YES  ,  0 )
+   nRC = MessagePrompt( ViewToWindow, "", "Merge Entries", PromptMessage, 1, zBUTTONS_YESNO, zRESPONSE_YES, 0 );
+   //:IF nRC = zRESPONSE_NO
+   if ( nRC == zRESPONSE_NO )
+   { 
+      //:MessageSend( ViewToWindow, "", "Merge Entries",
+      //:             "The Merge function is aborted.", zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
+      MessageSend( ViewToWindow, "", "Merge Entries", "The Merge function is aborted.", zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
+      //:RETURN -1
+      return( -1 );
+   } 
+
+   //:END
+
+   //:// Select all entries in SourceLPLR and call the MERGE_SelectedLMergeoperation.
+   //:// Note we will not select the AD_Base PWD as its mapping can create errors and we don't want 
+   //:// copies in the target LPLR's.
+   //:FOR EACH SourceLPLR.W_MetaDef WITHIN SourceLPLR.LPLR 
+   RESULT = SetCursorFirstEntity( SourceLPLR, "W_MetaDef", "LPLR" );
+   while ( RESULT > zCURSOR_UNCHANGED )
+   { 
+      //:IF SourceLPLR.W_MetaDef.Name != "AD_Base"
+      if ( CompareAttributeToString( SourceLPLR, "W_MetaDef", "Name", "AD_Base" ) != 0 )
+      { 
+         //:SetSelectStateOfEntity( SourceLPLR, "W_MetaDef", 1 )
+         SetSelectStateOfEntity( SourceLPLR, "W_MetaDef", 1 );
+      } 
+
+      RESULT = SetCursorNextEntity( SourceLPLR, "W_MetaDef", "LPLR" );
+      //:END
+   } 
+
+   //:END
+   //:nRC = MERGE_SelectedLPLR_Metas( ViewToWindow )
+   nRC = MERGE_SelectedLPLR_Metas( ViewToWindow );
+   //:IF nRC >= 0
+   if ( nRC >= 0 )
+   { 
+      //:MergeAllObjectViews( ViewToWindow )
+      o_MergeAllObjectViews( ViewToWindow );
+   } 
+
+   //:END
+   return( 0 );
+// END
+} 
+
+
+//:LOCAL OPERATION
+//:MergeAllObjectViews( VIEW ViewToWindow )
+
+//:   VIEW TaskLPLR    REGISTERED AS TaskLPLR
+static zVOID
+o_MergeAllObjectViews( zVIEW     ViewToWindow )
+{
+   zVIEW     TaskLPLR = 0; 
+   zSHORT    RESULT; 
+   //:VIEW SourceLPLR  BASED ON LOD  TZCMLPLO
+   zVIEW     SourceLPLR = 0; 
+   //:VIEW CurrentLPLR BASED ON LOD  TZCMLPLO
+   zVIEW     CurrentLPLR = 0; 
+   //:VIEW TZWDVOROS   BASED ON LOD  TZWDVORO
+   zVIEW     TZWDVOROS = 0; 
+   //:VIEW TZWDVOROT   BASED ON LOD  TZWDVORO
+   zVIEW     TZWDVOROT = 0; 
+   //:VIEW TZZOLODO    BASED ON LOD  TZZOLODO
+   zVIEW     TZZOLODO = 0; 
+   //:STRING ( 50 )  szLOD_Name
+   zCHAR     szLOD_Name[ 51 ] = { 0 }; 
+   //:STRING ( 50 )  szMetaName
+   zCHAR     szMetaName[ 51 ] = { 0 }; 
+   //:STRING ( 200 ) szSourceDirectoryName
+   zCHAR     szSourceDirectoryName[ 201 ] = { 0 }; 
+   //:STRING ( 200 ) szSourceFileName
+   zCHAR     szSourceFileName[ 201 ] = { 0 }; 
+   //:STRING ( 200 ) szMsg
+   zCHAR     szMsg[ 201 ] = { 0 }; 
+   //:INTEGER nRC
+   zLONG     nRC = 0; 
+   //:INTEGER lZKey
+   zLONG     lZKey = 0; 
+
+   RESULT = GetViewByName( &TaskLPLR, "TaskLPLR", ViewToWindow, zLEVEL_TASK );
+
+   //:// Make sure that an ObjectView exists in the TaskLPLR (the current LPLR) for every ObjectView in the Source LPLR.
+
+   //:GET VIEW SourceLPLR  NAMED "OrigLPLR"
+   RESULT = GetViewByName( &SourceLPLR, "OrigLPLR", ViewToWindow, zLEVEL_TASK );
+   //:GET VIEW CurrentLPLR NAMED "TaskLPLR"
+   RESULT = GetViewByName( &CurrentLPLR, "TaskLPLR", ViewToWindow, zLEVEL_TASK );
+
+   //:// Note that update Registered View is W_MetaType 2009.  
+   //:SET CURSOR FIRST SourceLPLR.W_MetaType WHERE SourceLPLR.W_MetaType.Type = 2009
+   RESULT = SetCursorFirstEntityByInteger( SourceLPLR, "W_MetaType", "Type", 2009, "" );
+   //:SET CURSOR FIRST TaskLPLR.W_MetaType WHERE TaskLPLR.W_MetaType.Type = 2009 
+   RESULT = SetCursorFirstEntityByInteger( TaskLPLR, "W_MetaType", "Type", 2009, "" );
+
+   //:szSourceDirectoryName = SourceLPLR.LPLR.MetaSrcDir 
+   GetVariableFromAttribute( szSourceDirectoryName, 0, 'S', 201, SourceLPLR, "LPLR", "MetaSrcDir", "", 0 );
+   //:FOR EACH SourceLPLR.W_MetaDef 
+   RESULT = SetCursorFirstEntity( SourceLPLR, "W_MetaDef", "" );
+   while ( RESULT > zCURSOR_UNCHANGED )
+   { 
+      //:szMetaName = SourceLPLR.W_MetaDef.Name
+      GetVariableFromAttribute( szMetaName, 0, 'S', 51, SourceLPLR, "W_MetaDef", "Name", "", 0 );
+      //:SET CURSOR FIRST TaskLPLR.W_MetaDef WHERE TaskLPLR.W_MetaDef.Name = szMetaName
+      RESULT = SetCursorFirstEntityByString( TaskLPLR, "W_MetaDef", "Name", szMetaName, "" );
+      //:IF RESULT < zCURSOR_SET
+      if ( RESULT < zCURSOR_SET )
+      { 
+         //:// Activate existing source meta VOR
+         //:lZKey = SourceLPLR.W_MetaDef.CPLR_ZKey
+         GetIntegerFromAttribute( &lZKey, SourceLPLR, "W_MetaDef", "CPLR_ZKey" );
+         //:zltoxa( lZKey, szMetaName )
+         zltoxa( lZKey, szMetaName );
+         //:szSourceFileName = szSourceDirectoryName + "\" + szMetaName + ".PVR"
+         ZeidonStringCopy( szSourceFileName, 1, 0, szSourceDirectoryName, 1, 0, 201 );
+         ZeidonStringConcat( szSourceFileName, 1, 0, "\\", 1, 0, 201 );
+         ZeidonStringConcat( szSourceFileName, 1, 0, szMetaName, 1, 0, 201 );
+         ZeidonStringConcat( szSourceFileName, 1, 0, ".PVR", 1, 0, 201 );
+         //:ActivateOI_FromFile ( TZWDVOROS, "TZWDVORO", SourceLPLR, szSourceFileName, 8192 ) // 8192 is zIGNORE_ATTRIB_ERRORS
+         ActivateOI_FromFile( &TZWDVOROS, "TZWDVORO", SourceLPLR, szSourceFileName, 8192 );
+         //:NAME VIEW TZWDVOROS "TZWDVORO_Source"
+         SetNameForView( TZWDVOROS, "TZWDVORO_Source", 0, zLEVEL_TASK );
+         //:// Make sure LOD exists.
+         //:szLOD_Name = TZWDVOROS.LOD.Name 
+         GetVariableFromAttribute( szLOD_Name, 0, 'S', 51, TZWDVOROS, "LOD", "Name", "", 0 );
+         //:nRC = ActivateMetaOI_ByName( ViewToWindow, TZZOLODO, 0, zREFER_LOD_META, zSINGLE, szLOD_Name, 0 )
+         nRC = ActivateMetaOI_ByName( ViewToWindow, &TZZOLODO, 0, zREFER_LOD_META, zSINGLE, szLOD_Name, 0 );
+         //:IF nRC >= 0
+         if ( nRC >= 0 )
+         { 
+            //:// Create the ViewObjRef.
+            //:ActivateEmptyMetaOI( ViewToWindow, TZWDVOROT, zSOURCE_VOR_META, zSINGLE )
+            ActivateEmptyMetaOI( ViewToWindow, &TZWDVOROT, zSOURCE_VOR_META, zSINGLE );
+            //:NAME VIEW TZWDVOROT "TZWDVORO_New"
+            SetNameForView( TZWDVOROT, "TZWDVORO_New", 0, zLEVEL_TASK );
+            //:CreateMetaEntity( ViewToWindow, TZWDVOROT, "ViewObjRef", zPOS_AFTER )
+            CreateMetaEntity( ViewToWindow, TZWDVOROT, "ViewObjRef", zPOS_AFTER );
+            //:TZWDVOROT.ViewObjRef.Name = TZWDVOROS.ViewObjRef.Name 
+            SetAttributeFromAttribute( TZWDVOROT, "ViewObjRef", "Name", TZWDVOROS, "ViewObjRef", "Name" );
+            //:TZWDVOROT.ViewObjRef.Desc = "Created during CRM Build"
+            SetAttributeFromString( TZWDVOROT, "ViewObjRef", "Desc", "Created during CRM Build" );
+            //:INCLUDE TZWDVOROT.LOD FROM TZZOLODO.LOD 
+            RESULT = IncludeSubobjectFromSubobject( TZWDVOROT, "LOD", TZZOLODO, "LOD", zPOS_AFTER );
+            //:CommitMetaOI( ViewToWindow, TZWDVOROT, zSOURCE_VOR_META )
+            CommitMetaOI( ViewToWindow, TZWDVOROT, zSOURCE_VOR_META );
+            //:DropObjectInstance( TZWDVOROT )
+            DropObjectInstance( TZWDVOROT );
+            //:DropObjectInstance( TZZOLODO )
+            DropObjectInstance( TZZOLODO );
+
+            //:// Create Registered View Copied message.  (Modified by DonC, 7/12/2024)
+            //:szMsg = "Copied."
+            ZeidonStringCopy( szMsg, 1, 0, "Copied.", 1, 0, 201 );
+            //:CurrentLPLR.LPLR.wMergeMetaType = "Registered View"
+            SetAttributeFromString( CurrentLPLR, "LPLR", "wMergeMetaType", "Registered View" );
+            //:CurrentLPLR.LPLR.wMergeMetaName = TZWDVOROS.ViewObjRef.Name
+            SetAttributeFromAttribute( CurrentLPLR, "LPLR", "wMergeMetaName", TZWDVOROS, "ViewObjRef", "Name" );
+            //:CreateErrorMessage( TaskLPLR, szMsg )
+            oTZCMLPLO_CreateErrorMessage( TaskLPLR, szMsg );
+         } 
+
+         //:END
+         //:DropObjectInstance( TZWDVOROS )
+         DropObjectInstance( TZWDVOROS );
+      } 
+
+      RESULT = SetCursorNextEntity( SourceLPLR, "W_MetaDef", "" );
+      //:END 
+   } 
+
+   //:END
+   return;
+// END
+} 
+
+
+//:DIALOG OPERATION
+//:CLOSE_LPLR_MergeErrors( VIEW ViewToWindow )
+
+//:   VIEW TaskLPLR REGISTERED AS TaskLPLR
+zOPER_EXPORT zSHORT OPERATION
+CLOSE_LPLR_MergeErrors( zVIEW     ViewToWindow )
+{
+   zVIEW     TaskLPLR = 0; 
+   zSHORT    RESULT; 
+
+   RESULT = GetViewByName( &TaskLPLR, "TaskLPLR", ViewToWindow, zLEVEL_TASK );
+
+   //:// Delete current entries in TaskLPLR.ErrorMessage.
+   //:FOR EACH TaskLPLR.ErrorMessage 
+   RESULT = SetCursorFirstEntity( TaskLPLR, "ErrorMessage", "" );
+   while ( RESULT > zCURSOR_UNCHANGED )
+   { 
+      //:DELETE ENTITY TaskLPLR.ErrorMessage NONE  
+      RESULT = DeleteEntity( TaskLPLR, "ErrorMessage", zREPOS_NONE );
+      RESULT = SetCursorNextEntity( TaskLPLR, "ErrorMessage", "" );
+   } 
+
+   //:END
+   return( 0 );
+// END
+} 
+
+
+//:DIALOG OPERATION
+//:GOTO_MergeDomainsOps( VIEW vSubtask )
+
+//:   VIEW TaskLPLR     REGISTERED AS TaskLPLR
+zOPER_EXPORT zSHORT OPERATION
+GOTO_MergeDomainsOps( zVIEW     vSubtask )
+{
+   zVIEW     TaskLPLR = 0; 
+   zSHORT    RESULT; 
+   //:VIEW SourceLPLR   BASED ON LOD  TZCMLPLO
+   zVIEW     SourceLPLR = 0; 
+   //:VIEW SourceLPLRDO BASED ON LOD  TZCMLPLO
+   zVIEW     SourceLPLRDO = 0; 
+   //:VIEW TargetLPLR   BASED ON LOD  TZCMLPLO
+   zVIEW     TargetLPLR = 0; 
+   //:VIEW TargetLPLRDO BASED ON LOD  TZCMLPLO
+   zVIEW     TargetLPLRDO = 0; 
+   //:VIEW OrigLPLR     BASED ON LOD  TZCMLPLO
+   zVIEW     OrigLPLR = 0; 
+   //:VIEW TZCMLPLO     BASED ON LOD  TZCMLPLO
+   zVIEW     TZCMLPLO = 0; 
+   //:INTEGER TempType
+   zLONG     TempType = 0; 
+   zLONG     lTempInteger_0; 
+   zCHAR     szTempString_0[ 33 ]; 
+
+   RESULT = GetViewByName( &TaskLPLR, "TaskLPLR", vSubtask, zLEVEL_TASK );
+
+   //:// Set up a new SourceLPLR and VIEW TargetLPLR that contain Domains and Operations.
+   //:// We will reuse the SourceLPLR and TargetLPLR names, so we must rename each original OI and restore it's
+   //:// name with this new window completes
+
+   //:// Rename original SourceLPLR and TargetLPLR names.
+   //:GET VIEW SourceLPLR NAMED "SourceLPLR"
+   RESULT = GetViewByName( &SourceLPLR, "SourceLPLR", vSubtask, zLEVEL_TASK );
+   //:DropNameForView( SourceLPLR, "SourceLPLR", vSubtask, zLEVEL_TASK)
+   DropNameForView( SourceLPLR, "SourceLPLR", vSubtask, zLEVEL_TASK );
+   //:NAME VIEW SourceLPLR "SourceLPLR_Orig"
+   SetNameForView( SourceLPLR, "SourceLPLR_Orig", 0, zLEVEL_TASK );
+   //:GET VIEW TargetLPLR NAMED "TargetLPLR"
+   RESULT = GetViewByName( &TargetLPLR, "TargetLPLR", vSubtask, zLEVEL_TASK );
+   //:DropNameForView( TargetLPLR, "TargetLPLR", vSubtask, zLEVEL_TASK)
+   DropNameForView( TargetLPLR, "TargetLPLR", vSubtask, zLEVEL_TASK );
+   //:NAME VIEW TargetLPLR "TargetLPLR_Orig"
+   SetNameForView( TargetLPLR, "TargetLPLR_Orig", 0, zLEVEL_TASK );
+
+   //:// Create new SourceLPLR with Domains and Operations.
+   //:ACTIVATE SourceLPLRDO EMPTY
+   RESULT = ActivateEmptyObjectInstance( &SourceLPLRDO, "TZCMLPLO", vSubtask, zSINGLE );
+   //:NAME VIEW SourceLPLRDO "SourceLPLR"
+   SetNameForView( SourceLPLRDO, "SourceLPLR", 0, zLEVEL_TASK );
+   //:GET VIEW OrigLPLR NAMED "OrigLPLR"
+   RESULT = GetViewByName( &OrigLPLR, "OrigLPLR", vSubtask, zLEVEL_TASK );
+   //:CREATE ENTITY SourceLPLRDO.LPLR
+   RESULT = CreateEntity( SourceLPLRDO, "LPLR", zPOS_AFTER );
+   //:SetMatchingAttributesByName( SourceLPLRDO, "LPLR", OrigLPLR, "LPLR", zSET_ALL )
+   SetMatchingAttributesByName( SourceLPLRDO, "LPLR", OrigLPLR, "LPLR", zSET_ALL );
+   //:FOR EACH OrigLPLR.W_MetaType 
+   RESULT = SetCursorFirstEntity( OrigLPLR, "W_MetaType", "" );
+   while ( RESULT > zCURSOR_UNCHANGED )
+   { 
+      //:IF OrigLPLR.W_MetaType.Type = 2002 OR
+      //:   OrigLPLR.W_MetaType.Type = 2003
+      if ( CompareAttributeToInteger( OrigLPLR, "W_MetaType", "Type", 2002 ) == 0 || CompareAttributeToInteger( OrigLPLR, "W_MetaType", "Type", 2003 ) == 0 )
+      { 
+
+         //:CREATE ENTITY SourceLPLRDO.W_MetaType
+         RESULT = CreateEntity( SourceLPLRDO, "W_MetaType", zPOS_AFTER );
+         //:TempType = OrigLPLR.W_MetaType.Type
+         GetIntegerFromAttribute( &TempType, OrigLPLR, "W_MetaType", "Type" );
+         //:SourceLPLRDO.W_MetaType.Type = TempType
+         SetAttributeFromInteger( SourceLPLRDO, "W_MetaType", "Type", TempType );
+         //:FOR EACH OrigLPLR.W_MetaDef
+         RESULT = SetCursorFirstEntity( OrigLPLR, "W_MetaDef", "" );
+         while ( RESULT > zCURSOR_UNCHANGED )
+         { 
+            //:CREATE ENTITY SourceLPLRDO.W_MetaDef
+            RESULT = CreateEntity( SourceLPLRDO, "W_MetaDef", zPOS_AFTER );
+            //:SetMatchingAttributesByName( SourceLPLRDO, "W_MetaDef", OrigLPLR, "W_MetaDef", zSET_ALL )
+            SetMatchingAttributesByName( SourceLPLRDO, "W_MetaDef", OrigLPLR, "W_MetaDef", zSET_ALL );
+            RESULT = SetCursorNextEntity( OrigLPLR, "W_MetaDef", "" );
+         } 
+
+         //:END
+      } 
+
+      RESULT = SetCursorNextEntity( OrigLPLR, "W_MetaType", "" );
+      //:END
+   } 
+
+   //:END
+
+   //:// Create new TargetLPLR with Domains and Operations.
+   //:ACTIVATE TargetLPLRDO EMPTY
+   RESULT = ActivateEmptyObjectInstance( &TargetLPLRDO, "TZCMLPLO", vSubtask, zSINGLE );
+   //:NAME VIEW TargetLPLRDO "TargetLPLR"
+   SetNameForView( TargetLPLRDO, "TargetLPLR", 0, zLEVEL_TASK );
+   //:GET VIEW TZCMLPLO NAMED "TZCMLPLO"
+   RESULT = GetViewByName( &TZCMLPLO, "TZCMLPLO", vSubtask, zLEVEL_TASK );
+   //:CREATE ENTITY TargetLPLRDO.LPLR
+   RESULT = CreateEntity( TargetLPLRDO, "LPLR", zPOS_AFTER );
+   //:SetMatchingAttributesByName( TargetLPLRDO, "LPLR", TZCMLPLO, "LPLR", zSET_ALL )
+   SetMatchingAttributesByName( TargetLPLRDO, "LPLR", TZCMLPLO, "LPLR", zSET_ALL );
+   //:FOR EACH TZCMLPLO.W_MetaType 
+   RESULT = SetCursorFirstEntity( TZCMLPLO, "W_MetaType", "" );
+   while ( RESULT > zCURSOR_UNCHANGED )
+   { 
+      //:IF TZCMLPLO.W_MetaType.Type = 2002 OR
+      //:   TZCMLPLO.W_MetaType.Type = 2003
+      if ( CompareAttributeToInteger( TZCMLPLO, "W_MetaType", "Type", 2002 ) == 0 || CompareAttributeToInteger( TZCMLPLO, "W_MetaType", "Type", 2003 ) == 0 )
+      { 
+
+         //:CREATE ENTITY TargetLPLRDO.W_MetaType
+         RESULT = CreateEntity( TargetLPLRDO, "W_MetaType", zPOS_AFTER );
+         //:TempType = TZCMLPLO.W_MetaType.Type
+         GetIntegerFromAttribute( &TempType, TZCMLPLO, "W_MetaType", "Type" );
+         //:TargetLPLRDO.W_MetaType.Type = TempType
+         SetAttributeFromInteger( TargetLPLRDO, "W_MetaType", "Type", TempType );
+         //:FOR EACH TZCMLPLO.W_MetaDef
+         RESULT = SetCursorFirstEntity( TZCMLPLO, "W_MetaDef", "" );
+         while ( RESULT > zCURSOR_UNCHANGED )
+         { 
+            //:CREATE ENTITY TargetLPLRDO.W_MetaDef
+            RESULT = CreateEntity( TargetLPLRDO, "W_MetaDef", zPOS_AFTER );
+            //:SetMatchingAttributesByName( TargetLPLRDO, "W_MetaDef", TZCMLPLO, "W_MetaDef", zSET_ALL )
+            SetMatchingAttributesByName( TargetLPLRDO, "W_MetaDef", TZCMLPLO, "W_MetaDef", zSET_ALL );
+            RESULT = SetCursorNextEntity( TZCMLPLO, "W_MetaDef", "" );
+         } 
+
+         //:END
+      } 
+
+      RESULT = SetCursorNextEntity( TZCMLPLO, "W_MetaType", "" );
+      //:END
+   } 
+
+   //:END
+
+   //:// Flag each Source entry that already exists in the Target LPLR.
+   //:// We are reusing the DoNotMergeFlag here for a different purpose than originally intended in MigrateMetaOld.
+   //:FOR EACH SourceLPLRDO.W_MetaType 
+   RESULT = SetCursorFirstEntity( SourceLPLRDO, "W_MetaType", "" );
+   while ( RESULT > zCURSOR_UNCHANGED )
+   { 
+      //:SET CURSOR FIRST TargetLPLRDO.W_MetaType WHERE TargetLPLRDO.W_MetaType.Type = SourceLPLRDO.W_MetaType.Type 
+      GetIntegerFromAttribute( &lTempInteger_0, SourceLPLRDO, "W_MetaType", "Type" );
+      RESULT = SetCursorFirstEntityByInteger( TargetLPLRDO, "W_MetaType", "Type", lTempInteger_0, "" );
+      //:FOR EACH SourceLPLRDO.W_MetaDef 
+      RESULT = SetCursorFirstEntity( SourceLPLRDO, "W_MetaDef", "" );
+      while ( RESULT > zCURSOR_UNCHANGED )
+      { 
+         //:SET CURSOR FIRST TargetLPLRDO.W_MetaDef WHERE TargetLPLRDO.W_MetaDef.Name = SourceLPLRDO.W_MetaDef.Name 
+         GetStringFromAttribute( szTempString_0, SourceLPLRDO, "W_MetaDef", "Name" );
+         RESULT = SetCursorFirstEntityByString( TargetLPLRDO, "W_MetaDef", "Name", szTempString_0, "" );
+         //:IF RESULT >= zCURSOR_SET
+         if ( RESULT >= zCURSOR_SET )
+         { 
+            //:SourceLPLRDO.W_MetaDef.DoNotMergeFlag = "Y"
+            SetAttributeFromString( SourceLPLRDO, "W_MetaDef", "DoNotMergeFlag", "Y" );
+         } 
+
+         RESULT = SetCursorNextEntity( SourceLPLRDO, "W_MetaDef", "" );
+         //:END 
+      } 
+
+      RESULT = SetCursorNextEntity( SourceLPLRDO, "W_MetaType", "" );
+      //:END 
+   } 
+
+   //:END
+   return( 0 );
+//    
 // END
 } 
 
@@ -4311,492 +5181,350 @@ MigrateMetaOld( zVIEW     vSubtask )
 
 
 //:DIALOG OPERATION
-//:BuildTargetLPLR_ListForMerge( VIEW vSubtask )
+//:MERGE_DomainsAndOperations( VIEW vSubtask )
 
-//:   // Build the Target LPLR list from the TZCMLPLO list by eliminating metas that are not merged.
-
-//:   VIEW TargetLPLR BASED ON LOD TZCMLPLO
+//:   VIEW SourceLPLR         BASED ON LOD TZCMLPLO
 zOPER_EXPORT zSHORT OPERATION
-BuildTargetLPLR_ListForMerge( zVIEW     vSubtask )
-{
-   zVIEW     TargetLPLR = 0; 
-   //:VIEW SourceLPLR REGISTERED AS SourceLPLR
-   zVIEW     SourceLPLR = 0; 
-   zSHORT    RESULT; 
-   //:VIEW TZCMLPLO   REGISTERED AS TZCMLPLO
-   zVIEW     TZCMLPLO = 0; 
-   //:VIEW TaskLPLR   REGISTERED AS TaskLPLR
-   zVIEW     TaskLPLR = 0; 
-
-   RESULT = GetViewByName( &SourceLPLR, "SourceLPLR", vSubtask, zLEVEL_TASK );
-   RESULT = GetViewByName( &TZCMLPLO, "TZCMLPLO", vSubtask, zLEVEL_TASK );
-   RESULT = GetViewByName( &TaskLPLR, "TaskLPLR", vSubtask, zLEVEL_TASK );
-
-   //:// Make sure TargetLPLR is empty so that it can be rebuilt from TZCMLPLO below
-   //:GET VIEW TargetLPLR NAMED "TargetLPLR"
-   RESULT = GetViewByName( &TargetLPLR, "TargetLPLR", vSubtask, zLEVEL_TASK );
-   //:IF RESULT > 0
-   if ( RESULT > 0 )
-   { 
-      //:DELETE ENTITY TargetLPLR.LPLR
-      RESULT = DeleteEntity( TargetLPLR, "LPLR", zPOS_NEXT );
-      //:ELSE
-   } 
-   else
-   { 
-      //:ACTIVATE TargetLPLR EMPTY
-      RESULT = ActivateEmptyObjectInstance( &TargetLPLR, "TZCMLPLO", vSubtask, zSINGLE );
-      //:NAME VIEW TargetLPLR "TargetLPLR"
-      SetNameForView( TargetLPLR, "TargetLPLR", 0, zLEVEL_TASK );
-   } 
-
-   //:END
-
-   //:// Clear wFullyQualifiedFileName attribute for specifying csv file name for writing out Error Messages.
-   //:TaskLPLR.LPLR.wFullyQualifiedFileName = ""
-   SetAttributeFromString( TaskLPLR, "LPLR", "wFullyQualifiedFileName", "" );
-
-   //:// Copy the same meta entries that can be selected for merge, which are:
-   //://    2007 - LODs
-   //://    2011 - Dialogs
-   //://    2015 - Reports
-   //://    2014 - Global Operations
-   //:CREATE ENTITY TargetLPLR.LPLR
-   RESULT = CreateEntity( TargetLPLR, "LPLR", zPOS_AFTER );
-   //:SetMatchingAttributesByName( TargetLPLR, "LPLR", TZCMLPLO, "LPLR", zSET_NULL )
-   SetMatchingAttributesByName( TargetLPLR, "LPLR", TZCMLPLO, "LPLR", zSET_NULL );
-   //:FOR EACH TZCMLPLO.W_MetaType 
-   RESULT = SetCursorFirstEntity( TZCMLPLO, "W_MetaType", "" );
-   while ( RESULT > zCURSOR_UNCHANGED )
-   { 
-      //:IF TZCMLPLO.W_MetaType.Type = 2007 OR
-      //:   TZCMLPLO.W_MetaType.Type = 2011 OR
-      //:   TZCMLPLO.W_MetaType.Type = 2014 OR
-      //:   TZCMLPLO.W_MetaType.Type = 2015
-      if ( CompareAttributeToInteger( TZCMLPLO, "W_MetaType", "Type", 2007 ) == 0 || CompareAttributeToInteger( TZCMLPLO, "W_MetaType", "Type", 2011 ) == 0 || CompareAttributeToInteger( TZCMLPLO, "W_MetaType", "Type", 2014 ) == 0 ||
-           CompareAttributeToInteger( TZCMLPLO, "W_MetaType", "Type", 2015 ) == 0 )
-      { 
-
-         //:CREATE ENTITY TargetLPLR.W_MetaType
-         RESULT = CreateEntity( TargetLPLR, "W_MetaType", zPOS_AFTER );
-         //:TargetLPLR.W_MetaType.Type = TZCMLPLO.W_MetaType.Type
-         SetAttributeFromAttribute( TargetLPLR, "W_MetaType", "Type", TZCMLPLO, "W_MetaType", "Type" );
-         //:FOR EACH TZCMLPLO.W_MetaDef
-         RESULT = SetCursorFirstEntity( TZCMLPLO, "W_MetaDef", "" );
-         while ( RESULT > zCURSOR_UNCHANGED )
-         { 
-            //:CREATE ENTITY TargetLPLR.W_MetaDef
-            RESULT = CreateEntity( TargetLPLR, "W_MetaDef", zPOS_AFTER );
-            //:TargetLPLR.W_MetaDef.Name = TZCMLPLO.W_MetaDef.Name
-            SetAttributeFromAttribute( TargetLPLR, "W_MetaDef", "Name", TZCMLPLO, "W_MetaDef", "Name" );
-            RESULT = SetCursorNextEntity( TZCMLPLO, "W_MetaDef", "" );
-         } 
-
-         //:END
-      } 
-
-      RESULT = SetCursorNextEntity( TZCMLPLO, "W_MetaType", "" );
-      //:END
-   } 
-
-   //:END
-
-   //:// Make sure that the SourceLPLR only contains the meta types for merge, since the ERD_Merge code adds other metas to
-   //:// the SourceLPLR, which will still be there if returning from that function.
-   //:FOR EACH SourceLPLR.W_MetaType 
-   RESULT = SetCursorFirstEntity( SourceLPLR, "W_MetaType", "" );
-   while ( RESULT > zCURSOR_UNCHANGED )
-   { 
-      //:IF SourceLPLR.W_MetaType.Type != 2007 AND
-      //:   SourceLPLR.W_MetaType.Type != 2011 AND
-      //:   SourceLPLR.W_MetaType.Type != 2014 AND
-      //:   SourceLPLR.W_MetaType.Type != 2015
-      if ( CompareAttributeToInteger( SourceLPLR, "W_MetaType", "Type", 2007 ) != 0 && CompareAttributeToInteger( SourceLPLR, "W_MetaType", "Type", 2011 ) != 0 && CompareAttributeToInteger( SourceLPLR, "W_MetaType", "Type", 2014 ) != 0 &&
-           CompareAttributeToInteger( SourceLPLR, "W_MetaType", "Type", 2015 ) != 0 )
-      { 
-
-         //:DropEntity( SourceLPLR, "W_MetaType", zREPOS_NONE )
-         DropEntity( SourceLPLR, "W_MetaType", zREPOS_NONE );
-      } 
-
-      RESULT = SetCursorNextEntity( SourceLPLR, "W_MetaType", "" );
-      //:END
-   } 
-
-   //:END
-
-   //:// Now order both the Source and Target objects.  Do this by creating a sort
-   //:// order attribute that puts global operation groups at the beginning.
-   //:// Following this by sorting MetaDefs within each MetaType.
-   //:FOR EACH TargetLPLR.W_MetaType
-   RESULT = SetCursorFirstEntity( TargetLPLR, "W_MetaType", "" );
-   while ( RESULT > zCURSOR_UNCHANGED )
-   { 
-      //:IF TargetLPLR.W_MetaType.Type = 2015
-      if ( CompareAttributeToInteger( TargetLPLR, "W_MetaType", "Type", 2015 ) == 0 )
-      { 
-         //:TargetLPLR.W_MetaType.SortOrder = 2000
-         SetAttributeFromInteger( TargetLPLR, "W_MetaType", "SortOrder", 2000 );
-         //:else
-      } 
-      else
-      { 
-         //:TargetLPLR.W_MetaType.SortOrder = TargetLPLR.W_MetaType.Type
-         SetAttributeFromAttribute( TargetLPLR, "W_MetaType", "SortOrder", TargetLPLR, "W_MetaType", "Type" );
-      } 
-
-      RESULT = SetCursorNextEntity( TargetLPLR, "W_MetaType", "" );
-      //:END
-   } 
-
-   //:END
-   //:OrderEntityForView( TargetLPLR, "W_MetaType", "SortOrder A" )
-   OrderEntityForView( TargetLPLR, "W_MetaType", "SortOrder A" );
-   //:FOR EACH TargetLPLR.W_MetaType
-   RESULT = SetCursorFirstEntity( TargetLPLR, "W_MetaType", "" );
-   while ( RESULT > zCURSOR_UNCHANGED )
-   { 
-      //:OrderEntityForView( TargetLPLR, "W_MetaDef", "Name A" )
-      OrderEntityForView( TargetLPLR, "W_MetaDef", "Name A" );
-      RESULT = SetCursorNextEntity( TargetLPLR, "W_MetaType", "" );
-   } 
-
-   //:END
-
-   //:FOR EACH SourceLPLR.W_MetaType
-   RESULT = SetCursorFirstEntity( SourceLPLR, "W_MetaType", "" );
-   while ( RESULT > zCURSOR_UNCHANGED )
-   { 
-      //:IF SourceLPLR.W_MetaType.Type = 2015
-      if ( CompareAttributeToInteger( SourceLPLR, "W_MetaType", "Type", 2015 ) == 0 )
-      { 
-         //:SourceLPLR.W_MetaType.SortOrder = 2000
-         SetAttributeFromInteger( SourceLPLR, "W_MetaType", "SortOrder", 2000 );
-         //:else
-      } 
-      else
-      { 
-         //:SourceLPLR.W_MetaType.SortOrder = SourceLPLR.W_MetaType.Type
-         SetAttributeFromAttribute( SourceLPLR, "W_MetaType", "SortOrder", SourceLPLR, "W_MetaType", "Type" );
-      } 
-
-      RESULT = SetCursorNextEntity( SourceLPLR, "W_MetaType", "" );
-      //:END
-   } 
-
-   //:END
-   //:OrderEntityForView( SourceLPLR, "W_MetaType", "SortOrder A" )
-   OrderEntityForView( SourceLPLR, "W_MetaType", "SortOrder A" );
-   //:FOR EACH SourceLPLR.W_MetaType
-   RESULT = SetCursorFirstEntity( SourceLPLR, "W_MetaType", "" );
-   while ( RESULT > zCURSOR_UNCHANGED )
-   { 
-      //:OrderEntityForView( SourceLPLR, "W_MetaDef", "Name A" )
-      OrderEntityForView( SourceLPLR, "W_MetaDef", "Name A" );
-      RESULT = SetCursorNextEntity( SourceLPLR, "W_MetaType", "" );
-   } 
-
-   //:END
-
-   //:// Now be sure to position at the beginning of both lists.
-   //:SET CURSOR FIRST TargetLPLR.W_MetaType
-   RESULT = SetCursorFirstEntity( TargetLPLR, "W_MetaType", "" );
-   //:SET CURSOR FIRST SourceLPLR.W_MetaType
-   RESULT = SetCursorFirstEntity( SourceLPLR, "W_MetaType", "" );
-   return( 0 );
-// END
-} 
-
-
-//:DIALOG OPERATION
-//:MigrateCompilerSubobjects( VIEW vSubtask )
-
-//:   VIEW SourceLPLR    BASED ON LOD TZCMLPLO
-zOPER_EXPORT zSHORT OPERATION
-MigrateCompilerSubobjects( zVIEW     vSubtask )
+MERGE_DomainsAndOperations( zVIEW     vSubtask )
 {
    zVIEW     SourceLPLR = 0; 
-   //:VIEW CurrentLPLR   BASED ON LOD TZCMLPLO
+   //:VIEW OrigLPLR           BASED ON LOD TZCMLPLO
+   zVIEW     OrigLPLR = 0; 
+   //:VIEW CurrentLPLR        BASED ON LOD TZCMLPLO
    zVIEW     CurrentLPLR = 0; 
+   //:VIEW NewOperationGroup  BASED ON LOD TZOGSRCO
+   zVIEW     NewOperationGroup = 0; 
+   //:VIEW SrcOperationGroup  BASED ON LOD TZOGSRCO
+   zVIEW     SrcOperationGroup = 0; 
+   //:VIEW NewDomainGroup     BASED ON LOD TZDGSRCO
+   zVIEW     NewDomainGroup = 0; 
+   //:VIEW SrcDomainGroup     BASED ON LOD TZDGSRCO
+   zVIEW     SrcDomainGroup = 0; 
+   //:STRING (32)  MetaName
+   zCHAR     MetaName[ 33 ] = { 0 }; 
+   //:STRING (32)  GroupMetaName
+   zCHAR     GroupMetaName[ 33 ] = { 0 }; 
+   //:STRING (250) MG_ErrorMessage
+   zCHAR     MG_ErrorMessage[ 251 ] = { 0 }; 
+   //:STRING (1)   ExistsFlag
+   zCHAR     ExistsFlag[ 2 ] = { 0 }; 
+   //:STRING (200) szSourceFileName
+   zCHAR     szSourceFileName[ 201 ] = { 0 }; 
+   //:SHORT        nRC
+   zSHORT    nRC = 0; 
    zSHORT    RESULT; 
+   zSHORT    lTempInteger_0; 
+   zCHAR     szTempString_0[ 33 ]; 
+   zSHORT    lTempInteger_1; 
 
 
-   //:GET VIEW SourceLPLR  NAMED "OrigLPLR"
-   RESULT = GetViewByName( &SourceLPLR, "OrigLPLR", vSubtask, zLEVEL_TASK );
+   //:// Merge selected Domains and Operations and call close operation at end to rename OI's.
+
+   //:// Below, CurrentLPLR is the view used for TaskLPLR
    //:GET VIEW CurrentLPLR NAMED "TaskLPLR"
    RESULT = GetViewByName( &CurrentLPLR, "TaskLPLR", vSubtask, zLEVEL_TASK );
+   //:GET VIEW SourceLPLR  NAMED "SourceLPLR"
+   RESULT = GetViewByName( &SourceLPLR, "SourceLPLR", vSubtask, zLEVEL_TASK );
 
-   //:CompilerMigrate( CurrentLPLR, SourceLPLR, vSubtask )
-   oTZCMLPLO_CompilerMigrate( CurrentLPLR, SourceLPLR, vSubtask );
-   return( 0 );
-// END
-} 
-
-
-//:DIALOG OPERATION
-//:WRITE_MergeMessagesToFile( VIEW ViewToWindow )
-
-//:   VIEW TaskLPLR REGISTERED AS TaskLPLR  
-zOPER_EXPORT zSHORT OPERATION
-WRITE_MergeMessagesToFile( zVIEW     ViewToWindow )
-{
-   zVIEW     TaskLPLR = 0; 
-   zSHORT    RESULT; 
-
-   RESULT = GetViewByName( &TaskLPLR, "TaskLPLR", ViewToWindow, zLEVEL_TASK );
-
-   //:WriteErrorMessagesCSV ( TaskLPLR )
-   oTZCMLPLO_WriteErrorMessagesCSV( TaskLPLR );
-   return( 0 );
-// END
-} 
-
-
-//:DIALOG OPERATION
-//:MERGE_AllLPLR_Metas( VIEW ViewToWindow )
-
-//:   VIEW SourceLPLR REGISTERED AS SourceLPLR
-zOPER_EXPORT zSHORT OPERATION
-MERGE_AllLPLR_Metas( zVIEW     ViewToWindow )
-{
-   zVIEW     SourceLPLR = 0; 
-   zSHORT    RESULT; 
-   //:VIEW TaskLPLR   REGISTERED AS TaskLPLR
-   zVIEW     TaskLPLR = 0; 
-   //:STRING ( 500 ) PromptMessage 
-   zCHAR     PromptMessage[ 501 ] = { 0 }; 
-   //:SHORT nRC
-   zSHORT    nRC = 0; 
-
-   RESULT = GetViewByName( &SourceLPLR, "SourceLPLR", ViewToWindow, zLEVEL_TASK );
-   RESULT = GetViewByName( &TaskLPLR, "TaskLPLR", ViewToWindow, zLEVEL_TASK );
-
-   //:// Prompt User to make sure they are aware of the extence of this function.
-   //:PromptMessage = "Note that this function will ignore any selections and will merge ALL entries into the target LPLR. " + NEW_LINE
-   ZeidonStringCopy( PromptMessage, 1, 0, "Note that this function will ignore any selections and will merge ALL entries into the target LPLR. ", 1, 0, 501 );
-   ZeidonStringConcat( PromptMessage, 1, 0, NEW_LINE, 1, 0, 501 );
-   //:IF TaskLPLR.LPLR.wMergeAllLOD_ER_EntriesFlag = "Y"
-   if ( CompareAttributeToString( TaskLPLR, "LPLR", "wMergeAllLOD_ER_EntriesFlag", "Y" ) == 0 )
-   { 
-      //:PromptMessage = PromptMessage + "Also, the 'Merge LOD ER Data' option IS selected so any LOD entities/attributes tied to the ER in " +
-      //:                                "the source LPLR will generate new entity/attributes into the target LPLR." + NEW_LINE
-      ZeidonStringConcat( PromptMessage, 1, 0, "Also, the 'Merge LOD ER Data' option IS selected so any LOD entities/attributes tied to the ER in ", 1, 0, 501 );
-      ZeidonStringConcat( PromptMessage, 1, 0, "the source LPLR will generate new entity/attributes into the target LPLR.", 1, 0, 501 );
-      ZeidonStringConcat( PromptMessage, 1, 0, NEW_LINE, 1, 0, 501 );
-      //:ELSE
-   } 
-   else
-   { 
-      //:PromptMessage = PromptMessage + "Also, the 'Merge LOD ER Data' option is NOT selected so any LOD entities/attributes tied to " +
-      //:                                "the ER in the source LPLR will NOT be merged into the target LPLR." + NEW_LINE
-      ZeidonStringConcat( PromptMessage, 1, 0, "Also, the 'Merge LOD ER Data' option is NOT selected so any LOD entities/attributes tied to ", 1, 0, 501 );
-      ZeidonStringConcat( PromptMessage, 1, 0, "the ER in the source LPLR will NOT be merged into the target LPLR.", 1, 0, 501 );
-      ZeidonStringConcat( PromptMessage, 1, 0, NEW_LINE, 1, 0, 501 );
-   } 
-
-   //:END
-   //:PromptMessage = PromptMessage + "Do you want to continue Merging All Entries?"
-   ZeidonStringConcat( PromptMessage, 1, 0, "Do you want to continue Merging All Entries?", 1, 0, 501 );
-   //:nRC = MessagePrompt( ViewToWindow, "", "Merge Entries",
-   //:                     PromptMessage, 1,         zBUTTONS_YESNO,
-   //:                     zRESPONSE_YES  ,  0 )
-   nRC = MessagePrompt( ViewToWindow, "", "Merge Entries", PromptMessage, 1, zBUTTONS_YESNO, zRESPONSE_YES, 0 );
-   //:IF nRC = zRESPONSE_NO
-   if ( nRC == zRESPONSE_NO )
-   { 
-      //:MessageSend( ViewToWindow, "", "Merge Entries",
-      //:             "The Merge function is aborted.", zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
-      MessageSend( ViewToWindow, "", "Merge Entries", "The Merge function is aborted.", zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 );
-      //:RETURN -1
-      return( -1 );
-   } 
-
-   //:END
-
-   //:// Select all entries in SourceLPLR and call the MERGE_SelectedLMergeoperation.
-   //:// Note we will not select the AD_Base PWD as its mapping can create errors and we don't want 
-   //:// copies in the target LPLR's.
-   //:FOR EACH SourceLPLR.W_MetaDef WITHIN SourceLPLR.LPLR 
-   RESULT = SetCursorFirstEntity( SourceLPLR, "W_MetaDef", "LPLR" );
+   //:// Delete any existing error messages in TaskLPLR.
+   //:FOR CurrentLPLR.ErrorMessage 
+   RESULT = SetCursorFirstEntity( CurrentLPLR, "ErrorMessage", "" );
    while ( RESULT > zCURSOR_UNCHANGED )
    { 
-      //:IF SourceLPLR.W_MetaDef.Name != "AD_Base"
-      if ( CompareAttributeToString( SourceLPLR, "W_MetaDef", "Name", "AD_Base" ) != 0 )
-      { 
-         //:SetSelectStateOfEntity( SourceLPLR, "W_MetaDef", 1 )
-         SetSelectStateOfEntity( SourceLPLR, "W_MetaDef", 1 );
-      } 
-
-      RESULT = SetCursorNextEntity( SourceLPLR, "W_MetaDef", "LPLR" );
-      //:END
+      //:DELETE ENTITY CurrentLPLR.ErrorMessage NONE  
+      RESULT = DeleteEntity( CurrentLPLR, "ErrorMessage", zREPOS_NONE );
+      RESULT = SetCursorNextEntity( CurrentLPLR, "ErrorMessage", "" );
    } 
 
    //:END
-   //:nRC = MERGE_SelectedLPLR_Metas( ViewToWindow )
-   nRC = MERGE_SelectedLPLR_Metas( ViewToWindow );
-   //:IF nRC >= 0
-   if ( nRC >= 0 )
+
+   //:// Indicate we're in Merge and message entities are to be created.
+   //:CurrentLPLR.LPLR.MergeType = "L"
+   SetAttributeFromString( CurrentLPLR, "LPLR", "MergeType", "L" );
+
+   //:// Note that named views TaskLPLR and TargetLPLR are both for the target LPLR, but are slightly different.
+   //:// TargetLPLR holds a subset of TaskLPLR and identifies the current state of the LPLR at the beginning Merge.
+   //:// TaskLPLR holds the full target LPLR object and is the target used for actually copying.
+
+   //:// Because some migration operations need an LPLR view with Domain metas in it, we will pass the OrigLPLR view to merge operations
+   //:// instead of the  SourceLPLR view. This is because the SourceLPLR contains a subset of the metas from the OrigLPLR, from which the
+   //:// SourceLPLR was created.
+   //:GET VIEW OrigLPLR NAMED "OrigLPLR"
+   RESULT = GetViewByName( &OrigLPLR, "OrigLPLR", vSubtask, zLEVEL_TASK );
+
+   //:nRC = SetCursorFirstSelectedEntity( SourceLPLR, "W_MetaDef", "LPLR" )
+   nRC = SetCursorFirstSelectedEntity( SourceLPLR, "W_MetaDef", "LPLR" );
+   //:LOOP WHILE nRC >= zCURSOR_SET
+   while ( nRC >= zCURSOR_SET )
    { 
-      //:MergeAllObjectViews( ViewToWindow )
-      o_MergeAllObjectViews( ViewToWindow );
-   } 
 
-   //:END
-   return( 0 );
-// END
-} 
+      //:MetaName      = SourceLPLR.W_MetaDef.Name
+      GetVariableFromAttribute( MetaName, 0, 'S', 33, SourceLPLR, "W_MetaDef", "Name", "", 0 );
+      //:GroupMetaName = SourceLPLR.W_MetaDef.GroupName 
+      GetVariableFromAttribute( GroupMetaName, 0, 'S', 33, SourceLPLR, "W_MetaDef", "GroupName", "", 0 );
 
-
-//:LOCAL OPERATION
-//:MergeAllObjectViews( VIEW ViewToWindow )
-
-//:   VIEW TaskLPLR    REGISTERED AS TaskLPLR
-static zVOID
-o_MergeAllObjectViews( zVIEW     ViewToWindow )
-{
-   zVIEW     TaskLPLR = 0; 
-   zSHORT    RESULT; 
-   //:VIEW SourceLPLR  BASED ON LOD  TZCMLPLO
-   zVIEW     SourceLPLR = 0; 
-   //:VIEW CurrentLPLR BASED ON LOD  TZCMLPLO
-   zVIEW     CurrentLPLR = 0; 
-   //:VIEW TZWDVOROS   BASED ON LOD  TZWDVORO
-   zVIEW     TZWDVOROS = 0; 
-   //:VIEW TZWDVOROT   BASED ON LOD  TZWDVORO
-   zVIEW     TZWDVOROT = 0; 
-   //:VIEW TZZOLODO    BASED ON LOD  TZZOLODO
-   zVIEW     TZZOLODO = 0; 
-   //:STRING ( 50 )  szLOD_Name
-   zCHAR     szLOD_Name[ 51 ] = { 0 }; 
-   //:STRING ( 50 )  szMetaName
-   zCHAR     szMetaName[ 51 ] = { 0 }; 
-   //:STRING ( 200 ) szSourceDirectoryName
-   zCHAR     szSourceDirectoryName[ 201 ] = { 0 }; 
-   //:STRING ( 200 ) szSourceFileName
-   zCHAR     szSourceFileName[ 201 ] = { 0 }; 
-   //:STRING ( 200 ) szMsg
-   zCHAR     szMsg[ 201 ] = { 0 }; 
-   //:INTEGER nRC
-   zLONG     nRC = 0; 
-   //:INTEGER lZKey
-   zLONG     lZKey = 0; 
-
-   RESULT = GetViewByName( &TaskLPLR, "TaskLPLR", ViewToWindow, zLEVEL_TASK );
-
-   //:// Make sure that an ObjectView exists in the TaskLPLR (the current LPLR) for every ObjectView in the Source LPLR.
-
-   //:GET VIEW SourceLPLR  NAMED "OrigLPLR"
-   RESULT = GetViewByName( &SourceLPLR, "OrigLPLR", ViewToWindow, zLEVEL_TASK );
-   //:GET VIEW CurrentLPLR NAMED "TaskLPLR"
-   RESULT = GetViewByName( &CurrentLPLR, "TaskLPLR", ViewToWindow, zLEVEL_TASK );
-
-   //:// Note that update Registered View is W_MetaType 2009.  
-   //:SET CURSOR FIRST SourceLPLR.W_MetaType WHERE SourceLPLR.W_MetaType.Type = 2009
-   RESULT = SetCursorFirstEntityByInteger( SourceLPLR, "W_MetaType", "Type", 2009, "" );
-   //:SET CURSOR FIRST TaskLPLR.W_MetaType WHERE TaskLPLR.W_MetaType.Type = 2009 
-   RESULT = SetCursorFirstEntityByInteger( TaskLPLR, "W_MetaType", "Type", 2009, "" );
-
-   //:szSourceDirectoryName = SourceLPLR.LPLR.MetaSrcDir 
-   GetVariableFromAttribute( szSourceDirectoryName, 0, 'S', 201, SourceLPLR, "LPLR", "MetaSrcDir", "", 0 );
-   //:FOR EACH SourceLPLR.W_MetaDef 
-   RESULT = SetCursorFirstEntity( SourceLPLR, "W_MetaDef", "" );
-   while ( RESULT > zCURSOR_UNCHANGED )
-   { 
-      //:szMetaName = SourceLPLR.W_MetaDef.Name
-      GetVariableFromAttribute( szMetaName, 0, 'S', 51, SourceLPLR, "W_MetaDef", "Name", "", 0 );
-      //:SET CURSOR FIRST TaskLPLR.W_MetaDef WHERE TaskLPLR.W_MetaDef.Name = szMetaName
-      RESULT = SetCursorFirstEntityByString( TaskLPLR, "W_MetaDef", "Name", szMetaName, "" );
-      //:IF RESULT < zCURSOR_SET
-      if ( RESULT < zCURSOR_SET )
+      //:// Global Operation: W_MetaType.Type = 2002 for global operation meta
+      //:IF SourceLPLR.W_MetaType.Type = 2002
+      if ( CompareAttributeToInteger( SourceLPLR, "W_MetaType", "Type", 2002 ) == 0 )
       { 
-         //:// Activate existing source meta VOR
-         //:lZKey = SourceLPLR.W_MetaDef.CPLR_ZKey
-         GetIntegerFromAttribute( &lZKey, SourceLPLR, "W_MetaDef", "CPLR_ZKey" );
-         //:zltoxa( lZKey, szMetaName )
-         zltoxa( lZKey, szMetaName );
-         //:szSourceFileName = szSourceDirectoryName + "\" + szMetaName + ".PVR"
-         ZeidonStringCopy( szSourceFileName, 1, 0, szSourceDirectoryName, 1, 0, 201 );
+
+         //:// Set up Error Message object data and footer text.
+         //:CurrentLPLR.LPLR.wMergeMetaType = "Operation"
+         SetAttributeFromString( CurrentLPLR, "LPLR", "wMergeMetaType", "Operation" );
+         //:CurrentLPLR.LPLR.wMergeMetaName = MetaName
+         SetAttributeFromString( CurrentLPLR, "LPLR", "wMergeMetaName", MetaName );
+         //:MG_ErrorMessage = "Processing Operation, " + MetaName
+         ZeidonStringCopy( MG_ErrorMessage, 1, 0, "Processing Operation, ", 1, 0, 251 );
+         ZeidonStringConcat( MG_ErrorMessage, 1, 0, MetaName, 1, 0, 251 );
+         //:MB_SetMessage( vSubtask, 1, MG_ErrorMessage )
+         MB_SetMessage( vSubtask, 1, MG_ErrorMessage );
+
+         //:// Activate Source Operation Group.
+         //:szSourceFileName = SourceLPLR.LPLR.MetaSrcDir + "\" + GroupMetaName + ".POG"
+         GetStringFromAttribute( szSourceFileName, SourceLPLR, "LPLR", "MetaSrcDir" );
          ZeidonStringConcat( szSourceFileName, 1, 0, "\\", 1, 0, 201 );
-         ZeidonStringConcat( szSourceFileName, 1, 0, szMetaName, 1, 0, 201 );
-         ZeidonStringConcat( szSourceFileName, 1, 0, ".PVR", 1, 0, 201 );
-         //:ActivateOI_FromFile ( TZWDVOROS, "TZWDVORO", SourceLPLR, szSourceFileName, 8192 ) // 8192 is zIGNORE_ATTRIB_ERRORS
-         ActivateOI_FromFile( &TZWDVOROS, "TZWDVORO", SourceLPLR, szSourceFileName, 8192 );
-         //:NAME VIEW TZWDVOROS "TZWDVORO_Source"
-         SetNameForView( TZWDVOROS, "TZWDVORO_Source", 0, zLEVEL_TASK );
-         //:// Make sure LOD exists.
-         //:szLOD_Name = TZWDVOROS.LOD.Name 
-         GetVariableFromAttribute( szLOD_Name, 0, 'S', 51, TZWDVOROS, "LOD", "Name", "", 0 );
-         //:nRC = ActivateMetaOI_ByName( ViewToWindow, TZZOLODO, 0, zREFER_LOD_META, zSINGLE, szLOD_Name, 0 )
-         nRC = ActivateMetaOI_ByName( ViewToWindow, &TZZOLODO, 0, zREFER_LOD_META, zSINGLE, szLOD_Name, 0 );
+         ZeidonStringConcat( szSourceFileName, 1, 0, GroupMetaName, 1, 0, 201 );
+         ZeidonStringConcat( szSourceFileName, 1, 0, ".POG", 1, 0, 201 );
+         //:ActivateOI_FromFile( SrcOperationGroup, "TZOGSRCO", SourceLPLR, szSourceFileName, zSINGLE )
+         ActivateOI_FromFile( &SrcOperationGroup, "TZOGSRCO", SourceLPLR, szSourceFileName, zSINGLE );
+         //:NAME VIEW SrcOperationGroup "OldSrcOperationGroup"
+         SetNameForView( SrcOperationGroup, "OldSrcOperationGroup", 0, zLEVEL_TASK );
+         //:SET CURSOR FIRST SrcOperationGroup.Operation WHERE SrcOperationGroup.Operation.Name = MetaName
+         RESULT = SetCursorFirstEntityByString( SrcOperationGroup, "Operation", "Name", MetaName, "" );
+
+         //:// Activate the Global Operation Group in the target to see if it exists.
+         //:// If it exists, check if the Operation already exists and if so skip this entry.
+         //:// If it doesn't exist, create it.
+         //:nRC = ActivateMetaOI_ByName( vSubtask, NewOperationGroup, 0, zSOURCE_GOPGRP_META, zSINGLE, GroupMetaName, 0 )
+         nRC = ActivateMetaOI_ByName( vSubtask, &NewOperationGroup, 0, zSOURCE_GOPGRP_META, zSINGLE, GroupMetaName, 0 );
          //:IF nRC >= 0
          if ( nRC >= 0 )
          { 
-            //:// Create the ViewObjRef.
-            //:ActivateEmptyMetaOI( ViewToWindow, TZWDVOROT, zSOURCE_VOR_META, zSINGLE )
-            ActivateEmptyMetaOI( ViewToWindow, &TZWDVOROT, zSOURCE_VOR_META, zSINGLE );
-            //:NAME VIEW TZWDVOROT "TZWDVORO_New"
-            SetNameForView( TZWDVOROT, "TZWDVORO_New", 0, zLEVEL_TASK );
-            //:CreateMetaEntity( ViewToWindow, TZWDVOROT, "ViewObjRef", zPOS_AFTER )
-            CreateMetaEntity( ViewToWindow, TZWDVOROT, "ViewObjRef", zPOS_AFTER );
-            //:TZWDVOROT.ViewObjRef.Name = TZWDVOROS.ViewObjRef.Name 
-            SetAttributeFromAttribute( TZWDVOROT, "ViewObjRef", "Name", TZWDVOROS, "ViewObjRef", "Name" );
-            //:TZWDVOROT.ViewObjRef.Desc = "Created during CRM Build"
-            SetAttributeFromString( TZWDVOROT, "ViewObjRef", "Desc", "Created during CRM Build" );
-            //:INCLUDE TZWDVOROT.LOD FROM TZZOLODO.LOD 
-            RESULT = IncludeSubobjectFromSubobject( TZWDVOROT, "LOD", TZZOLODO, "LOD", zPOS_AFTER );
-            //:CommitMetaOI( ViewToWindow, TZWDVOROT, zSOURCE_VOR_META )
-            CommitMetaOI( ViewToWindow, TZWDVOROT, zSOURCE_VOR_META );
-            //:DropObjectInstance( TZWDVOROT )
-            DropObjectInstance( TZWDVOROT );
-            //:DropObjectInstance( TZZOLODO )
-            DropObjectInstance( TZZOLODO );
-
-            //:// Create Registered View Copied message.  (Modified by DonC, 7/12/2024)
-            //:szMsg = "Copied."
-            ZeidonStringCopy( szMsg, 1, 0, "Copied.", 1, 0, 201 );
-            //:CurrentLPLR.LPLR.wMergeMetaType = "Registered View"
-            SetAttributeFromString( CurrentLPLR, "LPLR", "wMergeMetaType", "Registered View" );
-            //:CurrentLPLR.LPLR.wMergeMetaName = TZWDVOROS.ViewObjRef.Name
-            SetAttributeFromAttribute( CurrentLPLR, "LPLR", "wMergeMetaName", TZWDVOROS, "ViewObjRef", "Name" );
-            //:CreateErrorMessage( TaskLPLR, szMsg )
-            oTZCMLPLO_CreateErrorMessage( TaskLPLR, szMsg );
+            //:NAME VIEW NewOperationGroup "NewOperationGroup"
+            SetNameForView( NewOperationGroup, "NewOperationGroup", 0, zLEVEL_TASK );
+            //:ELSE
+         } 
+         else
+         { 
+            //:// Initialize new OperationGroup from Source OperationGroup.
+            //:ActivateEmptyMetaOI( vSubtask, NewOperationGroup, zSOURCE_GOPGRP_META, zSINGLE )
+            ActivateEmptyMetaOI( vSubtask, &NewOperationGroup, zSOURCE_GOPGRP_META, zSINGLE );
+            //:NAME VIEW NewOperationGroup "NewOperationGroup"
+            SetNameForView( NewOperationGroup, "NewOperationGroup", 0, zLEVEL_TASK );
+            //:CreateMetaEntity( vSubtask, NewOperationGroup, "GlobalOperationGroup", zPOS_AFTER )
+            CreateMetaEntity( vSubtask, NewOperationGroup, "GlobalOperationGroup", zPOS_AFTER );
+            //:SetMatchingAttributesByName( NewOperationGroup, "GlobalOperationGroup", SrcOperationGroup, "GlobalOperationGroup", zSET_NULL )
+            SetMatchingAttributesByName( NewOperationGroup, "GlobalOperationGroup", SrcOperationGroup, "GlobalOperationGroup", zSET_NULL );
          } 
 
          //:END
-         //:DropObjectInstance( TZWDVOROS )
-         DropObjectInstance( TZWDVOROS );
+
+         //:// Go to Copy/Merge Operation into new Operation Group.
+         //:GlobalOperationMerge( NewOperationGroup,
+         //:                      SrcOperationGroup,
+         //:                      SourceLPLR,
+         //:                      vSubtask,
+         //:                      GroupMetaName )
+         oTZOGSRCO_GlobalOperationMerge( NewOperationGroup, SrcOperationGroup, SourceLPLR, vSubtask, GroupMetaName );
+         //:// We need to commit the OperationGroup here as it's not done in the GlobalOperationMerge function.
+         //:CommitMetaOI( vSubtask, NewOperationGroup, zSOURCE_GOPGRP_META ) TraceLineS( "*** Meta: ", MetaName )
+         CommitMetaOI( vSubtask, NewOperationGroup, zSOURCE_GOPGRP_META );
+         TraceLineS( "*** Meta: ", MetaName );
+         //:IF RESULT < 0
+         if ( RESULT < 0 )
+         { 
+            //:MG_ErrorMessage = "Error on commit of OperationGroup, " + GroupMetaName
+            ZeidonStringCopy( MG_ErrorMessage, 1, 0, "Error on commit of OperationGroup, ", 1, 0, 251 );
+            ZeidonStringConcat( MG_ErrorMessage, 1, 0, GroupMetaName, 1, 0, 251 );
+            //:TraceLineI( "*** RESULT: ", RESULT )
+            TraceLineI( "*** RESULT: ", (zLONG) RESULT );
+            //:IssueError( vSubtask,0,0, MG_ErrorMessage )
+            IssueError( vSubtask, 0, 0, MG_ErrorMessage );
+            //:RETURN RESULT
+            return( RESULT );
+         } 
+
+         //:END
+
+         //:// Create copied message.
+         //:MG_ErrorMessage = "Operation, " + MetaName + ", has been copied."
+         ZeidonStringCopy( MG_ErrorMessage, 1, 0, "Operation, ", 1, 0, 251 );
+         ZeidonStringConcat( MG_ErrorMessage, 1, 0, MetaName, 1, 0, 251 );
+         ZeidonStringConcat( MG_ErrorMessage, 1, 0, ", has been copied.", 1, 0, 251 );
+         //:CreateErrorMessage( CurrentLPLR, MG_ErrorMessage )
+         oTZCMLPLO_CreateErrorMessage( CurrentLPLR, MG_ErrorMessage );
       } 
 
-      RESULT = SetCursorNextEntity( SourceLPLR, "W_MetaDef", "" );
-      //:END 
+
+      //:END
+
+      //:// Domain: W_MetaType.Type = 2003 for Domain meta
+      //:IF SourceLPLR.W_MetaType.Type = 2003
+      if ( CompareAttributeToInteger( SourceLPLR, "W_MetaType", "Type", 2003 ) == 0 )
+      { 
+
+         //:// Set up Error Message object data and footer text.
+         //:CurrentLPLR.LPLR.wMergeMetaType = "Domain"
+         SetAttributeFromString( CurrentLPLR, "LPLR", "wMergeMetaType", "Domain" );
+         //:CurrentLPLR.LPLR.wMergeMetaName = MetaName
+         SetAttributeFromString( CurrentLPLR, "LPLR", "wMergeMetaName", MetaName );
+         //:MG_ErrorMessage = "Processing Domain: " + MetaName
+         ZeidonStringCopy( MG_ErrorMessage, 1, 0, "Processing Domain: ", 1, 0, 251 );
+         ZeidonStringConcat( MG_ErrorMessage, 1, 0, MetaName, 1, 0, 251 );
+         //:MB_SetMessage( vSubtask, 1, MG_ErrorMessage )
+         MB_SetMessage( vSubtask, 1, MG_ErrorMessage );
+
+         //:// Activate the Domain Group in the target to see if it exists.
+         //:// If it exists, check if the Domain already exists and if so skip this entry.
+         //:// If it doesn't exist, create it.
+         //:nRC = ActivateMetaOI_ByName( vSubtask, NewDomainGroup, 0, zSOURCE_DomainGRP_META, zSINGLE, GroupMetaName, 0 )
+         nRC = ActivateMetaOI_ByName( vSubtask, &NewDomainGroup, 0, zSOURCE_DOMAINGRP_META, zSINGLE, GroupMetaName, 0 );
+         //:IF nRC >= 0
+         if ( nRC >= 0 )
+         { 
+            //:NAME VIEW NewDomainGroup "NewDomainGroup"
+            SetNameForView( NewDomainGroup, "NewDomainGroup", 0, zLEVEL_TASK );
+            //:ExistsFlag = ""
+            ZeidonStringCopy( ExistsFlag, 1, 0, "", 1, 0, 2 );
+            //:SET CURSOR FIRST NewDomainGroup.Domain WHERE NewDomainGroup.Domain.Name = MetaName
+            RESULT = SetCursorFirstEntityByString( NewDomainGroup, "Domain", "Name", MetaName, "" );
+            //:IF RESULT >= zCURSOR_SET
+            if ( RESULT >= zCURSOR_SET )
+            { 
+               //:ExistsFlag = "Y"
+               ZeidonStringCopy( ExistsFlag, 1, 0, "Y", 1, 0, 2 );
+            } 
+
+            //:END
+            //:ELSE
+         } 
+         else
+         { 
+            //:// Activate the source DomainGroup and use it in creating new empty DomainGroup..
+            //:szSourceFileName = SourceLPLR.LPLR.MetaSrcDir + "\" + GroupMetaName + ".PDG"
+            GetStringFromAttribute( szSourceFileName, SourceLPLR, "LPLR", "MetaSrcDir" );
+            ZeidonStringConcat( szSourceFileName, 1, 0, "\\", 1, 0, 201 );
+            ZeidonStringConcat( szSourceFileName, 1, 0, GroupMetaName, 1, 0, 201 );
+            ZeidonStringConcat( szSourceFileName, 1, 0, ".PDG", 1, 0, 201 );
+            //:ActivateOI_FromFile( SrcDomainGroup, "TZDGSRCO", SourceLPLR, szSourceFileName, zSINGLE )
+            ActivateOI_FromFile( &SrcDomainGroup, "TZDGSRCO", SourceLPLR, szSourceFileName, zSINGLE );
+            //:NAME VIEW SrcDomainGroup "OldSrcDomainGroup"
+            SetNameForView( SrcDomainGroup, "OldSrcDomainGroup", 0, zLEVEL_TASK );
+            //:ActivateEmptyMetaOI( vSubtask, NewDomainGroup, zSOURCE_DOMAINGRP_META, zSINGLE )
+            ActivateEmptyMetaOI( vSubtask, &NewDomainGroup, zSOURCE_DOMAINGRP_META, zSINGLE );
+            //:NAME VIEW NewDomainGroup "NewDomainGroup"
+            SetNameForView( NewDomainGroup, "NewDomainGroup", 0, zLEVEL_TASK );
+            //:CreateMetaEntity( vSubtask, NewDomainGroup, "DomainGroup", zPOS_AFTER )
+            CreateMetaEntity( vSubtask, NewDomainGroup, "DomainGroup", zPOS_AFTER );
+            //:SetMatchingAttributesByName( NewDomainGroup, "DomainGroup", SrcDomainGroup, "DomainGroup", zSET_NULL )
+            SetMatchingAttributesByName( NewDomainGroup, "DomainGroup", SrcDomainGroup, "DomainGroup", zSET_NULL );
+
+            //:// If the Domain has an Operation specified, create message indicating the operation must be copied separately.
+            //:IF SrcDomainGroup.SelectedOperation EXISTS
+            lTempInteger_0 = CheckExistenceOfEntity( SrcDomainGroup, "SelectedOperation" );
+            if ( lTempInteger_0 == 0 )
+            { 
+               //:MG_ErrorMessage = "Domain, " + MetaName + ", has Operation, " + SrcDomainGroup.SelectedOperation.Name  +
+               //:", which must be copied separately."
+               ZeidonStringCopy( MG_ErrorMessage, 1, 0, "Domain, ", 1, 0, 251 );
+               ZeidonStringConcat( MG_ErrorMessage, 1, 0, MetaName, 1, 0, 251 );
+               ZeidonStringConcat( MG_ErrorMessage, 1, 0, ", has Operation, ", 1, 0, 251 );
+               GetVariableFromAttribute( szTempString_0, 0, 'S', 33, SrcDomainGroup, "SelectedOperation", "Name", "", 0 );
+               ZeidonStringConcat( MG_ErrorMessage, 1, 0, szTempString_0, 1, 0, 251 );
+               ZeidonStringConcat( MG_ErrorMessage, 1, 0, ", which must be copied separately.", 1, 0, 251 );
+               //:CreateErrorMessage( CurrentLPLR, MG_ErrorMessage )
+               oTZCMLPLO_CreateErrorMessage( CurrentLPLR, MG_ErrorMessage );
+            } 
+
+            //:END
+            //:DropObjectInstance( SrcDomainGroup )
+            DropObjectInstance( SrcDomainGroup );
+
+            //:ExistsFlag = ""
+            ZeidonStringCopy( ExistsFlag, 1, 0, "", 1, 0, 2 );
+         } 
+
+         //:END
+
+         //:// Only continue if the Domain wasn't already in the target.
+         //:IF ExistsFlag = "Y"
+         if ( ZeidonStringCompare( ExistsFlag, 1, 0, "Y", 1, 0, 2 ) == 0 )
+         { 
+            //:// Write out message that Domain exists.
+            //:MG_ErrorMessage = "Domain, " + MetaName + ", exists and will not be copied."
+            ZeidonStringCopy( MG_ErrorMessage, 1, 0, "Domain, ", 1, 0, 251 );
+            ZeidonStringConcat( MG_ErrorMessage, 1, 0, MetaName, 1, 0, 251 );
+            ZeidonStringConcat( MG_ErrorMessage, 1, 0, ", exists and will not be copied.", 1, 0, 251 );
+            //:CreateErrorMessage( CurrentLPLR, MG_ErrorMessage )
+            oTZCMLPLO_CreateErrorMessage( CurrentLPLR, MG_ErrorMessage );
+            //:ELSE
+         } 
+         else
+         { 
+            //:// Go to migrate Domain to target LPLR.
+            //:nRC = DomainMigrate( NewDomainGroup, 
+            //:                     MetaName, 
+            //:                     GroupMetaName, 
+            //:                     SourceLPLR, 
+            //:                     vSubtask )
+            nRC = oTZDGSRCO_DomainMigrate( NewDomainGroup, MetaName, GroupMetaName, SourceLPLR, vSubtask );
+            //:IF nRC < 0
+            if ( nRC < 0 )
+            { 
+               //:IssueError( vSubtask,0,0, "Error migrating new Domain." )
+               IssueError( vSubtask, 0, 0, "Error migrating new Domain." );
+               //:ELSE
+            } 
+            else
+            { 
+               //:MG_ErrorMessage = "Domain, " + MetaName + ", has been copied."
+               ZeidonStringCopy( MG_ErrorMessage, 1, 0, "Domain, ", 1, 0, 251 );
+               ZeidonStringConcat( MG_ErrorMessage, 1, 0, MetaName, 1, 0, 251 );
+               ZeidonStringConcat( MG_ErrorMessage, 1, 0, ", has been copied.", 1, 0, 251 );
+               //:CreateErrorMessage( CurrentLPLR, MG_ErrorMessage )
+               oTZCMLPLO_CreateErrorMessage( CurrentLPLR, MG_ErrorMessage );
+            } 
+
+            //:END
+         } 
+
+         //:END
+      } 
+
+
+      //:END
+
+      //:// Turn off the selected state flag
+      //:SetSelectStateOfEntity( SourceLPLR, "W_MetaDef", 0 )
+      SetSelectStateOfEntity( SourceLPLR, "W_MetaDef", 0 );
+
+      //:nRC = SetCursorNextSelectedEntity( SourceLPLR, "W_MetaDef", "LPLR" )
+      nRC = SetCursorNextSelectedEntity( SourceLPLR, "W_MetaDef", "LPLR" );
    } 
 
+
    //:END
-   return;
-// END
-} 
 
+   //:// Rebuild the XDM in case any domains were added above.
+   //://RebuildXDM( vSubtask )    This should have been done in DomainMigrate.
 
-//:DIALOG OPERATION
-//:CLOSE_LPLR_MergeErrors( VIEW ViewToWindow )
-
-//:   VIEW TaskLPLR REGISTERED AS TaskLPLR
-zOPER_EXPORT zSHORT OPERATION
-CLOSE_LPLR_MergeErrors( zVIEW     ViewToWindow )
-{
-   zVIEW     TaskLPLR = 0; 
-   zSHORT    RESULT; 
-
-   RESULT = GetViewByName( &TaskLPLR, "TaskLPLR", ViewToWindow, zLEVEL_TASK );
-
-   //:// Delete current entries in TaskLPLR.ErrorMessage.
-   //:FOR EACH TaskLPLR.ErrorMessage 
-   RESULT = SetCursorFirstEntity( TaskLPLR, "ErrorMessage", "" );
-   while ( RESULT > zCURSOR_UNCHANGED )
+   //:// If there are any error messages, transfer to the window to display them.
+   //:// Otherwise, send a message to the user that the merge function completed without error.
+   //:IF CurrentLPLR.ErrorMessage EXISTS 
+   lTempInteger_1 = CheckExistenceOfEntity( CurrentLPLR, "ErrorMessage" );
+   if ( lTempInteger_1 == 0 )
    { 
-      //:DELETE ENTITY TaskLPLR.ErrorMessage NONE  
-      RESULT = DeleteEntity( TaskLPLR, "ErrorMessage", zREPOS_NONE );
-      RESULT = SetCursorNextEntity( TaskLPLR, "ErrorMessage", "" );
+      //:SetWindowActionBehavior( vSubtask, ZWAB_StartModalSubwindow, "TZCMLPMD", "MetaLPLR_MergeErrors" )
+      SetWindowActionBehavior( vSubtask, zWAB_StartModalSubwindow, "TZCMLPMD", "MetaLPLR_MergeErrors" );
+      //:ELSE
+   } 
+   else
+   { 
+      //:MessageSend( vSubtask, "", 
+      //:             "Configuration Management",
+      //:             "Operation/Domain Merge has completed without error.",
+      //:             zMSGQ_OBJECT_CONSTRAINT_WARNING, 0 )
+      MessageSend( vSubtask, "", "Configuration Management", "Operation/Domain Merge has completed without error.", zMSGQ_OBJECT_CONSTRAINT_WARNING, 0 );
    } 
 
    //:END

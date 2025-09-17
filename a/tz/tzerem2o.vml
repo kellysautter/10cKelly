@@ -2543,13 +2543,16 @@ ERD_Merge( VIEW TargetERD BASED ON LOD TZEREMDO,
    VIEW SourceERD2     BASED ON LOD  TZEREMDO
    VIEW CurrentLPLR    BASED ON LOD  TZCMLPLO
    VIEW TaskLPLR       REGISTERED AS TaskLPLR
+   VIEW OrigLPLR       BASED ON LOD  TZCMLPLO
    VIEW SourceLPLR     BASED ON LOD  TZCMLPLO
    VIEW ERD_LPLR       BASED ON LOD  TZCMLPLO
    VIEW OpenMetasLPLR  BASED ON LOD  TZCMLPLO   
-   VIEW NewDomain      BASED ON LOD TZDGSRCO
+   VIEW NewDomain      BASED ON LOD  TZDGSRCO
    VIEW SourceLPLR_DG  BASED ON LOD  TZCMLPLO
    VIEW TargetLPLR_DG  BASED ON LOD  TZCMLPLO
    VIEW NewDomainGroup BASED ON LOD  TZDGSRCO
+   VIEW TargetDTE      BASED ON LOD  TZTENVRO
+   VIEW SourceDTE      BASED ON LOD  TZTENVRO
    STRING ( 500 ) szSourceFileName
    STRING ( 50 )  szMetaName
    STRING ( 900 ) szMsg
@@ -2661,18 +2664,73 @@ ERD_Merge( VIEW TargetERD BASED ON LOD TZEREMDO,
       NAME VIEW ERD_LPLR "TZERMFLO"
       SET CURSOR FIRST ERD_LPLR.W_MetaType WHERE ERD_LPLR.W_MetaType.Type = 2004 
    END
+   
+   // Added 8/8/2025 by DonC.
+   // If the Target ERD has a single Entity with no Attributes, delete it as this is basically an empty ERD. 
+   // (Validity checks when creating an ER won't allow an ERD without any Entity entries to be saved.)
+   SET CURSOR FIRST TargetERD.ER_Entity 
+   SET CURSOR NEXT TargetERD.ER_Entity 
+   IF RESULT < zCURSOR_SET
+      SET CURSOR FIRST TargetERD.ER_Entity 
+      SET CURSOR FIRST TargetERD.ER_Attribute 
+      IF RESULT < zCURSOR_SET
+         DELETE ENTITY TargetERD.ER_Entity  
+      END
+   END
+   
+   // Added 8/8/2025 by DonC.
+   // Make sure the TE for the new ERD exists. 
+   // If it doesn't exist, activate Source DTE and use it in creating new Target DTE top 2 entities
+   // Check if new TE exists by checking MetaDef entry in TaskLPLR.
+   SET CURSOR FIRST TaskLPLR.W_MetaType WHERE TaskLPLR.W_MetaType.Type = 6
+   IF TaskLPLR.W_MetaDef DOES NOT EXIST
+      // Activate Source DTE to get database info.
+      GET VIEW OrigLPLR NAMED "OrigLPLR"
+      SET CURSOR FIRST OrigLPLR.W_MetaType WHERE OrigLPLR.W_MetaType.Type = 6
+      szSourceFileName = OrigLPLR.LPLR.MetaSrcDir + "\" + OrigLPLR.W_MetaDef.Name + ".DTE"
+TraceLineS( "*** szSourceFileName ", szSourceFileName )
+      nRC = ActivateOI_FromFile( SourceDTE, "TZTENVRO", vSubtask, szSourceFileName, zSINGLE )
+      IF nRC < 0
+         TraceLineI( "*** Activate nRC ", nRC )
+         MessageSend( vSubtask, "", "ER Merge",
+                      "ActivateOI_FromFile returned with error.",
+                      zMSGQ_OBJECT_CONSTRAINT_ERROR, 0 )
+         RETURN( -1 )
+      END
+      NAME VIEW SourceDTE "SourceDTETemp"
+      ActivateEmptyMetaOI( vSubtask, TargetDTE, zSOURCE_DTE_META, zSINGLE )
+      NAME VIEW TargetDTE "TargetDTE"
+      CreateMetaEntity( vSubtask, TargetDTE, "TE_DB_Environ", zPOS_AFTER )
+      TargetDTE.TE_DB_Environ.Name = TaskLPLR.LPLR.Name 
+      SetMatchingAttributesByName ( TargetDTE, "TE_DB_Environ",
+                                    SourceDTE, "TE_DB_Environ", zSET_NULL )
+      CreateMetaEntity( vSubtask, TargetDTE, "TE_DBMS_Source", zPOS_AFTER )
+      TargetDTE.TE_DBMS_Source.Name = TaskLPLR.LPLR.Name 
+      SetMatchingAttributesByName ( TargetDTE, "TE_DBMS_Source",
+                                    SourceDTE, "TE_DBMS_Source", zSET_NULL )
+      CommitMetaOI( vSubtask, TargetDTE, zSOURCE_DTE_META )
+      DropObjectInstance( SourceDTE )
+      DropObjectInstance( TargetDTE )
+   END  
 
    // DonC 04/06/22 - It is the object of this algorithm to create the new Entity icons in the ER diagram as a group underneath the
    // current Entity icons. Thus, we will search the target ER to get the Entity with the largest vertical position and
    // add 15 to it as the beginning Y position for the new Entities.
-   MaxYPos = 0
-   FOR TargetERD.ER_Entity 
-      IF TargetERD.ER_Entity.ER_DiagramPosY > MaxYPos
-         MaxYPos = TargetERD.ER_Entity.ER_DiagramPosY 
-      END 
+   // DonC 8/8/2025 - Added check to skip the MaxYPos increment if Target ERD has no current entries.
+   SET CURSOR FIRST TargetERD.ER_Entity 
+   IF RESULT >= zCURSOR_SET 
+      MaxYPos = 0
+      FOR EACH TargetERD.ER_Entity 
+         IF TargetERD.ER_Entity.ER_DiagramPosY > MaxYPos
+            MaxYPos = TargetERD.ER_Entity.ER_DiagramPosY 
+         END 
+      END
+      MaxYPos = MaxYPos + 15
+      //TraceLineI( "**** MaxYPos: ", MaxYPos )
+   ELSE
+      // There is no existing Entity in the new ERD, so start at first position.
+      MaxYPos = 1
    END
-   MaxYPos = MaxYPos + 15
-   TraceLineI( "**** MaxYPos: ", MaxYPos )
    
    // If we're NOT copying ALL entries, Compute first X and Y Positions.
    IF szWholeLPLRFlag != "Y"
@@ -2794,7 +2852,8 @@ ERD_Merge( VIEW TargetERD BASED ON LOD TZEREMDO,
 
                END // FOR EACH SourceERD.ER_Attribute
                
-               // The following code was removed by DonC on 2/28/2023 because he seemed to have no purpose and created duplicate ID's in some cases
+               // The following code was removed by DonC on 2/28/2023 because it seemed to have no purpose and created duplicate ID's
+               // in some cases
                // Copy ID Identifier.
                /*SET CURSOR FIRST TargetERD.ER_Attribute WHERE TargetERD.ER_Attribute.Name = "ID"
                IF RESULT >= zCURSOR_SET 

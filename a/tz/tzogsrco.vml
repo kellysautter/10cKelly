@@ -16,6 +16,7 @@ GlobalOperGrpMerge( VIEW        NewOperGrp BASED ON LOD TZOGSRCO,
    STRING ( 500 ) szSourceFileName  
    STRING ( 500 ) szVML_SourceFileName    
    STRING ( 500 ) szVML_TargetFileName  
+   STRING ( 500 ) szMsg
    STRING ( 50 )  szSourceName
    STRING ( 50 )  szOperationName
 
@@ -68,42 +69,82 @@ GlobalOperGrpMerge( VIEW        NewOperGrp BASED ON LOD TZOGSRCO,
       // The Global Operation Group exists in the target, so merge in any new Operations.
       // We will force over any Operations (both prototype and code) for any Operations not flagged as modified in target LPLR.
       FOR EACH OldOperGrp.Operation
-         SET CURSOR FIRST NewOperGrp.Operation WHERE NewOperGrp.Operation.Name = OldOperGrp.Operation.Name
-         IF RESULT < zCURSOR_SET
-            CreateMetaEntity( vSubtask, NewOperGrp, "Operation", zPOS_AFTER )
-            SetMatchingAttributesByName ( NewOperGrp, "Operation", OldOperGrp, "Operation", zSET_NULL )
-         END
-
-         // If the operation is new or modifiable, set new parameters and operation code.
-         IF NewOperGrp.Operation.DoNotMergeFlag = ""
-            FOR EACH NewOperGrp.Parameter
-               DELETE ENTITY NewOperGrp.Parameter NONE
-            END
-            FOR EACH OldOperGrp.Parameter
-               // Make sure the ShortDesc in the Parameter is not null.
-               IF OldOperGrp.Parameter.ShortDesc = ""
-                  OldOperGrp.Parameter.ShortDesc = "Parm"
-               END
-               CreateMetaEntity( vSubtask, NewOperGrp, "Parameter", zPOS_AFTER )
-               SetMatchingAttributesByName( NewOperGrp, "Parameter", OldOperGrp, "Parameter", zSET_NULL )
-            END
-
-            // DonC change on 7/11/2024 because we currently only copy VML source files.
-            // Copy Operation Code if the source is VML.
-            IF NewOperGrp.GlobalOperationGroup.LanguageType = "V"
-               szOperationName = NewOperGrp.Operation.Name 
-               // We will temporarily use the TZZOLODO LOD definition so that we can reus the CopyNewOperationVML
-               // operation tied to that LOD.
-               TZZOLODO = NewOperGrp
-               CopyNewOperationVML( TZZOLODO, szOperationName, szVML_SourceFileName, szVML_TargetFileName )
-            END
-         END
+         // Go to Copy/Merge each Global Operation within the Group.
+         GlobalOperationMerge( NewOperGrp,
+                               OldOperGrp,
+                               SourceLPLR,
+                               vSubtask,
+                               OperGroupMetaName )
       END
    END
 
    DropObjectInstance( OldOperGrp )
    CommitMetaOI( vSubtask, NewOperGrp, 14 )   // 14 is zSOURCE_GOPGRP_META
 
+END
+
+/*************************************************************************************************
+**    
+**    OPERATION: GlobalOperationMerge
+**    
+*************************************************************************************************/
+TRANSFORMATION OPERATION
+GlobalOperationMerge( VIEW NewOperGrp BASED ON LOD TZOGSRCO,
+                      VIEW OldOperGrp BASED ON LOD TZOGSRCO,
+                      VIEW SourceLPLR BASED ON LOD TZCMLPLO,
+                      VIEW vSubtask,
+                      STRING ( 50 ) szOperGrpMetaName )
+
+   VIEW CurrentLPLR BASED ON LOD TZCMLPLO
+   VIEW TZZOLODO    BASED ON LOD TZZOLODO
+   STRING ( 500 ) szVML_SourceFileName    
+   STRING ( 500 ) szVML_TargetFileName  
+   STRING ( 500 ) szMsg  
+   STRING ( 50 )  szSourceName
+   STRING ( 50 )  szOperationName
+   
+   SET CURSOR FIRST NewOperGrp.Operation WHERE NewOperGrp.Operation.Name = OldOperGrp.Operation.Name
+   IF RESULT < zCURSOR_SET
+      CreateMetaEntity( vSubtask, NewOperGrp, "Operation", zPOS_AFTER )
+      SetMatchingAttributesByName ( NewOperGrp, "Operation", OldOperGrp, "Operation", zSET_NULL )
+   END
+   
+   GET VIEW CurrentLPLR NAMED "TaskLPLR"
+   szSourceName = szOperGrpMetaName + "." + OldOperGrp.GlobalOperationGroup.Extension
+   szVML_SourceFileName = SourceLPLR.LPLR.PgmSrcDir + "\" + szSourceName
+   szVML_TargetFileName = CurrentLPLR.LPLR.PgmSrcDir + "\" + szSourceName
+
+   // DonC Note 8/21/2025: The DoNotMergeFlag was used by the MigrateMetaOld operation to only execute the following code if
+   // if the flag wasn't set and is no longer used for that purpose so is commented out here. The line is kept for historic purposes.
+   //IF NewOperGrp.Operation.DoNotMergeFlag = ""
+   
+   // Delete any existing parameters and recreate them from the source Operation.
+   FOR EACH NewOperGrp.Parameter
+      DELETE ENTITY NewOperGrp.Parameter NONE
+   END
+   FOR EACH OldOperGrp.Parameter
+      // Make sure the ShortDesc in the Parameter is not null.
+      IF OldOperGrp.Parameter.ShortDesc = ""
+         OldOperGrp.Parameter.ShortDesc = "Parm"
+      END
+      CreateMetaEntity( vSubtask, NewOperGrp, "Parameter", zPOS_AFTER )
+      SetMatchingAttributesByName( NewOperGrp, "Parameter", OldOperGrp, "Parameter", zSET_NULL )
+   END
+
+   // DonC change on 7/11/2024 because we currently only copy VML source files.
+   // Copy Operation Code if the source is VML.
+   IF NewOperGrp.GlobalOperationGroup.LanguageType = "V"
+      szOperationName = NewOperGrp.Operation.Name 
+      // We will temporarily use the TZZOLODO LOD definition so that we can reus the CopyNewOperationVML
+      // operation tied to that LOD.
+      TZZOLODO = NewOperGrp
+      CopyNewOperationVML( TZZOLODO, szOperationName, szVML_SourceFileName, szVML_TargetFileName )
+   ELSE
+      // Write out error message linez indicating  Operation code must be copied manually.
+      szMsg = "Global Operation, " + OldOperGrp.Operation.Name + ", is not VML and must be coped manually."
+      CreateErrorMessage( CurrentLPLR, szMsg )
+   END
+     
 END
 
 /*************************************************************************************************

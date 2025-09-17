@@ -143,6 +143,7 @@ LOD_Migrate( VIEW          NewMainLOD BASED ON LOD TZZOLODO,
              VIEW          SourceLPLR BASED ON LOD TZCMLPLO,
              VIEW          vSubtask )
 
+   VIEW TaskLPLR         REGISTERED AS TaskLPLR
    VIEW SourceLPLR2      BASED ON LOD TZCMLPLO
    VIEW NewRecursiveLOD  BASED ON LOD TZZOLODO
    VIEW OldMainLOD       BASED ON LOD TZZOLODO
@@ -304,7 +305,7 @@ LOD_Migrate( VIEW          NewMainLOD BASED ON LOD TZZOLODO,
             NewMainLOD.POD.TE_SourceZKey = ReturnedTE.TE_DBMS_Source.ZKey
          END
       END
-      
+
       FOR EACH OldRecursiveLOD.LOD_EntityParent
          nRC = LOD_EntityCopy( NewMainLOD,
                                NewRecursiveLOD,
@@ -318,11 +319,20 @@ LOD_Migrate( VIEW          NewMainLOD BASED ON LOD TZZOLODO,
                                vSubtask,
                                "",
                                "" )
+                  
+         // If the ER Entity is the root entity of the LOD, srite out error message that the LOD cannot be
+         // created and abort the LOD Migrate. (DonC 8/7/2025)
+         // This will be true if the new LOD has no root Entity.
+         SET CURSOR FIRST NewMainLOD.LOD_EntityParent
+         IF RESULT < zCURSOR_SET
+            szMsg = "Since the root Entity for LOD, " + LOD_Name + ", is not in the ER, the LOD will not be copied.." 
+            CreateErrorMessage( TaskLPLR, szMsg )
+            RETURN
+         END
 
          IF nRC != 0  // Pass along any errors
             ErrorFlag = 1
          END
-
       END
       DropView( SourceLPLR2 )
       DropView( NewRecursiveLOD )
@@ -456,15 +466,16 @@ LOD_Migrate( VIEW          NewMainLOD BASED ON LOD TZZOLODO,
 
    DropObjectInstance( OldMainLOD )
 
+   // The following code was removed by DonC on 8/8/2025 and the check was moved above to create an error message.
    // Don't migrate any LOD without a root entity.
-   SET CURSOR FIRST NewMainLOD.LOD_EntityParent
+   /*SET CURSOR FIRST NewMainLOD.LOD_EntityParent
    IF RESULT < zCURSOR_SET
       szMsg = "LOD (" + NewMainLOD.LOD.Name + ") is empty and will not be migrated."
       MessageSend( vSubtask, "", "Entity Copy",
                    szMsg,
                    zMSGQ_OBJECT_CONSTRAINT_WARNING, 0 )
       RETURN -1
-   END
+   END*/
 
    // If the ERD was modified during LOD copy, prompt the user for save of both the LOD and ERD together. If the LOD
    // is to be saved, the ERD must also be saved. We will not do this if component errors have occurred during the copy.
@@ -1476,7 +1487,12 @@ LOD_AttributeCopy( VIEW        vSubtask,
                            ErrorFlag = 0  // Indicate Domain found.
                         END
                      ELSE
-                        IssueError( vSubtask,0,0, "System Error: No match on SourceLPLR Domain." )
+                        TraceLineS( "*** Err Entity: ", OldRecursiveLOD.LOD_EntityParent.Name )
+                        TraceLineS( "*** Err Attribute: ", OldRecursiveLOD.ER_AttributeRec.Name )
+                        TraceLineS( "*** Err Domain: ", OldRecursiveLOD.DomainRec.Name )
+                        szMsg = "SourceLPLR Domain, " + OldRecursiveLOD.DomainRec.Name + ", not in Target LPLR." + NEW_LINE +
+                                "Resave source LOD, " + OldRecursiveLOD.LOD.Name + ", and reexecute the Merge."
+                        IssueError( vSubtask,0,0, szMsg )
                      END
                   END
                END

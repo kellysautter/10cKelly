@@ -1,7 +1,7 @@
-z1000-Zeidon    TZOGSRCO TZZOLODO 07/16/24   14:59:10 1.0b0    
+z1000-Zeidon    TZOGSRCO TZZOLODO 08/21/25   15:38:49 1.0b0    
 eLOD       1
 aZKey      1326765
-aNextZKeyToAssign 110003550
+aNextZKeyToAssign 110003560
 aName      TZOGSRCO
 aDesc      Global Operation Group source object
 aDLL_Name  TZLODOPR
@@ -972,6 +972,48 @@ aUFlag     N
 aZKey      1025705
 
 eOperation 3
+aName      GlobalOperationMerge
+aZKey      110003555
+aType      T
+aReturnDataType N
+aClass     0
+
+eParameter 4
+aShortDesc View To Instance
+aDataType  V
+aPFlag     N
+aUFlag     N
+aZKey      110003556
+
+eParameter 4
+aShortDesc OldOperGrp
+aDataType  V
+aPFlag     N
+aUFlag     N
+aZKey      110003557
+
+eParameter 4
+aShortDesc SourceLPLR
+aDataType  V
+aPFlag     N
+aUFlag     N
+aZKey      110003560
+
+eParameter 4
+aShortDesc vSubtask
+aDataType  V
+aPFlag     N
+aUFlag     N
+aZKey      110003558
+
+eParameter 4
+aShortDesc szOperGrpMetaName
+aDataType  S
+aPFlag     N
+aUFlag     N
+aZKey      110003559
+
+eOperation 3
 aName      GenerateXOG
 aZKey      110003544
 aType      T
@@ -1017,6 +1059,10 @@ aType      7
 aLastUpdateDate 19951102200106000
 aLastCheckInDate 19951102203051110
 aDesc      Global Operation Group source object
+
+eOperationList 2
+
+eOperSourceFile 3
 
 eOperationList 2
 
@@ -1163,9 +1209,11 @@ i223       33
 i224       80
 i225       81
 i226       82
-i241       233
-i242       227
-i243       228
-i244       227
-i245       235
-i246       227
+i247       239
+i248       227
+i249       233
+i250       227
+i251       228
+i252       227
+i253       241
+i254       227

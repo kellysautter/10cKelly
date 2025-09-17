@@ -280,6 +280,13 @@ oTZOGSRCO_GlobalOperGrpMerge( zVIEW vViewToInstance0,
                               zPCHAR pchSourceGlobalOperGrou1,
                               zVIEW vSourceLPLR2,
                               zVIEW vSubtask3 );
+							  
+zOPER_EXPORT zSHORT OPERATION
+oTZOGSRCO_GlobalOperationMerge( zVIEW vViewToInstance0,
+                                zVIEW vOldOperGrp1,
+                                zVIEW vSourceLPLR2,
+                                zVIEW vvSubtask3,
+                                zPCHAR pchszOperGrpMetaName4 );
 
 zOPER_EXPORT zSHORT OPERATION
 oTZOGSRCO_GenerateXOG( zVIEW vViewToInstance0 );

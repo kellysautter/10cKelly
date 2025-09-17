@@ -1,3 +1,0 @@
-KZOESYAA.c
-c:\10c\w\oe\KZOESYAA.c(6356) : warning C4090: 'function' : different 'const' qualifiers
-c:\10c\w\oe\KZOESYAA.c(6356) : warning C4024: 'SysConvertEnvironmentString' : different types for formal and actual parameter 2

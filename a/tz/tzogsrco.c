@@ -34,6 +34,8 @@ oTZOGSRCO_GlobalOperGrpMerge( zVIEW     NewOperGrp,
    zCHAR     szVML_SourceFileName[ 501 ] = { 0 }; 
    //:STRING ( 500 ) szVML_TargetFileName  
    zCHAR     szVML_TargetFileName[ 501 ] = { 0 }; 
+   //:STRING ( 500 ) szMsg
+   zCHAR     szMsg[ 501 ] = { 0 }; 
    //:STRING ( 50 )  szSourceName
    zCHAR     szSourceName[ 51 ] = { 0 }; 
    //:STRING ( 50 )  szOperationName
@@ -41,7 +43,6 @@ oTZOGSRCO_GlobalOperGrpMerge( zVIEW     NewOperGrp,
    zSHORT    RESULT; 
    zCHAR     szTempString_0[ 255 ]; 
    zSHORT    lTempInteger_0; 
-   zCHAR     szTempString_1[ 33 ]; 
 
 
    //:// Activate existing source meta OldOperGroup
@@ -147,76 +148,14 @@ oTZOGSRCO_GlobalOperGrpMerge( zVIEW     NewOperGrp,
       RESULT = SetCursorFirstEntity( OldOperGrp, "Operation", "" );
       while ( RESULT > zCURSOR_UNCHANGED )
       { 
-         //:SET CURSOR FIRST NewOperGrp.Operation WHERE NewOperGrp.Operation.Name = OldOperGrp.Operation.Name
-         GetStringFromAttribute( szTempString_1, OldOperGrp, "Operation", "Name" );
-         RESULT = SetCursorFirstEntityByString( NewOperGrp, "Operation", "Name", szTempString_1, "" );
-         //:IF RESULT < zCURSOR_SET
-         if ( RESULT < zCURSOR_SET )
-         { 
-            //:CreateMetaEntity( vSubtask, NewOperGrp, "Operation", zPOS_AFTER )
-            CreateMetaEntity( vSubtask, NewOperGrp, "Operation", zPOS_AFTER );
-            //:SetMatchingAttributesByName ( NewOperGrp, "Operation", OldOperGrp, "Operation", zSET_NULL )
-            SetMatchingAttributesByName( NewOperGrp, "Operation", OldOperGrp, "Operation", zSET_NULL );
-         } 
-
-         //:END
-
-         //:// If the operation is new or modifiable, set new parameters and operation code.
-         //:IF NewOperGrp.Operation.DoNotMergeFlag = ""
-         if ( CompareAttributeToString( NewOperGrp, "Operation", "DoNotMergeFlag", "" ) == 0 )
-         { 
-            //:FOR EACH NewOperGrp.Parameter
-            RESULT = SetCursorFirstEntity( NewOperGrp, "Parameter", "" );
-            while ( RESULT > zCURSOR_UNCHANGED )
-            { 
-               //:DELETE ENTITY NewOperGrp.Parameter NONE
-               RESULT = DeleteEntity( NewOperGrp, "Parameter", zREPOS_NONE );
-               RESULT = SetCursorNextEntity( NewOperGrp, "Parameter", "" );
-            } 
-
-            //:END
-            //:FOR EACH OldOperGrp.Parameter
-            RESULT = SetCursorFirstEntity( OldOperGrp, "Parameter", "" );
-            while ( RESULT > zCURSOR_UNCHANGED )
-            { 
-               //:// Make sure the ShortDesc in the Parameter is not null.
-               //:IF OldOperGrp.Parameter.ShortDesc = ""
-               if ( CompareAttributeToString( OldOperGrp, "Parameter", "ShortDesc", "" ) == 0 )
-               { 
-                  //:OldOperGrp.Parameter.ShortDesc = "Parm"
-                  SetAttributeFromString( OldOperGrp, "Parameter", "ShortDesc", "Parm" );
-               } 
-
-               //:END
-               //:CreateMetaEntity( vSubtask, NewOperGrp, "Parameter", zPOS_AFTER )
-               CreateMetaEntity( vSubtask, NewOperGrp, "Parameter", zPOS_AFTER );
-               //:SetMatchingAttributesByName( NewOperGrp, "Parameter", OldOperGrp, "Parameter", zSET_NULL )
-               SetMatchingAttributesByName( NewOperGrp, "Parameter", OldOperGrp, "Parameter", zSET_NULL );
-               RESULT = SetCursorNextEntity( OldOperGrp, "Parameter", "" );
-            } 
-
-            //:END
-
-            //:// DonC change on 7/11/2024 because we currently only copy VML source files.
-            //:// Copy Operation Code if the source is VML.
-            //:IF NewOperGrp.GlobalOperationGroup.LanguageType = "V"
-            if ( CompareAttributeToString( NewOperGrp, "GlobalOperationGroup", "LanguageType", "V" ) == 0 )
-            { 
-               //:szOperationName = NewOperGrp.Operation.Name 
-               GetVariableFromAttribute( szOperationName, 0, 'S', 51, NewOperGrp, "Operation", "Name", "", 0 );
-               //:// We will temporarily use the TZZOLODO LOD definition so that we can reus the CopyNewOperationVML
-               //:// operation tied to that LOD.
-               //:TZZOLODO = NewOperGrp
-               TZZOLODO = NewOperGrp;
-               //:CopyNewOperationVML( TZZOLODO, szOperationName, szVML_SourceFileName, szVML_TargetFileName )
-               oTZZOLODO_CopyNewOperationVML( TZZOLODO, szOperationName, szVML_SourceFileName, szVML_TargetFileName );
-            } 
-
-            //:END
-         } 
-
+         //:// Go to Copy/Merge each Global Operation within the Group.
+         //:GlobalOperationMerge( NewOperGrp,
+         //:                      OldOperGrp,
+         //:                      SourceLPLR,
+         //:                      vSubtask,
+         //:                      OperGroupMetaName )
+         oTZOGSRCO_GlobalOperationMerge( NewOperGrp, OldOperGrp, SourceLPLR, vSubtask, OperGroupMetaName );
          RESULT = SetCursorNextEntity( OldOperGrp, "Operation", "" );
-         //:END
       } 
 
       //:END
@@ -229,6 +168,140 @@ oTZOGSRCO_GlobalOperGrpMerge( zVIEW     NewOperGrp,
    //:CommitMetaOI( vSubtask, NewOperGrp, 14 )   // 14 is zSOURCE_GOPGRP_META
    CommitMetaOI( vSubtask, NewOperGrp, 14 );
    return( 0 );
+// END
+} 
+
+
+//:TRANSFORMATION OPERATION
+//:GlobalOperationMerge( VIEW NewOperGrp BASED ON LOD TZOGSRCO,
+//:                      VIEW OldOperGrp BASED ON LOD TZOGSRCO,
+//:                      VIEW SourceLPLR BASED ON LOD TZCMLPLO,
+//:                      VIEW vSubtask,
+//:                      STRING ( 50 ) szOperGrpMetaName )
+
+//:   VIEW CurrentLPLR BASED ON LOD TZCMLPLO
+zOPER_EXPORT zSHORT OPERATION
+oTZOGSRCO_GlobalOperationMerge( zVIEW     NewOperGrp,
+                                zVIEW     OldOperGrp,
+                                zVIEW     SourceLPLR,
+                                zVIEW     vSubtask,
+                                zPCHAR    szOperGrpMetaName )
+{
+   zVIEW     CurrentLPLR = 0; 
+   //:VIEW TZZOLODO    BASED ON LOD TZZOLODO
+   zVIEW     TZZOLODO = 0; 
+   //:STRING ( 500 ) szVML_SourceFileName    
+   zCHAR     szVML_SourceFileName[ 501 ] = { 0 }; 
+   //:STRING ( 500 ) szVML_TargetFileName  
+   zCHAR     szVML_TargetFileName[ 501 ] = { 0 }; 
+   //:STRING ( 500 ) szMsg  
+   zCHAR     szMsg[ 501 ] = { 0 }; 
+   //:STRING ( 50 )  szSourceName
+   zCHAR     szSourceName[ 51 ] = { 0 }; 
+   //:STRING ( 50 )  szOperationName
+   zCHAR     szOperationName[ 51 ] = { 0 }; 
+   zSHORT    RESULT; 
+   zCHAR     szTempString_0[ 33 ]; 
+   zCHAR     szTempString_1[ 255 ]; 
+
+
+   //:SET CURSOR FIRST NewOperGrp.Operation WHERE NewOperGrp.Operation.Name = OldOperGrp.Operation.Name
+   GetStringFromAttribute( szTempString_0, OldOperGrp, "Operation", "Name" );
+   RESULT = SetCursorFirstEntityByString( NewOperGrp, "Operation", "Name", szTempString_0, "" );
+   //:IF RESULT < zCURSOR_SET
+   if ( RESULT < zCURSOR_SET )
+   { 
+      //:CreateMetaEntity( vSubtask, NewOperGrp, "Operation", zPOS_AFTER )
+      CreateMetaEntity( vSubtask, NewOperGrp, "Operation", zPOS_AFTER );
+      //:SetMatchingAttributesByName ( NewOperGrp, "Operation", OldOperGrp, "Operation", zSET_NULL )
+      SetMatchingAttributesByName( NewOperGrp, "Operation", OldOperGrp, "Operation", zSET_NULL );
+   } 
+
+   //:END
+
+   //:GET VIEW CurrentLPLR NAMED "TaskLPLR"
+   RESULT = GetViewByName( &CurrentLPLR, "TaskLPLR", NewOperGrp, zLEVEL_TASK );
+   //:szSourceName = szOperGrpMetaName + "." + OldOperGrp.GlobalOperationGroup.Extension
+   ZeidonStringCopy( szSourceName, 1, 0, szOperGrpMetaName, 1, 0, 51 );
+   ZeidonStringConcat( szSourceName, 1, 0, ".", 1, 0, 51 );
+   GetVariableFromAttribute( szTempString_1, 0, 'S', 255, OldOperGrp, "GlobalOperationGroup", "Extension", "", 0 );
+   ZeidonStringConcat( szSourceName, 1, 0, szTempString_1, 1, 0, 51 );
+   //:szVML_SourceFileName = SourceLPLR.LPLR.PgmSrcDir + "\" + szSourceName
+   GetStringFromAttribute( szVML_SourceFileName, SourceLPLR, "LPLR", "PgmSrcDir" );
+   ZeidonStringConcat( szVML_SourceFileName, 1, 0, "\\", 1, 0, 501 );
+   ZeidonStringConcat( szVML_SourceFileName, 1, 0, szSourceName, 1, 0, 501 );
+   //:szVML_TargetFileName = CurrentLPLR.LPLR.PgmSrcDir + "\" + szSourceName
+   GetStringFromAttribute( szVML_TargetFileName, CurrentLPLR, "LPLR", "PgmSrcDir" );
+   ZeidonStringConcat( szVML_TargetFileName, 1, 0, "\\", 1, 0, 501 );
+   ZeidonStringConcat( szVML_TargetFileName, 1, 0, szSourceName, 1, 0, 501 );
+
+   //:// DonC Note 8/21/2025: The DoNotMergeFlag was used by the MigrateMetaOld operation to only execute the following code if
+   //:// if the flag wasn't set and is no longer used for that purpose so is commented out here. The line is kept for historic purposes.
+   //://IF NewOperGrp.Operation.DoNotMergeFlag = ""
+
+   //:// Delete any existing parameters and recreate them from the source Operation.
+   //:FOR EACH NewOperGrp.Parameter
+   RESULT = SetCursorFirstEntity( NewOperGrp, "Parameter", "" );
+   while ( RESULT > zCURSOR_UNCHANGED )
+   { 
+      //:DELETE ENTITY NewOperGrp.Parameter NONE
+      RESULT = DeleteEntity( NewOperGrp, "Parameter", zREPOS_NONE );
+      RESULT = SetCursorNextEntity( NewOperGrp, "Parameter", "" );
+   } 
+
+   //:END
+   //:FOR EACH OldOperGrp.Parameter
+   RESULT = SetCursorFirstEntity( OldOperGrp, "Parameter", "" );
+   while ( RESULT > zCURSOR_UNCHANGED )
+   { 
+      //:// Make sure the ShortDesc in the Parameter is not null.
+      //:IF OldOperGrp.Parameter.ShortDesc = ""
+      if ( CompareAttributeToString( OldOperGrp, "Parameter", "ShortDesc", "" ) == 0 )
+      { 
+         //:OldOperGrp.Parameter.ShortDesc = "Parm"
+         SetAttributeFromString( OldOperGrp, "Parameter", "ShortDesc", "Parm" );
+      } 
+
+      //:END
+      //:CreateMetaEntity( vSubtask, NewOperGrp, "Parameter", zPOS_AFTER )
+      CreateMetaEntity( vSubtask, NewOperGrp, "Parameter", zPOS_AFTER );
+      //:SetMatchingAttributesByName( NewOperGrp, "Parameter", OldOperGrp, "Parameter", zSET_NULL )
+      SetMatchingAttributesByName( NewOperGrp, "Parameter", OldOperGrp, "Parameter", zSET_NULL );
+      RESULT = SetCursorNextEntity( OldOperGrp, "Parameter", "" );
+   } 
+
+   //:END
+
+   //:// DonC change on 7/11/2024 because we currently only copy VML source files.
+   //:// Copy Operation Code if the source is VML.
+   //:IF NewOperGrp.GlobalOperationGroup.LanguageType = "V"
+   if ( CompareAttributeToString( NewOperGrp, "GlobalOperationGroup", "LanguageType", "V" ) == 0 )
+   { 
+      //:szOperationName = NewOperGrp.Operation.Name 
+      GetVariableFromAttribute( szOperationName, 0, 'S', 51, NewOperGrp, "Operation", "Name", "", 0 );
+      //:// We will temporarily use the TZZOLODO LOD definition so that we can reus the CopyNewOperationVML
+      //:// operation tied to that LOD.
+      //:TZZOLODO = NewOperGrp
+      TZZOLODO = NewOperGrp;
+      //:CopyNewOperationVML( TZZOLODO, szOperationName, szVML_SourceFileName, szVML_TargetFileName )
+      oTZZOLODO_CopyNewOperationVML( TZZOLODO, szOperationName, szVML_SourceFileName, szVML_TargetFileName );
+      //:ELSE
+   } 
+   else
+   { 
+      //:// Write out error message linez indicating  Operation code must be copied manually.
+      //:szMsg = "Global Operation, " + OldOperGrp.Operation.Name + ", is not VML and must be coped manually."
+      GetVariableFromAttribute( szTempString_0, 0, 'S', 33, OldOperGrp, "Operation", "Name", "", 0 );
+      ZeidonStringCopy( szMsg, 1, 0, "Global Operation, ", 1, 0, 501 );
+      ZeidonStringConcat( szMsg, 1, 0, szTempString_0, 1, 0, 501 );
+      ZeidonStringConcat( szMsg, 1, 0, ", is not VML and must be coped manually.", 1, 0, 501 );
+      //:CreateErrorMessage( CurrentLPLR, szMsg )
+      oTZCMLPLO_CreateErrorMessage( CurrentLPLR, szMsg );
+   } 
+
+   //:END
+   return( 0 );
+//      
 // END
 } 
 

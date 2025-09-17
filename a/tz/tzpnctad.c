@@ -2226,9 +2226,9 @@ UPD_TEXT_OnChange( zVIEW vSubtask )
 
    GetCtrlText( vSubtask, "Text", szText, sizeof( szText ) - 1 );
    SetCtrlText( vSubtask, "TestIt", szText );
-   DisplayCurrentTime( "UPD_TEXT_OnChange Before SetTextProperties" );
+   //DisplayCurrentTime( "UPD_TEXT_OnChange Before SetTextProperties" );
    TX_SetTextProperties( vSubtask, "TestIt", &ld );
-   DisplayCurrentTime( "UPD_TEXT_OnChange After SetTextProperties" );
+   //DisplayCurrentTime( "UPD_TEXT_OnChange After  SetTextProperties" );
 
    return( 0 );
 }
@@ -2296,9 +2296,9 @@ UPD_TEXT_PostBuild( zVIEW vSubtask )
    // Set the test control to the same size as the painted control.
    GetIntegerFromAttribute( &lSizeX, vControl, "Control", "SZDLG_X" );
    GetIntegerFromAttribute( &lSizeY, vControl, "Control", "SZDLG_Y" );
-   DisplayCurrentTime( "UPD_TEXT_PostBuild Before SetCtrlSize" );
+   //DisplayCurrentTime( "UPD_TEXT_PostBuild Before SetCtrlSize" );
    SetCtrlSize( vSubtask, "TestIt", lSizeX, lSizeY, TRUE );
-   DisplayCurrentTime( "UPD_TEXT_PostBuild After SetCtrlSize" );
+   //DisplayCurrentTime( "UPD_TEXT_PostBuild After SetCtrlSize" );
 
    GetIntegerFromAttribute( &lSubtype, vControl, "Control", "Subtype" );
 
@@ -2310,10 +2310,10 @@ UPD_TEXT_PostBuild( zVIEW vSubtask )
    if ( !ComponentIsCheckedOut( vSubtask, vControl, zSOURCE_DIALOG_META ) )
       SetViewReadOnly( vControl );
 
-   DisplayCurrentTime( "UPD_TEXT_PostBuild Before GetBlob" );
+   //DisplayCurrentTime( "UPD_TEXT_PostBuild Before GetBlob" );
    zmemset( &ld, 0, sizeof( ld ) );
    GetBlobFromAttribute( &ld, &ulLth, vControl, "Control", "CtrlBOI" );
-   DisplayCurrentTime( "UPD_TEXT_PostBuild After GetBlob" );
+   //DisplayCurrentTime( "UPD_TEXT_PostBuild After GetBlob" );
    if ( ulLth == 0 )
    {
       ld.lTextColor = 0xFF000000;
@@ -2443,7 +2443,7 @@ UPD_TEXT_PostBuild( zVIEW vSubtask )
       else
          SetCtrlState( vSubtask, "Left", zCONTROL_STATUS_CHECKED, TRUE );
 
-      DisplayCurrentTime( "UPD_TEXT_PostBuild After SetCtrlState" );
+      //DisplayCurrentTime( "UPD_TEXT_PostBuild After SetCtrlState" );
       zltoa( ld.lPointSize, szWork );
       SetCtrlText( vSubtask, "Size", szWork );
       SetCtrlProperty( vSubtask, "__ColorTextFore",
@@ -2451,7 +2451,7 @@ UPD_TEXT_PostBuild( zVIEW vSubtask )
                        ld.lTextColor, 0 );
    // zltoa( lBorderColor, szWork );
    // SetCtrlText( vSubtask, "BorderColor", szWork );
-      DisplayCurrentTime( "UPD_TEXT_PostBuild After SetCtrlProperty" );
+      //DisplayCurrentTime( "UPD_TEXT_PostBuild After SetCtrlProperty" );
 
       szWork[ 1 ] = 0;
       if ( ld.lEscapement == 0 )
@@ -2504,23 +2504,22 @@ UPD_TEXT_PostBuild( zVIEW vSubtask )
 
 // SetCtrlTextLth( vSubtask, "LineWidth", 2 );  // limit border width to 99
 
-   DisplayCurrentTime( "UPD_TEXT_PostBuild Before CB_SetData" );
+   //DisplayCurrentTime( "UPD_TEXT_PostBuild Before CB_SetData" );
    CB_SetData( vSubtask, "Horizontal", pchHorizontal, "Left;Center;Right", 0 );
    CB_SetData( vSubtask, "Vertical", pchVertical, "Top;Center;Bottom", 0 );
-   DisplayCurrentTime( "UPD_TEXT_PostBuild After CB_SetData" );
+   //DisplayCurrentTime( "UPD_TEXT_PostBuild After CB_SetData" );
 
    UPD_TEXT_DisableControls( vSubtask );
-   DisplayCurrentTime( "UPD_TEXT_PostBuild Before OnChange" );
+   //DisplayCurrentTime( "UPD_TEXT_PostBuild Before OnChange" );
    UPD_TEXT_OnChange( vSubtask );
-   DisplayCurrentTime( "UPD_TEXT_PostBuild After OnChange" );
+   //DisplayCurrentTime( "UPD_TEXT_PostBuild After OnChange" );
    SetFocusToCtrl( vSubtask, "Tag" );
-
-   DisplayCurrentTime( "UPD_TEXT_PostBuild End" );
 
    // Go to build list of Web Potential Control Properties.
    GetViewByName( &vDialogW, "TZWINDOW", vSubtask, zLEVEL_TASK );
    oTZWDLGSO_BuildWebCtrlPropOpts( vDialogW, vDialogW, "Dialog", "wWebTextControlProperties" );
-   DisplayCurrentTime( "UPD_TEXT_PostBuild After BuildWebCtrlPropOpts" );
+   //DisplayCurrentTime( "UPD_TEXT_PostBuild After BuildWebCtrlPropOpts" );
+   DisplayCurrentTime( "UPD_TEXT_PostBuild End  " );
 
    return( 0 );
 }
@@ -2552,9 +2551,9 @@ UPD_TEXT_Init( zVIEW vSubtask )
    GetViewByName( &vWork, "TZPNCTWO", vSubtask, zLEVEL_TASK );
 
    // Create Temporal subobject for OK/Cancel
-   DisplayCurrentTime( "UPD_TEXT_Init Before CreateTemporal" );
+   //DisplayCurrentTime( "UPD_TEXT_Init Before CreateTemporal" );
    CreateTemporalSubobjectVersion( vDialogC, "Control" );
-   DisplayCurrentTime( "UPD_TEXT_Init After CreateTemporal" );
+   //DisplayCurrentTime( "UPD_TEXT_Init After CreateTemporal" );
 
    // Set Subtype in work object for Window EditBox
    if ( CheckExistenceOfEntity( vWork, "EditBox" ) != zCURSOR_SET )
@@ -2568,9 +2567,9 @@ UPD_TEXT_Init( zVIEW vSubtask )
 // SetAttributeFromInteger( vWork, "EditBox", "Subtype", lWork );
 
    // Set up Domain Context mapping.
-   DisplayCurrentTime( "UPD_TEXT_Init Before CtrlContextMapping" );
+   //DisplayCurrentTime( "UPD_TEXT_Init Before CtrlContextMapping" );
    CtrlContextMappingInit( vSubtask );
-   DisplayCurrentTime( "UPD_TEXT_Init After CtrlContextMapping" );
+   //DisplayCurrentTime( "UPD_TEXT_Init After CtrlContextMapping" );
 
    // If an Action for the Event exists, position on the linked Action
    // instance and set TZACTION to TZWINDOW.
@@ -2601,7 +2600,7 @@ UPD_TEXT_Init( zVIEW vSubtask )
    // Build Combobox list of MapType values for a Text Control.
    oTZWDLGSO_BuildMapTypeList( vDialogW, vDialogW, "Dialog", "wMapTypeTextControl" );
 
-   DisplayCurrentTime( "UPD_TEXT_Init End" );
+   DisplayCurrentTime( "UPD_TEXT_Init End  " );
    return( 0 );
 }
 
@@ -3357,8 +3356,8 @@ UPD_EDIT_OK( zVIEW vSubtask )
             case '^':   // uppercase (A-Z)
             case '_':   // lowercase (a-z)
             case '$':   // currency (0-9;$;.;,)
-            case '€':   // currency euro (€)
-            case '£':   // currency pound
+            case 'â‚¬':   // currency euro (â‚¬)
+            case 'Â£':   // currency pound
             case '@':   // hex (a-f;A-F;0-9)
                break;
 
@@ -4490,6 +4489,11 @@ UPD_PUSH_RemoveAction( zVIEW vSubtask )
 //
 // PURPOSE:  This function creates the Event entity for the Push
 //           Button.
+// KJS 09/12/15 - I added a new event to SS_SUBEDIT, the selection of the action was not working
+//                because the right mouse click called this function. Which really is only for PUSHBTN where
+//                there is only one action and that action has an lType = 1 (being hard coded in the operation).
+//                I changed that select action to call UPD_LISTBOX_SelectAction,  which takes into account multiple
+//                events for the control.
 //
 /////////////////////////////////////////////////////////////////////////////
 zOPER_EXPORT zSHORT OPERATION

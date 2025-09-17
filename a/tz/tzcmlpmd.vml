@@ -1736,6 +1736,11 @@ MERGE_SelectedLPLR_Metas( VIEW ViewToWindow )
    VIEW NewDialog          BASED ON LOD TZWDLGSO
    VIEW ReturnedReport     BASED ON LOD TZRPSRCO
    VIEW NewOperationGroup  BASED ON LOD TZOGSRCO
+   VIEW TZZOXODO           BASED ON LOD TZZOXODO
+   VIEW TZTMPLOD           BASED ON LOD TZZOLODO
+   VIEW TE_DB_Environ      BASED ON LOD TZTENVRO
+   VIEW vEMD_Init          BASED ON LOD TZEREMDO
+   VIEW TZEREMDO_REF       BASED ON LOD TZEREMDO
    STRING (32)  MetaName
    STRING (250) MG_ErrorMessage
    SHORT        nRC
@@ -1940,6 +1945,10 @@ MERGE_SelectedLPLR_Metas( VIEW ViewToWindow )
 
    END
    
+   // Added DonC 8/12/2025
+   // Rebuild the XDM in case any domains were added during the copy/merge LODs.
+   RebuildXDM( ViewToWindow )
+   
    // If there are any error messages, transfer to the window to display them.
    // Otherwise, send a message to the user that the merge function completed without error.
    IF CurrentLPLR.ErrorMessage EXISTS 
@@ -1949,6 +1958,34 @@ MERGE_SelectedLPLR_Metas( VIEW ViewToWindow )
                    "Configuration Management",
                    "LPLR Merge has completed without error.",
                    zMSGQ_OBJECT_CONSTRAINT_WARNING, 0 )
+   END
+   
+   // (DonC 8/13/2025) Make sure that all intermediate views have been dropped as they can create a problem
+   // with a new ERD save.
+   GET VIEW TZZOXODO NAMED "TZZOXODO"
+   IF RESULT >= 0
+      DropObjectInstance( TZZOXODO )
+   END
+   GET VIEW TZTMPLOD NAMED "TZTMPLOD"
+   IF RESULT >= 0
+      DropObjectInstance( TZTMPLOD )
+   END
+   GET VIEW TE_DB_Environ NAMED "TE_DB_Environ"
+   IF RESULT >= 0
+      DropObjectInstance( TE_DB_Environ )
+   END
+   GET VIEW vEMD_Init NAMED "vEMD_Init"
+   IF RESULT >= 0
+      DropObjectInstance( vEMD_Init )
+   END
+   GET VIEW TZEREMDO_REF NAMED "TZEREMDO_REF"
+   IF RESULT >= 0
+      DropObjectInstance( TZEREMDO_REF )
+   END
+   
+   // (DonC 8/13/2025) Make sure listbox entries are not selected.
+   FOR EACH SourceLPLR.W_MetaDef WITHIN SourceLPLR.LPLR 
+      SetSelectStateOfEntity( SourceLPLR, "W_MetaDef", 0 )
    END
 
 END
@@ -1961,11 +1998,32 @@ END
 DIALOG OPERATION
 GOTO_MergeERDs( VIEW vSubtask )
 
-   VIEW vTaskLPLR      REGISTERED AS TaskLPLR
+   VIEW vTaskLPLR REGISTERED AS TaskLPLR
+   VIEW NewERD    BASED ON LOD  TZEREMDO
+   STRING ( 200 ) szTargetFileName
+   INTEGER nRC
 
    // Initialize the TaskLPLR ErrorMessage subobject before executing ERD_Merge.
    FOR EACH vTaskLPLR.ErrorMessage 
       DELETE ENTITY vTaskLPLR.ErrorMessage NONE  
+   END
+   
+   // Create an ERD with one Entity if the ERD doesn't currently exist.
+   SET CURSOR FIRST vTaskLPLR.W_MetaType WHERE vTaskLPLR.W_MetaType.Type = 4 
+   IF vTaskLPLR.W_MetaDef DOES NOT EXIST
+      szTargetFileName = vTaskLPLR.LPLR.MetaSrcDir + "\" + vTaskLPLR.LPLR.Name + ".PMD"
+TraceLineS( "szTargetFileName: ", szTargetFileName )
+      ActivateEmptyMetaOI( vSubtask, NewERD, zSOURCE_ERD_META, zSINGLE )
+      NAME VIEW NewERD "NewERDCheck"
+      CreateMetaEntity( vSubtask, NewERD, "EntpER_Model", zPOS_AFTER )
+      NewERD.EntpER_Model.Name = vTaskLPLR.LPLR.Name 
+      CreateMetaEntity( vSubtask, NewERD, "ER_Entity", zPOS_AFTER )
+      NewERD.ER_Entity.Name = "Temp"
+      NewERD.ER_Entity.Purpose = "F"
+      NewERD.ER_Entity.ER_DiagramPosX = 20
+      NewERD.ER_Entity.ER_DiagramPosY = 13
+      nRC = CommitMetaOI( vSubtask, NewERD, zSOURCE_ERD_META )
+      DropObjectInstance( NewERD )
    END
     
 END
@@ -2375,5 +2433,326 @@ CLOSE_LPLR_MergeErrors( VIEW ViewToWindow )
    FOR EACH TaskLPLR.ErrorMessage 
       DELETE ENTITY TaskLPLR.ErrorMessage NONE  
    END
+
+END
+
+/*************************************************************************************************
+**    
+**    OPERATION: GOTO_MergeDomainsOps
+**    
+*************************************************************************************************/
+DIALOG OPERATION
+GOTO_MergeDomainsOps( VIEW vSubtask )
+
+   VIEW TaskLPLR     REGISTERED AS TaskLPLR
+   VIEW SourceLPLR   BASED ON LOD  TZCMLPLO
+   VIEW SourceLPLRDO BASED ON LOD  TZCMLPLO
+   VIEW TargetLPLR   BASED ON LOD  TZCMLPLO
+   VIEW TargetLPLRDO BASED ON LOD  TZCMLPLO
+   VIEW OrigLPLR     BASED ON LOD  TZCMLPLO
+   VIEW TZCMLPLO     BASED ON LOD  TZCMLPLO
+   INTEGER TempType
+
+   // Set up a new SourceLPLR and VIEW TargetLPLR that contain Domains and Operations.
+   // We will reuse the SourceLPLR and TargetLPLR names, so we must rename each original OI and restore it's
+   // name with this new window completes
+   
+   // Rename original SourceLPLR and TargetLPLR names.
+   GET VIEW SourceLPLR NAMED "SourceLPLR"
+   DropNameForView( SourceLPLR, "SourceLPLR", vSubtask, zLEVEL_TASK)
+   NAME VIEW SourceLPLR "SourceLPLR_Orig"
+   GET VIEW TargetLPLR NAMED "TargetLPLR"
+   DropNameForView( TargetLPLR, "TargetLPLR", vSubtask, zLEVEL_TASK)
+   NAME VIEW TargetLPLR "TargetLPLR_Orig"
+   
+   // Create new SourceLPLR with Domains and Operations.
+   ACTIVATE SourceLPLRDO EMPTY
+   NAME VIEW SourceLPLRDO "SourceLPLR"
+   GET VIEW OrigLPLR NAMED "OrigLPLR"
+   CREATE ENTITY SourceLPLRDO.LPLR
+   SetMatchingAttributesByName( SourceLPLRDO, "LPLR", OrigLPLR, "LPLR", zSET_ALL )
+   FOR EACH OrigLPLR.W_MetaType 
+      IF OrigLPLR.W_MetaType.Type = 2002 OR
+         OrigLPLR.W_MetaType.Type = 2003
+
+         CREATE ENTITY SourceLPLRDO.W_MetaType
+         TempType = OrigLPLR.W_MetaType.Type
+         SourceLPLRDO.W_MetaType.Type = TempType
+         FOR EACH OrigLPLR.W_MetaDef
+            CREATE ENTITY SourceLPLRDO.W_MetaDef
+            SetMatchingAttributesByName( SourceLPLRDO, "W_MetaDef", OrigLPLR, "W_MetaDef", zSET_ALL )
+         END
+      END
+   END
+   
+   // Create new TargetLPLR with Domains and Operations.
+   ACTIVATE TargetLPLRDO EMPTY
+   NAME VIEW TargetLPLRDO "TargetLPLR"
+   GET VIEW TZCMLPLO NAMED "TZCMLPLO"
+   CREATE ENTITY TargetLPLRDO.LPLR
+   SetMatchingAttributesByName( TargetLPLRDO, "LPLR", TZCMLPLO, "LPLR", zSET_ALL )
+   FOR EACH TZCMLPLO.W_MetaType 
+      IF TZCMLPLO.W_MetaType.Type = 2002 OR
+         TZCMLPLO.W_MetaType.Type = 2003
+
+         CREATE ENTITY TargetLPLRDO.W_MetaType
+         TempType = TZCMLPLO.W_MetaType.Type
+         TargetLPLRDO.W_MetaType.Type = TempType
+         FOR EACH TZCMLPLO.W_MetaDef
+            CREATE ENTITY TargetLPLRDO.W_MetaDef
+            SetMatchingAttributesByName( TargetLPLRDO, "W_MetaDef", TZCMLPLO, "W_MetaDef", zSET_ALL )
+         END
+      END
+   END
+   
+   // Flag each Source entry that already exists in the Target LPLR.
+   // We are reusing the DoNotMergeFlag here for a different purpose than originally intended in MigrateMetaOld.
+   FOR EACH SourceLPLRDO.W_MetaType 
+      SET CURSOR FIRST TargetLPLRDO.W_MetaType WHERE TargetLPLRDO.W_MetaType.Type = SourceLPLRDO.W_MetaType.Type 
+      FOR EACH SourceLPLRDO.W_MetaDef 
+         SET CURSOR FIRST TargetLPLRDO.W_MetaDef WHERE TargetLPLRDO.W_MetaDef.Name = SourceLPLRDO.W_MetaDef.Name 
+         IF RESULT >= zCURSOR_SET
+            SourceLPLRDO.W_MetaDef.DoNotMergeFlag = "Y"
+         END 
+      END 
+   END
+   
+END
+
+/*************************************************************************************************
+**    
+**    OPERATION: CLOSE_DomainsAndOperations
+**    
+*************************************************************************************************/
+DIALOG OPERATION
+CLOSE_DomainsAndOperations( VIEW vSubtask )
+
+   VIEW TaskLPLR     REGISTERED AS TaskLPLR
+   VIEW SourceLPLR   BASED ON LOD  TZCMLPLO
+   VIEW SourceLPLRDO BASED ON LOD  TZCMLPLO
+   VIEW TargetLPLR   BASED ON LOD  TZCMLPLO
+   VIEW TargetLPLRDO BASED ON LOD  TZCMLPLO
+   VIEW OrigLPLR     BASED ON LOD  TZCMLPLO
+   VIEW TZCMLPLO     BASED ON LOD  TZCMLPLO
+   INTEGER TempType
+
+   // Drop the SourceLPLRDO and TargetLPLRDO OI's and rename the original SourceLPLR and TargetLPLR
+   // back to their name for returning to the calling window.
+   // We renamed them to be able to reuse origingal mapping names.
+   
+   // Drop Domain and Operation OI's.
+   GET VIEW SourceLPLRDO NAMED "SourceLPLR"
+   DropObjectInstance( SourceLPLRDO )
+   GET VIEW TargetLPLRDO NAMED "TargetLPLR"
+   DropObjectInstance( TargetLPLRDO )
+   
+   // Rename original SourceLPLR and TargetLPLR
+   GET VIEW SourceLPLR NAMED "SourceLPLR_Orig"
+   DropNameForView( SourceLPLR, "SourceLPLR_Orig", vSubtask, zLEVEL_TASK)
+   NAME VIEW SourceLPLR "SourceLPLR"
+   GET VIEW TargetLPLR NAMED "TargetLPLR_Orig"
+   DropNameForView( TargetLPLR, "TargetLPLR_Orig", vSubtask, zLEVEL_TASK)
+   NAME VIEW TargetLPLR "TargetLPLR"
+
+END
+
+/*************************************************************************************************
+**    
+**    OPERATION: MERGE_DomainsAndOperations
+**    
+*************************************************************************************************/
+DIALOG OPERATION
+MERGE_DomainsAndOperations( VIEW vSubtask )
+
+   VIEW SourceLPLR         BASED ON LOD TZCMLPLO
+   VIEW OrigLPLR           BASED ON LOD TZCMLPLO
+   VIEW CurrentLPLR        BASED ON LOD TZCMLPLO
+   VIEW NewOperationGroup  BASED ON LOD TZOGSRCO
+   VIEW SrcOperationGroup  BASED ON LOD TZOGSRCO
+   VIEW NewDomainGroup     BASED ON LOD TZDGSRCO
+   VIEW SrcDomainGroup     BASED ON LOD TZDGSRCO
+   STRING (32)  MetaName
+   STRING (32)  GroupMetaName
+   STRING (250) MG_ErrorMessage
+   STRING (1)   ExistsFlag
+   STRING (200) szSourceFileName
+   SHORT        nRC
+   
+   // Merge selected Domains and Operations and call close operation at end to rename OI's.
+   
+   // Below, CurrentLPLR is the view used for TaskLPLR
+   GET VIEW CurrentLPLR NAMED "TaskLPLR"
+   GET VIEW SourceLPLR  NAMED "SourceLPLR"
+   
+   // Delete any existing error messages in TaskLPLR.
+   FOR CurrentLPLR.ErrorMessage 
+      DELETE ENTITY CurrentLPLR.ErrorMessage NONE  
+   END
+   
+   // Indicate we're in Merge and message entities are to be created.
+   CurrentLPLR.LPLR.MergeType = "L"
+   
+   // Note that named views TaskLPLR and TargetLPLR are both for the target LPLR, but are slightly different.
+   // TargetLPLR holds a subset of TaskLPLR and identifies the current state of the LPLR at the beginning Merge.
+   // TaskLPLR holds the full target LPLR object and is the target used for actually copying.
+   
+   // Because some migration operations need an LPLR view with Domain metas in it, we will pass the OrigLPLR view to merge operations
+   // instead of the  SourceLPLR view. This is because the SourceLPLR contains a subset of the metas from the OrigLPLR, from which the
+   // SourceLPLR was created.
+   GET VIEW OrigLPLR NAMED "OrigLPLR"
+
+   nRC = SetCursorFirstSelectedEntity( SourceLPLR, "W_MetaDef", "LPLR" )
+   LOOP WHILE nRC >= zCURSOR_SET
+
+      MetaName      = SourceLPLR.W_MetaDef.Name
+      GroupMetaName = SourceLPLR.W_MetaDef.GroupName 
+
+      // Global Operation: W_MetaType.Type = 2002 for global operation meta
+      IF SourceLPLR.W_MetaType.Type = 2002
+         
+         // Set up Error Message object data and footer text.
+         CurrentLPLR.LPLR.wMergeMetaType = "Operation"
+         CurrentLPLR.LPLR.wMergeMetaName = MetaName
+         MG_ErrorMessage = "Processing Operation, " + MetaName
+         MB_SetMessage( vSubtask, 1, MG_ErrorMessage )
+         
+         // Activate Source Operation Group.
+         szSourceFileName = SourceLPLR.LPLR.MetaSrcDir + "\" + GroupMetaName + ".POG"
+         ActivateOI_FromFile( SrcOperationGroup, "TZOGSRCO", SourceLPLR, szSourceFileName, zSINGLE )
+         NAME VIEW SrcOperationGroup "OldSrcOperationGroup"
+         SET CURSOR FIRST SrcOperationGroup.Operation WHERE SrcOperationGroup.Operation.Name = MetaName
+         
+         // Activate the Global Operation Group in the target to see if it exists.
+         // If it exists, check if the Operation already exists and if so skip this entry.
+         // If it doesn't exist, create it.
+         nRC = ActivateMetaOI_ByName( vSubtask, NewOperationGroup, 0, zSOURCE_GOPGRP_META, zSINGLE, GroupMetaName, 0 )
+         IF nRC >= 0
+            NAME VIEW NewOperationGroup "NewOperationGroup"
+         ELSE
+            // Initialize new OperationGroup from Source OperationGroup.
+            ActivateEmptyMetaOI( vSubtask, NewOperationGroup, zSOURCE_GOPGRP_META, zSINGLE )
+            NAME VIEW NewOperationGroup "NewOperationGroup"
+            CreateMetaEntity( vSubtask, NewOperationGroup, "GlobalOperationGroup", zPOS_AFTER )
+            SetMatchingAttributesByName( NewOperationGroup, "GlobalOperationGroup", SrcOperationGroup, "GlobalOperationGroup", zSET_NULL )
+         END
+         
+         // Go to Copy/Merge Operation into new Operation Group.
+         GlobalOperationMerge( NewOperationGroup,
+                               SrcOperationGroup,
+                               SourceLPLR,
+                               vSubtask,
+                               GroupMetaName )
+         // We need to commit the OperationGroup here as it's not done in the GlobalOperationMerge function.
+         CommitMetaOI( vSubtask, NewOperationGroup, zSOURCE_GOPGRP_META ) TraceLineS( "*** Meta: ", MetaName )
+         IF RESULT < 0
+            MG_ErrorMessage = "Error on commit of OperationGroup, " + GroupMetaName
+            TraceLineI( "*** RESULT: ", RESULT )
+            IssueError( vSubtask,0,0, MG_ErrorMessage )
+            RETURN RESULT
+         END
+
+         // Create copied message.
+         MG_ErrorMessage = "Operation, " + MetaName + ", has been copied."
+         CreateErrorMessage( CurrentLPLR, MG_ErrorMessage )
+
+      END
+      
+      // Domain: W_MetaType.Type = 2003 for Domain meta
+      IF SourceLPLR.W_MetaType.Type = 2003
+      
+         // Set up Error Message object data and footer text.
+         CurrentLPLR.LPLR.wMergeMetaType = "Domain"
+         CurrentLPLR.LPLR.wMergeMetaName = MetaName
+         MG_ErrorMessage = "Processing Domain: " + MetaName
+         MB_SetMessage( vSubtask, 1, MG_ErrorMessage )
+      
+         // Activate the Domain Group in the target to see if it exists.
+         // If it exists, check if the Domain already exists and if so skip this entry.
+         // If it doesn't exist, create it.
+         nRC = ActivateMetaOI_ByName( vSubtask, NewDomainGroup, 0, zSOURCE_DomainGRP_META, zSINGLE, GroupMetaName, 0 )
+         IF nRC >= 0
+            NAME VIEW NewDomainGroup "NewDomainGroup"
+            ExistsFlag = ""
+            SET CURSOR FIRST NewDomainGroup.Domain WHERE NewDomainGroup.Domain.Name = MetaName
+            IF RESULT >= zCURSOR_SET
+               ExistsFlag = "Y"
+            END
+         ELSE
+            // Activate the source DomainGroup and use it in creating new empty DomainGroup..
+            szSourceFileName = SourceLPLR.LPLR.MetaSrcDir + "\" + GroupMetaName + ".PDG"
+            ActivateOI_FromFile( SrcDomainGroup, "TZDGSRCO", SourceLPLR, szSourceFileName, zSINGLE )
+            NAME VIEW SrcDomainGroup "OldSrcDomainGroup"
+            ActivateEmptyMetaOI( vSubtask, NewDomainGroup, zSOURCE_DOMAINGRP_META, zSINGLE )
+            NAME VIEW NewDomainGroup "NewDomainGroup"
+            CreateMetaEntity( vSubtask, NewDomainGroup, "DomainGroup", zPOS_AFTER )
+            SetMatchingAttributesByName( NewDomainGroup, "DomainGroup", SrcDomainGroup, "DomainGroup", zSET_NULL )
+            
+            // If the Domain has an Operation specified, create message indicating the operation must be copied separately.
+            IF SrcDomainGroup.SelectedOperation EXISTS
+               MG_ErrorMessage = "Domain, " + MetaName + ", has Operation, " + SrcDomainGroup.SelectedOperation.Name  +
+               ", which must be copied separately."
+               CreateErrorMessage( CurrentLPLR, MG_ErrorMessage )
+            END
+            DropObjectInstance( SrcDomainGroup )
+            
+            ExistsFlag = ""
+         END
+         
+         // Only continue if the Domain wasn't already in the target.
+         IF ExistsFlag = "Y"
+            // Write out message that Domain exists.
+            MG_ErrorMessage = "Domain, " + MetaName + ", exists and will not be copied."
+            CreateErrorMessage( CurrentLPLR, MG_ErrorMessage )
+         ELSE
+            // Go to migrate Domain to target LPLR.
+            nRC = DomainMigrate( NewDomainGroup, 
+                                 MetaName, 
+                                 GroupMetaName, 
+                                 SourceLPLR, 
+                                 vSubtask )
+            IF nRC < 0
+               IssueError( vSubtask,0,0, "Error migrating new Domain." )
+            ELSE
+               MG_ErrorMessage = "Domain, " + MetaName + ", has been copied."
+               CreateErrorMessage( CurrentLPLR, MG_ErrorMessage )
+            END
+         END
+
+      END
+      
+      // Turn off the selected state flag
+      SetSelectStateOfEntity( SourceLPLR, "W_MetaDef", 0 )
+      
+      nRC = SetCursorNextSelectedEntity( SourceLPLR, "W_MetaDef", "LPLR" )
+
+   END
+   
+   // Rebuild the XDM in case any domains were added above.
+   //RebuildXDM( vSubtask )    This should have been done in DomainMigrate.
+   
+   // If there are any error messages, transfer to the window to display them.
+   // Otherwise, send a message to the user that the merge function completed without error.
+   IF CurrentLPLR.ErrorMessage EXISTS 
+      SetWindowActionBehavior( vSubtask, ZWAB_StartModalSubwindow, "TZCMLPMD", "MetaLPLR_MergeErrors" )
+   ELSE
+      MessageSend( vSubtask, "", 
+                   "Configuration Management",
+                   "Operation/Domain Merge has completed without error.",
+                   zMSGQ_OBJECT_CONSTRAINT_WARNING, 0 )
+   END
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 END
