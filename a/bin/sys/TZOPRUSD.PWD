@@ -1,4 +1,4 @@
-z1000-Zeidon    TZOPRUSD TZWDLGSO 01/27/14   13:39:49 1.0b0    
+z1000-Zeidon    TZOPRUSD TZWDLGSO 09/17/25   11:32:31 1.0b0    
 eDialog    1
 aTag       TZOPRUSD
 aDLL_Name  TZOPRUSD
@@ -369,7 +369,6 @@ eCtrlMapRelatedEntity 7
 eCtrlMapER_Attribute 7
 aName      Extension
 aZKey      1321280
-aLth       3
 aDesc      Override of VML standard
 
 eCtrlMapER_Domain 8
@@ -1350,7 +1349,7 @@ M____________________________________________________________
 M_____________________________________________U(`;P!O`'0`(`!%
 M`&X`=`!R`'D`````````````````````````````````````````````````
 M```````````6``4`__________\!````````````````````````````````
-M`````````(!QH_75'<L!`P```$``````````0P!O`&X`=`!E`&X`=`!S````
+M`````````'":D4CH)]P!`P```$``````````0P!O`&X`=`!E`&X`=`!S````
 M````````````````````````````````````````````````````````````
 M`!(``@'_______________\`````````````````````````````````````
 M````````````````$```````````````````````````````````````````
@@ -4953,6 +4952,9 @@ aZKey      90153064
 aName      TZOPRUSO2
 
 eLOD       3
+aZKey      1326055
+aName      TZOPRUSO
+aDesc      Reusable LOD/Dialog View for Operation Processiing
 
 eViewObjRef 2
 aZKey      98078993
@@ -6317,8 +6319,7 @@ i1077      1052
 i1078      1050
 i1080      35
 i1081      787
-i1085      1083
-i1087      1083
+i1087      1085
 i1088      35
 i1089      737
 i1091      686

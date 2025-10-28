@@ -5,7 +5,7 @@ CHANGE LOG
 2001.09.21  PAS
    Added temporary operation to initialize Report Group Exit operations
 2001.03.01  BL
-   If exiting Operation Tool, drop Operation View
+   If exiting Operation Tool, drop Operation View_
 2001.02.14  BL  R54697
    improve handling of return code from InitializeLPLR
 2000.10.30 RG  Z2000
@@ -398,10 +398,10 @@ zwTZOPUPDD_MainPostBuild( zVIEW vSubtask )
 {
    zVIEW  vCM_List = NULL;
    zVIEW  vCM_ListGroup = NULL;
-   zVIEW  vOperGrp;
-   zVIEW  vOperGrpDetail;
-   zVIEW  vProfileXFER;
-   zVIEW  vSaveAs;
+   zVIEW  vOperGrp = 0;
+   zVIEW  vOperGrpDetail = 0;
+   zVIEW  vProfileXFER = 0;
+   zVIEW  vSaveAs = 0;
    zSHORT nRC;
 
    oTZ__PRFO_GetViewToProfile( &vProfileXFER, "OP", vSubtask, zCURRENT_OI );
@@ -436,7 +436,7 @@ zwTZOPUPDD_MainPostBuild( zVIEW vSubtask )
 
    // Set window Title with check out state
    SetTitleWithCheckOutState( vSubtask, "Operation Maintenance", "TZOGSRCO",
-                               vOperGrp, "Operation", zSOURCE_GOPGRP_META );
+                              vOperGrp, "Operation", zSOURCE_GOPGRP_META );
 
    // if Operation not checked out and user change this Operation, then zeidon
    // call the window "Save Domain as"
@@ -1050,9 +1050,10 @@ zwTZOPUPDD_ParameterPopup( zVIEW vSubtask )
 zOPER_EXPORT zSHORT OPERATION
 zwTZOPUPDD_TransferToEditor( zVIEW vSubtask )
 {
-   zVIEW  vOper;
-   zVIEW  vMeta;
-   zVIEW  vT;
+   zVIEW  vOper = 0;
+   zVIEW  vMeta = 0;
+   zVIEW  vT = 0;
+   zVIEW  vOperGrpLIST = 0;
    zSHORT nRC;
 
    if ( GetViewByName( &vOper, "TZOGSRCO", vSubtask, zLEVEL_TASK ) < 1 )
@@ -1061,12 +1062,17 @@ zwTZOPUPDD_TransferToEditor( zVIEW vSubtask )
    // KJS 11/29/21 - If the source file is a java file... we don't want to update this here... or should I be able to update it.
    if ( CompareAttributeToString(vOper, "GlobalOperationGroup", "LanguageType", "J") == 0 )
    {
-	   MessageSend(vSubtask, "OP00301", "Operation Maintenance",
-		   "This operation source is java, you can not update it through the Zeidon vml/c editor.",
-		   zMSGQ_OBJECT_CONSTRAINT_WARNING, zBEEP);
+      MessageSend(vSubtask, "OP00301", "Operation Maintenance",
+                  "This operation source is java, you can not update it through the Zeidon vml/c editor.",
+                  zMSGQ_OBJECT_CONSTRAINT_WARNING, zBEEP);
 
-	   return(0);
+      return(0);
    }
+
+   // KJS 09/17/2025 - This is used for displaying the operations inside the editor.
+   CreateViewFromViewForTask( &vOperGrpLIST, vOper, 0 );
+   SetNameForView( vOperGrpLIST, "TZOGSRCO_LIST", vSubtask, zLEVEL_TASK );
+
 
    // *** TEMPORARY HACK ***
    // This should be replaced when/if VML is re-written.
@@ -1106,7 +1112,6 @@ zwTZOPUPDD_TransferToEditor( zVIEW vSubtask )
 
    DropView( vT );
    // *** END OF TEMPORARY HACK ***
-
    TransferToEditor( vSubtask, vOper, "GO", 0 );
    return( 0 );
 }

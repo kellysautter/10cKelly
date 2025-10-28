@@ -1066,6 +1066,7 @@ typedef struct tagzTZWDLGSO_ActCtrl_DEF
    zCHAR TextItalic[ 2 ];
    zCHAR TextUnderline[ 2 ];
    zCHAR LangID[ 255 ];
+   zCHAR CtrlListDisplayValue[ 255 ];
 
 #ifdef DEBUG_LODSTRUCT
 unsigned char CheckByte;
@@ -2284,6 +2285,7 @@ typedef struct tagzTZWDLGSO_NLS_Control_DEF
    zCHAR TextItalic[ 2 ];
    zCHAR TextUnderline[ 2 ];
    zCHAR LangID[ 255 ];
+   zCHAR CtrlListDisplayValue[ 255 ];
 
 #ifdef DEBUG_LODSTRUCT
 unsigned char CheckByte;
@@ -2404,6 +2406,7 @@ typedef struct tagzTZWDLGSO_NLS_DIL_Control_DEF
    zCHAR TextItalic[ 2 ];
    zCHAR TextUnderline[ 2 ];
    zCHAR LangID[ 255 ];
+   zCHAR CtrlListDisplayValue[ 255 ];
 
 #ifdef DEBUG_LODSTRUCT
 unsigned char CheckByte;
