@@ -1661,7 +1661,7 @@ GenerateJSPJava( VIEW vDialog BASED ON LOD TZWDLGSO,
 
    szWriteBuffer = "   return nMapError;"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
-   szWriteBuffer = "}"
+   szWriteBuffer = "} // End of DoInputMapping"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
 
    /******************************  End of DoInputMapping  ******************************/
@@ -1774,10 +1774,10 @@ GenerateJSPJava( VIEW vDialog BASED ON LOD TZWDLGSO,
    szWriteBuffer = "String strLastSort = (String) request.getParameter( ^zSortOrder^ );"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    szWriteBuffer = "String strLastSortMap = (String) request.getParameter( ^zSortMap^ );"
-   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
+   WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
    szWriteBuffer = "String strLastSortID = (String) request.getParameter( ^zSortID^ );"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
-
+   
    // KJS 09/29/10
    // If this time through, this happens to be a refresh, then go to the logout screen.
    // This is because when the user closes the browser we want the unload code to happen.
@@ -1815,7 +1815,6 @@ GenerateJSPJava( VIEW vDialog BASED ON LOD TZWDLGSO,
       szWriteBuffer = "}"
       WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
    END
-
 
    // get task
    szWriteBuffer = "// Check to see if the Zeidon subtask view already exists.  If not, create"
@@ -1974,6 +1973,14 @@ GenerateJSPJava( VIEW vDialog BASED ON LOD TZWDLGSO,
    END
    DropView( vDialogTemp )
    */
+      
+   // KJS 09/22/25
+   // Add each view definition.
+   FOR EACH vDialog.ViewObjRef //WHERE vDialog.ViewObjRef.wWindowUseFlag = "Y"
+      szWriteBuffer = "View " + vDialog.ViewObjRef.Name + " = task.getViewByName( ^" +  vDialog.ViewObjRef.Name + "^ );"
+      WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
+   END
+   
    //KJS Trace
    IF (lTrace = 1)
       szWriteBuffer = "   task.log().info( ^Page Name ========>>> ^ + ^" + szFormName + "^ );"
@@ -2845,10 +2852,14 @@ GenerateJSPJava( VIEW vDialog BASED ON LOD TZWDLGSO,
    //IF szNoPositioning = "Y" OR szNoPositioning = "S"
       IF vDialog.Window.WEB_PageHeadInclude != ""
          szWriteBuffer = "<%@ include file=^" + vDialog.Window.WEB_PageHeadInclude + "^ %>"
+         // TEST
+         //szWriteBuffer = "<jsp:include page=^" + vDialog.Window.WEB_PageHeadInclude + "^/>"
          WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
       ELSE
          IF vDialog.Dialog.WEB_PageHeadInclude != ""
             szWriteBuffer = "<%@ include file=^" + vDialog.Dialog.WEB_PageHeadInclude  + "^ %>"
+            // TEST
+            //szWriteBuffer = "<jsp:include page=^" + vDialog.Dialog.WEB_PageHeadInclude  + "^/>"
             WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
          ELSE
             szWriteBuffer = "<%@ include file=^./include/head.inc^ %>"
@@ -5059,14 +5070,15 @@ GenerateJSPJava( VIEW vDialog BASED ON LOD TZWDLGSO,
 
    szWriteBuffer = "<%"
    WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
-// szWriteBuffer = "   strSessionId = session.getId( );"
-// WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
 
+   // KJS 09/22/25 - Can we do this up above??
+   /*
    // Add each view definition.
    FOR EACH vDialog.ViewObjRef //WHERE vDialog.ViewObjRef.wWindowUseFlag = "Y"
       szWriteBuffer = "   View " + vDialog.ViewObjRef.Name + " = null;"
       WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
-   END
+   END 
+   */
 
    //szWriteBuffer = "   zeidon.zView vKZXMLPGO = new zeidon.zView( );"
    //WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 0 )
@@ -5660,11 +5672,15 @@ GenerateJSPJava( VIEW vDialog BASED ON LOD TZWDLGSO,
       IF vDialogRoot.Window.WEB_FooterInclude != ""
          // If the user did not specify a footer, hardcode footer.inc
          szWriteBuffer = "<%@ include file=^" + vDialogRoot.Window.WEB_FooterInclude + "^ %>"
+         // TEST
+         //szWriteBuffer = "<jsp:include page=^" + vDialogRoot.Window.WEB_FooterInclude + "^/>"
          WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
       ELSE
       IF vDialogRoot.Dialog.WEB_FooterInclude != ""
          // If the user did not specify a footer, hardcode footer.inc
          szWriteBuffer = "<%@ include file=^" + vDialogRoot.Dialog.WEB_FooterInclude + "^ %>"
+         // TEST
+         //szWriteBuffer = "<jsp:include page=^^" + vDialogRoot.Dialog.WEB_FooterInclude + "^/>"
          WL_QC( vDialog, lFileJSP, szWriteBuffer, "^", 1 )
       ELSE
          szWriteBuffer = "<%@ include file=^./include/footer.inc^ %>"

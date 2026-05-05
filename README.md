@@ -1,3 +1,6 @@
+Changes 01/12/26
+* Bitmap/BitmapBtn did not have HTML5 in the generation of the control (it did on bitmaps in grids). This has been added.
+
 Changes 09/17/25
 * Took off the __Font control on UPD_TEXT in TZPNCTAD.PWD (next to Size/Apply button, was a combo of font names). This was causing the update of Text control to be slow.
   I created a copy of the PWD before deleting "TZPNCTADCopyWithTextFontComboSlow.PWD" because I'm not sure if we
